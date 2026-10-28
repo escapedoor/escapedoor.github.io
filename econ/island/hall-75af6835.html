@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Island Hall · Small Change</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="island.css">
+<style>
+  body{--bg:#2a2236;--accent:#e8b04a;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(246,238,222,.97);--tc-ink:#2a1a30;--cap-bg:rgba(252,246,234,.96);--cap-ink:#2a1a30;--panel:#fcf6ea;--panel-ink:#2a1a30;--face-bg:#5a3a6a;--q-ink:#8a3a1a;
+    --fade:#2a2236;--hud-bg:rgba(252,246,234,.88);--hud-ink:#2a1a30;--hud-line:rgba(42,26,48,.3);--ov-bg:rgba(20,12,26,.62)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(40px,5.6vw,80px);letter-spacing:.04em;color:#6a2a5a}
+  .tc-theme{color:#8a5a1a}
+  .hbtn b{color:#fff}
+  #lamps ellipse{animation:lampf 5s steps(1,end) infinite}
+  #lamps ellipse:nth-child(2){animation-delay:-2s}
+  @keyframes lampf{0%{opacity:.75}4%{opacity:.6}6%{opacity:.75}}
+  #hands{display:none}
+  #scene.vote #hands{display:inline}
+  #front.ready{animation:isl-glow 1.6s steps(1,end) infinite}
+
+  /* the meeting */
+  .mt{width:min(1000px,96vw)}
+  .mt-in{display:grid;grid-template-columns:200px 1fr;gap:0;background:#fcf6ea;border-top:14px solid #6a2a5a;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#2a1a30}
+  .mt-face{background:#5a3a6a;display:grid;align-items:end;min-height:250px;overflow:hidden}
+  .mt-face svg{width:100%;height:100%;min-height:250px;display:block}
+  .mt-r{padding:14px 20px 12px}
+  .mt-r h5{margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;letter-spacing:.03em}
+  .mt-r .who{font-family:'Courier Prime',monospace;font-size:12.5px;letter-spacing:.08em;color:#8a3a1a;margin-bottom:6px}
+  .mt-r .q{font-family:'Lora',serif;font-size:19px;line-height:1.42;margin:0 0 10px;min-height:56px}
+  .mt-r .prog{display:flex;gap:5px;margin-bottom:8px}
+  .mt-r .prog u{width:22px;height:8px;border-radius:4px;background:#e2d6c4}
+  .mt-r .prog u.on{background:#6a2a5a}
+  .rs{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .rs button{padding:8px 11px 7px;border:2px solid #d9b98a;background:#d9b98a radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.25),transparent 60%);border-radius:3px;text-align:left;font-family:'Architects Daughter',cursive;font-size:15.5px;line-height:1.28;color:#2a2018}
+  .rs button:hover:not([disabled]){border-color:#6a2a5a}
+  .rs button[disabled]{opacity:.35}
+  .mt .pmsg{color:#fcf6ea}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="pan" width="200" height="300" patternUnits="userSpaceOnUse"><rect width="200" height="300" fill="#7a5a4a"/><rect x="12" y="12" width="176" height="276" fill="none" stroke="#6a4a3a" stroke-width="4"/></pattern>
+  <pattern id="floor" width="120" height="30" patternUnits="userSpaceOnUse"><rect width="120" height="30" fill="#8a6a4a"/><path d="M0 0H120M40 0V15M0 15H120M90 15V30" stroke="#6e5034" stroke-width="2"/></pattern>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1a3a"/><stop offset="1" stop-color="#3a3a6a"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffdc8a" stop-opacity=".55"/><stop offset="1" stop-color="#ffdc8a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0a20" stop-opacity=".12"/><stop offset="1" stop-color="#1a0a20" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="#d9c8a8"/>
+<rect x="-1000" y="420" width="3600" height="300" fill="url(#pan)"/>
+<g><rect x="60" y="120" width="140" height="240" rx="70" fill="url(#night)" stroke="#5a3a2a" stroke-width="10"/><rect x="1400" y="120" width="140" height="240" rx="70" fill="url(#night)" stroke="#5a3a2a" stroke-width="10"/><g fill="#fff"><circle cx="110" cy="180" r="2"/><circle cx="150" cy="230" r="1.5"/><circle cx="1450" cy="200" r="2"/><circle cx="1490" cy="250" r="1.5"/></g></g>
+<rect x="380" y="70" width="840" height="56" fill="#6a2a5a"/><text x="800" y="108" class="cZ" font-size="28" font-weight="700" text-anchor="middle" fill="#f6e2b0" letter-spacing="5">NESSARY ISLAND HALL</text>
+<g id="notice" class="hot"><rect x="250" y="170" width="150" height="190" fill="#f6efdc" stroke="#5a3a2a" stroke-width="5"/><text x="325" y="200" class="cO" font-size="15" font-weight="600" text-anchor="middle" fill="#6a2a5a">ISLAND</text><text x="325" y="218" class="cO" font-size="15" font-weight="600" text-anchor="middle" fill="#6a2a5a">MEETING</text><text x="325" y="246" class="cH" font-size="15" text-anchor="middle" fill="#2a1a30">SAT 7 pm</text><text x="325" y="270" class="cH" font-size="13" text-anchor="middle" fill="#2a1a30">MONEY till</text><text x="325" y="288" class="cH" font-size="13" text-anchor="middle" fill="#2a1a30">the boat</text><rect x="276" y="300" width="98" height="44" fill="#e9ddc0"/><text x="325" y="318" class="cP" font-size="10" text-anchor="middle" fill="#2a1a30">cutting:</text><text x="325" y="333" class="cP" font-size="10" text-anchor="middle" fill="#2a1a30">IRELAND 1970</text></g>
+<g id="urn" class="hot"><rect x="1210" y="300" width="80" height="110" rx="10" fill="#c9ced3" stroke="#8f9ba3" stroke-width="3"/><rect x="1190" y="410" width="140" height="12" fill="#7a5a3a"/><g fill="#e8892a"><rect x="1300" y="384" width="16" height="26" rx="3"/></g></g>
+
+<!-- the front table: Piran, the ledger, the tin -->
+<g id="front" class="hot"><g id="piran" transform="translate(800 600) scale(1.05)"></g><rect x="600" y="470" width="400" height="16" fill="#7a5a3a"/><rect x="610" y="486" width="380" height="110" fill="#6a2a5a"/><text x="800" y="548" class="cZ" font-size="20" text-anchor="middle" fill="#f6e2b0" letter-spacing="3">CHAIR</text>
+  <rect x="640" y="440" width="70" height="30" rx="3" fill="#2a5a8a"/><path d="M820 470l50 -6 50 6v-12l-50 -6 -50 6z" fill="#f6efdc" stroke="#5a1e14" stroke-width="2"/></g>
+
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#floor)"/><rect x="-1000" y="716" width="3600" height="8" fill="#4a3220"/>
+<!-- the people who will speak, and the rows behind -->
+<g id="people"></g>
+<g id="rows"></g>
+<g id="hands"></g>
+<g id="lamps" pointer-events="none"><ellipse cx="500" cy="20" rx="600" ry="520" fill="url(#lampG)"/><ellipse cx="1100" cy="20" rx="600" ry="520" fill="url(#lampG)"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">CARRIED</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Barter is swapping without money. It needs a double coincidence of wants: each person has to want what the other one has.</li>
+    <li>Without that, you need a chain of swaps, and one link that fails breaks the whole chain. Money cuts any chain down to two swaps: sell, then buy.</li>
+    <li>Money has three jobs: a way to pay (a medium of exchange), a measure of value (a unit of account) and a store of value.</li>
+    <li>With one measure, prices can be compared at a glance, and a price that does not fit stands out.</li>
+    <li>Good money is lasting, easy to carry, easy to divide, hard to fake, limited in supply and accepted by everyone. The last one is about people: it needs trust, and often a promise.</li>
+    <li>A comparative advantage is in the thing you give up least to make. Two people can both gain from a swap even when one of them is better at everything.</li>
+    <li>A swap helps both people when its price lies between their two opportunity costs.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell the meeting</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Small Change &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="island.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, mt = null;
+
+  var SPOT = { ronan: [180, 860], rob: [380, 870], nico: [560, 880], orla: [1040, 880], perran: [1220, 870], ruby: [1420, 860] };
+  (function () {
+    var s = '', i, x, k;
+    $('#piran').innerHTML = ISL.who('piran', { extra: '<path d="M-39 -112l-6 -40" stroke="#e9c4a4" stroke-width="12" stroke-linecap="round"/>' });
+    for (k in SPOT) s += '<g id="p-' + k + '" class="hot" transform="translate(' + SPOT[k][0] + ' ' + SPOT[k][1] + ') scale(1.02)">' + ISL.who(k) + '</g>';
+    $('#people').innerHTML = s.replace('translate(1220 870) scale(1.02)', 'translate(1220 870) scale(.8)');
+    s = '';
+    for (i = 0; i < 16; i++) { x = -60 + i * 110 + (i % 2) * 30; s += '<g transform="translate(' + x + ' 990)"><circle cx="0" cy="-150" r="30" fill="#3a2a3a"/><path d="M-50 0q0 -120 50 -120t50 120z" fill="#3a2a3a"/></g>'; }
+    $('#rows').innerHTML = s;
+    s = '';
+    for (i = 0; i < 16; i++) { x = -60 + i * 110 + (i % 2) * 30; s += '<path d="M' + (x + 26) + ' 870l12 -120" stroke="#3a2a3a" stroke-width="14" stroke-linecap="round"/>'; }
+    for (k in SPOT) s += '<path d="M' + (SPOT[k][0] + 40) + ' ' + (SPOT[k][1] - 120) + 'l14 -110" stroke="#e8c4a2" stroke-width="13" stroke-linecap="round"/>';
+    $('#hands').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'island', storyTitle: 'Small Change', id: 'hall', no: 'V', title: 'The Island Hall',
+    go: 'Seven o’clock',
+    intro: [
+      'Each idea failed the first test it met: the mackerel did not last, the potatoes could not be carried, the gold coin could not be divided, Nico&rsquo;s notes could be faked, and the shells could be picked up by anyone. The token passed five tests. For the sixth, Piran stamped a promise on its back: £1, changed for coins at Medlin&rsquo;s when the boat comes. Mrs Medlin gave her word on the radio.',
+      'Now the island has to agree.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"a":["87502d1a","84691e1a","45f99147","3ccfef35","f3c6a5f8","0c96e2d2"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('e-done')) return null;
+    if (mt && mt.isOpen()) return ['meet', [
+      'Each person is asking why their idea was not chosen. The answer is the test their idea failed on Piran&rsquo;s table.',
+      'Your note &ldquo;Piran&rsquo;s table&rdquo; in the notebook lists every idea with the test it failed. The last question is about the promise on the back of the token.'
+    ]];
+    return ['front', ['Piran is waiting for you at the front table. Click it.']];
+  }
+  function begin() {
+    if (ER.flag('e-done')) { busy = false; finish(true); return; }
+    if (ER.flag('e-in')) { busy = false; $('#front').classList.add('ready'); ER.say('The Hall is waiting. Piran is at the front table.'); return; }
+    ER.flag('e-in', 1);
+    ER.narrate([
+      'The Island Hall, seven o&rsquo;clock. Sixty folding chairs, and every one of them full. The tea urn is on. Nobody can pay for the tea, so it is free, which has brought out a great many people.',
+      'Piran sits at the front table with the ledger and the token tin. He bangs on the table with a teaspoon until the room is quiet. &ldquo;The child with the paper bag,&rdquo; he says, &ldquo;will now tell us why.&rdquo;',
+      'Romy pushes the paper bag into your hands. &ldquo;You say it,&rdquo; she whispers. &ldquo;You&rsquo;ve seen all of it.&rdquo; In the front row, six hands go up at once.'
+    ], function () { busy = false; $('#front').classList.add('ready'); openMt(); });
+  }
+  function openMt() { if (ER.flag('e-done')) return; if (!mt) mt = makeMt(); mt.open(); }
+  $('#front').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('e-done')) { ER.say('&ldquo;Carried,&rdquo; says Piran, for the third time, writing it in the ledger. He likes the word.'); return; }
+    openMt();
+  });
+
+  /* ---------- the meeting: six questions, six reasons ---------- */
+  var QS = [
+    { k: 'ronan', n: 'Ronan Mabey', r: 'fisherman', q: '&ldquo;Why not mackerel? Everybody on this island eats fish.&rdquo;' },
+    { k: 'rob', n: 'Rob Nankervis', r: 'Hill Farm', q: '&ldquo;Potatoes, then. Mine keep all winter in the shed. Why not potatoes?&rdquo;' },
+    { k: 'nico', n: 'Nico Rendle', r: 'Rendle’s Café', q: '&ldquo;The gold coin! Gold has been money all over the world for thousands of years.&rdquo;' },
+    { k: 'orla', n: 'Orla Medlin', r: 'Medlin’s Stores', q: '&ldquo;Nico&rsquo;s notes were working all week. Why don&rsquo;t we just keep using those?&rdquo;' },
+    { k: 'perran', n: 'Perran Medlin', r: 'Shell Bank (manager)', q: '&ldquo;SHELLS. Shells were money for hundreds of years. It says so in my book.&rdquo;' },
+    { k: 'ruby', n: 'Ruby Pardoe', r: 'Pardoe’s Bakery', q: '&ldquo;And why should I give anybody a loaf for a bit of brass?&rdquo;' }
+  ];
+  var RS = [
+    { k: 'divide', t: 'One coin is worth more than the whole café. You can&rsquo;t pay for a pot of tea with it.' },
+    { k: 'promise', t: 'Because Mrs Medlin will change every token for a pound when the boat comes. So a token keeps its value.' },
+    { k: 'last', t: 'Fish don&rsquo;t last. By Tuesday your money would stink.' },
+    { k: 'limited', t: 'There are more of them on the beach after every tide. Anybody with a bucket could be rich.' },
+    { k: 'carry', t: 'Too heavy. A week&rsquo;s shopping in potatoes would weigh more than Romy does.' },
+    { k: 'fake', t: 'Anybody with a biro can write one. Nico wrote forty, and fifty-two came back.' }
+  ];
+  var NO = {
+    ronan: '&ldquo;That&rsquo;s not about fish,&rdquo; says Ronan. &ldquo;What&rsquo;s wrong with fish?&rdquo;',
+    rob: '&ldquo;My potatoes keep,&rdquo; says Mr Nankervis. &ldquo;What else is wrong with them?&rdquo;',
+    nico: '&ldquo;That&rsquo;s not about gold,&rdquo; says Nico. &ldquo;Gold lasts. Gold is in a box. What&rsquo;s wrong with gold?&rdquo;',
+    orla: '&ldquo;That&rsquo;s not about the notes, love,&rdquo; says Mrs Medlin.',
+    perran: '&ldquo;That&rsquo;s not about SHELLS,&rdquo; says Perran, very loudly.',
+    ruby: '&ldquo;I asked about the brass,&rdquo; says Ruby. &ldquo;Why would I take it?&rdquo;'
+  };
+  function makeMt() {
+    var at = ER.flag('e-at') || 0, wait = false;
+    var box = ER.el('div', 'pz mt');
+    box.innerHTML = '<div class="mt-in"><div class="mt-face"></div><div class="mt-r"><div class="prog"></div><h5></h5><div class="who"></div><p class="q"></p>' +
+      '<div class="rs">' + RS.map(function (r) { return '<button type="button" data-k="' + r.k + '">' + r.t + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function show() {
+      var q = QS[at], s = '', i;
+      for (i = 0; i < QS.length; i++) s += '<u' + (i < at ? ' class="on"' : '') + '></u>';
+      box.querySelector('.prog').innerHTML = s;
+      box.querySelector('.mt-face').innerHTML = ISL.face(q.k);
+      box.querySelector('h5').textContent = q.n; box.querySelector('.who').textContent = q.r;
+      box.querySelector('.q').innerHTML = ER.gloss(q.q);
+    }
+    ER.$$('.rs button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || at >= QS.length) return;
+        var q = QS[at], k = b.getAttribute('data-k');
+        if (!ER.check('a', q.k + ':' + k)) { ER.sfx.no(); ER.shake(b); msg(NO[q.k]); return; }
+        ISL.sfx.coin(); b.disabled = true;
+        at++; ER.flag('e-at', at); ER.flag('e-ans', (ER.flag('e-ans') || []).concat([k]));
+        msg('You say it out loud: &ldquo;' + RS.filter(function (r) { return r.k === k; })[0].t + '&rdquo; ' + (at < QS.length ? 'A murmur goes round the Hall. The next hand stays up.' : 'The Hall goes very quiet.'));
+        if (at < QS.length) { wait = true; setTimeout(function () { wait = false; show(); }, 900); return; }
+        wait = true; ISL.solved();
+        setTimeout(ending, 2200);
+      });
+    });
+    (ER.flag('e-ans') || []).forEach(function (k) { var b = box.querySelector('.rs button[data-k="' + k + '"]'); if (b) b.disabled = true; });
+    show();
+    msg('Six hands are up. Answer each person with the reason that fits: click it, and say it out loud.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  function ending() {
+    ER.closeAll(); busy = true;
+    $('#scene').classList.add('vote');
+    ER.narrate([
+      '&ldquo;All those in favour of the tokens,&rdquo; says Piran. Hands go up all over the Hall. Piran counts them twice, because he is Piran. &ldquo;Carried,&rdquo; he says. &ldquo;Tokens. One pound each, changed for coins at Medlin&rsquo;s when the boat comes. Every one signed for in the ledger.&rdquo;',
+      'The queue at his table goes right round the Hall. Each household signs for a few tokens, and promises to pay the harbour back in pounds when the bank can be reached again. Ruby Pardoe asks four tokens for a loaf, which is just what she asked in pounds before the storm. Nobody had to be told what a pound was worth.',
+      'Ruby and Ronan sign for none. &ldquo;We don&rsquo;t need them,&rdquo; says Ruby. &ldquo;He wants my bread and I want his fish. One for one.&rdquo; &mdash; &ldquo;Double coincidence,&rdquo; says Ronan, who has been reading Romy&rsquo;s paper bag.',
+      'On Sunday morning twelve extra notes come back across Nico&rsquo;s counter, paid for in eggs, from five people who look at their shoes. Three of them were Perran&rsquo;s. The Shell Bank closes, its manager says, for stocktaking.',
+      'Twelve days later the Petrel comes round the point with a new bow and the post office cash box. Mrs Medlin changes tokens for pound coins at the grille all afternoon. Five hundred and ninety-seven come back. Romy thinks the other three are in Nutmeg&rsquo;s basket.',
+      'The tokens go back into Piran&rsquo;s tin, under three keys. The marmalade is still on the shelf.'
+    ], function () { busy = false; ER.flag('e-done', 1); finish(false); });
+  }
+
+  /* ---------- people, before and after ---------- */
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('e-done') ? after : before); }); }
+  line('#p-ronan', 'Ronan has his hand up. He has had it up since before anybody asked a question.', '&ldquo;One for one,&rdquo; says Ronan. &ldquo;I&rsquo;m going to be the fastest fisherman on Nessary. Eventually.&rdquo;');
+  line('#p-rob', 'Mr Nankervis of Hill Farm has brought a potato, to make his point.', '&ldquo;Twenty-five kilos,&rdquo; says Mr Nankervis, &ldquo;for six loaves. Put like that, I see it.&rdquo;');
+  line('#p-nico', 'Nico has the gold coin in its glass box on his knee, just in case.', '&ldquo;Two eggs a note,&rdquo; says Nico, &ldquo;and I&rsquo;m numbering them now. In red ink.&rdquo;');
+  line('#p-orla', 'Mrs Medlin gives you a small nod, and folds her arms.', '&ldquo;Every token, for a pound,&rdquo; says Mrs Medlin. &ldquo;I said it on the radio, so now I have to.&rdquo;');
+  line('#p-perran', 'Perran is holding his jam jar of shells in both hands.', '&ldquo;Stocktaking,&rdquo; says Perran, with dignity.');
+  line('#p-ruby', 'Ruby Pardoe sits with her arms folded and her face giving nothing away.', '&ldquo;Four tokens a loaf,&rdquo; says Ruby. &ldquo;And I want them back in coins on the boat day, mind.&rdquo;');
+  var CUT = '<h4>A cutting on the notice board</h4><p>In 1970 the banks in Ireland were closed by a strike for more than six months.</p><p>People did not stop buying and selling. They went on writing cheques to each other, and shops and pubs, who knew their customers well, took them and passed them on. Prices were still in pounds. The money worked because people trusted each other to pay in the end.</p><span class="hand">Pinned up by M.R. &ldquo;Not a lesson. History.&rdquo;</span>';
+  $('#notice').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUT, cls: 'book', clue: { id: 'ireland', title: 'A cutting: Ireland, 1970', kind: 'On the Hall notice board' } });
+  });
+  ISL.thing('#urn', null, 'The tea urn, and a plate of saffron buns. Tonight they are free. &ldquo;Just this once,&rdquo; says Nico.', isBusy);
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = ISL.minutesPlayed(), hn = ER.hintsUsed();
+    $('#scene').classList.add('vote'); $('#front').classList.remove('ready');
+    $('#d-time').textContent = 'From the shop at nine to the Hall at seven: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Carried. Six hundred tokens, a pound each, until the boat comes.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Small Change &middot; in your own words</h4><h3>Tell the meeting</h3>' +
+      '<p>Somebody arrives late, after the vote, and asks what happened. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: because, so, but, if.</p>' +
+      '<p><b>A</b> Why the island chose the tokens, and why one of the other ideas failed.<br><b>B</b> Why Ruby and Ronan both gain from their swap, even though Ruby is better at both jobs.<br><b>C</b> Why it took four swaps to get one loaf, and how money would have helped.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

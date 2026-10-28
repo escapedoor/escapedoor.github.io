@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rendle’s Café · Small Change</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="island.css">
+<style>
+  body{--bg:#e2b85a;--accent:#1f7a74;--font-display:'Cabin Sketch',cursive;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(253,243,214,.97);--tc-ink:#2a2010;--cap-bg:rgba(255,250,236,.96);--cap-ink:#2a2010;--panel:#fffaf0;--panel-ink:#2a2010;--face-bg:#1f7a74;--q-ink:#1f7a74;
+    --fade:#fbe6b0;--hud-bg:rgba(255,250,236,.88);--hud-ink:#2a2010;--hud-line:rgba(42,32,16,.3);--ov-bg:rgba(40,28,8,.6)}
+  .tc-room{font-family:'Cabin Sketch',cursive;font-weight:700;font-size:clamp(44px,6.2vw,88px);color:#1f7a74}
+  .tc-theme{color:#a4441a}
+  .hbtn b{color:#fff}
+  #steam path{animation:steam 3.4s ease-in-out infinite;opacity:0}
+  #steam path:nth-child(2){animation-delay:-1.2s}#steam path:nth-child(3){animation-delay:-2.3s}
+  @keyframes steam{0%{opacity:0;transform:translateY(10px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-70px)}}
+  #drops circle{animation:drop 6s linear infinite}
+  #drops circle:nth-child(3n){animation-delay:-2s}#drops circle:nth-child(3n+1){animation-delay:-4s}
+  @keyframes drop{from{transform:translateY(0)}to{transform:translateY(90px);opacity:0}}
+  #notes g{animation:sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  #notes g:nth-child(2n){animation-delay:-2.5s}
+  @keyframes sway{50%{transform:rotate(4deg)}}
+
+  /* Nico's blackboard */
+  .bb{width:min(1080px,96vw)}
+  .bb-in{display:grid;grid-template-columns:400px 1fr;gap:0;background:#24302a radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.08),transparent 60%);border:16px solid #8a5a2e;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#f4f1e6;font-family:'Cabin Sketch',cursive}
+  .bb-old{padding:16px 20px;border-right:3px dashed rgba(244,241,230,.35);font-size:19px;line-height:1.3}
+  .bb-old h5,.bb-new h5{margin:0 0 8px;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:26px;color:#f2c12e}
+  .bb-old p{margin:0 0 7px;opacity:.88}
+  .bb-old s{opacity:.5}
+  .bb-old .sm{font-family:'Architects Daughter',cursive;font-size:15.5px;opacity:.8;line-height:1.3}
+  .bb-new{padding:16px 22px 10px}
+  .bb-new .row{display:grid;grid-template-columns:1fr 96px 60px;align-items:center;gap:8px;padding:3px 0;border-bottom:1px solid rgba(244,241,230,.18);font-size:20px}
+  .bb-new .row small{display:block;font-family:'Architects Daughter',cursive;font-size:14px;opacity:.75;line-height:1.2}
+  .bb-new .row .u{font-size:17px;opacity:.85}
+  .bb-new .dl b{font-family:'Cabin Sketch',cursive;font-weight:700;font-size:28px;color:#fff}
+  .bb-new .dl button{color:#f4f1e6;height:17px;line-height:17px}
+  .bb-new .row.n{margin-top:8px;border:2px solid rgba(242,193,46,.6);border-radius:4px;padding:5px 8px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#e9dcc2"/><rect width="40" height="40" fill="#1f5a56"/><rect x="40" y="40" width="40" height="40" fill="#1f5a56"/></pattern>
+  <pattern id="paper" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#e8c46a"/><circle cx="22" cy="22" r="5" fill="#dcb256"/><circle cx="0" cy="0" r="4" fill="#dcb256"/><circle cx="44" cy="44" r="4" fill="#dcb256"/></pattern>
+  <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8d4d4"/><stop offset=".55" stop-color="#a9bcbe"/><stop offset=".56" stop-color="#7c969a"/><stop offset="1" stop-color="#6a8488"/></linearGradient>
+  <filter id="fog"><feGaussianBlur stdDeviation="7"/></filter>
+  <radialGradient id="warm" cx="35%" cy="20%" r="80%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".5"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#3a2000" stop-opacity=".08"/><stop offset="1" stop-color="#3a2000" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#paper)"/>
+<rect x="-1000" y="520" width="3600" height="200" fill="#1f7a74"/><rect x="-1000" y="514" width="3600" height="10" fill="#8a5a2e"/>
+<path d="M-1000 600H2600" stroke="#1a6560" stroke-width="3"/>
+
+<!-- the window: harbour in the fog, drops running down -->
+<rect x="880" y="96" width="640" height="420" fill="#8a5a2e"/>
+<rect x="896" y="112" width="608" height="388" fill="url(#win)"/>
+<g filter="url(#fog)" opacity=".85"><path d="M940 370h180l-20 26h-150z" fill="#b8342a"/><path d="M1020 370v-80" stroke="#3a3a3a" stroke-width="4"/><path d="M1200 380h140l-16 20h-112z" fill="#e0b020"/><rect x="1380" y="250" width="80" height="140" fill="#e9e4da"/><path d="M1370 252l50 -40 50 40z" fill="#5a5a5a"/></g>
+<rect x="896" y="112" width="608" height="388" fill="#fff" opacity=".42"/>
+<g id="drops" fill="#fff" opacity=".8"><circle cx="950" cy="160" r="3"/><circle cx="1010" cy="220" r="2.5"/><circle cx="1090" cy="140" r="3"/><circle cx="1170" cy="200" r="2"/><circle cx="1250" cy="170" r="3"/><circle cx="1330" cy="230" r="2.5"/><circle cx="1410" cy="150" r="3"/><circle cx="1470" cy="210" r="2"/><circle cx="980" cy="300" r="2.5"/><circle cx="1290" cy="320" r="3"/></g>
+<path d="M1200 112V500M896 306H1504" stroke="#8a5a2e" stroke-width="10"/>
+<text x="1050" y="300" class="cS" font-size="34" fill="#fff" opacity=".5" transform="rotate(-8 1050 300)">RENDLE’S</text>
+<rect x="870" y="500" width="660" height="20" fill="#6b4422"/>
+<g id="book" class="hot"><path d="M940 498l70 -6 70 6v-34l-70 -6 -70 6z" fill="#f6efdc" stroke="#6a3a1a" stroke-width="2"/><path d="M1010 492v-34" stroke="#6a3a1a" stroke-width="2"/><path d="M950 476h50M950 484h44M1020 476h50M1020 484h44" stroke="#6a5a4a" stroke-width="1.6"/><rect x="936" y="498" width="148" height="6" fill="#2a5a8a"/></g>
+
+<!-- the blackboard behind the counter -->
+<g id="board" class="hot"><rect x="110" y="140" width="480" height="300" fill="#8a5a2e"/><rect x="124" y="154" width="452" height="272" fill="#2a3530"/>
+  <text x="350" y="194" class="cS" font-size="30" font-weight="700" text-anchor="middle" fill="#f2c12e">TODAY</text>
+  <g class="cS" font-size="20" fill="#f4f1e6" opacity=".82"><text x="146" y="232">TEA ... 2 eggs / 1 candle / 1 note</text><text x="146" y="262">CAKE ... 4 eggs? 2 candles?</text><text x="146" y="292">BUN ... 1 mackerel (fresh!!)</text><text x="146" y="322">TOAST + marmalade ... ½ jar??</text><text x="146" y="352">SOUP ... 1 loaf, or 3 eggs, or</text><text x="146" y="382">... ask Nico</text></g>
+  <g stroke="#f4f1e6" stroke-width="10" opacity=".14"><path d="M140 240q120 -20 400 10M150 330q160 30 390 -10"/></g></g>
+
+<!-- the string of notes -->
+<path d="M70 92Q420 132 780 92" fill="none" stroke="#5a3a1a" stroke-width="2.5"/>
+<g id="notes" class="hot"></g>
+
+<!-- the counter: urn, eggs, candles, cake; Nico behind it -->
+<g id="nico" class="hot" transform="translate(410 690) scale(1.2)"></g>
+<rect x="60" y="520" width="740" height="200" fill="#6b4422"/><rect x="50" y="506" width="760" height="20" fill="#a4744a"/>
+<g id="urn" class="hot"><rect x="96" y="388" width="96" height="118" rx="12" fill="#c9ced3" stroke="#8f9ba3" stroke-width="3"/><rect x="104" y="372" width="80" height="22" rx="8" fill="#a8b0b8"/><path d="M144 470v24h20" stroke="#5a6470" stroke-width="5" fill="none"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M126 364q-12 -18 0 -36t0 -36"/><path d="M146 364q-12 -18 0 -36t0 -36"/><path d="M166 364q-12 -18 0 -36t0 -36"/></g></g>
+<g id="eggs" class="hot"><path d="M250 506q0 -34 54 -34t54 34z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="3"/><g fill="#f6efe0" stroke="#d6c8a8" stroke-width="1.5"><ellipse cx="276" cy="482" rx="11" ry="14"/><ellipse cx="300" cy="476" rx="11" ry="14"/><ellipse cx="324" cy="482" rx="11" ry="14"/><ellipse cx="288" cy="466" rx="10" ry="13"/><ellipse cx="312" cy="464" rx="10" ry="13"/></g><path d="M244 476q60 -60 120 0" fill="none" stroke="#8a6a3a" stroke-width="4"/></g>
+<g id="candles" class="hot"><rect x="390" y="476" width="90" height="32" fill="#f4efe2" stroke="#8a7a5a" stroke-width="2"/><text x="435" y="497" class="cT" font-size="12" text-anchor="middle" fill="#5a3a1a">CANDLES</text><g fill="#f6f1e6" stroke="#c9b48a" stroke-width="1"><rect x="398" y="452" width="8" height="26"/><rect x="412" y="448" width="8" height="30"/><rect x="426" y="454" width="8" height="24"/></g></g>
+<g id="cake" class="hot"><path d="M600 506h110M655 506v-12" stroke="#c9ced3" stroke-width="5"/><path d="M612 494q0 -44 43 -44t43 44z" fill="#f0c45a"/><path d="M655 450v44M612 494l43 -44 43 44" stroke="#c98a2a" stroke-width="2" fill="none"/><path d="M606 494q49 -70 98 0" fill="#e8f2f4" fill-opacity=".45" stroke="#c9ced3" stroke-width="2"/></g>
+<g id="jars" class="hot"><rect x="586" y="300" width="200" height="10" fill="#5a3e26"/></g>
+
+<!-- Mrs Rosevear's table by the window -->
+<g id="merryn" class="hot" transform="translate(1340 760) scale(1.12)"></g>
+<g><rect x="1110" y="600" width="330" height="16" fill="#a4744a"/><path d="M1130 616v120M1420 616v120" stroke="#6b4422" stroke-width="12"/></g>
+<g id="card2" class="hot"><rect x="1160" y="582" width="96" height="62" fill="#fbf8ee" transform="rotate(-6 1208 613)"/><path d="M1168 600h76M1168 610h70M1168 620h76M1168 630h60" stroke="#1f2a52" stroke-width="1.6" transform="rotate(-6 1208 613)" opacity=".7"/><rect x="1160" y="582" width="96" height="10" fill="#f6e7e7" transform="rotate(-6 1208 613)"/><path d="M1266 600l40 -10" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/></g>
+<g><path d="M1360 600v-30q0 -10 10 -10h30q10 0 10 10v30" fill="#b8342a"/><path d="M1410 572q16 0 14 14t-14 10" stroke="#b8342a" stroke-width="5" fill="none"/></g>
+
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#tiles)"/><rect x="-1000" y="716" width="3600" height="8" fill="#5a3a1a"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#warm)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To Pardoe’s Bakery</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="island.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, t, x, y;
+    for (i = 0; i < 15; i++) {
+      t = (i + 0.5) / 15; x = 70 + t * 710; y = 92 + 4 * t * (1 - t) * 30 + 6;
+      s += '<g><rect x="' + (x - 16).toFixed(0) + '" y="' + y.toFixed(0) + '" width="32" height="40" fill="#fffdf3" stroke="#c9b48a" stroke-width="1"/><path d="M' + (x - 10).toFixed(0) + ' ' + (y + 12).toFixed(0) + 'h20M' + (x - 10).toFixed(0) + ' ' + (y + 20).toFixed(0) + 'h16M' + (x - 10).toFixed(0) + ' ' + (y + 28).toFixed(0) + 'h18" stroke="#1f2a52" stroke-width="1.6"/><rect x="' + (x - 3).toFixed(0) + '" y="' + (y - 6).toFixed(0) + '" width="6" height="12" fill="#8a5a2e"/></g>';
+    }
+    $('#notes').innerHTML = s;
+    s = '';
+    for (i = 0; i < 11; i++) s += '<g transform="translate(' + (592 + i * 17) + ' 300)"><rect x="0" y="-26" width="15" height="26" rx="3" fill="#e8892a" stroke="#a85a14" stroke-width="1.2"/><rect x="1" y="-31" width="13" height="6" fill="#f4efe2"/></g>';
+    $('#jars').innerHTML += s;
+    $('#nico').innerHTML = ISL.who('nico', { extra: '<path d="M39 -112l20 -30" stroke="#d8a882" stroke-width="12" stroke-linecap="round"/><rect x="50" y="-176" width="34" height="44" fill="#fffdf3" transform="rotate(14 67 -154)"/>' });
+    $('#merryn').innerHTML = ISL.who('merryn', { smile: 3, extra: '<path d="M-39 -112l-26 -20" stroke="#8a5a3c" stroke-width="12" stroke-linecap="round"/><path d="M-70 -136l-14 -10" stroke="#1a1a1a" stroke-width="5"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'island', storyTitle: 'Small Change', id: 'cafe', no: 'II', title: 'Rendle’s Café',
+    go: 'Push the steamy door',
+    intro: [
+      'From a jar to a loaf took four swaps: six eggs from the School House for the jar, three candles from Nico for the eggs, three mackerel from Ronan for the candles, and two of those to Ruby Pardoe for the loaf. With money it would have been two: sell the jar, buy the loaf.',
+      'Rendle&rsquo;s is the island&rsquo;s only café. This week it has turned into the island&rsquo;s only bank as well, although nobody asked it to.',
+      'Nico Rendle has a problem with his notes.'
+    ],
+    exit: {"next":"bakery","w":{"7198ee76":"09aba7c4"}}, tags: {"c":["dec1c7c8"],"m":["05a79878"],"l":["334a1d19"],"j":["e5192d76"],"d":["b1209178"],"n":["56bb49f0"],"l6":["5e586ed2"],"l4":["4cf0ca88"],"j6":["a3bfa237"],"d12":["ad292072"],"n1":["faaa83d7"],"c2":["d1fe6feb"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.nico && told.card; }
+  function paint() {
+    $('#board').classList.toggle('glow', !!(ready() && !nextFile));
+    $('#card2').classList.toggle('glow', !!(told.merryn && !told.card));
+    ER.pips((told.nico ? 1 : 0) + (told.merryn ? 1 : 0) + (told.card ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Pardoe&rsquo;s Bakery: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'A pot of tea is the measure. The old board says a tea is 2 eggs or 1 candle. For the other lines you need the swap board from the shop window: it is in your notebook.',
+      'One line at a time. A candle is worth the same as a tea. Ronan gives a mackerel for a candle. Ruby wants 2 mackerel for a loaf. Mrs Rosevear gives 6 eggs for a jar, and every 2 eggs make 1 tea.',
+      'If two eggs make one tea, how many teas do twelve eggs make? And a note is worth one tea: so how many eggs is a fair price for one note?'
+    ]];
+    if (!told.nico) return ['nico', ['Nico Rendle is behind the counter, under the string of notes. Talk to him.', 'The big man with the beard and the green apron, on the left.']];
+    if (!told.merryn) return ['merryn', ['Nico said Mrs Rosevear knows about measures. She is at the table by the window.', 'The teacher in purple, on the right, with a fountain pen.']];
+    if (!told.card) return ['card', ['Mrs Rosevear left card 2 for you on her table.', 'The white card on the table by the window, next to her pen.']];
+    return ['board', ['Now Nico&rsquo;s blackboard, behind the counter.', 'The big board that says TODAY at the top. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Everything on Nico&rsquo;s board is in teas now. Two prices stood out at once.'); return; }
+    if (told.in) { busy = false; ER.say('Rendle&rsquo;s Café. The urn hisses. The notes hang over the counter like washing.'); return; }
+    tell('in');
+    ER.narrate([
+      'Rendle&rsquo;s Café: eight tables, a hissing urn, and windows so steamed up that the harbour outside is only a rumour. Every mug is a different colour.',
+      'Above the counter hangs a long string of little paper notes, pegged up like washing. Each one says IOU ONE TEA, and is signed N.R.',
+      'Behind the counter is a blackboard of prices that has been rubbed out and written over so many times that it has gone grey.',
+      'At the table by the window, Mrs Rosevear, the island&rsquo;s teacher, is writing on a card with great care and a fountain pen.'
+    ], function () { busy = false; });
+  }
+
+  $('#nico').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Two eggs a note,&rdquo; says Nico, chalking it up. &ldquo;Now. Who has been writing my notes in their kitchen?&rdquo;'); return; }
+    ER.talk({
+      who: 'Nico Rendle', role: 'Rendle’s Café · since 2009', face: ISL.face('nico'),
+      lines: [
+        { note: 'Nico is a large, kind, worried man in a green apron.', a: '&ldquo;On Tuesday nobody had any coins, so I started writing notes. You bring me an egg, I give you a note. The note says IOU ONE TEA: it&rsquo;s good for a pot of tea, any time. Simple.&rdquo;' },
+        { q: 'Did it work?', a: 'Too well. By Wednesday people were paying each other with my notes. Ronan paid for a haircut with three. Perran paid the rent for the Shell Bank with one. In the end they all come back here, and I give them tea.' },
+        { q: 'So what&rsquo;s wrong?', a: 'Two things. One: my board. Everything has a price in everything else, and I can&rsquo;t tell any more whether I&rsquo;m being paid fairly. Merryn says I need one measure. Ask her: she&rsquo;s by the window.' },
+        { q: 'And two?', a: 'This week I wrote forty notes. I counted them in my order book, twice. And fifty-two have come back to me for tea.' },
+        { note: 'He looks at the string over the counter.', a: '&ldquo;I&rsquo;m not cross. I&rsquo;d just like to know who is making tea money in their kitchen.&rdquo;' }
+      ],
+      clue: { id: 'nico', title: 'Nico: forty notes written, fifty-two back', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('nico')) { paint(); ER.say('Forty notes written. Fifty-two came back for tea.'); } }
+    });
+  });
+  $('#merryn').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Card 3 is for Ruby,&rdquo; says Mrs Rosevear. &ldquo;Romy has it. Don&rsquo;t let Ruby use it for the oven.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Rosevear', role: 'Teacher · Nessary School, eleven pupils', face: ISL.face('merryn'),
+      lines: [
+        { note: 'She puts the cap back on her pen.', a: '&ldquo;I&rsquo;m writing a card a day for my class this week. The whole island has turned into an economics lesson, and I&rsquo;d be a fool to waste it.&rdquo;' },
+        { q: 'What is today&rsquo;s card about?', a: 'What money does. Money has three jobs. Nico&rsquo;s notes have been doing one of them very well, and another one rather badly.' },
+        { q: 'Can you help Nico with his board?', a: 'I could. I&rsquo;d rather you did. Choose one thing to measure everything in, and write every price in it. The card says why. You know most of the island&rsquo;s swaps already: they were on the board in Orla&rsquo;s window.' },
+        { a: '&ldquo;Card 2 is on the table. And the library book on the windowsill is open at a page about a prison camp. That isn&rsquo;t a lesson. It&rsquo;s history, and it really happened.&rdquo;' }
+      ],
+      clue: { id: 'merryn', title: 'Mrs Rosevear: one thing to measure in', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('merryn')) { paint(); ER.say('Card 2 is on her table. The book is on the windowsill.'); } }
+    });
+  });
+
+  var DIA = '<div class="dia"><svg viewBox="0 0 280 300"><g font-family="Architects Daughter,cursive" font-size="14" fill="#1f2a52" text-anchor="middle">' +
+    '<text x="140" y="16" font-weight="700" fill="#7a3b6e">without a measure: 6 prices</text>' +
+    '<g stroke="#b8342a" stroke-width="2.5"><path d="M50 40L230 40L230 130L50 130Z M50 40L230 130M230 40L50 130"/></g>' +
+    '<g fill="#fbf8ee" stroke="#1f2a52" stroke-width="2"><circle cx="50" cy="40" r="15"/><circle cx="230" cy="40" r="15"/><circle cx="230" cy="130" r="15"/><circle cx="50" cy="130" r="15"/></g>' +
+    '<text x="50" y="45" font-size="12">eggs</text><text x="230" y="45" font-size="12">fish</text><text x="230" y="135" font-size="11">candle</text><text x="50" y="135" font-size="12">loaf</text>' +
+    '<text x="140" y="178" font-weight="700" fill="#7a3b6e">with a measure: 4 prices</text>' +
+    '<g stroke="#1f7a74" stroke-width="2.5"><path d="M50 200L140 245M230 200L140 245M230 290L140 245M50 290L140 245"/></g>' +
+    '<g fill="#fbf8ee" stroke="#1f2a52" stroke-width="2"><circle cx="50" cy="200" r="15"/><circle cx="230" cy="200" r="15"/><circle cx="230" cy="290" r="15"/><circle cx="50" cy="290" r="15"/></g><circle cx="140" cy="245" r="20" fill="#f2c12e" stroke="#1f2a52" stroke-width="2"/>' +
+    '<text x="50" y="205" font-size="12">eggs</text><text x="230" y="205" font-size="12">fish</text><text x="230" y="295" font-size="11">candle</text><text x="50" y="295" font-size="12">loaf</text><text x="140" y="250" font-size="13" font-weight="700">tea</text></g></svg></div>';
+  var CARD = '<h4>What money does<small>card 2</small></h4><div class="two"><div>' +
+    '<p>Money has three jobs.</p>' +
+    '<p><b>1. A WAY TO PAY.</b> You can give it for anything, and the person who takes it does not have to want what you have. (Economists say: a <b>medium of exchange</b>.)</p>' +
+    '<p><b>2. A MEASURE OF VALUE.</b> Every price can be written in it, so you can compare prices at a glance. (A <b>unit of account</b>.)</p>' +
+    '<p><b>3. A STORE OF VALUE.</b> You can keep it and spend it later, and it is still worth about the same.</p>' +
+    '<p>Without one measure, everything has a price in everything else. With 4 things there are 6 prices to remember; with 10 things, 45. With one measure, 10 things need only 10 prices.</p>' +
+    '<p class="rule">Write every price in the same measure, and a price that does not fit stands out.</p></div>' + DIA + '</div>';
+  $('#card2').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.merryn) { ER.say('A card in fountain pen, on Mrs Rosevear&rsquo;s table. It would be polite to ask first.'); return; }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card2', title: 'Card 2: what money does', kind: 'Mrs Rosevear’s card' }, done: function () {
+      ISL.terms(['medium of exchange', 'unit of account', 'store of value', 'measure of value']);
+      if (tell('card')) { paint(); ER.say('A way to pay, a measure of value, a store of value. And one measure makes a bad price stand out.'); }
+    } });
+  });
+  var BOOK = '<h4>Cigarette money</h4><p>In 1945 R. A. Radford wrote about the prisoner-of-war camps he had lived in, in Italy and Germany, during the Second World War.</p>' +
+    '<p>Food and cigarettes came to the prisoners in Red Cross parcels, and they swapped them. Soon cigarettes became the camps&rsquo; money. People paid with them, and the prices of jam, chocolate and tea were written up in cigarettes.</p>' +
+    '<p>Even men who did not smoke were glad to take cigarettes, because everybody else would take them.</p>' +
+    '<p class="pg">&mdash; 41 &mdash;</p><span class="hand">Not a lesson: history. M.R.</span>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'book', clue: { id: 'radford', title: 'A library book: cigarette money', kind: 'On the windowsill' }, done: function () {
+      ISL.terms(['prisoner of war']);
+      if (tell('book')) ER.say('Prices written in cigarettes: one measure for everything in the camp.');
+    } });
+  });
+  ISL.thing('#notes', 'IOU', 'IOU ONE TEA, N.R., in blue biro, on a slip torn from Nico&rsquo;s order pad. Fifteen of them hang here; the rest are in a biscuit tin under the counter. They all look much the same.', isBusy);
+  ISL.thing('#urn', 'urn', 'The tea urn hisses at you. It has made a hundred and four pots of tea since Tuesday, and Nico has been paid for none of them in money.', isBusy);
+  ISL.thing('#eggs', null, 'A basket of eggs, and another under the counter, and another on the stairs. &ldquo;I can&rsquo;t bake fast enough,&rdquo; says Nico.', isBusy);
+  ISL.thing('#candles', null, 'The café&rsquo;s box of candles, kept for power cuts. Half of them have gone to Ronan&rsquo;s caravan by now.', isBusy);
+  ISL.thing('#cake', null, 'Saffron cake, under a glass dome. The board says four eggs, or two candles. Or something.', isBusy);
+  ISL.thing('#jars', 'marmalade', 'Eleven jars of marmalade on the shelf. Nobody on Nessary is going to run out of marmalade.', isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The new board, in teas. A candle 1, a mackerel 1, a loaf 2, a jar 3, a dozen eggs 6. A note: 2 eggs.'); return; }
+    if (!told.nico) { ER.say('A grey board of crossed-out prices. Nico is watching you look at it.'); return; }
+    if (!told.card) { ER.say('&ldquo;Merryn&rsquo;s card first,&rdquo; says Nico. &ldquo;She&rsquo;ll only make you go back for it.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the board in one measure ---------- */
+  function makeLock() {
+    var R = [
+      { k: 'c', h: '1 candle', s: 'what is a candle worth?' },
+      { k: 'm', h: '1 mackerel', s: 'Ronan&rsquo;s price' },
+      { k: 'l', h: '1 loaf', s: 'Ruby&rsquo;s price, paid in mackerel' },
+      { k: 'j', h: '1 jar of marmalade', s: 'Mrs Rosevear&rsquo;s price, paid in eggs' },
+      { k: 'd', h: 'a dozen eggs', s: '12 eggs' }
+    ];
+    var saved = ER.flag('b-vals') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz bb');
+    box.innerHTML = '<div class="bb-in"><div class="bb-old"><h5>The old board</h5>' +
+      '<p>TEA &hellip; 2 eggs, or 1 candle, or 1 note</p><p><s>CAKE &hellip; 4 eggs? 2 candles?</s></p><p><s>BUN &hellip; 1 mackerel (fresh!!)</s></p><p><s>SOUP &hellip; 1 loaf, or 3 eggs, or &hellip; ask Nico</s></p>' +
+      '<p class="sm">NOTES: I give 1 note for every egg. &mdash; N.</p><p class="sm">Everything else: see the swap board in Orla&rsquo;s window. (It is in your notebook.)</p></div>' +
+      '<div class="bb-new"><h5>The new board: in pots of tea</h5>' +
+      R.map(function (r) { return '<div class="row"><span>' + r.h + '<small>' + r.s + '</small></span><i class="dlc" data-k="' + r.k + '"></i><span class="u">teas</span></div>'; }).join('') +
+      '<div class="row n"><span>Nico&rsquo;s note: IOU ONE TEA<small>a fair price for one note</small></span><i class="dlc" data-k="n"></i><span class="u">eggs</span></div>' +
+      '</div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-go">Show Nico</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = {}; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('b-vals', o); }
+    ['c', 'm', 'l', 'j', 'd', 'n'].forEach(function (k) {
+      d[k] = ISL.dial(box.querySelector('[data-k="' + k + '"]'), { min: 0, max: 24, step: 1, val: saved[k] || 0, change: keep, lock: function () { return wait || !!nextFile; } });
+    });
+    function bad(k, t) { ER.sfx.no(); var n = box.querySelector('[data-k="' + k + '"]').parentNode; n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); msg(t); }
+    box.querySelector('#b-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var v = {}, k; for (k in d) v[k] = String(d[k].get());
+      if (Object.keys(d).every(function (k) { return v[k] === '0'; })) { ER.sfx.no(); msg('&ldquo;An empty board,&rdquo; says Nico. &ldquo;That&rsquo;s more or less what I had before.&rdquo; Set each number with the arrows, or with the mouse wheel.'); return; }
+      if (!ER.check('c', v.c)) return bad('c', ER.check('c2', v.c) ? '&ldquo;Two is in eggs,&rdquo; says Mrs Rosevear. &ldquo;The new board is in teas. What does the old board say a tea costs?&rdquo;' : '&ldquo;Look at the old board,&rdquo; says Mrs Rosevear. &ldquo;A tea is 2 eggs, or 1 candle. So a candle is worth how many teas?&rdquo;');
+      if (!ER.check('m', v.m)) return bad('m', '&ldquo;Ronan&rsquo;s card,&rdquo; says Romy, reading from the notebook. &ldquo;One fish for every candle. And a candle is&hellip;&rdquo;');
+      if (!ER.check('l', v.l)) return bad('l', ER.check('l4', v.l) ? '&ldquo;Four is in eggs,&rdquo; says Mrs Rosevear. &ldquo;Two mackerel, two candles, four eggs. In teas?&rdquo;' : ER.check('l6', v.l) ? '&ldquo;Six teas is what Ruby asks when you pay in EGGS,&rdquo; says Romy. &ldquo;This line is her price in mackerel.&rdquo;' : '&ldquo;Ruby&rsquo;s card says two mackerel for a loaf,&rdquo; says Romy. &ldquo;And what is a mackerel, in teas?&rdquo;');
+      if (!ER.check('j', v.j)) return bad('j', ER.check('j6', v.j) ? '&ldquo;Six is the eggs,&rdquo; says Mrs Rosevear. &ldquo;How many teas is six eggs, if two eggs make one?&rdquo;' : '&ldquo;Mrs Rosevear gives six eggs for a jar,&rdquo; says Romy. &ldquo;Turn the eggs into teas.&rdquo;');
+      if (!ER.check('d', v.d)) return bad('d', ER.check('d12', v.d) ? '&ldquo;Twelve eggs, yes,&rdquo; says Nico. &ldquo;But the board is in teas, Merryn says.&rdquo;' : '&ldquo;Twelve eggs,&rdquo; says Mrs Rosevear. &ldquo;Every two of them make a tea.&rdquo;');
+      if (!ER.check('n', v.n)) return bad('n', ER.check('n1', v.n) ? '&ldquo;One egg is what I give now,&rdquo; says Nico. Then he goes quiet. &ldquo;A note is a tea. And a tea is&hellip; oh.&rdquo;' : '&ldquo;A note is good for one tea,&rdquo; says Mrs Rosevear. &ldquo;What does a tea cost in eggs, on the old board?&rdquo;');
+      var file = ER.exit([[v.c, v.m, v.l, v.j, v.d, v.n].join('-')], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      ISL.mine('teas', 'Nico’s board, in teas', '<p>1 tea = 2 eggs = 1 candle</p><p>1 mackerel = 1 candle = 1 tea</p><p>1 loaf = 2 mackerel = 2 teas</p><p>1 jar = 6 eggs = 3 teas</p><p>12 eggs = 6 teas. But Ruby asks 12 eggs for a loaf: 6 teas, not 2!</p><p>A note is 1 tea, so it should cost 2 eggs. Nico was giving one for every egg.</p>', true);
+      msg('Nico reads the new board twice, moving his lips. &ldquo;One measure,&rdquo; he says. &ldquo;Everything in teas.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Nico rubs out the grey board with his sleeve and chalks it up again in big letters: A CANDLE, 1 TEA. A MACKEREL, 1 TEA. A LOAF, 2 TEAS. A JAR OF MARMALADE, 3 TEAS. A DOZEN EGGS, 6 TEAS.',
+          '&ldquo;Look at that,&rdquo; says Romy. &ldquo;Ruby asks two mackerel for a loaf, which is two teas, or a dozen eggs, which is six. Three times as much in eggs.&rdquo; &mdash; &ldquo;Ruby has hens,&rdquo; says Mrs Rosevear. &ldquo;She doesn&rsquo;t want eggs, so she asks a great many of them. That&rsquo;s barter: every price depends on what the other person happens to want.&rdquo;',
+          'Nico is staring at the string of notes. &ldquo;A note is a tea, and a tea is two eggs. And I&rsquo;ve been giving a note for every egg.&rdquo; &mdash; &ldquo;Half-price tea, all week,&rdquo; says Romy. &ldquo;That&rsquo;s why the whole island has been selling you eggs.&rdquo;',
+          '&ldquo;One measure, and a bad price sticks out like a sore thumb,&rdquo; says Mrs Rosevear. &ldquo;That&rsquo;s the second job. Your notes did the first job, paying, very nicely.&rdquo; &mdash; &ldquo;And the third?&rdquo; says Nico. She looks at the fifty-two notes. &ldquo;Will a note still be worth a tea next week, Nico? Will you?&rdquo; Nobody answers.',
+          'Mrs Rosevear gives Romy a card in an envelope. &ldquo;Card 3. Take it to Ruby Pardoe, please. She asked me yesterday why she should ever buy anything from anybody, and I said I would send her the answer. Ronan has been in the bakery arguing with her since half past eleven.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Write each price in pots of tea, with the arrows or the mouse wheel. Then Nico&rsquo;s note: how many eggs should he ask for it? Then show Nico.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

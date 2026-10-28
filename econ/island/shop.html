@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Medlin’s Stores · Small Change</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="island.css">
+<style>
+  body{--bg:#3a4a44;--accent:#b8342a;--font-display:'Oswald',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,236,224,.97);--tc-ink:#1d2a26;--cap-bg:rgba(248,246,238,.96);--cap-ink:#1d2a26;--panel:#f8f6ee;--panel-ink:#1d2a26;--face-bg:#2d4a6b;--q-ink:#b8342a;
+    --fade:#dcdcd0;--hud-bg:rgba(248,246,238,.88);--hud-ink:#1d2a26;--hud-line:rgba(29,42,38,.3);--ov-bg:rgba(18,28,26,.66)}
+  .tc-room{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(40px,5.8vw,82px);letter-spacing:.02em;text-transform:uppercase;color:#b8342a}
+  .tc-theme{color:#2d4a6b}
+  .hbtn b{color:#fff}
+  #rain path{animation:rain .9s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.45s}
+  @keyframes rain{from{transform:translate(0,-60px)}to{transform:translate(-14px,60px)}}
+  #tail{animation:tail 4s ease-in-out infinite;transform-origin:1388px 662px}
+  @keyframes tail{50%{transform:rotate(14deg)}}
+  #bulb{animation:bulb 9s steps(1,end) infinite}
+  @keyframes bulb{0%{opacity:.55}3%{opacity:.25}5%{opacity:.55}70%{opacity:.4}71%{opacity:.55}}
+
+  /* the swap board and the paper bag */
+  .sw{width:min(1120px,97vw)}
+  .sw-in{display:grid;grid-template-columns:1fr 372px;gap:16px}
+  .sw-board{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:14px;background:#b48a5a radial-gradient(circle at 20% 30%,rgba(255,255,255,.12),transparent 40%);border:12px solid #6b4a2a;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .cd{position:relative;background:#fffdf3;color:#1d2430;font-family:'Architects Daughter',cursive;font-size:14.3px;line-height:1.27;padding:7px 11px 7px;box-shadow:0 3px 7px rgba(0,0,0,.3)}
+  .cd:nth-child(odd){transform:rotate(-.7deg)}.cd:nth-child(even){transform:rotate(.6deg)}
+  .cd:before{content:'';position:absolute;top:-5px;left:50%;width:11px;height:11px;margin-left:-5px;border-radius:50%;background:#d4573f;box-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .cd b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.08em;color:#b8342a}
+  .cd.k-shells b{color:#1f6aa5}.cd.k-shells{background:#eef6ff}
+  .cd.k-pardoe{background:#fff6e6}
+  .cd.lit{outline:3px solid #f2c12e}
+  .bag{position:relative;background:#d9b98a radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.25),transparent 60%);color:#2a2018;padding:14px 16px 12px;border-top:14px dashed #c9a676;box-shadow:0 26px 70px rgba(0,0,0,.55);font-family:'Architects Daughter',cursive}
+  .bag h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#7a2a1a}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;min-height:62px;padding:6px;border:2px dashed rgba(42,32,24,.35);margin-bottom:8px}
+  .dnd-item.ch{display:inline-block;padding:4px 9px 3px;background:#fffdf3;border:2px solid #2a2018;border-radius:3px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.04em;cursor:grab;touch-action:none}
+  .dnd-item.ch.held{background:#f2c12e}
+  .dnd-item.ch.fly{position:fixed;z-index:90;pointer-events:none;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+  .stop{display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:center;margin:0}
+  .stop i{font-family:'Bungee',sans-serif;font-style:normal;font-size:13px;color:#7a2a1a;text-align:center}
+  .slot{min-height:34px;padding:3px;border:2px dashed rgba(42,32,24,.5);border-radius:4px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.18)}
+  .slot.bad{outline:3px solid #e2453a}
+  .tw{display:none;font-family:'Outfit',sans-serif;font-size:12px}
+  .slot .k-rendle~.tw{display:inline-flex}
+  .tw button{padding:2px 7px;border:1.5px solid #2a2018;border-radius:3px;margin-left:3px;font:inherit;font-weight:700}
+  .tw button.on{background:#2a2018;color:#f2c12e}
+  .hand{margin:0 0 0 34px;min-height:22px;font-size:15.5px;color:#1f3a6a}
+  .hand.no{color:#b8342a}
+  .ends{margin:4px 0;font-size:16px}
+  .ends b{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;color:#7a2a1a}
+  .bag .clear{margin-top:6px;font-family:'Outfit',sans-serif;font-size:12px;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="plank" width="60" height="900" patternUnits="userSpaceOnUse"><rect width="60" height="900" fill="#7d958a"/><path d="M0 0V900" stroke="#6a8277" stroke-width="3"/><path d="M30 0V900" stroke="#87a094" stroke-width="1"/></pattern>
+  <pattern id="boards" width="140" height="40" patternUnits="userSpaceOnUse"><rect width="140" height="40" fill="#8a6440"/><path d="M0 0H140M70 0V20M0 20H140M20 20V40" stroke="#6e4c2e" stroke-width="2"/></pattern>
+  <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa8ac"/><stop offset=".5" stop-color="#7a8c92"/><stop offset=".52" stop-color="#4a6470"/><stop offset="1" stop-color="#2e4650"/></linearGradient>
+  <radialGradient id="lamp" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#fff2c4" stop-opacity=".7"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a1a14" stop-opacity=".1"/><stop offset="1" stop-color="#0a1a14" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#plank)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#5a6e66" opacity=".5"/>
+<path d="M-1000 40H2600" stroke="#3e4e48" stroke-width="10"/>
+<text x="800" y="28" class="cO" font-size="22" font-weight="600" letter-spacing="6" text-anchor="middle" fill="#f4efe2">MEDLIN’S STORES · POST OFFICE</text>
+
+<!-- the window, with the sea and the rain, and the swap board in it -->
+<rect x="20" y="110" width="430" height="520" fill="#4a3a2a"/>
+<rect x="34" y="124" width="402" height="492" fill="url(#sea)"/>
+<path d="M60 380q30 -10 60 0t60 0 60 0 60 0 60 0 60 0" stroke="#c0ccd0" stroke-width="2" fill="none" opacity=".6"/>
+<g id="rain" stroke="#dfe8ea" stroke-width="1.6" opacity=".55"><path d="M60 140l-8 30M120 190l-8 30M180 150l-8 30M250 210l-8 30M320 160l-8 30M390 200l-8 30M90 300l-8 30M210 280l-8 30M360 300l-8 30M140 420l-8 30M280 440l-8 30M400 420l-8 30M70 520l-8 30M230 540l-8 30M330 560l-8 30"/></g>
+<path d="M235 124V616M34 370H436" stroke="#4a3a2a" stroke-width="10"/>
+<g id="board" class="hot"><rect x="66" y="196" width="338" height="300" fill="#b48a5a" stroke="#6b4a2a" stroke-width="10"/>
+  <text x="235" y="230" class="cH" font-size="24" text-anchor="middle" fill="#7a1a10" font-weight="700">SWAP BOARD</text>
+  <g><rect x="84" y="244" width="92" height="66" fill="#fffdf3" transform="rotate(-3 130 277)"/><rect x="188" y="246" width="96" height="62" fill="#fffdf3" transform="rotate(2 236 277)"/><rect x="296" y="244" width="92" height="70" fill="#fff6e6" transform="rotate(-2 342 279)"/>
+  <rect x="86" y="326" width="96" height="70" fill="#eef6ff" transform="rotate(3 134 361)"/><rect x="194" y="322" width="92" height="72" fill="#fffdf3" transform="rotate(-2 240 358)"/><rect x="298" y="328" width="92" height="64" fill="#fffdf3" transform="rotate(2 344 360)"/>
+  <rect x="150" y="410" width="104" height="66" fill="#fffdf3" transform="rotate(-1 202 443)"/></g>
+  <g stroke="#3a3a4a" stroke-width="2" opacity=".55"><path d="M96 262h64M96 274h52M96 286h60M200 262h70M200 274h56M200 286h64M308 262h66M308 274h50M308 286h60M98 344h68M98 356h54M98 368h62M206 340h66M206 352h52M206 364h60M310 346h64M310 358h48M162 428h76M162 440h60M162 452h70"/></g>
+  <g fill="#d4573f"><circle cx="130" cy="246" r="4"/><circle cx="236" cy="248" r="4"/><circle cx="342" cy="246" r="4"/><circle cx="134" cy="328" r="4"/><circle cx="240" cy="324" r="4"/><circle cx="344" cy="330" r="4"/><circle cx="202" cy="412" r="4"/></g></g>
+<rect x="20" y="630" width="430" height="26" fill="#6b4a2a"/>
+
+<!-- the ferry timetable, crossed out -->
+<g id="timetable" class="hot"><rect x="476" y="120" width="130" height="170" fill="#e8f0f2" stroke="#2a5a8a" stroke-width="3"/><rect x="476" y="120" width="130" height="28" fill="#2a5a8a"/><text x="541" y="140" class="cO" font-size="15" font-weight="600" text-anchor="middle" fill="#fff" letter-spacing="2">PETREL</text>
+  <path d="M488 166h100M488 182h86M488 198h96M488 214h80M488 230h92M488 246h70M488 262h90" stroke="#2a3a4a" stroke-width="2.2" opacity=".55"/>
+  <path d="M480 150l122 136M602 150l-122 136" stroke="#b8342a" stroke-width="5" stroke-linecap="round"/><text x="541" y="282" class="cC" font-size="20" text-anchor="middle" fill="#b8342a" transform="rotate(-6 541 282)">a week on Thurs.</text></g>
+
+<!-- shelves: bare, except the marmalade -->
+<g fill="#5a3e26"><rect x="470" y="330" width="250" height="12"/><rect x="470" y="450" width="250" height="12"/><rect x="1290" y="160" width="290" height="12"/><rect x="1290" y="280" width="290" height="12"/><rect x="1290" y="400" width="290" height="12"/></g>
+<g id="jars" class="hot"></g>
+<g fill="#c9c2b0"><rect x="490" y="420" width="26" height="30" rx="3"/><rect x="660" y="414" width="34" height="36" rx="3" fill="#b8342a"/></g>
+<g><rect x="1310" y="128" width="40" height="32" fill="#e0d6c0"/><text x="1330" y="149" class="cP" font-size="10" text-anchor="middle" fill="#5a4a3a">SALT</text><rect x="1500" y="250" width="34" height="30" rx="4" fill="#2a5a8a"/><rect x="1400" y="370" width="60" height="30" fill="#d6c9a8"/><text x="1430" y="390" class="cP" font-size="10" text-anchor="middle" fill="#5a4a3a">STRING</text></g>
+<text x="1435" y="225" class="cC" font-size="22" text-anchor="middle" fill="#f4efe2" opacity=".8">(bread here)</text>
+
+<!-- the post office counter, its grille and Mrs Medlin behind it -->
+<rect x="740" y="80" width="430" height="44" fill="#b8342a"/><text x="955" y="111" class="cO" font-size="26" font-weight="600" letter-spacing="6" text-anchor="middle" fill="#f6e9b0">POST OFFICE</text>
+<rect x="740" y="124" width="430" height="400" fill="#4a5a52"/>
+<g id="orla" class="hot" transform="translate(955 700) scale(1.18)"></g>
+<g stroke="#c9b26a" stroke-width="4" opacity=".9" pointer-events="none"><path d="M760 150V470M800 150V470M840 150V470M880 150V470M920 150V470M960 150V470M1000 150V470M1040 150V470M1080 150V470M1120 150V470M1150 150V470M750 150H1160M750 310H1160"/></g>
+<rect x="890" y="430" width="130" height="40" fill="#4a5a52"/>
+<rect x="720" y="470" width="470" height="240" fill="#6b4a2a"/><rect x="710" y="462" width="490" height="16" fill="#8a6440"/>
+<g id="stamps" class="hot"><rect x="790" y="438" width="80" height="26" fill="#e8dcc0"/><g fill="#b8342a"><rect x="796" y="442" width="14" height="18"/><rect x="814" y="442" width="14" height="18"/><rect x="832" y="442" width="14" height="18"/><rect x="850" y="442" width="14" height="18"/></g></g>
+
+<!-- the poster -->
+<g id="poster" class="hot" transform="rotate(2 1225 290)"><rect x="1180" y="196" width="96" height="140" fill="#f3e6c4" stroke="#d4573f" stroke-width="4"/>
+  <text x="1228" y="220" class="cB" font-size="12" text-anchor="middle" fill="#d4573f">BEFORE</text><text x="1228" y="236" class="cB" font-size="12" text-anchor="middle" fill="#d4573f">MONEY</text>
+  <g fill="none" stroke="#1f6aa5" stroke-width="3"><circle cx="1204" cy="266" r="10"/><circle cx="1252" cy="266" r="10"/><circle cx="1228" cy="304" r="10"/><path d="M1214 266h26M1246 276l-12 20M1220 296l-10 -20"/></g>
+  <path d="M1192 324h70" stroke="#24324a" stroke-width="2"/></g>
+
+<!-- the shop counter: till, card machine -->
+<rect x="1200" y="520" width="420" height="190" fill="#5a3e26"/><rect x="1190" y="510" width="440" height="16" fill="#7a5636"/>
+<g id="till" class="hot"><rect x="1240" y="440" width="120" height="74" rx="6" fill="#3a3e44"/><rect x="1252" y="452" width="96" height="26" fill="#a8d0a0"/><text x="1300" y="471" class="cP" font-size="13" font-weight="700" text-anchor="middle" fill="#1a3a1a">0.00</text>
+  <rect x="1262" y="392" width="88" height="40" fill="#fffdf3" transform="rotate(-4 1306 412)"/><text x="1304" y="417" class="cH" font-size="14" text-anchor="middle" fill="#b8342a" transform="rotate(-4 1306 412)">NO CHANGE</text></g>
+<g id="cardm" class="hot"><rect x="1390" y="460" width="56" height="54" rx="6" fill="#2a2c30"/><rect x="1398" y="468" width="40" height="18" fill="#3a4a5a"/><text x="1418" y="481" class="cP" font-size="7.5" text-anchor="middle" fill="#ff8a6a">NO SIGNAL</text><g fill="#5a5c60"><rect x="1400" y="492" width="9" height="7"/><rect x="1413" y="492" width="9" height="7"/><rect x="1426" y="492" width="9" height="7"/></g></g>
+<g id="romy" class="hot" transform="translate(1520 720) scale(1.16)"></g>
+
+<!-- the floor, the bread basket and the cat in it -->
+<rect x="-1000" y="708" width="3600" height="700" fill="url(#boards)"/><rect x="-1000" y="704" width="3600" height="8" fill="#4a3220"/>
+<g id="cat" class="hot"><path d="M1290 720h200l-14 -60h-172z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="3"/><path d="M1300 680h180M1296 700h188" stroke="#8a6a3a" stroke-width="2"/>
+  <ellipse cx="1380" cy="664" rx="70" ry="24" fill="#d07a2a"/><circle cx="1324" cy="652" r="20" fill="#d07a2a"/><path d="M1308 638l4 -16 10 12zM1330 634l8 -14 4 16z" fill="#d07a2a"/><path d="M1316 652q4 3 8 0M1328 652q4 3 8 0" stroke="#3a2010" stroke-width="2" fill="none"/>
+  <path id="tail" d="M1446 664q40 -4 34 -34" stroke="#d07a2a" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <text x="1390" y="712" class="cO" font-size="13" text-anchor="middle" fill="#5a3a1a" letter-spacing="2">BREAD</text></g>
+<g id="crate" class="hot"><rect x="520" y="620" width="150" height="96" fill="#b48a5a" stroke="#6b4a2a" stroke-width="4"/><path d="M520 652h150M520 684h150" stroke="#6b4a2a" stroke-width="3"/><text x="595" y="644" class="cT" font-size="15" text-anchor="middle" fill="#3a2a1a">MARMALADE</text><text x="595" y="676" class="cT" font-size="13" text-anchor="middle" fill="#3a2a1a">30 JARS</text></g>
+<ellipse id="bulb" cx="955" cy="40" rx="900" ry="500" fill="url(#lamp)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across the road to Rendle’s</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="island.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', i, x, y;
+    for (i = 0; i < 18; i++) { x = 482 + (i % 9) * 26; y = i < 9 ? 330 : 450; s += '<g transform="translate(' + x + ' ' + y + ')"><rect x="0" y="-34" width="22" height="34" rx="4" fill="#e8892a" stroke="#a85a14" stroke-width="1.5"/><rect x="1" y="-40" width="20" height="8" fill="#f4efe2"/><rect x="3" y="-24" width="16" height="10" fill="#fff6dc" opacity=".8"/></g>'; }
+    $('#jars').innerHTML = s;
+    $('#orla').innerHTML = ISL.who('orla', { smile: 2, extra: '<rect x="30" y="-150" width="40" height="28" fill="#b8342a"/>' });
+    $('#romy').innerHTML = ISL.who('romy', { smile: 3, extra: '<rect x="-74" y="-150" width="44" height="54" fill="#d9b98a" transform="rotate(-8 -52 -123)"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'island', storyTitle: 'Small Change', id: 'shop', no: 'I', title: 'Medlin’s Stores',
+    go: 'Open the shop',
+    intro: [
+      'Nessary is the island at the end of the ferry line: four hours out, three hundred and twelve people, one shop, one café, one bakery and a harbour master. You came over on the Petrel for a week with the Medlins, who run the shop. That was before the storm.',
+      'The Petrel comes twice a week. On the Friday before the storm it took the shop&rsquo;s takings to the bank on the mainland, as it always does: every coin and note on the island goes through Medlin&rsquo;s till in the end. On Sunday the wind took down the phone mast, and no card has worked since. On Monday the Petrel hit the pier in the swell and limped away to be mended.',
+      'The next boat is a week on Thursday. It is Saturday, and nobody on Nessary has any money they can spend. The island has started to swap.'
+    ],
+    exit: {"next":"cafe","w":{"ea1039b9":"7dfee144"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#board').classList.toggle('glow', !!(told.orla && told.poster && !nextFile));
+    ER.pips((told.orla ? 1 : 0) + (told.poster ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Rendle&rsquo;s café is across the road. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Start from the end. What will Ruby Pardoe take for a loaf? Who has that, and what do THEY want? Read the small print on every card.',
+      'Ruby takes two mackerel, or a dozen eggs. Mrs Rosevear gives only six eggs for your jar, and six is not a dozen. So which card gives mackerel, and for what? And which card gives THAT?',
+      'Work backwards: a loaf &larr; mackerel &larr; candles &larr; eggs &larr; your jar. Find the card that swaps each one for the next, put them on the bag in order from the jar, and choose candles at Nico&rsquo;s.'
+    ]];
+    if (!told.orla) return ['orla', ['Mrs Medlin is behind the post office grille in the middle of the shop. Talk to her.', 'The red sign says POST OFFICE. She is behind the brass bars.']];
+    if (!told.poster) return ['poster', ['Mrs Medlin asked you to read the children&rsquo;s poster first.', 'It is pinned on the wall to the right of the post office: BEFORE MONEY, with three blue circles.']];
+    return ['board', ['Now the swap board. It is in the shop window, on the left.', 'Click the cork board with the little cards on it, in the window.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('A loaf in yesterday&rsquo;s newspaper, and a mackerel nobody wants.'); return; }
+    if (told.in) { busy = false; ER.say('Medlin&rsquo;s Stores. Bare shelves, and a great deal of marmalade.'); return; }
+    tell('in');
+    ER.narrate([
+      'Medlin&rsquo;s Stores and Post Office, nine o&rsquo;clock on Saturday morning. Grey light, a smell of paraffin and string, rain on the window. Most of the shelves are bare.',
+      'Not all of them. Two shelves are solid with marmalade, and there is a whole crate more on the floor: the one thing the last boat brought too much of.',
+      'Mrs Medlin is behind the post office grille, counting stamps that nobody can post. Her daughter Romy is fourteen and is doing the shop&rsquo;s accounts on the back of a paper bag. Nutmeg, the shop cat, is asleep in the empty bread basket.',
+      'In the window, where the ferry timetable used to be, is the island&rsquo;s new notice board. Somebody has written SWAP BOARD at the top, in felt pen.'
+    ], function () { busy = false; });
+  }
+
+  $('#orla').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;A loaf!&rdquo; says Mrs Medlin. &ldquo;Four swaps for a loaf. Go and see what Nico wants: he has been sending for Romy all morning.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Medlin', role: 'Postmistress · Medlin’s Stores', face: ISL.face('orla'),
+      lines: [
+        { note: 'She has a pencil behind each ear, and seems to have forgotten both.', a: '&ldquo;Morning, love. We need a loaf for tea, and I can&rsquo;t buy one. Ruby Pardoe won&rsquo;t take marmalade, and marmalade is what we&rsquo;ve got.&rdquo;' },
+        { q: 'Why can&rsquo;t you pay Ruby the way you used to?', a: 'With what? Every coin on this island comes through my till, and on Friday the lot went off to the bank on the Petrel. Cards need the mast, and the mast is lying in the bracken on Beacon Hill. The next money in is the post office cash box, on the next boat.' },
+        { q: 'So how is anybody buying anything?', a: 'They aren&rsquo;t buying. They&rsquo;re swapping. Look at the window. Every card on that board is somebody saying what they&rsquo;ve got and what they want for it.' },
+        { q: 'What happens tonight?', a: 'Seven o&rsquo;clock in the Island Hall. We have to choose something to use as money until the boat comes back. Piran Pentreath is chairing it, heaven help us. Everybody has an idea, and every idea is worse than the last.' },
+        { note: 'She takes one jar of marmalade off the shelf and gives it to you.', a: '&ldquo;Take Romy. Find a way from this jar to a loaf. And read the children&rsquo;s poster first: Mrs Rosevear made her class write it, and she&rsquo;ll ask if you did.&rdquo;' }
+      ],
+      clue: { id: 'orla', title: 'Mrs Medlin: from a jar to a loaf', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('orla')) { paint(); ER.say('One jar of marmalade. The poster is to the right of the grille; the swap board is in the window.'); } }
+    });
+  });
+  $('#romy').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;With money, two swaps,&rdquo; says Romy. &ldquo;We did four. I&rsquo;ve written it down, in case anybody argues tonight.&rdquo;'); return; }
+    ER.talk({
+      who: 'Romy Medlin', role: 'Fourteen · keeps the shop’s accounts', face: ISL.face('romy'),
+      lines: [
+        { note: 'Romy does not look up from her paper bag.', a: '&ldquo;Mum&rsquo;s sold nothing all week but stamps, and you can&rsquo;t post a letter when the boat&rsquo;s being mended. I&rsquo;m keeping the accounts anyway. Somebody should.&rdquo;' },
+        { q: 'Why won&rsquo;t Ruby take marmalade?', a: 'She makes her own. Everybody on Nessary makes their own marmalade. That&rsquo;s why we&rsquo;ve still got forty-eight jars of it.' },
+        { q: 'How do we get a loaf, then?', a: 'We plan it on paper before we walk anywhere. The island is four miles long and it&rsquo;s raining sideways. Every swap has to work, or we end up holding something nobody wants, a long way from home.' },
+        { a: '&ldquo;And read the cards properly. People write the important bit small.&rdquo;' }
+      ],
+      clue: { id: 'romy', title: 'Romy: plan it on paper first', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('romy')) paint(); }
+    });
+  });
+
+  var CHAIN = '<svg viewBox="0 0 300 300"><g font-family="Architects Daughter,cursive" font-size="15" fill="#24324a" text-anchor="middle">' +
+    '<g fill="#fffaf0" stroke="#1f6aa5" stroke-width="3"><circle cx="60" cy="56" r="34"/><circle cx="240" cy="56" r="34"/><circle cx="240" cy="200" r="34"/><circle cx="60" cy="200" r="34"/></g>' +
+    '<text x="60" y="52">you</text><text x="60" y="68" font-size="13">jam</text><text x="240" y="52">A</text><text x="240" y="68" font-size="13">milk</text><text x="240" y="196">B</text><text x="240" y="212" font-size="13">wool</text><text x="60" y="196">baker</text><text x="60" y="212" font-size="13">bread</text>' +
+    '<g stroke="#d4573f" stroke-width="3" fill="none"><path d="M96 56H198M240 92V160M204 200H110"/><path d="M190 48l10 8 -10 8M232 152l8 10 8 -10M118 192l-10 8 10 8"/></g>' +
+    '<text x="150" y="44" font-size="13" fill="#d4573f">A wants jam</text><text x="292" y="132" font-size="13" fill="#d4573f" text-anchor="end">B wants milk</text><text x="150" y="234" font-size="13" fill="#d4573f">the baker wants wool</text>' +
+    '<path d="M150 270l-14 -14M150 270l14 -14" stroke="#24324a" stroke-width="3"/><text x="150" y="294" font-size="14">one &ldquo;no&rdquo; and the chain breaks</text></g></svg>';
+  var POSTER = '<h4>BEFORE MONEY<small>by Class 2, Nessary School, in the week of the storm</small></h4><div class="two"><div>' +
+    '<p>Swapping one thing for another, with no money, is called <b>BARTER</b>.</p>' +
+    '<p>A swap only happens if each person wants what the other one has. This is called a <b>DOUBLE COINCIDENCE OF WANTS</b>. (A coincidence is two things happening together by luck.)</p>' +
+    '<p>If you have jam and you want bread, you need a baker who wants jam. If she does not, you need a <b>CHAIN</b> of swaps: somebody who wants your jam and has something the baker wants. Or a longer chain.</p>' +
+    '<p>Every link has to work. One person who says no, or one thing that will not keep, and the chain breaks.</p>' +
+    '<p>With <b>MONEY</b> you only need two swaps: sell your jam, then buy your bread.</p></div><div>' + CHAIN + '</div></div>' +
+    '<div class="smith">Adam Smith said this in 1776, in his book <i>The Wealth of Nations</i>. (We made it shorter.) The butcher has more meat than he needs. The brewer and the baker would each like some. But they only have beer and bread to give him, and the butcher already has all the beer and bread he wants. So no swap can happen. <i>So the butcher keeps his meat and the baker gets no meat. (Perran)</i></div>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'poster', clue: { id: 'poster', title: 'Class 2’s poster: before money', kind: 'In the post office' }, done: function () {
+      ISL.terms(['barter', 'double coincidence of wants', 'chain of swaps']);
+      if (tell('poster')) { paint(); ER.say('Each person must want what the other has. If not, a chain, and every link must hold.'); }
+    } });
+  });
+  ISL.thing('#timetable', 'timetable', 'The ferry timetable, crossed out in red. Under it, in Mrs Medlin&rsquo;s writing: PETREL BACK A WEEK ON THURS. WITH THE POST OFFICE CASH BOX (AND, WITH ANY LUCK, BREAD FLOUR).', isBusy);
+  ISL.thing('#jars,#crate', 'marmalade', 'Forty-eight jars of marmalade, counting the crate. Romy has priced them on a little card: MAKE AN OFFER.', isBusy);
+  ISL.thing('#till', 'till', 'The till is open, to show that there is nothing in it. The card on top says NO CHANGE, and underneath, smaller: none at all.', isBusy);
+  ISL.thing('#cardm', 'card machine', 'The card machine says NO SIGNAL. It has said it since Sunday, in the same calm way.', isBusy);
+  ISL.thing('#stamps', 'stamp', 'Sheets of stamps. Mrs Medlin can sell you one, but she cannot send your letter anywhere, and you could not pay her for it.', isBusy);
+  ISL.thing('#cat', null, 'Nutmeg is asleep where the bread should be. She opens one eye at you. She does not want marmalade either.', isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The swap board. A loaf took four of its cards.'); return; }
+    if (!told.orla) { ER.say('A board full of handwritten cards. Mrs Medlin is waving at you from behind the grille.'); return; }
+    if (!told.poster) { ER.say('&ldquo;The poster first,&rdquo; calls Mrs Medlin. &ldquo;By the grille. Mrs Rosevear will ask.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the swap board and the plan on the paper bag ---------- */
+  var CARDS = [
+    { k: 'rosevear', n: 'Mrs Rosevear', h: 'SCHOOL HOUSE', t: 'Breakfast club needs JAM or MARMALADE, please! I will give half a dozen eggs for a jar. Eggs are all I have: my hens are working harder than I am. &mdash; M. Rosevear' },
+    { k: 'rendle', n: 'Nico (café)', h: 'RENDLE’S CAFÉ', t: 'WANTED: EGGS, for cakes. For every 2 eggs I will give you 1 good candle. Or, if you like, one of my notes (IOU ONE TEA) for every egg. No marmalade, thank you: I have eleven jars. &mdash; Nico' },
+    { k: 'ronan', n: 'Ronan (boat)', h: 'THE MINNOW, ON THE SLIP', t: 'MACKEREL, caught this morning. One fish for every CANDLE (no electric in my caravan). Not eggs: I&rsquo;ve got hens. Not notes. Not shells. &mdash; Ronan. On the slip till 11.' },
+    { k: 'pardoe', n: 'Ruby (bakery)', h: 'PARDOE’S BAKERY', t: 'BREAD. One loaf for 2 MACKEREL caught today, or for a DOZEN eggs. Nothing else. NOT marmalade (I make my own). NOT shells. NOT café notes. &mdash; R. Pardoe' },
+    { k: 'shells', n: 'Shell Bank', h: 'THE SHELL BANK', t: 'WE TAKE ANYTHING! You get SHELLS: 10 for a jar, 1 for an egg, 2 for a candle, 3 for a fish. Shells will be the money soon, so get yours now! &mdash; Perran Medlin, manager (age 9). Under the slide.' },
+    { k: 'piran', n: 'Harbour master', h: 'HARBOUR MASTER', t: 'Wanted: candles, for the hut. The lamp is on the blink. I will give 3 metres of good rope for every candle. &mdash; P. Pentreath' },
+    { k: 'nankervis', n: 'Hill Farm', h: 'HILL FARM', t: 'POTATOES, any amount. 2 kilos for a fish or for a candle. &mdash; R. Nankervis' }
+  ];
+  var BYK = {}; CARDS.forEach(function (c) { BYK[c.k] = c; });
+  var NAMES = { jar: ['jar of marmalade', 'jars of marmalade'], eggs: ['egg', 'eggs'], candles: ['candle', 'candles'], notes: ['café note', 'café notes'], mackerel: ['mackerel', 'mackerel'],
+    shells: ['shell', 'shells'], rope: ['metre of rope', 'metres of rope'], potatoes: ['kilo of potatoes', 'kilos of potatoes'], loaf: ['loaf', 'loaves'] };
+  function said(h) { return h.n + ' ' + NAMES[h.i][h.n === 1 ? 0 : 1]; }
+  /* what each card will take, and what it gives: exactly what the card says */
+  function swap(k, h, opt) {
+    var i = h.i, n = h.n;
+    if (k === 'rosevear') return i === 'jar' ? { i: 'eggs', n: 6 * n } : { no: i === 'eggs' ? '&ldquo;Eggs? My dear, I have eggs coming out of my ears.&rdquo; Mrs Rosevear only wants jam or marmalade.' : 'Mrs Rosevear wants jam or marmalade, for the breakfast club, and nothing else.' };
+    if (k === 'rendle') {
+      if (i !== 'eggs') return { no: i === 'jar' ? 'Nico has eleven jars of marmalade already. His card says so.' : 'Nico wants eggs, for his cakes. Nothing else.' };
+      if (!opt) return { no: 'Nico will ask: candles or notes? Choose one on the bag, beside his name.', ask: 1 };
+      return opt === 'c' ? { i: 'candles', n: Math.floor(n / 2) } : { i: 'notes', n: n };
+    }
+    if (k === 'ronan') return i === 'candles' ? { i: 'mackerel', n: n } : { no: i === 'eggs' ? 'Ronan has hens. &ldquo;Not eggs,&rdquo; says his card.' : i === 'notes' ? 'Ronan&rsquo;s card says: not notes.' : i === 'shells' ? 'Ronan&rsquo;s card says: not shells.' : 'Ronan wants candles, for his caravan. Nothing else.' };
+    if (k === 'pardoe') {
+      if (i === 'mackerel') return n >= 2 ? { i: 'loaf', n: 1, left: n - 2 } : { no: 'One mackerel. Ruby&rsquo;s card says two.' };
+      if (i === 'eggs') return n >= 12 ? { i: 'loaf', n: 1 } : { no: 'Ruby looks at your ' + n + ' eggs. &ldquo;A dozen, it says. Can you count?&rdquo; Half a dozen is six. A dozen is twelve.' };
+      return { no: i === 'jar' ? '&ldquo;I make my own,&rdquo; says Ruby. It is on her card in capital letters.' : i === 'notes' ? 'NOT café notes, says Ruby&rsquo;s card. Underlined twice.' : i === 'shells' ? 'NOT shells, says Ruby&rsquo;s card.' : 'Ruby takes two mackerel or a dozen eggs. Nothing else.' };
+    }
+    if (k === 'shells') { var r = { jar: 10, eggs: 1, candles: 2, mackerel: 3, notes: 1, rope: 1, potatoes: 1 }[i]; return r ? { i: 'shells', n: r * n } : { no: 'Even the Shell Bank will not take that.' }; }
+    if (k === 'piran') return i === 'candles' ? { i: 'rope', n: 3 * n } : { no: 'The harbour master wants candles for his lamp. Nothing else.' };
+    if (k === 'nankervis') return (i === 'mackerel' || i === 'candles') ? { i: 'potatoes', n: 2 * n } : { no: 'Mr Nankervis wants fish or candles. Nothing else.' };
+    return { no: '?' };
+  }
+  function makeLock() {
+    var saved = ER.flag('a-plan') || { s: [], o: '' }, wait = false, run = 0;
+    var box = ER.el('div', 'pz sw');
+    box.innerHTML = '<div class="sw-in"><div class="sw-board">' + CARDS.map(function (c) { return '<div class="cd k-' + c.k + '" data-k="' + c.k + '"><b>' + c.h + '</b>' + c.t + '</div>'; }).join('') + '</div>' +
+      '<div class="bag"><h5>The plan, on the back of a paper bag</h5><div class="chips">' + CARDS.map(function (c) { return '<span class="dnd-item ch k-' + c.k + '" data-k="' + c.k + '">' + c.n + '</span>'; }).join('') + '</div>' +
+      '<p class="ends"><b>START</b> &nbsp;1 jar of marmalade</p>' +
+      [1, 2, 3, 4, 5].map(function (i) { return '<div class="stop"><i>' + i + '</i><div class="slot" data-s="' + i + '"><span class="tw">take: <button type="button" data-o="c">candles</button><button type="button" data-o="n">notes</button></span></div></div><p class="hand" data-h="' + i + '"></p>'; }).join('') +
+      '<p class="ends"><b>GOAL</b> &nbsp;1 loaf of bread</p><button type="button" class="clear">wipe the plan</button></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="a-go">Set off</button></div>';
+    var msgEl = box.querySelector('.pmsg'), home = box.querySelector('.chips');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slots() { return ER.$$('.slot', box); }
+    function plan() { return slots().map(function (s) { var c = s.querySelector('.ch'); return c ? c.getAttribute('data-k') : ''; }); }
+    function opt() { return saved.o || ''; }
+    function keep() { saved.s = plan(); ER.flag('a-plan', saved); }
+    function paintOpt() { ER.$$('.tw button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-o') === saved.o); }); }
+    function clearHands() { ER.$$('.hand', box).forEach(function (h) { h.innerHTML = ''; h.classList.remove('no'); }); slots().forEach(function (s) { s.classList.remove('bad'); }); ER.$$('.cd', box).forEach(function (c) { c.classList.remove('lit'); }); }
+    (saved.s || []).forEach(function (k, i) { if (k) { var c = box.querySelector('.ch[data-k="' + k + '"]'); if (c) slots()[i].insertBefore(c, slots()[i].firstChild); } });
+    paintOpt();
+    ER.dnd(box, { item: '.ch', slot: '.slot', home: home, lock: function () { return wait || !!nextFile; }, change: function () {
+      slots().forEach(function (s) { var cs = s.querySelectorAll('.ch'); if (cs.length) s.insertBefore(cs[cs.length - 1], s.firstChild); });
+      keep(); clearHands(); } });
+    ER.$$('.tw button', box).forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); if (wait || nextFile) return; saved.o = b.getAttribute('data-o'); ER.flag('a-plan', saved); paintOpt(); ISL.sfx.pin(); clearHands(); }); });
+    box.querySelector('.clear').addEventListener('click', function () { if (wait || nextFile) return; ER.$$('.slot .ch', box).forEach(function (c) { home.appendChild(c); }); keep(); clearHands(); msg('A clean bag. Start again from the jar.'); });
+    ER.$$('.cd', box).forEach(function (c) { c.addEventListener('click', function () { ISL.sfx.pin(); }); });
+
+    box.querySelector('#a-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var p = plan(), used = [], i, gap = false, my = ++run;
+      clearHands();
+      for (i = 0; i < p.length; i++) { if (p[i]) { if (gap) { ER.sfx.no(); msg('&ldquo;There&rsquo;s a gap in the plan,&rdquo; says Romy. &ldquo;Stop ' + i + ' is empty. Fill the stops in order, from the top.&rdquo;'); return; } used.push(p[i]); } else gap = true; }
+      if (!used.length) { ER.sfx.no(); msg('&ldquo;A plan with nobody in it,&rdquo; says Romy. &ldquo;Drag the names on to the stops, or click a name and then a stop.&rdquo;'); return; }
+      wait = true;
+      var h = { i: 'jar', n: 1 }, step = 0;
+      function next() {
+        if (my !== run) return;
+        if (step >= used.length) { end(); return; }
+        var k = used[step], r = swap(k, h, opt()), hand = box.querySelectorAll('.hand')[step], card = box.querySelector('.cd[data-k="' + k + '"]');
+        card.classList.add('lit');
+        if (h.i === 'loaf') { r = { no: 'You already have the loaf. Why keep walking?' }; }
+        if (r.no) {
+          hand.innerHTML = '&#10007; ' + said(h) + ': no swap'; hand.classList.add('no'); slots()[step].classList.add('bad');
+          ER.sfx.no(); msg('&ldquo;The chain breaks at stop ' + (step + 1) + ',&rdquo; says Romy. ' + r.no + (step ? ' And we&rsquo;re standing in the rain holding ' + said(h) + '.' : ''));
+          wait = false; return;
+        }
+        var left = r.left || 0;
+        h = { i: r.i, n: r.n };
+        hand.innerHTML = '&rarr; ' + said(h) + (left ? ' (and ' + left + ' ' + NAMES.mackerel[1] + ' back)' : '');
+        if (left) h.left = left;
+        ISL.sfx.pin(); step++;
+        setTimeout(next, 650);
+      }
+      function end() {
+        wait = false;
+        if (h.i !== 'loaf') {
+          ER.sfx.no();
+          var stuck = { shells: ' Who on this board takes shells, apart from the Shell Bank itself?', notes: ' Look at the cards: who will take a café note?', rope: ' Nobody on the board wants rope.', potatoes: ' Nobody on the board wants potatoes.' }[h.i] || '';
+          msg('&ldquo;That&rsquo;s where the plan ends,&rdquo; says Romy, &ldquo;and we&rsquo;re holding ' + said(h) + ', not a loaf.&rdquo;' + stuck);
+          return;
+        }
+        var file = ER.exit([used.join('-')], { wait: true });
+        if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+        wait = true; nextFile = file; ER.flag('a-file', file);
+        ISL.mine('chain', 'From a jar to a loaf', '<p>1 jar &rarr; Mrs Rosevear: 6 eggs</p><p>6 eggs &rarr; Nico: 3 candles (1 for every 2 eggs)</p><p>3 candles &rarr; Ronan: 3 mackerel</p><p>2 mackerel &rarr; Ruby: 1 loaf. (1 mackerel left.)</p><p>4 swaps, 5 front doors, a whole morning.</p><p>WITH MONEY: 2 SWAPS. Sell the jar, buy the loaf.</p>', true);
+        ER.addClue('board', 'The swap board, card by card', '<h4>The swap board</h4>' + CARDS.map(function (c) { return '<p><b>' + c.h + '</b> ' + c.t + '</p>'; }).join(''), 'swap', 'In the shop window', true);
+        msg('&ldquo;Every link holds,&rdquo; says Romy, and folds the bag into her pocket. &ldquo;Come on. Ronan goes out at eleven.&rdquo;');
+        setTimeout(function () {
+          ER.closeAll(); paint(); busy = true;
+          ER.narrate([
+            'Twenty past nine, the School House: one jar for six eggs, and a lecture on hens. Ten to ten, Rendle&rsquo;s: six eggs for three candles. Ten past ten, the slip: three candles for three mackerel, still cold from the sea.',
+            'Half past ten, the bakery. Ruby Pardoe takes two of the mackerel, wraps a loaf in yesterday&rsquo;s newspaper and gives you the third fish back. &ldquo;Keep it,&rdquo; she says. &ldquo;It&rsquo;ll be no good to anybody by Tuesday.&rdquo;',
+            'Four swaps, five front doors and most of the morning, for one loaf. &ldquo;With money,&rdquo; says Ruby, &ldquo;that&rsquo;s two minutes.&rdquo;',
+            'Romy writes it on the paper bag in capitals: WITH MONEY, 2 SWAPS. SELL THE JAR. BUY THE LOAF.',
+            'On the way back she stops outside Rendle&rsquo;s café. Through the steamed-up window, Nico Rendle is staring at a long string of paper notes as if they owed him money. &ldquo;They do,&rdquo; says Romy. &ldquo;Come on.&rdquo;'
+          ], function () { busy = false; $('#go').classList.add('on'); });
+        }, 2600);
+      }
+      next();
+    });
+    msg('Put the people you will visit on the stops, in order: drag a name, or click it and then a stop. Then press Set off. You start with one jar of marmalade.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

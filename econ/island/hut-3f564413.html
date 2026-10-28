@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Harbour Master’s Hut · Small Change</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="island.css">
+<style>
+  body{--bg:#22303e;--accent:#c9a24a;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(226,232,236,.97);--tc-ink:#14202c;--cap-bg:rgba(240,244,246,.96);--cap-ink:#14202c;--panel:#f2f4f4;--panel-ink:#14202c;--face-bg:#1e2a3c;--q-ink:#9a2a1e;
+    --fade:#1a2430;--hud-bg:rgba(240,244,246,.88);--hud-ink:#14202c;--hud-line:rgba(20,32,44,.3);--ov-bg:rgba(8,14,20,.7)}
+  .tc-room{font-family:'Stardos Stencil',sans-serif;font-size:clamp(36px,5vw,72px);letter-spacing:.04em;color:#1e3a5a}
+  .tc-theme{color:#9a2a1e}
+  .hbtn b{color:#fff}
+  #rain path{animation:rain .8s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.4s}
+  @keyframes rain{from{transform:translate(0,-60px)}to{transform:translate(-18px,60px)}}
+  #boats{animation:bob 4s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(5px)}}
+  #needle{animation:twitch 6s ease-in-out infinite;transform-origin:1090px 230px}
+  @keyframes twitch{50%{transform:rotate(-6deg)}}
+  #led{animation:led 1.3s steps(1,end) infinite}
+  @keyframes led{50%{opacity:.25}}
+
+  /* Piran's table: six trays and six things */
+  .tb{width:min(1100px,97vw)}
+  .tb-in{background:#6b4a2a linear-gradient(#7a5634,#5a3c22);border:10px solid #3a2614;border-radius:4px;padding:12px 14px 10px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .trays{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .tray{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+  .tray h6{margin:0;padding:5px 4px 3px;background:#f2f0e6;color:#1a1f28;font-family:'Stardos Stencil',sans-serif;font-weight:400;font-size:14.5px;letter-spacing:.04em;text-align:center;line-height:1.1;min-height:38px;display:flex;align-items:center;justify-content:center}
+  .tray h6 i{font-style:normal;color:#9a2a1e;margin-right:5px}
+  .tray .slot{min-height:108px;background:rgba(0,0,0,.28);border:2px dashed rgba(242,240,230,.4);border-radius:4px;padding:4px;display:flex}
+  .tray .slot.bad{outline:4px solid #e2453a}
+  .tray small{font-family:'Special Elite',monospace;font-size:11.5px;color:#e8dcc4;text-align:center}
+  .shelf{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:116px;margin-top:10px;padding:6px;border-top:3px solid rgba(0,0,0,.3)}
+  .dnd-item.it{width:158px;min-height:100px;padding:4px 6px 6px;background:#f2f0e6;border-radius:3px;box-shadow:0 3px 6px rgba(0,0,0,.4);cursor:grab;touch-action:none;text-align:center;color:#1a1f28}
+  .slot .dnd-item.it{width:100%}
+  .dnd-item.it svg{width:64px;height:46px;display:block;margin:0 auto}
+  .dnd-item.it b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.03em;line-height:1.15}
+  .dnd-item.it span{display:block;font-family:'Special Elite',monospace;font-size:11px;line-height:1.2;color:#4a4a4a}
+  .dnd-item.it.held{outline:4px solid #f2c12e}
+  .dnd-item.it.fly{position:fixed;z-index:90;pointer-events:none;box-shadow:0 10px 22px rgba(0,0,0,.5)}
+  .stamps{display:none;margin-top:10px;padding:10px 14px;background:#1e2a3c;border-radius:4px;color:#e8eef2;align-items:center;gap:16px}
+  .stamps.on{display:flex}
+  .stamps p{margin:0 0 6px;font-family:'Lora',serif;font-size:16px;line-height:1.35}
+  .stamps .opts{display:flex;flex-wrap:wrap;gap:6px}
+  .stamps .opts button{padding:6px 10px 5px;border:2px solid #c9a24a;border-radius:3px;font-family:'Stardos Stencil',sans-serif;font-size:14px;letter-spacing:.03em;color:#f2e6b8;text-align:left}
+  .stamps .opts button.on{background:#c9a24a;color:#14202c}
+  .stamps svg{flex:0 0 120px;width:120px;height:120px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="wall" width="50" height="900" patternUnits="userSpaceOnUse"><rect width="50" height="900" fill="#3a4a5e"/><path d="M0 0V900" stroke="#2c3a4c" stroke-width="3"/><path d="M25 0V900" stroke="#44566c" stroke-width="1"/></pattern>
+  <pattern id="deck" width="160" height="34" patternUnits="userSpaceOnUse"><rect width="160" height="34" fill="#5a4630"/><path d="M0 0H160M60 0V17M0 17H160M120 17V34" stroke="#3e301e" stroke-width="2"/></pattern>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7a88"/><stop offset=".55" stop-color="#8a9aa4"/><stop offset=".56" stop-color="#3e5664"/><stop offset="1" stop-color="#2a4250"/></linearGradient>
+  <radialGradient id="lamp" cx="22%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".45"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#wall)"/>
+<path d="M-1000 70H2600" stroke="#1e2a38" stroke-width="16"/>
+
+<!-- the window on the harbour -->
+<rect x="1150" y="110" width="400" height="380" fill="#2a2018"/><rect x="1164" y="124" width="372" height="352" fill="url(#dusk)"/>
+<g id="boats"><path d="M1190 360h120l-16 22h-88z" fill="#b8342a"/><path d="M1250 360v-90" stroke="#1a1a1a" stroke-width="4"/><path d="M1350 372h90l-12 18h-66z" fill="#e0b020"/><path d="M1395 372v-60" stroke="#1a1a1a" stroke-width="3"/><path d="M1460 366h60l-10 16h-40z" fill="#e9e4da"/><text x="1405" y="386" class="cT" font-size="10" text-anchor="middle" fill="#3a2a10">MINNOW</text></g>
+<path d="M1164 400h372" stroke="#4a3a2a" stroke-width="10"/><g fill="#4a3a2a"><rect x="1180" y="400" width="10" height="76"/><rect x="1300" y="400" width="10" height="76"/><rect x="1420" y="400" width="10" height="76"/></g>
+<g id="rain" stroke="#dfe8ea" stroke-width="1.6" opacity=".5"><path d="M1190 140l-8 30M1250 200l-8 30M1320 150l-8 30M1390 210l-8 30M1460 160l-8 30M1520 220l-8 30M1220 300l-8 30M1350 290l-8 30M1490 310l-8 30"/></g>
+<path d="M1350 124V476M1164 300H1536" stroke="#2a2018" stroke-width="8"/>
+
+<!-- the chart, the postcard on it, the typed card -->
+<g id="chart"><rect x="470" y="110" width="440" height="320" fill="#e9e1c8" stroke="#2a2018" stroke-width="6"/>
+  <path d="M520 400q40 -80 120 -90t140 -80q50 -30 90 -10" fill="none" stroke="#7aa0b0" stroke-width="3"/><path d="M560 210q60 30 50 90t-40 60q-50 -10 -40 -80z" fill="#d6c79a" stroke="#8a7a50" stroke-width="2"/>
+  <g fill="#2a5a8a" font-family="Special Elite,monospace" font-size="11"><text x="600" y="270">NESSARY</text><text x="700" y="360">12</text><text x="760" y="320">9</text><text x="820" y="380">15</text><text x="520" y="160">7</text></g>
+  <g stroke="#9a2a1e" stroke-width="1.5"><path d="M480 130l60 60M860 130l40 40"/></g></g>
+<g id="postcard" class="hot" transform="rotate(-5 840 330)"><rect x="780" y="290" width="120" height="80" fill="#fbf7ec" stroke="#2a2018" stroke-width="2"/><rect x="786" y="296" width="108" height="68" fill="#7fb7c4"/><circle cx="830" cy="336" r="24" fill="#b9b2a0" stroke="#7a7262" stroke-width="2"/><circle cx="830" cy="336" r="6" fill="#7fb7c4"/><path d="M866 364v-40q4 -8 12 -6" stroke="#4a6a3a" stroke-width="3" fill="none"/><path d="M786 356h108v8h-108z" fill="#d6c79a"/></g>
+<g id="card4" class="hot"><rect x="930" y="140" width="110" height="160" fill="#f2f0e6" stroke="#b9b4a0" stroke-width="2"/><circle cx="985" cy="146" r="5" fill="#9a2a1e"/><text x="985" y="170" class="cT" font-size="12" text-anchor="middle" fill="#1e3a5a">GOOD MONEY</text><g stroke="#1a1f28" stroke-width="2" opacity=".55"><path d="M944 186h80M944 200h70M944 214h78M944 228h66M944 242h76M944 256h60M944 270h74"/></g></g>
+
+<!-- the barometer -->
+<g id="baro" class="hot"><circle cx="1090" cy="230" r="46" fill="#c9a24a" stroke="#7a5a1a" stroke-width="4"/><circle cx="1090" cy="230" r="38" fill="#f6efdc"/><text x="1090" y="212" class="cZ" font-size="10" text-anchor="middle" fill="#3a2a10">CHANGE</text><text x="1060" y="246" class="cZ" font-size="8" text-anchor="middle" fill="#3a2a10">RAIN</text><text x="1120" y="246" class="cZ" font-size="8" text-anchor="middle" fill="#3a2a10">FAIR</text><path id="needle" d="M1090 230l-24 10" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/></g>
+
+<!-- the desk, the ledger, the radio; Piran -->
+<g id="radio" class="hot"><rect x="60" y="300" width="300" height="12" fill="#2a2018"/><rect x="100" y="230" width="190" height="70" rx="6" fill="#20262c"/><rect x="114" y="244" width="90" height="22" fill="#3a5a4a"/><text x="159" y="260" class="cP" font-size="12" text-anchor="middle" fill="#a8f0b0">CH 16</text><circle id="led" cx="230" cy="254" r="5" fill="#ff5a3a"/><circle cx="262" cy="270" r="12" fill="#3a4048"/><path d="M290 250q40 -10 36 40" stroke="#1a1a1a" stroke-width="3" fill="none"/></g>
+<g id="piran" class="hot" transform="translate(300 740) scale(1.2)"></g>
+<rect x="40" y="560" width="400" height="16" fill="#7a5634"/><path d="M60 576v150M420 576v150" stroke="#5a3c22" stroke-width="14"/>
+<g id="ledger" class="hot"><path d="M150 556l90 -10 90 10v-14l-90 -10 -90 10z" fill="#f6efdc" stroke="#5a3a1a" stroke-width="2"/><rect x="146" y="552" width="188" height="8" fill="#5a1e14"/><path d="M164 546h60M164 540h56M256 540h60M256 546h56" stroke="#1a1f28" stroke-width="1.2" opacity=".6"/></g>
+
+<!-- the table with the island's ideas -->
+<g id="table" class="hot"><rect x="530" y="580" width="640" height="18" fill="#7a5634"/><path d="M560 598v130M1140 598v130" stroke="#5a3c22" stroke-width="14"/>
+  <g transform="translate(590 580)"><path d="M0 -14q30 -18 70 -6l14 -8v24l-14 -8q-40 12 -70 -2z" fill="#7a96a8" stroke="#4a6a7a" stroke-width="2"/><path d="M6 -26q4 -10 0 -18M18 -30q4 -10 0 -18" stroke="#9aa86a" stroke-width="2" fill="none" opacity=".8"/></g>
+  <g transform="translate(700 580)"><path d="M0 0v-70q0 -14 40 -14t40 14v70z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="3"/><text x="40" y="-30" class="cT" font-size="11" text-anchor="middle" fill="#3a2a1a">HILL FARM</text><text x="40" y="-16" class="cT" font-size="11" text-anchor="middle" fill="#3a2a1a">25 KG</text></g>
+  <g transform="translate(810 580)"><rect x="0" y="-30" width="54" height="30" fill="#e9f2f4" fill-opacity=".5" stroke="#a8b8bc" stroke-width="2"/><circle cx="27" cy="-14" r="10" fill="#e6b830" stroke="#a87a10" stroke-width="2"/></g>
+  <g transform="translate(884 580)"><rect x="0" y="-22" width="30" height="22" fill="#fffdf3" stroke="#c9b48a" transform="rotate(-8)"/><rect x="18" y="-24" width="30" height="22" fill="#fffdf3" stroke="#c9b48a" transform="rotate(6 33 -13)"/></g>
+  <g transform="translate(950 580)"><rect x="0" y="-44" width="40" height="44" rx="5" fill="#e9f2f4" fill-opacity=".6" stroke="#a8b8bc" stroke-width="2"/><g fill="#f2b8b0"><circle cx="12" cy="-10" r="6"/><circle cx="26" cy="-12" r="6"/><circle cx="18" cy="-22" r="6"/><circle cx="28" cy="-28" r="5"/></g></g>
+  <g transform="translate(1012 580)"><circle cx="16" cy="-10" r="12" fill="#c9a24a" stroke="#7a5a1a" stroke-width="2"/><text x="16" y="-6" class="cT" font-size="9" text-anchor="middle" fill="#3a2a10">NH</text></g></g>
+<g id="tin" class="hot"><rect x="1070" y="534" width="80" height="46" rx="4" fill="#2a5a8a" stroke="#1a3a5a" stroke-width="3"/><text x="1110" y="562" class="cT" font-size="11" text-anchor="middle" fill="#e8eef2">TOKENS</text><path d="M1100 534v-10q0 -10 10 -10t10 10v10" stroke="#9a9ea4" stroke-width="4" fill="none"/><rect x="1098" y="526" width="24" height="18" rx="3" fill="#c9a24a"/></g>
+<g id="book" class="hot"><path d="M650 640l50 -6 50 6v-20l-50 -6 -50 6z" fill="#f6efdc" stroke="#6a3a1a" stroke-width="2"/><circle cx="740" cy="626" r="5" fill="#f2b8b0"/></g>
+
+<rect x="-1000" y="726" width="3600" height="700" fill="url(#deck)"/><rect x="-1000" y="722" width="3600" height="8" fill="#2a1e10"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#lamp)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Seven o’clock: the Hall</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="island.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  $('#piran').innerHTML = ISL.who('piran', { extra: '<path d="M39 -112l14 -36" stroke="#e9c4a4" stroke-width="12" stroke-linecap="round"/><g transform="translate(56 -150)"><path d="M0 0v-14q0 -8 8 -8t8 8v14" stroke="#9a9ea4" stroke-width="3" fill="none"/><rect x="-4" y="-2" width="24" height="18" rx="3" fill="#c9a24a"/></g>' });
+
+  ER.init({
+    theme: 'econ', story: 'island', storyTitle: 'Small Change', id: 'hut', no: 'IV', title: 'The Harbour Master’s Hut',
+    go: 'Knock on the hut door',
+    intro: [
+      'Ruby fishes better and bakes better, but one mackerel costs her two loaves&rsquo; worth of time, and costs Ronan only half a loaf. So Ronan fishes, Ruby bakes, and they swap one for one: each of them gets for one what would have cost two. Both gain, although Ruby is better at both.',
+      'The harbour master&rsquo;s hut stands at the end of the pier. In it is a padlocked tin of brass tokens, which work the showers and the diesel pump.',
+      'At seven the island chooses its money. Everybody has an idea. Piran Pentreath has six of them on his table, and he does not like any of them.'
+    ],
+    exit: {"next":"hall","w":{"85576a2a":"0fe61ee3"}}, tags: {"t1":["31bcb1fa"],"t2":["0130d780"],"t3":["ba4efc6c"],"t4":["a7da5033"],"t5":["0f061e24"],"t6":["7b52703d"],"st":["96240039"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#table').classList.toggle('glow', !!(told.piran && told.card && !nextFile));
+    ER.pips((told.piran ? 1 : 0) + (told.card ? 1 : 0) + (ER.flag('d-sieve') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The Hall, at seven: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen() && ER.flag('d-sieve')) return ['stamp', [
+      'Why does anybody take a pound coin? Not for the metal in it. Because they know they can spend it, now or later.',
+      'Ask of each stamp: which test would it break? Limited in supply? Accepted by everyone? And which one makes a token keep its value until the boat comes? Card 2 has a name for that: a store of value.'
+    ]];
+    if (lock && lock.isOpen()) return ['sieve', [
+      'One thing at a time, down the card from the top: does it last? Can you carry it? Divide it? Fake it? Pick up more of it? Will everybody take it? It goes in the tray of the FIRST test it fails.',
+      'Each tray gets one thing. Think about today: the mackerel you have carried since half past ten; a gold coin against one pot of tea; fifty-two notes when forty were written; the beach after every tide; the weight of a sack.',
+      'The mackerel fails at once: it does not last. Potatoes keep for months, so they pass the first test: which do they fail? The token passes all of the first five.'
+    ]];
+    if (!told.piran) return ['piran', ['The harbour master is at his desk, on the left. Talk to him.', 'The man in the cap and the navy jersey, with a padlock in his hand.']];
+    if (!told.card) return ['card', ['Piran said the tests are on the card by the chart.', 'The typed card that says GOOD MONEY, pinned to the right of the big chart.']];
+    return ['table', ['Now the table in the middle, with the six ideas on it.', 'Click the table: a fish, a sack, a little glass box, some notes, a jar of shells and a token.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Six hundred tokens, a pound each, every one in the ledger.'); return; }
+    if (told.in) { busy = false; ER.say('The harbour master&rsquo;s hut. Rain on the window, the radio muttering about wind.'); return; }
+    tell('in');
+    ER.mood('tense');
+    ER.narrate([
+      'The hut is one room, warm and smelling of tar. Charts on the walls, a barometer that says CHANGE, a radio muttering about the wind. Rain runs down the window. Outside, the harbour is full of boats that are going nowhere.',
+      'On the table in the middle, laid out like evidence: a mackerel (yours, from this morning, and now very much yours), a sack of potatoes, a small glass box with a gold coin in it, a few of Nico&rsquo;s notes, a jam jar of pink shells, and one brass token.',
+      'Piran Pentreath, the harbour master, is seventy-one, and has a padlock on everything. Romy says that includes his biscuit tin.'
+    ], function () { busy = false; });
+  }
+
+  $('#piran').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Six hundred,&rdquo; says Piran, &ldquo;and not one more. Seven o&rsquo;clock. Don&rsquo;t be late: I&rsquo;m chairing.&rdquo;'); return; }
+    ER.talk({
+      who: 'Piran Pentreath', role: 'Harbour Master · forty-four years', face: ISL.face('piran'),
+      lines: [
+        { note: 'He looks at you over his glasses, as if you were a boat moored in the wrong place.', a: '&ldquo;These are the island&rsquo;s ideas for money. The meeting asked me to choose one. I&rsquo;m asking you, because Merryn says you&rsquo;ve been doing her cards all day.&rdquo;' },
+        { q: 'What&rsquo;s wrong with them?', a: 'Every one of them fails a test, and the tests are on the card by the chart. Put each thing in the tray of the first test it fails. In the card&rsquo;s order, mind: top to bottom.' },
+        { q: 'Why do you keep the tokens locked up?', a: 'Because a token that anybody can get is worth nothing. I have six hundred, and every one is written in that ledger. Orla Medlin thinks I&rsquo;m a miser. I&rsquo;m not a miser. I&rsquo;m a harbour master.' },
+        { q: 'Where did the gold coin come from?', a: 'Out of the sand at Mussel Cove, in 1931. It has lived in a glass box in the post office ever since. Nico wants it to be the island&rsquo;s money. Nico has a romantic nature.' },
+        { a: '&ldquo;When you&rsquo;ve sorted them, tell me what&rsquo;s left. And then tell me why anybody would take a bit of brass for a loaf. Because they won&rsquo;t, you know. Not unless you give them a reason.&rdquo;' }
+      ],
+      clue: { id: 'piran', title: 'Piran: the first test it fails', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('piran')) { paint(); ER.say('The tests are on the typed card by the chart. In order, top to bottom.'); } }
+    });
+  });
+  var CARD = '<h4>WHAT MAKES GOOD MONEY</h4><p>Anything can be money, if people will take it. But some things do the job much better than others. Good money is:</p>' +
+    '<p><b>1 LASTING.</b> It does not rot, rust or fall to bits.</p>' +
+    '<p><b>2 EASY TO CARRY.</b> A week&rsquo;s shopping money fits in a pocket.</p>' +
+    '<p><b>3 EASY TO DIVIDE.</b> You can pay big amounts and small ones.</p>' +
+    '<p><b>4 HARD TO FAKE.</b> Nobody can make more of it at home.</p>' +
+    '<p><b>5 LIMITED IN SUPPLY.</b> Nobody can get more of it just by picking it up.</p>' +
+    '<p><b>6 ACCEPTED BY EVERYONE.</b> You can pay anybody with it, because they know they can pay somebody else with it.</p>' +
+    '<p>The first five are about the thing. The sixth is about people: it needs trust, and often a promise.</p>' +
+    '<p class="hand">Card 4, copied out on my machine. Test in this order: the first test it fails, it&rsquo;s out. &mdash; P.P.</p>';
+  $('#card4').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'typed', clue: { id: 'card4', title: 'Card 4: what makes good money', kind: 'By the chart' }, done: function () {
+      ISL.terms(['lasting', 'easy to carry', 'easy to divide', 'hard to fake', 'limited in supply', 'accepted by everyone']);
+      if (tell('card')) { paint(); ER.say('Six tests, in order. The first five are about the thing; the sixth is about people.'); }
+    } });
+  });
+  var YAP = '<div class="pic"><svg viewBox="0 0 300 300"><rect width="300" height="300" fill="#7fb7c4"/><rect y="210" width="300" height="90" fill="#d6c79a"/><path d="M230 210v-120q10 -20 30 -14M230 100q-30 -20 -50 0M230 100q30 -30 50 -10M230 96q-6 -30 10 -40" stroke="#3a5a2a" stroke-width="8" fill="none" stroke-linecap="round"/>' +
+    '<circle cx="110" cy="150" r="78" fill="#b9b2a0" stroke="#7a7262" stroke-width="4"/><circle cx="110" cy="150" r="18" fill="#7fb7c4" stroke="#7a7262" stroke-width="3"/><path d="M60 110q20 -20 50 -22" stroke="#d6cfbc" stroke-width="5" fill="none"/>' +
+    '<g transform="translate(206 262)"><circle cx="0" cy="-58" r="9" fill="#7a5034"/><path d="M-10 -48h20l4 34h-28z" fill="#e9e4da"/><path d="M-8 -14l-2 14M8 -14l2 14" stroke="#7a5034" stroke-width="5"/></g></svg></div>' +
+    '<div class="txt"><h4>STONE MONEY, YAP</h4><p>On the island of Yap, in the Pacific Ocean, big stone discs were used as money. Some of them are taller than a man.</p><p>A big stone was far too heavy to move. So when it changed hands, it stayed where it was: everybody simply knew who owned it.</p>' +
+    '<span class="hand">Piran &mdash; they don&rsquo;t even move them! Think what you&rsquo;d charge for mooring one. Your brother, from the ship, 1978.</span></div>';
+  $('#postcard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: YAP, cls: 'postcard', clue: { id: 'yap', title: 'A postcard: stone money, Yap', kind: 'On the chart' }, done: function () {
+      if (tell('yap')) ER.say('Money too heavy to carry, and it still worked: everybody knew who owned which stone.');
+    } });
+  });
+  var COWRIE = '<h4>Shell money</h4><p>In many parts of Africa and Asia, small cowrie shells were used as money for hundreds of years.</p>' +
+    '<p>Most of them came from far away: from the Maldive Islands, in the Indian Ocean, where they were gathered on the beaches and then carried across the sea by ship.</p>' +
+    '<p class="pg">&mdash; 12 &mdash;</p><span class="hand">SEE?? SHELLS ARE MONEY. Perran Medlin, Shell Bank (manager)</span>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: COWRIE, cls: 'book', clue: { id: 'cowrie', title: 'Perran’s library book: shell money', kind: 'On the table' }, done: function () {
+      if (tell('cowrie')) ER.say('Perran&rsquo;s library book, with a shell for a bookmark. It is the same book as the one in the café.');
+    } });
+  });
+  ISL.thing('#radio', 'radio', 'The harbour radio, on channel 16. It does not need the mast: it talks straight to the boats, and to anybody else on the island with a set. Mrs Medlin has one in the shop.', isBusy);
+  ISL.thing('#baro', 'barometer', 'The barometer says CHANGE. &ldquo;It has said that since Tuesday,&rdquo; says Piran. &ldquo;It&rsquo;s a very cautious barometer.&rdquo;', isBusy);
+  ISL.thing('#ledger', 'ledger', 'The token ledger. Every token Piran has ever let out is written in it: the date, the name, the number, and when it came back. Six hundred tokens, and all six hundred are in the tin.', isBusy);
+  ISL.thing('#tin', null, 'The token tin, padlocked. &ldquo;Three keys,&rdquo; says Piran. &ldquo;I have all three. I am not telling you where.&rdquo;', isBusy);
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six trays, and the token in the last one, with a promise stamped on its back.'); return; }
+    if (!told.piran) { ER.say('&ldquo;Hands off my table,&rdquo; says Piran, &ldquo;until we&rsquo;ve been introduced.&rdquo;'); return; }
+    if (!told.card) { ER.say('&ldquo;The tests are on the card,&rdquo; says Piran, pointing at the chart with a pencil. &ldquo;Read it. I typed it myself.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- Piran's table ---------- */
+  var TESTS = ['lasting', 'easy to carry', 'easy to divide', 'hard to fake', 'limited in supply', 'accepted by everyone'];
+  var ITEMS = [
+    { k: 'gold', n: 'the gold coin', s: 'from Mussel Cove, 1931. Worth about £900', i: '<rect x="10" y="6" width="44" height="36" fill="#e9f2f4" stroke="#a8b8bc" stroke-width="2"/><circle cx="32" cy="24" r="12" fill="#e6b830" stroke="#a87a10" stroke-width="2"/>' },
+    { k: 'token', n: 'a harbour token', s: 'brass, stamped NH. Piran has the stamp', i: '<circle cx="32" cy="23" r="17" fill="#c9a24a" stroke="#7a5a1a" stroke-width="3"/><text x="32" y="28" font-family="Stardos Stencil" font-size="13" text-anchor="middle" fill="#3a2a10">NH</text>' },
+    { k: 'shells', n: 'pink shells', s: 'from the Shell Bank: the beach below the school', i: '<g fill="#f2b8b0" stroke="#c98a80" stroke-width="1.5"><path d="M14 30q8 -16 16 0z"/><path d="M28 34q8 -18 18 0z"/><path d="M22 18q8 -14 14 0z"/><path d="M40 20q8 -14 14 0z"/></g>' },
+    { k: 'fish', n: 'a mackerel', s: 'yours, since half past ten this morning', i: '<path d="M8 24q22 -16 42 -4l8 -8v24l-8 -8q-20 12 -42 -4z" fill="#7a96a8" stroke="#4a6a7a" stroke-width="2"/><path d="M18 10q3 -6 0 -10M28 8q3 -6 0 -10" stroke="#9aa86a" stroke-width="2" fill="none"/>' },
+    { k: 'notes', n: 'Nico’s notes', s: 'IOU ONE TEA, in biro, on order-pad paper', i: '<rect x="12" y="8" width="26" height="32" fill="#fffdf3" stroke="#c9b48a" transform="rotate(-8 25 24)"/><rect x="28" y="6" width="26" height="32" fill="#fffdf3" stroke="#c9b48a" transform="rotate(6 41 22)"/><path d="M32 16h16M32 22h12" stroke="#1f2a52" stroke-width="1.5" transform="rotate(6 41 22)"/>' },
+    { k: 'potatoes', n: 'potatoes', s: 'a sack of 25 kilos, from Hill Farm', i: '<path d="M14 42v-26q0 -10 18 -10t18 10v26z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="2"/><path d="M22 8l10 -6 10 6" stroke="#8a6a3a" stroke-width="2" fill="none"/>' }
+  ];
+  var BYK = {}; ITEMS.forEach(function (t) { BYK[t.k] = t; });
+  var WHY = {
+    fish: '&ldquo;Since half past ten this morning,&rdquo; says Piran, holding the mackerel at arm&rsquo;s length. &ldquo;Smell it. By Tuesday your money would walk out of your pocket by itself. Which test is that?&rdquo;',
+    potatoes: function (t) { return t === 0 ? '&ldquo;Potatoes keep for months in a dark shed,&rdquo; says Piran. &ldquo;They last. Go on down the card.&rdquo;' : '&ldquo;Twenty-five kilos,&rdquo; says Piran, &ldquo;at two kilos a tea. That&rsquo;s about six loaves. A family&rsquo;s week at Medlin&rsquo;s is thirty teas or so: sixty kilos. Carry that to the shop in potatoes, and come back and tell me how it went.&rdquo;'; },
+    gold: '&ldquo;Gold,&rdquo; says Piran. &ldquo;It lasts, it goes in your pocket, and nobody on Nessary can fake it. Now pay Nico for one pot of tea with it, two pounds the last time anybody paid, and ask him for change.&rdquo;',
+    notes: '&ldquo;Forty written,&rdquo; says Romy, &ldquo;and fifty-two came back for tea. Anybody with a biro and an order pad can make more.&rdquo;',
+    shells: '&ldquo;Perran&rsquo;s book is right,&rdquo; says Romy. &ldquo;Cowrie shells really were money, for hundreds of years. But they came from the other side of the world. Ours come in on every tide. Anybody with a bucket can be rich by teatime.&rdquo;',
+    token: '&ldquo;Brass,&rdquo; says Piran. &ldquo;It lasts. Pocket-sized. Count out as many as you like. I have the only stamp, and I&rsquo;ve six hundred, every one in my ledger. So which test is left?&rdquo;'
+  };
+  var STAMPS = [
+    { k: 'more', t: 'MORE ON REQUEST · HARBOUR OFFICE', no: '&ldquo;Then it&rsquo;s the shells all over again,&rdquo; says Piran. &ldquo;If I make more whenever I&rsquo;m asked, a token is worth what a shell is worth.&rdquo;' },
+    { k: 'shower', t: 'GOOD FOR ONE SHOWER', no: '&ldquo;Then a token is only worth anything to people who want a shower,&rdquo; says Romy. &ldquo;That&rsquo;s Nico&rsquo;s notes again: good in one place.&rdquo;' },
+    { k: 'pound', t: '£1 · CHANGED FOR COINS AT MEDLIN’S WHEN THE BOAT COMES' },
+    { k: 'order', t: 'BY ORDER OF THE HARBOUR MASTER', no: '&ldquo;I can move a boat off my slip,&rdquo; says Piran. &ldquo;I cannot make Ruby Pardoe take anything. Nobody can.&rdquo;' },
+    { k: 'brass', t: 'SOLID BRASS', no: '&ldquo;Everybody knows it&rsquo;s brass,&rdquo; says Piran. &ldquo;Nobody takes a pound coin for the metal in it.&rdquo;' }
+  ];
+  function makeLock() {
+    var saved = ER.flag('d-trays') || [], stamp = ER.flag('d-stamp') || '', wait = false;
+    var box = ER.el('div', 'pz tb');
+    box.innerHTML = '<div class="tb-in"><div class="trays">' + TESTS.map(function (t, i) { return '<div class="tray"><h6><i>' + (i + 1) + '</i>' + t + '</h6><div class="slot" data-t="' + i + '"></div><small>fails here first</small></div>'; }).join('') + '</div>' +
+      '<div class="shelf">' + ITEMS.map(function (t) { return '<div class="dnd-item it" data-k="' + t.k + '"><svg viewBox="0 0 64 46">' + t.i + '</svg><b>' + t.n + '</b><span>' + t.s + '</span></div>'; }).join('') + '</div>' +
+      '<div class="stamps"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#c9a24a" stroke="#7a5a1a" stroke-width="5"/><circle cx="60" cy="60" r="44" fill="none" stroke="#7a5a1a" stroke-width="1.5" stroke-dasharray="3 3"/><text id="stxt" x="60" y="66" font-family="Stardos Stencil" font-size="13" text-anchor="middle" fill="#3a2a10">?</text></svg>' +
+      '<div><p>The back of the token is blank. Piran has his letter punches out. &ldquo;Why would anybody take a bit of brass for a loaf, or keep one in a drawer till the boat comes? Choose what I stamp on the back.&rdquo;</p><div class="opts">' + STAMPS.map(function (s) { return '<button type="button" data-k="' + s.k + '">' + s.t + '</button>'; }).join('') + '</div></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">Show Piran</button></div>';
+    var msgEl = box.querySelector('.pmsg'), home = box.querySelector('.shelf');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slots() { return ER.$$('.slot', box); }
+    function trays() { return slots().map(function (s) { var c = s.querySelector('.it'); return c ? c.getAttribute('data-k') : ''; }); }
+    function sieved() { return !!ER.flag('d-sieve'); }
+    saved.forEach(function (k, i) { if (k) { var c = box.querySelector('.it[data-k="' + k + '"]'); if (c) slots()[i].appendChild(c); } });
+    function paintStamp() {
+      ER.$$('.opts button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-k') === stamp); });
+      var s = STAMPS.filter(function (x) { return x.k === stamp; })[0];
+      box.querySelector('#stxt').textContent = s ? (s.k === 'pound' ? '£1 · MEDLIN’S' : s.t.split(' · ')[0].slice(0, 14)) : '?';
+      box.querySelector('.stamps').classList.toggle('on', sieved());
+      home.style.display = sieved() ? 'none' : '';
+    }
+    paintStamp();
+    ER.dnd(box, { item: '.it', slot: '.slot', home: home, lock: function () { return wait || !!nextFile || sieved(); }, change: function () { ER.flag('d-trays', trays()); slots().forEach(function (s) { s.classList.remove('bad'); }); ISL.sfx.thud(); } });
+    ER.$$('.opts button', box).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; stamp = b.getAttribute('data-k'); ER.flag('d-stamp', stamp); ISL.sfx.stamp(); paintStamp(); }); });
+    box.querySelector('#d-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var t = trays(), i, k;
+      if (!sieved()) {
+        var n = t.filter(Boolean).length;
+        if (n < 6) { ER.sfx.no(); msg('&ldquo;Six things, six trays,&rdquo; says Piran. ' + (n ? '&ldquo;You&rsquo;ve done ' + n + '.&rdquo;' : '&ldquo;You&rsquo;ve done none.&rdquo;') + ' Drag each one into a tray, or click it and then a tray.'); return; }
+        for (i = 0; i < 6; i++) {
+          if (!ER.check('t' + (i + 1), t[i])) {
+            /* the first thing that is in the wrong tray, going down the card */
+            k = t[i];
+            ER.sfx.no(); var sl = slots()[i]; sl.classList.add('bad'); setTimeout(function () { sl.classList.remove('bad'); }, 1300);
+            msg(typeof WHY[k] === 'function' ? WHY[k](i) : WHY[k]);
+            return;
+          }
+        }
+        ER.flag('d-sieve', 1); ISL.solved(true); paint(); paintStamp();
+        ISL.mine('sieve', 'Piran’s table: the first test each one fails', '<p>1 lasting: the mackerel (it rots)</p><p>2 easy to carry: the potatoes (a family&rsquo;s week, about 30 teas, would be 60 kilos)</p><p>3 easy to divide: the gold coin (£900, and a tea is £2)</p><p>4 hard to fake: Nico&rsquo;s notes (40 written, 52 back)</p><p>5 limited: the shells (more on every tide)</p><p>6 accepted by everyone: the token. Not yet. Nobody has ever paid for a loaf with one.</p>', true);
+        msg('Piran looks along the trays, one by one, and grunts. &ldquo;The token&rsquo;s last. It passes five. Nobody has ever bought a loaf with one, so the sixth is a question.&rdquo; Now choose what he stamps on the back.');
+        return;
+      }
+      if (!stamp) { ER.sfx.no(); msg('&ldquo;What do I stamp?&rdquo; says Piran, with his hammer raised. Choose one of the five.'); return; }
+      if (!ER.check('st', stamp)) { ER.sfx.no(); ER.shake(box.querySelector('.stamps')); msg(STAMPS.filter(function (x) { return x.k === stamp; })[0].no); return; }
+      var file = ER.exit([t.join('-') + '-' + stamp], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      ISL.terms(['token', 'IOU']);
+      ISL.sfx.stamp();
+      msg('Piran sets the punches, one letter at a time, and brings the hammer down. &ldquo;Hm,&rdquo; he says. Coming from Piran, it is a speech.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.mood('calm');
+        ER.narrate([
+          'Piran turns the token over in his fingers. &ldquo;If Orla Medlin will change these for coins when the boat comes, then a token is as good as a pound. Not because it&rsquo;s brass. Because she&rsquo;s promised.&rdquo;',
+          'He picks up the radio handset. &ldquo;Harbour to Medlin&rsquo;s. Orla, will you change my tokens for pound coins when the cash box comes? One for one?&rdquo; There is a crackle, and then Mrs Medlin&rsquo;s voice, very clear: &ldquo;Every one, Piran. Out of the post office cash. You have my word.&rdquo;',
+          '&ldquo;And everybody knows Orla,&rdquo; says Romy. &ldquo;That&rsquo;s the sixth test. You can&rsquo;t put it in a tray.&rdquo;',
+          'Piran unlocks the tin. It takes three keys, from three different pockets. &ldquo;Six hundred. A pound each, changed at Medlin&rsquo;s when the boat comes. Every one written in the ledger, and not one more.&rdquo;',
+          'He nods at the postcard on the chart. &ldquo;On Yap they don&rsquo;t even move the stones. Everybody just knows whose they are. Money is mostly people remembering who owes what. Brass helps.&rdquo; He looks at the clock. &ldquo;Seven. The Hall. And bring that fish: I&rsquo;m not keeping it.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg(sieved() ? 'The trays are right. Now choose what Piran stamps on the back of the token, and show him.' : 'Put each thing in the tray of the FIRST test it fails, going down the card from 1 to 6. One thing in each tray. Then show Piran.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

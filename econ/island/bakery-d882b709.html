@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pardoe’s Bakery · Small Change</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="island.css">
+<style>
+  body{--bg:#d9c3a0;--accent:#a4441a;--font-display:'EB Garamond',serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(250,244,232,.97);--tc-ink:#3a2410;--cap-bg:rgba(255,250,242,.96);--cap-ink:#3a2410;--panel:#fffaf2;--panel-ink:#3a2410;--face-bg:#b8642a;--q-ink:#a4441a;
+    --fade:#f6ead6;--hud-bg:rgba(255,250,242,.88);--hud-ink:#3a2410;--hud-line:rgba(58,36,16,.3);--ov-bg:rgba(50,26,8,.6)}
+  .tc-room{font-family:'EB Garamond',serif;font-weight:700;font-style:italic;font-size:clamp(46px,6.4vw,92px);color:#a4441a}
+  .tc-theme{color:#5a3a1a}
+  .hbtn b{color:#fff}
+  #glow{animation:fire 2.2s steps(3,end) infinite}
+  @keyframes fire{0%{opacity:.85}33%{opacity:.65}66%{opacity:.95}}
+  #flour circle{animation:fl 7s linear infinite;opacity:0}
+  #flour circle:nth-child(2n){animation-delay:-3s}#flour circle:nth-child(3n){animation-delay:-5s}
+  @keyframes fl{0%{opacity:0;transform:translateY(0)}20%{opacity:.7}100%{opacity:0;transform:translate(30px,140px)}}
+
+  /* Ruby's slate */
+  .sl{width:min(1060px,96vw)}
+  .sl-in{background:#3a3e42 radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.07),transparent 60%);border:16px solid #a07a4a;border-radius:6px;box-shadow:0 26px 70px rgba(0,0,0,.55);padding:14px 22px 12px;color:#f2efe6;font-family:'Architects Daughter',cursive}
+  .sl-in h5{margin:0 0 6px;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:25px;color:#f6d77a}
+  .sl table{width:100%;border-collapse:collapse}
+  .sl th{font-weight:400;font-size:15px;line-height:1.2;color:#d8d2c4;padding:0 6px 6px;text-align:center;vertical-align:bottom}
+  .sl th.g{color:#f6d77a}
+  .sl td{border-top:2px solid rgba(242,239,230,.25);padding:6px;text-align:center;font-size:19px}
+  .sl td.who{text-align:left;font-family:'Cabin Sketch',cursive;font-size:24px;font-weight:700;white-space:nowrap}
+  .sl td.g{background:rgba(246,215,122,.07)}
+  .sl .dl b{font-family:'Cabin Sketch',cursive;font-weight:700;font-size:28px;color:#fff;min-width:1.8em}
+  .sl .dl button{color:#f2efe6;height:16px;line-height:16px}
+  .sl .tg{display:inline-flex;gap:4px}
+  .sl .tg button{padding:3px 9px;border:2px solid rgba(242,239,230,.6);border-radius:3px;font-family:'Cabin Sketch',cursive;font-size:17px;color:#f2efe6}
+  .sl .tg button.on{background:#f6d77a;color:#3a2410;border-color:#f6d77a}
+  .sl .td{margin-top:10px;padding:8px 12px;border:2px dashed rgba(246,215,122,.7);border-radius:4px;display:flex;align-items:center;gap:14px;font-size:20px}
+  .sl .td b.x{font-family:'Cabin Sketch',cursive;font-size:22px;color:#f6d77a;font-weight:700}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="lime" width="120" height="80" patternUnits="userSpaceOnUse"><rect width="120" height="80" fill="#efe6d4"/><path d="M0 40q30 -6 60 0t60 0" stroke="#e2d6be" stroke-width="2" fill="none"/></pattern>
+  <pattern id="brick" width="48" height="24" patternUnits="userSpaceOnUse"><rect width="48" height="24" fill="#a4553a"/><path d="M0 0H48M0 12H48M0 0V12M24 12V24" stroke="#7a3a22" stroke-width="2"/></pattern>
+  <pattern id="flags" width="90" height="60" patternUnits="userSpaceOnUse"><rect width="90" height="60" fill="#9a8a70"/><path d="M0 0H90M0 30H90M45 0V30M20 30V60M70 30V60" stroke="#7a6a52" stroke-width="3"/></pattern>
+  <radialGradient id="ovenG" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#ffd27a"/><stop offset=".5" stop-color="#f08a2a"/><stop offset="1" stop-color="#7a2a10"/></radialGradient>
+  <radialGradient id="heat" cx="34%" cy="55%" r="55%"><stop offset="0" stop-color="#ffb060" stop-opacity=".4"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#3a1a00" stop-opacity=".1"/><stop offset="1" stop-color="#2a1000" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#lime)"/>
+<g stroke="#5a3a1a" stroke-width="18"><path d="M-1000 70H2600"/></g><g fill="#5a3a1a"><rect x="300" y="70" width="18" height="60"/><rect x="900" y="70" width="18" height="60"/><rect x="1400" y="70" width="18" height="60"/></g>
+
+<!-- the oven -->
+<path d="M120 700V250q0 -120 240 -120t240 120v450z" fill="url(#brick)" stroke="#5a2a1a" stroke-width="6"/>
+<g id="oven" class="hot"><path d="M250 520v-110q0 -60 110 -60t110 60v110z" fill="#2a1208"/><path id="glow" d="M262 520v-100q0 -52 98 -52t98 52v100z" fill="url(#ovenG)"/>
+  <g fill="#c98a3a" stroke="#8a5a2a" stroke-width="2"><ellipse cx="320" cy="500" rx="30" ry="16"/><ellipse cx="400" cy="498" rx="30" ry="16"/><ellipse cx="360" cy="482" rx="28" ry="14"/></g></g>
+<rect x="100" y="520" width="520" height="40" fill="#7a3a22"/><rect x="90" y="510" width="540" height="16" fill="#8a5a3a"/>
+<text x="360" y="200" class="cG" font-size="30" font-style="italic" font-weight="700" text-anchor="middle" fill="#f6ead6">Pardoe’s · 1958</text>
+
+<!-- the day book on its nail, and the photograph -->
+<g id="daybook" class="hot"><circle cx="880" cy="188" r="4" fill="#3a2a1a"/><path d="M880 188l-30 30M880 188l30 30" stroke="#3a2a1a" stroke-width="2"/><rect x="830" y="216" width="100" height="134" fill="#8a4a22"/><rect x="840" y="224" width="84" height="118" fill="#fffaf0"/>
+  <text x="882" y="246" class="cO" font-size="14" font-weight="600" text-anchor="middle" fill="#8a4a22" letter-spacing="2">DAY BOOK</text><path d="M850 262h64M850 274h56M850 286h62M850 298h50M850 310h60M850 322h44" stroke="#2a3a6a" stroke-width="1.8" opacity=".7"/><g fill="#fff" opacity=".7"><circle cx="900" cy="300" r="6"/><circle cx="856" cy="336" r="4"/></g></g>
+<g id="photo" class="hot"><rect x="980" y="170" width="170" height="124" fill="#e8dcc4" stroke="#5a3a1a" stroke-width="6"/><rect x="992" y="182" width="146" height="100" fill="#9ab0b4"/><path d="M992 250h146v32h-146z" fill="#5a7a84"/><path d="M1012 252h96l-14 18h-70z" fill="#5a3a2a"/><path d="M1056 252v-46" stroke="#3a2a1a" stroke-width="3"/><circle cx="1044" cy="238" r="6" fill="#f0cdb0"/><path d="M1052 236l26 -10 4 8z" fill="#8aa0a8"/></g>
+
+<!-- racks of loaves -->
+<g id="rack" class="hot"><rect x="1210" y="140" width="330" height="440" fill="none" stroke="#6b4422" stroke-width="10"/><g fill="#6b4422"><rect x="1210" y="240" width="330" height="10"/><rect x="1210" y="350" width="330" height="10"/><rect x="1210" y="460" width="330" height="10"/></g><g id="loaves"></g></g>
+
+<!-- the counter, the slate, the envelope; Ruby; Ronan by the door -->
+<g id="ruby" class="hot" transform="translate(690 720) scale(1.2)"></g>
+<g id="ronan" class="hot" transform="translate(1110 740) scale(1.18)"></g>
+<rect x="560" y="560" width="560" height="160" fill="#8a5a3a"/><rect x="548" y="548" width="584" height="18" fill="#c9a274"/>
+<g id="slate" class="hot"><rect x="760" y="490" width="160" height="66" rx="4" fill="#a07a4a"/><rect x="768" y="497" width="144" height="52" fill="#3a3e42"/><path d="M780 512h40M780 528h60M850 512h48M850 528h30" stroke="#f2efe6" stroke-width="2" opacity=".6"/></g>
+<g id="card3" class="hot"><rect x="960" y="522" width="110" height="30" fill="#fbf8ee" transform="rotate(4 1015 537)"/><path d="M960 522l55 18 55 -18" fill="none" stroke="#c9b48a" stroke-width="2" transform="rotate(4 1015 537)"/><text x="1015" y="548" class="cC" font-size="13" text-anchor="middle" fill="#1f2a52" transform="rotate(4 1015 537)">Mrs R. Pardoe</text></g>
+<g id="box" class="hot"><rect x="1180" y="660" width="140" height="70" fill="#c9a26a" stroke="#8a6a3a" stroke-width="3"/><g fill="#7a96a8" stroke="#4a6a7a" stroke-width="1.5"><path d="M1194 664q30 -18 60 -2q-30 12 -60 2z"/><path d="M1240 668q30 -16 62 -2q-30 12 -62 2z"/></g><text x="1250" y="710" class="cT" font-size="14" text-anchor="middle" fill="#3a2a1a">MINNOW</text></g>
+<g id="peel"><path d="M540 300l40 380" stroke="#c9a274" stroke-width="10" stroke-linecap="round"/><ellipse cx="582" cy="700" rx="34" ry="12" fill="#c9a274"/></g>
+
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#flags)"/><rect x="-1000" y="716" width="3600" height="8" fill="#5a3a1a"/>
+<g id="flour" fill="#fff"><circle cx="600" cy="300" r="3"/><circle cx="700" cy="260" r="2"/><circle cx="820" cy="320" r="3"/><circle cx="940" cy="280" r="2"/><circle cx="1060" cy="330" r="3"/><circle cx="660" cy="380" r="2"/><circle cx="760" cy="410" r="2.5"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#heat)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the harbour</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="island.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  (function () {
+    var s = '', r, i;
+    for (r = 0; r < 3; r++) for (i = 0; i < 5; i++) s += '<ellipse cx="' + (1246 + i * 62) + '" cy="' + (226 + r * 110) + '" rx="27" ry="14" fill="#c98a3a" stroke="#8a5a2a" stroke-width="2"/><path d="M' + (1234 + i * 62) + ' ' + (222 + r * 110) + 'l8 -6M' + (1248 + i * 62) + ' ' + (222 + r * 110) + 'l8 -6" stroke="#e8b06a" stroke-width="2"/>';
+    $('#loaves').innerHTML = s;
+    $('#ruby').innerHTML = ISL.who('ruby', { smile: 0, extra: '<path d="M-39 -112l-40 -30" stroke="#f0cdb0" stroke-width="12" stroke-linecap="round"/><g fill="#fff" opacity=".75"><circle cx="-14" cy="-150" r="6"/><circle cx="12" cy="-200" r="5"/><circle cx="20" cy="-120" r="7"/></g>' });
+    $('#ronan').innerHTML = ISL.who('ronan', { smile: -2 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'island', storyTitle: 'Small Change', id: 'bakery', no: 'III', title: 'Pardoe’s Bakery',
+    go: 'Into the warm',
+    intro: [
+      'Nico&rsquo;s board now says everything in teas: a candle 1, a mackerel 1, a loaf 2, a jar of marmalade 3, a dozen eggs 6. With one measure, two bad prices showed at once: Ruby asks a dozen eggs for a loaf, three times her price in fish, and Nico had been giving a whole tea for one egg. His notes now cost two eggs.',
+      'Mrs Rosevear has sent card 3 to Pardoe&rsquo;s Bakery, where an argument has been going on since half past eleven.',
+      'Ruby Pardoe can catch more fish than Ronan Mabey, and bake more bread than him. She would like to know why she should ever swap anything with him.'
+    ],
+    exit: {"next":"hut","w":{"1be0a9a0":"e191f1b7","9c158e13":"e70ca460"}}, tags: {"rm":["22a774e0"],"rl":["743f2804"],"om":["5881b84d"],"ol":["7e0971bd"],"rcm":["77103327"],"rcl":["66f9d8dd"],"ocm":["8215c92f"],"ocl":["cefc3e65"],"jobs":["d5427aa1"],"tr":["65df44dc","abfe4b1d"],"tre":["f7f4428d","852b59b5"],"rm12":["d2fca97b"],"rl36":["d7864b55"],"om12":["165eb3b4"],"ol8":["f454628c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.ruby && told.ronan && told.card && told.book; }
+  function paint() {
+    $('#slate').classList.toggle('glow', !!(ready() && !nextFile));
+    ER.pips((told.ruby ? 1 : 0) + (told.ronan ? 1 : 0) + (told.card ? 1 : 0) + (told.book ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Down to the harbour: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'First the two green columns: what each of them makes in ONE hour. Ruby&rsquo;s day book and what Ronan said give you the hours and how many. Divide.',
+      'Then what one thing costs in the other. In the time it takes Ruby to catch one mackerel, she could have baked how many loaves? (She makes 12 loaves or 6 mackerel in an hour.) Do the same for one loaf, and then for Ronan.',
+      'Whoever gives up LESS for a mackerel should fish; whoever gives up less for a loaf should bake. A swap helps both if its price is between their two costs for a mackerel: more than Ronan&rsquo;s cost, less than Ruby&rsquo;s.'
+    ]];
+    if (!told.ruby) return ['ruby', ['Ruby Pardoe is at the oven, with the wooden paddle. Talk to her.', 'The baker in the white apron, in the middle.']];
+    if (!told.ronan) return ['ronan', ['Ronan is by the door with his box of fish. Hear his side.', 'The young man in the yellow oilskin, on the right.']];
+    if (!told.book) return ['book', ['Ruby said the baking is all in her day book.', 'It hangs on a nail on the wall, between the oven and the photograph.']];
+    if (!told.card) return ['card', ['Now Mrs Rosevear&rsquo;s card 3. The envelope is on the counter.', 'The white envelope addressed to Mrs R. Pardoe, on the right of the counter.']];
+    return ['slate', ['Ruby says: say it with numbers. Her slate is on the counter.', 'The little blackboard in a wooden frame, in the middle of the counter.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('One fish for one loaf. Both of them better off.'); return; }
+    if (told.in) { busy = false; ER.say('Pardoe&rsquo;s Bakery. The oven glows. Nobody is speaking to anybody.'); return; }
+    tell('in');
+    ER.narrate([
+      'Pardoe&rsquo;s Bakery is the warmest room on Nessary. The oven door glows; flour lies on everything like a light snow, including Ruby Pardoe, who is sliding loaves out of the oven on a long wooden paddle.',
+      'Ronan Mabey stands just inside the door with a box of mackerel and the face of a man who has been told no several times this morning.',
+      'On the wall hangs Ruby&rsquo;s day book, on a nail. Beside it is an old photograph of a fishing boat, with a younger Ruby in it holding up a fish nearly as big as a dog.',
+      '&ldquo;Honestly, Ronan,&rdquo; says Romy, before anybody can stop her, &ldquo;she&rsquo;s got a point. She&rsquo;s better at both.&rdquo; Ruby looks pleased. Ronan looks at the floor. Romy looks at the envelope in her hand, and frowns.'
+    ], function () { busy = false; });
+  }
+
+  $('#ruby').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Better at everything,&rdquo; says Ruby, &ldquo;and I still win by buying his fish. I&rsquo;ll be thinking about that all night.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ruby Pardoe', role: 'Pardoe’s Bakery · fished for forty years', face: ISL.face('ruby'),
+      lines: [
+        { note: 'She does not stop working while she talks.', a: '&ldquo;Fish, he says. Buy his fish. I was out in my father&rsquo;s boat from six till eight this morning, the same as every morning for forty years, and I came back with a dozen mackerel.&rdquo;' },
+        { q: 'Then why not buy Ronan&rsquo;s fish, and stay in the warm?', a: 'Because I can catch more than him in an hour, and I can bake more than him in an hour. He&rsquo;s a nice lad. He&rsquo;s slower at everything. What do I need him for?' },
+        { q: 'How much bread do you bake?', a: 'It&rsquo;s all in the day book, on the nail. I write everything down. My father wrote everything down, and so did his.' },
+        { q: 'Why do you ask a dozen eggs for a loaf?', a: 'I&rsquo;ve got eleven hens. Eggs I do not need. If people want to pay me in eggs, they can pay me a lot of them.' },
+        { a: '&ldquo;Say what you like to me, but say it with numbers. There&rsquo;s a slate on the counter.&rdquo;' }
+      ],
+      clue: { id: 'ruby', title: 'Ruby: a dozen mackerel, six till eight', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('ruby')) { paint(); ER.say('Six till eight in the boat: a dozen mackerel. The baking is in the day book.'); } }
+    });
+  });
+  $('#ronan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;One for one,&rdquo; says Ronan. &ldquo;I&rsquo;m going to get very good at mackerel.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ronan Mabey', role: 'The Minnow · came to Nessary in the spring', face: ISL.face('ronan'),
+      lines: [
+        { note: 'He is nineteen, and the only fisherman on the island under sixty.', a: '&ldquo;I was out from five till eight this morning. Twelve mackerel. That&rsquo;s not bad, for me.&rdquo;' },
+        { q: 'Can you bake?', a: 'I tried, last Sunday, because Ruby wants two fish for a loaf and that&rsquo;s a lot of fish. Four hours, eight loaves. They were flat, but they were bread.' },
+        { q: 'What do you think Ruby should do?', a: 'It&rsquo;s like the pin factory. Adam Smith wrote about it in 1776: ten men making pins, each doing one small job, made about forty-eight thousand pins a day. Working alone, he said, each of them could not have made twenty. If I only fished, I&rsquo;d get faster. Practice.' },
+        { a: '&ldquo;But even with practice she&rsquo;d be faster than me at everything. Even I can see that&rsquo;s a problem.&rdquo;' }
+      ],
+      clue: { id: 'ronan', title: 'Ronan: twelve mackerel, five till eight', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('ronan')) { paint(); ER.say('Five till eight: twelve mackerel. Four hours: eight flat loaves.'); } }
+    });
+  });
+  var BOOK = '<h4>PARDOE’S · DAY BOOK</h4><table>' +
+    '<tr><td>FRI</td><td>6.00&ndash;8.00</td><td class="h">out in the boat. 12 mackerel.</td></tr>' +
+    '<tr><td></td><td>8.30&ndash;11.30</td><td class="h">baking. 3 batches of 12 = 36 loaves.</td></tr>' +
+    '<tr><td>SAT</td><td>6.00&ndash;8.00</td><td class="h">boat. 12 mackerel. Wind S.W.</td></tr>' +
+    '<tr><td></td><td>8.30&ndash;11.30</td><td class="h">baking. 36 loaves.</td></tr>' +
+    '<tr><td></td><td></td><td class="h">swapped 11 loaves: 20 mackerel, 12 eggs (Mrs R., again)</td></tr></table>' +
+    '<p class="foot">Ronan in again with his box. Said NO. Again.</p>';
+  $('#daybook').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'daybook', clue: { id: 'daybook', title: 'Ruby’s day book', kind: 'On the nail' }, done: function () {
+      if (tell('book')) { paint(); ER.say('Two hours in the boat, twelve mackerel. Three hours of baking, thirty-six loaves. Every day.'); }
+    } });
+  });
+  var RIC = '<div class="dia"><svg viewBox="0 0 290 300"><g font-family="Lora,serif" font-size="14" fill="#1f2a52">' +
+    '<text x="145" y="18" text-anchor="middle" font-weight="700" fill="#7a3b6e">David Ricardo, 1817</text>' +
+    '<text x="145" y="38" text-anchor="middle" font-size="12.5">years of work to make a fixed amount of</text>' +
+    '<text x="170" y="64" text-anchor="middle" font-weight="700">cloth</text><text x="246" y="64" text-anchor="middle" font-weight="700">wine</text>' +
+    '<path d="M10 72H285M130 48V150" stroke="#1f2a52" stroke-width="1.5"/>' +
+    '<text x="12" y="98">England</text><text x="170" y="98" text-anchor="middle">100</text><text x="246" y="98" text-anchor="middle">120</text>' +
+    '<text x="12" y="134">Portugal</text><text x="170" y="134" text-anchor="middle">90</text><text x="246" y="134" text-anchor="middle">80</text>' +
+    '<rect x="146" y="80" width="48" height="26" fill="none" stroke="#1f7a74" stroke-width="2.5" rx="4"/><rect x="222" y="116" width="48" height="26" fill="none" stroke="#1f7a74" stroke-width="2.5" rx="4"/>' +
+    '<text x="12" y="180" font-size="13.5">Portugal was better at making</text><text x="12" y="198" font-size="13.5">both. Still, England made the cloth,</text><text x="12" y="216" font-size="13.5">Portugal made the wine, they traded,</text><text x="12" y="234" font-size="13.5" font-weight="700" fill="#1f7a74">and both countries gained.</text>' +
+    '<text x="12" y="266" font-size="12.5" fill="#7a3b6e">Cloth cost England less wine</text><text x="12" y="282" font-size="12.5" fill="#7a3b6e">than it cost Portugal.</text></g></svg></div>';
+  var CARD = '<h4>Dear Ruby<small>card 3</small></h4><div class="two"><div>' +
+    '<p>You asked why you should swap with anybody, when you can make more of everything. Making more in an hour is called an <b>absolute advantage</b>.</p>' +
+    '<p>But what matters in a swap is what each thing <b>costs</b> you: what you give up to make it, because that hour could have made the other thing. That is its <b>opportunity cost</b>.</p>' +
+    '<p>Whoever gives up less to make a thing has a <b>comparative advantage</b> in it.</p>' +
+    '<p>If each of you makes the thing you give up least for (economists say you <b>specialise</b>), and you swap, you can both end up better off, even if one of you is better at everything.</p>' +
+    '<p class="rule">A swap helps both people if its price lies between their two opportunity costs.</p><p>Yours, Merryn.</p></div>' + RIC + '</div>';
+  $('#card3').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.ruby) { ER.say('&ldquo;Is that for me?&rdquo; says Ruby. &ldquo;Then say hello first, and I&rsquo;ll listen to it.&rdquo;'); return; }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card3', title: 'Card 3: Dear Ruby', kind: 'Mrs Rosevear’s card' }, done: function () {
+      ISL.terms(['absolute advantage', 'opportunity cost', 'comparative advantage', 'specialise']);
+      if (tell('card')) { paint(); ER.say('Not who is better, but who gives up less. And a price between the two costs.'); }
+    } });
+  });
+  ISL.thing('#photo', null, 'Ruby, aged about twenty, in her father&rsquo;s boat, with a fish nearly as big as a dog. Written on the frame: JULY 1979. Then she took over the bakery as well.', isBusy);
+  ISL.thing('#oven', 'oven', 'The oven was built in 1958 and has gone out twice since. Both times, Ruby says, it was somebody else&rsquo;s fault.', isBusy);
+  ISL.thing('#rack', null, 'Fifteen loaves cooling on the rack, and the smell of them. They are all swapped already, Ruby says.', isBusy);
+  ISL.thing('#box', null, 'Ronan&rsquo;s box: twelve mackerel, packed in wet seaweed. THE MINNOW, it says on the side. The Minnow is his boat, and is about as big as it sounds.', isBusy);
+  ISL.thing('#peel', 'peel', 'A baker&rsquo;s peel: the long wooden paddle for putting loaves into the oven and taking them out.', isBusy);
+  $('#slate').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The slate says: RONAN FISHES. RUBY BAKES. 1 MACKEREL = 1 LOAF. Ruby has underlined it.'); return; }
+    if (!ready()) { ER.say(!told.ruby ? '&ldquo;My slate,&rdquo; says Ruby, without turning round. &ldquo;Talk to me before you write on it.&rdquo;' : !told.ronan ? 'Ronan has not said a word yet. Hear his numbers first.' : !told.book ? 'Ruby&rsquo;s baking is in the day book on the nail. Read it first.' : 'Mrs Rosevear&rsquo;s envelope is still on the counter, unopened.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the slate ---------- */
+  function makeLock() {
+    var saved = ER.flag('c-vals') || {}, jobs = ER.flag('c-jobs') || {}, wait = false, d = {};
+    var box = ER.el('div', 'pz sl');
+    function cell(k) { return '<td' + (/^(rm|rl|om|ol)$/.test(k) ? ' class="g"' : '') + '><i class="dlc" data-k="' + k + '"></i></td>'; }
+    function tog(w) { return '<td><span class="tg" data-w="' + w + '"><button type="button" data-j="fish">fish</button><button type="button" data-j="bake">bake</button></span></td>'; }
+    box.innerHTML = '<div class="sl-in"><h5>Say it with numbers</h5><table>' +
+      '<tr><th></th><th class="g">mackerel<br>in one hour</th><th class="g">loaves<br>in one hour</th><th>one mackerel<br>costs &hellip; loaves</th><th>one loaf<br>costs &hellip; mackerel</th><th>so<br>should</th></tr>' +
+      '<tr><td class="who">Ruby</td>' + cell('rm') + cell('rl') + cell('rcm') + cell('rcl') + tog('r') + '</tr>' +
+      '<tr><td class="who">Ronan</td>' + cell('om') + cell('ol') + cell('ocm') + cell('ocl') + tog('o') + '</tr></table>' +
+      '<div class="td"><span>The swap: Ronan gives Ruby <b class="x">1 mackerel</b> for</span><i class="dlc" data-k="tr"></i><span>loaves</span></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Show Ruby</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = {}; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('c-vals', o); }
+    function lockd() { return wait || !!nextFile; }
+    ['rm', 'rl', 'om', 'ol'].forEach(function (k) { d[k] = ISL.dial(box.querySelector('[data-k="' + k + '"]'), { min: 0, max: 40, step: 1, val: saved[k] || 0, change: keep, lock: lockd }); });
+    ['rcm', 'rcl', 'ocm', 'ocl'].forEach(function (k) { d[k] = ISL.dial(box.querySelector('[data-k="' + k + '"]'), { min: 0, max: 6, step: 0.5, val: saved[k] || 0, fmt: ISL.half, change: keep, lock: lockd }); });
+    d.tr = ISL.dial(box.querySelector('[data-k="tr"]'), { min: 0, max: 4, step: 0.5, val: saved.tr || 0, fmt: ISL.half, change: keep, lock: lockd });
+    function paintJobs() { ER.$$('.tg', box).forEach(function (t) { ER.$$('button', t).forEach(function (b) { b.classList.toggle('on', jobs[t.getAttribute('data-w')] === b.getAttribute('data-j')); }); }); }
+    ER.$$('.tg button', box).forEach(function (b) { b.addEventListener('click', function () { if (lockd()) return; var w = b.parentNode.getAttribute('data-w'); jobs[w] = b.getAttribute('data-j'); ER.flag('c-jobs', jobs); ISL.sfx.chalk(); paintJobs(); }); });
+    paintJobs();
+    function bad(k, t) { ER.sfx.no(); var n = k === 'jobs' ? box.querySelector('table') : box.querySelector('[data-k="' + k + '"]').parentNode; n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1200); msg(t); }
+    box.querySelector('#c-go').addEventListener('click', function () {
+      if (lockd()) return;
+      var v = {}, k; for (k in d) v[k] = String(d[k].get());
+      if (Object.keys(d).every(function (k) { return v[k] === '0'; })) { ER.sfx.no(); msg('&ldquo;A clean slate,&rdquo; says Ruby. &ldquo;Numbers, I said.&rdquo; Set them with the arrows or the mouse wheel.'); return; }
+      if (!ER.check('rm', v.rm)) return bad('rm', ER.check('rm12', v.rm) ? '&ldquo;Twelve is two hours in the boat,&rdquo; says Ruby. &ldquo;Six till eight. In ONE hour?&rdquo;' : '&ldquo;Six till eight, a dozen mackerel,&rdquo; says Ruby. &ldquo;How many is that in one hour?&rdquo;');
+      if (!ER.check('rl', v.rl)) return bad('rl', ER.check('rl36', v.rl) ? '&ldquo;Thirty-six is three hours of baking,&rdquo; says Ruby. &ldquo;Half past eight till half past eleven.&rdquo;' : '&ldquo;It&rsquo;s in the day book,&rdquo; says Ruby. &ldquo;Hours, and loaves. Divide.&rdquo;');
+      if (!ER.check('om', v.om)) return bad('om', ER.check('om12', v.om) ? '&ldquo;Twelve was five till eight,&rdquo; says Ronan. &ldquo;Three hours.&rdquo;' : '&ldquo;Twelve mackerel, five till eight,&rdquo; says Ronan. &ldquo;Three hours.&rdquo;');
+      if (!ER.check('ol', v.ol)) return bad('ol', ER.check('ol8', v.ol) ? '&ldquo;Eight loaves took me four hours,&rdquo; says Ronan. &ldquo;Flat ones.&rdquo;' : '&ldquo;Four hours, eight loaves,&rdquo; says Ronan. &ldquo;In one hour?&rdquo;');
+      if (!ER.check('rcm', v.rcm)) return bad('rcm', v.rcm === '0.5' ? '&ldquo;That&rsquo;s upside down,&rdquo; says Romy. &ldquo;In an hour Ruby makes 6 mackerel OR 12 loaves. So the time for ONE mackerel would make how many loaves?&rdquo;' : '&ldquo;What does one mackerel cost Ruby?&rdquo; says Romy. &ldquo;The loaves she doesn&rsquo;t bake while she catches it. An hour is 6 mackerel or 12 loaves.&rdquo;');
+      if (!ER.check('rcl', v.rcl)) return bad('rcl', v.rcl === '2' ? '&ldquo;Upside down again,&rdquo; says Romy. &ldquo;Twelve loaves or six mackerel. One loaf is how much of a mackerel?&rdquo;' : '&ldquo;And one loaf,&rdquo; says Romy. &ldquo;While Ruby bakes it, how many mackerel is she not catching? It can be a half.&rdquo;');
+      if (!ER.check('ocm', v.ocm)) return bad('ocm', v.ocm === '2' ? '&ldquo;Ronan the other way round,&rdquo; says Romy. &ldquo;He makes 4 mackerel or 2 loaves in an hour. One mackerel costs him&hellip;?&rdquo;' : '&ldquo;Now Ronan,&rdquo; says Romy. &ldquo;An hour is 4 mackerel or 2 loaves. What does one mackerel cost him in bread?&rdquo;');
+      if (!ER.check('ocl', v.ocl)) return bad('ocl', v.ocl === '0.5' ? '&ldquo;Upside down,&rdquo; says Romy. &ldquo;Two loaves or four mackerel: one loaf costs Ronan how many fish?&rdquo;' : '&ldquo;And one loaf, for Ronan,&rdquo; says Romy. &ldquo;Two loaves or four mackerel in an hour.&rdquo;');
+      if (!jobs.r || !jobs.o) return bad('jobs', '&ldquo;Who does what?&rdquo; says Ruby. &ldquo;Fish or bake, both of us. Mark it.&rdquo;');
+      if (!ER.check('jobs', jobs.r + '-' + jobs.o)) return bad('jobs', jobs.r === jobs.o ? '&ldquo;We can&rsquo;t both ' + jobs.r + ',&rdquo; says Ronan. &ldquo;Then who&rsquo;s going to ' + (jobs.r === 'fish' ? 'bake' : 'fish') + '?&rdquo;' : '&ldquo;I&rsquo;m the better fisher,&rdquo; says Ruby, &ldquo;so I fish. Isn&rsquo;t that it?&rdquo; Romy taps the slate. &ldquo;Look what a mackerel COSTS each of you. Who gives up less to catch one?&rdquo;');
+      if (!ER.check('tr', v.tr)) {
+        if (ER.check('tre', v.tr)) return bad('tr', v.tr === '0.5' ? '&ldquo;Half a loaf for a mackerel,&rdquo; says Romy. &ldquo;That&rsquo;s Ruby&rsquo;s old price: two fish for a loaf. A mackerel costs Ronan half a loaf to catch, so he gains nothing at all. That&rsquo;s why he went home and baked flat bread.&rdquo;' : '&ldquo;Two loaves for a mackerel,&rdquo; says Ruby slowly. &ldquo;That&rsquo;s exactly what a mackerel costs me to catch myself. Then I gain nothing. Why would I bother?&rdquo;');
+        return bad('tr', d.tr.get() > 2 ? '&ldquo;More than two loaves for one fish?&rdquo; says Ruby. &ldquo;I could catch it myself for two. I&rsquo;d lose.&rdquo;' : '&ldquo;Ronan gives a mackerel and gets nothing back?&rdquo; says Romy. &ldquo;That&rsquo;s a present, not a swap. The price has to be between their two costs.&rdquo;');
+      }
+      var file = ER.exit([[v.rm, v.rl, v.om, v.ol, v.rcm, v.rcl, v.ocm, v.ocl, jobs.r + '-' + jobs.o, v.tr].join('-')], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      var one = v.tr === '1';
+      ISL.mine('slate', 'Ruby’s slate', '<p>In one hour: Ruby 6 mackerel or 12 loaves. Ronan 4 mackerel or 2 loaves.</p><p>1 mackerel costs Ruby 2 loaves; costs Ronan ½ a loaf. So RONAN FISHES.</p><p>1 loaf costs Ruby ½ a mackerel; costs Ronan 2 mackerel. So RUBY BAKES.</p><p>Price between ½ and 2 loaves a mackerel: 1 for 1. Both gain: gains from trade.</p>', true);
+      ISL.terms(['gains from trade']);
+      msg(one ? 'Ruby reads the slate. Then she reads it again, with her finger. &ldquo;One for one,&rdquo; she says.' : 'Ruby reads the slate. &ldquo;A loaf and a half for a fish? You&rsquo;re generous with my bread. Call it one for one, and we&rsquo;re still both better off.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;One mackerel for one loaf,&rdquo; says Ruby slowly. &ldquo;A mackerel costs me two loaves&rsquo; worth of time to catch, and I get it for one. A loaf costs him two mackerel&rsquo;s worth to bake, and he gets it for one.&rdquo;',
+          '&ldquo;So we both win,&rdquo; says Ronan. &mdash; &ldquo;We both win,&rdquo; says Ruby. &ldquo;Even though I&rsquo;m better at everything.&rdquo; For a moment she seems personally offended by this. Then she seems rather pleased.',
+          '&ldquo;I said she had a point,&rdquo; says Romy. &ldquo;She didn&rsquo;t. Better at both doesn&rsquo;t matter. What it costs you does.&rdquo; She writes it on the paper bag, under the loaf.',
+          '&ldquo;And you two don&rsquo;t even need money for it,&rdquo; she adds. &ldquo;Ruby wants fish every day, and Ronan wants bread every day. That&rsquo;s a double coincidence. Lucky.&rdquo; &mdash; &ldquo;The rest of the island isn&rsquo;t so lucky,&rdquo; says Ruby.',
+          'The bakery door bangs open. It is Perran, Romy&rsquo;s brother, nine, very wet. &ldquo;Mr Pentreath says the island&rsquo;s ideas for money are all on his table in the hut,&rdquo; he pants, &ldquo;and he wants the one with the paper bag. And if anybody says shells, he&rsquo;ll listen.&rdquo; &mdash; &ldquo;He did not say that,&rdquo; says Romy. &mdash; &ldquo;He might,&rdquo; says Perran.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Fill in the slate: the green columns first, then what one of each thing costs, then who should fish and who should bake, then the swap. Arrows or the mouse wheel; halves are allowed.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

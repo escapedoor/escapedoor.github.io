@@ -1,0 +1,185 @@
+/* Small Change - what every room of the story shares: the papers of an island with no coins (the children's poster,
+   swap cards, Mrs Rosevear's lesson cards, a day book, a typed card, a postcard, the back of a paper bag), the dial,
+   the frame round a piece of work, and an oilskin skin for the notebook, the hints and the word tags.
+   Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;letter-spacing:.26em;text-transform:uppercase}
+.tc-room{line-height:1}
+.tc-text{font-family:'Lora',Georgia,serif;font-size:clamp(17.5px,1.42vw,21px);line-height:1.56}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Lora',Georgia,serif;font-size:clamp(17.5px,1.38vw,21px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:3px solid #10202e;
+  color:#10202e;background:#f2c12e;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.1em;text-transform:uppercase;border-radius:4px;box-shadow:0 6px 0 #10202e,0 14px 30px rgba(0,0,0,.4)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff}
+.tk-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;letter-spacing:.03em}
+.tk-role{font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--role,#b8342a)}
+.tk .btn{--accent:var(--role-btn,#10202e)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'Lora',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.52}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+.glow{animation:isl-glow 1.6s steps(1,end) infinite}
+@keyframes isl-glow{50%{filter:brightness(1.3) drop-shadow(0 0 6px #fff4b0)}}
+
+/* lettering inside drawings */
+.cB{font-family:'Bungee',sans-serif}
+.cS{font-family:'Cabin Sketch',cursive}
+.cH{font-family:'Architects Daughter',cursive}
+.cL{font-family:'Lora',serif}
+.cP{font-family:'Courier Prime',monospace}
+.cO{font-family:'Oswald',sans-serif}
+.cC{font-family:'Caveat',cursive}
+.cE{font-family:'Special Elite',monospace}
+.cG{font-family:'EB Garamond',serif}
+.cT{font-family:'Stardos Stencil',sans-serif}
+.cA{font-family:'Homemade Apple',cursive}
+.cZ{font-family:'Cinzel',serif}
+
+/* ---- the dial ---- */
+.dl{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;user-select:none;-webkit-user-select:none}
+.dl b{display:block;min-width:2.2em;padding:2px 6px;text-align:center;font-weight:400}
+.dl button{display:block;width:100%;height:20px;font-size:12px;line-height:20px;opacity:.75;border-radius:3px}
+.dl button:hover{opacity:1;background:rgba(255,255,255,.18)}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1080px,95vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:50px;margin:0;font-family:'Lora',Georgia,serif;font-size:17px;line-height:1.42;color:#fbf6e4}
+.pmsg b{color:#f2c12e;font-weight:700}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45);--accent:#f2c12e}
+.pz svg{display:block}
+.bad{outline:4px solid #e2453a!important}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the children's poster in the post office: sugar paper, felt pen and crayon */
+.doc.poster{width:min(900px,95vw);background:#f3e6c4;color:#24324a;font-family:'Architects Daughter',cursive;font-size:18px;line-height:1.42;padding:22px 30px 18px;
+  border:3px solid #24324a;box-shadow:inset 0 0 0 8px #f3e6c4,inset 0 0 0 11px #d4573f,0 26px 70px rgba(0,0,0,.55);transform:rotate(-.4deg)}
+.doc.poster h4{margin:0 0 6px;font-family:'Bungee',sans-serif;font-size:27px;color:#d4573f;letter-spacing:.02em}
+.doc.poster h4 small{display:block;font-family:'Architects Daughter',cursive;font-size:15px;color:#24324a;letter-spacing:0}
+.doc.poster p{margin:0 0 7px}
+.doc.poster b{color:#1f6aa5;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:1.1em}
+.doc.poster .two{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.doc.poster .smith{margin:10px 0 0;padding:9px 14px;background:#fffaf0;border:2px dashed #24324a;font-family:'Lora',serif;font-size:15.5px;line-height:1.42}
+.doc.poster .smith i{font-family:'Architects Daughter',cursive;font-style:normal;color:#d4573f}
+/* a swap card from the window */
+.doc.swap{width:min(460px,90vw);background:#fffdf3;color:#1d2430;font-family:'Architects Daughter',cursive;font-size:19px;line-height:1.38;padding:22px 26px 18px;border-top:12px solid #d4573f;transform:rotate(.8deg)}
+.doc.swap h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;letter-spacing:.06em;color:#d4573f}
+/* Mrs Rosevear's lesson cards: an index card in fountain pen */
+.doc.card{width:min(880px,95vw);background:#fbf8ee repeating-linear-gradient(transparent 0 29px,#c8d6e4 29px 30px);color:#1f2a52;font-family:'Lora',Georgia,serif;font-size:16.5px;line-height:30px;padding:30px 34px 18px;
+  border-top:34px solid #f6e7e7;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.doc.card:before{content:'';position:absolute;left:0;right:0;top:-6px;height:3px;background:#d97a7a}
+.doc.card h4{margin:-6px 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:23px;line-height:32px;color:#7a3b6e;letter-spacing:.02em}
+.doc.card h4 small{float:right;font-family:'Caveat',cursive;font-size:21px;color:#1f2a52;font-weight:400}
+.doc.card p{margin:0}
+.doc.card b{font-family:'Outfit',sans-serif;font-weight:800;font-size:.92em;letter-spacing:.04em;color:#7a3b6e}
+.doc.card .two{display:grid;grid-template-columns:1fr 290px;gap:24px;align-items:start}
+.doc.card .dia{background:#fff;border:1px solid #c8d6e4;padding:6px;line-height:1.2}
+.doc.card .rule{margin:6px 0 0;padding:0 12px;background:#f4ead2;border-left:5px solid #7a3b6e;font-weight:600}
+/* a library book, open */
+.doc.book{width:min(720px,94vw);background:#f6efdc;color:#2a2318;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;padding:30px 44px 24px;
+  box-shadow:inset 18px 0 30px -18px rgba(80,50,10,.45),0 26px 70px rgba(0,0,0,.55)}
+.doc.book h4{margin:0 0 10px;font-family:'EB Garamond',serif;font-variant:small-caps;font-size:23px;letter-spacing:.06em;color:#6a3a1a;text-align:center}
+.doc.book .pg{margin-top:10px;text-align:center;font-size:14px;color:#8a7a5a}
+.doc.book .hand{display:block;margin-top:8px;font-family:'Caveat',cursive;font-size:23px;color:#1f6aa5;transform:rotate(-2deg)}
+/* Ruby's day book: a grocer's ledger, floury */
+.doc.daybook{width:min(640px,93vw);background:#fffaf0;color:#2a2018;font-family:'Courier Prime',monospace;font-size:15.5px;line-height:1.35;padding:22px 26px 16px;border-left:30px solid #8a4a22;
+  box-shadow:inset 0 0 60px rgba(200,180,140,.35),0 26px 70px rgba(0,0,0,.55)}
+.doc.daybook h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;letter-spacing:.08em;color:#8a4a22}
+.doc.daybook table{width:100%;border-collapse:collapse}
+.doc.daybook td{padding:3px 6px;border-bottom:1px solid #e2d6bc;vertical-align:top}
+.doc.daybook td.h{font-family:'Homemade Apple',cursive;font-size:14px;color:#2a3a6a;line-height:1.6}
+.doc.daybook .foot{margin-top:8px;font-family:'Homemade Apple',cursive;font-size:14px;color:#2a3a6a;line-height:1.7}
+/* Piran's typed card, pinned by the chart */
+.doc.typed{width:min(860px,95vw);background:#f2f0e6;color:#1a1f28;font-family:'Special Elite',monospace;font-size:16px;line-height:1.5;padding:24px 32px 18px;border:1px solid #b9b4a0;
+  box-shadow:3px 4px 0 #cfc9b2,0 26px 70px rgba(0,0,0,.55)}
+.doc.typed h4{margin:0 0 10px;font-family:'Stardos Stencil',sans-serif;font-size:26px;letter-spacing:.06em;color:#1e3a5a}
+.doc.typed p{margin:0 0 6px}
+.doc.typed b{font-family:'Stardos Stencil',sans-serif;font-weight:400;letter-spacing:.06em;color:#9a2a1e}
+.doc.typed .two{display:grid;grid-template-columns:1fr 270px;gap:22px;align-items:start}
+.doc.typed .hand{font-family:'Caveat',cursive;font-size:21px;color:#1e3a5a}
+/* a postcard */
+.doc.postcard{width:min(720px,94vw);background:#fbf7ec;color:#22282e;font-family:'Lora',serif;font-size:16.5px;line-height:1.48;padding:0;display:grid;grid-template-columns:300px 1fr;
+  box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.doc.postcard .pic{background:#7fb7c4}
+.doc.postcard .txt{padding:22px 24px 18px;border-left:2px solid #d6cdb4}
+.doc.postcard h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:19px;letter-spacing:.1em;color:#1e5a6a}
+.doc.postcard .hand{display:block;margin-top:10px;font-family:'Caveat',cursive;font-size:21px;line-height:1.2;color:#1e3a5a}
+/* what you worked out yourself: the back of a paper bag */
+.doc.mine{width:min(600px,92vw);background:#d9b98a radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.25),transparent 60%);color:#2a2018;font-family:'Architects Daughter',cursive;font-size:18.5px;line-height:1.48;padding:30px 30px 20px 34px;
+  border-top:14px dashed #c9a676}
+.doc.mine h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#7a2a1a}
+.doc.mine p{margin:0 0 4px}
+.doc.statement{background:#f6f8f6;font-family:'Lora',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #2a5a8a}
+.doc.statement h4{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.08em;color:#2a5a8a}
+.doc .w:hover{color:#b8342a}
+
+/* ---- the notebook: a fisherman's oilskin pocket book ---- */
+.nb{background:#173042 linear-gradient(140deg,#1f4058,#0f2232);border:1px solid #3e6a86;color:#eef3f6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0b1a26}
+.nb-tabs{border-bottom-color:#3e6a86}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#b7ccd8}
+.nb-tabs button.on{background:#f2c12e;color:#10202e;border-color:#3e6a86}
+.nb-list{border-right-color:#3e6a86}
+.nb-list button{font-family:'Lora',serif;font-size:16px;color:#eef3f6}
+.nb-list button small{font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#f2c12e;color:#10202e}
+.nb-view{background:#0b1a26}
+.nb-empty{font-family:'Lora',serif}
+.nb-words{background:#fbf8ee;color:#10202e}
+.nb-words b{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px}
+.nb-words span{font-family:'Lora',serif;font-size:16px;line-height:1.35;color:#3a4a56}
+.nb-ko{border-color:#7a96a8;color:#3a4a56}
+.nb-ko.on{background:#173042;color:#f2c12e;border-color:#173042}
+.wtip,.wtag{background:#fbf8ee;color:#10202e;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 5px 0 #f2c12e}
+.wtag{transform:rotate(-1deg);padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:13px}
+.wtip b,.wtag b{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px}
+.wtip span,.wtag span{font-family:'Lora',serif;font-size:16px;line-height:1.35;color:#3a4a56}
+.hintbox{background:#fbf8ee;color:#10202e;border-top:6px solid #f2c12e;border-radius:3px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.14em;color:#2a5a8a}
+.hintbox p{font-family:'Lora',serif;font-size:17px;line-height:1.4}
+.hintbox p i{background:#10202e;color:#f2c12e;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#4a5a66;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(11,26,38,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fbf8ee;color:#10202e;
+  border-top:12px solid #f2c12e;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 1px;border:4px solid #2a5a8a;color:#2a5a8a;font-family:'Stardos Stencil',sans-serif;font-size:24px;letter-spacing:.08em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;color:#10202e}
+.done p{margin:0 0 2px;font-family:'Courier Prime',monospace;font-size:13.5px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Lora',serif;font-size:14px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#10202e;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#f2c12e}
+.done small{display:block;margin-top:8px;font-family:'Courier Prime',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf8ee;color:#10202e;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:22px solid #2a5a8a}
+.rp h4{margin:0 0 3px;font-family:'Courier Prime',monospace;font-weight:700;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#2a5a8a}
+.rp h3{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Lora',serif;font-size:16.5px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Architects Daughter',cursive;font-size:19px;line-height:30px;color:#1f3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Courier Prime',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Courier Prime',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#10202e}.rp .btn:hover:not([disabled]){color:#f2c12e}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}
