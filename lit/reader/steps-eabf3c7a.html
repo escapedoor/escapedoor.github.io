@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Front Steps · Don't Skip to the End</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="reader.css">
+<style>
+  body{--bg:#1a2340;--accent:#f4c860;--font-display:'Alegreya',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(22,30,56,.96);--tc-ink:#f6eedc;--cap-bg:rgba(24,32,58,.95);--panel:#222c4a;--face-bg:#dfe6d2;--q-ink:#ffd98a;--fade:#070a14;--hud-bg:rgba(22,30,56,.84)}
+  .tc-room{font-size:clamp(46px,6.2vw,84px);color:#f4c860;font-weight:800}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .sO{font-family:'Oswald',sans-serif;text-anchor:middle}
+  #glowL,#glowR{animation:lampf 9s steps(1,end) infinite}
+  #glowR{animation-delay:-4s}
+  @keyframes lampf{0%{opacity:1}63%{opacity:.85}64%{opacity:1}}
+  #flash{opacity:0}
+  #flash.on{animation:flash .5s ease-out}
+  @keyframes flash{0%{opacity:.9}100%{opacity:0}}
+  #ribbon .cut{display:none}
+  #scene.cut #ribbon .whole{display:none}
+  #scene.cut #ribbon .cut{display:inline}
+  #stars circle{animation:tw 5s steps(2,end) infinite}
+  #stars circle:nth-child(2n){animation-delay:-2.5s}
+  @keyframes tw{50%{opacity:.4}}
+  #pumphrey.ready,#board.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.3)}}
+  #board{display:none}
+  #scene.board #board{display:inline}
+  #winlit{opacity:.25;transition:opacity 3s}
+  #scene.open #winlit{opacity:1}
+
+  .mtn2{width:min(1000px,96vw);-webkit-user-select:none;user-select:none}
+  .mtn2 .board{position:relative;height:300px;background:#24382e;border:12px solid #7a5a36;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .mtn2 .board>svg{position:absolute;left:0;top:0;width:100%;height:100%}
+  .mtn2 .peg{position:absolute;width:18.6%;height:96px;border:2px dashed rgba(241,239,228,.45);border-radius:4px;display:flex;align-items:stretch}
+  .mtn2 .peg.bad{border-color:#ff8a7a;background:rgba(255,120,100,.18)}
+  .mtn2 .peg>i{position:absolute;left:0;right:0;top:-20px;text-align:center;font-style:normal;font-family:'Fredericka the Great',serif;font-size:14px;color:#f3d77a}
+  .mtn2 .tray{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px;padding:10px;background:rgba(0,0,0,.28);border-radius:4px;min-height:112px}
+  .mtn2 .bm{background:#fff8e6;color:#22201c;font-family:'Alegreya',serif;font-size:14.4px;line-height:1.24;padding:7px 9px;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.35);border-top:7px solid #81b29a}
+  .mtn2 .peg .bm{flex:1;font-size:13.6px}
+  .mtn2 .foot .bmsg{color:#fbf2e4}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fbf6e8;color:#22201c;border-top:10px solid #2f6a5a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 1px;border:4px solid #2f6a5a;color:#2f6a5a;font-family:'Special Elite',monospace;font-size:20px;letter-spacing:.06em;transform:rotate(-3deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#2f6a5a}
+  .done p{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-size:15px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'Alegreya',serif;font-size:15px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#2f6a5a;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf6e8}
+  .done small{display:block;margin-top:8px;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf6e8;color:#22201c;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #2f6a5a}
+  .rp h4{margin:0 0 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#2f6a5a}
+  .rp h3{margin:0 0 8px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p{display:block;font-family:'Alegreya',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#22201c}
+  .rp textarea{width:100%;min-height:184px;font-family:'Gochi Hand',cursive;font-size:22px;line-height:30px;color:#1f3a7a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfe0da 29px 30px);border:1px solid #9ac0b4;padding:0 12px;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp .count{font-family:'Goudy Bookletter 1911',serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Goudy Bookletter 1911',serif;font-size:13px;opacity:.75}
+  .rp .btn{--accent:#2f6a5a}.rp .btn:hover:not([disabled]){color:#fbf6e8}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="duskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121a38"/><stop offset=".6" stop-color="#2c3a6a"/><stop offset="1" stop-color="#b86a4a"/></linearGradient>
+  <pattern id="brick" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#7a3e2e"/><path d="M0 .5h60M0 15.5h60M15 0v15M45 15v15" stroke="#5a2a1e" stroke-width="2"/></pattern>
+  <pattern id="cobbles" width="44" height="22" patternUnits="userSpaceOnUse"><rect width="44" height="22" fill="#2a2e3e"/><ellipse cx="11" cy="6" rx="9" ry="4.5" fill="#3a4054"/><ellipse cx="33" cy="6" rx="9" ry="4.5" fill="#363c50"/><ellipse cx="0" cy="17" rx="9" ry="4.5" fill="#3a4054"/><ellipse cx="22" cy="17" rx="9" ry="4.5" fill="#363c50"/><ellipse cx="44" cy="17" rx="9" ry="4.5" fill="#3a4054"/></pattern>
+  <radialGradient id="lampG2"><stop offset="0" stop-color="#ffd890" stop-opacity=".7"/><stop offset=".5" stop-color="#ffb860" stop-opacity=".18"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig5" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#05070e" stop-opacity=".25"/><stop offset="1" stop-color="#020306" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<!-- the dusk, the rooftops across the square -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#duskG)"/>
+<g id="stars"></g>
+<path d="M-1000 780V430h200v-40h160v60h120v-80h220v70h100V780zM1450 780V440h230v-50h160v40h200v350z" fill="#1a1e34"/><g fill="#f4d28a" opacity=".7"><rect x="-560" y="470" width="14" height="18"/><rect x="-200" y="430" width="14" height="18"/><rect x="1520" y="480" width="14" height="18"/><rect x="1760" y="440" width="14" height="18"/></g>
+<!-- the library: brick, stone, lit windows, the green door -->
+<g id="lib"><rect x="300" y="150" width="1000" height="560" fill="url(#brick)"/><path d="M290 150h1020l-40 -60H330z" fill="#8a7a62"/><rect x="290" y="140" width="1020" height="18" fill="#c8b898"/>
+  <text x="800" y="128" class="sC" font-size="30" fill="#2a2018" letter-spacing="8">FREE LIBRARY</text>
+  <g id="winlit"><g fill="#ffd27a"><rect x="360" y="220" width="120" height="170"/><rect x="1120" y="220" width="120" height="170"/><rect x="360" y="460" width="120" height="150"/><rect x="1120" y="460" width="120" height="150"/></g></g>
+  <g fill="none" stroke="#c8b898" stroke-width="8"><rect x="360" y="220" width="120" height="170"/><rect x="1120" y="220" width="120" height="170"/><rect x="360" y="460" width="120" height="150"/><rect x="1120" y="460" width="120" height="150"/></g>
+  <g stroke="#c8b898" stroke-width="4"><path d="M420 220v170M360 305h120M1180 220v170M1120 305h120M420 460v150M1180 460v150"/></g>
+  <circle cx="800" cy="260" r="70" fill="#2a2018" stroke="#c8b898" stroke-width="10"/><circle cx="800" cy="260" r="50" fill="#ffd27a" opacity=".8"/>
+  <path d="M690 700V450a110 110 0 0 1 220 0V700z" fill="#c8b898"/><path d="M710 700V460a90 90 0 0 1 180 0V700z" fill="#2f5a3a"/><path d="M800 380v320" stroke="#244a2e" stroke-width="4"/><circle cx="790" cy="580" r="7" fill="#c9a642"/><circle cx="810" cy="580" r="7" fill="#c9a642"/>
+  <rect x="922" y="520" width="56" height="40" rx="3" fill="#c9a642"/></g>
+<!-- the ribbon -->
+<g id="ribbon"><g class="whole"><path d="M690 600q110 30 220 0" fill="none" stroke="#d42a2a" stroke-width="12"/><path d="M790 610l-14 40 24 -16 24 16 -14 -40z" fill="#d42a2a"/></g>
+  <g class="cut"><path d="M690 600q40 14 70 30l-6 40" fill="none" stroke="#d42a2a" stroke-width="12"/><path d="M910 600q-40 14 -70 30l6 40" fill="none" stroke="#d42a2a" stroke-width="12"/></g></g>
+<!-- the steps and the square -->
+<g id="steps"><rect x="560" y="700" width="480" height="24" fill="#a89a82"/><rect x="530" y="724" width="540" height="24" fill="#9a8c74"/><rect x="500" y="748" width="600" height="24" fill="#8c7e66"/></g>
+<rect x="-1000" y="772" width="3600" height="700" fill="url(#cobbles)"/>
+<g opacity=".35"><ellipse cx="190" cy="830" rx="90" ry="14" fill="#ffd890"/><ellipse cx="1410" cy="830" rx="90" ry="14" fill="#ffd890"/></g>
+<!-- the lamps -->
+<g id="lamps" class="hot"><path d="M190 800V420M1410 800V420" stroke="#1a1a22" stroke-width="12"/><g fill="#1a1a22"><path d="M160 420h60l-10 -56h-40z"/><path d="M1380 420h60l-10 -56h-40z"/></g><g fill="#ffe2a0"><rect x="174" y="372" width="32" height="40"/><rect x="1394" y="372" width="32" height="40"/></g></g>
+<circle id="glowL" cx="190" cy="392" r="200" fill="url(#lampG2)" pointer-events="none"/><circle id="glowR" cx="1410" cy="392" r="200" fill="url(#lampG2)" pointer-events="none"/>
+<!-- the crowd -->
+<g id="crowd" class="hot"><g id="crowdL" transform="translate(-60 900)"></g><g id="crowdR" transform="translate(1150 900)"></g></g>
+<!-- the Story Club board, carried out by Archie -->
+<g id="board" class="hot"><path d="M1060 760l-16 120M1240 760l16 120" stroke="#6a4a26" stroke-width="8"/><rect x="1040" y="610" width="220" height="160" fill="#7a5a36"/><rect x="1050" y="620" width="200" height="140" fill="#24382e"/>
+  <path d="M1062 744l40 -10 30 -36 18 -46 18 46 30 36 40 10" fill="none" stroke="#f1efe4" stroke-width="3"/><text x="1150" y="648" font-family="Fredericka the Great,serif" font-size="15" fill="#f1efe4" text-anchor="middle">TODAY</text></g>
+<!-- the people on the steps -->
+<g id="photog" class="hot" transform="translate(470 860)"><path d="M-20 0v-90h14v90zM6 0v-90h14v90z" fill="#2a2a30"/><path d="M-30 -84q-4 -90 30 -96q34 6 30 96z" fill="#5a6a4a"/><circle cx="0" cy="-196" r="18" fill="#e7b693"/><path d="M-18 -200q18 -26 36 0" fill="#3a2a1a"/><rect x="-22" y="-172" width="44" height="26" fill="#1a1a1a"/><circle cx="0" cy="-159" r="9" fill="#5a6a8a"/><rect x="10" y="-196" width="16" height="22" fill="#e8e8e8"/></g>
+<g id="croft" class="hot" transform="translate(620 770) scale(.92)"></g>
+<g id="quigley" class="hot" transform="translate(940 770) scale(.95)"></g>
+<g id="pumphrey" class="hot" transform="translate(790 772) scale(.9)"></g>
+<g id="archie" class="hot" transform="translate(1290 880) scale(.9)"></g>
+<rect id="flash" x="-1000" y="-400" width="3600" height="1720" fill="#fff" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig5)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Hopwell Free Library &middot; open</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A plot is a mountain. Exposition: life before the trouble. Rising action: the climb, one step at a time. Climax: the moment the main problem is decided. Falling action: the loose ends. Resolution: the new normal.</li>
+    <li>To find the climax, ask: after which moment can nothing go back to how it was?</li>
+    <li>Every genre has its signs: the setting, the hero, the problem, the words on the first page. Books borrow each other&rsquo;s coats, so decide by the main problem, not the setting.</li>
+    <li>A first line is a promise and a hook. It can give you the voice, the world (and one thing that is wrong with it), the genre, and sometimes a whole character in one sentence.</li>
+    <li>Some first lines are famous because they do all of that at once: &ldquo;It was a bright cold day in April, and the clocks were striking thirteen.&rdquo; (George Orwell, Nineteen Eighty-Four, 1949)</li>
+    <li>Telling says what a character is like. Showing gives the evidence: what people do, say and choose, and what it costs them. From it you infer what they are really like.</li>
+    <li>When the telling and the showing disagree, believe the showing. That is how you found out who really gave Hopwell its library.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>Frances Hodgson Burnett, <i>The Secret Garden</i> (1911): a girl everybody calls disagreeable, and what she shows you instead</li>
+    <li>Andrew Lang, ed., <i>The Blue Fairy Book</i> (1889), with Perrault&rsquo;s Cinderella in it</li>
+    <li>E. Nesbit, <i>The Railway Children</i> (1906)</li>
+    <li>Roald Dahl, <i>Matilda</i> (1988), for another girl who has read everything</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Speak up for a library</button><button type="button" class="btn" id="b-mtn">Today&rsquo;s mountain</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>Don&rsquo;t Skip to the End &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="reader.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, m2 = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 30; i++) s += '<circle cx="' + ((i * 167) % 1600) + '" cy="' + (-60 + (i * 89) % 330) + '" r="' + (1 + (i % 3) * 0.6) + '" fill="#fff8e0"/>';
+    $('#stars').innerHTML = s;
+    $('#crowdL').innerHTML = window.CROWD(12, 3); $('#crowdR').innerHTML = window.CROWD(10, 7);
+    $('#croft').innerHTML = window.FIG('croft');
+    $('#quigley').innerHTML = window.FIG('quigley', { scissors: true });
+    $('#pumphrey').innerHTML = window.FIG('pumphrey', { right: true });
+    $('#archie').innerHTML = window.FIG('archie');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'reader', storyTitle: 'Don’t Skip to the End', id: 'steps', no: 'V', title: 'The Front Steps',
+    go: 'Out onto the steps',
+    intro: [
+      'Upstairs, the newspaper told you one thing and showed you another. It told you that Gilbert Dowsett was generous and loved books. It showed you his wife writing out two hundred tickets with her own hand, and Gilbert leaving early. His own letter showed the rest: the money was hers, from the sea stories she signed as a sea captain. So the card said: Captain L. Halyard, real name Lavinia Dowsett. And Juno&rsquo;s line, with a real town and a real father and no magic in it, was the beginning of her adventure, Against the Wind.',
+      'Folded in the middle of that book was a paper from 1906 that nobody had read for a hundred and twenty years. Except Juno.',
+      'Five to five. The rain has stopped. The front steps.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"tm":["f8ff4345"]},
+    hints: hints, onBegin: begin
+  });
+  told = RD.told('e-told');
+  function isBusy() { return busy; }
+  function paint() {
+    $('#scene').classList.toggle('cut', told.has('deed'));
+    $('#scene').classList.toggle('open', told.has('deed'));
+    $('#scene').classList.toggle('board', told.has('talk'));
+    $('#pumphrey').classList.toggle('ready', (told.has('in') && !told.has('deed')) || (told.has('deed') && !told.has('talk')));
+    $('#board').classList.toggle('ready', told.has('talk') && !told.has('mtn'));
+  }
+  function hints() {
+    if (m2 && m2.parentNode) return ['mtn', ['Today is a story too. What was life like before the trouble? What was the climb? After which moment could nothing go back? Put the five cards in that order, from the bottom on the left to the bottom on the right.']];
+    if (!told.has('deed')) return ['deed', ['Mrs Pumphrey is holding the paper from the middle of the book. Click her, and read the middle.']];
+    if (!told.has('talk')) return ['talk', ['Mrs Pumphrey is on the steps by the green door. Click her and hear her out.']];
+    if (!told.has('mtn')) return ['mtn', ['Archie has carried the Story Club board out onto the steps. Click it: one last mountain.']];
+    return null;
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('talk')) { busy = false; ER.say('The steps, in the lamplight. Archie has brought the Story Club board out.'); return; }
+    if (told.has('deed')) { busy = false; ER.say('The green door is open again. Mrs Pumphrey is on the steps.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The steps. Mrs Pumphrey has the paper in her hand.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The lamps are on round the Market Square, and the wet cobbles shine. A red ribbon is tied across the green door. In front of it stands Councillor Quigley with an enormous pair of scissors, a photographer from the Hopwell Gazette, and Mrs Brenda Croft, the Town Clerk, holding a folder of papers for him to sign.',
+      'Half of Hopwell has come to watch, holding their last library books. Archie Lumb is at the back.',
+      'Mrs Pumphrey walks down the steps with the key of the green door in one hand and the yellow paper in the other. &ldquo;Councillor,&rdquo; she says, &ldquo;before you cut that, you might like to read this.&rdquo;',
+      'He takes the paper and turns at once to the bottom. &ldquo;Signed, sealed and delivered by the said Lavinia Dowsett,&rdquo; he reads, &ldquo;blah, blah, the Council of Hopwell.&rdquo; He hands it back. &ldquo;Signatures. Means nothing. Scissors, please.&rdquo;',
+      '&ldquo;Read the middle,&rdquo; says Mrs Pumphrey.<br>&ldquo;I never read the middle.&rdquo;<br>&ldquo;I know,&rdquo; says Mrs Pumphrey. &ldquo;That is why it is still there.&rdquo; And she holds it out to you instead.'
+    ], function () { busy = false; paint(); });
+  }
+
+  var DEED = '<h4>This Deed</h4>' +
+    '<p>is made on the twenty-ninth day of September 1906, between LAVINIA DOWSETT of Hopwell, who gives, and the COUNCIL OF HOPWELL, which receives.</p>' +
+    '<p class="mid">Lavinia Dowsett gives the Council the building in the Market Square, built with her own money, on this condition and no other: that it shall be kept for ever as a FREE LIBRARY, open to every person in Hopwell and to every child, without payment. If the Council shall ever use it for anything else, then this gift is undone, and the building and its land shall pass at once to the librarian of the day, to be kept as a free library for the readers of Hopwell.</p>' +
+    '<p><span class="seal"></span>Signed, sealed and delivered by the said Lavinia Dowsett, and by the Council of Hopwell, in the presence of the Town Clerk.</p>';
+  function readDeed() {
+    ER.read({ html: DEED, cls: 'deed', clue: { id: 'deed', title: 'The deed of 1906', kind: 'From the middle of the book' }, done: function () {
+      if (told.has('deed')) return;
+      busy = true;
+      ER.narrate([
+        'You read the middle aloud, so that the whole square can hear it. Then Mrs Croft, the Town Clerk, takes the paper, puts on her glasses, and reads all of it, from the top. It takes her two minutes. Nobody in the Market Square says a word.',
+        '&ldquo;The Council&rsquo;s own copy of this was lost when the Town Hall flooded in 1947,&rdquo; she says at last. &ldquo;We have been looking for it for seventy-nine years.&rdquo; She turns to the Councillor. &ldquo;If this building becomes a car park, Councillor, it stops belonging to the Council. It belongs to the librarian of the day, for the readers of Hopwell. Today, that is Mrs Pumphrey.&rdquo;',
+        'Councillor Quigley goes the colour of a parking ticket. He grabs the paper and reads the bottom again, harder, as if the ending might have changed.',
+        '&ldquo;So there will be no car park,&rdquo; says Mrs Croft, and writes something in her folder. &ldquo;And no sale. The Council will be keeping its library. I suggest you cut the ribbon anyway, Councillor. The photographer has come all this way.&rdquo;'
+      ], function () {
+        told.set('deed'); RD.sfx.snip(); paint(); var f = $('#flash'); f.classList.remove('on'); void f.getBoundingClientRect(); f.classList.add('on');
+        ER.narrate([
+          'SNIP. FLASH. And so the photograph on the front of next week&rsquo;s Hopwell Gazette shows Councillor Quigley cutting a red ribbon with an enormous pair of scissors, under the headline LIBRARY SAVED BY THE MIDDLE OF A BOOK. He has bought eleven copies. He has read only the headline.',
+          'Mrs Pumphrey unlocks the green door again, and the lights come on inside, one after another. Archie carries his boxes back up from the boiler room. And somebody&rsquo;s little brother runs all the way to the Fennimores&rsquo; house to shout the news through the letterbox, because chickenpox is catching and he is not allowed in.'
+        ], function () { busy = false; paint(); ER.say('Mrs Pumphrey is standing on the top step, in the light from the door.'); });
+      });
+    } });
+  }
+  $('#pumphrey').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('deed')) { readDeed(); return; }
+    if (told.has('talk')) { ER.say('&ldquo;Monday, nine o&rsquo;clock,&rdquo; says Mrs Pumphrey. &ldquo;Start in the corner. Everybody does.&rdquo;'); return; }
+    ER.talk({
+      who: 'Elspeth Pumphrey', role: 'Librarian · Hopwell Free Library', face: window.FACE('pumphrey'),
+      lines: [
+        { note: 'She is standing on the top step, in the light from the open door, with the key in her hand. Her cardigan is buttoned properly, all the way up.', a: '&ldquo;Well. I came to work this morning to close a library, and I seem to have been given one.&rdquo;' },
+        { q: 'What did Juno find?', a: 'A reason. Lavinia Dowsett wrote it down in 1906, because she knew that one day somebody would want this building for something else. She put her copy in the middle of her own book, where only a reader would ever find it. It waited a hundred and twenty years for one.' },
+        { q: 'Why didn&rsquo;t Juno just tell somebody?', a: 'Who would she tell? A girl of twelve walks into the Town Hall with an old paper, and somebody like the Councillor reads the bottom of it and says, Means nothing. Juno knew that. So she made me read my way there, room by room, and by the time I got to the end I knew what it was worth. That is what a library is for.' },
+        { q: 'What happens now?', a: 'Monday morning, nine o&rsquo;clock, we open. Juno will be back when her spots have gone, and she will want something new to read, and there is nothing in this building she has not read.</p><p>She looks at you. &ldquo;So I shall have to buy some new books. And you can start where she started: in the corner.&rdquo;' },
+        { a: 'She takes the last of Juno&rsquo;s cards out of her pocket and reads it again: Nobody in Hopwell believed that a girl could sail a ship. &ldquo;Lavinia Dowsett,&rdquo; she says, &ldquo;knew how to begin a story.&rdquo;' }
+      ],
+      clue: { id: 'last', title: 'Mrs Pumphrey, on the top step', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !told.set('talk')) return;
+        busy = true;
+        ER.narrate(['Archie comes out of the green door carrying the Story Club board, and props it on the top step. &ldquo;Last question, Mrs P?&rdquo; he says. &ldquo;Like you always do.&rdquo;'], function () { busy = false; paint(); ER.say('One last mountain: today.'); });
+      }
+    });
+  });
+  $('#board').addEventListener('click', function () { if (!busy) openMtn(); });
+  RD.thing('#lamps', null, 'Old gas lamps, electric now. Tonight the whole square is gold.', isBusy);
+  RD.thing('#crowd', null, function () { return told.has('deed') ? 'People are going up the steps with their books, back inside, as if the library had never been closed at all.' : 'Half of Hopwell, holding last library books. Somebody has a banner on a broom handle: READ THE SMALL PRINT.'; }, isBusy);
+  RD.thing('#photog', null, 'The photographer from the Hopwell Gazette. He says this is the best picture he has taken since the giant marrow at the 1987 flower show.', isBusy);
+  RD.thing('#croft', null, function () { return told.has('deed') ? '&ldquo;I shall have this framed,&rdquo; says Mrs Croft, holding the deed. &ldquo;And copied. Several times.&rdquo;' : 'Mrs Brenda Croft, the Town Clerk, with a folder. She looks like a woman who reads every page of everything.'; }, isBusy);
+  RD.thing('#archie', null, '&ldquo;Twenty-two years,&rdquo; says Archie, &ldquo;and that&rsquo;s the first time I&rsquo;ve seen her cry. Happy crying. That&rsquo;s allowed.&rdquo;', isBusy);
+  $('#quigley').addEventListener('click', function () {
+    if (busy) return;
+    RD.sfx.jingle();
+    ER.say(told.has('deed') ? '&ldquo;I was always very fond of this library,&rdquo; says Councillor Quigley to the photographer. &ldquo;Put that in. Put that at the end.&rdquo;' : '&ldquo;Signatures,&rdquo; says Councillor Quigley. &ldquo;Means nothing.&rdquo; He snips the air with his scissors, twice.');
+  });
+
+  /* ---------- today, on the mountain: the last question, and an easy one ---------- */
+  var TODAY = [['monday', 'On Monday at nine o&rsquo;clock, the green door opens again.'], ['deed', 'On the steps at five, the deed is read out in front of everybody, and the car park is off.'],
+    ['morning', 'Saturday morning: the library is closing for ever, and Juno is in bed with chickenpox.'], ['ribbon', 'Councillor Quigley cuts the ribbon anyway, for the photograph.'],
+    ['trail', 'The trail: bookmarks on a mountain, a corner of books, six first lines, and a card for the catalogue.']];
+  function openMtn() {
+    var misses = 0;
+    m2 = ER.el('div', 'mtn2');
+    m2.innerHTML = '<div class="board"><svg viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0 290l100 -20 200 -110 200 -140 200 140 200 110 100 20" fill="none" stroke="rgba(241,239,228,.55)" stroke-width="3"/></svg></div><div class="tray"></div>' +
+      '<div class="foot"><p class="bmsg"></p><button type="button" class="btn" id="t-go">That&rsquo;s today</button></div>';
+    var board = m2.querySelector('.board'), tray = m2.querySelector('.tray'), m = m2.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    [['exposition', 0.6, 62], ['rising action', 20.7, 36], ['climax', 40.7, 8], ['falling action', 60.7, 36], ['resolution', 80.8, 62]].forEach(function (p, i) {
+      var d = ER.el('div', 'peg'); d.style.left = p[1] + '%'; d.style.top = p[2] + '%'; d.innerHTML = '<i>' + p[0] + '</i>'; d.setAttribute('data-i', i); board.appendChild(d);
+    });
+    TODAY.forEach(function (t) { var b = ER.el('div', 'bm dnd-item', t[1]); b.setAttribute('data-k', t[0]); tray.appendChild(b); });
+    RD.swapIn(m2, '.bm', '.peg', tray);
+    ER.dnd(m2, { item: '.bm', slot: '.peg', home: tray, lock: function () { return told.has('mtn'); }, change: function () { ER.$$('.peg', board).forEach(function (p) { p.classList.remove('bad'); }); } });
+    var RIGHT = ['morning', 'trail', 'deed', 'ribbon', 'monday'];
+    m2.querySelector('#t-go').addEventListener('click', function () {
+      if (told.has('mtn')) return;
+      var got = ER.$$('.peg', board).map(function (p) { var c = p.querySelector('.bm'); return c ? c.getAttribute('data-k') : ''; });
+      if (got.indexOf('') >= 0) { ER.sfx.no(); msg('Five places and five cards. Fill every place.'); return; }
+      if (!ER.check('tm', got.join('-'))) {
+        misses++; ER.sfx.no();
+        var i = 0; while (got[i] === RIGHT[i]) i++;
+        board.children[i + 1].classList.add('bad');
+        if (misses >= 3) {
+          msg('Mrs Pumphrey moves the cards into place herself, gently. &ldquo;Bottom, climb, top, way down, new normal. Look.&rdquo;');
+          RIGHT.forEach(function (k, j) { board.children[j + 1].appendChild(m2.querySelector('.bm[data-k="' + k + '"]')); board.children[j + 1].classList.remove('bad'); });
+          setTimeout(done, 2400); return;
+        }
+        msg(['&ldquo;The bottom is life before the trouble,&rdquo; says Mrs Pumphrey. &ldquo;Where were we at nine o&rsquo;clock this morning?&rdquo;', '&ldquo;The climb is everything we did to get here,&rdquo; says Mrs Pumphrey.',
+          '&ldquo;The top is the moment after which nothing could go back,&rdquo; says Mrs Pumphrey.', '&ldquo;The way down is what happened because of it,&rdquo; says Mrs Pumphrey. &ldquo;A loose end, with scissors.&rdquo;', '&ldquo;And the far bottom is the new normal,&rdquo; says Mrs Pumphrey.'][i]);
+        return;
+      }
+      done();
+    });
+    function done() {
+      told.set('mtn'); SW();
+      msg('&ldquo;Exposition, rising action, climax, falling action, resolution,&rdquo; says Mrs Pumphrey. &ldquo;And now nobody can skip to the end, because you were there for all of it.&rdquo;');
+      RD.mine('today', 'Today, on the mountain', '<p>1 Exposition: Saturday morning; the library is closing, and Juno is in bed with chickenpox.</p><p>2 Rising action: the trail, room by room.</p><p>3 Climax: on the steps, the deed is read out, and the car park is off.</p><p>4 Falling action: Councillor Quigley cuts the ribbon anyway.</p><p>5 Resolution: on Monday at nine, the green door opens again.</p>');
+      setTimeout(function () { ER.closeAll(); told.set('end'); paint(); finish(false); }, 3200);
+    }
+    function SW() { RD.solved(true); }
+    msg(told.has('mtn') ? 'Today, on the mountain.' : 'Five cards about today. Put them on the mountain, from the bottom on the left to the bottom on the right.');
+    if (told.has('mtn')) RIGHT.forEach(function (k, j) { board.children[j + 1].appendChild(m2.querySelector('.bm[data-k="' + k + '"]')); });
+    ER.open('ov-lock', m2);
+  }
+
+  /* ---------- the card at the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = RD.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the issue desk to the front steps: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The front steps of Hopwell Free Library. The green door is open.');
+  }
+  $('#b-mtn').addEventListener('click', openMtn);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Don&rsquo;t Skip to the End &middot; in your own words</h4><h3>Speak up for a library</h3>' +
+      '<p>Your town&rsquo;s council wants to close its library. You have one minute to speak at the meeting. Say it aloud, or write it here, in 60 to 100 words.</p>' +
+      '<p><b>1</b> Begin with a first line that would make even Councillor Quigley read on. <b>2</b> Give your opinion, and two reasons for it. <b>3</b> Describe one person who uses the library by showing, not telling: what do they do there?</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

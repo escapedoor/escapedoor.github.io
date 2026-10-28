@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Stacks · Don't Skip to the End</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="reader.css">
+<style>
+  body{--bg:#141a2a;--accent:#e8c87a;--font-display:'Cinzel',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(16,20,34,.96);--tc-ink:#efe8d8;--cap-bg:rgba(18,22,36,.95);--panel:#1e2438;--face-bg:#f1dccb;--q-ink:#f2d58a;--fade:#05070c;--hud-bg:rgba(16,20,34,.84)}
+  .tc-room{font-size:clamp(46px,6.2vw,84px);color:#e8c87a;letter-spacing:.06em}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .sG{font-family:'Goudy Bookletter 1911',serif;text-anchor:middle}
+  #motes circle{animation:mote 9s ease-in-out infinite}
+  #motes circle:nth-child(3n){animation-duration:13s}#motes circle:nth-child(3n+1){animation-delay:-4s}
+  @keyframes mote{50%{transform:translate(14px,-22px);opacity:.25}}
+  #shaft{animation:shaft 14s steps(6,end) infinite}
+  @keyframes shaft{50%{opacity:.75}}
+  #pulled.ready,#folder.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.45)}}
+  #quigley{transition:opacity 1s}
+  #scene.noq #quigley{opacity:0;pointer-events:none}
+  #pulled .pb{transition:transform .6s}
+  #scene.home #pulled .pb{transform:translateX(0)!important}
+
+  /* the shelf of eight spines, and Juno's six cards */
+  .stk{width:min(1110px,97vw);display:flex;gap:14px;-webkit-user-select:none;user-select:none}
+  .stk .cards{flex:0 0 360px;display:flex;flex-direction:column;gap:6px;padding:10px;background:#efe6cf;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6);min-height:420px}
+  .stk .cards>h5{margin:0 0 2px;font-family:'Gochi Hand',cursive;font-weight:normal;font-size:19px;color:#1f3a7a}
+  .stk .cd{position:relative;background:#fffbe8;color:#1f2a4a;font-family:'Alegreya',serif;font-style:italic;font-size:14.4px;line-height:1.26;padding:6px 8px 6px 30px;border-left:4px solid #f2c94c;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .stk .cd u{position:absolute;left:6px;top:5px;width:18px;height:18px;border-radius:50%;background:#1f3a7a;color:#fff;font-style:normal;font-family:'Goudy Bookletter 1911',serif;font-size:12px;text-decoration:none;display:flex;align-items:center;justify-content:center}
+  .stk .right{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .stk .shelf{display:flex;gap:5px;align-items:flex-end;padding:12px 10px 0;background:#2a1c12;border-bottom:14px solid #6a4a2a;border-radius:4px 4px 0 0;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .stk .col{flex:1;display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:0}
+  .stk .sp{height:262px;border-radius:3px 3px 0 0;color:#f6efdc;display:flex;flex-direction:column;align-items:center;padding:6px 2px 6px;box-shadow:inset -5px 0 0 rgba(0,0,0,.25),inset 3px 0 0 rgba(255,255,255,.12)}
+  .stk .sp .st{height:30px;display:flex;align-items:center;justify-content:center}
+  .stk .sp .ti{flex:1;min-height:0;overflow:hidden;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.05em;text-align:center;line-height:1.05}
+  .stk .sp .au{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.04em;text-align:center;line-height:1.1;margin-top:4px}
+  .stk .sp .yr{font-family:'Special Elite',monospace;font-size:12px;margin-top:2px;background:#f6efdc;color:#2a1c12;padding:0 3px}
+  .stk .pk{height:58px;border:2px dashed rgba(232,200,122,.5);border-radius:3px;display:flex;align-items:stretch;background:rgba(0,0,0,.25);margin-bottom:8px}
+  .stk .pk.bad{border-color:#ff8a7a;background:rgba(255,120,100,.25)}
+  .stk .pk .cd{flex:1;font-size:11px;line-height:1.15;padding:4px 4px 4px 24px;overflow:hidden}
+  .stk .pk .cd u{left:3px;top:4px;width:17px;height:17px}
+  .stk .col.none{flex:0 0 108px}
+  .stk .col.none .sp{background:#fffbe8;color:#1f3a7a;box-shadow:none;border:3px solid #f2c94c;justify-content:center;text-align:center;font-family:'Gochi Hand',cursive;font-size:17px;line-height:1.15;padding:10px 6px}
+  .stk .read{background:#efe6cf;border-radius:4px;padding:8px 12px;font-family:'Alegreya',serif;font-style:italic;font-size:16.5px;line-height:1.3;color:#1f2a4a;min-height:58px}
+  .stk .foot .bmsg{color:#efe8d8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="shaftG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c4" stop-opacity=".42"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2018"/><stop offset="1" stop-color="#4a3622"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#e8ffd8" stop-opacity=".5"/><stop offset="1" stop-color="#e8ffd8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig3" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#03050a" stop-opacity=".35"/><stop offset="1" stop-color="#010204" stop-opacity=".92"/></radialGradient>
+</defs>
+
+<!-- the back wall, the high window, the floor -->
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#182036"/>
+<rect x="640" y="140" width="320" height="420" fill="#222a44"/>
+<g id="win" class="hot"><rect x="730" y="150" width="140" height="120" fill="#c8d0dc"/><path d="M800 150v120M730 210h140" stroke="#222a44" stroke-width="6"/><rect x="722" y="270" width="156" height="10" fill="#3a4258"/></g>
+<path id="shaft" d="M736 278L870 278L1010 900L560 900z" fill="url(#shaftG)" pointer-events="none"/>
+<path d="M-1000 900L640 560H960L2600 900z" fill="url(#floorG)"/>
+<path d="M800 560V900M720 560L560 900M880 560L1040 900" stroke="#1e160e" stroke-width="2" opacity=".6"/>
+
+<!-- the stacks, both sides, running away into the dark -->
+<g id="leftstack"></g>
+<g id="rightstack"></g>
+<!-- the ladder on its rail -->
+<g id="ladder" class="hot"><path d="M1010 120L1300 60" stroke="#6a4a2a" stroke-width="6"/><path d="M1090 120l-30 700M1180 110l20 700" stroke="#8a6238" stroke-width="10"/><g id="rungs"></g></g>
+<!-- Mrs Pumphrey's Story Club folder, left on a rung -->
+<g id="folder" class="hot" transform="rotate(-6 1130 520)"><rect x="1090" y="500" width="84" height="60" fill="#c4262e" stroke="#7a1218" stroke-width="2"/><rect x="1098" y="490" width="70" height="14" fill="#fffdf6"/><text x="1132" y="540" class="sG" font-size="11" fill="#fff">STORY</text><text x="1132" y="553" class="sG" font-size="11" fill="#fff">CLUB</text></g>
+<!-- the books Juno pulled out a finger's width -->
+<g id="pulled" class="hot"></g>
+<!-- the sign -->
+<g id="sign" class="hot"><path d="M800 -400V60" stroke="#0e1220" stroke-width="2"/><rect x="730" y="60" width="140" height="52" rx="3" fill="#efe6cf"/><text x="800" y="102" class="sC" font-size="20" fill="#2a1c12" letter-spacing="4">SILENCE</text><text x="800" y="77" font-family="Caveat,cursive" font-size="15" fill="#7a2a1e" text-anchor="middle">please</text></g>
+<!-- the reading table and its green lamp -->
+<g id="lamp" class="hot"><rect x="180" y="640" width="300" height="20" fill="#5a3a1e"/><path d="M200 660v180M460 660v180" stroke="#4a2e16" stroke-width="12"/>
+  <path d="M330 640v-60" stroke="#c9a642" stroke-width="5"/><path d="M280 590q50 -40 100 0z" fill="#2f7a4a" stroke="#1e4a2e" stroke-width="3"/><ellipse cx="330" cy="640" rx="40" ry="6" fill="#c9a642"/>
+  <circle cx="330" cy="610" r="220" fill="url(#lampG)" pointer-events="none"/><rect x="380" y="626" width="70" height="14" fill="#7a2a24"/><rect x="384" y="614" width="62" height="12" fill="#2c4a7a"/></g>
+<g id="motes" pointer-events="none"></g>
+
+<g id="pumphrey" class="hot" transform="translate(560 880) scale(.9)"></g>
+<g id="quigley" class="hot" transform="translate(1380 890) scale(.95)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig3)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the local-history room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="reader.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, stk = null;
+  var SPINES = [
+    { id: 'princess', t: 'A Little Princess', a: 'F. H. Burnett', y: 1905, g: 'c', c: '#8a3a5a' },
+    { id: 'garden', t: 'The Secret Garden', a: 'F. H. Burnett', y: 1911, g: '', c: '#3a6a3a' },
+    { id: 'hound', t: 'The Hound of the Baskervilles', a: 'Conan Doyle', y: 1902, g: 'm', c: '#8a6a2a' },
+    { id: 'screw', t: 'The Turn of the Screw', a: 'Henry James', y: 1898, g: 'g', c: '#3a3a3a' },
+    { id: '1984', t: 'Nineteen Eighty-Four', a: 'George Orwell', y: 1949, g: 's', c: '#b8352a' },
+    { id: 'treasure', t: 'Treasure Island', a: 'R. L. Stevenson', y: 1883, g: 'a', c: '#2f5a6a' },
+    { id: 'war', t: 'The War of the Worlds', a: 'H. G. Wells', y: 1898, g: 's', c: '#7a2a24' },
+    { id: 'cant', t: 'The Canterville Ghost', a: 'Oscar Wilde', y: 1887, g: 'g', c: '#4a3a5a' }
+  ];
+  var CARDS = [
+    'It was a bright cold day in April, and the clocks were striking thirteen.',
+    'No one would have believed in the last years of the nineteenth century that this world was being watched keenly and closely by intelligences greater than man&rsquo;s and yet as mortal as his own; (it goes on)',
+    'Mr. Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table.',
+    'When Mr. Hiram B. Otis, the American Minister, bought Canterville Chase, every one told him he was doing a very foolish thing, as there was no doubt at all that the place was haunted.',
+    'When Mary Lennox was sent to Misselthwaite Manor to live with her uncle everybody said she was the most disagreeable-looking child ever seen.',
+    'Nobody in Hopwell believed that a girl could sail a ship, least of all her own father.'
+  ];
+  var CARDS_ORDER = [3, 0, 5, 2, 4, 1];      /* as they lie in Juno's book */
+
+  /* the stacks in perspective, the pulled-out books, rungs, dust */
+  (function () {
+    var s = '', i, j, C = ['#5a2a24', '#2a4a3a', '#2a3a5a', '#6a5a2a', '#4a2a4a', '#3a4a4a', '#6a3a1a', '#22283a'];
+    function side(L) {
+      var out = '', k;
+      for (k = 0; k < 5; k++) {         /* five bays, nearest first */
+        var x0 = L ? -260 + k * 180 : 1860 - k * 180, x1 = L ? x0 + 180 : x0 - 180, top0 = -120 + k * 48, bot0 = 900 - k * 70, top1 = top0 + 48, bot1 = bot0 - 70;
+        out += '<path d="M' + x0 + ' ' + top0 + 'L' + x1 + ' ' + top1 + 'L' + x1 + ' ' + bot1 + 'L' + x0 + ' ' + bot0 + 'z" fill="' + (k % 2 ? '#2a1c12' : '#24180e') + '" stroke="#120c06" stroke-width="3"/>';
+        for (j = 1; j < 7; j++) {
+          var ya = top0 + (bot0 - top0) * j / 7, yb = top1 + (bot1 - top1) * j / 7;
+          out += '<path d="M' + x0 + ' ' + ya.toFixed(0) + 'L' + x1 + ' ' + yb.toFixed(0) + '" stroke="#5a3a1e" stroke-width="' + (8 - k) + '"/>';
+          for (i = 0; i < 9; i++) {
+            var f = (i + 0.2) / 9, bx = x0 + (x1 - x0) * f, by = ya + (yb - ya) * f, h = ((bot0 - top0) / 7) * (1 - f * 0.25) * (0.7 + ((i * 7 + j * 3 + k) % 4) * 0.06);
+            out += '<rect x="' + bx.toFixed(0) + '" y="' + (by - h).toFixed(0) + '" width="' + Math.max(4, (14 - k * 2) * (1 - f * .3)).toFixed(0) + '" height="' + h.toFixed(0) + '" fill="' + C[(i + j * 2 + k) % 8] + '"/>';
+          }
+        }
+      }
+      return out;
+    }
+    $('#leftstack').innerHTML = side(true); $('#rightstack').innerHTML = side(false);
+    for (i = 0; i < 8; i++) s += '<path d="M' + (1086 - i * 4) + ' ' + (180 + i * 80) + 'h' + (100 + i * 6) + '" stroke="#8a6238" stroke-width="7"/>';
+    $('#rungs').innerHTML = s; s = '';
+    for (i = 0; i < 8; i++) {          /* on the nearest left bay, third shelf, eight books standing proud */
+      var x = 20 + i * 30, y = 360 + i * 4;
+      s += '<g class="pb" style="transform:translateX(' + (8 + (i % 3) * 3) + 'px)"><rect x="' + x + '" y="' + (y - 92) + '" width="24" height="92" fill="' + SPINES[i].c + '" stroke="#f2d58a" stroke-width="1.5"/><path d="M' + (x + 4) + ' ' + (y - 80) + 'h16M' + (x + 4) + ' ' + (y - 14) + 'h16" stroke="#f2d58a" stroke-width="1.5"/></g>';
+    }
+    $('#pulled').innerHTML = s; s = '';
+    for (i = 0; i < 26; i++) s += '<circle cx="' + (660 + (i * 53) % 280) + '" cy="' + (320 + (i * 97) % 520) + '" r="' + (1.4 + (i % 3) * 0.6) + '" fill="#fff6d8" opacity=".55"/>';
+    $('#motes').innerHTML = s;
+    $('#pumphrey').innerHTML = window.FIG('pumphrey', { right: true });
+    $('#quigley').innerHTML = window.FIG('quigley');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'reader', storyTitle: 'Don’t Skip to the End', id: 'stacks', no: 'III', title: 'The Stacks',
+    go: 'Into the stacks',
+    intro: [
+      'In the corner, every book went to the shelf of its main problem, not its setting. The Grey Lady of Craw Hall was a thief with a torch: Mystery. The Mountains of the Moon are in Africa: Adventure. A boat made of a walnut shell, a princess and three questions: Fairy tale. A computer that prints tomorrow&rsquo;s news is Science fiction, even in a school; and a girl who is afraid of the head girl is in a School story, ghost or no ghost.',
+      'One book fitted no shelf, because it had every sign at once. It was Juno&rsquo;s own, made when she was nine, and inside it were six first lines, copied out by hand.',
+      'Twenty to twelve. The stacks: tall shelves of grown-up fiction, A to Z, in the long back room where the light never quite reaches the bottom shelf.'
+    ],
+    exit: {"next":"history","w":{"7df013bb":"a7d68fb8"}}, tags: {"l1":["ebd9dafd"],"l2":["c330a1fa"],"l3":["5658937c"],"l4":["d863b8c1"],"l5":["52a1d3aa"],"l6":["274a4fea"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = RD.told('c-told'); nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function paint() {
+    $('#scene').classList.toggle('noq', told.has('qgone'));
+    $('#scene').classList.toggle('home', !!nextFile);
+    $('#folder').classList.toggle('ready', !told.has('folder'));
+    $('#pulled').classList.toggle('ready', told.has('folder') && !nextFile);
+    ER.pips((told.has('folder') ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The sixth line is about Hopwell, and its book is upstairs. The button is at the bottom of the screen.']];
+    if (stk && stk.parentNode) return ['spines', [
+      'Read each line like a detective: is anything in it wrong with our world? Is there a name, a place, a time? Then look at the stickers and the years on the spines.',
+      'Two spines have rockets, two have candles, and two are by Burnett. Which line talks about the nineteenth century? Which line names the house in a title? Which girl is sent to a school, and which to her uncle&rsquo;s manor? And Juno said one line has no book down here.',
+      'The 1890s line belongs to the rocket from 1898, so the clocks striking thirteen belong to the other rocket. Mary Lennox goes to a manor, not a school: not the spine with the bell. The line that names Hopwell goes in Juno&rsquo;s pocket, not on Treasure Island.'
+    ]];
+    if (!told.has('folder')) return ['folder', [
+      'Mrs Pumphrey ran a Story Club for forty years. Is there anything of hers in the stacks?',
+      'Her red Story Club folder is lying on a rung of the ladder, on the right. Read it.'
+    ]];
+    return ['pulled', ['Juno pulls books out a finger&rsquo;s width so that Mrs Pumphrey can see what she has been reading. There are eight of them, on the left. Click them.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Five beginnings are home. The sixth is about Hopwell.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The stacks, between the tall shelves. Eight books still stand out from the rest.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Between the tall shelves it is dim and very quiet. A rolling ladder leans against the right-hand stack. Dust turns slowly in the light from one high window.',
+      'On the left, eight books have been pulled out from the rest, a finger&rsquo;s width, no more.',
+      '&ldquo;Juno,&rdquo; says Mrs Pumphrey softly. &ldquo;She always pulls out what she has been reading, so that I can see. I used to push them back in. I wish I hadn&rsquo;t.&rdquo;',
+      'At the end of the aisle, Councillor Quigley has taken a fat book off a shelf and opened it at the last chapter. &ldquo;Reader, I married him,&rdquo; he reads out. &ldquo;There. Jane Eyre. Done it.&rdquo; He puts it back upside down. &ldquo;Who&rsquo;s Jane?&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var FOLDER = '<h4>What a first line does</h4><h5>Story Club &middot; week one &middot; E. P.</h5>' +
+    '<p>The <b>first line</b> of a book makes the reader a promise. A good one is a <b>hook</b>: once it has caught you, you cannot stop.</p>' +
+    '<p>Read it like a detective. A first line can tell you:</p>' +
+    '<ul><li>the <b>voice</b>: who is telling the story? An &ldquo;I&rdquo; inside it, or a <b>narrator</b> outside it who says &ldquo;he&rdquo; and &ldquo;she&rdquo;;</li>' +
+    '<li>the world: when and where, and what is normal there. Look for one thing that is wrong. A dog that talks on page one tells you a lot;</li>' +
+    '<li>the genre: its signs often begin in line one;</li>' +
+    '<li>a character: sometimes a whole person in one sentence. Is it true? The rest of the book will show you.</li></ul>' +
+    '<p class="rule">Famous first lines are famous because they do all of this at once.</p>';
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FOLDER, cls: 'club', clue: { id: 'folder', title: 'What a first line does', kind: 'The Story Club folder' }, done: function () {
+      RD.terms(['first line', 'hook', 'voice', 'narrator']);
+      if (told.set('folder')) { paint(); ER.say('Six beginnings, and eight books pulled out a finger&rsquo;s width.'); }
+    } });
+  });
+
+  /* ---------- the people ---------- */
+  $('#pumphrey').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Hopwell,&rdquo; says Mrs Pumphrey. &ldquo;Upstairs is where Hopwell keeps its own story. And at three o&rsquo;clock it goes in a skip.&rdquo;' :
+      '&ldquo;I know most of these by heart,&rdquo; says Mrs Pumphrey. &ldquo;That is not the point. The point is that you can work them out. Every first line leaves clues.&rdquo;');
+  });
+  $('#quigley').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('quig')) { RD.sfx.jingle(); ER.say('Councillor Quigley opens another book at the back. &ldquo;THE END,&rdquo; he reads. &ldquo;Lovely. They all end the same. Why does anybody bother with the rest?&rdquo;'); return; }
+    told.set('quig');
+    ER.say('&ldquo;Last pages,&rdquo; says Councillor Quigley happily. &ldquo;Nine thousand books, and I could finish the lot by Tuesday.&rdquo; He jingles his keys and wanders off to measure the aisle.');
+    setTimeout(function () { told.set('qgone'); paint(); }, 4200);
+  });
+  RD.thing('#win', null, 'One high window, too high to see out of. All it shows is grey sky, and the dust going round and round in its light.', isBusy);
+  RD.thing('#ladder', 'ladder', 'A rolling ladder on a brass rail. It goes from A to Z, if you push hard enough, and Juno once rode it the whole way.', isBusy);
+  RD.thing('#lamp', null, 'A reading lamp with a green glass shade, on a table where people have read for a hundred years. Somebody has scratched J.F. very small in one corner.', isBusy);
+  RD.thing('#sign', null, 'SILENCE. Somebody has written please on it in pencil, a long time ago.', isBusy);
+  $('#pulled').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Five of the eight are pushed back in now. Three still stand out a finger&rsquo;s width.'); return; }
+    if (!told.has('folder')) { ER.say('Eight books, pulled out a finger&rsquo;s width. Six beginnings, and eight books. How do you tell which beginning is which? Mrs Pumphrey&rsquo;s Story Club folder is on the ladder.'); return; }
+    openShelf();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- eight spines and six cards ---------- */
+  var KEY = ['1984', 'war', 'hound', 'cant', 'garden', 'none'];
+  function why(ci, at) {
+    if (at === 'none') return '&ldquo;There is a book down here for that one,&rdquo; says Mrs Pumphrey. &ldquo;Juno said only one beginning has no book in the stacks.&rdquo;';
+    switch (ci) {
+      case 0: return at === 'war' ? '&ldquo;Wells wrote The War of the Worlds in 1898,&rdquo; says Mrs Pumphrey. &ldquo;Is there anything about the nineteenth century in this line? Which card does talk about the nineteenth century?&rdquo;' :
+        '&ldquo;Clocks do not strike thirteen in our world,&rdquo; says Mrs Pumphrey. &ldquo;So this book begins in a world that is not quite ours. Which sticker is for that?&rdquo;';
+      case 1: return at === '1984' ? '&ldquo;The last years of the nineteenth century: that is the 1890s,&rdquo; says Mrs Pumphrey. &ldquo;Look at the years on the spines. And look at the titles: this world is being watched.&rdquo;' :
+        '&ldquo;Something greater than man is watching this world,&rdquo; says Mrs Pumphrey. &ldquo;Look for a rocket, and a year in the 1890s.&rdquo;';
+      case 2: return '&ldquo;Mr Sherlock Holmes is the most famous detective there has ever been,&rdquo; says Mrs Pumphrey. &ldquo;Which spine has the magnifying glass?&rdquo;';
+      case 3: return at === 'screw' ? '&ldquo;Both are ghost stories,&rdquo; says Mrs Pumphrey. &ldquo;But read the name of the house that Mr Otis buys. Then read the titles again.&rdquo;' :
+        '&ldquo;The place was haunted,&rdquo; says Mrs Pumphrey. &ldquo;Look for a candle on the spine, and the name of the house in a title.&rdquo;';
+      case 4: return at === 'princess' ? '&ldquo;The same writer, and a girl in both,&rdquo; says Mrs Pumphrey. &ldquo;But the bell on that spine means a school story. Is Mary sent to a school? She is sent to live with her uncle, at a manor.&rdquo;' :
+        '&ldquo;Two of these spines are by the same writer, and both are about a girl,&rdquo; says Mrs Pumphrey. &ldquo;Which of them is not about a school?&rdquo;';
+      default: return at === 'treasure' ? '&ldquo;Treasure Island begins at an inn called the Admiral Benbow, a long way from Hopwell,&rdquo; says Mrs Pumphrey. &ldquo;Robert Louis Stevenson never came near Hopwell. Read Juno&rsquo;s note again.&rdquo;' :
+        '&ldquo;Is that book about Hopwell?&rdquo; says Mrs Pumphrey. &ldquo;Look at the name in the line, and read Juno&rsquo;s note again.&rdquo;';
+    }
+  }
+  function openShelf() {
+    var lockd = false, misses = 0, put = ER.flag('c-put') || {};
+    stk = ER.el('div', 'stk');
+    stk.innerHTML = '<div class="cards"><h5>Juno&rsquo;s six beginnings</h5></div><div class="right"><div class="shelf"></div><div class="read">Click a card to read it here.</div>' +
+      '<div class="foot"><p class="bmsg"></p><button type="button" class="btn" id="k-go">Push them back in</button></div></div>';
+    var cards = stk.querySelector('.cards'), shelf = stk.querySelector('.shelf'), rd = stk.querySelector('.read'), m = stk.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    SPINES.forEach(function (s) {
+      var col = ER.el('div', 'col'); col.innerHTML = '<div class="sp" style="background:' + s.c + '"><div class="st">' + (s.g ? RD.iconSvg(s.g, '#f6efdc', 22) : '') + '</div><div class="ti">' + s.t + '</div><div class="au">' + s.a + '</div><div class="yr">' + s.y + '</div></div><div class="pk" data-s="' + s.id + '"></div>';
+      shelf.appendChild(col);
+    });
+    var none = ER.el('div', 'col none'); none.innerHTML = '<div class="sp">no book down here</div><div class="pk" data-s="none"></div>'; shelf.appendChild(none);
+    CARDS_ORDER.forEach(function (ci) {
+      var d = ER.el('div', 'cd dnd-item', '<u>' + (ci + 1) + '</u>' + CARDS[ci]); d.setAttribute('data-c', ci);
+      var at = put[ci], pk = at ? shelf.querySelector('.pk[data-s="' + at + '"]') : null;
+      (pk && !pk.querySelector('.cd') ? pk : cards).appendChild(d);
+      d.addEventListener('pointerdown', function () { rd.innerHTML = ER.gloss(CARDS[ci]); });
+    });
+    function keep() { put = {}; ER.$$('.pk', shelf).forEach(function (p) { var c = p.querySelector('.cd'); if (c) put[c.getAttribute('data-c')] = p.getAttribute('data-s'); }); ER.flag('c-put', put); }
+    RD.swapIn(stk, '.cd', '.pk', cards);
+    ER.dnd(stk, { item: '.cd', slot: '.pk', home: cards, lock: function () { return lockd || !!nextFile; }, change: function () { keep(); ER.$$('.pk', shelf).forEach(function (p) { p.classList.remove('bad'); }); } });
+    stk.querySelector('#k-go').addEventListener('click', function () {
+      var where = {}, n = 0, i, file;
+      if (lockd || nextFile) return;
+      ER.$$('.pk', shelf).forEach(function (p) { var c = p.querySelector('.cd'); if (c) { where[c.getAttribute('data-c')] = p.getAttribute('data-s'); n++; } });
+      if (n < 6) { ER.sfx.no(); msg((6 - n) + (6 - n === 1 ? ' card is' : ' cards are') + ' still in Juno&rsquo;s book. Put every card under a spine, or in the pocket for the one with no book down here.'); return; }
+      RD.sfx.slide();
+      for (i = 0; i < 6; i++) if (!ER.check('l' + (i + 1), where[i])) {
+        misses++; ER.sfx.no(); var pk = shelf.querySelector('.pk[data-s="' + where[i] + '"]'); pk.classList.add('bad'); ER.shake(pk);
+        msg('Card ' + (i + 1) + ': ' + why(i, where[i]) + (misses > 2 ? ' (Only the first wrong card is ever shown.)' : ''));
+        return;
+      }
+      file = ER.exitOk([KEY.map(function (k, j) { return where[j]; }).join('-')]);
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('c-file', file); lockd = true;
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.stacks = 1; ER.persist(true);
+      msg('Mrs Pumphrey pushes five books back into the shelf, one by one, with the flat of her hand.');
+      setTimeout(function () {
+        ER.closeAll(); RD.solved(); paint(); busy = true;
+        RD.mine('lines', 'Five beginnings, home', '<p>1 The clocks striking thirteen: Nineteen Eighty-Four, George Orwell, 1949 (a world that is wrong).</p><p>2 The nineteenth century, this world being watched: The War of the Worlds, H. G. Wells, 1898.</p><p>3 Mr. Sherlock Holmes at breakfast: The Hound of the Baskervilles, Arthur Conan Doyle, 1902.</p><p>4 Mr. Otis buys Canterville Chase: The Canterville Ghost, Oscar Wilde, 1887.</p><p>5 Mary Lennox, sent to her uncle&rsquo;s manor: The Secret Garden, Frances Hodgson Burnett, 1911 (not A Little Princess, which is set in a school).</p><p>6 No book in the stacks: Nobody in Hopwell believed that a girl could sail a ship, least of all her own father.</p>');
+        ER.narrate([
+          'Five beginnings have gone home. One card is left in your hand: Nobody in Hopwell believed that a girl could sail a ship, least of all her own father.',
+          '&ldquo;Hopwell,&rdquo; says Mrs Pumphrey slowly. &ldquo;Nobody writes books about Hopwell. Nobody ever has, except &hellip;&rdquo; She stops.',
+          'On the back of the card, very small, Juno has written: Its book is upstairs, where Hopwell keeps its own story. It has never had a card in the catalogue. Please write it one.',
+          '&ldquo;The local-history room,&rdquo; says Mrs Pumphrey. &ldquo;And Councillor Quigley&rsquo;s men are emptying it into a skip at three o&rsquo;clock.&rdquo;'
+        ], function () {
+          RD.mine('back', 'On the back of card 6', '<p>Its book is upstairs, where Hopwell keeps its own story. It has never had a card in the catalogue. Please write it one. J.</p>', true);
+          busy = false; $('#go').classList.add('on');
+        });
+      }, 2400);
+    });
+    msg('Six cards and eight spines. Drag each card into the pocket under its book, or click a card and then a pocket. One card has no book down here.');
+    ER.open('ov-lock', stk);
+  }
+})();
+</script>
+</body>
+</html>

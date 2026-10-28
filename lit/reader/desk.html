@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Issue Desk · Don't Skip to the End</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="reader.css">
+<style>
+  body{--bg:#2a2016;--accent:#e9c46a;--font-display:'Fredericka the Great',serif;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(38,30,20,.96);--tc-ink:#f6eedc;--cap-bg:rgba(40,30,20,.95);--panel:#3a2c1e;--face-bg:#dfe6d2;--q-ink:#ffd98a;--fade:#140e08;--hud-bg:rgba(38,30,20,.84)}
+  .tc-room{font-size:clamp(46px,6.2vw,84px);color:#f3d77a}
+  .sF{font-family:'Fredericka the Great',serif;text-anchor:middle}
+  .sC{font-family:'Cinzel',serif;text-anchor:middle}
+  .sO{font-family:'Oswald',sans-serif;text-anchor:middle}
+  .sK{font-family:'Caveat',cursive;text-anchor:middle}
+  #rain path{animation:rain .8s linear infinite}
+  @keyframes rain{from{transform:translateY(-36px)}to{transform:translateY(36px)}}
+  #hand{transform-origin:870px 104px;animation:tickh 60s steps(60,end) infinite}
+  @keyframes tickh{to{transform:rotate(360deg)}}
+  #bms{display:none}
+  #scene.spilt #bms{display:inline}
+  #scene.picked #bms{display:none}
+  #board.ready,#trolley.ready,#bms.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.3)}}
+  #lampg{animation:lampf 11s steps(1,end) infinite}
+  @keyframes lampf{0%{opacity:1}71%{opacity:.82}72%{opacity:1}74%{opacity:.86}75%{opacity:1}}
+
+  /* the returns trolley: five books and their date labels */
+  .trl{width:min(900px,95vw);background:#4a3420 linear-gradient(#5a4028,#3a2814);border-radius:6px;padding:16px 18px 12px;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 3px #7a5a36}
+  .trl h5{margin:0 0 10px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:23px;color:#ffe6a8;text-align:center}
+  .trl .row{display:flex;gap:18px;align-items:stretch}
+  .trl .spines{display:flex;gap:6px;align-items:flex-end;padding:10px 12px 0;background:#2a1c10;border-bottom:12px solid #8a6238;border-radius:4px 4px 0 0;min-height:290px}
+  .trl .sp{width:52px;border-radius:3px 3px 0 0;cursor:pointer;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);
+    font-family:'Goudy Bookletter 1911',serif;font-size:15px;letter-spacing:.06em;color:#fbf2dc;padding:10px 0;box-shadow:inset -4px 0 0 rgba(0,0,0,.25);border:0}
+  .trl .sp:hover,.trl .sp.on{filter:brightness(1.25);outline:3px solid #ffd98a}
+  .trl .lab{flex:1;min-height:290px;background:#f6efd6;color:#2b2a26;font-family:'Special Elite',monospace;font-size:16.5px;line-height:1.45;padding:14px 18px;border-radius:2px;position:relative}
+  .trl .lab h6{margin:0 0 2px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:19px;letter-spacing:.04em}
+  .trl .lab .by{font-family:'Alegreya',serif;font-style:italic;font-size:16px;margin:0 0 8px;color:#5a4e40}
+  .trl .lab .rules{border:1px solid #2b2a26;padding:5px 8px;font-size:13.5px;line-height:1.35;margin-bottom:8px;text-transform:uppercase}
+  .trl .lab .dates{display:flex;flex-wrap:wrap;gap:6px 14px;min-height:60px}
+  .trl .lab .dates span{color:#5a2a8a;font-size:18px;transform:rotate(-2deg);display:inline-block}
+  .trl .lab .dates span:nth-child(even){transform:rotate(1.5deg);color:#2a4a8a}
+  .trl .lab .btn{position:absolute;right:14px;bottom:12px;--accent:#5a3a1a;color:#5a3a1a;background:#fff8e4}
+  .trl .lab .empty{font-family:'Alegreya',serif;font-style:italic;color:#7a6e60;margin-top:90px;text-align:center}
+
+  /* the mountain on the Story Club board */
+  .mtn{width:min(1080px,97vw);-webkit-user-select:none;user-select:none}
+  .mtn .board{position:relative;height:332px;background:#24382e;border:12px solid #7a5a36;border-bottom-width:16px;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 70px rgba(0,0,0,.4)}
+  .mtn .board>svg{position:absolute;left:0;top:0;width:100%;height:100%}
+  .mtn .peg{position:absolute;width:12.6%;height:112px;border:2px dashed rgba(241,239,228,.45);border-radius:4px;display:flex;align-items:stretch;justify-content:stretch}
+  .mtn .peg.bad{border-color:#ff8a7a;background:rgba(255,120,100,.18)}
+  .mtn .peg>i{position:absolute;left:0;right:0;top:-19px;text-align:center;font-style:normal;font-family:'Fredericka the Great',serif;font-size:13px;letter-spacing:.04em;color:#f3d77a;white-space:nowrap}
+  .mtn .tray{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px;padding:10px;background:rgba(0,0,0,.28);border-radius:4px;min-height:236px;align-items:start;align-content:start}
+  .mtn .bm{position:relative;background:#fff8e6;color:#22201c;font-family:'Alegreya',serif;font-size:13.6px;line-height:1.22;padding:7px 8px 6px 9px;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.35);border-top:7px solid #e07a5f;min-height:104px}
+  .mtn .bm:nth-child(3n+1){border-top-color:#81b29a}.mtn .bm:nth-child(3n+2){border-top-color:#f2cc8f}
+  .mtn .peg .bm{width:100%;min-height:0;font-size:12.2px;line-height:1.17;padding:4px 6px}
+  .mtn .bm.flip{background:#22201c;color:#f3d77a;font-family:'Fredericka the Great',serif;font-size:22px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .mtn .foot .bmsg{color:#fbf2e4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#e8e0cc"/><rect width="40" height="40" fill="#3a3430"/><rect x="40" y="40" width="40" height="40" fill="#3a3430"/></pattern>
+  <pattern id="panel" width="160" height="230" patternUnits="userSpaceOnUse"><rect width="160" height="230" fill="#5a3a22"/><rect x="14" y="16" width="132" height="196" fill="none" stroke="#3e2614" stroke-width="5"/><rect x="20" y="22" width="120" height="184" fill="#64422a"/></pattern>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a96a0"/><stop offset="1" stop-color="#c2c6c4"/></linearGradient>
+  <linearGradient id="woodG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a34"/><stop offset="1" stop-color="#5a3618"/></linearGradient>
+  <linearGradient id="brassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2d27a"/><stop offset=".5" stop-color="#b8902e"/><stop offset="1" stop-color="#7e5e1e"/></linearGradient>
+  <radialGradient id="poolG"><stop offset="0" stop-color="#fff0c8" stop-opacity=".42"/><stop offset=".6" stop-color="#ffd890" stop-opacity=".12"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#140c04" stop-opacity=".25"/><stop offset="1" stop-color="#080402" stop-opacity=".86"/></radialGradient>
+  <clipPath id="winC"><path d="M380 480V210a90 90 0 0 1 180 0V480z"/></clipPath>
+</defs>
+
+<!-- the wall, the panelling, the floor -->
+<rect x="-1000" y="-400" width="3600" height="880" fill="#e6d8b8"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#d9c8a2"/>
+<path d="M-1000 40h3600" stroke="#b89a68" stroke-width="10"/>
+<rect x="-1000" y="470" width="3600" height="240" fill="url(#panel)"/><path d="M-1000 470h3600" stroke="#3e2614" stroke-width="10"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#tiles)"/><rect x="-1000" y="700" width="3600" height="800" fill="#2a1a0a" opacity=".22"/>
+<path d="M-1000 704h3600" stroke="#2a1a0a" stroke-width="8"/>
+
+<!-- the green door and the brass plate -->
+<g id="door" class="hot"><path d="M60 700V300a90 90 0 0 1 180 0V700z" fill="#e6d8b8" stroke="#b89a68" stroke-width="6"/><path d="M76 700V310a74 74 0 0 1 148 0V700z" fill="#2f5a3a"/>
+  <path d="M90 300a60 60 0 0 1 120 0z" fill="url(#skyG)" opacity=".85"/><path d="M150 240v60M110 270l40 30 40 -30" stroke="#2f5a3a" stroke-width="4" fill="none"/>
+  <rect x="92" y="330" width="116" height="160" fill="none" stroke="#244a2e" stroke-width="5"/><rect x="92" y="510" width="116" height="170" fill="none" stroke="#244a2e" stroke-width="5"/>
+  <circle cx="204" cy="500" r="8" fill="url(#brassG)"/><rect x="128" y="420" width="44" height="10" rx="3" fill="url(#brassG)"/></g>
+<g id="plate" class="hot"><rect x="252" y="390" width="92" height="64" rx="3" fill="url(#brassG)" stroke="#5a4010" stroke-width="2"/><circle cx="260" cy="398" r="2.5" fill="#5a4010"/><circle cx="336" cy="398" r="2.5" fill="#5a4010"/><circle cx="260" cy="446" r="2.5" fill="#5a4010"/><circle cx="336" cy="446" r="2.5" fill="#5a4010"/>
+  <text x="298" y="412" class="sC" font-size="8.5" fill="#3a2806" letter-spacing="1">HOPWELL</text><text x="298" y="423" class="sC" font-size="8.5" fill="#3a2806" letter-spacing="1">FREE LIBRARY</text><path d="M270 429h56" stroke="#5a4010" stroke-width="1"/><text x="298" y="441" class="sC" font-size="7" fill="#3a2806">OPENED 1906</text></g>
+<!-- the Council's poster, with Mrs Pumphrey's red pen on it -->
+<g id="poster" class="hot" transform="rotate(-2 300 300)"><rect x="252" y="214" width="96" height="148" fill="#fdf8ea" stroke="#c8bca0" stroke-width="2"/><rect x="252" y="214" width="96" height="22" fill="#2c4a7a"/>
+  <text x="300" y="230" class="sO" font-size="11" fill="#fff" letter-spacing="1">HOPWELL COUNCIL</text><text x="300" y="258" class="sO" font-size="13" fill="#1c1c1c">LIBRARY</text><text x="300" y="274" class="sO" font-size="13" fill="#1c1c1c">CLOSING</text>
+  <text x="300" y="292" class="sO" font-size="10" fill="#1c1c1c">31 OCTOBER</text><text x="300" y="316" class="sO" font-size="9" fill="#1c1c1c">THANK YOU FOR</text><text x="300" y="330" class="sO" font-size="9" fill="#1c1c1c">120 YEAR&#8217;S</text>
+  <circle cx="320" cy="327" r="7" fill="none" stroke="#c4262e" stroke-width="2"/><text x="312" y="352" class="sK" font-size="13" fill="#c4262e">no!</text></g>
+
+<!-- the arched window onto the Market Square, in the rain -->
+<g id="win" class="hot"><path d="M366 494V210a104 104 0 0 1 208 0V494z" fill="#e6d8b8" stroke="#b89a68" stroke-width="6"/>
+  <g clip-path="url(#winC)"><rect x="370" y="100" width="200" height="390" fill="url(#skyG)"/>
+    <path d="M370 420v-60h40v-30h50v40h30v-70h50v50h20v70z" fill="#6a7078"/><g fill="#f4e2a8" opacity=".8"><rect x="420" y="350" width="8" height="10"/><rect x="500" y="320" width="8" height="10"/><rect x="514" y="340" width="8" height="10"/></g>
+    <path d="M370 480v-60h200v60z" fill="#4a4e54"/><path d="M450 480v-110" stroke="#2a2e34" stroke-width="5"/><circle cx="450" cy="366" r="8" fill="#f4e2a8"/>
+    <g id="rain" stroke="#e8eef4" stroke-width="1.4" opacity=".6"></g></g>
+  <path d="M470 106V490M376 300h188M376 400h188" stroke="#e6d8b8" stroke-width="7"/><rect x="356" y="490" width="228" height="14" fill="#c8b48a"/></g>
+
+<!-- the shelves behind the desk, nearly empty now -->
+<g id="shelves"><rect x="620" y="150" width="500" height="330" fill="#4a2e18"/><g fill="url(#woodG)"><rect x="610" y="146" width="520" height="12"/><rect x="610" y="252" width="520" height="12"/><rect x="610" y="358" width="520" height="12"/><rect x="610" y="464" width="520" height="12"/></g>
+  <g id="shelfbooks"></g></g>
+<!-- the clock, four minutes slow -->
+<g id="clock" class="hot"><circle cx="870" cy="104" r="40" fill="#fbf6e8" stroke="url(#brassG)" stroke-width="7"/><g id="ticks"></g>
+  <path d="M870 104l-14 -20" stroke="#22201c" stroke-width="4" stroke-linecap="round"/><path id="hand" d="M870 104v-30" stroke="#22201c" stroke-width="2.4" stroke-linecap="round"/><circle cx="870" cy="104" r="3" fill="#22201c"/></g>
+
+<!-- the lamps -->
+<path d="M500 -400V30M1240 -400V30" stroke="#2a1a0a" stroke-width="3"/>
+<g fill="#fbf2d0" stroke="#b8902e" stroke-width="3"><circle cx="500" cy="52" r="24"/><circle cx="1240" cy="52" r="24"/></g>
+<g id="lampg" pointer-events="none"><circle cx="500" cy="60" r="330" fill="url(#poolG)"/><circle cx="1240" cy="60" r="330" fill="url(#poolG)"/></g>
+
+<!-- the Story Club board on its easel -->
+<g id="board" class="hot"><path d="M1196 470l-26 240M1444 470l26 240M1320 470v230" stroke="#6a4a26" stroke-width="10" stroke-linecap="round"/>
+  <rect x="1160" y="196" width="320" height="270" fill="#7a5a36"/><rect x="1172" y="208" width="296" height="246" fill="#24382e"/>
+  <text x="1320" y="240" class="sF" font-size="22" fill="#f1efe4">STORY CLUB</text><text x="1320" y="262" class="sK" font-size="18" fill="#f3d77a">How a story is built</text>
+  <path d="M1190 430l50 -6 40 -40 30 -60 22 -54 26 54 30 60 24 40 40 6" fill="none" stroke="#f1efe4" stroke-width="3" stroke-linejoin="round"/>
+  <g fill="#f1efe4"><circle cx="1196" cy="430" r="4"/><circle cx="1262" cy="402" r="4"/><circle cx="1292" cy="356" r="4"/><circle cx="1342" cy="270" r="5"/><circle cx="1396" cy="360" r="4"/><circle cx="1452" cy="430" r="4"/></g>
+  <path d="M1360 454h40" stroke="#e8e4d4" stroke-width="7" stroke-linecap="round"/></g>
+
+<!-- the boxes for the book sale -->
+<g id="boxes" class="hot">
+  <g transform="translate(1490 700)"><rect x="0" y="-120" width="130" height="120" fill="#b48a58" stroke="#7a5a2a" stroke-width="3"/><path d="M0 -96h130" stroke="#8a6436" stroke-width="2"/><text x="65" y="-50" class="sO" font-size="17" fill="#2a1a0a">BOOK SALE</text><text x="65" y="-26" class="sO" font-size="22" fill="#2a1a0a">10p</text>
+    <rect x="12" y="-230" width="110" height="110" fill="#c29a66" stroke="#7a5a2a" stroke-width="3"/><text x="67" y="-170" class="sO" font-size="15" fill="#2a1a0a">BOOK SALE</text></g>
+  <g transform="translate(250 780)"><rect x="0" y="-100" width="120" height="100" fill="#b48a58" stroke="#7a5a2a" stroke-width="3"/><text x="60" y="-46" class="sO" font-size="16" fill="#2a1a0a">BOOK SALE</text><text x="60" y="-22" class="sO" font-size="20" fill="#2a1a0a">10p</text></g></g>
+
+<!-- Mrs Pumphrey behind the issue desk -->
+<g id="pumphrey" class="hot" transform="translate(860 650)"></g>
+<!-- the issue desk -->
+<g id="desk"><rect x="596" y="516" width="560" height="22" rx="3" fill="#a8743e"/><rect x="606" y="536" width="540" height="200" fill="url(#woodG)"/>
+  <g fill="none" stroke="#4a2c12" stroke-width="4"><rect x="624" y="556" width="160" height="160"/><rect x="796" y="556" width="160" height="160"/><rect x="968" y="556" width="160" height="160"/></g>
+  <text x="876" y="644" class="sC" font-size="18" fill="#e8c88a" letter-spacing="3">ISSUE DESK</text></g>
+<g id="trays" class="hot"><rect x="640" y="486" width="120" height="32" fill="#6a4426" stroke="#3e2614" stroke-width="2"/><g id="tickets"></g></g>
+<g id="stamp" class="hot"><rect x="1010" y="506" width="56" height="12" rx="2" fill="#2a2a2e"/><rect x="1030" y="474" width="16" height="34" fill="#5a3a1a"/><circle cx="1038" cy="470" r="12" fill="#7a4a24"/>
+  <rect x="1074" y="500" width="40" height="18" rx="3" fill="#3a2a5a"/></g>
+
+<!-- the returns trolley -->
+<g id="trolley" class="hot"><path d="M420 590h170M420 680h170" stroke="#3a3a40" stroke-width="8"/><path d="M426 560v200M584 560v200" stroke="#3a3a40" stroke-width="8"/>
+  <circle cx="434" cy="772" r="12" fill="#22201c"/><circle cx="576" cy="772" r="12" fill="#22201c"/><g id="tbooks"></g></g>
+<!-- what fell off it -->
+<g id="bms" class="hot"><g transform="rotate(-14 520 800)"><rect x="470" y="792" width="80" height="20" fill="#fff8e6"/><rect x="470" y="792" width="8" height="20" fill="#e07a5f"/></g>
+  <g transform="rotate(9 600 812)"><rect x="560" y="804" width="80" height="20" fill="#fff8e6"/><rect x="560" y="804" width="8" height="20" fill="#81b29a"/></g>
+  <g transform="rotate(-4 660 790)"><rect x="626" y="780" width="76" height="20" fill="#fff8e6"/><rect x="626" y="780" width="8" height="20" fill="#f2cc8f"/></g>
+  <g transform="rotate(22 470 830)"><rect x="436" y="822" width="76" height="20" fill="#fff8e6"/><rect x="436" y="822" width="8" height="20" fill="#81b29a"/></g>
+  <g transform="rotate(-30 700 830)"><rect x="672" y="824" width="72" height="20" fill="#fff8e6"/><rect x="672" y="824" width="8" height="20" fill="#e07a5f"/></g></g>
+
+<!-- Councillor Quigley and his measuring wheel -->
+<g id="quigley" class="hot"><g transform="translate(1330 868)" id="quigfig"></g><path d="M1296 790l-74 66" stroke="#3a3a40" stroke-width="6" stroke-linecap="round"/><circle cx="1216" cy="858" r="22" fill="#d8d8d0" stroke="#3a3a40" stroke-width="5"/><circle cx="1216" cy="858" r="4" fill="#3a3a40"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the children&rsquo;s corner</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="reader.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told;
+
+  /* the drawn details: rain, books left on the shelves, clock ticks, tickets, the trolley's books, Councillor Quigley */
+  (function () {
+    var s = '', i, x, h, C = ['#7a2a24', '#2f5a3a', '#2c4a7a', '#8a6a2a', '#5a2a5a', '#3a5a5a', '#9a4a2a'];
+    for (i = 0; i < 34; i++) s += '<path d="M' + (378 + (i * 47) % 190) + ' ' + (110 + (i * 61) % 360) + 'l-4 18"/>';
+    $('#rain').innerHTML = s; s = '';
+    [[160, 4], [266, 9], [372, 2]].forEach(function (r, row) {
+      x = 640 + row * 37;
+      for (i = 0; i < r[1]; i++) { h = 64 + (i * 13) % 26; s += '<rect x="' + x + '" y="' + (r[0] + 88 - h) + '" width="' + (16 + i % 3 * 4) + '" height="' + h + '" fill="' + C[(i + row * 2) % 7] + '"/>'; x += 22 + i % 3 * 4; }
+      if (row === 1) s += '<g transform="rotate(-16 980 340)"><rect x="960" y="282" width="20" height="70" fill="' + C[4] + '"/></g>';
+    });
+    $('#shelfbooks').innerHTML = s; s = '';
+    for (i = 0; i < 12; i++) s += '<path d="M870 ' + (104 - 34) + 'v6" stroke="#22201c" stroke-width="2" transform="rotate(' + (i * 30) + ' 870 104)"/>';
+    $('#ticks').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<rect x="' + (646 + i * 12.5) + '" y="' + (474 + (i % 3) * 3) + '" width="10" height="' + (18 - (i % 3) * 3) + '" fill="' + ['#f6efd6', '#e8d8f0', '#d8e8f6'][i % 3] + '" stroke="#8a7a62" stroke-width=".8"/>';
+    $('#tickets').innerHTML = s; s = '';
+    [[440, '#2c4a7a'], [470, '#7a2a24'], [498, '#3a6a8a'], [528, '#8a6a2a'], [556, '#4a4a4a']].forEach(function (b, j) { s += '<rect x="' + b[0] + '" y="' + (606 - j % 2 * 8) + '" width="26" height="' + (74 + j % 2 * 8) + '" fill="' + b[1] + '"/>'; });
+    s += '<g transform="rotate(-24 470 668)"><rect x="440" y="650" width="80" height="22" fill="#5a2a5a"/></g><rect x="520" y="654" width="56" height="22" fill="#2f5a3a"/>';
+    $('#tbooks').innerHTML = s;
+    $('#quigfig').innerHTML = window.FIG('quigley');
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'reader', storyTitle: 'Don’t Skip to the End', id: 'desk', no: 'I', title: 'The Issue Desk',
+    go: 'Push the green door',
+    intro: [
+      'Hopwell Free Library has stood on the corner of the Market Square since 1906. It has a green door, a brass plate, a clock that is always four minutes slow, and about nine thousand books.',
+      'At five o&rsquo;clock today it closes for ever. On Monday the diggers come, and by Christmas it will be the Market Square Car Park, with forty-two spaces. Councillor Quigley is very proud of the number.',
+      'Juno Fennimore, who is twelve, has read every book in the building. She was meant to be here today. Instead she is at home in bed with chickenpox, and at eight o&rsquo;clock this morning her dad pushed a letter through your door.',
+      'It is Saturday the thirty-first of October, a few minutes past nine, and it is raining. You are holding the letter.'
+    ],
+    exit: {"next":"corner","w":{"b753ba45":"b63cd727"}}, tags: {"bk":["7e82fa75"],"p1":["232dfea5"],"p2":["2e88bc86"],"p3":["52eb76df"],"p4":["9159158d"],"p5":["63b4df8d"],"p6":["89f80c80"],"p7":["f0a8e02c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = RD.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('mrsp') && told.has('book') && told.has('picked') && told.has('board'); }
+  function paint() {
+    $('#scene').classList.toggle('spilt', told.has('spilt'));
+    $('#scene').classList.toggle('picked', told.has('picked'));
+    $('#trolley').classList.toggle('ready', told.has('mrsp') && !told.has('book'));
+    $('#bms').classList.toggle('ready', told.has('book') && !told.has('picked'));
+    $('#board').classList.toggle('ready', ready() && !nextFile);
+    $('#pumphrey').innerHTML = window.FIG('pumphrey', { right: !!nextFile });
+    ER.pips((told.has('mrsp') ? 1 : 0) + (told.has('book') ? 1 : 0) + (told.has('picked') ? 1 : 0) + (told.has('board') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  var trl = null, mtn = null;
+  function hints() {
+    if (nextFile) return ['go', ['The bookmarks say where to go: the children&rsquo;s corner. The button is at the bottom of the screen.']];
+    if (mtn && mtn.parentNode) return ['mtn', [
+      'Find the bottom of the mountain first: which bookmark is life before the trouble starts? Then find the top: the one moment that decides her main problem.',
+      'Two of the nine bookmarks are not from this book. In the Blue Fairy Book her godmother gives her the dress, and the story is called The Little Glass Slipper. Leave those two in the tray.',
+      'Her main problem is decided when the slipper fits. After that comes the way down (the other slipper, and her sisters at her feet), and then the very end, the new normal (the wedding). The three on the climb go in the order they happen.'
+    ]];
+    if (trl && trl.parentNode) return ['trl', [
+      'Read the top of a label: the date stamped is the day the book was due back, not the day it went out. Loans are for three weeks.',
+      'Juno took the book out on the library&rsquo;s birthday, a hundred and twenty years to the day. Which date is exactly three weeks after that?',
+      'The library opened on 10 October 1906, so its 120th birthday was Saturday 10 October 2026. Three weeks later is 31 October. Find the label whose last stamp says 31 OCT 2026.'
+    ]];
+    if (!told.has('mrsp')) return ['mrsp', [
+      'Juno&rsquo;s trail is for the librarian, Mrs Pumphrey. Talk to her.',
+      'She is behind the big wooden issue desk in the middle, with pencils in her hair.'
+    ]];
+    if (!told.has('book')) return ['book', [
+      'The bookmarks are in the book Juno took out on the library&rsquo;s birthday. When was the library opened? The brass plate by the green door says.',
+      'Mrs Pumphrey said that loans are for three weeks, and that everything Juno brought back this month is on the returns trolley, left of the desk.',
+      'Read the brass plate, then click the trolley and look at the date labels. A date stamped on a label is the day the book was due back.'
+    ]];
+    if (!told.has('picked')) return ['bms', [
+      'Councillor Quigley&rsquo;s wheel knocked the trolley, and some paper fell on the floor. Pick it up.',
+      'The bookmarks are lying on the tiles in front of the trolley.'
+    ]];
+    if (!told.has('board')) return ['board', [
+      'Juno says: put them on Mrs P&rsquo;s mountain. Is there a mountain anywhere in this hall?',
+      'The blackboard on the easel at the right has a mountain drawn on it. Click it and read it.'
+    ]];
+    return ['mtn-go', ['Everything is read. Click the blackboard to start putting the bookmarks on the mountain.']];
+  }
+
+  /* ---------- papers ---------- */
+  var LETTER = '<h4>Saturday, 7 a.m. In bed. Spotty.</h4>' +
+    '<p>Dear you,</p><p>I am the colour of a strawberry and Mum won&rsquo;t let me out. So you&rsquo;ll have to do it.</p>' +
+    '<p>On Thursday I left a trail through the library for Mrs Pumphrey, as a goodbye present. Then I found something on the way, and now the trail matters much more than a present. I can&rsquo;t write what it is. Councillor Quigley reads the end of everything first, and a letter can get into anybody&rsquo;s hands. Mrs P has to read her way there. She taught me that.</p>' +
+    '<p>The trail starts with the book I took out on the library&rsquo;s birthday, a hundred and twenty years to the day. My bookmarks are in it. Put them on Mrs P&rsquo;s mountain.</p>' +
+    '<p>Please hurry. Don&rsquo;t skip to the end. (You can&rsquo;t, anyway. I made sure.)</p><p class="sig">Juno</p>' +
+    '<p class="ps">P.S. Mrs P will say she is too sad. She isn&rsquo;t. She&rsquo;s just tired.</p>';
+  var PLATE = '<h4>Hopwell Free Library</h4><p>The gift of</p><p>GILBERT DOWSETT, ESQ.</p><p>to the people of Hopwell</p><p class="small">Opened on Wednesday 10 October 1906</p>';
+  var BOARD = '<h4>How a story is built</h4><h5>Story Club &middot; week two &middot; Mrs P.</h5>' +
+    '<svg viewBox="0 0 700 170"><path d="M20 150h90l70 -40 60 -45 50 -45 30 -10 30 10 50 50 50 40 50 30h120" fill="none" stroke="#f1efe4" stroke-width="3" stroke-linejoin="round"/>' +
+    '<g font-family="Fredericka the Great,serif" font-size="17" fill="#f3d77a" text-anchor="middle"><text x="64" y="140">1 exposition</text><text x="214" y="70" transform="rotate(-36 214 70)">2 rising action</text><text x="330" y="16">3 climax</text><text x="472" y="62" transform="rotate(38 472 62)">4 falling action</text><text x="620" y="140">5 resolution</text></g></svg>' +
+    '<p>Every story is a mountain. The <b>plot</b> is the path over it.</p>' +
+    '<p><b>1 Exposition</b>, the bottom: who, where, when, and what life is like before the trouble starts.</p>' +
+    '<p><b>2 Rising action</b>, the climb: the trouble starts, and things get harder, one step at a time, in order.</p>' +
+    '<p><b>3 Climax</b>, the top: the moment of greatest tension, when the main problem is decided.</p>' +
+    '<p><b>4 Falling action</b>, the way down: what happens because of the climax. Loose ends are tied.</p>' +
+    '<p><b>5 Resolution</b>, the far bottom: the new normal, how life is at the end.</p>' +
+    '<p class="ex">To find the top, ask: after which moment can nothing go back to how it was?</p>';
+
+  function readLetter(done) {
+    ER.read({ html: LETTER, cls: 'juno', clue: { id: 'letter', title: 'Juno&rsquo;s letter', kind: 'In your pocket' }, done: done });
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The bookmarks say: GO TO THE CORNER WHERE I BEGAN.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The issue desk, on the last morning. Councillor Quigley is still measuring.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The hall smells of floor polish and old paper. Brown boxes stand everywhere, marked BOOK SALE 10p in thick black pen. Behind the issue desk a small grey woman is stamping nothing with a date stamp, over and over, as if her hands have forgotten how to stop.',
+      'A pink man in a camel coat is crossing the hall behind a little wheel on a stick. &ldquo;Seven metres,&rdquo; he says. &ldquo;Eight. Room for a very large car by the radiator.&rdquo;',
+      'His wheel runs straight into the returns trolley. Books slide, and a little shower of paper flutters down onto the tiles. &ldquo;Eight and a half,&rdquo; he says, and walks on.',
+      'You take Juno&rsquo;s letter out of your pocket and read it again.'
+    ], function () { told.set('spilt'); paint(); readLetter(function () { busy = false; ER.say('Mrs Pumphrey is the woman behind the issue desk. She does not look up.'); }); });
+  }
+
+  /* ---------- the people ---------- */
+  $('#pumphrey').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('mrsp')) {
+      ER.say(nextFile ? '&ldquo;The corner,&rdquo; says Mrs Pumphrey, buttoning her cardigan properly. &ldquo;Come on.&rdquo;' : told.has('book') ? '&ldquo;The Blue Fairy Book,&rdquo; says Mrs Pumphrey, not quite looking. &ldquo;She read it when she was six. Then she read it again to see if she had been right the first time.&rdquo;' : '&ldquo;The brass plate by the door,&rdquo; says Mrs Pumphrey. &ldquo;Three weeks. The trolley. I am not doing the arithmetic.&rdquo;');
+      return;
+    }
+    ER.talk({
+      who: 'Elspeth Pumphrey', role: 'Librarian · Hopwell Free Library since 1985', face: window.FACE('pumphrey'),
+      lines: [
+        { note: 'Small, grey and very upright, with three pencils in her bun and her cardigan buttoned wrong. She does not stop stamping.', a: '&ldquo;Good morning. We are closed. Well, we are open, but only so that the Council can watch us close. Can I help you? Please say no.&rdquo;' },
+        { q: 'Juno sent me.', a: 'The stamping stops. &ldquo;Juno. Of course she did. Juno has borrowed every book in this building at least once, and the atlas twice, because she said the first time she was only looking at the pictures.&rdquo;' },
+        { q: 'She has left a trail for you.', a: '&ldquo;A trail.&rdquo; She looks at the boxes. &ldquo;I have spent the whole morning putting forty-one years into cardboard. I have not got the heart for a treasure hunt.&rdquo; She picks up the stamp. Then she puts it down again. &ldquo;What does the letter say?&rdquo;' },
+        { q: 'The book she took out on the library&rsquo;s birthday.', a: '&ldquo;Everything she brought back this month is on the trolley. I have not put a single book back on a shelf since the Council voted. What would be the point?&rdquo; She does not look at the trolley.</p><p>&ldquo;The opening day is on the brass plate by the door. Our loans are for three weeks, and the date we stamp on the label is the day a book is due back. You will have to do the arithmetic. I am a librarian for exactly one more day, and I am not doing arithmetic.&rdquo;' },
+        { a: '&ldquo;And keep away from Councillor Quigley. He reads the last page of everything first. He says it saves time.&rdquo;' }
+      ],
+      clue: { id: 'mrsp', title: 'Mrs Pumphrey, at the desk', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('mrsp')) { paint(); ER.say('The brass plate by the door, then the trolley. Three weeks.'); } }
+    });
+  });
+  $('#quigley').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('quig')) { SFX(); ER.say(nextFile ? '&ldquo;Nine metres,&rdquo; says Councillor Quigley. &ldquo;And a bit. What&rsquo;s the bit for? Bicycles. Nobody wants bicycles.&rdquo;' : '&ldquo;A story about a girl and a shoe?&rdquo; says Councillor Quigley. &ldquo;I know how that ends. Wedding. Last page. Saved you the bother.&rdquo;'); return; }
+    ER.talk({
+      who: 'Derek Quigley', role: 'Councillor · Chair of the Parking Committee', face: window.FACE('quigley'),
+      lines: [
+        { note: 'A pink, shiny man in a camel coat, pushing a measuring wheel. A ring of keys hangs from his belt and jingles when he walks, and he walks a lot.', a: '&ldquo;Quigley. Councillor. Parking Committee, chair of. You&rsquo;ll have seen my car park. Well, you will. Forty-two spaces, two of them extra wide, and one for me.&rdquo;' },
+        { q: 'Why close the library?', a: 'Nobody reads any more. I don&rsquo;t. Never finished a book in my life. I read the last page, and that tells you all you need: who did it, who married who. The middle is just people walking about. Saves hours.' },
+        { q: 'What are the keys for?', a: 'Every door and every cupboard in the building. The Council took them this morning. At five o&rsquo;clock Mrs Pumphrey hands me the key to the front door, there&rsquo;s a photograph for the Gazette, and I cut a ribbon. And on Monday &hellip;</p><p>He makes a noise like a digger. It is not a nice noise.' },
+        { a: 'He looks at the letter in your hand. &ldquo;What&rsquo;s that? Give it here. I&rsquo;ll just read the end.&rdquo;</p><p>You put it back in your pocket. He looks hurt.' }
+      ],
+      clue: { id: 'quig', title: 'Councillor Quigley, measuring', kind: 'What he said' },
+      done: function (seen) { if (seen) told.set('quig'); }
+    });
+  });
+  function SFX() { RD.sfx.jingle(); }
+
+  /* ---------- the brass plate, the board, the bookmarks ---------- */
+  $('#plate').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PLATE, cls: 'brass', clue: { id: 'plate', title: 'The brass plate by the door', kind: 'In the hall' }, done: function () {
+      if (told.set('plate')) ER.say('Opened on Wednesday 10 October 1906. A hundred and twenty years ago this month.');
+    } });
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Seven bookmarks on a chalk mountain. On their backs: GO TO THE CORNER WHERE I BEGAN.'); return; }
+    if (told.has('board') && ready()) { openMountain(); return; }
+    RD.sfx.chalk();
+    ER.read({ html: BOARD, cls: 'chalk', clue: { id: 'board', title: 'How a story is built', kind: 'The Story Club board' }, done: function () {
+      RD.terms(['plot', 'exposition', 'rising action', 'climax', 'falling action', 'resolution']);
+      if (told.set('board')) { paint(); ER.say(ready() ? 'A mountain, and nine bookmarks. Click the board again to start.' : 'A mountain on the board. Now the bookmarks.'); }
+    } });
+  });
+  var BM = {
+    attic: 'Her father marries again. She does the hardest work, sleeps on straw in the attic, and sits among the cinders.',
+    ball: 'The King&rsquo;s son gives a ball. Her two stepsisters talk of nothing else, and she helps them dress.',
+    pumpkin: 'Her fairy godmother turns a pumpkin into a golden coach, and her rags into a dress of gold and silver.',
+    midnight: 'On the second night she forgets the time. The clock strikes twelve; she runs, and leaves a glass slipper.',
+    wax: 'The slipper is tried on every lady in the land. On her foot it fits as if it were made of wax.',
+    pocket: 'She takes the other slipper out of her pocket. Her sisters fall at her feet and beg her pardon.',
+    lords: 'She marries the King&rsquo;s son, gives her sisters rooms in the palace, and finds two lords for them to marry.',
+    hazel: 'A little bird in the hazel tree on her mother&rsquo;s grave brings her a dress of gold and silver.',
+    gold: 'As she runs from the ball, she drops her left slipper, which is made of gold, on the stairs.'
+  };
+  var ORDER = ['midnight', 'lords', 'hazel', 'attic', 'wax', 'pumpkin', 'gold', 'ball', 'pocket'];     /* as they lie on the floor */
+  $('#bms').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('book')) { ER.say('Bookmarks, nine of them, in Juno&rsquo;s writing. But which book did they fall out of? Find the book first.'); return; }
+    RD.sfx.slide(); told.set('picked'); paint();
+    ER.read({ html: '<h4>Nine bookmarks, off the floor</h4>' + ORDER.map(function (k) { return '<p class="line">' + BM[k] + '</p>'; }).join('') + '<p>All in Juno&rsquo;s writing. Some fell out of the Blue Fairy Book, and some out of the book next to it on the trolley.</p>',
+      cls: 'jcard', clue: { id: 'bookmarks', title: 'Nine bookmarks', kind: 'Off the floor' }, done: function () {
+        ER.say(told.has('board') ? 'Nine bookmarks, and a mountain on the board. Click the board to start.' : 'Nine bookmarks. Juno said: put them on Mrs P&rsquo;s mountain.');
+      } });
+  });
+
+  /* ---------- the returns trolley ---------- */
+  var BOOKS = [
+    { id: 'grimm', t: 'Grimms&rsquo; Fairy Tales', by: 'Jacob and Wilhelm Grimm, in English', c: '#7a2a24', d: ['14 MAR 2026', '9 MAY 2026', '24 OCT 2026'], due: '24 October', out: 'Saturday 3 October' },
+    { id: 'dragons', t: 'The Book of Dragons', by: 'E. Nesbit, 1900', c: '#2f5a3a', d: ['11 APR 2026', '10 OCT 2026'], out: 'Saturday 19 September' },
+    { id: 'blue', t: 'The Blue Fairy Book', by: 'edited by Andrew Lang, 1889', c: '#2c4a7a', d: ['2 AUG 2025', '31 JAN 2026', '31 OCT 2026'], out: 'Saturday 10 October' },
+    { id: 'cars', t: 'Car Parks of Britain', by: 'a survey, 1998', c: '#5a5a5a', d: ['15 SEP 2026'], out: '' },
+    { id: 'just', t: 'Just So Stories', by: 'Rudyard Kipling, 1902', c: '#8a6a2a', d: ['20 JUN 2026', '17 OCT 2026'], due: '17 October', out: 'Saturday 26 September' }
+  ];
+  function openTrolley() {
+    var cur = null;
+    trl = ER.el('div', 'trl');
+    trl.innerHTML = '<h5>The returns trolley: everything brought back this month</h5><div class="row"><div class="spines"></div><div class="lab"><p class="empty">Click a book to read its date label.</p></div></div>' +
+      '<div class="foot"><p class="bmsg">Which one did Juno take out on the library&rsquo;s birthday?</p></div>';
+    var sp = trl.querySelector('.spines'), lab = trl.querySelector('.lab'), m = trl.querySelector('.bmsg');
+    BOOKS.forEach(function (b, i) {
+      var e = ER.el('button', 'sp', b.t); e.type = 'button'; e.setAttribute('data-b', b.id);
+      e.style.background = b.c; e.style.height = (230 + (i * 23) % 50) + 'px';
+      e.addEventListener('click', function () {
+        cur = b; ER.$$('.sp', sp).forEach(function (o) { o.classList.toggle('on', o === e); }); ER.sfx.paper();
+        lab.innerHTML = '<h6>' + b.t + '</h6><p class="by">' + b.by + '</p><div class="rules">Hopwell Free Library &middot; loans are for three weeks &middot; this book is due back on the last date stamped below</div>' +
+          '<div class="dates">' + b.d.map(function (d) { return '<span>' + d + '</span>'; }).join('') + '</div>' + (b.id === 'cars' ? '<p style="font-family:Caveat,cursive;font-size:20px;color:#7a2a1e;margin:6px 0 0">Returned by Cllr D. Quigley. &ldquo;Good ending.&rdquo;</p>' : '') +
+          '<button type="button" class="btn" id="t-pick">This is the one</button>';
+        lab.querySelector('#t-pick').addEventListener('click', function () { pick(cur); });
+      });
+      sp.appendChild(e);
+    });
+    function pick(b) {
+      if (!b) return;
+      if (!ER.check('bk', b.id)) {
+        ER.sfx.no(); ER.shake(lab);
+        m.innerHTML = ER.gloss(b.id === 'cars' ? 'Mrs Pumphrey sniffs. &ldquo;That one is Councillor Quigley&rsquo;s. He brought it back on Tuesday. He says the ending was very satisfying: a car park.&rdquo;' :
+          b.id === 'dragons' ? '&ldquo;Ten October is on it, yes,&rdquo; says Mrs Pumphrey. &ldquo;But read the top of the label. Ten October was the day it was due back. It went out three weeks before that: ' + b.out + '.&rdquo;' :
+          '&ldquo;That one was due back on ' + b.due + ',&rdquo; says Mrs Pumphrey, &ldquo;so it went out three weeks before: ' + b.out + '. Was that the library&rsquo;s birthday?&rdquo;');
+        return;
+      }
+      told.set('book'); ER.sfx.ok(); paint();
+      m.innerHTML = ER.gloss('Due back on 31 October, so it went out three weeks before: Saturday 10 October 2026, a hundred and twenty years to the day. Mrs Pumphrey opens it at the contents page. One title has been underlined in pencil: <b>Cinderella; or, the Little Glass Slipper</b>.');
+      RD.mine('bluebook', 'The Blue Fairy Book', '<p>Due back 31 October, so taken out three weeks before: Saturday 10 October 2026, the library&rsquo;s 120th birthday (it opened on 10 October 1906).</p><p>The Blue Fairy Book, edited by Andrew Lang (1889). Underlined in the contents: Cinderella; or, the Little Glass Slipper. Mrs P: &ldquo;That is Perrault&rsquo;s, the French one.&rdquo;</p><p>Next to it on the trolley: Grimms&rsquo; Fairy Tales, which has the German Cinderella in it, called Ashputtel.</p>');
+      setTimeout(function () { ER.close(); }, 3800);
+    }
+    ER.open('ov-lock', trl, function () { if (told.has('book')) ER.say(told.has('picked') ? 'The Blue Fairy Book. Cinderella.' : 'The Blue Fairy Book. And Juno&rsquo;s bookmarks are all over the floor.'); });
+  }
+  $('#trolley').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('book')) { ER.say('The Blue Fairy Book, taken out on the library&rsquo;s birthday. Next to it, Grimms&rsquo; Fairy Tales.'); return; }
+    if (!told.has('mrsp')) { ER.say('The returns trolley, full of books. Nobody has put any of them back on a shelf for weeks.'); return; }
+    openTrolley();
+  });
+
+  /* ---------- things in the hall ---------- */
+  RD.thing('#door', null, 'The green door, propped open. Through it, the Market Square in the rain, and a man tying a red ribbon to the railings.', isBusy);
+  RD.thing('#win', 'Market Square', 'The Market Square, grey and wet. A sign has gone up on the far side: COMING SOON: 42 SPACES.', isBusy);
+  RD.thing('#poster', null, 'HOPWELL COUNCIL. LIBRARY CLOSING 31 OCTOBER. THANK YOU FOR 120 YEAR&rsquo;S. Somebody has circled the apostrophe in red pen and written: no!', isBusy);
+  RD.thing('#clock', null, 'The library clock. It has been four minutes slow since 1906, and nobody has ever had the heart to change it.', isBusy);
+  RD.thing('#stamp', 'date stamp', 'The date stamp. It is set to 31 OCT 2026, and there will be no 1 NOV.', isBusy);
+  RD.thing('#trays', 'ticket', 'Wooden trays full of borrowers&rsquo; tickets, in rows. The thickest row says FENNIMORE.', isBusy);
+  RD.thing('#boxes', null, 'BOOK SALE 10p. Somebody has written underneath, much smaller: (no refunds).', isBusy);
+  RD.thing('#shelves', 'shelf', 'Shelves that held books for a hundred and twenty years, nearly empty. One book has fallen over, and nobody has set it straight.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the mountain ---------- */
+  var PEGS = [['p1', 'exposition', 0.5, 60], ['p2', 'rising action', 14.6, 46], ['p3', 'rising action', 28.7, 31], ['p4', 'rising action', 42.8, 17], ['p5', 'climax', 56.9, 7],
+    ['p6', 'falling action', 71.0, 32], ['p7', 'resolution', 85.1, 60]];
+  var PART = { attic: 1, ball: 2, pumpkin: 2, midnight: 2, wax: 3, pocket: 4, lords: 5 };
+  var STEP = { ball: 0, pumpkin: 1, midnight: 2 };
+  var BACK = { attic: 'GO', ball: 'TO', pumpkin: 'THE', midnight: 'CORNER', wax: 'WHERE', pocket: 'I', lords: 'BEGAN' };
+  function openMountain() {
+    var lockd = false, misses = 0, put = ER.flag('a-put') || {};
+    mtn = ER.el('div', 'mtn');
+    mtn.innerHTML = '<div class="board"><svg viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0 290l70 -10 140 -60 140 -70 140 -80 70 -60 70 60 140 90 140 70 90 10" fill="none" stroke="rgba(241,239,228,.55)" stroke-width="3" stroke-linejoin="round"/></svg></div>' +
+      '<div class="tray"></div><div class="foot"><p class="bmsg"></p><button type="button" class="btn" id="m-go">Turn them over</button></div>';
+    var board = mtn.querySelector('.board'), tray = mtn.querySelector('.tray'), m = mtn.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    PEGS.forEach(function (p) {
+      var d = ER.el('div', 'peg'); d.setAttribute('data-p', p[0]); d.style.left = p[2] + '%'; d.style.top = p[3] + '%';
+      d.innerHTML = '<i>' + p[1] + '</i>'; board.appendChild(d);
+    });
+    ORDER.forEach(function (k) {
+      var b = ER.el('div', 'bm dnd-item', BM[k]); b.setAttribute('data-k', k);
+      var at = put[k]; var peg = at ? board.querySelector('.peg[data-p="' + at + '"]') : null;
+      (peg && !peg.querySelector('.bm') ? peg : tray).appendChild(b);
+    });
+    function keep() {
+      put = {}; ER.$$('.peg', board).forEach(function (p) { var c = p.querySelector('.bm'); if (c) put[c.getAttribute('data-k')] = p.getAttribute('data-p'); });
+      ER.flag('a-put', put);
+    }
+    RD.swapIn(mtn, '.bm', '.peg', tray);
+    ER.dnd(mtn, { item: '.bm', slot: '.peg', home: tray, lock: function () { return lockd || !!nextFile; }, change: function () { keep(); ER.$$('.peg', board).forEach(function (p) { p.classList.remove('bad'); }); } });
+    function why(i, k) {
+      if (k === 'hazel') return 'Mrs Pumphrey shakes her head. &ldquo;A bird in a hazel tree? In the Blue Fairy Book her godmother gives her the dress: read the pumpkin bookmark. That one is from the Grimms&rsquo; Ashputtel. It has no place on this mountain.&rdquo;';
+      if (k === 'gold') return '&ldquo;A slipper made of gold?&rdquo; says Mrs Pumphrey. &ldquo;Look at the title she underlined: The Little Glass Slipper. That one is from the Grimms&rsquo; book. Leave it in the tray.&rdquo;';
+      var part = PART[k];
+      if (i === 0) return '&ldquo;The bottom of the mountain is the exposition,&rdquo; says Mrs Pumphrey. &ldquo;Life before the trouble starts: who she is, and what is wrong with her life. Has anything happened yet in this one?&rdquo;';
+      if (i <= 3) return part === 2 ? '&ldquo;That one is on the climb,&rdquo; says Mrs Pumphrey, &ldquo;but not in that place. The climb goes one step at a time, in the order things happen.&rdquo;' :
+        '&ldquo;The climb is the rising action,&rdquo; says Mrs Pumphrey. &ldquo;The trouble starts, and things get harder, step by step. Is this one on the way up?&rdquo;';
+      if (i === 4) return k === 'pocket' ? '&ldquo;Her sisters at her feet,&rdquo; says Mrs Pumphrey. &ldquo;But that happens because of something else. What is the one moment after which nothing can go back?&rdquo;' :
+        '&ldquo;The top is the climax,&rdquo; says Mrs Pumphrey, &ldquo;the moment her main problem is decided. What is her main problem? And when is it decided?&rdquo;';
+      if (i === 5) return k === 'wax' ? '&ldquo;That is the top of the mountain,&rdquo; says Mrs Pumphrey, &ldquo;not the way down.&rdquo;' : k === 'lords' ? '&ldquo;That is how life is at the very end,&rdquo; says Mrs Pumphrey. &ldquo;The way down comes just before it.&rdquo;' :
+        '&ldquo;The way down is the falling action,&rdquo; says Mrs Pumphrey: &ldquo;what happens because of the climax. Loose ends.&rdquo;';
+      return k === 'pocket' ? '&ldquo;That ties up a loose end,&rdquo; says Mrs Pumphrey. &ldquo;But is it the very end, the new normal?&rdquo;' : '&ldquo;The far bottom is the resolution,&rdquo; says Mrs Pumphrey: &ldquo;how life is now that it is all over.&rdquo;';
+    }
+    mtn.querySelector('#m-go').addEventListener('click', function () {
+      var got = [], i, c, empty, file;
+      if (lockd || nextFile) return;
+      ER.$$('.peg', board).forEach(function (p) { c = p.querySelector('.bm'); got.push(c ? c.getAttribute('data-k') : ''); });
+      empty = got.filter(function (g) { return !g; }).length;
+      if (empty) { ER.sfx.no(); msg('Seven places on the mountain, and ' + (empty === 7 ? 'all of them are' : empty + (empty === 1 ? ' is' : ' are')) + ' still empty. Drag a bookmark onto a place, or click a bookmark and then a place.'); return; }
+      RD.sfx.chalk();
+      for (i = 0; i < 7; i++) if (!ER.check('p' + (i + 1), got[i])) {
+        misses++; ER.sfx.no();
+        var peg = board.children[i + 1]; peg.classList.add('bad'); ER.shake(peg);
+        msg(why(i, got[i]) + (misses > 2 ? ' (Only the first wrong place is ever shown. There may be others.)' : ''));
+        return;
+      }
+      file = ER.exitOk([got.join('-')]);
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('a-file', file); lockd = true;
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.desk = 1; ER.persist(true);
+      ER.$$('.peg .bm', board).forEach(function (b, j) {
+        setTimeout(function () { RD.sfx.slide(); b.classList.add('flip'); b.innerHTML = BACK[b.getAttribute('data-k')]; }, 300 + j * 380);
+      });
+      setTimeout(function () { msg('On the back of each bookmark, in Juno&rsquo;s capitals, there is one word.'); }, 600);
+      setTimeout(function () {
+        ER.closeAll(); RD.solved(); paint(); busy = true;
+        RD.mine('mountain', 'Cinderella on the mountain', '<p>1 Exposition: the girl in the cinders and the attic.</p><p>2 Rising action: the ball; the pumpkin coach; midnight and the glass slipper.</p><p>3 Climax: the slipper fits, as if it were made of wax.</p><p>4 Falling action: the other slipper; her sisters beg her pardon.</p><p>5 Resolution: the wedding, and rooms in the palace for the sisters.</p><p>Left out: the hazel-tree bird and the golden slipper, from the Grimms&rsquo; Ashputtel.</p><p>On the backs: GO TO THE CORNER WHERE I BEGAN.</p>');
+        ER.narrate([
+          'GO &middot; TO &middot; THE &middot; CORNER &middot; WHERE &middot; I &middot; BEGAN.',
+          '&ldquo;The children&rsquo;s corner,&rdquo; says Mrs Pumphrey. &ldquo;She was three. She used to read the picture books upside down and tell me that I was holding mine the wrong way up.&rdquo;',
+          'She looks down at her cardigan, sees that it is buttoned wrong, and buttons it again, properly, all the way up.',
+          '&ldquo;Come along, then,&rdquo; she says. &ldquo;Before Councillor Quigley measures it.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 300 + 7 * 380 + 1800);
+    });
+    msg('Nine bookmarks, and seven places on the mountain. Drag a bookmark onto a place, or click a bookmark and then a place. When every place is filled, turn them over.');
+    ER.open('ov-lock', mtn);
+  }
+})();
+</script>
+</body>
+</html>

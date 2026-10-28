@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Children's Corner · Don't Skip to the End</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="reader.css">
+<style>
+  body{--bg:#1d4a52;--accent:#ffcf4a;--font-display:'Henny Penny',cursive;--font-ui:'Goudy Bookletter 1911',serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(20,60,66,.96);--tc-ink:#fdf6e4;--cap-bg:rgba(18,56,62,.95);--panel:#1d4a52;--face-bg:#d3dde8;--q-ink:#ffd86a;--fade:#082024;--hud-bg:rgba(18,56,62,.84)}
+  .tc-room{font-size:clamp(44px,6vw,80px);color:#ffcf4a}
+  .sH{font-family:'Henny Penny',cursive;text-anchor:middle}
+  .sK{font-family:'Gochi Hand',cursive;text-anchor:middle}
+  .sO{font-family:'Oswald',sans-serif;text-anchor:middle}
+  #rain2 path{animation:rain .9s linear infinite}
+  @keyframes rain{from{transform:translateY(-30px)}to{transform:translateY(30px)}}
+  #zz{animation:zz 4s ease-in-out infinite}
+  @keyframes zz{50%{transform:translateY(-8px);opacity:.5}}
+  #archie{transition:opacity 1.2s}
+  #scene.gone #archie{opacity:0;pointer-events:none}
+  #scene.back #archie{opacity:1;pointer-events:auto}
+  #crate.ready,#boat.ready,#guide.ready{animation:glow 1.5s steps(1,end) infinite}
+  @keyframes glow{50%{filter:brightness(1.3)}}
+  #full{display:none}
+  #scene.sorted #full{display:inline}
+  #scene.sorted #empty{display:none}
+
+  /* the six little shelves and the crate */
+  .srt{width:min(1100px,97vw);display:flex;align-items:flex-start;gap:12px;-webkit-user-select:none;user-select:none}
+  .srt .wall{flex:0 0 330px;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#2b6f78;border-radius:6px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 3px #ffcf4a}
+  .srt .shelf{position:relative;background:#f6e7c4;border-bottom:9px solid #c0703a;border-radius:3px;padding:28px 5px 5px;display:flex;flex-direction:column;gap:4px}
+  .srt .shelf>b{position:absolute;left:0;right:0;top:3px;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'Henny Penny',cursive;font-weight:normal;font-size:14.5px;color:#7a2a1e;pointer-events:none}
+  .srt .shelf.bad{background:#ffc8b8}
+  .srt .slot{height:46px;border:2px dashed rgba(122,42,30,.3);border-radius:3px;display:flex;align-items:stretch}
+  .srt .slot .bk{flex:1}
+  .srt .right{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+  .srt .crate{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:10px;background:#b48a58;border:6px solid #8a6436;border-radius:4px;min-height:200px;align-content:start;position:relative}
+  .srt .crate:after{content:'10p';position:absolute;right:10px;bottom:4px;font-family:'Oswald',sans-serif;font-size:30px;color:rgba(42,26,10,.35);pointer-events:none}
+  .srt .bk{background:#fffaf0;color:#22201c;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.3);font-family:'Alegreya',serif;font-size:12.6px;line-height:1.18;padding:0 6px 5px;border-left:8px solid #888}
+  .srt .bk h6{margin:0 -6px 3px;padding:4px 6px 3px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:13.6px;line-height:1.12;color:#fff;background:#666}
+  .srt .shelf .bk{padding:0;border-left-width:6px;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+  .srt .shelf .bk h6{margin:0;font-size:12.6px;height:100%;display:flex;align-items:center}
+  .srt .shelf .bk p{display:none}
+  .srt .bk p{margin:0}
+  .srt .bk.juno{background:#e8d6a8;font-family:'Gochi Hand',cursive;font-size:13.4px;border-left-color:#e05a8a}
+  .srt .bk.juno h6{background:#fff3c8;color:#d0306a;font-family:'Gochi Hand',cursive;font-size:16px}
+  .srt .read{background:#fffaf0;border-radius:4px;padding:8px 12px;font-family:'Alegreya',serif;font-size:16px;line-height:1.3;color:#22201c;min-height:46px}
+  .srt .read b{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:17px;color:#7a2a1e}
+  .srt .foot .bmsg{color:#fdf6e4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="boardsF" width="120" height="30" patternUnits="userSpaceOnUse"><rect width="120" height="30" fill="#b9814a"/><path d="M0 .5h120M0 15.5h120M40 0v15M100 15v15" stroke="#8a5a2e" stroke-width="2"/></pattern>
+  <pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#2b8a8e"/><circle cx="15" cy="15" r="4" fill="#ffcf4a" opacity=".35"/><circle cx="45" cy="45" r="4" fill="#ff8a6a" opacity=".35"/></pattern>
+  <linearGradient id="stairG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a3e1e"/><stop offset="1" stop-color="#4a2a12"/></linearGradient>
+  <linearGradient id="skyG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa6ae"/><stop offset="1" stop-color="#cfd3cf"/></linearGradient>
+  <radialGradient id="warmG"><stop offset="0" stop-color="#fff2c0" stop-opacity=".4"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig2" cx="50%" cy="55%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#04181c" stop-opacity=".22"/><stop offset="1" stop-color="#020a0c" stop-opacity=".85"/></radialGradient>
+  <clipPath id="lwC"><rect x="66" y="506" width="210" height="164"/></clipPath>
+</defs>
+
+<!-- the wall, the underside of the stairs, the floor -->
+<rect x="-1000" y="-400" width="3600" height="1120" fill="url(#dots)"/>
+<path d="M-1000 -400H2600V40L1700 360H-1000z" fill="#f1e2bc"/>
+<path d="M-1000 230L1700 330V360L-1000 262z" fill="#3e2410" opacity=".35"/>
+<path id="stairs" d="M-1000 -60L1700 300V380L-1000 20z" fill="url(#stairG)"/>
+<g id="steps"></g>
+<rect x="-1000" y="720" width="3600" height="800" fill="url(#boardsF)"/><path d="M-1000 722h3600" stroke="#6a3e1e" stroke-width="8"/>
+
+<!-- the dragon painted along the wall, asleep -->
+<g id="dragon" class="hot"><path d="M300 470q60 -90 160 -60q80 -60 170 -10q90 -40 170 20q60 40 120 10q-20 50 -90 50q-80 40 -170 20q-90 30 -170 0q-100 20 -190 -30z" fill="#6ab04c" stroke="#2f6a2a" stroke-width="5"/>
+  <g fill="#f6c84a" stroke="#2f6a2a" stroke-width="3"><path d="M420 418l14 -34 18 30z"/><path d="M520 400l14 -36 18 32z"/><path d="M620 404l14 -34 18 30z"/><path d="M720 418l14 -32 18 30z"/></g>
+  <path d="M300 470q-40 -10 -50 -50q30 -4 60 20" fill="#6ab04c" stroke="#2f6a2a" stroke-width="5"/><path d="M262 432q10 6 20 0" fill="none" stroke="#2f6a2a" stroke-width="3"/>
+  <g fill="none" stroke="#2a2a2a" stroke-width="3"><circle cx="276" cy="434" r="12"/><circle cx="304" cy="436" r="12"/><path d="M288 434h4"/></g>
+  <g id="zz"><text x="250" y="380" class="sH" font-size="26" fill="#2f6a2a">z</text><text x="226" y="350" class="sH" font-size="20" fill="#2f6a2a">z</text></g>
+  <g fill="#e86a4a"><rect x="560" y="470" width="60" height="18"/><rect x="640" y="476" width="70" height="16" fill="#4a8ac8"/><rect x="470" y="472" width="70" height="16" fill="#f2c94c"/></g></g>
+
+<!-- the low window, knee-high, and the radiator under it -->
+<g id="lowwin" class="hot"><rect x="54" y="494" width="234" height="188" fill="#f1e2bc" stroke="#c0703a" stroke-width="6"/>
+  <g clip-path="url(#lwC)"><rect x="66" y="506" width="210" height="164" fill="url(#skyG2)"/><path d="M66 640q50 -30 100 -8t110 -14v52H66z" fill="#7a8a6a"/><g id="rain2" stroke="#f0f4f8" stroke-width="1.3" opacity=".6"></g></g>
+  <path d="M171 506v164M66 588h210" stroke="#f1e2bc" stroke-width="6"/></g>
+<g id="rad" class="hot"><rect x="70" y="690" width="200" height="40" rx="5" fill="#e8e4dc" stroke="#9a948a" stroke-width="3"/><g id="radfins"></g></g>
+
+<!-- the little shelves, empty -->
+<g id="shelves" class="hot"><g id="empty"></g><g id="full"></g></g>
+<!-- the guide, in a frame -->
+<g id="guide" class="hot" transform="rotate(-2 1325 470)"><rect x="1270" y="404" width="110" height="140" fill="#fbf7ec" stroke="#d9472b" stroke-width="5"/><text x="1325" y="430" class="sH" font-size="15" fill="#d9472b">Where does</text><text x="1325" y="448" class="sH" font-size="15" fill="#d9472b">it go?</text><g id="gicons"></g></g>
+<!-- the way down to the boiler room -->
+<g id="bdoor" class="hot"><rect x="1460" y="420" width="130" height="300" fill="#4a2a12"/><rect x="1472" y="432" width="106" height="288" fill="#6a3e1e"/><rect x="1490" y="470" width="70" height="30" fill="#f1e2bc"/><text x="1525" y="483" class="sO" font-size="10" fill="#2a1a0a">BOILER ROOM</text><text x="1525" y="495" class="sO" font-size="8" fill="#2a1a0a">STAFF ONLY</text><circle cx="1490" cy="590" r="6" fill="#c9a642"/></g>
+
+<!-- the rug, a map of an island -->
+<g id="rug" class="hot"><ellipse cx="760" cy="800" rx="380" ry="70" fill="#4aa0b8" stroke="#2a6a7a" stroke-width="4"/><path d="M560 800q60 -40 160 -30q120 -20 200 14q30 26 -40 40q-120 18 -230 4q-110 -4 -90 -28z" fill="#e8c77a" stroke="#a8823a" stroke-width="3"/>
+  <path d="M640 796q30 -14 60 0M760 786l12 12M772 786l-12 12" stroke="#a83a2a" stroke-width="4" fill="none"/><path d="M800 806q30 -10 54 2" stroke="#6a8a3a" stroke-width="6" fill="none"/></g>
+<!-- the crate of books, 10p -->
+<g id="crate" class="hot"><g id="cbooks"></g><rect x="660" y="700" width="210" height="110" fill="#b48a58" stroke="#7a5a2a" stroke-width="4"/><path d="M660 732h210M660 770h210" stroke="#8a6436" stroke-width="3"/><text x="765" y="790" class="sO" font-size="28" fill="#2a1a0a">10p</text></g>
+<!-- the book boat, with a card pinned to its bow -->
+<g id="boat" class="hot"><path d="M1020 690h420l-40 120h-340z" fill="#e05a3a" stroke="#8a2a1a" stroke-width="5"/><path d="M1032 726h396" stroke="#ffcf4a" stroke-width="10"/>
+  <path d="M1230 690v-170" stroke="#6a3e1e" stroke-width="8"/><path d="M1236 530q80 40 0 110z" fill="#fdf6e4" stroke="#c0b8a0" stroke-width="3"/>
+  <g transform="rotate(6 1420 712)"><rect x="1390" y="690" width="56" height="40" fill="#fffbe8" stroke="#f2c94c" stroke-width="3"/><path d="M1398 702h40M1398 712h34M1398 722h38" stroke="#3a5aa8" stroke-width="1.6"/><circle cx="1418" cy="692" r="4" fill="#c4262e"/></g>
+  <g fill="#ffcf4a"><rect x="1080" y="660" width="70" height="30" rx="8"/><rect x="1300" y="664" width="60" height="26" rx="8" fill="#4ab0a0"/></g></g>
+
+<!-- Archie with his boxes, and Mrs Pumphrey -->
+<g id="archie" class="hot" transform="translate(1530 885)"></g>
+<g id="pumphrey" class="hot" transform="translate(520 880) scale(.92)"></g>
+<ellipse cx="760" cy="680" rx="700" ry="240" fill="url(#warmG)" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig2)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the stacks</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="reader.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told, srt = null;
+  var BINS = ['m', 'a', 'f', 's', 'c', 'g'];
+  var BOOKS = [
+    { id: 'footprints', t: 'The Footprints on the Ceiling', c: '#3a4a8a', b: 'Somebody has been walking across the ceiling of the village hall, and the police are baffled. Gertie, who notices everything, wants to know who moved the ladder.' },
+    { id: 'walnut', t: 'The Boy Who Sailed in a Walnut Shell', c: '#8a3a6a', b: 'He sets sail for the end of the world to win the Princess of the Glass Hill. But first he must answer the Sea King&rsquo;s three questions.' },
+    { id: 'tomorrow', t: 'Tomorrow&rsquo;s News, Today', c: '#2a6a5a', b: 'The new computer in the school library starts printing tomorrow&rsquo;s newspaper. Deepa must stop it before its worst headline comes true.' },
+    { id: 'attic', t: 'The Room at the Top of the Stairs', c: '#3a3a4a', b: 'Nobody has slept in the attic room since 1888. On the first cold night of winter, the new cook hears somebody crying behind the locked door.' },
+    { id: 'canoe', t: 'Three Hundred Miles by Canoe', c: '#8a5a2a', b: 'A leaking canoe, a map drawn on a napkin, one tin of beans, and two cousins who must reach the coast before the river freezes.' },
+    { id: 'dorm', t: 'The Ghost of Dormitory Four', c: '#6a4a8a', b: 'Every new girl is told about the ghost in Dormitory Four. Ellie is not afraid of ghosts. She is afraid of the head girl, and of being sent home.' },
+    { id: 'juno', t: 'EVERYTHING, by J. Fennimore, aged 9', c: '#e05a8a', b: 'Once upon a time, in the year 3000, on a dark and stormy night, a new girl at a haunted school found a treasure map, a clue and a robot.' },
+    { id: 'craw', t: 'The Grey Lady of Craw Hall', c: '#5a5a62', b: 'Every night at twelve, a grey shape glides across the lawn. The whole village says ghost. Ben, with a torch and a notebook, says thief.' },
+    { id: 'ganymede', t: 'Signal from Ganymede', c: '#1a3a6a', b: 'In the year 2391 a telescope on the Moon picks up a message from one of Jupiter&rsquo;s moons. It is the plan for a machine.' },
+    { id: 'larkspur', t: 'New Girl at Larkspur House', c: '#2a5a8a', b: 'Nobody in the Lower Fourth will speak to Hana. Then the hockey captain breaks her arm, and the big match is on Saturday.' },
+    { id: 'moon', t: 'To the Mountains of the Moon', c: '#4a6a3a', b: 'Not the Moon in the sky: the snowy mountains in the middle of Africa. Four climbers, one rope, and a storm coming up the valley.' },
+    { id: 'chapel', t: 'Footsteps in the Cold Chapel', c: '#4a3a3a', b: 'A detective sets out to prove that the footsteps in the empty chapel are a trick. By the last page, he is no longer sure of anything.' },
+    { id: 'geese', t: 'The Seven Silver Geese', c: '#a87a2a', b: 'Once upon a time a miller&rsquo;s youngest daughter set out to free her seven brothers from a witch&rsquo;s spell. She had three nights.' }
+  ];
+  var BYID = {}; BOOKS.forEach(function (b) { BYID[b.id] = b; });
+  var WHY = {
+    footprints: '&ldquo;Read it again,&rdquo; says Mrs Pumphrey. &ldquo;Something strange has happened, and Gertie wants to know who moved the ladder. What kind of book asks who?&rdquo;',
+    craw: '&ldquo;Everybody in the village says ghost,&rdquo; says Mrs Pumphrey. &ldquo;But Ben says thief, and he has a torch and a notebook. When the ghost turns out to be a person, whose shelf is it?&rdquo;',
+    canoe: '&ldquo;A leaking canoe, a map and three hundred miles of river before it freezes,&rdquo; says Mrs Pumphrey. &ldquo;Is that a question of who? Or a dangerous journey?&rdquo;',
+    moon: '&ldquo;Read the first words of it,&rdquo; says Mrs Pumphrey. &ldquo;Not the Moon in the sky. Mountains on Earth, a rope and a storm. No future, no machines.&rdquo;',
+    geese: '&ldquo;Once upon a time, a youngest daughter, a witch&rsquo;s spell and three nights,&rdquo; says Mrs Pumphrey. &ldquo;How many signs do you need?&rdquo;',
+    walnut: '&ldquo;He does go on a journey,&rdquo; says Mrs Pumphrey. &ldquo;In a walnut shell. To win the princess of a glass hill, after three questions from a Sea King. Is that a real journey, or a once-upon-a-time one?&rdquo;',
+    ganymede: '&ldquo;The year 2391, a telescope on the Moon, a message from one of Jupiter&rsquo;s moons, and a machine,&rdquo; says Mrs Pumphrey. &ldquo;Which picture on the wall has all of that?&rdquo;',
+    tomorrow: '&ldquo;Yes, it happens in a school,&rdquo; says Mrs Pumphrey. &ldquo;But what is the main problem? A machine that prints tomorrow&rsquo;s news. Decide by the problem, not the setting.&rdquo;',
+    larkspur: '&ldquo;A new girl, nobody speaking to her, and a hockey match on Saturday,&rdquo; says Mrs Pumphrey. &ldquo;One term at one school.&rdquo;',
+    dorm: '&ldquo;There is a ghost in it,&rdquo; says Mrs Pumphrey, &ldquo;but is Ellie afraid of the ghost? What is she really afraid of? That is the main problem.&rdquo;',
+    attic: '&ldquo;A room nobody has slept in since 1888, the first cold night, and somebody crying behind a locked door,&rdquo; says Mrs Pumphrey. &ldquo;The past that will not rest.&rdquo;',
+    chapel: '&ldquo;There is a detective in it,&rdquo; says Mrs Pumphrey, &ldquo;but he never finds a person in a sheet. By the last page he is not sure of anything. Is the ghost explained, or not?&rdquo;',
+    juno: '&ldquo;That one has every sign there is,&rdquo; says Mrs Pumphrey. &ldquo;Once upon a time, the year 3000, a haunted school, a treasure map, a clue and a robot. And look at the cover: nobody printed it.&rdquo;'
+  };
+
+  /* stairs, rain, radiator fins, the shelves empty and full, the guide's icons, the crate's books */
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i < 16; i++) { x = -200 + i * 120; s += '<path d="M' + x + ' ' + (-60 + (x + 1000) * 360 / 2700) + 'v80" stroke="#3e2410" stroke-width="4"/>'; }
+    $('#steps').innerHTML = s; s = '';
+    for (i = 0; i < 22; i++) s += '<path d="M' + (72 + (i * 41) % 200) + ' ' + (510 + (i * 37) % 150) + 'l-3 14"/>';
+    $('#rain2').innerHTML = s; s = '';
+    for (i = 0; i < 14; i++) s += '<path d="M' + (82 + i * 13.5) + ' 696v28" stroke="#b8b2a8" stroke-width="3"/>';
+    $('#radfins').innerHTML = s; s = '';
+    var fs = '';
+    BINS.forEach(function (g, j) {
+      var x0 = 330 + j * 150;
+      s += '<rect x="' + x0 + '" y="560" width="134" height="150" fill="#f6e7c4" stroke="#c0703a" stroke-width="4"/><path d="M' + x0 + ' 636h134" stroke="#c0703a" stroke-width="6"/><path d="M' + x0 + ' 708h134" stroke="#c0703a" stroke-width="8"/>' +
+        '<g transform="translate(' + (x0 + 50) + ' 520) scale(.85)"><circle cx="20" cy="20" r="24" fill="#fff8e4" stroke="#c0703a" stroke-width="3"/>' + RD.icon(g, '#7a2a1e') + '</g>';
+      fs += '<g>' + [0, 1].map(function (n) { return '<rect x="' + (x0 + 14 + n * 30) + '" y="' + (588 - n * 6) + '" width="24" height="' + (46 + n * 6) + '" fill="' + ['#3a4a8a', '#8a5a2a', '#a87a2a', '#1a3a6a', '#2a5a8a', '#3a3a4a', '#5a5a62', '#4a6a3a', '#8a3a6a', '#2a6a5a', '#6a4a8a', '#4a3a3a'][j * 2 + n] + '"/>'; }).join('') + '</g>';
+    });
+    $('#empty').innerHTML = s; $('#full').innerHTML = s + fs; s = '';
+    BINS.forEach(function (g, j) { s += '<g transform="translate(' + (1281 + (j % 3) * 30) + ' ' + (462 + Math.floor(j / 3) * 34) + ') scale(.6)">' + RD.icon(g, '#1d4e6e') + '</g>'; });
+    $('#gicons').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<rect x="' + (670 + i * 21) + '" y="' + (670 + (i * 7) % 14) + '" width="18" height="40" fill="' + BOOKS[i].c + '" transform="rotate(' + ((i % 3) * 7 - 7) + ' ' + (679 + i * 21) + ' 700)"/>';
+    $('#cbooks').innerHTML = s;
+    $('#archie').innerHTML = window.FIG('archie');
+    $('#pumphrey').innerHTML = window.FIG('pumphrey', { right: true });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'reader', storyTitle: 'Don’t Skip to the End', id: 'corner', no: 'II', title: 'The Children’s Corner',
+    go: 'Duck under the stairs',
+    intro: [
+      'Juno&rsquo;s bookmarks went onto the mountain in the order of the story. At the bottom, life before the trouble: the girl among the cinders. Up the climb, step by step: the ball, the pumpkin, midnight. At the top, the moment after which nothing could go back: the slipper fits. Down the far side, the other slipper and her sisters at her feet; and at the bottom, the new normal, a wedding. The two bookmarks from the Grimms&rsquo; Ashputtel, with a bird in a hazel tree and a golden slipper, had no place on Perrault&rsquo;s mountain.',
+      'On their backs, the seven bookmarks said: GO TO THE CORNER WHERE I BEGAN.',
+      'Half past ten. The children&rsquo;s corner is at the back of the ground floor, under the stairs, where it is warmest. Somebody has got there first.'
+    ],
+    exit: {"next":"stacks","w":{"8ac59bc6":"367e7fc1"}}, tags: {"k-footprints":["36bcda48"],"k-craw":["15f9d210"],"k-canoe":["c97afcae"],"k-moon":["23f86dd3"],"k-geese":["2e8f6272"],"k-walnut":["d33b0210"],"k-ganymede":["dd6dbf79"],"k-tomorrow":["08ba8094"],"k-larkspur":["6666f8ba"],"k-dorm":["7e98ec07"],"k-attic":["8efb3895"],"k-chapel":["a73391a0"],"k-juno":["9fe78307"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = RD.told('b-told'); nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('card') && told.has('guide'); }
+  function paint() {
+    $('#scene').classList.toggle('gone', told.has('in') && !told.has('card'));
+    $('#scene').classList.toggle('sorted', !!nextFile);
+    $('#boat').classList.toggle('ready', !told.has('card'));
+    $('#guide').classList.toggle('ready', told.has('card') && !told.has('guide'));
+    $('#crate').classList.toggle('ready', ready() && !nextFile);
+    ER.pips((told.has('card') ? 1 : 0) + (told.has('guide') ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Juno&rsquo;s six beginnings belong to books in the stacks. The button is at the bottom of the screen.']];
+    if (srt && srt.parentNode) return ['sort', [
+      'For each book, ask what the hero most needs to do or find out. Then find the picture on the guide that matches that problem. Two books go on every shelf.',
+      'Six of the books are wearing another genre&rsquo;s coat: a ghost that is really a thief, a moon that is really a mountain, a journey in a walnut shell, a machine in a school, a school with a ghost in it, and a detective who never solves it. Decide by the main problem, not the setting.',
+      'The Grey Lady is a thief, so Mystery. The Mountains of the Moon are in Africa, so Adventure. The walnut-shell boy and the Sea King: Fairy tale. The computer that prints tomorrow: Science fiction. Ellie and the head girl: School story. The chapel footsteps are never explained: Ghost story. And one book has every sign at once.'
+    ]];
+    if (!told.has('card')) return ['card', [
+      'The corner was where Juno began. Is there anything of hers here?',
+      'There is a card pinned to the bow of the red book boat, on the right. Click it.'
+    ]];
+    if (!told.has('guide')) return ['guide', [
+      'Juno says: put every book back where it belongs. How did Mrs Pumphrey decide where a book belongs?',
+      'Her shelving guide hangs in a red frame on the wall, near the boat. Read it.'
+    ]];
+    return ['crate', ['The books are in the crate on the rug. Click it, and put every book on its shelf.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Two books on every shelf. And Juno&rsquo;s own book, with six beginnings in it.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The children&rsquo;s corner. The books are still in the crate.'); return; }
+    told.set('in');
+    $('#scene').classList.remove('gone');
+    ER.narrate([
+      'It is a low, warm corner under the stairs, with a wooden boat to sit in, a rug like a map of an island, and a green dragon asleep along the wall. All the little shelves are empty.',
+      'A big man in blue overalls is tipping the last books into a crate marked 10p, any old how. He sees Mrs Pumphrey and goes red to the ears.',
+      '&ldquo;Council&rsquo;s orders, Mrs P,&rdquo; he says. &ldquo;Everything boxed by eleven.&rdquo; He picks up a box marked LOCAL HIST. and hurries off with it: not towards the front door and the skip, but through the little door marked BOILER ROOM, and down the stairs.',
+      'Mrs Pumphrey watches him go. &ldquo;Archie Lumb,&rdquo; she says. &ldquo;Twenty-two years our caretaker. I would not have thought it of him.&rdquo;',
+      'On the bow of the book boat, held on with a drawing pin, is a card in Juno&rsquo;s writing.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var CARD = '<h4>Pinned to the boat</h4><p>Mrs P,</p><p>Put every book back where it belongs, the way you taught me: two on every shelf.</p><p>The one that belongs on no shelf is mine.</p><p style="text-align:right">J.</p>';
+  function guideHtml() {
+    var G = [['m', 'Mystery', 'something has happened, and nobody knows who or how. A clue, a suspect, a sharp-eyed hero.'],
+      ['a', 'Adventure', 'a dangerous journey through wild places: get there, get the treasure, get home alive.'],
+      ['f', 'Fairy tale', 'once upon a time: kings, witches, magic, things in threes, and the youngest wins.'],
+      ['s', 'Science fiction', 'the future, space, a machine: what if science changed everything?'],
+      ['c', 'School story', 'one term at one school: a new pupil, a rival, a match, a rule broken.'],
+      ['g', 'Ghost story', 'the past that will not rest. Cold rooms, footsteps in the dark. Is it real?']];
+    return '<h4>Where does it go?</h4><h5>The shelving guide for the children&rsquo;s corner &middot; E. Pumphrey</h5>' +
+      '<p>Every kind of book, every <b>genre</b>, has its signs: the <b>setting</b>, the hero, the problem, and the words on the first page.</p>' +
+      G.map(function (g) { return '<div class="g">' + RD.iconSvg(g[0], '#1d4e6e', 28) + '<p><b>' + g[1] + ':</b> ' + g[2] + '</p></div>'; }).join('') +
+      '<p class="rule">Books borrow each other&rsquo;s coats. Decide by the main problem, not the setting. A ghost that turns out to be a burglar in a sheet belongs to Mystery.</p>';
+  }
+  $('#boat').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'jcard', clue: { id: 'card', title: 'A card on the boat', kind: 'In Juno&rsquo;s writing' }, done: function () {
+      if (told.set('card')) { paint(); ER.say('Two on every shelf. Mrs Pumphrey&rsquo;s shelving guide hangs in the red frame by the boat. And Archie is back, for another box.'); }
+    } });
+  });
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: guideHtml(), cls: 'guide', clue: { id: 'guide', title: 'Where does it go?', kind: 'The shelving guide' }, done: function () {
+      RD.terms(['genre', 'setting', 'mystery', 'adventure', 'fairy tale', 'science fiction', 'school story', 'ghost story']);
+      if (told.set('guide')) { paint(); ER.say(ready() ? 'Six shelves, and a crate of books. Click the crate.' : 'Six shelves and six pictures. Is there anything of Juno&rsquo;s here?'); }
+    } });
+  });
+
+  /* ---------- the people ---------- */
+  $('#pumphrey').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Six beginnings,&rdquo; says Mrs Pumphrey. &ldquo;She always said a first line is a door. The stacks, then.&rdquo;' :
+      !ready() ? '&ldquo;Juno started here when she was three,&rdquo; says Mrs Pumphrey. &ldquo;She read everything on these shelves by the time she was eight. Then she read it all again, to check.&rdquo;' :
+      '&ldquo;Two on every shelf,&rdquo; says Mrs Pumphrey. &ldquo;I made that rule so that no shelf would ever look lonely. Juno thought it was a law of nature.&rdquo;');
+  });
+  $('#archie').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('archie')) { ER.say('&ldquo;Got to get these down before the Councillor counts them,&rdquo; says Archie. He does not say down where.'); return; }
+    ER.talk({
+      who: 'Archie Lumb', role: 'Caretaker · Hopwell Free Library', face: window.FACE('archie'),
+      lines: [
+        { note: 'A big, slow man in blue overalls, with a torch and a packet of mints in his top pocket. He has been the caretaker for twenty-two years and still bangs his head on the stairs.', a: '&ldquo;Archie Lumb. Caretaker. For two more days, anyway.&rdquo;' },
+        { q: 'Where are you taking those boxes?', a: 'He looks at his boots. &ldquo;Nowhere. The skip. Council&rsquo;s orders.&rdquo;</p><p>He does not look like a man who is going to the skip.' },
+        { q: 'Who tipped out the books?', a: '&ldquo;Me. Sorry, Mrs P. The Councillor said ten pence a book, sort them later. I said who&rsquo;s going to sort them later, and he said nobody, that&rsquo;s the point.&rdquo;' },
+        { a: '&ldquo;I&rsquo;d help you, but I&rsquo;ve got to get these down before he counts them.&rdquo; And off he goes again, carefully, through the boiler-room door.' }
+      ],
+      clue: { id: 'archie', title: 'Archie Lumb, with a box', kind: 'What he said' },
+      done: function (seen) { if (seen) told.set('archie'); }
+    });
+  });
+
+  RD.thing('#dragon', null, 'A green dragon asleep on a pile of books. Somebody once painted reading glasses on it, and nobody has ever painted them out.', isBusy);
+  RD.thing('#lowwin', null, 'A window only knee-high from the floor, so that a child sitting on the rug can read by daylight. Whoever built this corner had thought about children.', isBusy);
+  RD.thing('#rad', 'radiator', 'The radiator is warm. It always is, in here: the boiler room is right underneath.', isBusy);
+  RD.thing('#bdoor', null, 'BOILER ROOM. STAFF ONLY. You can hear Archie somewhere below, moving boxes about, and humming.', isBusy);
+  RD.thing('#rug', null, 'A rug like a map of a treasure island, with a red X on it. The X is worn right through.', isBusy);
+  RD.thing('#shelves', 'shelf', function () { return nextFile ? 'Two books on every shelf, under every picture.' : 'Six little shelves, each with a painted picture over it, and not one book on any of them.'; }, isBusy);
+  $('#crate').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The crate is empty, except for a little sawdust and a sweet wrapper from about 1997.'); return; }
+    if (!ready()) { ER.say(told.has('card') ? 'A crate of books, tipped in any old how. How do you decide where each one goes? Read Mrs Pumphrey&rsquo;s guide first.' : 'A crate of books, 10p each, tipped in any old how. Is there anything of Juno&rsquo;s in this corner?'); return; }
+    openSort();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the shelves ---------- */
+  function openSort() {
+    var lockd = false, misses = 0, put = ER.flag('b-put') || {};
+    srt = ER.el('div', 'srt');
+    srt.innerHTML = '<div class="wall"></div><div class="right"><div class="crate"></div><div class="read"><b>Click a book to read its back cover here.</b></div>' +
+      '<div class="foot"><p class="bmsg"></p><button type="button" class="btn" id="s-go">Step back and look</button></div></div>';
+    var wall = srt.querySelector('.wall'), crate = srt.querySelector('.crate'), rd = srt.querySelector('.read'), m = srt.querySelector('.bmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    /* each shelf has two places, so that a book is put beside another and never on top of it */
+    BINS.forEach(function (g) { var d = ER.el('div', 'shelf'); d.setAttribute('data-g', g); d.innerHTML = '<b>' + RD.iconSvg(g, '#7a2a1e', 18) + RD.GENRES[g] + '</b><div class="slot"></div><div class="slot"></div>'; wall.appendChild(d); });
+    BOOKS.forEach(function (b) {
+      var d = ER.el('div', 'bk dnd-item' + (b.id === 'juno' ? ' juno' : ''), '<h6>' + b.t + '</h6><p>' + b.b + '</p>');
+      d.setAttribute('data-b', b.id); if (b.id !== 'juno') { d.style.borderLeftColor = b.c; d.querySelector('h6').style.background = b.c; }
+      var at = put[b.id], sl = null;
+      if (at) ER.$$('.shelf[data-g="' + at + '"] .slot', wall).forEach(function (x) { if (!sl && !x.querySelector('.bk')) sl = x; });
+      (sl || crate).appendChild(d);
+      d.addEventListener('pointerdown', function () { rd.innerHTML = ER.gloss('<b>' + b.t + '</b><br>' + b.b); });
+    });
+    function keep() {
+      put = {}; ER.$$('.shelf', wall).forEach(function (s) { ER.$$('.bk', s).forEach(function (c) { put[c.getAttribute('data-b')] = s.getAttribute('data-g'); }); });
+      ER.flag('b-put', put);
+    }
+    RD.swapIn(srt, '.bk', '.slot', crate);
+    ER.dnd(srt, { item: '.bk', slot: '.slot', home: crate, lock: function () { return lockd || !!nextFile; }, change: function () {
+      ER.$$('.shelf', wall).forEach(function (s) { s.classList.remove('bad'); });
+      keep();
+    } });
+    srt.querySelector('#s-go').addEventListener('click', function () {
+      var i, s, bs, n = 0, bad = null, file, parts = [];
+      if (lockd || nextFile) return;
+      ER.$$('.shelf', wall).forEach(function (sh) { n += sh.querySelectorAll('.bk').length; });
+      if (n < 12) { ER.sfx.no(); msg('Six shelves, two books on each: ' + (12 - n) + (12 - n === 1 ? ' place is' : ' places are') + ' still empty. Drag a book onto a shelf, or click a book and then a shelf.'); return; }
+      RD.sfx.slide();
+      for (i = 0; i < 6 && !bad; i++) {
+        s = wall.children[i]; bs = ER.$$('.bk', s).map(function (c) { return c.getAttribute('data-b'); });
+        bs.forEach(function (b) { if (!bad && !ER.check('k-' + b, BINS[i])) bad = [s, b]; });
+        parts.push(bs.sort().join('.'));
+      }
+      if (bad) {
+        misses++; ER.sfx.no(); bad[0].classList.add('bad'); ER.shake(bad[0]);
+        msg('<b>' + BYID[bad[1]].t + '</b>: ' + WHY[bad[1]] + (misses > 2 ? ' (Only the first wrong book is ever shown.)' : ''));
+        return;
+      }
+      file = ER.exitOk([parts.join('-')]);
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('b-file', file); lockd = true;
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.corner = 1; ER.persist(true);
+      msg('Two on every shelf. In the crate, one book is left: a cardboard cover held together with ribbon.');
+      setTimeout(function () {
+        ER.closeAll(); RD.solved(); paint(); busy = true;
+        RD.mine('shelves', 'The corner, sorted', '<p>Mystery: The Footprints on the Ceiling; The Grey Lady of Craw Hall (the ghost is a thief).</p><p>Adventure: Three Hundred Miles by Canoe; To the Mountains of the Moon (in Africa).</p><p>Fairy tale: The Seven Silver Geese; The Boy Who Sailed in a Walnut Shell.</p><p>Science fiction: Signal from Ganymede; Tomorrow&rsquo;s News, Today (the school is only the setting).</p><p>School story: New Girl at Larkspur House; The Ghost of Dormitory Four (Ellie fears the head girl).</p><p>Ghost story: The Room at the Top of the Stairs; Footsteps in the Cold Chapel (never explained).</p><p>Left over, on no shelf: EVERYTHING, by J. Fennimore, aged 9.</p>');
+        ER.narrate([
+          'Two books on every shelf, under every picture, the way Mrs Pumphrey taught Juno, and the way she taught forty years of Story Club before her.',
+          'In the crate there is one book left: a cardboard cover held together with ribbon. EVERYTHING, by J. Fennimore, aged 9. It has every sign on its cover at once, a crown and a rocket and a candle and a compass, which is why it belongs on no shelf at all.',
+          'Mrs Pumphrey opens it. There is no story inside. There are six cards, each with one line copied out in Juno&rsquo;s best writing, and a note on top.'
+        ], function () {
+          readCards(function () {
+            ER.narrate([
+              '&ldquo;Beginnings,&rdquo; says Mrs Pumphrey. &ldquo;First lines. She copied them out. She would never tear a page out of a book. I taught her that too.&rdquo;',
+              'Behind you, Archie comes back up the boiler-room stairs with nothing in his arms, sees you looking, and goes straight back down again.',
+              '&ldquo;The stacks,&rdquo; says Mrs Pumphrey. &ldquo;Fiction, A to Z, at the back of the building. Come on.&rdquo;'
+            ], function () { busy = false; $('#go').classList.add('on'); });
+          });
+        });
+      }, 2200);
+    });
+    msg('Thirteen books in the crate, and six shelves that take two each. Drag a book onto a shelf, or click a book and then a shelf. Click a book to read its back cover.');
+    ER.open('ov-lock', srt);
+  }
+  var CARDS = '<h4>Inside EVERYTHING</h4><p>Mrs P: these are beginnings. Give each one back to its book, in the stacks. One of them has no book down there. J.</p>' +
+    '<p class="line">It was a bright cold day in April, and the clocks were striking thirteen.</p>' +
+    '<p class="line">No one would have believed in the last years of the nineteenth century that this world was being watched keenly and closely by intelligences greater than man&rsquo;s and yet as mortal as his own; (it goes on)</p>' +
+    '<p class="line">Mr. Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table.</p>' +
+    '<p class="line">When Mr. Hiram B. Otis, the American Minister, bought Canterville Chase, every one told him he was doing a very foolish thing, as there was no doubt at all that the place was haunted.</p>' +
+    '<p class="line">When Mary Lennox was sent to Misselthwaite Manor to live with her uncle everybody said she was the most disagreeable-looking child ever seen.</p>' +
+    '<p class="line">Nobody in Hopwell believed that a girl could sail a ship, least of all her own father.</p>';
+  function readCards(done) {
+    ER.read({ html: CARDS, cls: 'jcard', clue: { id: 'cards', title: 'Six beginnings', kind: 'Inside Juno&rsquo;s book' }, done: done });
+  }
+})();
+</script>
+</body>
+</html>
