@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Study · The Seventh Book</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="seventh.css">
+<style>
+  body{--bg:#9aa59a;--accent:#2f5a46;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;
+    --tc-bg:rgba(226,230,222,.95);--tc-ink:#1f2a24;--cap-bg:rgba(236,238,230,.96);--cap-ink:#1f2a24;--panel:#e9ece3;--panel-ink:#1f2a24;--q-ink:#2f5a46;--fade:#e4e8e0;
+    --hud-bg:rgba(240,242,236,.85);--hud-ink:#1f2a24;--hud-line:rgba(31,42,36,.3)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.06em}
+  .tc .btn,.cap em{color:#2f5a46}
+  #mist{animation:ms 18s ease-in-out infinite alternate}
+  @keyframes ms{to{transform:translateX(60px)}}
+  #prints circle{opacity:.0;animation:pr 1s forwards}
+  .rul{font-family:'Special Elite',monospace;font-size:9px;fill:#3a3020}
+  .spn{font-family:'Cinzel',serif;font-weight:700;font-size:8px;fill:#efe2c0;letter-spacing:1px}
+
+  .mkbox{width:min(1180px,98vw);display:grid;grid-template-columns:200px 1fr;gap:20px;padding:18px 20px 16px;background:#2c3a32;color:#f2ead8;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .mkbox h5{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:600;font-size:20px;letter-spacing:.06em}
+  .mkbox .say{font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.35;opacity:.85;margin:0 0 12px}
+  .mk-row{grid-column:1/3;display:flex;align-items:center;gap:14px}
+  .mk-msg{flex:1;min-height:24px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:18px;color:#ffd9a0}
+  .mkbox .btn{--accent:#f2ead8}.mkbox .btn:hover:not([disabled]){color:#2c3a32}
+  .sh-augusta{padding:16px 20px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfd8d6"/><stop offset="1" stop-color="#eef0e6"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a24"/><stop offset="1" stop-color="#3a2416"/></linearGradient>
+  <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6df98"/><stop offset=".5" stop-color="#c79b3b"/><stop offset="1" stop-color="#7d5f1d"/></linearGradient>
+  <pattern id="wall" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#7f8c7c"/><path d="M0 30h60M30 0v60" stroke="#788574" stroke-width="2"/></pattern>
+  <pattern id="carpet" width="48" height="48" patternUnits="userSpaceOnUse"><rect width="48" height="48" fill="#5a3a3a"/><circle cx="24" cy="24" r="10" fill="none" stroke="#6e4a48" stroke-width="3"/><circle cx="0" cy="0" r="5" fill="#6e4a48"/><circle cx="48" cy="48" r="5" fill="#6e4a48"/></pattern>
+  <radialGradient id="light" cx="58%" cy="34%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="55%" cy="45%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a2420" stop-opacity=".15"/><stop offset="1" stop-color="#0a100d" stop-opacity=".55"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-600" width="3600" height="1400" fill="url(#wall)"/>
+<rect x="-1000" y="-600" width="3600" height="700" fill="#e8e6dc"/><rect x="-1000" y="96" width="3600" height="14" fill="#c9c5b4"/>
+<rect x="-1000" y="560" width="3600" height="12" fill="#5a4630"/><rect x="-1000" y="572" width="3600" height="180" fill="#6d7a6a"/>
+<g fill="none" stroke="#5f6b5c" stroke-width="3" id="dado"></g>
+<rect x="-1000" y="742" width="3600" height="900" fill="url(#carpet)"/><rect x="-1000" y="734" width="3600" height="12" fill="#3a2a1a"/>
+
+<!-- the window and what is outside it -->
+<g id="win">
+  <rect x="770" y="128" width="340" height="440" fill="#ede6d2"/>
+  <rect x="790" y="148" width="300" height="400" fill="url(#sky)"/>
+  <g id="mist"><ellipse cx="900" cy="300" rx="200" ry="30" fill="#fff" opacity=".5"/><ellipse cx="1040" cy="330" rx="160" ry="22" fill="#fff" opacity=".4"/></g>
+  <g fill="#8a4a2a"><circle cx="830" cy="300" r="60"/><circle cx="890" cy="270" r="50"/><circle cx="1050" cy="290" r="70"/><circle cx="990" cy="320" r="44"/></g>
+  <g fill="#a85a32" opacity=".8"><circle cx="850" cy="282" r="30"/><circle cx="1060" cy="268" r="36"/></g>
+  <path d="M790 360h300v188H790z" fill="#9aa3a6"/>
+  <g id="leads" class="hot"><path d="M790 430h300v118H790z" fill="#8a9396"/><path d="M790 430h300" stroke="#6e777a" stroke-width="4"/>
+    <path d="M820 470h120M880 500h160M800 528h90" stroke="#c9d3d6" stroke-width="3" opacity=".55"/>
+    <g id="prints" fill="#5f686b"><circle cx="1076" cy="446" r="3.4"/><circle cx="1058" cy="462" r="3.4"/><circle cx="1040" cy="474" r="3.4"/><circle cx="1020" cy="490" r="3.4"/><circle cx="1000" cy="500" r="3.4"/><circle cx="980" cy="516" r="3.4"/><circle cx="960" cy="526" r="3.4"/><circle cx="938" cy="540" r="3.4"/></g></g>
+  <path d="M790 348h300v14H790z" fill="#ede6d2"/>
+  <path d="M940 148v200M940 362v186M790 250h300M790 456h300" stroke="#ede6d2" stroke-width="7"/>
+  <rect x="790" y="148" width="300" height="400" fill="none" stroke="#ede6d2" stroke-width="10"/>
+  <g id="catch" class="hot"><rect x="914" y="336" width="54" height="14" rx="4" fill="url(#brass)"/><path d="M920 343h40" stroke="#7d5f1d" stroke-width="3"/><circle cx="922" cy="343" r="5" fill="#7d5f1d"/></g>
+  <rect x="770" y="568" width="340" height="16" fill="#d8d0b8"/>
+</g>
+<g id="curtains" class="hot">
+  <path d="M720 100q30 230 6 470h70q-14-240 4-470z" fill="#7a2c2c"/><path d="M1160 100q-30 230-6 470h-70q14-240-4-470z" fill="#7a2c2c"/>
+  <path d="M740 120q16 200 0 440M1140 120q-16 200 0 440" stroke="#5e2020" stroke-width="4" fill="none"/>
+  <path d="M700 98h480" stroke="url(#brass)" stroke-width="9" stroke-linecap="round"/>
+</g>
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#light)" pointer-events="none"/>
+
+<!-- the fireplace, swept and cold, and the founder's rules over it -->
+<g id="grate" class="hot">
+  <rect x="160" y="420" width="300" height="20" fill="#e2dccc"/><rect x="176" y="440" width="40" height="300" fill="#d4ccb8"/><rect x="404" y="440" width="40" height="300" fill="#d4ccb8"/>
+  <path d="M216 740V490q0-22 94-22t94 22v250z" fill="#2a2826"/><path d="M240 734h140v-24q-70-14-140 0z" fill="#3e3a36"/><path d="M252 716h116" stroke="#555" stroke-width="5"/>
+  <path d="M230 740h160" stroke="#1a1816" stroke-width="6"/>
+</g>
+<g id="rules" class="hot">
+  <rect x="214" y="208" width="192" height="180" fill="url(#brass)"/><rect x="224" y="218" width="172" height="160" fill="#f6f0dc"/>
+  <text x="310" y="242" text-anchor="middle" font-family="Cinzel,serif" font-weight="700" font-size="12" fill="#2a2018">RULES FOR READERS</text>
+  <text x="310" y="256" text-anchor="middle" class="rul">Dabney &amp; Fane · 1926</text>
+  <text x="236" y="282" class="rul">1. What you SAW.</text><text x="236" y="302" class="rul">2. What you HEARD,</text><text x="248" y="316" class="rul">and who told you.</text>
+  <text x="236" y="336" class="rul">3. What you ASSUMED.</text><text x="236" y="360" class="rul" font-style="italic">Never mix them.</text>
+</g>
+
+<!-- the bookcase with the six Comfrey books -->
+<g id="shelf" class="hot">
+  <rect x="480" y="150" width="190" height="584" fill="#3a2416"/><rect x="490" y="160" width="170" height="564" fill="#24160c"/>
+  <g id="spines"></g>
+  <g><rect x="500" y="380" width="20" height="92" fill="#2f6a4e"/><rect x="521" y="384" width="20" height="88" fill="#a8532f"/><rect x="542" y="380" width="20" height="92" fill="#2f4a7a"/><rect x="563" y="386" width="20" height="86" fill="#7a2c4a"/><rect x="584" y="380" width="20" height="92" fill="#c99a2e"/><rect x="605" y="384" width="20" height="88" fill="#3a6a6a"/>
+    <g class="spn"><text x="514" y="420" transform="rotate(90 514 420)">COMFREY</text><text x="535" y="424" transform="rotate(90 535 424)">COMFREY</text><text x="556" y="420" transform="rotate(90 556 420)">COMFREY</text><text x="577" y="426" transform="rotate(90 577 426)">COMFREY</text><text x="598" y="420" transform="rotate(90 598 420)">COMFREY</text><text x="619" y="424" transform="rotate(90 619 424)">COMFREY</text></g></g>
+</g>
+
+<!-- Fenella's map of Comfrey's country, and the door -->
+<g id="map" class="hot">
+  <rect x="1196" y="170" width="150" height="120" fill="#3a2416"/><rect x="1204" y="178" width="134" height="104" fill="#efe2c0"/>
+  <path d="M1212 260q30-40 60-20t60-40" stroke="#4a7aa0" stroke-width="5" fill="none"/><g fill="#4a7a4a"><circle cx="1240" cy="206" r="9"/><circle cx="1256" cy="200" r="8"/><circle cx="1310" cy="250" r="9"/></g>
+  <path d="M1220 214q40 10 50 40t50 10" stroke="#a8532f" stroke-width="2" stroke-dasharray="4 4" fill="none"/><path d="M1320 262l8-8 8 8v10h-16z" fill="#a8532f"/>
+</g>
+<g id="door" class="hot">
+  <rect x="1380" y="150" width="190" height="590" fill="#e8e2d0"/><rect x="1394" y="164" width="162" height="576" fill="#f4efe0"/>
+  <path d="M1394 164l-60 30v560l60-14z" fill="#5a3a24"/><path d="M1394 164l-60 30v560l60-14z" fill="none" stroke="#3a2416" stroke-width="3"/>
+  <rect x="1346" y="440" width="34" height="64" fill="url(#brass)" transform="skewY(10)" transform-origin="1363 472"/><circle cx="1362" cy="484" r="5" fill="#2a1a10"/>
+</g>
+
+<!-- Aunt Edwina -->
+<g id="edwina" class="hot"><g id="edBody"></g><use href="#ch-edwina" x="1180" y="330" width="150" height="195"/></g>
+
+<!-- the desk, the box, the statements, the pencils -->
+<g id="desk">
+  <rect x="660" y="596" width="560" height="20" fill="#6d4428"/><rect x="660" y="596" width="560" height="5" fill="#8a5a38"/>
+  <rect x="676" y="616" width="528" height="120" fill="url(#wood)"/><g fill="none" stroke="#2a1a10" stroke-width="3"><rect x="696" y="630" width="150" height="40"/><rect x="1034" y="630" width="150" height="40"/><rect x="696" y="680" width="150" height="40"/><rect x="1034" y="680" width="150" height="40"/></g>
+  <g fill="url(#brass)"><rect x="756" y="646" width="30" height="7" rx="3"/><rect x="1094" y="646" width="30" height="7" rx="3"/><rect x="756" y="696" width="30" height="7" rx="3"/><rect x="1094" y="696" width="30" height="7" rx="3"/></g>
+  <rect x="720" y="586" width="420" height="12" fill="#2f5a3a" opacity=".7"/>
+</g>
+<g id="boxHot" class="hot"><g id="boxArt"></g></g>
+<g id="ink"><rect x="1116" y="580" width="60" height="16" fill="url(#brass)"/><rect x="1122" y="566" width="16" height="15" fill="#1a1a22"/><rect x="1152" y="566" width="16" height="15" fill="#1a1a22"/></g>
+<g id="stAug" class="hot" style="display:none"><rect x="690" y="574" width="76" height="22" fill="#ece3f0" transform="rotate(-6 728 585)"/><path d="M700 582l50-5M702 588l40-4" stroke="#5b3a6e" stroke-width="1.5" transform="rotate(-6 728 585)"/></g>
+<g id="stFer" class="hot" style="display:none"><rect x="770" y="578" width="76" height="20" fill="#fbfbf6" stroke="#c9d8e6" transform="rotate(4 808 588)"/><path d="M780 586h50M780 592h40" stroke="#20306a" stroke-width="1.5" transform="rotate(4 808 588)"/></g>
+<g id="pens" class="hot"><path d="M1076 594l-4-40h28l-4 40z" fill="#3a5a46"/><path d="M1078 556l-8-30M1086 556l2-34M1094 556l10-28" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M1078 556l-8-30" stroke="#2f66c8" stroke-width="5" stroke-linecap="round"/><path d="M1086 556l2-34" stroke="#2f8a4a" stroke-width="5" stroke-linecap="round"/><path d="M1094 556l10-28" stroke="#c8402f" stroke-width="5" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="seventh.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, solved = false;
+  var read = {}, marks = {};               /* read: rules, augusta, ferdy */
+
+  (function () {
+    var s = '', x, i, cols = ['#5a3a26', '#2f4a3a', '#6a1e22', '#3a3a5a', '#7a5a22'], y;
+    for (x = -980; x < 2600; x += 160) s += '<rect x="' + (x + 12) + '" y="592" width="136" height="132"/>';
+    $('#dado').innerHTML = s; s = '';
+    [170, 260, 490, 580].forEach(function (y0, r) {
+      x = 498; i = r * 5;
+      while (x < 650) { var w = 13 + (i * 5) % 9, h = 66 + (i * 7) % 18; if (r === 2) { x = 700; break; } s += '<rect x="' + x + '" y="' + (y0 + 84 - h) + '" width="' + w + '" height="' + h + '" fill="' + cols[i % 5] + '"/>'; x += w + 1; i++; }
+      s += '<rect x="490" y="' + (y0 + 84) + '" width="170" height="8" fill="#3a2416"/>';
+    });
+    $('#spines').innerHTML = s;
+    $('#edBody').innerHTML = '<ellipse cx="1255" cy="742" rx="80" ry="9" fill="#000" opacity=".25"/><path d="M1180 500H1330L1318 740H1192Z" fill="#2f4a3a"/><path d="M1206 520H1304L1296 740H1214Z" fill="#3a2a2a"/>';
+  })();
+  function drawBox(open) {
+    $('#boxArt').innerHTML = open ? SV.box({ x: 880, y: 534, s: 0.66, open: true }) + SV.lid(780, 556, 0.42, true).replace('<g ', '<g opacity=".97" ') : SV.box({ x: 880, y: 534, s: 0.66, flip: true });
+  }
+
+  ER.init({
+    theme: 'mystery', story: 'seventh', storyTitle: 'The Seventh Book', id: 'study', no: 'II', title: 'The Study',
+    go: 'Open the door',
+    intro: [
+      'You laid the table in the only way that kept everybody happy: Mrs Cleave at Aunt Edwina’s right hand with Ms Ahn beside her, Mr Earle facing the door, Ferdy at the foot by the fire, and Miss Caird and Mr Boyd together on the door side, with the empty place beside your great-aunt.',
+      'Sunday, half past seven. Aunt Edwina unties the ribbon from your wrist. “My own knot,” she says. “Nobody else in this house can tie it.”',
+      'Then she turns the key in the study door.'
+    ],
+    exit: {"next":"landing","w":{"d3f884bb":"8a17a1a4"}}, tags: {"a1":["34330011"],"a2":["62547112"],"a3":["4a7b2cdf"],"a4":["58cb51e3"],"a5":["7fa06371"],"a6":["5ceac0aa"],"a7":["9e8bcf73"],"a8":["4bc02a09"],"a9":["6b7091b9"],"f1":["6a24ca88"],"f2":["ad5e910e"],"f3":["d5928610"],"f4":["e53c5633"],"f5":["c66f247e"],"f6":["35f36309"],"f7":["51918187"],"f8":["6128f27f"],"f9":["1386aeb4"]},
+    hints: hints,
+    onBegin: begin
+  });
+  read = ER.flag('st-read') || {}; marks = ER.flag('st-marks') || {}; drawBox(!!ER.flag('st-open'));
+
+  function readAll() { return read.rules && read.augusta && read.ferdy; }
+  function pips() { ER.pips((read.rules ? 1 : 0) + (read.augusta ? 1 : 0) + (read.ferdy ? 1 : 0) + (solved ? 1 : 0), 4); }
+  function hints() {
+    if (solved) return null;
+    if (!readAll()) {
+      var left = [];
+      if (!read.rules) left.push('the framed card over the fireplace');
+      if (!read.augusta) left.push('Mrs Cleave’s statement (the lilac paper on the desk)');
+      if (!read.ferdy) left.push('Ferdy’s statement (the squared paper on the desk)');
+      return ['read', [
+        'There are three things to read first: ' + left.join(', ') + '.',
+        'When you have read them, click the pot of pencils on the desk.'
+      ]];
+    }
+    return ['marks', [
+      'Do one sentence at a time. Ask: did the writer see it or do it, did they hear it or were they told it, or did they work it out? Things a person did themselves count as seen.',
+      'Look for the words that give an assumption away: must, so, because. A sentence that begins “Ferdy tells me” or “Aunt Edwina says” is heard, even if it is true.',
+      'Each statement has exactly two assumptions, and they come where the writer stops reporting and starts deciding: who it was, whose fault it was, who could never do such a thing. Mrs Cleave’s spectacles and her book are something she did and felt with her own hands.'
+    ]];
+  }
+  function begin() {
+    pips();
+    if (ER.flag('st-open')) { ER.say('The box is still empty. The statements are on the desk.'); showStatements(); return; }
+    ER.narrate([
+      'The study is cold and smells of old paper. Everything is where it was at eight minutes past ten last night.',
+      'The grey box is on the desk, where you put it. Aunt Edwina lifts the lid.',
+      'The box is empty.',
+      'Behind you, on the landing, six people in dressing gowns begin to talk at once.',
+      '“Nobody,” says Aunt Edwina, “goes downstairs until I have it in writing. Augusta, Ferdy: you first. Pen, paper, now.”'
+    ], function () {
+      ER.flag('st-open', 1); drawBox(true); ER.sfx.paper();
+      setTimeout(function () { ER.say('A quarter of an hour later two statements are lying on the desk.'); showStatements(); }, 600);
+    });
+  }
+  function showStatements() { $('#stAug').style.display = ''; $('#stFer').style.display = ''; }
+
+  function thing(sel, word, line) {
+    $(sel).addEventListener('click', function (e) { if (busy || ER.isOpen()) return; if (word) ER.wordAt(e.clientX, e.clientY, word); if (line) ER.say(line); });
+  }
+  thing('#catch', 'catch', 'The window catch is across, as it was last night. It can only be turned from inside the room.');
+  thing('#leads', 'leads', 'Below the window is the flat lead roof of the garden room, grey and wet with dew. A line of small round prints crosses it. “Comma,” says Aunt Edwina. “She walks there every night. She thinks it is a lawn.”');
+  thing('#curtains', null, 'Nobody behind the curtains. Aunt Edwina looks again anyway.');
+  thing('#grate', 'grate', 'Swept and cold. Nobody has lit a fire in here since August, and there is no ash at all.');
+  thing('#shelf', null, 'Six first editions of Comfrey, in order, and a space at the end of the shelf for the seventh.');
+  thing('#map', null, 'Miss Caird’s map from book three: a river, a wood, and a fox’s path home.');
+  thing('#door', 'lock', 'A big old lock. There is not a scratch round the keyhole, inside or out. The key that opened it this morning spent the night on your wrist.');
+  thing('#boxHot', null, 'Empty. The lid lies beside it with its label: COMFREY GOES HOME, A. Cleave, 412 pages. Everything is as it is in your photograph.');
+
+  var RULES = SV.page(1, 'Saw, heard, assumed',
+    '<p>My grandfather wrote these rules in 1926 for the people who read manuscripts for the firm. They work just as well for witnesses. Keep three things apart.</p>' +
+    '<p class="ex"><b>Saw</b>: what happened in front of your own eyes, or what you did yourself. What you touched or lifted counts as seen.</p>' +
+    '<p class="ex"><b>Heard</b>: what reached your ears (a voice, a step, a door) and anything somebody told you. Say who told you.</p>' +
+    '<p class="ex"><b>Assumed</b>: everything you worked out, guessed or took for granted, however sure you feel. “It must have been Ferdy” is an assumption, even when it is right.</p>' +
+    '<p>Words that give an assumption away: <i>must, so, because, obviously, of course, I expect</i>.</p>' +
+    '<p>A good reader never lets an assumption pretend to be something she saw.</p>');
+
+  var AUG = [
+    ['a1', 'I went to bed at ten o’clock, and I did not leave my room until Edwina banged on my door this morning.'],
+    ['a2', 'I heard Edwina lock the study at about ten past ten; that lock sounds like a prison door.'],
+    ['a3', 'Before midnight somebody went down the front stairs, and came up again perhaps twenty minutes later.'],
+    ['a4', 'It was a guest, because everybody in the family steps over the fourth stair, and this person trod on it both ways.'],
+    ['a5', 'At half past eight last night I went to the library to fetch my spectacles, and I lifted my book.'],
+    ['a6', 'It was as heavy as it was on the train, when I carried it on my knees for three hours.'],
+    ['a7', 'This morning I looked into the box myself, and it was empty.'],
+    ['a8', 'Ferdy tells me the garden room key was missing in the night.'],
+    ['a9', 'Benedict has wanted my book in London for a year, so you need look no further.']
+  ];
+  var FER = [
+    ['f1', 'I went to bed at a quarter past ten with a spreadsheet, which is the most exciting thing I have ever written in a statement.'],
+    ['f2', 'At twenty past one I went down the back stairs for a glass of milk.'],
+    ['f3', 'I took the back door key off the board, let Comma in from the yard and hung the key up again.'],
+    ['f4', 'The hook for the garden room key was empty.'],
+    ['f5', 'Aunt Edwina must have forgotten to hang it up.'],
+    ['f6', 'I was back in bed by half past one.'],
+    ['f7', 'Aunt Edwina says the spare key to the study has been in the bank since 1998.'],
+    ['f8', 'I have not been inside the study since August.'],
+    ['f9', 'Nobody in this family would steal from the firm: it is the only thing we own that makes money.']
+  ];
+  function stmtHtml(head, list, sig) { return '<h4>' + head + '</h4><p>' + list.map(function (s) { return s[1]; }).join(' ') + '</p><p class="sig">' + sig + '</p>'; }
+
+  function doRead(k, o) {
+    ER.read({ html: o.html, cls: o.cls, clue: o.clue, done: function () {
+      if (!read[k]) { read[k] = 1; ER.flag('st-read', read); pips(); if (readAll()) ER.say('Now the pencils. Mark every sentence.'); }
+    } });
+  }
+  $('#rules').addEventListener('click', function () { if (busy || ER.isOpen()) return; doRead('rules', { html: RULES, cls: 'npage', clue: { id: 'page1', title: 'Page 1 · Saw, heard, assumed', kind: 'Notebook' } }); });
+  $('#stAug').addEventListener('click', function () { if (busy || ER.isOpen()) return; doRead('augusta', { html: stmtHtml('Augusta Cleave · written on the landing, under protest', AUG, 'A. C.'), cls: 'st st-augusta', clue: { id: 'st-augusta', title: 'Statement of Augusta Cleave', kind: 'Statement' } }); });
+  $('#stFer').addEventListener('click', function () { if (busy || ER.isOpen()) return; doRead('ferdy', { html: stmtHtml('F. Dabney · Sunday · 7.45 a.m.', FER, 'F. D.'), cls: 'st st-ferdy', clue: { id: 'st-ferdy', title: 'Statement of Ferdy Dabney', kind: 'Statement' } }); });
+  $('#edwina').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    ER.talk({ who: 'Edwina Dabney', role: CAST.edwina.role, face: FACE('edwina'), clue: { id: 'st-edwina', title: 'Aunt Edwina, in the study', kind: 'Said' }, lines: [
+      'Look at it. Not a scratch on the lock, the window fastened, the key on your wrist all night, and nothing in the box.',
+      { q: 'What do we do now?', a: 'What my grandfather did with manuscripts. Read every word, and keep three things apart: what a person saw, what a person heard, and what a person only thinks. His rules are over the fireplace.' },
+      { q: 'Shouldn’t we call the police?', a: 'On the firm’s hundredth birthday, with half of London waiting to hear about this book? Not yet. Give me until Benedict’s taxi comes at twenty to twelve.' },
+      { q: 'Could somebody have climbed in?', a: 'Through a window that was fastened on the inside? Only Comma climbs on the leads, and she has no thumbs.' },
+      'Augusta and Ferdy have written theirs. Read them both. Then take a pencil and mark every sentence: blue for seen, green for heard, red for assumed.'
+    ] });
+  });
+  $('#pens').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    if (!ER.flag('st-open')) return;
+    if (!readAll()) { ER.say('“Read first, mark afterwards,” says Aunt Edwina. “That is the whole of publishing.”'); return; }
+    openMarks();
+  });
+
+  function openMarks() {
+    var box = ER.el('div', 'mkbox');
+    box.innerHTML = '<div><h5>Three pencils</h5><p class="say">Choose a pencil, then click a sentence. Click it again with the same pencil to rub it out.</p><div class="mk-host-p"></div></div><div class="mk-host"></div>' +
+      '<div class="mk-row"><div class="mk-msg"></div><button type="button" class="btn" id="mkGo">Give them to Aunt Edwina</button></div>';
+    var host = box.querySelector('.mk-host'), msg = box.querySelector('.mk-msg');
+    var w = SV.marks(host, [
+      { cls: 'sh-augusta', head: 'Augusta Cleave', sents: AUG },
+      { cls: 'sh-ferdy', head: 'F. Dabney', sents: FER }
+    ], { state: marks, pensHost: box.querySelector('.mk-host-p'), locked: function () { return solved; }, change: function (s) { marks = s; ER.flag('st-marks', s); msg.textContent = ''; } });
+    box.querySelector('#mkGo').addEventListener('click', function () {
+      if (solved) return;
+      var all = AUG.concat(FER), empty = all.filter(function (s) { return !marks[s[0]]; }).length;
+      if (empty) { msg.textContent = empty === 1 ? 'One sentence has no mark yet.' : empty + ' sentences have no mark yet.'; ER.shake(host); return; }
+      var code = 'a:' + AUG.map(function (s) { return marks[s[0]].charAt(0); }).join('') + '|f:' + FER.map(function (s) { return marks[s[0]].charAt(0); }).join('');
+      var file = ER.exit([code.toUpperCase()], { wait: true });
+      if (file) {
+        solved = true; busy = true; pips();
+        msg.style.color = '#c8f0c0'; msg.textContent = 'Aunt Edwina reads your pencil marks without a word, and then reads them again.';
+        setTimeout(function () {
+          ER.closeAll();
+          ER.narrate([
+            '“Two assumptions each,” says Aunt Edwina. “Augusta has decided it was Benedict. Ferdy has decided it was my fault, and that no Dabney could do such a thing. Neither of them saw anybody do anything.”',
+            '“But they heard things. Somebody on the front stairs before midnight. A key gone from its hook by twenty past one.” She takes her glasses off. “Somebody in this house was walking about last night.”',
+            '“Fenella is on the landing,” she says. “She has been waiting to tell somebody something since seven o’clock. She has the face of a person who has done nothing wrong and is sure she will be blamed for it.”'
+          ], function () { ER.leave(file); });
+        }, 1600);
+        return;
+      }
+      var wrong = 0; all.forEach(function (s) { if (!ER.check(s[0], marks[s[0]])) wrong++; });
+      ER.sfx.no();
+      msg.textContent = wrong === 1 ? '“One mark is wrong,” says Aunt Edwina, and gives you the pencils back.' : '“' + wrong + ' marks are wrong,” says Aunt Edwina, and gives you the pencils back.';
+    });
+    ER.open('ov-lock', box);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Library, Again · The Seventh Book</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="seventh.css">
+<style>
+  body{--bg:#b9b0a4;--accent:#7a2a24;--font-display:'Special Elite',monospace;--font-ui:'Oswald',sans-serif;
+    --tc-bg:rgba(232,226,216,.95);--tc-ink:#2a2018;--cap-bg:rgba(240,236,228,.96);--cap-ink:#2a2018;--panel:#efe9de;--panel-ink:#2a2018;--q-ink:#7a2a24;--fade:#f2ece2;
+    --hud-bg:rgba(246,242,234,.85);--hud-ink:#2a2018;--hud-line:rgba(42,32,24,.3)}
+  .tc-room{font-family:'Special Elite',monospace;letter-spacing:.04em}
+  .tc .btn,.cap em{color:#7a2a24}
+  #rain path{animation:rn .9s linear infinite}
+  #rain path:nth-child(2n){animation-duration:1.15s;animation-delay:-.4s}
+  @keyframes rn{from{transform:translate(0,-40px)}to{transform:translate(-10px,60px)}}
+  #dust{animation:du 12s ease-in-out infinite alternate}
+  @keyframes du{to{transform:translate(20px,-30px)}}
+
+  .tw{width:min(1180px,98vw);padding:16px 22px 14px;background:#f3eee4;color:#2a2018;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:6px solid #7a2a24}
+  .tw h5{margin:0 0 2px;font-family:'Special Elite',monospace;font-weight:normal;font-size:22px}
+  .tw .say{margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:17px;line-height:1.3}
+  .tw .stp{display:none}.tw .stp.on{display:block}
+  .s1{display:grid;grid-template-columns:200px 1fr;gap:18px}
+  .s1 .mk-pen{background:#3a3028;border-color:#3a3028}.s1 .mk-pen.on{background:#5a4a3a;border-color:#f2ead8}
+  .s1 .sh-notes{padding:14px 22px}
+  .phs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .ph{background:#fbfaf6;padding:10px 10px 6px;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+  .ph b{display:block;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;opacity:.7}
+  .ph .ph-svg{max-height:38vh;width:100%}
+  .tw .ed{margin:0 0 8px;padding:8px 12px;background:#fffdf6;border-left:4px solid #2f4a3a;font-family:'EB Garamond',Georgia,serif;font-size:16.5px;line-height:1.3}
+  .ph.mine [data-h]{cursor:pointer}
+  .ph.mine [data-h]:hover{filter:brightness(1.15)}
+  .strip{position:relative;display:flex;gap:4px;margin:6px 0 12px;padding:30px 8px 8px;background:#fffdf6;border:1px solid #d8c8a0}
+  .strip:before{content:'Saturday evening';position:absolute;left:10px;top:6px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+  .notch{flex:1;min-height:76px;border-left:2px solid #b9a98a;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px}
+  .notch:after{content:attr(data-t);position:absolute;left:4px;top:0;font-family:'Special Elite',monospace;font-size:14px;color:#2a2018}
+  .pins{display:flex;gap:10px;align-items:center;min-height:44px;padding:6px 10px;background:rgba(122,42,36,.08);border-radius:3px}
+  .pins span.lab{font-family:'EB Garamond',serif;font-style:italic;font-size:16px}
+  .pin{display:inline-block;padding:5px 9px;border-radius:3px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3)}
+  .pin.full{background:#2a6a3a}.pin.open{background:#7a2a24}
+  .notch .pin{font-size:10px;padding:3px 5px}
+  .who{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .pc2{width:132px;height:46px;display:flex;align-items:center;justify-content:center;text-align:center;background:#fffdf6;border:1px solid #c9b48a;font-family:'Pacifico',cursive;font-size:14.5px;line-height:1.05;color:#3a1e14;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+  .pc2.on{background:#fff3c8;box-shadow:0 0 0 3px #7a2a24}
+  .tw-row{display:flex;align-items:center;gap:14px;margin-top:10px}
+  .tw-msg{flex:1;min-height:24px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:17.5px;color:#7a2a18}
+  .tw .btn{--accent:#5a2a1a;background:#fffdf6}.tw .btn:hover:not([disabled]){color:#fffdf6}
+  .doc.calls{background:#fbf8ee;font-family:'EB Garamond',Georgia,serif;font-size:18px;border-top:5px solid #1a1a1a}
+  .doc.calls h4{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 10px}
+  .doc.calls table{width:100%;border-collapse:collapse;font-family:'Patrick Hand',cursive;font-size:19px}
+  .doc.calls td{padding:4px 8px;border-bottom:1px solid #d8d0bc;vertical-align:top}
+  .doc.calls th{font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:left;padding:2px 8px;opacity:.6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#7a3034"/><path d="M22 6l9 16-9 16-9-16z" fill="#843639"/><circle cx="22" cy="22" r="2.2" fill="#b08a4a" opacity=".7"/></pattern>
+  <pattern id="boards" width="160" height="40" patternUnits="userSpaceOnUse"><rect width="160" height="40" fill="#5a3a24"/><rect width="160" height="19" fill="#634028"/><path d="M0 19.5H160M70 0v19M130 20v20" stroke="#3a2414" stroke-width="2"/></pattern>
+  <pattern id="rug" width="70" height="70" patternUnits="userSpaceOnUse"><rect width="70" height="70" fill="#7a2e30"/><path d="M35 6l29 29-29 29L6 35z" fill="#2f4a6a"/><path d="M35 20l15 15-15 15-15-15z" fill="#c9a24a"/></pattern>
+  <linearGradient id="day" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa8b2"/><stop offset="1" stop-color="#d0d6d6"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc8e"/><stop offset=".5" stop-color="#c3943a"/><stop offset="1" stop-color="#7d5a1a"/></linearGradient>
+  <linearGradient id="mah" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a4628"/><stop offset="1" stop-color="#5a2a16"/></linearGradient>
+  <radialGradient id="vig" cx="40%" cy="40%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#0a0604" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="1400" fill="url(#paper)"/>
+<rect x="-1000" y="-600" width="3600" height="680" fill="#4a2224"/><rect x="-1000" y="60" width="3600" height="22" fill="#8a6a3a"/>
+<rect x="-1000" y="726" width="3600" height="900" fill="url(#boards)"/><rect x="-1000" y="716" width="3600" height="14" fill="#3a2414"/>
+<path d="M300 772h1000l80 128H220z" fill="url(#rug)"/><path d="M300 772h1000l80 128H220z" fill="none" stroke="#c9a24a" stroke-width="5"/>
+
+<!-- the window, by daylight, onto the drive -->
+<g id="win" class="hot">
+  <path d="M60 640V210q0-90 110-90t110 90v430z" fill="#e6dcc4"/><path d="M76 630V214q0-78 94-78t94 78v416z" fill="url(#day)"/>
+  <path d="M76 470q40-50 70-20t60-40 58 24v80H76z" fill="#7a4a34"/><rect x="76" y="520" width="188" height="110" fill="#bdb4a0"/>
+  <g id="cars"><rect x="92" y="540" width="74" height="30" rx="8" fill="#2f6a4a"/><rect x="104" y="526" width="46" height="18" rx="5" fill="#2f6a4a"/><rect x="110" y="530" width="34" height="12" fill="#c9d6de"/><circle cx="108" cy="572" r="8" fill="#1a1a1a"/><circle cx="152" cy="572" r="8" fill="#1a1a1a"/>
+    <rect x="180" y="534" width="80" height="38" rx="5" fill="#d8d0c0"/><circle cx="196" cy="574" r="8" fill="#1a1a1a"/><circle cx="244" cy="574" r="8" fill="#1a1a1a"/></g>
+  <g id="rain" stroke="#e8eef2" stroke-width="1.6" opacity=".6"><path d="M100 160l-6 30M150 200l-6 30M200 170l-6 30M240 230l-6 30M120 300l-6 30M180 340l-6 30M230 380l-6 30M110 420l-6 30"/></g>
+  <path d="M170 136v494M76 380h188M76 260h188M76 500h188" stroke="#e6dcc4" stroke-width="6"/>
+  <path d="M10 100q10 260 2 560h40q-6-300 0-560zM330 100q-10 260-2 560h-40q6-300 0-560z" fill="#6a1e22"/>
+  <path d="M10 96h320" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+</g>
+<path d="M58 570h232v70H58z" fill="#4a2e1c"/><path d="M62 556q110-16 224 0v22H62z" fill="#8a3a40"/>
+
+<!-- bookcases, the portrait, the cold fireplace -->
+<g><rect x="330" y="96" width="290" height="626" fill="#3a2214"/><rect x="342" y="108" width="266" height="604" fill="#24140a"/><g id="booksL"></g></g>
+<g><rect x="980" y="96" width="300" height="626" fill="#3a2214"/><rect x="992" y="108" width="276" height="604" fill="#24140a"/><g id="booksR"></g></g>
+<g id="portrait" class="hot"><rect x="690" y="110" width="220" height="250" fill="url(#gold)"/><rect x="704" y="124" width="192" height="222" fill="#3a352e"/>
+  <path d="M736 346q4-90 64-96t64 96z" fill="#24242a"/><path d="M786 260l14 40 14-40z" fill="#e9e4d6"/><circle cx="800" cy="216" r="34" fill="#d8b896"/><path d="M766 210q4-44 34-44t34 44q-12-22-34-22t-34 22z" fill="#3a3028"/>
+  <path d="M784 232q16 8 32 0" stroke="#5a3a2a" stroke-width="3" fill="none"/><path d="M780 216h12M808 216h12" stroke="#2a2020" stroke-width="3"/><rect x="752" y="320" width="96" height="18" fill="#d9c48a"/></g>
+<g id="grate" class="hot"><rect x="650" y="400" width="300" height="24" fill="#d4c9b2"/><rect x="636" y="388" width="328" height="16" fill="#e2d8c2"/><rect x="664" y="424" width="44" height="296" fill="#d4c9b2"/><rect x="892" y="424" width="44" height="296" fill="#d4c9b2"/>
+  <path d="M708 720V470q0-24 92-24t92 24v250z" fill="#2a2420"/><path d="M736 714q30-26 64-20t64 20z" fill="#8a8480"/><path d="M724 714h152v8H724z" fill="#3a3a3a"/></g>
+<g id="dust" fill="#fff" opacity=".35"><circle cx="420" cy="300" r="2"/><circle cx="480" cy="360" r="1.5"/><circle cx="560" cy="250" r="2"/><circle cx="1100" cy="320" r="1.8"/><circle cx="1180" cy="270" r="1.5"/></g>
+
+<!-- Aunt Edwina in the wing chair -->
+<g id="edwina" class="hot">
+  <path d="M1130 760V500q0-74 110-74t110 74v260z" fill="#2f4a3a"/><path d="M1152 500q0-56 88-56t88 56v120h-176z" fill="#3a5a46"/>
+  <use href="#ch-edwina" x="1166" y="430" width="150" height="195"/>
+  <path d="M1116 600h66v160h-66zM1298 600h66v160h-66z" fill="#2a4234"/><path d="M1116 600q33-22 66 0M1298 600q33-22 66 0" fill="#34503f"/>
+  <path d="M1170 610h140l20 150h-180z" fill="#2f4a3a"/>
+</g>
+
+<!-- the long table: the telephone and its book, your notebook, the empty place where the box stood -->
+<g id="table"><rect x="440" y="598" width="620" height="18" fill="#9a5630"/><rect x="440" y="598" width="620" height="5" fill="#b86c40"/><rect x="456" y="616" width="588" height="40" fill="url(#mah)"/><rect x="472" y="656" width="22" height="104" fill="#5a2a16"/><rect x="1006" y="656" width="22" height="104" fill="#5a2a16"/></g>
+<g id="phone" class="hot"><path d="M486 596q-4-26 34-28t34 28z" fill="#1a1a1a"/><path d="M482 566q38-20 76 0" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round" fill="none"/><circle cx="520" cy="584" r="8" fill="#e8e2d0"/>
+  <rect x="570" y="582" width="64" height="16" fill="#fbf8ee" transform="rotate(-4 602 590)"/><path d="M578 588h46M578 593h40" stroke="#3a3a3a" stroke-width="1.3" transform="rotate(-4 602 590)"/></g>
+<g id="place" class="hot"><path d="M720 598h150l-14-20H734z" fill="#b86c40" opacity=".9"/><path d="M728 596h138" stroke="#d88a58" stroke-width="2" stroke-dasharray="6 5"/></g>
+<g id="book" class="hot"><rect x="920" y="580" width="66" height="22" fill="#2f4a3a" transform="rotate(-5 953 591)"/><rect x="924" y="582" width="58" height="2" fill="#efe6d0" transform="rotate(-5 953 591)"/></g>
+<g id="notes" class="hot"><rect x="790" y="562" width="100" height="36" fill="#fbf8ec" transform="rotate(4 840 580)"/><path d="M800 572h80M800 580h70M800 588h80" stroke="#23305a" stroke-width="1.5" transform="rotate(4 840 580)"/>
+  <rect x="660" y="566" width="76" height="34" fill="#f3efe6" transform="rotate(-6 698 583)"/><rect x="664" y="570" width="68" height="24" fill="#2a2f2e" transform="rotate(-6 698 583)"/></g>
+
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="seventh.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, solved = false, got = {};
+  (function () {
+    var cols = ['#7a2e30', '#2f4a6a', '#3f5a4a', '#8a6a32', '#4a3a5a', '#6a4a36', '#9a7a4a', '#34444a'], s, i, x, y, w, row;
+    function shelf(x0, x1, el, seed) {
+      s = '';
+      for (row = 0; row < 5; row++) {
+        y = 116 + row * 120; x = x0 + 6; i = seed + row * 7;
+        while (x < x1 - 14) {
+          w = 12 + (i * 7) % 11; var hh = 84 + (i * 13) % 22;
+          s += '<rect x="' + x + '" y="' + (y + 104 - hh) + '" width="' + w + '" height="' + hh + '" fill="' + cols[i % cols.length] + '"/>';
+          if (i % 3 === 0) s += '<rect x="' + (x + 2) + '" y="' + (y + 116 - hh) + '" width="' + (w - 4) + '" height="5" fill="#d9b25a" opacity=".7"/>';
+          x += w + 1; i++; if (i % 9 === 4) x += 18;
+        }
+        s += '<rect x="' + x0 + '" y="' + (y + 104) + '" width="' + (x1 - x0) + '" height="10" fill="#3a2214"/>';
+      }
+      $(el).innerHTML = s;
+    }
+    shelf(342, 608, '#booksL', 3); shelf(992, 1268, '#booksR', 11);
+  })();
+
+  ER.init({
+    theme: 'mystery', story: 'seventh', storyTitle: 'The Seventh Book', id: 'library', no: 'VI', title: 'The Library, Again',
+    go: 'Go back to the library',
+    intro: [
+      'On the kitchen table the cards said it plainly. Mr Earle must have gone out to the birdbath, but he can’t have taken the pages from the study. Miss Caird and Ferdy might have done all sorts of things, but nobody can have come in through the window, and the key on your wrist can’t have been used. So the pages can’t have been taken out of the study during the night.',
+      'Which means they were never in it.',
+      'Sunday, eleven o’clock. It has started to rain. The library is grey and cold, and last night’s fire is a heap of ash. On the long table there is a pale space where the grey box stood for three and a half hours.'
+    ],
+    exit: {"next":"drive","w":{"4df5a031":"a74729c7"}}, tags: {"n1":["64870bed"],"n2":["04c18bc4"],"n3":["de9d208a"],"n4":["5d47d11e"],"n5":["076878c7"],"n6":["decda9d4"],"n7":["8f08a79c"],"n8":["e34118a9"],"n9":["20981355"],"n10":["435786dd"],"n11":["bb30e4f5"],"n12":["30eb89b7"],"diff":["846c24f3"],"full":["c66347b3"],"open":["70a83856"]},
+    hints: hints,
+    onBegin: begin
+  });
+  got = ER.flag('li-got') || {};
+  var step = ER.flag('li-step') || 1;
+  var PARTS = ['edwina', 'calls', 'page'];
+  function pips() { ER.pips(PARTS.filter(function (k) { return got[k]; }).length + (solved ? 3 : step - 1), 6); }
+  function mark(k) { if (!got[k]) { got[k] = 1; ER.flag('li-got', got); pips(); } }
+  function ready() { return PARTS.every(function (k) { return got[k]; }); }
+  function hints() {
+    if (solved) return null;
+    if (!ready()) return ['read', [
+      'Talk to Aunt Edwina in the wing chair, read the telephone book beside the telephone, and read page 5 of your notebook.',
+      'Then click your notes and the photographs on the table.'
+    ]];
+    if (step === 1) return ['own', [
+      'Mark your own notes exactly as you marked Mrs Cleave’s and Ferdy’s. What did you really see with your own eyes on Saturday?',
+      'You were in the kitchen during dinner. And at five past ten, what exactly did you carry up the stairs: what did you see?',
+      'Three sentences are assumptions: one about dinner, one about what was in your hands, and the last one. One sentence is something Aunt Edwina told you.'
+    ]];
+    if (step === 2) return ['photo', [
+      'Look at the box in each photograph, not at the room around it. Something on the box has changed between twenty to seven and six minutes past ten.',
+      'Compare the label with the words printed on the front of the box. In Ms Ahn’s photograph they read the same way.',
+      'Somebody took the lid off and put it back the other way round. Click the thing on the box in your photograph that shows it.'
+    ]];
+    return ['dinner', [
+      'Two pins: when was the box last known to be full, and when was it first known to have been opened? Mrs Cleave lifted it; somebody else noticed its label.',
+      'Mrs Cleave lifted a full box at half past eight. Miss Caird saw the label upside down at ten to ten. Who left the dinner table between those two times? Ms Ahn wrote it all down.',
+      'Ferdy went to the cellar the kitchen way, and Mrs Beddoes watched him come back with two bottles: he never went near the hall. Mrs Cleave came back with only her spectacles, Miss Caird with only her sketchbook, and the library was searched this morning. Only one person went out past the library door, to the front door and the cars, with nobody watching.'
+    ]];
+  }
+  function begin() { pips(); }
+
+  function thing(sel, word, line) {
+    $(sel).addEventListener('click', function (e) { if (busy || ER.isOpen()) return; if (word) ER.wordAt(e.clientX, e.clientY, word); if (line) ER.say(line); });
+  }
+  thing('#win', null, 'Rain on the drive. Mr Boyd’s small green car is parked nearest the house, and Miss Caird’s van beside it. Mr Earle’s taxi is due at twenty to twelve.');
+  thing('#portrait', null, 'Aunt Edwina’s grandfather looks down at the empty table as if the spelling mistake were yours.');
+  thing('#grate', null, 'Last night’s fire, burnt out to grey ash. Nobody has thrown four hundred pages into it: there would be black curls of paper, and there are none.');
+  thing('#place', null, 'The place on the table where the grey box stood from twenty to seven until five past ten. The library door is just there, beside the front door.');
+
+  var CALLS = '<h4>Telephone calls · please write yours here</h4><table><tr><th>Day</th><th>Time</th><th>To</th><th>Name</th></tr>' +
+    '<tr><td>Fri</td><td>6.05–6.09 pm</td><td>Dunstow (taxi for Mr Earle, Sun 11.40)</td><td>E. D.</td></tr>' +
+    '<tr><td>Sat</td><td>9.30–9.34 am</td><td>Dunstow (fish)</td><td>E. Beddoes</td></tr>' +
+    '<tr><td>Sat</td><td>8.12–8.24 pm</td><td>London</td><td>B. Earle (my wife, about the pudding)</td></tr></table>';
+  var PAGE5 = SV.page(5, 'Your own notes',
+    '<p>Your notes are a witness statement too, and the witness is you. Read them the way you read everybody else’s: what did you see, what were you told, and what did you take for granted?</p>' +
+    '<p>The things that fool us most are the things we never thought to doubt. If you were not in a room, you cannot know that nothing happened there. If you did not look inside a box, you only know what you expected to be in it.</p>' +
+    '<p>A photograph is a better witness than a memory, because it notices everything and decides nothing. Put two photographs side by side and look for what has changed.</p>' +
+    '<p>When the evidence says something impossible happened, do not argue with the evidence. Go back to the first page and find the sentence you were surest of.</p>');
+
+  $('#edwina').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    ER.talk({ who: CAST.edwina.who, role: CAST.edwina.role, face: FACE('edwina'), clue: { id: 'li-edwina', title: 'Aunt Edwina, in the library', kind: 'Said' }, lines: [
+      'I have asked everybody to wait in the hall. Benedict’s taxi comes at twenty to twelve, and I should like to know who took my book before it does.',
+      { q: 'Why here?', a: 'Because this is where the box spent the evening, from twenty to seven until you and I came for it at five past ten. Three and a half hours, and most of them without a soul in the room.' },
+      { q: 'Did you see anybody leave the table at dinner?', a: 'I was making a speech for most of it. When I make a speech I see nothing but my own notes. That is a confession, not an alibi.' },
+      { q: 'Could the pages be hidden in here?', a: 'Ferdy and I searched this room at a quarter past eight this morning: every shelf, every drawer, behind every row of books. Wherever the pages went, they left this room.' },
+      { q: 'Do you remember carrying the box upstairs?', a: 'I remember you carrying it. You said it was lighter than you thought. I said something clever, which I now regret.' },
+      'Read your own notes the way you read everybody else’s. Then put the two photographs side by side.'
+    ], done: function (ok) { if (ok) mark('edwina'); } });
+  });
+  $('#phone').addEventListener('click', function () { if (busy || ER.isOpen()) return; ER.read({ html: CALLS, cls: 'calls', clue: { id: 'calls', title: 'The library telephone book', kind: 'Record' }, done: function () { mark('calls'); } }); });
+  $('#book').addEventListener('click', function () { if (busy || ER.isOpen()) return; ER.read({ html: PAGE5, cls: 'npage', clue: { id: 'page5', title: 'Page 5 · Your own notes', kind: 'Notebook' }, done: function () { mark('page'); } }); });
+  $('#notes').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    if (!ready()) { ER.say('“Talk to me first,” says Aunt Edwina, “and read the telephone book, and your notebook. Then your notes.”'); return; }
+    openTwist();
+  });
+
+  /* ---------- the lock: your notes, two photographs, and the dinner ---------- */
+  var TIMES = ['6.40', '7.15', '7.30', '8.12', '8.24', '8.30', '8.40', '8.47', '9.15', '9.25', '9.40', '9.50', '10.05'];
+  var WHO = ['augusta', 'benedict', 'eunji', 'fenella', 'caspar', 'ferdy'];
+  function openTwist() {
+    var marks = ER.flag('li-marks') || {}, pins = ER.flag('li-pins') || {}, who = ER.flag('li-who') || null;
+    var box = ER.el('div', 'tw');
+    box.innerHTML =
+      '<div class="stp" data-s="1"><h5>1 · Your own statement</h5><p class="say">Your notes from Saturday night. Mark every sentence, as you did in the study.</p><div class="s1"><div class="pp"></div><div class="mh"></div></div></div>' +
+      '<div class="stp" data-s="2"><h5>2 · What your notes left out</h5><p class="ed">“Three assumptions,” says Aunt Edwina. “Nothing happened at dinner: you weren’t there. Nobody can get in now: quite right, as it turns out. And this one: <i>Aunt Edwina and I carried the manuscript up to the study.</i> You carried a box. You never saw inside it, and on the stairs you told me it was lighter than you thought. What else did your notes leave out?”</p><p class="say">The box at twenty to seven, and the box at six minutes past ten. Click the thing on the box in your photograph that is not as it was.</p>' +
+      '<div class="phs"><div class="ph"><b>Ms Ahn · 6.41 pm · the library</b>' + SV.photoSvg('eunji') + '</div><div class="ph mine"><b>You · 10.06 pm · the study</b>' + SV.photoSvg('mine', true) + '</div></div></div>' +
+      '<div class="stp" data-s="3"><h5>3 · The dinner you did not see</h5><p class="say">Pin the last time the box was known to be full, and the first time it was known to have been opened. Then choose the person who left the table between your pins and could carry four hundred pages out past the library door with nobody watching.</p>' +
+      '<div class="pins"><span class="lab">pins:</span></div><div class="strip">' + TIMES.map(function (t) { return '<div class="notch" data-t="' + t + '"></div>'; }).join('') + '</div>' +
+      '<div class="who">' + WHO.map(function (g) { return '<button type="button" class="pc2" data-g="' + g + '">' + CAST[g].who.replace(' ', '<br>') + '</button>'; }).join('') + '</div></div>' +
+      '<div class="tw-row"><div class="tw-msg"></div><button type="button" class="btn" id="twGo">Check</button></div>';
+    var msg = box.querySelector('.tw-msg'), go = box.querySelector('#twGo');
+    function show() { ER.$$('.stp', box).forEach(function (s) { s.classList.toggle('on', +s.getAttribute('data-s') === step); }); go.textContent = step === 3 ? 'Say it to Aunt Edwina' : 'Check'; go.style.display = step === 2 ? 'none' : ''; pips(); }
+    /* step 1 */
+    SV.marks(box.querySelector('.mh'), [{ cls: 'sh-notes', head: 'My notes · Saturday night', sents: SV.NOTES }],
+      { state: marks, pensHost: box.querySelector('.pp'), locked: function () { return step !== 1; }, change: function (s) { marks = s; ER.flag('li-marks', s); msg.textContent = ''; } });
+    /* step 2 */
+    box.querySelector('.ph.mine svg').addEventListener('click', function (e) {
+      if (step !== 2 || !e.target.closest) return;
+      var h = e.target.closest('[data-h]'); if (!h) return;
+      var k = h.getAttribute('data-h');
+      if (ER.check('diff', k)) {
+        ER.sfx.ok(); step = 3; ER.flag('li-step', 3);
+        msg.style.color = '#1f4a2f'; msg.textContent = 'The label is upside down. At twenty to seven it read the same way as DABNEY & FANE. Somebody had the lid off before you ever touched the box.';
+        setTimeout(function () { msg.style.color = ''; msg.textContent = ''; show(); }, 4200);
+        return;
+      }
+      ER.sfx.no();
+      msg.textContent = /^(window|curtain|desk|ink)$/.test(k) ? 'That is the study. Look at the box itself.' : 'That part of the box is just as it was in Ms Ahn’s photograph.';
+    });
+    /* step 3 */
+    var pinHome = box.querySelector('.pins');
+    [['full', 'last known full'], ['open', 'first known opened']].forEach(function (p) {
+      var n = ER.el('span', 'pin dnd-item ' + p[0], p[1]); n.setAttribute('data-p', p[0]);
+      var at = pins[p[0]] ? box.querySelector('.notch[data-t="' + pins[p[0]] + '"]') : null;
+      (at || pinHome).appendChild(n);
+    });
+    ER.dnd(box.querySelector('[data-s="3"]'), { item: '.pin', slot: '.notch', home: pinHome, lock: function () { return solved; },
+      change: function () { pins = {}; ER.$$('.notch', box).forEach(function (n) { var q = n.querySelector('.pin'); if (q) pins[q.getAttribute('data-p')] = n.getAttribute('data-t'); }); ER.flag('li-pins', pins); msg.textContent = ''; } });
+    function paintWho() { ER.$$('.pc2', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-g') === who); }); }
+    ER.$$('.pc2', box).forEach(function (b) { b.addEventListener('click', function () { if (solved) return; who = b.getAttribute('data-g'); ER.flag('li-who', who); ER.sfx.click(); msg.textContent = ''; paintWho(); }); });
+    paintWho();
+
+    go.addEventListener('click', function () {
+      if (solved) return;
+      if (step === 1) {
+        var empty = SV.NOTES.filter(function (n) { return !marks[n[0]]; }).length;
+        if (empty) { msg.textContent = empty === 1 ? 'One sentence has no mark yet.' : empty + ' sentences have no mark yet.'; return; }
+        var wrong = SV.NOTES.filter(function (n) { return !ER.check(n[0], marks[n[0]]); }).length;
+        if (wrong) { ER.sfx.no(); msg.textContent = wrong === 1 ? '“One mark is wrong,” says Aunt Edwina. “Be as hard on yourself as you were on Augusta.”' : '“' + wrong + ' marks are wrong,” says Aunt Edwina. “Be as hard on yourself as you were on Augusta.”'; return; }
+        ER.sfx.ok(); step = 2; ER.flag('li-step', 2); msg.textContent = ''; show();
+        return;
+      }
+      if (step === 3) {
+        if (!pins.full || !pins.open) { msg.textContent = 'Both pins go on the evening first.'; return; }
+        if (!who) { msg.textContent = 'Choose a person.'; return; }
+        var file = ER.exit([pins.full + '|' + pins.open + '|' + who], { wait: true });
+        if (file) {
+          solved = true; busy = true; pips();
+          msg.style.color = '#1f4a2f'; msg.textContent = 'You say the name out loud. In the hall, somebody puts down a teacup.';
+          setTimeout(function () {
+            ER.closeAll();
+            ER.narrate([
+              '“Half past eight, a full box: Augusta lifted it,” says Aunt Edwina slowly. “Ten to ten, a label upside down: Fenella saw it. And at twenty to nine, Caspar went out to his car because he thought he had left the lights on, and came back with cold hands.”',
+              '“He went past this door, to the front door and the drive, while the rest of us sat at dinner. Nobody watched him but Ms Ahn, and she only saw him go.”',
+              'Through the window you can see the drive. Mr Boyd is walking out to his small green car in the rain, without a coat, as if he has only just remembered something.',
+              'Behind him a taxi turns in at the gate. It is twenty to twelve.'
+            ], function () { ER.leave(file); });
+          }, 1600);
+          return;
+        }
+        ER.sfx.no();
+        if (!ER.check('full', pins.full)) msg.textContent = '“When did anybody last know the box was full?” says Aunt Edwina. “Somebody lifted it with her own hands.”';
+        else if (!ER.check('open', pins.open)) msg.textContent = '“Who noticed the label before you did?” says Aunt Edwina. “Somebody who always notices lettering.”';
+        else msg.textContent = '“Was that person out of the room between your two pins, and could they get past this door with nobody watching?” says Aunt Edwina. “Read Ms Ahn, and Mrs Beddoes.”';
+      }
+    });
+    show();
+    ER.open('ov-lock', box);
+  }
+})();
+</script>
+</body>
+</html>

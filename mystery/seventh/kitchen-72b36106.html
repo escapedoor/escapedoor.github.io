@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Kitchen · The Seventh Book</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="seventh.css">
+<style>
+  body{--bg:#e9dcc0;--accent:#2d4f86;--font-display:'Alfa Slab One',serif;--font-ui:'Oswald',sans-serif;
+    --tc-bg:rgba(240,232,214,.95);--tc-ink:#2a2418;--cap-bg:rgba(246,240,226,.96);--cap-ink:#2a2418;--panel:#f2ead8;--panel-ink:#2a2418;--q-ink:#2d4f86;--fade:#f6efe0;
+    --hud-bg:rgba(250,244,232,.85);--hud-ink:#2a2418;--hud-line:rgba(42,36,24,.3)}
+  .tc-room{font-family:'Alfa Slab One',serif;font-weight:normal;letter-spacing:.02em}
+  .tc .btn,.cap em{color:#2d4f86}
+  #steam path{animation:st 3.2s ease-in infinite;opacity:0}
+  #steam path:nth-child(2){animation-delay:1.1s}#steam path:nth-child(3){animation-delay:2.2s}
+  @keyframes st{0%{opacity:0;transform:translateY(0)}30%{opacity:.6}100%{opacity:0;transform:translateY(-60px)}}
+  .lbl{font-family:'Caveat',cursive;font-size:13px;fill:#2a2418;text-anchor:middle}
+
+  .cbx{width:min(1180px,98vw);display:grid;grid-template-columns:190px 1fr;gap:18px;padding:16px 20px 14px;background:#c9a978;
+    background:repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0 3px,transparent 3px 40px),#d8bf92;box-shadow:0 26px 70px rgba(0,0,0,.55);color:#2a2418}
+  .cbx h5{margin:0 0 4px;font-family:'Alfa Slab One',serif;font-weight:normal;font-size:20px;color:#2a2418}
+  .cbx .say{margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:15.5px;line-height:1.3}
+  .rack{display:flex;flex-direction:column;gap:8px}
+  .rs{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#5a3a24;border-radius:4px 4px 10px 10px;color:#f6efe0;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 3px 0 #3a2416}
+  .rs i{display:block;width:18px;height:12px;border-radius:2px;background:#8a6a4a}
+  .rs.on{background:#2d4f86;box-shadow:0 3px 0 #1a3460,0 0 0 3px #f6efe0}
+  .rs[data-m=mustnt]{background:#6a5a4a}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px}
+  .cc{position:relative;padding:9px 12px 9px 34px;background:#fffdf6;box-shadow:0 3px 8px rgba(0,0,0,.25);font-family:'Patrick Hand',cursive;font-size:18px;line-height:1.3;color:#23305a}
+  .cc:before{content:attr(data-n);position:absolute;left:10px;top:9px;font-family:'Oswald',sans-serif;font-size:12px;color:#8a7a6a}
+  .cc.last{grid-column:1/3;background:#fff3c8}
+  .gap{display:inline-block;min-width:108px;padding:0 6px;margin:0 2px;border-bottom:2px dashed #8a7a6a;text-align:center;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#2d4f86;transform:rotate(-1.5deg)}
+  .gap:empty:after{content:'· · ·';color:#b9a98a}
+  .gap.f{border:3px solid #2d4f86;border-radius:3px;padding:1px 6px;background:rgba(45,79,134,.06)}
+  .cb-row{grid-column:1/3;display:flex;align-items:center;gap:14px}
+  .cb-msg{flex:1;min-height:24px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:17.5px;color:#6a1a12}
+  .cbx .btn{--accent:#2a2418;background:#fffdf6}.cbx .btn:hover:not([disabled]){color:#fffdf6}
+  .doc.beddoes{background:#fffef4;font-family:'Pacifico',cursive;font-size:17px;line-height:1.7;color:#3a2a4a;transform:rotate(1.2deg);border-top:20px solid #e9c7c0}
+  .doc.beddoes h4{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#f6f2e8"/><rect x="1" y="1" width="38" height="38" fill="#f2eee2" stroke="#d8d0bc"/><path d="M20 8l12 12-12 12-12-12z" fill="none" stroke="#5a7ab0" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="#5a7ab0"/></pattern>
+  <pattern id="flags" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#b8604a"/><path d="M0 30H120M60 0v30M30 30v30M90 30v30" stroke="#8a4434" stroke-width="3"/></pattern>
+  <linearGradient id="pine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c38e"/><stop offset="1" stop-color="#c9a46a"/></linearGradient>
+  <linearGradient id="yard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d3d8"/><stop offset="1" stop-color="#e6e8e2"/></linearGradient>
+  <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6df98"/><stop offset=".5" stop-color="#c79b3b"/><stop offset="1" stop-color="#7d5f1d"/></linearGradient>
+  <radialGradient id="warm" cx="30%" cy="60%" r="70%"><stop offset="0" stop-color="#ffcf80" stop-opacity=".22"/><stop offset="1" stop-color="#ffcf80" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#2a1a0a" stop-opacity=".12"/><stop offset="1" stop-color="#1a0e04" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="1500" fill="#efe4c8"/>
+<rect x="-1000" y="300" width="3600" height="320" fill="url(#tiles)"/>
+<rect x="-1000" y="290" width="3600" height="10" fill="#2d4f86"/>
+<rect x="-1000" y="620" width="3600" height="900" fill="url(#flags)"/><rect x="-1000" y="612" width="3600" height="10" fill="#6a3a24"/>
+<g stroke="#7a5a3a" stroke-width="22"><path d="M-1000 40H2600"/></g><g fill="#7a5a3a"><rect x="200" y="40" width="20" height="40"/><rect x="900" y="40" width="20" height="40"/></g>
+<g fill="none" stroke="#a8844a" stroke-width="3"><path d="M300 52q20 40 0 80M340 52q-10 30 0 60M380 52q14 34 0 74"/></g>
+<g fill="#c9a46a"><ellipse cx="300" cy="140" rx="16" ry="22"/><ellipse cx="340" cy="118" rx="12" ry="16"/><ellipse cx="380" cy="132" rx="14" ry="18"/></g>
+
+<!-- the dresser with plates -->
+<g id="dresser" class="hot">
+  <rect x="40" y="110" width="330" height="510" fill="#6a8aa8"/><rect x="54" y="124" width="302" height="250" fill="#5a7a98"/>
+  <g fill="#f6f2e8" stroke="#2d4f86" stroke-width="3"><circle cx="102" cy="176" r="30"/><circle cx="172" cy="176" r="30"/><circle cx="242" cy="176" r="30"/><circle cx="312" cy="176" r="30"/><circle cx="102" cy="276" r="30"/><circle cx="172" cy="276" r="30"/><circle cx="242" cy="276" r="30"/><circle cx="312" cy="276" r="30"/></g>
+  <g fill="none" stroke="#2d4f86" stroke-width="2"><circle cx="102" cy="176" r="18"/><circle cx="172" cy="176" r="18"/><circle cx="242" cy="176" r="18"/><circle cx="312" cy="176" r="18"/><circle cx="102" cy="276" r="18"/><circle cx="172" cy="276" r="18"/><circle cx="242" cy="276" r="18"/><circle cx="312" cy="276" r="18"/></g>
+  <rect x="54" y="214" width="302" height="10" fill="#4a6a88"/><rect x="40" y="374" width="330" height="20" fill="#4a6a88"/>
+  <rect x="54" y="400" width="140" height="210" fill="#5a7a98"/><rect x="216" y="400" width="140" height="210" fill="#5a7a98"/><circle cx="182" cy="500" r="6" fill="url(#brass)"/><circle cx="228" cy="500" r="6" fill="url(#brass)"/>
+</g>
+
+<!-- the window onto the yard -->
+<g id="win"><rect x="560" y="90" width="300" height="200" fill="url(#yard)"/><path d="M710 90v200M560 190h300" stroke="#f6f2e8" stroke-width="8"/><rect x="560" y="90" width="300" height="200" fill="none" stroke="#f6f2e8" stroke-width="12"/>
+  <path d="M580 150q120 30 260 0" stroke="#6a6a6a" stroke-width="2" fill="none"/><rect x="620" y="150" width="30" height="40" fill="#e8e0f0"/><rect x="740" y="156" width="40" height="30" fill="#c9604a"/></g>
+
+<!-- the range, with a kettle -->
+<g id="range" class="hot">
+  <rect x="900" y="300" width="300" height="320" fill="#f0e6cc"/><rect x="900" y="300" width="300" height="40" fill="#e6d8b8"/>
+  <rect x="924" y="370" width="110" height="100" rx="6" fill="#e6d8b8" stroke="#c9b890" stroke-width="3"/><rect x="1066" y="370" width="110" height="100" rx="6" fill="#e6d8b8" stroke="#c9b890" stroke-width="3"/>
+  <rect x="924" y="490" width="110" height="100" rx="6" fill="#e6d8b8" stroke="#c9b890" stroke-width="3"/><rect x="1066" y="490" width="110" height="100" rx="6" fill="#e6d8b8" stroke="#c9b890" stroke-width="3"/>
+  <path d="M940 420h78M1082 420h78M940 540h78M1082 540h78" stroke="#a8844a" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="980" cy="296" rx="44" ry="10" fill="#8a8a8a"/><path d="M944 296q0-50 36-50t36 50z" fill="#c9c9c9"/><path d="M1016 270q24-6 26 14" stroke="#c9c9c9" stroke-width="8" fill="none"/><path d="M960 248q20-16 40 0" stroke="#2a2a2a" stroke-width="5" fill="none"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M1040 270q-8-14 0-28t0-28"/><path d="M1046 270q8-14 0-28t0-28"/><path d="M1036 270q-6-12 4-26"/></g>
+</g>
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#warm)" pointer-events="none"/>
+
+<!-- the back passage door, open: the key board, and the foot of the back stairs -->
+<g id="passage">
+  <rect x="1250" y="110" width="300" height="510" fill="#5a3a24"/><rect x="1264" y="124" width="272" height="496" fill="#d8cdb4"/>
+  <path d="M1264 124l-40 16v496l40-16z" fill="#6d4428"/>
+  <g id="stairsFoot" class="hot"><path d="M1440 620v-60h96v60zM1460 560v-50h76v50zM1480 510v-50h56v50zM1500 460v-50h36v50z" fill="#8a6a4a"/><path d="M1440 560h96M1460 510h76M1480 460h56" stroke="#5a3a24" stroke-width="4"/><path d="M1436 620l60-260" stroke="#5a3a24" stroke-width="6"/></g>
+  <g id="board" class="hot"><rect x="1290" y="190" width="130" height="190" fill="#7a5a3a"/><rect x="1298" y="198" width="114" height="174" fill="#8a6a4a"/><g id="hooks"></g></g>
+</g>
+
+<!-- Aunt Edwina by the range, Caspar at the table -->
+<g id="edwina" class="hot"><g id="edBody"></g><use href="#ch-edwina" x="1050" y="380" width="150" height="195"/></g>
+<g id="caspar" class="hot"><use href="#ch-caspar" x="560" y="414" width="160" height="208"/></g>
+
+<!-- the kitchen table: the teapot, Mrs Beddoes's note, your notebook, the cards -->
+<g id="table">
+  <ellipse cx="760" cy="842" rx="380" ry="20" fill="#000" opacity=".15"/>
+  <rect x="380" y="610" width="760" height="26" fill="url(#pine)"/><rect x="396" y="636" width="728" height="40" fill="#b8915a"/>
+  <rect x="410" y="676" width="30" height="160" fill="#a8844a"/><rect x="1080" y="676" width="30" height="160" fill="#a8844a"/>
+</g>
+<g id="teapot" class="hot"><ellipse cx="880" cy="604" rx="44" ry="8" fill="#2d4f86" opacity=".4"/><path d="M846 604q-10-50 34-56q44 6 34 56z" fill="#2d4f86"/><path d="M912 570q24-4 26 18" stroke="#2d4f86" stroke-width="8" fill="none"/><path d="M846 580q-22-8-26 4" stroke="#2d4f86" stroke-width="7" fill="none"/><circle cx="880" cy="544" r="6" fill="#2d4f86"/>
+  <rect x="900" y="596" width="70" height="16" fill="#fffef4" transform="rotate(-6 935 604)"/><path d="M908 602h50" stroke="#3a2a4a" stroke-width="1.5" transform="rotate(-6 935 604)"/></g>
+<g id="book" class="hot"><rect x="430" y="594" width="60" height="22" fill="#2f4a3a" transform="rotate(5 460 605)"/><rect x="434" y="596" width="52" height="2" fill="#efe6d0" transform="rotate(5 460 605)"/></g>
+<g id="cards" class="hot">
+  <g fill="#fffdf6" stroke="#c9b48a"><rect x="980" y="596" width="54" height="18" transform="rotate(-4 1007 605)"/><rect x="1040" y="598" width="54" height="18" transform="rotate(3 1067 607)"/><rect x="1006" y="584" width="54" height="18" transform="rotate(-1 1033 593)"/></g>
+  <path d="M990 604h34M1050 606h34M1016 592h34" stroke="#23305a" stroke-width="1.5"/>
+  <rect x="1090" y="580" width="22" height="30" rx="4" fill="#5a3a24"/><rect x="1086" y="570" width="30" height="12" fill="#2d4f86"/>
+</g>
+<g id="cat" class="hot"><ellipse cx="1180" cy="800" rx="34" ry="14" fill="#111"/><circle cx="1150" cy="790" r="13" fill="#111"/><path d="M1141 781l2-10 7 7zM1154 777l5-9 3 10z" fill="#111"/><path d="M1144 796q6 5 12 0" stroke="#f4f4f0" stroke-width="4" fill="none"/><path d="M1212 802q18 10 6 26" stroke="#111" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="seventh.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, solved = false, got = {};
+  (function () {
+    var L = ['FRONT DOOR', 'BACK DOOR', 'GARDEN ROOM', 'CELLAR', 'SHED', 'LARDER'], s = '';
+    L.forEach(function (l, i) {
+      var x = 1318 + (i % 2) * 56, y = 214 + Math.floor(i / 2) * 54;
+      s += '<circle cx="' + (x + 18) + '" cy="' + y + '" r="3" fill="#2a2a2a"/><path d="M' + (x + 18) + ' ' + y + 'v12" stroke="#c9a24a" stroke-width="2"/>' +
+        '<circle cx="' + (x + 18) + '" cy="' + (y + 16) + '" r="5" fill="none" stroke="url(#brass)" stroke-width="3"/><path d="M' + (x + 18) + ' ' + (y + 21) + 'v12M' + (x + 18) + ' ' + (y + 30) + 'h4" stroke="url(#brass)" stroke-width="3"/>' +
+        '<rect x="' + (x - 6) + '" y="' + (y + 34) + '" width="48" height="12" fill="#fbf6e6"/><text x="' + (x + 18) + '" y="' + (y + 44) + '" class="lbl" font-size="9">' + l.toLowerCase() + '</text>';
+    });
+    $('#hooks').innerHTML = s;
+    $('#edBody').innerHTML = '<ellipse cx="1125" cy="842" rx="80" ry="9" fill="#000" opacity=".25"/><path d="M1050 550H1200L1188 834H1062Z" fill="#2f4a3a"/><path d="M1076 570H1174L1166 834H1084Z" fill="#f4ead6"/>';
+  })();
+
+  ER.init({
+    theme: 'mystery', story: 'seventh', storyTitle: 'The Seventh Book', id: 'kitchen', no: 'V', title: 'The Kitchen',
+    go: 'Go through to the kitchen',
+    intro: [
+      'You wrote down the call at twenty to twelve: Mr Earle was outside by the birdbath, the only place with a signal, talking on his phone to somebody who was not in the house, and he meant to take “it” to London today, on the 12.10. So the sentence in his statement that says he never left his room is a lie, and a tidy one. It hides a telephone call. Whether it hides anything else, nobody knows yet.',
+      'Sunday, twenty past ten. The kitchen is the warmest room in the house, and the only one where nobody has been accused of anything.',
+      'Mr Boyd is at the table with his fourth pot of tea. Aunt Edwina has brought a handful of cards and a box of rubber stamps from her desk.'
+    ],
+    exit: {"next":"library","w":{"cb52238c":"529f8240","a85ca9ec":"ec240a6c","0e4e1d13":"ed5ce80e","3673b02b":"50d50aff"}}, tags: {"c1":["56095bf7"],"c2":["253b1e3c"],"c3":["c1874c6b","d558157a"],"c4":["4dfacc6c"],"c5":["26c3a601"],"c6":["05763a3d"],"c7":["0cbba376","5da9926d"],"c8":["2a71c050"]},
+    hints: hints,
+    onBegin: begin
+  });
+  got = ER.flag('ki-got') || {};
+  var PARTS = ['caspar', 'note', 'page'];
+  function pips() { ER.pips(PARTS.filter(function (k) { return got[k]; }).length + (solved ? 1 : 0), 4); }
+  function mark(k) { if (!got[k]) { got[k] = 1; ER.flag('ki-got', got); pips(); } }
+  function ready() { return PARTS.every(function (k) { return got[k]; }); }
+  function hints() {
+    if (solved) return null;
+    if (!ready()) return ['read', [
+      'Talk to Mr Boyd at the table: he gives you his statement. Mrs Beddoes’s note is under the teapot, and page 4 of your notebook is at the end of the table.',
+      'When you have read all three, click Aunt Edwina’s cards and stamps at the other end of the table. Your notebook has everything else you need.'
+    ]];
+    return ['board', [
+      'For each card ask: does the evidence prove it, rule it out, or only allow it? Ms Ahn, Mrs Cleave and Ferdy each tell you something about Mr Earle last night, and the garden room key was in its door this morning.',
+      'A window fastened on the inside at eight minutes past ten and at half past seven, with nobody inside: can anybody have come in through it? And the key spent the night on your wrist. “Mustn’t have” is never a conclusion.',
+      'A person who had the chance but nothing proves it gets “might have” or “could have”: Miss Caird’s window opens onto the leads, and Ferdy had the back door key in his hand. Mr Earle lied, but a lie is not a way into a locked room. The last card follows from all the others.'
+    ]];
+  }
+  function begin() { pips(); }
+
+  function thing(sel, word, line) {
+    $(sel).addEventListener('click', function (e) { if (busy || ER.isOpen()) return; if (word) ER.wordAt(e.clientX, e.clientY, word); if (line) ER.say(line); });
+  }
+  thing('#board', 'key board', 'Six hooks, six keys, six labels in Aunt Edwina’s best handwriting: front door, back door, garden room, cellar, shed, larder. The study has never had a hook. The garden room key is back on its hook, because Aunt Edwina hung it there at a quarter to eight this morning.');
+  thing('#stairsFoot', null, 'The bottom of the back stairs. You put your foot on the first step, and it creaks like a ship. Mr Boyd flinches.');
+  thing('#range', 'range', 'A big cream range that never goes out. Mrs Beddoes calls it the only reliable member of the family.');
+  thing('#dresser', 'dresser', 'Willow-pattern plates, every one of them chipped in the same place.');
+  thing('#cat', null, 'Comma is sitting by the range with the face of a cat who has not been fed, which is untrue.');
+
+  var CAS = '<h4>Caspar Boyd · the Yellow Room</h4>' +
+    '<p>I went up at about a quarter past ten. My room is at the top of the back stairs, and they creak like a ship, so I can tell you when they were used, if not who by. I didn’t sleep much.</p>' +
+    '<p>Somebody went down at about ten past eleven and came up at about twenty-five past. Somebody went down at about twenty past one and came up ten minutes later. Nobody else used them until I went down myself at ten to seven to make the tea.</p>' +
+    '<p>I didn’t hear anything from the study. I never went near it.</p>' +
+    '<p>Earlier, at about a quarter past seven, I went out on the terrace for some air, but Mr Earle was on the telephone by the birdbath, so I came in again. And at twenty to nine I went out to my car for a few minutes.</p>' +
+    '<p>I’m very sorry about the book. I’ve been waiting for it since I was nine.</p><p class="sig">C. B.</p>';
+  var NOTE = '<h4>Under the teapot · Saturday, 9.40 p.m.</h4>' +
+    '<p>Mrs D,</p><p>Shepherd’s pie in the bottom oven for tomorrow, it only wants warming.</p>' +
+    '<p>Mr Ferdy came through for the port at quarter past nine and was down them cellar steps ten minutes complaining, and came back up the same way with two bottles, so he never went near your hall.</p>' +
+    '<p>Your young visitor had two helpings and dried up.</p>' +
+    '<p>I am off out the back at quarter to ten and I have locked it behind me with my own key. Cat fed, whatever she tells you.</p><p style="text-align:right">E. Beddoes</p>';
+  var PAGE4 = SV.page(4, 'How sure are you?',
+    '<p>A conclusion is only as strong as its evidence. Choose the words the evidence allows, no stronger and no weaker.</p>' +
+    '<svg viewBox="0 0 460 58" width="460" height="58"><path d="M20 30H440" stroke="#2a2620" stroke-width="3"/><path d="M20 20v20M230 20v20M440 20v20" stroke="#2a2620" stroke-width="3"/>' +
+    '<text x="20" y="14" font-family="Special Elite,monospace" font-size="13" fill="#7a2a24">CAN’T HAVE</text><text x="230" y="14" text-anchor="middle" font-family="Special Elite,monospace" font-size="13" fill="#2a5a7a">MIGHT / COULD HAVE</text><text x="440" y="14" text-anchor="end" font-family="Special Elite,monospace" font-size="13" fill="#2a6a3a">MUST HAVE</text>' +
+    '<text x="20" y="54" font-family="Special Elite,monospace" font-size="11" fill="#5a5040">ruled out</text><text x="230" y="54" text-anchor="middle" font-family="Special Elite,monospace" font-size="11" fill="#5a5040">possible, not proved</text><text x="440" y="54" text-anchor="end" font-family="Special Elite,monospace" font-size="11" fill="#5a5040">no other way</text></svg>' +
+    '<p class="ex"><b>must have</b>: the evidence leaves no other way. <i>He must have gone out: she heard him outside, and the key was in the door.</i></p>' +
+    '<p class="ex"><b>can’t have</b> (or <b>couldn’t have</b>): the evidence rules it out. <i>She can’t have opened it: it was locked, and the key was on your wrist.</i></p>' +
+    '<p class="ex"><b>might have</b> or <b>could have</b>: possible, and nothing rules it out, but nothing proves it either. “Could have” often means the person had the chance.</p>' +
+    '<p>The opposite of “must have” is “can’t have”. “Mustn’t have” is not used for conclusions.</p>' +
+    '<p>A wrong word is a wrong conclusion. “He might have lied” is too weak when you have proved it. “He must have taken it” is too strong when you only know that he could.</p>');
+
+  $('#caspar').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    ER.talk({ who: CAST.caspar.who, role: CAST.caspar.role, face: FACE('caspar'), clue: { id: 'ki-caspar', title: 'Caspar Boyd, in the kitchen', kind: 'Said' }, lines: [
+      'Tea? There’s tea. There’s a great deal of tea. I’ve made four pots.',
+      { q: 'You were awake most of the night?', a: 'Most of it. Those stairs. And I kept thinking about the book.' },
+      { q: 'Why did you go out to your car at dinner?', a: '<p>I needed something from it. I wasn’t gone long. Ms Ahn will tell you. She notices everything.</p><p class="note">He has gone rather pink.</p>' },
+      { q: 'What was Mr Earle saying on the terrace at a quarter past seven?', a: 'I didn’t stay to listen. I went straight back in.' },
+      'Here. I’ve written it all down. Everything I heard on those stairs.'
+    ], done: function (ok) {
+      if (ok && !got.caspar) ER.read({ html: CAS, cls: 'st st-caspar', clue: { id: 'st-caspar', title: 'Statement of Caspar Boyd', kind: 'Statement' }, done: function () { mark('caspar'); } });
+    } });
+  });
+  $('#edwina').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    ER.talk({ who: CAST.edwina.who, role: CAST.edwina.role, face: FACE('edwina'), clue: { id: 'ki-edwina', title: 'Aunt Edwina, in the kitchen', kind: 'Said' }, lines: [
+      'Six statements, one lie and one honest mistake so far. Now we put the locked room on the table and look at it properly.',
+      { q: 'Do you think Mr Earle took it?', a: 'I would very much like it to be Benedict. That is a preference, not a piece of evidence. Write the conclusions; we shall see what they say.' },
+      { q: 'Could anybody have got your key?', a: 'Which one? The spare is in a bank in Dunstow, and the bank is shut on Sundays. The other spent the night on your wrist.' },
+      'The cards are at the end of the table. One stamp in each gap. And mind the one at the back of the box: that stamp is for rules, not for detectives.'
+    ] });
+  });
+  $('#teapot').addEventListener('click', function () { if (busy || ER.isOpen()) return; ER.read({ html: NOTE, cls: 'beddoes', clue: { id: 'beddoes', title: 'Mrs Beddoes’s note, Saturday 9.40 pm', kind: 'Note' }, done: function () { mark('note'); } }); });
+  $('#book').addEventListener('click', function () { if (busy || ER.isOpen()) return; ER.read({ html: PAGE4, cls: 'npage', clue: { id: 'page4', title: 'Page 4 · How sure are you?', kind: 'Notebook' }, done: function () { mark('page'); } }); });
+  $('#cards').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    if (!ready()) { ER.say('“Statement, note, notebook,” says Aunt Edwina. “Then the cards.”'); return; }
+    openBoard();
+  });
+
+  /* ---------- the lock: eight conclusions, one stamp each ---------- */
+  var STAMPS = [['must', 'must have'], ['might', 'might have'], ['could', 'could have'], ['cant', 'can’t have'], ['mustnt', 'mustn’t have']];
+  var CARDS = [
+    ['c1', 'Mr Earle # gone out to the birdbath at twenty to twelve.'],
+    ['c2', 'Mr Earle # taken the pages out of the study in the night.'],
+    ['c3', 'Miss Caird # climbed out onto the leads from the Blue Room.'],
+    ['c4', 'Miss Caird # opened the study door at twenty-five past eleven.'],
+    ['c5', 'Somebody # come into the study through the window.'],
+    ['c6', 'The key on your wrist # been used in the night.'],
+    ['c7', 'Ferdy # let somebody in at the back door at twenty past one.'],
+    ['c8', 'So the pages # been taken out of the study during the night.']
+  ];
+  function openBoard() {
+    var st = ER.flag('ki-board') || {}, pick = null;
+    var box = ER.el('div', 'cbx');
+    box.innerHTML = '<div><h5>The stamps</h5><p class="say">Pick up a stamp, then click a gap. Click a gap again to clear it.</p><div class="rack">' +
+      STAMPS.map(function (s) { return '<button type="button" class="rs" data-m="' + s[0] + '"><i></i>' + s[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div><h5>What the evidence allows</h5><div class="cards">' + CARDS.map(function (c, i) {
+        return '<div class="cc' + (i === 7 ? ' last' : '') + '" data-n="' + (i + 1) + '">' + ER.gloss(c[1]).replace('#', '<span class="gap" data-c="' + c[0] + '"></span>') + '</div>';
+      }).join('') + '</div></div>' +
+      '<div class="cb-row"><div class="cb-msg"></div><button type="button" class="btn" id="cbGo">Show Aunt Edwina</button></div>';
+    var msg = box.querySelector('.cb-msg');
+    function label(m) { for (var i = 0; i < STAMPS.length; i++) if (STAMPS[i][0] === m) return STAMPS[i][1]; return ''; }
+    function paint() {
+      ER.$$('.gap', box).forEach(function (g) { var v = st[g.getAttribute('data-c')]; g.textContent = v ? label(v) : ''; g.classList.toggle('f', !!v); });
+      ER.$$('.rs', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-m') === pick); });
+      ER.flag('ki-board', st);
+    }
+    box.addEventListener('click', function (e) {
+      if (solved || !e.target.closest) return;
+      var r = e.target.closest('.rs'), g = e.target.closest('.gap');
+      if (r) { pick = r.getAttribute('data-m') === pick ? null : r.getAttribute('data-m'); ER.sfx.click(); paint(); return; }
+      if (g) {
+        var c = g.getAttribute('data-c');
+        if (pick && st[c] !== pick) { st[c] = pick; ER.sfx.clunk(); } else { delete st[c]; ER.sfx.paper(); }
+        msg.textContent = ''; paint();
+      }
+    });
+    box.querySelector('#cbGo').addEventListener('click', function () {
+      if (solved) return;
+      var empty = CARDS.filter(function (c) { return !st[c[0]]; }).length;
+      if (empty) { msg.textContent = empty === 1 ? 'One card still has a gap in it.' : empty + ' cards still have gaps in them.'; return; }
+      if (CARDS.some(function (c) { return st[c[0]] === 'mustnt'; })) {
+        ER.sfx.no(); msg.textContent = '“Mustn’t is for rules, dear,” says Aunt Edwina. “You mustn’t feed the cat. Nobody ever concluded anything with it.”'; return;
+      }
+      var file = ER.exit([CARDS.map(function (c) { return st[c[0]]; }).join('|')], { wait: true });
+      if (file) {
+        solved = true; busy = true; pips();
+        msg.style.color = '#1f4a2f'; msg.textContent = 'Aunt Edwina reads the cards from one to eight, and puts her stamps back in their box.';
+        setTimeout(function () {
+          ER.closeAll(); ER.mood('calm');
+          ER.narrate([
+            '“So,” says Aunt Edwina. “Nobody came in through the door. Nobody came in through the window. Benedict was in my garden, lying about it, and Fenella was in my towels.”',
+            '“The pages can’t have left that study in the night. And yet this morning the box was empty.”',
+            'She looks at you over her glasses. “There is only one way out of that. The pages were never in the study at all.”',
+            '“But you carried them up yourself, at five past ten. You wrote it down.” She hands you your own notebook, open at Saturday night. “Didn’t you?”'
+          ], function () { ER.leave(file); });
+        }, 1500);
+        return;
+      }
+      ER.sfx.no();
+      var wrong = CARDS.filter(function (c) { return !ER.check(c[0], st[c[0]]); }).length;
+      if (!ER.check('c2', st.c2)) msg.textContent = '“I would like it to be Benedict too,” says Aunt Edwina. “But he lied about the garden, not about the study. How did he get in?” ' + (wrong > 1 ? 'She taps ' + (wrong - 1) + ' other card' + (wrong > 2 ? 's' : '') + ' as well.' : '');
+      else msg.textContent = wrong === 1 ? '“One of these says more than the evidence does, or less,” says Aunt Edwina.' : '“' + wrong + ' of these say more than the evidence does, or less,” says Aunt Edwina.';
+    });
+    paint();
+    ER.open('ov-lock', box);
+  }
+})();
+</script>
+</body>
+</html>

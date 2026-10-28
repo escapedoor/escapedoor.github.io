@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Library · The Seventh Book</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-mystery.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="seventh.css">
+<style>
+  body{--bg:#1d0b0c;--accent:#e2b65a;--font-display:'IM Fell English SC',serif;--font-ui:'Oswald',sans-serif;
+    --tc-bg:rgba(29,11,12,.94);--cap-bg:rgba(32,13,12,.94);--panel:#251312;--q-ink:#e8c88a;--fade:#0e0405}
+  .tc-room{font-family:'IM Fell English SC',serif;letter-spacing:.03em}
+  #fire{animation:fl 1.4s steps(3) infinite}
+  @keyframes fl{33%{transform:translateY(-3px) scaleY(1.04)}66%{transform:translateY(2px) scaleY(.97)}}
+  #fireGlow{animation:fg 2.6s steps(4) infinite}
+  @keyframes fg{50%{opacity:.62}}
+  #tail{animation:tl 5s ease-in-out infinite alternate;transform-origin:186px 628px}
+  @keyframes tl{to{transform:rotate(14deg)}}
+  .plq{font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:2px;fill:#3a2a12;text-anchor:middle}
+  .sp{font-family:'Oswald',sans-serif;font-weight:600;font-size:10px;letter-spacing:1px;fill:#3a2a1a;text-anchor:middle}
+
+  /* the place cards */
+  .pc{width:min(1040px,97vw);padding:18px 24px 18px;background:#f4ecd8;color:#2a1e16;box-shadow:0 26px 70px rgba(0,0,0,.7);border-top:6px solid #7a2a24}
+  .pc h5{margin:0 0 4px;font-family:'IM Fell English SC',serif;font-weight:normal;font-size:28px;letter-spacing:.02em}
+  .pc .say{margin:0 0 10px;font-family:'EB Garamond',Georgia,serif;font-size:18px;font-style:italic}
+  .room{position:relative;margin:4px auto 0;width:760px;height:372px;background:#e8dcc0;border:10px solid #5a3a26;box-shadow:inset 0 0 30px rgba(90,58,38,.35)}
+  .wl{position:absolute;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5a3a26;background:#e8dcc0;padding:0 8px}
+  .wl.top{top:-17px;left:300px;background:#c99a5a;color:#2a1a10}
+  .wl.bot{bottom:-17px;left:90px;background:#9cc3d8;color:#16303f}.wl.bot.b2{left:520px}
+  .wl.lft{left:-14px;top:120px;transform:rotate(-90deg);transform-origin:left top;top:230px;background:#c99a5a;color:#2a1a10}
+  .wl.rgt{right:-12px;top:150px;transform:rotate(90deg);transform-origin:right top;background:#d9783a;color:#2a1a10}
+  .tbl{position:absolute;left:150px;top:118px;width:460px;height:136px;background:#7a4628;border-radius:6px;box-shadow:0 6px 0 #5a321c,0 10px 20px rgba(0,0,0,.25)}
+  .seat{position:absolute;width:128px;height:54px;border:2px dashed rgba(90,58,38,.55);border-radius:4px;background:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+  .seat:before{content:attr(data-n);position:absolute;left:4px;top:1px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;color:rgba(90,58,38,.6)}
+  .seat.fixed{border-style:solid;background:#fbf6ea}
+  .card{width:118px;height:44px;display:flex;align-items:center;justify-content:center;text-align:center;background:#fffdf6;border:1px solid #c9b48a;box-shadow:0 2px 5px rgba(0,0,0,.25);
+    font-family:'Pacifico',cursive;font-size:15px;line-height:1.05;color:#3a1e14;padding:2px 4px}
+  .card small{display:block;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7a2a24}
+  .tray{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;min-height:52px;margin:14px auto 0;padding:6px;width:760px;background:rgba(90,58,38,.12);border-radius:3px}
+  .pc-row{display:flex;align-items:center;gap:14px;margin-top:12px}
+  .pc-msg{flex:1;min-height:24px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:18px;color:#6a1a12}
+  .pc .btn{--accent:#5a2a1a;background:#fbf6ea}.pc .btn:hover:not([disabled]){color:#fbf6ea}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#4a1619"/><path d="M22 6l9 16-9 16-9-16z" fill="#561c1f"/><circle cx="22" cy="22" r="2.2" fill="#8a6a2a" opacity=".7"/><circle cx="0" cy="0" r="1.6" fill="#8a6a2a" opacity=".5"/><circle cx="44" cy="44" r="1.6" fill="#8a6a2a" opacity=".5"/></pattern>
+  <pattern id="boards" width="160" height="40" patternUnits="userSpaceOnUse"><rect width="160" height="40" fill="#3a2214"/><rect width="160" height="19" fill="#43281a"/><path d="M0 19.5H160M70 0v19M130 20v20" stroke="#24150c" stroke-width="2"/></pattern>
+  <pattern id="rug" width="70" height="70" patternUnits="userSpaceOnUse"><rect width="70" height="70" fill="#6a1e22"/><path d="M35 6l29 29-29 29L6 35z" fill="#1f3a5a"/><path d="M35 20l15 15-15 15-15-15z" fill="#c9963a"/><circle cx="35" cy="35" r="4" fill="#6a1e22"/></pattern>
+  <linearGradient id="mah" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a3a22"/><stop offset="1" stop-color="#4a2012"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc8e"/><stop offset=".5" stop-color="#c3943a"/><stop offset="1" stop-color="#7d5a1a"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1426"/><stop offset="1" stop-color="#1f3046"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".85"/><stop offset=".35" stop-color="#ffbf62" stop-opacity=".25"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffb347" stop-opacity=".75"/><stop offset=".5" stop-color="#ff7a2a" stop-opacity=".2"/><stop offset="1" stop-color="#ff6a1a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#140404" stop-opacity=".25"/><stop offset="1" stop-color="#0a0202" stop-opacity=".82"/></radialGradient>
+</defs>
+
+<!-- walls, cornice, floor -->
+<rect x="-1000" y="-600" width="3600" height="1400" fill="url(#paper)"/>
+<rect x="-1000" y="-600" width="3600" height="680" fill="#2a0f10"/><rect x="-1000" y="60" width="3600" height="22" fill="#6a4a22"/><rect x="-1000" y="82" width="3600" height="6" fill="#2a1408"/>
+<rect x="-1000" y="726" width="3600" height="900" fill="url(#boards)"/><rect x="-1000" y="716" width="3600" height="14" fill="#2a1408"/>
+<path d="M300 772h1000l80 128H220z" fill="url(#rug)"/><path d="M300 772h1000l80 128H220z" fill="none" stroke="#c9963a" stroke-width="5"/>
+
+<!-- the window, with the garden at night -->
+<g id="win" class="hot">
+  <path d="M60 640V210q0-90 110-90t110 90v430z" fill="#d8ccb0"/><path d="M76 630V214q0-78 94-78t94 78v416z" fill="url(#nightG)"/>
+  <circle cx="214" cy="198" r="16" fill="#efe9d2"/><circle cx="208" cy="194" r="16" fill="#1a2a40"/>
+  <path d="M76 470q40-60 70-20t60-50 58 30v200H76z" fill="#0a121e"/>
+  <path d="M170 136v494M76 380h188M76 260h188M76 500h188" stroke="#d8ccb0" stroke-width="6"/>
+  <path d="M30 100q24 260 8 560h60q-12-300 0-560zM310 100q-24 260-8 560h-60q12-300 0-560z" fill="#5a1418"/>
+  <path d="M30 96h280" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+</g>
+
+<!-- bookcases -->
+<g id="shelvesL" class="hot"><rect x="330" y="96" width="290" height="626" fill="#2a1408"/><rect x="342" y="108" width="266" height="604" fill="#1a0c06"/><g id="booksL"></g></g>
+<g id="shelvesR" class="hot"><rect x="980" y="96" width="300" height="626" fill="#2a1408"/><rect x="992" y="108" width="276" height="604" fill="#1a0c06"/><g id="booksR"></g></g>
+
+<!-- the founder over the fireplace -->
+<g id="portrait" class="hot">
+  <rect x="690" y="110" width="220" height="250" fill="url(#gold)"/><rect x="704" y="124" width="192" height="222" fill="#2e2a24"/>
+  <path d="M736 346q4-90 64-96t64 96z" fill="#1c1c22"/><path d="M786 260l14 40 14-40z" fill="#e9e4d6"/><circle cx="800" cy="216" r="34" fill="#d8b896"/>
+  <path d="M766 210q4-44 34-44t34 44q-12-22-34-22t-34 22z" fill="#3a3028"/><path d="M784 232q16 8 32 0" stroke="#5a3a2a" stroke-width="3" fill="none"/>
+  <path d="M780 216h12M808 216h12" stroke="#2a2020" stroke-width="3"/>
+  <rect x="752" y="320" width="96" height="18" fill="#d9c48a"/><text x="800" y="333" class="plq">1926</text>
+</g>
+
+<!-- the fireplace -->
+<g id="fireplace" class="hot">
+  <rect x="650" y="400" width="300" height="24" fill="#c9bca2"/><rect x="636" y="388" width="328" height="16" fill="#ddd2bb"/>
+  <rect x="664" y="424" width="44" height="296" fill="#c9bca2"/><rect x="892" y="424" width="44" height="296" fill="#c9bca2"/>
+  <path d="M708 720V470q0-24 92-24t92 24v250z" fill="#120806"/>
+  <circle id="fireGlow" cx="800" cy="680" r="190" fill="url(#fireG)"/>
+  <g id="fire"><path d="M740 712q-6-60 30-90 4 36 22 40-6-56 24-84 6 54 30 70 14-22 10-46 30 40 18 110z" fill="#ff8a2a"/><path d="M768 712q0-40 22-60 6 30 18 30 2-24 14-36 14 30 12 66z" fill="#ffd25a"/></g>
+  <path d="M724 714h152v8H724z" fill="#2a2a2a"/><g stroke="#3a3a3a" stroke-width="5"><path d="M736 714v-20M864 714v-20"/></g>
+  <g fill="#e9e2d0"><rect x="700" y="372" width="10" height="18"/><rect x="890" y="372" width="10" height="18"/></g><path d="M700 372q5-10 10 0M890 372q5-10 10 0" fill="#ffd27a"/>
+</g>
+
+<!-- the door to the hall, ajar -->
+<g id="door" class="hot">
+  <rect x="1310" y="200" width="200" height="520" fill="#2a1408"/><rect x="1322" y="212" width="176" height="508" fill="#ffd79a" opacity=".85"/>
+  <path d="M1322 212l60 20v472l-60 16z" fill="#5a2e1a"/><path d="M1334 240l40 12v180l-40-8zM1334 470l40 4v196l-40 10z" fill="none" stroke="#3a1c0e" stroke-width="3"/>
+  <circle cx="1374" cy="470" r="6" fill="url(#gold)"/>
+</g>
+
+<!-- Fenella on the window seat, and the cat -->
+<g id="fenella" class="hot"><use href="#ch-fenella" x="92" y="398" width="150" height="195"/>
+  <rect x="220" y="520" width="56" height="70" fill="#f3ead6" transform="rotate(-8 248 555)"/><path d="M228 534l40-6M230 548l34-4" stroke="#8a6a4a" stroke-width="1.5" transform="rotate(-8 248 555)"/></g>
+<path d="M58 570h232v70H58z" fill="#3a2214"/><path d="M62 556q110-16 224 0v22H62z" fill="#7a2c34"/><path d="M58 586h232" stroke="#2a1408" stroke-width="3"/>
+<g id="cat" class="hot">
+  <ellipse cx="150" cy="558" rx="36" ry="17" fill="#111"/><circle cx="122" cy="546" r="14" fill="#111"/><path d="M112 536l3-12 8 8zM124 532l6-10 4 12z" fill="#111"/>
+  <path d="M116 552q6 6 12 0" stroke="#f4f4f0" stroke-width="5" fill="none"/><ellipse cx="148" cy="566" rx="16" ry="6" fill="#f4f4f0"/>
+  <path id="tail" d="M186 560q22 4 18 24" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+</g>
+
+<!-- Augusta in the wing chair -->
+<g id="augusta" class="hot">
+  <path d="M370 760V500q0-74 110-74t110 74v260z" fill="#2f4a3a"/><path d="M392 500q0-56 88-56t88 56v120H392z" fill="#3a5a46"/>
+  <use href="#ch-augusta" x="400" y="420" width="160" height="208"/>
+  <path d="M356 600h66v160h-66zM538 600h66v160h-66z" fill="#2a4234"/><path d="M356 600q33-22 66 0M538 600q33-22 66 0" fill="#34503f"/>
+  <path d="M410 610h140l20 150H390z" fill="#5b3a6e"/>
+  <path d="M392 760h16v-10h-16zM552 760h16v-10h-16z" fill="#1a1008"/>
+</g>
+
+<!-- Ferdy by the fire, Eunji with her camera, Benedict at the drinks, Caspar with a book -->
+<g id="ferdy" class="hot"><g id="ferdyBody"></g><use href="#ch-ferdy" x="924" y="300" width="150" height="195"/></g>
+<g id="eunji" class="hot"><g id="eunjiBody"></g><use href="#ch-eunji" x="1104" y="326" width="146" height="190"/></g>
+<g id="benedict" class="hot"><g id="benedictBody"></g><use href="#ch-benedict" x="1226" y="290" width="154" height="200"/></g>
+<g id="caspar" class="hot"><g id="casparBody"></g><use href="#ch-caspar" x="1398" y="296" width="150" height="195"/>
+  <rect x="1410" y="520" width="56" height="74" fill="#2f5a7a" transform="rotate(-12 1438 557)"/><rect x="1416" y="526" width="44" height="62" fill="none" stroke="#e6c35a" stroke-width="2" transform="rotate(-12 1438 557)"/></g>
+
+<!-- the drinks trolley -->
+<g id="trolley" class="hot">
+  <path d="M1196 610h170M1196 690h170" stroke="url(#gold)" stroke-width="7"/><path d="M1204 610v120M1358 610v120" stroke="url(#gold)" stroke-width="6"/>
+  <circle cx="1204" cy="736" r="10" fill="#2a2a2a"/><circle cx="1358" cy="736" r="10" fill="#2a2a2a"/>
+  <path d="M1222 606v-50q0-10 10-14v-14h10v14q10 4 10 14v50z" fill="#c98a3a" opacity=".85"/><path d="M1270 606v-40q0-12 14-16v-16h8v16q14 4 14 16v40z" fill="#8a2a3a" opacity=".8"/>
+  <path d="M1322 606l4-24h18l4 24z" fill="#e8e2d0" opacity=".7"/>
+</g>
+
+<!-- Edwina behind the long table -->
+<g id="edwina" class="hot"><use href="#ch-edwina" x="664" y="404" width="150" height="195"/></g>
+<g id="table">
+  <rect x="540" y="598" width="580" height="18" fill="#8a4628"/><rect x="540" y="598" width="580" height="5" fill="#a85c38"/>
+  <rect x="556" y="616" width="548" height="40" fill="url(#mah)"/><rect x="572" y="656" width="22" height="104" fill="#4a2012"/><rect x="1066" y="656" width="22" height="104" fill="#4a2012"/>
+</g>
+<g id="boxHot" class="hot"><g id="boxArt"></g></g>
+<g id="glasses" class="hot"><g fill="none" stroke="#1f1a16" stroke-width="3"><circle cx="890" cy="590" r="10"/><circle cx="914" cy="590" r="10"/></g><path d="M900 590h4M880 588l-16-6M924 588l14-8" stroke="#1f1a16" stroke-width="3"/></g>
+<g id="cards" class="hot"><rect x="946" y="582" width="58" height="16" fill="#fffdf6" stroke="#c9b48a"/><rect x="950" y="576" width="58" height="16" fill="#fffdf6" stroke="#c9b48a"/><path d="M958 584h40" stroke="#7a2a24" stroke-width="2"/></g>
+<g id="lamp"><path d="M1060 598v-60" stroke="url(#gold)" stroke-width="7"/><ellipse cx="1060" cy="596" rx="30" ry="6" fill="url(#gold)"/><path d="M1012 540q0-30 48-30t48 30z" fill="#1f5a3e"/><path d="M1012 540h96" stroke="#ffe2a0" stroke-width="3"/></g>
+<circle cx="1060" cy="600" r="260" fill="url(#lampG)" pointer-events="none" opacity=".75"/>
+
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="seventh.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, seen = {}, noteRead = false, solved = false;
+  var GUESTS = ['augusta', 'benedict', 'eunji', 'fenella', 'caspar', 'ferdy'];
+  var SEATS = ['N1', 'N2', 'N3', 'F', 'S3', 'S2', 'S1'];
+  var placed = {};
+
+  /* books on the shelves, and bodies under the people who are standing */
+  (function () {
+    var cols = ['#6a1e22', '#1f3a5a', '#2f4a3a', '#7a5a22', '#3a2a4a', '#5a3a26', '#8a6a3a', '#24343a'], s, i, x, y, w, row;
+    function shelf(x0, x1, el, seed) {
+      s = '';
+      for (row = 0; row < 5; row++) {
+        y = 116 + row * 120; x = x0 + 6; i = seed + row * 7;
+        while (x < x1 - 14) {
+          w = 12 + (i * 7) % 11; var hh = 84 + (i * 13) % 22;
+          s += '<rect x="' + x + '" y="' + (y + 104 - hh) + '" width="' + w + '" height="' + hh + '" fill="' + cols[i % cols.length] + '"/>';
+          if (i % 3 === 0) s += '<rect x="' + (x + 2) + '" y="' + (y + 116 - hh) + '" width="' + (w - 4) + '" height="5" fill="#c9a24a" opacity=".7"/>';
+          x += w + 1; i++;
+          if (i % 9 === 4) x += 18;
+        }
+        s += '<rect x="' + x0 + '" y="' + (y + 104) + '" width="' + (x1 - x0) + '" height="10" fill="#2a1408"/>';
+      }
+      $(el).innerHTML = s;
+    }
+    shelf(342, 608, '#booksL', 3); shelf(992, 1268, '#booksR', 11);
+    function body(el, cx, top, w, coat, legs) {
+      var h = '<ellipse cx="' + cx + '" cy="762" rx="' + (w * 0.6) + '" ry="9" fill="#000" opacity=".3"/>' +
+        '<rect x="' + (cx - w * 0.3) + '" y="' + (top + 150) + '" width="' + (w * 0.26) + '" height="' + (752 - top - 150) + '" fill="' + legs + '"/>' +
+        '<rect x="' + (cx + w * 0.04) + '" y="' + (top + 150) + '" width="' + (w * 0.26) + '" height="' + (752 - top - 150) + '" fill="' + legs + '"/>' +
+        '<rect x="' + (cx - w * 0.36) + '" y="748" width="' + (w * 0.34) + '" height="14" rx="6" fill="#1a1210"/><rect x="' + (cx + w * 0.02) + '" y="748" width="' + (w * 0.34) + '" height="14" rx="6" fill="#1a1210"/>' +
+        '<path d="M' + (cx - w / 2) + ' ' + top + 'H' + (cx + w / 2) + 'L' + (cx + w * 0.4) + ' ' + (top + 170) + 'H' + (cx - w * 0.4) + 'Z" fill="' + coat + '"/>';
+      $(el).innerHTML = h;
+    }
+    body('#ferdyBody', 999, 470, 136, '#26304f', '#8a2a24');
+    body('#eunjiBody', 1177, 494, 118, '#efe4cf', '#2a2a30');
+    body('#benedictBody', 1303, 466, 138, '#1f2b4a', '#7a7a76');
+    body('#casparBody', 1473, 470, 132, '#6b5a43', '#3a3a3a');
+    $('#boxArt').innerHTML = SV.box({ x: 712, y: 548, s: 0.62 });
+  })();
+
+  ER.init({
+    theme: 'mystery', story: 'seventh', storyTitle: 'The Seventh Book', id: 'evening', no: 'I', title: 'The Library',
+    go: 'Go in',
+    intro: [
+      'Copperwood, a house in the country with copper beeches round it and a publishing firm inside it. Dabney &amp; Fane have published books from here for a hundred years, and this weekend they are celebrating.',
+      'You are staying with your great-aunt Edwina, who owns the firm and the house, and who has told you that you are the only guest this weekend who does not want something from her.',
+      'Saturday, twenty to seven. Drinks in the library. Six guests, one fox, and a book that nobody has read yet.'
+    ],
+    exit: {"next":"study","w":{"714f4206":"19735966"}}, tags: {"seatN1":["8628cb75"],"seatN2":["281fac87"],"seatN3":["b0950a6b"],"seatF":["c83cb2e5"],"seatS3":["1db78aaf"],"seatS2":["c1fa421b"],"seatS1":["15bdac94"]},
+    hints: hints,
+    onBegin: begin
+  });
+  noteRead = !!ER.flag('ev-note'); placed = ER.flag('ev-seats') || {};
+
+  function hints() {
+    if (solved) return null;
+    if (!noteRead) return ['note', [
+      'Aunt Edwina is behind the grey box on the long table. Talk to her first.',
+      'She gives you her list for the dinner table. Then talk to the six guests. Each of them tells you where they would like to sit.'
+    ]];
+    var left = GUESTS.filter(function (g) { return !seen[g]; });
+    if (left.length) return ['guests', [
+      'You have not heard from everybody yet: ' + left.map(function (g) { return CAST[g].who; }).join(', ') + '.',
+      'Click on each person and read to the last page. Their wishes go into your notebook. Then click the place cards on the table.'
+    ]];
+    return ['table', [
+      'Start with what is certain. Aunt Edwina sits at the head, by the serving door. Sit in her chair in your head: she looks down the table. Which side is her right hand?',
+      'Facing the door means sitting on the window side, across the table from the door. Ms Ahn must be beside Mrs Cleave on the same side, and Mr Earle wants to face the door as well.',
+      'The empty place goes beside Aunt Edwina. Miss Caird will not sit next to Mr Earle or straight across from him. Then Mr Boyd goes next to Miss Caird, and Ferdy has told you his place himself.'
+    ]];
+  }
+  function pips() { ER.pips((noteRead ? 1 : 0) + GUESTS.filter(function (g) { return seen[g]; }).length + (solved ? 1 : 0), 8); }
+
+  function begin() {
+    pips();
+    ER.narrate([
+      'The library at Copperwood smells of wood smoke, old paper and Ferdy’s aftershave.',
+      'Augusta Cleave gets up out of the wing chair, puts on her spectacles and reads one sentence aloud: <em>“Comfrey knew the way home the way a river knows the sea: not by looking, but by going downhill.”</em>',
+      'Then she takes her spectacles off, puts them down on the table, and lays four hundred and twelve typed pages in a grey box.',
+      '“The only copy,” she says. “Carbons are for people who expect to lose things.”',
+      'Aunt Edwina puts the lid on and writes the label. Ms Ahn takes a photograph. Everybody claps, except Mr Earle, who is looking at his watch.',
+      '“Dinner at half past seven,” says Aunt Edwina, and puts a pile of place cards on the table. “You are in charge of who sits where. Come and see me first.”'
+    ]);
+  }
+
+  function thing(sel, word, line) {
+    $(sel).addEventListener('click', function (e) { if (busy || ER.isOpen()) return; if (word) ER.wordAt(e.clientX, e.clientY, word); if (line) ER.say(line); });
+  }
+  thing('#win', 'window seat', 'The garden is black, and there is a thin moon over the beeches. A clear, cold night is coming.');
+  thing('#shelvesL', null, 'A hundred years of Dabney &amp; Fane, in order. The six Comfrey books have a shelf of their own, with a gap at the end.');
+  thing('#shelvesR', null, 'Detective stories, a whole wall of them. Aunt Edwina says thrillers paid for the roof.');
+  thing('#portrait', 'founder', 'Aunt Edwina’s grandfather, who started the firm in 1926 with his friend Mr Fane. He looks as if he has just found a spelling mistake.');
+  thing('#fireplace', 'mantelpiece', 'A good fire. Ferdy is standing as close to it as a person can without becoming part of it.');
+  thing('#door', null, 'The door to the hall. The dining room is across the hall, and the front door is beside this one.');
+  thing('#cat', null, 'Comma, the house cat: black, with a white chin and white socks. She has decided that Miss Caird is a chair.');
+  thing('#trolley', 'decanter', 'Sherry, whisky and a jug of water that nobody has touched.');
+  thing('#glasses', 'spectacles', 'Mrs Cleave’s spectacles, left on the table beside the box. She will want them when she has to read something.');
+  thing('#boxHot', 'manuscript box', 'A grey manuscript box with a lift-off lid. DABNEY &amp; FANE is printed on the front, and Aunt Edwina’s label is on the lid: COMFREY GOES HOME, A. Cleave, 412 pages.');
+
+  /* ---------- the people ---------- */
+  var LINES = {
+    edwina: [
+      'Edwina Dabney. Your great-aunt, as you know, and the publisher of everything on these shelves that is worth reading.',
+      'Dabney &amp; Fane is a hundred years old this weekend. We have published six Comfrey books. Tonight Augusta gave us the seventh, and she says it is the last.',
+      { q: 'Who are all these people?', a: 'Ms Ahn translates Comfrey into Korean. Fenella has drawn him since 1979. Caspar edits him. Benedict sells him. Ferdy counts him. And Augusta made him up, which she will mention.' },
+      { q: 'What happens to the book now?', a: 'It stays in its box until Monday morning, when the printer’s van comes for it. Tonight it sleeps in my study, and I lock the door.' },
+      'Now: the table. Here is my list. Read it, and then ask the others. They will tell you, at length.'
+    ],
+    augusta: [
+      'Augusta Cleave. I write the books. Everybody else in this room is here because of a fox I invented on a bus in 1978.',
+      'Seven books, and that is the last of them. I typed every word myself, on the same machine as the first, and I have not kept a copy.',
+      { q: 'Where would you like to sit?', a: 'At Edwina’s right hand, where I have always sat. And put that young woman from Seoul next to me. I mumble, and she is the only person in England who listens to every word.' },
+      { q: 'You have left your spectacles on the table.', a: 'I know where my spectacles are. I can see perfectly well without them, as long as nobody expects me to read.' }
+    ],
+    benedict: [
+      'Benedict Earle. I have been Augusta’s agent for twenty-two years, and her friend for longer, whatever she tells you.',
+      'Seven books with a small firm. Dabney &amp; Fane are charming people. Charming people do not always sell films.',
+      { q: 'Where would you like to sit?', a: 'Facing the door. In my business you always face the door. Somebody may come in with a better offer.' },
+      { q: 'Are you staying until Monday?', a: 'Sadly not. I take the ten past twelve tomorrow. I have a meeting in London on Monday morning that cannot wait.' }
+    ],
+    eunji: [
+      'Ahn Eunji. In English I am Eunji Ahn: here the family name goes last, I know. I translate the Comfrey books into Korean.',
+      'In Korea, Comfrey has sold more copies than in England. Mrs Cleave does not believe me. I have brought the figures.',
+      { q: 'Where would you like to sit?', a: 'Wherever Mrs Cleave needs me. And if possible, facing the door. My grandmother always sat facing the door, so that nobody could surprise her. I am the same.' },
+      { q: 'Why the camera?', a: 'My publisher in Seoul wanted a photograph of the manuscript going into its box. I took it at forty-one minutes past six, exactly.' }
+    ],
+    fenella: [
+      'Fenella Caird. I draw the pictures. I drew the first Comfrey on the back of a menu in 1979, and I have been drawing him ever since.',
+      'Don’t mind the cat. Comma sits for me. She is better at it than Augusta.',
+      { q: 'Where would you like to sit?', a: 'Anywhere, as long as it isn’t next to Benedict. Or opposite him: I would have to look at him. We haven’t spoken since 2009. It was about a semicolon.' }
+    ],
+    caspar: [
+      'Caspar Boyd. I’m the editor. Well, I edit the commas. Mrs Cleave won’t let me touch anything else.',
+      'I’ve been reading Comfrey since I was nine. The seventh is in that box, and I’m not allowed to read it until Monday. It’s like sitting next to a fire and being told not to get warm.',
+      { q: 'Where would you like to sit?', a: 'Anywhere. Next to Miss Caird, if you can manage it? I want to ask her about the map in book three. I’ve wanted to ask her since I was nine.' }
+    ],
+    ferdy: [
+      'Ferdy Dabney. Aunt Edwina’s nephew. I keep the accounts, which means I am the only person here who knows what that box is worth.',
+      'Without book seven, Dabney &amp; Fane has about eleven months of money left. With it, about eleven years. No pressure on anybody.',
+      { q: 'Where would you like to sit?', a: 'At the bottom of the table. The youngest Dabney at dinner sits at the bottom: family rule. Also it’s the end nearest the fire, and I have been cold since 1990.' }
+    ]
+  };
+  var NOTE = '<h4>The table · half past seven</h4>' +
+    '<p>Eight places, and seven of us. Mrs Beddoes will not lay a place for the cat.</p>' +
+    '<p>I sit at the head, by the serving door, as always.</p>' +
+    '<p>Augusta sits at my right hand, as she has every year since 1979.</p>' +
+    '<p>The empty place goes beside me. Nobody wants to sit next to the hostess: they think I shall ask about their next book.</p>' +
+    '<p>For everybody else: ask them. They will tell you, at length.</p><p style="text-align:right">E. D.</p>';
+
+  Object.keys(LINES).forEach(function (k) {
+    $('#' + k).addEventListener('click', function () {
+      if (busy || ER.isOpen()) return;
+      var c = CAST[k];
+      ER.talk({ who: c.who, role: c.role, face: FACE(k), lines: LINES[k], clue: { id: 'ev-' + k, title: c.who + ', in the library', kind: 'Said' },
+        done: function (ok) {
+          if (!ok) return;
+          if (k === 'edwina') { if (!noteRead) openNote(); }
+          else if (!seen[k]) { seen[k] = 1; pips(); }
+        } });
+    });
+  });
+  function openNote() {
+    ER.read({ html: NOTE, cls: 'typed', clue: { id: 'ev-note', title: 'Aunt Edwina’s list for the table', kind: 'Note' },
+      done: function () { if (!noteRead) { noteRead = true; ER.flag('ev-note', 1); pips(); ER.say('Now ask the guests. Then the place cards on the table.'); } } });
+  }
+  $('#cards').addEventListener('click', function () {
+    if (busy || ER.isOpen()) return;
+    if (!noteRead) { ER.say('“My list first,” says Aunt Edwina, without looking round.'); return; }
+    openTable();
+  });
+
+  /* ---------- the place cards ---------- */
+  var POS = { N1: [168, 44], N2: [316, 44], N3: [464, 44], S1: [168, 274], S2: [316, 274], S3: [464, 274], F: [622, 158] };
+  function openTable() {
+    var box = ER.el('div', 'pc');
+    box.innerHTML = '<h5>The dining room, from above</h5><p class="say">Put a card at each place. One place stays empty.</p>' +
+      '<div class="room"><span class="wl top">door to the hall</span><span class="wl bot">window</span><span class="wl bot b2">window</span>' +
+      '<span class="wl lft">serving door</span><span class="wl rgt">fire</span><div class="tbl"></div></div>' +
+      '<div class="tray"></div><div class="pc-row"><div class="pc-msg"></div><button type="button" class="btn" id="pcGo">Lay the table</button></div>';
+    var room = box.querySelector('.room'), tray = box.querySelector('.tray'), msg = box.querySelector('.pc-msg');
+    var head = ER.el('div', 'seat fixed', '<div class="card">Edwina<br>Dabney</div>');
+    head.style.left = '14px'; head.style.top = '158px'; head.setAttribute('data-n', 'HEAD'); room.appendChild(head);
+    SEATS.forEach(function (id) {
+      var s = ER.el('div', 'seat'); s.setAttribute('data-seat', id); s.setAttribute('data-n', id === 'F' ? 'FOOT' : '');
+      s.style.left = POS[id][0] + 'px'; s.style.top = POS[id][1] + 'px'; room.appendChild(s);
+    });
+    GUESTS.forEach(function (g) {
+      var c = ER.el('div', 'card dnd-item', CAST[g].who.replace(' ', '<br>'));
+      c.setAttribute('data-g', g);
+      var at = placed[g] ? room.querySelector('[data-seat=' + placed[g] + ']') : null;
+      (at || tray).appendChild(c);
+    });
+    function read() {
+      placed = {};
+      ER.$$('.seat[data-seat]', room).forEach(function (s) { var c = s.querySelector('.card'); if (c) placed[c.getAttribute('data-g')] = s.getAttribute('data-seat'); });
+      ER.flag('ev-seats', placed);
+    }
+    ER.dnd(box, { item: '.card.dnd-item', slot: '.seat[data-seat]', home: tray, lock: function () { return solved; },
+      change: function () { read(); msg.textContent = ''; } });
+    box.querySelector('#pcGo').addEventListener('click', function () {
+      if (solved) return;
+      read();
+      var free = GUESTS.filter(function (g) { return !placed[g]; });
+      if (free.length) { msg.textContent = free.length === 1 ? 'One card is still in your hand.' : free.length + ' cards are still in your hand.'; ER.shake(tray); return; }
+      var at = {}; GUESTS.forEach(function (g) { at[placed[g]] = g; });
+      var cand = SEATS.map(function (id) { return id + '=' + (at[id] || '-'); }).join(',');
+      var file = ER.exit([cand], { wait: true });
+      if (file) {
+        solved = true; busy = true; pips();
+        msg.style.color = '#1f4a2f'; msg.textContent = 'Aunt Edwina reads your table twice, which is once more than she reads most books.';
+        setTimeout(function () { ER.closeAll(); coda(file); }, 1800);
+        return;
+      }
+      var wrong = 0; SEATS.forEach(function (id) { if (!ER.check('seat' + id, at[id] || '-')) wrong++; });
+      ER.sfx.no(); ER.shake(room);
+      msg.textContent = wrong === 1 ? '“One of these people will complain before the soup,” says Aunt Edwina.' : '“' + ['', '', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'][wrong] + ' of these people will complain before the soup,” says Aunt Edwina.';
+    });
+    ER.open('ov-lock', box);
+  }
+
+  /* ---------- after the table: dinner, five past ten, and your notes ---------- */
+  function coda(file) {
+    ER.narrate([
+      '“Good,” says Aunt Edwina. “Nobody will throw anything.”',
+      'Dinner. You eat in the kitchen with Mrs Beddoes, who calls the dining room “the good table” and the kitchen “the better one”. Shepherd’s pie, and the radio. As far as you can tell from the kitchen, nothing happens.',
+      'At five past ten Aunt Edwina finds you. “Bring the box. The study.” You carry it up the front stairs behind her.',
+      '“It’s lighter than I thought,” you say. “Three years of a woman’s life usually are,” says Aunt Edwina.',
+      'In the study you put the box on the desk and take a photograph for the insurance. Aunt Edwina looks behind both curtains (“forty years of publishing thrillers”) and pushes the window catch across.',
+      'At eight minutes past ten she locks the study door. The lock sounds like a prison. “The spare key has been in the bank since 1998,” she says, and ties the key to your wrist with a ribbon and a knot of her own.',
+      'In bed, you write it all down.'
+    ], function () {
+      ER.read({ html: SV.photoDoc('mine'), cls: 'photo', clue: { id: 'photo-mine', title: 'Your photograph, 10.06 pm', kind: 'Photograph' }, done: function () {
+        ER.read({ html: SV.notesDoc(), cls: 'notes', clue: { id: 'notes', title: 'My notes, Saturday night', kind: 'Your notes' }, done: function () {
+          ER.say('Somewhere in the house a clock strikes eleven. You sleep with your hand on the key.');
+          setTimeout(function () { ER.leave(file); }, 3600);
+        } });
+      } });
+    });
+  }
+})();
+</script>
+</body>
+</html>
