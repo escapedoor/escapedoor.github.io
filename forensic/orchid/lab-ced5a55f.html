@@ -1,0 +1,482 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Port Lab · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#0d1416;--accent:#7fd3c0;--font-display:'Libre Baskerville',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(240,244,240,.97);--tc-ink:#1d2622;--cap-bg:rgba(16,24,24,.94);--panel:#f2f4ee;--panel-ink:#1d2622;--face-bg:#d9e2dc;--q-ink:#2f7a6a;--fade:#050808;--hud-bg:rgba(16,24,24,.86)}
+  .tc-room{font-family:'Libre Baskerville',serif;font-style:italic;letter-spacing:.02em;font-size:clamp(36px,5vw,64px)}
+  .tc .btn{--accent:#2f7a6a}
+  .tk-name{font-family:'Libre Baskerville',serif;font-style:italic}
+  .tk .btn{--accent:#2f7a6a}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .beam{animation:beam 6s linear infinite;transform-origin:1290px 300px}
+  @keyframes beam{from{transform:rotate(-30deg)}to{transform:rotate(330deg)}}
+  .ms .tab,.ms .stk,.ms .gr,.ms .tag,.ms .plc{cursor:pointer}
+  .ms .tab:hover rect,.ms .stk:hover rect{filter:brightness(1.08)}
+  .ms .stk.held>rect{stroke:#2f7a6a;stroke-width:4}
+  .ms .tag.held>rect{stroke:#ff6a4a;stroke-width:4}
+  .ms #field{cursor:move}
+  .ms #knob{cursor:ns-resize}
+  .ms .plc:hover circle{filter:brightness(1.15)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="harbG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07101e"/><stop offset=".62" stop-color="#16243a"/><stop offset=".63" stop-color="#0a1626"/><stop offset="1" stop-color="#050b14"/></linearGradient>
+  <radialGradient id="tubeL" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffffff" stop-opacity=".3"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#050808" stop-opacity=".2"/><stop offset="1" stop-color="#020303" stop-opacity=".8"/></radialGradient>
+</defs>
+
+<!-- a portakabin laboratory: pale walls, a long window on the harbour -->
+<rect x="-1000" y="-400" width="3600" height="1060" fill="#dfe6e0"/>
+<g stroke="#cfd8d2" stroke-width="3"><path id="panels" d=""/></g>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#c9d3cd"/><path d="M-1000 70H2600" stroke="#aab6b0" stroke-width="6"/>
+<rect x="400" y="40" width="200" height="10" fill="#fff"/><rect x="1000" y="40" width="200" height="10" fill="#fff"/>
+<path d="M380 50h240l180 600h-600z" fill="url(#tubeL)" pointer-events="none"/><path d="M980 50h240l180 600h-600z" fill="url(#tubeL)" pointer-events="none"/>
+<!-- the window -->
+<g id="window" class="hot"><rect x="1000" y="150" width="560" height="320" fill="url(#harbG)"/>
+  <g class="beam"><path d="M1290 300L1700 250V350z" fill="#fff6c8" opacity=".12"/></g><rect x="1284" y="282" width="12" height="40" fill="#e9ecea"/><circle cx="1290" cy="282" r="6" fill="#fff6c8"/>
+  <g fill="#f4d27a"><circle cx="1100" cy="352" r="2.5"/><circle cx="1112" cy="352" r="2.5"/><circle cx="1124" cy="352" r="2.5"/><circle cx="1136" cy="352" r="2.5"/><circle cx="1148" cy="352" r="2.5"/><circle cx="1160" cy="350" r="2.5"/></g><path d="M1090 360h90l-8 10h-78z" fill="#2a2e38"/>
+  <path d="M1000 400q140 -8 280 0t280 0" stroke="#3a5a7a" stroke-width="2" fill="none" opacity=".6"/>
+  <g stroke="#7a8a84" stroke-width="10" fill="none"><rect x="1000" y="150" width="560" height="320"/><path d="M1280 150v320"/></g><rect x="990" y="466" width="580" height="16" fill="#aab6b0"/>
+  <g id="sill"></g></g>
+<!-- the pollen card on the wall -->
+<g id="wall" class="hot"><rect x="640" y="150" width="170" height="210" fill="#fffdf4" stroke="#2f7a6a" stroke-width="4"/><text x="725" y="180" class="sB" font-size="17" fill="#2f7a6a" letter-spacing="2">POLLEN</text><g id="wallg"></g></g>
+<!-- the reference folders on a shelf -->
+<g id="folders" class="hot"><rect x="150" y="270" width="300" height="12" fill="#7a8a84"/><g id="spines"></g></g>
+<!-- the back room door, where Officer Lakhani works -->
+<g id="back" class="hot"><rect x="40" y="320" width="90" height="320" fill="#aab6b0"/><rect x="48" y="330" width="74" height="310" fill="#e9eef0"/><rect x="56" y="440" width="58" height="10" fill="#c9d3cd"/><g fill="#7fd3c0"><rect x="64" y="424" width="6" height="16"/><rect x="74" y="424" width="6" height="16"/><rect x="84" y="424" width="6" height="16"/></g></g>
+
+<!-- the floor and the bench -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#7a8a84"/><path d="M-1000 640H2600" stroke="#4a5a54" stroke-width="5"/>
+<g fill="#6e7e78" opacity=".6" id="tiles"></g>
+<rect x="360" y="560" width="960" height="26" fill="#e9eef0"/><rect x="360" y="586" width="960" height="70" fill="#9aa8a2"/><path d="M380 656v120M1300 656v120" stroke="#4a5a54" stroke-width="10"/>
+<!-- the fridge -->
+<g id="fridge" class="hot"><rect x="1360" y="400" width="150" height="250" rx="6" fill="#f2f4f2" stroke="#aab6b0" stroke-width="3"/><path d="M1360 480h150" stroke="#aab6b0" stroke-width="3"/><rect x="1492" y="420" width="6" height="40" rx="3" fill="#aab6b0"/><rect x="1492" y="500" width="6" height="60" rx="3" fill="#aab6b0"/><rect x="1384" y="510" width="60" height="40" fill="#fde98a"/><text x="1414" y="535" class="sB" font-size="11" fill="#5a4a1a">SAMPLES</text></g>
+<!-- the microscope, its card, the manual -->
+<g id="scope" class="hot"><ellipse cx="760" cy="560" rx="70" ry="10" fill="#2a3230"/><path d="M730 556h70v-14h-70z" fill="#2a3230"/><path d="M790 546q30 -40 10 -120" stroke="#2a3230" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <rect x="700" y="470" width="110" height="12" fill="#3a4240"/><rect x="740" y="480" width="40" height="8" fill="#e9eef0"/><path d="M760 470v-60" stroke="#2a3230" stroke-width="20"/><path d="M752 410l-24 -60" stroke="#2a3230" stroke-width="16" stroke-linecap="round"/><circle cx="818" cy="500" r="16" fill="#3a4240"/><circle cx="818" cy="500" r="6" fill="#7fd3c0"/></g>
+<g id="calendar" class="hot"><rect x="842" y="528" width="70" height="30" fill="#fffdf4" transform="rotate(-6 877 543)"/><g transform="rotate(-6 877 543)"><rect x="846" y="534" width="10" height="4" fill="#c9a24a"/><rect x="858" y="534" width="16" height="4" fill="#9a5aa8"/><rect x="876" y="534" width="12" height="4" fill="#4f7d36"/><path d="M846 546h60M846 552h50" stroke="#8a8676" stroke-width="1.5"/></g></g>
+<g id="manual" class="hot"><path d="M500 558l8 -26h66l-4 26z" fill="#f6f2e6"/><path d="M570 558l4 -26h66l6 26z" fill="#efe9d8"/><g stroke="#8a8676" stroke-width="1.3"><path d="M512 540h52M510 548h52M582 540h52M584 548h50"/></g></g>
+<g id="radio"><rect x="1150" y="520" width="90" height="40" rx="6" fill="#4a5a54"/><circle cx="1220" cy="540" r="10" fill="#2a3230"/><g stroke="#2a3230" stroke-width="2"><path d="M1160 532h40M1160 540h40M1160 548h40"/></g></g>
+
+<!-- people -->
+<g id="ada" class="hot" transform="translate(980 880)"></g>
+<g id="blakely" class="hot" transform="translate(1440 884) scale(.95)"></g>
+<g id="kamal" class="hot" transform="translate(210 880) scale(.95)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Upstairs, to the control room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+  var BAGS = null;
+  function bagOf(s) { for (var k in BAGS) if (BAGS[k] === s) return k; return '?'; }
+
+  (function () {
+    var s = '', i;
+    for (i = -10; i < 30; i++) s += 'M' + (i * 120) + ' 70V640';
+    $('#panels').setAttribute('d', s);
+    s = ''; for (i = 0; i < 9; i++) s += '<rect x="' + (162 + i * 31) + '" y="' + (190 + (i % 3) * 6) + '" width="26" height="' + (80 - (i % 3) * 6) + '" fill="' + ['#5a6a3a', '#2a4a6a', '#7a5a2a', '#6a2a2a'][i % 4] + '"/><rect x="' + (166 + i * 31) + '" y="' + (210 + (i % 3) * 6) + '" width="18" height="10" fill="#fffdf4"/>';
+    $('#spines').innerHTML = s;
+    s = ''; OR.GRAINS.forEach(function (g, j) { s += OR.grain(g, 675 + (j % 2) * 70, 215 + Math.floor(j / 2) * 52, 15, j * 20); });
+    $('#wallg').innerHTML = s;
+    s = ''; [1040, 1130, 1420, 1500].forEach(function (x, j) { s += '<g transform="translate(' + x + ' 466)"><path d="M-16 0h32l4 -30h-40z" fill="#b5642e"/><rect x="-22" y="-34" width="44" height="6" fill="#c9773e"/><g transform="translate(0 -34) scale(.32)">' + OR.plant({ top: 1, seed: 20 + j }) + '</g></g>'; });
+    $('#sill').innerHTML = s;
+    s = ''; for (i = -10; i < 30; i++) s += '<rect x="' + (i * 100) + '" y="' + (660 + (i % 2) * 90) + '" width="96" height="86"/>';
+    $('#tiles').innerHTML = s;
+    ['ada', 'blakely', 'kamal'].forEach(function (w) { $('#' + w).innerHTML = OR.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'lab', no: 'IV', title: 'The Port Lab',
+    go: 'Along the quay',
+    intro: [
+      'On the car deck you bagged what answers Dr Kinsella&rsquo;s four questions: the outer crust of the wheel-arch mud (the newest place), the layer under it against the metal (an older place), the soles of Mr Blakely&rsquo;s boots (where he walked), and the leaf from the door runner (the only thing that can say where the plants were), in the one paper bag, because damp leaves rot in plastic. Road dust and floor dust answer nothing, and a single scoop of the whole arch mixes two places.',
+      'Every bag was sealed, labelled and signed, and the custody log has a line for each. The Eider sailed at five past one without Mr Blakely, who has &ldquo;offered to help&rdquo;.',
+      'The port&rsquo;s laboratory is a portakabin at the end of the quay, with a microscope, a fridge that hums in B flat, and a window on the harbour.'
+    ],
+    exit: {"next":"control","w":{"beafbf96":"70aac8c4"}}, tags: {"crate":["57db4302"],"benny":["6484216c"],"outer":["87b60693"],"boots":["88255f60"]},
+    hints: hints, onBegin: begin
+  });
+
+  BAGS = ER.flag('c-bags') || { E4: 'outer', E5: 'inner', E6: 'boots', E7: 'leaf' };
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['blakely', 'kamal', 'manual', 'calendar', 'folders', 'wall'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#scope').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The leaves are in the sequencer. Go up to the control room: the button at the bottom.']];
+    if (bench && bench.isOpen()) return [bench.step(), bench.step() === 'read' ? [
+      'Drag the view until the grains are in the middle of the circle, and slide the focus knob up and down until they are sharp. Then click a shape on the key, and click a grain of that shape.',
+      'Two air sacs: pine. Stuck together in a group: heather. Round with one pore: grass. Three furrows: ivy. A rounded triangle with three pores: hazel. Spiky, with windows: dandelion. Every kind on a slide must be named once.',
+      'Read all four slides. The crate base, Mr Blakely&rsquo;s arch crust and his boots are full of heather and pine in white sand; Mr Gault&rsquo;s tyre has grass, ivy and hazel in orange sand.'
+    ] : [
+      'Click a sample tag, then the place on the map where it was picked up. Compare the soil first, then which plants are there, not only the numbers.',
+      'Look at the dates on the cards. The heath was sampled in May, when pine flowers and heather does not. Now it is October, and heather has just been flowering.',
+      'White quartz sand and black peat, with heather and pine: Burnet Heath. Orange and green grains, with hazel, ivy and grass: Kilnford. A few bits of shell come from the port lanes, where every van drives.'
+    ]];
+    if (!ready()) return ['look', [
+      'Two people to hear and four things to read before the microscope (look at the pips).',
+      'People: Officer Lakhani in the back-room door, Mr Blakely by the fridge. To read: the manual open on the bench, the small card by the microscope, the reference folders on the shelf, and the pollen card on the wall.'
+    ]];
+    return ['scope', ['Everything is read. Click the microscope.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The crate stood on Burnet Heath. So did Mr Blakely&rsquo;s wheel and his boots.'); return; }
+    if (told.in) { busy = false; ER.say('The port lab. The fridge hums.'); return; }
+    tell('in');
+    ER.narrate([
+      'Twenty past one. The lab smells of disinfectant and tomato soup. Through the long window the harbour is black, the lighthouse turns, and the lights of the Eider are already small.',
+      'In the back room Officer Lakhani is writing numbers on the lids of tiny tubes for the DNA machine, with his tongue between his teeth. Dr Kinsella has made four slides from the mud samples, each stained pink so that the pollen shows.',
+      'Mr Blakely sits on a stool by the fridge with a mug of tea, as if he worked here. &ldquo;I&rsquo;m told I&rsquo;m helping,&rdquo; he says to you, pleasantly.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) paint(); }; }
+  $('#blakely').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Hector Blakely', role: 'Blakely&rsquo;s Orchids, Kilnford', face: FACE('blakely'), clue: { id: 'blakely4', title: 'Mr Blakely: pollen blows', kind: 'Statement' }, done: done('blakely'), lines: [
+      'They&rsquo;ve given me tea. I&rsquo;m told I&rsquo;m helping.',
+      { q: 'What did you do on Burnet Heath?', a: 'Walked. Looked at the last of the heather. Sat on a bench and ate a pork pie, if you need the details for your report.' },
+      { q: 'Did you put anything down on the ground?', a: 'My pork pie, on its paper. Nothing else.' },
+      { q: 'What will the pollen show, do you think?', a: 'Heather on my boots, I should think. I&rsquo;ve told you I was there. But you&rsquo;ll find heather pollen on anything in October, my dear. Pollen blows for miles. I read once that it crosses oceans.' }
+    ] });
+  });
+  $('#back').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Officer Kamal Lakhani', role: 'Customs, in the back room', face: FACE('kamal'), clue: { id: 'kamal4', title: 'Officer Lakhani: two leaves, two tubes', kind: 'Statement' }, done: done('kamal'), lines: [
+      'Two leaves, two tubes: E1, the leaf from Mr Gault&rsquo;s van, and E7, the leaf from Mr Blakely&rsquo;s door runner. Dr Kinsella did the crate plant and Mr Blakely&rsquo;s legal plant earlier.',
+      { q: 'How do you keep them apart?', a: 'One bag out of the locker at a time. I sign it out, cut a scrap of leaf into a tube, and sign the bag back in. By the book.' },
+      { note: 'He holds up a tiny tube. There is a number on the lid in black marker.' },
+      'I numbered all the lids before I started. Saves time.',
+      { q: 'How long will the machine take?', a: 'Forty minutes, once it starts. Dr Kinsella says that used to take a week.' }
+    ] });
+  });
+  $('#kamal').addEventListener('click', function () { $('#back').dispatchEvent(new MouseEvent('click')); });
+  $('#ada').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Heath, heath, heath,&rdquo; says Dr Kinsella, &ldquo;and Kilnford. It sounds like a nursery rhyme.&rdquo;' :
+      '&ldquo;A grain of pollen is a passport,&rdquo; says Dr Kinsella, &ldquo;with the plant&rsquo;s photograph in it. You only have to learn the faces.&rdquo;');
+  });
+
+  /* ---------- papers ---------- */
+  var DIAG = '<svg viewBox="0 0 250 240"><rect width="250" height="240" fill="#fffdf4"/>' + OR.GRAINS.map(function (g, j) {
+    var x = 62 + (j % 2) * 120, y = 40 + Math.floor(j / 2) * 74;
+    return OR.grain(g, x, y, 20, 0) + '<text x="' + x + '" y="' + (y + 34) + '" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a" text-anchor="middle">' + g + '</text>';
+  }).join('') + '</svg>';
+  var MANUAL = '<h4>Field manual &middot; Place</h4><h3>Pollen and soil: evidence of place</h3><div class="two"><div>' +
+    '<p><b>Pollen</b> grains are tiny, from about a hundredth to a tenth of a millimetre across, and every kind of plant makes its own shape. Pine has two air sacs. Heather grains stick together in a group of four. Grass is round, with a single pore.</p>' +
+    '<p>Every place has its own mix of plants, so a pinch of its soil holds its own mix of pollen. Add the soil itself: its colour, its <b>texture</b> (sand is gritty, clay is sticky) and the grains in it: white <b>quartz</b>, broken shell, orange sand stained by iron. Together they make a fingerprint of the place.</p></div>' + DIAG + '</div>' +
+    '<p><b>Seasons matter.</b> The top of the soil keeps old pollen for years, but fresh pollen comes from whatever is in flower now, so the same place gives a different mix in May and in October. Compare which plants are there, and the soil, not just the numbers.</p>' +
+    '<p class="rule">A sample tells you where something has been, and also where it has not.</p><p class="pg">88</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual88', title: 'Pollen and soil: evidence of place', kind: 'Field manual, page 88' }, done: function () {
+      OR.terms(['pollen', 'texture', 'quartz']);
+      if (tell('manual')) { paint(); ER.say('&ldquo;And where it has not,&rdquo; says Dr Kinsella. &ldquo;That line has got more people out of trouble than into it.&rdquo;'); }
+    } });
+  });
+  var CAL = '<h4>In flower, round here</h4><table>' +
+    '<tr><td>hazel</td><td>January to March</td></tr><tr><td>dandelion</td><td>March to May</td></tr><tr><td>pine</td><td>May and June</td></tr>' +
+    '<tr><td>grass</td><td>May to August</td></tr><tr><td>heather</td><td>August to October</td></tr><tr><td>ivy</td><td>September to November</td></tr></table>' +
+    '<p class="foot">Taped to the microscope. Months are rough: a warm spring starts everything early.</p>';
+  $('#calendar').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CAL, cls: 'form', clue: { id: 'calendar', title: 'In flower, round here', kind: 'Card on the microscope' }, done: function () {
+      if (tell('calendar')) { paint(); ER.say('&ldquo;It&rsquo;s the first of October,&rdquo; says Dr Kinsella. &ldquo;What&rsquo;s in flower?&rdquo;'); }
+    } });
+  });
+  var REF = '<h4>County reference collection &middot; soil and pollen</h4><h3>Four places near Elsmouth</h3><table>' +
+    '<tr><th>Place</th><th>Collected</th><th>Soil</th><th>Pollen (out of 100 grains)</th></tr>' +
+    '<tr><td><b>Elsmouth</b>: the dunes and the port verges</td><td>14 Sept</td><td>pale yellow sand with broken shell</td><td>grass 55, ivy 20, pine 15, dandelion 10</td></tr>' +
+    '<tr><td><b>Burnet Heath</b></td><td>12 May</td><td>white quartz sand, black crumbs of peat</td><td>pine 60, grass 20, heather 10, dandelion 10</td></tr>' +
+    '<tr><td><b>Kilnford</b>: the greensand</td><td>9 Sept</td><td>orange-brown sand with tiny green grains</td><td>grass 45, ivy 30, hazel 15, dandelion 10</td></tr>' +
+    '<tr><td><b>Iddon Vale</b>: farmland</td><td>20 Sept</td><td>grey-brown sticky clay, no sand</td><td>grass 50, ivy 25, hazel 25</td></tr></table>';
+  $('#folders').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: REF, cls: 'ref', clue: { id: 'ref', title: 'Four places near Elsmouth', kind: 'Reference folder' }, done: function () {
+      if (tell('folders')) { paint(); ER.say('&ldquo;Look at the dates,&rdquo; says Dr Kinsella. &ldquo;I collected the heath in May. I&rsquo;ve been meaning to go back.&rdquo;'); }
+    } });
+  });
+  var WALL = '<h4>On the wall by the microscope</h4><h3>POLLEN</h3><p>The outer wall of a pollen grain is one of the toughest natural materials known. Acids hardly touch it. In the right soil, at the bottom of a lake or in a peat bog, it can last for thousands of years.</p><p class="rule">That is why a grain on a boot is still a grain under the microscope next week.</p>';
+  $('#wall').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: WALL, cls: 'poster', clue: { id: 'wall', title: 'Pollen: the toughest wall', kind: 'Card on the wall' }, done: function () {
+      if (tell('wall')) { paint(); ER.say('&ldquo;Tougher than my boots,&rdquo; says Dr Kinsella.'); }
+    } });
+  });
+  OR.thing('#window', null, 'The harbour at night. The lighthouse turns. The lights of the Eider grow smaller every time you look.', isBusy);
+  OR.thing('#fridge', null, 'The fridge: SAMPLES, and below that, in smaller writing, NOT SOUP.', isBusy);
+  OR.thing('#radio', null, 'The radio is turned down to a murmur: the shipping forecast. Wind southwest, five or six. Rain later.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#scope').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Four slides, four places, and one of them not a heath.'); return; }
+    if (!ready()) {
+      var miss = NEED.filter(function (k) { return !told[k]; })[0];
+      ER.say('&ldquo;Not yet,&rdquo; says Dr Kinsella. &ldquo;' + ({ blakely: 'Mr Blakely has views on pollen. Hear them.', kamal: 'Ask Officer Lakhani how the leaves are getting on.', manual: 'Page 88 of the manual, on the bench.', calendar: 'Read the card by the microscope: what flowers when.', folders: 'The reference folders, on the shelf.', wall: 'The card on the wall.' })[miss] + '&rdquo;');
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the microscope, the key and the map ---------- */
+  var SL = {
+    crate: { bag: 'E3', name: 'crate base', soil: 'heath', mix: [['heather', 6], ['pine', 4], ['ivy', 2], ['grass', 1]], pct: 'heather 50, pine 30, ivy 15, grass 5', soilT: 'white and clear sharp grains of quartz, and black crumbs of peat', o: [150, -110], f0: 62 },
+    benny: { bag: 'E2', name: 'Mr Gault&rsquo;s tyre', soil: 'kiln', mix: [['grass', 5], ['ivy', 4], ['hazel', 2], ['dandelion', 1]], pct: 'grass 45, ivy 35, hazel 10, dandelion 10', soilT: 'orange-brown sand with tiny green grains, and a few white flakes of broken shell', o: [-140, 90], f0: 34 },
+    outer: { bag: bagOf('outer'), name: 'Mr Blakely&rsquo;s arch, outer crust', soil: 'heath', mix: [['heather', 5], ['pine', 4], ['ivy', 3], ['grass', 1]], pct: 'heather 45, pine 30, ivy 20, grass 5', soilT: 'white and clear sharp grains of quartz, and black crumbs of peat', o: [120, 120], f0: 74 },
+    boots: { bag: bagOf('boots'), name: 'Mr Blakely&rsquo;s boot soles', soil: 'heath', mix: [['heather', 7], ['pine', 3], ['ivy', 2], ['grass', 1]], pct: 'heather 55, pine 25, ivy 15, grass 5', soilT: 'white and clear sharp grains of quartz, black crumbs of peat, and a scrap of purple petal', o: [-130, -100], f0: 46 }
+  };
+  var ORDER = ['crate', 'benny', 'outer', 'boots'];
+  var LOOK = { pine: 'two round air sacs, one on each side of the body', heather: 'grains stuck together in a group', grass: 'round, with a single small pore', ivy: 'three long furrows and a fine net on its surface', hazel: 'a rounded triangle with a pore at each corner', dandelion: 'covered in spikes, with ridges round little windows' };
+  var PLACES = [['port', 'Elsmouth', 380, 470, '#d9c98a'], ['heath', 'Burnet Heath', 220, 300, '#9a5aa8'], ['kiln', 'Kilnford', 130, 110, '#c9732a'], ['iddon', 'Iddon Vale', 380, 140, '#8a7a5a']];
+  function fieldOf(k) {                                /* the grains and the soil of one slide, round 0,0 */
+    var d = SL[k], r = OR.rnd(k.length * 31 + 7), s = '', cells = [], i, j;
+    for (i = -2; i <= 2; i++) for (j = -2; j <= 2; j++) if (i * i + j * j <= 6) cells.push([i * 62, j * 62]);
+    cells.sort(function () { return r() - 0.5; });
+    for (i = 0; i < 70; i++) {                         /* soil first, under the grains */
+      var x = (r() - 0.5) * 360, y = (r() - 0.5) * 360;
+      if (x * x + y * y > 180 * 180) continue;
+      if (d.soil === 'heath') s += i % 3 ? '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'l' + (6 + r() * 8).toFixed(0) + ' -4 4 9 -9 5z" fill="#f4f6f8" stroke="#b8c2ca" stroke-width="1" opacity=".9"/>' : '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q8 -6 12 2t-4 10q-10 2 -8 -12z" fill="#1a1612" opacity=".85"/>';
+      else s += i % 4 === 0 ? '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (2 + r() * 2).toFixed(1) + '" fill="#5a8a4a"/>' : i % 9 === 1 ? '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q8 -10 16 0" stroke="#f4efe0" stroke-width="3" fill="none"/>' : '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (3 + r() * 4).toFixed(1) + '" fill="#c9732a" opacity=".85"/>';
+    }
+    var n = 0;
+    d.mix.forEach(function (m) {
+      for (var q = 0; q < m[1]; q++) {
+        var c = cells[n++]; if (!c) return;
+        var gx = c[0] + (r() - 0.5) * 22, gy = c[1] + (r() - 0.5) * 22;
+        s += '<g class="gr" data-g="' + m[0] + '" data-n="' + n + '">' + OR.grain(m[0], gx, gy, 19, Math.round(r() * 360)) + '<g class="gl" data-x="' + gx.toFixed(0) + '" data-y="' + gy.toFixed(0) + '"></g></g>';
+      }
+    });
+    return s;
+  }
+  function makeBench() {
+    var st = ER.flag('d-st') || { s: 'crate', v: {}, read: {}, at: {}, map: 0 }, held = '', wait = false, CX = 255, CY = 290, R = 225;
+    ORDER.forEach(function (k) { if (!st.v[k]) st.v[k] = { ox: SL[k].o[0], oy: SL[k].o[1], f: 10, found: [] }; });
+    var box = ER.el('div', 'bn ms', '<svg viewBox="0 0 1000 600"><defs><filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur id="blurD" stdDeviation="0"/></filter><clipPath id="eyeC"><circle cx="' + CX + '" cy="' + CY + '" r="' + R + '"/></clipPath></defs><g id="body"></g></svg>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="m-go">Sign the report</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-st', st); }
+    function allRead() { return ORDER.every(function (k) { return st.read[k]; }); }
+    function step() { return st.map ? 'map' : 'read'; }
+    function sharp() { var v = st.v[st.s]; return Math.abs(v.ox) < 30 && Math.abs(v.oy) < 30 && Math.abs(v.f - SL[st.s].f0) < 5; }
+    function drawScope() {
+      var s = '<rect width="1000" height="600" fill="#e9eef0"/><rect x="20" y="40" width="470" height="500" rx="10" fill="#1a2224"/>';
+      s += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (R + 8) + '" fill="#0a0e10"/><g clip-path="url(#eyeC)"><rect x="' + (CX - R) + '" y="' + (CY - R) + '" width="' + (2 * R) + '" height="' + (2 * R) + '" fill="#fbf2ee"/><g id="field"></g></g>';
+      s += '<circle cx="' + CX + '" cy="' + CY + '" r="' + R + '" fill="none" stroke="#2a3230" stroke-width="6" pointer-events="none"/><path pointer-events="none" d="M' + (CX - 14) + ' ' + CY + 'h28M' + CX + ' ' + (CY - 14) + 'v28" stroke="#2f7a6a" stroke-width="1.4" opacity=".6"/>';
+      s += '<text x="255" y="30" class="tB" font-size="15" fill="#2a3230" text-anchor="middle" letter-spacing="3">THE MICROSCOPE · ×400</text>';
+      /* the slide tray */
+      ORDER.forEach(function (k, i) {
+        s += '<g class="tab" data-s="' + k + '"><rect x="' + (510 + i * 120) + '" y="20" width="112" height="56" rx="4"/><text x="' + (566 + i * 120) + '" y="42" class="tB" font-size="17" text-anchor="middle">' + SL[k].bag + '</text><text x="' + (566 + i * 120) + '" y="62" class="tB" font-size="11" text-anchor="middle">' + SL[k].name.replace(/&rsquo;/g, '’').replace('Mr Blakely’s ', 'Blakely: ').replace('Mr Gault’s ', 'Gault: ') + '</text></g>';
+      });
+      /* the key */
+      s += '<rect x="510" y="92" width="472" height="214" rx="6" fill="#fffdf4" stroke="#c9c0a8"/><text x="526" y="114" class="tB" font-size="14" fill="#2f7a6a" letter-spacing="2">THE KEY · click a shape, then a grain</text>';
+      OR.GRAINS.forEach(function (g, i) {
+        var x = 520 + (i % 3) * 154, y = 124 + Math.floor(i / 3) * 88;
+        s += '<g class="stk" data-g="' + g + '"><rect x="' + x + '" y="' + y + '" width="146" height="80" rx="5" fill="#f4f1e6"/>' + OR.grain(g, x + 38, y + 40, 22, 0) + '<text x="' + (x + 74) + '" y="' + (y + 46) + '" class="tH" font-size="21" fill="#221f1a">' + g + '</text></g>';
+      });
+      /* the focus knob */
+      s += '<rect x="512" y="322" width="60" height="218" rx="6" fill="#2a3230"/><rect x="538" y="340" width="8" height="182" rx="4" fill="#5a6a64"/><g id="knob"><rect x="518" y="0" width="48" height="22" rx="5" fill="#7fd3c0"/><path d="M528 11h28" stroke="#1a2224" stroke-width="2"/></g><text x="542" y="556" class="tB" font-size="12" fill="#2a3230" text-anchor="middle">FOCUS</text>';
+      /* what the slide shows */
+      s += '<rect x="586" y="322" width="396" height="218" rx="6" fill="#f2f6f2" stroke="#c9d3cd"/><g id="info"></g>';
+      svg.querySelector('#body').innerHTML = s;
+    }
+    function knobY(f) { return 340 + (100 - f) * 1.6; }
+    function placeScope() {
+      var k = st.s, v = st.v[k];
+      svg.querySelector('#field').innerHTML = '<g transform="translate(' + (CX + v.ox) + ' ' + (CY + v.oy) + ')"' + (Math.abs(v.f - SL[k].f0) >= 2 ? ' filter="url(#blur)"' : '') + '>' + fieldOf(k) + '</g>';
+      svg.querySelector('#blurD').setAttribute('stdDeviation', Math.min(7, Math.abs(v.f - SL[k].f0) * 0.3).toFixed(2));
+      svg.querySelector('#knob').setAttribute('transform', 'translate(0 ' + (knobY(v.f) - 11).toFixed(0) + ')');
+      ER.$$('.tab', svg).forEach(function (g) { var on = g.getAttribute('data-s') === k, rd = st.read[g.getAttribute('data-s')]; g.querySelector('rect').setAttribute('fill', on ? '#1a2224' : rd ? '#d9efe8' : '#fffdf4'); g.querySelector('rect').setAttribute('stroke', '#9aa8a2'); ER.$$('text', g).forEach(function (t) { t.setAttribute('fill', on ? '#7fd3c0' : '#2a3230'); }); });
+      ER.$$('.stk', svg).forEach(function (g) { g.classList.toggle('held', g.getAttribute('data-g') === held); });
+      v.found.forEach(function (g) { tagGrain(g); });
+      info();
+    }
+    function tagGrain(g) {
+      var n = svg.querySelector('#field .gr[data-g="' + g + '"] .gl');
+      if (n) n.innerHTML = '<rect x="' + (+n.getAttribute('data-x') - 30) + '" y="' + (+n.getAttribute('data-y') + 20) + '" width="60" height="18" rx="3" fill="#2f7a6a"/><text x="' + n.getAttribute('data-x') + '" y="' + (+n.getAttribute('data-y') + 33) + '" class="tB" font-size="13" fill="#fff" text-anchor="middle">' + g + '</text>';
+    }
+    function info() {
+      var k = st.s, d = SL[k], v = st.v[k], s = '<text x="602" y="348" class="tB" font-size="16" fill="#2f7a6a">' + d.bag + ' · ' + d.name.replace(/&rsquo;/g, '’').toUpperCase() + '</text>';
+      if (!sharp()) s += '<text x="602" y="380" class="tH" font-size="19" fill="#5a6a64">' + (Math.abs(v.ox) >= 30 || Math.abs(v.oy) >= 30 ? 'Drag the view: the sample is off to one side.' : 'Slide the focus knob: it is not sharp yet.') + '</text>';
+      else {
+        s += '<text x="602" y="378" class="tH" font-size="18" fill="#221f1a">Soil: ' + wrap(d.soilT, 40)[0] + '</text>';
+        wrap(d.soilT, 40).slice(1).forEach(function (l, i) { s += '<text x="646" y="' + (400 + i * 22) + '" class="tH" font-size="18" fill="#221f1a">' + l + '</text>'; });
+        var kinds = d.mix.map(function (m) { return m[0]; });
+        s += '<text x="602" y="470" class="tH" font-size="18" fill="#221f1a">Named: ' + (v.found.length ? v.found.join(', ') : 'none yet') + ' (' + v.found.length + ' of ' + kinds.length + ' kinds)</text>';
+        if (st.read[k]) s += '<text x="602" y="500" class="tH" font-size="18" fill="#2f7a6a">Dr Kinsella&rsquo;s count, 200 grains:</text><text x="602" y="524" class="tH" font-size="18" fill="#2f7a6a">' + d.pct + ' (per 100)</text>';
+      }
+      svg.querySelector('#info').innerHTML = s;
+    }
+    function wrap(t, n) { var w = t.split(' '), out = [''], i; for (i = 0; i < w.length; i++) { if ((out[out.length - 1] + ' ' + w[i]).trim().length > n) out.push(''); out[out.length - 1] = (out[out.length - 1] + ' ' + w[i]).trim(); } return out; }
+    function wireScope() {
+      /* the view is dragged without pointer capture, so that a click on a grain still reaches the grain */
+      svg.querySelector('#field').parentNode.addEventListener('pointerdown', function (e) {
+        if (wait || st.map || e.button) return;
+        e.preventDefault();
+        var p0 = ER.pt(svg, e), o0 = { x: st.v[st.s].ox, y: st.v[st.s].oy }, moved = false;
+        function mv(ev) {
+          var p = ER.pt(svg, ev), v = st.v[st.s];
+          if (!moved && Math.abs(p.x - p0.x) + Math.abs(p.y - p0.y) < 6) return;
+          moved = true; v.ox = OR.clamp(o0.x + p.x - p0.x, -200, 200); v.oy = OR.clamp(o0.y + p.y - p0.y, -200, 200);
+          svg.querySelector('#field g').setAttribute('transform', 'translate(' + (CX + v.ox) + ' ' + (CY + v.oy) + ')');
+        }
+        function up() {
+          document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', up);
+          if (moved) { keep(); placeScope(); report(); }
+        }
+        document.addEventListener('pointermove', mv); document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
+      });
+      var ky = 0, f0 = 0;
+      ER.drag(svg.querySelector('#knob'), {
+        start: function (e) { if (wait || st.map) return false; ky = ER.pt(svg, e).y; f0 = st.v[st.s].f; },
+        move: function (e) { var f = OR.clamp(Math.round(f0 - (ER.pt(svg, e).y - ky) / 1.6), 0, 100); if (f !== st.v[st.s].f) { st.v[st.s].f = f; OR.sfx.focus(); placeScope(); } },
+        end: function () { keep(); report(); }
+      });
+    }
+    function report() {
+      var d = SL[st.s];
+      if (!sharp()) { msg(Math.abs(st.v[st.s].ox) >= 30 || Math.abs(st.v[st.s].oy) >= 30 ? 'The grains are off to one side. Drag the view until they fill the middle of the circle.' : 'Nearly. Slide the focus knob until the edges of the grains are sharp.'); return; }
+      msg(st.read[st.s] ? '<b>' + d.bag + ' is read.</b> ' + (allRead() ? 'All four slides are read: now the map.' : 'Choose another slide from the tray.') : 'Sharp. Pink grains of pollen among the soil. Click a shape on the key, then a grain that has that shape.');
+    }
+    svg.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var tab = e.target.closest('.tab'), stk = e.target.closest('.stk'), gr = e.target.closest('.gr');
+      if (st.map) { mapClick(e); return; }
+      if (tab) { st.s = tab.getAttribute('data-s'); held = ''; keep(); OR.sfx.slide(); placeScope(); report(); return; }
+      if (stk) { held = held === stk.getAttribute('data-g') ? '' : stk.getAttribute('data-g'); placeScope(); msg(held ? 'The ' + held + ' shape. Now click a grain that looks like it.' : 'Put down.'); return; }
+      if (gr) {
+        if (!sharp()) { msg('You can&rsquo;t name what you can&rsquo;t see. Centre it and focus first.'); return; }
+        if (!held) { msg('This grain is ' + LOOK[gr.getAttribute('data-g')] + '. Which shape on the key is that? Click it first.'); return; }
+        var g = gr.getAttribute('data-g'), v = st.v[st.s];
+        if (g !== held) { ER.sfx.no(); msg('Not ' + held + '. Look again: this grain is ' + LOOK[g] + '. A ' + held + ' grain is ' + LOOK[held] + '.'); return; }
+        if (v.found.indexOf(g) < 0) v.found.push(g);
+        OR.sfx.dot(); held = '';
+        var kinds = SL[st.s].mix.map(function (m) { return m[0]; });
+        if (kinds.every(function (q) { return v.found.indexOf(q) >= 0; }) && !st.read[st.s]) {
+          st.read[st.s] = 1;
+          var d = SL[st.s];
+          ER.addClue('slide-' + st.s, 'Slide ' + d.bag + ': ' + d.name.replace(/&rsquo;/g, '’'), '<h4>Slide ' + d.bag + ': ' + d.name + '</h4><p>Soil: ' + d.soilT + '.</p><p>Pollen, Dr Kinsella&rsquo;s count: ' + d.pct + ' (per 100 grains).</p>', 'mine', 'Under the microscope');
+        }
+        keep(); placeScope(); report();
+        if (allRead()) { box.querySelector('#m-go').textContent = 'To the map'; }
+      }
+    });
+    /* the map: four places, four sample tags */
+    function drawMap() {
+      var s = '<rect width="1000" height="600" fill="#e9eef0"/><rect x="20" y="20" width="470" height="520" rx="8" fill="#e8e4c8"/>';
+      s += '<path d="M20 430q120 -20 200 30t270 20V540H20z" fill="#9ab8c9"/><path d="M20 430q120 -20 200 30t270 20" stroke="#5a7a8a" stroke-width="3" fill="none"/>';
+      s += '<path d="M130 110L240 260L380 470" stroke="#c9b48a" stroke-width="10" fill="none"/><path d="M130 110L240 260L380 470" stroke="#fffdf4" stroke-width="3" stroke-dasharray="10 8" fill="none"/><path d="M240 260L220 300" stroke="#c9b48a" stroke-width="6"/>';
+      s += '<ellipse cx="220" cy="300" rx="70" ry="40" fill="#b48ac0" opacity=".5"/><ellipse cx="130" cy="110" rx="70" ry="44" fill="#e0a060" opacity=".5"/><ellipse cx="380" cy="140" rx="80" ry="50" fill="#b8a888" opacity=".5"/>';
+      s += '<text x="40" y="44" class="tB" font-size="15" fill="#5a5a3a" letter-spacing="3">THE COUNTY · click a tag, then a place</text>';
+      PLACES.forEach(function (p) { s += '<g class="plc" data-p="' + p[0] + '"><circle cx="' + p[2] + '" cy="' + p[3] + '" r="26" fill="' + p[4] + '" stroke="#fff" stroke-width="3"/><text x="' + p[2] + '" y="' + (p[3] - 34) + '" class="tB" font-size="17" fill="#2a2a1a" text-anchor="middle">' + p[1].toUpperCase() + '</text></g>'; });
+      s += '<g id="tags"></g>';
+      /* the reference cards */
+      s += '<text x="512" y="44" class="tB" font-size="15" fill="#2f7a6a" letter-spacing="2">THE REFERENCE COLLECTION</text>';
+      [['ELSMOUTH · 14 SEPT', 'pale yellow sand, broken shell', 'grass 55 · ivy 20 · pine 15 · dandelion 10'], ['BURNET HEATH · 12 MAY', 'white quartz sand, black peat', 'pine 60 · grass 20 · heather 10 · dandelion 10'],
+       ['KILNFORD · 9 SEPT', 'orange-brown sand, tiny green grains', 'grass 45 · ivy 30 · hazel 15 · dandelion 10'], ['IDDON VALE · 20 SEPT', 'grey-brown sticky clay, no sand', 'grass 50 · ivy 25 · hazel 25']].forEach(function (c, i) {
+        var y = 56 + i * 82;
+        s += '<rect x="510" y="' + y + '" width="472" height="74" rx="5" fill="#fffdf4" stroke="#c9c0a8"/><text x="524" y="' + (y + 22) + '" class="tB" font-size="15" fill="#2a2a1a" letter-spacing="1">' + c[0] + '</text><text x="524" y="' + (y + 44) + '" class="tH" font-size="17" fill="#3a3a2a">' + c[1] + '</text><text x="524" y="' + (y + 65) + '" class="tH" font-size="17" fill="#2f7a6a">' + c[2] + '</text>';
+      });
+      s += '<text x="512" y="402" class="tB" font-size="15" fill="#2f7a6a" letter-spacing="2">TONIGHT&rsquo;S SAMPLES · 1 OCTOBER</text>';
+      ORDER.forEach(function (k, i) {
+        var y = 412 + i * 32;
+        s += '<text x="512" y="' + (y + 20) + '" class="tH" font-size="16" fill="#221f1a">' + SL[k].bag + ' ' + SL[k].name.replace(/&rsquo;/g, '’').replace('Mr ', '') + ': ' + SL[k].pct + '</text>';
+      });
+      svg.querySelector('#body').innerHTML = s;
+      placeTags();
+    }
+    function placeTags() {
+      var s = '', n = {};
+      ORDER.forEach(function (k, i) {
+        var at = st.at[k], x, y;
+        if (at) { var p = PLACES.filter(function (q) { return q[0] === at; })[0]; n[at] = (n[at] || 0) + 1; x = p[2] + 30; y = p[3] - 20 + (n[at] - 1) * 24; }
+        else { x = 30 + i * 112; y = 496; }
+        s += '<g class="tag' + (held === k ? ' held' : '') + '" data-k="' + k + '"><rect x="' + x + '" y="' + y + '" width="104" height="22" rx="4" fill="#1a2224"/><text x="' + (x + 52) + '" y="' + (y + 16) + '" class="tB" font-size="13" fill="#7fd3c0" text-anchor="middle">' + SL[k].bag + ' ' + { crate: 'CRATE', benny: 'GAULT TYRE', outer: 'BLAKELY ARCH', boots: 'BLAKELY BOOTS' }[k] + '</text></g>';
+      });
+      svg.querySelector('#tags').innerHTML = s;
+    }
+    function mapClick(e) {
+      var tag = e.target.closest('.tag'), plc = e.target.closest('.plc');
+      if (tag) { held = held === tag.getAttribute('data-k') ? '' : tag.getAttribute('data-k'); placeTags(); msg(held ? SL[held].bag + ', ' + SL[held].name + ': ' + SL[held].soilT + '; ' + SL[held].pct + '. Where was it picked up?' : 'Put down.'); return; }
+      if (plc && held) { st.at[held] = plc.getAttribute('data-p'); OR.sfx.dot(); held = ''; keep(); placeTags(); msg('Placed. ' + (ORDER.every(function (k) { return st.at[k]; }) ? 'All four samples are on the map. Sign the report when you are sure.' : '')); return; }
+      if (plc) msg('Click a sample tag first.');
+    }
+    function wrongFor(k, p) {
+      var heath = SL[k].soil === 'heath';
+      if (heath) return p === 'port' ? '&ldquo;Shell?&rdquo; says Dr Kinsella. &ldquo;There isn&rsquo;t a flake of shell in ' + SL[k].bag + '. And look at the date on the heath&rsquo;s card. What flowers in May, and what in October?&rdquo;' :
+        p === 'kiln' ? '&ldquo;Orange grains? Green ones?&rdquo; says Dr Kinsella. &ldquo;' + SL[k].bag + ' is white quartz and black peat.&rdquo;' : '&ldquo;Clay is sticky and smooth,&rdquo; says Dr Kinsella. &ldquo;' + SL[k].bag + ' is all sharp white grains. And where is the hazel?&rdquo;';
+      return p === 'heath' ? '&ldquo;Where is the heather in E2?&rdquo; says Dr Kinsella. &ldquo;Where is one grain of pine, one grain of white sand?&rdquo;' :
+        p === 'port' ? '&ldquo;There&rsquo;s shell in it, yes,&rdquo; says Dr Kinsella. &ldquo;Every van in the port has driven through the lanes. But what are the orange and green grains? Where else has this van been?&rdquo;' : '&ldquo;Clay?&rdquo; says Dr Kinsella. &ldquo;E2 is gritty, not sticky. Orange sand, green grains, hazel.&rdquo;';
+    }
+    box.querySelector('#m-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      if (!st.map) {
+        if (!allRead()) { ER.sfx.no(); msg('&ldquo;All four slides first,&rdquo; says Dr Kinsella. ' + ORDER.filter(function (k) { return !st.read[k]; }).length + ' still to read.'); return; }
+        st.map = 1; held = ''; keep(); drawMap(); box.querySelector('#m-go').textContent = 'Sign the report';
+        msg('Four samples, four places. Click a tag, then the place on the map where that sample was picked up. The reference cards are on the right.');
+        return;
+      }
+      var miss = ORDER.filter(function (k) { return !st.at[k]; }).length, file, k;
+      if (miss) { ER.sfx.no(); msg(miss + (miss === 1 ? ' sample is' : ' samples are') + ' not on the map yet.'); return; }
+      for (var i = 0; i < ORDER.length; i++) { k = ORDER[i]; if (!ER.check(k, { port: 'p', heath: 'h', kiln: 'k', iddon: 'i' }[st.at[k]])) { ER.sfx.no(); msg(wrongFor(k, st.at[k])); return; } }
+      file = ER.exitOk([ORDER.map(function (q) { return { port: 'p', heath: 'h', kiln: 'k', iddon: 'i' }[st.at[q]]; }).join('')]);
+      if (!file) { ER.sfx.no(); msg('Dr Kinsella reads the report twice and does not sign.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.lab = 1; ER.persist(true);
+      OR.sfx.stamp(); msg('<b>Heath, Kilnford, heath, heath.</b> Dr Kinsella signs the report.');
+      OR.mine('places', 'Where the samples have been', '<p>E3, the base of the crate: Burnet Heath (white quartz, peat, heather and pine).</p><p>' + SL.outer.bag + ', Mr Blakely&rsquo;s wheel arch, outer crust (the newest layer): Burnet Heath. ' + SL.boots.bag + ', his boots: Burnet Heath.</p><p>E2, Mr Gault&rsquo;s tyre: Kilnford (orange and green grains, hazel), with a little port shell. No heather, no pine, no white sand: his van has not been on the heath.</p><p>The heath card was collected in May, when pine flowers. Heather flowers August to October.</p>');
+      setTimeout(function () {
+        ER.closeAll(); OR.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;The crate stood on Burnet Heath,&rdquo; says Dr Kinsella. &ldquo;So did Mr Blakely&rsquo;s front wheel, last thing before the port, and so did his boots. And under the crust, against the metal, there&rsquo;s an older layer of orange greensand: Kilnford, his own yard.&rdquo;',
+          '&ldquo;And Mr Gault&rsquo;s van has been to Kilnford, as his delivery note says, and through the port lanes like everybody&rsquo;s. Never on a heath. Not one grain of heather, not one of pine.&rdquo;',
+          'Mr Blakely puts his mug down. &ldquo;Pollen blows for miles, Dr Kinsella. You&rsquo;ll find heather on anything in October.&rdquo;',
+          '&ldquo;A few grains blow,&rdquo; says Dr Kinsella. &ldquo;Half a slide of heather, in white heath sand, on the bottom of a crate, doesn&rsquo;t blow. Somebody stood that crate on Burnet Heath this afternoon.&rdquo; &ldquo;Lots of people walk on Burnet Heath.&rdquo; &ldquo;They do. Not many of them parked in lane seven.&rdquo;',
+          'Officer Lakhani puts his head round the door. &ldquo;Sequencer&rsquo;s finished,&rdquo; he says. &ldquo;It&rsquo;s upstairs in the control room, beside the custody locker, and the duty officer wants to hear the results there.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    function draw() { if (st.map) drawMap(); else { drawScope(); placeScope(); wireScope(); } }
+    draw();
+    if (st.map) { box.querySelector('#m-go').textContent = 'Sign the report'; msg('Four samples, four places. Click a tag, then the place on the map.'); }
+    else { if (allRead()) box.querySelector('#m-go').textContent = 'To the map'; report(); }
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

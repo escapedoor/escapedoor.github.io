@@ -1,0 +1,144 @@
+/* Lane Seven - what every room of the story shares: the port's printed things, the laboratory's pages, the frame round
+   a piece of work done with the hands, and the look of the notebook, the hints and the word tags.
+   Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:.3em}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.5vw,22.5px);line-height:1.5}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(19px,1.5vw,23px);line-height:1.45}
+.chip,.hbtn{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:16px;letter-spacing:.14em}
+.btn{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:1px solid var(--accent,#d9e021);
+  color:var(--accent,#d9e021);background:var(--hud-bg,rgba(10,12,14,.9));font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;letter-spacing:.2em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#d9e021);color:#101214}
+.tk-name{letter-spacing:.02em}
+.tk-role{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:15px}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.42vw,21.5px);line-height:1.5}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.16)}
+.ready{animation:orready 1.6s steps(1,end) infinite}
+@keyframes orready{50%{filter:brightness(1.35)}}
+
+/* ---- a piece of work: the frame round everything that is done with the hands ---- */
+.bn{width:min(1050px,95vw);-webkit-user-select:none;user-select:none}
+.bn>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);border-radius:5px;box-shadow:0 26px 70px rgba(0,0,0,.7);touch-action:none}
+.bn-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.bmsg{flex:1;min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.36;color:#f4f1e6}
+.bmsg b{color:var(--accent,#d9e021);font-weight:normal}
+.bn-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+.bn text{pointer-events:none}
+.bn .tool{cursor:grab}
+.bn .tool.on{cursor:grabbing}
+.bn .hit{cursor:pointer}
+.bn .hit:hover{filter:brightness(1.12)}
+.tB{font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.tM{font-family:'IBM Plex Mono',monospace;font-weight:500}
+.tK{font-family:'Permanent Marker',cursive}
+.tH{font-family:'Patrick Hand',cursive}
+.tS{font-family:'Libre Baskerville',serif}
+.tC{font-family:'Caveat',cursive}
+.tE{font-family:'Special Elite',monospace}
+.tX{font-family:'Stardos Stencil',serif;font-weight:700}
+.tO{font-family:'Outfit',Arial,sans-serif}
+.tG{font-family:'EB Garamond',serif}
+.tW{font-family:'Oswald',sans-serif}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc .w:hover{color:#2a5a8a}
+/* the poster on the customs shed wall */
+.doc.poster{width:min(860px,95vw);background:#13233f;color:#eef2f6;font-family:'Outfit',Arial,sans-serif;font-size:16.5px;line-height:1.45;padding:20px 30px 18px;border:3px solid #f0c419;box-shadow:inset 0 0 0 6px #0c1830}
+.doc.poster h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.32em;text-transform:uppercase;color:#f0c419}
+.doc.poster h3{margin:0 0 10px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:34px;letter-spacing:.05em;line-height:1}
+.doc.poster .two{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+.doc.poster p{margin:0 0 7px}
+.doc.poster b{color:#ffe27a;font-weight:600}
+.doc.poster .rule{margin:8px 0 0;padding:7px 12px;background:#f0c419;color:#13233f;font-weight:600}
+.doc.poster .w:hover{color:#ffe27a}
+/* Dr Kinsella's own card, in her handwriting */
+.doc.card{width:min(700px,94vw);background:#fbfaf3;color:#1d2a22;font-family:'Patrick Hand',cursive;font-size:21px;line-height:1.3;padding:20px 30px 18px 46px;
+  background-image:linear-gradient(90deg,transparent 30px,#e7a2a2 30px,#e7a2a2 32px,transparent 32px),linear-gradient(transparent 27px,#bcd3e6 27px);background-size:100% 100%,100% 28px;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.doc.card h4{margin:0 0 6px;font-family:'Permanent Marker',cursive;font-size:24px;color:#2f5a3a}
+.doc.card p{margin:0 0 6px}
+.doc.card ol{margin:0 0 6px;padding-left:24px}
+.doc.card li{margin:0 0 2px}
+.doc.card .big{font-family:'Permanent Marker',cursive;color:#a8261c;font-size:20px}
+/* a page of the laboratory's field manual */
+.doc.manual{width:min(880px,95vw);background:#f6f2e6 linear-gradient(90deg,rgba(0,0,0,.09),transparent 5%);color:#221f1a;font-family:'Libre Baskerville',Georgia,serif;font-size:14.5px;line-height:1.5;padding:20px 36px 16px 54px}
+.doc.manual:before{content:'';position:absolute;left:17px;top:0;bottom:0;width:13px;background:radial-gradient(circle at 50% 50%,#1f1c16 0 5px,transparent 6px) 0 0/13px 76px repeat-y}
+.doc.manual h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#7a705c}
+.doc.manual h3{margin:0 0 9px;font-weight:700;font-size:22px;border-bottom:1px solid #9c917a;padding-bottom:6px}
+.doc.manual p{margin:0 0 6px}
+.doc.manual b{font-weight:700}
+.doc.manual .two{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+.doc.manual .two svg{background:#fffdf4;border:1px solid #c9c0a8}
+.doc.manual .rule{margin:6px 0 0;padding:8px 14px 7px;background:#fffdf4;border-left:4px solid #1f6b5a;font-weight:700}
+.doc.manual .pg{margin:2px 0 0;text-align:right;font-style:italic;font-size:13px;color:#7a705c}
+/* a delivery note, the customer's copy */
+.doc.note{width:min(640px,92vw);background:#fdf2c4;color:#2a2410;font-family:'Special Elite','Courier New',monospace;font-size:15px;line-height:1.5;padding:18px 28px 16px;border-top:10px solid #b5462a}
+.doc.note h4{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:.16em;color:#b5462a;text-transform:uppercase;border-bottom:1px dashed #b59a4a;padding-bottom:5px}
+.doc.note p{margin:0 0 5px}
+.doc.note .hw{font-family:'Caveat',cursive;font-size:24px;line-height:1.1;color:#1d2a66}
+/* a form: the inspection record, the lane log */
+.doc.form{width:min(760px,95vw);background:#fff;color:#1b2430;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.4;padding:16px 28px 14px;border-top:10px solid #13233f}
+.doc.form h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.24em;color:#13233f;text-transform:uppercase}
+.doc.form h3{margin:0 0 8px;font-weight:600;font-size:20px}
+.doc.form table{width:100%;border-collapse:collapse;margin:4px 0 8px}
+.doc.form td,.doc.form th{padding:4px 8px 4px 0;border-bottom:1px solid #d5dbe3;vertical-align:top;text-align:left}
+.doc.form th{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#56616c}
+.doc.form .hw{font-family:'Patrick Hand',cursive;font-size:19px;color:#1d2a66}
+.doc.form .foot{font-size:13.5px;color:#56616c}
+/* a parking ticket, thermal paper */
+.doc.ticket{width:min(330px,88vw);background:#f4f4f0;color:#2a2a2a;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.45;padding:16px 20px 14px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.doc.ticket h4{margin:0 0 6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:.14em}
+.doc.ticket p{margin:0 0 4px}
+.doc.ticket .big{font-size:24px;font-weight:600}
+/* a statement or a printed log */
+.doc.statement{background:#f4f1e9;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.5;border-left:6px solid #13233f}
+.doc.statement h4{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:.24em;color:#13233f}
+/* what you worked out for yourself */
+.doc.mine{width:min(620px,92vw);background:#eef1ea;color:#1c241c;font-family:'Patrick Hand',cursive;font-size:21px;line-height:1.3;padding:24px 30px 24px;border-left:18px solid #1f4a3a;
+  background-image:linear-gradient(transparent 27px,rgba(31,74,58,.16) 27px);background-size:100% 28px}
+.doc.mine h4{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:19px;letter-spacing:.24em;text-transform:uppercase;color:#1f4a3a;margin-bottom:8px}
+.doc.mine p{margin:0 0 9px}
+/* the county reference folder */
+.doc.ref{width:min(900px,95vw);background:#eef0e6;color:#20261e;font-family:'Libre Baskerville',Georgia,serif;font-size:14px;line-height:1.45;padding:16px 26px 14px;border-left:16px solid #5a6a3a}
+.doc.ref h4{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#5a6a3a}
+.doc.ref h3{margin:0 0 8px;font-size:20px}
+.doc.ref table{width:100%;border-collapse:collapse}
+.doc.ref td,.doc.ref th{padding:5px 8px 5px 0;border-bottom:1px dotted #9aa48a;vertical-align:top;text-align:left}
+.doc.ref th{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#5a6a3a}
+
+/* ---- the notebook: a customs ledger, navy cloth and a hi-vis ribbon ---- */
+.nb{background:#14203a linear-gradient(140deg,#1b2a48,#0d1528);border:1px solid #4a5a7a;border-radius:5px;color:#e8edf4;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0a1020}
+.nb-tabs{border-bottom-color:#4a5a7a}
+.nb-tabs button{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;letter-spacing:.2em;color:#a9b6cc}
+.nb-tabs button.on{background:#f1f3ee;color:#14203a;border-color:#4a5a7a}
+.nb-list{border-right-color:#4a5a7a}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#e8edf4}
+.nb-list button small{font-family:'Barlow Condensed',sans-serif;font-size:12.5px;letter-spacing:.2em}
+.nb-list button.on{background:#f1f3ee;color:#14203a}
+.nb-view{background:#0c1220}
+.nb-empty{font-family:'EB Garamond',serif}
+.nb-words{background:#f1f3ee;color:#1c2130}
+.nb-words b{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#444c5a}
+.nb-ko{border-color:#8a96aa;color:#444c5a}
+.nb-ko.on{background:#14203a;color:#d9e021;border-color:#14203a}
+.wtip,.wtag{background:#f1f3ee;color:#1c2130;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #c9cf1a}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16.5px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#444c5a}
+.hintbox{background:#f1f3ee;color:#1c2130;border-top:6px solid #c9cf1a;border-radius:2px}
+.hintbox h6{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;letter-spacing:.3em;color:#6a7010}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18px;line-height:1.36}
+.hintbox p i{background:#14203a;color:#f1f3ee;font-family:'Barlow Condensed',sans-serif;font-size:14px}
+.hintbox p.hint-none{font-style:italic;color:#5a6270;font-size:17px}
+.hintbox .w:hover{color:#6a7010}
+.toast{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:16px;background:rgba(12,18,30,.94)}

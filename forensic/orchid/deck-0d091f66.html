@@ -1,0 +1,375 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Car Deck · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#0c0f10;--accent:#ff6a4a;--font-display:'Barlow Condensed',sans-serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,18,20,.96);--tc-ink:#f0ece4;--cap-bg:rgba(16,18,20,.94);--panel:#171a1c;--face-bg:#262a2e;--q-ink:#ff8a6a;--fade:#050606;--hud-bg:rgba(16,18,20,.86)}
+  .tc-room{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:clamp(40px,5.6vw,74px)}
+  .tk-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .led{font-family:'IBM Plex Mono',monospace;font-weight:600;text-anchor:middle}
+  .strip{animation:strip 8s steps(1,end) infinite}
+  @keyframes strip{0%{opacity:1}70%{opacity:1}71%{opacity:.6}72%{opacity:1}74%{opacity:.7}75%{opacity:1}}
+  .beacon{animation:beacon 1.8s steps(1,end) infinite}
+  @keyframes beacon{50%{opacity:.25}}
+  .kt .pt{cursor:pointer}
+  .kt .pt:hover{filter:brightness(1.2)}
+  .kt .ct{cursor:pointer}
+  .kt .ct:hover>rect,.kt .ct:hover>path{filter:brightness(1.1)}
+  .kt .pt.held>circle{stroke:#ff6a4a;stroke-width:5}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="stripG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2d8" stop-opacity=".22"/><stop offset="1" stop-color="#fff2d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#040505" stop-opacity=".32"/><stop offset="1" stop-color="#020202" stop-opacity=".92"/></radialGradient>
+</defs>
+
+<!-- the deck: a low steel ceiling, pipes, strip lights -->
+<rect x="-1000" y="-400" width="3600" height="1060" fill="#3a4a46"/>
+<g id="ribs" stroke="#33423e" stroke-width="8"></g>
+<rect x="-1000" y="-400" width="3600" height="560" fill="#1b2226"/>
+<g id="pipes"></g>
+<g id="lights"></g>
+<!-- far away: the bow door and the lanes of lorries -->
+<rect x="600" y="210" width="420" height="220" fill="#2a3236"/><path d="M600 210h420v220H600z" fill="none" stroke="#c43a2a" stroke-width="6"/>
+<g stroke="#232a2e" stroke-width="4"><path d="M600 260h420M600 310h420M600 360h420"/></g>
+<circle class="beacon" cx="590" cy="200" r="8" fill="#ff3a2a"/><circle class="beacon" cx="1030" cy="200" r="8" fill="#3aff6a"/>
+<g id="lorries"></g>
+<!-- the notice -->
+<g id="notice" class="hot"><rect x="90" y="214" width="250" height="140" fill="#f4f1e6" stroke="#c43a2a" stroke-width="5"/><rect x="90" y="214" width="250" height="34" fill="#c43a2a"/>
+  <text x="215" y="238" class="sB" font-size="19" fill="#fff" letter-spacing="3">VEHICLE DECK 3</text>
+  <text x="215" y="276" class="sB" font-size="15" fill="#1a1a1a">PASSENGERS ARE NOT PERMITTED</text><text x="215" y="296" class="sB" font-size="15" fill="#1a1a1a">ON THE VEHICLE DECKS</text><text x="215" y="316" class="sB" font-size="15" fill="#1a1a1a">DURING THE CROSSING</text>
+  <text x="215" y="342" class="sB" font-size="12" fill="#5a5a5a" letter-spacing="2">ALDMARK LINE · THE EIDER</text></g>
+<!-- the deck clock -->
+<g id="clock" class="hot"><rect x="1180" y="190" width="200" height="74" rx="6" fill="#0c0c0c" stroke="#3a3a3a" stroke-width="4"/><text id="clk" x="1280" y="244" class="led" font-size="44" fill="#ff4a2a">00:31</text>
+  <text x="1280" y="282" class="sB" font-size="13" fill="#9aa6a2" letter-spacing="3">SHIP'S TIME</text></g>
+
+<!-- the floor of the deck -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#4c5a52"/><path d="M-1000 640H2600" stroke="#1b2226" stroke-width="5"/>
+<g id="floor"></g>
+<!-- Mr Blakely's van, its sliding door open -->
+<g id="van" transform="translate(780 736) scale(1.1)"></g>
+<g id="arch" class="hot"><circle cx="934" cy="703" r="62" fill="#000" opacity="0"/></g>
+<g id="runner" class="hot"><rect x="742" y="672" width="140" height="22" fill="#000" opacity="0"/><path d="M806 684l22 -4 6 3 -24 5z" fill="#4f7d36"/></g>
+<g id="load" class="hot"><rect x="752" y="532" width="126" height="138" fill="#000" opacity="0"/></g>
+<g id="ticket" class="hot"><rect x="900" y="574" width="20" height="9" fill="#f4f4f0" transform="rotate(-8 910 578)"/><rect x="884" y="540" width="70" height="56" fill="#000" opacity="0"/></g>
+<!-- the kit, its lid, Dr Kinsella's slip -->
+<g id="lid" class="hot"><path d="M1166 744l14 -110h168l14 110z" fill="#e8a020"/><rect x="1196" y="652" width="134" height="80" fill="#f6f2e6"/><g stroke="#8a8676" stroke-width="2"><path d="M1206 668h96M1206 680h110M1206 692h86M1206 704h104M1206 716h70"/></g><text x="1263" y="664" class="sB" font-size="9" fill="#1f6b5a" letter-spacing="1">EVIDENCE FROM A VEHICLE</text></g>
+<g id="kit" class="hot"><rect x="1160" y="744" width="208" height="62" rx="6" fill="#d98a10"/><rect x="1172" y="752" width="184" height="44" fill="#2a2a2a"/>
+  <g fill="#e9e2c8"><rect x="1182" y="760" width="26" height="30" rx="3"/><rect x="1214" y="760" width="26" height="30" rx="3"/><rect x="1246" y="760" width="26" height="30" rx="3"/></g><path d="M1284 790v-30h26l4 30z" fill="#c9a26a"/><rect x="1236" y="736" width="56" height="10" rx="4" fill="#3a3a3a"/></g>
+<g id="slip" class="hot"><rect x="1312" y="726" width="58" height="40" fill="#fbfaf3" transform="rotate(12 1341 746)"/><path d="M1318 736h40M1316 744h44M1316 752h30" stroke="#2f5a3a" stroke-width="2" transform="rotate(12 1341 746)"/></g>
+
+<!-- people -->
+<g id="caitlin" class="hot" transform="translate(196 880)"></g>
+<g id="blakely" class="hot" transform="translate(418 872) scale(.96)"></g>
+<g id="ada" class="hot" transform="translate(1440 880)"></g>
+<g id="kamal" class="hot" transform="translate(1560 884) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back ashore, to the lab</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  (function () {
+    var s = '', i;
+    for (i = -30; i < 80; i++) s += '<path d="M' + (i * 46) + ' 160V640"/>';
+    $('#ribs').innerHTML = s;
+    s = '<g stroke="#2c363b" stroke-width="16" stroke-linecap="round"><path d="M-1000 70H2600"/></g><g stroke="#8a2a20" stroke-width="10"><path d="M-1000 104H2600"/></g><g stroke="#33494a" stroke-width="7"><path d="M-1000 132H2600"/></g>';
+    for (i = -10; i < 30; i++) s += '<path d="M' + (i * 120) + ' 50v100" stroke="#141a1d" stroke-width="6"/>';
+    $('#pipes').innerHTML = s;
+    s = ''; [80, 520, 980, 1440].forEach(function (x) { s += '<g class="strip"><rect x="' + (x - 70) + '" y="150" width="140" height="10" fill="#fff4dc"/><path d="M' + (x - 80) + ' 160h160l120 480h-400z" fill="url(#stripG)" pointer-events="none"/></g>'; });
+    $('#lights').innerHTML = s;
+    s = '';
+    [[430, 300, '#2a4a7a', 1], [1140, 300, '#7a2a2a', 1], [300, 330, '#5a5a5a', 1.25], [1290, 330, '#3a6a4a', 1.25]].forEach(function (l) {
+      var w = 150 * l[3], h = 190 * l[3];
+      s += '<rect x="' + (l[0] - w / 2) + '" y="' + (l[1] + 300 - h) + '" width="' + w + '" height="' + h + '" fill="' + l[2] + '"/><path d="M' + l[0] + ' ' + (l[1] + 300 - h) + 'v' + h + '" stroke="#1a1a1a" stroke-width="3"/><rect x="' + (l[0] - w / 2 + 8) + '" y="' + (l[1] + 300 - 22 * l[3]) + '" width="' + (w - 16) + '" height="' + (10 * l[3]) + '" fill="#c43a2a"/>';
+    });
+    $('#lorries').innerHTML = s;
+    s = '<g stroke="#e6c84a" stroke-width="7" opacity=".8"><path d="M200 1300L560 640M1360 1300L1040 640"/></g>';
+    for (i = 0; i < 14; i++) s += '<circle cx="' + (-100 + i * 140) + '" cy="' + (700 + (i % 2) * 120) + '" r="9" fill="#2a3430" stroke="#6b7a72" stroke-width="3"/>';
+    s += '<ellipse cx="520" cy="820" rx="120" ry="14" fill="#6a8a9a" opacity=".25"/><path d="M1000 700l60 -10 40 30" stroke="#8a8a7a" stroke-width="6" fill="none" opacity=".6"/>';
+    s += '<path d="M640 800q60 -30 120 0q60 30 120 0" stroke="#7a7a72" stroke-width="5" fill="none"/><path d="M1000 760l120 40" stroke="#7a7a72" stroke-width="5" stroke-dasharray="10 6"/>';
+    $('#floor').innerHTML = s;
+    $('#van').innerHTML = OR.van({ name: 'BLAKELY&rsquo;S ORCHIDS', plate: 'HB 61 ORC', door: true, mud: true }) +
+      '<g transform="translate(37 -48)"><rect x="-23" y="-56" width="46" height="56" fill="#c9a26a"/><path d="M-23 -44h46" stroke="#8a6a3a" stroke-width="2"/><g transform="translate(0 -56) scale(.3)">' + OR.plant({ top: 1, seed: 3 }) + '</g></g>' +
+      '<path d="M62 -48h24v-34h-24z" fill="#3a3e42" stroke="#c9c4b4" stroke-width="1.6" stroke-dasharray="4 3"/>' +
+      '<g transform="translate(-28 -48)"><path d="M0 0v-30h10v22h14v8z" fill="#2f4a2a"/><path d="M14 0v-30h10v22h14v8z" fill="#2f4a2a"/></g>';
+    ['caitlin', 'blakely', 'ada', 'kamal'].forEach(function (w) { $('#' + w).innerHTML = OR.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'deck', no: 'III', title: 'The Car Deck',
+    go: 'Down the stairs',
+    intro: [
+      'All eight test prints had the same tread pattern, because both vans run on the same cheap tyre. The pattern could not tell them apart. What did was what had happened to one tyre: a cut across a block, a stone in the groove two blocks on, and an outside edge worn faint. Only Mr Blakely&rsquo;s front left tyre had all three in the right places. None of Benny&rsquo;s tyres made the print.',
+      'Mr Blakely says that proves nothing, since he parked there first, and he is right. But his test print was full of white sand and dried heather, and he said he came straight down the motorway from Kilnford, where the sand is orange.',
+      'His van is already on board the night boat. The ship has agreed to wait.'
+    ],
+    exit: {"next":"lab","w":{"474ed877":"3d3a22c8"}}, tags: {"s":["b9d39e81","70e50090","e7219164"],"p":["bebcf0b0"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['caitlin', 'blakely', 'kamal', 'lid', 'slip', 'ticket'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#kit').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The van is going ashore and the bags are signed. Go to the lab: the button at the bottom.']];
+    if (bench && bench.isOpen()) return ['bag', [
+      'Read Dr Kinsella&rsquo;s slip again (it is in your notebook): four questions, four containers. Which sample answers each one?',
+      'Mud under a wheel arch lies in layers: the outside crust is the newest place, the layer against the metal an older one. Scrape them separately. A boot says where the person walked. Only a plant can say where the plants were.',
+      'The outer crust and the inner layer go in separate tubs, one for question 1 and one for question 2. Question 3 is about where a man walked. Only one thing on this van could answer question 4, and it must go in paper. Dust answers nothing, and one scoop of the whole arch mixes two places.'
+    ]];
+    if (!ready()) return ['look', [
+      'Three people to hear and three things to read before you open the kit (look at the pips).',
+      'People: Second Officer Ebdon by the notice, Mr Blakely by the back of his van, Officer Lakhani on the right. To read: the page inside the lid of the orange kit, Dr Kinsella&rsquo;s slip on top of it, and the ticket on the van&rsquo;s dashboard, through the windscreen.'
+    ]];
+    return ['kit', ['Everything is read and heard. Open the orange kit on the deck.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); $('#clk').textContent = '00:47'; ER.say('Four bags, signed and sealed. The van is coming off the ship.'); return; }
+    if (told.in) { busy = false; ER.say('The car deck. The engines hum through the floor.'); return; }
+    tell('in');
+    ER.narrate([
+      'Twenty-nine minutes past midnight. The car deck of the Eider is a steel cave as long as a street, packed with lorries, chained down and dripping. The engines are already running: you can feel them through your shoes.',
+      'Mr Blakely&rsquo;s van stands in the front row with its sliding door open. Officer Lakhani opened it with Mr Blakely&rsquo;s own key, in front of the ship&rsquo;s officer. Inside: the box of forty legal plants, a pair of green wellington boots, and a great deal of nothing.',
+      'Mr Blakely has come down with them, in his cap, and stands with his hands behind his back like a man at a flower show. &ldquo;Is this necessary?&rdquo; he asks. &ldquo;Quite necessary,&rdquo; says Dr Kinsella, and puts her orange kit down on the deck.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) paint(); }; }
+  $('#caitlin').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Caitlin Ebdon', role: 'Second Officer, the Eider', face: FACE('caitlin'), clue: { id: 'caitlin', title: 'Second Officer Ebdon: twenty minutes', kind: 'Statement' }, done: done('caitlin'), lines: [
+      'Second Officer Caitlin Ebdon. The captain says you have until five past one. After that the tide won&rsquo;t wait, and neither will he.',
+      { q: 'Can anybody come down here during the crossing?', a: 'No. Passengers aren&rsquo;t allowed on the vehicle decks while we&rsquo;re at sea, and the doors are locked. Leave your sandwiches in your van and you go hungry till we dock.' },
+      { q: 'Has anybody touched this van since it boarded?', a: 'Only the deck crew, putting the chains on. The door was shut until your officer opened it, just now, in front of me. I&rsquo;ll sign for that.' }
+    ] });
+  });
+  $('#blakely').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.ticket) { ER.say('&ldquo;This is all very thorough,&rdquo; says Mr Blakely. &ldquo;I do hope it&rsquo;s quick. I have forty plants that don&rsquo;t like the cold.&rdquo;'); return; }
+    ER.talk({ who: 'Mr Hector Blakely', role: 'Blakely&rsquo;s Orchids, Kilnford', face: FACE('blakely'), clue: { id: 'blakely3', title: 'Mr Blakely: the ticket', kind: 'Statement' }, done: done('blakely'), lines: [
+      'This is all very thorough. I do hope it&rsquo;s quick. I have forty plants that don&rsquo;t like the cold.',
+      { q: 'The ticket on your dashboard says Burnet Heath, 16.35 today.', a: 'Does it? Yes, of course. I stopped for a walk. I always do on that road. The heather&rsquo;s nearly over, and I wanted to see the last of it. Is a walk against the law now?' },
+      { q: 'You said you came straight down the motorway.', a: 'I said I came down the motorway. &ldquo;Straight&rdquo; is a word for crows. I&rsquo;m sorry: I didn&rsquo;t think a walk was worth mentioning.' },
+      { q: 'Why are your boots in the back?', a: 'Drying. They got muddy on my walk. You&rsquo;ll want those too, I suppose.' }
+    ] });
+  });
+  $('#kamal').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Officer Kamal Lakhani', role: 'Customs, Elsmouth', face: FACE('kamal'), clue: { id: 'kamal3', title: 'Officer Lakhani: the bags so far', kind: 'Statement' }, done: done('kamal'), lines: [
+      'The ship has given us twenty minutes. Our bags so far: <b>E1</b>, the leaf from the floor of Mr Gault&rsquo;s van. <b>E2</b>, mud from Mr Gault&rsquo;s front tyre. <b>E3</b>, the scrapings from the bottom of the crate.',
+      { q: 'And ours?', a: 'E4 to E7: three plastic tubs and one paper bag. That&rsquo;s all the kit has left.' },
+      { q: 'Why only one paper bag?', a: 'Because the rest are wrapped round twelve orchids in the shed. Paper is for anything green and damp. In plastic it sweats and goes rotten.' },
+      'I&rsquo;ll write the custody log as you go. Every bag gets a number, a place, a name and a time.'
+    ] });
+  });
+  $('#ada').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Four bags,&rdquo; says Dr Kinsella. &ldquo;Four questions. I like it when a sum comes out.&rdquo;' :
+      !told.slip ? '&ldquo;Questions first, then samples,&rdquo; says Dr Kinsella. &ldquo;Read my slip. It&rsquo;s on the kit.&rdquo;' :
+      '&ldquo;Twenty minutes,&rdquo; says Dr Kinsella, &ldquo;is a very long time if you know what you want.&rdquo;');
+  });
+
+  /* ---------- papers ---------- */
+  var DIAG = '<svg viewBox="0 0 250 200"><rect width="250" height="200" fill="#fffdf4"/><g transform="translate(110 150)"><path d="M-90 0a90 90 0 0 1 180 0" fill="#3a3e42"/>' +
+    '<path d="M-86 0a86 86 0 0 1 172 0" stroke="#b5642e" stroke-width="10" fill="none"/><path d="M-76 0a76 76 0 0 1 152 0" stroke="#c9b48a" stroke-width="10" fill="none"/><circle cy="0" r="62" fill="#141516"/></g>' +
+    '<g font-family="Patrick Hand,cursive" font-size="13" fill="#221f1a"><text x="150" y="26">metal</text><text x="186" y="52">oldest layer</text><text x="186" y="84">newest layer:</text><text x="186" y="98">the outside</text><text x="74" y="186">tyre</text></g>' +
+    '<g stroke="#b3261c" stroke-width="1.2"><path d="M148 22l-20 36M184 48l-30 22M184 80l-34 4"/></g></svg>';
+  var LID = '<h4>Field manual &middot; Collecting</h4><h3>Evidence from a vehicle</h3><div class="two"><div>' +
+    '<p>Mud builds up under a wheel arch in <b>layers</b>, like the pages of a diary: the layer against the metal is the oldest, and the crust on the outside is the newest. Scrape them separately, and you can tell where the vehicle went last, and where it went before that. A boot sole does the same for the person who wore it.</p></div>' + DIAG + '</div>' +
+    '<p><b>The chain of custody.</b> A sample is only evidence if we can say where it has been every minute since it was collected. One sample, one bag. Damp plant material goes in paper, or it sweats and rots. Label the bag before it leaves your hand: number, what it is, exactly where it came from, who took it, date and time. <b>Seal</b> it and sign across the seal.</p>' +
+    '<p class="rule">Every time a bag changes hands, the custody log gets a line: who, to whom, when. A gap in the log is a doubt.</p><p class="pg">72</p>';
+  $('#lid').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LID, cls: 'manual', clue: { id: 'manual72', title: 'Evidence from a vehicle', kind: 'Field manual, page 72' }, done: function () {
+      OR.terms(['layer', 'chain of custody', 'custody log', 'seal']);
+      if (tell('lid')) { paint(); ER.say('&ldquo;Page seventy-two,&rdquo; says Dr Kinsella. &ldquo;Laminated, because people read it in the rain.&rdquo;'); }
+    } });
+  });
+  var SLIP = '<h4>Bring me</h4><p>Four containers left: three tubs, one paper bag. Fill them with what answers these:</p><ol>' +
+    '<li>Where was this van last, before it came to the port?</li><li>Where was it before that?</li><li>Has Mr Blakely himself walked there?</li><li>Were the crate&rsquo;s plants ever in this van?</li></ol>' +
+    '<p class="big">One sample, one bag.</p><p>Nothing that answers nothing. &mdash; A.</p>';
+  $('#slip').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SLIP, cls: 'card', clue: { id: 'slip', title: 'Dr Kinsella: bring me', kind: 'Her slip' }, done: function () {
+      if (tell('slip')) { paint(); ER.say('&ldquo;Four questions,&rdquo; says Dr Kinsella. &ldquo;If a sample doesn&rsquo;t answer one of them, it stays on the ship.&rdquo;'); }
+    } });
+  });
+  var TICKET = '<h4>BURNET HEATH</h4><p>Car park &middot; Pay and display</p><p class="big">THU 01 OCT 2026</p><p>IN 16:35 &middot; 1 HOUR</p><p>&pound;1.50</p><p>Display clearly on the dashboard</p>';
+  $('#ticket').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TICKET, cls: 'ticket', clue: { id: 'ticket', title: 'The ticket on Mr Blakely’s dashboard', kind: 'Through the windscreen' }, done: function () {
+      if (tell('ticket')) { paint(); ER.say('&ldquo;Burnet Heath,&rdquo; says Dr Kinsella, very quietly. &ldquo;White sand, heather, pine. Not on the motorway.&rdquo;'); }
+    } });
+  });
+  OR.thing('#notice', null, 'VEHICLE DECK 3. Passengers are not permitted on the vehicle decks during the crossing.', isBusy);
+  OR.thing('#clock', null, function () { return 'Ship&rsquo;s time: ' + $('#clk').textContent + '. The ship sails at five past one.'; }, isBusy);
+  OR.thing('#arch', null, 'The front left wheel arch: a crust of pale grey mud, cracked like old paint. Through the cracks, an older layer shows orange.', isBusy);
+  OR.thing('#runner', null, 'In the runner of the sliding door: a broken scrap of green leaf, crushed when the door was shut.', isBusy);
+  OR.thing('#load', null, 'The load space: the box of forty plants, the boots, and beside the box a clean rectangle in the dust, about fifty centimetres by forty. The crate was fifty by forty.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#kit').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The kit is empty. Its four bags are in Dr Kinsella&rsquo;s hands.'); return; }
+    if (!ready()) {
+      var miss = NEED.filter(function (k) { return !told[k]; })[0];
+      ER.say('&ldquo;Not yet,&rdquo; says Dr Kinsella. &ldquo;' + ({ caitlin: 'Speak to the ship&rsquo;s officer first. It&rsquo;s her ship.', blakely: 'Ask Mr Blakely about the ticket on his dashboard.', kamal: 'Ask Officer Lakhani which bags we have.', lid: 'Read the page in the lid of the kit.', slip: 'Read my slip. It&rsquo;s on the kit.', ticket: 'Look at the ticket on the dashboard, through the windscreen.' })[miss] + '&rdquo;');
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the kit: seven places to sample, four containers ---------- */
+  var SAMP = {
+    outer: { n: 'front left wheel arch, outer crust', t: 'The outside of the mud crust under the front left wheel arch: pale grey sand, sharp grains, a few black crumbs. Dry on top.', tool: 'spatula' },
+    inner: { n: 'front left wheel arch, inner layer', t: 'Under the crust, where it has cracked: an older layer pressed against the metal, orange-brown sand with tiny green grains.', tool: 'spatula' },
+    whole: { n: 'front left wheel arch, all of it', t: 'You could scrape the whole arch into one tub in a single go, crust, older layer and all. Much quicker.', tool: 'spatula' },
+    bumper: { n: 'rear bumper, road dust', t: 'Grey road dust on the rear bumper, the same as on every vehicle on this deck.', tool: 'spatula' },
+    boots: { n: 'wellington boots, soles', t: 'The green wellington boots from the back, still damp. Pale sand and black crumbs are pressed into the soles, and there is a purple flower stuck to one heel.', tool: 'spatula' },
+    leaf: { n: 'sliding door runner, broken leaf', t: 'From the runner of the sliding door: a broken piece of green leaf, strap-shaped, still damp, crushed when the door was shut.', tool: 'tweezers' },
+    floor: { n: 'load floor, dust', t: 'Dust from the load floor, beside the clean rectangle where something stood.', tool: 'spatula' }
+  };
+  var PTS = [['outer', 140, 185], ['inner', 236, 160], ['whole', 64, 290], ['boots', 560, 110], ['leaf', 560, 210], ['bumper', 560, 305], ['floor', 560, 400]];
+  var CT = [['E4', 't', 690, 80], ['E5', 't', 850, 80], ['E6', 't', 690, 250], ['E7', 'p', 850, 250]];
+  function makeBench() {
+    var st = ER.flag('c-st') || { bag: {}, time: {}, n: 0 }, held = '', wait = false;
+    var box = ER.el('div', 'bn kt', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="k-go">Sign the custody log</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('c-st', st); }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#3c4a44"/><rect x="16" y="16" width="590" height="430" rx="6" fill="#20282a"/><rect x="620" y="16" width="364" height="430" rx="6" fill="#d98a10"/><rect x="632" y="28" width="340" height="406" fill="#2a2a2a"/>';
+      s += '<text x="311" y="44" class="tB" font-size="15" fill="#c9d2cc" text-anchor="middle" letter-spacing="3">THE VAN, CLOSE</text><text x="802" y="54" class="tB" font-size="15" fill="#f0d8a0" text-anchor="middle" letter-spacing="3">THE KIT</text>';
+      /* the wheel arch, big */
+      s += '<g transform="translate(200 300)"><path d="M-170 0a170 170 0 0 1 340 0z" fill="#e9ecee"/><path d="M-150 0a150 150 0 0 1 300 0z" fill="#1a1c1e"/>' +
+        '<path d="M-146 0a146 146 0 0 1 292 0" stroke="#b5642e" stroke-width="16" fill="none"/><path d="M-130 0a130 130 0 0 1 260 0" stroke="#c9c2a8" stroke-width="18" fill="none"/>' +
+        '<g stroke="#5a5240" stroke-width="2"><path d="M-60 -116l-6 -18M10 -128l2 -16M80 -100l10 -14M-110 -60l-14 -8"/></g><path d="M20 -126q14 -10 30 -4l-6 16q-12 -4 -24 4z" fill="#b5642e"/>' +
+        '<circle r="112" cy="40" fill="#141516"/><circle r="60" cy="40" fill="#8a9096"/><text x="0" y="46" class="tB" font-size="14" fill="#2a2e32" text-anchor="middle">FRONT LEFT</text></g>';
+      s += '<rect x="16" y="300" width="370" height="146" fill="#20282a"/>';
+      /* the insets */
+      s += '<g transform="translate(400 60)"><rect width="190" height="80" rx="4" fill="#1a2224"/><path d="M30 64v-44h18v34h22v10zM100 64v-44h18v34h22v10z" fill="#2f4a2a"/><g fill="#c9c2a8"><circle cx="44" cy="62" r="3"/><circle cx="60" cy="62" r="2"/><circle cx="118" cy="62" r="3"/></g><circle cx="132" cy="58" r="4" fill="#9a5aa8"/><text x="186" y="18" class="tB" font-size="12" fill="#9aa6a2" text-anchor="end">BOOTS</text></g>';
+      s += '<g transform="translate(400 160)"><rect width="190" height="90" rx="4" fill="#1a2224"/><rect x="0" y="54" width="190" height="10" fill="#5a6066"/><path d="M60 58l50 -8 10 6 -52 9z" fill="#4f7d36"/><text x="186" y="18" class="tB" font-size="12" fill="#9aa6a2" text-anchor="end">DOOR RUNNER</text></g>';
+      s += '<g transform="translate(400 262)"><rect width="190" height="76" rx="4" fill="#1a2224"/><rect x="10" y="30" width="170" height="30" rx="6" fill="#c9ccce"/><g fill="#8a8a82" opacity=".7"><circle cx="40" cy="44" r="2"/><circle cx="90" cy="40" r="2"/><circle cx="140" cy="48" r="2"/></g><text x="186" y="18" class="tB" font-size="12" fill="#9aa6a2" text-anchor="end">REAR BUMPER</text></g>';
+      s += '<g transform="translate(400 350)"><rect width="190" height="86" rx="4" fill="#1a2224"/><rect x="10" y="26" width="170" height="52" fill="#7a7a72"/><rect x="60" y="34" width="80" height="36" fill="#9a9a90"/><text x="186" y="18" class="tB" font-size="12" fill="#9aa6a2" text-anchor="end">LOAD FLOOR</text></g>';
+      PTS.forEach(function (p, i) {
+        s += '<g class="pt" data-s="' + p[0] + '" transform="translate(' + p[1] + ' ' + p[2] + ')"><circle r="17" fill="#ff6a4a" fill-opacity=".85" stroke="#fff" stroke-width="2"/><text y="6" class="tB" font-size="17" fill="#fff" text-anchor="middle">' + 'ABCDEFG'.charAt(i) + '</text></g>';
+      });
+      s += '<text x="40" y="422" class="tH" font-size="18" fill="#c9d2cc">C: the whole arch, in one scoop</text>';
+      /* the containers */
+      CT.forEach(function (c) {
+        s += '<g class="ct" data-c="' + c[0] + '" transform="translate(' + c[2] + ' ' + c[3] + ')">' + (c[1] === 't' ?
+          '<rect x="0" y="20" width="130" height="130" rx="10" fill="#e9eef0" fill-opacity=".9"/><rect x="-4" y="12" width="138" height="16" rx="4" fill="#b8c4ca"/>' :
+          '<path d="M6 20h118l-6 130h-106z" fill="#c9a26a"/><path d="M6 20l10 -10h98l10 10" fill="#b38a52"/>') +
+          '<text x="65" y="44" class="tB" font-size="20" fill="#1a1a1a" text-anchor="middle">' + c[0] + '</text><text x="65" y="62" class="tB" font-size="12" fill="#5a5a5a" text-anchor="middle">' + (c[1] === 't' ? 'PLASTIC TUB' : 'PAPER BAG') + '</text><g class="cl"></g></g>';
+      });
+      s += '<rect x="16" y="458" width="968" height="126" rx="6" fill="#f4f1e6"/><text x="36" y="486" class="tB" font-size="15" fill="#2f5a3a" letter-spacing="2">DR KINSELLA&rsquo;S SLIP</text>' +
+        '<text x="36" y="514" class="tH" font-size="19" fill="#1d2a22">1. Where was this van last, before the port?   2. Where was it before that?</text>' +
+        '<text x="36" y="544" class="tH" font-size="19" fill="#1d2a22">3. Has Mr Blakely himself walked there?   4. Were the crate&rsquo;s plants ever in this van?</text>' +
+        '<text x="36" y="572" class="tH" font-size="17" fill="#a8261c">One sample, one bag. Click a lettered place, then a container. Click a full container to void it.</text>';
+      svg.innerHTML = s;
+      place();
+    }
+    function place() {
+      CT.forEach(function (c) {
+        var g = svg.querySelector('.ct[data-c="' + c[0] + '"]'), v = st.bag[c[0]];
+        g.querySelector('.cl').innerHTML = v ? '<rect x="8" y="72" width="114" height="70" fill="#fffdf4"/><path d="M8 72h114" stroke="#c43a2a" stroke-width="4"/>' +
+          '<text x="14" y="90" class="tH" font-size="13" fill="#1d2a66">' + c[0] + ' · sealed ' + st.time[c[0]] + '</text>' +
+          wrap(SAMP[v].n, 18).map(function (l, i) { return '<text x="14" y="' + (107 + i * 15) + '" class="tH" font-size="13" fill="#1d2a66">' + l + '</text>'; }).join('') : '';
+      });
+      ER.$$('.pt', svg).forEach(function (g) { g.classList.toggle('held', g.getAttribute('data-s') === held); });
+    }
+    function wrap(t, n) { var w = t.split(' '), out = [''], i; for (i = 0; i < w.length; i++) { if ((out[out.length - 1] + ' ' + w[i]).trim().length > n) out.push(''); out[out.length - 1] = (out[out.length - 1] + ' ' + w[i]).trim(); } return out.slice(0, 3); }
+    function used(s) { for (var k in st.bag) if (st.bag[k] === s) return k; return ''; }
+    svg.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var pt = e.target.closest('.pt'), ct = e.target.closest('.ct');
+      if (pt) {
+        var s = pt.getAttribute('data-s');
+        if (used(s)) { msg('That one is already in ' + used(s) + '.'); return; }
+        held = held === s ? '' : s; place(); OR.sfx.scrape();
+        msg(held ? '<b>' + 'ABCDEFG'.charAt(PTS.map(function (q) { return q[0]; }).indexOf(s)) + '.</b> ' + SAMP[s].t + ' On the ' + SAMP[s].tool + '. Now a container.' : 'Put down.');
+        return;
+      }
+      if (ct) {
+        var c = ct.getAttribute('data-c'), kind = CT.filter(function (q) { return q[0] === c; })[0][1];
+        if (st.bag[c]) { delete st.bag[c]; delete st.time[c]; keep(); OR.sfx.tape(); place(); msg('Dr Kinsella writes VOID across ' + c + ' and gives you a fresh one with the same number.'); return; }
+        if (!held) { msg('Pick a sample first: click one of the lettered places.'); return; }
+        if (held === 'leaf' && kind === 't') { ER.sfx.no(); msg('&ldquo;A damp leaf in a plastic tub?&rdquo; says Dr Kinsella. &ldquo;By breakfast it&rsquo;ll be soup. Page seventy-two.&rdquo;'); return; }
+        st.n++; st.bag[c] = held; st.time[c] = '00.' + Math.min(46, 33 + st.n); held = ''; keep(); OR.sfx.tape(); place();
+        msg(c + ': ' + SAMP[st.bag[c]].n + '. Sealed and signed across the seal. Officer Lakhani writes it in the log: ' + st.time[c] + '.');
+      }
+    });
+    box.querySelector('#k-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var empty = CT.filter(function (c) { return !st.bag[c[0]]; }).length, file;
+      if (empty) { ER.sfx.no(); msg('&ldquo;Four questions,&rdquo; says Dr Kinsella. ' + empty + (empty === 1 ? ' container is' : ' containers are') + ' still empty.'); return; }
+      if (!ER.check('p', st.bag.E7)) { ER.sfx.no(); msg('&ldquo;The paper bag holds ' + SAMP[st.bag.E7].n + ',&rdquo; says Dr Kinsella. &ldquo;What on this van could tell us where the plants were? And what would rot in a tub?&rdquo;'); return; }
+      var bad = ['E4', 'E5', 'E6'].filter(function (c) { return !ER.check('s', st.bag[c]); });
+      if (bad.length) {
+        ER.sfx.no();
+        var b = st.bag[bad[0]];
+        msg(b === 'whole' ? '&ldquo;' + bad[0] + ' is the whole arch in one scoop,&rdquo; says Dr Kinsella. &ldquo;The newest place and an older one, stirred together. Which question does that answer?&rdquo;' :
+          b === 'bumper' ? '&ldquo;Road dust,&rdquo; says Dr Kinsella. &ldquo;Every road in the county. Which of my four questions does it answer?&rdquo;' :
+          '&ldquo;Floor dust,&rdquo; says Dr Kinsella. &ldquo;The clean patch is worth a photograph, not a tub. Which of my four questions does the dust answer?&rdquo;');
+        return;
+      }
+      file = ER.exitOk([st.bag.E7 + '|' + ['E4', 'E5', 'E6'].map(function (c) { return st.bag[c]; }).sort().join('-')]);
+      if (!file) { ER.sfx.no(); msg('Dr Kinsella reads the labels twice and does not sign.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      var bags = {}; CT.forEach(function (c) { bags[c[0]] = st.bag[c[0]]; });
+      ER.flag('c-bags', bags); ER.flag('c-time', st.time);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.deck = 1; ER.persist(true);
+      OR.sfx.stamp(); msg('<b>Four bags, four questions.</b> Dr Kinsella signs the log under your name: received from the trainee, 00.47.');
+      OR.mine('bags', 'The bags from the car deck', CT.map(function (c) { return '<p><b>' + c[0] + '</b> &middot; ' + SAMP[st.bag[c[0]]].n + ' &middot; ' + st.time[c[0]] + '</p>'; }).join('') +
+        '<p>All four handed to Dr Kinsella at 00.47. Also seen: a clean patch in the dust of the load floor, 50 by 40 cm, the size of the crate. The parking ticket: Burnet Heath, 16.35.</p>');
+      setTimeout(function () {
+        ER.closeAll(); OR.solved(); paint(); busy = true; $('#clk').textContent = '00:47';
+        ER.narrate([
+          'Officer Lakhani reads the log back, line by line, and signs it. &ldquo;Mr Blakely,&rdquo; he says, &ldquo;I&rsquo;d like your van to stay ashore tonight, and you with it, while the laboratory looks at these. You&rsquo;re not under arrest. I&rsquo;m sure you&rsquo;d like to help.&rdquo;',
+          'For a moment Mr Blakely looks at the clean patch in the dust beside his box of forty. Then he smiles. &ldquo;Of course,&rdquo; he says. &ldquo;Anything to help. The plants will want to be somewhere warm, mind.&rdquo;',
+          'A seaman drives the van down the ramp in the rain. At five past one the Eider&rsquo;s horn sounds once, long and low, and the ship slides out of the harbour without it.'
+        ], function () { OR.sfx.horn(); busy = false; showGo(); });
+      }, 2600);
+    });
+    draw();
+    msg('Seven places you could sample, A to G, and four containers: three plastic tubs and one paper bag. Click a place, read what is there, then click a container.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

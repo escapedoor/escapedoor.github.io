@@ -1,0 +1,377 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Inspection Bay · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#0b0c0e;--accent:#f2c230;--font-display:'Oswald',sans-serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,14,16,.96);--tc-ink:#f2f0ea;--cap-bg:rgba(14,14,16,.94);--panel:#17181b;--face-bg:#26282c;--q-ink:#f2c230;--fade:#050506;--hud-bg:rgba(14,14,16,.86)}
+  .tc-room{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(36px,5vw,66px)}
+  .tk-name{font-family:'Oswald',sans-serif;letter-spacing:.04em}
+  .sW{font-family:'Oswald',sans-serif;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .rain{animation:rain .65s linear infinite}
+  @keyframes rain{from{transform:translate(0,-60px)}to{transform:translate(-12px,60px)}}
+  .head{animation:head 4s steps(1,end) infinite}
+  @keyframes head{0%{opacity:.9}50%{opacity:.9}51%{opacity:.7}53%{opacity:.9}}
+  .tr .tab{cursor:pointer}
+  .tr .tab:hover rect{filter:brightness(1.2)}
+  .tr #film{cursor:ew-resize}
+  .doc.photo{width:min(760px,95vw);background:#f4f3ee;color:#1d1f22;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.4;padding:16px 20px 14px;box-shadow:0 14px 34px rgba(0,0,0,.5)}
+  .doc.photo h4{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.1em;color:#5a5f66}
+  .doc.photo p{margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080f"/><stop offset="1" stop-color="#1a2230"/></linearGradient>
+  <radialGradient id="floodG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffffff" stop-opacity=".35"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="headG" cx="0%" cy="50%" r="100%"><stop offset="0" stop-color="#fff6c8" stop-opacity=".7"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#030304" stop-opacity=".25"/><stop offset="1" stop-color="#010102" stop-opacity=".9"/></radialGradient>
+  <pattern id="chev" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="20" height="40" fill="#f2c230"/><rect x="20" width="20" height="40" fill="#151515"/></pattern>
+</defs>
+
+<!-- the bay: concrete, a steel roof, floodlights -->
+<rect x="-1000" y="-400" width="3600" height="1050" fill="#8d9296"/>
+<g id="blocks" stroke="#7a7f84" stroke-width="2"></g>
+<rect x="-1000" y="-400" width="3600" height="520" fill="#22262b"/><g id="roof" stroke="#32373d" stroke-width="6"></g>
+<g id="floods"></g>
+<!-- the bay mouth: rain, lane two, a van with its lights on -->
+<g id="mouth" class="hot">
+  <rect x="1180" y="130" width="460" height="512" fill="url(#nightG)"/>
+  <g fill="#0e121a"><rect x="1180" y="430" width="460" height="212"/></g>
+  <path d="M1180 560H1640" stroke="#e6c84a" stroke-width="4" opacity=".6"/>
+  <rect x="1210" y="300" width="60" height="64" fill="#13233f" stroke="#f0c419" stroke-width="3"/><text x="1240" y="352" class="sW" font-size="50" fill="#f0c419">2</text><path d="M1240 364v80" stroke="#333" stroke-width="5"/>
+  <g transform="translate(1480 586) scale(.5)" id="hbvan"></g>
+  <path class="head" d="M1590 520l200 -50v130z" fill="url(#headG)" pointer-events="none"/>
+  <g class="rain" stroke="#cfe3f2" stroke-width="1.4" opacity=".5"><path id="rainp" d=""/></g>
+  <rect x="1168" y="120" width="20" height="530" fill="url(#chev)"/>
+</g>
+<!-- the pinboard with the photograph -->
+<g id="photo" class="hot"><rect x="40" y="190" width="220" height="190" fill="#b58a5a" stroke="#5a4028" stroke-width="5"/>
+  <rect x="62" y="210" width="130" height="96" fill="#f4f3ee" transform="rotate(-3 127 258)"/><rect x="68" y="216" width="118" height="70" fill="#5a4a36" transform="rotate(-3 127 258)"/>
+  <g transform="rotate(-3 127 258)"><g fill="#2e241a"><rect x="76" y="228" width="12" height="40"/><rect x="94" y="228" width="12" height="40"/><rect x="112" y="228" width="12" height="40"/><rect x="130" y="228" width="12" height="40"/><rect x="148" y="228" width="12" height="40"/></g><rect x="70" y="278" width="80" height="6" fill="#f2c230"/></g>
+  <circle cx="127" cy="212" r="5" fill="#c43a2a"/><rect x="200" y="230" width="44" height="58" fill="#fde98a" transform="rotate(5 222 259)"/><path d="M206 244h30M206 254h24M206 264h28" stroke="#6a5a1a" stroke-width="2" transform="rotate(5 222 259)"/>
+  <text x="150" y="364" class="sB" font-size="15" fill="#2a1c10" letter-spacing="2">LANE 7 · SPACE 4</text></g>
+<!-- the law, on a pillar -->
+<g id="law" class="hot"><rect x="1030" y="120" width="34" height="530" fill="url(#chev)"/><rect x="1000" y="210" width="150" height="196" fill="#f4f3ee" stroke="#151515" stroke-width="3"/>
+  <rect x="1000" y="210" width="150" height="40" fill="#151515"/><text x="1075" y="237" class="sB" font-size="19" fill="#f2c230" letter-spacing="2">TYRES: THE LAW</text>
+  <g transform="translate(1075 320)"><rect x="-50" y="-44" width="100" height="70" rx="10" fill="#222"/><g fill="#555"><rect x="-44" y="-38" width="20" height="58"/><rect x="-18" y="-38" width="20" height="58"/><rect x="8" y="-38" width="20" height="58"/><rect x="34" y="-38" width="10" height="58"/></g><path d="M-58 -10h116" stroke="#c43a2a" stroke-width="3"/></g>
+  <text x="1075" y="388" class="sB" font-size="22" fill="#c43a2a">1.6 mm</text></g>
+
+<!-- the floor, the pit, the van -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#6b6f73"/><path d="M-1000 640H2600" stroke="#2a2d31" stroke-width="5"/>
+<rect x="280" y="642" width="500" height="30" fill="#1a1c1e"/><path d="M280 642h500" stroke="url(#chev)" stroke-width="8"/>
+<g id="bgvan" transform="translate(520 650)"></g>
+<path d="M-1000 690H2600" stroke="#5a5e62" stroke-width="2"/>
+<!-- the manual, on a trestle table -->
+<g id="manual" class="hot"><path d="M806 640v80M960 640v80" stroke="#3a3a3a" stroke-width="6"/><rect x="790" y="618" width="186" height="24" fill="#8a6a44"/><path d="M830 616l-6 -20h58l2 20z" fill="#f6f2e6"/><path d="M884 616l2 -20h58l-6 20z" fill="#efe9d8"/><g stroke="#8a8676" stroke-width="1.3"><path d="M832 604h44M834 610h40M892 604h44M890 610h42"/></g></g>
+<!-- the strips of paper on the floor -->
+<g id="strips" class="hot"></g>
+<g id="ink" class="hot"><rect x="1110" y="770" width="90" height="34" rx="4" fill="#202020"/><rect x="1116" y="776" width="78" height="22" fill="#060606"/><path d="M1130 762l60 -30" stroke="#5a5a5a" stroke-width="7" stroke-linecap="round"/><rect x="1180" y="718" width="44" height="22" rx="10" fill="#151515" transform="rotate(-27 1202 729)"/></g>
+
+<!-- people -->
+<g id="ada" class="hot" transform="translate(186 884)"></g>
+<g id="kamal" class="hot" transform="translate(700 884) scale(.97)"></g>
+<g id="gwen" class="hot" transform="translate(1270 866) scale(.95)"></g>
+<g id="blakely" class="hot" transform="translate(1440 872) scale(.93)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the car deck</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  /* the tread: one pitch of the pattern is P wide; every tyre here is the same make, so the same blocks */
+  var P = 30, N = 30, FILM = 6;
+  /* what has happened to each tyre: a cut across a block of the left row, a stone in the right groove, a worn edge */
+  var TY = {
+    'bg-fl': { cut: [7], stone: [20], wear: '' }, 'bg-fr': { cut: [14], stone: [12], wear: '' }, 'bg-rl': { cut: [], stone: [], wear: '' }, 'bg-rr': { cut: [3], stone: [], wear: '' },
+    'hb-fl': { cut: [17], stone: [19], wear: 'L' }, 'hb-fr': { cut: [], stone: [5], wear: 'R' }, 'hb-rl': { cut: [], stone: [], wear: '' }, 'hb-rr': { cut: [9], stone: [11], wear: '' }
+  };
+  var PRINT = { cut: [2], stone: [4], wear: 'L' };                 /* the print from the verge, six pitches long */
+  var NAME = { bg: 'Mr Gault&rsquo;s van', hb: 'Mr Blakely&rsquo;s van', fl: 'front left', fr: 'front right', rl: 'rear left', rr: 'rear right' };
+  function tread(f, n, x0, y0, ink, paper, alpha) {     /* n pitches of tread with the features f, top left at x0,y0 (110 high) */
+    var s = '', i, x;
+    if (paper) s += '<rect x="' + x0 + '" y="' + y0 + '" width="' + (n * P) + '" height="110" fill="' + paper + '"/>';
+    for (i = 0; i < n; i++) {
+      x = x0 + i * P;
+      var wl = f.wear === 'L', wr = f.wear === 'R';
+      s += '<rect x="' + (x + 3) + '" y="' + (y0 + (wl ? 10 : 3)) + '" width="22" height="' + (wl ? 12 : 21) + '" fill="' + ink + '" opacity="' + (wl ? alpha * 0.5 : alpha) + '"/>';
+      s += '<path d="M' + (x + 1) + ' ' + (y0 + 29) + 'h20l4 22h-20z" fill="' + ink + '" opacity="' + alpha + '"/>';
+      s += '<path d="M' + (x + 16) + ' ' + (y0 + 57) + 'h20l-4 22h-20z" fill="' + ink + '" opacity="' + alpha + '"/>';
+      s += '<rect x="' + (x + 8) + '" y="' + (y0 + (wr ? 88 : 86)) + '" width="22" height="' + (wr ? 12 : 21) + '" fill="' + ink + '" opacity="' + (wr ? alpha * 0.5 : alpha) + '"/>';
+      if (f.cut.indexOf(i) >= 0) s += '<path d="M' + (x + 4) + ' ' + (y0 + 31) + 'l15 18" stroke="' + (paper || '#e8dcc4') + '" stroke-width="3.4"/>';
+      if (f.stone.indexOf(i) >= 0) s += '<ellipse cx="' + (x + 4) + '" cy="' + (y0 + 68) + '" rx="5" ry="7" fill="' + (paper ? '#1a1a1a' : '#4a3a28') + '" opacity="' + alpha + '"/>';
+    }
+    return s;
+  }
+
+  (function () {
+    var s = '', i;
+    for (i = -20; i < 50; i++) s += '<path d="M' + (i * 80) + ' 120V640"/>';
+    for (i = 0; i < 7; i++) s += '<path d="M-1000 ' + (160 + i * 70) + 'H2600"/>';
+    $('#blocks').innerHTML = s;
+    s = ''; for (i = -6; i < 14; i++) s += '<path d="M' + (i * 200) + ' 120L' + (i * 200 + 100) + ' 20L' + (i * 200 + 200) + ' 120"/>';
+    $('#roof').innerHTML = s + '<path d="M-1000 120H2600" stroke-width="10"/>';
+    s = ''; [300, 760, 1220].forEach(function (x) { s += '<path d="M' + (x - 40) + ' 40h80l-10 30h-60z" fill="#1a1c1e"/><rect x="' + (x - 30) + '" y="68" width="60" height="8" fill="#fff"/><path d="M' + (x - 40) + ' 76h80l260 580h-600z" fill="url(#floodG)" pointer-events="none"/>'; });
+    $('#floods').innerHTML = s;
+    s = ''; for (i = 0; i < 30; i++) s += 'M' + (1190 + (i * 61) % 440) + ' ' + (140 + (i * 89) % 480) + 'l-9 48';
+    $('#rainp').setAttribute('d', s);
+    $('#bgvan').innerHTML = OR.van({ name: 'GAULT COURIERS', nameColour: '#1f3a6a', plate: 'GC 17 BNY', door: false });
+    $('#hbvan').innerHTML = OR.van({ name: 'BLAKELY&rsquo;S ORCHIDS', nameColour: '#2f5a3a', plate: 'HB 61 ORC' });
+    /* eight strips of paper on the floor, in a fan */
+    s = '';
+    for (i = 0; i < 8; i++) {
+      var y = 704 + i * 20, x = 60 + i * 6;
+      s += '<g transform="translate(' + x + ' ' + y + ') scale(1 .16) skewX(-30)"><rect x="0" y="0" width="1000" height="110" fill="#f6f4ec"/>' + tread({ cut: [], stone: [], wear: '' }, 32, 10, 0, '#1a1a1a', null, 0.55) + '</g>';
+    }
+    $('#strips').innerHTML = s;
+    ['ada', 'kamal', 'gwen', 'blakely'].forEach(function (w) { $('#' + w).innerHTML = OR.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'bay', no: 'II', title: 'The Inspection Bay',
+    go: 'Under the floodlights',
+    intro: [
+      'Of the twelve slipper orchids in the crate, eight were dug up in the wild: torn roots, grit, moss, old scars, no labels. Four were nursery plants, laid on top where a quick look would see them. Wild-collected slipper orchids are on Appendix I of CITES: no paper in the world makes them legal to sell. Somebody was smuggling them out tonight.',
+      'Officer Lakhani&rsquo;s strongest evidence against Benny Gault is a tyre print in the mud beside the crate, with the same tread pattern as Benny&rsquo;s van. Mr Blakely, who parked in the same space earlier, has offered his tyres for comparison.',
+      'The inspection bay is a concrete box open to the rain at one end. Benny&rsquo;s van stands over the pit, with its doors open and its seats out.'
+    ],
+    exit: {"next":"deck","w":{"c60d8051":"af8338c7"}}, tags: {"v":["c234c9d7"],"w":["ee88993c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['gwen', 'kamal', 'blakely', 'manual', 'law', 'photo'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#strips').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Mr Blakely&rsquo;s van is on the ship. Go down to the car deck: the button at the bottom.']];
+    if (bench && bench.isOpen()) return ['match', [
+      'Every strip has the same pattern, so the film will seem to fit everywhere. Look for what is different: a cut across a block, a stone in a groove, an edge worn faint.',
+      'Choose a strip, then drag the film along it until the cut on the film lies on a cut in the strip. Then look at the stone two blocks further on, and at the top edge.',
+      'Mr Blakely&rsquo;s rear right tyre has the cut and the stone in the right places, but not the worn top edge. Try his front tyres: he told you his steering pulls.'
+    ]];
+    if (!ready()) return ['look', [
+      'Three people to hear (look at the pips), and three things to read before the strips on the floor.',
+      'People: Gwen the marshal at the bay mouth, Officer Lakhani by the van, Mr Blakely at the bay mouth, in front of the rain. Things to read: the photograph on the pinboard, the manual on the trestle table, and the notice on the striped pillar.'
+    ]];
+    return ['strips', ['Click the strips of paper on the floor.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Mr Blakely&rsquo;s front left tyre made the print. He says that proves nothing.'); return; }
+    if (told.in) { busy = false; ER.say('The inspection bay. Floodlights and rain.'); return; }
+    tell('in');
+    ER.narrate([
+      'Five to midnight. Under the floodlights the bay is as bright as noon and smells of diesel and wet dog, though there is no dog. Benny&rsquo;s van stands over the pit with everything taken out of it.',
+      'On the floor lie eight long strips of paper, each with a black tyre print rolled along it: four from Benny&rsquo;s tyres, made by Officer Lakhani at half past eleven, and four from Mr Blakely&rsquo;s, made ten minutes ago. Mr Blakely drove over the paper himself, very slowly, as if he were parking at a wedding.',
+      'His van is back in lane two now, with its lights on, waiting to board. He has walked over to watch. &ldquo;Fascinating,&rdquo; he says. &ldquo;Like brass rubbing.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) paint(); }; }
+  $('#gwen').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Gwen Elphick', role: 'Lane marshal', face: FACE('gwen'), clue: { id: 'gwen', title: 'Gwen Elphick: the lane log', kind: 'Statement' }, done: done('gwen'), lines: [
+      'Gwen Elphick, lane marshal. I found the crate, doing my rounds with the torch at twenty to eleven.',
+      { q: 'Where exactly?', a: 'Lane seven, space four, behind the grit bin. The verge there is mud, mostly. Anybody who parks over the line leaves a mark in it.' },
+      { q: 'Who parked in seven-four tonight?', a: 'Two vans. It&rsquo;s all in my lane log:' },
+      '<p><b>7-4 &middot; 21.34</b> &middot; white van, Blakely&rsquo;s Orchids. Moved to lane 2 (plants) at 21.58.<br><b>7-4 &middot; 22.12</b> &middot; white van, Gault Couriers.<br><b>22.40</b> &middot; crate found behind the grit bin, 7-4. Customs called.</p>',
+      { q: 'Did you see which van went on the verge?', a: 'I had forty vans and one torch. I saw headlights. I can tell you it was raining.' },
+      { q: 'Could somebody walk about the lanes without being seen?', a: 'Drivers walk about all night: to the toilets, to the drinks machine, to have a cigarette where they shouldn&rsquo;t. Nobody looks twice at a man walking.' }
+    ] });
+  });
+  $('#kamal').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Officer Kamal Lakhani', role: 'Customs, Elsmouth', face: FACE('kamal'), clue: { id: 'kamal2', title: 'Officer Lakhani: the test prints', kind: 'Statement' }, done: done('kamal'), lines: [
+      'Mr Gault&rsquo;s four tyres, inked and rolled, one strip each. All four have the same pattern as the print. Fellrunner Van 4: it&rsquo;s written on the side of the tyre.',
+      { q: 'And Mr Blakely&rsquo;s?', a: 'Four more strips. Same pattern again, which I&rsquo;ll admit I didn&rsquo;t expect.' },
+      { q: 'Why are they the same?', a: 'It&rsquo;s the cheapest van tyre in the county. Half the vans in this port are on it. That&rsquo;s what I&rsquo;m starting to worry about.' },
+      { note: 'He looks at the photograph on the pinboard for a long moment.' },
+      'If the pattern can&rsquo;t tell two vans apart, I don&rsquo;t know what can.'
+    ] });
+  });
+  $('#blakely').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Hector Blakely', role: 'Blakely&rsquo;s Orchids, Kilnford', face: FACE('blakely'), clue: { id: 'blakely2', title: 'Mr Blakely: his tyres', kind: 'Statement' }, done: done('blakely'), lines: [
+      'There: four prints, as promised. I hope I didn&rsquo;t smudge them.',
+      { q: 'Where did you buy your tyres?', a: 'Kilnford Tyres, like everybody else in Kilnford. Cheap and cheerful. Mr Gault buys his there too, I expect: I&rsquo;ve seen his van in their yard.' },
+      { q: 'Your front tyres look worn at the edges.', a: 'Do they? The steering pulls a little. I keep meaning to have it looked at.' },
+      { q: 'When does your boat sail?', a: 'A quarter to one. Lane two boards at a quarter past twelve, and I&rsquo;d like a cabin and a biscuit before then.' }
+    ] });
+  });
+  $('#ada').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;White sand,&rdquo; says Dr Kinsella, &ldquo;and heather. From Kilnford. Where all the sand is orange.&rdquo;' :
+      '&ldquo;Same make, same pattern,&rdquo; says Dr Kinsella. &ldquo;Of course. A tyre is born in a mould with ten thousand brothers. What makes it itself is what happens to it afterwards.&rdquo;');
+  });
+
+  /* ---------- papers ---------- */
+  var DIAG = '<svg viewBox="0 0 250 220"><rect width="250" height="220" fill="#fffdf4"/><g transform="translate(20 40)">' + tread({ cut: [2], stone: [4], wear: 'L' }, 7, 0, 0, '#2a2a2a', null, 0.9) + '</g>' +
+    '<g font-family="Patrick Hand,cursive" font-size="13" fill="#221f1a"><text x="20" y="24">worn edge: prints faint</text><text x="20" y="180">a cut across a block</text><text x="132" y="205">a stone in a groove</text><text x="160" y="36">block</text><text x="214" y="100">groove</text></g>' +
+    '<g stroke="#b3261c" stroke-width="1.2" fill="none"><path d="M40 28l6 16M82 168l-4 -94M160 192l-20 -70M178 40l-10 12M220 104l-12 0"/></g></svg>';
+  var MANUAL = '<h4>Field manual &middot; Marks</h4><h3>Tyre marks: the family and the individual</h3><div class="two"><div>' +
+    '<p>A tyre&rsquo;s <b>tread</b> is made in a mould: blocks of rubber, with <b>grooves</b> between them. Every tyre of the same make and model has the same pattern, so a pattern only narrows the search, to every vehicle on those tyres.</p>' +
+    '<p>What makes one tyre different from all the others is what has happened to it since: <b>wear</b> (a wheel that is out of line wears one edge smooth, and that edge prints faintly), cuts, and small stones caught in the grooves.</p></div>' + DIAG + '</div>' +
+    '<p>To compare, make a <b>test print</b>: ink the tyre and roll it slowly over a long strip of paper. Then lay the print from the scene over it. The blocks repeat all the way round a tyre, so the pattern will seem to fit almost anywhere.</p>' +
+    '<p class="rule">A match needs the cuts, the stones and the wear in the same places too.</p><p class="pg">61</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual61', title: 'Tyre marks: the family and the individual', kind: 'Field manual, page 61' }, done: function () {
+      OR.terms(['tread', 'groove', 'wear', 'test print']);
+      if (tell('manual')) { paint(); ER.say('&ldquo;Family and individual,&rdquo; says Dr Kinsella. &ldquo;Officer Lakhani has found the family. We want the individual.&rdquo;'); }
+    } });
+  });
+  var LAW = '<h4>Elsmouth Port &middot; Safety notice</h4><h3>TYRES: THE LAW</h3><p>Cars and light vans must have at least <b>1.6 mm</b> of tread across the middle three-quarters of the tyre, all the way round.</p><p>Less than that, and you can be fined up to <b>&pound;2,500</b> and get three penalty points <b>for each tyre</b>.</p><p class="rule">Four bald tyres can cost you &pound;10,000. Check yours before you sail.</p>';
+  $('#law').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LAW, cls: 'poster', clue: { id: 'law', title: 'Tyres: the law', kind: 'Notice on a pillar' }, done: function () {
+      if (tell('law')) { paint(); ER.say('&ldquo;A true fact,&rdquo; says Dr Kinsella, &ldquo;and no use to us whatever. Both vans are legal. Worn is not the same as bald.&rdquo;'); }
+    } });
+  });
+  var PHOTO = '<h4>PHOTO 3 &middot; K. LAKHANI &middot; THU 01 OCT &middot; 22.52 &middot; LANE 7, SPACE 4</h4>' +
+    '<svg viewBox="0 0 720 230"><rect width="720" height="230" fill="#4a3c2c"/><g opacity=".5" fill="#2e241a"><circle cx="40" cy="30" r="14"/><circle cx="660" cy="200" r="20"/><circle cx="600" cy="40" r="10"/></g>' +
+    '<g transform="translate(80 50)">' + tread(PRINT, FILM, 0, 0, '#1e160e', null, 0.85) + '</g>' +
+    '<rect x="270" y="30" width="250" height="150" fill="#b98a52" opacity=".9"/><path d="M270 30h250M270 180h250" stroke="#8a6234" stroke-width="4"/><text x="395" y="112" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="18" fill="#5a3a1a" text-anchor="middle">CRATE</text>' +
+    '<rect x="80" y="190" width="180" height="20" fill="#f2c230"/><g stroke="#151515" stroke-width="2"><path d="M80 190v8M110 190v6M140 190v8M170 190v6M200 190v8M230 190v6M260 190v8"/></g><text x="170" y="206" font-family="IBM Plex Mono,monospace" font-size="11" fill="#151515" text-anchor="middle">0 · · 30 cm</text></svg>' +
+    '<p>A tyre print in the soft verge beside the grit bin, about 30 cm of it, made by a wheel that went over the edge of the tarmac. The crate stood across the far end of it. <b>Pattern: Fellrunner Van 4, as on Mr Gault&rsquo;s van.</b> The original photograph is to scale: the film on the bench is a copy of it, the same size as the tyre.</p>';
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHOTO, cls: 'photo', clue: { id: 'photo3', title: 'Photograph 3: the print in the verge', kind: 'Customs photograph' }, done: function () {
+      if (tell('photo')) { paint(); ER.say('&ldquo;The crate stood on the end of the print,&rdquo; says Dr Kinsella. &ldquo;So the print was there first. Remember that.&rdquo;'); }
+    } });
+  });
+  OR.thing('#mouth', null, 'Lane two, through the rain: a white van with its lights on, BLAKELY&rsquo;S ORCHIDS on the side. Beyond it the ship, lit up like a block of flats.', isBusy);
+  OR.thing('#ink', null, 'A tray of black ink and a rubber roller. Everybody&rsquo;s fingers in this bay are grey.', isBusy);
+  OR.thing('#bgvan', null, 'Benny&rsquo;s van, over the pit: GAULT COURIERS, a dent in one door, and a child&rsquo;s drawing of a lorry taped inside the windscreen.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#strips').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Eight strips, and the film lying on one of them: Mr Blakely&rsquo;s front left.'); return; }
+    if (!ready()) {
+      var miss = NEED.filter(function (k) { return !told[k]; })[0];
+      ER.say('&ldquo;Not yet,&rdquo; says Dr Kinsella. &ldquo;' + ({ gwen: 'Hear the marshal first: she found the crate.', kamal: 'Ask Officer Lakhani about his prints.', blakely: 'Have a word with Mr Blakely. He came to watch.', manual: 'Page 61 of the manual, on the trestle table.', law: 'Read the notice on the striped pillar.', photo: 'Look at the photograph on the pinboard.' })[miss] + '&rdquo;');
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the bench: eight test strips and the film ---------- */
+  function makeBench() {
+    var st = ER.flag('b-st') || { t: 'bg-fl', k: 0 }, wait = false, X0 = 50, SY = 286;
+    var box = ER.el('div', 'bn tr', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="t-go">This tyre made it</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('b-st', st); }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#6b6f73"/><rect x="20" y="20" width="960" height="560" rx="6" fill="#8a7a5a"/><rect x="30" y="30" width="940" height="540" fill="#b3a27e"/>';
+      s += '<text x="500" y="62" class="tB" font-size="17" fill="#2a2418" text-anchor="middle" letter-spacing="3">TEST PRINTS · ONE STRIP FOR EACH TYRE · ALL FELLRUNNER VAN 4</text>';
+      ['bg', 'hb'].forEach(function (v, r) {
+        s += '<text x="52" y="' + (100 + r * 44) + '" class="tB" font-size="16" fill="#2a2418">' + (v === 'bg' ? 'MR GAULT' : 'MR BLAKELY') + '</text>';
+        ['fl', 'fr', 'rl', 'rr'].forEach(function (w, c) {
+          s += '<g class="tab" data-t="' + v + '-' + w + '"><rect x="' + (180 + c * 196) + '" y="' + (80 + r * 44) + '" width="184" height="32" rx="4"/><text x="' + (272 + c * 196) + '" y="' + (102 + r * 44) + '" class="tB" font-size="16" text-anchor="middle">' + NAME[w].toUpperCase() + '</text></g>';
+        });
+      });
+      s += '<text id="t-name" x="50" y="' + (SY - 14) + '" class="tB" font-size="16" fill="#2a2418"></text>';
+      s += '<g id="strip"></g><g id="film"></g>';
+      s += '<path d="M50 ' + (SY + 126) + 'h900" stroke="#5a4a2a" stroke-width="1"/><g id="ticks"></g>';
+      s += '<rect x="50" y="440" width="900" height="110" fill="#efe9d8" opacity=".8"/><text x="70" y="468" class="tH" font-size="19" fill="#2a2418">The film is a copy of photograph 3, the same size as the tyre. Drag it along the strip.</text>' +
+        '<g id="under"></g>';
+      svg.innerHTML = s;
+      var t = ''; for (var i = 0; i <= N; i += 5) t += '<path d="M' + (X0 + i * P) + ' ' + (SY + 120) + 'v12" stroke="#5a4a2a" stroke-width="1.5"/>';
+      svg.querySelector('#ticks').innerHTML = t;
+      place(); wire();
+    }
+    function place() {
+      var f = TY[st.t];
+      svg.querySelector('#strip').innerHTML = tread(f, N, X0, SY, '#161616', '#f6f4ec', 0.9);
+      svg.querySelector('#film').innerHTML = '<rect x="' + (X0 + st.k * P - 4) + '" y="' + (SY - 10) + '" width="' + (FILM * P + 8) + '" height="130" fill="#fff6dc" fill-opacity=".28" stroke="#b3261c" stroke-width="2" stroke-dasharray="7 4"/>' +
+        tread(PRINT, FILM, X0 + st.k * P, SY, '#8a3a12', null, 0.42) + '<text x="' + (X0 + st.k * P + FILM * P / 2) + '" y="' + (SY + 138) + '" class="tB" font-size="13" fill="#8a2a12" text-anchor="middle" letter-spacing="2">FILM · PHOTO 3</text>';
+      svg.querySelector('#t-name').textContent = (st.t.indexOf('bg') === 0 ? 'MR GAULT' : 'MR BLAKELY') + ' · ' + NAME[st.t.slice(3)].toUpperCase() + ' · TEST STRIP';
+      ER.$$('.tab', svg).forEach(function (g) { var on = g.getAttribute('data-t') === st.t; g.querySelector('rect').setAttribute('fill', on ? '#1f2a3a' : '#e9e2cc'); g.querySelector('text').setAttribute('fill', on ? '#f2c230' : '#2a2418'); });
+      svg.querySelector('#under').innerHTML = '<text x="70" y="500" class="tH" font-size="19" fill="#2a2418">On the film: a cut across one block, a stone in the groove two blocks on, and a top edge that prints faint.</text>' +
+        '<text x="70" y="530" class="tH" font-size="19" fill="#2a2418">When you think everything lies on its twin, press the button.</text>';
+    }
+    function under() {
+      var f = TY[st.t], c = st.k + PRINT.cut[0], sn = st.k + PRINT.stone[0];
+      return { cut: f.cut.indexOf(c) >= 0 ? 'a cut' : 'a whole block', stone: f.stone.indexOf(sn) >= 0 ? 'a stone' : 'an empty groove', edge: f.wear === 'L' ? 'faint too' : f.wear === 'R' ? 'sharp (it is the bottom edge that is faint)' : 'sharp',
+        n: (f.cut.indexOf(c) >= 0 ? 1 : 0) + (f.stone.indexOf(sn) >= 0 ? 1 : 0) + (f.wear === 'L' ? 1 : 0) };
+    }
+    function wire() {
+      var gx = 0, k0 = 0;
+      ER.drag(svg.querySelector('#film'), {
+        start: function (e) { if (wait || nextFile) return false; gx = ER.pt(svg, e).x; k0 = st.k; },
+        move: function (e) { var k = OR.clamp(Math.round(k0 + (ER.pt(svg, e).x - gx) / P), 0, N - FILM); if (k !== st.k) { st.k = k; place(); OR.sfx.slide(); } },
+        end: function () { keep(); report(); }
+      });
+      ER.$$('.tab', svg).forEach(function (g) {
+        g.addEventListener('click', function () { if (wait) return; st.t = g.getAttribute('data-t'); keep(); OR.sfx.rustle(); place(); report(); });
+      });
+    }
+    function report() {
+      msg('The blocks of the film lie exactly on the blocks of the strip, as they would anywhere: the pattern repeats. Look closer.');
+    }
+    box.querySelector('#t-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var u = under(), v = st.t.slice(0, 2), w = st.t.slice(3), file;
+      if (u.n < 3) {
+        ER.sfx.no();
+        msg(u.n === 2 && TY[st.t].wear !== 'L' ? '&ldquo;The cut and the stone agree,&rdquo; says Dr Kinsella. &ldquo;Now the edge. The print&rsquo;s top edge is faint all the way along. Is this tyre&rsquo;s?&rdquo;' :
+          u.n === 0 ? '&ldquo;The pattern fits,&rdquo; says Dr Kinsella. &ldquo;The pattern always fits. Where is the cut?&rdquo;' :
+          '&ldquo;Not everything agrees,&rdquo; says Dr Kinsella. &ldquo;Page 61: the cuts, the stones and the wear, all in the same places.&rdquo;');
+        return;
+      }
+      file = ER.exitOk([v + '-' + w]);
+      if (!file) { ER.sfx.no(); msg('&ldquo;Show me again,&rdquo; says Dr Kinsella, and frowns at it.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.bay = 1; ER.persist(true);
+      OR.sfx.stamp(); msg('<b>' + NAME[v] + ', ' + NAME[w] + '.</b> Dr Kinsella initials the film where it lies on the strip.');
+      OR.mine('tread', 'The print in the verge', '<p>Same pattern on all eight tyres: Fellrunner Van 4. The pattern proves nothing.</p><p>The cut, the stone and the faint top edge match only one tyre: Mr Blakely&rsquo;s front left. None of Mr Gault&rsquo;s tyres made the print.</p><p>The crate stood on the end of the print, so it was put there after Mr Blakely parked (21.34).</p>');
+      setTimeout(function () {
+        ER.closeAll(); OR.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Mr Blakely&rsquo;s front left,&rdquo; says Officer Lakhani slowly. &ldquo;Not Mr Gault&rsquo;s at all.&rdquo;',
+          '&ldquo;Well, of course,&rdquo; says Mr Blakely, quite unbothered. &ldquo;I told you: I parked there first, at half past nine. My wheel went on the verge. Then they moved me, and Mr Gault came, and somebody left a crate. Anybody could have.&rdquo;',
+          '&ldquo;He&rsquo;s right,&rdquo; says Officer Lakhani, to you, quietly. &ldquo;The print puts his van in the space, and he&rsquo;s never said it wasn&rsquo;t. But it takes away the one thing I had against Mr Gault&rsquo;s tyres.&rdquo; He looks at the strips for a moment. &ldquo;I&rsquo;ve told the duty officer that print was Gault&rsquo;s.&rdquo;',
+          'A loudspeaker crackles: <i>Lane two, start your engines, please.</i> Mr Blakely lifts his cap to everybody, and goes.',
+          'Dr Kinsella is on her knees by Mr Blakely&rsquo;s front left strip with her lens. In the ink there are pale grains, sharp as sugar, and something tiny and purple: a single dried heather flower. &ldquo;White sand,&rdquo; she says. &ldquo;And heather. He came straight down the motorway from Kilnford, he says. Every bit of sand at Kilnford is orange.&rdquo;',
+          '&ldquo;Kamal,&rdquo; she says, getting up, &ldquo;ring the ship. Ask them to hold that van on the car deck. I want what&rsquo;s under its wheel arch before it goes to sea.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    draw(); report();
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

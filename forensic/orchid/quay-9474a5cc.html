@@ -1,0 +1,226 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Quay at Dawn · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#2a2a3a;--accent:#f2b45a;--font-display:'EB Garamond',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(40,34,48,.95);--tc-ink:#fbf2e6;--cap-bg:rgba(40,34,48,.92);--panel:#2a2432;--face-bg:#4a3a4a;--q-ink:#f2b45a;--fade:#140f18;--hud-bg:rgba(40,34,48,.84)}
+  .tc-room{font-family:'EB Garamond',serif;font-style:italic;letter-spacing:.02em;font-size:clamp(40px,5.6vw,74px)}
+  .tk-name{font-family:'EB Garamond',serif;font-style:italic}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .gulls{animation:gulls 26s linear infinite}
+  @keyframes gulls{from{transform:translate(-200px,0)}to{transform:translate(1900px,-60px)}}
+  .ship{animation:ship 120s linear infinite}
+  @keyframes ship{from{transform:translate(0,0)}to{transform:translate(-260px,10px)}}
+  .glint{animation:glint 4s steps(1,end) infinite}
+  @keyframes glint{0%{opacity:.6}50%{opacity:.6}51%{opacity:.3}53%{opacity:.6}}
+  #keys.ready{animation:orready 1.2s steps(1,end) infinite}
+  #van{transition:transform 3.4s ease-in}
+
+  /* the card at the end */
+  .done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(520px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 26px 14px;display:none;background:#fffaf2;color:#2a2228;border-top:10px solid #13233f;box-shadow:0 20px 60px rgba(20,10,20,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:3px 14px 0;border:4px solid #2f7a4a;color:#2f7a4a;font-family:'Stardos Stencil',serif;font-weight:700;font-size:26px;letter-spacing:.14em;transform:rotate(-3deg);margin-bottom:8px}
+  .done h6{margin:9px 0 5px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#13233f}
+  .done p{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-size:13.500px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'EB Garamond',serif;font-size:15.500px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#13233f;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fffaf2}
+  .done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fffaf2;color:#2a2228;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #13233f}
+  .rp h4{margin:0 0 3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#13233f}
+  .rp h3{margin:0 0 8px;font-family:'Patrick Hand',cursive;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#2a2228}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Patrick Hand',cursive;font-size:22px;line-height:30px;color:#2b3a66;background:#fff repeating-linear-gradient(transparent 0 29px,#c9d3e6 29px 30px);border:1px solid #a6b0c9;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:184px}
+  .rp input[type=text]{height:32px}
+  .rp .count{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12.500px;opacity:.75}
+  .rp .btn{--accent:#13233f}.rp .btn:hover:not([disabled]){color:#fffaf2}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a5a"/><stop offset=".45" stop-color="#9a6a8a"/><stop offset=".8" stop-color="#f2a87a"/><stop offset="1" stop-color="#ffd8a0"/></linearGradient>
+  <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c98a8a"/><stop offset="1" stop-color="#4a4a6a"/></linearGradient>
+  <radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff4c8" stop-opacity=".95"/><stop offset=".4" stop-color="#ffd890" stop-opacity=".5"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="82%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a1020" stop-opacity=".15"/><stop offset="1" stop-color="#0a0610" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<!-- dawn over the harbour -->
+<rect x="-1000" y="-400" width="3600" height="830" fill="url(#skyG)"/>
+<circle cx="1180" cy="420" r="220" fill="url(#sunG)"/><circle cx="1180" cy="430" r="40" fill="#fff0c0"/>
+<g fill="#f4c8b0" opacity=".55"><ellipse cx="300" cy="180" rx="220" ry="18"/><ellipse cx="900" cy="140" rx="300" ry="14"/><ellipse cx="1400" cy="230" rx="180" ry="12"/></g>
+<rect x="-1000" y="428" width="3600" height="300" fill="url(#seaG)"/><g class="glint" stroke="#fff0c0" stroke-width="3" opacity=".6"><path d="M1120 450h120M1100 470h160M1140 490h90M1080 510h200"/></g>
+<!-- the lighthouse and the morning boat -->
+<g><rect x="140" y="300" width="26" height="130" fill="#f2ece4"/><rect x="140" y="330" width="26" height="14" fill="#a8261c"/><rect x="140" y="370" width="26" height="14" fill="#a8261c"/><path d="M134 300h38l-6 -20h-26z" fill="#2a2a3a"/></g>
+<g class="ship"><g transform="translate(1420 424)"><path d="M-110 0h220l-20 22h-180z" fill="#2a3446"/><rect x="-80" y="-30" width="150" height="30" fill="#f2f2f2"/><rect x="-40" y="-52" width="80" height="22" fill="#f2f2f2"/><rect x="10" y="-74" width="16" height="22" fill="#a8261c"/><g fill="#3a5a8a"><rect x="-70" y="-22" width="130" height="6"/></g></g></g>
+<g class="gulls" fill="none" stroke="#2a2a3a" stroke-width="3"><path d="M0 200q10 -10 20 0q10 -10 20 0"/><path d="M60 230q8 -8 16 0q8 -8 16 0"/><path d="M-50 260q9 -9 18 0q9 -9 18 0"/></g>
+<!-- the quay: stone edge, bollards, a crane, containers -->
+<rect x="-1000" y="600" width="3600" height="800" fill="#8a8078"/><path d="M-1000 600H2600" stroke="#5a5048" stroke-width="8"/><rect x="-1000" y="604" width="3600" height="20" fill="#6a6058"/>
+<g id="stones" stroke="#7a7068" stroke-width="2"></g>
+<g><path d="M1490 600V170M1470 600l20 -430 20 430" stroke="#c9a03a" stroke-width="10" fill="none"/><path d="M1300 180h290" stroke="#c9a03a" stroke-width="14"/><path d="M1340 180v120" stroke="#2a2a2a" stroke-width="2"/><rect x="1326" y="300" width="28" height="16" fill="#2a2a2a"/></g>
+<g><rect x="1230" y="470" width="200" height="130" fill="#2a5a8a"/><rect x="1260" y="380" width="200" height="90" fill="#a8261c"/><g stroke="#000" opacity=".2" stroke-width="3"><path d="M1250 470v130M1270 470v130M1290 470v130M1310 470v130M1330 470v130M1350 470v130M1370 470v130M1390 470v130M1410 470v130"/></g></g>
+<!-- the van, Benny's -->
+<g id="van" transform="translate(820 696) scale(.9)"></g>
+<!-- the box for Kew -->
+<g id="kewbox" class="hot"><rect x="420" y="600" width="170" height="96" fill="#e9dcc0" stroke="#8a6a3a" stroke-width="3"/><path d="M420 624h170" stroke="#8a6a3a" stroke-width="2"/><text x="505" y="652" class="sB" font-size="17" fill="#5a3a1a" letter-spacing="2">LIVE PLANTS</text><text x="505" y="674" class="sB" font-size="14" fill="#a8261c" letter-spacing="2">TO KEW · KEEP WARM</text><path d="M440 690l14 -12 14 12" stroke="#5a3a1a" stroke-width="3" fill="none"/></g>
+<!-- the bollard and the keys -->
+<g><path d="M1100 700v-60q0 -16 30 -16t30 16v60z" fill="#2a2a2a"/><ellipse cx="1130" cy="624" rx="38" ry="12" fill="#3a3a3a"/></g>
+<g id="keys" class="hot"><circle cx="1130" cy="618" r="22" fill="#000" opacity="0"/><circle cx="1122" cy="616" r="8" fill="none" stroke="#c9ced8" stroke-width="3"/><path d="M1128 618l18 4M1140 621v6M1146 622v5" stroke="#c9ced8" stroke-width="3"/><rect x="1104" y="606" width="12" height="16" rx="3" fill="#a8261c"/></g>
+
+<!-- people -->
+<g id="benny" class="hot" transform="translate(1020 884)"></g>
+<g id="ada" class="hot" transform="translate(300 884)"></g>
+<g id="kamal" class="hot" transform="translate(170 880) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">CLEARED · CASE CLOSED</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>CITES (agreed in 1973, in force since 1975) controls the trade in endangered wild plants and animals. Wild-collected plants of an Appendix I species, like slipper orchids, may not be traded for profit; nursery-grown ones may cross a border with a certificate.</li>
+    <li>A plant dug up in the wild gives itself away by several signs together: torn roots, grit and old leaves, scars, moss, no label. One sign alone proves nothing.</li>
+    <li>A tread pattern only tells you the make of a tyre. Wear, cuts and stones in the grooves make one tyre different from every other, so a print must match those too.</li>
+    <li>Mud on a vehicle builds up in layers, the newest on the outside. The chain of custody records every sample and every hand-over, with a time, and a time can put a mistake right.</li>
+    <li>Every plant makes pollen of its own shape. Pollen and the soil&rsquo;s colour, texture and grains make a fingerprint of a place; the season changes the mix; and a sample shows where something has been, and where it has not.</li>
+    <li>In DNA, A pairs with T and C with G, so one strand gives you the other. A short barcode region, compared base for base with reference sequences, can name a species.</li>
+    <li>The evidence was honest all along. A matching pattern, a leaf on a floor and a number on a lid all misled, until somebody checked what had really happened to them.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain it to a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>Lane Seven &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  (function () {
+    var s = '', i;
+    for (i = -10; i < 30; i++) s += '<path d="M' + (i * 110) + ' 624v280"/>';
+    for (i = 0; i < 4; i++) s += '<path d="M-1000 ' + (680 + i * 70) + 'H2600"/>';
+    $('#stones').innerHTML = s;
+    var b = {}; for (var k in CAST.benny) b[k] = CAST.benny[k]; b.pose = 'cup'; b.cupc = '#f2efe6'; b.tired = false; b.mouth = 'smile';
+    $('#benny').innerHTML = OR.person(b);
+    $('#ada').innerHTML = OR.fig('ada'); $('#kamal').innerHTML = OR.fig('kamal');
+    $('#van').innerHTML = OR.van({ name: 'GAULT COURIERS', nameColour: '#1f3a6a', plate: 'GC 17 BNY' });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'quay', no: 'VI', title: 'The Quay at Dawn',
+    go: 'Friday, ten past six',
+    intro: [
+      'The sequencer had read tubes 1 and 7 on the partner strand. You paired every base, A with T and C with G, and laid the reference strips over them. One tube matched Rothschild&rsquo;s slipper orchid base for base, like the wild plants in the crate; the other matched <i>Paphiopedilum insigne</i>, like Mr Blakely&rsquo;s legal plants. One strip differed in a single place, and a single place is enough.',
+      'Then the custody log. Officer Lakhani had numbered his lids first, and filled tube 1 at 01.49, when the only bag out of the locker was E7. So the Rothschild&rsquo;s leaf came from Mr Blakely&rsquo;s door, and the nursery leaf from Benny&rsquo;s van, which had carried Mr Blakely&rsquo;s empty trays. Mr Blakely told the rest.',
+      'It is Friday morning, and the sky over Elsmouth is getting light.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (ER.flag('f-keys') && !ER.flag('f-gone')) return ['keys', ['Benny&rsquo;s keys are lying on the bollard by his van. Click them.']];
+    return null;
+  }
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    OR.mine('confession', 'What Mr Blakely said', '<p>He met a man on Burnet Heath at half past four and bought the crate of wild Rothschild&rsquo;s slipper orchids, putting it down on the ground while he counted the money. Four nursery plants of his own went on top.</p><p>When he was moved to lane two for the inspection, he hid the crate behind the grit bin in 7-4, meaning to fetch it back. When it was found beside Mr Gault&rsquo;s van, he said nothing.</p>', true);
+    if (ER.flag('f-done')) { busy = false; $('#van').setAttribute('transform', 'translate(-600 696) scale(.9)'); finish(true); return; }
+    if (ER.flag('f-keys')) { busy = false; $('#keys').classList.add('ready'); ER.say('Benny&rsquo;s keys are on the bollard.'); return; }
+    ER.narrate([
+      'Ten past six. The rain has gone in the night, the way rain at sea does, without saying goodbye. The sky over the harbour is the colour of the inside of a shell, and the morning boat is coming in past the lighthouse.',
+      'Mr Blakely left for the police station at four, in the back of a car, very politely. His only request was that somebody should water the forty plants in his van. Dr Kinsella said she would, and did.',
+      'On the quay stands a box marked LIVE PLANTS, TO KEW, KEEP WARM. &ldquo;The Royal Botanic Gardens look after plants that are seized at Britain&rsquo;s borders,&rdquo; says Dr Kinsella. &ldquo;These eight will live in a glasshouse there, safe, and be stared at by schoolchildren. There are worse lives for an orchid.&rdquo;',
+      'Benny Gault was let go at half past three, and has slept in his cab. His van is on the quay, loaded, for the seven o&rsquo;clock boat. He has a paper cup of tea from the machine, which he says is either tea or soup.',
+      'Officer Lakhani has his keys. He holds them for a moment, then puts them down on the bollard beside the van instead of handing them over, as if he did not trust himself to say the right thing at the same time.'
+    ], function () { ER.flag('f-keys', 1); busy = false; $('#keys').classList.add('ready'); });
+  }
+  $('#keys').addEventListener('click', function () {
+    if (busy || !ER.flag('f-keys')) return;
+    if (ER.flag('f-gone')) { ER.say('Only the bollard now, and a gull on it.'); return; }
+    ER.flag('f-gone', 1); OR.sfx.clank(); $('#keys').classList.remove('ready'); $('#keys').setAttribute('opacity', '0');
+    busy = true;
+    ER.narrate([
+      'You pick up the keys and give them to Benny. He weighs them in his hand.',
+      '&ldquo;Mr Gault,&rdquo; says Officer Lakhani. &ldquo;You were honest for nine years, and you were honest last night. I said that print was yours, and it wasn&rsquo;t. I&rsquo;m sorry.&rdquo;',
+      'Benny looks at him for a long moment. &ldquo;There you go,&rdquo; he says. &ldquo;Somebody said that bit first.&rdquo; He finishes his tea or soup, climbs into his cab, and drives up the ramp of the morning boat with one hand out of the window. It is Saturday tomorrow. He will be home.',
+      'Dr Kinsella watches the boat until it is small. &ldquo;Every contact leaves a trace,&rdquo; she says. &ldquo;People always say it as if it were a threat. Half the time the trace is what gets somebody home.&rdquo;'
+    ], function () {
+      $('#van').setAttribute('transform', 'translate(-600 696) scale(.9)');
+      OR.sfx.horn(); busy = false; ER.flag('f-done', 1); finish(false);
+    });
+  });
+  function finish(quick) {
+    var st = ER.state(), mins = OR.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the customs shed at midnight to the quay at dawn: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Friday morning. The plants are safe, and Benny has gone home.');
+  }
+
+  /* ---------- things on the quay ---------- */
+  function line(sel, f) { $(sel).addEventListener('click', function () { if (!busy) ER.say(f()); }); }
+  line('#kewbox', function () { return 'LIVE PLANTS, TO KEW, KEEP WARM. Inside, eight wild slipper orchids in fresh newspaper, and a hot-water bottle.'; });
+  line('#ada', function () { return '&ldquo;Breakfast,&rdquo; says Dr Kinsella. &ldquo;Then the report. Then sleep. Then, I suppose, Burnet Heath, with a spade and a clean bag. I owe it an October sample.&rdquo;'; });
+  line('#kamal', function () { return '&ldquo;I&rsquo;m going to number my lids after I fill them,&rdquo; says Officer Lakhani. &ldquo;For the rest of my life.&rdquo;'; });
+  line('#benny', function () { return ER.flag('f-gone') ? 'Benny&rsquo;s van is on the boat.' : 'Benny, with his tea or soup, watching the boat come in.'; });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Lane Seven &middot; in your own words</h4><h3>Explain it to a friend</h3>' +
+      '<p>A friend of yours thinks forensic science is only fingerprints. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: first, then, because, so.</p>' +
+      '<p><b>A</b> How the tyre print cleared Benny&rsquo;s tyres, although the pattern matched.<br><b>B</b> How pollen and soil showed where the crate had been, and where Benny&rsquo;s van had not.<br><b>C</b> How DNA and the custody log showed whose leaf was whose.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

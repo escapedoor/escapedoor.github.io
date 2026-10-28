@@ -1,0 +1,397 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Control Room · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#070b12;--accent:#5fd8f0;--font-display:'IBM Plex Mono',monospace;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,14,24,.96);--tc-ink:#e6eef6;--cap-bg:rgba(8,14,24,.94);--panel:#0e1622;--face-bg:#1a2434;--q-ink:#5fd8f0;--fade:#030508;--hud-bg:rgba(8,14,24,.86)}
+  .tc-room{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.04em;font-size:clamp(32px,4.6vw,60px)}
+  .tk-name{font-family:'IBM Plex Mono',monospace;font-weight:600}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .sM{font-family:'IBM Plex Mono',monospace;font-weight:600;text-anchor:middle}
+  .rain{animation:rain .8s linear infinite}
+  @keyframes rain{from{transform:translate(0,-50px)}to{transform:translate(-8px,50px)}}
+  .scr{animation:scr 5s steps(1,end) infinite}
+  @keyframes scr{0%{opacity:.85}48%{opacity:.85}49%{opacity:.7}50%{opacity:.85}}
+  .dn .row,.dn .slot,.dn .base,.dn .ref,.dn .opt{cursor:pointer}
+  .dn .row:hover>rect,.dn .ref:hover>rect,.dn .opt:hover>rect{filter:brightness(1.12)}
+  .dn .base.held>rect{stroke:#5fd8f0;stroke-width:4}
+  .doc.log{width:min(820px,95vw);background:#f4f1e6;color:#1d1f26;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.5;padding:16px 26px 14px;border-left:14px solid #8a2a20}
+  .doc.log h4{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.24em;color:#8a2a20;text-transform:uppercase}
+  .doc.log table{width:100%;border-collapse:collapse}
+  .doc.log td{padding:2px 8px 2px 0;border-bottom:1px solid #d6cfbc;vertical-align:top}
+  .doc.log td:first-child{white-space:nowrap;font-weight:600}
+  .doc.log .hw{font-family:'Patrick Hand',cursive;font-size:17px;color:#1d2a66}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="lanesG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050a14"/><stop offset=".45" stop-color="#0c1424"/><stop offset=".46" stop-color="#1c1a1a"/><stop offset="1" stop-color="#2a2420"/></linearGradient>
+  <radialGradient id="sodG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb04a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#03050a" stop-opacity=".3"/><stop offset="1" stop-color="#010204" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- the room: dark walls, a long sloping window on the lanes -->
+<rect x="-1000" y="-400" width="3600" height="1060" fill="#1a2230"/>
+<rect x="-1000" y="110" width="3600" height="350" fill="url(#lanesG)"/>
+<g id="lanes"></g>
+<g class="rain" stroke="#b8d4ea" stroke-width="1.2" opacity=".35"><path id="rainp" d=""/></g>
+<g stroke="#0e141e" stroke-width="12"><path id="mull" d=""/></g><path d="M-1000 110H2600M-1000 460H2600" stroke="#0e141e" stroke-width="16"/>
+<!-- the wall clock and the whiteboard -->
+<g id="clock" class="hot"><rect x="1474" y="470" width="120" height="46" rx="5" fill="#05070a" stroke="#2a3446" stroke-width="3"/><text x="1534" y="503" class="sM" font-size="26" fill="#5fd8f0">02:40</text></g>
+<!-- the desk, the monitors, the sequencer -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#232a36"/><path d="M-1000 640H2600" stroke="#0e141e" stroke-width="5"/>
+<rect x="160" y="560" width="1060" height="24" fill="#4a5466"/><rect x="160" y="584" width="1060" height="60" fill="#323a4a"/>
+<g id="monitors"></g>
+<g id="sequencer" class="hot"><rect x="842" y="508" width="70" height="52" rx="5" fill="#d9dee6"/><rect x="850" y="516" width="54" height="10" fill="#2a3446"/><circle cx="898" cy="544" r="5" fill="#3af07a"/><rect x="852" y="532" width="34" height="18" fill="#fffdf4"/><path d="M856 538h26M856 544h20" stroke="#5a5a5a" stroke-width="1.4"/><path d="M912 540q30 6 40 0" stroke="#1a1a1a" stroke-width="3" fill="none"/></g>
+<g id="laptop" class="hot"><path d="M952 560l10 -70h120l10 70z" fill="#2a3446"/><rect x="966" y="496" width="112" height="58" fill="#0a2a3a"/><g fill="#5fd8f0" class="scr"><rect x="974" y="504" width="70" height="4"/><rect x="974" y="514" width="90" height="4"/><rect x="974" y="524" width="60" height="4"/><rect x="974" y="534" width="80" height="4"/></g><rect x="940" y="558" width="164" height="6" fill="#4a5466"/></g>
+<g id="sheet" class="hot"><rect x="742" y="540" width="60" height="22" fill="#fffdf4" transform="rotate(-4 772 551)"/><path d="M748 546h40M748 552h46M748 558h30" stroke="#1d2a66" stroke-width="1.5" transform="rotate(-4 772 551)"/><g fill="#5fd8f0"><rect x="704" y="524" width="6" height="22" rx="3"/><rect x="714" y="524" width="6" height="22" rx="3"/></g><rect x="698" y="542" width="30" height="8" fill="#5a6476"/></g>
+<g id="kettle" class="hot"><path d="M220 560l6 -40h44l6 40z" fill="#c9ced8"/><path d="M276 528q14 4 8 22" stroke="#c9ced8" stroke-width="5" fill="none"/><rect x="290" y="536" width="20" height="24" rx="3" fill="#8a2a20"/><rect x="316" y="540" width="20" height="20" rx="3" fill="#2f5a3a"/></g>
+<!-- the custody locker and its log -->
+<g id="locker" class="hot"><rect x="1250" y="250" width="210" height="392" fill="#7a8494"/><g id="doors"></g><rect x="1250" y="250" width="210" height="20" fill="#5a6476"/><text x="1355" y="265" class="sB" font-size="13" fill="#e6eef6" letter-spacing="3">EVIDENCE · CUSTODY</text></g>
+<g id="log" class="hot"><path d="M1170 650l-20 -110h76l-20 110z" fill="#3a4254"/><path d="M1138 548l10 -26h96l10 26z" fill="#f4f1e6"/><path d="M1196 522v26" stroke="#8a2a20" stroke-width="3"/><g stroke="#8a8676" stroke-width="1.2"><path d="M1152 532h38M1150 540h40M1202 532h38M1204 540h36"/></g></g>
+
+<!-- people -->
+<g id="blakely" class="hot" transform="translate(110 880) scale(.95)"></g>
+<g id="ada" class="hot" transform="translate(1040 884)"></g>
+<g id="kamal" class="hot" transform="translate(1540 884) scale(.97)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the quay</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  (function () {
+    var s = '', i;
+    for (i = -8; i < 26; i++) s += 'M' + (i * 160) + ' 110V460';
+    $('#mull').setAttribute('d', s);
+    s = ''; for (i = 0; i < 30; i++) s += 'M' + (-200 + (i * 97) % 2000) + ' ' + (120 + (i * 61) % 330) + 'l-7 40';
+    $('#rainp').setAttribute('d', s);
+    s = '';
+    [[100, 300], [480, 290], [860, 300], [1240, 290]].forEach(function (l) { s += '<circle cx="' + l[0] + '" cy="' + l[1] + '" r="90" fill="url(#sodG)"/><path d="M' + l[0] + ' ' + (l[1] - 10) + 'v170" stroke="#0a0c10" stroke-width="5"/><ellipse cx="' + l[0] + '" cy="' + (l[1] - 10) + '" rx="12" ry="5" fill="#ffd27a"/>'; });
+    s += '<g stroke="#e6c84a" stroke-width="3" opacity=".6"><path d="M-1000 400H2600M-1000 440H2600"/></g>';
+    for (i = 0; i < 9; i++) s += '<rect x="' + (-60 + i * 170) + '" y="' + (376 + (i % 2) * 40) + '" width="80" height="30" rx="4" fill="' + ['#d9dee6', '#2a3446', '#8a2a20', '#d9dee6'][i % 4] + '" opacity=".75"/>';
+    s += '<text x="540" y="372" class="sB" font-size="24" fill="#f0c419" opacity=".7">7</text><text x="1180" y="372" class="sB" font-size="24" fill="#f0c419" opacity=".7">2</text>';
+    s += '<circle cx="1500" cy="200" r="3" fill="#ffd27a"/><circle cx="1510" cy="200" r="2" fill="#3aff6a"/><path d="M-1000 250H2600" stroke="#1a2a3e" stroke-width="2"/>';
+    $('#lanes').innerHTML = s;
+    s = ''; for (i = 0; i < 4; i++) { var x = 300 + i * 100; s += '<rect x="' + x + '" y="476" width="92" height="64" rx="3" fill="#0a0e14"/><rect x="' + (x + 5) + '" y="481" width="82" height="50" fill="#0e3442" class="scr"/><path d="M' + (x + 10) + ' ' + (520 - i * 3) + 'h70M' + (x + 30) + ' 490v36" stroke="#5fd8f0" stroke-width="1.5" opacity=".5"/><rect x="' + (x + 40) + '" y="540" width="12" height="20" fill="#0a0e14"/>'; }
+    $('#monitors').innerHTML = s;
+    s = ''; for (i = 0; i < 12; i++) { var dx = 1262 + (i % 3) * 66, dy = 282 + Math.floor(i / 3) * 88; s += '<rect x="' + dx + '" y="' + dy + '" width="58" height="80" fill="#8a94a4" stroke="#5a6476" stroke-width="2"/><circle cx="' + (dx + 48) + '" cy="' + (dy + 40) + '" r="4" fill="#3a4254"/><text x="' + (dx + 22) + '" y="' + (dy + 22) + '" class="sB" font-size="14" fill="#1a2230">E' + (i + 1) + '</text>'; }
+    $('#doors').innerHTML = s;
+    ['blakely', 'ada', 'kamal'].forEach(function (w) { $('#' + w).innerHTML = OR.fig(w); });
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'control', no: 'V', title: 'The Control Room',
+    go: 'Up the iron stairs',
+    intro: [
+      'Under the microscope, each sample named its place. The base of the crate, the newest crust in Mr Blakely&rsquo;s wheel arch and the soles of his boots were all white quartz sand and black peat, full of heather and pine: Burnet Heath, where heather was flowering this week, though the lab&rsquo;s card for the heath, collected in May, was mostly pine. Benny&rsquo;s tyre held orange and green Kilnford sand, hazel, ivy and grass, with a little port shell: Kilnford, where he delivered the bark, and never a heath.',
+      'Pollen does blow for miles, as Mr Blakely said. A few grains. Not half a slide, in heath sand, on the bottom of a crate.',
+      'Two leaves are left: one from Benny&rsquo;s van, one from Mr Blakely&rsquo;s door. The DNA results have come through to the laptop in the customs control room, above the lanes.'
+    ],
+    exit: {"next":"quay","w":{"fca424de":"b13b6ddc"}}, tags: {"t1":["e839f49f"],"t7":["2e9b5756"],"e7":["88621a84"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  var NEED = ['kamal', 'blakely', 'manual', 'log', 'sheet', 'card'];
+  function ready() { return NEED.every(function (k) { return told[k]; }); }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#laptop').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(NEED.filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The case is closed. At dawn, go down to the quay: the button at the bottom.']];
+    if (bench && bench.isOpen()) return [bench.step(), {
+      build: ['Tubes 1 and 7 were read on the partner strand. Choose a tube, then build the strand above it, rung by rung, with the four base tiles.',
+        'A pairs with T, and C pairs with G. Hold a T tile and click every empty rung above an A; then A above T, G above C, C above G.',
+        'Tube 1 starts T A C C G A ...: so the strand above it starts A T G G C T ... When both are built, lay each reference strip over them.'],
+      name: ['Click a reference strip to lay it over the strand you built. Count the differences: a match agrees base for base, everywhere.',
+        'One reference differs from tube 1 in only one place. One difference is not a match.',
+        'Lay on each tube the strip that matches the crate plant T3, and the strip that matches Mr Blakely&rsquo;s legal plant PH-0921. Which gives no red at all?'],
+      bag: ['The tube sheet says which bag went into each tube. The custody log says which bag was out of the locker, and when. Do they agree?',
+        'Tube 1 was filled at 01.49. At 01.49, which bag was out of the locker? Only one bag was out at a time.',
+        'Between 01.47 and 01.51 only one bag was out of the locker. Find its number in the log, then look again at the time on the sheet for tube 1. Trust the log, not the sheet.']
+    }[bench.step()]];
+    if (!ready()) return ['look', [
+      'Two people to hear and four things to read before the laptop (look at the pips).',
+      'People: Officer Lakhani by the locker, Mr Blakely by the kettle. To read: the manual on the laptop&rsquo;s left, the custody log on its stand, Officer Lakhani&rsquo;s tube sheet by the test tubes, and the card on the sequencer.'
+    ]];
+    return ['laptop', ['Everything is read. Click the laptop.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Tube 1 is Mr Blakely&rsquo;s leaf. It matches the crate.'); return; }
+    if (told.in) { busy = false; ER.say('The control room. Rain on the long window.'); return; }
+    tell('in');
+    ER.narrate([
+      'Twenty to three. The customs control room hangs over the lanes like the bridge of a ship: a long sloping window, a bank of screens, a kettle that has boiled too often. Below, lane seven is empty except for the grit bin and its tape.',
+      'On the desk, next to a small grey box with a green light, the laptop shows four rows of letters: A, T, C and G. &ldquo;The sequencer,&rdquo; says Dr Kinsella, fondly, &ldquo;which used to be a building and is now the size of a sandwich.&rdquo;',
+      'Mr Blakely has come up too, &ldquo;to be useful&rdquo;, and stands by the kettle. Officer Lakhani has his tube sheet in one hand and the custody log in the other, and looks as if he has not blinked for an hour.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) paint(); }; }
+  $('#kamal').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Officer Kamal Lakhani', role: 'Customs, Elsmouth', face: FACE('kamal'), clue: { id: 'kamal5', title: 'Officer Lakhani: the tubes', kind: 'Statement' }, done: done('kamal'), lines: [
+      'Two leaves, two tubes, by the book. My sheet says which bag went into which tube, and when. The custody log says when each bag left the locker and when it came back.',
+      { q: 'Did anything go wrong?', a: 'No. I wrote the sheet out first, numbered the lids, then took the bags out one at a time. Tube one, tube seven. Easy.' },
+      { q: 'Which bag did you take out first?', a: 'Whichever was on top, I think. Does it matter? It&rsquo;s all written down.' },
+      { note: 'He looks at the locker, and then at his sheet, and does not say anything else.' }
+    ] });
+  });
+  $('#blakely').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Hector Blakely', role: 'Blakely&rsquo;s Orchids, Kilnford', face: FACE('blakely'), clue: { id: 'blakely5', title: 'Mr Blakely: leaves are leaves', kind: 'Statement' }, done: done('blakely'), lines: [
+      'I&rsquo;ve made everybody tea. It&rsquo;s the least I can do, at three in the morning.',
+      { q: 'What do you think the leaves will show?', a: 'Slipper orchid, both of them, I expect. Leaves are leaves.' },
+      { q: 'How could a slipper orchid leaf get into Mr Gault&rsquo;s van?', a: 'He took a stack of my empty plant trays this afternoon, straight out of my potting shed. Anything could have fallen into those. I don&rsquo;t say it did. I only say it could.' },
+      { note: 'He stirs his tea for rather a long time.' }
+    ] });
+  });
+  $('#ada').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Four letters,&rdquo; says Dr Kinsella, &ldquo;and a man who wrote down the time. That&rsquo;s all it ever takes.&rdquo;' :
+      '&ldquo;Read the log before you read the letters,&rdquo; says Dr Kinsella. &ldquo;A result is only as good as the tube it came out of.&rdquo;');
+  });
+
+  /* ---------- papers ---------- */
+  var DIAG = '<svg viewBox="0 0 250 200"><rect width="250" height="200" fill="#fffdf4"/>' + (function () {
+    var top = 'ATGCCA', s = '', i, P = { A: 'T', T: 'A', C: 'G', G: 'C' }, col = { A: '#c43a2a', T: '#2a6ac4', C: '#2f8a4a', G: '#d9a020' };
+    for (i = 0; i < 6; i++) {
+      var x = 28 + i * 38;
+      s += '<path d="M' + x + ' 64v52" stroke="#9a9488" stroke-width="3"/><rect x="' + (x - 14) + '" y="40" width="28" height="28" rx="4" fill="' + col[top[i]] + '"/><text x="' + x + '" y="60" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="17" fill="#fff" text-anchor="middle">' + top[i] + '</text>' +
+        '<rect x="' + (x - 14) + '" y="112" width="28" height="28" rx="4" fill="' + col[P[top[i]]] + '"/><text x="' + x + '" y="132" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="17" fill="#fff" text-anchor="middle">' + P[top[i]] + '</text>';
+    }
+    return s + '<path d="M10 34h228M10 146h228" stroke="#5a5448" stroke-width="3"/><text x="10" y="24" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a">one strand</text><text x="10" y="170" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a">its partner: A with T, C with G</text><text x="10" y="190" font-family="Patrick Hand,cursive" font-size="14" fill="#221f1a">each rung is a base pair</text>';
+  })() + '</svg>';
+  var MANUAL = '<h4>Field manual &middot; Life</h4><h3>DNA: reading a plant</h3><div class="two"><div>' +
+    '<p>Every living thing carries <b>DNA</b>: two long <b>strands</b> twisted round each other and joined like the rungs of a ladder. Each strand is a chain of four <b>bases</b>, A, T, C and G, and across the ladder they always pair the same way: <b>A with T, C with G</b>. So if you know one strand, you know the other.</p>' +
+    '<p>A <b>sequencer</b> reads the bases one by one, but it may read either strand. If it has read the partner strand, pair every base to get the strand you want.</p></div>' + DIAG + '</div>' +
+    '<p>To name a plant, labs read a short stretch of a gene that all plants have, a <b>barcode region</b>, and compare it with a library of <b>reference sequences</b> from known species. A match must agree base for base.</p>' +
+    '<p class="rule">Real barcodes are hundreds of bases long; ours are twelve. In the cell the two strands run in opposite directions; on our charts both are printed left to right, base under base.</p><p class="pg">104</p>';
+  function readManual() {
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual104', title: 'DNA: reading a plant', kind: 'Field manual, page 104' }, done: function () {
+      OR.terms(['DNA', 'base', 'strand', 'sequencer', 'barcode region', 'reference sequence']);
+      if (tell('manual')) { paint(); ER.say('&ldquo;Four letters,&rdquo; says Dr Kinsella. &ldquo;Every living thing on Earth, written in four letters. Mr Lakhani&rsquo;s handwriting has more.&rdquo;'); }
+    } });
+  }
+  function bags() {
+    var b = ER.flag('c-bags') || { E4: 'outer', E5: 'inner', E6: 'boots', E7: 'leaf' }, t = ER.flag('c-time') || { E4: '00.34', E5: '00.35', E6: '00.36', E7: '00.37' };
+    var N = { outer: 'mud, front left wheel arch, outer crust', inner: 'mud, front left wheel arch, inner layer', boots: 'mud, soles of wellington boots', leaf: 'leaf, runner of sliding door' };
+    return ['E4', 'E5', 'E6', 'E7'].sort(function (a, z) { return t[a] < t[z] ? -1 : t[a] > t[z] ? 1 : a < z ? -1 : 1; }).map(function (k) { return '<tr><td>' + t[k] + '</td><td>' + k + ' sealed &middot; ' + N[b[k]] + ', Blakely&rsquo;s Orchids van, car deck of the Eider &middot; <span class="hw">trainee</span></td></tr>'; }).join('');
+  }
+  function LOG() {
+    return '<h4>Custody log &middot; Elsmouth &middot; Thu 1 &ndash; Fri 2 Oct</h4><table>' +
+      '<tr><td>22.58</td><td>E1 sealed &middot; leaf, floor of load space, Gault Couriers van, lane 7 &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>23.02</td><td>E2 sealed &middot; mud, front left tyre, Gault Couriers van &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>23.20</td><td>E3 sealed &middot; scrapings, base of crate &middot; <span class="hw">A. Kinsella</span></td></tr>' + bags() +
+      '<tr><td>00.47</td><td>E4&ndash;E7 handed over: trainee to A. Kinsella &middot; <span class="hw">A. Kinsella</span></td></tr>' +
+      '<tr><td>01.12</td><td>E1&ndash;E7 into the lab locker &middot; <span class="hw">A. Kinsella</span></td></tr>' +
+      '<tr><td>01.47</td><td>E7 out of the locker &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>01.51</td><td>E7 back into the locker &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>01.51</td><td>E1 out of the locker &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>01.55</td><td>E1 back into the locker &middot; <span class="hw">K. Lakhani</span></td></tr>' +
+      '<tr><td>02.30</td><td>E1&ndash;E7 from the lab locker to this locker &middot; <span class="hw">A. Kinsella</span></td></tr></table>';
+  }
+  var SHEET = '<h4>DNA tubes &middot; K. Lakhani &middot; lids numbered first</h4><table>' +
+    '<tr><th>Tube</th><th>Bag</th><th>What</th><th>Leaf cut into tube</th></tr>' +
+    '<tr><td>1</td><td>E1</td><td>leaf, floor of Mr Gault&rsquo;s van</td><td class="hw">01.49</td></tr>' +
+    '<tr><td>7</td><td>E7</td><td>leaf, Mr Blakely&rsquo;s door runner</td><td class="hw">01.53</td></tr></table>' +
+    '<p class="foot">Done earlier by A. Kinsella, at 01.15: T3, a leaf from one of the wild plants in the crate, and PH-0921, the leaf disc she took from Mr Blakely&rsquo;s legal box at 22.20. Sequencer started 02.05.</p>';
+  var CARD = '<h4>Stuck to the sequencer</h4><h3>DID YOU KNOW?</h3><p>If the DNA in just one of your cells were stretched out, end to end, it would be about <b>two metres</b> long.</p><p class="rule">It fits because it is folded and wound up very tightly, like thread on a reel.</p>';
+  $('#sequencer').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'poster', clue: { id: 'dnacard', title: 'Two metres of DNA', kind: 'Card on the sequencer' }, done: function () {
+      if (tell('card')) { paint(); ER.say('&ldquo;Two metres,&rdquo; says Officer Lakhani. &ldquo;In every cell.&rdquo; He looks at his own hand as if it had been lying to him.'); }
+    } });
+  });
+  $('#log').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LOG(), cls: 'log', clue: { id: 'log', title: 'The custody log', kind: 'On its stand' }, done: function () {
+      if (tell('log')) { paint(); ER.say('&ldquo;Every bag,&rdquo; says Dr Kinsella, &ldquo;every hand, every minute. Read it like a timetable.&rdquo;'); }
+    } });
+  });
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEET, cls: 'form', clue: { id: 'sheet', title: 'Officer Lakhani’s tube sheet', kind: 'By the test tubes' }, done: function () {
+      if (tell('sheet')) { paint(); ER.say('A neat sheet in Officer Lakhani&rsquo;s neat capitals. The lids of the two tubes in the rack say 1 and 7 in black marker.'); }
+    } });
+  });
+  /* the manual lies to the left of the laptop, on the desk */
+  var man = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  man.setAttribute('id', 'manual'); man.setAttribute('class', 'hot');
+  man.innerHTML = '<g transform="translate(-64 0)"><path d="M620 560l8 -22h56l-4 22z" fill="#f6f2e6"/><path d="M670 560l4 -22h56l6 22z" fill="#efe9d8"/><g stroke="#8a8676" stroke-width="1.3"><path d="M632 546h40M630 552h42M682 546h40M680 552h44"/></g></g>';
+  $('#sheet').parentNode.insertBefore(man, $('#sheet'));
+  man.addEventListener('click', function () { if (!busy) readManual(); });
+  OR.thing('#clock', null, 'Twenty to three. The next boat in is at six.', isBusy);
+  OR.thing('#kettle', null, 'The kettle, two mugs, and a jar of biscuits labelled EVIDENCE in somebody&rsquo;s idea of a joke.', isBusy);
+  OR.thing('#locker', null, 'The custody locker: twelve steel doors, E1 to E12, each with its own key. Seven of them are full tonight.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The laptop: four rows of letters, and every one of them explained.'); return; }
+    if (!ready()) {
+      var miss = NEED.filter(function (k) { return !told[k]; })[0];
+      ER.say('&ldquo;Not yet,&rdquo; says Dr Kinsella. &ldquo;' + ({ kamal: 'Ask Officer Lakhani how he filled the tubes.', blakely: 'Mr Blakely has a theory about leaves. Hear it.', manual: 'Page 104 of the manual, left of the laptop.', log: 'Read the custody log, on its stand.', sheet: 'Read Officer Lakhani&rsquo;s tube sheet, by the test tubes.', card: 'Read the card on the sequencer.' })[miss] + '&rdquo;');
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the laptop: four results, a ladder to build, four reference strips, one question ---------- */
+  var REFS = [['ins', 'Paphiopedilum insigne', 'slipper orchid, grown in nurseries everywhere', 'ATGGCTACCGTA'], ['rot', 'Rothschild&rsquo;s slipper orchid', 'wild only in a small part of Borneo', 'ATGGCTTCCGAA'],
+    ['cal', 'Paphiopedilum callosum', 'slipper orchid, often grown in nurseries', 'ATGGCATCCGAA'], ['pha', 'Phalaenopsis', 'moth orchid, the supermarket one', 'ACGGTTACGGTC']];
+  var ROWS = [['t3', 'T3', 'a wild plant from the crate', '+', 'ATGGCTTCCGAA'], ['ph', 'PH-0921', 'Mr Blakely&rsquo;s legal box', '+', 'ATGGCTACCGTA'],
+    ['t1', 'TUBE 1', 'see the tube sheet', '−', 'TACCGAAGGCTT'], ['t7', 'TUBE 7', 'see the tube sheet', '−', 'TACCGATGGCAT']];
+  var PAIR = { A: 'T', T: 'A', C: 'G', G: 'C' }, COL = { A: '#c43a2a', T: '#2a6ac4', C: '#2f8a4a', G: '#d9a020' };
+  function makeBench() {
+    var st = ER.flag('e-st') || { r: 't1', b: { t1: '', t7: '' }, cmp: { t3: '', ph: '', t1: '', t7: '' }, e7: '' }, held = '', wait = false;
+    var box = ER.el('div', 'bn dn', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="d-go">Sign the result</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('e-st', st); }
+    function built(r) { return r === 't1' || r === 't7' ? st.b[r] : ROWS.filter(function (q) { return q[0] === r; })[0][4]; }
+    function full(r) { var b = built(r); return b.length === 12 && b.indexOf(' ') < 0; }
+    function step() { return !(full('t1') && full('t7')) ? 'build' : !(st.cmp.t1 && st.cmp.t7) ? 'name' : 'bag'; }
+    function diffs(a, b) { var n = 0; for (var i = 0; i < 12; i++) if (a.charAt(i) !== b.charAt(i)) n++; return n; }
+    function letter(x, y, c, w) { return c && c !== ' ' ? '<rect x="' + (x - w / 2) + '" y="' + (y - 15) + '" width="' + w + '" height="30" rx="4" fill="' + COL[c] + '"/><text x="' + x + '" y="' + (y + 7) + '" class="tM" font-size="18" fill="#fff" text-anchor="middle">' + c + '</text>' : ''; }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#0a1220"/><rect x="10" y="10" width="980" height="580" rx="8" fill="#0e1828" stroke="#22344a"/>';
+      s += '<text x="30" y="36" class="tM" font-size="14" fill="#5fd8f0">SEQUENCER · BARCODE REGION · 12 BASES</text>';
+      ROWS.forEach(function (r, i) {
+        var y = 52 + i * 40;
+        s += '<g class="row" data-r="' + r[0] + '"><rect x="24" y="' + y + '" width="952" height="34" rx="4"/><text x="38" y="' + (y + 22) + '" class="tM" font-size="14">' + r[1] + '</text><text x="140" y="' + (y + 22) + '" class="tH" font-size="16">' + r[2] + '</text>' +
+          '<text x="356" y="' + (y + 22) + '" class="tM" font-size="13">strand ' + r[3] + '</text><text x="440" y="' + (y + 23) + '" class="tM" font-size="18" letter-spacing="4">' + r[4] + '</text><text class="nm" x="964" y="' + (y + 22) + '" font-size="14" text-anchor="end"></text></g>';
+      });
+      s += '<text x="30" y="236" class="tM" font-size="13" fill="#9ab8cc">THE LADDER · the strand read is at the bottom; build or check the strand above it</text><g id="ladder"></g>';
+      /* the base tiles */
+      ['A', 'T', 'C', 'G'].forEach(function (c, i) { s += '<g class="base" data-c="' + c + '"><rect x="' + (850 + (i % 2) * 64) + '" y="' + (252 + Math.floor(i / 2) * 64) + '" width="56" height="56" rx="6" fill="' + COL[c] + '"/><text x="' + (878 + (i % 2) * 64) + '" y="' + (291 + Math.floor(i / 2) * 64) + '" class="tM" font-size="28" fill="#fff" text-anchor="middle">' + c + '</text></g>'; });
+      s += '<text x="910" y="398" class="tM" font-size="11" fill="#9ab8cc" text-anchor="middle">BASE TILES</text>';
+      s += '<text x="30" y="420" class="tM" font-size="13" fill="#9ab8cc">REFERENCE LIBRARY · click a strip to lay it over the strand above</text>';
+      REFS.forEach(function (r, i) {
+        var y = 430 + i * 32;
+        s += '<g class="ref" data-k="' + r[0] + '"><rect x="24" y="' + y + '" width="660" height="28" rx="4" fill="#16243a"/><text x="36" y="' + (y + 19) + '" class="tB" font-size="15" fill="#e6eef6">' + r[1] + '</text><text x="236" y="' + (y + 19) + '" class="tH" font-size="14" fill="#9ab8cc">' + r[2] + '</text><text x="512" y="' + (y + 20) + '" class="tM" font-size="16" fill="#5fd8f0" letter-spacing="3">' + r[3] + '</text></g>';
+      });
+      s += '<rect x="700" y="430" width="276" height="124" rx="6" fill="#16243a"/><text x="714" y="452" class="tM" font-size="12" fill="#9ab8cc">THE LEAF FROM MR BLAKELY&rsquo;S</text><text x="714" y="468" class="tM" font-size="12" fill="#9ab8cc">DOOR RUNNER (BAG E7) IS IN:</text>';
+      [['1', 'TUBE 1'], ['7', 'TUBE 7']].forEach(function (o, i) { s += '<g class="opt" data-v="' + o[0] + '"><rect x="' + (714 + i * 128) + '" y="486" width="118" height="52" rx="5"/><text x="' + (773 + i * 128) + '" y="519" class="tM" font-size="18" text-anchor="middle">' + o[1] + '</text></g>'; });
+      svg.innerHTML = s;
+      place();
+    }
+    function place() {
+      var r = st.r, row = ROWS.filter(function (q) { return q[0] === r; })[0], read = row[4], top = r === 't1' || r === 't7' ? st.b[r] : read, bottom = r === 't1' || r === 't7' ? read : '', s = '', i, x, ref = st.cmp[r] ? REFS.filter(function (q) { return q[0] === st.cmp[r]; })[0][3] : '';
+      for (i = 0; i < 12; i++) {
+        x = 70 + i * 62;
+        if (ref) { var ok = top.charAt(i) === ref.charAt(i); s += '<rect x="' + (x - 26) + '" y="246" width="52" height="24" rx="3" fill="' + (ok ? '#1f5a3a' : '#7a1f1a') + '"/><text x="' + x + '" y="264" class="tM" font-size="15" fill="#fff" text-anchor="middle">' + ref.charAt(i) + '</text>'; }
+        s += '<g class="slot" data-i="' + i + '"><rect x="' + (x - 24) + '" y="276" width="48" height="40" rx="5" fill="#16243a" stroke="#3a5470" stroke-dasharray="' + (bottom ? '4 3' : '0') + '"/>' + letter(x, 296, top.charAt(i), 40) + '</g>';
+        s += '<path d="M' + x + ' 318v28" stroke="#5a7490" stroke-width="3"/>';
+        if (bottom) s += letter(x, 366, bottom.charAt(i), 40);
+      }
+      if (!bottom) s += '<text x="420" y="372" class="tH" font-size="17" fill="#9ab8cc" text-anchor="middle">This one was read on its own strand (+): nothing to build.</text>';
+      if (ref) s += '<text x="826" y="236" class="tM" font-size="12" fill="' + (diffs(top, ref) ? '#ff8a7a' : '#7af0a8') + '" text-anchor="end">' + diffs(top, ref) + (diffs(top, ref) === 1 ? ' DIFFERENCE' : ' DIFFERENCES') + '</text>';
+      svg.querySelector('#ladder').innerHTML = s;
+      ER.$$('.row', svg).forEach(function (g) {
+        var k = g.getAttribute('data-r'), on = k === r, nm = st.cmp[k] ? REFS.filter(function (q) { return q[0] === st.cmp[k]; })[0][1] : '';
+        g.querySelector('rect').setAttribute('fill', on ? '#22405a' : '#121e30'); g.querySelector('rect').setAttribute('stroke', on ? '#5fd8f0' : '#22344a');
+        ER.$$('text', g).forEach(function (t) { t.setAttribute('fill', on ? '#ffffff' : '#c9d6e2'); });
+        g.querySelector('.nm').innerHTML = nm ? '= ' + nm : (k === 't1' || k === 't7') && !full(k) ? 'to build' : '';
+        g.querySelector('.nm').setAttribute('class', 'nm tB');
+      });
+      ER.$$('.base', svg).forEach(function (g) { g.classList.toggle('held', g.getAttribute('data-c') === held); });
+      ER.$$('.opt', svg).forEach(function (g) { var on = st.e7 === g.getAttribute('data-v'); g.querySelector('rect').setAttribute('fill', on ? '#5fd8f0' : '#0e1828'); g.querySelector('rect').setAttribute('stroke', '#5fd8f0'); g.querySelector('text').setAttribute('fill', on ? '#0a1220' : '#e6eef6'); });
+    }
+    svg.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var row = e.target.closest('.row'), base = e.target.closest('.base'), slot = e.target.closest('.slot'), ref = e.target.closest('.ref'), opt = e.target.closest('.opt');
+      if (row) { st.r = row.getAttribute('data-r'); keep(); OR.sfx.beep(); place(); msg(st.r === 't1' || st.r === 't7' ? (full(st.r) ? 'The strand is built. Lay a reference strip over it.' : 'Read on the partner strand (−). Hold a base tile and click the empty rungs above.') : 'Read on its own strand (+). Lay a reference strip over it to see what it is.'); return; }
+      if (base) { held = held === base.getAttribute('data-c') ? '' : base.getAttribute('data-c'); place(); msg(held ? 'Holding ' + held + '. Click the rungs where it belongs.' : 'Put down.'); return; }
+      if (slot) {
+        if (!(st.r === 't1' || st.r === 't7')) { msg('Nothing to build here: this one was read on the strand we want.'); return; }
+        if (!held) { msg('Hold a base tile first: A, T, C or G, on the right.'); return; }
+        var i = +slot.getAttribute('data-i'), b = (st.b[st.r] + '            ').slice(0, 12).split('');
+        b[i] = held; st.b[st.r] = b.join(''); st.cmp[st.r] = ''; keep(); OR.sfx.dot(); place();
+        if (full(st.r)) msg('Twelve rungs. Now lay the reference strips over it, one at a time.');
+        return;
+      }
+      if (ref) {
+        if (!full(st.r)) { msg('Build the strand first: there is nothing to lay the strip on.'); return; }
+        st.cmp[st.r] = ref.getAttribute('data-k'); keep(); OR.sfx.slide(); place();
+        var d = diffs(built(st.r), REFS.filter(function (q) { return q[0] === st.cmp[st.r]; })[0][3]);
+        msg('The strip lies over the strand: <b>' + d + (d === 1 ? ' difference' : ' differences') + '</b>, shown in red. ' + (d ? 'Try another strip, or check the rungs you built.' : 'Every base agrees.'));
+        return;
+      }
+      if (opt) { st.e7 = opt.getAttribute('data-v'); keep(); OR.sfx.pencil(); place(); msg('Bag E7 is in tube ' + st.e7 + '.'); }
+    });
+    box.querySelector('#d-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var t, file, i;
+      if (!full('t1') || !full('t7')) { ER.sfx.no(); msg('&ldquo;Both tubes,&rdquo; says Dr Kinsella. Tube ' + (!full('t1') ? '1' : '7') + ' still has empty rungs.'); return; }
+      for (t = 0; t < 2; t++) {
+        var r = ['t1', 't7'][t], read = ROWS.filter(function (q) { return q[0] === r; })[0][4];
+        for (i = 0; i < 12; i++) if (st.b[r].charAt(i) !== PAIR[read.charAt(i)]) { ER.sfx.no(); msg('&ldquo;Tube ' + r.slice(1) + ', rung ' + (i + 1) + ',&rdquo; says Dr Kinsella. &ldquo;The base read there is ' + read.charAt(i) + '. What does ' + read.charAt(i) + ' pair with?&rdquo;'); return; }
+      }
+      if (!st.cmp.t1 || !st.cmp.t7) { ER.sfx.no(); msg('&ldquo;Name both tubes,&rdquo; says Dr Kinsella. &ldquo;Lay the reference strips over them.&rdquo;'); return; }
+      for (t = 0; t < 2; t++) {
+        var rr = ['t1', 't7'][t];
+        if (!ER.check(rr, st.cmp[rr])) { ER.sfx.no(); var dd = diffs(st.b[rr], REFS.filter(function (q) { return q[0] === st.cmp[rr]; })[0][3]); msg('&ldquo;Tube ' + rr.slice(1) + ' and that strip have ' + dd + (dd === 1 ? ' difference' : ' differences') + ',&rdquo; says Dr Kinsella. &ldquo;A match agrees base for base. ' + (dd === 1 ? 'One is enough to make it a different plant.' : '') + '&rdquo;'); return; }
+      }
+      if (!st.e7) { ER.sfx.no(); msg('&ldquo;And which tube holds which leaf?&rdquo; says Dr Kinsella. &ldquo;Without that, the letters belong to nobody.&rdquo;'); return; }
+      if (!ER.check('e7', st.e7)) {
+        ER.sfx.no();
+        msg('&ldquo;The tube sheet says so,&rdquo; says Dr Kinsella. &ldquo;Now ask the custody log. Tube 1 was filled at 01.49. Which bag was out of the locker at 01.49?&rdquo; Officer Lakhani has stopped breathing.');
+        return;
+      }
+      file = ER.exitOk([st.cmp.t1 + '-' + st.cmp.t7 + '-' + st.e7]);
+      if (!file) { ER.sfx.no(); msg('Dr Kinsella reads it twice and does not sign.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.control = 1; ER.persist(true);
+      OR.sfx.stamp(); msg('<b>Tube 1, Rothschild&rsquo;s: the leaf from Mr Blakely&rsquo;s door. Tube 7, insigne: the leaf from Mr Gault&rsquo;s van.</b> Dr Kinsella signs.');
+      OR.mine('dna', 'The leaves', '<p>Tube 1 was filled at 01.49, while E7 was the only bag out of the locker: it holds the leaf from Mr Blakely&rsquo;s door runner, though the sheet says E1. It is Rothschild&rsquo;s slipper orchid, the same as the wild plants in the crate (T3).</p><p>Tube 7 holds E1, the leaf from Mr Gault&rsquo;s van: <i>Paphiopedilum insigne</i>, a nursery plant, the same as Mr Blakely&rsquo;s legal box (PH-0921). It came with the empty trays from Mr Blakely&rsquo;s potting shed.</p>');
+      setTimeout(function () {
+        ER.closeAll(); OR.solved(); paint(); busy = true; ER.mood('calm');
+        ER.narrate([
+          'Officer Lakhani sits down on the edge of the desk. &ldquo;I took E7 out first, because it was on top. And I picked up tube one, because it was first in the rack.&rdquo; He looks at the sheet. &ldquo;If you&rsquo;d believed my sheet, Mr Gault&rsquo;s van had a Rothschild&rsquo;s leaf on its floor.&rdquo;',
+          '&ldquo;You wrote down the times,&rdquo; says Dr Kinsella. &ldquo;That&rsquo;s why we could put it right. A gap in the log would have been a doubt. A time is an answer.&rdquo; She writes a line under the last entry, and initials it, and so does he.',
+          'Mr Blakely has put down his tea. Nobody says anything for a while. Then he does. &ldquo;The nursery has lost money for six years,&rdquo; he says. &ldquo;There is a man across the water who pays four thousand pounds for a wild Rothschild&rsquo;s. Collectors want them wild. Don&rsquo;t ask me why. I&rsquo;ve grown them from seed for forty years, and they&rsquo;re every bit as beautiful.&rdquo;',
+          '&ldquo;I told myself they had been dug up already,&rdquo; he says, &ldquo;and that if I didn&rsquo;t buy them, somebody would let them die. I met a man on Burnet Heath at half past four, and I put the crate on the ground while I counted the money. When they told me to move to lane two, I thought: Dr Kinsella will count my plants. So I put the crate behind the bin, and I meant to fetch it back.&rdquo;',
+          '&ldquo;And when it was found by Mr Gault&rsquo;s van?&rdquo; says Dr Kinsella. Mr Blakely looks at his hands. &ldquo;I said nothing,&rdquo; he says. &ldquo;That&rsquo;s the part I&rsquo;m ashamed of. The rest I only regret.&rdquo;',
+          'Officer Lakhani stands up and straightens his jumper. &ldquo;Hector Blakely,&rdquo; he says, &ldquo;I am arresting you on suspicion of trying to export endangered plants without a permit.&rdquo; He says the rest of the words very carefully, all of them, in the right order.'
+        ], function () { busy = false; showGo(); });
+      }, 3000);
+    });
+    draw();
+    msg(step() === 'build' ? 'Four results. T3 and PH-0921 were read on their own strand; tubes 1 and 7 on the partner strand. Choose a row, then build or compare.' : step() === 'name' ? 'Lay the reference strips over each tube.' : 'One question left: which tube holds which leaf?');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>

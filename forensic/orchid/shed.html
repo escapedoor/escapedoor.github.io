@@ -1,0 +1,468 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Customs Shed · Lane Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="orchid.css">
+<style>
+  body{--bg:#0d1312;--accent:#e6e84a;--font-display:'Stardos Stencil',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,20,20,.96);--tc-ink:#eef0ea;--cap-bg:rgba(14,20,20,.94);--panel:#141c1c;--face-bg:#22302a;--q-ink:#e6e84a;--fade:#050807;--hud-bg:rgba(14,20,20,.86)}
+  .tc-room{font-family:'Stardos Stencil',serif;font-weight:700;letter-spacing:.06em;font-size:clamp(38px,5.4vw,70px)}
+  .tk-name{font-family:'Stardos Stencil',serif;font-weight:700}
+  .sX{font-family:'Stardos Stencil',serif;font-weight:700;text-anchor:middle}
+  .sB{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+  .rain{animation:rain .7s linear infinite}
+  @keyframes rain{from{transform:translate(0,-60px)}to{transform:translate(-10px,60px)}}
+  .tube2{animation:tube 6s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:1}52%{opacity:1}53%{opacity:.25}54%{opacity:1}56%{opacity:.4}57%{opacity:1}}
+
+  /* the bench */
+  .cr .pl{cursor:pointer}
+  .cr .pl:hover{filter:brightness(1.18)}
+  .cr .tray,.cr .stp,.cr .tlab{cursor:pointer}
+  .cr .stp.held rect.body{stroke:#e6e84a;stroke-width:4}
+  .cr .tray:hover>rect{filter:brightness(1.1)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1222"/><stop offset="1" stop-color="#1c2434"/></linearGradient>
+  <radialGradient id="sodG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffb14a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb14a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="85%"><stop offset="0" stop-color="#fffbe0" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="tubeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaffff" stop-opacity=".28"/><stop offset="1" stop-color="#eaffff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#040606" stop-opacity=".3"/><stop offset="1" stop-color="#020303" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- the shed: corrugated walls, steel roof -->
+<rect x="-1000" y="-400" width="3600" height="1060" fill="#2a3533"/>
+<g id="ribs" stroke="#34413e" stroke-width="6"></g>
+<path d="M-1000 120H2600" stroke="#1a2220" stroke-width="10"/>
+<g id="truss" stroke="#1c2422" stroke-width="7" fill="none"></g>
+<g id="tubes"></g>
+<path d="M-1000 0H2600V-400H-1000z" fill="#151c1b"/>
+
+<!-- the roller door, half up, and the lanes outside -->
+<g id="door" class="hot">
+  <rect x="30" y="170" width="300" height="470" fill="url(#nightG)"/>
+  <rect x="30" y="170" width="300" height="470" fill="url(#sodG)"/>
+  <g fill="#0c1018"><path d="M30 520h70v-60h40l20 30h10v30h-140z"/><path d="M200 540h120v-70h-70l-30 40h-20z"/></g>
+  <path d="M90 640L60 520M270 640L300 520" stroke="#e6c84a" stroke-width="4" opacity=".7"/>
+  <rect x="150" y="300" width="56" height="70" fill="#13233f" stroke="#f0c419" stroke-width="3"/><text x="178" y="355" class="sX" font-size="54" fill="#f0c419">7</text><path d="M178 370v60" stroke="#3a3a3a" stroke-width="5"/>
+  <path d="M260 170v120" stroke="#2a2a2a" stroke-width="5"/><ellipse cx="260" cy="296" rx="16" ry="6" fill="#ffd27a"/>
+  <g class="rain" stroke="#cfe3f2" stroke-width="1.4" opacity=".55"><path id="rainp" d=""/></g>
+  <rect x="22" y="130" width="316" height="44" fill="#56625e"/><g stroke="#3f4a47" stroke-width="2"><path d="M22 140h316M22 150h316M22 160h316M22 168h316"/></g>
+  <rect x="14" y="130" width="12" height="520" fill="#1c2422"/><rect x="334" y="130" width="12" height="520" fill="#1c2422"/>
+</g>
+
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="430" y="168" width="190" height="236" fill="#13233f" stroke="#f0c419" stroke-width="4"/>
+  <text x="525" y="198" class="sX" font-size="17" fill="#f0c419" letter-spacing="1">PLANTS THAT</text><text x="525" y="218" class="sX" font-size="17" fill="#f0c419" letter-spacing="1">NEED PAPERS</text>
+  <g id="pflower" transform="translate(525 290) scale(.9)"></g>
+  <g fill="#cfd8e4"><rect x="448" y="352" width="154" height="5"/><rect x="448" y="364" width="130" height="5"/><rect x="448" y="376" width="142" height="5"/></g>
+  <text x="525" y="396" class="sB" font-size="11" fill="#f0c419" letter-spacing="2">CITES · 1973</text></g>
+
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="820" cy="180" r="38" fill="#e9ecea" stroke="#1a1f1e" stroke-width="6"/><g stroke="#1a1f1e" stroke-width="2"><path d="M820 148v6M820 206v6M788 180h6M846 180h6"/></g>
+  <path d="M820 180L812 152" stroke="#1a1f1e" stroke-width="4" stroke-linecap="round"/><path d="M820 180L793 167" stroke="#1a1f1e" stroke-width="3" stroke-linecap="round"/><circle cx="820" cy="180" r="3" fill="#b3261c"/></g>
+
+<!-- the drinks machine -->
+<g id="machine" class="hot"><rect x="1100" y="330" width="112" height="312" rx="4" fill="#8a1f22"/><rect x="1112" y="346" width="64" height="180" fill="#1a1a1e"/><g fill="#d9d4c8" opacity=".85"><rect x="1120" y="356" width="48" height="22"/><rect x="1120" y="388" width="48" height="22"/><rect x="1120" y="420" width="48" height="22"/><rect x="1120" y="452" width="48" height="22"/></g>
+  <rect x="1184" y="360" width="18" height="70" fill="#2a2a2e"/><rect x="1120" y="560" width="50" height="40" fill="#141416"/><text x="1156" y="342" class="sB" font-size="11" fill="#f4e0c0" letter-spacing="2">HOT DRINKS</text></g>
+
+<!-- the glass office -->
+<g id="office" class="hot">
+  <rect x="1250" y="236" width="350" height="406" fill="#3a4644"/><rect x="1268" y="262" width="186" height="236" fill="#c9d6c8"/>
+  <clipPath id="winC"><rect x="1268" y="262" width="186" height="236"/></clipPath><g clip-path="url(#winC)"><g id="bennyIn" transform="translate(1360 600) scale(.82)"></g></g>
+  <rect x="1268" y="430" width="186" height="68" fill="#6b5a44"/><rect x="1300" y="420" width="120" height="14" fill="#5a4a36"/>
+  <rect x="1268" y="262" width="186" height="236" fill="#cfe6ee" opacity=".22"/><path d="M1280 280l60 120M1300 276l30 60" stroke="#fff" stroke-width="3" opacity=".25"/>
+  <rect x="1262" y="256" width="198" height="248" fill="none" stroke="#1c2422" stroke-width="10"/>
+  <rect x="1476" y="300" width="104" height="342" fill="#56625e" stroke="#1c2422" stroke-width="6"/><circle cx="1490" cy="480" r="6" fill="#c9c9c0"/>
+  <rect x="1490" y="320" width="76" height="22" fill="#e9ecea"/><text x="1528" y="337" class="sB" font-size="15" fill="#1a1f1e" letter-spacing="2">OFFICE</text>
+</g>
+
+<!-- the floor -->
+<rect x="-1000" y="640" width="3600" height="800" fill="#5a605c"/><path d="M-1000 640H2600" stroke="#1c2422" stroke-width="5"/>
+<g id="floor"></g>
+<rect x="-1000" y="640" width="3600" height="80" fill="#000" opacity=".12"/>
+
+<!-- the bench, the crate and the lamp -->
+<path d="M820 -400V376" stroke="#1a1f1e" stroke-width="3" pointer-events="none"/>
+<path class="lampglow" d="M772 404h96l170 230H602z" fill="url(#lampG)" pointer-events="none"/>
+<path d="M770 406q50 -44 100 0z" fill="#2f4a3a"/><ellipse cx="820" cy="406" rx="50" ry="7" fill="#fff8d0"/>
+<path d="M650 640v130M990 640v130" stroke="#3a4240" stroke-width="12"/><path d="M640 770h20M980 770h20" stroke="#1c2422" stroke-width="6"/>
+<rect x="620" y="604" width="400" height="16" fill="#9aa3a0"/><rect x="620" y="620" width="400" height="26" fill="#6e7774"/>
+<g id="crate" class="hot">
+  <path d="M712 604l10 -84h196l10 84z" fill="#b98a52"/><path d="M716 570h208M714 588h212" stroke="#8a6234" stroke-width="3"/>
+  <path d="M722 520l-6 -10h208l-6 10z" fill="#8a6234"/>
+  <g id="crateLeaves"></g>
+  <text x="820" y="600" class="sB" font-size="12" fill="#5a3a1a" letter-spacing="3">FLOWERS · THIS WAY UP</text></g>
+<g id="card" class="hot"><rect x="636" y="586" width="62" height="20" fill="#fbfaf3" transform="rotate(-4 667 596)"/><path d="M642 592h46M642 598h40" stroke="#2f5a3a" stroke-width="1.6" transform="rotate(-4 667 596)"/><rect x="636" y="586" width="6" height="20" fill="#e7a2a2" transform="rotate(-4 667 596)"/></g>
+<g id="note" class="hot"><rect x="932" y="584" width="64" height="22" fill="#fdf2c4" transform="rotate(5 964 595)"/><rect x="932" y="584" width="64" height="22" fill="#dfeef4" opacity=".4" transform="rotate(5 964 595)"/><rect x="932" y="584" width="64" height="5" fill="#b5462a" transform="rotate(5 964 595)"/></g>
+<g id="record" class="hot"><rect x="862" y="626" width="46" height="60" rx="3" fill="#6b4a2a"/><rect x="866" y="636" width="38" height="46" fill="#fff"/><rect x="874" y="622" width="22" height="9" rx="2" fill="#a8b0b4"/><path d="M870 646h30M870 654h26M870 662h30M870 670h20" stroke="#13233f" stroke-width="1.6"/></g>
+
+<!-- people -->
+<g id="kamal" class="hot" transform="translate(386 878)"></g>
+<g id="ada" class="hot" transform="translate(1046 872)"></g>
+<g id="blakely" class="hot" transform="translate(1176 868) scale(.93)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the inspection bay</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="orchid.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, bench = null, told = {};
+
+  /* the shed's ribs, trusses, lights, rain and floor lines; the people */
+  (function () {
+    var s = '', i;
+    for (i = -40; i < 110; i++) s += '<path d="M' + (i * 24) + ' 0V640"/>';
+    $('#ribs').innerHTML = s;
+    s = ''; for (i = -4; i < 10; i++) s += '<path d="M' + (i * 260) + ' 120L' + (i * 260 + 130) + ' 10L' + (i * 260 + 260) + ' 120M' + (i * 260 + 130) + ' 10V120"/>';
+    $('#truss').innerHTML = s;
+    s = ''; [[150, ''], [560, ''], [1000, ' tube2'], [1420, '']].forEach(function (t) {
+      s += '<g class="' + t[1] + '"><rect x="' + (t[0] - 90) + '" y="66" width="180" height="10" rx="5" fill="#f4ffff"/><path d="M' + (t[0] - 110) + ' 76h220l140 560h-500z" fill="url(#tubeG)" pointer-events="none"/></g><path d="M' + (t[0] - 80) + ' 10V66M' + (t[0] + 80) + ' 10V66" stroke="#1a1f1e" stroke-width="2"/>';
+    });
+    $('#tubes').innerHTML = s;
+    s = ''; for (i = 0; i < 26; i++) s += 'M' + (40 + (i * 53) % 290) + ' ' + (170 + (i * 97) % 450) + 'l-8 46';
+    $('#rainp').setAttribute('d', s);
+    s = '<g stroke="#e6c84a" stroke-width="10" opacity=".8"><path d="M560 1300L700 660M1100 1300L960 660"/></g><path d="M-1000 760H2600" stroke="#e6c84a" stroke-width="6" opacity=".5"/>' +
+      '<text x="830" y="830" class="sX" font-size="44" fill="#e6c84a" opacity=".55" letter-spacing="10">INSPECTION</text>';
+    s += '<path d="M-200 700h300l-20 10h-300z" fill="#000" opacity=".2"/><path d="M60 650q60 20 160 6q40 -6 90 4" stroke="#7a8a92" stroke-width="10" fill="none" opacity=".25"/>';
+    $('#floor').innerHTML = s;
+    s = ''; for (i = 0; i < 9; i++) s += '<path d="M' + (742 + i * 21) + ' 532q' + (-10 + (i % 3) * 10) + ' -40 ' + (-24 + (i % 4) * 14) + ' -58" stroke="' + (i % 2 ? '#4f7d36' : '#6f9a4a') + '" stroke-width="9" fill="none" stroke-linecap="round"/>';
+    $('#crateLeaves').innerHTML = s;
+    $('#pflower').innerHTML = OR.flower();
+    $('#kamal').innerHTML = OR.fig('kamal'); $('#ada').innerHTML = OR.fig('ada'); $('#blakely').innerHTML = OR.fig('blakely');
+    var b = {}; for (var k in CAST.benny) b[k] = CAST.benny[k]; b.pose = 'cup'; b.cupc = '#f2efe6';
+    $('#bennyIn').innerHTML = OR.person(b, true);
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'orchid', storyTitle: 'Lane Seven', id: 'shed', no: 'I', title: 'The Customs Shed',
+    go: 'Into the shed',
+    intro: [
+      'You are a trainee from the county forensic laboratory, on a month&rsquo;s placement at Elsmouth ferry port with Dr Ada Kinsella, who inspects every plant that crosses the water here. Tonight you are on the late shift.',
+      'At twenty to eleven a lane marshal found a crate of rare orchids hidden in the export lanes, beside a courier&rsquo;s van. The courier, Benny Gault, has a record. Customs are holding him.',
+      'Before anybody says &ldquo;case closed&rdquo;, Dr Kinsella wants three things: what the plants are, where they have been, and who brought them. The motto on her office wall is the laboratory&rsquo;s own: <i>Every contact leaves a trace.</i>'
+    ],
+    exit: {"next":"bay","w":{"95d9dbf3":"67ccc807"}}, tags: {"p1":["ce2d802e"],"p2":["f3ebc815"],"p3":["2c1a9416"],"p4":["de3dde15"],"p5":["e35da074"],"p6":["b3ef6930"],"p7":["551abd04"],"p8":["283b4bbf"],"p9":["e16dd81b"],"p10":["c8c688c8"],"p11":["42768a23"],"p12":["e0d13c2c"],"st":["6d60cd7b"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function heard() { return told.kamal && told.benny && told.blakely; }
+  function readAll() { return told.poster && told.card && told.note && told.record; }
+  function showGo() { $('#go').classList.add('on'); }
+  function paint() {
+    $('#crate').classList.toggle('ready', !!(heard() && readAll() && !nextFile));
+    ER.pips(['kamal', 'benny', 'blakely', 'poster', 'card', 'note', 'record'].filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 8);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The tyre print is the next thing. Go to the inspection bay: the button at the bottom of the screen.']];
+    if (bench && bench.isOpen()) return [bench.step(), bench.step() === 'sort' ? [
+      'Click a plant to lift it out under the lamp, and read what it shows. Then count its signs on Dr Kinsella&rsquo;s card (it is in your notebook).',
+      'Three signs or more: wild. One or none: grown. A pot and bark chips are not signs at all: look at what is inside the pot, and at the roots themselves.',
+      'Plants 4 and 7 came in pots and plant 10 has whole roots, but count their signs anyway. Plant 2 has a bite and nothing else; plant 9 lost its pot and nothing else.'
+    ] : [
+      'Each tray needs a stamp on its label. Read the poster again: what may happen to wild-collected plants of an Appendix I species?',
+      'Wild-collected plants of Appendix I may not be traded for profit with any paper at all. Nursery-grown ones may travel, but only with a certificate, and this crate has none.'
+    ]];
+    if (!heard() || !readAll()) return ['look', [
+      'Three people to hear and four papers to read before the crate. Look at the pips beside the room&rsquo;s name.',
+      'People: Officer Lakhani by the roller door, Benny Gault in the glass office, Mr Blakely by the drinks machine. Papers: the poster on the wall; on the bench, Dr Kinsella&rsquo;s card, Benny&rsquo;s delivery note in its plastic wallet, and her inspection record on the clipboard.'
+    ]];
+    return ['crate', ['Everything is heard and read. Click the crate on the bench.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Eight wild, four grown, and no papers for any of them.'); return; }
+    if (told.in) { busy = false; ER.say('The customs shed. Rain on the roof.'); return; }
+    tell('in');
+    ER.narrate([
+      'Elsmouth ferry port, Thursday, twenty-five to midnight. The customs shed is a steel barn beside the export lanes, lit like an operating theatre and about as warm. Rain drums on the roof.',
+      'On the inspection bench stands a wooden flower crate, fifty centimetres by forty, with its lid off. Inside, wrapped in damp newspaper, are twelve plants with leaves like green straps. &ldquo;Slipper orchids,&rdquo; says Dr Kinsella, before anybody asks.',
+      'In the glass office at the back, a man in a grey hoodie sits with his hands round a paper cup. Officer Lakhani of customs stands by the roller door with a folder. By the drinks machine an older man in a tweed cap is waiting for his boat.',
+      '&ldquo;The night boat sails at a quarter to one,&rdquo; says Dr Kinsella. &ldquo;Mr Gault won&rsquo;t be on it. I&rsquo;d like to know if that&rsquo;s right.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  function done(k) { return function (seen) { if (seen && tell(k)) paint(); }; }
+  $('#kamal').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Officer Kamal Lakhani', role: 'Customs, Elsmouth', face: FACE('kamal'), clue: { id: 'kamal', title: 'Officer Lakhani: why Benny Gault', kind: 'Statement' }, done: done('kamal'), lines: [
+      'The lane marshal found the crate at twenty to eleven, behind the grit bin in lane seven, space four. Right beside Mr Gault&rsquo;s van.',
+      { q: 'What was in it?', a: 'Twelve slipper orchids in newspaper. No paperwork, no name on the crate. Nobody has come forward to say they&rsquo;re his.' },
+      { q: 'Why Mr Gault?', a: 'Three reasons. There&rsquo;s a tyre print in the mud by the crate, and it has the same tread pattern as his van: I checked it with a torch. There was an orchid leaf on the floor of his load space, which I bagged: that&rsquo;s E1. And he has a record. 2017, cigarettes, twelve thousand of them under some garden chairs.' },
+      { q: 'Is that enough?', a: 'To hold him until morning, yes. For a court I want the laboratory to say so. That&rsquo;s you, I&rsquo;m told.' },
+      { note: 'He straightens a pen that was already straight.' },
+      'I&rsquo;ve done it all by the book. One bag for each sample, a label on every bag, every bag in the custody log. Dr Kinsella scraped the bottom of the crate herself: that&rsquo;s E3.'
+    ] });
+  });
+  $('#office').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Benny Gault', role: 'Courier · held by customs', face: FACE('benny'), clue: { id: 'benny', title: 'Benny Gault: his day', kind: 'Statement' }, done: done('benny'), lines: [
+      'Benny Gault. Gault Couriers, which is me and the van.',
+      { q: 'Where have you been today?', a: 'Picked up bark at the builders&rsquo; merchants here in Elsmouth this morning. Took it to the orchid place at Kilnford, Blakely&rsquo;s, for two o&rsquo;clock. They gave me their empty plant trays to bring back. Home for my tea, then here for the night boat: garden furniture for a shop over the water.' },
+      { q: 'And the crate?', a: 'Never seen it. I checked in at twelve minutes past ten, the lady with the torch put me in lane seven, and I put my seat back and shut my eyes. Next thing I know there&rsquo;s a torch in my face and a crate on the ground.' },
+      { q: 'Officer Lakhani says you have a record.', a: '2017. Cigarettes. I was stupid, I paid the fine, and I&rsquo;ve been honest for nine years. Nobody ever says that bit first.' },
+      { q: 'Anything else?', a: 'My daughter&rsquo;s nine on Saturday. I was going to be back on Friday night. Write that down, if it helps.' }
+    ] });
+  });
+  $('#blakely').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'Mr Hector Blakely', role: 'Blakely&rsquo;s Orchids, Kilnford', face: FACE('blakely'), clue: { id: 'blakely', title: 'Mr Blakely: his evening', kind: 'Statement' }, done: done('blakely'), lines: [
+      'Hector Blakely, of Blakely&rsquo;s Orchids at Kilnford. Forty years of slipper orchids, and I&rsquo;ve never seen the inside of this shed so late.',
+      { q: 'Why are you here tonight?', a: 'Forty plants for a garden centre over the water. Every one grown from seed in my own glasshouses, every paper in order. Dr Kinsella went through the lot an hour ago.' },
+      { q: 'What did you do this evening?', a: 'Left the nursery at half past three and came straight down the motorway, apart from supper at the services. Checked in at half past nine. The marshal put me in lane seven while the plant lane was full, and then moved me over to lane two. Space four, I think it was.' },
+      { q: 'Have you seen the crate?', a: 'Through the door. Wild plants, I&rsquo;d say, poor things, dug out of some hillside. Rothschild&rsquo;s, very likely, by the leaves. But don&rsquo;t quote me on a slipper orchid without a flower.' },
+      { q: 'Do you know Mr Gault?', a: 'The courier? He brought my bark this afternoon. A pleasant man. I&rsquo;d hate to think it of him.' }
+    ] });
+  });
+  $('#ada').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Now the print,&rdquo; says Dr Kinsella. &ldquo;Tread patterns are like surnames. Lots of people share one.&rdquo;' :
+      !told.card ? '&ldquo;Read my card before you touch a root,&rdquo; says Dr Kinsella. &ldquo;It&rsquo;s on the bench, under the lamp.&rdquo;' :
+      '&ldquo;Wild or grown,&rdquo; says Dr Kinsella. &ldquo;It matters more than anything else tonight. One is a missing form. The other is a crime.&rdquo;');
+  });
+
+  /* ---------- papers ---------- */
+  var POSTER = '<h4>Elsmouth Port &middot; Customs and Plant Health</h4><h3>PLANTS THAT NEED PAPERS</h3><div class="two"><div>' +
+    '<p>In 1973, in Washington, countries agreed to control the trade in wild plants and animals that are in danger. The agreement is called <b>CITES</b>, the Convention on International Trade in Endangered Species. It came into force in 1975. Today it covers more than 40,000 species, most of them plants, and every kind of orchid is on its lists.</p>' +
+    '<p>The most <b>endangered</b> species are on the strictest list, <b>Appendix I</b>. All slipper orchids of the group <i>Paphiopedilum</i> are there. <b>Wild-collected</b> plants of an Appendix I species may not be traded for profit at all.</p>' +
+    '<p><b>Nursery-grown</b> plants are different: they were raised from seed and take nothing from the wild. They may cross a border, but only with a CITES <b>certificate</b> for that consignment.</p></div>' +
+    '<svg viewBox="0 0 250 250"><rect width="250" height="250" fill="#0c1830"/><g transform="translate(70 110) scale(.85)">' + OR.flower() + '</g>' +
+    '<text x="70" y="196" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#f0c419" text-anchor="middle">SLIPPER ORCHID</text>' +
+    '<g font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="14"><rect x="150" y="34" width="90" height="70" fill="#a8261c"/><text x="195" y="58" fill="#fff" text-anchor="middle">WILD</text><text x="195" y="76" fill="#fff" text-anchor="middle">no trade</text><text x="195" y="92" fill="#fff" text-anchor="middle">for profit</text>' +
+    '<rect x="150" y="124" width="90" height="70" fill="#2f7a4a"/><text x="195" y="148" fill="#fff" text-anchor="middle">NURSERY</text><text x="195" y="166" fill="#fff" text-anchor="middle">with a</text><text x="195" y="182" fill="#fff" text-anchor="middle">certificate</text></g></svg></div>' +
+    '<p class="rule">No papers? The plants are held at the border. Wild plants are seized.</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'poster', clue: { id: 'poster', title: 'Plants that need papers', kind: 'Poster in the shed' }, done: function () {
+      OR.terms(['CITES', 'endangered', 'Appendix I', 'wild-collected', 'nursery-grown', 'certificate', 'seize']);
+      if (tell('poster')) { paint(); ER.say('&ldquo;Every kind of orchid,&rdquo; says Dr Kinsella. &ldquo;Even the one in your granny&rsquo;s bathroom. Hers had papers too, once.&rdquo;'); }
+    } });
+  });
+  var CARD = '<h4>Wild or grown?</h4><p>Signs that a slipper orchid was dug up in the wild:</p><ol>' +
+    '<li>roots torn or cut short (a nursery plant&rsquo;s roots are whole, with green tips)</li>' +
+    '<li>grit, soil or old leaves among the roots, not clean bark chips</li>' +
+    '<li>old scars, bites or lichen on the leaves</li>' +
+    '<li>moss growing on the base</li>' +
+    '<li>no nursery label</li></ol>' +
+    '<p class="big">ONE sign proves nothing.</p><p>A slug can bite a nursery plant, and a smuggler can buy a pot.</p>' +
+    '<p class="big">THREE signs or more: wild.</p><p>I&rsquo;d say so in court. &mdash; A.K.</p>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Dr Kinsella: wild or grown?', kind: 'Her own card' }, done: function () {
+      if (tell('card')) { paint(); ER.say('&ldquo;Count the signs,&rdquo; says Dr Kinsella. &ldquo;Don&rsquo;t count the pots.&rdquo;'); }
+    } });
+  });
+  var NOTE = '<h4>Gault Couriers &middot; Delivery note No. 3318</h4><p>Thu 1 Oct 2026</p>' +
+    '<p>Collected: Elsmouth Builders&rsquo; Merchants, 11.40</p><p>Delivered to: Blakely&rsquo;s Orchids, Kilnford, 14.10</p>' +
+    '<p>Goods: 40 bags of orchid bark (pine), 50 litres each</p><p>Brought back: 12 empty plant trays, to the builders&rsquo; merchants</p>' +
+    '<p>Received by: <span class="hw">H. Blakely</span></p>';
+  $('#note').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTE, cls: 'note', clue: { id: 'note', title: 'Benny’s delivery note', kind: 'From his cab' }, done: function () {
+      if (tell('note')) { paint(); ER.say('A plastic wallet of papers from Benny&rsquo;s cab: tonight&rsquo;s booking, a sandwich receipt, and the delivery note for the bark.'); }
+    } });
+  });
+  var RECORD = '<h4>Plant health inspection &middot; Elsmouth</h4><h3>Thu 1 Oct 2026 &middot; 22.10&ndash;22.31 &middot; lane 2</h3><table>' +
+    '<tr><th>Exporter</th><td>Blakely&rsquo;s Orchids, Kilnford (Mr H. Blakely, driving his own van)</td></tr>' +
+    '<tr><th>Goods</th><td>40 slipper orchids, <i>Paphiopedilum insigne</i>, nursery-grown, in black pots, one box</td></tr>' +
+    '<tr><th>Certificate</th><td>CITES GB 26/04417: 40 plants, <i>P. insigne</i>, artificially propagated</td></tr>' +
+    '<tr><th>Checked</th><td><span class="hw">Count 40. Roots whole, bark chips, labels, all one size: nursery-grown. Matches the certificate.</span></td></tr>' +
+    '<tr><th>Sample</th><td><span class="hw">Leaf disc from one plant for our DNA library: PH-0921</span></td></tr>' +
+    '<tr><th>Result</th><td><span class="hw">Cleared 22.31. A. Kinsella</span></td></tr></table>';
+  $('#record').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RECORD, cls: 'form', clue: { id: 'record', title: 'Inspection: Mr Blakely’s forty plants', kind: 'Dr Kinsella’s record' }, done: function () {
+      if (tell('record')) { paint(); ER.say('&ldquo;Forty in the box, forty on the paper,&rdquo; says Dr Kinsella. &ldquo;I like it when a sum comes out.&rdquo;'); }
+    } });
+  });
+  OR.thing('#door', null, 'Lane seven, through the half-open door: a row of vans in the rain, and the grit bin under the lamp, with police tape round it.', isBusy);
+  OR.thing('#clock', null, 'The shed clock. Twenty-five to twelve, and the boat sails at a quarter to one.', isBusy);
+  OR.thing('#machine', null, 'HOT DRINKS. Tea, coffee, chicken soup. They all come out the same colour.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#crate').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Two trays, stamped: eight wild plants to seize, four grown ones to hold.'); return; }
+    if (!heard() || !readAll()) {
+      ER.say('&ldquo;Not yet,&rdquo; says Dr Kinsella. &ldquo;' + (!readAll() ? 'Read everything first: ' + (!told.card ? 'my card on the bench' : !told.poster ? 'the poster on the wall' : !told.record ? 'my inspection record, on the clipboard' : 'Mr Gault&rsquo;s delivery note, in the plastic wallet') + '.' : 'Hear them all first: ' + (!told.kamal ? 'Officer Lakhani' : !told.benny ? 'Mr Gault, in the office' : 'Mr Blakely, by the machine') + '.') + '&rdquo;');
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the bench: twelve plants, two trays, two stamps ---------- */
+  var PL = [
+    { pot: 1, roots: 'long', bed: 'bark', leaf: 'clean', label: 1, s: 1, t: 'Came in a black pot. Long, whole roots with green tips, in chips of pine bark. Clean, even leaves. A white label: <i>Paph. insigne</i>.' },
+    { pot: 1, roots: 'long', bed: 'bark', leaf: 'bite', label: 1, s: 1, t: 'Came in a black pot. Long, whole roots in bark chips. One leaf has a round bite out of its edge. A white label: <i>Paph. insigne</i>.' },
+    { roots: 'torn', bed: 'grit', leaf: 'scar', lichen: 1, moss: 1, s: 1.1, t: 'No pot: wrapped in wet newspaper. The roots stop short, torn off. Grit and black crumbs of old leaves among them. Grey-green spots of lichen and a brown scar on the leaves. A cushion of moss at the base. No label.' },
+    { pot: 1, roots: 'torn', bed: 'grit', leaf: 'clean', s: 0.85, t: 'Came in a black pot, but the roots inside it stop short, ragged at the ends, and the pot is full of grit and crumbs of old leaves, not bark. Clean leaves. No label.' },
+    { pot: 1, roots: 'long', bed: 'bark', leaf: 'clean', label: 1, s: 1, t: 'Came in a black pot. Long, whole roots in bark chips. Clean leaves, the same size as plants 1 and 2. A white label: <i>Paph. insigne</i>.' },
+    { roots: 'torn', bed: 'grit', leaf: 'bite', s: 1.15, t: 'No pot: newspaper. The roots end in ragged stumps, with grit and old leaves caught among them. One leaf has been bitten. No moss. No label.' },
+    { pot: 1, roots: 'torn', bed: 'bark', leaf: 'clean', moss: 1, s: 0.9, t: 'Came in a black pot full of bark chips, like a nursery plant. But the roots in the bark end short and ragged, and green moss is growing on the base. Clean leaves. No label.' },
+    { roots: 'torn', bed: 'grit', leaf: 'scar', moss: 1, s: 1.05, t: 'No pot: newspaper. Short, torn roots packed with grit. A long brown scar on two leaves. Moss on the base. No label.' },
+    { roots: 'long', bed: 'bark', leaf: 'clean', label: 1, s: 1, t: 'No pot: it seems to have slipped out of one in the crate. Long, whole roots in bark chips. Clean leaves. A white label: <i>Paph. insigne</i>.' },
+    { roots: 'long', bed: 'grit', leaf: 'clean', moss: 1, s: 0.8, t: 'No pot: newspaper. Long roots, whole to the tips, but full of grit and crumbs of old leaves. A cushion of moss at the base. Clean leaves. No label.' },
+    { roots: 'torn', bed: 'grit', leaf: 'bite', lichen: 1, s: 0.95, t: 'No pot: newspaper. Short, torn roots and grit. A bite out of one leaf, and spots of lichen on others. No moss. No label.' },
+    { roots: 'torn', bed: 'grit', leaf: 'clean', s: 1.1, t: 'No pot: newspaper. Torn roots, with dark crumbs of old leaves among them. Clean leaves. No moss. No label.' }
+  ];
+  function makeBench() {
+    var st = ER.flag('a-st') || { at: 'cccccccccccc'.split(''), lamp: -1, sw: '', sg: '' }, held = '', wait = false;
+    var box = ER.el('div', 'bn cr', '<svg viewBox="0 0 1000 600"></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="c-go">Sign the record</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('a-st', st); }
+    function step() { return st.at.indexOf('c') < 0 && st.lamp < 0 ? 'stamp' : 'sort'; }
+    var CELL = function (i) { return { x: 70 + (i % 4) * 96, y: 112 + Math.floor(i / 4) * 88 }; };
+    function small(i, x, y, sc) {
+      var p = PL[i], s = '<g class="pl" data-i="' + i + '" transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">';
+      if (p.pot) s += '<g transform="translate(0 10)">' + OR.pot() + '</g>';
+      else s += '<path d="M-34 4l12 -6 10 5 12 -6 14 5 12 -3l-6 46 -12 4 -14 -4 -12 5 -12 -5z" fill="#d4cfc0"/><path d="M-24 16h22M4 18h22M-22 28h40M-20 38h16" stroke="#6a665a" stroke-width="2.4"/>';
+      s += '<g transform="translate(0 4) scale(.8)">' + OR.plant({ top: 1, n: 6, s: p.s, seed: i * 13 + 5, leaf: p.leaf, lichen: p.lichen }) + '</g>';
+      s += '<circle cx="34" cy="-50" r="' + (9 / sc).toFixed(1) + '" fill="#13233f"/><text x="34" y="' + (-50 + 4 / sc).toFixed(1) + '" class="tB" font-size="' + (12 / sc).toFixed(1) + '" fill="#fff" text-anchor="middle">' + (i + 1) + '</text></g>';
+      return s;
+    }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#59615e"/><rect width="1000" height="600" fill="#9aa3a0" opacity=".25"/><path d="M0 362H1000" stroke="#3a4240" stroke-width="3"/>';
+      s += '<ellipse cx="610" cy="200" rx="230" ry="190" fill="#fffbe0" opacity=".14"/>';
+      /* the crate */
+      s += '<rect x="20" y="40" width="410" height="300" fill="#b98a52"/><rect x="34" y="54" width="382" height="272" fill="#3a2a1a"/>';
+      s += '<g stroke="#8a6234" stroke-width="5"><path d="M34 142H416M34 230H416M130 54V326M226 54V326M322 54V326"/></g>';
+      s += '<text x="225" y="30" class="tB" font-size="15" fill="#e9ecea" text-anchor="middle" letter-spacing="3">THE CRATE · 12 PLANTS</text><g id="crateP"></g>';
+      /* the lamp */
+      s += '<rect x="450" y="40" width="330" height="300" fill="#ecebe2" opacity=".93"/><rect x="450" y="40" width="330" height="300" fill="none" stroke="#c9c6b8" stroke-width="2"/>';
+      s += '<text x="615" y="62" class="tB" font-size="14" fill="#5a605c" text-anchor="middle" letter-spacing="3">UNDER THE LAMP</text><g id="lampP"></g>';
+      /* the stamps */
+      s += '<text x="890" y="62" class="tB" font-size="14" fill="#e9ecea" text-anchor="middle" letter-spacing="3">STAMPS</text>';
+      [['s', 'SEIZE', 'WILD-COLLECTED', 'CITES APP. I', '#a8261c', 80], ['d', 'HOLD', 'NO CERTIFICATE', 'WITH THE CRATE', '#1f5a8a', 210]].forEach(function (k) {
+        s += '<g class="stp hit" data-k="' + k[0] + '" transform="translate(890 ' + k[5] + ')"><rect class="body" x="-80" y="0" width="160" height="110" rx="6" fill="#2a2e30" stroke="#1a1c1e" stroke-width="2"/><rect x="-28" y="8" width="56" height="34" rx="6" fill="#6b4a2a"/>' +
+          '<rect x="-66" y="50" width="132" height="52" fill="#f4f1e6"/><text x="0" y="68" class="tX" font-size="17" fill="' + k[4] + '" text-anchor="middle">' + k[1] + '</text><text x="0" y="83" class="tB" font-size="11" fill="' + k[4] + '" text-anchor="middle">' + k[2] + '</text><text x="0" y="96" class="tB" font-size="11" fill="' + k[4] + '" text-anchor="middle">' + k[3] + '</text></g>';
+      });
+      /* the trays */
+      [['w', 'WILD', 30], ['g', 'GROWN', 520]].forEach(function (k) {
+        s += '<g class="tray" data-t="' + k[0] + '"><rect x="' + k[2] + '" y="382" width="450" height="200" rx="6" fill="#8a6234"/><rect x="' + (k[2] + 12) + '" y="394" width="426" height="176" rx="3" fill="#5a3e22"/>' +
+          '<text x="' + (k[2] + 225) + '" y="560" class="tX" font-size="40" fill="#7a5a34" text-anchor="middle" letter-spacing="8">' + k[1] + '</text><g class="tp"></g>' +
+          '<g class="tlab" data-t="' + k[0] + '"><rect x="' + (k[2] + 300) + '" y="398" width="132" height="70" fill="#f4f1e6" transform="rotate(3 ' + (k[2] + 366) + ' 433)"/><g class="tst"></g></g></g>';
+      });
+      svg.innerHTML = s;
+      place(); wire();
+    }
+    function place() {
+      var c = '', l = '', tp = { w: '', g: '' }, n = { w: 0, g: 0 };
+      st.at.forEach(function (a, i) {
+        if (a === 'c') { var q = CELL(i); c += small(i, q.x, q.y + 26, 0.62); }
+        else if (a === 'w' || a === 'g') { var k = n[a]++, x = (a === 'w' ? 30 : 520) + 50 + (k % 6) * 46, y = 446 + Math.floor(k / 6) * 64; tp[a] += small(i, x, y + 18, 0.42); }
+      });
+      if (st.lamp >= 0) {
+        var p = PL[st.lamp];
+        l = '<g class="pl" data-i="' + st.lamp + '" transform="translate(615 185) scale(1.5)">' + (p.pot ? '<g transform="translate(-82 30) scale(.7)">' + OR.pot() + '</g>' : '') + OR.plant({ roots: p.roots, bed: p.bed, leaf: p.leaf, moss: p.moss, label: p.label, lichen: p.lichen, s: p.s, seed: st.lamp * 13 + 5 }) + '</g>' +
+          '<circle cx="480" cy="92" r="20" fill="#13233f"/><text x="480" y="99" class="tB" font-size="20" fill="#fff" text-anchor="middle">' + (st.lamp + 1) + '</text>';
+      } else l = '<text x="615" y="200" class="tH" font-size="22" fill="#8a8a80" text-anchor="middle">click a plant to lift it out</text>';
+      svg.querySelector('#crateP').innerHTML = c; svg.querySelector('#lampP').innerHTML = l;
+      ER.$$('.tray', svg).forEach(function (t) {
+        var k = t.getAttribute('data-t'), sv = st['s' + k];
+        t.querySelector('.tp').innerHTML = tp[k];
+        var x = (k === 'w' ? 30 : 520) + 366;
+        t.querySelector('.tst').innerHTML = sv ? '<g transform="rotate(-6 ' + x + ' 433)"><rect x="' + (x - 58) + '" y="408" width="116" height="50" fill="none" stroke="' + (sv === 's' ? '#a8261c' : '#1f5a8a') + '" stroke-width="3"/><text x="' + x + '" y="438" class="tX" font-size="22" fill="' + (sv === 's' ? '#a8261c' : '#1f5a8a') + '" text-anchor="middle">' + (sv === 's' ? 'SEIZE' : 'HOLD') + '</text></g>' :
+          '<text x="' + x + '" y="438" class="tH" font-size="15" fill="#9a9488" text-anchor="middle">stamp here</text>';
+      });
+      ER.$$('.stp', svg).forEach(function (g) { g.classList.toggle('held', held === g.getAttribute('data-k')); });
+    }
+    function toLamp(i) {
+      if (st.lamp >= 0 && st.lamp !== i) st.at[st.lamp] = st.back || 'c';
+      st.back = st.at[i]; st.at[i] = 'l'; st.lamp = i; held = ''; keep(); OR.sfx.rustle(); place(); wire();
+      msg('<b>Plant ' + (i + 1) + '.</b> ' + PL[i].t);
+    }
+    function wire() {
+      ER.$$('.pl', svg).forEach(function (g) {
+        g.onclick = function (e) {
+          e.stopPropagation(); if (wait || nextFile) return;
+          var i = +g.getAttribute('data-i');
+          if (st.lamp === i) { msg('<b>Plant ' + (i + 1) + '.</b> ' + PL[i].t + ' Click a tray to put it there.'); return; }
+          toLamp(i);
+        };
+      });
+    }
+    svg.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      var stp = e.target.closest('.stp'), lab = e.target.closest('.tlab'), tray = e.target.closest('.tray');
+      if (stp) { held = held === stp.getAttribute('data-k') ? '' : stp.getAttribute('data-k'); place(); wire(); msg(held ? 'Stamp in hand. Click the label on a tray.' : 'Stamp put down.'); return; }
+      if (lab && held) { st['s' + lab.getAttribute('data-t')] = held; held = ''; keep(); OR.sfx.stamp(); place(); wire(); msg('Stamped.'); return; }
+      if (tray && st.lamp >= 0) {
+        var t = tray.getAttribute('data-t'), i = st.lamp;
+        st.at[i] = t; st.lamp = -1; st.back = ''; keep(); OR.sfx.dot(); place(); wire();
+        var left = st.at.filter(function (a) { return a === 'c'; }).length;
+        msg('Plant ' + (i + 1) + ' goes into the ' + (t === 'w' ? 'WILD' : 'GROWN') + ' tray. ' + (left ? left + (left === 1 ? ' plant is' : ' plants are') + ' still in the crate.' : 'The crate is empty. Now a stamp on each tray&rsquo;s label.'));
+        return;
+      }
+      if (lab && !held) msg('Pick up a stamp first: they are on the right.');
+    });
+    box.querySelector('#c-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var left = st.at.filter(function (a) { return a === 'c' || a === 'l'; }).length, file, i;
+      if (left) { ER.sfx.no(); msg('&ldquo;All twelve,&rdquo; says Dr Kinsella. ' + left + (left === 1 ? ' plant is' : ' plants are') + ' still out of a tray.'); return; }
+      if (!st.sw || !st.sg) { ER.sfx.no(); msg('&ldquo;A stamp on each tray,&rdquo; says Dr Kinsella. &ldquo;What happens to them tonight is the whole point.&rdquo;'); return; }
+      var wrong = [];
+      for (i = 0; i < 12; i++) if (!ER.check('p' + (i + 1), st.at[i])) wrong.push(i);
+      if (wrong.length) {
+        ER.sfx.no();
+        var w = PL[wrong[0]], kind = st.at[wrong[0]] === 'w' ?
+          (w.leaf === 'bite' ? 'One plant in the WILD tray has a bite and nothing else. &ldquo;Slugs live in nurseries too,&rdquo; she says.' : 'One plant in the WILD tray has no signs that it was ever in the wild. &ldquo;Did it lose its pot, or its whole life?&rdquo;') :
+          (w.pot ? 'One plant in the GROWN tray came in a pot. &ldquo;Look inside the pot,&rdquo; she says, &ldquo;not at it.&rdquo;' : 'One plant in the GROWN tray has whole roots. &ldquo;Count the other signs,&rdquo; she says. &ldquo;Roots are only one of five.&rdquo;');
+        msg('Dr Kinsella goes through the trays with her lens. &ldquo;' + (wrong.length === 1 ? 'One plant is' : wrong.length + ' plants are') + ' in the wrong tray.&rdquo; ' + kind);
+        return;
+      }
+      if (!ER.check('st', st.sw + st.sg)) {
+        ER.sfx.no();
+        msg(st.sw === 'd' ? 'Dr Kinsella taps the poster. &ldquo;Wild-collected, Appendix I. Could any paper in the world make those legal to sell?&rdquo;' : '&ldquo;The grown ones broke no law by being born in a glasshouse,&rdquo; says Dr Kinsella. &ldquo;They broke one by travelling without a certificate. Is that the same thing?&rdquo;');
+        return;
+      }
+      file = ER.exitOk([st.at.join('') + '-' + st.sw + st.sg]);
+      if (!file) { ER.sfx.no(); msg('Dr Kinsella reads the record twice and does not sign.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      var s0 = ER.state(); s0.done = s0.done || {}; s0.done.shed = 1; ER.persist(true);
+      OR.sfx.stamp(); msg('<b>Eight wild, four grown.</b> Dr Kinsella signs the record, and you sign under her.');
+      OR.mine('trays', 'The crate: what the plants are', '<p>8 wild-collected slipper orchids: torn roots, grit, moss, scars, no labels. Seized: Appendix I, no trade for profit at all.</p><p>4 nursery-grown (plants 1, 2, 5, 9), lying on top: whole roots, bark, labels. Held: no certificate.</p><p>Whoever packed it put the nursery plants on top, where a quick look would see them.</p>');
+      setTimeout(function () {
+        ER.closeAll(); OR.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;The four nursery plants were lying on top,&rdquo; says Dr Kinsella. &ldquo;Somebody packed this crate like a box of strawberries: the good ones where you&rsquo;ll see them. Lift the lid, see nursery plants, close the lid.&rdquo;',
+          'Officer Lakhani writes it all down. &ldquo;So: eight wild slipper orchids, by Mr Gault&rsquo;s van, by a print from Mr Gault&rsquo;s tyres.&rdquo; &ldquo;By a print with the pattern of Mr Gault&rsquo;s tyres,&rdquo; says Dr Kinsella. &ldquo;Not quite the same sentence.&rdquo;',
+          'Mr Blakely has come to the door with his tea. &ldquo;Wild ones? Dreadful.&rdquo; He shakes his head. &ldquo;I parked in that space before Mr Gault, you know. If you want my tyres for your comparison, you&rsquo;re welcome to them. My van&rsquo;s in lane two.&rdquo;',
+          '&ldquo;Kind of you,&rdquo; says Dr Kinsella. &ldquo;We&rsquo;ll take you up on it.&rdquo; She is already pulling on her coat. &ldquo;Inspection bay. Mr Gault&rsquo;s van is in there, and so is the photograph of the print.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    draw();
+    msg(step() === 'sort' ? 'Click a plant in the crate to lift it out under the lamp. Read what it shows, count the signs on Dr Kinsella&rsquo;s card, and click the WILD or the GROWN tray to put it there.' : 'All twelve are in trays. A stamp on each label, then sign.');
+    if (st.lamp >= 0) msg('<b>Plant ' + (st.lamp + 1) + '.</b> ' + PL[st.lamp].t);
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      step: step
+    };
+  }
+})();
+</script>
+</body>
+</html>
