@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Study · Passed for Press</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="rt.css">
+<style>
+  body{--bg:#24100c;--accent:#e8b84a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(44,18,12,.96);--tc-ink:#f6e6c8;--cap-bg:rgba(252,242,224,.96);--cap-ink:#2a140c;--panel:#fcf2e0;--panel-ink:#2a140c;--face-bg:#4a1e14;
+    --fade:#140806;--hud-bg:rgba(252,242,224,.9);--hud-ink:#2a140c;--hud-line:rgba(42,20,12,.3);--ov-bg:rgba(20,8,4,.68)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e8b84a}
+  .tc-theme{color:#c99a7a}
+  #flames path{animation:flame 1.2s steps(3,end) infinite;transform-origin:300px 700px}
+  #flames path:nth-child(2){animation-delay:-.4s}
+  #flames path:nth-child(3){animation-delay:-.8s}
+  @keyframes flame{33%{transform:scale(1.06,.92)}66%{transform:scale(.94,1.08)}}
+  #glow{animation:glow 2.4s steps(4,end) infinite}
+  @keyframes glow{50%{opacity:.7}}
+  #tail{animation:tail 4s ease-in-out infinite;transform-origin:42px -10px}
+  @keyframes tail{50%{transform:rotate(12deg)}}
+
+  /* the blotter: four queries, a verdict and a piece of evidence for each */
+  .qy{width:min(1120px,97vw)}
+  .qy-in{background:#2a4a34;border:12px solid #5a3018;padding:12px 14px 10px;box-shadow:0 26px 70px rgba(0,0,0,.55);background-image:linear-gradient(135deg,rgba(255,255,255,.05),transparent)}
+  .row{display:grid;grid-template-columns:1fr 168px 268px;gap:10px;align-items:center;margin-bottom:8px}
+  .row .qt{background:#fbf6e8;color:#2a140c;padding:6px 12px;font-family:'Gentium Book Plus',serif;font-size:15.5px;line-height:1.3;min-height:58px;border-left:6px solid #8a1a1a}
+  .row .qt small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#8a5a3a}
+  .vd{display:flex;flex-direction:column;gap:4px}
+  .vd button{padding:5px 8px 4px;background:#e8dcc0;color:#2a140c;border:2px solid #5a3018;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.04em;text-align:left}
+  .vd button.on{background:#8a1a1a;color:#fbf6e8;border-color:#8a1a1a}
+  .vd button.on[data-v="s"]{background:#2a5a3a;border-color:#2a5a3a}
+  .ev{height:62px;border:2px dashed rgba(251,246,232,.4);background:rgba(0,0,0,.2);position:relative}
+  .ev:empty:after{content:'pin the evidence here';position:absolute;left:0;right:0;top:20px;text-align:center;font-family:'Kalam',cursive;font-size:15px;color:rgba(251,246,232,.55)}
+  .row.bad .qt{box-shadow:0 0 0 3px #e85a3a}
+  .etray{margin-top:10px;background:#3a2414;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;min-height:136px;border:4px solid #5a3018}
+  .card2{height:58px;padding:4px 8px;background:#fffdf3;color:#24282e;font-family:'Gentium Book Plus',serif;font-size:13px;line-height:1.22;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+  .card2 b{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;display:block;color:#3a6a5a}
+  .card2.rule b{color:#8a1a1a}.card2.mem b{color:#6a4a8a}.card2.chartc b{color:#7a5a1a}
+  .ev .card2{height:100%}
+  .qy .pmsg{color:#fbf6e8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panel" width="160" height="200" patternUnits="userSpaceOnUse"><rect width="160" height="200" fill="#5a2418"/><rect x="14" y="16" width="132" height="168" fill="#64281a" stroke="#3e160e" stroke-width="4"/><path d="M18 20h124" stroke="#7a3a2a" stroke-width="2"/></pattern>
+  <radialGradient id="fireg" cx="50%" cy="80%" r="70%"><stop offset="0" stop-color="#ffb04a" stop-opacity=".55"/><stop offset="1" stop-color="#ff8a2a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#140600" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#panel)"/>
+<rect x="-1000" y="-500" width="3600" height="560" fill="#3e160e" opacity=".5"/>
+<path d="M-1000 60H2600" stroke="#2a0e08" stroke-width="12"/><path d="M-1000 520H2600" stroke="#2a0e08" stroke-width="10"/>
+<!-- the bookcase of editions on the left -->
+<g id="editions" class="hot"><rect x="-260" y="120" width="360" height="640" fill="#3a1a10" stroke="#1e0a06" stroke-width="8"/><g id="eds"></g>
+  <path d="M-260 330h360M-260 540h360" stroke="#1e0a06" stroke-width="10"/></g>
+<!-- the fireplace, the founder over it -->
+<g id="fire" class="hot"><path id="glow" d="M120 480H480V900H120z" fill="url(#fireg)"/><rect x="140" y="430" width="320" height="34" fill="#d8cdb8" stroke="#8a7a6a" stroke-width="3"/>
+  <path d="M160 464h280v300H160z" fill="#cfc2aa"/><path d="M196 760V530q104 -80 208 0v230z" fill="#140806"/>
+  <g id="flames"><path d="M240 740q10 -70 40 -100q-6 40 20 60q10 -50 40 -70q-6 60 20 110z" fill="#e8742a"/><path d="M260 740q10 -40 30 -60q0 30 16 40q8 -30 26 -40q-2 40 10 60z" fill="#ffc04a"/><path d="M288 740q6 -20 16 -30q4 16 10 30z" fill="#fff0a0"/></g>
+  <path d="M220 750h160" stroke="#3a2a1a" stroke-width="10"/></g>
+<g id="portrait" class="hot"><rect x="190" y="150" width="220" height="260" fill="#b8903a" stroke="#6a4a1a" stroke-width="6"/><rect x="206" y="166" width="188" height="228" fill="#2a2418"/>
+  <path d="M230 394q8 -100 70 -110q62 10 70 110z" fill="#1a1612"/><circle cx="300" cy="250" r="40" fill="#c9a07a"/><path d="M262 248q0 -46 38 -48t38 48q-8 -22 -38 -24q-30 2 -38 24z" fill="#6a6a62"/>
+  <path d="M266 262q-6 46 34 52q40 -6 34 -52q-10 22 -34 22t-34 -22z" fill="#8a8a82"/><path d="M286 300h28" stroke="#f2efe6" stroke-width="4"/>
+  <rect x="246" y="400" width="108" height="20" fill="#b8903a"/><text x="300" y="414" class="cZ" font-size="10" fill="#2a1a08" text-anchor="middle">F. FERNLEY 1871</text></g>
+<!-- the chart on the right wall, the armchair, Folio asleep in it -->
+<g id="chart" class="hot"><rect x="1180" y="150" width="230" height="290" fill="#efe2bf" stroke="#5a3a1a" stroke-width="8"/><text x="1295" y="182" class="cZ" font-size="14" fill="#2a1a08" text-anchor="middle" font-weight="700">KINGS &amp; QUEENS</text>
+  <g stroke="#7a5a3a" stroke-width="2.5"><path d="M1200 206h120M1200 228h150M1200 250h110M1200 272h140M1200 294h130M1200 316h150M1200 338h120M1200 360h140M1200 382h110M1200 404h130"/></g>
+  <g fill="#8a1a1a"><circle cx="1380" cy="206" r="4"/><circle cx="1380" cy="316" r="4"/></g></g>
+<g id="chair"><path d="M1170 820V600q0 -60 60 -60h160q60 0 60 60v220z" fill="#6a2a1e"/><path d="M1150 690h50v130h-50zM1420 690h50v130h-50z" fill="#5a2216"/><rect x="1190" y="680" width="240" height="60" fill="#7a3426"/></g>
+<g id="folio" class="hot" transform="translate(1300 690)"></g>
+<g id="lift" class="hot"><rect x="1490" y="400" width="120" height="150" fill="#4a1e12" stroke="#1e0a06" stroke-width="6"/><rect x="1504" y="414" width="92" height="122" fill="#5a2818"/><circle cx="1586" cy="475" r="5" fill="#d9b44a"/>
+  <text x="1550" y="570" class="cM" font-size="12" fill="#e8d0b0" text-anchor="middle" letter-spacing="2">LIFT</text></g>
+<!-- the floor and the rug -->
+<rect x="-1000" y="760" width="3600" height="700" fill="#3a1e12"/><path d="M-1000 760H2600" stroke="#1e0a06" stroke-width="8"/>
+<path d="M200 830h1200l80 70H120z" fill="#6a1e1e"/><path d="M240 844h1120l56 46H184z" fill="none" stroke="#c8902a" stroke-width="3"/>
+<!-- the desk: the binder, two letters, the blotter -->
+<g id="desk"><rect x="540" y="620" width="620" height="30" fill="#4a2010" stroke="#240c06" stroke-width="3"/><rect x="560" y="650" width="160" height="150" fill="#3e1a0c"/><rect x="980" y="650" width="160" height="150" fill="#3e1a0c"/>
+  <circle cx="640" cy="700" r="5" fill="#d9b44a"/><circle cx="640" cy="750" r="5" fill="#d9b44a"/><circle cx="1060" cy="700" r="5" fill="#d9b44a"/><circle cx="1060" cy="750" r="5" fill="#d9b44a"/>
+  <path d="M1110 620v-120" stroke="#2a2a1a" stroke-width="5"/><path d="M1080 510q30 -34 60 0z" fill="#2a5a3a"/><path d="M1068 512L1040 620H1180L1152 512z" fill="#ffe9a8" opacity=".25"/></g>
+<g id="blotter" class="hot"><rect x="720" y="604" width="260" height="20" fill="#2a4a34" stroke="#1a2a1e" stroke-width="2"/>
+  <g fill="#fbf6e8"><rect x="736" y="596" width="50" height="14" transform="rotate(-4 761 603)"/><rect x="796" y="598" width="50" height="12"/><rect x="856" y="596" width="50" height="14" transform="rotate(3 881 603)"/><rect x="916" y="598" width="50" height="12"/></g></g>
+<g id="binder" class="hot"><rect x="580" y="580" width="110" height="40" fill="#8a1a1a" stroke="#4a0a0a" stroke-width="3"/><rect x="580" y="580" width="16" height="40" fill="#5a0e0e"/>
+  <text x="640" y="606" class="cM" font-size="11" fill="#f2d8a0" text-anchor="middle" font-weight="600">STYLE</text></g>
+<g id="green" class="hot"><g transform="rotate(-8 1010 600)"><rect x="990" y="584" width="70" height="40" fill="#f4f1e6" stroke="#9a9a8a"/><path d="M998 596h50M998 606h44M998 614h48" stroke="#1e5a2a" stroke-width="2.2"/></g></g>
+<g id="pink" class="hot"><g transform="rotate(6 1080 600)"><rect x="1050" y="586" width="64" height="38" fill="#fbf3f3" stroke="#b89aa4"/><path d="M1058 598h46M1058 607h40M1058 615h44" stroke="#6a4a7a" stroke-width="2"/></g></g>
+<g id="ayo" class="hot" transform="translate(520 890) scale(1.04)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the proof room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="rt.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, qy = null;
+
+  $('#ayo').innerHTML = RT.who('ayo', { smile: 3, extra: '<g fill="#fffdf3" stroke="#9a9a8a"><rect x="24" y="-150" width="30" height="20" transform="rotate(-12 39 -140)"/><rect x="28" y="-144" width="30" height="20" transform="rotate(6 43 -134)"/></g>' });
+  $('#folio').innerHTML = RT.cat(true);
+  $('#eds').innerHTML = (function () {
+    var s = '', i, x, cols = ['#2a3a5a', '#5a2a1a', '#2a4a2a', '#4a3a1a'];
+    for (i = 0; i < 12; i++) { x = -246 + (i % 6) * 56; var y = i < 6 ? 150 : 360; s += '<rect x="' + x + '" y="' + y + '" width="48" height="172" fill="' + cols[i % 4] + '"/><rect x="' + (x + 6) + '" y="' + (y + 24) + '" width="36" height="20" fill="#c8a04a"/><text x="' + (x + 24) + '" y="' + (y + 39) + '" class="cO" font-size="13" font-weight="700" fill="#2a1a08" text-anchor="middle">' + (i + 1) + '</text>'; }
+    return s + '<rect x="-246" y="560" width="330" height="190" fill="#2a120a"/><text x="-80" y="670" class="cK" font-size="22" fill="#c8a04a" text-anchor="middle">13 &rarr; tomorrow</text>';
+  })();
+
+  ER.init({
+    theme: 'lang', story: 'roots', storyTitle: 'Passed for Press', id: 'study', no: 'III', title: 'The Study',
+    go: 'Open the study door',
+    intro: [
+      'The slips went back into their pigeonholes by the door each word came through: cow and shirt by Old English, window, sky and skirt by Old Norse, beef and surloyn by French, television by Latin and Greek, shampoo, ketchup and kindergarten by trade, and posh by no door anybody knows. Every Word Story had its slip, except sirloin.',
+      'Burgoyne&rsquo;s old study is on the first floor, at the front. Ten past ten. Somebody has lit the fire.'
+    ],
+    exit: {"next":"proof","w":{"abe5a31d":"3533dcae","c05297b6":"ce61b803"}}, tags: {"q1":["2ff58f01"],"q2":["554ec113"],"q3":["60bdd41f","1709048a"],"q4":["409138a4"],"v1":["65b353c5"],"v2":["17db5821"],"v3":["d0ee2f68"],"v4":["bbc339a4"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('c-told') || {}; nextFile = ER.flag('c-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.guide && told.green && told.pink && told.chart; }
+  function paint() {
+    $('#binder').classList.toggle('ready', !told.guide);
+    $('#green').classList.toggle('ready', !told.green);
+    $('#pink').classList.toggle('ready', !told.pink);
+    $('#chart').classList.toggle('ready', !!(told.guide && !told.chart));
+    $('#blotter').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.guide ? 1 : 0) + (told.green ? 1 : 0) + (told.pink ? 1 : 0) + (told.chart ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Dr Fanshawe wants the entry marked up in the proof room, on the ground floor. The button at the bottom of the screen takes you there.']];
+    if (qy && qy.isOpen()) return ['queries', [
+      'Four queries. For each, decide whether the Word Story on the line upstairs is right, and pin one card that proves it.',
+      'A dated slip beats a memory. Window and ketchup are each answered by their own slip. Posh is answered by its slip, or by Rule 14.',
+      'Mrs Cowdrey&rsquo;s king was born in 1566 (the chart). The surloyn slip is the same word as sirloin, spelt the old way. How old is it?'
+    ]];
+    if (!told.guide) return ['guide', ['The style guide is the fat red binder on the desk. Read it.']];
+    if (!told.green || !told.pink) return ['letters', ['Two letters lie on the desk, one in green ink and one on pink paper. Read them both.']];
+    if (!told.chart) return ['chart', ['There is a chart of kings and queens on the wall above the armchair. It may be useful.']];
+    return ['blot', ['Dr Fanshawe&rsquo;s queries are on the green blotter in the middle of the desk. Click the blotter.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Three Word Stories stand. Sirloin falls.'); return; }
+    if (told.in) { busy = false; ER.say('Burgoyne&rsquo;s old study, and the fire.'); return; }
+    tell('in');
+    ER.narrate([
+      'The study is red and brown and smells of old paper and woodsmoke. Over the fireplace, the founder of the dictionary looks down at you as if you had spelt something wrong.',
+      'On the shelves stand the twelve editions of the Fernley, from 1871 on, with a gap at the end for the thirteenth.',
+      'On the desk: a red binder, two letters, and on the green blotter four little cards in Dr Fanshawe&rsquo;s hand. In the armchair, impossibly, Folio, asleep. Nobody saw her come down.',
+      'Ayo empties her cardigan pocket of slips onto the desk.'
+    ], function () { busy = false; });
+  }
+
+  $('#ayo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Ayo Bankole', role: 'Night proofreader', face: RT.face('ayo'),
+      lines: [
+        { a: '&ldquo;Dr Fanshawe wrote the eight Word Stories in August, from the files. Every Word Story has a file: the slips, the letters, the notes. She&rsquo;s careful. But it was August, and she had eight hundred other things to do.&rdquo;' },
+        { q: 'Where did the sirloin story come from, then?', a: '&ldquo;If there was no slip in the file, it came from a letter. Readers send us stories all the time. Some are true.&rdquo;' },
+        { note: 'She looks at the cards on the blotter.', a: '&ldquo;Four queries. One of them is mine, the ketchup. I suppose I&rsquo;d better be fair to it.&rdquo;' }
+      ],
+      clue: { id: 'ayo3', title: 'Ayo: where the Word Stories came from', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('ayo'); }
+    });
+  });
+  $('#folio').addEventListener('click', function () {
+    if (busy) return;
+    RT.sfx.mew(); ER.say('Folio is asleep, or very good at pretending. The armchair was Burgoyne&rsquo;s. So, it seems, was the cat.');
+  });
+  RT.thing('#fire', 'fireplace', 'A small coal fire, the only warm thing in Dace House after eight o&rsquo;clock.', isBusy);
+  RT.thing('#portrait', 'founder', 'Dr Fabian Fernley, who began the dictionary in 1871 with four helpers and a room full of slips. The painter has given him a beard you could lose a pencil in.', isBusy);
+  RT.thing('#editions', 'edition', 'Twelve editions, 1871 to 2016. Each is fatter than the one before. The thirteenth goes on the end tomorrow.', isBusy);
+  RT.thing('#lift', 'dumb waiter', 'The lift, on its way down the house to the press room.', isBusy);
+
+  var GUIDE = '<h4>The Fernley Style Guide &middot; for editors</h4><h3>Rule 14. A Word Story must be history, not a story.</h3>' +
+    '<p>Readers send us hundreds of good stories about words. Most of them are wrong. Before you print one, ask three questions.</p><ol>' +
+    '<li><b>Is the word older than the story?</b> Find the earliest dated slip. If the word was in use before the event that is supposed to have made it, the story is false.</li>' +
+    '<li><b>Does the story explain an old word by its initials?</b> Words made from initials were very rare before the 1900s: the word <i>acronym</i> itself is first found in 1943. Posh as &lsquo;Port Out, Starboard Home&rsquo; and news as &lsquo;North, East, West, South&rsquo; are inventions.</li>' +
+    '<li><b>Does it have a famous person, a joke and a neat ending?</b> Then it was probably made up afterwards, to explain a word that people no longer understood. This is a <b>false etymology</b>.</li></ol>' +
+    '<p>If a false story is famous, say so in the Word Story, plainly, so that readers who have heard it can check it.</p><p class="rule">Trust the slip, not the teller.</p>';
+  $('#binder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'guide', clue: { id: 'rule14', title: 'Style guide: Rule 14, Word Stories', kind: 'Style guide' }, done: function () {
+      RT.terms(['false etymology', 'acronym', 'evidence']);
+      if (tell('guide')) { paint(); ER.say('Three questions for every good story. Now the letters.'); }
+    } });
+  });
+  var GREEN = '<h4>Received 4 November &middot; answer by the editor</h4><p>Sir or Madam,</p>' +
+    '<p>Your autumn newsletter tells me that your new edition will say the origin of POSH is &ldquo;not known&rdquo;. Nonsense. My father sailed to Bombay in 1931, and every first-class passenger knew it: Port Out, Starboard Home, the cool side of the ship, stamped on the best tickets.</p>' +
+    '<p>I have told this to four dictionaries, and two of them listened. Correct your Word Story, or I shall write to the newspapers.</p><p>Yours faithfully,<br>Augustin Fairclough (Mr)</p>';
+  var PINK = '<h4>Received in March &middot; filed: SIRLOIN</h4><p>Dear Dictionary,</p><p>I hope you don&rsquo;t mind a letter from an old school cook. My grandfather was a butcher in Preston, and he told every customer how the sirloin got its name.</p>' +
+    '<p>King James the First, at a feast in Lancashire in 1617, liked his beef so much that he drew his sword and knighted it: &ldquo;Arise, Sir Loin!&rdquo; I have never forgotten it, and I thought your readers would enjoy it too.</p>' +
+    '<p>With best wishes,</p><p>Bettina Cowdrey (Mrs)</p><p>P.S. Roast it on the bone.</p>';
+  $('#green').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GREEN, cls: 'letter green', clue: { id: 'green', title: 'Mr Fairclough&rsquo;s letter: posh', kind: 'Letter' }, done: function () {
+      if (tell('green')) { paint(); ER.say('&ldquo;Very cross,&rdquo; says Ayo. &ldquo;And very sure.&rdquo;'); }
+    } });
+  });
+  $('#pink').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PINK, cls: 'letter kind', clue: { id: 'pink', title: 'Mrs Cowdrey&rsquo;s letter: sirloin', kind: 'Letter' }, done: function () {
+      if (tell('pink')) { paint(); ER.say('&ldquo;That&rsquo;s our Word Story,&rdquo; says Ayo, &ldquo;almost word for word.&rdquo;'); }
+    } });
+  });
+  var CHART = '<h4>Kings and Queens of England, 1485&ndash;1714</h4><table>' +
+    [['Henry VII', '1485&ndash;1509'], ['Henry VIII', '1509&ndash;1547'], ['Edward VI', '1547&ndash;1553'], ['Mary I', '1553&ndash;1558'], ['Elizabeth I', '1558&ndash;1603'],
+      ['James I (born 1566; already James VI of Scotland)', '1603&ndash;1625'], ['Charles I', '1625&ndash;1649'], ['no king or queen', '1649&ndash;1660'], ['Charles II', '1660&ndash;1685'],
+      ['James II', '1685&ndash;1688'], ['William III and Mary II (Mary died in 1694)', '1689&ndash;1702'], ['Anne', '1702&ndash;1714']].map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') +
+    '</table><p class="sm">The dates are the years of each reign.</p>';
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CHART, cls: 'chart', clue: { id: 'chart', title: 'The chart of kings and queens', kind: 'On the wall' }, done: function () {
+      if (tell('chart')) { paint(); ER.say('James I: born 1566, king of England from 1603.'); }
+    } });
+  });
+
+  /* ---------- the blotter ---------- */
+  var Q = [
+    ['Dr Fanshawe&rsquo;s pencil, on the window strip', '&ldquo;Wind-eye: too pretty to be true? Check.&rdquo;'],
+    ['Ayo&rsquo;s pencil, on the ketchup strip', '&ldquo;From a CHINESE word? It&rsquo;s tomatoes. Query.&rdquo;'],
+    ['Mr Fairclough, in green ink', '&ldquo;Posh means Port Out, Starboard Home. Your Word Story is wrong.&rdquo;'],
+    ['Mrs Cowdrey, on pink paper', '&ldquo;King James I knighted a loin of beef in 1617.&rdquo; (So says the Word Story.)']
+  ];
+  var EV = [
+    ['e4', 'slip', 'SLIP &middot; SURLOYN', 'By the early 1500s. From surloigne.'],
+    ['e7', 'mem', 'MR FAIRCLOUGH', '&ldquo;My father sailed to Bombay in 1931, and everybody knew.&rdquo;'],
+    ['e2', 'slip', 'SLIP &middot; KETCHUP', '1690, as catchup. Probably from k&ecirc;-tsiap, a fish sauce.'],
+    ['e5', 'rule', 'RULE 14, QUESTION 2', 'Words made from initials were very rare before the 1900s.'],
+    ['e6', 'chartc', 'THE CHART', 'James I: born 1566, king of England 1603&ndash;1625.'],
+    ['e1', 'slip', 'SLIP &middot; WINDOW', 'Early 1200s. From vindauga: vindr &lsquo;wind&rsquo; + auga &lsquo;eye&rsquo;.'],
+    ['e8', 'mem', 'MRS COWDREY', '&ldquo;My grandfather told every customer.&rdquo;'],
+    ['e3', 'slip', 'SLIP &middot; POSH', '1914. Came from: ?']
+  ];
+  var VWHY = [
+    'Dr Fanshawe asked whether wind-eye is too pretty to be true. Pretty is not the same as false. What does the dated slip for window say?',
+    'Ayo&rsquo;s doubt is a feeling, not evidence, and she knows it. What does the ketchup slip say the first ketchup was?',
+    'Mr Fairclough is very sure. But Rule 14 has a question about stories made from initials.',
+    'Mrs Cowdrey&rsquo;s story has a king, a joke and a neat ending. Rule 14 says what that should make you do: check the dates.'
+  ];
+  function makeQy() {
+    var box = ER.el('div', 'pz qy'), st = ER.flag('c-q') || { v: ['', '', '', ''], e: {} }, done = !!nextFile;
+    box.innerHTML = '<div class="qy-in">' + Q.map(function (q, i) {
+      return '<div class="row" data-i="' + i + '"><div class="qt"><small>' + q[0] + '</small>' + q[1] + '</div><div class="vd"><button type="button" data-v="s">The Word Story stands</button><button type="button" data-v="w">The Word Story is wrong</button></div><div class="ev" data-i="' + i + '"></div></div>';
+    }).join('') + '<div class="etray"></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="q-go">Send the answers down</button></div>';
+    var tray = box.querySelector('.etray'), msgEl = box.querySelector('.pmsg'), cards = {};
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    EV.forEach(function (e) { var n = ER.el('div', 'card2 dnd-item ' + e[1], '<!--nogloss--><b>' + e[2] + '</b>' + e[3] + '<!--/nogloss-->'); n.setAttribute('data-k', e[0]); cards[e[0]] = n; });
+    EV.forEach(function (e) { var at = null, i; for (i in st.e) if (st.e[i] === e[0]) at = box.querySelector('.ev[data-i="' + i + '"]'); (at || tray).appendChild(cards[e[0]]); });
+    function paintV() { ER.$$('.row', box).forEach(function (r, i) { ER.$$('.vd button', r).forEach(function (b) { b.classList.toggle('on', st.v[i] === b.getAttribute('data-v')); }); }); }
+    function save() {
+      st.e = {}; ER.$$('.ev', box).forEach(function (s) { var c = s.querySelector('.card2'); if (c) st.e[s.getAttribute('data-i')] = c.getAttribute('data-k'); });
+      ER.$$('.row.bad', box).forEach(function (r) { r.classList.remove('bad'); });
+      ER.flag('c-q', st); RT.sfx.pin();
+    }
+    ER.$$('.vd button', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; var i = +b.closest('.row').getAttribute('data-i'); st.v[i] = b.getAttribute('data-v'); RT.sfx.stamp(); ER.flag('c-q', st); paintV(); });
+    });
+    ER.dnd(box, { item: '.card2', slot: '.ev', home: tray, change: save, lock: function () { return done; } });
+    paintV();
+    box.querySelector('#q-go').addEventListener('click', function () {
+      if (done) return;
+      var i, v, e, row;
+      function bad(k, t) { ER.sfx.no(); row = box.querySelector('.row[data-i="' + k + '"]'); row.classList.add('bad'); ER.shake(row.querySelector('.qt')); msg(t); }
+      for (i = 0; i < 4; i++) {
+        v = st.v[i]; e = st.e[i];
+        if (!v) return bad(i, 'Ayo: &ldquo;No verdict on this one yet. Does the Word Story stand, or is it wrong?&rdquo;');
+        if (!e) return bad(i, 'Ayo: &ldquo;Pin a card to every query. Dr Fanshawe will answer the letters with them.&rdquo;');
+      }
+      for (i = 0; i < 4; i++) {
+        v = st.v[i]; e = st.e[i];
+        if (ER.check('q' + (i + 1), v + '.' + e)) continue;
+        if (!ER.check('v' + (i + 1), v)) return bad(i, VWHY[i]);
+        if (e === 'e7' || e === 'e8') return bad(i, 'The verdict is right. But that card is somebody remembering. Rule 14: trust the slip, not the teller.');
+        if (i === 3 && e === 'e6') return bad(i, 'The verdict is right. But the chart only says when James I lived. It does not say how old the word is. Which card gives the word itself a date?');
+        if (i === 3 && e === 'e5') return bad(i, 'The verdict is right. But nobody says sirloin is made from initials.');
+        return bad(i, 'The verdict is right. But that card is about something else. Which card is about this word?');
+      }
+      var f = ER.exit([st.v.map(function (x, k) { return x + '.' + st.e[k]; }).join('|')], { wait: true });
+      if (!f) { ER.sfx.no(); msg('Something is still not right.'); return; }
+      done = true; nextFile = f; ER.flag('c-file', f); paint();
+      msg('Ayo reads the four cards through twice, and pins the blotter to the lift rope.');
+      RT.mine('verdicts', 'Four queries, four verdicts',
+        '<p>Window STANDS: the slip says vindauga, vindr wind + auga eye. Pretty and true.</p><p>Ketchup STANDS: by 1690, probably from kê-tsiap, a FISH sauce. Tomatoes came later.</p>' +
+        '<p>Posh STANDS: the word is found in 1914, and stories made from initials are nearly always false (Rule 14).</p><p>Sirloin is WRONG: surloyn was in use by the early 1500s, and James I was born in 1566. The word is older than the king.</p>');
+      setTimeout(after, 3000);
+    });
+    msg(done ? 'The answers have gone down.' : 'For each query: does the Word Story stand, or is it wrong? Then drag a card onto it (or click the card, then the space) to prove it.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#blotter').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The four answers have gone down in the lift.'); return; }
+    if (!ready()) { ER.say('Four queries in Dr Fanshawe&rsquo;s hand. ' + (!told.guide ? 'The style guide first: the red binder.' : (!told.green || !told.pink) ? 'Read the two letters first.' : 'The chart on the wall may help.')); return; }
+    if (!qy) qy = makeQy();
+    qy.open();
+  });
+  function after() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      '&ldquo;Window stands,&rdquo; says Ayo. &ldquo;Vindauga really is wind-eye. Ketchup stands. I hate it, but it was a fish sauce first. Posh stands: the word is older than the story.&rdquo;',
+      '&ldquo;And sirloin falls. Surloyn was in use by the early 1500s, and James I wasn&rsquo;t born until 1566. You can&rsquo;t knight a word that&rsquo;s older than you are.&rdquo;',
+      '&ldquo;So that is Burgoyne&rsquo;s story at dinner: a butcher&rsquo;s story, told across a counter for fifty years.&rdquo; She looks at the pink letter, and her voice goes kinder. &ldquo;She meant it nicely.&rdquo;',
+      '&ldquo;But if it isn&rsquo;t sir, and a knight, what is it? We can&rsquo;t just cut it out. The S sheet needs the real entry, every part of it right, before midnight.&rdquo;',
+      'Across the room, the lift bell rings.'
+    ], function () {
+      RT.note('<p>Thank you for the verdicts. I shall write to Mrs Cowdrey myself.</p><p>Proof room, ground floor. The S sheet proof is on the sloping desk. Mark up the sirloin entry properly, every part, and send it down. Eamon is very patient until midnight.</p>', 'cf3', 'Dr Fanshawe: mark up the S sheet', function () {
+        busy = false; $('#go').classList.add('on');
+      });
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

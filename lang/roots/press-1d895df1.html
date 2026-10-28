@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Press Room · Passed for Press</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="rt.css">
+<style>
+  body{--bg:#2a1610;--accent:#e8a84a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(36,20,14,.96);--tc-ink:#f6e6cc;--cap-bg:rgba(252,244,230,.96);--cap-ink:#2a160c;--panel:#fcf4e6;--panel-ink:#2a160c;--face-bg:#3a2a22;
+    --fade:#140a06;--hud-bg:rgba(252,244,230,.9);--hud-ink:#2a160c;--hud-line:rgba(42,22,12,.3);--ov-bg:rgba(20,10,6,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e8a84a}
+  .tc-theme{color:#c9a07a}
+  #bulbs circle{animation:bulb 5s steps(2,end) infinite}
+  #bulbs circle:nth-child(2){animation-delay:-2s}
+  @keyframes bulb{50%{opacity:.82}}
+  #scene.run #roller{animation:spin .5s steps(4,end) infinite;transform-origin:1120px 520px}
+  @keyframes spin{to{transform:rotate(90deg)}}
+  #scene.run #press{animation:thud .5s steps(2,end) infinite}
+  @keyframes thud{50%{transform:translateY(2px)}}
+  #sheetout{display:none}
+  #scene.run #sheetout{display:inline}
+  #tail{animation:tail 3s ease-in-out infinite;transform-origin:20px -4px}
+  @keyframes tail{50%{transform:rotate(-16deg)}}
+
+  .sp{width:min(760px,94vw)}
+  .sp-in{position:relative;background:#fdfcf6;padding:22px 30px 26px;border:1px solid #c9c4b4;box-shadow:0 26px 70px rgba(0,0,0,.5);color:#141414;font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.45;cursor:pointer}
+  .sp-in h5{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#9a1a1a}
+  .sp-in .cols{column-count:2;column-gap:26px;opacity:.85;font-size:14px}
+  .sp-in .cols b{font-family:'Old Standard TT',serif}
+  .sp-in .foot{margin-top:14px;padding-top:8px;border-top:1px solid #9a9a8a;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5a5a5a;min-height:70px;position:relative}
+  .mark{position:absolute;right:30px;bottom:12px;padding:8px 16px 6px;border:4px solid #b8281e;color:#b8281e;font-family:'Stardos Stencil',serif;font-weight:700;font-size:28px;letter-spacing:.08em;transform:rotate(-6deg);opacity:0;transition:opacity .2s}
+  .mark.on{opacity:.9}
+  .stampb{display:flex;align-items:center;gap:14px;margin-top:12px}
+  .stampb button{width:90px;height:90px;border-radius:8px;background:radial-gradient(circle at 40% 30%,#8a5a3a,#4a2a1a);border:4px solid #2a1a0c;color:#f6e6cc;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;box-shadow:0 6px 0 #2a1a0c}
+  .stampb button.on{outline:3px solid #e8a84a;transform:translateY(-4px)}
+  .sp .pmsg{color:#f6e6cc}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#6a3424"/><path d="M0 0H80M0 20H80M40 0V20M0 20V40M80 20V40" stroke="#4a2216" stroke-width="3"/><rect x="6" y="4" width="28" height="12" fill="#74392a" opacity=".6"/><rect x="46" y="24" width="28" height="12" fill="#5e2e20" opacity=".6"/></pattern>
+  <radialGradient id="bulbg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#100500" stop-opacity=".24"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#brick)"/>
+<!-- the vaults -->
+<path d="M-1000 -500H2600V80H-1000z" fill="#3a1c12"/>
+<path d="M-300 380Q100 -40 500 380M500 380Q900 -40 1300 380M1300 380Q1700 -40 2100 380" stroke="#4a2216" stroke-width="30" fill="none"/>
+<g id="bulbs"><path d="M300 -500V170M1000 -500V150" stroke="#1a1a1a" stroke-width="3"/><circle cx="300" cy="180" r="160" fill="url(#bulbg)"/><circle cx="1000" cy="160" r="170" fill="url(#bulbg)"/>
+  <circle cx="300" cy="180" r="13" fill="#ffe9b0"/><circle cx="1000" cy="160" r="13" fill="#ffe9b0"/></g>
+<!-- the bottom of the lift shaft -->
+<g id="lift" class="hot"><rect x="40" y="300" width="150" height="330" fill="#2a1a10" stroke="#1a0c06" stroke-width="8"/><path d="M80 300V120M150 300V120" stroke="#8a7a5a" stroke-width="3"/>
+  <rect x="58" y="430" width="114" height="140" fill="#6a4628" stroke="#3a2210" stroke-width="4"/><rect x="70" y="446" width="90" height="16" fill="#fdfcf6"/><circle cx="115" cy="410" r="9" fill="#d9b44a"/></g>
+<!-- the floor -->
+<rect x="-1000" y="740" width="3600" height="700" fill="#2e221c"/><path d="M-1000 740H2600" stroke="#140a06" stroke-width="8"/>
+<g fill="#3a2a22" opacity=".8"><ellipse cx="900" cy="820" rx="200" ry="14"/><ellipse cx="300" cy="860" rx="120" ry="8"/></g>
+<!-- stacks of paper, Folio on one -->
+<g id="paper"><rect x="1360" y="560" width="200" height="180" fill="#f2ecd8" stroke="#9a9280" stroke-width="3"/><g stroke="#c9c2aa" stroke-width="2"><path d="M1360 590h200M1360 620h200M1360 650h200M1360 680h200M1360 710h200"/></g>
+  <rect x="1420" y="470" width="160" height="90" fill="#efe8d2" stroke="#9a9280" stroke-width="3"/></g>
+<g id="folio" class="hot" transform="translate(1500 470)"></g>
+<!-- the press -->
+<g id="press" class="hot"><rect x="760" y="380" width="520" height="300" rx="14" fill="#2a5a4a" stroke="#143a2a" stroke-width="8"/>
+  <rect x="800" y="420" width="200" height="120" fill="#1e4a3a" stroke="#143a2a" stroke-width="4"/><circle cx="1120" cy="520" r="90" fill="#3a6a5a" stroke="#143a2a" stroke-width="8"/>
+  <g id="roller"><path d="M1120 440V600M1040 520H1200" stroke="#143a2a" stroke-width="10"/><circle cx="1120" cy="520" r="20" fill="#c8a04a"/></g>
+  <rect x="780" y="680" width="40" height="70" fill="#143a2a"/><rect x="1220" y="680" width="40" height="70" fill="#143a2a"/>
+  <rect x="840" y="560" width="140" height="22" fill="#c8a04a"/><text x="910" y="577" class="cZ" font-size="13" fill="#143a2a" text-anchor="middle" font-weight="700">DACE &amp; SONS</text>
+  <path d="M1270 470l60 -50" stroke="#2a2a2a" stroke-width="12" stroke-linecap="round"/><circle cx="1334" cy="416" r="14" fill="#b8281e"/>
+  <g id="sheetout"><path d="M780 640l-150 30v-40l150 -10z" fill="#fdfcf6" stroke="#9a9280"/></g></g>
+<!-- the imposing stone, with the last proof on it -->
+<g id="stone" class="hot"><rect x="380" y="590" width="300" height="24" fill="#7a7a72" stroke="#3a3a36" stroke-width="3"/><rect x="400" y="614" width="260" height="130" fill="#4a3a2a"/>
+  <rect x="420" y="560" width="220" height="34" fill="#fdfcf6" stroke="#9a9280" transform="rotate(-2 530 577)"/><path d="M436 572h140M436 582h180" stroke="#4a4a4a" stroke-width="2" transform="rotate(-2 530 577)"/></g>
+<g id="eamon" class="hot" transform="translate(1340 880) scale(1.08)"></g>
+<g id="celia" class="hot" transform="translate(320 885)"></g>
+<g id="ayo" class="hot" transform="translate(640 892) scale(1.04)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Passed for press</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Long English words are built from parts: a root carries the meaning, a prefix goes in front and a suffix at the end (in-vis-ible). A word you have never seen can be worked out from its parts.</li>
+    <li>Many roots are Latin (aud, dict, leg, port, script, spect, vis) or Greek (tele, graph, phon, chron, micro, auto). Not every part is what it looks like: there is no ear in early, no ham in hamburger, and no knight in sirloin.</li>
+    <li>English let words in by many doors: Old English (cow, shirt), Old Norse (sky, skirt, window), French after 1066 (beef, sirloin), Latin and Greek for learning (television), and trade and travel (shampoo, ketchup, kindergarten).</li>
+    <li>On the farm the animals kept their English names; on the Norman table the meat got French ones: cow and beef, pig and pork, sheep and mutton. One old word can come in by two doors and become two words: shirt and skirt.</li>
+    <li>A false friend looks like a word you know and means something else: French actuel and sympathique, and Korean English hand phone, notebook and Fighting!</li>
+    <li>A false etymology is a good story about a word that is not true. Test it: is the word older than the story? Does it explain an old word by initials? Does it have a famous person and a neat ending? Trust the dated slip, not the teller.</li>
+    <li>A dictionary entry has a headword, a pronunciation, a part of speech, senses, an etymology in square brackets and a date of first known use, and every part of it rests on evidence.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-ws">The new Word Story</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the dictionary</button></div>
+  <small>Passed for Press &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="rt.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, sp = null;
+
+  $('#eamon').innerHTML = RT.who('eamon');
+  $('#celia').innerHTML = RT.who('celia', { smile: 6 });
+  $('#ayo').innerHTML = RT.who('ayo', { smile: 8 });
+  $('#folio').innerHTML = RT.cat(false);
+
+  ER.init({
+    theme: 'lang', story: 'roots', storyTitle: 'Passed for Press', id: 'press', no: 'V', title: 'The Press Room',
+    go: 'Go down to the cellar',
+    intro: [
+      'The sirloin entry went down in the lift with three red rings on it: Middle English surloyn, from Old French surloigne, from sur &lsquo;over, above&rsquo; and loigne &lsquo;loin&rsquo;; first known use by the early 1500s; and a Word Story that tells the knighting as the famous story it is, and not as history.',
+      'The press room is the cellar of Dace House, brick and warm and smelling of ink. It is ten to twelve.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#celia').classList.toggle('ready', !told.celia);
+    $('#stone').classList.toggle('ready', !!(told.celia && !told.stamped));
+    $('#scene').classList.toggle('run', !!told.stamped);
+  }
+  function hints() {
+    if (told.stamped) return null;
+    if (sp && sp.isOpen()) return ['stamp', ['Click the rubber stamp at the bottom, and then click the sheet.']];
+    if (!told.celia) return ['celia', ['Dr Fanshawe is sitting on the left, on a stack of paper. Talk to her.']];
+    return ['stone', ['The last proof is on the stone table in the middle. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (told.stamped) { busy = false; finish(true); return; }
+    if (told.in) { busy = false; ER.say('The press room, and the press, waiting.'); return; }
+    tell('in');
+    ER.narrate([
+      'The press fills half the cellar: green iron, older than anybody in the building, with a brass plate that says DACE &amp; SONS.',
+      'Beside it stands Eamon Brady, the printer, a big quiet man in an inky apron, wiping his hands on a rag. The new lines are in. The old ones lie on the stone, upside down and backwards, the way type always is.',
+      'Dr Fanshawe has taken her shoes off and is sitting on a stack of paper. Folio is sitting on a higher one. Nobody saw her come down. Nobody ever does.'
+    ], function () { busy = false; });
+  }
+
+  $('#celia').addEventListener('click', function () {
+    if (busy) return;
+    if (told.stamped) { ER.say('&ldquo;I shall send Bertram a postcard,&rdquo; says Dr Fanshawe. &ldquo;With the long words in.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Celia Fanshawe', role: 'Chief Editor · shoes off', face: RT.face('celia', 'smile'),
+      lines: [
+        { a: '&ldquo;You found it. Of course you did. Sirloin.&rdquo;' },
+        { q: 'How did it get in?', a: '&ldquo;My fault. In August I wrote the eight Word Stories from the files. The sirloin file had one thing in it: Mrs Cowdrey&rsquo;s lovely letter. No slip. I should have stopped there. I didn&rsquo;t, because I had heard that story all my life, and I liked it.&rdquo;' },
+        { q: 'And the slip?', a: '&ldquo;Under S-U-R, where a reader filed it long ago, spelt the way he found it in an old book. Nobody looks for a sirloin under sur. Nobody except Bertram, it seems.&rdquo;' },
+        { a: '&ldquo;Rule 14 was his: trust the slip, not the teller. Even when the teller is the chief editor.&rdquo;' },
+        { note: 'She holds out a rubber stamp with a wooden handle, worn smooth.', a: '&ldquo;Will you? It is a tradition. The youngest person in the building passes the last sheet.&rdquo;' }
+      ],
+      clue: { id: 'celia2', title: 'Dr Fanshawe, in the press room', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('celia')) { paint(); ER.say('The last proof is on the stone. Stamp it, and the press can run.'); } }
+    });
+  });
+  $('#eamon').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Eamon Brady', role: 'Printer · thirty-four years on this press', face: RT.face('eamon', 'smile'),
+      lines: [
+        { a: '&ldquo;Never had a sirloin before. Had a giraffe once, spelt with one f. That was 1998.&rdquo;' },
+        { q: 'What did you change?', a: '&ldquo;The brackets, the date, and the box under it. Took the old lines out of the forme, set the new ones, locked it up again. Fifteen minutes. It would have been ten years to put right afterwards.&rdquo;' },
+        { note: 'He nods at the cat.', a: '&ldquo;She always comes down for the last sheet. Don&rsquo;t ask me how she knows.&rdquo;' }
+      ],
+      clue: { id: 'eamon', title: 'Eamon, the printer', kind: 'What he said' },
+      done: function (seen) { if (seen) tell('eamon'); }
+    });
+  });
+  $('#ayo').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(told.stamped ? '&ldquo;Ketchup,&rdquo; says Ayo, shaking her head. &ldquo;A fish sauce. I&rsquo;ll never get over it.&rdquo;' : 'Ayo is reading the new lines on the stone, backwards, to check the spelling.');
+  });
+  $('#folio').addEventListener('click', function () {
+    if (busy) return;
+    RT.sfx.mew(); ER.say('Folio watches the press with great interest, as if it were a very large mouse.');
+  });
+  RT.thing('#press', 'press', 'The press: green iron, older than anybody in the building. It prints the Fernley one great sheet at a time.', isBusy);
+  RT.thing('#lift', 'dumb waiter', 'The bottom of the lift shaft. Every note of the night came down here, and went back up.', isBusy);
+
+  /* ---------- the last stamp ---------- */
+  function makeSp() {
+    var box = ER.el('div', 'pz sp'), held = false, done = false;
+    box.innerHTML = '<div class="sp-in"><h5>The S sheet &middot; proof 4 &middot; page 1417</h5><div class="cols"><p><b>sirloin</b> /&#712;s&#604;&#720;l&#596;&#618;n/ <i>noun</i> <b>1</b> a cut of beef from the upper part of the loin. <b>2</b> a steak cut from this. ' +
+      '[Middle English <i>surloyn</i> &lt; Old French <i>surloigne</i>, from <i>sur</i> &lsquo;over, above&rsquo; + <i>loigne</i> &lsquo;loin&rsquo;] First known use: by the early 1500s.</p>' +
+      '<p><b>sirocco</b> /s&#618;&#712;r&#594;k&#601;&#650;/ <i>noun</i> a hot wind that blows from North Africa across the Mediterranean.</p><p><b>sister</b> /&#712;s&#618;st&#601;/ <i>noun</i> <b>1</b> a girl or woman who has the same parents as another person ...</p></div>' +
+      '<div class="foot">Passed for press: <span class="mark">PASSED FOR PRESS</span></div></div>' +
+      '<div class="stampb"><button type="button" id="st-btn">the stamp</button><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    box.querySelector('#st-btn').addEventListener('click', function () { if (done) return; held = !held; this.classList.toggle('on', held); RT.sfx.slip(); msg(held ? 'Now click the sheet.' : 'Pick up the stamp.'); });
+    box.querySelector('.sp-in').addEventListener('click', function () {
+      if (done) return;
+      if (!held) { msg('Pick up the stamp first: the wooden block below the sheet.'); return; }
+      done = true; RT.sfx.stamp(); box.querySelector('.mark').classList.add('on'); box.querySelector('#st-btn').classList.remove('on');
+      told.stamped = 1; ER.flag('e-told', told); RT.solved(); RT.terms(['passed for press']);
+      msg('Thump. Dr Fanshawe initials it beside the stamp: C.F. Then Ayo. Then, because she insists, you.');
+      setTimeout(ending, 2400);
+    });
+    msg('Pick up the stamp, then click the sheet.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#stone').addEventListener('click', function () {
+    if (busy) return;
+    if (told.stamped) { ER.say('The old lines, upside down and backwards, waiting to be melted down.'); return; }
+    if (!told.celia) { ER.say('The last proof of the S sheet. Dr Fanshawe has something to say first.'); return; }
+    if (!sp) sp = makeSp();
+    sp.open();
+  });
+
+  var WS = '<h4>The thirteenth edition &middot; page 1417 &middot; as printed</h4><div class="ws"><div style="grid-column:1/3"><b>sirloin</b><em>Arise, Sir Loin?</em>' +
+    '<p><i>Sirloin</i> comes from Old French <i>surloigne</i>: <i>sur</i> &lsquo;over, above&rsquo; + <i>loigne</i> &lsquo;loin&rsquo;, the cut from above the loin. It was in English by the early 1500s, spelt <i>surloyn</i>. A famous story says that a king knighted a loin of beef with his sword: Henry VIII, James I or Charles II, depending on who tells it. It is not true: the word is plain French for the cut above the loin, and it was in English before James I or Charles II was born. But the story probably changed the spelling, from sur- to sir-.</p></div></div>';
+  function ending() {
+    ER.closeAll(); busy = true; paint();
+    ER.narrate([
+      'Eamon pulls the red lever. The press breathes in, and begins: a slow heavy beat that you feel in your chest, faster, and faster, until it is one long sound.',
+      'The first sheet slides out at the far end. Eamon lifts it with two fingers, looks along it, and gives it to Dr Fanshawe. She finds page 1417 without looking for it.',
+      '&ldquo;Arise, Sir Loin?&rdquo; she reads, and you can hear the question mark.',
+      'Then she takes the surloyn slip out of her pocket and turns it over. On the back, in faded ink, in a young man&rsquo;s hand: &ldquo;Filed under SUR, as spelt in the book. Somebody will look for it here one day. B.B., junior reader, 1955.&rdquo;',
+      '&ldquo;He filed it himself,&rdquo; says Dr Fanshawe. &ldquo;Seventy-one years ago. That is how he knew.&rdquo; She laughs, for the first time tonight. &ldquo;I shall send him a postcard. With the long words in.&rdquo;',
+      'Midnight. Over the river, the last firework of Bonfire Night goes up, gold, and nobody in the cellar hears it.'
+    ], function () { busy = false; finish(false); });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = RT.minutesPlayed(), hn = ER.hintsUsed();
+    RT.mine('bb', 'The back of the surloyn slip', '<p>&ldquo;Filed under SUR, as spelt in the book. Somebody will look for it here one day. B.B., junior reader, 1955.&rdquo;</p><p>Burgoyne filed the slip himself, 71 years ago. That is how he knew.</p>', true);
+    ER.addClue('ws13', 'The new Word Story for sirloin, as printed', WS, 'proof', 'Proof', true);
+    $('#d-time').textContent = 'From the attic to the press room: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The thirteenth edition is on the press.');
+  }
+  $('#b-ws').addEventListener('click', function () { ER.read({ html: WS, cls: 'proof' }); });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Passed for Press &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>A friend asks what you learnt in a dictionary at night. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: first, then, because, so.</p>' +
+      '<p><b>A</b> How you would work out a word you have never seen, such as <i>inaudible</i> or <i>retrospect</i>, from its parts.<br><b>B</b> The true story of one English word and where it came from (window, sirloin, ketchup or another), and a false story that people tell about a word, and how you know it is false.<br>' +
+      '<b>C</b> Should a dictionary print a famous story about a word if the story is not true? Say what you think, and give a reason.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Slip Room · Passed for Press</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="rt.css">
+<style>
+  body{--bg:#1a2420;--accent:#9ad0a8;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(236,240,228,.97);--tc-ink:#1a2a24;--cap-bg:rgba(246,248,238,.96);--cap-ink:#1a2a24;--panel:#f6f8ee;--panel-ink:#1a2a24;--face-bg:#2a3a32;
+    --fade:#0c1210;--hud-bg:rgba(246,248,238,.9);--hud-ink:#1a2a24;--hud-line:rgba(26,42,36,.3);--ov-bg:rgba(8,16,12,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#2a5a46}
+  .tc-theme{color:#5a7a6a}
+  #rain path{animation:rain .9s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.45s}
+  #rain path:nth-child(3n){animation-delay:-.2s}
+  @keyframes rain{0%{transform:translateY(-40px);opacity:0}30%{opacity:.7}100%{transform:translateY(120px);opacity:0}}
+  #tail{animation:tail 3s ease-in-out infinite;transform-origin:20px -4px}
+  @keyframes tail{50%{transform:rotate(-16deg)}}
+  #scene.sorted #spill{display:none}
+
+  /* the origins rack and the slips */
+  .sr{width:min(1120px,97vw)}
+  .sr-in{background:#5a4028;border:10px solid #3a2816;padding:12px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .holes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .hole{background:#2a1c10;padding:6px 6px 4px;box-shadow:inset 0 6px 12px rgba(0,0,0,.7)}
+  .hole h6{margin:0 0 5px;padding:3px 2px 2px;background:linear-gradient(#e8c86a,#b8903a);color:#2a1a08;text-align:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;letter-spacing:.06em;border-radius:1px}
+  .cell{height:60px;margin-bottom:5px;border:1px dashed rgba(232,200,106,.25)}
+  .tray2{margin-top:12px;min-height:128px;background:#e8e2cc;border:4px solid #8a7a5a;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+  .tray2 .lab{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5a4a2a;text-transform:uppercase}
+  .sl{position:relative;width:166px;height:58px;padding:4px 7px 3px;background:#fffdf3;border-top:5px solid #3a6a5a;box-shadow:0 2px 4px rgba(0,0,0,.35);color:#24282e;overflow:hidden}
+  .cell .sl{width:100%}
+  .sl b{display:block;font-family:'Old Standard TT',serif;font-weight:700;font-size:15px;line-height:1.05;letter-spacing:.04em}
+  .sl span{display:block;font-family:'Special Elite',monospace;font-size:11.5px;line-height:1.25;color:#4a4a4a}
+  .sl em{display:block;font-family:'Gentium Book Plus',serif;font-style:italic;font-size:13.5px;line-height:1.2;color:#2a3a8a;white-space:nowrap}
+  .sl.bad{box-shadow:0 0 0 3px #c83a2a}
+  .sr .pmsg{color:#f2f2e6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="ph" width="64" height="44" patternUnits="userSpaceOnUse"><rect width="64" height="44" fill="#4a3420"/><rect x="4" y="4" width="56" height="36" fill="#1e140c"/>
+    <path d="M10 40v-16h20v16M34 40v-12h22v12" fill="#ece6d2"/><path d="M12 30h16M36 33h18" stroke="#9a9a8a" stroke-width="1.5"/></pattern>
+  <pattern id="ph2" width="64" height="44" patternUnits="userSpaceOnUse"><rect width="64" height="44" fill="#4a3420"/><rect x="4" y="4" width="56" height="36" fill="#1e140c"/>
+    <path d="M8 40v-20h18v20M28 40v-14h16v14M46 40v-18h12v18" fill="#e6dfca"/></pattern>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2638"/><stop offset="1" stop-color="#34445a"/></linearGradient>
+  <radialGradient id="pool" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#f6f0c0" stop-opacity=".5"/><stop offset="1" stop-color="#f6f0c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="#26302a"/>
+<rect x="-1000" y="-500" width="3600" height="560" fill="#1e2622"/>
+<path d="M-1000 60H2600" stroke="#141a16" stroke-width="10"/>
+<!-- the arched window on the left, rain -->
+<g id="win" class="hot"><path d="M-120 520V200q130 -150 260 0v320z" fill="url(#dusk)" stroke="#141a16" stroke-width="16"/><path d="M10 120V520M-120 340H140" stroke="#141a16" stroke-width="8"/>
+  <g id="rain" stroke="#9ab4c8" stroke-width="2" opacity=".7"><path d="M-80 200l-6 40"/><path d="M-30 180l-6 40"/><path d="M40 220l-6 40"/><path d="M90 190l-6 40"/><path d="M-60 330l-6 40"/><path d="M60 360l-6 40"/><path d="M110 300l-6 40"/><path d="M-10 410l-6 40"/></g>
+  <path d="M-140 520h300v24h-300z" fill="#3a2a1a"/></g>
+<!-- the wall of pigeonholes -->
+<g id="holes" class="hot"><rect x="180" y="80" width="1140" height="580" fill="#3a2816"/>
+  <rect x="192" y="92" width="576" height="556" fill="url(#ph)"/><rect x="768" y="92" width="540" height="556" fill="url(#ph2)"/>
+  <g id="labels"></g></g>
+<!-- the library ladder on its rail, and Folio at the top -->
+<path d="M180 76H1320" stroke="#8a6a3a" stroke-width="6"/>
+<g id="ladder" class="hot"><path d="M960 80L900 760M1060 80L1040 760" stroke="#6a4628" stroke-width="14"/><g stroke="#6a4628" stroke-width="9"><path d="M953 150h104M944 230h107M935 310h110M926 390h113M917 470h116M908 550h119M899 630h122M890 710h126"/></g>
+  <circle cx="960" cy="80" r="9" fill="#b8903a"/><circle cx="1060" cy="80" r="9" fill="#b8903a"/></g>
+<g id="folio" class="hot" transform="translate(1008 146)"></g>
+<!-- the cork board and the lift on the right -->
+<rect x="1320" y="60" width="1300" height="700" fill="#2c3630"/>
+<g id="guide" class="hot"><rect x="1360" y="270" width="190" height="230" fill="#b8865a" stroke="#5a3a1a" stroke-width="8"/>
+  <rect x="1380" y="290" width="104" height="140" fill="#fffdf3" transform="rotate(-3 1432 360)"/><rect x="1380" y="290" width="104" height="18" fill="#3a6a5a" transform="rotate(-3 1432 360)"/>
+  <g transform="rotate(-3 1432 360)"><path d="M1390 324h84M1390 336h76M1390 348h84M1390 360h70M1390 372h80" stroke="#6a6a6a" stroke-width="2"/><path d="M1392 400h82" stroke="#3a6a5a" stroke-width="3"/><circle cx="1400" cy="400" r="4" fill="#3a6a5a"/><circle cx="1430" cy="400" r="4" fill="#3a6a5a"/><circle cx="1460" cy="400" r="4" fill="#3a6a5a"/></g>
+  <rect x="1494" y="300" width="44" height="60" fill="#f2e6a0" transform="rotate(5 1516 330)"/><rect x="1470" y="430" width="66" height="50" fill="#fffdf3" transform="rotate(-6 1503 455)"/>
+  <circle cx="1432" cy="292" r="5" fill="#a3242a"/></g>
+<g id="lift" class="hot"><rect x="1400" y="560" width="120" height="150" fill="#4a3420" stroke="#1e140c" stroke-width="6"/><rect x="1414" y="574" width="92" height="122" fill="#5a3e24"/>
+  <circle cx="1496" cy="635" r="5" fill="#d9b44a"/><g transform="translate(1460 542)"><path d="M-12 0q0 -16 12 -16t12 16z" fill="#d9b44a" stroke="#8a6a2a" stroke-width="2"/></g>
+  <text x="1460" y="730" class="cM" font-size="12" fill="#cfd8c8" text-anchor="middle" letter-spacing="2">LIFT</text></g>
+<!-- the floor -->
+<rect x="-1000" y="760" width="3600" height="700" fill="#3a2c20"/><path d="M-1000 760H2600" stroke="#1e140c" stroke-width="8"/>
+<g stroke="#2e2218" stroke-width="2"><path d="M-1000 800H2600M-1000 850H2600M-1000 900H2600"/></g>
+<!-- the lamps over the table -->
+<g id="lamps"><path d="M520 -500V420M860 -500V420" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M470 420q50 -40 100 0z M810 420q50 -40 100 0z" fill="#2a6a3a" stroke="#143a20" stroke-width="3"/>
+  <path d="M460 424L380 650H660L580 424z M800 424L720 650H1000L920 424z" fill="url(#pool)"/></g>
+<!-- the long table, the tray on its side, slips everywhere -->
+<g id="table"><rect x="300" y="640" width="820" height="24" fill="#6a4a2a" stroke="#3a2412" stroke-width="3"/><rect x="320" y="664" width="30" height="120" fill="#5a3a20"/><rect x="1070" y="664" width="30" height="120" fill="#5a3a20"/>
+  <g fill="#fffdf3" stroke="#9a9a8a"><rect x="360" y="626" width="60" height="16" transform="rotate(-6 390 634)"/><rect x="440" y="628" width="60" height="14"/></g></g>
+<g id="tray" class="hot"><g transform="rotate(-24 720 620)"><rect x="660" y="590" width="130" height="46" fill="#8a6a3a" stroke="#4a3418" stroke-width="3"/><rect x="668" y="596" width="114" height="34" fill="#5a4024"/></g>
+  <g id="spill" fill="#fffdf3" stroke="#9a9a8a"><rect x="790" y="630" width="56" height="14" transform="rotate(10 818 637)"/><rect x="840" y="624" width="56" height="14" transform="rotate(-5 868 631)"/>
+    <rect x="760" y="800" width="60" height="16" transform="rotate(18 790 808)"/><rect x="850" y="830" width="60" height="16" transform="rotate(-12 880 838)"/><rect x="700" y="850" width="60" height="16" transform="rotate(6 730 858)"/><rect x="940" y="790" width="60" height="16" transform="rotate(30 970 798)"/>
+    <rect x="620" y="812" width="60" height="16" transform="rotate(-20 650 820)"/></g>
+  <rect x="600" y="570" width="420" height="300" fill="transparent"/></g>
+<g id="ayo" class="hot" transform="translate(220 884) scale(1.04)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the study</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="rt.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, sr = null;
+
+  $('#ayo').innerHTML = RT.who('ayo', { smile: 4 });
+  $('#folio').innerHTML = RT.cat(false);
+  $('#labels').innerHTML = (function () {
+    var s = '', L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', i, x, y;
+    for (i = 0; i < 26; i++) { x = 222 + (i % 9) * 128; y = 112 + Math.floor(i / 9) * 186; s += '<rect x="' + (x - 14) + '" y="' + (y - 13) + '" width="28" height="18" fill="#c8a04a"/><text x="' + x + '" y="' + (y + 1) + '" class="cO" font-size="14" font-weight="700" fill="#2a1a08" text-anchor="middle">' + L.charAt(i) + '</text>'; }
+    return s;
+  })();
+
+  ER.init({
+    theme: 'lang', story: 'roots', storyTitle: 'Passed for Press', id: 'slips', no: 'II', title: 'The Slip Room',
+    go: 'Go into the slip room',
+    intro: [
+      'Burgoyne&rsquo;s postcard came back together from its parts: il-leg-ible, circum-spect, ver-dict, retro-spect, post-script. Seven Word Stories are history and one is a story, and the way to tell them apart is the dated slip.',
+      'The slip room is on the second floor, at the back, where it is quiet. It is a quarter past nine, and it has started to rain.'
+    ],
+    exit: {"next":"study","w":{"ae7f5ef7":"9f3c2f28"}}, tags: {"window":["a718be6b"],"sky":["81b5078b"],"skirt":["b297ddab"],"shirt":["7b468baf"],"cow":["54e530f8"],"beef":["1f1d6f98"],"surloyn":["f42c4e77"],"television":["1835a39a"],"shampoo":["ddf4d03c"],"ketchup":["accf8a34"],"kindergarten":["3b3f0aad"],"posh":["b987f102"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b-told') || {}; nextFile = ER.flag('b-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#guide').classList.toggle('ready', !told.guide);
+    $('#tray').classList.toggle('ready', !!(told.guide && !nextFile));
+    $('#scene').classList.toggle('sorted', !!nextFile);
+    ER.pips((told.guide ? 1 : 0) + (told.opened ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The letters are in the study, on the first floor. The button at the bottom of the screen takes you there.']];
+    if (sr && sr.isOpen()) return ['sort', [
+      'Each slip says when the word was first found and what it came from. The reading programme&rsquo;s note on the cork board says which door each kind of word came through.',
+      'Some Word Stories in your notebook name their language. sk- is a Norse sign; sc- was how Old English wrote sh. Farm animals kept English names; the meat on the table got French ones.',
+      'Three slips have no Word Story of their own: cow, beef and television. Surloigne is food for a lord&rsquo;s table, and sur- is on Burgoyne&rsquo;s card. A slip with no &ldquo;came from&rdquo; goes where a good dictionary puts it.'
+    ]];
+    if (!told.guide) return ['guide', ['A note for the dictionary&rsquo;s readers is pinned to the cork board on the right. Read it.']];
+    return ['tray', ['The tray of slips for the Word Stories is on its side on the long table, and Folio knows why. Click the tray.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Every slip is back in its pigeonhole, but one of them is filed in the wrong place for a sirloin.'); return; }
+    if (told.in) { busy = false; ER.say('The slip room: two hundred thousand slips, and the rain.'); return; }
+    tell('in');
+    ER.narrate([
+      'The slip room is all pigeonholes, floor to ceiling, A to Z, with a ladder on a rail to reach the top ones. Every pigeonhole is stuffed with slips of paper the size of a postcard.',
+      'Under the green lamps the long table is bare, and the tray that was on it is on its side. Slips are all over the table and all over the floor.',
+      'At the top of the ladder sits Folio, washing a paw, with the face of a cat who has never knocked anything over in her life.',
+      '&ldquo;Oh, Folio,&rdquo; says Ayo.'
+    ], function () { busy = false; });
+  }
+
+  $('#ayo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Ayo Bankole', role: 'Night proofreader', face: RT.face('ayo'),
+      lines: [
+        { note: 'She picks a slip off the floor and holds it under the lamp.', a: '&ldquo;This is how a dictionary works. Readers, hundreds of them, for a hundred and fifty years, read books and copy out sentences with a word in them: the word, the sentence, the book and the date. Each one on a slip.&rdquo;' },
+        { a: '&ldquo;Put the slips for a word in order of date, and the oldest one tells you when the word was first used, as far as anybody knows. The &lsquo;came from&rsquo; line on a slip is what the editors found out about where it came from.&rdquo;' },
+        { q: 'What was this tray for?', a: '&ldquo;The index at the back of the new edition: every Word Story under the language it came from. Dr Fanshawe had the slips sorted. Then the cat happened.&rdquo;' },
+        { note: 'She looks at the slip again, and then at you.', a: '&ldquo;Burgoyne says believe the dated slip. Let&rsquo;s see what they say, then.&rdquo;' }
+      ],
+      clue: { id: 'ayo2', title: 'Ayo: how slips work', kind: 'What she said' },
+      done: function (seen) { if (seen) { tell('ayo'); RT.terms(['quotation slip', 'first known use']); } }
+    });
+  });
+  $('#folio').addEventListener('click', function () {
+    if (busy) return;
+    RT.sfx.mew(); ER.say('Folio looks down at the slips on the floor, and then at you, as if you had done it.');
+  });
+  RT.thing('#holes', null, 'Pigeonholes from A to Z, and every slip filed under its word, spelt the way the reader found it.', isBusy);
+  RT.thing('#ladder', null, 'A library ladder on a brass rail. It squeaks.', isBusy, function () { RT.sfx.slip(); });
+  RT.thing('#win', null, 'Rain on the window, and beyond it the roofs of the town and the last of the fireworks.', isBusy);
+  RT.thing('#lift', 'dumb waiter', 'The lift passes every floor of the house. Its brass bell rings when something comes up.', isBusy);
+
+  var GUIDE = '<h4>The Fernley Reading Programme &middot; note for readers, no. 1</h4><h3>Where our words came from</h3>' +
+    '<svg viewBox="0 0 700 92"><g font-family="IBM Plex Mono,monospace" font-size="12" text-anchor="middle"><path d="M20 46H680" stroke="#3a6a5a" stroke-width="4"/>' +
+    '<g fill="#3a6a5a"><circle cx="60" cy="46" r="8"/><circle cx="200" cy="46" r="8"/><circle cx="350" cy="46" r="8"/><circle cx="500" cy="46" r="8"/></g><path d="M600 46h80" stroke="#c8902a" stroke-width="10" stroke-dasharray="6 4"/>' +
+    '<text x="60" y="28" font-weight="600">about 450</text><text x="60" y="74">Old English</text><text x="200" y="28" font-weight="600">790s</text><text x="200" y="74">Old Norse</text>' +
+    '<text x="350" y="28" font-weight="600">1066</text><text x="350" y="74">French</text><text x="500" y="28" font-weight="600">1500s on</text><text x="500" y="74">Latin and Greek</text>' +
+    '<text x="640" y="28" font-weight="600">all along</text><text x="640" y="74">trade and travel</text></g></svg>' +
+    '<p>English has let words in by many doors. <b>Old English</b> came with the Anglo-Saxons from about 450: the short words of every day, like <i>house</i>, <i>eat</i> and <i>cow</i>. (It wrote the sound sh as sc: <i>scip</i> is <i>ship</i>.) From the 790s the Vikings brought <b>Old Norse</b>: <i>egg</i>, <i>knife</i>, <i>they</i>, and many words that begin with sk-.</p>' +
+    '<p>After 1066 the Normans ruled England in <b>French</b>, and French words came in for law, government and good food: in the field a <i>cow</i>, a <i>pig</i> and a <i>sheep</i>, on the lord&rsquo;s table <i>beef</i>, <i>pork</i> and <i>mutton</i>. From the 1500s scholars took words from <b>Latin and Greek</b> for learning and science, and they still do. Trade and travel brought words from everywhere: Hindi, Malay, Chinese, German.</p>' +
+    '<p>If nobody can find where a word came from, a good dictionary says so.</p>';
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'slip', clue: { id: 'guide', title: 'Reading programme: where our words came from', kind: 'On the cork board' }, done: function () {
+      RT.terms(['Old English', 'Old Norse', 'loanword']);
+      if (tell('guide')) { paint(); ER.say('Old English, Old Norse, French after 1066, Latin and Greek, and trade. Now the tray.'); }
+    } });
+  });
+
+  /* ---------- the origins rack ---------- */
+  var HOLES = [['E', 'Old English'], ['N', 'Old Norse'], ['F', 'French'], ['L', 'Latin &amp; Greek'], ['O', 'Other languages'], ['U', 'Origin unknown']];
+  var SLIPS = [
+    ['window', 'WINDOW', 'early 1200s', 'from vindauga'], ['sky', 'SKY', 'about 1200', 'from sk&yacute;, &lsquo;cloud&rsquo;'], ['skirt', 'SKIRT', 'about 1300', 'from skyrta'],
+    ['shirt', 'SHIRT', 'before 1100', 'from scyrte'], ['cow', 'COW', 'before 1100', 'from c&#363;'], ['beef', 'BEEF', 'about 1300', 'from boef'],
+    ['surloyn', 'SURLOYN', 'by the early 1500s', 'from surloigne'], ['television', 'TELEVISION', '1907', 'tele &lsquo;far&rsquo; + visio'],
+    ['shampoo', 'SHAMPOO', '1762', 'from ch&#257;mpo, &lsquo;press!&rsquo;'], ['ketchup', 'KETCHUP', '1690, as catchup', 'prob. from k&ecirc;-tsiap'],
+    ['kindergarten', 'KINDERGARTEN', '1852', 'Kinder + Garten'], ['posh', 'POSH', '1914', 'came from: ?']
+  ];
+  var SHOW = ['shampoo', 'skirt', 'beef', 'posh', 'sky', 'television', 'cow', 'ketchup', 'surloyn', 'window', 'kindergarten', 'shirt'];
+  var WHY = {
+    window: 'Ayo picks out the window slip. &ldquo;Vindauga. Its Word Story upstairs says which language that is. Look in your notebook.&rdquo;',
+    sky: 'Ayo taps the sky slip. &ldquo;Sk&yacute; begins with sk-. What does the note on the cork board say about sk-?&rdquo;',
+    skirt: 'Ayo lays the skirt and shirt slips side by side. &ldquo;Skyrta and scyrte look like twins. One is sk, one is sc. The note says how Old English wrote the sound sh.&rdquo;',
+    shirt: 'Ayo lays the shirt and skirt slips side by side. &ldquo;Scyrte and skyrta look like twins. One is sc, one is sk. The note says how Old English wrote the sound sh.&rdquo;',
+    cow: '&ldquo;A cow in the field,&rdquo; says Ayo. &ldquo;Whose word was that, in the note on the cork board?&rdquo;',
+    beef: '&ldquo;Beef on the table,&rdquo; says Ayo. &ldquo;And who sat at the table after 1066?&rdquo;',
+    surloyn: 'Ayo turns the surloyn slip over. &ldquo;Surloigne: a cut of beef for a lord&rsquo;s table, with sur- at the front. Burgoyne&rsquo;s card says where sur- came from.&rdquo;',
+    television: '&ldquo;Tele and visio,&rdquo; says Ayo. &ldquo;One from Burgoyne&rsquo;s Greek row and one from his Latin row. Both go in the same hole.&rdquo;',
+    shampoo: '&ldquo;Ch&#257;mpo,&rdquo; says Ayo. &ldquo;That came a long way. Its Word Story says from where.&rdquo;',
+    ketchup: '&ldquo;K&ecirc;-tsiap,&rdquo; says Ayo, unhappily. &ldquo;Its Word Story says from where. I still don&rsquo;t believe it, but that is where it goes.&rdquo;',
+    kindergarten: '&ldquo;Kinder and Garten,&rdquo; says Ayo. &ldquo;Its Word Story says what language. Not Old English, and not Latin.&rdquo;',
+    posh: '&ldquo;Posh has a date but no &lsquo;came from&rsquo;,&rdquo; says Ayo. &ldquo;What does the note say a good dictionary does then?&rdquo;'
+  };
+  function makeSr() {
+    var box = ER.el('div', 'pz sr'), pl = ER.flag('b-pl') || {}, done = !!nextFile;
+    box.innerHTML = '<div class="sr-in"><div class="holes">' + HOLES.map(function (h) {
+      return '<div class="hole" data-h="' + h[0] + '"><h6>' + h[1] + '</h6><div class="cell" data-c="' + h[0] + '0"></div><div class="cell" data-c="' + h[0] + '1"></div><div class="cell" data-c="' + h[0] + '2"></div></div>';
+    }).join('') + '</div><div class="tray2"><div class="lab">Off the floor &middot; drag each slip into its pigeonhole, or click it and then the hole</div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Make the index</button></div>';
+    var tray = box.querySelector('.tray2'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var byKey = {};
+    SLIPS.forEach(function (s) { var n = ER.el('div', 'sl dnd-item', '<!--nogloss--><b>' + s[1] + '</b><span>' + s[2] + '</span><em>' + s[3] + '</em><!--/nogloss-->'); n.setAttribute('data-k', s[0]); byKey[s[0]] = n; });
+    SHOW.forEach(function (k) { var c = pl[k] ? box.querySelector('.cell[data-c="' + pl[k] + '"]') : null; (c && !c.querySelector('.sl') ? c : tray).appendChild(byKey[k]); });
+    function save() {
+      var o = {}; ER.$$('.cell .sl', box).forEach(function (n) { o[n.getAttribute('data-k')] = n.parentNode.getAttribute('data-c'); });
+      ER.$$('.sl.bad', box).forEach(function (n) { n.classList.remove('bad'); });
+      ER.flag('b-pl', o); RT.sfx.slip();
+    }
+    ER.dnd(box, { item: '.sl', slot: '.cell', home: tray, change: save, lock: function () { return done; } });
+    box.querySelector('#s-go').addEventListener('click', function () {
+      if (done) return;
+      var left = ER.$$('.sl', tray).length, i, k, n, h;
+      if (left) { ER.sfx.no(); msg('&ldquo;' + (left === 1 ? 'One slip is' : left + ' slips are') + ' still on the floor,&rdquo; says Ayo. &ldquo;The index needs all of them.&rdquo;'); return; }
+      var code = SLIPS.map(function (s) { var c = byKey[s[0]].closest('.hole'); return c ? c.getAttribute('data-h') : '?'; }).join('');
+      for (i = 0; i < SLIPS.length; i++) {
+        k = SLIPS[i][0]; n = byKey[k]; h = code.charAt(i);
+        if (!ER.check(k, h)) { ER.sfx.no(); n.classList.add('bad'); ER.shake(n); msg(WHY[k]); return; }
+      }
+      var f = ER.exit([code], { wait: true });
+      if (!f) { ER.sfx.no(); msg('Something is still in the wrong hole.'); return; }
+      done = true; nextFile = f; ER.flag('b-file', f); paint(); RT.terms(['doublet', 'origin']);
+      msg('Ayo copies the six pigeonholes onto the index card, one row at a time, and does not say anything for a moment.');
+      RT.mine('index', 'Word Stories by where they came from',
+        '<p>Old English: cow, shirt (scyrte: sc was sh)</p><p>Old Norse: window (vindauga), sky (ský, cloud), skirt (skyrta). Shirt and skirt are a doublet.</p>' +
+        '<p>French: beef, and surloyn (surloigne), by the early 1500s. Filed under SUR!</p><p>Latin and Greek: television, 1907 (tele far + visio seeing)</p>' +
+        '<p>Other languages: shampoo (Hindi, 1762), ketchup (probably Hokkien, 1690), kindergarten (German, 1852)</p><p>Origin unknown: posh, 1914</p><p>No slip anywhere for SIRLOIN.</p>');
+      setTimeout(after, 3000);
+    });
+    msg(done ? 'The index is made.' : 'Six pigeonholes for the index at the back of the book. Every slip from the floor goes into one of them.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#tray').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The tray is back on the table, and the slips are in the index rack.'); return; }
+    if (!told.guide) { ER.say('Slips for the eight Word Stories, all over the floor. Where does each one go? The note on the cork board will tell you.'); return; }
+    if (!sr) sr = makeSr();
+    if (tell('opened')) paint();
+    sr.open();
+  });
+  function after() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Then Ayo stops, with her pencil in the air. &ldquo;Seven Word Stories, seven slips. But there is no slip here for sirloin. There&rsquo;s only this one.&rdquo; She holds up the surloyn slip. &ldquo;Filed under S-U-R, where nobody would ever look for a sirloin.&rdquo;',
+      '&ldquo;Is it even the same word?&rdquo; she says. &ldquo;It&rsquo;s a cut of beef, and it looks French. But sir and sur are not the same thing. And I still say ketchup is tomatoes.&rdquo;',
+      'She puts the slips for all eight stories, and the surloyn slip, into her cardigan pocket.',
+      'The lift bell rings, across the room.'
+    ], function () {
+      RT.note('<p>Two readers have written to us about the Word Stories. Both letters are in Burgoyne&rsquo;s old desk in the study, first floor, with my own queries. One of them is very cross.</p><p>Bring the slips.</p>', 'cf2', 'Dr Fanshawe: the letters in the study', function () {
+        busy = false; $('#go').classList.add('on');
+      });
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

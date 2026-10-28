@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Proof Room · Passed for Press</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="rt.css">
+<style>
+  body{--bg:#c9d0d4;--accent:#c8302a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(246,248,248,.97);--tc-ink:#1a2228;--cap-bg:rgba(255,255,255,.96);--cap-ink:#1a2228;--panel:#fff;--panel-ink:#1a2228;--face-bg:#3a4a56;
+    --fade:#e8ecee;--hud-bg:rgba(255,255,255,.9);--hud-ink:#1a2228;--hud-line:rgba(26,34,40,.3);--ov-bg:rgba(20,28,34,.6)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#c8302a}
+  .tc-theme{color:#5a6a76}
+  #tube2{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%,61%,64%,66%,100%{opacity:1}62%,65%{opacity:.25}}
+  #cords path{animation:cord 1.6s steps(2,end) infinite;transform-origin:top}
+  @keyframes cord{50%{transform:rotate(.4deg)}}
+
+  /* the Try it box from Mrs Choi's panel */
+  .tr{width:min(980px,96vw)}
+  .tr-in{background:#fff;border:1px solid #9aa4aa;border-top:14px solid #2a5a8a;padding:14px 20px 12px;color:#1a2228;box-shadow:0 26px 70px rgba(0,0,0,.45)}
+  .tr-in h5{color:#2a5a8a}
+  .sen{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.3}
+  .sen .who{flex:0 0 110px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:#6a7a86;text-transform:uppercase}
+  .sen .tx{flex:1}
+  .sen s{color:#c8302a;text-decoration-thickness:2px}
+  .gap{display:inline-block;vertical-align:middle;width:150px;height:34px;border-bottom:2px solid #c8302a;background:#fff5f2;margin:0 4px}
+  .tbox{margin-top:10px;display:flex;flex-wrap:wrap;gap:7px;padding:9px;background:#e4e8ea;min-height:52px;border:1px solid #b9c2c8}
+  .tw{padding:6px 12px 5px;background:#fffef8;border:1px solid #6a7a86;font-family:'Gentium Book Plus',serif;font-size:16px;box-shadow:0 2px 0 #9aa4aa;white-space:nowrap}
+  .gap .tw{display:block;margin:0;padding:6px 6px 5px;text-align:center;box-shadow:none;border-color:#c8302a}
+  .sen.bad .tx{background:#ffe2dc}
+  .tr .pmsg,.en .pmsg{color:#f6f8f8}
+
+  /* the S sheet: the sirloin entry, and the margin */
+  .en{width:min(1140px,97vw)}
+  .en-in{display:grid;grid-template-columns:1fr 470px;gap:14px;background:#fdfcf6;padding:16px 18px 12px;border:1px solid #c9c4b4;box-shadow:0 26px 70px rgba(0,0,0,.45);color:#141414}
+  .ent{font-family:'Gentium Book Plus',serif;font-size:18px;line-height:1.55}
+  .ent .slug{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9a1a1a;text-transform:uppercase;margin:0 0 8px}
+  .part{cursor:pointer;border-radius:12px;padding:1px 3px;transition:background .15s}
+  .part:hover{background:#fff1c8}
+  .part.mk{box-shadow:0 0 0 2.5px #c8302a;background:#fff0ec}
+  .part.hw{font-family:'Old Standard TT',serif;font-weight:700;font-size:28px}
+  .part.ps{font-style:italic}
+  .wsb{display:block;margin-top:12px;border:1.5px solid #141414;padding:8px 12px 7px;font-size:15.5px;line-height:1.42}
+  .wsb b{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6a6a6a}
+  .wsb.mk{box-shadow:0 0 0 3px #c8302a}
+  .mg{border-left:2px solid #c8302a;padding-left:14px;font-family:'Gentium Book Plus',serif;font-size:14.5px}
+  .mg h6{margin:0 0 4px;font-family:'Kalam',cursive;font-size:19px;color:#c8302a;font-weight:700}
+  .mg .none{font-family:'Kalam',cursive;font-size:17px;color:#6a6a6a;line-height:1.35}
+  .fx{margin:0 0 10px}
+  .chain{display:flex;align-items:center;gap:4px}
+  .chain i{font-style:normal;font-family:'Old Standard TT',serif;font-size:22px;color:#c8302a}
+  .ch{flex:1;height:52px;border:2px dashed #c8302a;background:#fff8f4}
+  .ctray{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;padding:6px;background:#eef0ea;min-height:40px}
+  .lk{padding:4px 7px;background:#fff;border:1px solid #6a6a6a;font-size:13px;line-height:1.2;max-width:146px}
+  .ch .lk{max-width:none;height:100%;font-size:12.5px;border-color:#c8302a}
+  .ops{display:flex;flex-direction:column;gap:4px}
+  .ops.row{flex-direction:row;flex-wrap:wrap}
+  .op{text-align:left;padding:5px 9px 4px;background:#fff;border:1px solid #8a8a8a;font-family:'Gentium Book Plus',serif;font-size:13.5px;line-height:1.3}
+  .op.on{background:#ffe9e2;border-color:#c8302a;box-shadow:inset 4px 0 0 #c8302a}
+  .mg .other{color:#6a6a6a;font-style:italic}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#8a9298"/><path d="M0 79H80M79 0V80" stroke="#7a8288" stroke-width="2"/></pattern>
+  <linearGradient id="lit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a1218" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="#d8dcd8"/>
+<rect x="-1000" y="420" width="3600" height="340" fill="#a8b4b0"/><path d="M-1000 420H2600" stroke="#6a7a76" stroke-width="6"/>
+<!-- strip lights on cords -->
+<g id="cords" stroke="#3a3a3a" stroke-width="2"><path d="M300 -500V70"/><path d="M500 -500V70"/><path d="M1100 -500V70"/><path d="M1300 -500V70"/></g>
+<g><rect x="260" y="70" width="280" height="16" rx="6" fill="#f8fbff"/><rect id="tube2" x="1060" y="70" width="280" height="16" rx="6" fill="#f8fbff"/>
+  <path d="M250 86L-40 500H840L550 86z" fill="url(#lit)"/></g>
+<!-- the clock, the page on the wall, the lift -->
+<g id="clock" class="hot"><circle cx="800" cy="190" r="62" fill="#fff" stroke="#2a2a2a" stroke-width="8"/>
+  <g stroke="#2a2a2a" stroke-width="4"><path d="M800 134v12M800 234v12M744 190h12M844 190h12"/></g><path d="M800 190L779 157" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/><path d="M800 190L775 147" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round" transform="rotate(0)"/><circle cx="800" cy="190" r="5" fill="#c8302a"/></g>
+<g id="page" class="hot"><rect x="160" y="180" width="200" height="250" fill="#fdfcf6" stroke="#9a9a8a" stroke-width="2"/><text x="260" y="206" class="cO" font-size="11" fill="#6a6a6a" text-anchor="middle" letter-spacing="2">USING THIS DICTIONARY</text>
+  <text x="180" y="244" class="cO" font-size="20" font-weight="700" fill="#141414">window</text><path d="M180 262h160M180 276h150M180 290h160M180 304h120M180 330h160M180 344h140" stroke="#5a5a5a" stroke-width="2"/>
+  <g stroke="#c8302a" stroke-width="2" fill="none"><path d="M350 238q20 -6 24 10M350 300q20 6 24 -10"/></g><rect x="180" y="360" width="150" height="50" fill="none" stroke="#141414" stroke-width="1.5"/>
+  <circle cx="260" cy="184" r="5" fill="#2a5a8a"/></g>
+<g id="lift" class="hot"><rect x="1460" y="250" width="120" height="150" fill="#6a7276" stroke="#2a3236" stroke-width="6"/><rect x="1474" y="264" width="92" height="122" fill="#7a8286"/><circle cx="1556" cy="325" r="5" fill="#d9b44a"/>
+  <text x="1520" y="420" class="cM" font-size="12" fill="#1a2228" text-anchor="middle" letter-spacing="2">LIFT</text></g>
+<!-- the floor -->
+<rect x="-1000" y="760" width="3600" height="700" fill="url(#tiles)"/><path d="M-1000 760H2600" stroke="#4a5458" stroke-width="8"/>
+<!-- the long sloping desks -->
+<g id="desks"><path d="M-300 640l60 -110h420l40 110z" fill="#e8e2cc" stroke="#6a6450" stroke-width="3"/><rect x="-300" y="640" width="520" height="22" fill="#6a5a3a"/><rect x="-280" y="662" width="24" height="110" fill="#4a3e2a"/><rect x="180" y="662" width="24" height="110" fill="#4a3e2a"/>
+  <path d="M1120 640l40 -110h420l60 110z" fill="#e8e2cc" stroke="#6a6450" stroke-width="3"/><rect x="1120" y="640" width="520" height="22" fill="#6a5a3a"/><rect x="1140" y="662" width="24" height="110" fill="#4a3e2a"/><rect x="1590" y="662" width="24" height="110" fill="#4a3e2a"/>
+  <g fill="#fdfcf6" stroke="#9a9a8a"><rect x="-200" y="560" width="120" height="60" transform="rotate(-3 -140 590)"/><rect x="-40" y="556" width="110" height="64" transform="rotate(4 15 588)"/></g></g>
+<g id="sheet" class="hot"><path d="M560 660l80 -330h360l80 330z" fill="#e8e2cc" stroke="#6a6450" stroke-width="4"/><rect x="560" y="660" width="520" height="24" fill="#6a5a3a"/><rect x="580" y="684" width="26" height="90" fill="#4a3e2a"/><rect x="1034" y="684" width="26" height="90" fill="#4a3e2a"/>
+  <path d="M600 640l66 -280h310l60 280z" fill="#fdfcf6" stroke="#9a9a8a"/><rect x="760" y="338" width="120" height="22" fill="#9a9a9a" stroke="#4a4a4a"/>
+  <g stroke="#3a3a3a" stroke-width="2.4"><path d="M672 392h130M668 410h140M664 428h120M660 446h150M656 464h110M652 482h150M648 500h140M644 518h120M640 536h150M636 554h130M632 572h150M628 590h110M624 608h140"/>
+    <path d="M840 392h120M842 410h126M844 428h110M846 446h130M848 464h120"/></g>
+  <rect x="846" y="480" width="140" height="120" fill="none" stroke="#141414" stroke-width="2"/><text x="852" y="500" class="cM" font-size="10" fill="#6a6a6a">SIRLOIN</text>
+  <path d="M856 512h110M856 526h118M856 540h100M856 554h116M856 568h90" stroke="#3a3a3a" stroke-width="2"/>
+  <text x="702" y="386" class="cO" font-size="18" font-weight="700" fill="#141414">S</text></g>
+<g id="panel" class="hot"><rect x="1210" y="390" width="230" height="240" fill="transparent"/><g transform="rotate(-4 1300 560)"><rect x="1220" y="520" width="170" height="104" fill="#fff" stroke="#2a5a8a" stroke-width="2"/><rect x="1220" y="520" width="170" height="16" fill="#2a5a8a"/>
+  <text x="1305" y="532" class="cM" font-size="10" fill="#fff" text-anchor="middle" letter-spacing="2">FALSE FRIENDS</text><path d="M1232 552h140M1232 564h120M1232 576h146M1232 588h100" stroke="#5a5a5a" stroke-width="2"/>
+  <rect x="1232" y="596" width="146" height="20" fill="none" stroke="#c8302a" stroke-width="1.5"/></g>
+  <path d="M1400 520v-120" stroke="#2a2a2a" stroke-width="5"/><path d="M1370 410q30 -34 60 0z" fill="#2a5a8a"/></g>
+<g id="spike" class="hot"><rect x="420" y="630" width="70" height="10" fill="#3a3a3a"/><path d="M455 630V520" stroke="#5a5a5a" stroke-width="4"/>
+  <g fill="#fdfcf6" stroke="#9a9a8a"><rect x="425" y="590" width="60" height="30" transform="rotate(-8 455 605)"/><rect x="425" y="566" width="60" height="30" transform="rotate(10 455 581)"/><rect x="425" y="546" width="60" height="30" transform="rotate(-3 455 561)"/></g></g>
+<g id="ayo" class="hot" transform="translate(1420 890) scale(1.04)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the press room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="rt.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, tr = null, en = null;
+
+  $('#ayo').innerHTML = RT.who('ayo', { smile: 2 });
+
+  ER.init({
+    theme: 'lang', story: 'roots', storyTitle: 'Passed for Press', id: 'proof', no: 'IV', title: 'The Proof Room',
+    go: 'Go into the proof room',
+    intro: [
+      'Four queries, four verdicts. Window, ketchup and posh stood on their slips. Sirloin fell: the surloyn slip shows the word in use by the early 1500s, and James I, who is supposed to have knighted it in 1617, was not born until 1566. A word cannot be younger than its own story.',
+      'The proof room is on the ground floor, right over the press. It is five to eleven. You can feel the machine through your shoes.'
+    ],
+    exit: {"next":"press","w":{"be07c614":"6472e3d6"}}, tags: {"f1":["f0c955d2"],"f2":["d3fc79d7"],"f3":["9e98d9eb"],"f4":["50f08b9d"],"f5":["adfa2b07"],"mk":["5efc758d"],"et":["09e95521"],"du":["6a6c41b0"],"ws":["95160b40"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('d-told') || {}; nextFile = ER.flag('d-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#page').classList.toggle('ready', !told.page);
+    $('#panel').classList.toggle('ready', !!(!told.panel || (told.page && !told.tried)));
+    $('#sheet').classList.toggle('ready', !!(told.tried && !nextFile));
+    ER.pips((told.page ? 1 : 0) + (told.panel ? 1 : 0) + (told.tried ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The S sheet has gone down in the lift. The button at the bottom of the screen takes you to the press room.']];
+    if (tr && tr.isOpen()) return ['try', [
+      'Each sentence was written by a learner who was tricked by a false friend. Put in what an English speaker would say instead of the crossed-out words.',
+      'Camille is French: think of actuel and sympathique. Dae-ho is Korean: hand phone, fighting, notebook. The panel says what each one really means.',
+      'Some tiles are what the crossed-out English words really mean. Those are the traps: Camille did not mean them.'
+    ]];
+    if (en && en.isOpen()) return ['entry', [
+      'Click every part of the entry that the evidence says is wrong, and only those. Then put each one right in the margin.',
+      'Three parts are wrong: the square brackets, the date, and the Word Story box. The chain goes from the newest form back to the oldest, as on the page on the wall.',
+      'Sur is a true friend (the panel), the date is on the surloyn slip, and Rule 14 says what to do with a famous false story.'
+    ]];
+    if (!told.page) return ['page', ['The page pinned on the wall by the clock shows how to read an entry. Read it.']];
+    if (!told.panel) return ['panel', ['Mrs Choi&rsquo;s panel of false friends is on the desk on the right, under the blue lamp. Read it.']];
+    if (!told.tried) return ['tryc', ['The panel has a Try it box, and its answers have fallen out. Click the panel again.']];
+    return ['sheetc', ['The S sheet is clipped to the sloping desk in the middle. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The sirloin entry is marked up and gone down in the lift.'); return; }
+    if (told.in) { busy = false; ER.say('The proof room, over the press.'); return; }
+    tell('in');
+    ER.narrate([
+      'The proof room is white and bright and humming, the only room in Dace House built after 1950. Long sloping desks, strip lights, a clock that is never wrong.',
+      'On the middle desk, clipped to the slope, lies the S sheet: thirty-two pages on one great piece of paper, from <i>sigh</i> to <i>syzygy</i>.',
+      'The floor shakes, gently and steadily. Downstairs, Eamon is running the press slowly, to warm it up.',
+      '&ldquo;Same sheet, same pages,&rdquo; says Ayo. &ldquo;Mrs Choi&rsquo;s panel is on it as well, next to sympathetic. Its Try it box fell out of the forme this afternoon. That first, it&rsquo;s quick. Then sirloin.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#ayo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Ayo Bankole', role: 'Night proofreader', face: RT.face('ayo', 'smile'),
+      lines: [
+        { a: '&ldquo;This is the part I actually know. Proof marks. You mark the place in the line, and you write the change in the margin, so the printer can find it in the dark.&rdquo;' },
+        { q: 'What is a forme?', a: '&ldquo;The frame the type is locked into on the press. One page, or many. If a line falls out of it, you notice. Eventually.&rdquo;' },
+        { note: 'She looks at the clock.', a: '&ldquo;Sixty-five minutes. That&rsquo;s plenty. That&rsquo;s nearly plenty.&rdquo;' }
+      ],
+      clue: { id: 'ayo4', title: 'Ayo: proof marks', kind: 'What she said' },
+      done: function (seen) { if (seen) { tell('ayo'); RT.terms(['proof']); } }
+    });
+  });
+  RT.thing('#clock', null, 'Five to eleven, and moving. The minute hand jumps, like a tiny guillotine.', isBusy);
+  RT.thing('#spike', 'spike', 'The spike: every page that has been passed for press goes on it. It is nearly full.', isBusy);
+  RT.thing('#lift', 'dumb waiter', 'The lift. One floor down, and it is in the press room.', isBusy);
+  RT.thing('#desks', null, 'Proofs of the other sheets, all passed and initialled C.F.', isBusy);
+
+  var PAGE = '<h4>Using this dictionary &middot; page xii</h4><h3>How to read an entry</h3><div class="two"><div class="box">' +
+    '<p><b style="font-size:22px">window</b> &nbsp;/&#712;w&#618;nd&#601;&#650;/ &nbsp;<i>noun</i></p><p><b>1</b> an opening in a wall or roof, usually filled with glass, that lets in light and air. <b>2</b> a space on a computer screen in which a program is shown.</p>' +
+    '<p>[Old Norse <i>vindauga</i>, from <i>vindr</i> &lsquo;wind&rsquo; + <i>auga</i> &lsquo;eye&rsquo;] &nbsp;First known use: early 1200s.</p></div><div>' +
+    '<p>An entry has six parts, always in this order. The <b>headword</b>, spelt as it should be. The <b>pronunciation</b>, in IPA between slashes. The <b>part of speech</b> (noun, verb, adjective ...). The <b>senses</b>, numbered, the oldest first.</p>' +
+    '<p>Then the <b>etymology</b>, in square brackets. The sign &lt; means &lsquo;comes from&rsquo;: <i>[Middle English A &lt; Old French B, from C + D]</i> goes from the newest form back to the oldest, and ends with the parts. Last, the date of <b>first known use</b>, from the earliest dated slip.</p></div></div>';
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'dict', clue: { id: 'page', title: 'Using this dictionary: how to read an entry', kind: 'On the wall' }, done: function () {
+      RT.terms(['headword', 'pronunciation', 'part of speech', 'sense', 'etymology', 'first known use']);
+      if (tell('page')) { paint(); ER.say('Headword, pronunciation, part of speech, senses, etymology, first known use. In that order.'); }
+    } });
+  });
+  var PANEL = '<h4>New in this edition &middot; a panel for learners</h4><h3>False friends</h3>' +
+    '<p>A <b>false friend</b> is a word that looks the same in two languages and means something different. French <i>actuel</i> means &lsquo;happening now&rsquo;, so <i>actuellement</i> is &lsquo;at the moment&rsquo;, never &lsquo;actually&rsquo;. French <i>sympathique</i> means &lsquo;nice, friendly&rsquo;; English <i>sympathetic</i> means &lsquo;feeling sorry for somebody in trouble&rsquo;.</p>' +
+    '<p>English words borrowed by another language change too, and come back as false friends. In Korea a mobile phone is a <i>hand phone</i>, a laptop is a <i>notebook</i>, and the cheer <i>Fighting!</i> means &lsquo;Come on, you can do it!&rsquo; English speakers do not use them that way. (Notes from Mrs B. Choi, a teacher in Busan.)</p>' +
+    '<p>Not every look-alike lies. French <i>sur</i> means &lsquo;on, over, above&rsquo;, and it is the sur in English <i>surface</i> (the face on top) and <i>surname</i> (a name over and above your own).</p>';
+  $('#panel').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.panel || told.tried) {
+      ER.read({ html: PANEL, cls: 'dict', clue: { id: 'panel', title: 'Learners&rsquo; panel: false friends', kind: 'Proof' }, done: function () {
+        RT.terms(['false friend']);
+        if (tell('panel')) { paint(); ER.say(told.page ? 'Actuel, sympathique, hand phone, fighting: false friends. And sur, a true one. Now the Try it box.' : 'False friends, and one true one. The page on the wall next.'); }
+      } });
+      return;
+    }
+    if (!told.page) { ER.say('The page on the wall first: how to read an entry.'); return; }
+    if (!tr) tr = makeTr();
+    tr.open();
+  });
+
+  /* ---------- the Try it box ---------- */
+  var SEN = [
+    ['Camille, Lyon', '<s>Actually</s>, I am living in Lyon, but next year I move to Leeds.'],
+    ['Camille, Lyon', 'My new neighbour is very <s>sympathetic</s>. She laughs at all my jokes.'],
+    ['Dae-ho, Busan', 'I left my <s>hand phone</s> on the bus, so I could not text you.'],
+    ['Dae-ho, Busan', 'The final is tomorrow. <s>Fighting!</s> You can win!'],
+    ['Dae-ho, Busan', 'I typed my essay on my <s>notebook</s> and printed it.']
+  ];
+  var TW = [['m', 'Come on!'], ['a', 'In fact'], ['q', 'laptop'], ['h', 'understanding'], ['b', 'mobile phone'], ['n', 'Fight!'], ['g', 'At the moment'], ['r', 'phone box'], ['k', 'nice'], ['s', 'exercise book']];
+  var TWHY = {
+    a: 'In fact is what English <i>actually</i> means, and Camille did not mean that. She was thinking of actuellement. What does the panel say that means?',
+    h: 'Understanding is close to what English <i>sympathetic</i> means. Camille was thinking of sympathique. What does the panel say that means?',
+    r: 'A phone box is in the street. What does an English speaker call the phone you carry?',
+    n: 'Fight! tells somebody to start a fight. Dae-ho meant the cheer: the panel says what it means.',
+    s: 'An exercise book is made of paper. You cannot type an essay in it.'
+  };
+  function makeTr() {
+    var box = ER.el('div', 'pz tr'), pl = ER.flag('d-tr') || {}, done = !!told.tried;
+    box.innerHTML = '<div class="tr-in"><h5>Try it! &middot; What would an English speaker say?</h5>' + SEN.map(function (s, i) {
+      return '<div class="sen" data-i="' + i + '"><span class="who">' + s[0] + '</span><span class="tx">' + s[1] + ' <span class="gap" data-i="' + i + '"></span></span></div>';
+    }).join('') + '<div class="tbox"></div></div><div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="t-go">Set the box</button></div>';
+    var tray = box.querySelector('.tbox'), msgEl = box.querySelector('.pmsg'), w = {};
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    TW.forEach(function (t) { w[t[0]] = ER.el('div', 'tw dnd-item', '<!--nogloss-->' + t[1] + '<!--/nogloss-->'); w[t[0]].setAttribute('data-k', t[0]); });
+    TW.forEach(function (t) { var g = null, i; for (i in pl) if (pl[i] === t[0]) g = box.querySelector('.gap[data-i="' + i + '"]'); (g || tray).appendChild(w[t[0]]); });
+    function save() {
+      var o = {}; ER.$$('.gap', box).forEach(function (g) { var t = g.querySelector('.tw'); if (t) o[g.getAttribute('data-i')] = t.getAttribute('data-k'); });
+      ER.$$('.sen.bad', box).forEach(function (n) { n.classList.remove('bad'); }); ER.flag('d-tr', o); RT.sfx.tile();
+    }
+    ER.dnd(box, { item: '.tw', slot: '.gap', home: tray, change: save, lock: function () { return done; } });
+    box.querySelector('#t-go').addEventListener('click', function () {
+      if (done) return;
+      var i, g, t;
+      for (i = 0; i < 5; i++) {
+        g = box.querySelector('.gap[data-i="' + i + '"] .tw'); t = g ? g.getAttribute('data-k') : '';
+        if (!t || !ER.check('f' + (i + 1), t)) {
+          var n = box.querySelector('.sen[data-i="' + i + '"]'); n.classList.add('bad'); ER.sfx.no(); ER.shake(n);
+          msg(!t ? 'Ayo: &ldquo;That gap is still empty.&rdquo;' : TWHY[t] || 'Ayo reads the sentence aloud with your words in it, and winces. &ldquo;That doesn&rsquo;t say what ' + SEN[i][0].split(',')[0] + ' meant.&rdquo;');
+          return;
+        }
+      }
+      done = true; told.tried = 1; ER.flag('d-told', told); paint(); RT.solved();
+      msg('&ldquo;At the moment, nice, mobile phone, Come on!, laptop,&rdquo; Ayo reads. &ldquo;Mrs Choi will be pleased.&rdquo;');
+      RT.mine('try', 'False friends, put right',
+        '<p>Actually (French actuellement) = AT THE MOMENT</p><p>sympathetic (French sympathique) = NICE</p><p>hand phone = MOBILE PHONE</p><p>Fighting! = COME ON! (you can do it)</p><p>notebook (Korean English) = LAPTOP</p><p>A true friend: French sur = on, over, above: surface, surname.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;When I was sixteen,&rdquo; says Ayo, &ldquo;my French pen friend wrote that I was very sympathique. I thought she felt sorry for me, and I didn&rsquo;t write back for a month. She meant I was nice.&rdquo;',
+          '&ldquo;But sur is a true friend,&rdquo; she says. &ldquo;Sur la table: on the table. Surface. Surname.&rdquo; She stops, and looks at the S sheet. &ldquo;Surloyn.&rdquo;',
+          '&ldquo;Right. Sirloin. Every part of the entry, Dr Fanshawe said. Mark only what the evidence says is wrong, and put it right in the margin.&rdquo;'
+        ], function () { busy = false; });
+      }, 2600);
+    });
+    msg(done ? 'The Try it box is set.' : 'Drag the right English into each gap, or click a tile and then the gap.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- the sirloin entry ---------- */
+  var PARTS = ['hw', 'pr', 'ps', 'se', 'et', 'du', 'ws'];
+  var PNAME = { hw: 'headword', pr: 'pronunciation', ps: 'part of speech', se: 'senses', et: 'etymology', du: 'date of first known use', ws: 'Word Story' };
+  var LINKS = [['sk', 'sir, the title of a knight, + loin'], ['of', 'Old French surloigne'], ['oe', 'Old English sirloin'], ['sl', 'sur &lsquo;over, above&rsquo; + loigne &lsquo;loin&rsquo;'], ['me', 'Middle English surloyn'], ['su', 's&ucirc;r &lsquo;sure&rsquo; + loigne &lsquo;loin&rsquo;']];
+  var DATES = [['d1', '1617'], ['d4', '1603'], ['d3', 'by the early 1500s'], ['d2', '1566']];
+  var STORY = [
+    ['A', 'Keep the Word Story as it is.'],
+    ['B', 'A king knighted it, but it was Henry VIII, not James I.'],
+    ['C', 'The famous story is that a king knighted it: Henry VIII, James I or Charles II, depending on who tells it. It is not true: the word is plain French for the cut above the loin, and it was in English before James I or Charles II was born. The story probably changed the spelling from sur- to sir-.'],
+    ['D', 'Take the Word Story out, and say nothing.']
+  ];
+  var WRONGPART = {
+    hw: 'Ayo: &ldquo;You&rsquo;ve marked the headword. Sirloin is how it&rsquo;s spelt today: we&rsquo;re not changing the word, only what we say about it.&rdquo;',
+    pr: 'Ayo: &ldquo;What&rsquo;s wrong with the pronunciation? That is how everybody says it. Mark only what the evidence says is wrong.&rdquo;',
+    ps: 'Ayo: &ldquo;It&rsquo;s a noun. A thing you can roast. That part is right.&rdquo;',
+    se: 'Ayo: &ldquo;The senses are right, and in the right order: the cut first, then the steak. None of the evidence is about them.&rdquo;'
+  };
+  function makeEn() {
+    var box = ER.el('div', 'pz en'), st = ER.flag('d-en') || { mk: {}, ch: {}, du: '', ws: '' }, done = !!nextFile;
+    box.innerHTML = '<div class="en-in"><div class="ent"><p class="slug">The S sheet &middot; page 1417 &middot; proof 3</p><p>' +
+      '<span class="part hw" data-p="hw">sir&middot;loin</span> &nbsp;<span class="part" data-p="pr">/&#712;s&#604;&#720;l&#596;&#618;n/</span> &nbsp;<span class="part ps" data-p="ps">noun</span></p>' +
+      '<p><span class="part" data-p="se"><b>1</b> a cut of beef from the upper part of the loin. <b>2</b> a steak cut from this.</span></p>' +
+      '<p><span class="part" data-p="et">[from <i>sir</i>, the title of a knight, + <i>loin</i>]</span> &nbsp;<span class="part" data-p="du">First known use: 1617.</span></p>' +
+      '<span class="part wsb" data-p="ws"><b>Word Story &middot; Arise, Sir Loin!</b>' + RT.STORIES[3][2] + '</span></div>' +
+      '<div class="mg"><h6>In the margin</h6><div class="fixes"></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="e-go">Send it down</button></div>';
+    var fixes = box.querySelector('.fixes'), msgEl = box.querySelector('.pmsg'), links = {};
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    LINKS.forEach(function (l) { links[l[0]] = ER.el('div', 'lk dnd-item', '<!--nogloss-->' + l[1] + '<!--/nogloss-->'); links[l[0]].setAttribute('data-k', l[0]); });
+    var chainHtml = '<div class="fx" data-f="et"><b>etymology:</b> build the chain, newest first<div class="chain"><div class="ch" data-i="0"></div><i>&lt;</i><div class="ch" data-i="1"></div><i>,</i><div class="ch" data-i="2"></div></div><div class="ctray"></div></div>';
+    var dateHtml = '<div class="fx" data-f="du"><b>first known use:</b><div class="ops row">' + DATES.map(function (d) { return '<button type="button" class="op" data-d="' + d[0] + '">' + d[1] + '</button>'; }).join('') + '</div></div>';
+    var storyHtml = '<div class="fx" data-f="ws"><b>Word Story:</b><div class="ops">' + STORY.map(function (s) { return '<button type="button" class="op" data-s="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div></div>';
+    fixes.innerHTML = '<p class="none">Click each part of the entry that is wrong. Its correction will appear here.</p>' + chainHtml + dateHtml + storyHtml + '<p class="other"></p>';
+    var ctray = fixes.querySelector('.ctray');
+    LINKS.forEach(function (l) { var at = null, i; for (i in st.ch) if (st.ch[i] === l[0]) at = fixes.querySelector('.ch[data-i="' + i + '"]'); (at || ctray).appendChild(links[l[0]]); });
+    function render() {
+      var any = false, others = [];
+      PARTS.forEach(function (p) {
+        var on = !!st.mk[p]; box.querySelector('.part[data-p="' + p + '"]').classList.toggle('mk', on);
+        if (on) any = true;
+        var f = fixes.querySelector('.fx[data-f="' + p + '"]');
+        if (f) f.style.display = on ? '' : 'none'; else if (on) others.push(PNAME[p]);
+      });
+      fixes.querySelector('.none').style.display = any ? 'none' : '';
+      fixes.querySelector('.other').innerHTML = others.length ? 'Also marked: ' + others.join(', ') + ' (with nothing to change it to).' : '';
+      ER.$$('.op[data-d]', fixes).forEach(function (b) { b.classList.toggle('on', st.du === b.getAttribute('data-d')); });
+      ER.$$('.op[data-s]', fixes).forEach(function (b) { b.classList.toggle('on', st.ws === b.getAttribute('data-s')); });
+    }
+    function save() { ER.flag('d-en', st); }
+    ER.$$('.part', box).forEach(function (n) {
+      n.addEventListener('click', function () { if (done) return; var p = n.getAttribute('data-p'); st.mk[p] = !st.mk[p]; RT.sfx.pencil(); save(); render(); });
+    });
+    ER.$$('.op[data-d]', fixes).forEach(function (b) { b.addEventListener('click', function () { if (done) return; st.du = b.getAttribute('data-d'); RT.sfx.pencil(); save(); render(); }); });
+    ER.$$('.op[data-s]', fixes).forEach(function (b) { b.addEventListener('click', function () { if (done) return; st.ws = b.getAttribute('data-s'); RT.sfx.pencil(); save(); render(); }); });
+    ER.dnd(fixes, { item: '.lk', slot: '.ch', home: ctray, lock: function () { return done; }, change: function () {
+      st.ch = {}; ER.$$('.ch', fixes).forEach(function (c) { var l = c.querySelector('.lk'); if (l) st.ch[c.getAttribute('data-i')] = l.getAttribute('data-k'); }); RT.sfx.tile(); save();
+    } });
+    box.querySelector('#e-go').addEventListener('click', function () {
+      if (done) return;
+      function bad(t) { ER.sfx.no(); ER.shake(box.querySelector('.en-in')); msg(t); }
+      var marked = PARTS.filter(function (p) { return st.mk[p]; }).sort().join('.');
+      if (!marked) return bad('Ayo: &ldquo;Nothing is marked. Click the parts that are wrong.&rdquo;');
+      if (!ER.check('mk', marked)) {
+        var p, k;
+        for (k = 0; k < 4; k++) { p = ['hw', 'pr', 'ps', 'se'][k]; if (st.mk[p]) return bad(WRONGPART[p]); }
+        if (!st.mk.et) return bad('Ayo: &ldquo;The square brackets still say sir, the title of a knight. The verdicts say otherwise.&rdquo;');
+        if (!st.mk.du) return bad('Ayo: &ldquo;The date still says 1617. Is that when the word was first used? Look at the slip.&rdquo;');
+        return bad('Ayo: &ldquo;The Word Story box still tells the knighting as if it were true.&rdquo;');
+      }
+      var ch = [0, 1, 2].map(function (i) { return st.ch[i] || ''; });
+      if (ch.indexOf('') >= 0) return bad('Ayo: &ldquo;The chain needs three links: the English form of the word, what it came from, and its parts.&rdquo;');
+      if (!ER.check('et', ch.join('>'))) {
+        if (ch.indexOf('sk') >= 0) return bad('Ayo: &ldquo;Sir and a knight is the story we are taking out.&rdquo;');
+        if (ch.indexOf('su') >= 0) return bad('Ayo: &ldquo;S&ucirc;r with a little hat is French for sure. Mrs Choi&rsquo;s panel says which sur means over.&rdquo;');
+        if (ch.indexOf('oe') >= 0) return bad('Ayo: &ldquo;Old English? The slip says surloigne, and the index put it under French.&rdquo;');
+        return bad('Ayo: &ldquo;Right links, wrong order. The page on the wall: the newest form first, then what it came from, then its parts.&rdquo;');
+      }
+      if (!st.du) return bad('Ayo: &ldquo;No date in the margin yet.&rdquo;');
+      if (!ER.check('du', st.du)) {
+        return bad({ d1: 'Ayo: &ldquo;1617 is the date of the story, not of the word.&rdquo;', d2: 'Ayo: &ldquo;1566 is when James I was born. The word was older than that.&rdquo;', d4: 'Ayo: &ldquo;1603 is when James I became king of England. What does the surloyn slip say?&rdquo;' }[st.du]);
+      }
+      if (!st.ws) return bad('Ayo: &ldquo;What do we do with the Word Story box? Choose one.&rdquo;');
+      if (!ER.check('ws', st.ws)) {
+        return bad({ A: 'Ayo: &ldquo;Rule 14. It is a story, not history: it can&rsquo;t stay as it is.&rdquo;', B: 'Ayo: &ldquo;Changing the king doesn&rsquo;t help. Whoever was king, the word is French: the cut above the loin.&rdquo;', D: 'Ayo: &ldquo;Rule 14 says that if a false story is famous, you say so plainly, so that people who have heard it can check.&rdquo;' }[st.ws]);
+      }
+      var f = ER.exit([marked + '|' + ch.join('>') + '|' + st.du + '|' + st.ws], { wait: true });
+      if (!f) return bad('Something is still not right.');
+      done = true; nextFile = f; ER.flag('d-file', f); paint();
+      msg('Three red rings in the line, three corrections in the margin, and your initials at the bottom. Ayo initials it under yours.');
+      RT.mine('entry', 'The sirloin entry, put right',
+        '<p>sirloin /ˈsɜːlɔɪn/ noun 1 a cut of beef from the upper part of the loin. 2 a steak cut from this.</p>' +
+        '<p>[Middle English surloyn &lt; Old French surloigne, from sur ‘over, above’ + loigne ‘loin’]. First known use: by the early 1500s.</p>' +
+        '<p>Word Story: a king knighting it is a famous story, and not true. The word is French: the cut above the loin. The story probably changed sur- to sir-.</p><p>Sir in sirloin is a painted brick, like the ear in early.</p>');
+      setTimeout(after, 3200);
+    });
+    render();
+    msg(done ? 'The entry has gone down.' : 'Click the parts of the entry that the evidence says are wrong. Then put each right in the margin.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The S sheet is in the press room now.'); return; }
+    if (!told.page) { ER.say('Thirty-two pages of S. Before you mark anything, read the page on the wall about how an entry works.'); return; }
+    if (!told.tried) { ER.say('&ldquo;Mrs Choi&rsquo;s Try it box first,&rdquo; says Ayo. &ldquo;It&rsquo;s on the desk on the right.&rdquo;'); return; }
+    if (!en) en = makeEn();
+    en.open();
+  });
+  function after() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Ayo reads your marks back, part by part. Headword: right. Pronunciation: right. Noun: right. Senses: right. Then the three red rings.',
+      '&ldquo;Middle English surloyn, from Old French surloigne, from sur, over, above, and loigne, loin. First known use: by the early 1500s. And the Word Story tells the story as a story.&rdquo;',
+      '&ldquo;Sir-loin is sur-loin,&rdquo; she says. &ldquo;The cut from above the loin. The sir was a brick that somebody painted on, like the ear in early.&rdquo;',
+      'She puts the proof in the lift and pulls the rope twice. Under your feet a bell rings, and the press goes quiet. The clock says twenty-five to twelve.'
+    ], function () {
+      RT.note('<p>Got it. Eamon is resetting the line now.</p><p>Come down, both of you. You should see this.</p>', 'cf4', 'Dr Fanshawe: come down', function () {
+        busy = false; $('#go').classList.add('on');
+      });
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

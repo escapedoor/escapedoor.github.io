@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Attic · Passed for Press</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="rt.css">
+<style>
+  body{--bg:#1c130d;--accent:#d9a42a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(30,20,12,.96);--tc-ink:#f3e6c8;--cap-bg:rgba(250,240,218,.96);--cap-ink:#2a1c10;--panel:#fbf3e0;--panel-ink:#2a1c10;--face-bg:#3a2a1a;
+    --fade:#120c08;--hud-bg:rgba(250,240,218,.9);--hud-ink:#2a1c10;--hud-line:rgba(42,28,16,.3);--ov-bg:rgba(20,12,6,.66)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e8b84a}
+  .tc-theme{color:#c9a87a}
+  #fw g{opacity:0;animation:fw 4.2s steps(6,end) infinite}
+  #fw g:nth-child(2){animation-delay:-1.4s}
+  #fw g:nth-child(3){animation-delay:-2.8s}
+  @keyframes fw{0%{opacity:0}12%{opacity:1}50%{opacity:.5}70%,100%{opacity:0}}
+  #lampglow{animation:lamp 6s steps(2,end) infinite}
+  @keyframes lamp{50%{opacity:.85}}
+  #strips g{transform-origin:0 0;animation:sway 5s ease-in-out infinite}
+  #strips g:nth-child(odd){animation-delay:-2.5s}
+  @keyframes sway{50%{transform:rotate(1.4deg)}}
+  #post{display:none}
+  #scene.gotpost #post{display:inline}
+
+  /* the postcard on the desk, and the tray of brass type */
+  .pc{width:min(1080px,96vw)}
+  .pc-in{display:grid;grid-template-columns:1fr;gap:12px}
+  .pc-card{position:relative;background:#f6ecd2 linear-gradient(170deg,rgba(255,255,255,.35),rgba(150,110,50,.18));color:#2a2a4a;padding:20px 190px 14px 30px;
+    font-family:'Caveat',cursive;font-size:22px;line-height:1.75;box-shadow:0 22px 60px rgba(0,0,0,.6);border-radius:3px}
+  .pc-card p{margin:0}
+  .pc-card .stamp{position:absolute;right:22px;top:18px;width:84px;height:100px;background:#c84a3a;border:5px dotted #f6ecd2;outline:2px solid #c84a3a;color:#f6ecd2;
+    font-family:'Cinzel',serif;font-size:12px;text-align:center;padding-top:30px;line-height:1.2}
+  .pc-card .pmark{position:absolute;right:70px;top:84px;width:120px;height:56px;border:2px solid rgba(40,40,70,.55);border-radius:50%;transform:rotate(-12deg);
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(40,40,70,.7);text-align:center;padding-top:10px;line-height:1.3}
+  .pc-card .addr{position:absolute;right:24px;bottom:16px;width:150px;font-size:19px;line-height:1.3;border-top:1px solid rgba(40,40,70,.3);padding-top:6px}
+  .pc-card .sig{font-family:'Homemade Apple',cursive;font-size:17px}
+  .blot{display:inline-block;vertical-align:-14px;margin:0 3px;padding:12px 8px 0;min-width:110px;text-align:center;position:relative;border-radius:30px 26px 32px 22px;cursor:pointer;
+    background:radial-gradient(ellipse at 50% 60%,rgba(70,80,120,.32),rgba(70,80,120,.08) 70%,transparent 72%);line-height:1}
+  .blot small{position:absolute;left:0;right:0;top:-6px;font-family:'Kalam',cursive;font-size:13px;color:#7a5a3a;letter-spacing:.02em;white-space:nowrap}
+  .blot span{display:block;padding:4px 4px 6px;font-family:'Caveat',cursive;font-size:22px;color:#4a4a6a;letter-spacing:.12em}
+  .blot span.got{color:#1a1a5a;letter-spacing:.02em;font-weight:700}
+  .blot span.got i{font-style:normal;color:#b08a5a;margin:0 1px}
+  .blot.on{box-shadow:0 0 0 3px #d9a42a}
+  .blot.bad{box-shadow:0 0 0 3px #c83a2a}
+  .tray{background:#3a2a1a;border:8px solid #5a4028;padding:10px 12px 8px;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;box-shadow:inset 0 4px 12px rgba(0,0,0,.6)}
+  .tray .ty{padding:6px 11px 5px;min-width:44px;background:linear-gradient(#e8c86a,#b8903a);color:#2a1a08;border:1px solid #7a5a2a;border-radius:2px;
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;box-shadow:0 3px 0 #6a4a1a}
+  .tray .ty:hover{background:linear-gradient(#f8dc8a,#c8a04a)}
+  .tray .ty:active{transform:translateY(2px);box-shadow:0 1px 0 #6a4a1a}
+  .tray-h{display:flex;justify-content:space-between;align-items:baseline;color:#f2e6c4}
+  .tray-h span{font-family:'Gentium Book Plus',serif;font-size:15px;opacity:.85}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0f24"/><stop offset="1" stop-color="#26244a"/></linearGradient>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#4a3220"/><path d="M0 39H200M120 0V40" stroke="#33220f" stroke-width="2"/><path d="M20 14q30 -4 60 0" stroke="#5a4028" stroke-width="2" fill="none"/></pattern>
+  <pattern id="plaster" width="90" height="90" patternUnits="userSpaceOnUse"><rect width="90" height="90" fill="#cdb48a"/><circle cx="20" cy="30" r="14" fill="#c9ae82" opacity=".7"/><circle cx="66" cy="70" r="18" fill="#d3bb92" opacity=".6"/></pattern>
+  <radialGradient id="lampg" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".75"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0500" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="#2a1c12"/>
+<!-- the gable wall at the back -->
+<path d="M-1000 470L800 -40 2600 470V760H-1000z" fill="url(#plaster)"/>
+<!-- the two slopes of the roof, boarded, with rafters -->
+<path d="M-1000 -500H800V-40L-1000 470z" fill="#3a2716"/><path d="M2600 -500H800V-40L2600 470z" fill="#3a2716"/>
+<g stroke="#24170c" stroke-width="22" fill="none"><path d="M-1000 470L800 -40 2600 470"/></g>
+<g stroke="#2e1e10" stroke-width="12" opacity=".9"><path d="M-300 -500l-60 670M100 -500l-40 556M1500 -500l40 556M1900 -500l60 670"/></g>
+<!-- the skylight in the left slope: night, and fireworks over the river -->
+<g id="sky" class="hot"><path d="M190 150L470 70 490 250 210 330z" fill="url(#night)" stroke="#1a100a" stroke-width="12"/>
+  <g fill="#fff"><circle cx="260" cy="200" r="1.6"/><circle cx="420" cy="120" r="1.4"/><circle cx="330" cy="170" r="1.2"/></g>
+  <g id="fw" stroke-linecap="round" stroke-width="3"><g stroke="#ffcf5a"><path d="M300 190l0 -26M300 190l18 -18M300 190l26 0M300 190l18 18M300 190l0 26M300 190l-18 18M300 190l-26 0M300 190l-18 -18"/></g>
+    <g stroke="#7ad0ff"><path d="M410 150l0 -20M410 150l14 -14M410 150l20 0M410 150l14 14M410 150l0 20M410 150l-14 14M410 150l-20 0M410 150l-14 -14"/></g>
+    <g stroke="#ff7a9a"><path d="M360 250l0 -18M360 250l13 -13M360 250l18 0M360 250l13 13M360 250l-13 13M360 250l-18 0M360 250l-13 -13"/></g></g>
+  <path d="M340 110L350 290" stroke="#1a100a" stroke-width="6"/></g>
+<!-- the line of proofs across the gable -->
+<g id="line" class="hot"><path d="M820 240Q1100 300 1390 262" stroke="#e8dcc0" stroke-width="2" fill="none"/>
+  <g id="strips"></g><rect x="820" y="230" width="580" height="220" fill="transparent"/></g>
+<!-- the bookcase under the right slope, and Folio on top -->
+<g id="shelf" class="hot"><rect x="1170" y="480" width="300" height="270" fill="#4a2e18" stroke="#2a1a0c" stroke-width="6"/>
+  <g id="books"></g><path d="M1170 570h300M1170 660h300" stroke="#2a1a0c" stroke-width="7"/></g>
+<g id="folio" class="hot" transform="translate(1290 480)"></g>
+<!-- the lift: a hatch in the wall with a brass bell -->
+<g id="lift" class="hot"><rect x="1490" y="470" width="120" height="150" fill="#5a3a20" stroke="#2a1a0c" stroke-width="6"/><rect x="1504" y="484" width="92" height="122" fill="#6a4628"/>
+  <path d="M1504 545h92" stroke="#4a2e18" stroke-width="3"/><circle cx="1586" cy="545" r="5" fill="#d9b44a"/>
+  <g transform="translate(1550 452)"><path d="M-12 0q0 -16 12 -16t12 16z" fill="#d9b44a" stroke="#8a6a2a" stroke-width="2"/><circle cy="2" r="3" fill="#8a6a2a"/></g>
+  <text x="1550" y="640" class="cM" font-size="12" fill="#e8dcc0" text-anchor="middle" letter-spacing="2">LIFT</text></g>
+<!-- the floor -->
+<rect x="-1000" y="750" width="3600" height="700" fill="url(#boards)"/>
+<path d="M-1000 750H2600" stroke="#24170c" stroke-width="8"/>
+<!-- Burgoyne's card, pinned above the desk -->
+<g id="card" class="hot"><rect x="520" y="330" width="170" height="122" fill="#f7efd8" stroke="#a8946a" stroke-width="2" transform="rotate(-2 605 391)"/>
+  <g transform="rotate(-2 605 391)"><text x="534" y="356" class="cE" font-size="11" fill="#7a2a1a">TAKING A WORD APART</text>
+  <path d="M536 372h120M536 384h134M536 396h110M536 408h126M536 420h96" stroke="#7a6a5a" stroke-width="2.4"/>
+  <text x="540" y="442" class="cC" font-size="17" fill="#2a3a6a">in + vis + ible</text></g><circle cx="605" cy="334" r="5" fill="#a3242a"/></g>
+<!-- other things on the wall: a calendar, the old hat stand -->
+<g id="cal" class="hot"><rect x="110" y="430" width="110" height="140" fill="#f4ecd8" stroke="#8a7a5a" stroke-width="2"/><rect x="110" y="430" width="110" height="34" fill="#9a2a1a"/>
+  <text x="165" y="453" class="cO" font-size="17" fill="#f4ecd8" text-anchor="middle" font-weight="700">NOVEMBER</text>
+  <text x="165" y="520" class="cO" font-size="46" fill="#2a1c10" text-anchor="middle" font-weight="700">5</text><text x="165" y="552" class="cM" font-size="12" fill="#5a4a3a" text-anchor="middle">THURSDAY</text>
+  <path d="M130 500l18 18M148 500l-18 18" stroke="#9a2a1a" stroke-width="3" opacity="0"/></g>
+<!-- the desk, the lamp, the papers -->
+<g id="desk"><rect x="360" y="600" width="600" height="26" fill="#6a4426" stroke="#3a2210" stroke-width="3"/><rect x="380" y="626" width="40" height="160" fill="#5a3820"/><rect x="900" y="626" width="40" height="160" fill="#5a3820"/>
+  <rect x="700" y="626" width="200" height="110" fill="#5a3820" stroke="#3a2210" stroke-width="3"/><path d="M710 680h180" stroke="#3a2210" stroke-width="3"/><circle cx="800" cy="656" r="5" fill="#d9b44a"/><circle cx="800" cy="708" r="5" fill="#d9b44a"/>
+  <g transform="rotate(-4 470 590)"><rect x="410" y="574" width="140" height="24" fill="#f4ecd8" stroke="#b9a67a"/><rect x="420" y="566" width="130" height="10" fill="#e8dcc0"/></g>
+  <rect x="580" y="588" width="70" height="10" fill="#2a3a6a"/><rect x="584" y="578" width="62" height="10" fill="#7a2a1a"/></g>
+<g id="lamp" class="hot"><path id="lampglow" d="M820 470L740 600H1000L920 470z" fill="url(#lampg)"/><path d="M870 600v-110" stroke="#3a3a2a" stroke-width="6"/><ellipse cx="870" cy="600" rx="34" ry="8" fill="#3a3a2a"/>
+  <path d="M820 492q50 -46 100 0z" fill="#2a6a3a" stroke="#1a3a20" stroke-width="3"/></g>
+<g id="post" class="hot"><g transform="rotate(8 660 588)"><rect x="620" y="572" width="84" height="54" fill="#f6ecd2" stroke="#a8946a" stroke-width="2"/><rect x="684" y="577" width="14" height="17" fill="#c84a3a"/>
+  <path d="M628 588h44M628 598h50M628 608h38" stroke="#4a4a7a" stroke-width="2"/></g></g>
+<!-- the people -->
+<g id="celia" class="hot" transform="translate(1040 862)"></g>
+<g id="ayo" class="hot" transform="translate(250 880) scale(1.04)"></g>
+<rect x="-1000" y="-500" width="3600" height="1900" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the slip room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="rt.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, pc = null;
+
+  $('#celia').innerHTML = RT.who('celia', { extra: '<g transform="translate(30 -150) rotate(14)"><rect x="-14" y="-10" width="28" height="20" fill="#f6ecd2" stroke="#a8946a"/></g>' });
+  $('#ayo').innerHTML = RT.who('ayo', { extra: '<rect x="-46" y="-150" width="40" height="52" fill="#fbfaf4" stroke="#9a9a9a" transform="rotate(-10 -26 -124)"/>' });
+  $('#folio').innerHTML = RT.cat(true);
+  $('#strips').innerHTML = (function () {
+    var s = '', i, x, y;
+    for (i = 0; i < 8; i++) {
+      x = 850 + i * 66; y = 258 + Math.round(26 * Math.sin(Math.PI * (i + .5) / 8)) - (i > 5 ? 6 : 0);
+      s += '<g style="transform-origin:' + (x + 22) + 'px ' + y + 'px"><rect x="' + x + '" y="' + y + '" width="46" height="' + (118 + (i % 3) * 14) + '" fill="#fbfaf4" stroke="#b9b29a"/>' +
+        '<rect x="' + (x + 6) + '" y="' + (y + 12) + '" width="34" height="44" fill="none" stroke="#1a1a1a" stroke-width="1.5"/><path d="M' + (x + 10) + ' ' + (y + 24) + 'h26M' + (x + 10) + ' ' + (y + 32) + 'h22M' + (x + 10) + ' ' + (y + 40) + 'h26M' + (x + 10) + ' ' + (y + 70) + 'h26M' + (x + 10) + ' ' + (y + 80) + 'h20M' + (x + 10) + ' ' + (y + 90) + 'h24" stroke="#5a5a5a" stroke-width="2"/>' +
+        '<rect x="' + (x + 17) + '" y="' + (y - 10) + '" width="12" height="20" fill="#c9a87a"/></g>';
+    }
+    return s;
+  })();
+  $('#books').innerHTML = (function () {
+    var s = '', cols = ['#7a2a1a', '#2a4a6a', '#3a5a3a', '#6a4a1a', '#4a2a4a', '#8a6a2a'], r, i, x;
+    for (r = 0; r < 3; r++) { x = 1180; for (i = 0; i < 12; i++) { var w = 16 + (i * 7 + r * 3) % 9; s += '<rect x="' + x + '" y="' + (494 + r * 90) + '" width="' + w + '" height="' + (66 + (i % 3) * 6) + '" fill="' + cols[(i + r) % 6] + '" transform="translate(0 ' + (6 - (i % 3) * 6) + ')"/>'; x += w + 3; if (x > 1440) break; } }
+    return s;
+  })();
+
+  ER.init({
+    theme: 'lang', story: 'roots', storyTitle: 'Passed for Press', id: 'attic', no: 'I', title: 'The Attic',
+    go: 'Climb the last stairs',
+    intro: [
+      'Thursday the fifth of November, twenty to nine at night. Dace House, the narrow old building where the Fernley English Dictionary has been made since 1871, is dark on every floor but the top one.',
+      'You are on work experience, and this is your fourth day. You were allowed to stay late, because tonight the thirteenth edition goes to press. You have been sharpening pencils since six.'
+    ],
+    exit: {"next":"slips","w":{"1ebbda8d":"78531a67"}}, tags: {"w0":["990b62e8"],"w1":["c75c1c12"],"w2":["5719997b"],"w3":["8800c0dc"],"w4":["2a304b64"],"w0-0":["d34f2481"],"w0-1":["c8e1b123"],"w0-2":["9e0fc879"],"w1-0":["614ac3e8"],"w1-1":["3bee1131"],"w2-0":["9b5a9cba"],"w2-1":["4be68624"],"w3-0":["1d697e68"],"w3-1":["c77a5cdb"],"w4-0":["d4b27add"],"w4-1":["1e394f93"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a-told') || {}; nextFile = ER.flag('a-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#scene').classList.toggle('gotpost', !!told.celia);
+    $('#celia').style.display = told.celia ? 'none' : '';
+    $('#celia').classList.toggle('ready', !told.celia);
+    $('#card').classList.toggle('ready', !!(told.celia && !told.card));
+    $('#line').classList.toggle('ready', !!(told.celia && !told.strips));
+    $('#post').classList.toggle('ready', !!(told.card && told.strips && !nextFile));
+    ER.pips((told.celia ? 1 : 0) + (told.card ? 1 : 0) + (told.strips ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Dr Fanshawe wants you in the slip room, on the floor below. The button at the bottom of the screen takes you there.']];
+    if (pc && pc.isOpen()) return ['post', [
+      'Work on one smudge at a time: click it, then click pieces of type. The pencil over the smudge gives the meaning of each part, in order.',
+      'Find each meaning in the root rack on Burgoyne&rsquo;s card. &ldquo;Not&rdquo; changes its shape before an l. And the letters the rain left (the first one, the last ones, how many) must fit.',
+      'Around is circum-, backwards is retro-, after is post-; true is ver-, say is dict, look is spect, written is script, read is leg. Two words that fit the first smudge are traps: you can hear and see them, but not read them.'
+    ]];
+    if (!told.celia) return ['celia', ['The woman in the grey cardigan is holding a postcard. Talk to her.', 'Dr Fanshawe, the chief editor, is standing under the line of proofs.']];
+    if (!told.card) return ['card', ['Dr Fanshawe said Burgoyne&rsquo;s card on the wall would tell you the rest. It is pinned above the desk.']];
+    if (!told.strips) return ['strips', ['The eight new Word Stories hang on the line across the attic. Read them: you will need them all night.']];
+    return ['postc', ['The postcard is on the desk, by the lamp. Click it to work on it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The postcard is read. The slips are on the floor below.'); return; }
+    if (told.in) { busy = false; ER.say('The attic of Dace House, under the roof.'); return; }
+    tell('in');
+    ER.narrate([
+      'The attic runs the whole length of the house, under the roof: rafters, a skylight, and more paper than you have ever seen in one place.',
+      'Across the middle hangs a line, like a washing line, with eight strips of proof pegged to it. Under them the chief editor, Dr Fanshawe, is reading a postcard as if it had been rude to her.',
+      'Outside, somebody is letting off fireworks over the river. It is Bonfire Night.',
+      'Folio, the dictionary&rsquo;s cat, is asleep on top of the bookcase, where she is not allowed.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- people ---------- */
+  $('#celia').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Celia Fanshawe', role: 'Chief Editor · the Fernley English Dictionary', face: RT.face('celia'),
+      lines: [
+        { note: 'She is tall and grey, with a pencil in each cardigan pocket and her glasses on a chain. She holds the postcard by one corner.', a: '&ldquo;You&rsquo;re still here. Good. You can read? Of course you can read, you&rsquo;re in a dictionary.&rdquo;' },
+        { a: '&ldquo;This came by the last post. It&rsquo;s from Dr Burgoyne. Bertram Burgoyne edited this dictionary for thirty-six years, before me. He is ninety-three. We still send him every proof, and he reads every line with a magnifying glass. He has never once been wrong.&rdquo;' },
+        { a: '&ldquo;He says that one of our eight new Word Stories is wrong. Which one, and how, the rain has kindly washed out. He has no telephone. He goes to bed at eight.&rdquo;' },
+        { q: 'When does it have to be right?', a: '&ldquo;Midnight. The last sheet, the S sheet, is on the press downstairs, and Eamon will start the run at midnight and not a minute later. After that, twenty thousand copies say whatever they say, for ten years.&rdquo;' },
+        { note: 'She puts the postcard in your hand.', a: '&ldquo;I must go down and pass the other sheets. You and Ayo: put this card back together. Bertram always wrote the meanings over his long words, for the juniors, and the rain has left those. His card on the wall will do the rest. Send anything down in the lift. And keep Folio off the proofs.&rdquo;' }
+      ],
+      clue: { id: 'celia', title: 'Dr Fanshawe, in the attic', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('celia')) return;
+        busy = true; paint(); RT.sfx.slip();
+        ER.narrate([
+          'Dr Fanshawe goes down the stairs at the speed of somebody who has done it for forty years. Dace House has four floors and a cellar, and the press room is the cellar.',
+          '&ldquo;Right,&rdquo; says Ayo, and takes the pencil from behind her left ear. &ldquo;The card first, and the eight stories on the line. Then the postcard.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }
+    });
+  });
+  $('#ayo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Ayo Bankole', role: 'Night proofreader', face: RT.face('ayo', 'smile'),
+      lines: [
+        { note: 'She is sitting on an upturned box of paper with a proof on her knee and a pencil behind each ear.', a: '&ldquo;I read every page of this dictionary twice: once forwards and once backwards. Backwards you can&rsquo;t follow the sense, so you see the spelling.&rdquo;' },
+        { q: 'What is a Word Story?', a: '&ldquo;The little boxes. A few hundred words get one: where the word came from, told like a story. Readers love them. This edition has eight new ones, on the line up there.&rdquo;' },
+        { q: 'Which one do you think is wrong?', a: '&ldquo;Honestly? Ketchup. It says ketchup came from a Chinese word. Ketchup is tomatoes. And window: &lsquo;wind-eye&rsquo;? It&rsquo;s a bit pretty, isn&rsquo;t it?&rdquo;' },
+        { note: 'She taps her pencil on her teeth.', a: '&ldquo;But I&rsquo;ve been wrong before. Once. I grew up with three languages, Yoruba, English and my mum&rsquo;s terrible French, and every one of them has tricked me at least once.&rdquo;' }
+      ],
+      clue: { id: 'ayo1', title: 'Ayo: ketchup, and window', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('ayo'); }
+    });
+  });
+  $('#folio').addEventListener('click', function () {
+    if (busy) return;
+    RT.sfx.mew(); ER.say('Folio opens one eye, looks at the proofs on the line as if they were birds, and shuts it again.');
+  });
+  RT.thing('#sky', 'skylight', 'Fireworks over the river: gold, then blue, then pink. Every fifth of November, somebody in the town spends a great deal of money on noise.', isBusy);
+  RT.thing('#lift', 'dumb waiter', 'The lift: a wooden box on ropes in a shaft in the wall, from the attic to the press room in the cellar. Proofs go down in it, and notes come up. Dace House is older than telephones.', isBusy);
+  RT.thing('#lamp', null, 'A green desk lamp. The bulb flickers when the press starts downstairs.', isBusy);
+  RT.thing('#shelf', null, 'Every edition of the Fernley, from the first (1871) to the twelfth, and a great many other dictionaries, with paper slips sticking out of them like feathers.', isBusy);
+  RT.thing('#cal', null, 'Thursday, the fifth of November. Somebody has written MIDNIGHT under it in red, and underlined it three times.', isBusy);
+
+  /* ---------- reading ---------- */
+  var CARD = '<h4>For juniors, from B.B. &middot; pin this up</h4><h3>Taking a word apart</h3><div class="two"><div>' +
+    '<p>Most long English words are built from parts, like a wall from bricks. The middle brick is the <b>root</b>: it carries the meaning. A <b>prefix</b> goes in front and changes it. A <b>suffix</b> goes at the end, and often changes what kind of word it is.</p>' +
+    '<svg viewBox="0 0 330 70"><g font-family="IBM Plex Mono,monospace" font-size="15" text-anchor="middle"><rect x="6" y="8" width="70" height="30" fill="#e8d2a0" stroke="#7a2a1a"/><text x="41" y="29">in</text><text x="90" y="29" fill="#7a2a1a">+</text>' +
+    '<rect x="104" y="8" width="90" height="30" fill="#f2c86a" stroke="#7a2a1a" stroke-width="2"/><text x="149" y="29" font-weight="700">vis</text><text x="208" y="29" fill="#7a2a1a">+</text><rect x="222" y="8" width="100" height="30" fill="#e8d2a0" stroke="#7a2a1a"/><text x="272" y="29">ible</text>' +
+    '<g font-size="11" fill="#5a4a3a"><text x="41" y="56">not</text><text x="149" y="56">see</text><text x="272" y="56">can be</text></g></g></svg>' +
+    '<p>So a word you have never met is not a stranger. Find the root, read the parts in order, and test the meaning in the sentence. Many roots are Latin or Greek, and came into English with learning, from the 1500s on.</p>' +
+    '<p class="warn">But careful: some bricks are only painted on. There is no <i>ear</i> in <i>early</i> (it comes from an old word for &lsquo;before&rsquo;), and no ham in a <i>hamburger</i>: it is named after the city of Hamburg.</p>' +
+    '<p class="hand">&mdash; and when I write you a long word, I put the parts&rsquo; meanings over it. B.B.</p></div>' +
+    '<table><tr><td>LATIN</td><td>aud hear &middot; dict say &middot; leg read &middot; port carry &middot; scrib, script write &middot; spect look &middot; struct build &middot; vid, vis see &middot; ver true</td></tr>' +
+    '<tr><td>GREEK</td><td>auto self &middot; bio life &middot; chron time &middot; geo earth &middot; graph write &middot; micro small &middot; phon sound &middot; photo light &middot; tele far &middot; -scope look at &middot; -logy study of</td></tr>' +
+    '<tr><td>PREFIXES</td><td>un-, in- not (il- before l, im- before m or p, ir- before r) &middot; re- again, back &middot; retro- backwards &middot; pre- before &middot; post- after &middot; circum- around &middot; trans- across &middot; sur- over, above (from French)</td></tr>' +
+    '<tr><td>SUFFIXES</td><td>-able, -ible can be &middot; -er, -or one who &middot; -ion the act of</td></tr></table></div>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.celia) { ER.say('A card pinned to the wall, typed, with a few words in an old man&rsquo;s hand.'); }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Burgoyne&rsquo;s card: taking a word apart', kind: 'On the wall' }, done: function () {
+      RT.terms(['root', 'prefix', 'suffix', 'morpheme']);
+      if (told.celia && tell('card')) { paint(); ER.say('Root, prefix, suffix. And a rack of Latin and Greek parts, with what each one means.'); }
+    } });
+  });
+  $('#line').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RT.storiesHtml(), cls: 'proof', clue: { id: 'strips', title: 'The eight new Word Stories, as proofed', kind: 'Proof' }, done: function () {
+      if (told.celia && tell('strips')) { paint(); ER.say(told.card ? 'Eight Word Stories. Seven are history and one is a story, says Burgoyne. Now the postcard, on the desk.' : 'Eight Word Stories. Seven are history and one is a story.'); }
+    } });
+  });
+
+  /* ---------- the postcard: five long words to set again from their parts ---------- */
+  var GLOSS = [['not', 'read', 'can be'], ['around', 'look'], ['true', 'say'], ['backwards', 'look'], ['after', 'written']];
+  var PAT = [{ f: 'i', end: 'ible', n: 9 }, { f: 'c', end: 'ct', n: 11 }, { f: 'v', end: 'ct', n: 7 }, { f: 'r', end: 'ct', n: 10 }, { f: 'p', end: 'pt', n: 10 }];
+  var TILES = ['il', 'in', 'im', 'ir', 'un', 're', 'retro', 'pre', 'post', 'circum', 'trans', 'sur', 'aud', 'dict', 'leg', 'port', 'scrib', 'script', 'spect', 'struct', 'vis', 'ver', 'able', 'ible', 'ion', 'er'];
+  var MEAN = { il: 'not', 'in': 'not', im: 'not', ir: 'not', un: 'not', re: 'again, back', retro: 'backwards', pre: 'before', post: 'after', circum: 'around', trans: 'across', sur: 'over, above',
+    aud: 'hear', dict: 'say', leg: 'read', port: 'carry', scrib: 'write', script: 'written', spect: 'look', struct: 'build', vis: 'see', ver: 'true', able: 'can be', ible: 'can be', ion: 'the act of', er: 'one who' };
+  var CARDTXT = '<p>Dear Celia,</p><p>Thank you for the proofs. My hand shakes now, and my writing is {0} even to me, so I have put the meanings over the long words, as I always did for my juniors.</p>' +
+    '<p>Seven of your eight new Word Stories are history. The eighth is a story: the kind people tell at dinner, and wrong. I shan&rsquo;t say which. An editor must be {1}. Do not believe the teller. Believe the dated slip, and let its {2} stand.</p>' +
+    '<p>In {3}, you will enjoy this more than you do tonight. &nbsp;Ever yours, <span class="sig">Bertram</span></p><p>{4}: Give Folio my regards. Tell her nothing.</p>';
+  function rain(i) { var p = PAT[i], s = p.f, k; for (k = 0; k < p.n - 1 - p.end.length; k++) s += '·'; return s + p.end; }
+  function fits(i, w) { var p = PAT[i]; return w.length === p.n && w.charAt(0) === p.f && w.slice(-p.end.length) === p.end; }
+
+  function makePc() {
+    var box = ER.el('div', 'pz pc'), words = ER.flag('a-w') || [[], [], [], [], []], cur = 0, done = !!nextFile;
+    box.innerHTML = '<div class="pc-in"><div class="pc-card"><div class="stamp">FIRST<br>CLASS</div><div class="pmark">CRESSWICK<br>4 NOV 2026</div>' +
+      '<div class="addr">Dr C. Fanshawe<br>The Fernley Dictionary<br>Dace House</div><div class="txt"></div></div>' +
+      '<div><div class="tray-h"><h5>Brass type from Burgoyne&rsquo;s old box</h5><span>Click a smudge, then click parts to set it. </span></div><div class="tray"></div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="p-back">Take back</button><button type="button" class="btn" id="p-go">Read it out</button></div>';
+    var txt = box.querySelector('.txt'), tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function blot(i) {
+      var w = words[i], inner = w.length ? '<span class="got">' + w.join('<i>&middot;</i>') + '</span>' : '<span>' + rain(i) + '</span>';
+      return '<!--nogloss--><button type="button" class="blot' + (i === cur && !done ? ' on' : '') + '" data-i="' + i + '"><small>' + GLOSS[i].join(' &middot; ') + '</small>' + inner + '</button><!--/nogloss-->';
+    }
+    function render() {
+      txt.innerHTML = CARDTXT.replace(/\{(\d)\}/g, function (m, d) { return blot(+d); });
+      ER.$$('.blot', txt).forEach(function (b) {
+        b.addEventListener('click', function () { if (done) return; cur = +b.getAttribute('data-i'); RT.sfx.slip(); render(); });
+      });
+    }
+    tray.innerHTML = TILES.map(function (t) { return '<button type="button" class="ty" data-t="' + t + '">' + t + '</button>'; }).join('');
+    ER.$$('.ty', tray).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (words[cur].length >= 4) { msg('Burgoyne never used more than three bricks in one word. Take some back.'); return; }
+        words[cur].push(b.getAttribute('data-t')); RT.sfx.tile(); ER.flag('a-w', words); render();
+      });
+    });
+    box.querySelector('#p-back').addEventListener('click', function () {
+      if (done || !words[cur].length) return;
+      words[cur].pop(); RT.sfx.slip(); ER.flag('a-w', words); render();
+    });
+    box.querySelector('#p-go').addEventListener('click', function () {
+      if (done) return;
+      var i, w, j, part;
+      function bad(k, t) { ER.sfx.no(); cur = k; render(); var n = txt.querySelector('.blot[data-i="' + k + '"]'); if (n) { n.classList.add('bad'); ER.shake(n); } msg(t); }
+      for (i = 0; i < 5; i++) {
+        w = words[i];
+        if (!w.length) return bad(i, 'Ayo: &ldquo;That smudge is still empty. Click it, then click the parts.&rdquo;');
+        if (!fits(i, w.join(''))) return bad(i, 'Ayo holds the card to the lamp. &ldquo;<b>' + w.join('') + '</b> doesn&rsquo;t fit what the rain left: ' + PAT[i].n + ' letters, starting with <b>' + PAT[i].f + '</b> and ending <b>-' + PAT[i].end + '</b>.&rdquo;');
+        if (!ER.check('w' + i, w.join('|'))) {
+          if (i === 0 && w.indexOf('aud') >= 0) return bad(0, 'Ayo: &ldquo;In-aud-ible fits the gap. But you can&rsquo;t <i>hear</i> handwriting. Look at the pencil over the middle part.&rdquo;');
+          if (i === 0 && w.indexOf('vis') >= 0) return bad(0, 'Ayo: &ldquo;Invisible fits the gap. But he can see his writing. The pencil over the middle part says what he can&rsquo;t do.&rdquo;');
+          for (j = 0; j < w.length; j++) {
+            part = w[j];
+            if (!ER.check('w' + i + '-' + j, part)) {
+              if (i === 0 && j === 0 && part === 'in') return bad(0, 'Ayo: &ldquo;In- does mean not. But look at the card: before an l, in- changes its shape.&rdquo;');
+              return bad(i, 'Ayo: &ldquo;The pencil over part ' + (j + 1) + ' says <b>' + (GLOSS[i][j] || '(nothing)') + '</b>, and Burgoyne&rsquo;s card says <b>' + part + '</b> means <b>' + MEAN[part] + '</b>.&rdquo;');
+            }
+          }
+          return bad(i, 'Ayo: &ldquo;Count the pencil words over it: one part for each.&rdquo;');
+        }
+      }
+      var f = ER.exit([words.map(function (x) { return x.join('|'); }).join(' ')], { wait: true });
+      if (!f) { bad(0, 'Ayo frowns at the card. Something is still not right.'); return; }
+      done = true; nextFile = f; ER.flag('a-file', f); render(); paint();
+      RT.terms(['word part']);
+      msg('Ayo reads it once to herself, and once aloud. &ldquo;Il-leg-ible. Circum-spect. Ver-dict. Retro-spect. Post-script. He does love a long word.&rdquo;');
+      RT.mine('post', 'Burgoyne&rsquo;s postcard, put back together',
+        '<p>&ldquo;My writing is <b>illegible</b> even to me&rdquo; (il-leg-ible: cannot be read).</p><p>&ldquo;Seven of your eight new Word Stories are history. The eighth is a story: the kind people tell at dinner, and wrong.&rdquo;</p>' +
+        '<p>&ldquo;An editor must be <b>circumspect</b> (circum-spect: looking around, careful). Do not believe the teller. Believe the dated slip, and let its <b>verdict</b> (ver-dict: the true saying, the decision) stand.&rdquo;</p>' +
+        '<p>&ldquo;In <b>retrospect</b> (retro-spect: looking back) you will enjoy this.&rdquo; <b>Postscript</b> (post-script: written after): give Folio my regards.</p>');
+      setTimeout(after, 3200);
+    });
+    render();
+    msg(done ? 'The postcard is read.' : 'The smudges are where the long words were. Click one, then click the brass parts in order. The pencil above says what each part means.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#post').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Seven are history. One is a story, the kind people tell at dinner. Believe the dated slip.'); return; }
+    if (!told.card) { ER.say('Five long words are washed out, with tiny pencil words over each. Burgoyne&rsquo;s card on the wall first.'); return; }
+    if (!told.strips) { ER.say('Before the postcard, the eight Word Stories on the line: Ayo says you will need them.'); return; }
+    if (!pc) pc = makePc();
+    pc.open();
+  });
+  function after() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      '&ldquo;Seven of your eight new Word Stories are history,&rdquo; Ayo reads again. &ldquo;The eighth is a story: the kind people tell at dinner, and wrong.&rdquo;',
+      '&ldquo;Believe the dated slip,&rdquo; she says. &ldquo;Every word in the dictionary stands on slips: a sentence from a book, copied out by a reader, with the date. Two hundred thousand of them, on the floor below.&rdquo;',
+      'Behind you, the brass bell rings, and the lift arrives with a bump.'
+    ], function () {
+      RT.note('<p>Eamon has the S sheet on the press. Midnight, no later.</p><p>The slips for all eight Word Stories are in a tray on the long table in the slip room. Go and look. Take the postcard.</p>', 'cf1', 'Dr Fanshawe: to the slip room', function () {
+        busy = false; $('#go').classList.add('on');
+      });
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

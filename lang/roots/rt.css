@@ -1,0 +1,183 @@
+/* Passed for Press - what every room shares: the papers of Dace House (Burgoyne's card, the proofs, the slips, the
+   style guide, letters, Dr Fanshawe's notes up the lift), the frame round a piece of work, and a dictionary skin for
+   the notebook, the hints and the word tags. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.tc-room{font-family:'Old Standard TT',Georgia,serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.tc-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17.5px,1.42vw,21px);line-height:1.56}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17.5px,1.38vw,21px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:2px solid #1d1a16;
+  color:#1d1a16;background:#f4ead2;font-family:'Old Standard TT',serif;font-weight:700;font-size:19px;letter-spacing:.04em;border-radius:3px;box-shadow:0 6px 0 #1d1a16,0 14px 30px rgba(0,0,0,.4)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff}
+.tk-name{font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;letter-spacing:.01em}
+.tk-role{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;color:var(--role,#9a2a1a)}
+.tk .btn{--accent:var(--role-btn,#1d1a16)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.52}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.14)}
+.ready{animation:rtglow 1.6s steps(1,end) infinite}
+@keyframes rtglow{50%{filter:brightness(1.3) drop-shadow(0 0 7px #fff6c0)}}
+
+/* lettering inside drawings */
+.cG{font-family:'Gentium Book Plus',serif}
+.cO{font-family:'Old Standard TT',serif}
+.cK{font-family:'Kalam',cursive}
+.cM{font-family:'IBM Plex Mono',monospace}
+.cC{font-family:'Caveat',cursive}
+.cE{font-family:'Special Elite',monospace}
+.cZ{font-family:'Cinzel',serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1100px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:50px;margin:0;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.42;color:#fbf6e4}
+.pmsg b{color:var(--accent,#f2c21b)}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f2e6c4}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc i,.doc em{font-style:italic}
+/* Burgoyne's card for juniors: a stiff card, typed, with his hand on it */
+.doc.card{width:min(860px,95vw);background:#f7efd8 linear-gradient(170deg,rgba(255,255,255,.4),rgba(140,100,40,.12));color:#2a2218;font-family:'Gentium Book Plus',Georgia,serif;font-size:16.5px;line-height:1.48;
+  padding:22px 30px 18px;border:1px solid #c9b88a;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.doc.card h4{margin:0 0 2px;font-family:'Special Elite',monospace;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#7a2a1a}
+.doc.card h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:27px;line-height:1.1}
+.doc.card p{margin:0 0 8px}
+.doc.card .two{display:grid;grid-template-columns:1fr 330px;gap:20px;align-items:start}
+.doc.card table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.3}
+.doc.card td{padding:2px 6px 2px 0;border-bottom:1px dotted #b9a67a;vertical-align:top}
+.doc.card td:first-child{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:#7a2a1a;white-space:nowrap}
+.doc.card .hand{font-family:'Homemade Apple',cursive;font-size:14px;line-height:1.7;color:#2a3a6a}
+.doc.card .warn{margin:8px 0 0;padding:7px 12px;background:#fff4cc;border-left:5px solid #c8902a}
+/* the proofs: newsprint-white galley with the printer's slug at the top */
+.doc.proof{width:min(900px,95vw);background:#fbfaf4;color:#1a1a1a;font-family:'Gentium Book Plus',Georgia,serif;font-size:15.5px;line-height:1.42;padding:20px 28px 16px;border-top:6px solid #1a1a1a;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.doc.proof h4{margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9a1a1a}
+.doc.proof .ws{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px}
+.doc.proof .ws>div{border:1px solid #1a1a1a;padding:7px 11px 6px;position:relative}
+.doc.proof .ws b{display:block;font-family:'Old Standard TT',serif;font-weight:700;font-size:19px}
+.doc.proof .ws em{display:block;font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6a6a6a;margin:-2px 0 3px}
+.doc.proof .ws p{margin:0}
+/* a quotation slip from the reading programme */
+.doc.slip{width:min(760px,94vw);background:#fffdf3;color:#24282e;font-family:'Special Elite',monospace;font-size:16px;line-height:1.5;padding:22px 28px 18px;border-top:14px solid #3a6a5a;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.doc.slip h4{margin:0 0 4px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#3a6a5a}
+.doc.slip h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;line-height:1.1;color:#1a1a1a}
+.doc.slip p{margin:0 0 8px}
+.doc.slip .hand{font-family:'Caveat',cursive;font-size:21px;line-height:1.2;color:#2a3a8a}
+/* the style guide: a red binder, ruled page */
+.doc.guide{width:min(780px,94vw);background:#fffef8;color:#1d1d1d;font-family:'Gentium Book Plus',Georgia,serif;font-size:16.5px;line-height:1.46;padding:20px 32px 18px 54px;border-left:20px solid #8a1a1a;
+  box-shadow:0 24px 70px rgba(0,0,0,.6),inset 22px 0 0 #fff,inset 24px 0 0 #e8a0a0}
+.doc.guide h4{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8a1a1a}
+.doc.guide h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;line-height:1.1}
+.doc.guide p{margin:0 0 7px}
+.doc.guide ol{margin:0 0 8px;padding-left:22px}
+.doc.guide li{margin:0 0 5px}
+.doc.guide .rule{margin:8px 0 2px;padding:6px 12px;background:#f6e6e0;border-left:5px solid #8a1a1a;font-weight:700}
+/* letters */
+.doc.letter{width:min(640px,92vw);padding:28px 36px 24px;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.doc.letter p{margin:0 0 9px}
+.doc.letter.green{background:#f4f1e6;color:#1e5a2a;font-family:'Caveat',cursive;font-size:23px;line-height:1.22;border-top:3px double #1e5a2a}
+.doc.letter.green h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#6a6a6a;text-transform:uppercase}
+.doc.letter.kind{background:#fbf3f3 repeating-linear-gradient(transparent 0 29px,#e6cfd6 29px 30px);color:#3a2a4a;font-family:'Kalam',cursive;font-size:18px;line-height:30px}
+.doc.letter.kind h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#8a5a6a;text-transform:uppercase;margin:0 0 8px}
+.doc.letter.kind p{margin:0}
+/* Dr Fanshawe's notes, up the lift: a torn half sheet, blue-black ink */
+.doc.cf{width:min(520px,90vw);background:#f2efe2;color:#1a2a4a;font-family:'Kalam',cursive;font-size:20px;line-height:1.4;padding:24px 30px 18px;transform:rotate(-.8deg);
+  border-bottom:2px dashed #b9b29a;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.doc.cf h4{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a4a}
+.doc.cf p{margin:0 0 6px}
+.doc.cf .sig{text-align:right;font-size:24px;font-weight:700}
+/* a printed page of the dictionary itself */
+.doc.dict{width:min(860px,95vw);background:#fdfcf6;color:#141414;font-family:'Gentium Book Plus',Georgia,serif;font-size:16px;line-height:1.45;padding:20px 30px 16px;box-shadow:0 24px 70px rgba(0,0,0,.6);border:1px solid #d8d4c4}
+.doc.dict h4{margin:0 0 2px;font-family:'Old Standard TT',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#6a6a6a;text-align:center}
+.doc.dict h3{margin:0 0 10px;font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;text-align:center}
+.doc.dict p{margin:0 0 7px}
+.doc.dict .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.doc.dict .box{border:1.5px solid #1a1a1a;padding:8px 12px 6px;background:#fff}
+.doc.dict .box b{font-family:'Old Standard TT',serif}
+/* the chart on the study wall */
+.doc.chart{width:min(720px,94vw);background:#efe2bf linear-gradient(180deg,rgba(255,255,255,.3),rgba(120,80,20,.15));color:#2a1a08;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.4;padding:20px 30px 16px;border:8px solid #5a3a1a;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.doc.chart h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:22px;letter-spacing:.06em;text-align:center}
+.doc.chart table{width:100%;border-collapse:collapse}
+.doc.chart td{padding:3px 8px;border-bottom:1px solid rgba(90,58,26,.3)}
+.doc.chart td:last-child{text-align:right;font-family:'IBM Plex Mono',monospace;font-size:14px}
+.doc.chart .sm{font-size:15px;font-style:italic;margin:8px 0 0}
+/* what you worked out for yourself */
+.doc.mine{width:min(600px,92vw);background:#fffdf2 repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);color:#1f3a6a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:34px 30px 20px 34px;border-top:18px solid #3a6a5a}
+.doc.mine h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.08em;color:#9a2a1a;text-transform:uppercase}
+.doc.mine p{margin:0}
+.doc.statement{background:#f8f1e0;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #9a2a1a}
+.doc.statement h4{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#9a2a1a}
+.doc .w:hover{color:#9a2a1a}
+
+/* ---- the notebook: a dictionary's own pocket book, cloth cover ---- */
+.nb{background:#3a2420 linear-gradient(140deg,#4a2e28,#2a1814);border:1px solid #7a5a4a;color:#f1ece0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #1e100c}
+.nb-tabs{border-bottom-color:#7a5a4a}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#dcc8b4}
+.nb-tabs button.on{background:#fbf6e8;color:#3a2420;border-color:#7a5a4a}
+.nb-list{border-right-color:#7a5a4a}
+.nb-list button{font-family:'Gentium Book Plus',serif;font-size:16px;color:#f1ece0}
+.nb-list button small{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#e8c86a;color:#2a1814}
+.nb-view{background:#1e100c}
+.nb-empty{font-family:'Gentium Book Plus',serif}
+.nb-words{background:#fbf6e8;color:#1d1a16}
+.nb-words b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.nb-words span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4a52}
+.nb-ko{border-color:#8a96a8;color:#4a4a52}
+.nb-ko.on{background:#3a2420;color:#e8c86a;border-color:#3a2420}
+.wtip,.wtag{background:#fbf6e8;color:#1d1a16;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 5px 0 #9a2a1a}
+.wtag{transform:rotate(-1deg);padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:13px}
+.wtip b,.wtag b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4a52}
+.hintbox{background:#fbf6e8;color:#1d1a16;border-top:6px solid #9a2a1a;border-radius:2px}
+.hintbox h6{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.14em;color:#9a2a1a}
+.hintbox p{font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.42}
+.hintbox p i{background:#1d1a16;color:#e8c86a;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a5a62;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(30,16,12,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fbf6e8;color:#1d1a16;
+  border-left:12px solid #9a2a1a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #9a2a1a;color:#9a2a1a;font-family:'Stardos Stencil',serif;font-weight:700;font-size:22px;letter-spacing:.08em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#3a6a5a}
+.done p{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#1d1a16;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#e8c86a}
+.done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf6e8;color:#1d1a16;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:20px solid #9a2a1a}
+.rp h4{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#9a2a1a}
+.rp h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Gentium Book Plus',serif;font-size:16.5px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18px;line-height:30px;color:#1f3a6a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfdae6 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#1d1a16}.rp .btn:hover:not([disabled]){color:#e8c86a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}
