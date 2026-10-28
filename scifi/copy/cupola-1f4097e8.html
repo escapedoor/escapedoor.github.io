@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Cupola · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#0a1024;--accent:#9fd0ff;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,12,28,.95);--tc-ink:#eef2fa;--cap-bg:rgba(8,12,28,.92);--cap-ink:#f2f4fa;--panel:#10162a;--face-bg:#2c4a2a;--q-ink:#cfe4ff;--fade:#010204;--hud-bg:rgba(8,12,28,.8)}
+  .tc-room{font-size:54px;font-weight:400;letter-spacing:.08em}
+  .tc-text,.cap{font-family:'EB Garamond',serif;font-weight:400}
+  .tw2{animation:tw2 5s ease-in-out infinite}
+  @keyframes tw2{50%{opacity:.3}}
+  .sunglow{animation:sunglow 6s steps(3) infinite}
+  @keyframes sunglow{50%{opacity:.8}}
+  .rise{animation:rise 60s linear infinite}
+  @keyframes rise{from{transform:translate(0,0)}to{transform:translate(-40px,-70px)}}
+  .steam{animation:steam 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .steam:nth-child(2){animation-delay:-2.5s}
+  @keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.4}100%{opacity:0;transform:translateY(-34px)}}
+  #screen .live{display:none}#screen.on .live{display:inline}#screen.on .dark{display:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="uSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1030"/><stop offset=".45" stop-color="#1c2a5a"/><stop offset=".75" stop-color="#5a5a7a"/><stop offset="1" stop-color="#b08a6a"/></linearGradient>
+  <radialGradient id="blue" gradientUnits="userSpaceOnUse" cx="520" cy="520" r="520"><stop offset="0" stop-color="#e8f4ff" stop-opacity=".95"/><stop offset=".25" stop-color="#9fd0ff" stop-opacity=".7"/><stop offset=".6" stop-color="#4a7ac8" stop-opacity=".25"/><stop offset="1" stop-color="#4a7ac8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="haze" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#6a4a3a" stop-opacity="0"/><stop offset="1" stop-color="#6a4a3a" stop-opacity=".75"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#010204" stop-opacity=".16"/><stop offset="1" stop-color="#010204" stop-opacity=".84"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#uSky)"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#blue)" class="sunglow"/>
+<g id="ustars" fill="#fff"></g>
+<!-- the storm, low in the south (on the left) -->
+<g id="storm" class="hot"><path d="M-1000 380Q-300 300 200 360T600 520V640H-1000Z" fill="url(#haze)"/></g>
+<!-- the Sun going down, small and white, in a blue sky -->
+<g id="sun" class="hot"><circle cx="520" cy="520" r="80" fill="#cfe8ff" opacity=".35"/><circle cx="520" cy="520" r="14" fill="#fbfdff"/></g>
+<!-- Phobos, rising in the west -->
+<g id="phobos" class="hot"><g class="rise"><ellipse cx="330" cy="560" rx="9" ry="6" fill="#d8c8b0" transform="rotate(-20 330 560)"/><circle cx="330" cy="560" r="18" fill="transparent"/></g></g>
+<!-- Mount Sharp, and the crater floor -->
+<g id="sharp" class="hot"><path d="M420 640Q620 450 760 480Q840 430 920 480Q1000 520 1100 640Z" fill="#2a1c28"/><path d="M520 600Q660 520 760 530" stroke="#3a2a36" stroke-width="4" fill="none"/></g>
+<path d="M-1000 600Q0 580 800 620T2600 600V1500H-1000Z" fill="#160e16"/>
+<g fill="#24161e"><ellipse cx="300" cy="660" rx="140" ry="12"/><ellipse cx="1300" cy="680" rx="200" ry="14"/></g>
+<!-- the dome: ribs of the cupola -->
+<g fill="none" stroke="#141a2a" stroke-width="22"><path d="M-200 900Q800 -260 1800 900"/><path d="M300 900Q520 120 800 -40"/><path d="M1300 900Q1080 120 800 -40"/><path d="M-600 720H2200"/></g>
+<g fill="none" stroke="#2a3248" stroke-width="4"><path d="M-200 900Q800 -260 1800 900"/><path d="M300 900Q520 120 800 -40"/><path d="M1300 900Q1080 120 800 -40"/></g>
+<!-- the console with the radio, and a small screen -->
+<path d="M-1000 730H2600V1500H-1000Z" fill="#0e1220"/><rect x="-1000" y="722" width="3600" height="16" fill="#2a3044"/>
+<g id="radio" class="hot"><rect x="640" y="660" width="260" height="70" rx="8" fill="#1a2030"/><circle cx="680" cy="694" r="18" fill="#2a3044"/><path d="M680 694l10 -10" stroke="#9fd0ff" stroke-width="3"/>
+  <rect x="716" y="680" width="120" height="28" rx="3" fill="#06101a"/><text x="776" y="700" text-anchor="middle" class="mono" font-size="14" fill="#9fd0ff">HALFWAY MAST</text>
+  <circle cx="864" cy="694" r="7" fill="#5ad08a"/><path d="M880 660v-40" stroke="#5a6070" stroke-width="5"/><circle cx="880" cy="616" r="8" fill="#3a4050"/></g>
+<g id="screen" class="hot"><rect x="420" y="600" width="170" height="124" rx="6" fill="#1a2030"/><rect x="432" y="612" width="146" height="100" fill="#06101a"/>
+  <text class="dark mono" x="505" y="668" text-anchor="middle" font-size="12" fill="#4a5a70">NO PICTURE</text>
+  <g class="live"><rect x="432" y="612" width="146" height="100" fill="#3a4a5e"/><use href="#ch-liv" x="465" y="622" width="80" height="104"/><rect x="432" y="612" width="146" height="100" fill="none" stroke="#9fd0ff" stroke-width="2"/><text x="438" y="626" class="mono" font-size="9" fill="#cfe4ff">IBEX CAB &#183; LIVE</text></g></g>
+<g id="mugs"><path d="M920 694h34l-4 34h-26z" fill="#e8e2d4"/><path d="M970 694h34l-4 34h-26z" fill="#c8d8e8"/>
+  <g fill="#fff"><ellipse class="steam" cx="936" cy="686" rx="6" ry="10" opacity=".3"/><ellipse class="steam" cx="986" cy="686" rx="6" ry="10" opacity=".3"/></g></g>
+<g id="keikoG" class="hot"><use href="#ch-keiko" x="60" y="450" width="220" height="286"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="stampd">IBEX AT THE IGLOO &middot; 18.45</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-miss"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Light takes about 3 to 22 minutes to travel between Earth and Mars, one way, so there is no live conversation with Earth. An answer needs at least twice the light time. A reply that comes faster was not written on Mars.</li>
+    <li>A sol, a day on Mars, is about 24 hours 40 minutes long. Mars clocks use slightly longer hours, so that noon stays at noon.</li>
+    <li>Writers have habits they do not think about: small words like whilst and perhaps, spellings, short forms, punctuation, how they write the time, how long their sentences are. Count them in writing you know is theirs, then in the writing in doubt. One habit proves nothing; several together are evidence.</li>
+    <li>The same person writes differently to a child, a friend, a boss and a log. That is register. A message can be in the right style for the wrong reader.</li>
+    <li>A machine that copies a writer copies the surface: the greeting, the sign-off, the favourite word. It does not know what she knows, what has happened since, or what only two people share. It can be perfect in style and wrong in fact.</li>
+    <li>The air on Mars is mostly carbon dioxide, and less than one hundredth as thick as ours: even a strong wind pushes gently. But a dust storm hides the Sun and can starve solar panels of power for weeks, as it did to the rover Opportunity in 2018.</li>
+    <li>A message that does not sound like its writer is not always a fake. Hurry, cold hands or a different keyboard change how people write. Check the things that cannot change: what they know, and when the message could have come.</li>
+  </ol>
+  <p class="say">Say it aloud: explain to a friend, in five or six sentences, how you can tell whether a message was really written by the person whose name is on it.</p>
+  <div class="row"><button type="button" class="btn" id="b-task">Write to Kaja</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Whilst You Were Out &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false;
+  (function () { var s = '', i, seed = 31; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 120; i++) s += '<circle' + (i % 5 ? '' : ' class="tw2"') + ' cx="' + Math.round(-700 + rnd() * 3000) + '" cy="' + Math.round(-560 + rnd() * 800) + '" r="' + (0.5 + rnd() * 1.4).toFixed(1) + '" opacity="' + (0.2 + rnd() * 0.6).toFixed(2) + '" style="animation-delay:-' + (rnd() * 5).toFixed(1) + 's"/>';
+    $('#ustars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'cupola', no: 'VII', title: 'The Cupola',
+    go: 'Climb up to the glass',
+    intro: [
+      'In the garage you made the Commander&rsquo;s case, one stamp each. The three short messages were Liv: her log voice, whilst and perhaps, times with a dot, and Grumbles, a word that had never been in a message. The American spelling was the suit pad&rsquo;s, and the typos were cold fingers. The cheerful one at 16:58 was not: no pass, short forms and maybe, her voice for Kaja sent to the Commander. And the perfect one at 10:03 wrote 18:00 with a colon, and promised a call she had no radio to make.',
+      'Ibex left at 14.00. Since then you have been on the radio, and it has been very quiet.',
+      'It is ten to seven in the evening. The cupola is the glass room on the roof of the base: the best seat on Mars.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() { return ['end', ['Nothing more to unlock. Click on the sky, the mountain, the radio and Keiko, if you like. The card on the right has your numbers, what you now know, and a message to Kaja for you to write.']]; }
+  function begin() {
+    if (ER.flag('u-seen')) { $('#screen').setAttribute('class', 'hot on'); finish(); return; }
+    busy = true; ER.flag('u-seen', 1);
+    ER.narrate([
+      'The Sun is going down over the crater rim, small and white, and around it the sky has turned blue: a cold, pale blue, like the edge of a glacier. On Mars, sunsets are blue. Keiko sits beside you with two mugs, and drinks neither.',
+      '18.45. The radio clicks. &ldquo;Juniper, Ibex.&rdquo; The Commander&rsquo;s voice, through the Halfway Mast, as clear as if she were in the next room: thirty-eight kilometres, and no light delay at all. &ldquo;We are at the Igloo. Hugh is connecting the batteries. Somebody would like to talk to you.&rdquo;',
+      'A pause, a scrape, and another voice: slower, careful, very tired. &ldquo;Juniper, this is Liv. I am warm, I am grumpy, and I have sixteen per cent of a battery and two new ones. Thank you for coming.&rdquo; On the little screen, a face appears: a fair plait, a red nose, a smile.',
+      'Keiko leans to the microphone. &ldquo;Liv. You have been writing us some very cheerful letters.&rdquo; &ldquo;I have not,&rdquo; says Liv. &ldquo;I have been writing very short ones, with cold fingers. What did I miss, whilst I was out?&rdquo;',
+      'You tell her: Kaja&rsquo;s times, the habit card, the four voices, the four lines that could not be true, the passes, the case. When you finish there is a long silence on the line. &ldquo;So it learnt my words,&rdquo; she says at last, &ldquo;and none of my news.&rdquo;',
+      '&ldquo;Please send this to Kaja, exactly as I say it. <i>The ferry was the Grey Sausage. Mum x (285 sols to go).</i>&rdquo; You send it at 18.52. Twelve and a half minutes there; twelve and a half back.',
+      'At 19.21 Kaja&rsquo;s answer lands on the screen, all in capitals: <i>THE GREY SAUSAGE!!! IT&rsquo;S HER. Tell her Krill says hello. Tell her I wasn&rsquo;t being silly.</i> Outside, Phobos climbs out of the west, as it always does. At seven the storm reaches the track. There is nobody on it.'
+    ], function () { busy = false; CP.solved(true); finish(); });
+    setTimeout(function () { CP.sfx.radio(0.8); }, 400);
+  }
+  function finish() {
+    var st = ER.state(), mins = CP.minutes(), hn = ER.hintsUsed(), m = ER.flag('miss') || 0;
+    $('#screen').setAttribute('class', 'hot on');
+    $('#d-time').textContent = 'The day took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-miss').textContent = m ? m + (m === 1 ? ' time' : ' times') + ' today you read a message the wrong way first.' : 'Not once today did you read a message the wrong way.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  function isBusy() { return busy; }
+  CP.thing('#sun', 'sunset', 'The Sun, going down small and white in a blue sky. The fine dust of Mars sends blue light forward, towards you, more than red, so the sky near the setting Sun turns blue. The rover Curiosity photographed a blue sunset in this very crater, Gale, in 2015.', isBusy);
+  CP.thing('#phobos', 'Phobos', 'Phobos, the larger of the two small moons of Mars. It goes round Mars faster than Mars turns, so it rises in the west and sets in the east, crossing the sky in about four hours.', isBusy);
+  CP.thing('#sharp', 'Mount Sharp', 'Mount Sharp, about five kilometres high, in the middle of Gale Crater: layer on layer of rock, laid down when the crater held a lake, more than three billion years ago. The Igloo is at its foot, thirty-eight kilometres away.', isBusy);
+  CP.thing('#storm', 'storm', 'The storm, filling the south. Somewhere under it are the track, the Igloo and Ibex, and four people with a great deal of battery.', isBusy);
+  CP.thing('#radio', null, function () { CP.sfx.radio(0.5); return 'The radio, through the Halfway Mast. Liv is telling Hugh exactly what she thinks of his settings. She is using whilst, twice.'; }, isBusy);
+  CP.thing('#screen', null, 'Liv, on the little screen from Ibex&rsquo;s cab, holding a mug in both hands. She has written something on a piece of paper and holds it up to the camera: IT IS METRES.', isBusy);
+  CP.thing('#keikoG', null, '&ldquo;One habit proves nothing,&rdquo; says Keiko. &ldquo;Seven habits, a relay pass and a coffee machine called Grumbles: that is a person.&rdquo;', isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('u-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Juniper Base &middot; to Kaja Gundersen, Earth</h4><h3>How I knew</h3>' +
+      '<label for="r1">Write to Kaja, in 80 to 120 words. Tell her how you knew which messages were her mum&rsquo;s and which were not. Use at least <b>three different kinds of evidence</b>: when a message came, her mum&rsquo;s <b>habits</b>, who it was <b>written for</b>, and <b>facts</b> that the copy got wrong. Remember that she will read it twelve and a half minutes after you send it, and cannot ask you what you meant.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Signed (your name)</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keepT() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('u-task', o);
+    }
+    box.addEventListener('input', keepT);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keepT(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keepT();
+  });
+})();
+</script>
+</body>
+</html>

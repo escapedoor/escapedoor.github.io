@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Suit Room · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#3a3e44;--accent:#ff8a2a;--font-display:'Saira Stencil One',sans-serif;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(28,30,34,.96);--tc-ink:#f4f2ec;--cap-bg:rgba(28,30,34,.93);--cap-ink:#f8f6f0;--panel:#24272c;--face-bg:#4a2e1c;--q-ink:#ffc890;--fade:#050506;--hud-bg:rgba(28,30,34,.84)}
+  .tc-room{font-size:58px;font-weight:400;letter-spacing:.06em}
+  .tk-name{font-family:'Saira Stencil One',sans-serif;font-weight:400;font-size:25px}
+  .flick{animation:flick 7s steps(1) infinite}
+  @keyframes flick{0%,92%,96%{opacity:1}94%,98%{opacity:.4}}
+  .dust{animation:dust 9s linear infinite}
+  @keyframes dust{0%{transform:translateX(0)}100%{transform:translateX(-120px)}}
+  #pins.next .papers,#acard.next rect:first-child{animation:cnudge 1.7s ease-in-out infinite}
+
+  /* Hugh's corkboard */
+  .cb{width:min(1100px,97vw);padding:16px 18px 12px;background:#b5844e;border:10px solid #7a5430;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .cb-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .pp{position:relative;padding:10px 14px 10px;background:#fbfbf7;color:#1e232b;box-shadow:0 3px 0 rgba(0,0,0,.3);font-family:'Outfit',sans-serif;font-weight:300;font-size:15px;line-height:1.3}
+  .pp:before{content:'';position:absolute;left:50%;top:-7px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff8a6a,#b42c1a)}
+  .pp:nth-child(1){transform:rotate(-.8deg)}.pp:nth-child(2){transform:rotate(.7deg)}.pp:nth-child(3){transform:rotate(.5deg)}.pp:nth-child(4){transform:rotate(-.6deg)}
+  .pp h6{margin:0 0 5px;padding:2px 6px;background:#e4e7ea;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:11px;letter-spacing:.04em;color:#59616c}
+  .pp.note{background:#fff8b0}
+  .pp.note .ln{font-family:'Caveat',cursive;font-weight:700;font-size:21px;line-height:1.1}
+  .ln{display:block;width:100%;margin:0;padding:3px 6px;border:0;border-radius:3px;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;position:relative}
+  .ln:hover{background:rgba(255,138,42,.16)}
+  .ln.x{text-decoration:line-through;text-decoration-color:#d8281a;text-decoration-thickness:3px;background:rgba(216,40,26,.08)}
+  .pp.bad{outline:3px solid #d8281a}
+  .cb-foot{display:flex;align-items:center;gap:12px;margin-top:12px;padding:8px 12px;background:rgba(30,20,10,.55);border-radius:4px}
+  .cb-foot .pmsg{flex:1;color:#fff4e4;font-size:15.5px}
+  .cb-foot .btn{--accent:#ffcf8a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4d8dc"/><stop offset="1" stop-color="#aeb4ba"/></linearGradient>
+  <linearGradient id="sOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8a080"/><stop offset=".7" stop-color="#e8bc94"/><stop offset="1" stop-color="#c8865a"/></linearGradient>
+  <pattern id="haz" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="40" height="40" fill="#2a2a2a"/><rect width="20" height="40" fill="#f2a22a"/></pattern>
+  <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe0a0"/><stop offset=".5" stop-color="#c8902a"/><stop offset="1" stop-color="#6a4a1a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#050506" stop-opacity=".16"/><stop offset="1" stop-color="#050506" stop-opacity=".8"/></radialGradient>
+  <clipPath id="sPort"><circle cx="1390" cy="330" r="62"/></clipPath>
+  <g id="suit"><rect x="-42" y="40" width="84" height="150" rx="26" fill="#f2f2ee"/><rect x="-50" y="44" width="100" height="70" rx="20" fill="#e2e2dc"/>
+    <circle cx="0" cy="0" r="42" fill="#e8e8e2"/><ellipse cx="0" cy="4" rx="30" ry="24" fill="url(#visor)"/><path d="M-20 -6q14 -12 30 -4" stroke="#fff" stroke-width="4" fill="none" opacity=".7"/>
+    <rect x="-70" y="60" width="22" height="110" rx="11" fill="#e8e8e2"/><rect x="48" y="60" width="22" height="110" rx="11" fill="#e8e8e2"/>
+    <rect x="-34" y="190" width="28" height="100" rx="12" fill="#e8e8e2"/><rect x="6" y="190" width="28" height="100" rx="12" fill="#e8e8e2"/>
+    <rect x="-36" y="276" width="32" height="22" rx="6" fill="#8a6a4a"/><rect x="4" y="276" width="32" height="22" rx="6" fill="#8a6a4a"/>
+    <path d="M-42 150h84" stroke="#ff8a2a" stroke-width="6"/><rect x="-14" y="80" width="28" height="18" rx="3" fill="#3a4a5a"/></g>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#sWall)"/>
+<g stroke="#9aa0a8" stroke-width="3"><path d="M-1000 110H2600M-1000 600H2600"/></g>
+<g fill="#9aa0a8"><circle cx="60" cy="130" r="5"/><circle cx="660" cy="130" r="5"/><circle cx="1040" cy="130" r="5"/></g>
+<g class="flick"><rect x="200" y="20" width="300" height="16" rx="8" fill="#fffef0"/><rect x="760" y="20" width="300" height="16" rx="8" fill="#fffef0"/></g>
+<!-- the suits on their rack, and the empty hook -->
+<path d="M60 150H640" stroke="#6a6e74" stroke-width="10"/>
+<g><path d="M150 150v20M310 150v20M470 150v20M600 150v20" stroke="#6a6e74" stroke-width="6"/>
+  <use href="#suit" x="150" y="214"/><use href="#suit" x="310" y="214"/><use href="#suit" x="470" y="214"/>
+  <rect x="580" y="170" width="40" height="24" fill="#fff" stroke="#6a6e74" stroke-width="2"/><text x="600" y="188" text-anchor="middle" class="sten" font-size="14" fill="#2a2a2a">L.G.</text></g>
+<g id="hook" class="hot"><rect x="570" y="150" width="60" height="60" fill="transparent"/></g>
+<!-- the bench, and a wrist pad on it -->
+<rect x="-1000" y="640" width="1700" height="20" fill="#5a5f66"/><rect x="-1000" y="660" width="1700" height="40" fill="#43474e"/>
+<g id="pad" class="hot"><path d="M470 640q0-26 40-30h70q30 4 30 30z" fill="#e8e8e2"/><rect x="500" y="602" width="70" height="30" rx="4" fill="#1a2430" transform="rotate(-6 535 617)"/>
+  <rect x="512" y="608" width="36" height="9" fill="#f2d24a" transform="rotate(-6 530 612)"/><text x="530" y="628" text-anchor="middle" class="mono" font-size="8" fill="#5fe3d2" transform="rotate(-6 530 625)">US KEYS</text></g>
+<g id="brush"><rect x="200" y="590" width="120" height="50" rx="6" fill="#8a8e94"/><g stroke="#3a3a3a" stroke-width="3"><path d="M214 590v-24M230 590v-30M246 590v-22M262 590v-28M278 590v-24M294 590v-30"/></g></g>
+<!-- Hugh's corkboard with the four papers -->
+<g id="pins" class="hot"><rect x="680" y="140" width="320" height="270" fill="#b5844e" stroke="#7a5430" stroke-width="8"/>
+  <g class="papers"><rect x="700" y="160" width="130" height="110" fill="#fbfbf7" transform="rotate(-3 765 215)"/><rect x="850" y="160" width="130" height="110" fill="#fbfbf7" transform="rotate(2 915 215)"/>
+  <rect x="700" y="284" width="130" height="110" fill="#fbfbf7" transform="rotate(2 765 339)"/><rect x="850" y="284" width="130" height="110" fill="#fff8b0" transform="rotate(-2 915 339)"/></g>
+  <g stroke="#6a727c" stroke-width="2"><path d="M712 186h100M712 200h90M712 214h104M712 228h80M862 186h100M862 200h96M862 214h84M862 228h100M712 310h100M712 324h92M712 338h100"/></g>
+  <g stroke="#2a2a6a" stroke-width="2.4"><path d="M862 312q10-4 20 0t20 0t20 0M862 330q14-4 28 0t28 0M862 348q12-4 24 0"/></g>
+  <g fill="#c43c22"><circle cx="765" cy="162" r="5"/><circle cx="915" cy="162" r="5"/><circle cx="765" cy="286" r="5"/><circle cx="915" cy="286" r="5"/></g></g>
+<!-- the EVA board -->
+<g id="eva" class="hot"><rect x="1030" y="130" width="180" height="140" fill="#f7f9f8" stroke="#c0c6cc" stroke-width="6"/>
+  <text x="1046" y="158" class="cav" font-size="20" fill="#1a4a9a">EVA &#183; SOL 214</text>
+  <g stroke="#b02a2a" stroke-width="2.4"><path d="M1046 178h140M1046 198h120M1046 218h134M1046 238h110"/></g></g>
+<!-- the pressure gauge -->
+<g id="gauge" class="hot"><circle cx="1120" cy="330" r="38" fill="#f2f2ee" stroke="#5a5f66" stroke-width="6"/><path d="M1094 344A30 30 0 0 1 1146 344" stroke="#d8281a" stroke-width="3" fill="none"/><path d="M1120 330L1092 344" stroke="#2a2a2a" stroke-width="4" stroke-linecap="round"/><circle cx="1120" cy="330" r="4" fill="#2a2a2a"/>
+  <text x="1120" y="316" text-anchor="middle" class="mono" font-size="8" fill="#2a2a2a">OUTSIDE</text></g>
+<!-- the airlock's inner door, with the outside in its window -->
+<g id="door" class="hot"><circle cx="1390" cy="380" r="182" fill="#8a9098"/><circle cx="1390" cy="380" r="160" fill="#c2c8ce" stroke="#6a7078" stroke-width="6"/>
+  <g clip-path="url(#sPort)"><rect x="1320" y="260" width="140" height="140" fill="url(#sOut)"/><path d="M1320 340q20 -14 50 -6q30 -24 50 -18q20 0 40 8V400H1320Z" fill="#a8603e"/><path d="M1320 360q40 -10 70 0t70 -6V400H1320Z" fill="#7a4028"/>
+    <path d="M1320 318q30 -20 64 -10q34 -16 76 -4V330H1320Z" fill="#8a5a3a" opacity=".55"/><g class="dust" fill="#c8865a" opacity=".5"><circle cx="1440" cy="300" r="20"/><circle cx="1480" cy="290" r="26"/><circle cx="1530" cy="304" r="22"/></g></g>
+  <circle cx="1390" cy="330" r="62" fill="none" stroke="#4a5058" stroke-width="10"/>
+  <circle cx="1390" cy="470" r="44" fill="none" stroke="#3a3e44" stroke-width="10"/><path d="M1346 470h88M1390 426v88" stroke="#3a3e44" stroke-width="8"/>
+  <text x="1390" y="540" text-anchor="middle" class="sten" font-size="17" fill="#2a2a2a">INNER DOOR</text></g>
+<g id="acard" class="hot"><rect x="1474" y="580" width="96" height="128" fill="#1e1f22"/><rect x="1474" y="580" width="96" height="128" fill="none" stroke="url(#haz)" stroke-width="10"/>
+  <text x="1522" y="616" text-anchor="middle" class="sten" font-size="13" fill="#f2c230">BEFORE</text><text x="1522" y="632" text-anchor="middle" class="sten" font-size="13" fill="#f2c230">THE OUTER</text><text x="1522" y="648" text-anchor="middle" class="sten" font-size="13" fill="#f2c230">DOOR</text>
+  <g stroke="#bbb" stroke-width="2"><path d="M1488 666h68M1488 678h60M1488 690h66"/></g></g>
+<!-- Hugh -->
+<g id="hughG" class="hot"><use href="#ch-hugh" x="1000" y="404" width="230" height="299"/></g>
+<rect x="-1000" y="700" width="3600" height="30" fill="url(#haz)"/>
+<rect x="-1000" y="730" width="3600" height="900" fill="#6a5a50"/><g fill="#a8603e" opacity=".5"><ellipse cx="1300" cy="770" rx="200" ry="18"/><ellipse cx="900" cy="800" rx="120" ry="10"/><ellipse cx="300" cy="760" rx="160" ry="12"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow Hugh to the power room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'suits', no: 'IV', title: 'The Suit Room',
+    go: 'Go through to the airlock',
+    intro: [
+      'In the greenhouse you hung eight strips by the voice they were written in, not by the name in them. Liv has four voices: for Kaja (Hei Kaja, Mum x), for a friend (a name, a joke, L.), for the Commander (Commander, facts first, her full name) and for the log (no greeting, numbers). Three cheerful strips were in her voice for Kaja, but were sent to the Commander and to Keiko: right style, wrong reader. The two short strips were in her log voice: Liv in a hurry.',
+      'That is suspicious, Keiko said, but it is not proof. Hugh Lattimer, the engineer, says the cheerful messages prove that Liv is fine. He has pinned them up.',
+      'It is twenty past ten. The suit room smells of rubber and of dust.'
+    ],
+    exit: {"next":"power","w":{"f76cf7e7":"89aba4c5"}}, tags: {"p1":["7d5fb434"],"p2":["3989f9b2"],"p3":["07801da5"],"p4":["a38a7e1d"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('s-file') || null;
+  var S = ER.flag('s-st') || { x: {} };
+  function keep() { ER.flag('s-st', S); }
+
+  var PAPERS = [
+    { id: 'p1', head: 'TO: COMMANDER J. KIRWAN &middot; ARRIVED SOL 211, 22:33', lines: ['Hei Joss!', 'Don&rsquo;t worry about me &mdash; I&rsquo;m absolutely fine.', 'The link&rsquo;s probably just a loose cable; I&rsquo;ll have a look in the morning.', 'The wind was howling so hard last night that it nearly blew the Igloo over!', 'Splendid evening otherwise. Liv x'] },
+    { id: 'p2', head: 'TO: DR K. ISHIDA &middot; ARRIVED SOL 212, 10:31', lines: ['Hei Keiko!', 'Toasty warm, thanks &mdash; the heater&rsquo;s purring away.', 'I had a lovely long video call with Kaja this morning, and she sounds so grown up!', 'Maybe I&rsquo;ll stay out here a little longer; it&rsquo;s so peaceful.', 'Splendid! Liv x'] },
+    { id: 'p3', head: 'HOMEWARD &middot; TO KAJA GUNDERSEN &middot; SENT SOL 213 &middot; FORWARDED BY KAJA', lines: ['Hei Kaja,', 'The storm is still far away, and the sky is the colour of milky tea.', 'Perhaps it will pass us by.', 'Whilst I wait, I am reading Grandpa&rsquo;s old detective books again.', 'Mum x (288 sols to go)'] },
+    { id: 'p4', head: 'HUGH&rsquo;S NOTE FOR THE COMMANDER &middot; SOL 214', note: 1, lines: ['Joss &mdash;', 'At 09.55 I asked Mission Control whether Liv&rsquo;s helper is set to family only.', 'Their answer came back at 10.00: family only, short holding notes.', 'So the short scraps are the helper, and the long messages are Liv&rsquo;s.', 'H.'] }
+  ];
+  var WHY = {
+    p1: { 1: 'A greeting cannot be untrue. It can only be in the wrong voice.', 2: 'Perhaps she felt fine at 22.33. You cannot prove that line false from here.', 3: 'A guess about a cable. Wrong, perhaps, but not impossible.', 5: 'Splendid evening: a matter of taste.' },
+    p2: { 1: 'A greeting cannot be untrue. It can only be in the wrong voice.', 2: 'She might be warm: the heater was on low. Not impossible.', 4: 'Maybe and I&rsquo;ll are not Liv&rsquo;s habits, true. But Hugh will say she was tired. Strike what cannot be <i>true</i>, whoever wrote it.', 5: 'Splendid and a kiss: the wrong voice for Keiko, but not an untruth.' },
+    p3: { 1: 'A greeting cannot be untrue.', 2: 'On Sol 213 the storm was still far away, and dust does make the sky look like milky tea. Not impossible.', 3: 'A hope cannot be false.', 4: 'She may well have the books with her. You cannot know that she has not.' },
+    p4: { 1: 'That is only his greeting.', 2: 'He may well have asked. Asking is possible.', 4: 'That is his conclusion. It may be wrong, but it is not impossible in itself. What does he say happened that cannot happen?', 5: 'That is only his initial.' }
+  };
+  var AIR = '<h4>BEFORE THE OUTER DOOR</h4>' +
+    '<p>Outside, the air is about <b>95% carbon dioxide</b>, with a little nitrogen and argon and almost no oxygen. Its pressure is about <b>0.6% of the air pressure on Earth</b>: far too thin to breathe, and too thin to keep you warm. Nobody goes out without a suit. Ever.</p>' +
+    '<svg viewBox="0 0 600 64" aria-hidden="true"><text x="0" y="20" font-family="Share Tech Mono" font-size="13" fill="#f2f0e6">EARTH</text><rect x="70" y="8" width="430" height="16" fill="#3a8ad8"/><text x="508" y="21" font-family="Share Tech Mono" font-size="13" fill="#f2f0e6">101 kPa</text>' +
+    '<text x="0" y="52" font-family="Share Tech Mono" font-size="13" fill="#f2f0e6">MARS</text><rect x="70" y="40" width="3" height="16" fill="#f2c230"/><text x="82" y="53" font-family="Share Tech Mono" font-size="13" fill="#f2c230">0.6 kPa</text></svg>' +
+    '<p>Because the air is so thin, wind has very little push. A <b>100 km/h wind on Mars pushes about as hard as a 12 km/h breeze on Earth</b>. It will not knock over a person, a rover or a hut. The danger in a storm is the dust: it gets into seals, joints and power units, and it hides the Sun from the solar panels.</p>' +
+    '<p>It is cold. On an average day the air is about −60 °C, and much colder at night.</p>' +
+    '<p><b>Close the inner door. Check your partner&rsquo;s seals. Then, and only then, open the outer door.</b></p>';
+
+  function hints() {
+    if (nextFile) return ['go', ['Hugh has gone to the power room, too fast. Keiko says follow him, gently. Click the button at the bottom of the screen.']];
+    if (!ER.flag('s-talk')) return ['talk', [
+      'Hugh is standing between his corkboard and the airlock door. Click on him and listen to the end.',
+      'He thinks the cheerful messages prove that Liv is fine. Listen to what he says about Mission Control, and about the wrist pads.'
+    ]];
+    if (!ER.flag('s-air')) return ['air', [
+      'Read the black and yellow card beside the airlock door before you look at Hugh&rsquo;s papers.',
+      'It is about the air outside: what it is made of, how thin it is, and what that means for the wind.'
+    ]];
+    return ['pins', [
+      'In each of the four papers on the corkboard, strike the one line that cannot be true, whoever wrote it. Not the line that sounds least like Liv. Your notebook has what you need: the light-time card, the airlock card, the clock card from the galley.',
+      'Paper 1: what can wind on Mars do, and what can it not? Paper 2: what does the light-time card say about talking to Earth? Paper 3: work out how many sols were left to go on Sol 213. Paper 4: how long must an answer from Earth take?',
+      'Thin air pushes very gently, so no Mars wind blows a hut over. Nobody can have a live call with Earth. On Sol 213 the countdown should say 499 − 213. And an answer from Mission Control needs at least 25 minutes after the question.'
+    ]];
+  }
+  function paint() {
+    $('#acard').setAttribute('class', 'hot' + (ER.flag('s-talk') && !ER.flag('s-air') ? ' next' : ''));
+    $('#pins').setAttribute('class', 'hot' + (!nextFile && ER.flag('s-talk') && ER.flag('s-air') ? ' next' : ''));
+    $('#hughG').style.display = nextFile ? 'none' : '';
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The suit room. Four red lines on Hugh&rsquo;s corkboard. Hugh has gone.'); return; }
+    if (ER.flag('s-seen')) { ER.say('The suit room: Hugh, his corkboard, the airlock door and its card, the suits, the wrist pad on the bench.'); return; }
+    busy = true; ER.flag('s-seen', 1);
+    ER.narrate([
+      'The spare suits hang on the wall like tired astronauts, and one hook is empty. Through the round window in the airlock door the sky is pink-butterscotch, and the brown wall in the south is a little taller than it was at breakfast.',
+      'Hugh Lattimer, the base engineer, is checking the seals on two of the suits, just in case. On the corkboard behind him he has pinned up four papers.'
+    ], function () { busy = false; paint(); CP.sfx.hiss(1.2); });
+  }
+
+  $('#hughG').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('s-talk')) { ER.say('&ldquo;Read them,&rdquo; says Hugh, not looking up. &ldquo;Perfectly normal. Liv&rsquo;s fine.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.hugh.who, role: CAST.hugh.role, face: FACE('hugh'),
+      lines: [
+        { note: 'Thirty-odd, a ginger beard, a head torch pushed up on his forehead, and orange overalls with more pockets than anybody needs. He talks fast when he is uneasy, and he is talking fast.',
+          a: '&ldquo;Look, I&rsquo;ve known Liv two hundred sols. Those long messages are Liv. Splendid every other line! The short scraps are Homeward&rsquo;s holding notes. I set it up for short holding notes for Kaja, like she asked.&rdquo;' },
+        { q: 'Kaja says some answers came too fast.',
+          a: '&ldquo;So the helper sends Kaja a few quick notes. That&rsquo;s its job. Doesn&rsquo;t mean it writes to us. I checked with Mission Control this morning, too. It&rsquo;s on the board.&rdquo;' },
+        { q: 'What are these papers?',
+          a: '&ldquo;Proof. Two of Liv&rsquo;s messages to us, perfectly normal. One Kaja forwarded this morning: even she says it sounds just like her mum. And my note for Joss. Read them.&rdquo;' },
+        { q: 'Why are the suits ready?',
+          a: '&ldquo;Joss&rsquo;s orders. In case.&rdquo; He doesn&rsquo;t look up. &ldquo;And mind the wrist pads. They&rsquo;re American: they change every <i>metres</i> to <i>meters</i>, and you can&rsquo;t switch it off. Liv hates hers.&rdquo;' }
+      ],
+      clue: { id: 'hugh1', title: 'Hugh, in the suit room', kind: 'What he said' }, last: 'Read the papers',
+      done: function (seen) { if (!seen) return; ER.flag('s-talk', 1); CP.learn(['seal', 'wrist pad', 'airlock']); paint(); ER.say('The card about the air is beside the airlock door. The papers are on the corkboard.'); }
+    });
+  });
+  $('#acard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: AIR, cls: 'air', clue: { id: 'air', title: 'Before the outer door', kind: 'Airlock card' }, done: function () { ER.flag('s-air', 1); CP.learn(['carbon dioxide', 'pressure', 'airlock', 'breeze']); paint(); } });
+  });
+  $('#pad').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'wrist pad'); ER.flag('s-pad', 1);
+    CP.mine('pad', 'The suit wrist pads', '<p>A sticker on the pad: KEYBOARD: US ENGLISH. SPELLING CHECKER: ON.</p><p>It changes metres to meters and kilometres to kilometers, and it cannot be switched off. Liv hates hers.</p><p>So a message typed on a suit can have American spelling, whoever typed it.</p>');
+    ER.say('A suit wrist pad, with a tiny keyboard for gloved fingers. The sticker says: KEYBOARD: US ENGLISH. SPELLING CHECKER: ON. Underneath, in Liv&rsquo;s neat writing: <i>It is metres.</i>');
+  });
+  CP.thing('#eva', null, 'EVA CONDITIONS &middot; SOL 214. DUST: RISING. SUN: DIMMER EVERY HOUR. TRACK SOUTH: OPEN UNTIL ABOUT 19.00. AFTER THAT, NOBODY DRIVES.', isBusy);
+  CP.thing('#gauge', 'pressure', 'The outside pressure gauge: 0.6 kPa. Under it, somebody has written in pencil: EARTH 101.', isBusy);
+  CP.thing('#door', 'airlock', 'Through the round window: rocks the colour of rust, a pink-butterscotch sky, and in the south a brown wall that is a little taller than at breakfast.', isBusy);
+  CP.thing('#hook', null, 'An empty hook with a label: L.G. Liv&rsquo;s suit is at the Igloo, with Liv.', isBusy);
+  CP.thing('#brush', null, 'The dust brushes. Everyone brushes their suit before they come in, and the dust comes in anyway. It is finer than flour and gets into everything.', isBusy);
+
+  /* ---------- the corkboard ---------- */
+  function openPins() {
+    var box = ER.el('div', 'cb'), done = false;
+    box.innerHTML = '<div class="cb-grid">' + PAPERS.map(function (p) {
+      return '<div class="pp' + (p.note ? ' note' : '') + '" data-p="' + p.id + '"><h6>' + p.head + '</h6>' + p.lines.map(function (l, i) {
+        return '<button type="button" class="ln" data-l="' + (i + 1) + '">' + l + '</button>';
+      }).join('') + '</div>';
+    }).join('') + '</div><div class="cb-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-show">Show Hugh</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function show() {
+      ER.$$('.pp', box).forEach(function (pp) { var x = S.x[pp.getAttribute('data-p')]; ER.$$('.ln', pp).forEach(function (b) { b.classList.toggle('x', +b.getAttribute('data-l') === x); }); });
+    }
+    ER.$$('.ln', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        var p = b.closest('.pp').getAttribute('data-p'), l = +b.getAttribute('data-l');
+        S.x[p] = S.x[p] === l ? 0 : l; CP.sfx.pen(); keep(); ER.$$('.pp', box).forEach(function (o) { o.classList.remove('bad'); }); show();
+      });
+    });
+    box.querySelector('#s-show').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.pp', box).forEach(function (o) { o.classList.remove('bad'); });
+      var ids = ['p1', 'p2', 'p3', 'p4'], i;
+      if (ids.every(function (k) { return !S.x[k]; })) { msg('&ldquo;Go on, then,&rdquo; says Hugh. &ldquo;Show me one line that can&rsquo;t be true.&rdquo;'); return; }
+      for (i = 0; i < ids.length; i++) if (!S.x[ids[i]]) { msg('&ldquo;All four,&rdquo; says Hugh. &ldquo;If you&rsquo;re going to call me wrong, do it properly.&rdquo;'); ER.shake(box.querySelector('.pp[data-p="' + ids[i] + '"]')); return; }
+      for (i = 0; i < ids.length; i++) if (!ER.check(ids[i], String(S.x[ids[i]]))) {
+        CP.bump('miss'); CP.sfx.hm();
+        box.querySelector('.pp[data-p="' + ids[i] + '"]').classList.add('bad');
+        msg('Paper ' + (i + 1) + ': ' + ((WHY[ids[i]] || {})[S.x[ids[i]]] || 'Could that line be true? Then it is not the one.')); return;
+      }
+      var file = ER.exitOk([ids.map(function (k) { return S.x[k]; }).join('|')]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says Hugh.'); return; }
+      done = true; nextFile = file; ER.flag('s-file', file); CP.done('suits'); busy = true;
+      CP.mine('lines', 'Four lines that cannot be true', '<p>1. &ldquo;The wind nearly blew the Igloo over&rdquo;: Mars air is too thin; even a strong wind pushes gently.</p><p>2. &ldquo;A lovely long video call with Kaja&rdquo;: there is no live talk with Earth.</p>' +
+        '<p>3. &ldquo;288 sols to go&rdquo; on Sol 213: it should be 499 − 213 = 286. 288 was right on Sol 211. It copied the number and forgot to count.</p><p>4. Hugh&rsquo;s &ldquo;answer at 10.00&rdquo; to a question at 09.55: an answer from Earth needs at least 25 minutes. It was the automatic receipt from our own mail server.</p>' +
+        '<p>Paper 3 is perfect Liv in style, and wrong in fact.</p>', true);
+      msg('Hugh reads the four red lines, one after another.');
+      setTimeout(function () { ER.closeAll(); CP.solved(); paint(); after(); }, 2200);
+    });
+    show();
+    msg(Object.keys(S.x).some(function (k) { return S.x[k]; }) ? 'Your red lines are where you left them.' : 'In each paper, strike the one line that cannot be true, whoever wrote it.');
+    ER.open('ov-lock', box);
+  }
+  $('#pins').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Hugh&rsquo;s corkboard, with four red lines on it.'); return; }
+    if (!ER.flag('s-talk')) { ER.say('A corkboard with four papers on it. Hugh is standing in front of it. Talk to him first.'); return; }
+    if (!ER.flag('s-air')) { ER.say('Read the card beside the airlock door first. It is about the air outside.'); return; }
+    openPins();
+  });
+  function after() {
+    $('#hughG').style.display = '';
+    ER.narrate([
+      '&ldquo;The wind,&rdquo; says Hugh slowly. &ldquo;Fine. Liv knows the air out there better than anyone. She&rsquo;d never write that. And the video call: no. You can&rsquo;t. Nobody can.&rdquo;',
+      'He stops at Kaja&rsquo;s. &ldquo;Two hundred and eighty-eight sols to go, on Sol 213.&rdquo; He works it out on his fingers: 499 take away 213. &ldquo;Two hundred and eighty-six. That&rsquo;s the number from Sol 211. It copied the number and forgot to count. And it&rsquo;s the best copy of all: whilst, perhaps, colour, the lot.&rdquo;',
+      'Last, his own note. He goes red to the ears. &ldquo;The answer at 10.00 was the automatic receipt from our own mail server. <i>Request received.</i> I read it as yes.&rdquo; He looks at the floor. &ldquo;Mission Control&rsquo;s real answer can&rsquo;t be here before 10.20. Can it.&rdquo;',
+      '&ldquo;I need to check something in the power room,&rdquo; he says, and goes, much too fast. Keiko, in the doorway, watches him leave. &ldquo;Follow him,&rdquo; she says. &ldquo;Gently.&rdquo;'
+    ], function () { busy = false; $('#hughG').style.display = 'none'; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

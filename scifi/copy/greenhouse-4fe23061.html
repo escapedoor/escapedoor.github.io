@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Greenhouse · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#1a0c22;--accent:#ff7ae0;--font-display:'Rajdhani',sans-serif;--font-ui:'Rajdhani',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(26,10,32,.95);--tc-ink:#fbeefa;--cap-bg:rgba(26,10,32,.92);--cap-ink:#fff0fc;--panel:#22122a;--face-bg:#2c4a2a;--q-ink:#ffc8f2;--fade:#060208;--hud-bg:rgba(26,10,32,.84)}
+  .tc-room{font-size:62px;font-weight:700;letter-spacing:.04em}
+  .hbtn,.chip,.ov-x,.btn,.toast{font-size:15px;font-weight:600}
+  .tk-name{font-family:'Rajdhani',sans-serif;font-size:28px}
+  .glow{animation:glow 4s steps(2) infinite}
+  @keyframes glow{50%{opacity:.86}}
+  .sway{animation:sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0}
+  .sway:nth-child(2n){animation-delay:-2.2s}
+  @keyframes sway{50%{transform:rotate(2.5deg)}}
+  .drip{animation:drip 3.2s linear infinite}
+  @keyframes drip{0%{transform:translateY(0);opacity:0}10%{opacity:.8}80%{transform:translateY(60px);opacity:.8}100%{transform:translateY(70px);opacity:0}}
+  #line.next .strips,#hand.next rect:first-child{animation:cnudge 1.7s ease-in-out infinite}
+
+  /* the four pegs and the line */
+  .pg{width:min(1180px,97vw);padding:12px 14px 12px;background:#2a1a30;border:1px solid #5a3a66;border-radius:8px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#fbeefa}
+  .pg-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .pg-col{background:#1e1024;border:1px solid #4a2e56;border-radius:6px;padding:6px 6px 4px}
+  .pg-col h6{margin:0 0 5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;letter-spacing:.06em;color:#ffb8f0;text-align:center}
+  .pg-col h6 small{display:block;font-family:'Outfit',sans-serif;font-weight:300;font-size:12px;letter-spacing:0;color:#c8a8d0}
+  .slot{min-height:54px;margin:0 0 5px;border:2px dashed rgba(255,170,240,.3);border-radius:4px}
+  .slot.full{border-style:solid;border-color:rgba(255,170,240,.6)}
+  .slot.bad{border-color:#ff6a5a;background:rgba(255,106,90,.12)}
+  .pg-line{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;min-height:64px;margin-top:10px;padding:16px 8px 6px;border-top:3px solid #d8c8b0;border-radius:2px}
+  .pg-line:before{content:'THE LINE';position:absolute;left:8px;top:-12px;padding:0 6px;background:#2a1a30;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.16em;color:#c8a8d0}
+  .strip{position:relative;display:block;padding:7px 9px 6px;background:#fbf9f2;color:#22202a;border-radius:2px;font-family:'Outfit',sans-serif;font-weight:300;font-size:13px;line-height:1.3;
+    cursor:grab;box-shadow:0 2px 0 rgba(0,0,0,.35);-webkit-user-select:none;user-select:none}
+  .strip:before{content:'';position:absolute;left:50%;top:-9px;width:12px;height:16px;margin-left:-6px;background:#c8a060;border-radius:2px}
+  .slot .strip{font-size:11.6px;line-height:1.25;padding:4px 6px 3px}
+  .slot .strip:before{display:none}
+  .strip.held{outline:3px solid #ff7ae0}
+  .strip.fly{position:fixed;z-index:99;pointer-events:none;opacity:.92}
+  .strip .to{display:none;margin:0 0 3px;padding:1px 4px;background:#e4e7ea;font-family:'Share Tech Mono',monospace;font-size:9.5px;line-height:1.2;color:#4a525c}
+  .pg.shown .pg-line{display:none}
+  .pg.shown .strip .to{display:block}
+  .pg.shown .strip.odd{outline:3px solid #ffcf4a}
+  .pg-foot{display:flex;align-items:center;gap:12px;margin-top:8px}
+  .pg-foot .pmsg{flex:1;color:#fbeefa;font-size:15.5px}
+  .pg-foot .btn{--accent:#ff9ae8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="hWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c0e26"/><stop offset="1" stop-color="#2a1630"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4fd8" stop-opacity=".5"/><stop offset="1" stop-color="#b03cff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="wash" cx="50%" cy="20%" r="80%"><stop offset="0" stop-color="#ff5ad8" stop-opacity=".28"/><stop offset="1" stop-color="#ff5ad8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#060208" stop-opacity=".2"/><stop offset="1" stop-color="#060208" stop-opacity=".86"/></radialGradient>
+  <g id="lettuce"><ellipse cx="0" cy="0" rx="26" ry="16" fill="#3aa84a"/><ellipse cx="-10" cy="-6" rx="14" ry="10" fill="#5ac85a"/><ellipse cx="10" cy="-8" rx="13" ry="9" fill="#4ab84e"/><path d="M-4 -10q4 -8 8 0" stroke="#8ae08a" stroke-width="3" fill="none"/></g>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#hWall)"/>
+<!-- the grow lights -->
+<g class="glow"><g fill="#ffd8f6"><rect x="80" y="40" width="400" height="12" rx="6"/><rect x="600" y="40" width="400" height="12" rx="6"/><rect x="1120" y="40" width="400" height="12" rx="6"/></g>
+  <path d="M80 52H480L560 520H0Z" fill="url(#beam)"/><path d="M600 52H1000L1080 520H520Z" fill="url(#beam)"/><path d="M1120 52H1520L1600 520H1040Z" fill="url(#beam)"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#wash)" pointer-events="none"/>
+<!-- the racks of lettuces on the left -->
+<g stroke="#d8d0e0" stroke-width="6"><path d="M40 260V780M420 260V780"/></g>
+<g fill="#c8c0d0"><rect x="34" y="340" width="392" height="10"/><rect x="34" y="520" width="392" height="10"/><rect x="34" y="700" width="392" height="10"/></g>
+<g><use href="#lettuce" x="90" y="330"/><use href="#lettuce" x="170" y="328"/><use href="#lettuce" x="250" y="331"/><use href="#lettuce" x="330" y="329"/>
+  <use href="#lettuce" x="96" y="510"/><use href="#lettuce" x="176" y="508"/><use href="#lettuce" x="256" y="511"/><use href="#lettuce" x="360" y="509"/>
+  <use href="#lettuce" x="110" y="690"/><use href="#lettuce" x="210" y="688"/><use href="#lettuce" x="310" y="690"/></g>
+<!-- tomatoes and beans on the right -->
+<g stroke="#2a7a3a" stroke-width="5" fill="none"><path d="M1430 780q-20-120 10-240t-10-240"/><path d="M1510 780q24-140 -6-260t10-220"/><path d="M1360 780q-16-100 16-190"/></g>
+<g fill="#3aa84a"><ellipse cx="1420" cy="330" rx="22" ry="10"/><ellipse cx="1456" cy="420" rx="22" ry="10"/><ellipse cx="1500" cy="350" rx="20" ry="9"/><ellipse cx="1512" cy="520" rx="22" ry="10"/><ellipse cx="1440" cy="600" rx="22" ry="10"/><ellipse cx="1376" cy="660" rx="18" ry="8"/></g>
+<g fill="#e8403a"><circle cx="1436" cy="356" r="11"/><circle cx="1452" cy="372" r="9"/><circle cx="1494" cy="460" r="11"/><circle cx="1430" cy="540" r="10"/><circle cx="1520" cy="610" r="11"/></g>
+<!-- the water tanks -->
+<g id="tank" class="hot"><rect x="1240" y="620" width="110" height="170" rx="16" fill="#3a6ab0" opacity=".75"/><rect x="1240" y="620" width="110" height="40" rx="16" fill="#5a8ad0" opacity=".6"/>
+  <g stroke="#eae0f4" stroke-width="2" fill="none" opacity=".7"><path d="M1260 660q6 40 -4 80M1286 664q-8 36 6 90M1312 660q6 50 -8 100"/></g>
+  <path d="M1296 620V560H1380" stroke="#8a90a0" stroke-width="8" fill="none"/>
+  <circle class="drip" cx="1296" cy="566" r="3" fill="#9ad0ff"/></g>
+<!-- the sign about the soil -->
+<g id="sign" class="hot"><rect x="456" y="290" width="190" height="104" fill="#fff6d8" stroke="#2a2a2a" stroke-width="5"/>
+  <text x="551" y="322" text-anchor="middle" class="sten" font-size="20" fill="#a8200a">NO MARS SOIL</text><text x="551" y="346" text-anchor="middle" class="sten" font-size="17" fill="#a8200a">IN HERE</text>
+  <g stroke="#5a4a28" stroke-width="2"><path d="M474 364h154M474 378h120"/></g></g>
+<!-- the washing line, with the strips -->
+<g id="line" class="hot"><path d="M330 170Q760 210 1200 170" stroke="#e8d8c0" stroke-width="3" fill="none"/><circle cx="330" cy="170" r="7" fill="#c8c0d0"/><circle cx="1200" cy="170" r="7" fill="#c8c0d0"/>
+  <g class="strips"><g class="sway"><rect x="370" y="180" width="86" height="44" fill="#fbf9f2" transform="rotate(-3 413 180)"/></g><g class="sway"><rect x="472" y="186" width="80" height="40" fill="#fbf9f2" transform="rotate(2 512 186)"/></g>
+  <g class="sway"><rect x="566" y="190" width="90" height="46" fill="#fbf9f2" transform="rotate(-2 611 190)"/></g><g class="sway"><rect x="670" y="192" width="84" height="42" fill="#fbf9f2" transform="rotate(3 712 192)"/></g>
+  <g class="sway"><rect x="766" y="192" width="88" height="46" fill="#fbf9f2" transform="rotate(-3 810 192)"/></g><g class="sway"><rect x="866" y="190" width="82" height="40" fill="#fbf9f2" transform="rotate(2 907 190)"/></g>
+  <g class="sway"><rect x="962" y="186" width="90" height="44" fill="#fbf9f2" transform="rotate(-2 1007 186)"/></g><g class="sway"><rect x="1064" y="180" width="84" height="42" fill="#fbf9f2" transform="rotate(3 1106 180)"/></g></g>
+  <g fill="#c8a060"><rect x="408" y="172" width="8" height="14"/><rect x="508" y="178" width="8" height="14"/><rect x="608" y="182" width="8" height="14"/><rect x="708" y="184" width="8" height="14"/><rect x="806" y="184" width="8" height="14"/><rect x="904" y="182" width="8" height="14"/><rect x="1004" y="178" width="8" height="14"/><rect x="1102" y="172" width="8" height="14"/></g></g>
+<!-- the lemon tree -->
+<g id="lemon" class="hot"><path d="M1090 700h120l-14 90h-92z" fill="#8a4a2a"/><path d="M1150 700V520" stroke="#5a3a1a" stroke-width="8"/>
+  <g fill="#2f8a3a"><circle cx="1150" cy="480" r="62"/><circle cx="1104" cy="520" r="40"/><circle cx="1196" cy="516" r="42"/></g>
+  <g fill="#f2d23a"><ellipse cx="1124" cy="500" rx="11" ry="14"/><ellipse cx="1178" cy="470" rx="10" ry="13"/><ellipse cx="1160" cy="538" rx="11" ry="14"/></g>
+  <rect x="1122" y="730" width="56" height="26" fill="#fff" transform="rotate(-4 1150 743)"/></g>
+<!-- Keiko's bench, with the jammed printer and the handbook -->
+<g id="keikoG" class="hot"><use href="#ch-keiko" x="760" y="300" width="244" height="317"/></g>
+<rect x="540" y="600" width="520" height="22" fill="#e4dcea"/><path d="M560 622h480v170h-480z" fill="#3a2a44"/>
+<g id="printer" class="hot"><rect x="580" y="548" width="130" height="56" rx="6" fill="#d8dde2"/><rect x="594" y="560" width="102" height="8" rx="3" fill="#3a4250"/>
+  <path d="M606 562q-10 -30 20 -36q26 6 16 -18q24 4 30 30" stroke="#fbf9f2" stroke-width="10" fill="none" stroke-linejoin="round"/><circle cx="696" cy="590" r="5" fill="#ff5a4a" class="glow"/></g>
+<g id="hand" class="hot"><rect x="880" y="556" width="130" height="46" rx="4" fill="#4a7a3a"/><rect x="890" y="562" width="110" height="34" fill="#f3f5f0"/>
+  <text x="945" y="584" text-anchor="middle" class="raj" font-size="13" fill="#2f5a22">HANDBOOK 7.2</text></g>
+<rect x="-1000" y="780" width="3600" height="800" fill="#140a1a"/><g stroke="#2a1a30" stroke-width="4"><path d="M-1000 800H2600M-1000 830H2600M-1000 860H2600"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the suit room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'greenhouse', no: 'III', title: 'The Greenhouse',
+    go: 'Walk into the pink light',
+    intro: [
+      'In the galley you counted Liv&rsquo;s habits in six messages that are certainly hers. Whilst three times, while never; perhaps three times, maybe never; British spelling five times out of five; no short forms at all, because Grandpa&rsquo;s church is not a short form; three times with a dot, none with a colon; no exclamation marks; splendid twice; and 260 words in 26 sentences, ten words a sentence.',
+      'Keiko has printed the messages in doubt. Before you count anything in them, she says, you need to know one more thing about Liv.',
+      'It is a quarter past eight. The greenhouse is the brightest room on Mars.'
+    ],
+    exit: {"next":"suits","w":{"2ef4b032":"eb3d4692"}}, tags: {"a":["5fbcb789"],"b":["95d28ddf"],"c":["3f8e6aa6"],"d":["78521cd1"],"e":["8998ccd0"],"f":["71ec94d6"],"g":["073f0895"],"h":["fdbb3906"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('h-file') || null;
+  var S = ER.flag('h-st') || { at: {} };
+  function keep() { ER.flag('h-st', S); }
+
+  var PEGS = [['kaja', 'Liv to Kaja', 'her daughter, on Earth'], ['friend', 'Liv to a friend', 'Keiko, for example'], ['boss', 'Liv to the Commander', 'her boss'], ['log', 'Liv&rsquo;s log', 'for whoever reads it in fifty years']];
+  var HAND = '<h4>JUNIPER CREW HANDBOOK &middot; 7.2 &middot; WHO ARE YOU WRITING TO?</h4>' +
+    '<p>Everyone writes differently to different readers. This is called <b>register</b>. Choose it for your reader, and keep to it.</p>' +
+    '<p class="r"><b>THE LOG</b><span>is for whoever reads it in fifty years. No greeting and no name. What happened, when, how much. No feelings.</span></p>' +
+    '<p class="r"><b>YOUR COMMANDER</b><span>Greet by rank. Facts first, then what you need. Full sentences. Your full name at the end.</span></p>' +
+    '<p class="r"><b>EACH OTHER</b><span>As you like. Short is fine; so are jokes.</span></p>' +
+    '<p class="r"><b>HOME</b><span>As you like. But remember that a message to Earth cannot be called back, and that the answer will take a long time.</span></p>' +
+    '<h5>ONE EVENT IN THREE REGISTERS &middot; L. GUNDERSEN &middot; SOL 206</h5><div class="ex">' +
+    CP.slip('SCIENCE LOG &middot; 14:35', 'Dust devil crossed the base at 14.20, moving from south-west to north-east. Width about 40 metres. Array output rose from 61% to 70% in four minutes. No damage. The panels are cleaner than after our brushing on Sol 205.') +
+    CP.slip('TO: DR K. ISHIDA &middot; 14:40', 'Keiko, Did you see it? It went straight over your greenhouse. Your lettuces are now the cleanest lettuces on Mars. I want one of those at home. L.') +
+    CP.slip('TO: COMMANDER J. KIRWAN &middot; 14:50', 'Commander, A dust devil crossed the base at 14.20. There is no damage. It cleaned the solar panels, and the array output has risen from 61% to 70%. I suggest we cancel the brushing planned for Sol 208. Liv Gundersen') +
+    '</div>';
+  var SIGN = '<h4>NO MARS SOIL IN HERE</h4><p>Mars soil contains perchlorates: salts that are harmful to people.</p>' +
+    '<small>They were found by the Phoenix lander, near the north pole of Mars, in 2008. Our plants grow in water, or in soil that has been washed. Wash your hands after you come in from outside, and before you touch anything green.</small>';
+
+  function hints() {
+    if (nextFile) return ['go', ['Hugh is in the suit room with the messages he says prove that Liv is fine. Click the button at the bottom of the screen.']];
+    if (!ER.flag('h-talk')) return ['talk', [
+      'Keiko is behind her bench. Click on her and listen to the end.',
+      'She will explain why the printer has done you a favour, and what to do with the strips on the line.'
+    ]];
+    if (!ER.flag('h-hand')) return ['hand', [
+      'The green handbook binder is on Keiko&rsquo;s bench, next to the printer. Read it before the line.',
+      'It shows how Liv wrote about one dust devil to three readers: the log, Keiko, the Commander. Look at how each one starts, how it ends, and what comes first.'
+    ]];
+    return ['line', [
+      'Hang each strip on the peg for the voice it is written in, not for the name inside it. Liv&rsquo;s messages to Kaja are on the fridge in the galley and in your notebook; the other three voices are in the handbook.',
+      'Look at the start and the end of each strip: Hei and a kiss, a name and a comma and L., Commander and her full name, or nothing at all. Then look at what comes first: news, a joke, facts and a request, or numbers and times.',
+      'Four strips are in the voice Liv uses for Kaja, even though some have other names in them. One is in her voice for a friend, one in her voice for the Commander, and two have no greeting and no name, only numbers and times, like her log.'
+    ]];
+  }
+  function paint() {
+    $('#hand').setAttribute('class', 'hot' + (ER.flag('h-talk') && !ER.flag('h-hand') ? ' next' : ''));
+    $('#line').setAttribute('class', 'hot' + (!nextFile && ER.flag('h-talk') && ER.flag('h-hand') ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The greenhouse. The strips are on their pegs, with their headers beside them.'); return; }
+    if (ER.flag('h-seen')) { ER.say('The greenhouse: Keiko, her bench with the handbook, the jammed printer, and the strips on the line.'); return; }
+    busy = true; ER.flag('h-seen', 1);
+    ER.narrate([
+      'Rows of lettuces, tomatoes and beans glow under pink-purple lamps. The air is warm and wet, and smells of earth that was never on Earth.',
+      'Across the room, from rack to rack, runs a washing line. On it, held by clothes pegs, hang eight strips of paper: messages from Liv&rsquo;s account, with nothing at the top to say who they were sent to.'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#keikoG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Right style, wrong reader,&rdquo; says Keiko. &ldquo;Now go and see Hugh. Gently.&rdquo;'); return; }
+    if (ER.flag('h-talk')) { ER.say('&ldquo;Hang each strip by its voice,&rdquo; says Keiko, &ldquo;not by the name in it.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.keiko.who, role: CAST.keiko.role, face: FACE('keiko'),
+      lines: [
+        { note: 'Keiko pushes her glasses up with a wet thumb.',
+          a: '&ldquo;The printer cut every message off at the top, so we do not know who each one was sent to. Good. For once, that helps.&rdquo;' },
+        { q: 'Why does that help?',
+          a: '&ldquo;Because Liv has four voices: one for Kaja, one for friends, one for the Commander, one for the log. The handbook page on my bench shows three of them, about one dust devil, and you have seen the fourth on the fridge. Hang each strip on the peg for the voice it is written in. Not the name in it. The voice.&rdquo;' },
+        { q: 'And then?',
+          a: '&ldquo;Then I lay the headers next to them. The printer kept those, of course. And we see who each message was really sent to.&rdquo;' },
+        { q: 'Why is the light pink?',
+          a: '&ldquo;Plants use mostly red and blue light, and very little green, so we give them red and blue. Together they look pink. It is not romantic. It is efficient.&rdquo;' }
+      ],
+      clue: { id: 'keiko2', title: 'Keiko, in the greenhouse', kind: 'What she said' }, last: 'Look at the line',
+      done: function (seen) { if (!seen) return; ER.flag('h-talk', 1); CP.learn(['register', 'voice', 'grow light']); paint(); ER.say('The green handbook is on the bench, next to the printer.'); }
+    });
+  });
+  $('#hand').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HAND, cls: 'hbk', clue: { id: 'hand', title: 'Who are you writing to?', kind: 'Crew handbook' }, done: function () { ER.flag('h-hand', 1); CP.learn(['register', 'greeting', 'sign-off', 'rank']); paint(); } });
+  });
+  $('#sign').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SIGN, cls: 'sign', clue: { id: 'soil', title: 'No Mars soil in here', kind: 'Sign' }, done: function () { CP.learn(['perchlorate']); } });
+  });
+  CP.thing('#lemon', 'lemon tree', 'A small lemon tree in a pot, with exactly three lemons. A label in Keiko&rsquo;s writing: DO NOT WATER. THIS MEANS YOU, HUGH.', isBusy);
+  CP.thing('#tank', 'tank', 'Water tanks, with roots trailing in them like pale hair. The water goes round and round: on Mars, nothing is thrown away.', isBusy);
+  CP.thing('#printer', null, 'The greenhouse printer, still jammed. The torn-off headers are lying in its tray in a neat pile: TO, SOL, TIME, eight times over.', isBusy);
+
+  /* ---------- the line ---------- */
+  var HELPER = { a: 1, d: 1, h: 1 };
+  function why(id, peg) {
+    var s = CP.STRIPS.filter(function (x) { return x.id === id; })[0];
+    if (id === 'e') return 'Hei Kaja at the top and Mum x at the bottom: there is only one person Liv writes to like that.';
+    if (id === 'c') return 'Commander at the top, facts first, then what she would like, then her full name. Which voice is that?';
+    if (id === 'g') return 'A name and a comma, a dry joke, and L. at the end. Look at the dust devil note to Keiko in the handbook.';
+    if (id === 'b' || id === 'f') return peg === 'boss' ? 'Facts and numbers, yes. But where is &lsquo;Commander&rsquo;, and where is her full name? Which of her voices has no greeting and no name at all?' : 'No greeting, no name, just numbers and times with a dot. Which voice is that?';
+    if (HELPER[id]) return peg === 'boss' ? 'Is that Liv&rsquo;s voice for the Commander? Commander at the top, facts first, her full name at the end. Who does she say Hei to, and who gets a kiss?' :
+      peg === 'friend' ? 'Hei, and a kiss at the end: is that how Liv writes to Keiko? Look at her note about the dust devil.' : 'Look at how it starts and how it ends. Which of Liv&rsquo;s voices is it written in?';
+    return s ? 'Read that one again: how does it start, and how does it end?' : '';
+  }
+  function openLine() {
+    var box = ER.el('div', 'pg'), done = false;
+    box.innerHTML = '<div class="pg-cols">' + PEGS.map(function (p) {
+      var s = '<div class="pg-col" data-peg="' + p[0] + '"><h6>' + p[1] + '<small>' + p[2] + '</small></h6>', i;
+      for (i = 0; i < 4; i++) s += '<div class="slot" data-s="' + p[0] + i + '"></div>';
+      return s + '</div>';
+    }).join('') + '</div><div class="pg-line"></div>' +
+      '<div class="pg-foot"><p class="pmsg"></p><button type="button" class="btn" id="h-check">Show Keiko</button></div>';
+    var tray = box.querySelector('.pg-line'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CP.STRIPS.forEach(function (s) {
+      var n = ER.el('div', 'strip dnd-item', '<div class="to">' + s.to + '</div>' + s.text); n.setAttribute('data-id', s.id);
+      var at = null, k; for (k in S.at) if (S.at[k] === s.id) at = k;
+      (at ? box.querySelector('.slot[data-s="' + at + '"]') : tray).appendChild(n);
+    });
+    function read() {
+      var o = {}, where = {};
+      ER.$$('.slot', box).forEach(function (sl) { var t = sl.querySelector('.strip'); sl.classList.toggle('full', !!t); sl.classList.remove('bad'); if (t) { o[sl.getAttribute('data-s')] = t.getAttribute('data-id'); where[t.getAttribute('data-id')] = sl.getAttribute('data-s').replace(/\d$/, ''); } });
+      return { at: o, peg: where };
+    }
+    ER.dnd(box, { item: '.strip', slot: '.slot', home: tray, change: function () { S.at = read().at; keep(); CP.sfx.peg(); }, lock: function () { return done; } });
+    read();
+    box.querySelector('#h-check').addEventListener('click', function () {
+      if (done) return;
+      var r = read(), ids = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], i, bad = null;
+      if (!Object.keys(r.peg).length) { msg('&ldquo;On the pegs first,&rdquo; says Keiko. &ldquo;Drag a strip, or click it and then a space.&rdquo;'); return; }
+      if (Object.keys(r.peg).length < 8) { msg('&ldquo;All eight,&rdquo; says Keiko. &ldquo;Every strip has a voice.&rdquo;'); ER.shake(tray); return; }
+      for (i = 0; i < ids.length; i++) if (!ER.check(ids[i], r.peg[ids[i]])) { bad = ids[i]; break; }
+      if (bad) {
+        CP.bump('miss'); CP.sfx.hm();
+        var n = box.querySelector('.strip[data-id="' + bad + '"]'); n.parentNode.classList.add('bad');
+        msg(why(bad, r.peg[bad])); return;
+      }
+      var file = ER.exitOk([ids.map(function (k) { return r.peg[k]; }).join('|')]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says Keiko. &ldquo;Look again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('h-file', file); CP.done('greenhouse'); busy = true;
+      ER.$$('.strip', box).forEach(function (n) {
+        var to = n.querySelector('.to').textContent, peg = r.peg[n.getAttribute('data-id')];
+        var odd = (/COMMANDER/.test(to) && peg !== 'boss') || (/ISHIDA/.test(to) && peg !== 'friend') || (/KAJA/.test(to) && peg !== 'kaja');
+        n.classList.toggle('odd', odd);
+      });
+      box.classList.add('shown');
+      CP.mine('voices', 'Four voices, eight strips', '<p>To Kaja: Hei Kaja, news, Mum x (sols to go). To a friend: a name and a comma, a joke, L. To the Commander: Commander, facts first, then a request, Liv Gundersen. The log: no greeting, no name, numbers, times with a dot.</p>' +
+        '<p>Three strips are in her voice for Kaja but were sent to the Commander (Sol 211, 22:33 and Sol 213, 16:58) and to Keiko (Sol 212, 10:31): right style, wrong reader.</p>' +
+        '<p>The two short ones (Sol 212, 03:14 and Sol 213, 21:41) are in her log voice, sent to all crew: Liv in a hurry, not a holding note.</p>', true);
+      msg('Keiko lays the torn-off headers beside the strips, one by one.');
+      ER.sfx.paper();
+      setTimeout(function () { ER.closeAll(); CP.solved(); paint(); after(); }, 4200);
+    });
+    msg(Object.keys(S.at).length ? 'The strips are where you left them.' : 'Hang each strip by the voice it is written in. Drag it, or click it and then a space.');
+    ER.open('ov-lock', box);
+  }
+  $('#line').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The strips, on their pegs. Three in Liv&rsquo;s voice for Kaja were sent to the Commander and to Keiko.'); return; }
+    if (!ER.flag('h-talk')) { ER.say('Eight strips of paper on a washing line. Talk to Keiko first.'); return; }
+    if (!ER.flag('h-hand')) { ER.say('&ldquo;Read the handbook first,&rdquo; says Keiko. &ldquo;It is on the bench.&rdquo;'); return; }
+    openLine();
+  });
+  function after() {
+    ER.narrate([
+      'Two of the strips in Liv&rsquo;s voice for Kaja were sent to the Commander. A third went to Keiko herself. &ldquo;Hei Joss,&rdquo; Keiko reads. &ldquo;Liv has never once called the Commander Joss in a message. And she has never sent me a kiss in her life.&rdquo;',
+      '&ldquo;Right style, wrong reader,&rdquo; she says. &ldquo;That is how Liv writes to a thirteen-year-old. Whatever wrote these learnt Liv from her letters to Kaja, because that is most of what Liv writes. It knows one voice, and it uses it for everybody.&rdquo;',
+      'The two short strips went to all crew. &ldquo;No greeting, no name, numbers and times with a dot. That is not a holding note. A holding note says <i>she will reply soon</i>. That is her log voice. That is Liv in a hurry.&rdquo;',
+      '&ldquo;It is not proof,&rdquo; she adds. &ldquo;Hugh will say she was tired, or cold, or joking. He is in the suit room, and he has pinned up the messages he says prove she is fine. Let us look at what they say, not how they say it.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

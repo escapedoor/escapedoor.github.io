@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Galley · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#3a2614;--accent:#ffbf5a;--font-display:'EB Garamond',serif;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(40,26,14,.96);--tc-ink:#fbf0de;--cap-bg:rgba(40,26,14,.93);--cap-ink:#fff4e2;--panel:#2e2014;--face-bg:#2c4a2a;--q-ink:#ffd59a;--fade:#0a0602;--hud-bg:rgba(40,26,14,.84)}
+  .tc-room{font-size:60px;font-weight:600;letter-spacing:.02em}
+  .tk-name{font-family:'EB Garamond',serif;font-weight:600;font-size:27px}
+  .steam{animation:steam 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .steam:nth-child(2){animation-delay:-1.7s}.steam:nth-child(3){animation-delay:-3.3s}
+  @keyframes steam{0%{opacity:0;transform:translateY(8px) scale(.8)}40%{opacity:.45}100%{opacity:0;transform:translateY(-50px) scale(1.3)}}
+  .wob{animation:wob 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes wob{0%,86%,100%{transform:none}90%{transform:rotate(-2deg)}94%{transform:rotate(2deg)}}
+  #fridge.next .fscr,#book.next .spine,#till.next rect,#clock.next circle:first-child{animation:cnudge 1.7s ease-in-out infinite}
+
+  /* the habit card on the fridge */
+  .hb{display:grid;grid-template-columns:minmax(0,740px) 360px;gap:14px;width:min(1124px,97vw);align-items:start}
+  .hb-scr{max-height:calc(100vh - 110px);overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;background:#10202a;border:10px solid #d8dcdc;border-radius:10px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .hb-scr .msg{font-size:14.5px;line-height:1.42}
+  .hb-scr .msg-b .gr,.hb-scr .msg-b .sg{color:#6a727c}
+  .tw{cursor:pointer;border-radius:3px;border-bottom:2px solid transparent}
+  .tw:hover{background:rgba(255,190,80,.35)}
+  .hb-card{padding:12px 14px 12px;background:#fffdf4;color:#2a2418;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6);font-family:'Outfit',sans-serif}
+  .hb-card h6{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;letter-spacing:.12em;color:#8a4a10}
+  .hb-card .hl{margin:0 0 6px;font-weight:300;font-size:13px;line-height:1.3;color:#5a5040}
+  .hr{display:grid;grid-template-columns:20px 1fr 1fr;gap:5px;align-items:stretch;margin:0 0 5px}
+  .hr.one{grid-template-columns:20px 1fr}
+  .hr>i{font-style:normal;font-family:'Oswald',sans-serif;font-size:15px;color:#8a7a5a;align-self:center}
+  .pen{position:relative;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:4px 7px 4px 10px;border:2px solid #d8d0bc;border-radius:5px;background:#fff;color:#2a2418;
+    font-family:'Outfit',sans-serif;font-weight:400;font-size:13.5px;line-height:1.15;text-align:left;min-height:34px}
+  .pen:before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:3px 0 0 3px;background:var(--c)}
+  .pen small{display:block;font-weight:300;font-size:11.5px;color:#6a6050}
+  .pen b{font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:18px;min-width:22px;text-align:right}
+  .pen.held{border-color:var(--c);box-shadow:0 0 0 2px var(--c)}
+  .hr.bad .pen{background:#ffe8e0}
+  .avg{display:flex;align-items:center;gap:8px;margin:6px 0 4px;padding:5px 8px;border:2px solid #d8d0bc;border-radius:5px}
+  .avg span{flex:1;font-size:13.5px}
+  .avg span small{display:block;font-weight:300;font-size:11.5px;color:#6a6050}
+  .avg output{font-family:'Share Tech Mono',monospace;font-size:22px;min-width:30px;text-align:center}
+  .avg button{width:30px;height:28px;border:1px solid #b8ae96;border-radius:4px;background:#f4eedc;font-size:16px}
+  .avg.bad{background:#ffe8e0}
+  .hb-card .pmsg{min-height:62px;margin:6px 0;font-size:14.5px;color:#2a2418}
+  .hb-card .btn{--accent:#8a4a10;width:100%}
+  @media (max-width:1000px){.hb{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4bf94"/><stop offset="1" stop-color="#b89a68"/></linearGradient>
+  <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2a874"/><stop offset=".7" stop-color="#e8bc8a"/><stop offset="1" stop-color="#d89a6a"/></linearGradient>
+  <radialGradient id="lamp" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a0602" stop-opacity=".18"/><stop offset="1" stop-color="#0a0602" stop-opacity=".82"/></radialGradient>
+  <clipPath id="gPort"><circle cx="220" cy="230" r="82"/></clipPath>
+  <clipPath id="gPh"><rect x="420" y="150" width="96" height="112"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#gWall)"/>
+<g stroke="#a88a5a" stroke-width="3" opacity=".6"><path d="M-1000 330H2600M120 -600V330M600 -600V330M960 -600V330M1460 -600V330"/></g>
+<g fill="#a88a5a" opacity=".7"><circle cx="120" cy="40" r="5"/><circle cx="600" cy="40" r="5"/><circle cx="960" cy="40" r="5"/><circle cx="1460" cy="40" r="5"/></g>
+<!-- the porthole: butterscotch morning over the dunes, and the storm on the horizon -->
+<g id="port" class="hot"><circle cx="220" cy="230" r="98" fill="#8a8f96"/><circle cx="220" cy="230" r="90" fill="#5a5f66"/>
+  <g clip-path="url(#gPort)"><rect x="130" y="140" width="180" height="180" fill="url(#gSky)"/>
+    <path d="M130 258q40 -10 70 -4t110 -2V320H130Z" fill="#a8603e"/><path d="M130 280q60 -18 120 -4t60 0V320H130Z" fill="#8a4a30"/>
+    <path d="M130 250q24 -18 52 -6v10H130Z" fill="#7a5040" opacity=".6"/><circle cx="270" cy="190" r="7" fill="#fff6e0" opacity=".9"/></g>
+  <g fill="#c8ccd2"><circle cx="220" cy="134" r="5"/><circle cx="316" cy="230" r="5"/><circle cx="220" cy="326" r="5"/><circle cx="124" cy="230" r="5"/></g></g>
+<!-- the corkboard, with Liv's photograph -->
+<g id="photo" class="hot"><rect x="380" y="120" width="210" height="190" fill="#b5844e" stroke="#7a5430" stroke-width="7"/>
+  <rect x="414" y="144" width="108" height="124" fill="#fbf8f0" transform="rotate(-3 468 206)"/>
+  <g transform="rotate(-3 468 206)"><g clip-path="url(#gPh)"><rect x="420" y="150" width="96" height="112" fill="#d8946a"/><path d="M420 230l30 -20 30 14 36 -24V262H420Z" fill="#8a4a30"/><use href="#ch-liv" x="430" y="168" width="76" height="99"/></g></g>
+  <circle cx="468" cy="146" r="5" fill="#c43c22"/>
+  <rect x="530" y="200" width="44" height="34" fill="#bfe3ff" transform="rotate(6 552 217)"/><rect x="532" y="250" width="40" height="40" fill="#ffd08a" transform="rotate(-5 552 270)"/></g>
+<!-- the shelf of paper books -->
+<g id="book" class="hot"><rect x="640" y="250" width="290" height="12" fill="#7a5430"/>
+  <g><rect x="652" y="164" width="22" height="86" fill="#3a5a8a"/><rect x="676" y="174" width="18" height="76" fill="#8a3a2a"/><rect x="696" y="160" width="26" height="90" fill="#2a6a4a"/>
+  <rect class="spine" x="724" y="152" width="34" height="98" fill="#c8302a"/><text x="741" y="245" transform="rotate(-90 741 245)" font-family="Oswald" font-size="13" fill="#fff">WHO WROTE IT?</text>
+  <rect x="760" y="170" width="20" height="80" fill="#d8b04a"/><rect x="782" y="166" width="24" height="84" fill="#5a3a6a"/><path d="M810 250l40 -78 14 6 -38 72z" fill="#3a6a8a"/></g></g>
+<!-- the galley clock -->
+<g id="clock" class="hot"><circle cx="1060" cy="190" r="62" fill="#f8f2e4" stroke="#5a4028" stroke-width="7"/>
+  <g stroke="#5a4028" stroke-width="3"><path d="M1060 136v10M1060 234v10M1006 190h10M1104 190h10"/></g>
+  <path d="M1060 190L1060 150" stroke="#2a1e12" stroke-width="5" stroke-linecap="round"/><path d="M1060 190L1086 202" stroke="#2a1e12" stroke-width="4" stroke-linecap="round"/><circle cx="1060" cy="190" r="4" fill="#c0302a"/>
+  <text x="1060" y="176" text-anchor="middle" class="orb" font-size="11" fill="#8a5a2a">MARS TIME</text>
+  <rect x="1012" y="262" width="96" height="40" rx="4" fill="#203238"/><text x="1060" y="288" text-anchor="middle" class="mono" font-size="15" fill="#ffcf7a">SOL 214</text></g>
+<!-- the counter and Grumbles the coffee machine -->
+<path d="M-1000 560H600V1500H-1000Z" fill="#7a5a3a"/><rect x="-1000" y="548" width="1600" height="20" fill="#e8d4a8"/>
+<g fill="#6a4a2e"><rect x="-20" y="590" width="180" height="200" rx="6"/><rect x="180" y="590" width="180" height="200" rx="6"/><rect x="380" y="590" width="180" height="200" rx="6"/></g>
+<g id="grumbles" class="hot"><g class="wob"><rect x="300" y="404" width="150" height="146" rx="12" fill="#3a3f46"/><rect x="314" y="418" width="122" height="56" rx="6" fill="#20242a"/>
+  <circle cx="345" cy="446" r="13" fill="#f2f2ec"/><circle cx="405" cy="446" r="13" fill="#f2f2ec"/><circle cx="348" cy="448" r="5" fill="#111"/><circle cx="402" cy="448" r="5" fill="#111"/>
+  <path d="M338 430l16 6M412 430l-16 6" stroke="#f2f2ec" stroke-width="3"/>
+  <rect x="340" y="496" width="70" height="40" rx="4" fill="#20242a"/><path d="M352 504q23 14 46 0" stroke="#f2f2ec" stroke-width="3" fill="none"/>
+  <rect x="356" y="518" width="38" height="28" rx="3" fill="#e8e2d4"/></g>
+  <g fill="#fff"><ellipse class="steam" cx="372" cy="396" rx="9" ry="13" opacity=".35"/><ellipse class="steam" cx="384" cy="388" rx="8" ry="12" opacity=".3"/></g></g>
+<!-- the fridge, with its screen and Hugh's note -->
+<g id="fridge" class="hot"><rect x="1200" y="150" width="240" height="590" rx="14" fill="#eef1f2"/><rect x="1200" y="430" width="240" height="6" fill="#c3c9cc"/>
+  <rect x="1408" y="200" width="10" height="120" rx="4" fill="#b0b8bc"/><rect x="1408" y="470" width="10" height="160" rx="4" fill="#b0b8bc"/>
+  <g class="fscr"><rect x="1224" y="192" width="168" height="206" rx="6" fill="#10202a"/>
+  <text x="1236" y="214" class="mono" font-size="11" fill="#9fe8d8">LIV · SOLS 198-207</text>
+  <g fill="#fbfbf7"><rect x="1236" y="226" width="70" height="52" rx="2"/><rect x="1312" y="226" width="70" height="52" rx="2"/><rect x="1236" y="284" width="70" height="52" rx="2"/><rect x="1312" y="284" width="70" height="52" rx="2"/><rect x="1236" y="342" width="70" height="46" rx="2"/><rect x="1312" y="342" width="70" height="46" rx="2"/></g>
+  <g stroke="#8a929e" stroke-width="2"><path d="M1242 240h56M1242 250h48M1242 260h56M1318 240h52M1318 250h56M1318 260h40M1242 298h56M1242 308h44M1318 298h56M1318 308h50M1242 356h52M1318 356h48"/></g></g></g>
+<g id="hnote" class="hot"><rect x="1286" y="470" width="96" height="70" fill="#fff8b0" transform="rotate(-6 1334 505)"/><circle cx="1334" cy="472" r="7" fill="#3a8ad8"/>
+  <g transform="rotate(-6 1334 505)"><g stroke="#2a2a6a" stroke-width="2.4" fill="none"><path d="M1296 492q10-5 20 0t20 0t20 0M1296 508q14-5 28 0t28 0M1296 524q12-4 24 0"/></g></g></g>
+<!-- the table, with porridge and the printout -->
+<path d="M520 650H1200L1260 900H460Z" fill="#9a7650"/><path d="M520 650H1200" stroke="#c49a6a" stroke-width="6"/>
+<g id="keikoG" class="hot"><use href="#ch-keiko" x="880" y="330" width="250" height="325"/></g>
+<path d="M520 650H1200L1210 676H510Z" fill="#9a7650"/><path d="M520 650H1200" stroke="#c49a6a" stroke-width="6"/>
+<g id="pot"><ellipse cx="640" cy="648" rx="70" ry="14" fill="#5a5a5a"/><path d="M570 648v-46q70 -14 140 0v46z" fill="#7a7a7a"/><path d="M570 602q70 -14 140 0q-70 14 -140 0z" fill="#e8dcc0"/>
+  <g fill="#fff"><ellipse class="steam" cx="624" cy="586" rx="10" ry="14" opacity=".35"/><ellipse class="steam" cx="648" cy="578" rx="9" ry="13" opacity=".3"/><ellipse class="steam" cx="664" cy="584" rx="8" ry="12" opacity=".3"/></g></g>
+<g id="till" class="hot"><rect x="760" y="666" width="120" height="16" fill="#fdfdf8" transform="rotate(-4 820 674)"/><rect x="740" y="672" width="64" height="44" rx="5" fill="#2a2e32" transform="rotate(8 772 694)"/>
+  <g stroke="#8a929e" stroke-width="1.6" transform="rotate(-4 820 674)"><path d="M770 672h40M816 672h50M770 678h30"/></g></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#lamp)" pointer-events="none"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the greenhouse</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'galley', no: 'II', title: 'The Galley',
+    go: 'Follow the smell of porridge',
+    intro: [
+      'At the comms desk you worked out today&rsquo;s light time: 225 000 000 km ÷ 300 000 km a second is 750 seconds, 12 minutes 30 seconds, so an answer from Mars needs at least 25 minutes. Three of &lsquo;Mum&rsquo;s&rsquo; answers to Kaja came back in one minute, eighteen and two. They were written on Earth: Homeward&rsquo;s helper is writing as Liv. The 19:33 message was not too fast, because it answered nothing; and 26 minutes was possible, just.',
+      'So which of the messages to the base are Liv&rsquo;s? The Commander decides about the rover at noon.',
+      'It is seven o&rsquo;clock. The galley smells of porridge and of coffee that has been made by a machine with opinions.'
+    ],
+    exit: {"next":"greenhouse","w":{"7f34e148":"36332c98"}}, tags: {"r1":["fdaba788"],"r2":["897a0510"],"r3":["ce3745f8"],"r4":["7cd24731"],"r5":["d74e7b97"],"r6":["04e9bea0"],"r7":["07e1cb76"],"avg":["db8bc21f"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('g-file') || null;
+  var S = ER.flag('g-st') || { mk: {}, avg: 0 };
+  function keep() { ER.flag('g-st', S); }
+
+  var PENS = [
+    ['r1', [['r1a', 'whilst', '', '#2a6ad8'], ['r1b', 'while', '', '#7aa8ee']]],
+    ['r2', [['r2a', 'perhaps', '', '#2a9a4a'], ['r2b', 'maybe', '', '#8ccc94']]],
+    ['r3', [['r3a', 'British spelling', 'colour, centre, metres, grey, organise', '#8a3ad0'], ['r3b', 'American spelling', 'color, center, meters, gray, organize', '#c4a0ee']]],
+    ['r4', [['r4', 'short forms', 'don&rsquo;t, it&rsquo;s, I&rsquo;m, we&rsquo;ll &hellip;', '#d83a2a']]],
+    ['r5', [['r5a', 'times like 14.20', 'that she wrote herself', '#e0861a'], ['r5b', 'times like 14:20', 'that she wrote herself', '#f0c27a']]],
+    ['r6', [['r6', 'exclamation marks !', '', '#d83a9a']]],
+    ['r7', [['r7', 'splendid', 'her favourite word', '#1a9a9a']]]
+  ];
+  var COL = {}; PENS.forEach(function (r) { r[1].forEach(function (p) { COL[p[0]] = p[3]; }); });
+
+  var BOOK = '<h4>Who wrote it?</h4><h5>From Keiko&rsquo;s puzzle book, page 112: a true story, and how to do it yourself</h5>' +
+    '<p>In 1787 and 1788, eighty-five essays appeared in New York newspapers, arguing for the new American constitution. All of them were signed with the same false name, &lsquo;Publius&rsquo;. Later, Alexander Hamilton and James Madison both said that they had written twelve of them.</p>' +
+    '<p>In the 1960s two statisticians, Frederick Mosteller and David Wallace, settled the question by counting small words that writers use without thinking. Hamilton wrote <i>upon</i> about three times in every thousand words; Madison hardly ever did. Hamilton wrote <i>while</i>; Madison wrote <i>whilst</i>. The twelve essays had Madison&rsquo;s habits.</p>' +
+    '<p><b>To do it yourself:</b></p><ol><li>Collect writing that you <i>know</i> is by the person.</li>' +
+    '<li>Count the habits they do not think about: small words, spellings, short forms, punctuation, how sentences begin and end, how long they are.</li>' +
+    '<li>Count the same habits in the writing in doubt.</li></ol>' +
+    '<p>One habit proves nothing: anybody can write <i>whilst</i> once. Several habits that agree are evidence.</p><p class="pg">112</p>';
+  var TILL = '<h4>WORD COUNT</h4><p>L. GUNDERSEN</p><p>6 MESSAGES &middot; SOLS 198&ndash;207</p><div class="rule"></div>' +
+    '<p>WORDS ......... <span class="big">260</span></p><p>SENTENCES ..... <span class="big">26</span></p><div class="rule"></div>' +
+    '<p>Not counted: greetings, names at the end, header lines.</p><p>WORDS PER SENTENCE: ?</p><p style="font-family:Caveat,cursive;font-weight:700;font-size:21px;color:#2a5a9a">Work that one out yourself. K.</p>';
+  var CLOCK = '<h4>MARS TIME</h4>' +
+    '<svg viewBox="0 0 560 70" aria-hidden="true"><text x="0" y="22" font-family="Share Tech Mono" font-size="14" fill="#9fc8c0">EARTH DAY</text><rect x="110" y="8" width="384" height="18" fill="#3a8ad8"/><text x="500" y="22" font-family="Share Tech Mono" font-size="13" fill="#eef6f4">24 h</text>' +
+    '<text x="0" y="56" font-family="Share Tech Mono" font-size="14" fill="#9fc8c0">SOL</text><rect x="110" y="42" width="394" height="18" fill="#d8643a"/><text x="510" y="56" font-family="Share Tech Mono" font-size="13" fill="#eef6f4">24 h 40 min</text></svg>' +
+    '<p>A sol, one day on Mars from noon to noon, lasts 24 hours 39 minutes 35 seconds: about forty minutes longer than a day on Earth. The base clock divides each sol into 24 Mars hours, so a Mars hour is about a minute and a half longer than an Earth hour, and noon is always when the Sun is highest. Rover teams on Earth have lived on this clock too. They say it feels like flying forty minutes west every single day.</p>' +
+    '<p>Juniper counts sols from the day we landed. Today is Sol 214. Our flight home leaves on Sol 499, and Liv counts down to it at the end of every message to Kaja.</p>';
+  var PHOTO = '<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="#d8946a"/><path d="M0 220l90 -50 80 30 110 -70 120 40V300H0Z" fill="#8a4a30"/><path d="M0 250l120 -30 140 20 140 -24V300H0Z" fill="#6a3a24"/>' +
+    '<circle cx="200" cy="150" r="96" fill="#bfd8e8" opacity=".35"/><use href="#ch-liv" x="120" y="60" width="160" height="208"/><circle cx="200" cy="150" r="96" fill="none" stroke="#e8e8e8" stroke-width="8"/></svg>' +
+    '<p>Sol 100. The rim at last. Splendid. L.</p>';
+
+  function hints() {
+    if (nextFile) return ['go', ['Keiko has printed the messages in doubt in the greenhouse. Click the button at the bottom of the screen.']];
+    if (!ER.flag('g-talk')) return ['talk', [
+      'Keiko Ishida is standing at the table with the porridge. Click on her and listen to the end.',
+      'She will tell you which messages are certainly Liv&rsquo;s, and where to start.'
+    ]];
+    if (!ER.flag('g-book') || !ER.flag('g-till') || !ER.flag('g-clock')) return ['read', [
+      'Three things to read before the fridge: the red book on the shelf (the page with the folded corner), the word-count printout on the table, and the card under the galley clock.',
+      'The book page tells you how to count a writer&rsquo;s habits. The printout is for the last row of the card. The clock card is about sols, and about the number at the end of Liv&rsquo;s messages to Kaja.'
+    ]];
+    return ['card', [
+      'Pick a pen on the habit card, then click every example of it in Liv&rsquo;s six messages. A word can carry only one mark; click it again to take the mark off. Read every message to the end, the science log too.',
+      'Two traps. A short form squeezes two words into one (don&rsquo;t = do not, it&rsquo;s = it is), but &rsquo;s can also mean &lsquo;belonging to&rsquo;. And count only times that Liv wrote herself: the grey header lines are the mail system&rsquo;s. The last row comes from the printout: words ÷ sentences.',
+      'In every message look for: whilst or while; perhaps or maybe; colour, centre, metres, grey, organise or their American forms; short forms; times she wrote herself, with a dot or with a colon; exclamation marks; splendid. Some rows really are nought. If Liv never does a thing, that is a habit too.'
+    ]];
+  }
+  function paint() {
+    var reads = ER.flag('g-book') && ER.flag('g-till') && ER.flag('g-clock'), talk = ER.flag('g-talk');
+    $('#book').setAttribute('class', 'hot' + (talk && !ER.flag('g-book') ? ' next' : ''));
+    $('#till').setAttribute('class', 'hot' + (talk && !ER.flag('g-till') ? ' next' : ''));
+    $('#clock').setAttribute('class', 'hot' + (talk && !ER.flag('g-clock') ? ' next' : ''));
+    $('#fridge').setAttribute('class', 'hot' + (!nextFile && talk && reads ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The galley. Liv&rsquo;s habit card is pinned to the fridge.'); return; }
+    if (ER.flag('g-seen')) { ER.say('The galley: Keiko, the fridge with its screen, the shelf of books, the clock, the printout on the table.'); return; }
+    busy = true; ER.flag('g-seen', 1);
+    ER.narrate([
+      'The galley, at seven. Through the porthole the sky over Gale Crater is the colour of butterscotch, and very still. Far to the south, on the horizon, sits a low brown smudge.',
+      'Dr Keiko Ishida, botanist and base doctor, stands at the table with a pan in one hand and a tablet in the other. She is Liv&rsquo;s best friend on Juniper, and she has clearly heard.',
+      'On the counter, the coffee machine makes a noise like a walrus clearing its throat.'
+    ], function () { busy = false; paint(); CP.sfx.gurgle(); });
+  }
+
+  $('#keikoG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Seven habits,&rdquo; says Keiko. &ldquo;Now the messages in doubt. They are in the greenhouse.&rdquo;'); return; }
+    if (ER.flag('g-talk')) { ER.say('&ldquo;Read the page with the folded corner,&rdquo; says Keiko. &ldquo;Then count. The fridge screen has Liv&rsquo;s six.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.keiko.who, role: CAST.keiko.role, face: FACE('keiko'),
+      lines: [
+        { note: 'Small and quick, with round glasses and a green fleece with seed packets in every pocket. She does not exactly smile, but her eyes do.',
+          a: '&ldquo;The Commander rang me. Something on Earth is writing as Liv. Last night I said those cheerful messages sounded like Liv doing an impression of Liv. Hugh said I was being poetic.&rdquo;' },
+        { q: 'How can we tell which messages are hers?',
+          a: '&ldquo;We count. My puzzle book is on the shelf, the red one: read the page with the folded corner. Then we count Liv&rsquo;s habits in messages that we know are hers, and write them on a habit card.&rdquo;' },
+        { q: 'Which messages do we know are hers?',
+          a: '&ldquo;Everything from before 21.10 on Sol 211. Homeward&rsquo;s helper was off until Hugh switched it on that night. I have put six of Liv&rsquo;s older messages on the fridge screen: to Kaja, to me, to the Commander, to everyone, and one from the science log. The tablet printed the word counts.&rdquo;' },
+        { q: 'What is that noise?',
+          a: '&ldquo;Grumbles. The coffee machine. Liv named him at breakfast on Sol 3, because of the noise. It is a galley joke: we say it, we never write it. It has never once been in a message.&rdquo;' },
+        { q: 'Is Liv all right?',
+          a: 'She puts the pan down. &ldquo;I do not know. That is why we count.&rdquo;' }
+      ],
+      clue: { id: 'keiko1', title: 'Keiko, at seven', kind: 'What she said' }, last: 'Start counting',
+      done: function (seen) { if (!seen) return; ER.flag('g-talk', 1); CP.learn(['habit', 'galley']); paint(); ER.say('The red book is on the shelf. The printout is on the table, by the porridge.'); }
+    });
+  });
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'page', clue: { id: 'book', title: 'Who wrote it?', kind: 'Book page' }, done: function () { ER.flag('g-book', 1); CP.learn(['statistician', 'habit', 'short form', 'evidence']); paint(); } });
+  });
+  $('#till').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TILL, cls: 'till', clue: { id: 'till', title: 'Word count', kind: 'Printout' }, done: function () { ER.flag('g-till', 1); CP.learn(['sentence']); paint(); } });
+  });
+  $('#clock').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CLOCK, cls: 'clock', clue: { id: 'clock', title: 'Mars time', kind: 'Card by the clock' }, done: function () { ER.flag('g-clock', 1); CP.learn(['sol', 'countdown']); paint(); } });
+  });
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PHOTO, cls: 'photo', clue: { id: 'photo', title: 'Liv at the rim, Sol 100', kind: 'Photograph' } });
+  });
+  CP.thing('#grumbles', null, function () { CP.sfx.gurgle(); return 'The coffee machine. Somebody has given it two eyes and a mouth with a marker pen. It gurgles at you, and produces something black.'; }, isBusy);
+  CP.thing('#hnote', null, 'A note on the fridge in Hugh&rsquo;s big round letters: <i>Grumbles is NOT broken. Kick him gently, on the left. H.</i>', isBusy);
+  CP.thing('#port', 'porthole', 'Butterscotch sky, red-grey dunes, and a pale small Sun. On the southern horizon sits a brown smudge that was not there last week.', isBusy);
+  CP.thing('#pot', null, 'Porridge made with powdered milk and Mars water, which was ice until last month. Keiko says it is very good for you. Keiko also says that about lettuce.', isBusy);
+
+  /* ---------- the habit card ---------- */
+  var WHY = {
+    r1: 'Row 1 is not right yet. Read all six to the end, the message to the Commander too.',
+    r2: 'Row 2 is not right yet. Every perhaps and every maybe, in all six messages.',
+    r3: 'Row 3 is not right yet. Look for words that Britain and America spell differently; the pens list the usual ones. One of them is in the science log.',
+    r4: 'Row 4 is not right yet. A short form squeezes two words into one: don&rsquo;t is do not, it&rsquo;s is it is. But &rsquo;s can also mean belonging to: Grandpa&rsquo;s church is the church of Grandpa.',
+    r5: 'Row 5 is not right yet. Count only the times that Liv wrote inside her messages, not the grey header lines.',
+    r6: 'Row 6 is not right yet. Look again at the end of every sentence. Does Liv ever shout?',
+    r7: 'Row 7 is not right yet. Splendid is her favourite word, but how often does she really use it?',
+    avg: 'The last row is from the printout: the number of words divided by the number of sentences.'
+  };
+  function openCard() {
+    var box = ER.el('div', 'hb'), done = false, held = null, scr = '', next = 0;
+    CP.KNOWN.forEach(function (m) {
+      var t = CP.tokens(m.body, next); next = t.next;
+      scr += CP.slip(m.head, (m.greet ? '<span class="gr">' + m.greet + '</span> ' : '') + t.html + (m.sign ? '<span class="sg">' + m.sign + '</span>' : ''));
+    });
+    var card = '<h6>LIV &middot; HABIT CARD</h6><p class="hl">Pick a pen, then click every example in the messages. Click again to take a mark off.</p>';
+    PENS.forEach(function (r, i) {
+      card += '<div class="hr' + (r[1].length === 1 ? ' one' : '') + '" data-r="' + r[0] + '"><i>' + (i + 1) + '</i>' + r[1].map(function (p) {
+        return '<button type="button" class="pen" data-p="' + p[0] + '" style="--c:' + p[3] + '"><span>' + p[1] + (p[2] ? '<small>' + p[2] + '</small>' : '') + '</span><b>0</b></button>';
+      }).join('') + '</div>';
+    });
+    card += '<div class="avg"><span>8 &nbsp;words per sentence<small>from the printout</small></span><button type="button" data-v="-1">&minus;</button><output>0</output><button type="button" data-v="1">+</button></div>' +
+      '<p class="pmsg"></p><button type="button" class="btn" id="g-pin">Pin the card up</button>';
+    box.innerHTML = '<div class="hb-scr">' + scr + '</div><div class="hb-card">' + card + '</div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function count(k) { var n = 0, i; for (i in S.mk) if (S.mk[i] === k) n++; return n; }
+    function show() {
+      ER.$$('.tw', box).forEach(function (n) {
+        var k = S.mk[n.getAttribute('data-i')];
+        n.style.background = k ? COL[k] + '55' : ''; n.style.borderBottomColor = k ? COL[k] : 'transparent';
+      });
+      ER.$$('.pen', box).forEach(function (b) { var k = b.getAttribute('data-p'); b.querySelector('b').textContent = count(k); b.classList.toggle('held', k === held); });
+      box.querySelector('.avg output').textContent = S.avg;
+    }
+    ER.$$('.pen', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; var k = b.getAttribute('data-p'); held = held === k ? null : k; show();
+        if (held) msg('Now click every example of it in the messages.'); });
+    });
+    ER.$$('.tw', box).forEach(function (n) {
+      n.addEventListener('click', function () {
+        if (done) return;
+        var i = n.getAttribute('data-i');
+        if (!held) { msg('Pick a pen on the card first.'); return; }
+        if (S.mk[i] === held) delete S.mk[i]; else S.mk[i] = held;
+        CP.sfx.pen(); keep(); ER.$$('.bad', box).forEach(function (o) { o.classList.remove('bad'); }); show();
+      });
+    });
+    ER.$$('.avg button', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; S.avg = Math.max(0, Math.min(30, S.avg + +b.getAttribute('data-v'))); CP.sfx.dial(); keep(); show(); });
+    });
+    box.querySelector('#g-pin').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.bad', box).forEach(function (o) { o.classList.remove('bad'); });
+      var v = {
+        r1: count('r1a') + '-' + count('r1b'), r2: count('r2a') + '-' + count('r2b'), r3: count('r3a') + '-' + count('r3b'), r4: String(count('r4')),
+        r5: count('r5a') + '-' + count('r5b'), r6: String(count('r6')), r7: String(count('r7')), avg: String(S.avg)
+      };
+      if (!Object.keys(S.mk).length) { msg('&ldquo;An empty card,&rdquo; says Keiko. &ldquo;Count first.&rdquo;'); return; }
+      if (!S.avg) { msg('&ldquo;And the last row,&rdquo; says Keiko, &ldquo;from the printout.&rdquo;'); ER.shake(box.querySelector('.avg')); return; }
+      var keys = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'avg'], i;
+      for (i = 0; i < keys.length; i++) if (!ER.check(keys[i], v[keys[i]])) {
+        CP.bump('miss'); CP.sfx.hm();
+        var row = keys[i] === 'avg' ? box.querySelector('.avg') : box.querySelector('.hr[data-r="' + keys[i] + '"]');
+        row.classList.add('bad'); ER.shake(row);
+        msg(WHY[keys[i]]); return;
+      }
+      var file = ER.exitOk([keys.map(function (k) { return v[k]; }).join('|')]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says Keiko. &ldquo;Count it again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('g-file', file); CP.done('galley'); busy = true;
+      CP.mine('habits', 'Liv&rsquo;s habit card', '<p>From six messages we know are hers (Sols 198&ndash;207):</p><p>whilst 3, while 0 &middot; perhaps 3, maybe 0 &middot; British spelling 5, American 0 &middot; short forms 0 &middot; times like 14.20: 3, like 14:20: 0 &middot; exclamation marks 0 &middot; splendid 2 &middot; 260 words, 26 sentences: 10 words a sentence.</p>' +
+        '<p>Her countdown for Kaja: sols to go = 499 − today&rsquo;s sol.</p><p>Grumbles (the coffee machine) has never been in a message.</p><p>One habit proves nothing. Several together are evidence.</p>', true);
+      msg('Keiko reads the card aloud, row by row.');
+      setTimeout(function () { ER.closeAll(); CP.solved(); paint(); after(); }, 2200);
+    });
+    show();
+    msg(Object.keys(S.mk).length ? 'Your marks are where you left them.' : 'Six messages that are certainly Liv&rsquo;s. Count her habits.');
+    ER.open('ov-lock', box);
+  }
+  $('#fridge').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The habit card on the fridge: whilst, perhaps, British spelling, no short forms, times with a dot, no exclamation marks, splendid now and then, ten words a sentence.'); return; }
+    if (!ER.flag('g-talk')) { ER.say('The fridge screen shows six old messages. Keiko is guarding it with a pan. Talk to her first.'); return; }
+    if (!ER.flag('g-book') || !ER.flag('g-till') || !ER.flag('g-clock')) { ER.say('&ldquo;Read first, count second,&rdquo; says Keiko. &ldquo;The red book, the printout and the clock card.&rdquo;'); return; }
+    openCard();
+  });
+  function after() {
+    ER.narrate([
+      'Keiko reads the card aloud. &ldquo;Whilst, three times. While, never. Perhaps, three; maybe, never. British spelling every time. Not one short form. Times with a dot. Not one exclamation mark. Splendid, twice in six messages. Ten words a sentence.&rdquo; She pins it to the fridge door.',
+      '&ldquo;Liv learnt her English from her grandfather&rsquo;s detective novels,&rdquo; she says. &ldquo;Careful, old-fashioned, never in a hurry. One habit proves nothing; anybody can write whilst. Seven habits together are a person.&rdquo;',
+      '&ldquo;Now the messages in doubt. I printed the ones Liv&rsquo;s account has sent since Sol 210 on the greenhouse printer. It jammed, naturally. Come and see.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

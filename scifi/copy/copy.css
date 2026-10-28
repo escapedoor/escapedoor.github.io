@@ -1,0 +1,212 @@
+/* Whilst You Were Out - what the seven rooms share: the base's kinds of paper, the mail slips, your pocket book (the
+   notebook), the hint card and the last card. Each room sets its own palette and lettering. */
+
+.hud,.btn,.ov-x{font-weight:400}
+.hbtn,.chip,.ov-x,.btn,.toast{font-family:var(--font-ui,'Share Tech Mono',monospace);letter-spacing:.08em}
+.tc-theme{font-family:'Share Tech Mono',monospace;letter-spacing:.3em}
+.tc-room{font-family:var(--font-display,'Orbitron',sans-serif);font-weight:700;letter-spacing:.04em}
+.tc-text,.cap{font-family:'Outfit',sans-serif;font-weight:300}
+.tc-text i,.cap i{font-style:normal;font-weight:500;color:var(--accent,#ffb347)}
+.tk-name{font-family:var(--font-display,'Orbitron',sans-serif);font-weight:700;font-size:23px;letter-spacing:.03em}
+.tk-role{font-family:'Share Tech Mono',monospace;letter-spacing:.08em}
+.tk-text{font-family:'Outfit',sans-serif;font-weight:300}
+.tk-text .q{font-weight:400}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 28px;border:2px solid var(--accent,#ffb347);
+  color:var(--accent,#ffb347);background:var(--hud-bg,rgba(10,12,18,.9));font-family:'Share Tech Mono',monospace;font-size:16px;letter-spacing:.14em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#ffb347);color:#120d06}
+.pmsg{min-height:46px;margin:0;font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.36}
+.pmsg b{font-weight:500}
+.mono{font-family:'Share Tech Mono',monospace}
+.orb{font-family:'Orbitron',sans-serif}
+.raj{font-family:'Rajdhani',sans-serif;font-weight:600}
+.sten{font-family:'Saira Stencil One',sans-serif}
+.osw{font-family:'Oswald',sans-serif}
+.cav{font-family:'Caveat',cursive;font-weight:700}
+.apple{font-family:'Homemade Apple',cursive}
+.nudge{animation:cnudge 1.8s ease-in-out infinite}
+@keyframes cnudge{50%{opacity:.55}}
+
+/* ---- a mail slip ---- */
+.msg{background:#fbfbf7;color:#1e232b;border-radius:3px;box-shadow:0 2px 0 rgba(0,0,0,.25);font-family:'Outfit',sans-serif;font-weight:300;font-size:15px;line-height:1.38}
+.msg-h{padding:4px 10px 3px;background:#e4e7ea;color:#59616c;font-family:'Share Tech Mono',monospace;font-size:11.5px;letter-spacing:.05em;border-radius:3px 3px 0 0}
+.msg-b{padding:7px 11px 8px}
+.msg-b p{margin:0 0 4px}
+.msg-b .sg{display:block;margin-top:3px}
+
+/* ---- Kaja's chat, as she printed it ---- */
+.chat{background:#fbfbf6;color:#1e232b;font-family:'Outfit',sans-serif;font-weight:300}
+.chat h6{margin:0 0 4px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12px;letter-spacing:.14em;color:#6a7480}
+.chat .day{margin:8px 0 4px;font-family:'Share Tech Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#8a94a0;border-bottom:1px dashed #c8ccd2}
+.chat .k,.chat .m{position:relative;display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;margin:3px 0;padding:5px 8px;border-radius:6px;font-size:14.5px;line-height:1.32}
+.chat .k{background:#e7eef8;margin-right:40px}
+.chat .m{background:#fdf3dc;margin-left:24px}
+.chat b{font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12.5px;color:#4a5260}
+
+/* ---- paper ---- */
+/* a laminated card, cable-tied to something */
+.doc.lam{width:min(660px,94vw);padding:22px 30px 20px;background:#f4f7f6 linear-gradient(165deg,rgba(255,255,255,.9),rgba(170,200,210,.25));color:#14232b;font-family:'Outfit',sans-serif;
+  font-weight:400;font-size:16.5px;line-height:1.42;border-radius:10px;border:1px solid #b8c8cc;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 5px rgba(255,255,255,.7)}
+.doc.lam h4{margin:0 0 10px;padding-bottom:6px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:20px;letter-spacing:.1em;color:#0f5a66;border-bottom:3px solid #0f5a66}
+.doc.lam p{margin:0 0 8px}
+.doc.lam ul{margin:0 0 8px;padding-left:20px}
+.doc.lam li{margin:0 0 3px}
+.doc.lam b{font-weight:600}
+.doc.lam svg{display:block;width:100%;height:auto;margin:4px 0 10px}
+.doc.lam .ft{font-family:'Share Tech Mono',monospace;font-size:13px;color:#4a6670}
+/* a printed e-mail */
+.doc.kmail{width:min(640px,94vw);padding:20px 30px 22px;background:#fff;color:#20242b;font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.45;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.kmail h4{margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid #d0d4da;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.04em;color:#5a6270;line-height:1.55;font-weight:normal}
+.doc.kmail h4 b{color:#20242b;font-weight:normal}
+.doc.kmail p{margin:0 0 9px}
+/* the comms board: marker on white */
+.doc.wb{width:min(660px,94vw);padding:20px 28px 18px;background:#fbfcfb;color:#1b2a3a;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.25;
+  border:12px solid #c6ccd0;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.wb h4{margin:0 0 8px;font-size:29px;color:#1a4a9a;text-decoration:underline}
+.doc.wb p{margin:0 0 6px}
+.doc.wb table{border-collapse:collapse;margin:4px 0 10px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:15px}
+.doc.wb td{padding:3px 10px 3px 0;color:#1b2a3a}
+.doc.wb td:first-child{color:#b02a2a;font-family:'Caveat',cursive;font-weight:700;font-size:20px}
+.doc.wb .sm{font-family:'Outfit',sans-serif;font-weight:300;font-size:16px;line-height:1.38;color:#2a3a48}
+/* a page from a paper book */
+.doc.page{width:min(640px,94vw);padding:28px 40px 26px;background:#f6efdf linear-gradient(90deg,rgba(0,0,0,.08),transparent 6%,transparent 94%,rgba(0,0,0,.06));color:#2a2218;
+  font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.42;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.page:after{content:'';position:absolute;right:0;top:0;border-style:solid;border-width:0 34px 34px 0;border-color:transparent #d8ccb0 transparent transparent;box-shadow:-2px 2px 3px rgba(0,0,0,.15)}
+.doc.page h4{margin:0 0 2px;font-family:'Cinzel',serif;font-size:23px;letter-spacing:.08em}
+.doc.page h5{margin:0 0 12px;font-family:'EB Garamond',serif;font-style:italic;font-weight:normal;font-size:15px;color:#6a5a40}
+.doc.page p{margin:0 0 9px}
+.doc.page ol{margin:0 0 9px;padding-left:24px}
+.doc.page .pg{text-align:center;font-size:14px;color:#8a7a5a;margin-top:6px}
+/* thermal paper from the galley tablet */
+.doc.till{width:min(400px,92vw);padding:18px 24px 22px;background:#fdfdf8;color:#232a28;font-family:'Share Tech Mono',monospace;font-size:15px;line-height:1.5;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);border-top:6px dotted #e4e4dc;border-bottom:6px dotted #e4e4dc}
+.doc.till h4{margin:0 0 8px;font-size:15px;letter-spacing:.14em;text-align:center}
+.doc.till p{margin:0 0 5px}
+.doc.till .big{font-size:22px}
+.doc.till .rule{border-top:1px dashed #9aa;margin:8px 0}
+/* a card by the galley clock */
+.doc.clock{width:min(600px,94vw);padding:22px 30px 20px;background:#203238;color:#eef6f4;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.45;
+  border-radius:8px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 2px #3c5a60}
+.doc.clock h4{margin:0 0 10px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:19px;letter-spacing:.16em;color:#ffcf7a}
+.doc.clock p{margin:0 0 8px}
+.doc.clock svg{display:block;width:100%;height:auto;margin:2px 0 10px}
+/* the crew handbook, in a binder */
+.doc.hbk{width:min(760px,95vw);padding:0 32px 18px;background:#f3f5f0;color:#1d2a22;font-family:'Outfit',sans-serif;font-weight:300;font-size:16px;line-height:1.4;
+  border-left:20px solid #4a7a3a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.hbk h4{margin:0 -32px 10px;padding:12px 32px 9px;background:#4a7a3a;color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:21px;letter-spacing:.06em;line-height:1.15}
+.doc.hbk p{margin:0 0 7px}
+.doc.hbk p.r{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px}
+.doc.hbk p.r>b{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#2f5a22;letter-spacing:.04em}
+.doc.hbk .ex{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.doc.hbk .ex .msg{font-size:14px}
+.doc.hbk .ex .msg-h{font-size:10.5px}
+.doc.hbk h5{margin:10px 0 0;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;letter-spacing:.08em;color:#2f5a22}
+/* a sign, screwed to a wall */
+.doc.sign{width:min(560px,94vw);padding:22px 30px 20px;background:#fff6d8;color:#3a2a08;font-family:'Saira Stencil One',sans-serif;font-size:20px;line-height:1.3;border:6px solid #2a2a2a;
+  box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.sign h4{margin:0 0 8px;font-size:30px;color:#a8200a;letter-spacing:.04em}
+.doc.sign p{margin:0 0 8px}
+.doc.sign small{display:block;font-family:'Outfit',sans-serif;font-weight:400;font-size:15px;line-height:1.4;color:#5a4a28}
+/* the card by the airlock: black and yellow */
+.doc.air{width:min(680px,94vw);padding:20px 30px 18px;background:#1e1f22;color:#f2f0e6;font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.42;
+  border:10px solid transparent;border-image:repeating-linear-gradient(45deg,#f2c230 0 14px,#1e1f22 14px 28px) 10;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.doc.air h4{margin:0 0 10px;font-family:'Saira Stencil One',sans-serif;font-weight:normal;font-size:25px;letter-spacing:.06em;color:#f2c230}
+.doc.air p{margin:0 0 8px}
+.doc.air b{font-weight:500;color:#fff}
+.doc.air svg{display:block;width:100%;height:auto;margin:2px 0 8px}
+/* a poster in the power room */
+.doc.poster{width:min(680px,94vw);padding:22px 30px 20px;background:#e8e2d2 linear-gradient(180deg,#efe9da,#d8cfb8);color:#2a2014;font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.42;
+  box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.doc.poster h4{margin:0 0 4px;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:30px;letter-spacing:.04em;color:#8a3a12;line-height:1}
+.doc.poster h5{margin:0 0 10px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12.5px;letter-spacing:.12em;color:#6a5a40}
+.doc.poster p{margin:0 0 8px}
+.doc.poster b{font-weight:500}
+.doc.poster svg{display:block;width:100%;height:auto;margin:2px 0 10px}
+/* a printout from a terminal */
+.doc.term{width:min(680px,94vw);padding:20px 28px 20px;background:#0c1410;color:#bfeccd;font-family:'Share Tech Mono',monospace;font-size:15px;line-height:1.5;border:1px solid #2a4632;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.doc.term h4{margin:0 0 10px;font-size:15px;letter-spacing:.14em;color:#7fe0a0}
+.doc.term p{margin:0 0 6px}
+.doc.term .on{color:#fff;background:#2a5a3a;padding:0 4px}
+.doc.term .off{color:#6a8a74}
+.doc.term .pen{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#ffcf6a}
+/* a photograph, and what is written on the back */
+.doc.photo{width:min(460px,92vw);padding:16px 16px 18px;background:#fbf8f0;color:#2a2620;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-1deg)}
+.doc.photo svg{display:block;width:100%;height:auto}
+.doc.photo p{margin:10px 4px 0;font-family:'Homemade Apple',cursive;font-size:17px;line-height:1.6;color:#2a3a6a}
+/* what somebody said */
+.doc.statement{background:#eef0ec;color:#1c221e;font-family:'Outfit',sans-serif;font-weight:300;font-size:17.5px;line-height:1.5;border-left:8px solid var(--accent,#ffb347)}
+.doc.statement h4{font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#3a4a5a}
+.doc.statement .q,.doc.statement .note{color:#56625e}
+/* what you worked out: your pocket book, squared paper */
+.doc.mine{width:min(620px,94vw);padding:22px 30px 20px;background:linear-gradient(rgba(80,120,170,.13) 1px,transparent 1px) 0 0/100% 24px,linear-gradient(90deg,rgba(80,120,170,.13) 1px,transparent 1px) 0 0/24px 100%,#f7f8f4;
+  color:#1d2430;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.22;border-top:26px solid #2a3a4a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.mine:before{content:'COMMS OFFICER \00b7  POCKET BOOK';position:absolute;left:30px;top:-21px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12px;letter-spacing:.18em;color:#b8c8d8}
+.doc.mine h4{margin:0 0 6px;font-size:27px;font-weight:700;text-decoration:underline}
+.doc.mine p{margin:0 0 5px}
+
+/* ---- the notebook ---- */
+.nb{background:#141a20 linear-gradient(155deg,#212a33,#0d1216);border:1px solid #3c4a58;border-radius:8px;color:#e6ebf0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 4px #0b0f14}
+.nb-tabs{border-bottom-color:#33414f}
+.nb-tabs button{font-family:'Share Tech Mono',monospace;font-size:15px;color:#a8b8c6}
+.nb-tabs button.on{background:#ffb347;color:#1b1206;border-color:#ffb347}
+.nb-list{border-right-color:#33414f}
+.nb-list button{font-family:'Outfit',sans-serif;font-weight:400;font-size:16px;color:#e6ebf0}
+.nb-list button small{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.08em}
+.nb-list button.on{background:#ffb347;color:#1b1206}
+.nb-view{background:#090c10}
+.nb-empty{font-family:'Outfit',sans-serif;font-style:normal;font-weight:300}
+.nb-words{background:#eceee8;color:#1c2230}
+.nb-words b{font-family:'Share Tech Mono',monospace;font-size:17px}
+.nb-words span{font-family:'Outfit',sans-serif;font-weight:300;font-size:16px;color:#3e4a56;line-height:1.26}
+.nb-ko{border-color:#a8b8c6;color:#3e4a56;font-family:'Share Tech Mono',monospace}
+.nb-ko.on{background:#1b1206;color:#ffb347;border-color:#1b1206}
+.wtip,.wtag{background:#f6f4ee;color:#1c2230;border-radius:4px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #ffb347}
+.wtag{transform:none;padding:9px 14px 10px 19px}.wtag:before{display:none}.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Share Tech Mono',monospace;font-size:18px}
+.wtip span,.wtag span{font-family:'Outfit',sans-serif;font-weight:300;font-size:16px;line-height:1.28;color:#3e4a56}
+.wtag.new b:after{color:#b4502a}
+.hintbox{background:#f6f4ee;color:#1c2230;border-top:6px solid #ffb347;border-radius:4px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.2em;color:#8a5a10}
+.hintbox p{font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.36}
+.hintbox p i{background:#1b1206;color:#ffb347;font-family:'Share Tech Mono',monospace}
+.hintbox p.hint-none{font-style:normal;color:#5a6270;font-size:16px}
+.hintbox .btn{border-color:#1b1206;color:#1b1206}
+.hintbox .btn:hover:not([disabled]){background:#1b1206;color:#ffb347}
+.hint-x:hover,.hintbox .w:hover{color:#b4502a}
+
+/* ---- the last card and the writing task ---- */
+.done{position:fixed;right:2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 74px);overflow:auto;padding:16px 24px 12px;display:none;background:#f3f1ea;color:#1e242c;
+  border:1px solid #c9bfae;border-top:10px solid #2a5a8a;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.done.on{display:block}
+.done .stampd{display:inline-block;margin:0 0 8px;padding:3px 12px 1px;border:3px solid #2a5a8a;color:#2a5a8a;font-family:'Saira Stencil One',sans-serif;font-size:16px;letter-spacing:.08em;transform:rotate(-2deg)}
+.done p{margin:0 0 2px;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.36}
+.done h6{margin:10px 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.08em;color:#2a5a8a}
+.done ol{margin:0;padding-left:20px;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;line-height:1.28}
+.done li{margin:0 0 4px}
+.done .say{margin:8px 0 0;padding:6px 10px;border-left:4px solid #2a5a8a;background:#e6e4dc;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;line-height:1.35}
+.done .row{display:flex;flex-wrap:wrap;margin-top:10px}
+.done .btn{--accent:#1e242c;font-size:12.5px;padding:7px 11px;margin:0 7px 6px 0}
+.done .btn:hover:not([disabled]){color:#f3f1ea}
+.done small{display:block;margin-top:4px;font-family:'Outfit',sans-serif;font-weight:300;font-size:14px;opacity:.85;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#101a24;color:#e6ecf4;padding:22px 30px 18px;border:1px solid #33465e;border-radius:8px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text}
+.rp h4{margin:0 0 4px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#8aa4c4}
+.rp h3{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:24px;line-height:1.15;color:#ffb347}
+.rp label{display:block;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.38;margin:8px 0 6px}
+.rp label b{font-weight:500;color:#ffb347}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Share Tech Mono',monospace;font-size:17px;line-height:26px;color:#f2f6fa;background:#080d14;border:1px solid #33465e;padding:6px 12px;resize:vertical;
+  -webkit-user-select:text;user-select:text}
+.rp textarea{min-height:190px}
+.rp input[type=text]{height:38px}
+.rp .count{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right;margin-top:4px}
+.rp .foot{display:flex;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;opacity:.8}
+.rp .btn{--accent:#ffb347;margin-left:10px}
+@media print{
+  .stage,.hud,.cap,.done,.gobtn,.ov-bar,.rp .foot{display:none!important}
+  body{overflow:visible;background:#fff}
+  .ov{position:static;display:block!important;background:none;padding:0}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible;background:#fff;color:#000}
+}

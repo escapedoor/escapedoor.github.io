@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Rover Garage · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#2a2e36;--accent:#ffa040;--font-display:'Oswald',sans-serif;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(30,26,24,.96);--tc-ink:#f6ece4;--cap-bg:rgba(30,26,24,.93);--cap-ink:#fbf2ea;--panel:#22252c;--face-bg:#22304a;--q-ink:#ffcf9a;--fade:#050403;--hud-bg:rgba(30,26,24,.84)}
+  .tc-room{font-size:64px;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+  .tk-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:27px}
+  .beacon{animation:beacon 1.2s steps(1) infinite}
+  @keyframes beacon{50%{opacity:.2}}
+  .storm{animation:storm 14s ease-in-out infinite alternate}
+  @keyframes storm{to{transform:translateX(-30px)}}
+  #case.next .bd,#jossG.next{animation:cnudge 1.7s ease-in-out infinite}
+
+  /* the case board */
+  .cs{width:min(1180px,97vw);padding:12px 14px 12px;background:#f2f2ee;border:8px solid #b8bcc2;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#1e232b}
+  .cs h6{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:19px;letter-spacing:.1em;color:#8a3a12}
+  .cs h6 small{font-family:'Outfit',sans-serif;font-weight:300;font-size:14px;letter-spacing:0;color:#4a4a4a;margin-left:8px}
+  .cs-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+  .vc{position:relative;display:flex;flex-direction:column;background:#fff;border:2px solid #d0d4da;border-radius:3px;cursor:pointer;min-height:236px}
+  .vc:hover{border-color:#ffa040}
+  .vc.mid{border-color:#8a3a12;box-shadow:0 0 0 2px rgba(138,58,18,.25)}
+  .vc .msg-h{border-radius:0}
+  .vc .msg-b{flex:1;font-family:'Outfit',sans-serif;font-weight:300;font-size:13.5px;line-height:1.33}
+  .vc .st{margin:0 6px 6px;min-height:42px;padding:3px 5px;border:3px dashed #c8ccd2;border-radius:4px;font-family:'Saira Stencil One',sans-serif;font-size:11.5px;line-height:1.15;letter-spacing:.02em;color:#8a8e94;text-align:center;display:flex;align-items:center;justify-content:center}
+  .vc .st.n{border-style:solid;color:#c8281a;transform:rotate(-2deg)}
+  .vc .st.l{border-style:solid;color:#1a7a3a;transform:rotate(1.5deg)}
+  .vc.bad{border-color:#d8281a;background:#fff1ee}
+  .rack{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .rack>div{padding:6px 8px 8px;border-radius:4px}
+  .rack .rn{background:#fbe6e2}.rack .rl{background:#e2f4e6}
+  .rack h5{margin:0 0 5px;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.12em}
+  .rack .rn h5{color:#a8201a}.rack .rl h5{color:#1a6a2a}
+  .rack .stps{display:flex;flex-wrap:wrap;gap:5px}
+  .sp{padding:4px 8px;border:2px solid currentColor;border-radius:4px;background:#fff;font-family:'Saira Stencil One',sans-serif;font-size:12px;line-height:1.15;letter-spacing:.02em;text-align:left;max-width:100%}
+  .rn .sp{color:#c8281a}.rl .sp{color:#1a7a3a}
+  .sp.held{background:currentColor}.sp.held span{color:#fff}
+  .cs-foot{display:flex;align-items:center;gap:12px;margin-top:8px}
+  .cs-foot .pmsg{flex:1;font-size:15.5px}
+  .cs-foot .btn{--accent:#8a3a12}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="rWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a414c"/><stop offset="1" stop-color="#262b33"/></linearGradient>
+  <linearGradient id="rOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c88a6a"/><stop offset=".6" stop-color="#d8a07a"/><stop offset="1" stop-color="#a86a48"/></linearGradient>
+  <linearGradient id="rBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2f2ec"/><stop offset="1" stop-color="#c8c8c0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#050403" stop-opacity=".2"/><stop offset="1" stop-color="#050403" stop-opacity=".88"/></radialGradient>
+  <clipPath id="rPort"><circle cx="1390" cy="300" r="74"/></clipPath>
+  <g id="wheel"><circle r="58" fill="#2a2a2e"/><circle r="40" fill="#4a4e56"/><circle r="14" fill="#8a8e96"/><g stroke="#2a2a2e" stroke-width="5"><path d="M-40 0H40M0 -40V40M-28 -28L28 28M-28 28L28 -28"/></g></g>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#rWall)"/>
+<g stroke="#4a525e" stroke-width="12"><path d="M-1000 90H2600"/><path d="M120 -600V640M1140 -600V640"/></g>
+<g fill="#ffd24a"><rect x="-1000" y="640" width="3600" height="10"/></g>
+<rect x="-1000" y="650" width="3600" height="1000" fill="#7a4a30"/><g stroke="#f2c230" stroke-width="8" stroke-dasharray="40 30"><path d="M-1000 820H2600"/></g>
+<g fill="#5a3420" opacity=".5"><ellipse cx="500" cy="760" rx="360" ry="20"/><ellipse cx="1300" cy="740" rx="200" ry="14"/></g>
+<!-- the great door, with the storm in its window -->
+<g id="door" class="hot"><rect x="1180" y="110" width="420" height="540" fill="#5a606a"/>
+  <g stroke="#4a4f58" stroke-width="4"><path d="M1180 150H1600M1180 190H1600M1180 230H1600M1180 270H1600M1180 310H1600M1180 350H1600M1180 390H1600M1180 430H1600M1180 470H1600M1180 510H1600M1180 550H1600M1180 590H1600"/></g>
+  <circle cx="1390" cy="300" r="86" fill="#3a3e46"/>
+  <g clip-path="url(#rPort)"><rect x="1310" y="220" width="160" height="160" fill="url(#rOut)"/><g class="storm"><path d="M1300 300q30 -40 70 -26q40 -36 80 -14q30 -10 60 10V380H1300Z" fill="#7a4a30" opacity=".9"/><path d="M1300 330q50 -24 100 -6q40 -16 90 0V380H1300Z" fill="#5a3420"/></g>
+    <path d="M1310 350q40 -8 80 0t80 -4V380H1310Z" fill="#3a2418"/></g>
+  <circle cx="1390" cy="300" r="74" fill="none" stroke="#2a2e34" stroke-width="10"/>
+  <circle class="beacon" cx="1210" cy="130" r="9" fill="#ffb020"/><circle class="beacon" cx="1570" cy="130" r="9" fill="#ffb020"/>
+  <text x="1390" y="196" text-anchor="middle" class="sten" font-size="26" fill="#f2c230">KEEP CLEAR</text></g>
+<!-- Ibex -->
+<g id="ibex" class="hot"><path d="M110 640V420q0-80 90-96L700 300q120 0 140 110V640Z" fill="url(#rBody)"/>
+  <path d="M110 520H840" stroke="#e0782c" stroke-width="22"/><path d="M110 548H840" stroke="#2a2e36" stroke-width="5"/>
+  <path d="M640 340L790 334q40 6 44 76H640Z" fill="#1a2430"/><path d="M660 352h120" stroke="#5a7a9a" stroke-width="4" opacity=".6"/>
+  <rect x="200" y="370" width="110" height="80" rx="10" fill="#1a2430"/><rect x="340" y="370" width="110" height="80" rx="10" fill="#1a2430"/>
+  <text x="240" y="610" class="sten" font-size="44" fill="#2a2e36">IBEX</text>
+  <path d="M260 316V230M248 230h24" stroke="#8a8e96" stroke-width="6"/><circle class="beacon" cx="260" cy="226" r="7" fill="#ff4a3a"/>
+  <path d="M840 470q100 0 160 60t140 40" stroke="#1a1a1a" stroke-width="12" fill="none"/></g>
+<use href="#wheel" x="210" y="650"/><use href="#wheel" x="470" y="650"/><use href="#wheel" x="730" y="650"/>
+<!-- Hugh, in the side hatch -->
+<g id="hughG" class="hot"><rect x="480" y="350" width="140" height="200" rx="10" fill="#1a2430"/><use href="#ch-hugh" x="470" y="330" width="160" height="208"/><path d="M480 520H620" stroke="#c8c8c0" stroke-width="30"/></g>
+<!-- the case board on its stand -->
+<g id="case" class="hot"><path d="M920 450l-30 190M1100 450l30 190" stroke="#6a6e74" stroke-width="10"/>
+  <g class="bd"><rect x="860" y="130" width="300" height="320" fill="#f2f2ee" stroke="#b8bcc2" stroke-width="10"/>
+  <text x="1010" y="166" text-anchor="middle" font-family="Oswald" font-weight="500" font-size="22" fill="#8a3a12">THE CASE</text>
+  <g fill="#fff" stroke="#c0c4ca" stroke-width="2"><rect x="876" y="186" width="80" height="104"/><rect x="970" y="186" width="80" height="104" stroke="#8a3a12" stroke-width="4"/><rect x="1064" y="186" width="80" height="104"/><rect x="920" y="306" width="80" height="104"/><rect x="1020" y="306" width="80" height="104"/></g>
+  <g stroke="#8a929e" stroke-width="2"><path d="M886 206h60M886 220h52M886 234h60M980 206h60M980 220h56M980 234h48M1074 206h60M1074 220h50M930 326h60M930 340h52M1030 326h60M1030 340h56"/></g></g></g>
+<!-- the spare batteries -->
+<g id="crate" class="hot"><rect x="900" y="590" width="170" height="100" rx="6" fill="#4a5a3a"/><rect x="910" y="600" width="150" height="34" fill="#f2f2ec"/>
+  <text x="985" y="623" text-anchor="middle" class="mono" font-size="14" fill="#2a2a2a">MASS 60 kg</text><g fill="#ffd24a"><rect x="930" y="650" width="30" height="16"/><rect x="1010" y="650" width="30" height="16"/></g></g>
+<!-- the Commander, half in her suit -->
+<g id="jossG" class="hot"><path d="M1120 640q0 -150 130 -150t130 150z" fill="#f2f2ee"/><use href="#ch-joss" x="1130" y="300" width="240" height="312"/>
+  <circle cx="1370" cy="600" r="44" fill="#e8e8e2"/><ellipse cx="1370" cy="604" rx="30" ry="24" fill="#c8902a" opacity=".85"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the cupola, at sunset</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'garage', no: 'VI', title: 'The Rover Garage',
+    go: 'Make the case',
+    intro: [
+      'In the power room you put nine cards on the sol board. After 21.10 on Sol 211 the Igloo could reach Juniper only during a relay pass, and every short message landed inside one: 03.14, 09.52, 21.41. The cheerful ones arrived at 22.33, 10.31 and 16.58, when nothing could reach Juniper from the Igloo at all. And in Hugh&rsquo;s toolbox you found why: he had set Homeward to write <i>in my own words</i>, to <i>all my mail</i>.',
+      'Hugh has told the Commander everything. At 10.03, inside the morning pass, one more message came from Liv&rsquo;s account, and the Commander has pinned it in the middle of the case board.',
+      'It is noon. The Commander decides now.'
+    ],
+    exit: {"next":"cupola","w":{"bcf3e9a4":"c40b2b77"}}, tags: {"v1":["3edabbb5","8e9b8b9d","469d67ab"],"v2":["ae77f153","edce8823"],"v3":["620a6b89","bf834947"],"v4":["9608ac68","2364c638"],"v5":["d708fbb2","2f521479","7a2d8905"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('r-file') || null;
+  var S = ER.flag('r-st') || { st: {} };
+  function keep() { ER.flag('r-st', S); }
+
+  var CARDS = [
+    { id: 'v1', head: 'TO: COMMANDER &middot; ARRIVED SOL 213, 16:58', text: 'Hei Joss! No need to fetch me &mdash; honestly, I&rsquo;m completely fine. I&rsquo;ve got plenty of power, and I&rsquo;d much rather finish my cores while I&rsquo;m here. Maybe see you after the storm! Liv x' },
+    { id: 'v2', head: 'TO: ALL CREW &middot; ARRIVED SOL 213, 09:52', text: 'storm thicker. no shadows at noon yesterday. bettery 40%, charging gone since the power unit failed. falling about 1% an hour, so perhaps 40 hours. hamds cold, sorry for the typos.' },
+    { id: 'v3', head: 'TO: COMMANDER &middot; ARRIVED SOL 214, 10:03', text: 'Commander, Please do not send Ibex. The storm is too dangerous for the track, and I am safe here. I have enough power to last until it passes; perhaps ten sols. I will call you at 18:00 to confirm. Liv Gundersen', mid: 1 },
+    { id: 'v4', head: 'TO: ALL CREW &middot; ARRIVED SOL 213, 21:41', text: 'battery 28% at 21.30. still falling about 1% an hour. please fetch me whilst the track is open. I am not worried, but I am cold.' },
+    { id: 'v5', head: 'TO: ALL CREW &middot; ARRIVED SOL 214, 03:31', text: 'storm wall to the south, perhaps 20 kilometers. heater off whilst I sleep, so 23% at 03.20. tell Keiko to give Grumbles a kick for me.' }
+  ];
+  var STAMPS = [
+    ['n1', 'NO RELAY PASS THEN: it cannot have come from the Igloo'],
+    ['n2', 'SHORT FORMS, MAYBE, WHILE: not her small words'],
+    ['n3', 'HER VOICE FOR KAJA, SENT TO THE COMMANDER'],
+    ['n4', '18:00 WITH A COLON: Liv writes 18.00'],
+    ['n5', 'AMERICAN SPELLING: kilometers'],
+    ['n6', 'IT PROMISES A CALL: she has no radio to call with'],
+    ['l1', 'ONLY LIV COULD KNOW IT: Grumbles has never been in a message'],
+    ['l2', 'HER LOG VOICE: numbers first, no greeting, no name'],
+    ['l3', 'HER SMALL WORDS: whilst, perhaps, never a short form']
+  ];
+  var TXT = {}; STAMPS.forEach(function (s) { TXT[s[0]] = s[1]; });
+  var GEN = {
+    l: 'Read it against Liv&rsquo;s habit card and her four voices. Is that really her?',
+    n: 'Is that the best evidence? Read it again: what does it say, how is it written, and when did it come?'
+  };
+  var WHY = {
+    v1: { l1: 'Grumbles is not in this one.', l2: 'It has a greeting and a name: Hei Joss, Liv x.', l3: 'I&rsquo;ve, I&rsquo;d, I&rsquo;m, maybe, while. Count again.', n4: 'There is no time in it at all.', n5: 'There is no American spelling in it.', n6: 'It promises nothing. Look at its words, and at when it came.' },
+    v2: { n1: '09:52 on Sol 213: look at the sol board. That was inside the morning pass.', n2: 'Where is a short form? Bettery and hamds are typos, not habits: cold fingers on a small keyboard.', n3: 'No greeting and no name at all. Whose voice is that?', n4: 'There is no time with a colon in it.', n5: 'There is no American spelling in this one.', n6: 'It promises nothing that it cannot do.', l1: 'Grumbles is not in this one.' },
+    v3: { l1: 'Grumbles is not in this one.', l2: 'It has Commander at the top and her full name at the end: not her log voice.', l3: 'Its small words are hers: perhaps, no short forms. It learnt fast. Look for what it still gets wrong.', n1: 'It came at 10.03: inside the morning pass, 09.57 to 10.07. Timing cannot clear this one, or convict it.', n2: 'No short forms, no maybe, no while. Look at the small things it still gets wrong.', n3: 'Commander at the top, her full name at the end: the right voice for the Commander, this time.', n5: 'There is no American spelling in it.' },
+    v4: { n1: '21:41 on Sol 213: inside the evening pass.', n2: 'Read it again: I am, not I&rsquo;m.', n3: 'No greeting and no name: her log voice, sent to everyone.', n4: '21.30 has a dot.', n5: 'There is no American spelling in it.', n6: 'It asks to be fetched; it promises nothing.', l1: 'Grumbles is not in this one.' },
+    v5: { n5: 'Hugh told you about the suit pads: they turn metres into meters and kilometres into kilometers, and they cannot be switched off. Spelling is one habit, and one habit proves nothing. What else is in it?', n1: '03:31 on Sol 214 is inside the first pass of the sol, 03.26 to 03.36.', n2: 'Where is a short form? Read it again.', n3: 'No greeting and no name: her log voice, sent to everyone.', n4: '03.20 has a dot.', n6: 'It promises nothing.' }
+  };
+
+  function hints() {
+    if (nextFile) return ['go', ['Ibex has gone. Keiko is waiting for you in the cupola, the glass room on the roof. Click the button at the bottom of the screen.']];
+    if (!ER.flag('r-talk')) return ['talk', [
+      'The Commander is by the great door, half in her suit. Click on her and listen to the end.',
+      'She will tell you what she needs from you, and why the message in the middle of the board worries her.'
+    ]];
+    return ['case', [
+      'For each of the five messages on the case board, choose the stamp that is your best evidence, then click the message. A stamp says who wrote it, and why. One stamp each.',
+      'Use everything: the sol board (was there a pass?), the habit card (whilst, perhaps, short forms, times with a dot), the four voices, and what Hugh told you about the suit pads. Two of the stamps are traps: one habit alone proves nothing.',
+      'The 16:58 message has short forms, maybe and while, and it came when there was no pass. The 10:03 message came inside a pass and is in the right voice, but it writes 18:00 with a colon and promises a call she has no radio for. The three short ones are Liv: her log voice, whilst and perhaps, and in one of them a word that has never been in a message.'
+    ]];
+  }
+  function paint() {
+    $('#jossG').setAttribute('class', 'hot' + (!ER.flag('r-talk') ? ' next' : ''));
+    $('#case').setAttribute('class', 'hot' + (!nextFile && ER.flag('r-talk') ? ' next' : ''));
+    $('#hughG').style.display = nextFile ? 'none' : '';
+    $('#jossG').style.display = nextFile ? 'none' : '';
+    $('#ibex').style.display = nextFile ? 'none' : '';
+    ER.$$('#scene > use').forEach(function (u) { if (/wheel/.test(u.getAttribute('href'))) u.style.display = nextFile ? 'none' : ''; });
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The garage is empty. Ibex has gone south, into the pink-brown afternoon.'); return; }
+    if (ER.flag('r-seen')) { ER.say('The rover garage: the Commander, the case board, Ibex, the batteries, the great door.'); return; }
+    busy = true; ER.flag('r-seen', 1);
+    ER.narrate([
+      'The rover garage is cold enough to see your breath. Ibex sits in the middle of it, white and orange and enormous, plugged into the wall by a cable as thick as an arm. Through the window in the great door, the storm wall fills a third of the southern sky.',
+      'Commander Kirwan is half in her suit. Hugh, very quiet, is loading spare batteries into Ibex. Keiko stands by the door with a medical bag over her shoulder and a face like a closed door.',
+      'In the middle of the case board hangs the message that came at 10.03.'
+    ], function () { busy = false; paint(); CP.sfx.door(); });
+  }
+
+  $('#jossG').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('r-talk')) { ER.say('&ldquo;Five messages, five stamps,&rdquo; says the Commander. &ldquo;Your best evidence for each.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.joss.who, role: CAST.joss.role, face: FACE('joss'),
+      lines: [
+        { note: 'The Commander&rsquo;s helmet is under her arm.',
+          a: '&ldquo;Hugh has told me everything. Thank you for not letting it wait. Now make me the case, because I am about to send two people into a dust storm.&rdquo;' },
+        { q: 'What do you need?',
+          a: '&ldquo;Five messages from Liv&rsquo;s account. For each one: is it Liv or is it the helper, and what is your evidence? One stamp each: the best one. The stamps are on the board.&rdquo;' },
+        { q: 'Why is that one in the middle?',
+          a: '&ldquo;<i>Please do not send Ibex.</i> Commander at the top, her full name at the bottom, perhaps, not one short form. It came at 10.03, inside a pass. It is exactly how Liv writes to me. If it is her, she is telling me not to risk you, and I would listen.&rdquo;' },
+        { q: 'Did you never wonder about the cheerful ones?',
+          a: '&ldquo;Yesterday at 17.30 I wrote: <i>Liv, you have never written to me like that in two hundred sols. Is this really you?</i> The answer was perfect. <i>Commander, of course it is me. I apologise for the tone of my last message. Liv Gundersen.</i> I felt foolish for asking.&rdquo;' },
+        { q: 'And the short ones?',
+          a: '&ldquo;One has American spelling and one is full of typos. Hugh used to say that proved they were not Liv. Hugh is not saying very much this morning.&rdquo;' }
+      ],
+      clue: { id: 'joss2', title: 'The Commander, at noon', kind: 'What she said' }, last: 'To the case board',
+      done: function (seen) { if (!seen) return; ER.flag('r-talk', 1); CP.learn(['case', 'evidence', 'stamp']); paint(); ER.say('The case board is on its stand, beside Ibex.'); }
+    });
+  });
+  CP.thing('#hughG', null, '&ldquo;I switched Homeward off at 11.50,&rdquo; says Hugh, without stopping work. &ldquo;Twelve and a half minutes to reach Earth. It went quiet at two minutes past twelve.&rdquo;', isBusy);
+  CP.thing('#ibex', 'rover', 'Ibex: six wheels, a pressurised cabin for four, and a radio that reaches the Halfway Mast. On the track it drives at about eight kilometres an hour, so the Igloo is four and three-quarter hours away.', isBusy);
+  CP.thing('#crate', 'gravity', 'A spare battery for the Igloo. MASS 60 kg. Mars gravity is 38% of Earth&rsquo;s, so here it weighs as much as about 23 kg would at home. Hugh is carrying two at once, to make a point.', isBusy);
+  CP.thing('#door', 'storm wall', 'The storm wall: brown, slow, and taller than this morning. The forecast says it reaches the track at about 19.00. If Ibex leaves at 14.00, it reaches the Igloo at a quarter to seven.', isBusy);
+
+  /* ---------- the case board ---------- */
+  function openCase() {
+    var box = ER.el('div', 'cs'), done = false, held = null;
+    box.innerHTML = '<h6>THE CASE<small>Choose a stamp, then click a message. One stamp each: your best evidence.</small></h6><div class="cs-row">' + CARDS.map(function (c) {
+      return '<div class="vc' + (c.mid ? ' mid' : '') + '" data-v="' + c.id + '"><div class="msg-h">' + c.head + '</div><div class="msg-b">' + c.text + '</div><div class="st">no stamp yet</div></div>';
+    }).join('') + '</div><div class="rack"><div class="rn"><h5>IT IS NOT LIV, BECAUSE &hellip;</h5><div class="stps">' +
+      STAMPS.filter(function (s) { return s[0].charAt(0) === 'n'; }).map(function (s) { return '<button type="button" class="sp" data-s="' + s[0] + '"><span>' + s[1] + '</span></button>'; }).join('') +
+      '</div></div><div class="rl"><h5>IT IS LIV, BECAUSE &hellip;</h5><div class="stps">' +
+      STAMPS.filter(function (s) { return s[0].charAt(0) === 'l'; }).map(function (s) { return '<button type="button" class="sp" data-s="' + s[0] + '"><span>' + s[1] + '</span></button>'; }).join('') +
+      '</div></div></div><div class="cs-foot"><p class="pmsg"></p><button type="button" class="btn" id="r-give">Give the Commander your case</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function show() {
+      ER.$$('.vc', box).forEach(function (v) {
+        var s = S.st[v.getAttribute('data-v')], st = v.querySelector('.st');
+        st.className = 'st' + (s ? ' ' + s.charAt(0) : ''); st.textContent = s ? TXT[s] : 'no stamp yet';
+      });
+      ER.$$('.sp', box).forEach(function (b) { b.classList.toggle('held', b.getAttribute('data-s') === held); });
+    }
+    ER.$$('.sp', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; held = b.getAttribute('data-s'); show(); if (held) msg('Now click the message that this stamp is evidence about.'); });
+    });
+    ER.$$('.vc', box).forEach(function (v) {
+      v.addEventListener('click', function () {
+        if (done) return;
+        if (!held) { msg('Choose a stamp first.'); return; }
+        S.st[v.getAttribute('data-v')] = held; CP.sfx.stamp(); keep(); ER.$$('.vc', box).forEach(function (o) { o.classList.remove('bad'); }); show();
+      });
+    });
+    box.querySelector('#r-give').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.vc', box).forEach(function (o) { o.classList.remove('bad'); });
+      var ids = ['v1', 'v2', 'v3', 'v4', 'v5'], i;
+      if (!Object.keys(S.st).length) { msg('&ldquo;Stamps first,&rdquo; says the Commander.'); return; }
+      for (i = 0; i < ids.length; i++) if (!S.st[ids[i]]) { msg('&ldquo;All five,&rdquo; says the Commander. &ldquo;I will not decide on four.&rdquo;'); ER.shake(box.querySelector('.vc[data-v="' + ids[i] + '"]')); return; }
+      for (i = 0; i < ids.length; i++) if (!ER.check(ids[i], S.st[ids[i]])) {
+        CP.bump('miss'); CP.sfx.hm();
+        box.querySelector('.vc[data-v="' + ids[i] + '"]').classList.add('bad');
+        var s = S.st[ids[i]];
+        msg('Message ' + (i + 1) + ': ' + ((WHY[ids[i]] || {})[s] || GEN[s.charAt(0)])); return;
+      }
+      var file = ER.exitOk([ids.map(function (k) { return S.st[k].charAt(0).toUpperCase(); }).join('|')]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says the Commander. &ldquo;Again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('r-file', file); CP.done('garage'); busy = true;
+      CP.mine('case', 'The case', '<p>16:58 &ldquo;No need to fetch me&rdquo;: NOT Liv. No pass then; short forms, maybe, while; her voice for Kaja, sent to the Commander.</p>' +
+        '<p>10:03 &ldquo;Please do not send Ibex&rdquo;: NOT Liv, though it is in the right voice and came inside a pass. It writes 18:00 with a colon, and promises a call she has no radio to make.</p>' +
+        '<p>09:52, 21:41, 03:31: Liv. Her log voice, whilst and perhaps, times with a dot, and Grumbles, a word that was never in a message. The American spelling is the suit pad&rsquo;s; the typos are cold fingers.</p>' +
+        '<p>The messages that sounded most like her were the ones that were not her.</p>', true);
+      msg('The Commander reads the case, all five, in silence.');
+      setTimeout(function () { ER.closeAll(); CP.solved(); after(); }, 2400);
+    });
+    show();
+    msg(Object.keys(S.st).length ? 'Your stamps are where you left them.' : 'Choose a stamp, then click a message.');
+    ER.open('ov-lock', box);
+  }
+  $('#case').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The case board, with five stamps on it.'); return; }
+    if (!ER.flag('r-talk')) { ER.say('The case board. Talk to the Commander first.'); return; }
+    openCase();
+  });
+  function after() {
+    ER.narrate([
+      'At the middle one she stops for a long time. &ldquo;Eighteen, colon, zero zero,&rdquo; she says. &ldquo;And a call. She has no radio to call with, and there is no pass at six.&rdquo; She takes the paper down and folds it in half.',
+      '&ldquo;The ones that sound most like her are the ones that aren&rsquo;t her,&rdquo; says Keiko. &ldquo;It had two hundred sols of her letters to copy. It learnt her voice in a day. It never learnt what was happening to her.&rdquo;',
+      'The Commander puts her helmet on. &ldquo;Ibex goes at 14.00. Hugh drives; I navigate. Keiko, you have the base. And you,&rdquo; she says, pointing at you, &ldquo;have the radio.&rdquo;',
+      'At 14.00 exactly the great door rolls up, Ibex rolls out into the pink-brown afternoon, and the door rolls down again. On the 15.31 pass the Commander&rsquo;s message goes out to the Igloo: COMING. Before the pass ends, an answer comes back: <i>thank you. 19%. heater off whilst I wait. splendid.</i>'
+    ], function () { busy = false; paint(); CP.sfx.door(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

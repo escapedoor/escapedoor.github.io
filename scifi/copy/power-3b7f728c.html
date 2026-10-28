@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Power Room · Whilst You Were Out</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="copy.css">
+<style>
+  body{--bg:#0b120e;--accent:#ffb020;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(10,16,12,.96);--tc-ink:#eaf2e8;--cap-bg:rgba(10,16,12,.93);--cap-ink:#f0f6ee;--panel:#111a14;--face-bg:#4a2e1c;--q-ink:#ffd890;--fade:#020402;--hud-bg:rgba(10,16,12,.84)}
+  .tc-room{font-size:60px;font-weight:700;letter-spacing:.03em}
+  .tk-name{font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:27px}
+  .led{animation:led 2.4s steps(1) infinite}
+  .led:nth-child(3n){animation-delay:-.8s}.led:nth-child(4n){animation-delay:-1.5s}
+  @keyframes led{50%{opacity:.35}}
+  .fan{animation:fan 1.2s linear infinite;transform-box:fill-box;transform-origin:50% 50%}
+  @keyframes fan{to{transform:rotate(360deg)}}
+  #solboard.next .wb,#poster.next rect:first-child,#toolbox.next rect:first-child{animation:cnudge 1.7s ease-in-out infinite}
+
+  /* the sol board */
+  .sb{width:min(1150px,97vw);padding:12px 14px 12px;background:#f4f6f2;color:#1b2a22;border:10px solid #c6ccc4;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .sb h6{margin:0 0 6px;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:20px;letter-spacing:.04em;color:#2a4a2a}
+  .sb h6 small{font-family:'Outfit',sans-serif;font-weight:300;font-size:13.5px;letter-spacing:0;color:#4a5a4a;margin-left:8px}
+  .sb-grid{display:grid;grid-template-columns:62px repeat(9,minmax(0,1fr));gap:3px}
+  .sb-grid .sl{display:flex;align-items:center;justify-content:center;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:16px;color:#2a4a2a;background:#e2e8e0;border-radius:3px}
+  .cell{min-height:84px;padding:3px;border-radius:3px;background:#fff;border:1px solid #c8d0c4;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+  .cell.ps{background:#d8f4d8;border-color:#5ab85a}
+  .cell>i{display:block;font-style:normal;font-family:'Share Tech Mono',monospace;font-size:10.5px;line-height:1.15;color:#5a6a5a;text-align:center}
+  .cell.ps>i{color:#1a6a2a}
+  .cell.ps>i b{display:block;font-weight:normal;letter-spacing:.12em}
+  .cell:hover{outline:2px solid #ffb020}
+  .cell.bad{outline:3px solid #d8281a}
+  .tray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px;padding:8px;min-height:60px;background:#e8ece4;border-radius:4px}
+  .card{padding:5px 8px 5px;background:#fffdf2;border:1px solid #d8d0b0;border-left:5px solid #b08a2a;border-radius:3px;font-family:'Outfit',sans-serif;font-weight:300;font-size:13px;line-height:1.28;cursor:pointer}
+  .card u{display:block;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#7a6a3a}
+  .card .lb{display:none}
+  .cell .card{padding:2px 4px;font-size:11px;line-height:1.15;border-left-width:3px}
+  .cell .card .tx,.cell .card u{display:none}
+  .cell .card .lb{display:block}
+  .card.held{outline:3px solid #ffb020}
+  .sb.shown .cell.ps .card{background:#c8f0c8;border-left-color:#2a8a3a}
+  .sb.shown .cell:not(.ps) .card.mail{background:#ffd8d0;border-left-color:#d8281a}
+  .sb-foot{display:flex;align-items:center;gap:12px;margin-top:8px}
+  .sb-foot .pmsg{flex:1;font-size:15.5px;color:#1b2a22}
+  .sb-foot .btn{--accent:#2a4a2a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="pWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1410"/><stop offset="1" stop-color="#18241c"/></linearGradient>
+  <linearGradient id="pScr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1406"/><stop offset="1" stop-color="#0a0802"/></linearGradient>
+  <radialGradient id="amber" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffb020" stop-opacity=".16"/><stop offset="1" stop-color="#ffb020" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#020402" stop-opacity=".22"/><stop offset="1" stop-color="#020402" stop-opacity=".9"/></radialGradient>
+  <g id="rack"><rect x="0" y="0" width="130" height="560" rx="4" fill="#1e2a22" stroke="#2e3e32" stroke-width="3"/>
+    <g fill="#2a382e"><rect x="12" y="20" width="106" height="90" rx="3"/><rect x="12" y="124" width="106" height="90" rx="3"/><rect x="12" y="228" width="106" height="90" rx="3"/><rect x="12" y="332" width="106" height="90" rx="3"/><rect x="12" y="436" width="106" height="90" rx="3"/></g>
+    <g fill="#5aff7a"><circle class="led" cx="28" cy="36" r="4"/><circle class="led" cx="44" cy="36" r="4"/><circle class="led" cx="60" cy="36" r="4"/><circle class="led" cx="28" cy="140" r="4"/><circle class="led" cx="44" cy="140" r="4"/><circle class="led" cx="28" cy="244" r="4"/><circle class="led" cx="44" cy="244" r="4"/><circle class="led" cx="60" cy="244" r="4"/><circle class="led" cx="28" cy="348" r="4"/><circle class="led" cx="28" cy="452" r="4"/><circle class="led" cx="44" cy="452" r="4"/></g>
+    <g fill="#ffb020"><circle class="led" cx="60" cy="140" r="4"/><circle class="led" cx="44" cy="348" r="4"/></g></g>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#pWall)"/>
+<!-- cables along the ceiling, and the fan -->
+<g stroke="#2a3a2e" stroke-width="10" fill="none"><path d="M-1000 40Q300 90 800 50T2600 60"/><path d="M-1000 70Q500 120 1100 70T2600 90" stroke="#3a2a1a"/></g>
+<g><circle cx="1500" cy="160" r="54" fill="#1a241c" stroke="#3a4a3e" stroke-width="6"/><g class="fan" fill="#4a5a4e"><path d="M1500 160l-8 -44h16zM1500 160l44 -8v16zM1500 160l8 44h-16zM1500 160l-44 8v-16z"/></g><circle cx="1500" cy="160" r="8" fill="#6a7a6e"/></g>
+<!-- the battery racks -->
+<use href="#rack" x="60" y="150"/><use href="#rack" x="210" y="150"/><use href="#rack" x="360" y="150"/>
+<!-- the big screen: the array, sol by sol -->
+<g id="graph" class="hot"><rect x="580" y="110" width="420" height="290" rx="8" fill="#1e2420"/><rect x="594" y="124" width="392" height="262" fill="url(#pScr)"/>
+  <text x="608" y="150" class="mono" font-size="14" fill="#ffb020">ARRAY OUTPUT &#183; % OF A CLEAR DAY</text>
+  <g stroke="#3a3010" stroke-width="1"><path d="M620 180H970M620 230H970M620 280H970M620 330H970"/></g>
+  <path d="M640 192L740 238L840 292L940 340" stroke="#ffb020" stroke-width="4" fill="none"/>
+  <g fill="#ffd060"><circle cx="640" cy="192" r="6"/><circle cx="740" cy="238" r="6"/><circle cx="840" cy="292" r="6"/><circle cx="940" cy="340" r="6"/></g>
+  <g class="mono" font-size="13" fill="#ffd890"><text x="626" y="374">211</text><text x="726" y="374">212</text><text x="826" y="374">213</text><text x="926" y="374">214</text>
+  <text x="652" y="186">96</text><text x="752" y="232">81</text><text x="852" y="286">63</text><text x="952" y="334">47</text></g></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#amber)" pointer-events="none" transform="translate(-10 -160)"/>
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="1040" y="110" width="190" height="270" fill="#e2dccb"/><rect x="1040" y="110" width="190" height="270" fill="none" stroke="#8a7a5a" stroke-width="2"/>
+  <text x="1135" y="146" text-anchor="middle" font-family="Stardos Stencil" font-weight="700" font-size="22" fill="#8a3a12">DUST</text><text x="1135" y="170" text-anchor="middle" font-family="Stardos Stencil" font-weight="700" font-size="22" fill="#8a3a12">STORMS</text>
+  <circle cx="1135" cy="230" r="34" fill="#f2d24a"/><g fill="#b8865a" opacity=".85"><circle cx="1110" cy="244" r="26"/><circle cx="1150" cy="252" r="30"/><circle cx="1176" cy="236" r="22"/></g>
+  <g stroke="#5a4a2a" stroke-width="2"><path d="M1060 300h150M1060 316h130M1060 332h146M1060 348h110"/></g></g>
+<!-- the sol board -->
+<g id="solboard" class="hot"><g class="wb"><rect x="580" y="440" width="420" height="230" fill="#f4f6f2" stroke="#c6ccc4" stroke-width="9"/></g>
+  <text x="596" y="470" font-family="Stardos Stencil" font-weight="700" font-size="20" fill="#2a4a2a">SOL BOARD</text>
+  <g stroke="#9aa89a" stroke-width="1.5"><path d="M596 490H984M596 548H984M596 606H984M596 664H984M650 490V664"/></g>
+  <g fill="#c8f0c8"><rect x="690" y="492" width="22" height="54"/><rect x="780" y="492" width="22" height="54"/><rect x="870" y="492" width="22" height="54"/><rect x="950" y="492" width="22" height="54"/><rect x="692" y="550" width="22" height="54"/><rect x="782" y="550" width="22" height="54"/><rect x="872" y="550" width="22" height="54"/><rect x="952" y="550" width="22" height="54"/></g>
+  <g fill="#fffdf2" stroke="#b08a2a" stroke-width="1.5"><rect x="740" y="506" width="34" height="22"/><rect x="900" y="620" width="34" height="22" transform="rotate(8 917 631)"/><rect x="930" y="640" width="34" height="22" transform="rotate(-12 947 651)"/><rect x="600" y="640" width="34" height="22" transform="rotate(-6 617 651)"/></g></g>
+<!-- Hugh's corner: the camp bed, his toolbox and his logbook -->
+<g id="logbook" class="hot"><rect x="1420" y="380" width="96" height="130" rx="4" fill="#8a6a3a"/><rect x="1430" y="392" width="76" height="110" fill="#f4f0e0"/><rect x="1450" y="372" width="36" height="18" rx="3" fill="#5a5f66"/>
+  <g stroke="#2a2a6a" stroke-width="2"><path d="M1438 412h60M1438 426h52M1438 440h60M1438 454h44M1438 468h56M1438 482h40"/></g></g>
+<path d="M1240 640h340l-10 40h-320z" fill="#3a4a5a"/><path d="M1250 680v80M1560 680v80" stroke="#2a3038" stroke-width="8"/><rect x="1250" y="620" width="120" height="30" rx="12" fill="#c8d0d8"/>
+<g id="hughG" class="hot"><use href="#ch-hugh" x="1262" y="330" width="230" height="299"/></g>
+<rect x="1240" y="628" width="340" height="14" fill="#4a5a6a"/>
+<g id="toolbox" class="hot"><rect x="1270" y="700" width="160" height="70" rx="6" fill="#c8302a"/><rect x="1270" y="700" width="160" height="16" rx="4" fill="#a8201a"/><path d="M1320 700v-16h60v16" stroke="#3a3a3a" stroke-width="6" fill="none"/>
+  <path d="M1296 704l40 -10 4 12z" fill="#f4f4ee"/></g>
+<rect x="-1000" y="770" width="3600" height="800" fill="#0a100c"/><g stroke="#16201a" stroke-width="3"><path d="M-1000 790H2600M-1000 820H2600"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the rover garage</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="copy.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  ER.init({
+    theme: 'scifi', story: 'copy', storyTitle: 'Whilst You Were Out', id: 'power', no: 'V', title: 'The Power Room',
+    go: 'Follow the hum',
+    intro: [
+      'In the suit room you struck out four lines that could not be true, whoever wrote them. Mars air is too thin for any wind to blow the Igloo over. Nobody has a live video call with Earth. On Sol 213 the countdown should have said 499 − 213 = 286, not 288: the best copy of all, perfect Liv in style and wrong in fact. And Hugh&rsquo;s answer at 10.00 to a question at 09.55 was only the automatic receipt from the base&rsquo;s own mail server.',
+      'Then Hugh went to the power room, much too fast.',
+      'It is a quarter past eleven. Forty-five minutes until the Commander decides.'
+    ],
+    exit: {"next":"garage","w":{"9db05384":"560b4a40"}}, tags: {"e1":["4813b14b"],"e2":["fb0797f7"],"e3":["890c4b5d"],"e4":["eb13bbf8"],"e5":["f65421eb"],"e6":["3f08403f"],"e7":["437bb5c9"],"e8":["d7108b2c"],"e9":["1d51bf6a"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('p-file') || null;
+  var S = ER.flag('p-st') || { at: {} };
+  function keep() { ER.flag('p-st', S); }
+
+  var PASS = {
+    211: ['03.02', '03.12', '09.31', '09.41', '15.05', '15.15', '21.20', '21.30'],
+    212: ['03.10', '03.20', '09.40', '09.50', '15.14', '15.24', '21.29', '21.39'],
+    213: ['03.18', '03.28', '09.48', '09.58', '15.23', '15.33', '21.37', '21.47']
+  };
+  var SEGS = ['0', 'A', 'AB', 'B', 'BC', 'C', 'CD', 'D', '9'];
+  var CARDS = [
+    { id: 'e1', mail: 0, src: 'POWER LOG', lb: 'link lost', tx: 'SOL 211 &middot; 21:10 &middot; IGLOO MAIN LINK LOST' },
+    { id: 'e2', mail: 0, src: 'HUGH&rsquo;S LOGBOOK', lb: 'helper on', tx: 'Switched on Liv&rsquo;s Homeward helper, 55 minutes after her link went. H.L.' },
+    { id: 'e3', mail: 1, src: 'MAIL STAMP', lb: '&lsquo;main radio dead&rsquo;', tx: 'From L. Gundersen, to all crew. Arrived SOL 212, 03:14. &lsquo;main radio dead since 21.10 &hellip;&rsquo;' },
+    { id: 'e4', mail: 1, src: 'MAIL STAMP', lb: '&lsquo;Hei Keiko!&rsquo;', tx: 'From L. Gundersen, to K. Ishida. Arrived SOL 212, 10:31. &lsquo;Hei Keiko! Toasty warm &hellip;&rsquo;' },
+    { id: 'e5', mail: 1, src: 'MAIL STAMP', lb: '&lsquo;storm thicker&rsquo;', tx: 'From L. Gundersen, to all crew. Arrived SOL 213, 09:52. &lsquo;storm thicker. no shadows at noon &hellip;&rsquo;' },
+    { id: 'e6', mail: 1, src: 'THE COMMANDER&rsquo;S DIARY', lb: '&lsquo;no need&rsquo;', tx: 'Sol 213. Asked Liv at 16.16 whether we should fetch her. Her answer came 42 minutes later: no need.' },
+    { id: 'e7', mail: 1, src: 'MAIL STAMP', lb: '&lsquo;battery 28%&rsquo;', tx: 'From L. Gundersen, to all crew. Arrived SOL 213, 21:41. &lsquo;battery 28% at 21.30 &hellip;&rsquo;' },
+    { id: 'e8', mail: 1, src: 'KEIKO&rsquo;S NOTE', lb: '&lsquo;the wind&rsquo;', tx: 'Liv&rsquo;s message about the wind came in at twenty-seven minutes to eleven, on the night her link went.' },
+    { id: 'e9', mail: 0, src: 'HUGH&rsquo;S LOGBOOK', lb: 'mast checked', tx: 'Sol 212, twenty past midnight. Checked the relay mast. Nothing from the Igloo.' }
+  ];
+  var WHY = {
+    e1: 'The power log: 21:10 on Sol 211. Is that inside the evening pass, or just before it?',
+    e2: 'Fifty-five minutes after the link was lost. When was that, and what time does it make?',
+    e3: '03:14 on Sol 212. Which window is that? Use the passes for Sol 212, not another sol&rsquo;s.',
+    e4: '10:31 on Sol 212. When did that sol&rsquo;s morning pass end?',
+    e5: '09:52 on Sol 213. Look at that sol&rsquo;s morning pass, not Sol 212&rsquo;s.',
+    e6: '16.16, and then 42 minutes. On which sol?',
+    e7: '21:41 on Sol 213. Which window is that?',
+    e8: 'Twenty-seven minutes to eleven at night is 22.33. And on which night was Liv&rsquo;s link lost?',
+    e9: 'Twenty past midnight on Sol 212 is 00.20 at the very start of Sol 212, not the end of Sol 211.'
+  };
+  var POSTER = '<h4>DUST STORMS AND POWER</h4><h5>JUNIPER BASE &middot; READ THIS BEFORE EVERY STORM SEASON</h5>' +
+    '<svg viewBox="0 0 600 90" aria-hidden="true"><circle cx="80" cy="45" r="30" fill="#f2c230"/><text x="80" y="88" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a2a">CLEAR</text>' +
+    '<circle cx="300" cy="45" r="30" fill="#f2c230" opacity=".6"/><g fill="#b8865a" opacity=".7"><circle cx="280" cy="52" r="20"/><circle cx="318" cy="56" r="22"/></g><text x="300" y="88" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a2a">DUSTY</text>' +
+    '<circle cx="520" cy="45" r="30" fill="#f2c230" opacity=".25"/><g fill="#8a5a3a" opacity=".85"><circle cx="500" cy="40" r="26"/><circle cx="534" cy="50" r="28"/><circle cx="516" cy="62" r="20"/></g><text x="520" y="88" text-anchor="middle" font-family="Share Tech Mono" font-size="12" fill="#5a4a2a">STORM</text></svg>' +
+    '<p>Mars has dust storms every year, most of them in the southern spring and summer. Some cover a region the size of a continent. Every few years one grows until it covers almost the whole planet: it happened in 2001, in 2007 and in 2018.</p>' +
+    '<p>Dust in the air stops sunlight reaching the ground, so solar panels make less power, and dust that settles on the panels makes it worse. In June 2018 the rover Opportunity&rsquo;s panels made about <b>one thirtieth</b> of their usual power. It went to sleep to save itself, and it never woke up again.</p>' +
+    '<p>A dust storm cannot blow you over: the air is too thin. It can starve you of power for weeks.</p>' +
+    '<p><b>JUNIPER RULE: when the dust is thick, a hut on solar power is fetched or supplied before its battery falls below 30%.</b></p>';
+  var PRINT = '<h4>HOMEWARD &middot; FAMILY MAIL &middot; SETTINGS FOR L. GUNDERSEN</h4>' +
+    '<p>CHANGED: Sol 211, 22.05 base time, by H. LATTIMER, garage terminal.<br>In force on Earth 12 min 30 s later.</p>' +
+    '<p>HELPER: <span class="on">ON</span></p>' +
+    '<p>WRITES: <span class="on">(●) in my own words, as I would</span><br><span class="off">( ) a short holding note: &lsquo;Liv is away and will reply soon&rsquo;</span></p>' +
+    '<p>ANSWERS: <span class="on">(●) all my mail</span><br><span class="off">( ) family only</span></p>' +
+    '<p>WAITS: between 1 and 30 minutes, at random, &lsquo;so that it feels natural&rsquo;</p>' +
+    '<p>LEARNS FROM: everything I have ever sent</p>' +
+    '<p class="pen">printed 09.02 ... oh no</p>';
+
+  function hints() {
+    if (nextFile && ER.flag('p-conf')) return ['go', ['Hugh is going to tell the Commander everything. She is in the rover garage, getting ready for noon. Click the button at the bottom of the screen.']];
+    if (nextFile && !ER.flag('p-print')) return ['toolbox', [
+      'Hugh looked at his toolbox when the board was full. It is on the floor by his camp bed. Click it.',
+      'There is a printout in it, under a spanner. Read it to the end.'
+    ]];
+    if (nextFile) return ['confess', ['You have the printout. Now click on Hugh, and listen to the end.']];
+    if (!ER.flag('p-talk')) return ['talk', [
+      'Hugh is in the corner by his camp bed. Click on him and listen to the end.',
+      'He will tell you what Liv asked him to do, and where the cards for the sol board came from.'
+    ]];
+    if (!ER.flag('p-poster')) return ['poster', [
+      'Read the poster on the wall, to the right of the big screen, before the sol board.',
+      'It is about dust storms and solar power, and it has a rule about huts like the Igloo.'
+    ]];
+    return ['board', [
+      'Put each card in the window of time where it happened: the right sol, and between the right passes or inside one. Click a card, then click a box on the board. Green boxes are relay passes.',
+      'Some cards give a time in words, or count from another card: 55 minutes after 21.10, 16.16 and 42 minutes, twenty-seven minutes to eleven at night, twenty past midnight. Turn each one into a time first. Mind the edges of the passes, and mind midnight.',
+      'Twenty past midnight on Sol 212 is the very start of Sol 212. 21:10 on Sol 211 is ten minutes before that evening&rsquo;s pass. 22.05 and 22.33 are both after it. Three of the mail cards land inside a green pass. Three do not.'
+    ]];
+  }
+  function paint() {
+    $('#poster').setAttribute('class', 'hot' + (ER.flag('p-talk') && !ER.flag('p-poster') ? ' next' : ''));
+    $('#solboard').setAttribute('class', 'hot' + (!nextFile && ER.flag('p-talk') && ER.flag('p-poster') ? ' next' : ''));
+    $('#toolbox').setAttribute('class', 'hot' + (nextFile && !ER.flag('p-print') ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !!ER.flag('p-conf') && !busy);
+    ER.pips(nextFile ? (ER.flag('p-conf') ? 2 : 1) : 0, 2);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile && ER.flag('p-conf')) { ER.say('The power room. The sol board is full, and Hugh has gone to find the Commander.'); return; }
+    if (ER.flag('p-seen')) { ER.say('The power room: the battery racks, the big screen, the poster, the sol board, and Hugh in his corner.'); return; }
+    busy = true; ER.flag('p-seen', 1);
+    ER.narrate([
+      'The power room hums. Battery racks line the wall, each with a row of small green lights, and on the big screen a line that ought to be flat is sliding downhill: the base&rsquo;s solar array, sol by sol, as the dust thickens.',
+      'Hugh&rsquo;s camp bed is in the corner, under a tangle of cables, with his toolbox and his logbook. Hugh is standing beside it, not doing anything at all.',
+      'On the wall is the sol board, where the crew stick up what happened and when. Somebody has started to fill it in and given up.'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#hughG').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('p-conf')) { ER.say('&ldquo;I&rsquo;m going to tell Joss,&rdquo; says Hugh. &ldquo;All of it. Then I&rsquo;m driving.&rdquo;'); return; }
+    if (nextFile && ER.flag('p-print')) {
+      ER.talk({
+        who: CAST.hugh.who, role: CAST.hugh.role, face: FACE('hugh'),
+        lines: [
+          { note: 'Hugh sees the printout in your hand and lets out a long breath, as if he had been holding it since nine o&rsquo;clock.',
+            a: '&ldquo;I printed that at nine, after Kaja&rsquo;s letter. Then I put it in my toolbox and told everybody the opposite. That&rsquo;s the truth.&rdquo;' },
+          { q: 'Why?',
+            a: '&ldquo;Because it was ten at night and I was frightened for Liv, and I clicked the first two choices without reading them. <i>In my own words. All my mail.</i> So it&rsquo;s been writing to Joss as Liv. Writing &lsquo;no need to fetch me&rsquo;. And Joss believed it, because I told her the long ones were Liv.&rdquo;' },
+          { q: 'Did you write any of them yourself?',
+            a: '&ldquo;No! I wouldn&rsquo;t know how. I can&rsquo;t even spell <i>whilst</i>.&rdquo; He nearly laughs. &ldquo;And you proved where they came from at six this morning: too fast for Mars. Earth.&rdquo;' },
+          { q: 'What now?',
+            a: '&ldquo;Now I tell Joss. All of it. I switch the thing off, and it takes twelve and a half minutes to reach Earth, so the sooner the better. And if Ibex goes, I&rsquo;m driving.&rdquo;' }
+        ],
+        clue: { id: 'hugh2', title: 'Hugh, in the power room', kind: 'What he said' }, last: 'Go with him',
+        done: function (seen) { if (!seen) return; ER.flag('p-conf', 1); paint(); ER.say('Hugh goes to find the Commander. She is in the rover garage.'); }
+      });
+      return;
+    }
+    if (nextFile) { ER.say('Hugh is looking at his toolbox, not at you.'); return; }
+    if (ER.flag('p-talk')) { ER.say('&ldquo;Put each card where it happened,&rdquo; says Hugh. &ldquo;Mind the passes.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.hugh.who, role: CAST.hugh.role, face: FACE('hugh'),
+      lines: [
+        { note: 'Hugh does not look up.',
+          a: '&ldquo;I switched it on because Liv asked me to. <i>If my radio goes quiet, switch Homeward on for Kaja.</i> So I did. Short holding notes, family only. I&rsquo;m sure I did.&rdquo;' },
+        { q: 'Can we see the settings?',
+          a: '&ldquo;They&rsquo;re on Earth, aren&rsquo;t they. Ask Mission Control and wait half an hour.&rdquo; He pulls his toolbox closer with his foot.' },
+        { q: 'Will you help me fill in the sol board?',
+          a: '&ldquo;Everything&rsquo;s on the cards: the power log, my logbook, Joss&rsquo;s diary, Keiko&rsquo;s note, the mail stamps. Put each one where it happened. The green boxes are the relay passes. Mind them.&rdquo;' }
+      ],
+      clue: { id: 'hugh1b', title: 'Hugh, in his corner', kind: 'What he said' }, last: 'Look at the board',
+      done: function (seen) { if (!seen) return; ER.flag('p-talk', 1); CP.learn(['logbook', 'diary']); paint(); ER.say('The poster about dust storms is on the wall, to the right of the big screen.'); }
+    });
+  });
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'poster', clue: { id: 'poster', title: 'Dust storms and power', kind: 'Poster' }, done: function () { ER.flag('p-poster', 1); CP.learn(['dust storm', 'solar panel', 'battery']); paint(); } });
+  });
+  $('#toolbox').addEventListener('click', function () {
+    if (busy) return;
+    if (!nextFile) { ER.say('Hugh&rsquo;s red toolbox. He moves his foot in front of it.'); return; }
+    ER.read({ html: PRINT, cls: 'term', clue: { id: 'settings', title: 'Homeward settings', kind: 'Printout from the toolbox' }, done: function () { ER.flag('p-print', 1); CP.learn(['settings']); paint(); ER.say('A printout of Liv&rsquo;s Homeward settings, folded small, under a spanner. Hugh is watching you read it.'); } });
+  });
+  $('#logbook').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('Hugh&rsquo;s logbook, on a clipboard. Two of its lines are on the sol board cards already. The rest is about batteries, and one drawing of a cat.');
+  });
+  CP.thing('#graph', 'array', 'ARRAY OUTPUT, as a percentage of a clear day: Sol 211, 96. Sol 212, 81. Sol 213, 63. Sol 214 so far, 47. The Igloo sits under the same sky, and its power unit has failed besides.', isBusy);
+
+  /* ---------- the sol board ---------- */
+  function cellLabel(sol, seg) {
+    var p = PASS[sol];
+    switch (seg) {
+      case '0': return 'midnight&ndash;' + p[0];
+      case 'A': return '<b>PASS</b>' + p[0] + '&ndash;' + p[1];
+      case 'AB': return p[1] + '&ndash;' + p[2];
+      case 'B': return '<b>PASS</b>' + p[2] + '&ndash;' + p[3];
+      case 'BC': return p[3] + '&ndash;' + p[4];
+      case 'C': return '<b>PASS</b>' + p[4] + '&ndash;' + p[5];
+      case 'CD': return p[5] + '&ndash;' + p[6];
+      case 'D': return '<b>PASS</b>' + p[6] + '&ndash;' + p[7];
+      default: return p[7] + '&ndash;midnight';
+    }
+  }
+  function openBoard() {
+    var box = ER.el('div', 'sb'), done = false, held = null, g = '';
+    [211, 212, 213].forEach(function (sol) {
+      g += '<div class="sl">' + sol + '</div>';
+      SEGS.forEach(function (sg) { g += '<div class="cell' + (/^[ABCD]$/.test(sg) ? ' ps' : '') + '" data-c="' + sol + '-' + sg + '"><i>' + cellLabel(sol, sg) + '</i></div>'; });
+    });
+    box.innerHTML = '<h6>SOL BOARD<small>Put each card where it happened. Green boxes are relay passes. Base time, Mars hours.</small></h6><div class="sb-grid">' + g + '</div>' +
+      '<div class="tray"></div><div class="sb-foot"><p class="pmsg"></p><button type="button" class="btn" id="p-check">Show Hugh</button></div>';
+    var tray = box.querySelector('.tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var n = ER.el('div', 'card' + (c.mail ? ' mail' : ''), '<u>' + c.src + '</u><span class="tx">' + c.tx + '</span><span class="lb">' + c.lb + '</span>'); n.setAttribute('data-e', c.id);
+      (S.at[c.id] ? box.querySelector('.cell[data-c="' + S.at[c.id] + '"]') : tray).appendChild(n);
+    });
+    function hold(n) { if (held) held.classList.remove('held'); held = n; if (n) n.classList.add('held'); }
+    box.addEventListener('click', function (e) {
+      if (done) return;
+      var card = e.target.closest('.card'), cell = e.target.closest('.cell');
+      ER.$$('.bad', box).forEach(function (o) { o.classList.remove('bad'); });
+      if (card && (!held || card === held || !cell)) { hold(card === held ? null : card); if (held) msg('Now click the box where it happened.'); return; }
+      if (cell && held) { cell.appendChild(held); S.at[held.getAttribute('data-e')] = cell.getAttribute('data-c'); hold(null); CP.sfx.clunk(); keep(); return; }
+      if (e.target === tray && held) { tray.appendChild(held); delete S.at[held.getAttribute('data-e')]; hold(null); keep(); return; }
+      if (cell && !held) msg('Click a card first, then the box where it happened.');
+    });
+    box.querySelector('#p-check').addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (done) return;
+      var ids = CARDS.map(function (c) { return c.id; }), i;
+      if (!Object.keys(S.at).length) { msg('&ldquo;Cards on the board first,&rdquo; says Hugh.'); return; }
+      if (ids.some(function (k) { return !S.at[k]; })) { msg('&ldquo;All nine,&rdquo; says Hugh. &ldquo;Or it&rsquo;s not a board, it&rsquo;s a guess.&rdquo;'); ER.shake(tray); return; }
+      for (i = 0; i < ids.length; i++) if (!ER.check(ids[i], S.at[ids[i]])) {
+        CP.bump('miss'); CP.sfx.hm();
+        box.querySelector('.card[data-e="' + ids[i] + '"]').parentNode.classList.add('bad');
+        msg(WHY[ids[i]]); return;
+      }
+      var file = ER.exitOk([ids.map(function (k) { return S.at[k]; }).join('|')]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says Hugh.'); return; }
+      done = true; nextFile = file; ER.flag('p-file', file); CP.done('power'); busy = true;
+      box.classList.add('shown');
+      CP.mine('board', 'The sol board', '<p>21.10, Sol 211: the Igloo&rsquo;s main link is lost. From then on, the Igloo can reach us only in a relay pass.</p>' +
+        '<p>In a pass: 03:14 (Sol 212), 09:52 and 21:41 (Sol 213). These are the short ones.</p><p>Not in any pass: 22:33 (Sol 211, the wind), 10:31 (Sol 212, Hei Keiko), 16:58 (Sol 213, no need to fetch me). Those cannot have come from the Igloo.</p>' +
+        '<p>22.05, Sol 211: Hugh switched the helper on. Every cheerful message came after that.</p>', true);
+      msg('Green for the passes. Red for the mail that arrived when nothing could reach Juniper from the Igloo.');
+      setTimeout(function () { ER.closeAll(); CP.solved(); paint(); after(); }, 3600);
+    });
+    msg(Object.keys(S.at).length ? 'The cards are where you left them.' : 'Click a card, then the box on the board where it happened.');
+    ER.open('ov-lock', box);
+  }
+  $('#solboard').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The sol board, full. Every short message landed in a green pass. The cheerful ones did not.'); return; }
+    if (!ER.flag('p-talk')) { ER.say('The sol board, half filled in. Talk to Hugh first.'); return; }
+    if (!ER.flag('p-poster')) { ER.say('Read the poster first, to the right of the big screen.'); return; }
+    openBoard();
+  });
+  function after() {
+    ER.narrate([
+      'The sol board is full. From 21.10 on Sol 211, the Igloo could reach Juniper only while the orbiter was overhead. Every short message landed inside a green pass: 03.14, 09.52, 21.41.',
+      'The cheerful ones did not: 22.33, 10.31, 16.58. At those times nothing at all could reach Juniper from the Igloo. They did not come from Liv. They came the long way round, from Earth.',
+      'And the last short one, at 21.41, said <i>battery 28%</i>. The poster&rsquo;s rule says 30%. Hugh is staring at the board. Then he looks at his toolbox.'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && ER.flag('p-conf') && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
