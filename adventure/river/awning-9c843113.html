@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Under the Awning · A Little Water</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="river.css">
+<style>
+  body{--bg:#0c1420;--accent:#ffcf6a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,18,30,.95);--tc-ink:#f1ead6;--cap-bg:rgba(10,18,30,.93);--panel:#121c2a;--face-bg:#1c2a3a;--q-ink:#ffd98a;--fade:#05080c;--hud-bg:rgba(10,18,30,.82)}
+  .ff{animation:ff 3.2s steps(1,end) infinite}
+  @keyframes ff{0%,40%{opacity:0}45%,70%{opacity:1}75%{opacity:0}}
+  #lampglow{animation:flick 2.3s steps(3,end) infinite alternate}
+  @keyframes flick{from{opacity:.75}to{opacity:.95}}
+  #hammock{animation:swing 4.5s ease-in-out infinite alternate;transform-origin:1180px 170px}
+  @keyframes swing{from{transform:rotate(-1.5deg)}to{transform:rotate(1.5deg)}}
+  .mth{animation:mth 1.4s steps(2,end) infinite}
+  @keyframes mth{50%{transform:translate(4px,-3px)}}
+  body.knock #hatch{animation:jolt .25s steps(2,end) 2}
+  @keyframes jolt{50%{transform:translateY(-2px)}}
+
+  /* the journal, marked in the margin */
+  .bx.marks{width:min(1100px,97vw)}
+  .mgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:12px;align-items:start}
+  .jp{background:#efe6cc repeating-linear-gradient(transparent 0 24px,rgba(70,90,140,.2) 24px 25px);color:#26304e;font-family:'Caveat',cursive;font-size:19.5px;line-height:25px;padding:8px 18px 10px 12px;border-left:3px double #b0563a;max-height:68vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .jp p{margin:0;padding-left:96px;position:relative}
+  .jp .d{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;color:#b0563a;margin-right:5px}
+  .jp .mk{position:absolute;left:0;width:86px;height:24px;margin-top:2px;border:1.5px dashed #b0563a;border-radius:3px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.12em;color:#b0563a;line-height:22px;text-align:center;background:rgba(255,255,255,.35)}
+  .jp .mk.set{border-style:solid;background:#fff8e6;color:#1d2a55}
+  .jp .sen{background:rgba(255,214,90,.35);border-radius:2px;cursor:pointer}
+  .jp .sen.pick{background:rgba(200,64,44,.3)}
+  .side{background:#f6f1e1;color:#24261f;padding:12px 16px;border:1px solid #8a8466;font-family:'EB Garamond',serif;font-size:16px;line-height:1.3}
+  .side h5{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.12em;color:#2f5a3a}
+  .side p{margin:0 0 6px}
+  .side .k{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.12em;color:#1d2a55}
+  .side .dial{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+  .side .btn{--accent:#2f5a3a;width:100%;margin-top:6px}
+  .side .btn:hover:not([disabled]){color:#fff}
+  .side.off{opacity:.45;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050a16"/><stop offset="1" stop-color="#1a2a44"/></linearGradient>
+  <radialGradient id="lampR" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd27a" stop-opacity=".55"/><stop offset=".5" stop-color="#ffb04a" stop-opacity=".16"/><stop offset="1" stop-color="#ffb04a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="sheetR" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigN" cx="50%" cy="55%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#0c1420"/>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyN)"/>
+<g id="stars" fill="#f4f1e4"></g>
+<path d="M1260 120a40 40 0 1 0 30 66a32 32 0 1 1 -30 -66z" fill="#f4efd6"/>
+<!-- the forest on the bank, and the river -->
+<path id="trees" d="M-1000 500" fill="#07110a"/>
+<rect x="-1000" y="470" width="3600" height="200" fill="#0e1a26"/>
+<g stroke="#f4efd6" stroke-width="3" opacity=".35"><path d="M1240 500h70M1230 520h90M1250 540h60M1236 560h84"/></g>
+<g id="flies"></g>
+<!-- the deck -->
+<path d="M-1000 600H2600V1320H-1000Z" fill="#3a2a1c"/><g id="planks" stroke="#24180e" stroke-width="3"></g>
+<path d="M-1000 600H2600" stroke="#5a4430" stroke-width="10"/><g stroke="#c9bfa4" stroke-width="4" opacity=".75" id="rail"></g><path d="M-1000 540H2600" stroke="#c9bfa4" stroke-width="5" opacity=".75"/>
+<!-- the boiler hatch, which knocks -->
+<g id="hatch" class="hot"><path d="M-80 640h330l30 120h-390z" fill="#2a2a2c" stroke="#5a5a5c" stroke-width="4"/><path d="M-60 660h290M-70 700h320M-80 740h350" stroke="#444" stroke-width="3"/><rect x="40" y="520" width="80" height="120" fill="#1c1c1e"/><path d="M30 520h100" stroke="#5a5a5c" stroke-width="8"/><circle cx="80" cy="700" r="10" fill="#7a2a22"/></g>
+<!-- Gilroy's white sheet at the stern -->
+<g id="sheet" class="hot"><ellipse cx="1420" cy="430" rx="220" ry="200" fill="url(#sheetR)"/><path d="M1320 250h200" stroke="#6b5a3a" stroke-width="6"/><path d="M1328 252q-6 160 4 320h176q10 -160 4 -320z" fill="#f4efd6"/>
+  <g fill="#3a3024"><g class="mth"><path d="M1370 330l-14 -8 2 12zM1370 330l14 -8 -2 12z"/></g><path d="M1440 300l-12 -6 2 10zM1440 300l12 -6 -2 10z"/><g class="mth"><path d="M1410 420l-16 -10 2 14zM1410 420l16 -10 -2 14z"/></g><path d="M1470 480l-10 -6 2 9zM1470 480l10 -6 -2 9z"/><path d="M1360 500l-12 -7 2 10zM1360 500l12 -7 -2 10z"/></g>
+  <rect x="1404" y="590" width="30" height="40" rx="5" fill="#ffd27a" stroke="#3a2a1a" stroke-width="3"/></g>
+<g id="gilroy" class="hot"><g id="pgilroy"></g></g>
+<!-- the awning -->
+<path d="M-1000 -400H2600V140H-1000Z" fill="#e8e0c8"/><g id="stripes" fill="#3d6650"></g>
+<path id="scallop" d="M-1000 140" fill="#e8e0c8"/>
+<g stroke="#6b5a3a" stroke-width="12"><path d="M330 140V600M1300 140V600"/></g>
+<!-- Lemi, in a hammock -->
+<g id="hammock" class="hot"><path d="M1060 170q120 160 260 0" stroke="#c9b48a" stroke-width="4" fill="none"/><path d="M1080 196q110 120 220 0q-110 60 -220 0z" fill="#b5423a"/><path d="M1090 210q100 70 200 -4" stroke="#7a2a22" stroke-width="3" fill="none"/><circle cx="1110" cy="214" r="20" fill="#6b4423"/><path d="M1090 210q2 -26 20 -26q18 0 22 22q-8 -10 -20 -10q-14 2 -22 14z" fill="#c96a2b"/><path d="M1296 200l14 22" stroke="#6b4423" stroke-width="10" stroke-linecap="round"/></g>
+<!-- the table, the lamp, the papers -->
+<g id="table"><path d="M440 640L980 640L1020 700L400 700Z" fill="#6b4a2a"/><path d="M420 700v200M1000 700v200" stroke="#4a3220" stroke-width="16"/></g>
+<circle id="lampglow" cx="700" cy="520" r="300" fill="url(#lampR)" pointer-events="none"/>
+<g id="lamp"><path d="M700 140v300" stroke="#3a2a1a" stroke-width="3"/><path d="M680 440h40l8 20h-56z" fill="#3a2a1a"/><path d="M682 460q-10 40 18 64q28 -24 18 -64z" fill="#ffe7a0" stroke="#3a2a1a" stroke-width="3"/><path d="M676 524h48v10h-48z" fill="#3a2a1a"/></g>
+<g id="journal" class="hot"><path d="M520 650l150 -8 10 40 -160 10z" fill="#efe6cc" stroke="#8a7a5a" stroke-width="2"/><path d="M540 660l120 -6M542 670l110 -6M544 680l120 -6" stroke="#26304e" stroke-width="1.500"/><path d="M560 640l150 -10 8 40 -150 10z" fill="#f3ecd8" stroke="#8a7a5a" stroke-width="2"/><path d="M576 650l120 -8M578 660l110 -7" stroke="#26304e" stroke-width="1.500"/></g>
+<g id="booklet" class="hot"><path d="M760 648l90 -6 6 34 -90 6z" fill="#2f5a3a"/><path d="M770 652l70 -5" stroke="#d9c79a" stroke-width="2"/><text x="806" y="668" class="sz" font-size="9" fill="#f6f1e1" transform="rotate(-4 806 668)">NOTES</text></g>
+<g id="tracing" class="hot"><path d="M870 650l90 -4 4 40 -92 4z" fill="#fbf8ec" stroke="#2a2116" stroke-width="2"/><path d="M880 662l70 -3M880 674l60 -3" stroke="#3a2a6a" stroke-width="1.500"/></g>
+<!-- the captain, with a mug -->
+<g id="joba" class="hot"><g id="pjoba"></g><path d="M330 720h40v40h-40z" fill="#7a2a22"/><path d="M370 728q14 4 0 22" stroke="#7a2a22" stroke-width="4" fill="none"/></g>
+<!-- a frog on the rail -->
+<g id="frog" class="hot"><ellipse cx="1010" cy="534" rx="16" ry="9" fill="#5a8a3a"/><circle cx="1000" cy="526" r="5" fill="#5a8a3a"/><circle cx="1000" cy="525" r="2" fill="#000"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigN)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Joba&rsquo;s question</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="river.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, marks = null, nextFile = null, knockT = 0;
+
+  (function () {
+    var s = '', i, x, r = 11;
+    function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+    for (i = 0; i < 120; i++) s += '<circle cx="' + (-1000 + rnd() * 3600).toFixed(0) + '" cy="' + (-380 + rnd() * 780).toFixed(0) + '" r="' + (0.8 + rnd() * 1.8).toFixed(1) + '" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>';
+    $('#stars').innerHTML = s;
+    s = 'M-1000 480';
+    for (x = -1000; x <= 2600; x += 30) s += 'L' + x + ' ' + (360 + rnd() * 90 + (rnd() < 0.15 ? -60 : 0)).toFixed(0);
+    $('#trees').setAttribute('d', s + 'L2600 480Z');
+    s = ''; for (i = 0; i < 22; i++) s += '<circle class="ff" style="animation-delay:' + (rnd() * 3).toFixed(2) + 's" cx="' + (-600 + rnd() * 2800).toFixed(0) + '" cy="' + (380 + rnd() * 110).toFixed(0) + '" r="3" fill="#d6ff7a"/>';
+    $('#flies').innerHTML = s;
+    s = ''; for (x = -1000; x < 2600; x += 90) s += '<path d="M' + x + ' 604L' + (x - 200) + ' 1320"/>';
+    $('#planks').innerHTML = s;
+    s = ''; for (x = -1000; x < 2600; x += 70) s += '<path d="M' + x + ' 540v60"/>';
+    $('#rail').innerHTML = s;
+    s = ''; for (x = -1000; x < 2600; x += 120) s += '<rect x="' + x + '" y="-400" width="60" height="540"/>';
+    $('#stripes').innerHTML = s;
+    s = 'M-1000 140'; for (x = -1000; x < 2600; x += 60) s += 'q30 26 60 0';
+    $('#scallop').setAttribute('d', s + 'V120H-1000Z');
+    $('#pjoba').innerHTML = RV.person(300, 830, 1.05, { coat: '#1f2a3a', skin: '#5a3a24', hair: '#cfcac0', hat: 'cap', sit: 1, legs: '#2a2a2a' });
+    $('#pgilroy').innerHTML = RV.person(1600, 860, 1.1, { coat: '#ece5d0', skin: '#e2bc94', hair: '#6b4a2a', hat: 'panama', specs: 1, legs: '#d9d0b8', flip: 1 });
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'river', storyTitle: 'A Little Water', id: 'awning', no: 'III', title: 'Under the Awning',
+    go: 'Down the ladder',
+    intro: [
+      'Five short, and then two short. The Kudu, coming down, proposed that each boat keep to her own right, which would have put the Jacana on the point bar inside Long Bend, in two feet of water. You sounded the danger signal; she went astern and proposed the other side; you agreed in her own words. Before that you took four feet off every number on the chart, kept six feet under the Jacana, and kept away from the tree in Snag Bend.',
+      'Night at Hollow Tree, mile 66. The Jacana is tied to the bank with two ropes and a great deal of confidence. There are frogs, and a lamp under the awning, and moths round the lamp.',
+      'On the table: the journal pages that came down from Ironwood Creek with her last letter; the Garden&rsquo;s little green book of Notes for Collectors; and a tracing you made before you left, of the only label in the world for the plant that she went to find.'
+    ],
+    exit: {"next":"post","w":{"ef0a1bec":"1869a121"}}, tags: {"m1":["df27d1e6"],"m2":["9c4d3688"],"m3":["b3aaf07b"],"m4":["37e29226"],"m5":["676b6401"],"m6":["c770f01f"],"m7":["29776b73"],"m8":["2db177dc"],"wrong":["bf12c570"],"night":["7ab3f42f"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a-told') || {}; nextFile = ER.flag('a-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go'), ready = told.joba;
+    b.classList.toggle('on', !!(ready || nextFile));
+    b.textContent = nextFile ? 'Sleep' : 'Joba’s question';
+    ER.pips((told.journal && told.booklet ? 1 : 0) + (ER.flag('a-marks') ? 1 : 0) + (ER.flag('a-wrong') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Everybody is asleep but you. Sleep.']];
+    if (!(told.journal && told.booklet && told.joba)) return ['read', ['Three things on the table: her journal pages, the green booklet, and your tracing. Read them, and then ask the captain what he thinks of her.']];
+    if (!ER.flag('a-marks')) return ['marks', [
+      'Read the green booklet again (it is in your notebook). Then take each yellow sentence by itself, and ask: did she see or measure this herself, or does she only think it, or did she work it out, or is it how it felt?',
+      'Look for the little words. &ldquo;I think&rdquo; and &ldquo;certain&rdquo; are beliefs; &ldquo;must&rdquo; with a reason (so, because) is a conclusion; &ldquo;seemed&rdquo; is an impression; a plain past with a number or a thing in it is what she saw.',
+      'Two of each kind. The sentence with &ldquo;quite certain&rdquo; in it has no reason in it at all: so what is it?'
+    ]];
+    if (!ER.flag('a-wrong')) return ['wrong', [
+      'She has two sentences with &ldquo;must&rdquo; in them. Read what she wrote the next morning.',
+      'One &ldquo;must&rdquo; has its reason inside it, and Mr Gilroy&rsquo;s page agrees with the reason. The other has no reason except that the white things had gone by morning: and Mr Gilroy&rsquo;s page says what night flowers do by morning.'
+    ]];
+    return ['night', [
+      'Use only what she measured: three numbers with dates. How many millimetres a day does the stalk grow?',
+      'From 14 mm on 1 March to 30 mm on 9 March is 16 mm in 8 days: 2 a day. Lockhart says the stalk was 170 mm when the flower opened. How far has it to go from 46 mm on 17 March, and how many days is that?',
+      '124 mm at 2 mm a day is 62 days after 17 March. March has 31 days. Count on from the 17th.'
+    ]];
+  }
+  function begin() {
+    paint();
+    knockT = setInterval(knock, 24000);
+    if (nextFile) { busy = false; ER.say('Everybody is asleep except the frogs, and the boiler, and Mr Gilroy.'); return; }
+    if (told.intro) { busy = false; ER.say('Under the awning, at Hollow Tree. The lamp is lit, and the papers are on the table.'); return; }
+    ER.narrate([
+      'The captain sits down at the table with a tin mug of something very sweet, and you sit down opposite him. Lemi is in a hammock, pretending to be asleep.',
+      'Beyond the awning there is nothing but black forest, and in it, here and there, small green lights come on and go out again.',
+      'At the stern, where there should be nothing at all, there is a pale square of light.'
+    ], function () { busy = false; tell('intro'); setTimeout(knock, 1800); });
+  }
+  function knock() {
+    if (busy || ER.isOpen() || document.hidden) return;
+    RV.sfx.knock(); document.body.classList.add('knock'); setTimeout(function () { document.body.classList.remove('knock'); }, 600);
+    if (!told.knock) ER.say('<i>Knock.</i> &hellip; <i>knock.</i> Something under the deck, near the boiler hatch.');
+  }
+
+  /* ---------- people ---------- */
+  $('#joba').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The captain is asleep in his chair, with the mug still in his hand. It has not spilled. It would not dare.'); return; }
+    ER.talk({
+      who: 'Captain Joba Ilunde', role: 'Under the awning', face: window.FACE('joba'),
+      lines: [
+        { note: 'He taps the journal pages with the stem of his pipe.', a: '&ldquo;I have known her for six years. She is the least frightened person on this river. These pages are frightened. I would like to know if she is frightened and wrong, or frightened and right.&rdquo;' },
+        { q: 'How do I tell?', a: 'Your Garden has a little green book about it. Mark me her sentences in the margin, the way the book says: what she saw, what she thinks, what she worked out, and what only seemed. Then tell me which of her conclusions her own pages prove wrong. And then tell me the night that thing of hers opens. She has given you everything you need, and then hidden it among the rest.' },
+        { q: 'What is that knocking?', a: 'That? That is the boiler. Iron that has been hot all day gets smaller as it cools, and it does not do it quietly. Tick, tock, knock, for an hour after the fire is drawn. The first night Dr Kinnaird was on board, she sat up with a lamp and a frying pan, waiting for a burglar.' },
+        { q: 'And the light at the stern?', a: 'Mr Gilroy. Ask him. I did, and I am none the wiser.' }
+      ],
+      clue: { id: 'joba3', title: 'Captain Ilunde, under the awning', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        RV.words(['boiler', 'conclusion', 'margin']);
+        tell('knock');
+        if (tell('joba')) { paint(); ER.say('Mark the margin; find the wrong conclusion; name the night.'); }
+      }
+    });
+  });
+  $('#hammock').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Lemi Ilunde', role: 'In a hammock, not asleep', face: window.FACE('lemi'),
+      lines: [
+        { note: 'One eye opens.', a: '&ldquo;She taught me to read, you know. Not letters: the river. She said, write down what you see, and then, separately, what you are afraid of. Never mix them up.&rdquo;' },
+        { q: 'And did she?', a: 'Read her pages. She mixed them up. That is what being alone does to people. My grandfather says it is also what being right for nineteen years does.' },
+        { q: 'What do you think of Mr Gilroy?', a: 'A man who airs his laundry at night, with a lamp behind it, is either very stupid or not airing his laundry. He is not very stupid.' }
+      ],
+      clue: { id: 'lemi3', title: 'Lemi, in the hammock', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lemi')) ER.say('Lemi closes the eye again. The hammock goes on swinging, a very little.'); }
+    });
+  });
+  var MOTH = '<h4>FLOWERS OF THE NIGHT · J. G.</h4>' +
+    '<p>A flower that opens at dusk is not being shy. It is open for the animals that are awake then: moths, and in warm countries, bats.</p>' +
+    '<p>Colour is little use in the dark, so night flowers are usually white or very pale, which shows in moonlight. Instead of colour they use scent: strong, sweet, and often only after sunset.</p>' +
+    '<p>A hawkmoth hovers in front of a flower and drinks through a long tongue that it keeps rolled up. Its flowers hide their nectar at the bottom of a long, narrow tube, which only a long tongue can reach.</p>' +
+    '<p>Many night flowers last one night. By morning they have closed, or fallen.</p>' +
+    '<p>In 1862 Charles Darwin was sent an orchid from Madagascar whose nectar lay at the bottom of a tube nearly 30 centimetres long. He wrote that there must be a moth with a tongue that long. Not everybody believed him. In 1903 a hawkmoth from Madagascar with a tongue long enough was described, and named <i>praedicta</i>: the one that was predicted.</p>';
+  $('#gilroy').addEventListener('click', openGilroy);
+  $('#sheet').addEventListener('click', openGilroy);
+  function openGilroy() {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Gilroy is still at the stern, with his lamp and his sheet. He is not asleep. He may never sleep again.'); return; }
+    ER.talk({
+      who: 'Mr Jasper Gilroy', role: 'At the stern, with a lamp and a sheet', face: window.FACE('gilroy'),
+      lines: [
+        { note: 'He has hung a white sheet from the awning, with a lamp behind it. The sheet is covered in moths.', a: '&ldquo;Laundry. I am airing my laundry.&rdquo;' },
+        { q: 'At night? With a lamp behind it?', a: 'It airs better in the dark. Everybody knows that.</p><p class="note">He lifts a moth off the sheet, very gently, looks at it for a long time, and puts it back.</p><p>You are going to tell me that is not a laundry kind of thing to do.' },
+        { q: 'What are you really looking for?', a: 'Something that comes when the white flowers open.</p><p class="note">He hesitates. Then he takes the small black notebook out of his inside pocket, tears out a page, and gives it to you.</p><p>There. Read that, and do not laugh. People do.' },
+        { q: 'Is that why you want her plant?', a: 'I do not want her plant. I want&hellip;</p><p class="note">He stops.</p><p>Good night. Mind the moths. They are not mine. Yet.' }
+      ],
+      clue: { id: 'gilroy3', title: 'Mr Gilroy, at the stern', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        if (tell('gilroy')) {
+          ER.read({ html: MOTH, cls: 'moth', clue: { id: 'moth', title: 'Flowers of the night (a page of Mr Gilroy’s)', kind: 'Torn from a notebook' }, done: function () {
+            RV.words(['hawkmoth', 'nectar', 'scent', 'dusk']);
+            ER.say('White, scented at night, fallen by morning. Mr Gilroy has gone back to his sheet.');
+          } });
+        }
+      }
+    });
+  }
+
+  /* ---------- papers ---------- */
+  var BOOK = '<h4><small>THE BOTANIC GARDEN · NOTES FOR COLLECTORS</small>4. Your field journal</h4>' +
+    '<p>We were not there. Write so that we can tell which of your sentences is which.</p>' +
+    '<p><b>What you saw</b>, heard or measured yourself: say so plainly, in the past. <i>&ldquo;I measured the leaf: 40 mm.&rdquo;</i></p>' +
+    '<p><b>What you think</b> but did not see: <i>I think, probably, perhaps, I expect.</i> Words like <i>certain</i> and <i>sure</i> tell us how strongly you believe a thing, not why. With no reason, it is still only what you think.</p>' +
+    '<p><b>What you worked out</b>: <i>must, cannot, so, because.</i> Give the reason in the same sentence. A conclusion is only as good as its reason, and a later fact can undo it.</p>' +
+    '<p><b>What it seemed</b>: <i>it seemed, it looked like, as if.</i> Keep these; they are often the first sign of something. But never count them as measurements.</p>' +
+    '<p>A good reader does the same thing backwards.</p>';
+  $('#booklet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'card', clue: { id: 'book4', title: 'Notes for Collectors, 4: Your field journal', kind: 'A booklet of the Garden' }, done: function () {
+      RV.words(['field journal', 'measure', 'impression']);
+      if (tell('booklet')) { paint(); ER.say('Saw. Think. Must. Seemed. Four kinds of sentence, and a field journal is supposed to say which is which.'); }
+    } });
+  });
+  var J = [
+    ['9 Feb.', 'Found it at last, on a branch of the big ironwood across the creek, about thirty metres up: long leaves like straps, and a fat green stem like an onion. No flower, but a stalk is starting from the base. ', 1, 'It will open within the month: I am quite certain of it.'],
+    ['20 Feb.', 'No change that I can see. Lockhart&rsquo;s label says only that the stalk was 170 mm long on the evening it opened. ', 2, 'I think the stalk is paler than it was.'],
+    ['1 Mar.', 'Climbed up with a ruler. Stalk 14 mm.'],
+    ['2 Mar.', 'Something walked round the tent at about two in the morning, and ', 3, 'it seemed to me very large, and very interested in the tea.'],
+    ['5 Mar.', '', 4, 'There is no scent by day, and the stalk is white, so the flower must open at night.'],
+    ['9 Mar.', 'Stalk 30 mm. ', 5, 'It seemed to have grown a finger&rsquo;s length since the 1st.'],
+    ['11 Mar.', 'Rain for two days. ', 6, 'I cut a mark on the landing post on the 9th, and today the river is nine feet above it.', ' The men went down to Grice&rsquo;s this afternoon.'],
+    ['13 Mar.', 'Moved everything up. Last night there were white stars high in the trees across the creek, and none this morning. ', 7, 'I must have dreamt them.'],
+    ['14 Mar.', '', 8, 'There were three white petals on the path under the ironwood this morning, each as long as my hand.'],
+    ['16 Mar.', 'I think it has grown faster this week.'],
+    ['17 Mar.', 'Stalk 46 mm. About two months more, if Lockhart is right. Have written to Kingsley.']
+  ];
+  function journalHtml(withMarks) {
+    return J.map(function (e) {
+      var s = '<p>' + (withMarks && e[2] ? '<button type="button" class="mk" data-n="' + e[2] + '"></button>' : '') + '<span class="d">' + e[0] + '</span>' + e[1];
+      if (e[2]) s += (withMarks ? '<span class="sen" data-n="' + e[2] + '">' + e[3] + '</span>' : e[3]) + (e[4] || '');
+      return s + '</p>';
+    }).join('');
+  }
+  var JOUR = '<h4>Her journal · Ironwood Creek · pages 41 to 44</h4>' + journalHtml(false);
+  $('#journal').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: JOUR, cls: 'journal', clue: { id: 'journal1', title: 'Her journal, February and March', kind: 'In her hand' }, done: function () {
+      RV.words(['stalk', 'ironwood', 'petal']);
+      if (tell('journal')) { paint(); ER.say('Five weeks of one plant, a ruler, and a great deal of night.'); }
+    } });
+  });
+  var TRACE = '<h4>HERBARIUM OF THE BOTANIC GARDEN · sheet 1871/58</h4>' +
+    '<p>Upper Iluma, on a high branch over a creek. 3 April 1871. <b>G. Lockhart.</b></p>' +
+    '<p class="hand">Epiphyte. Flower opened at dusk: white, a long tube, very sweet. Fallen by morning. The stalk measured 170 mm on the evening it opened.</p>' +
+    '<p><i>In the Garden&rsquo;s pencil:</i> No other specimen known. Not seen in flower since.</p>' +
+    '<p><i>In yours:</i> Traced 12 May, for the journey. The only label in the world for it.</p>';
+  $('#tracing').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TRACE, cls: 'label', clue: { id: 'lockhart', title: 'Lockhart’s label, 1871 (your tracing)', kind: 'From the herbarium' }, done: function () {
+      RV.words(['epiphyte', 'specimen', 'label']);
+      if (tell('tracing')) ER.say('One flower, one night, in 1871. Not seen since.');
+    } });
+  });
+
+  /* ---------- things ---------- */
+  $('#hatch').addEventListener('click', function () {
+    if (busy) return;
+    RV.sfx.knock();
+    ER.say(told.knock ? 'The boiler, getting smaller as it cools. Tick, tock, knock. Nobody is in there.' : 'The knocking comes from under this hatch, where the boiler is. Somebody on board will know what it is.');
+  });
+  RV.thing('#lamp', 'hurricane lamp', 'A hurricane lamp, with forty moths round it and one gecko under it, waiting for the forty-first.', isBusy);
+  RV.thing('#frog', null, function () { RV.sfx.frog(); return 'A frog on the rail. It says the same thing three times, and then looks at you as if it were your turn.'; }, isBusy);
+  RV.thing('#flies', 'firefly', 'Fireflies, in the trees on the bank: small green lights that come on and go out. If she saw these alone at night, from a tent, she might have written something strange about them.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { clearInterval(knockT); ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!(told.journal && told.booklet)) { ER.say('&ldquo;Read her first,&rdquo; says Joba. &ldquo;The journal, and the green book. Then we will talk.&rdquo;'); return; }
+    if (!marks) marks = makeMarks();
+    marks.open();
+  });
+
+  /* ---------- the margin, the wrong conclusion, the night ---------- */
+  function makeMarks() {
+    var KINDS = ['', 'saw', 'thinks', 'must', 'seemed'], LBL = { '': '', saw: 'SAW', thinks: 'THINKS', must: 'MUST', seemed: 'SEEMED' };
+    var box = ER.el('div', 'bx marks'), msgEl, set = ER.flag('a-set') || {}, wait = false, dd, mm;
+    box.innerHTML = '<div class="mgrid"><div class="jp">' + journalHtml(true) + '</div>' +
+      '<div><div class="side" id="s1"><h5>1 · The margin</h5><p>Click the box beside each yellow sentence until it says what kind of sentence it is.</p><p class="k">SAW · THINKS · MUST · SEEMED</p><button type="button" class="btn" id="chk">Show Joba the margin</button></div>' +
+      '<div class="side" id="s2" style="margin-top:8px"><h5>2 · The wrong conclusion</h5><p>One of her MUST sentences is proved wrong by her own pages. Click it.</p></div>' +
+      '<div class="side" id="s3" style="margin-top:8px"><h5>3 · The night</h5><p>Which night will it open, if Lockhart is right?</p><div class="dial" id="dial"></div><button type="button" class="btn" id="tellj">Tell Joba</button></div></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var DAYS = []; for (var i = 1; i <= 31; i++) DAYS.push(i);
+    dd = RV.count(box.querySelector('#dial'), { list: DAYS, start: 0 });
+    mm = RV.count(box.querySelector('#dial'), { list: ['March', 'April', 'May', 'June', 'July'], start: 0 });
+    function stage() {
+      var m = ER.flag('a-marks'), w = ER.flag('a-wrong');
+      box.querySelector('#s1').classList.toggle('off', !!m);
+      box.querySelector('#s2').classList.toggle('off', !m || !!w);
+      box.querySelector('#s3').classList.toggle('off', !w);
+      ER.$$('.mk', box).forEach(function (b) { var n = b.getAttribute('data-n'); b.textContent = LBL[set[n] || '']; b.classList.toggle('set', !!set[n]); });
+      if (w) ER.$$('.sen[data-n="' + w + '"]', box).forEach(function (n) { n.classList.add('pick'); });
+    }
+    box.querySelector('.jp').addEventListener('click', function (e) {
+      if (wait) return;
+      var b = e.target.closest ? e.target.closest('.mk') : null, sn = e.target.closest ? e.target.closest('.sen') : null;
+      if (b && !ER.flag('a-marks')) {
+        var n = b.getAttribute('data-n'); set[n] = KINDS[(KINDS.indexOf(set[n] || '') + 1) % KINDS.length]; ER.flag('a-set', set); RV.sfx.pen(); stage(); return;
+      }
+      if (sn && ER.flag('a-marks') && !ER.flag('a-wrong')) {
+        var k = sn.getAttribute('data-n');
+        if (set[k] !== 'must') { ER.sfx.no(); msg('That is not one of her &ldquo;must&rdquo; sentences. Look in the margin for MUST.'); return; }
+        if (!ER.check('wrong', k)) { ER.sfx.no(); msg('&ldquo;That one has its reason inside it,&rdquo; says Joba. &ldquo;White, and no scent by day. And Mr Gilroy&rsquo;s page agrees with her.&rdquo;'); return; }
+        ER.flag('a-wrong', k); ER.sfx.ok(); paint(); stage();
+        msg('&ldquo;She did not dream them,&rdquo; you say. &ldquo;Next morning there were petals on the path. White flowers that open at night and are gone by morning: that is what night flowers do.&rdquo; Joba nods. &ldquo;Frightened, and right. Now: which night?&rdquo;');
+      }
+    });
+    box.querySelector('#chk').addEventListener('click', function () {
+      if (wait || ER.flag('a-marks')) return;
+      var bad = 0, empty = 0, n;
+      for (n = 1; n <= 8; n++) { if (!set[n]) empty++; else if (!ER.check('m' + n, set[n])) bad++; }
+      if (empty) { ER.sfx.no(); msg('&ldquo;All eight,&rdquo; says Joba. ' + empty + (empty === 1 ? ' sentence has' : ' sentences have') + ' nothing in the margin yet.'); return; }
+      if (bad) {
+        ER.sfx.no();
+        msg('Joba reads down the margin with his finger. &ldquo;' + (bad === 1 ? 'One of these is' : ['', '', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'][bad] + ' of these are') + ' not what your green book says.&rdquo;' +
+          (set[1] === 'must' || set[1] === 'saw' ? ' He taps the first one. &ldquo;Quite certain. Of what? She has not seen it, and she gives no reason.&rdquo;' : set[6] === 'seemed' || set[8] === 'seemed' ? ' &ldquo;A mark on a post, three petals on a path. Did they only seem?&rdquo;' : ''));
+        return;
+      }
+      ER.flag('a-marks', 1); ER.sfx.ok(); paint(); stage();
+      msg('Joba reads down the margin twice, and nods. &ldquo;Two of each kind. She was a careful woman once. Now: one of her two musts is wrong. Which?&rdquo;');
+    });
+    box.querySelector('#tellj').addEventListener('click', function () {
+      if (wait || !ER.flag('a-wrong')) return;
+      var d = dd.get(), m = mm.get(), q = d + ' ' + m.toLowerCase();
+      if (!ER.check('night', q)) {
+        ER.sfx.no();
+        if (m === 'March' || (m === 'April' && d < 20)) msg('&ldquo;The ' + d + ' of ' + m + '? That is how fast it SEEMED to grow. Go by what she measured, with a ruler, on a date.&rdquo;');
+        else if (m === 'May' && d === 17) msg('&ldquo;About two months,&rdquo; she wrote. That was her guess. Count the days, exactly: two millimetres a day, from 46 to 170.');
+        else if (m === 'May' && (d === 19 || d === 16 || d === 20)) msg('&ldquo;Close,&rdquo; says Joba. &ldquo;A day out. Count the days left in March again: the 17th is the day she measured, and it does not count twice.&rdquo;');
+        else msg('&ldquo;The ' + d + ' of ' + m + '?&rdquo; Joba shakes his head. &ldquo;Use her ruler, not her feelings. How fast does it grow, how far has it to go, and how many days is that from the 17th of March?&rdquo;');
+        return;
+      }
+      var file = ER.exit([[1, 2, 3, 4, 5, 6, 7, 8].map(function (n) { return set[n]; }).join(',') + '|' + ER.flag('a-wrong') + '|' + q], { wait: true });
+      if (!file) { ER.sfx.no(); msg('Joba frowns at the margin.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file); paint();
+      RV.mine('night', 'The night it opens', '<p>Measured: 14 mm on 1 March, 30 mm on 9 March, 46 mm on 17 March. 16 mm in 8 days: 2 mm a day.</p><p>Lockhart: 170 mm when it opened. 170 − 46 = 124 mm; 124 ÷ 2 = 62 days after 17 March.</p><p>14 days to the end of March, 30 in April: 44. 18 more: <b>18 May</b>. Tomorrow night.</p><p>Not &ldquo;a finger&rsquo;s length&rdquo; (that only seemed), and not &ldquo;it has grown faster this week&rdquo; (she only thinks so: the ruler says 16 mm both weeks).</p>');
+      msg('&ldquo;The eighteenth of May,&rdquo; you say. &ldquo;Sixty-two days after the seventeenth of March. That is tomorrow night.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Captain Ilunde puts down his mug. &ldquo;Tomorrow night. Ironwood at four o&rsquo;clock, and the sun down at six. Two hours to spare, you said on the landing stage. You did not say what we would be sparing them for.&rdquo;',
+          '&ldquo;She will be up that tree,&rdquo; says Lemi from the hammock, not asleep at all. &ldquo;She has been up that tree since March. A short way up. With a great deal of rope.&rdquo;',
+          'At the stern, Mr Gilroy&rsquo;s lamp goes out. Somebody has been listening.'
+        ], function () { busy = false; ER.say('The boiler knocks twice and is quiet. Sleep.'); });
+      }, 2600);
+    });
+    stage();
+    msg(ER.flag('a-wrong') ? 'Now the night.' : ER.flag('a-marks') ? 'Now click the MUST sentence that her own pages prove wrong.' : 'Mark the margin first. The green book is in your notebook if you need it.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

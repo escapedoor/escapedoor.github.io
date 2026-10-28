@@ -1,0 +1,165 @@
+/* A Little Water - what every room of the story shares: the lettering, the frame round a piece of work, the papers
+   that can be read again in the notebook from any room, and a skin for the notebook, the hints and the word tags
+   (a collector's satchel of green canvas). Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:.34em;padding-left:.34em}
+.tc-room{font-family:'Limelight',serif;letter-spacing:.02em;font-size:clamp(32px,4.6vw,62px)}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.5vw,22.5px);line-height:1.46}
+.chip,.hbtn,.ov-x{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:3px}
+.btn{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:11px;padding-bottom:7px}
+.tc .btn{padding-top:14px;padding-bottom:10px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:14px 30px 10px;border:1px solid var(--accent,#f0b85a);
+  color:var(--accent,#f0b85a);background:var(--hud-bg,rgba(8,10,14,.9));font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:.24em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#f0b85a);color:#14110b}
+.tk-name{font-family:'Limelight',serif;letter-spacing:.02em;font-size:25px}
+.tk-role{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.2em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.hot:hover{filter:brightness(1.12)}
+.sg{font-family:'Limelight',serif;text-anchor:middle}
+.sj{font-family:'Josefin Sans',sans-serif;font-weight:700;text-anchor:middle}
+.sc{font-family:'Caveat',cursive;font-weight:700;text-anchor:middle}
+.se{font-family:'Special Elite',monospace;text-anchor:middle}
+.sz{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+
+/* ---- the frame round a piece of work ---- */
+.bx{width:min(1050px,95vw);-webkit-user-select:none;user-select:none}
+.bx .frame{position:relative;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.7);overflow:hidden}
+.bx svg{display:block;width:100%;height:auto;touch-action:none}
+.bx svg text{pointer-events:none}
+.bx-foot{display:flex;align-items:center;gap:14px;margin-top:9px;min-height:58px}
+.pmsg{flex:1;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.32;color:#f7efdc}
+.pmsg b{color:var(--accent,#f0b85a);font-weight:600}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+/* a number set with two arrows */
+.cnt{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:#1d2a24;border-radius:3px;box-shadow:inset 0 0 0 2px #6f8a62}
+.cnt button{width:26px;height:30px;font-size:13px;color:#cfe0b8}
+.cnt button:hover{color:#fff}
+.cnt b{font-family:'Caveat',cursive;font-weight:700;font-size:28px;line-height:30px;color:#fbf3d9;min-width:76px;text-align:center}
+.cnt i{font-style:normal;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#cfe0b8;padding:3px 4px 0 2px}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc p{margin:0 0 8px}
+/* the Garden's letterhead: Professor Lyall types his own letters, badly */
+.doc.garden{width:min(620px,92vw);background:#fbf8ee;color:#1f2a22;font-family:'Special Elite','Courier New',monospace;font-size:16.5px;line-height:1.5;padding:22px 34px 20px;border-top:10px solid #2f5a3a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.garden h4{margin:0 0 12px;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.18em;text-align:center;color:#2f5a3a;border-bottom:1px solid #2f5a3a;padding-bottom:8px}
+.doc.garden h4 small{display:block;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.3em;margin-top:3px}
+.doc.garden .sig{font-family:'Caveat',cursive;font-size:25px;color:#1d2a55}
+/* Isobel Kinnaird's hand: a letter, and her journal */
+.doc.letter{width:min(620px,92vw);background:#f3ecd8 radial-gradient(ellipse at 30% 10%,rgba(255,252,236,.7),rgba(150,120,70,.16));color:#22284a;font-family:'Caveat',cursive;font-size:24px;line-height:1.18;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 1px #cbbf9c}
+.doc.letter h4{margin:0 0 10px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7a5a2a}
+.doc.letter .ad{text-align:right;margin-bottom:8px}
+.doc.letter .ps{margin-top:12px;border-top:1px dashed rgba(34,40,74,.35);padding-top:7px}
+.doc.journal{width:min(660px,94vw);background:#efe6cc repeating-linear-gradient(transparent 0 29px,rgba(70,90,140,.22) 29px 30px);color:#26304e;font-family:'Caveat',cursive;font-size:22.5px;line-height:30px;padding:12px 30px 14px 54px;border-left:3px double #b0563a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.journal h4{margin:0 0 4px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#b0563a;line-height:24px}
+.doc.journal p{margin:0}
+.doc.journal .d{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.12em;color:#b0563a;margin-right:6px}
+.doc.journal s{opacity:.55}
+/* Captain Ilunde's pilot's notebook: squared paper, a pencil, and no wasted words */
+.doc.pilot{width:min(640px,92vw);background:#f4f1e4;background-image:linear-gradient(rgba(60,110,140,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(60,110,140,.13) 1px,transparent 1px);background-size:22px 22px;color:#24262a;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.36;padding:18px 30px 16px;border-left:12px solid #3d4a3a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.pilot h4{margin:0 0 8px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:19px;letter-spacing:.12em;color:#3d4a3a}
+.doc.pilot .pen{font-family:'Caveat',cursive;font-size:21px;color:#5a3d8a}
+/* a slate on a post, chalked fresh every morning */
+.doc.board{width:min(620px,92vw);background:#26302c linear-gradient(160deg,rgba(255,255,255,.06),rgba(0,0,0,.25));color:#eef0e6;font-family:'Caveat',cursive;font-size:23px;line-height:1.16;padding:18px 28px 14px;border:12px solid #6b4a2a;border-radius:3px}
+.doc.board h4{margin:0 0 8px;font-family:'Limelight',serif;font-size:26px;letter-spacing:.06em;color:#ffd98a;text-align:center}
+.doc.board table{width:100%;border-collapse:collapse;margin:0 0 8px}
+.doc.board td{padding:1px 6px;border-bottom:1px dashed rgba(255,255,255,.18)}
+.doc.board td:last-child{text-align:right;color:#ffd98a}
+.doc.board .sm{font-size:18px;opacity:.85;text-align:center}
+/* a printed booklet of the Garden */
+.doc.card{width:min(620px,92vw);background:#f6f1e1;color:#24261f;font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.4;padding:20px 32px 16px;border:1px solid #8a8466;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 6px #f6f1e1,inset 0 0 0 7px #8a8466}
+.doc.card h4{margin:0 0 10px;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-align:center;color:#2f5a3a}
+.doc.card h4 small{display:block;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11px;letter-spacing:.28em;color:#6f6a50;margin-bottom:3px}
+.doc.card i{color:#5a2a1a}
+/* the chart's own margin */
+.doc.chartleg{width:min(620px,92vw);background:#e9eef0;color:#1d2c3a;font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.38;padding:18px 30px 14px;border:3px double #2c4a66}
+.doc.chartleg h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.16em;color:#2c4a66;text-align:center}
+.doc.chartleg .pen{font-family:'Caveat',cursive;font-size:21px;color:#5a3d8a}
+/* an enamel card screwed to the wheelhouse wall */
+.doc.whistle{width:min(640px,94vw);background:#f2efe6;color:#1d2228;font-family:'Josefin Sans',sans-serif;font-size:16.5px;line-height:1.38;padding:18px 26px 14px;border:9px solid #23446a;border-radius:10px}
+.doc.whistle h4{margin:0 0 10px;font-family:'Limelight',serif;font-size:22px;text-align:center;color:#23446a}
+.doc.whistle table{width:100%;border-collapse:collapse}
+.doc.whistle td{padding:4px 6px;border-bottom:1px solid rgba(35,68,106,.2);vertical-align:top}
+.doc.whistle td:first-child{white-space:nowrap;font-weight:700;color:#23446a;letter-spacing:.06em;width:1%}
+.doc.whistle .sm{font-size:15px;margin-top:8px}
+/* Mr Gilroy's notebook: small, black, and kept in an inside pocket */
+.doc.moth{width:min(600px,92vw);background:#fdfbf4;color:#1c2a4a;font-family:'Caveat',cursive;font-size:22px;line-height:1.2;padding:18px 28px 14px;border-top:14px solid #1c1c1c;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.moth h4{margin:0 0 8px;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.14em;color:#1c1c1c}
+/* Mr Grice's books, and the board in his store */
+.doc.ledger{width:min(640px,94vw);background:#f1e8cf;color:#2a2116;font-family:'Special Elite','Courier New',monospace;font-size:15.5px;line-height:1.5;padding:18px 28px 14px;border-left:16px solid #7a2a22;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.ledger h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.16em;color:#7a2a22}
+.doc.ledger .pen{font-family:'Caveat',cursive;font-size:20px;color:#1d2a55}
+.doc.mag{width:min(640px,94vw);background:#efe9da;color:#1f1d1a;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.36;padding:18px 28px 14px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.mag h4{margin:0 0 8px;font-family:'Limelight',serif;font-size:25px;color:#7a2a22;border-bottom:2px solid #1f1d1a;padding-bottom:5px}
+.doc.mag h4 small{display:block;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11px;letter-spacing:.28em;color:#1f1d1a}
+/* a herbarium label, and other things in your own hand */
+.doc.mine{width:min(620px,92vw);background:#f4f0e2;color:#1d2a55;font-family:'Caveat',cursive;font-size:22.5px;line-height:1.16;padding:18px 28px 18px;border-top:14px solid #2f5a3a}
+.doc.mine h4{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#2f5a3a;margin-bottom:8px}
+.doc.label{width:min(560px,92vw);background:#fbf8ec;color:#2a2116;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.36;padding:16px 26px 14px;border:2px solid #2a2116}
+.doc.label h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:14.5px;letter-spacing:.18em;text-align:center;border-bottom:1px solid #2a2116;padding-bottom:6px}
+.doc.label .hand{font-family:'Homemade Apple',cursive;font-size:15px;line-height:1.7;color:#3a2a6a}
+.doc.statement{background:#f3ecd8;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.48;border-left:6px solid #2f5a3a}
+.doc.statement h4{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:#2f5a3a}
+.doc .w:hover{color:#b0563a}
+.doc.board .w:hover{color:#ffd98a}
+
+/* ---- the notebook: a collector's satchel of green canvas ---- */
+.nb{background:#3d5a3a repeating-linear-gradient(45deg,rgba(255,255,255,.035) 0 3px,rgba(0,0,0,.05) 3px 6px);border:1px solid #1f2e1c;border-radius:7px;color:#eef0dc;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #2c4228}
+.nb-tabs{border-bottom-color:#1f2e1c}
+.nb-tabs button{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:.2em;color:#dbe6c4;padding-top:11px;padding-bottom:6px}
+.nb-tabs button.on{background:#f4f0e2;color:#1f2e1c;border-color:#1f2e1c}
+.nb-list{border-right-color:#1f2e1c}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17px;color:#eef0dc}
+.nb-list button small{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;opacity:.7}
+.nb-list button.on{background:#f4f0e2;color:#1f2e1c}
+.nb-view{background:#24361f}
+.nb-words{background:#f4f0e2;color:#22261d}
+.nb-words b{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16px}
+.nb-ko{font-family:'Josefin Sans',sans-serif;border-color:#1f2e1c;color:#2c4228;padding-top:2px}
+.nb-ko.on{background:#1f2e1c;color:#f4f0e2;border-color:#1f2e1c}
+.wtip,.wtag{background:#f4f0e2;color:#22261d;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #2f5a3a}
+.wtag{padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16.5px;padding-top:2px}
+.hintbox{background:#f4f0e2;border-top:6px solid #2f5a3a;border-radius:2px}
+.hintbox h6{font-family:'Josefin Sans',sans-serif;font-weight:700;color:#2f5a3a}
+.hintbox .btn{font-family:'Josefin Sans',sans-serif;padding-top:11px;padding-bottom:7px}
+.toast{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:11px}
+
+/* ---- the card at the end, and the last task ---- */
+.done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(500px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 24px 14px;display:none;background:#f4f0e2;color:#22261d;border-top:10px solid #2f5a3a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.done h5{margin:0 0 6px;font-family:'Limelight',serif;font-weight:normal;font-size:22px;color:#2f5a3a}
+.done p{margin:0 0 3px;font-family:'Special Elite','Courier New',monospace;font-size:14.5px;line-height:1.4}
+.done ul{margin:6px 0 4px;padding-left:18px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.24}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.done .btn{--accent:#2f5a3a;font-size:13px;padding:10px 12px 6px}
+.done .btn:hover:not([disabled]){color:#f4f0e2}
+.done small{display:block;margin-top:9px;font-family:'Special Elite','Courier New',monospace;font-size:12.5px;opacity:.8;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbf8ec;color:#1b2136;padding:20px 32px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:14px solid #2f5a3a}
+.rp h4{margin:0 0 3px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2f5a3a}
+.rp h3{margin:0 0 8px;font-family:'Limelight',serif;font-weight:normal;font-size:27px;line-height:1.1}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 7px;color:#27231d}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:30px;color:#1d2a55;background:#fffdf2 repeating-linear-gradient(transparent 0 29px,rgba(60,70,110,.3) 29px 30px);border:1px solid #9a927a;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Special Elite',monospace;font-size:12.5px;opacity:.75}
+.rp .btn{--accent:#2f5a3a}.rp .btn:hover:not([disabled]){color:#fbf8ec}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

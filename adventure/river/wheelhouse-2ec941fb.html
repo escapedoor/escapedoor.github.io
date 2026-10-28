@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Wheelhouse · A Little Water</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="river.css">
+<style>
+  body{--bg:#4a2c18;--accent:#ffd27a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(44,28,16,.95);--tc-ink:#fbefd8;--cap-bg:rgba(40,26,14,.93);--panel:#2e1e12;--face-bg:#4a3220;--q-ink:#f2d08a;--fade:#1a0f07;--hud-bg:rgba(40,26,14,.82)}
+  #bananas{animation:sway 3.4s ease-in-out infinite alternate;transform-origin:1340px 40px}
+  @keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+  .glint{animation:glint 2.6s steps(3,end) infinite alternate}
+  @keyframes glint{from{opacity:.25}to{opacity:.7}}
+  #wheel .spin{transition:transform 1.2s ease-in-out;transform-origin:800px 790px}
+  body.turn #wheel .spin{transform:rotate(-38deg)}
+  #cord .h{transition:transform .25s}
+  #cord.pull .h{transform:translateY(26px)}
+
+  /* the chart of the Shoals */
+  .bx.chart{width:min(1080px,97vw)}
+  .cgrid{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:12px;align-items:start}
+  .cgrid .doc.chartleg{width:auto;font-size:16px;line-height:1.3;padding:12px 16px 10px;max-height:72vh;overflow:auto}
+  .cgrid .doc.chartleg h4{font-size:13.5px}
+  .bx.chart .frame{background:#e9eef0}
+  .lane{cursor:pointer;fill:none;stroke:#2c4a66;stroke-opacity:0;stroke-width:46;stroke-linecap:round}
+  .lane:hover{stroke-opacity:.13}
+  .lane.on{stroke:#c8402c;stroke-opacity:.22}
+  .sd{font-family:'EB Garamond',serif;font-style:italic;font-size:19px;text-anchor:middle;fill:#1d2c3a;pointer-events:none}
+  /* the bend, and the whistle */
+  .bx.bend{width:min(1000px,96vw)}
+  .wgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,330px);gap:12px;align-items:start}
+  .wpan{background:#f2efe6;color:#1d2228;padding:12px 16px 12px;border:7px solid #23446a;border-radius:8px}
+  .wpan h5{margin:0 0 6px;font-family:'Limelight',serif;font-weight:normal;font-size:20px;color:#23446a}
+  .wkeys{display:flex;gap:8px;margin:6px 0}
+  .wkeys button{flex:1;height:46px;border:2px solid #23446a;border-radius:4px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:15px;color:#23446a;background:#fff}
+  .wkeys button:hover{background:#23446a;color:#fff}
+  .wseq{min-height:40px;padding:4px 10px;background:#fff;border:1px dashed #23446a;font-family:'Josefin Sans',sans-serif;font-size:26px;letter-spacing:.2em;color:#23446a}
+  .wlog{margin:8px 0 0;padding:0;list-style:none;font-family:'EB Garamond',serif;font-size:16.5px;line-height:1.3;max-height:190px;overflow:auto}
+  .wlog li{padding:3px 0;border-bottom:1px solid rgba(35,68,106,.15)}
+  .wlog b{font-family:'Josefin Sans',sans-serif;letter-spacing:.14em;color:#23446a}
+  .wpan .btn{--accent:#23446a;padding:9px 14px 5px;font-size:13px}
+  .wpan .btn:hover:not([disabled]){color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9d4e4"/><stop offset="1" stop-color="#f4efd6"/></linearGradient>
+  <linearGradient id="teak" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a3418"/><stop offset=".5" stop-color="#7a4a24"/><stop offset="1" stop-color="#5a3418"/></linearGradient>
+  <linearGradient id="riv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a46a"/><stop offset="1" stop-color="#9a7444"/></linearGradient>
+  <radialGradient id="vigW" cx="50%" cy="40%" r="80%"><stop offset="0" stop-color="#1a0f07" stop-opacity="0"/><stop offset=".7" stop-color="#1a0f07" stop-opacity=".12"/><stop offset="1" stop-color="#1a0f07" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#4a2c18"/>
+<!-- the view forward, through the windows -->
+<g id="view">
+  <rect x="-1000" y="80" width="3600" height="480" fill="url(#skyW)"/>
+  <path d="M-1000 330Q-200 250 300 300T1100 280T2600 300V560H-1000Z" fill="#4f7a3e"/>
+  <path d="M-1000 360Q-100 320 400 350T1300 330T2600 350V560H-1000Z" fill="#3d6630"/>
+  <path id="rivr" d="M200 560Q480 480 760 432Q930 400 900 365Q870 345 960 330L1010 332Q980 352 1010 372Q1060 418 880 458Q760 492 1180 560Z" fill="url(#riv)"/>
+  <path d="M1180 560Q760 494 880 456L950 464Q860 500 1340 560Z" fill="#e8d49a"/>
+  <path d="M380 520q160 -60 330 -82l20 10q-190 26 -320 84z" fill="#e8d49a"/>
+  <path d="M-1000 560Q-200 470 200 560Z" fill="#3d6630"/>
+  <g stroke="#3a2a1a" stroke-width="5" stroke-linecap="round"><path d="M948 400l40 -30M962 388l-10 -22"/></g>
+  <g class="glint" stroke="#fff6d8" stroke-width="3"><path d="M640 500h40M820 470h30M900 420h22M300 545h50"/></g>
+  <!-- the foredeck rail, and Lemi with her pole -->
+  <path d="M-1000 520H2600V560H-1000Z" fill="#efe9d8"/><g stroke="#c9bfa4" stroke-width="5"><path d="M-1000 500H2600"/></g><g stroke="#c9bfa4" stroke-width="4" id="rail"></g>
+  <g id="lemi" class="hot"><g id="plemi"></g><path d="M1056 300L1120 560" stroke="#c9a46a" stroke-width="7" stroke-linecap="round"/><g stroke="#7a2a22" stroke-width="7"><path d="M1068 348l2 8M1080 396l2 8M1092 444l2 8"/></g></g>
+</g>
+<!-- the wheelhouse itself: walls, window frames, roof -->
+<path d="M-1000 -400H2600V100H-1000Z" fill="url(#teak)"/><g stroke="#3a2010" stroke-width="4" opacity=".5"><path d="M-1000 40H2600M-1000 70H2600"/></g>
+<path d="M-1000 80H180V900H-1000Z" fill="url(#teak)"/><path d="M1420 80H2600V900H1420Z" fill="url(#teak)"/>
+<g fill="#5a3418" stroke="#3a2010" stroke-width="4"><rect x="160" y="80" width="40" height="500"/><rect x="590" y="80" width="26" height="480"/><rect x="990" y="80" width="26" height="480"/><rect x="1400" y="80" width="40" height="500"/></g>
+<path d="M160 80H1440V104H160Z" fill="#5a3418"/>
+<path d="M160 560H1440V900H160Z" fill="#6b3e1e"/><path d="M160 560H1440" stroke="#3a2010" stroke-width="10"/>
+<g stroke="#4a2a12" stroke-width="3" opacity=".6"><path d="M160 640H1440M160 720H1440M160 800H1440"/></g>
+<!-- bananas, hanging from the roof -->
+<g id="bananas" class="hot"><path d="M1340 40v70" stroke="#6b4a2a" stroke-width="4"/><g fill="#e6c22a" stroke="#9a7a10" stroke-width="2"><path d="M1320 110q-14 40 6 70q-4 -36 10 -66z"/><path d="M1336 112q-6 44 16 68q-8 -34 0 -66z"/><path d="M1352 110q6 40 26 58q-14 -30 -14 -60z"/><path d="M1326 150q-20 30 0 62q-2 -34 12 -58z"/></g></g>
+<!-- the whistle cord -->
+<g id="cord" class="hot"><path d="M1230 100V470" stroke="#d9c79a" stroke-width="5"/><g class="h"><rect x="1214" y="470" width="32" height="70" rx="12" fill="#8a5a2a" stroke="#4a2a12" stroke-width="3"/></g><circle cx="1230" cy="100" r="9" fill="#c9a24a"/></g>
+<!-- the whistle card, screwed to the post -->
+<g id="wcard" class="hot"><rect x="1450" y="180" width="140" height="190" rx="10" fill="#f2efe6" stroke="#23446a" stroke-width="9"/><text x="1520" y="214" class="sg" font-size="17" fill="#23446a">WHISTLE</text>
+  <g fill="#23446a"><rect x="1472" y="236" width="40" height="7"/><circle cx="1480" cy="262" r="4.500"/><circle cx="1480" cy="284" r="4.500"/><circle cx="1494" cy="284" r="4.500"/><circle cx="1480" cy="306" r="4.500"/><circle cx="1494" cy="306" r="4.500"/><circle cx="1508" cy="306" r="4.500"/></g>
+  <g stroke="#1d2228" stroke-width="2" opacity=".6"><path d="M1524 240h48M1524 262h44M1524 284h48M1524 306h40M1472 330h100M1472 346h86"/></g><circle cx="1462" cy="192" r="3" fill="#888"/><circle cx="1578" cy="192" r="3" fill="#888"/></g>
+<!-- the speaking tube to the engine room -->
+<g id="tube" class="hot"><path d="M1600 900V620q0 -40 -40 -40h-50" stroke="#c9a24a" stroke-width="18" fill="none"/><path d="M1510 562l-34 -14v64l34 -14z" fill="#d9b05a" stroke="#8a6a26" stroke-width="3"/></g>
+<!-- Mr Gilroy, at the door -->
+<g id="gilroy" class="hot"><path d="M-1000 140H90V900H-1000Z" fill="#3a2010"/><rect x="40" y="140" width="120" height="760" fill="#f4efd6" opacity=".9"/><g id="pgilroy"></g></g>
+<!-- the chart table -->
+<g id="ctable" class="hot"><path d="M190 640L520 620L560 700L170 730Z" fill="#8a5a2a" stroke="#4a2a12" stroke-width="4"/><path d="M170 730v170M560 700v200" stroke="#4a2a12" stroke-width="14"/>
+  <path d="M210 646L470 630L500 690L196 712Z" fill="#e9eef0" stroke="#2c4a66" stroke-width="2"/><path d="M260 700q30 -40 90 -42q60 -6 80 -26" stroke="#b08a5e" stroke-width="12" fill="none"/><g fill="#1d2c3a" font-family="EB Garamond" font-style="italic" font-size="12"><text x="280" y="690">15</text><text x="340" y="670">10</text><text x="420" y="652">11</text></g></g>
+<g id="pnote" class="hot"><path d="M380 600l66 -6 6 30 -66 6z" fill="#3d4a3a"/><path d="M384 604l58 -5" stroke="#f4f1e4" stroke-width="2"/></g>
+<!-- the wheel, and the captain -->
+<g id="wheel"><g class="spin"><circle cx="800" cy="790" r="215" fill="none" stroke="#7a4a1e" stroke-width="22"/><circle cx="800" cy="790" r="200" fill="none" stroke="#5a3418" stroke-width="4"/><g id="spokes"></g><circle cx="800" cy="790" r="44" fill="#8a5a2a" stroke="#4a2a12" stroke-width="5"/><circle cx="800" cy="790" r="14" fill="#c9a24a"/></g></g>
+<g id="joba" class="hot"><g id="pjoba"></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigW)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The chart</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="river.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, chart = null, bend = null, nextFile = null;
+
+  (function () {
+    var s = '', i, a;
+    for (i = 0; i < 8; i++) { a = i * Math.PI / 4; s += '<path d="M' + (800 + 44 * Math.cos(a)).toFixed(1) + ' ' + (790 + 44 * Math.sin(a)).toFixed(1) + 'L' + (800 + 262 * Math.cos(a)).toFixed(1) + ' ' + (790 + 262 * Math.sin(a)).toFixed(1) + '" stroke="#7a4a1e" stroke-width="14" stroke-linecap="round"/><circle cx="' + (800 + 262 * Math.cos(a)).toFixed(1) + '" cy="' + (790 + 262 * Math.sin(a)).toFixed(1) + '" r="13" fill="#8a5a2a"/>'; }
+    $('#spokes').innerHTML = s; s = '';
+    for (i = -1000; i < 2600; i += 60) s += '<path d="M' + i + ' 500v20"/>';
+    $('#rail').innerHTML = s;
+    $('#plemi').innerHTML = RV.person(1040, 520, 0.62, { coat: '#2f6a5a', skin: '#6b4423', hair: '#c96a2b', hat: 'scarf' });
+    $('#pjoba').innerHTML = RV.person(1110, 900, 1.3, { coat: '#1f2a3a', skin: '#5a3a24', hair: '#cfcac0', hat: 'cap', legs: '#2a2a2a', flip: 1 });
+    $('#pgilroy').innerHTML = RV.person(100, 900, 1.25, { coat: '#ece5d0', skin: '#e2bc94', hair: '#6b4a2a', hat: 'panama', specs: 1, legs: '#d9d0b8' });
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'river', storyTitle: 'A Little Water', id: 'wheelhouse', no: 'II', title: 'The Wheelhouse',
+    go: 'Up the ladder',
+    intro: [
+      'Hollow Tree tonight, Grice&rsquo;s Post at noon tomorrow, Ironwood Creek at four. You took the current off the Jacana&rsquo;s nine miles an hour, reach by reach: seven in the Lower River, six in the Shoals, four in the Narrows, six above Grice&rsquo;s. And you remembered that the Jacana stops at noon to eat.',
+      'Half past two in the afternoon, at mile 50. The Lower River was wide and easy. The Shoals are not: here the Iluma wanders from bank to bank between bars of sand, and every rainy season it moves the sand somewhere new.',
+      'Captain Ilunde has invited you up into the wheelhouse. In thirty-one years, Lemi says, he has invited four people. Two of them were sick.'
+    ],
+    exit: {"next":"awning","w":{"b110b56e":"fde6a4e3"}}, tags: {"g1":["c33ec708"],"g2":["6b1bcf51"],"g3":["d03cd9f4"],"g4":["69d01d4b"],"w1":["a8358325"],"w2":["3f5ffd8d"],"w3":["acdffa99"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('w-told') || {}; nextFile = ER.flag('w-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('w-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go'), c = ER.flag('w-course');
+    b.classList.toggle('on', !!(told.joba || nextFile));
+    b.textContent = nextFile ? 'Down to the deck' : c ? 'Long Bend' : 'The chart';
+    ER.pips((told.joba ? 1 : 0) + (c ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Long Bend is behind you. Go down to the deck: the light is going.']];
+    if (!told.joba) return ['joba', ['The captain is at the wheel. He has a job for you, and he will not say so twice.']];
+    if (!ER.flag('w-course')) return ['chart', [
+      'Read the margin of the chart first. The numbers were true in March, when the gauge at Port Gessin read 11. What does the gauge read today? (It was on the board, and on the post at the landing stage.)',
+      'Take four off every number. The Jacana draws four feet, and the captain wants two more under her, so a channel needs six feet today: ten on the chart. And a channel is only as deep as its shallowest number.',
+      'Gallery Bend: which side is the outside? The crossing: which one has nothing under 10? Snag Bend: read the pencil. Hen Island: read every number in each channel, not only the big ones.'
+    ]];
+    return ['bend', [
+      'The whistle card is on the post beside the cord. What do you blow when you are coming to a bend and cannot see round it?',
+      'The Kudu is coming down, so she says how to pass. One short blast means that each boat keeps to her own right. Which side of Long Bend is on your right, and how deep is it there today?',
+      'If you agree, you blow what she blew. If you think it is not safe, you blow the danger signal, five short or more, and she must say something else. When she says something safe, agree with it in the same words.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Long Bend is behind you, and so is the Kudu, and so is her raft.'); return; }
+    if (told.intro) { busy = false; ER.say('The wheelhouse of the Jacana, in the Shoals. Captain Ilunde is at the wheel.'); return; }
+    ER.narrate([
+      'The wheelhouse is a wooden box on top of everything, with windows on three sides and a wheel as tall as you are. It smells of hot varnish and bananas.',
+      'Ahead, the river is the colour of tea with milk in it. You cannot see one inch into it. Here and there a bank of pale sand lies along the edge like a sleeping animal.',
+      'Down on the foredeck, Lemi is pushing her striped pole into the water and calling out numbers. Captain Ilunde is not looking at her. He is looking at the water, and his hands on the wheel do not move at all.'
+    ], function () { busy = false; tell('intro'); });
+  }
+
+  /* ---------- people ---------- */
+  $('#joba').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Four people,&rdquo; says Joba, &ldquo;in thirty-one years. Five now.&rdquo;'); return; }
+    if (ER.flag('w-course')) { openBend(); return; }
+    ER.talk({
+      who: 'Captain Joba Ilunde', role: 'At the wheel', face: window.FACE('joba'),
+      lines: [
+        { note: 'He does not take his eyes off the river.', a: '&ldquo;Next comes Gallery Bend, then the crossing, then Snag Bend and Hen Island. Four places in ten miles where the Jacana can sit down on the sand and stay there until the rains. The chart is on the table. Lay me a course through all four.&rdquo;' },
+        { q: 'You have done this for thirty-one years. Why do you need me?', a: 'I do not need you. Lemi needs you to fail, so that she can laugh. And Dr Kinnaird will want to know that her junior can read a chart. She was very sure that you could.' },
+        { q: 'Can you not see where the deep water is?', a: 'Can you? Look at it. You see nothing; I see a little. I see where the river is digging, and where it is resting. My notebook says how, on page two. The chart says how deep, in March. And March is not today.' }
+      ],
+      clue: { id: 'joba2', title: 'Captain Ilunde, at the wheel', kind: 'What he said' },
+      done: function (seen) { if (seen) { RV.words(['chart', 'course', 'draw']); if (tell('joba')) { paint(); ER.say('The chart is on the table to the left. The notebook is lying on it.'); } } }
+    });
+  });
+  $('#lemi').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Lemi Ilunde', role: 'On the foredeck, with the pole', face: window.FACE('lemi'),
+      lines: [
+        { note: 'She shouts it up through the window.', a: '&ldquo;Nine feet! Nine and a half! Nine!&rdquo; Then, to you: &ldquo;What?&rdquo;' },
+        { q: 'Why do you call out the numbers?', a: 'So that he knows what is under us. On the big rivers in the old days, the men with the lead line sang it out. Two fathoms, which is twelve feet, they called &ldquo;mark twain&rdquo;. A pilot on one of those rivers liked it so much he wrote his books under that name.' },
+        { q: 'Is the chart right?', a: 'It was right in March. In March the river was four feet higher. Every number on that chart is four feet too deep now, and every bar is four feet nearer the top. My grandfather pencils in what has changed. Read the pencil.' }
+      ],
+      clue: { id: 'lemi2', title: 'Lemi, on the foredeck', kind: 'What she said' },
+      done: function (seen) { if (seen) { RV.words(['fathom', 'foredeck']); if (tell('lemi')) ER.say('&ldquo;Nine!&rdquo; shouts Lemi, to the river.'); } }
+    });
+  });
+  $('#gilroy').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Jasper Gilroy', role: 'In the doorway', face: window.FACE('gilroy'),
+      lines: [
+        { note: 'He is writing in a small black notebook. When he sees you looking, he shuts it.', a: '&ldquo;Don&rsquo;t mind me. I am only admiring the view. Tell me, is Dr Kinnaird&rsquo;s plant in the ironwood itself, or on something growing on it? It makes all the difference.&rdquo;' },
+        { q: 'All the difference to whom?', a: 'To a man in my business.</p><p class="note">He smiles, and puts the notebook into an inside pocket, and buttons the pocket.</p><p>And at what time of day does it open, would you say? Roughly?' },
+        { q: 'Why do you want to know?', a: 'Curiosity. It is a disease in my family. My grandmother died of it at ninety-four.' }
+      ],
+      clue: { id: 'gilroy2', title: 'Mr Gilroy, in the doorway', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('gilroy')) ER.say('Mr Gilroy goes down the ladder. He has buttoned the pocket twice.'); }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var PNOTE = '<h4>BENDS AND BARS · page 2</h4>' +
+    '<p>A river never runs straight for long. Round a bend, the water is thrown to the <b>outside</b>, as you are thrown in a cart that turns. There it runs fast, and digs a deep channel under a steep bank, the <b>cut bank</b>.</p>' +
+    '<p>On the <b>inside</b> of the bend the water is slow, and drops its sand: a long, gentle bar called a <b>point bar</b>. So: outside deep, inside shallow.</p>' +
+    '<p>Between two bends the deep water has to cross from one side of the river to the other. This <b>crossing</b> is the shallowest place in the reach. Take it where the chart says it is deepest.</p>' +
+    '<p>The cut bank falls into the river, and its trees fall with it. A tree in the water is a <b>snag</b>, and it can open a hull like a tin. So the deep side of a bend is also where the snags lie.</p><p class="pen">J. I.</p>';
+  $('#pnote').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PNOTE, cls: 'pilot', clue: { id: 'pnote2', title: 'Pilot’s notebook, page 2: Bends and bars', kind: 'Captain Ilunde’s notebook' }, done: function () {
+      RV.words(['bend', 'cut bank', 'point bar', 'crossing', 'snag']);
+      if (tell('pnote')) ER.say('Outside deep, inside shallow. And the deep side is where the trees fall in.');
+    } });
+  });
+  var WCARD = '<h4>Whistle signals</h4><table>' +
+    '<tr><td>●</td><td>a short blast: about one second</td></tr><tr><td>▬</td><td>a long blast: four to six seconds</td></tr>' +
+    '<tr><td>▬</td><td>&ldquo;I am coming to a bend, and I cannot see round it.&rdquo; Any boat round the bend answers ▬.</td></tr>' +
+    '<tr><td>●</td><td>&ldquo;I intend to pass you on my left side.&rdquo; Left side to left side: each boat keeps to her own right.</td></tr>' +
+    '<tr><td>● ●</td><td>&ldquo;I intend to pass you on my right side.&rdquo; Right side to right side: each boat keeps to her own left.</td></tr>' +
+    '<tr><td>● ● ●</td><td>&ldquo;My engines are going astern.&rdquo;</td></tr>' +
+    '<tr><td>● ● ● ● ●</td><td>Five short blasts or more, quickly: &ldquo;Danger,&rdquo; or &ldquo;I do not understand you,&rdquo; or &ldquo;I doubt that what you mean is safe.&rdquo;</td></tr></table>' +
+    '<p class="sm">The boat coming <b>down</b> says first how to pass: the current is behind her, and she cannot stop as easily. The boat coming up answers with <b>the same signal</b> if she agrees. If she does not agree, she sounds the danger signal, and the other boat must say something else.</p>';
+  $('#wcard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: WCARD, cls: 'whistle', clue: { id: 'whistle', title: 'Whistle signals', kind: 'A card in the wheelhouse' }, done: function () {
+      RV.words(['blast', 'astern', 'propose']);
+      if (tell('wcard')) ER.say('Short, about a second. Long, four to six. Five short: something is wrong, or about to be.');
+    } });
+  });
+
+  /* ---------- things ---------- */
+  RV.thing('#bananas', null, 'A bunch of bananas hangs from the roof, ripening in the heat. Lemi has counted them. You will be told if one goes.', isBusy);
+  RV.thing('#tube', 'speaking tube', 'A brass speaking tube to the engine room. Out of it comes heat, a smell of oil and, now and then, singing.', isBusy);
+  RV.thing('#wheel', 'wheel', 'The wheel, as tall as you are, with eight spokes worn pale where hands have held them. Joba&rsquo;s hands do not move on it at all.', isBusy);
+  $('#cord').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Leave it,&rdquo; says Joba. &ldquo;It is not a toy. That is Lemi&rsquo;s job.&rdquo;'); return; }
+    if (!ER.flag('w-course')) { ER.say('The whistle cord. &ldquo;Not yet,&rdquo; says Joba, without looking round. &ldquo;A whistle says something. When you have something to say, you may pull it.&rdquo;'); return; }
+    openBend();
+  });
+  $('#ctable').addEventListener('click', function () { if (!busy) openChart(); });
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (ER.flag('w-course')) openBend(); else openChart();
+  });
+  function openChart() {
+    if (ER.flag('w-course')) { ER.say('The course is pencilled on the chart, round Hen Island and on to Long Bend.'); return; }
+    if (!told.joba) { ER.say('The chart of the Shoals, covered in tiny numbers. The captain has not asked you to touch it. Yet.'); return; }
+    if (!chart) chart = makeChart();
+    chart.open();
+  }
+  function openBend() { if (!bend) bend = makeBend(); bend.open(); }
+
+  /* ---------- the chart: a channel at each of four gates ---------- */
+  var LEG = '<h4>THE SHOALS · miles 50 to 60</h4>' +
+    '<p>The numbers are <b>soundings</b>: the depth of the water at that spot, in feet, measured in March, when the gauge at Port Gessin read <b>11 feet</b>.</p>' +
+    '<p>When the river falls, every depth falls with it. Take today&rsquo;s gauge from 11, and take the answer off every number.</p>' +
+    '<p>The Jacana <b>draws</b> 4 feet: the bottom of her hull is 4 feet under the water. Captain Ilunde wants 2 feet more under her than that.</p>' +
+    '<p>A channel is only as deep as its <b>shallowest</b> sounding. One shallow number is enough to stop you.</p>' +
+    '<p class="pen">Pencil on this sheet is mine, and newer than the ink. J. I.</p>';
+  function makeChart() {
+    var box = ER.el('div', 'bx chart'), svg, msgEl, pick = ER.flag('w-pick') || {}, wait = false;
+    var L = {
+      g1: { out: 'M420 610C330 570 290 520 350 470', in: 'M530 610C580 570 580 520 480 472' },
+      g2: { upper: 'M345 452C380 410 510 360 640 340', lower: 'M385 480C470 476 560 456 650 424' },
+      g3: { out: 'M670 330C770 300 780 240 710 190', mid: 'M630 334C680 292 676 240 624 192', in: 'M576 338C592 292 572 240 542 196' },
+      g4: { left: 'M560 186C470 160 470 92 560 62', right: 'M650 186C730 160 730 92 650 62' }
+    };
+    var SD = [[395, 595, 15], [330, 545, 17], [338, 492, 14], [548, 595, 9], [572, 545, 8], [512, 492, 10],
+      [392, 418, 10], [508, 378, 11], [604, 350, 10], [432, 470, 9], [534, 458, 13], [624, 434, 12],
+      [726, 306, 19], [766, 256, 21], [736, 210, 18], [654, 306, 12], [672, 258, 11], [644, 214, 13], [588, 306, 7], [580, 258, 6], [556, 214, 8],
+      [508, 168, 16], [474, 126, 7], [520, 82, 18], [704, 168, 11], [724, 126, 10], [694, 82, 11]];
+    var s = '<rect width="1000" height="640" fill="#e9eef0"/>' +
+      '<path d="M120 640C200 520 230 470 330 440C430 410 520 330 560 260C600 190 460 140 470 40L470 0H760L770 40C780 140 820 200 800 280C780 360 700 440 640 470C600 500 700 560 700 640Z" fill="#cfdde6" stroke="#2c4a66" stroke-width="2.500"/>' +
+      '<path d="M120 640C200 520 230 470 330 440" stroke="#4f7a3e" stroke-width="10" fill="none" stroke-dasharray="3 5"/><path d="M800 280C780 360 760 380 740 400" stroke="#4f7a3e" stroke-width="10" fill="none" stroke-dasharray="3 5"/>' +
+      '<path d="M600 640C600 590 640 540 620 500C690 520 700 590 700 640Z" fill="#efe1b0" stroke="#b09a5a" stroke-width="2"/>' +
+      '<ellipse cx="520" cy="420" rx="70" ry="14" transform="rotate(-18 520 420)" fill="#efe1b0" stroke="#b09a5a" stroke-width="2"/>' +
+      '<path d="M500 330C470 290 480 230 520 196C540 230 540 290 560 330Z" fill="#efe1b0" stroke="#b09a5a" stroke-width="2"/>' +
+      '<path d="M600 168C580 140 580 104 600 76C626 104 626 140 600 168Z" fill="#9cbf8a" stroke="#4f7a3e" stroke-width="2.500"/><text x="600" y="128" class="sz" font-size="10" fill="#2f4a2a">HEN I.</text>' +
+      '<g stroke="#5a3d8a" stroke-width="3"><path d="M752 262l14 -14M752 248l14 14M770 280l12 -12M770 268l12 12"/></g>' +
+      '<text x="850" y="246" class="sc" font-size="20" fill="#5a3d8a">snag &middot; a whole tree,</text><text x="850" y="268" class="sc" font-size="20" fill="#5a3d8a">fell in April. J. I.</text><path d="M786 258l-20 2" stroke="#5a3d8a" stroke-width="2"/>' +
+      '<text x="180" y="600" class="sz" font-size="13" fill="#2c4a66">GALLERY BEND</text><text x="220" y="410" class="sz" font-size="13" fill="#2c4a66">THE CROSSING</text>' +
+      '<text x="880" y="330" class="sz" font-size="13" fill="#2c4a66">SNAG BEND</text><text x="880" y="120" class="sz" font-size="13" fill="#2c4a66">HEN ISLAND</text>' +
+      '<text x="615" y="24" class="sz" font-size="12" fill="#2c4a66">TO LONG BEND &#8593;</text><text x="900" y="620" class="sz" font-size="12" fill="#2c4a66">FLOW &#8595;</text>' +
+      '<g transform="translate(470 628)"><path d="M0 -10l12 20h-24z" fill="#c8402c"/></g>' +
+      '<path id="route" d="" fill="none" stroke="#c8402c" stroke-width="4" stroke-dasharray="10 6"/>';
+    Object.keys(L).forEach(function (gk) { Object.keys(L[gk]).forEach(function (lk) { s += '<path d="' + L[gk][lk] + '" fill="none" stroke="#2c4a66" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" opacity=".6"/><path class="lane" data-g="' + gk + '" data-l="' + lk + '" d="' + L[gk][lk] + '"/>'; }); });
+    SD.forEach(function (d) { s += '<text class="sd" x="' + d[0] + '" y="' + d[1] + '">' + d[2] + '</text>'; });
+    box.innerHTML = '<div class="cgrid"><div class="doc chartleg">' + ER.gloss(LEG) + '</div><div class="frame"><svg viewBox="0 0 1000 640">' + s + '</svg></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="give">Give Joba the course</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function draw() {
+      var d = 'M470 620';
+      ['g1', 'g2', 'g3', 'g4'].forEach(function (gk) { if (pick[gk]) d += ' ' + L[gk][pick[gk]].replace(/^M/, 'L'); });
+      svg.querySelector('#route').setAttribute('d', d);
+      ER.$$('.lane', svg).forEach(function (n) { n.classList.toggle('on', pick[n.getAttribute('data-g')] === n.getAttribute('data-l')); });
+      svg.setAttribute('data-pick', ['g1', 'g2', 'g3', 'g4'].map(function (k) { return pick[k] || '-'; }).join(','));
+    }
+    svg.addEventListener('click', function (e) {
+      var n = e.target.closest ? e.target.closest('.lane') : null; if (!n || wait) return;
+      pick[n.getAttribute('data-g')] = n.getAttribute('data-l'); ER.flag('w-pick', pick); RV.sfx.pen(); draw();
+    });
+    var WHY = {
+      'g1.in': 'Over the point? It is the short way, and that is why there is sand there: on the inside of a bend the water is slow, and drops it. Nine, eight and ten in March. Take off four, and the Jacana is sitting on five feet, four and six.',
+      'g2.lower': 'The lower crossing: nine at its shallowest. Take off four, and that is five feet today. She draws four, so she would float, with one foot under her. &ldquo;One foot,&rdquo; says Joba, &ldquo;is for people who like swimming.&rdquo;',
+      'g3.out': 'Twenty-one feet of water, and a whole tree lying in it. Read the pencil. The deep side of a bend is where the cut bank falls in.',
+      'g3.in': 'The inside of Snag Bend is a point bar: six at its shallowest in March, which is two feet today.',
+      'g4.left': 'Behind the island: sixteen, and eighteen, and a seven in the middle. A channel is only as deep as its shallowest number: three feet today. &ldquo;The big numbers are there to make you hopeful,&rdquo; says Lemi.'
+    };
+    box.querySelector('#give').addEventListener('click', function () {
+      if (wait) return;
+      var gs = ['g1', 'g2', 'g3', 'g4'], i;
+      for (i = 0; i < 4; i++) if (!pick[gs[i]]) { ER.sfx.no(); msg('&ldquo;All four,&rdquo; says Joba. &ldquo;The river does not stop half way, and nor do we.&rdquo; Choose a channel at every gate.'); return; }
+      for (i = 0; i < 4; i++) if (!ER.check(gs[i], pick[gs[i]])) { ER.sfx.no(); msg(WHY[gs[i] + '.' + pick[gs[i]]] || 'Joba shakes his head at the ' + ['first', 'second', 'third', 'fourth'][i] + ' gate.'); return; }
+      wait = true; ER.flag('w-course', 1); ER.sfx.ok(); paint();
+      RV.mine('course', 'The course through the Shoals', '<p>Gauge 11 in March, 7 today: take 4 off every number. She draws 4, and Joba wants 2 more: 6 feet today, 10 on the chart.</p><p>Gallery Bend: the outside (15, 17, 14). The crossing: the upper one (10, 11, 10). Snag Bend: the middle, not the deep side with the tree in it (12, 11, 13). Hen Island: the right-hand channel (11, 10, 11), because the left one has a 7 in it.</p>');
+      msg('Joba looks at your line for a long time. Then he turns the wheel, a very little, and the Jacana leans towards the outside of Gallery Bend.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; document.body.classList.add('turn');
+        ER.narrate([
+          'Gallery Bend. &ldquo;Fifteen!&rdquo; shouts Lemi from the foredeck, and then, as if it hurt her, &ldquo;Twelve. Eleven.&rdquo; The crossing: &ldquo;Seven. Six. Six. Seven.&rdquo; At Snag Bend the dead tree lies along the outside like a crocodile, and the Jacana goes past it down the middle without touching. Behind Hen Island a heron stands on a bar that nobody could see, in water up to its knees.',
+          'Then Long Bend. The river turns hard to the right, round a point of forest so thick that you cannot see what is coming down the other side.',
+          '&ldquo;Now you may pull it,&rdquo; says Joba.'
+        ], function () { busy = false; document.body.classList.remove('turn'); paint(); openBend(); });
+      }, 2400);
+    });
+    draw();
+    msg('Click a channel at each of the four gates, from Gallery Bend at the bottom up to Hen Island. The red triangle is the Jacana.');
+    ER.addClue('chartleg', 'The margin of the chart', LEG, 'chartleg', 'The chart of the Shoals', true);
+    RV.words(['sounding', 'draw', 'shallow']);
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- Long Bend: the whistle ---------- */
+  function makeBend() {
+    var box = ER.el('div', 'bx bend'), svg, msgEl, seq = '', step = ER.flag('w-step') || 0, blowing = false, log = ER.flag('w-log') || [];
+    var s = '<rect width="620" height="520" fill="#3d6630"/>' +
+      '<path d="M220 530C220 330 320 160 630 60V350C560 360 530 440 530 530Z" fill="#cfdde6"/>' +
+      '<path d="M220 530C220 330 320 160 630 60" fill="none" stroke="#2c4a22" stroke-width="9" stroke-dasharray="3 5"/>' +
+      '<path d="M530 530C530 440 560 360 630 350V296C530 312 470 420 470 530Z" fill="#efe1b0" stroke="#b09a5a" stroke-width="2"/>' +
+      '<g fill="#2f5a28"><circle cx="590" cy="440" r="26"/><circle cx="600" cy="400" r="22"/><circle cx="572" cy="490" r="24"/></g>' +
+      '<text x="500" y="486" class="sd" font-size="19">6</text><text x="548" y="380" class="sd" font-size="19">5</text>' +
+      '<text x="262" y="420" class="sd" font-size="19">16</text><text x="320" y="330" class="sd" font-size="19">18</text><text x="440" y="196" class="sd" font-size="19">17</text>' +
+      '<text x="110" y="60" class="sz" font-size="14" fill="#e9eef0">LONG BEND</text><text x="110" y="82" class="sc" font-size="18" fill="#e9eef0">soundings, March</text>' +
+      '<text x="585" y="510" class="sz" font-size="10" fill="#e9eef0">FOREST</text><text x="560" y="40" class="sz" font-size="11" fill="#e9eef0">UP-RIVER &#8599;</text>' +
+      '<g id="kudu" style="display:none"><path d="M0 0h50v70H0z" fill="#8a6440" stroke="#4a3220" stroke-width="2"/><g stroke="#4a3220" stroke-width="2"><path d="M0 14h50M0 28h50M0 42h50M0 56h50"/></g><path d="M8 70h34v30H8z" fill="#f4efe1" stroke="#7a2a22" stroke-width="3"/><path d="M14 100h22v10H14z" fill="#7a2a22"/></g>' +
+      '<g id="me"><path d="M0 -38l14 26v40h-28v-40z" fill="#f4efe1" stroke="#7a2a22" stroke-width="3"/><circle cx="0" cy="34" r="9" fill="#7a2a22"/></g>';
+    box.innerHTML = '<div class="wgrid"><div class="frame"><svg viewBox="0 0 620 520">' + s + '</svg></div>' +
+      '<div class="wpan"><h5>The whistle</h5><div class="wkeys"><button type="button" data-k="S">● short</button><button type="button" data-k="L">▬ long</button></div>' +
+      '<div class="wseq" id="wseq"></div><div class="wkeys"><button type="button" id="wclr">Clear</button><button type="button" id="wblow">Pull the cord</button></div><ul class="wlog" id="wlog"></ul></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function place() {
+      var me = svg.querySelector('#me'), k = svg.querySelector('#kudu');
+      me.setAttribute('transform', step >= 3 ? 'translate(420 210) rotate(50)' : 'translate(330 470) rotate(4)');
+      k.style.display = step >= 1 ? '' : 'none';
+      k.setAttribute('transform', step >= 3 ? 'translate(395 480) rotate(190)' : 'translate(500 235) rotate(235)');
+    }
+    function paintLog() {
+      box.querySelector('#wlog').innerHTML = log.map(function (l) { return '<li><b>' + l[0] + '</b> ' + l[1] + '</li>'; }).join('');
+      box.querySelector('#wseq').textContent = RV.sig(seq);
+      svg.setAttribute('data-step', step);
+    }
+    function add(who, what) { log.push([who, what]); ER.flag('w-log', log); paintLog(); }
+    function norm(q) { return /^S{5,}$/.test(q) ? 'S5' : q; }
+    var PROMPT = [
+      'Long Bend, and you cannot see round it. &ldquo;Tell them we are coming,&rdquo; says Joba. Make the signal, then pull the cord.',
+      'The Kudu is coming down, pushing a raft of logs. She has said how she means to pass. Do you agree?',
+      'The Kudu has gone astern, and said something else. What do you answer now?'
+    ];
+    var WRONG = [
+      { S: 'One short means, &ldquo;I intend to pass you on my left side.&rdquo; Pass whom? You cannot see round the bend. That is the whole trouble.',
+        SS: 'Two short is a way of passing somebody. There is nobody yet that you can see to pass.',
+        SSS: '&ldquo;My engines are going astern?&rdquo; says Joba. &ldquo;They are not, and I would like them to keep not doing it.&rdquo;',
+        S5: 'That is the danger signal. Nothing is dangerous yet, except the noise.' },
+      { S: 'You agree? Then each boat keeps to her own right, and the Jacana&rsquo;s right is the inside of Long Bend. Six and five in March: two feet and one foot today. Joba takes his hand off the cord before you can finish.',
+        SS: 'That is not an answer to her. That is a different idea. The boat coming up answers with the same signal, or with the danger signal.',
+        SSS: 'Our engines going astern is not an answer to anything she said.',
+        L: 'A long blast is for the bend, and the bend has been done.' },
+      { S: 'One short? She said two. You are now disagreeing with an idea you suggested yourself.',
+        SSS: 'She has already gone astern. One of you doing it is enough.',
+        S5: 'You doubted the first idea, and you were right. This one keeps the Jacana on the outside of the bend: eighteen in March, fourteen feet today. Do you still doubt it?',
+        L: 'A long blast is for the bend, and the bend has been done.' }
+    ];
+    function keyAt(i) { return ['w1', 'w2', 'w3'][i]; }
+    function blow() {
+      if (blowing || step > 2) return;
+      if (!seq) { ER.sfx.no(); msg('Nothing to blow. Press the short and long keys first.'); return; }
+      var q = norm(seq); blowing = true;
+      $('#cord').classList.add('pull'); setTimeout(function () { $('#cord').classList.remove('pull'); }, 400);
+      var ms = RV.blow(seq);
+      add('Jacana', RV.sig(seq));
+      seq = ''; paintLog();
+      setTimeout(function () {
+        blowing = false;
+        if (!ER.check(keyAt(step), q)) { ER.sfx.no(); msg((WRONG[step][q] || 'Joba looks at the card on the post, and then at you.') + ' <b>Try again.</b>'); return; }
+        var ok = ER.flag('w-ok') || []; ok[step] = q; ER.flag('w-ok', ok);
+        step++; ER.flag('w-step', step); place();
+        if (step === 1) {
+          add('round the bend', '▬ (a long blast: somebody is there)');
+          setTimeout(function () { var m2 = RV.blow('L'); setTimeout(function () { add('the Kudu', '● (one short), coming down with a raft'); RV.blow('S'); msg(PROMPT[1]); }, m2 + 200); }, 300);
+          msg('A long blast comes back from round the bend. Somebody is there.');
+        } else if (step === 2) {
+          ER.mood('tense');
+          var m3 = RV.blow('SSS');
+          add('the Kudu', '● ● ● (her engines are going astern)');
+          setTimeout(function () { RV.blow('SS'); add('the Kudu', '● ● (two short)'); msg(PROMPT[2]); }, m3 + 300);
+          msg('A pause. Then three short from the Kudu: she is going astern. She is thinking again.');
+        } else {
+          ER.mood('calm');
+          finish();
+        }
+      }, Math.min(ms, 4200) + 200);
+    }
+    function finish() {
+      var pk = ER.flag('w-pick') || {}, ok = ER.flag('w-ok') || [];
+      var file = ER.exit([['g1', 'g2', 'g3', 'g4'].map(function (k) { return pk[k]; }).join(',') + '|' + ok.join('|')], { wait: true });
+      if (!file) { msg('Something is wrong with the course on the chart. Joba frowns at it.'); return; }
+      nextFile = file; ER.flag('w-file', file); paint();
+      RV.mine('bend', 'Long Bend, by whistle', '<p>▬ for the bend; ▬ came back. The Kudu (coming down) said ●: each keep to your right. Our right was the inside of the bend: 6 and 5 in March, 2 and 1 today. So ● ● ● ● ●: I doubt that is safe. She went astern (● ● ●), then said ● ●: each keep to your left. We agreed: ● ●. The Jacana stayed on the outside.</p>');
+      msg('The Kudu slides past on your right side, so close that you could hand her captain a banana. He touches his hat. The Jacana never leaves the deep water on the outside of the bend.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;Five short,&rdquo; says Joba. &ldquo;Most passengers would have agreed with her, to be polite. Politeness has put more boats on the sand than rain.&rdquo;',
+          'At five o&rsquo;clock the Jacana ties up at Hollow Tree, exactly where you said she would. The tree is hollow. Lemi says that it always has been, and that somebody had to name the place something.',
+          'The light goes out of the sky as if somebody had blown it out. Down on the deck, under the awning, the captain lights a lamp and puts Dr Kinnaird&rsquo;s journal pages on the table.'
+        ], function () { busy = false; ER.say('The Jacana is tied up for the night. Go down to the deck.'); });
+      }, 3600);
+    }
+    box.querySelector('.wkeys').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-k]') : null; if (!b || blowing || step > 2) return;
+      if (seq.length >= 8) return; seq += b.getAttribute('data-k'); RV.sfx.tick(); paintLog();
+    });
+    box.querySelector('#wclr').addEventListener('click', function () { seq = ''; paintLog(); });
+    box.querySelector('#wblow').addEventListener('click', blow);
+    place(); paintLog();
+    msg(step > 2 ? 'The Kudu has gone by.' : PROMPT[step]);
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

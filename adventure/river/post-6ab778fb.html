@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Grice's Post · A Little Water</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="river.css">
+<style>
+  body{--bg:#3a2214;--accent:#ffb85a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(48,26,14,.95);--tc-ink:#fbecd6;--cap-bg:rgba(44,24,12,.93);--panel:#34200f;--face-bg:#4a2e18;--q-ink:#ffcf8a;--fade:#1c0e06;--hud-bg:rgba(44,24,12,.82)}
+  #punkah{animation:punk 2.8s ease-in-out infinite alternate;transform-origin:800px 30px}
+  @keyframes punk{from{transform:skewX(-6deg)}to{transform:skewX(6deg)}}
+  #parrot .hd{animation:cock 4s steps(1,end) infinite;transform-origin:604px 168px}
+  @keyframes cock{0%,70%{transform:rotate(0)}72%,90%{transform:rotate(-16deg)}}
+  .dust{animation:dust 9s linear infinite}
+  @keyframes dust{from{transform:translate(0,0)}to{transform:translate(80px,40px)}}
+
+  /* the letter against the books */
+  .bx.books{width:min(1120px,98vw)}
+  .bgrid{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:12px;align-items:start}
+  .lt{background:#f3ecd8 radial-gradient(ellipse at 30% 10%,rgba(255,252,236,.7),rgba(150,120,70,.16));color:#22284a;padding:10px 14px 8px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lt h5{margin:0 0 4px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;color:#7a5a2a;text-transform:uppercase}
+  .lrow{display:grid;grid-template-columns:minmax(0,1fr) 236px;gap:8px;align-items:center;padding:3px 0;border-bottom:1px dashed rgba(34,40,74,.18)}
+  .lrow .tx{font-family:'Caveat',cursive;font-size:20px;line-height:1.08;cursor:default}
+  .lrow.pk .tx{background:rgba(200,64,44,.22)}
+  .q2 .lrow .tx,.q2 .ps{cursor:pointer}
+  .q2 .lrow .tx:hover,.q2 .ps:hover{background:rgba(255,214,90,.4)}
+  .lslot{min-height:66px;border:1.5px dashed #7a2a22;border-radius:3px;background:rgba(255,255,255,.35);display:flex;align-items:stretch}
+  .lslot .slip{margin:0;width:100%}
+  .lt .ps{font-family:'Caveat',cursive;font-size:20px;line-height:1.08;margin-top:6px;padding:4px 6px;border-top:1px dashed rgba(34,40,74,.35)}
+  .lt .ps.pk{background:rgba(200,64,44,.22)}
+  .tray{display:grid;grid-template-columns:1fr 1fr;gap:7px;min-height:340px;padding:8px;background:rgba(58,34,20,.7);border:2px solid #7a5232;border-radius:3px;align-content:start}
+  .slip{background:#f1e8cf;color:#2a2116;font-family:'Special Elite',monospace;font-size:12.6px;line-height:1.28;padding:5px 7px 4px;border-left:6px solid #7a2a22;cursor:grab;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+  .slip b{font-family:'Josefin Sans',sans-serif;font-size:10.5px;letter-spacing:.12em;color:#7a2a22;display:block}
+  .slip.held{outline:3px solid #ffb85a}
+  .slip.fly{position:fixed;z-index:80;pointer-events:none;opacity:.92}
+  .bx.books .btn{--accent:#ffb85a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2e18"/><stop offset="1" stop-color="#6b4424"/></linearGradient>
+  <linearGradient id="doorP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc"/><stop offset=".55" stop-color="#f6e2b0"/><stop offset="1" stop-color="#c9a46a"/></linearGradient>
+  <radialGradient id="beam" cx="20%" cy="50%" r="70%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".28"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigP" cx="45%" cy="50%" r="80%"><stop offset="0" stop-color="#140a04" stop-opacity="0"/><stop offset=".7" stop-color="#140a04" stop-opacity=".18"/><stop offset="1" stop-color="#140a04" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#2a180c"/>
+<rect x="-1000" y="-400" width="3600" height="1040" fill="url(#wallP)"/><g id="wplanks" stroke="#3a2210" stroke-width="3" opacity=".6"></g>
+<!-- the doorway, full of noon -->
+<g id="door" class="hot"><rect x="60" y="150" width="270" height="490" fill="url(#doorP)"/><path d="M60 470h270v170H60z" fill="#b08a5e"/><path d="M60 470h270" stroke="#e9d4a4" stroke-width="4"/>
+  <g transform="translate(150 470) scale(.34)"><path d="M0 -40h600l30 40H20z" fill="#e9e2cf"/><rect x="30" y="-150" width="520" height="110" fill="#f4efe1"/><rect x="250" y="-330" width="30" height="180" fill="#1f1f22"/></g>
+  <path d="M60 640V150h270v490" fill="none" stroke="#2a1608" stroke-width="18"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#beam)" pointer-events="none"/>
+<!-- the noticeboard -->
+<g id="board" class="hot"><rect x="360" y="200" width="150" height="190" fill="#b9864a" stroke="#4a2a12" stroke-width="7"/><path d="M372 214h60v78h-60z" fill="#fbf8ee" transform="rotate(-3 400 250)"/><path d="M382 228h40M382 240h36M382 252h40M382 264h30" stroke="#2f5a3a" stroke-width="2" transform="rotate(-3 400 250)"/>
+  <path d="M440 222h60v96h-60z" fill="#efe9da" transform="rotate(4 470 270)"/><path d="M448 236h44" stroke="#7a2a22" stroke-width="5" transform="rotate(4 470 270)"/><path d="M448 250h44M448 260h40M448 270h44M448 280h36M448 290h44" stroke="#1f1d1a" stroke-width="1.500" transform="rotate(4 470 270)"/>
+  <path d="M378 312h70v66h-70z" fill="#f4efe1"/><path d="M386 324h52M386 336h44M386 348h50" stroke="#3a2a1a" stroke-width="1.500"/><circle cx="402" cy="218" r="4" fill="#c8402c"/><circle cx="470" cy="226" r="4" fill="#c8402c"/></g>
+<!-- shelves of everything -->
+<g id="shelves" class="hot"></g>
+<!-- pigeonholes for the mail -->
+<g id="holes" class="hot"><rect x="1330" y="140" width="210" height="170" fill="#5a3418" stroke="#2a1608" stroke-width="6"/><g id="holecells"></g><text x="1435" y="132" class="sj" font-size="14" letter-spacing="3" fill="#e9d4a4">MAIL</text></g>
+<!-- a cloth fan, pulled by a rope that nobody is pulling -->
+<g id="punkah"><path d="M380 30h840" stroke="#3a2210" stroke-width="6"/><path d="M390 34h820v60q-410 20 -820 0z" fill="#e9dcc0" stroke="#8a7a5a" stroke-width="2"/></g>
+<!-- the parrot -->
+<g id="parrot" class="hot"><path d="M600 0v110" stroke="#5a3a1a" stroke-width="3"/><path d="M560 112h90" stroke="#6b4a2a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M588 112q-10 -48 14 -60q24 8 18 60z" fill="#8f9498"/><path d="M596 112l-10 34 18 -6 12 6 -4 -34z" fill="#c8402c"/>
+  <g class="hd"><circle cx="606" cy="58" r="15" fill="#a9aeb2"/><circle cx="610" cy="54" r="5" fill="#fff"/><circle cx="611" cy="54" r="2.200" fill="#111"/><path d="M618 58q12 2 8 14q-6 -4 -10 -6z" fill="#222"/></g></g>
+<g class="dust" fill="#fff2c8" opacity=".5"><circle cx="160" cy="300" r="2"/><circle cx="260" cy="380" r="1.500"/><circle cx="200" cy="460" r="2"/><circle cx="320" cy="260" r="1.500"/></g>
+<!-- Mr Grice, behind the counter -->
+<g id="grice" class="hot"><g id="pgrice"></g></g>
+<!-- the counter -->
+<g id="counter"><path d="M370 600H1470V640H370Z" fill="#8a5a2a"/><path d="M380 640H1460V900H380Z" fill="#6b3e1e"/><g stroke="#4a2a12" stroke-width="4"><path d="M380 720H1460M600 640v260M900 640v260M1200 640v260"/></g></g>
+<g id="mailbook" class="hot"><path d="M640 596l140 -10 8 22 -142 10z" fill="#2f4a6b"/><path d="M648 588l130 -9 6 14 -130 9z" fill="#f1e8cf"/><text x="712" y="580" class="sj" font-size="12" fill="#e9d4a4" transform="rotate(-4 712 580)">MAIL BOOK</text></g>
+<g id="ledger" class="hot"><path d="M820 596l150 -6 6 24 -154 6z" fill="#7a2a22"/><path d="M828 588l140 -5 4 14 -140 5z" fill="#f1e8cf"/><text x="898" y="578" class="sj" font-size="12" fill="#e9d4a4" transform="rotate(-2 898 578)">LEDGER</text></g>
+<g id="scales" class="hot"><path d="M1080 600v-80M1030 520h100" stroke="#c9a24a" stroke-width="5"/><path d="M1030 520l-20 40h40zM1130 520l-20 40h40z" fill="none" stroke="#c9a24a" stroke-width="3"/><ellipse cx="1030" cy="562" rx="24" ry="6" fill="#c9a24a"/><ellipse cx="1130" cy="562" rx="24" ry="6" fill="#c9a24a"/><rect x="1060" y="596" width="40" height="8" fill="#8a6a26"/></g>
+<!-- Mr Gilroy, buying lamp wicks -->
+<g id="gilroy" class="hot"><g id="pgilroy"></g><g fill="#efe8d2" stroke="#8a7a5a" stroke-width="1.500"><rect x="1240" y="578" width="70" height="20"/><rect x="1250" y="562" width="70" height="18"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigP)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Read the letter against the books</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="river.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, books = null, nextFile = null;
+
+  (function () {
+    var s = '', i, j, x, r = 5, C = ['#b8322a', '#2f5fa8', '#d9b05a', '#3f7a5a', '#e9e2cf', '#7a4a8a', '#c96a2b'];
+    function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+    for (x = -1000; x < 2600; x += 40) s += '<path d="M' + x + ' -400V640"/>';
+    $('#wplanks').innerHTML = s; s = '';
+    for (j = 0; j < 4; j++) {
+      var y = 200 + j * 100;
+      s += '<path d="M530 ' + y + 'H1310" stroke="#3a2210" stroke-width="9"/>';
+      for (x = 540; x < 1300;) {
+        var k = rnd(), w;
+        if (k < 0.5) { w = 26 + rnd() * 10; s += '<rect x="' + x.toFixed(0) + '" y="' + (y - 44).toFixed(0) + '" width="' + w.toFixed(0) + '" height="44" fill="' + C[Math.floor(rnd() * C.length)] + '"/><path d="M' + x.toFixed(0) + ' ' + (y - 30) + 'h' + w.toFixed(0) + '" stroke="#f4efe1" stroke-width="5" opacity=".7"/>'; }
+        else if (k < 0.75) { w = 56; s += '<path d="M' + x.toFixed(0) + ' ' + y + 'q4 -58 28 -60q24 2 28 60z" fill="#c9b07a" stroke="#8a7a4a" stroke-width="2"/>'; }
+        else if (k < 0.9) { w = 50; s += '<ellipse cx="' + (x + 25).toFixed(0) + '" cy="' + (y - 18) + '" rx="24" ry="18" fill="none" stroke="#c9a46a" stroke-width="7"/><ellipse cx="' + (x + 25).toFixed(0) + '" cy="' + (y - 18) + '" rx="12" ry="8" fill="none" stroke="#a8844a" stroke-width="4"/>'; }
+        else { w = 34; s += '<rect x="' + x.toFixed(0) + '" y="' + (y - 56) + '" width="30" height="56" rx="4" fill="#5a6a6a"/><path d="M' + (x + 8).toFixed(0) + ' ' + (y - 56) + 'v-10h14v10" fill="#5a6a6a"/>'; }
+        x += w + 6;
+      }
+    }
+    $('#shelves').innerHTML = s; s = '';
+    for (j = 0; j < 3; j++) for (i = 0; i < 4; i++) {
+      var cx = 1338 + i * 50, cy = 148 + j * 52;
+      s += '<rect x="' + cx + '" y="' + cy + '" width="44" height="46" fill="#2a1608"/>';
+      if (!(i === 1 && j === 1)) s += '<path d="M' + (cx + 6) + ' ' + (cy + 46) + 'v-' + (16 + (i * 7 + j * 5) % 18) + 'h30v' + (16 + (i * 7 + j * 5) % 18) + '" fill="#f1e8cf"/>';
+    }
+    $('#holecells').innerHTML = s + '<text x="1413" y="244" class="sj" font-size="8" fill="#e9d4a4">IRONWOOD</text>';
+    $('#pgrice').innerHTML = RV.person(900, 760, 1.3, { coat: '#d9cdb0', skin: '#e0b48c', hair: '#8f8a80', beard: '#8f8a80', hat: 'none', legs: '#4a3a2a' });
+    $('#pgilroy').innerHTML = RV.person(1390, 900, 1.25, { coat: '#ece5d0', skin: '#e2bc94', hair: '#6b4a2a', hat: 'panama', specs: 1, legs: '#d9d0b8', flip: 1 });
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'river', storyTitle: 'A Little Water', id: 'post', no: 'IV', title: 'Grice’s Post',
+    go: 'Up the steps',
+    intro: [
+      'The eighteenth of May. You marked her sentences the way the Garden&rsquo;s green book says: two that she saw, two that she only thinks, two impressions and two conclusions. &ldquo;I must have dreamt them&rdquo; was wrong: there were petals on the path next morning, and night flowers fall by morning. Then you used only what she measured: two millimetres a day, from 46 mm on 17 March to Lockhart&rsquo;s 170, is sixty-two days.',
+      'Noon on the 18th, at mile 96. The Narrows were twelve miles of brown water running downhill between rocks, and the Jacana went up them at four miles an hour, shaking like a wet dog. Then the river opened out, and there was Grice&rsquo;s Post, exactly where the board said it would be.',
+      'Grice&rsquo;s Post is a store, a wood station and a post office in one long room on legs. Everything that goes up the river past mile 96, and every letter that comes down, goes through this room. The Jacana will be here for one hour, taking on wood.'
+    ],
+    exit: {"next":"camp","w":{"00c44c59":"3e2cb578"}}, tags: {"l1":["7b02eed8"],"l2":["b1e9b2bb"],"l3":["25bd9440"],"l4":["1a706ecd"],"l5":["39363e05"],"l6":["75136289"],"q":["83d8ccd0"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('p-told') || {}; nextFile = ER.flag('p-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('p-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.grice || nextFile));
+    b.textContent = nextFile ? 'Back to the Jacana' : 'Read the letter against the books';
+    ER.pips((told.grice ? 1 : 0) + (told.mail && told.ledger ? 1 : 0) + (ER.flag('p-lines') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The whistle has blown. Back to the Jacana.']];
+    if (!told.grice) return ['grice', ['The big man behind the counter has read every letter that went up or down this river. Ask him.']];
+    if (!(books && books.isOpen()) && !(told.mail && told.ledger)) return ['read', ['Mr Grice told you where the true answer is: in his two books on the counter. Read them both. The noticeboard by the door is worth a look as well.']];
+    if (!ER.flag('p-lines')) return ['lines', [
+      'Take one line of her letter at a time, and ask: what really happened, that this line makes smaller or leaves out? Then find the slip that says so.',
+      '&ldquo;A little water&rdquo;: how much? &ldquo;Up a short way&rdquo;: up what, and with what? &ldquo;Gone home for the planting&rdquo;: who paid them? &ldquo;Taking its time&rdquo;: longer than whose promise? &ldquo;Want for nothing&rdquo;: then why sell things? &ldquo;In due course&rdquo;: why not now?',
+      'Two slips are true and have nothing to do with her letter. One is about a canoe that went over five weeks after she wrote. One is about Mr Gilroy.'
+    ]];
+    return ['ps', [
+      'The Director&rsquo;s note told you what his letter of 2 March asked her. Which boat did he expect her on?',
+      'Look below her name.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('One long blast from the Jacana: the wood is on board.'); return; }
+    if (told.intro) { busy = false; ER.say('Grice&rsquo;s Post, a little after noon. Mr Grice is behind his counter.'); return; }
+    ER.narrate([
+      'Inside, it is as dark as a cupboard after the glare of the river, and it smells of rope, lamp oil, coffee and parrot.',
+      'Behind the counter sits a very large man with a beard like a doormat and a pencil behind one ear. Above him, a grey parrot with a red tail is looking at you with one eye, and then, to be fair, with the other.',
+      'Mr Gilroy has gone straight to the far end of the counter and is buying lamp wicks. All of them.'
+    ], function () { busy = false; tell('intro'); });
+  }
+
+  /* ---------- people ---------- */
+  $('#grice').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Tell her the account is settled,&rdquo; says Mr Grice, &ldquo;and that I will not say who by. She will know what that means. She will be furious.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Lambert Grice', role: 'Store, wood and post · mile 96', face: window.FACE('grice'),
+      lines: [
+        { note: 'He does not get up. He does not look as if getting up is a thing he does often.', a: '&ldquo;Lambert Grice. Store, wood, post. You will be the Garden. Your Professor&rsquo;s notice is on my board, and I have read it. I read everything that comes through this room. It is the only entertainment there is.&rdquo;' },
+        { q: 'Why did her letters stop?', a: 'Lost in the canoe, I expect. The mail canoe went over in the Narrows on the 26th of April, bag and all. Terrible business. Nobody was hurt, but the mail was very wet.</p><p class="note">He looks at you over the top of the beard.</p><p>That is what I tell people who want an easy answer.' },
+        { q: 'And the true answer?', a: 'Is in my books. Everything that goes up this river and everything that comes down is in my books: the mail book and the ledger, there on the counter. Read her letter against them, line by line. She is a lady, and she writes like one. My books are not, and do not.' },
+        { q: 'Who pays for her stores now?', a: 'Never you mind. I gave my word.</p><p class="note">&ldquo;Never you mind!&rdquo; says the parrot, with feeling.' }
+      ],
+      clue: { id: 'grice', title: 'Mr Grice, behind his counter', kind: 'What he said' },
+      done: function (seen) { if (seen) { RV.words(['ledger', 'credit']); if (tell('grice')) { paint(); ER.say('The mail book and the ledger are on the counter in front of him.'); } } }
+    });
+  });
+  $('#gilroy').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Jasper Gilroy', role: 'At the end of the counter', face: window.FACE('gilroy'),
+      lines: [
+        { note: 'He has forty lamp wicks in a bundle under his arm.', a: '&ldquo;For reading. I read a great deal at night. Very small print.&rdquo;' },
+        { q: 'Mr Grice says you wrote to Dr Kinnaird in March.', a: 'Did he? What a memory the man has. Yes. I asked her a question. She did not answer it. She is not, I gather, answering anybody.' },
+        { q: 'What was the question?', a: 'Whether she had found the white one.</p><p class="note">He tucks the lamp wicks further under his arm.</p><p>And whether, when it opens, anybody will be watching the flower, or only the flower&rsquo;s visitors. It is a question that matters to a man in my line.' }
+      ],
+      clue: { id: 'gilroy4', title: 'Mr Gilroy, buying lamp wicks', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('gilroy')) ER.say('Mr Gilroy pays for forty lamp wicks and goes out into the light, very fast.'); }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var MAIL = '<h4>GRICE&rsquo;S POST · MAIL BOOK</h4>' +
+    '<p>3 Feb. Down from Dr K.: letter to the Garden; three parcels of plants.</p>' +
+    '<p>4 Mar. Down from Dr K.: letter to the Garden; two parcels.</p>' +
+    '<p>11 Mar. River at the Post up nine feet in two days. The runner says Ironwood landing is under water.</p>' +
+    '<p>18 Mar. Up to Dr K.: one letter from Mr J. Gilroy, Port Gessin, asking whether she has found &ldquo;the white one&rdquo;.</p>' +
+    '<p>21 Mar. Down from Dr K.: one letter, to the Garden. No parcel. She asked what a parcel costs, and said she would send them another time.</p>' +
+    '<p>5 Apr. Up to Dr K.: one letter from the Garden (Prof. Lyall).</p>' +
+    '<p>26 Apr. Mail canoe overturned in the Narrows. One bag lost; the other dried on my roof. Nobody hurt.</p>' +
+    '<p>1 May. The Jacana down from the falls. Dr K. not on board.</p>' +
+    '<p class="pen">Since 21 March, nothing down from Dr K. but lists of stores, every week, by the runner. L. G.</p>';
+  $('#mailbook').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAIL, cls: 'ledger', clue: { id: 'mail', title: 'Grice’s mail book', kind: 'A book on the counter' }, done: function () {
+      RV.words(['parcel', 'overturn']);
+      if (tell('mail')) { paint(); ER.say('Every letter up and down the river since February. Hers stop on 21 March. The lists do not.'); }
+    } });
+  });
+  var LEDG = '<h4>GRICE&rsquo;S POST · LEDGER · Dr I. Kinnaird</h4>' +
+    '<p>10 Mar. Sent up by the runner: 120 ft of rope, 2 tarpaulins, 6 planks, 3 lb of nails, 1 hammer. &ldquo;For the new camp.&rdquo;</p>' +
+    '<p>12 Mar. Four men down from Ironwood. Three weeks&rsquo; wages each, paid by me. Owed by Dr K.</p>' +
+    '<p>15 Mar. Bought from Dr K., by the runner, for flour, tea and lamp oil: one pair of field glasses; one pair of boots, hardly worn.</p>' +
+    '<p>31 Mar. The Garden&rsquo;s account closed (see notice).</p>' +
+    '<p>From 2 Apr, every week: flour, tea, lamp oil, candles. Paper, six reams in all. Account settled monthly.</p>' +
+    '<p class="pen">Never you mind who by. L. G.</p>';
+  $('#ledger').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEDG, cls: 'ledger', clue: { id: 'ledger', title: 'Grice’s ledger: Dr Kinnaird', kind: 'A book on the counter' }, done: function () {
+      RV.words(['owe', 'tarpaulin', 'ream', 'field glasses']);
+      if (tell('ledger')) { paint(); ER.say('Rope, planks, wages, boots. And six reams of paper, which is three thousand sheets.'); }
+    } });
+  });
+  var NOTICE = '<h4>THE BOTANIC GARDEN<small>NOTICE TO GRICE&rsquo;S POST</small></h4><p>2 March</p>' +
+    '<p>From 31 March, no further goods are to be supplied on the Garden&rsquo;s account to Dr I. Kinnaird.</p><p class="sig">K. Lyall, Director</p>';
+  var WAIT = '<h4><small>NATURE NOTES · A PAGE FROM AN OLD MAGAZINE</small>Why wait?</h4>' +
+    '<p>Most plants flower every year. A few wait.</p>' +
+    '<p>The century plant, an agave of dry country, does not wait a century, whatever its name says. It grows for ten to thirty years, flowers once, on a stem taller than a house, and then dies. Some bamboos wait for decades; then every plant of the kind flowers in the same year, in forests hundreds of miles apart, and dies.</p>' +
+    '<p>Why wait? A plant that waits can store food, in a swollen stem or root, for one great effort. And plants that flower all together make more seeds than the animals that eat seeds can possibly eat.</p>' +
+    '<p>Not every plant that flowers rarely dies afterwards. Some simply rest, and do it again many years later. You cannot tell which kind you have until you have watched it twice.</p>';
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTICE, cls: 'garden', clue: { id: 'notice', title: 'The Garden’s notice to the Post', kind: 'On Grice’s board' }, done: function () {
+      ER.read({ html: WAIT, cls: 'mag', clue: { id: 'wait', title: 'Why wait? (a magazine page)', kind: 'On Grice’s board' }, done: function () {
+        RV.words(['agave', 'bamboo', 'store']);
+        if (tell('board')) ER.say('A notice from the Garden, and a page about plants that wait. Mr Grice reads everything.');
+      } });
+    } });
+  });
+
+  /* ---------- things ---------- */
+  RV.thing('#parrot', 'parrot', '&ldquo;Never you mind!&rdquo; says the parrot. It is the only thing it says, and it says it to everybody.', isBusy);
+  RV.thing('#holes', 'pigeonhole', 'Pigeonholes for the mail, one for each landing up the river. The one marked IRONWOOD is empty.', isBusy);
+  RV.thing('#shelves', null, 'Tins, sacks, coils of rope, lamp oil. If it can go up a river in a canoe, Mr Grice sells it. If it cannot, he will order it.', isBusy);
+  RV.thing('#scales', 'scales', 'Brass scales. Mr Grice weighs flour on them, and letters, and once, Lemi says, a baby.', isBusy);
+  RV.thing('#door', null, 'Through the door, the Jacana is taking on wood. Lemi is throwing logs to a man on the deck, and counting them out loud so that nobody can cheat.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!(told.mail && told.ledger)) { ER.say('&ldquo;Read my books first,&rdquo; says Mr Grice. &ldquo;Both of them. They are short. Unlike some letters.&rdquo;'); return; }
+    if (!books) books = makeBooks();
+    books.open();
+  });
+
+  /* ---------- her letter, against his books ---------- */
+  function makeBooks() {
+    var LINES = [['l1', 'We have had a little water,'], ['l2', 'and I have moved the camp up a short way.'], ['l3', 'The men have gone down to their villages for the planting.'],
+      ['l4', 'The plant is taking its time. So, I am afraid, am I.'], ['l5', 'I am perfectly comfortable, and want for nothing.'], ['l6', 'The herbarium shall have its sheets in due course.']];
+    var SLIPS = [
+      ['canoe', 'Mail book, 26 Apr.', 'Mail canoe overturned in the Narrows. One bag lost.'],
+      ['rope', 'Ledger, 10 Mar.', 'Sent up: 120 ft of rope, 6 planks, nails, 2 tarpaulins. &ldquo;For the new camp.&rdquo;'],
+      ['parcels', 'Mail book, 21 Mar.', 'One letter down. No parcel: she asked what a parcel costs.'],
+      ['certain', 'Her journal, 9 Feb.', '&ldquo;It will open within the month: I am quite certain of it.&rdquo;'],
+      ['gilroy', 'Mail book, 18 Mar.', 'Up to Dr K.: a letter from Mr J. Gilroy about &ldquo;the white one&rdquo;.'],
+      ['men', 'Ledger, 12 Mar.', 'Four men down from Ironwood. Wages paid by me; owed by Dr K.'],
+      ['boots', 'Ledger, 15 Mar.', 'Bought from Dr K., for flour and lamp oil: field glasses; boots, hardly worn.'],
+      ['rise', 'Mail book, 11 Mar.', 'River up nine feet in two days. Ironwood landing under water.']];
+    var box = ER.el('div', 'bx books'), msgEl, wait = false;
+    var lt = '<div class="lt"><h5>Her letter, 19 March &middot; drag a slip to the line it explains</h5>' + LINES.map(function (l) {
+      return '<div class="lrow" data-l="' + l[0] + '"><span class="tx">' + l[1] + '</span><div class="lslot" data-l="' + l[0] + '"></div></div>';
+    }).join('') + '<div class="ps" data-l="ps">With kind regards to the Committee, Isobel Kinnaird. &nbsp;P.S. Please do not expect me on the boat of the 1st. If anybody should come up, I am generally to be found in the big ironwood across the creek.</div></div>';
+    box.innerHTML = '<div class="bgrid">' + lt + '<div class="tray" id="tray">' + SLIPS.map(function (s) { return '<div class="slip dnd-item" data-s="' + s[0] + '"><b>' + s[1] + '</b>' + s[2] + '</div>'; }).join('') + '</div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="askg">Show Mr Grice</button></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var tray = box.querySelector('#tray');
+    var saved = ER.flag('p-place') || {};
+    Object.keys(saved).forEach(function (l) { var it = tray.querySelector('.slip[data-s="' + saved[l] + '"]'), sl = box.querySelector('.lslot[data-l="' + l + '"]'); if (it && sl) sl.appendChild(it); });
+    function placed() { var o = {}; ER.$$('.lslot', box).forEach(function (sl) { var it = sl.querySelector('.slip'); if (it) o[sl.getAttribute('data-l')] = it.getAttribute('data-s'); }); return o; }
+    ER.dnd(box, { item: '.slip', slot: '.lslot', home: tray, lock: function () { return wait || !!ER.flag('p-lines'); }, change: function () { ER.flag('p-place', placed()); RV.sfx.pen(); } });
+    var NUDGE = {
+      l1: 'Mr Grice puts his finger on &ldquo;a little water&rdquo;. &ldquo;How little? My books say how much.&rdquo;',
+      l2: '&ldquo;Moved the camp up a short way,&rdquo; says Mr Grice. &ldquo;Up what? Find me what she did it with.&rdquo;',
+      l3: '&ldquo;Gone home for the planting,&rdquo; Mr Grice reads. &ldquo;Home they went, right enough. Ask yourself who paid them first.&rdquo;',
+      l4: '&ldquo;Taking its time,&rdquo; he reads. &ldquo;Longer than who said? Somebody once promised a date.&rdquo;',
+      l5: '&ldquo;Wants for nothing,&rdquo; says Mr Grice, and looks at the slip you have put there. &ldquo;That is not what wanting for nothing looks like in my books.&rdquo;',
+      l6: '&ldquo;In due course,&rdquo; he reads. &ldquo;That means: not now. Why not now?&rdquo;'
+    }, DECOY = {
+      canoe: '&ldquo;The canoe went over on the 26th of April,&rdquo; says Mr Grice. &ldquo;She wrote on the 19th of March, and nothing of hers has come down since the 21st. It is true, and it is not the point. I did warn you.&rdquo;',
+      gilroy: '&ldquo;Mr Gilroy&rsquo;s letter went UP to her,&rdquo; says Mr Grice. &ldquo;It tells you a good deal about Mr Gilroy, and nothing at all about her.&rdquo;'
+    };
+    box.querySelector('#askg').addEventListener('click', function () {
+      if (wait || ER.flag('p-lines')) return;
+      var p = placed(), i, l, ids = LINES.map(function (x) { return x[0]; });
+      for (i = 0; i < ids.length; i++) if (!p[ids[i]]) { ER.sfx.no(); msg('&ldquo;Every line,&rdquo; says Mr Grice. &ldquo;Six of them, and every one of them short.&rdquo; Line ' + (i + 1) + ' has no slip yet.'); return; }
+      for (i = 0; i < ids.length; i++) { l = ids[i]; if (!ER.check(l, p[l])) { ER.sfx.no(); msg(DECOY[p[l]] || NUDGE[l]); ER.shake(box.querySelector('.lrow[data-l="' + l + '"]')); return; } }
+      ER.flag('p-lines', 1); ER.sfx.ok(); paint();
+      box.querySelector('.lt').classList.add('q2');
+      msg('&ldquo;Every line true,&rdquo; says Mr Grice, &ldquo;and every line too small.&rdquo; He taps the letter. &ldquo;Now. Your Professor asked her one question on the 2nd of March. Which line answers it?&rdquo; Click it.');
+    });
+    box.querySelector('.lt').addEventListener('click', function (e) {
+      if (wait || !ER.flag('p-lines')) return;
+      var t = e.target.closest ? (e.target.closest('.ps') || e.target.closest('.lrow')) : null; if (!t) return;
+      if (e.target.closest('.slip')) return;
+      var id = t.getAttribute('data-l');
+      if (!ER.check('q', id)) { ER.sfx.no(); msg('&ldquo;That says nothing about the boat of the 1st of May,&rdquo; says Mr Grice. &ldquo;Which is what he asked.&rdquo;'); return; }
+      t.classList.add('pk');
+      var p = placed(), file = ER.exit([LINES.map(function (x) { return x[0] + '=' + p[x[0]]; }).join(',') + '|' + id], { wait: true });
+      if (!file) { ER.sfx.no(); msg('Mr Grice frowns at the slips.'); return; }
+      wait = true; nextFile = file; ER.flag('p-file', file); paint();
+      RV.mine('left', 'What her letter leaves out', '<p>&ldquo;A little water&rdquo;: the river rose nine feet, and her landing went under. &ldquo;Up a short way&rdquo;: 120 feet of rope and six planks: up the tree. &ldquo;Gone home for the planting&rdquo;: she could not pay them; Grice did. &ldquo;Taking its time&rdquo;: on 9 February she was &ldquo;quite certain&rdquo; it would open within the month. &ldquo;Want for nothing&rdquo;: she sold her boots and her field glasses for flour. &ldquo;In due course&rdquo;: she could not pay to send the parcels.</p><p>And the answer to his question, after her name: <b>P.S. Please do not expect me on the boat of the 1st.</b></p>');
+      msg('&ldquo;The postscript,&rdquo; you say. &ldquo;He asked her to come home on the boat of the 1st of May. She said no, underneath her name, where he would read it last.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Mr Grice reads the postscript again, though he must have read it in March. &ldquo;The big ironwood. Most nights.&rdquo; He looks at the ledger. &ldquo;A hundred and twenty feet of rope. That is a short way up, for a lady.&rdquo;',
+          '&ldquo;She never told him a lie,&rdquo; you say. &ldquo;Every line is true. She only made everything small, and put the one thing he asked about after her name.&rdquo;',
+          '&ldquo;That is how people write when they are proud and frightened at the same time,&rdquo; says Mr Grice. &ldquo;I have had forty years of their letters through this room.&rdquo;',
+          'Outside, the Jacana blows one long blast: the wood is on board. Through the door you see Mr Gilroy running down the bank with his lamp wicks, as if the boat might leave without the one passenger who has paid double.'
+        ], function () { busy = false; ER.say('Back to the Jacana. Ironwood Creek is eighteen miles up, and it is one o&rsquo;clock.'); });
+      }, 2800);
+    });
+    msg('Drag each slip from Mr Grice&rsquo;s books onto the line of her letter that it explains: or click a slip, then click a line. Two slips belong to no line at all.');
+    if (ER.flag('p-lines')) { box.querySelector('.lt').classList.add('q2'); msg('Now click the line that answers Professor Lyall&rsquo;s question of 2 March.'); }
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

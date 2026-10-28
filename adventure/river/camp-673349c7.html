@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ironwood Creek · A Little Water</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="river.css">
+<style>
+  body{--bg:#1f2e1a;--accent:#e8d27a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,36,20,.95);--tc-ink:#f1f0d8;--cap-bg:rgba(22,34,18,.93);--panel:#1c2a18;--face-bg:#2a3a22;--q-ink:#e8d98a;--fade:#0a1206;--hud-bg:rgba(22,34,18,.82)}
+  .shaft{animation:shaft 7s ease-in-out infinite alternate}
+  @keyframes shaft{from{opacity:.12}to{opacity:.3}}
+  .leaf{animation:leaf 6s linear infinite}
+  @keyframes leaf{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-60px,260px) rotate(200deg)}}
+  #ladder{animation:lad 3.6s ease-in-out infinite alternate;transform-origin:1290px 150px}
+  @keyframes lad{from{transform:rotate(-.6deg)}to{transform:rotate(.6deg)}}
+
+  /* the last two miles: the view from the bow */
+  .bx.bow{width:min(1100px,97vw)}
+  .bgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:12px;align-items:start}
+  .bgrid .doc.pilot{width:auto;font-size:15.5px;line-height:1.28;padding:12px 16px 10px;max-height:70vh;overflow:auto;border-left-width:8px}
+  .bgrid .doc.pilot h4{font-size:15px}
+  .zone{cursor:pointer;fill:#fff;fill-opacity:0}
+  .zone:hover{fill-opacity:.12}
+  .prog{display:flex;gap:6px;margin-top:8px}
+  .prog i{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.18)}
+  .prog i.on{background:#e8d27a}
+  /* the label */
+  .bx.lab{width:min(1080px,97vw)}
+  .lgrid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:12px;align-items:start}
+  .sheet{background:#fbf8ec;border:1px solid #8a8466;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lform{background:#fbf8ec;color:#2a2116;border:2px solid #2a2116;padding:8px 12px 6px;font-family:'EB Garamond',serif;font-size:15px;line-height:1.25;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lform h5{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.16em;text-align:center;border-bottom:1px solid #2a2116;padding-bottom:4px}
+  .fld{display:grid;grid-template-columns:118px minmax(0,1fr);gap:6px;padding:4px 0;border-bottom:1px dotted rgba(42,33,22,.35)}
+  .fld>span{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#2f5a3a;padding-top:4px}
+  .ops{display:flex;flex-wrap:wrap;gap:4px}
+  .op{font-family:'Caveat',cursive;font-size:18px;line-height:1.1;color:#3a2a6a;padding:3px 7px 1px;border:1px solid rgba(58,42,106,.3);border-radius:3px;background:#fff;text-align:left}
+  .op:hover{border-color:#3a2a6a}
+  .op.on{background:#e6edd6;border-color:#2f5a3a;box-shadow:inset 0 0 0 1px #2f5a3a}
+  .bx.lab .btn{--accent:#e8d27a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="airC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f2410"/><stop offset=".55" stop-color="#3d5a2a"/><stop offset="1" stop-color="#8a8a4a"/></linearGradient>
+  <linearGradient id="creekC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa08a"/><stop offset=".5" stop-color="#6f7a62"/><stop offset="1" stop-color="#4a5444"/></linearGradient>
+  <linearGradient id="trunkC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3a2a"/><stop offset=".5" stop-color="#7a6a54"/><stop offset="1" stop-color="#3a2c1e"/></linearGradient>
+  <radialGradient id="vigC" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#050a04" stop-opacity="0"/><stop offset=".7" stop-color="#050a04" stop-opacity=".2"/><stop offset="1" stop-color="#050a04" stop-opacity=".72"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#1a2a14"/>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#airC)"/>
+<!-- the forest behind: trunks, the canopy, one emergent -->
+<g id="trunks"></g>
+<path id="crowns" d="M-1000 -400" fill="#14280f"/>
+<g id="emergent"><path d="M1480 230V-60" stroke="#6b5a44" stroke-width="22"/><path d="M1380 -60q100 -90 210 0q-40 40 -110 36q-60 4 -100 -36z" fill="#2c4a1e"/></g>
+<g fill="#fff6c8"><path class="shaft" d="M520 -400L620 -400L900 620L760 620Z"/><path class="shaft" style="animation-delay:-3s" d="M980 -400L1040 -400L1180 620L1090 620Z"/></g>
+<!-- the creek -->
+<path d="M-1000 600Q300 560 700 600T2600 590V700H-1000Z" fill="url(#creekC)"/><g stroke="#e9ecd8" stroke-width="3" opacity=".55"><path d="M120 640h90M520 650h60M980 630h120M1340 650h70M300 620h50M760 615h80M1180 640h60"/></g>
+<!-- the big ironwood, across the creek, and the rope ladder -->
+<g id="tree" class="hot"><path d="M1180 600L1240 300L1250 -400H1360L1370 300L1440 600Z" fill="url(#trunkC)"/><path d="M1180 600q40 -90 70 -150M1440 600q-40 -90 -70 -150M1260 600q10 -60 30 -110" stroke="#3a2c1e" stroke-width="16" fill="none"/>
+  <g id="epis"></g><path d="M1240 120h120v14h-120z" fill="#7a5a2a"/><path d="M1240 134l-30 30M1360 134l30 30" stroke="#5a4020" stroke-width="5"/></g>
+<g id="ladder" class="hot"><rect x="1264" y="134" width="50" height="466" fill="#fff" fill-opacity="0"/><path d="M1272 134V600M1306 134V600" stroke="#d9c79a" stroke-width="3"/><g id="rungs" stroke="#a88a5a" stroke-width="4"></g><path d="M1262 560h54v40h-54z" fill="#f4f0e2" transform="rotate(-4 1289 580)"/><path d="M1270 572h38M1270 582h30" stroke="#1d2a55" stroke-width="2" transform="rotate(-4 1289 580)"/></g>
+<!-- the near bank: the landing post, the old camp, the new table -->
+<path d="M-1000 690Q300 670 800 700T2600 700V1320H-1000Z" fill="#4a3a22"/><path d="M-1000 700Q300 680 800 710T2600 710" stroke="#6b5a34" stroke-width="6" fill="none"/>
+<g id="post" class="hot"><rect x="94" y="440" width="34" height="300" fill="#7a6a54" stroke="#3a2c1e" stroke-width="3"/><path d="M94 690h34" stroke="#c8402c" stroke-width="3"/><path d="M88 474h46" stroke="#3a2a1a" stroke-width="7" opacity=".6"/><path d="M74 474h80" stroke="#8a6a3a" stroke-width="2" stroke-dasharray="5 4"/></g>
+<g id="oldcamp" class="hot"><path d="M150 780l70 -110l70 110M190 780l30 -50" stroke="#6b5a3a" stroke-width="6" fill="none"/><path d="M150 780q70 -30 150 6" fill="#9a8a6a" opacity=".7"/><path d="M130 790h200" stroke="#3a2a1a" stroke-width="5" opacity=".5"/></g>
+<g id="tarp"><path d="M290 470L700 450L740 520L270 540Z" fill="#5a7a4a" stroke="#2c3a22" stroke-width="3"/><path d="M300 540v220M720 520v240" stroke="#5a4020" stroke-width="8"/></g>
+<g id="table"><path d="M300 640L720 630L740 680L290 690Z" fill="#7a5a34" stroke="#3a2a1a" stroke-width="3"/><path d="M310 690v110M720 680v120" stroke="#4a3220" stroke-width="10"/></g>
+<g id="press" class="hot"><rect x="330" y="600" width="140" height="40" fill="#c9a46a" stroke="#5a4020" stroke-width="3"/><g stroke="#5a4020" stroke-width="2"><path d="M330 612h140M330 624h140M355 600v40M385 600v40M415 600v40M445 600v40"/></g><path d="M360 596v48M440 596v48" stroke="#2a1a0c" stroke-width="5"/><path d="M340 588h60v12h-60z" fill="#f4f0e2" transform="rotate(-6 370 594)"/></g>
+<g id="jtable" class="hot"><path d="M500 628l70 -4 4 14 -70 4z" fill="#b0563a"/><path d="M504 620l64 -4 2 10 -64 4z" fill="#efe6cc"/></g>
+<g id="tin" class="hot"><rect x="600" y="596" width="60" height="34" fill="#2f5a3a" stroke="#1c2a18" stroke-width="3"/><path d="M600 606h60" stroke="#d9c79a" stroke-width="2"/><path d="M614 594l34 -10 2 10 -34 10z" fill="#fbf8ee"/></g>
+<g id="hand" class="hot"><path d="M490 650l60 -2 2 20 -62 2z" fill="#f6f1e1" stroke="#8a8466" stroke-width="1.500"/><path d="M498 656l44 -1M498 662l40 -1" stroke="#2f5a3a" stroke-width="1.500"/></g>
+<g id="teatin" class="hot"><rect x="770" y="770" width="40" height="44" fill="#b8322a" transform="rotate(20 790 792)"/><path d="M776 806l10 6 6 -8 8 8" stroke="#2a1a0c" stroke-width="2" fill="none" transform="rotate(20 790 792)"/></g>
+<g id="canoe" class="hot"><path d="M860 740q160 30 320 0q-20 30 -160 32q-140 -2 -160 -32z" fill="#6b4a2a" stroke="#3a2a1a" stroke-width="3"/><path d="M900 744q120 16 240 0" stroke="#9a7a4a" stroke-width="3" fill="none"/></g>
+<!-- the people -->
+<g id="lemi" class="hot"><g id="plemi"></g><path d="M830 840L870 520" stroke="#c9a46a" stroke-width="7" stroke-linecap="round"/></g>
+<g id="gilroy" class="hot"><g id="pgilroy"></g><rect x="1100" y="800" width="64" height="40" rx="3" fill="#1c1c1c"/></g>
+<g id="jbow"><path d="M-1000 520H-40L60 600L-40 680H-1000Z" fill="#e9e2cf" stroke="#7a2a22" stroke-width="5"/><text x="-120" y="620" class="sg" font-size="22" fill="#7a2a22">JACANA</text></g>
+<g id="falling" fill="#5a8a3a"><path class="leaf" d="M700 -20q10 -10 20 0q-10 10 -20 0z"/><path class="leaf" style="animation-delay:-2.5s" d="M1000 40q10 -10 20 0q-10 10 -20 0z"/><path class="leaf" style="animation-delay:-4s" d="M300 10q10 -10 20 0q-10 10 -20 0z"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Take the wheel</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="river.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, bow = null, lab = null, nextFile = null;
+
+  (function () {
+    var s = '', i, x, r = 3;
+    function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+    for (i = 0; i < 16; i++) { x = -900 + i * 230 + rnd() * 80; if (x > 1150 && x < 1460) continue; s += '<path d="M' + x.toFixed(0) + ' 620V-200" stroke="' + (i % 2 ? '#2c3a22' : '#3a4a2a') + '" stroke-width="' + (16 + rnd() * 26).toFixed(0) + '"/>'; }
+    $('#trunks').innerHTML = s;
+    s = 'M-1000 -400H2600V40';
+    for (x = 2600; x >= -1000; x -= 70) s += 'Q' + (x - 35) + ' ' + (120 + rnd() * 60).toFixed(0) + ' ' + (x - 70) + ' ' + (40 + rnd() * 40).toFixed(0);
+    $('#crowns').setAttribute('d', s + 'Z');
+    s = ''; for (i = 0; i < 12; i++) s += '<path d="M1272 ' + (170 + i * 36) + 'h34"/>';
+    $('#rungs').innerHTML = s;
+    s = '';
+    [[1250, 240], [1360, 330], [1240, 420], [1370, 200]].forEach(function (p, j) {
+      s += '<g transform="translate(' + p[0] + ' ' + p[1] + ')"><path d="M0 0q-30 -30 -50 -10M0 0q-10 -40 10 -50M0 0q30 -30 46 -6M0 0q-40 -6 -56 14" stroke="#4f7a3e" stroke-width="7" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="4" rx="12" ry="7" fill="#7a8a4a"/></g>';
+    });
+    $('#epis').innerHTML = s;
+    $('#plemi').innerHTML = RV.person(820, 850, 0.95, { coat: '#2f6a5a', skin: '#6b4423', hair: '#c96a2b', hat: 'scarf' });
+    $('#pgilroy').innerHTML = RV.person(1060, 840, 1.05, { coat: '#ece5d0', skin: '#e2bc94', hair: '#6b4a2a', hat: 'panama', specs: 1, legs: '#d9d0b8' });
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'river', storyTitle: 'A Little Water', id: 'camp', no: 'V', title: 'Ironwood Creek',
+    go: 'Take the wheel',
+    intro: [
+      'Every line of her letter was true, and every line was too small. &ldquo;A little water&rdquo; was nine feet. &ldquo;Up a short way&rdquo; was a hundred and twenty feet of rope. The men went home because she could not pay them; she sold her boots for flour; she could not pay to send the parcels; and the plant was late, after she had been &ldquo;quite certain&rdquo;. The answer to the Director&rsquo;s question was underneath her name: please do not expect me on the boat of the 1st.',
+      'Twenty to four on the 18th, at mile 112. Above Grice&rsquo;s there are no soundings on any chart. The Upper River splits and joins again between bars of sand that move every year, and the last two miles to Ironwood Creek, Joba says, are read off the water, or not at all.',
+      'He has given you the wheel. Lemi is on the foredeck with her pole. The sun is low, and it is in your eyes.'
+    ],
+    exit: {"next":"canopy","w":{"dea2e649":"d32b91b4"}}, tags: {"s1":["df4bb69e"],"s2":["a8ccd904"],"s3":["bbbb41af"],"s4":["a41ff2b0"],"f1":["fc32f43c"],"f2":["2289b24f"],"f3":["c02e03b9"],"f4":["2f3cef9c"],"f5":["a63f44c7"],"f6":["4f91d8ea"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('c-told') || {}; nextFile = ER.flag('c-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function arrived() { return !!ER.flag('c-steer'); }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !arrived() || !!told.note || !!nextFile);
+    b.textContent = nextFile ? 'Up the ladder' : arrived() ? 'Label No. 1047' : 'Take the wheel';
+    ER.pips((arrived() ? 1 : 0) + (told.note ? 1 : 0) + (told.press && told.hand ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The label is done, and it is getting dark. Up the ladder.']];
+    if (!arrived()) return ['steer', [
+      'Read page 3 of the captain&rsquo;s notebook, beside the picture, and page 2 from the Shoals (it is in your notebook): at a bend, where is the deep water? What do ripples mean?',
+      'At a bend, go to the outside, unless the water says no. Where the river crosses over, look for the smooth V that points back towards you, and steer up the middle of it.',
+      'A V that points away from you, up the river, has a snag at its point: keep away from it, even on the outside of a bend. Ripples mean shallow water; smooth, dark water means deep.'
+    ]];
+    if (!told.note) return ['note', ['There is a piece of paper pinned to the foot of the rope ladder, across the creek. Read it.']];
+    if (!(lab && lab.isOpen()) && !(told.press && told.hand)) return ['read', ['The note sends you to the press. The card in the press says how a label is written; the green page on her table says what grows where in a forest. Her journal, and the tin, are there too.']];
+    return ['label', [
+      'Take the label one line at a time, and for each line find the paper that tells you: the Garden&rsquo;s card in the press, her page about the trees, her journal, Lockhart&rsquo;s label, and the magazine page on Mr Grice&rsquo;s board.',
+      'Her collecting numbers are in her journal, and a number is never used twice. A label gives the day the plant was collected. Thirty metres up is which floor of the forest? Does an epiphyte feed on its tree?',
+      'Drying takes away colour, shine and water, so write what it looked like alive. And Lockhart&rsquo;s plant flowered in 1871: does anybody know what it did afterwards?'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('No. 1047 is labelled. The light is going. Up the ladder.'); return; }
+    if (arrived()) { busy = false; ER.say('Ironwood Creek, a little after four. Nobody is in the camp.'); return; }
+    if (told.intro) { busy = false; ER.say('Two miles below Ironwood Creek. The wheel is yours.'); return; }
+    ER.narrate([
+      'The wheel is heavier than it looks, and the river pushes back against it like a large animal that has its own ideas.',
+      '&ldquo;Read the top of it,&rdquo; says Joba, behind you. &ldquo;Page three. The bottom will not tell you anything until you are sitting on it.&rdquo;'
+    ], function () { busy = false; tell('intro'); });
+  }
+
+  /* ---------- the last two miles ---------- */
+  var P3 = '<h4>WHERE THE CHART STOPS · page 3</h4>' +
+    '<p>Above Grice&rsquo;s there are no soundings. The river is brown and you cannot see the bottom, so you read the top.</p>' +
+    '<p><b>Smooth, dark water</b> that slides along like oil: deep.</p>' +
+    '<p><b>Ripples</b>, short broken waves in a line across the river: shallow water over a bar. The faster the river, the plainer the ripples.</p>' +
+    '<p>A <b>V whose point is downstream</b>, pointing back at you as you come up, is a tongue of deep water running between two shallow places or two snags. Steer up the middle of it.</p>' +
+    '<p>A <b>V whose point is upstream</b>, pointing away from you, has something just under the surface at its point: a snag or a rock. Keep away.</p>' +
+    '<p>And remember page 2: at a bend, the deep water is on the outside. The water will tell you when page 2 is wrong.</p><p class="pen">J. I.</p>';
+  function makeBow() {
+    var box = ER.el('div', 'bx bow'), svg, msgEl, i = 0, wait = false;
+    box.innerHTML = '<div class="bgrid"><div><div class="frame"><svg viewBox="0 0 900 420"></svg></div><div class="prog">' + '<i></i><i></i><i></i><i></i>' + '</div></div><div class="doc pilot">' + ER.gloss(P3) + '</div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    /* the view from the bow: the same stretch of water every time (so that left, middle and right are always the same
+       places), with what is on its surface drawn over it */
+    function rip(x, y, n, w) { var s = ''; for (var k = 0; k < n; k++) s += '<path d="M' + (x + k * w) + ' ' + y + 'q' + (w / 4) + ' -7 ' + (w / 2) + ' 0q' + (w / 4) + ' 7 ' + (w / 2) + ' 0" stroke="#f4ead0" stroke-width="2.400" fill="none" opacity=".9"/>'; return s; }
+    function vDown(x, y, w, h) { return '<path d="M' + (x - w) + ' ' + (y - h) + 'L' + x + ' ' + y + 'L' + (x + w) + ' ' + (y - h) + 'Z" fill="#3e301c" opacity=".45"/><path d="M' + (x - w) + ' ' + (y - h) + 'L' + x + ' ' + y + 'L' + (x + w) + ' ' + (y - h) + '" stroke="#f4ead0" stroke-width="3" fill="none"/>'; }
+    function vUp(x, y, w, h) { return '<path d="M' + (x - w) + ' ' + (y + h) + 'L' + x + ' ' + y + 'L' + (x + w) + ' ' + (y + h) + '" stroke="#f4ead0" stroke-width="3" fill="none"/><path d="M' + x + ' ' + (y + 2) + 'l-12 -26M' + x + ' ' + (y + 2) + 'l9 -30" stroke="#3a2c1e" stroke-width="5" stroke-linecap="round"/>'; }
+    var DARK = { L: 'M60 420L300 420L410 140L330 140Z', M: 'M300 420L600 420L490 140L410 140Z', R: 'M600 420L840 420L570 140L490 140Z' };
+    function dark(z) { return '<path d="' + DARK[z] + '" fill="#3e301c" opacity=".5"/>'; }
+    function sand(z) { return z === 'L' ? '<path d="M60 420L160 420L362 140L330 140Z" fill="#e8d49a"/>' : '<path d="M740 420L840 420L570 140L538 140Z" fill="#e8d49a"/>'; }
+    function cut(z) {
+      return z === 'L' ? '<path d="M60 420L330 140" stroke="#5a4a2e" stroke-width="14"/><g stroke="#3a2c1e" stroke-width="7" stroke-linecap="round"><path d="M110 368l90 -40M200 274l70 -26M262 210l52 -16"/></g>'
+        : '<path d="M840 420L570 140" stroke="#5a4a2e" stroke-width="14"/><g stroke="#3a2c1e" stroke-width="7" stroke-linecap="round"><path d="M790 368l-90 -40M700 274l-70 -26M638 210l-52 -16"/></g>';
+    }
+    var BASE = '<rect width="900" height="420" fill="#2c4a1e"/><rect width="900" height="112" fill="#f1d9a0"/><circle cx="450" cy="62" r="38" fill="#fff4cc"/>' +
+      '<path d="M0 150Q120 96 240 120T480 108T720 116T900 104V150Z" fill="#3d5a2a"/><path d="M60 420L840 420L570 140L330 140Z" fill="#6b5236"/>';
+    var BOWDECK = '<path d="M330 420L450 352L570 420Z" fill="#efe9d8" stroke="#c9bfa4" stroke-width="4"/><path d="M450 352v-30" stroke="#c9a46a" stroke-width="5"/>';
+    var ZONES = '<path class="zone" data-z="L" d="M0 420L300 420L410 130L330 130Z"/><path class="zone" data-z="M" d="M300 420L600 420L490 130L410 130Z"/><path class="zone" data-z="R" d="M600 420L900 420L570 130L490 130Z"/>';
+    var ST = [
+      { name: 'a bend to the right', draw: function () { return BASE + dark('L') + cut('L') + sand('R') + rip(640, 380, 3, 50) + rip(600, 318, 3, 36) + rip(580, 258, 2, 34); },
+        say: { L: '&ldquo;Eleven! Twelve!&rdquo; Smooth, dark water on the outside of the bend, under the steep bank.', M: '&ldquo;Six! Five! Four and a half!&rdquo; shouts Lemi. You are drifting off the deep water towards the inside of the bend.', R: '&ldquo;Three!&rdquo; Lemi&rsquo;s pole hits sand. Ripples and pale sand on the inside of a bend: you are on the point bar.' } },
+      { name: 'the crossing', draw: function () { return BASE + rip(90, 390, 3, 60) + rip(190, 322, 3, 45) + rip(262, 254, 2, 40) + rip(620, 390, 3, 60) + rip(580, 322, 3, 42) + rip(560, 254, 2, 40) + rip(386, 186, 4, 30) + vDown(450, 382, 80, 180); },
+        say: { L: '&ldquo;Three and a half!&rdquo; Ripples, all the way across on that side: the bar of the crossing.', M: '&ldquo;Eight! Seven! Eight!&rdquo; Up the middle of the V: a tongue of deep water between the shallows.', R: '&ldquo;Three!&rdquo; Ripples on that side too. The crossing is shallow everywhere except one place.' } },
+      { name: 'a bend to the left', draw: function () { return BASE + dark('R') + cut('R') + sand('L') + rip(120, 382, 3, 46) + rip(196, 320, 3, 38) + rip(266, 258, 2, 34) + vUp(640, 232, 48, 90); },
+        say: { L: '&ldquo;Two!&rdquo; Ripples and sand on the inside of the bend. Lemi says a word that her grandfather pretends not to hear.', M: '&ldquo;Nine! Nine!&rdquo; The middle: deep enough, and well clear of the V on the outside.', R: 'The outside of the bend, deep as page two promised, and something just under the surface where that V points up the river. The hull hits it with a noise like a door being kicked.' } },
+      { name: 'the island', draw: function () { return BASE + '<ellipse cx="450" cy="196" rx="78" ry="40" fill="#3d6630"/><path d="M450 196v-56" stroke="#2c3a22" stroke-width="8"/><path d="M412 150q38 -40 76 0z" fill="#2f5a28"/>' + rip(100, 386, 3, 55) + rip(190, 322, 3, 42) + rip(270, 258, 2, 36) + dark('R') + vDown(655, 386, 58, 150); },
+        say: { L: '&ldquo;Three! Two and a half!&rdquo; On the left of the island the water is all ripples.', M: 'Straight at the island. Joba puts one hand over yours on the wheel, and takes it away again.', R: '&ldquo;Ten!&rdquo; The smooth channel on the right of the island, up the middle of the V.' } }
+    ];    function draw() {
+      svg.innerHTML = ST[i].draw() + BOWDECK + ZONES;
+      svg.setAttribute('data-st', i);
+      ER.$$('.prog i', box).forEach(function (n, k) { n.classList.toggle('on', k < i); });
+    }
+    svg.addEventListener('click', function (e) {
+      var z = e.target.closest ? e.target.closest('.zone') : null; if (!z || wait) return;
+      var c = z.getAttribute('data-z'), key = 's' + (i + 1), route = ER.flag('c-route') || [];
+      RV.sfx.pole();
+      if (!ER.check(key, c)) {
+        ER.sfx.no(); RV.sfx.knock();
+        msg(ST[i].say[c] + ' <b>Joba takes the wheel, backs her off, and goes down to the foot of the two miles to begin again.</b> &ldquo;Again,&rdquo; he says. &ldquo;Slowly.&rdquo;');
+        i = 0; ER.flag('c-route', []); wait = true; setTimeout(function () { wait = false; draw(); }, 900);
+        return;
+      }
+      route[i] = c; ER.flag('c-route', route);
+      msg(ST[i].say[c]);
+      if (i < 3) { i++; wait = true; setTimeout(function () { wait = false; draw(); msg('Next: ' + ST[i].name + '. Click the water where you want the Jacana to go.'); }, 1300); return; }
+      wait = true; ER.flag('c-steer', 1); ER.sfx.ok(); paint();
+      RV.mine('steer', 'The last two miles', '<p>A bend to the right: the outside (left), smooth and dark. The crossing: up the V that pointed back at us. A bend to the left: not the outside, because a V pointed up the river there, with a snag at its point; the middle. The island: the right-hand channel, smooth, with a V; the left was all ripples.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'At four o&rsquo;clock exactly the Jacana noses in to the landing at Ironwood Creek. Joba blows one long blast. Nothing answers it but a great many birds.',
+          'The landing stage has its feet in the mud. The old camp is a heap of poles and grey canvas, with a line of dried mud on everything at the height of your chest. On the higher ground, under a green tarpaulin, there is a table with papers on it, and nobody at all.',
+          'Across the creek stands a tree so tall that its top is in a different weather. A rope ladder hangs down it, and at the foot of the ladder a piece of paper is pinned to the bark.',
+          'Mr Gilroy is already out of the boat, and walking towards it.'
+        ], function () { busy = false; ER.mood('calm'); paint(); ER.say('The camp at Ironwood Creek. The note at the foot of the ladder is across the creek.'); });
+      }, 2000);
+    });
+    draw();
+    msg('First, ' + ST[0].name + '. Click the water where you want the Jacana to go: left, middle or right.');
+    ER.addClue('pnote3', 'Pilot’s notebook, page 3: Where the chart stops', P3, 'pilot', 'Captain Ilunde’s notebook', true);
+    RV.words(['ripple', 'snag', 'channel']);
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- the camp ---------- */
+  function notYet() { ER.say('Not yet. There are two miles of river between you and that, and the wheel is in your hands.'); }
+  var NOTE = '<h4>Pinned to the foot of the ladder</h4><p class="ad">18 May, morning</p>' +
+    '<p>To whoever comes up the river (and somebody will, because Kingsley is a worrier):</p>' +
+    '<p>I am up the tree. Do not shout. It is about to open, and I will not have it disturbed.</p>' +
+    '<p>In the press on the table is the last specimen I have taken: leaves and a piece of the stem, cut this morning from the plant itself. It has no label. My hands are busy. Write the label properly and bring it up, and I shall sign it.</p>' +
+    '<p>Anybody who comes up without a label can go straight down again.</p><p>I. K.</p>';
+  $('#ladder').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { notYet(); return; }
+    if (nextFile) { ER.leave(nextFile); return; }
+    ER.read({ html: NOTE, cls: 'letter', clue: { id: 'ladnote', title: 'A note at the foot of the ladder', kind: 'In her hand' }, done: function () {
+      if (tell('note')) { paint(); ER.say('She is up there. She is well enough to be rude. And she wants a label first.'); }
+    } });
+  });
+  var PRESS = '<h4><small>THE BOTANIC GARDEN · NOTES FOR COLLECTORS</small>2. Pressing and labelling</h4>' +
+    '<p>Lay the specimen in a folded sheet of newspaper: leaves flat, some turned over to show the underside, flowers or fruit if there are any. Put the folded sheet between drying papers, with a sheet of cardboard every few layers to let the air through, and strap the whole pile tight between two wooden frames. Change the drying papers every day; in wet country, dry the press over a gentle heat.</p>' +
+    '<p>Give every specimen a <b>number</b>, never used twice, and write the same number in your notebook.</p>' +
+    '<p>The <b>label</b> says: who collected it, and the number; the <b>date</b> it was collected; the <b>place</b>, exactly enough for somebody else to find it again; the <b>habitat</b>, what it grows in or on, and how high; and what drying will take away: <b>colour, shine, scent, size</b>, anything soft or full of water.</p>' +
+    '<p><i>A dry plant cannot tell us that it was blue.</i></p>';
+  $('#press').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { notYet(); return; }
+    ER.read({ html: PRESS, cls: 'card', clue: { id: 'book2', title: 'Notes for Collectors, 2: Pressing and labelling', kind: 'A card in her press' }, done: function () {
+      RV.words(['plant press', 'drying paper', 'habitat', 'label']);
+      if (tell('press')) { paint(); ER.say('In the press, between two sheets of newspaper: long leaves, flattened, and a short piece of fat green stem. No label.'); }
+    } });
+  });
+  var HAND = '<h4><small>WRITTEN FOR THE HERBARIUM JUNIORS · I. K.</small>Up in the trees</h4>' +
+    '<p>A rainforest has floors, like a house. The <b>forest floor</b> is dark: only about two parts in a hundred of the sunlight get down that far. Above it is the <b>understorey</b>: shrubs, palms and young trees, waiting in the shade for an old tree to fall and let the light in. Above that is the <b>canopy</b>, the roof of the forest, usually somewhere between 20 and 40 metres up, where most of the leaves, flowers and animals are. A few giants, the <b>emergents</b>, stand up above the roof.</p>' +
+    '<p>An <b>epiphyte</b> is a plant that grows on another plant: on a branch, in a fork, up a trunk. It is not a parasite. It takes nothing from the tree but a place in the light. Its water comes from rain and mist, and its food from the dead leaves that collect round its roots. Many orchids and ferns live like this, and many keep water in thick leaves or a swollen stem, for dry days.</p>';
+  $('#hand').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { notYet(); return; }
+    ER.read({ html: HAND, cls: 'card', clue: { id: 'layers', title: 'Up in the trees (her page for the juniors)', kind: 'On her table' }, done: function () {
+      RV.words(['canopy', 'understorey', 'emergent', 'epiphyte', 'parasite', 'forest floor']);
+      if (tell('hand')) { paint(); ER.say('Floor, understorey, canopy, emergents. She wrote it for you, or for somebody like you.'); }
+    } });
+  });
+  var JOUR = '<h4>Her journal · Ironwood Creek · pages 45 to 47</h4>' +
+    '<p><span class="d">2 Apr.</span>Grice&rsquo;s runner up with flour and tea. Grice will not say who is paying. He is a stubborn old goat, and I shall tell him so.</p>' +
+    '<p><span class="d">5 Apr.</span>A letter from Kingsley. I have read it four times.</p>' +
+    '<p><span class="d">6 Apr.</span>Began a letter to K. Did not finish it.</p>' +
+    '<p><span class="d">20 Apr.</span>Platform finished, 30 m up, just under the crown of the ironwood, where the light comes in sideways. I sleep up here now. The tea tin, which I left below, has been eaten. A porcupine, by the teeth.</p>' +
+    '<p><span class="d">1 May.</span>The Jacana went down without me. Joba blew one long blast at the bend, which was kind of him.</p>' +
+    '<p><span class="d">9 May.</span>Stalk 152 mm. Two millimetres a day, every day, as steady as a clock. I have stopped thinking it grows faster.</p>' +
+    '<p><span class="d">16 May.</span>No. 1046: a small fern from the same branch, for company.</p>' +
+    '<p><span class="d">17 May.</span>Stalk 168 mm. Tomorrow, then, or I am a fool. I have not written to anybody. I find that I cannot write &ldquo;not yet&rdquo; again. I shall write when I can write its name.</p>';
+  $('#jtable').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { notYet(); return; }
+    ER.read({ html: JOUR, cls: 'journal', clue: { id: 'journal2', title: 'Her journal, April and May', kind: 'In her hand' }, done: function () {
+      if (tell('journal')) ER.say('168 mm yesterday. Two a day. Tonight, then, unless she is a fool, and she is not.');
+    } });
+  });
+  var TIN = '<h4>In a green tin box on her table</h4>' +
+    '<p class="ad">The Garden, 28 March</p><p>My dear Isobel,</p><p>I was wrong to write to you as I did on the 2nd, and the Committee was wrong to make me. Stay until it flowers. I have arranged with Mr Grice to send up whatever you need, and he is not to tell you who pays, because you would send it back.</p>' +
+    '<p>Write when you can. Write even if it is only to say &ldquo;not yet&rdquo;.</p><p>Kingsley</p>' +
+    '<p class="ps">And under it, three sheets of her own, each crossed out:<br><s>Dear Kingsley, Not yet.</s><br><s>Dear Kingsley, You were right about March, and I</s><br><s>Dear Kingsley, Thank you. I cannot</s></p>';
+  $('#tin').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { notYet(); return; }
+    ER.read({ html: TIN, cls: 'letter', clue: { id: 'tin', title: 'His letter of 28 March, and three of hers', kind: 'In a tin box' }, done: function () {
+      if (tell('tin')) ER.say('He told her she could write &ldquo;not yet&rdquo;. It was the one thing she could not do.');
+    } });
+  });
+  RV.thing('#post', 'landing stage', function () { return arrived() ? 'The landing post. A fresh cut near the water: the mark she made on the 9th of March. A line of dried mud nine feet higher: the &ldquo;little water&rdquo;.' : 'The landing post at Ironwood Creek, still two miles away.'; }, isBusy);
+  RV.thing('#oldcamp', null, function () { return arrived() ? 'The old camp: tent poles, grey canvas, and a line of dried mud on all of it at the height of your chest.' : 'Something grey on the bank, far ahead.'; }, isBusy);
+  RV.thing('#teatin', 'porcupine', function () { return arrived() ? 'A red tea tin, chewed open from the bottom by something with big front teeth and no manners. &ldquo;Very large, and very interested in the tea.&rdquo;' : 'Too far away to see.'; }, isBusy);
+  RV.thing('#canoe', 'canoe', function () { return arrived() ? 'Her canoe, pulled up high and turned over. Across the creek, a rope is tied from bank to bank, so that a canoe can be pulled over hand over hand.' : 'Too far away to see.'; }, isBusy);
+  RV.thing('#tree', 'ironwood', function () { return arrived() ? 'The big ironwood. Thirty metres up, just under its crown, there are planks, and something pale, and once, for a moment, a hat.' : 'A tree taller than all the others, still two miles away.'; }, isBusy);
+  RV.thing('#emergent', 'emergent', 'One tree, far off, stands up above the roof of the forest with its own crown in the sky.', isBusy);
+  $('#lemi').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { ER.say('&ldquo;Read the water!&rdquo; Lemi shouts from the foredeck. &ldquo;Not me!&rdquo;'); return; }
+    ER.talk({
+      who: 'Lemi Ilunde', role: 'On the bank at Ironwood', face: window.FACE('lemi'),
+      lines: [
+        { note: 'She is standing between Mr Gilroy and the creek, with her pole held across her body like a gate.', a: '&ldquo;You read the water. Not badly. For a person from a garden.&rdquo;' },
+        { q: 'Why are you guarding the creek?', a: 'Visitors go up after the family. He is not family. You are not family either, but she writes about you, so you are nearer.' },
+        { q: 'Is she all right?', a: 'Somebody up there just told a bird to be quiet. Yes. She is all right.' }
+      ],
+      clue: { id: 'lemi5', title: 'Lemi, at Ironwood Creek', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('lemi')) ER.say('Lemi does not move. Neither, for the moment, does Mr Gilroy.'); }
+    });
+  });
+  $('#gilroy').addEventListener('click', function () {
+    if (busy) return;
+    if (!arrived()) { ER.say('Mr Gilroy is at the rail with his tin, looking at the trees ahead as if one of them owed him money.'); return; }
+    ER.talk({
+      who: 'Mr Jasper Gilroy', role: 'At the edge of the creek', face: window.FACE('gilroy'),
+      lines: [
+        { note: 'He has the black tin under one arm, and he cannot stop looking up.', a: '&ldquo;I was only going to look. I promise you, I was only going to look.&rdquo;' },
+        { q: 'At her plant?', a: 'At whoever comes to it.</p><p class="note">He sighs, and takes his hat off, which makes him look much younger and much less like a dealer in anything.</p><p>I am not an orchid man. I am a moth man. There, I have said it. Eleven years I have wanted to see the moth that comes to a flower like this one. Darwin never saw his. He died twenty-one years too soon.' },
+        { q: 'Then why pretend to be an orchid dealer?', a: 'Because orchid men are taken seriously, and moth men are laughed at. And because orchid men are given the cabin with the window.' },
+        { q: 'And the tin?', a: 'Pins, as I told you. And paper envelopes, for moths. But I do not think I shall want them tonight. I think I shall only want to watch.' }
+      ],
+      clue: { id: 'gilroy5', title: 'Mr Gilroy, at the creek', kind: 'What he said' },
+      done: function (seen) { if (seen) { RV.words(['moth']); if (tell('gilroy')) ER.say('A moth man. The white sheet, the lamp wicks, the questions about what time it opens: all of it, for a moth.'); } }
+    });
+  });
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!arrived()) { if (!bow) bow = makeBow(); bow.open(); return; }
+    if (!told.note) { ER.say('Across the creek, a piece of paper is pinned to the foot of the ladder. Read that first.'); return; }
+    if (!(told.press && told.hand)) { ER.say('The note says that the label must be written properly. The press and her page about the trees are on the table: read them first.'); return; }
+    if (!lab) lab = makeLabel();
+    lab.open();
+  });
+
+  /* ---------- the label for No. 1047 ---------- */
+  function makeLabel() {
+    var F = [
+      ['f1', 'Collector and number', [['1046', 'I. Kinnaird, No. 1046'], ['1047', 'I. Kinnaird, No. 1047'], ['1871', 'G. Lockhart, No. 1871']]],
+      ['f2', 'Date collected', [['9 february', '9 February'], ['3 april', '3 April 1871'], ['18 may', '18 May']]],
+      ['f3', 'Place', [['creek', 'Ironwood Creek'], ['mile', 'Upper Iluma, mile 114, Ironwood Creek: the big ironwood across the creek from the landing'], ['garden', 'The Botanic Garden']]],
+      ['f4', 'Habitat', [['par', 'A parasite on a branch of ironwood, feeding on its sap, about 30 m up'], ['epi', 'An epiphyte on a branch of ironwood, about 30 m up, in the canopy'], ['floor', 'On the forest floor, in deep shade'], ['under', 'An epiphyte in the understorey, about 30 m up']]],
+      ['f5', 'Drying will take away', [['brown', 'Leaves brown and brittle; stem flat and dry'], ['none', 'Nothing: a dry sheet shows everything'], ['green', 'Leaves dark green and shiny above, pale beneath; stem swollen and full of water; flower stalk white']]],
+      ['f6', 'Flowering', [['dies', 'Flowers once, and then dies'], ['once', 'Flowers once in many years: last recorded 1871 (Lockhart)'], ['may', 'Flowers every year in May']]]
+    ];
+    var box = ER.el('div', 'bx lab'), msgEl, pick = ER.flag('c-pick') || {}, wait = false;
+    var sheet = '<svg viewBox="0 0 300 420"><rect width="300" height="420" fill="#fbf8ec"/><g stroke="#3d6630" fill="#4f7a3e">' +
+      '<path d="M150 380q-10 -150 -60 -320q40 120 70 320z"/><path d="M150 380q20 -160 80 -330q-30 140 -60 330z"/><path d="M150 380q-50 -120 -120 -220q60 90 140 220z" fill="#5f8a4a"/></g>' +
+      '<ellipse cx="150" cy="380" rx="34" ry="26" fill="#7a8a4a" stroke="#4f6a3a" stroke-width="2"/><path d="M128 368q22 -10 44 0" stroke="#4f6a3a" stroke-width="2" fill="none"/>' +
+      '<g stroke="#8a7a5a" stroke-width="2"><path d="M60 300l30 6M210 290l-30 8M100 200l20 6"/></g><text x="150" y="408" class="se" font-size="12" fill="#3a2a1a">in the press since this morning</text></svg>';
+    box.innerHTML = '<div class="lgrid"><div class="sheet">' + sheet + '</div><div class="lform"><h5>HERBARIUM OF THE BOTANIC GARDEN</h5>' + F.map(function (f) {
+      return '<div class="fld" data-f="' + f[0] + '"><span>' + f[1] + '</span><div class="ops">' + f[2].map(function (o) { return '<button type="button" class="op" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
+    }).join('') + '</div></div><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="sign">Take it up to be signed</button></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function show() { ER.$$('.fld', box).forEach(function (fl) { var f = fl.getAttribute('data-f'); ER.$$('.op', fl).forEach(function (o) { o.classList.toggle('on', pick[f] === o.getAttribute('data-v')); }); }); }
+    box.querySelector('.lform').addEventListener('click', function (e) {
+      var o = e.target.closest ? e.target.closest('.op') : null; if (!o || wait) return;
+      pick[o.closest('.fld').getAttribute('data-f')] = o.getAttribute('data-v'); ER.flag('c-pick', pick); RV.sfx.pen(); show();
+    });
+    var NUDGE = {
+      f1: 'Lemi reads the first line over your shoulder. &ldquo;Numbers are never used twice. What was the last one in her journal?&rdquo;',
+      f2: '&ldquo;The date on a label,&rdquo; says Joba from the boat, &ldquo;is the day the thing went into the press. Not the day somebody first saw it.&rdquo;',
+      f3: 'The place has to be exact enough for somebody else to find the same tree. Is it?',
+      f4: 'Read her page about the trees again. Does an epiphyte take food from its tree? And which floor of the forest is 30 metres up?',
+      f5: 'Drying will take these things away. So the label has to say what they were like before.',
+      f6: 'What is really known? Lockhart saw it flower in 1871, and nobody since. Read Mr Grice&rsquo;s magazine page again: does everything that flowers rarely die afterwards? Can you tell which kind it is yet?'
+    };
+    box.querySelector('#sign').addEventListener('click', function () {
+      if (wait) return;
+      var i;
+      for (i = 0; i < F.length; i++) if (!pick[F[i][0]]) { ER.sfx.no(); msg('Every line of a label has something in it. &ldquo;' + F[i][1] + '&rdquo; is still empty.'); return; }
+      for (i = 0; i < F.length; i++) if (!ER.check(F[i][0], pick[F[i][0]])) { ER.sfx.no(); msg(NUDGE[F[i][0]]); ER.shake(box.querySelectorAll('.fld')[i]); return; }
+      var route = ER.flag('c-route') || [];
+      var file = ER.exit([route.join(',') + '|' + F.map(function (f) { return pick[f[0]]; }).join(',')], { wait: true });
+      if (!file) { ER.sfx.no(); msg('Something is wrong with the way you came up the river. Joba frowns.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file); paint();
+      RV.mine('label', 'The label for No. 1047', '<p>I. Kinnaird, No. 1047 (1046 was the fern). 18 May. Upper Iluma, mile 114, Ironwood Creek: the big ironwood across the creek from the landing. An epiphyte on a branch, about 30 m up, in the canopy. Leaves dark green and shiny above, pale beneath; stem swollen and full of water; flower stalk white. Flowers once in many years: last recorded 1871 (Lockhart). Not &ldquo;dies&rdquo;: nobody knows that yet.</p>');
+      msg('You fold the label into the sheet, and the sheet into a folder, and the folder under your arm. It is the straightest label you have ever written.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'The light is going green, then grey. You pull the canoe across the creek on the rope, hand over hand, with Lemi in the front and Mr Gilroy in the back, holding his tin on his knees like a cake.',
+          'At the foot of the ironwood Lemi stands aside, and looks at Mr Gilroy, and then at you. &ldquo;Family first,&rdquo; she says. &ldquo;The Garden is nearly family.&rdquo;',
+          'Thirty metres of rope ladder, swinging. Somewhere above you, a voice says, quite quietly, &ldquo;If that is a label, come up. If it is anything else, go away.&rdquo;'
+        ], function () { busy = false; ER.say('Up the ladder.'); });
+      }, 2600);
+    });
+    show();
+    msg('Choose one line for each part of the label. The Garden&rsquo;s card in the press says what a label must say; your notebook has everything else.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

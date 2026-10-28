@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Landing Stage · A Little Water</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="river.css">
+<style>
+  body{--bg:#8a6a48;--accent:#f2b36a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(58,38,30,.95);--tc-ink:#fbeedd;--cap-bg:rgba(52,34,28,.93);--panel:#3a2a22;--face-bg:#4a3a30;--q-ink:#f2c99a;--fade:#24160f;--hud-bg:rgba(52,34,28,.8)}
+  .mist{animation:mist 18s linear infinite alternate}
+  @keyframes mist{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+  .smoke{animation:smoke 4s steps(4,end) infinite}
+  @keyframes smoke{50%{transform:translate(8px,-10px)}}
+  #egret .hd{animation:peck 5.5s steps(1,end) infinite;transform-origin:1452px 470px}
+  @keyframes peck{0%,86%{transform:rotate(0)}88%,94%{transform:rotate(38deg)}}
+  .ripple{animation:rip 3s ease-in-out infinite alternate}
+  @keyframes rip{to{transform:translateX(18px)}}
+
+  /* the run: a strip of river, a lantern for tonight, two clocks for tomorrow */
+  .bx.run{width:min(1060px,96vw)}
+  .bx.run .frame{background:#f3ead2}
+  .stn{cursor:pointer}
+  .stn:hover .flag{fill:#f2b36a}
+  .stn.on .flag{fill:#c8402c}
+  .runrow{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:9px;padding:10px 16px 8px;background:rgba(243,234,210,.96);color:#2a2116;border-left:6px solid #7a2a22}
+  .runrow label{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-right:6px}
+  .runrow .tn{font-family:'Caveat',cursive;font-size:24px;color:#7a2a22;min-width:150px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d98f86"/><stop offset=".45" stop-color="#f3c6a0"/><stop offset="1" stop-color="#fbe7c6"/></linearGradient>
+  <linearGradient id="watL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b08a5e"/><stop offset="1" stop-color="#6b5236"/></linearGradient>
+  <linearGradient id="deckL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a7448"/><stop offset="1" stop-color="#5a3f26"/></linearGradient>
+  <radialGradient id="vigL" cx="50%" cy="52%" r="80%"><stop offset="0" stop-color="#2a140c" stop-opacity="0"/><stop offset=".74" stop-color="#2a140c" stop-opacity=".1"/><stop offset="1" stop-color="#2a140c" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#5a3f26"/>
+<rect x="-1000" y="-400" width="3600" height="820" fill="url(#skyL)"/>
+<circle cx="330" cy="330" r="74" fill="#fff4dc" opacity=".8"/>
+<!-- the far bank, in mist -->
+<g opacity=".55"><path id="farbank" d="M-1000 420" fill="#5d6a4a"/></g>
+<rect x="-1000" y="420" width="3600" height="240" fill="url(#watL)"/>
+<g class="ripple" stroke="#d7b98a" stroke-width="3" opacity=".45"><path d="M-200 470h180M160 500h240M620 470h120M1120 492h200M1700 480h220M-600 520h200M900 520h90"/></g>
+<g class="mist" opacity=".5"><rect x="-1000" y="398" width="3600" height="26" fill="#fbe7c6"/><rect x="-1000" y="440" width="3600" height="14" fill="#fbe7c6" opacity=".6"/></g>
+<!-- the gauge post, in the river -->
+<g id="gauge" class="hot"><rect x="1500" y="250" width="34" height="400" fill="#f4efe1" stroke="#3a2a1a" stroke-width="3"/><g id="gmarks"></g>
+  <path d="M1494 330h46" stroke="#5a3d8a" stroke-width="3" stroke-dasharray="6 4"/><text x="1572" y="336" class="sc" font-size="20" fill="#5a3d8a">MARCH</text></g>
+<!-- an egret on a post -->
+<g id="egret" class="hot" transform="translate(-1395 -196)"><path d="M1418 520q4 -40 30 -44q22 6 14 30z" fill="#fbf8ee"/><path d="M1440 506l-6 26M1446 506l2 26" stroke="#2a2018" stroke-width="2"/>
+  <g class="hd"><path d="M1452 478q-6 -30 6 -40" stroke="#fbf8ee" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="1460" cy="436" r="7" fill="#fbf8ee"/><path d="M1466 436l22 4" stroke="#d9b05a" stroke-width="3"/></g></g>
+<!-- the Jacana, at the landing stage -->
+<g id="jacana" class="hot"><g id="boat"></g><g class="smoke" opacity=".5"><circle cx="958" cy="214" r="24" fill="#d8cfc0"/><circle cx="984" cy="182" r="30" fill="#e6ddcf"/><circle cx="1018" cy="148" r="36" fill="#efe6d8"/></g></g>
+<!-- the landing stage -->
+<g id="stage"><path d="M-1000 640H2600V1320H-1000Z" fill="url(#deckL)"/><g id="planks" stroke="#4a3220" stroke-width="3" opacity=".6"></g>
+  <path d="M-1000 640H2600" stroke="#b08a5e" stroke-width="8"/><g fill="#3a2614"><rect x="80" y="640" width="22" height="40"/><rect x="420" y="640" width="22" height="40"/><rect x="760" y="640" width="22" height="40"/><rect x="1100" y="640" width="22" height="40"/><rect x="1440" y="640" width="22" height="40"/></g></g>
+<!-- the gangway -->
+<path d="M1030 700L1110 575h60L1100 700z" fill="#8a6440" stroke="#4a3220" stroke-width="4"/><g stroke="#4a3220" stroke-width="3"><path d="M1046 680h60M1062 655h62M1078 630h64M1094 605h66"/></g>
+<!-- a shed, and cordwood -->
+<g id="shed"><path d="M-1000 360H40L120 400V650H-1000Z" fill="#7a6244"/><path d="M-1000 330H70L140 404H-1000Z" fill="#8f9aa0"/><g stroke="#6f7a80" stroke-width="3"><path d="M-160 330l20 74M-80 330l20 74M0 330l20 74"/></g><rect x="-60" y="460" width="110" height="190" fill="#3a2a1c"/><text x="62" y="444" class="sj" font-size="13" letter-spacing="2" fill="#f3e6c2">PORT GESSIN</text></g>
+<g id="wood" class="hot"><g id="cords"></g></g>
+<!-- the runs board -->
+<g id="board" class="hot" transform="rotate(-2 210 560)"><path d="M210 800V560" stroke="#4a3220" stroke-width="12"/><rect x="120" y="470" width="190" height="140" fill="#26302c" stroke="#6b4a2a" stroke-width="10"/>
+  <text x="215" y="502" class="sg" font-size="21" fill="#ffd98a">JACANA</text><g stroke="#eef0e6" stroke-width="2.200" opacity=".8"><path d="M136 520h150M136 534h120M136 548h150M136 562h100M136 580h150M136 594h80"/></g></g>
+<!-- your satchel and the Garden's trunk -->
+<g id="satchel" class="hot"><rect x="250" y="780" width="170" height="80" rx="4" fill="#4a5a3a" stroke="#2c3a22" stroke-width="4"/><path d="M250 800h170" stroke="#2c3a22" stroke-width="3"/><text x="335" y="840" class="sj" font-size="17" letter-spacing="2" fill="#e9e2cf">THE GARDEN</text>
+  <path d="M300 760q36 -30 70 0v24h-70z" fill="#6b7a4a" stroke="#2c3a22" stroke-width="4"/><path d="M314 762q22 -16 42 0" stroke="#2c3a22" stroke-width="3" fill="none"/><rect x="326" y="772" width="18" height="12" fill="#d9b05a"/></g>
+<!-- the captain's notebook, on an oil drum -->
+<g id="pnote" class="hot"><rect x="430" y="700" width="90" height="110" fill="#7a2a22"/><ellipse cx="475" cy="700" rx="45" ry="11" fill="#9a3a2a"/><path d="M430 740h90M430 776h90" stroke="#5a1f1a" stroke-width="3"/>
+  <path d="M448 690l50 -8 6 14 -50 8z" fill="#2a2a24"/><path d="M452 692l44 -7" stroke="#f4f1e4" stroke-width="1.500"/></g>
+<!-- the people -->
+<g id="joba" class="hot"><g id="pjoba"></g></g>
+<g id="lemi" class="hot"><path d="M866 830v-52h64v52z" fill="#3a3a3a"/><ellipse cx="898" cy="778" rx="34" ry="9" fill="#5a5a5a"/><g id="plemi"></g><path d="M790 790L1010 640" stroke="#c9a46a" stroke-width="8" stroke-linecap="round"/><g stroke="#7a2a22" stroke-width="8"><path d="M842 754l8 -6M890 721l8 -6M938 688l8 -6"/></g></g>
+<g id="gilroy" class="hot"><g id="pgilroy"></g><rect x="1190" y="790" width="80" height="50" rx="4" fill="#1c1c1c"/><path d="M1200 790v-8h60v8" stroke="#1c1c1c" stroke-width="5" fill="none"/><rect x="1222" y="806" width="16" height="12" fill="#b9b5ac"/>
+  <path d="M1080 846l70 -40" stroke="#efe8d2" stroke-width="16" stroke-linecap="round"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigL)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Tell the captain</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="river.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, run = null, nextFile = null;
+
+  /* the far bank, the planks, the cordwood, the people, the boat */
+  (function () {
+    var s = 'M-1000 430', x, i, r = 7;
+    function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+    for (x = -1000; x <= 2600; x += 40) s += 'L' + x + ' ' + (360 + rnd() * 50).toFixed(0);
+    s += 'L2600 430Z';
+    $('#farbank').setAttribute('d', s);
+    var pal = '';
+    for (i = 0; i < 9; i++) { x = -300 + i * 330 + rnd() * 80; pal += '<path d="M' + x.toFixed(0) + ' 420q6 -60 -4 -110" stroke="#4d5a3c" stroke-width="7" fill="none"/><path d="M' + (x - 4).toFixed(0) + ' 310q-40 -10 -60 14M' + (x - 4).toFixed(0) + ' 310q40 -12 60 10M' + (x - 4).toFixed(0) + ' 310q-20 -34 -46 -40M' + (x - 4).toFixed(0) + ' 310q24 -32 50 -34" stroke="#4d5a3c" stroke-width="9" fill="none" stroke-linecap="round"/>'; }
+    $('#farbank').parentNode.insertAdjacentHTML('beforeend', pal);
+    s = ''; for (x = -1000; x < 2600; x += 96) s += '<path d="M' + x + ' 644L' + (x - 260) + ' 1320"/>';
+    for (i = 0; i < 8; i++) s += '<path d="M-1000 ' + (680 + i * i * 9) + 'H2600"/>';
+    $('#planks').innerHTML = s;
+    s = ''; for (i = 0; i < 4; i++) for (x = 0; x < 5 - i; x++) s += '<circle cx="' + (296 + x * 26 + i * 13) + '" cy="' + (722 - i * 23) + '" r="13" fill="' + (x % 2 ? '#9a6a3a' : '#b07e4a') + '" stroke="#5a3a1a" stroke-width="3"/><circle cx="' + (296 + x * 26 + i * 13) + '" cy="' + (722 - i * 23) + '" r="5" fill="none" stroke="#7a5228" stroke-width="2"/>';
+    $('#cords').innerHTML = s;
+    s = ''; for (i = 1; i <= 12; i++) { var y = 650 - i * 34; s += '<path d="M1500 ' + y + 'h' + (i % 2 ? 14 : 22) + '" stroke="#1c1c1c" stroke-width="3"/>' + (i % 2 ? '' : '<text x="1522" y="' + (y + 6) + '" class="sj" font-size="15" fill="#1c1c1c">' + i + '</text>'); }
+    $('#gmarks').innerHTML = s + '<rect x="1490" y="412" width="54" height="250" fill="#8a6a44" opacity=".75"/>';
+    $('#boat').innerHTML = RV.boat(600, 612, 0.9);
+    $('#pjoba').innerHTML = RV.person(640, 840, 1.12, { coat: '#1f2a3a', skin: '#5a3a24', hair: '#cfcac0', hat: 'cap', legs: '#2a2a2a' });
+    $('#plemi').innerHTML = RV.person(898, 836, 0.92, { coat: '#2f6a5a', skin: '#6b4423', hair: '#c96a2b', hat: 'scarf', sit: 1, legs: '#3a3328' });
+    $('#pgilroy').innerHTML = RV.person(1140, 850, 1.14, { coat: '#ece5d0', skin: '#e2bc94', hair: '#6b4a2a', hat: 'panama', specs: 1, legs: '#d9d0b8' });
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'river', storyTitle: 'A Little Water', id: 'landing', no: 'I', title: 'The Landing Stage',
+    go: 'Down to the river',
+    intro: [
+      'Port Gessin, at half past five on the morning of 17 May. You are the newest junior in the herbarium of the Botanic Garden, the long cool room where pressed plants are kept. For eight months you have glued Dr Isobel Kinnaird&rsquo;s plants onto white card, and you know her handwriting better than your own.',
+      'Dr Kinnaird is the Garden&rsquo;s collector on the Iluma. For nineteen years she has written to the Garden every month, from every swamp and mountain on the map. Her last letter is dated 19 March. Since then, nothing.',
+      'The Director could not come. He sent you instead, with her letter, her journal pages and a ticket for the Jacana, the only steamer on the upper Iluma. She leaves at six. Her captain, they say, has never once been late, and never once early either.'
+    ],
+    exit: {"next":"wheelhouse","w":{"80ec459f":"7bd26a50"}}, tags: {"n":["ebfd774e"],"g":["bad32c1b"],"i":["a1ce987b"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('l-told') || {}; nextFile = ER.flag('l-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('l-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.joba || nextFile));
+    b.textContent = nextFile ? 'Up the gangway' : 'Tell the captain';
+    ER.pips((told.joba ? 1 : 0) + (told.board && told.pnote ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The captain has his answer. Up the gangway.']];
+    if (!told.joba) return ['joba', ['The tall man in the white cap is the captain. He will not cast off until he has asked you something.']];
+    if (!(told.board && told.pnote) && !(run && run.isOpen())) return ['read', ['The captain said that the runs are on the board and the rules are in his notebook. The board stands on a post at the left of the landing stage. The notebook is lying on the red oil drum.']];
+    return ['run', [
+      'Do it in hours, one reach at a time. Speed over the ground is nine take away the current. How long does the Lower River take, all 42 miles of it?',
+      'Today: 42 miles at 7 miles an hour is 6 hours, so it is noon at Kapok Point, and an hour for wood. From one o&rsquo;clock to six there are five hours, in the Shoals. How far is that? Which wood station is the last one before it?',
+      'Tomorrow you start at six, where you slept. The Shoals end at mile 84. The Narrows run at 5, so the Jacana makes only 4 there. Noon is an hour for wood. After Grice&rsquo;s, the Upper River runs at 3.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The Jacana&rsquo;s whistle has been blown twice already, both times by Lemi, both times for fun.'); return; }
+    if (told.intro) { busy = false; ER.say('The landing stage at Port Gessin. The captain is still waiting for his answer.'); return; }
+    ER.narrate([
+      'The landing stage at Port Gessin stands on legs in the brown river, like a heron that has decided to stay. Behind it the town is still asleep. In front of it, the Jacana is wide awake: smoke from her tall funnel, steam from somewhere lower down, and a smell of wet wood.',
+      'A tall man in a white cap is looking at the river, not at the boat. A girl in an orange headscarf is sitting on a bollard with a long striped pole across her knees, looking at you.',
+      'At the foot of the gangway, a man in a white suit is explaining, very politely, that nobody else may carry his black tin box.'
+    ], function () { busy = false; tell('intro'); });
+  }
+
+  /* ---------- people ---------- */
+  $('#joba').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Up you go,&rdquo; says the captain. &ldquo;The river will not wait, and neither, for once, will I.&rdquo;'); return; }
+    ER.talk({
+      who: 'Captain Joba Ilunde', role: 'Master and pilot · the Jacana', face: window.FACE('joba'),
+      lines: [
+        { note: 'He takes the pipe out of his mouth. It is not lit. Lemi says it has not been lit since she was born.', a: '&ldquo;Joba Ilunde. I have taken the Jacana up this river for thirty-one years, and Dr Kinnaird up it for six. You will be the Garden&rsquo;s junior. She speaks well of you. She says your labels are straight.&rdquo;' },
+        { q: 'Can we be at her camp tonight?', a: 'Ironwood Creek is a hundred and fourteen miles up. The Jacana makes nine miles an hour. A man from the city would say thirteen hours, and he would be wrong twice. The river is coming down to meet us the whole way, and the sun goes down at six.' },
+        { q: 'Then when will we get there?', a: 'You tell me. The runs are on the board, and the rules are in my notebook on the drum. Before we cast off I want three things: where we tie up tonight, what time we reach Grice&rsquo;s Post tomorrow, and what time we reach Ironwood Creek.</p><p class="note">Lemi says that he asks every new passenger, and that nobody has ever got it right before the Narrows.' },
+        { q: 'Has she written to you?', a: 'She does not write to me. She sends me lists. The last one came down in March: tea, nails, planks, rope. A great deal of rope. I said to myself, she is building something. I did not say to myself what.' }
+      ],
+      clue: { id: 'joba', title: 'Captain Ilunde, on the landing stage', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        RV.words(['pilot', 'steamer', 'stern wheel']);
+        if (tell('joba')) { paint(); ER.say('Three answers before he casts off. The board is on its post; the notebook is on the red drum.'); }
+      }
+    });
+  });
+  $('#lemi').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Lemi Ilunde', role: 'Apprentice pilot · the Jacana', face: window.FACE('lemi'),
+      lines: [
+        { note: 'She does not get up.', a: '&ldquo;Lemi Ilunde. Apprentice pilot. That is my grandfather. This is a sounding pole: it is painted every foot, so that I can tell him how much water there is under us. Do not touch it.&rdquo;' },
+        { q: 'What is the post in the river?', a: 'The gauge. It tells you how high the river is today: seven feet. In March, after the rains, it was eleven. Every foot the river falls, the sandbars come a foot nearer the top. That is why we are going now, and not next month.' },
+        { q: 'Who is the man with the box?', a: 'Mr Gilroy. He bought his ticket yesterday, and asked my grandfather three times where Dr Kinnaird&rsquo;s plant is. He says he buys and sells orchids. He has a lamp, a white sheet and that tin. He has no orchids at all. I looked.' }
+      ],
+      clue: { id: 'lemi', title: 'Lemi, with her pole', kind: 'What she said' },
+      done: function (seen) { if (seen) { RV.words(['gauge', 'sandbar', 'sounding']); if (tell('lemi')) ER.say('Lemi goes back to looking at you. It is a very thorough look.'); } }
+    });
+  });
+  $('#gilroy').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Jasper Gilroy', role: 'Passenger · “orchids”', face: window.FACE('gilroy'),
+      lines: [
+        { note: 'He lifts his panama hat an inch. His other hand stays on the black tin.', a: '&ldquo;Jasper Gilroy. Orchids. I buy them, I sell them, and now and then one of them bites me. And you are from the Garden! How very interesting. Is it true that Dr Kinnaird has found something white?&rdquo;' },
+        { q: 'What is in the tin?', a: 'Pins, mostly. And paper. A man in my line of business needs a great many pins.' },
+        { q: 'Why are you going up the river?', a: 'For the air.</p><p class="note">He looks at the brown river, the mist, and a cloud of small flies.</p><p>And for the company. Is she far up? Above Grice&rsquo;s? Which side of the creek?</p><p class="note">You notice that you have not answered any of his questions, and that he has noticed too.' }
+      ],
+      clue: { id: 'gilroy1', title: 'Mr Gilroy, at the gangway', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('gilroy')) ER.say('Mr Gilroy goes up the gangway sideways, so that the tin never leaves his sight.'); }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var NOTE = '<h4>THE BOTANIC GARDEN<small>FROM THE DIRECTOR</small></h4><p>12 May</p>' +
+    '<p>You know her hand better than anybody in this building, because you have spent eight months gluing it to cardboard.</p>' +
+    '<p>Dr Kinnaird has not written since the 19th of March. In nineteen years she has never missed a month. My letter of 2 March told her that the Committee would pay nothing after the end of March, and that I expected her home on the boat of 1 May. She was not on it. I wrote again on the 28th of March. No answer.</p>' +
+    '<p>Go up on the Jacana. Captain Ilunde knows the river, and he knows her. Take her last letter and her journal pages. You may need to read them more carefully than I did.</p>' +
+    '<p>If she is well, bring her home. If she will not come, bring me a letter in her own hand. Either will do.</p><p class="sig">K. Lyall</p>';
+  var LETTER = '<h4>Her last letter</h4><p class="ad">Ironwood Creek, 19 March</p><p>Dear Kingsley,</p>' +
+    '<p>Thank you for yours of the 2nd. I note what the Committee says.</p>' +
+    '<p>We have had a little water, and I have moved the camp up a short way.</p>' +
+    '<p>The men have gone down to their villages for the planting.</p>' +
+    '<p>The plant is taking its time. So, I am afraid, am I.</p>' +
+    '<p>I am perfectly comfortable, and want for nothing.</p>' +
+    '<p>The herbarium shall have its sheets in due course.</p>' +
+    '<p>With kind regards to the Committee,<br>Isobel Kinnaird</p>' +
+    '<p class="ps">P.S. Please do not expect me on the boat of the 1st. If anybody should come up, I am generally to be found in the big ironwood across the creek.</p>';
+  $('#satchel').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTE, cls: 'garden', clue: { id: 'lyall', title: 'Professor Lyall’s note', kind: 'From the Garden' }, done: function () {
+      ER.read({ html: LETTER, cls: 'letter', clue: { id: 'letter', title: 'Her last letter, 19 March', kind: 'In her hand' }, done: function () {
+        RV.words(['herbarium', 'committee', 'postscript']);
+        if (tell('letter')) ER.say('Eight short sentences and a postscript. The Director read it in March and saw nothing wrong with it.');
+      } });
+    } });
+  });
+  var BOARD = '<h4>THE JACANA · UP THE ILUMA</h4><p class="sm">Leaves Port Gessin at 6 a.m.</p>' +
+    '<table><tr><td>The Lower River</td><td>mile 0 to 42</td><td>current 2</td></tr><tr><td>The Shoals</td><td>mile 42 to 84</td><td>current 3</td></tr>' +
+    '<tr><td>The Narrows</td><td>mile 84 to 96</td><td>current 5</td></tr><tr><td>The Upper River</td><td>mile 96 to 116</td><td>current 3</td></tr></table>' +
+    '<p class="sm">Currents in miles an hour, running down.</p>' +
+    '<p><b>Wood stations:</b> Goat Island 30 · Kapok Point 42 · Hollow Tree 66 · Jaw Bend 78 · Grice&rsquo;s Post 96 · Ironwood Creek 114. There is no wood station in the Narrows.</p>' +
+    '<p>Kalumi Falls, mile 116: the end of the river for anything with a keel.</p><p class="sm">Gauge today: 7 feet.</p>';
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOARD, cls: 'board', clue: { id: 'board', title: 'The runs board', kind: 'Chalk on a slate' }, done: function () {
+      RV.words(['current', 'reach', 'wood station']);
+      if (tell('board')) { paint(); ER.say('Six wood stations, four reaches, and a river that runs faster in some of them than in others.'); }
+    } });
+  });
+  var PNOTE = '<h4>UP AND DOWN · page 1</h4>' +
+    '<p>The Jacana makes <b>9 miles an hour through the water</b>, always. But the water is moving too.</p>' +
+    '<p>Going down, the river carries you: add the current. Going up, it pushes you back: take the current away. What matters is your <b>speed over the ground</b>, how fast the bank goes past.</p>' +
+    '<p>The current is not the same everywhere. It is quickest where the river is narrow, and slowest where it is wide.</p>' +
+    '<p><b>A day on the river.</b> Here, near the middle of the world, the day is twelve hours long all the year round. We go at first light, six o&rsquo;clock, and we are tied up by last light, six o&rsquo;clock. At noon we stop for one hour to take on wood. At night we tie up only at a wood station: never in the dark, never anywhere else.</p>' +
+    '<p class="pen">Example. 2 hours up a reach that runs at 4: 9 − 4 = 5 miles an hour, and 2 × 5 = 10 miles. J. I.</p>';
+  $('#pnote').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PNOTE, cls: 'pilot', clue: { id: 'pnote1', title: 'Pilot’s notebook, page 1: Up and down', kind: 'Captain Ilunde’s notebook' }, done: function () {
+      RV.words(['speed over the ground', 'upstream', 'downstream']);
+      if (tell('pnote')) { paint(); ER.say('Nine miles an hour through the water. Through the water is not the same as past the bank.'); }
+    } });
+  });
+
+  /* ---------- things on the landing stage ---------- */
+  RV.thing('#gauge', 'gauge', 'A white post standing in the river, painted with numbers in feet. The water comes up to 7. Higher up, a dotted line in purple pencil says MARCH, at 11.', isBusy);
+  RV.thing('#egret', null, 'An egret on the roof of the shed, watching the river. It has been standing on one leg for as long as you have been here, and it looks as if it has caught more fish than you have.', isBusy);
+  RV.thing('#wood', 'cordwood', 'Cordwood, cut to the length of your arm and stacked as high as your shoulder. The Jacana eats it.', isBusy);
+  RV.thing('#jacana', 'stern wheel', 'The Jacana: two white decks, a tall black funnel and a red wheel at the back, which pushes her along. She draws four feet of water, Lemi says, which is three more than she would like.', isBusy);
+  RV.thing('#shed', null, 'A tin shed with PORT GESSIN painted on it, as if anybody here might forget.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!run) run = makeRun();
+    run.open();
+  });
+
+  /* ---------- the run: tonight's station, and two times for tomorrow ---------- */
+  function makeRun() {
+    var box = ER.el('div', 'bx run'), svg, msgEl, night = ER.flag('l-night') || null, g, w, wait = false;
+    function X(m) { return 72 + m * 7.4; }
+    var s = '<rect width="1010" height="300" fill="#f3ead2"/><text x="505" y="30" class="sz" font-size="17" letter-spacing="3" fill="#2c4a66">THE ILUMA · PORT GESSIN TO KALUMI FALLS</text>';
+    RV.REACHES.forEach(function (r, i) {
+      var c = ['#c9a77a', '#b08a5e', '#8a6440', '#b08a5e'][i];
+      s += '<rect x="' + X(r.from) + '" y="120" width="' + (X(r.to) - X(r.from)) + '" height="40" fill="' + c + '"/>';
+      s += '<text x="' + ((X(r.from) + X(r.to)) / 2) + '" y="146" class="sj" font-size="13" letter-spacing="1" fill="#fbf3dd">' + r.name.replace('the ', '').toUpperCase() + ' · ' + r.current + '</text>';
+    });
+    s += '<path d="M' + X(0) + ' 120h' + (X(116) - X(0)) + 'M' + X(0) + ' 160h' + (X(116) - X(0)) + '" stroke="#5a3a1a" stroke-width="2"/>';
+    for (var m = 0; m <= 116; m += 6) s += '<path d="M' + X(m) + ' 160v' + (m % 12 ? 6 : 12) + '" stroke="#5a3a1a" stroke-width="1.500"/>' + (m % 12 ? '' : '<text x="' + X(m) + '" y="186" class="sj" font-size="12" fill="#5a3a1a">' + m + '</text>');
+    s += '<text x="' + X(0) + '" y="108" class="sj" font-size="13" fill="#2a2116">PORT GESSIN</text><text x="' + X(116) + '" y="108" class="sj" font-size="12" fill="#2a2116">FALLS</text>';
+    RV.STATIONS.forEach(function (st, i) {
+      var up = i % 2 === 0, y = up ? 70 : 214;
+      s += '<g class="stn" data-s="' + st.id + '"><rect x="' + (X(st.mile) - 46) + '" y="' + (up ? 40 : 196) + '" width="92" height="84" fill="#fff" fill-opacity="0"/>' +
+        '<path d="M' + X(st.mile) + ' ' + (up ? 120 : 160) + 'V' + (up ? 84 : 196) + '" stroke="#2a2116" stroke-width="2"/>' +
+        '<path class="flag" d="M' + X(st.mile) + ' ' + (up ? 84 : 196) + 'l22 ' + (up ? -8 : 8) + 'l-22 ' + (up ? -8 : 8) + 'z" fill="#7a6a4a"/>' +
+        '<text x="' + X(st.mile) + '" y="' + (up ? 58 : 236) + '" class="sj" font-size="13" fill="#2a2116">' + st.name.toUpperCase() + '</text>' +
+        '<text x="' + X(st.mile) + '" y="' + (up ? 44 : 252) + '" class="sc" font-size="18" fill="#7a2a22">' + st.mile + '</text></g>';
+    });
+    s += '<g id="lantern" style="display:none"><path d="M0 -26h16v6H0z" fill="#2a2116"/><rect x="1" y="-20" width="14" height="22" rx="3" fill="#ffcf5a" stroke="#2a2116" stroke-width="2"/></g>';
+    s += '<text x="505" y="286" class="sc" font-size="20" fill="#5a3d8a">Click the station where we tie up tonight.</text>';
+    box.innerHTML = '<div class="frame"><svg viewBox="0 0 1010 300">' + s + '</svg></div>' +
+      '<div class="runrow"><label>Tonight</label><span class="tn" id="tn">?</span><label>Grice&rsquo;s Post, tomorrow</label><span id="cg"></span><label>Ironwood Creek, tomorrow</label><span id="ci"></span></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="tell">Tell the captain</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var HRS = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+    g = RV.count(box.querySelector('#cg'), { list: HRS, start: 0, show: RV.hour });
+    w = RV.count(box.querySelector('#ci'), { list: HRS, start: 0, show: RV.hour });
+    function paintNight() {
+      ER.$$('.stn', svg).forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-s') === night); });
+      var st = RV.STATIONS.filter(function (x) { return x.id === night; })[0], L = svg.querySelector('#lantern');
+      box.querySelector('#tn').textContent = st ? st.name + ' (mile ' + st.mile + ')' : '?';
+      if (st) { var up = RV.STATIONS.indexOf(st) % 2 === 0; L.style.display = ''; L.setAttribute('transform', 'translate(' + (X(st.mile) + 18) + ' ' + (up ? 112 : 190) + ')'); }
+      else L.style.display = 'none';
+    }
+    svg.addEventListener('click', function (e) {
+      var n = e.target.closest ? e.target.closest('.stn') : null; if (!n || wait) return;
+      night = n.getAttribute('data-s'); ER.flag('l-night', night); RV.sfx.tick(); paintNight();
+    });
+    var NIGHT = {
+      goat: 'Goat Island? We would be there by half past ten in the morning, and sit looking at it all afternoon. Joba says that nobody needs to look at Goat Island for that long.',
+      kapok: 'Kapok Point is where we stop at noon to take on wood. There are still five hours of daylight after that.',
+      jaw: '&ldquo;Jaw Bend at six o&rsquo;clock exactly,&rdquo; says Joba, &ldquo;if the Jacana never ate. She does. An hour of wood at noon: where is your hour?&rdquo;',
+      grice: 'Grice&rsquo;s Post tonight? Only if the river stood still and let us go by. Going up, the river takes its speed off ours.',
+      ironwood: 'Ironwood tonight? Thirteen hours at nine miles an hour, and no wood, no noon and no river. You are the man from the city that Joba talked about.'
+    };
+    function tellIt() {
+      if (wait) return;
+      if (!night) { ER.sfx.no(); msg('&ldquo;Where do we sleep?&rdquo; says Joba. &ldquo;Hang the lantern on a station, then tell me.&rdquo;'); return; }
+      var gv = g.get(), iv = w.get();
+      if (!ER.check('n', night)) { ER.sfx.no(); msg(NIGHT[night] || 'Not there.'); return; }
+      if (!ER.check('g', gv)) {
+        ER.sfx.no();
+        msg(gv < 11 ? '&ldquo;' + RV.hour(gv) + ' at Grice&rsquo;s? The Jacana would have to fly. Take the current off every reach, the Narrows too.&rdquo;' :
+          gv === 11 ? '&ldquo;Eleven? Then you have given the Narrows the current of the Shoals. Look at the board again: the Narrows run at five.&rdquo;' :
+          '&ldquo;' + RV.hour(gv) + '?&rdquo; Joba shakes his head. &ldquo;Count it again from Hollow Tree, at six in the morning: the rest of the Shoals first, then the Narrows. And ask yourself where we are at noon.&rdquo;');
+        return;
+      }
+      if (!ER.check('i', iv)) {
+        ER.sfx.no();
+        msg(iv === 15 ? '&ldquo;Three o&rsquo;clock? You left Grice&rsquo;s at noon. The Jacana did not: noon is the hour for wood, and at noon we are at Grice&rsquo;s.&rdquo;' :
+          iv < 15 ? '&ldquo;That is too early. Above Grice&rsquo;s the river runs at three, and it runs against us.&rdquo;' :
+          '&ldquo;' + RV.hour(iv) + '? That is too late. Eighteen miles of Upper River, and the river runs at three. Count it again.&rdquo;');
+        return;
+      }
+      var file = ER.exit([night + '|' + gv + '|' + iv], { wait: true });
+      if (!file) { ER.sfx.no(); msg('Joba says nothing. He is waiting for all three.'); return; }
+      wait = true; nextFile = file; ER.flag('l-file', file);
+      RV.mine('sums', 'The run, worked out', '<p>Today: 42 miles at 9 − 2 = 7 m.p.h. = 6 hours. Kapok Point at noon. Wood, noon to 1 p.m.</p><p>1 p.m. to 6 p.m. = 5 hours at 9 − 3 = 6 = 30 miles: mile 72. Last station before that: Hollow Tree, mile 66, at 5 p.m.</p><p>Tomorrow: 66 to 84 = 18 miles at 6 = 3 hours (9 a.m.). The Narrows, 12 miles at 9 − 5 = 4 = 3 hours: Grice&rsquo;s at noon. Wood. 1 p.m.: 18 miles at 6 = 3 hours. Ironwood Creek at 4 p.m.</p><p>Sunset 6. Two hours to spare.</p>');
+      msg('&ldquo;Hollow Tree tonight. Grice&rsquo;s at noon. Ironwood at four, with two hours of light to spare.&rdquo; Joba puts the pipe back in his mouth. &ldquo;Lemi, you owe me a mango.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Joba walks up the gangway without looking back, as if the boat would sail without him otherwise. Lemi gets up off the bollard, very slowly, and gives you a look that is nearly respect.',
+          '&ldquo;Two hours to spare,&rdquo; she says. &ldquo;That is if nothing goes wrong in the Shoals. Something always goes wrong in the Shoals.&rdquo;',
+          'The whistle blows once, long. The wheel begins to turn. Port Gessin slides backwards into the mist.'
+        ], function () { busy = false; RV.blow('L'); });
+      }, 2600);
+    }
+    box.querySelector('#tell').addEventListener('click', tellIt);
+    paintNight();
+    msg('Joba wants three answers. Hang the lantern on the station where we tie up tonight; then set the two clocks for tomorrow.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>
