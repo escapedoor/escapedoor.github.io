@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Night Side · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="suit.css">
+<style>
+  body{--bg:#000;--accent:#9fd4ff;--font-display:'Oswald',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(0,2,8,.95);--tc-ink:#eef2f8;--cap-bg:rgba(2,4,12,.93);--panel:#0e141c;--face-bg:#1d2a36;--q-ink:#bfe2ff;--fade:#000;--hud-bg:rgba(2,4,12,.84)}
+  .flash{animation:flash 9s steps(1,end) infinite}
+  @keyframes flash{0%,88%{opacity:0}89%{opacity:.9}90%{opacity:0}92%{opacity:.6}93%,100%{opacity:0}}
+  .flash.b{animation-delay:4.3s;animation-duration:11s}
+  .plug{cursor:pointer}
+  .plug.held .pl{stroke:#9fd4ff;stroke-width:6}
+  .sock{cursor:pointer}
+  .sock:hover circle.o{stroke:#9fd4ff}
+  .lamp4 circle{fill:#1d2a22}
+  .lamp4 circle.on{fill:#5af08a}
+  #test{position:fixed;left:50%;bottom:16vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 26px 10px;border:2px solid #9fd4ff;color:#9fd4ff;background:rgba(2,4,12,.88);
+    font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;letter-spacing:.2em;text-transform:uppercase;border-radius:30px}
+  #test.on{display:block}
+  #test:hover{background:#9fd4ff;color:#02040c}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="beam" cx="50%" cy="48%" r="42%"><stop offset="0" stop-color="#f4f8ff" stop-opacity=".28"/><stop offset=".6" stop-color="#f4f8ff" stop-opacity=".08"/><stop offset="1" stop-color="#f4f8ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="nightE" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#0b1a30"/><stop offset="1" stop-color="#02060e"/></radialGradient>
+  <radialGradient id="darkV" cx="50%" cy="48%" r="70%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#000"/>
+<g id="stars"></g>
+<!-- the Earth over your head, at night: cities and a thunderstorm -->
+<g id="earth" class="hot"><circle cx="800" cy="-1880" r="2000" fill="url(#nightE)"/><g fill="#ffc96a" id="cities"></g>
+  <ellipse class="flash" cx="1180" cy="40" rx="90" ry="30" fill="#dfe8ff"/><ellipse class="flash b" cx="300" cy="70" rx="70" ry="22" fill="#dfe8ff"/>
+  <path d="M-1000 108Q800 250 2600 108" stroke="#1d3a66" stroke-width="5" fill="none" opacity=".8"/></g>
+<!-- the open panel, lit by your helmet lights -->
+<rect x="430" y="170" width="740" height="560" rx="10" fill="#3a2f1a" stroke="#5a4a28" stroke-width="5"/>
+<rect x="500" y="210" width="600" height="480" fill="#121417" stroke="#3a3f44" stroke-width="5"/>
+<g id="boxN" class="hot"><rect x="520" y="230" width="90" height="300" rx="5" fill="#5c6267" stroke="#30363c" stroke-width="3"/><g stroke="#3a4046" stroke-width="5"><path d="M530 270h70M530 300h70M530 330h70M530 360h70"/></g></g>
+<!-- the bracket, back on its posts: four sockets whose labels the sun has bleached -->
+<g id="bracket"><rect x="640" y="250" width="380" height="400" rx="16" fill="#9aa29c" stroke="#4a5055" stroke-width="5"/>
+  <g transform="rotate(180 830 450)"><path d="M985 400l-18 30h36z" fill="#5c6460"/><text x="985" y="462" class="st" font-size="24" fill="#5c6460">UP</text></g>
+  <g class="lamp4" id="lamps"><rect x="760" y="612" width="140" height="26" rx="6" fill="#30363c"/><circle cx="782" cy="625" r="7"/><circle cx="814" cy="625" r="7"/><circle cx="846" cy="625" r="7"/><circle cx="878" cy="625" r="7"/></g></g>
+<g id="socks"></g>
+<g id="cables"></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#beam)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#darkV)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" id="test">Turn the rings and test</button>
+<button type="button" class="gobtn" id="go">Wait for the sunrise</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="suit.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, st = {}, held = null, holdUntil = 0;
+  /* the four sockets as YOU see them: s1 top left, s2 top right, s3 bottom left, s4 bottom right */
+  var SOCK = { s1: [740, 350], s2: [920, 350], s3: [740, 530], s4: [920, 530] };
+  /* five cables: where each comes from, where its plug floats, and how it looks */
+  var CAB = {
+    c1: { from: [300, 1100], at: [420, 690], w: 16, col: '#262a2e', band: '#c4372b', title: 'A thick cable with a red band', text: 'A thick cable, as thick as your thumb, with a red band round it just behind the plug. The plug is big and round.' },
+    c2: { from: [-100, 520], at: [380, 400], w: 8, col: '#e9eae4', stripe: '#2f62d0', two: true, title: 'A thin cable with two blue stripes', text: 'A thin cable with two blue stripes running along it, side by side. A small round plug.' },
+    c3: { from: [1700, 120], at: [1240, 300], w: 8, col: '#f2f3ee', title: 'A thin white cable', text: 'A thin white cable, plain all the way along. A small round plug.' },
+    c4: { from: [1700, 900], at: [1250, 620], w: 12, col: '#3a3e44', stripe: '#f2f3ee', tag: true, title: 'A black cable with one white stripe', text: 'A black cable with one white stripe along it. Its plug looks newer than the others. A little plastic tag is tied to it, with writing in marker pen:' },
+    c5: { from: [300, -200], at: [520, 160], w: 11, col: '#8d9398', cap: true, title: 'A grey cable with a red cap', text: 'A grey cable. Its plug has a notch in its edge, but you cannot get at it: the end is covered by a red cap, stamped OLD, and the cap is glued on. A hand&rsquo;s width behind the cap the cable has been cut through and tied back with wire.' }
+  };
+
+  (function () {
+    $('#stars').innerHTML = SU.stars(220, 23, -1000, 140, 3600, 1600, '#e8eeff');
+    var s = '', i, r = 3;
+    function rnd() { r = (r * 9301 + 49297) % 233280; return r / 233280; }
+    for (i = 0; i < 70; i++) { var x = -200 + rnd() * 2000, y = 10 + rnd() * 80; s += '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + (rnd() > 0.8 ? 3 : 1.6) + '" opacity="' + (0.4 + rnd() * 0.6).toFixed(2) + '"/>'; }
+    $('#cities').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'station-a', storyTitle: 'Read It Back', id: 'night', no: 'IV', title: 'The Night Side',
+    go: 'Switch on your helmet lights',
+    intro: [
+      'Control filed the report. The bolts to undo were B1, B2, B4 and B5 on the drawing, which, with you upside down, were your bottom right, your bottom middle, your top right and your top middle. The two hinge bolts stayed in: the one with the washer and the square one, both on your left. The broken stripe was on B1: on your panel, the plain bolt at the bottom right. Behind the panel the box was fine, and the cable bracket was torn off its posts.',
+      'It is eighteen minutes to three. The sun has just gone down.'
+    ],
+    exit: {"next":"sunrise","w":{"3e505502":"a8ba8ac7"}}, tags: {"s1":["366ec57d"],"s2":["e4f7342c"],"s3":["8970e973"],"s4":["63cfca5b"]},
+    hints: hints, onBegin: begin
+  });
+
+  st = ER.flag('a4') || {};
+  st.in = st.in || {};
+  function save() { ER.flag('a4', st); }
+  function isBusy() { return busy; }
+  function where(c) { for (var k in st.in) if (st.in[k] === c) return k; return null; }
+  function drawCables() {
+    var s = '', k, c, at, p;
+    for (k in CAB) {
+      c = CAB[k]; p = where(k); at = p ? SOCK[p] : c.at;
+      var mx = (c.from[0] + at[0]) / 2 + (k === 'c2' ? 60 : -40), my = (c.from[1] + at[1]) / 2 + 80, d = 'M' + c.from[0] + ' ' + c.from[1] + 'Q' + mx + ' ' + my + ' ' + at[0] + ' ' + at[1];
+      s += '<g class="plug' + (held === k ? ' held' : '') + '" data-c="' + k + '"><path d="' + d + '" stroke="' + c.col + '" stroke-width="' + c.w + '" fill="none" pointer-events="none"/>';
+      if (c.stripe) s += '<path pointer-events="none" d="' + d + '" stroke="' + c.stripe + '" stroke-width="' + (c.two ? 2.5 : 3) + '" fill="none"' + (c.two ? ' transform="translate(0 -2)"' : '') + '/>' + (c.two ? '<path pointer-events="none" d="' + d + '" stroke="' + c.stripe + '" stroke-width="2.5" fill="none" transform="translate(0 3)"/>' : '');
+      s += '<g transform="translate(' + at[0] + ' ' + at[1] + ')"><circle class="pl" r="' + (k === 'c1' ? 30 : 24) + '" fill="' + (c.cap ? '#c4372b' : '#b9bdb6') + '" stroke="#30363c" stroke-width="3"/>';
+      if (c.band) s += '<circle r="' + (k === 'c1' ? 36 : 30) + '" fill="none" stroke="' + c.band + '" stroke-width="6"/>';
+      if (c.cap) s += '<text y="6" class="st" font-size="15" fill="#fff">OLD</text>';
+      else s += '<circle r="' + (k === 'c1' ? 14 : 10) + '" fill="#30363c"/>';
+      if (c.tag && !p) s += '<g transform="translate(-58 22) rotate(-14)"><rect width="56" height="28" fill="#f6f4e8" stroke="#8a8a7a"/><path d="M8 10h40M8 19h30" stroke="#24407a" stroke-width="2.5"/></g>';
+      s += '</g><circle cx="' + at[0] + '" cy="' + at[1] + '" r="44" fill="#000" fill-opacity="0"/></g>';
+    }
+    $('#cables').innerHTML = s;
+  }
+  (function () {
+    var s = '', k;
+    for (k in SOCK) s += '<g class="sock" data-s="' + k + '"><circle class="o" cx="' + SOCK[k][0] + '" cy="' + SOCK[k][1] + '" r="50" fill="#e4e7e1" stroke="#4a5055" stroke-width="5"/><circle cx="' + SOCK[k][0] + '" cy="' + SOCK[k][1] + '" r="22" fill="#30363c"/>' +
+      '<rect x="' + (SOCK[k][0] - 30) + '" y="' + (SOCK[k][1] + 56) + '" width="60" height="18" rx="3" fill="#dcdfd8" opacity=".55"/></g>';
+    $('#socks').innerHTML = s;
+  })();
+  function lamps(n) { ER.$$('#lamps circle').forEach(function (c, i) { c.classList.toggle('on', i < n); }); }
+  function full() { return st.in.s1 && st.in.s2 && st.in.s3 && st.in.s4; }
+  function paint() {
+    drawCables();
+    lamps(st.file ? 4 : 0);
+    $('#test').classList.toggle('on', !st.file && !!full() && !busy);
+    $('#go').classList.toggle('on', !!st.file);
+    var n = 0, k; for (k in st.in) if (st.in[k]) n++;
+    ER.pips(Math.min(n, 4) + (st.file ? 1 : 0), 5);
+    if (st.file) SU.card([['Tell your partner', ['&ldquo;Control, EV One. Four green lights. The dish is turning back. Closing the panel.&rdquo;']]]);
+    else if (st.tag) SU.card([['Ask your partner', ['&ldquo;Which cable goes in which socket? Remember: I&rsquo;m upside down, like before.&rdquo;', '&ldquo;Where is J3 on my side? Top or bottom? Left or right?&rdquo;']], ['Tell your partner', ['&ldquo;The grey one has a red cap that says OLD, and it&rsquo;s cut.&rdquo;']]]);
+    else SU.card([['Tell your partner', ['&ldquo;Control, EV One. Helmet lights on. I can see five cables: a thick one with a red band, &hellip;&rdquo;', '&ldquo;There&rsquo;s a tag on the black one. It says &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Which plug goes in which socket?&rdquo;']]]);
+  }
+  function hints() {
+    if (st.file) return ['go', ['Four green lights: the dish has power and is turning back. Wait for the sunrise: the button at the bottom of the screen.']];
+    if (!st.tag) return ['cables', [
+      'Five cables float round the bracket, and it has four sockets whose labels you cannot read. Describe every cable to Control: thick or thin, colour, stripes, bands, anything on the plug. Click a plug to look at it closely.',
+      'One cable has a tag tied to it, with letters and numbers in marker pen. Read it to Control exactly: spell the letters with the spelling alphabet, and say the numbers digit by digit.'
+    ]];
+    return ['plug', [
+      'Control&rsquo;s page 3-21 says which cable goes in which socket, J1 to J4, and where each socket is on its drawing. But the drawing is the right way up, and you are not: you are still upside down, as you were for the bolts. The bracket&rsquo;s own UP arrow shows it.',
+      'The page was printed in 2021. If a cable it describes is not there, or cannot be used, Control may be able to find something newer: the tag on the black cable is from 2024.',
+      'Turn the drawing round in your head: its top left is your bottom right, its top right is your bottom left. Click a plug, take hold of it, click a socket; when all four are in, turn the rings and test. The lights show how many plugs are right, not which.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (st.file) { busy = false; paint(); ER.say('Four green lights on the bracket. The dish has turned back.'); return; }
+    if (st.intro) { busy = false; paint(); ER.say('The bracket, four sockets, five cables, and your helmet lights.'); return; }
+    ER.narrate([
+      'The sun goes down in ten seconds: a band of orange and blue along the edge of the Earth, very thin and very bright, and then nothing. It is night now, and it will be night for thirty-six minutes.',
+      'You switch on your helmet lights. Two white beams, and in them the open panel, the box, and the bracket. You push the bracket back on to its posts. It clicks. It holds.',
+      'Over your head the Earth has gone black, with lights on it: cities, in yellow clusters, and far off a thunderstorm flashing silently inside its clouds. Below your boots, more stars than you have ever seen.',
+      'Four empty sockets. Five plugs floating round them on their cables. The labels by the sockets have been bleached white by years of sunshine. You cannot read a single one.'
+    ], function () { busy = false; st.intro = 1; save(); paint(); });
+  }
+
+  /* ---------- the plugs ---------- */
+  var TAGTEXT = '<p class="tagline"><b>MOTOR · NEW 14.3.24 · M.S.</b></p>';
+  function plugPic(k) {
+    var c = CAB[k], s = '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#0c1016"/><path d="M-20 260Q120 220 170 150" stroke="' + c.col + '" stroke-width="' + (c.w * 2.4) + '" fill="none"/>';
+    if (c.stripe) s += '<path d="M-20 260Q120 220 170 150" stroke="' + c.stripe + '" stroke-width="6" fill="none"' + (c.two ? ' transform="translate(0 -5)"' : '') + '/>' + (c.two ? '<path d="M-20 260Q120 220 170 150" stroke="' + c.stripe + '" stroke-width="6" fill="none" transform="translate(0 6)"/>' : '');
+    s += '<circle cx="200" cy="120" r="70" fill="' + (c.cap ? '#c4372b' : '#b9bdb6') + '" stroke="#30363c" stroke-width="6"/>';
+    if (c.band) s += '<circle cx="200" cy="120" r="84" fill="none" stroke="' + c.band + '" stroke-width="14"/>';
+    if (c.cap) s += '<text x="200" y="134" font-family="Stardos Stencil,serif" font-weight="700" font-size="40" fill="#fff" text-anchor="middle">OLD</text><path d="M60 230l40 -20M70 250l40 -20" stroke="#b9bdb6" stroke-width="4"/>';
+    else s += '<circle cx="200" cy="120" r="30" fill="#30363c"/>';
+    if (c.tag) s += '<g transform="translate(70 196) rotate(-8)"><rect width="250" height="70" fill="#f6f4e8" stroke="#8a8a7a" stroke-width="2"/><text x="125" y="30" font-family="Kalam,cursive" font-weight="700" font-size="24" fill="#24407a" text-anchor="middle">MOTOR · NEW</text><text x="125" y="58" font-family="Kalam,cursive" font-weight="700" font-size="24" fill="#24407a" text-anchor="middle">14.3.24 · M.S.</text></g>';
+    return s + '</svg>';
+  }
+  $('#cables').addEventListener('click', function (e) {
+    var g = e.target.closest ? e.target.closest('.plug') : null; if (!g || busy || st.file) return;
+    var k = g.getAttribute('data-c'), c = CAB[k], p = where(k);
+    SU.look({
+      kicker: p ? 'Plugged in' : 'Floating by the bracket', title: c.title, pic: plugPic(k),
+      text: '<p>' + c.text + '</p>' + (c.tag ? TAGTEXT : ''),
+      acts: c.cap ? [] : [{ id: 'take', label: p ? 'Pull it out and hold it' : 'Take hold of this plug', fn: function () {
+        if (p) { delete st.in[p]; save(); }
+        held = k; ER.close(); paint(); ER.say('You have the plug in your hand. Now click the socket it goes into.');
+      } }],
+      onClose: function () { if (c.tag && !st.tag) { st.tag = 1; save(); paint(); } }
+    });
+    if (c.cap) ER.addWord('cap', 'a cover that fits over the end of something');
+  });
+  $('#socks').addEventListener('click', function (e) {
+    var g = e.target.closest ? e.target.closest('.sock') : null; if (!g || busy || st.file) return;
+    if (Date.now() < holdUntil) { ER.say('The bracket is still checking. Wait.'); return; }
+    var s = g.getAttribute('data-s');
+    if (!held) { ER.say(st.in[s] ? 'A plug is in this socket. Click the plug to take it out again.' : 'An empty socket. The label beside it has been bleached white by years of sunshine; you cannot read a letter of it.'); return; }
+    if (st.in[s]) { ER.say('That socket has a plug in it already. Take that one out first.'); return; }
+    st.in[s] = held; held = null; save(); SU.sfx.clip(); paint();
+    ER.say(full() ? 'Four plugs in four sockets. When you are sure, turn the rings and test.' : 'The plug slides into the socket.');
+  });
+  $('#test').addEventListener('click', function () {
+    if (busy || st.file || !full()) return;
+    var cand = [st.in.s1, st.in.s2, st.in.s3, st.in.s4].join('-');
+    var file = ER.exit([cand], { wait: true });
+    $('#test').classList.remove('on');
+    if (!file) {
+      var n = 0; ['s1', 's2', 's3', 's4'].forEach(function (k) { if (ER.check(k, st.in[k])) n++; });
+      SU.sfx.clunk(); lamps(n); holdUntil = Date.now() + 8000;
+      ER.say('You turn the four rings until they click. On the bracket, a row of four little lights: ' + (n === 0 ? 'none of them comes on.' : n === 1 ? 'one of them comes on, green.' : (['', '', 'two', 'three'][n]) + ' of them come on, green.') + ' Not all four. Nils: &ldquo;The dish does not like that. Take them out and think again.&rdquo;', 8000);
+      setTimeout(function () { st.in = {}; save(); lamps(0); paint(); }, 8000);
+      return;
+    }
+    SU.sfx.clunk(); st.file = file; save(); busy = true; lamps(4); paint();
+    ER.narrate([
+      'You turn the four rings until they click. On the bracket, the row of four little lights comes on, one after the other: green, green, green, green.',
+      'Inside the station, Nils says quietly: &ldquo;The dish has power. It is asking where it is.&rdquo; A pause. &ldquo;It is turning back.&rdquo;',
+      'Below your boots, in the dark, the big dish begins to turn: slowly, the long way round, unwinding its cable from the mast, once, twice, until the cable hangs straight.',
+      'You close the panel and do up the four bolts, fifteen turns each, clockwise. In a few minutes the sun will come up, and soon after it, Yarnside will come over the edge of the world.'
+    ], function () { busy = false; paint(); });
+  });
+
+  SU.thing('#earth', null, 'The Earth at night: black, with yellow cities scattered on it like spilt sugar, and a storm somewhere flashing inside its clouds, without a sound.', isBusy);
+  SU.thing('#boxN', null, 'The pointing box. It was never broken. Nils says the spare will make a very good doorstop.', isBusy);
+  $('#go').addEventListener('click', function () { if (st.file && !busy) ER.leave(st.file); });
+})();
+</script>
+</body>
+</html>

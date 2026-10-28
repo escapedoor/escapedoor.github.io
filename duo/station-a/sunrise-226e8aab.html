@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sunrise · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="suit.css">
+<style>
+  body{--bg:#06070c;--accent:#ffcf6a;--font-display:'Oswald',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,8,12,.95);--tc-ink:#fbf2e2;--cap-bg:rgba(14,10,12,.93);--panel:#1a1414;--face-bg:#2a2020;--q-ink:#ffd9a0;--fade:#030203;--hud-bg:rgba(14,10,12,.84)}
+  #day{opacity:0;transition:opacity 3s}
+  body.up #day{opacity:1}
+  #lockled{fill:#30363c;transition:fill 1s}
+  body.locked #lockled{fill:#5af08a}
+  #dishg{transition:transform 4s ease-in-out;transform-origin:800px 760px}
+  body.locked #dishg{transform:rotate(-26deg)}
+  .glow{animation:glow 4s ease-in-out infinite alternate}
+  @keyframes glow{from{opacity:.75}to{opacity:1}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="earthS" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#5db0ea"/><stop offset=".5" stop-color="#2468a8"/><stop offset="1" stop-color="#0c2a52"/></radialGradient>
+  <radialGradient id="sunS" cx="34.7%" cy="35%" r="30%"><stop offset="0" stop-color="#fffbe8"/><stop offset=".06" stop-color="#fff2c0" stop-opacity=".9"/><stop offset=".3" stop-color="#ffb860" stop-opacity=".18"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="goldS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0c870"/><stop offset=".5" stop-color="#c08a2a"/><stop offset="1" stop-color="#f6da92"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#06070c"/>
+<g id="stars"></g>
+<!-- the Earth over your head, at the moment of sunrise -->
+<g id="earth" class="hot"><circle cx="800" cy="-1880" r="2000" fill="#081830"/><g id="day"><circle cx="800" cy="-1880" r="2000" fill="url(#earthS)"/><g fill="#f2f6fa" opacity=".85"><ellipse cx="300" cy="60" rx="200" ry="22"/><ellipse cx="900" cy="80" rx="240" ry="24"/><ellipse cx="1400" cy="50" rx="200" ry="20"/></g></g>
+  <path class="glow" d="M-1000 108Q800 250 2600 108" stroke="#ffa64a" stroke-width="12" fill="none"/><path d="M-1000 116Q800 258 2600 116" stroke="#7fc8ff" stroke-width="6" fill="none" opacity=".8"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#sunS)" pointer-events="none"/><circle class="glow" cx="250" cy="140" r="24" fill="#fffbe8" pointer-events="none"/>
+<!-- the foot of the mast, Panel 4 shut again, and the dish below your boots -->
+<rect x="700" y="640" width="200" height="900" fill="#cfd3cd" stroke="#8a9089" stroke-width="5"/>
+<g id="foot" class="hot"><rect x="420" y="220" width="760" height="460" rx="10" fill="url(#goldS)" stroke="#7a5a1a" stroke-width="5"/><rect x="520" y="270" width="560" height="360" fill="#a9ada6" stroke="#5c6267" stroke-width="5"/>
+  <g transform="rotate(180 800 450)"><text x="800" y="440" class="st" font-size="44" fill="#2a2f34" letter-spacing="3">PANEL 4</text><path d="M800 470l-16 26h32z" fill="#2a2f34"/></g>
+  <g fill="#d4d8d1" stroke="#3a4046" stroke-width="3"><circle cx="600" cy="330" r="20"/><circle cx="800" cy="330" r="20"/><circle cx="1000" cy="330" r="20"/><circle cx="600" cy="570" r="20"/><circle cx="800" cy="570" r="20"/><circle cx="1000" cy="570" r="20"/></g>
+  <circle id="lockled" cx="470" cy="648" r="16" stroke="#1e2226" stroke-width="4"/><text x="470" y="618" class="sv" font-size="14" fill="#3a2a08">LOCK</text></g>
+<g id="dishg" class="hot"><path d="M800 760l120 120" stroke="#8a9089" stroke-width="10"/><ellipse cx="960" cy="930" rx="250" ry="110" fill="#f4f5f0" stroke="#a9afa7" stroke-width="6" transform="rotate(-18 960 930)"/><circle cx="960" cy="930" r="18" fill="#8a9089"/></g>
+<!-- the camera boom, far off along the truss, looking at you -->
+<g id="cam" class="hot"><path d="M140 560L300 470" stroke="#8a9089" stroke-width="10"/><rect x="270" y="440" width="70" height="46" rx="5" fill="#3a4046"/><circle cx="270" cy="462" r="14" fill="#10161c" stroke="#5c6267" stroke-width="3"/><circle cx="350" cy="446" r="5" fill="#ff5a3a" class="glow"/></g>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Read It Back · the astronaut&rsquo;s part</small>The dish is talking again.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p>Your partner&rsquo;s screen shows the same moment, from the Ops Room.</p>
+  <h5>What you now know</h5>
+  <ul>
+    <li>An orbit four hundred kilometres up takes about ninety-two minutes: here about fifty-six minutes of day and thirty-six of night, so about sixteen sunrises a day.</li>
+    <li>A checklist works only in the right order: a hatch that opens inwards is held shut by the air until the gauge reads zero.</li>
+    <li>On a spacewalk you are always clipped on: clip the new tether before you unclip the old one, and tether every tool.</li>
+    <li>On the radio, numbers go digit by digit and every instruction is read back: one five and five zero were different handrails.</li>
+    <li>Left, right, top and bottom depend on where you are: upside down, a drawing&rsquo;s top left is your bottom right.</li>
+    <li>A torque stripe is a line of paint that breaks if a bolt turns.</li>
+    <li>A manual can be out of date. When the hardware and the page disagree, believe the hardware, and find out why.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the walk report</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Read It Back &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="suit.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+  $('#stars').innerHTML = SU.stars(160, 31, -1000, 160, 3600, 1500, '#e8eeff');
+
+  ER.init({
+    theme: 'duo', story: 'station-a', storyTitle: 'Read It Back', id: 'sunrise', no: 'V', title: 'Sunrise',
+    go: 'Look at the edge of the Earth',
+    intro: [
+      'The manual&rsquo;s page 3-21 was printed in 2021. On 14 March 2024 Marit Solberg changed the motor cable: the new one is black with one white stripe, and the old grey one is cut and capped. Control found her walk report by the date on her tag. Then, with you upside down: the thin white heater cable at your top left (J4), the new black motor cable at your top right (J3), the cable with two blue stripes at your bottom left (J2), and the thick power cable with the red band at your bottom right (J1). Four green lights.',
+      'It is sixteen minutes past three. The sun is about to come up.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {},
+    hints: function () { return ER.flag('a5-done') ? null : ['end', ['Nothing to solve here. Watch the sunrise, and the dish.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('a5-done')) { busy = false; document.body.classList.add('up', 'locked'); finish(true); return; }
+    ER.narrate([
+      'The sunrise comes the way the sunset went, all at once: a thin line of orange and blue along the edge of the Earth, then a white star of sun, and then daylight, hard and gold, on everything.',
+      'It is 15:18. In two minutes the station will come over the edge of the world above Yarnside.'
+    ], function () {
+      document.body.classList.add('up');
+      setTimeout(function () {
+        document.body.classList.add('locked');
+        ER.narrate([
+          'At 15:20 the dish below your boots turns, a little, as if it had heard its name. It stops, pointing at a place over the curve of the Earth that you cannot see. On the foot of the mast, beside the word LOCK, a small light turns green.',
+          'Nils, very quietly: &ldquo;Data is going down. Three days of it. And the camera is working.&rdquo; Then, louder: &ldquo;Smile, EV One. You are on the big screen in the Ops Room.&rdquo;',
+          'Along the truss, the camera on its boom is looking at you. Somewhere on the ground, in a room you have never seen, a person you have never seen is looking back. You know their voice better than some voices you have known for years.',
+          'Control asks for the read-back, and you give it: dish locked, panel closed, coming home. &ldquo;And the spare box?&rdquo; Flight answers that one herself. &ldquo;Bring it home. We will keep it for when something really breaks.&rdquo;',
+          'You take hold of the first yellow handrail. Fifty-five, fifty-four, fifty-three. Hand over hand, all the way back, reading every number out loud.'
+        ], function () { busy = false; ER.flag('a5-done', 1); finish(false); });
+      }, 1800);
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = SU.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the airlock to the sunrise: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' things and ' + Object.keys(st.words).length + ' words.';
+    ER.glossIn($('#done'), 'li');
+    $('#done').classList.add('on');
+    SU.card([['Ask your partner', ['&ldquo;What did the Ops Room look like when the picture came up?&rdquo;', '&ldquo;Which moment was the hardest for you?&rdquo;']]]);
+    if (quick) ER.say('Sunrise at the foot of the mast. The light by LOCK is green.');
+  }
+  SU.thing('#dishg', 'dish', function () { return busy ? null : 'The dish, locked on to Yarnside. Three days of pictures and measurements are going down it, faster than you could read them.'; }, isBusy);
+  SU.thing('#foot', null, function () { return busy ? null : 'Panel 4, shut again, with its six bolts. The two you never touched have their yellow stripes. The four you undid have none any more: somebody will have to paint them on the next walk.'; }, isBusy);
+  SU.thing('#cam', 'camera boom', function () { return busy ? null : 'The camera on its boom. Its little red light is on. You wave. You are not sure why it feels like waving at a person, but it does.'; }, isBusy);
+  SU.thing('#earth', null, function () { return busy ? null : 'The Earth in the morning: blue and white, with the night going away from you across it like a tide.'; }, isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    SU.task('The walk report', '<p>Flight wants a short report from EV One for the records: what you did outside, in the order you did it.</p>' +
+      '<p><b>A</b> Write the report in 60 to 90 words. Use at least five of these: first, then, after that, before, once, until, upside down, on my left, the second from, read back.<br>' +
+      '<b>B</b> Or, with your partner: one of you gives instructions for a job you both know (making a cup of tea, packing a school bag), one step at a time, and the other reads each step back. Write down the ten steps, in order.</p>');
+  });
+})();
+</script>
+</body>
+</html>

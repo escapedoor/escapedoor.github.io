@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Mast · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="suit.css">
+<style>
+  body{--bg:#01030a;--accent:#ffb347;--font-display:'Oswald',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(2,4,12,.95);--tc-ink:#f2f4f1;--cap-bg:rgba(4,6,16,.93);--panel:#121821;--face-bg:#1d2a36;--q-ink:#ffd8a0;--fade:#000;--hud-bg:rgba(4,6,16,.84)}
+  #inside{display:none}
+  body.open #inside{display:inline}
+  body.open #panel,body.open #bolts{display:none}
+  .bolt.out .head{opacity:.45}
+  .bolt.out .stripeH{opacity:.45}
+  .drift{animation:drift 80s linear infinite}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(260px)}}
+  .sway{animation:sway 6s ease-in-out infinite alternate;transform-origin:1180px 560px}
+  @keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="earthM" cx="50%" cy="100%" r="60%"><stop offset="0" stop-color="#5db0ea"/><stop offset=".5" stop-color="#2468a8"/><stop offset="1" stop-color="#0c2a52"/></radialGradient>
+  <linearGradient id="goldM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c06a"/><stop offset=".5" stop-color="#b8862a"/><stop offset="1" stop-color="#f0d28a"/></linearGradient>
+  <linearGradient id="panelM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9bdb6"/><stop offset="1" stop-color="#8f948d"/></linearGradient>
+  <radialGradient id="sunM" cx="100%" cy="50%" r="70%"><stop offset="0" stop-color="#fff6d6" stop-opacity=".35"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#01030a"/>
+<!-- the Earth is above your head: you are hanging upside down at the foot of the mast -->
+<g id="earth" class="hot"><circle cx="800" cy="-1880" r="2000" fill="url(#earthM)"/><g class="drift" fill="#f2f6fa" opacity=".85"><ellipse cx="200" cy="50" rx="180" ry="20"/><ellipse cx="700" cy="78" rx="230" ry="24"/><ellipse cx="1240" cy="60" rx="200" ry="22"/><ellipse cx="-300" cy="70" rx="200" ry="22"/><ellipse cx="460" cy="10" rx="260" ry="26"/></g>
+  <path d="M-1000 108Q800 250 2600 108" stroke="#a8dcff" stroke-width="8" fill="none" opacity=".75"/></g>
+<!-- the mast, going on down past your boots to the dish -->
+<rect x="700" y="700" width="200" height="1300" fill="#cfd3cd" stroke="#8a9089" stroke-width="5"/><g stroke="#a3a9a2" stroke-width="5" id="mlat"></g>
+<g id="coil" class="hot"><path d="M680 760q120 40 240 0M680 800q120 40 240 0" stroke="#2a2f34" stroke-width="16" fill="none"/><path d="M680 760q120 40 240 0M680 800q120 40 240 0" stroke="#4a5055" stroke-width="5" fill="none"/><path d="M920 760q40 -20 40 -60M680 800q-30 10 -40 40" stroke="#2a2f34" stroke-width="16" fill="none"/></g>
+<g id="dish" class="hot"><path d="M900 800l140 70" stroke="#8a9089" stroke-width="10"/><ellipse cx="1180" cy="930" rx="260" ry="110" fill="#eef0ec" stroke="#a9afa7" stroke-width="6" transform="rotate(-14 1180 930)"/><circle cx="1180" cy="930" r="16" fill="#8a9089"/></g>
+<!-- the foot of the mast, wrapped in gold blanket, with Panel 4 in it -->
+<rect x="400" y="150" width="800" height="600" rx="10" fill="url(#goldM)" stroke="#7a5a1a" stroke-width="5"/>
+<g stroke="#9a7228" stroke-width="2" opacity=".6"><path d="M420 200q190 20 380 0t380 0M420 690q190 -20 380 0t380 0M430 300q-6 200 0 360M1170 300q6 200 0 360"/></g>
+<g id="panel" class="hot"><rect x="500" y="210" width="600" height="480" fill="url(#panelM)" stroke="#5c6267" stroke-width="5"/><path d="M500 210h600M500 690h600" stroke="#d9ddd6" stroke-width="2"/>
+  <g transform="rotate(180 800 450)"><text x="800" y="440" class="st" font-size="52" fill="#2a2f34" letter-spacing="3">PANEL 4</text><path d="M800 476l-18 30h36z" fill="#2a2f34"/><text x="800" y="540" class="st" font-size="26" fill="#2a2f34">UP</text></g></g>
+<g id="bolts"></g>
+<!-- inside, once the panel is open: the pointing box, and the cable bracket torn off its posts -->
+<g id="inside"><rect x="500" y="210" width="600" height="480" fill="#1b1f23" stroke="#5c6267" stroke-width="5"/>
+  <g id="opened"><path d="M500 210l-120 -40v560l120 -40z" fill="url(#panelM)" stroke="#5c6267" stroke-width="4"/></g>
+  <g id="box" class="hot"><rect x="540" y="260" width="250" height="300" rx="6" fill="#8d9398" stroke="#4a5055" stroke-width="4"/><g stroke="#5c6267" stroke-width="7"><path d="M560 300h210M560 330h210M560 360h210M560 390h210M560 420h210"/></g><rect x="580" y="470" width="170" height="60" fill="#cfd3cd"/><text x="665" y="508" class="sm" font-size="17" fill="#2a2f34">POINTING</text></g>
+  <g fill="#3a4046"><rect x="840" y="300" width="18" height="60"/><rect x="980" y="300" width="18" height="60"/></g>
+  <g id="bracketA" class="hot sway"><path d="M1180 560q-120 60 -200 -40M1180 560q-60 -120 -160 -140M1180 560q40 -100 -40 -200M1180 560q-140 0 -230 70" stroke="#3a4046" stroke-width="9" fill="none"/>
+    <rect x="1120" y="500" width="120" height="120" rx="10" fill="#9aa29c" stroke="#4a5055" stroke-width="4" transform="rotate(24 1180 560)"/><g fill="#1b1f23"><circle cx="1150" cy="530" r="12"/><circle cx="1210" cy="530" r="12"/><circle cx="1150" cy="590" r="12"/><circle cx="1210" cy="590" r="12"/></g>
+    <g fill="#c4372b"><rect x="968" y="510" width="26" height="20" rx="4"/></g><g fill="#2f62b0"><rect x="1012" y="408" width="26" height="20" rx="4"/></g><g fill="#e9eae4"><rect x="1128" y="350" width="26" height="20" rx="4"/></g><g fill="#22262a"><rect x="940" y="620" width="26" height="20" rx="4"/></g></g></g>
+<!-- your power tool, on its tether, and the bag with the spare box -->
+<g id="tool" class="hot"><path d="M1460 1000q-60 -120 -170 -150" stroke="#f0e8c8" stroke-width="4" fill="none" stroke-dasharray="3 5"/><rect x="1230" y="800" width="150" height="56" rx="12" fill="#3a4046" stroke="#1e2226" stroke-width="3"/><rect x="1300" y="840" width="44" height="90" rx="10" fill="#2a2f34"/><rect x="1196" y="816" width="40" height="24" fill="#8a9096"/><circle cx="1360" cy="828" r="9" fill="#e8562a"/></g>
+<g id="bag" class="hot"><path d="M120 900q-20 -150 40 -180h170v180z" fill="#eceee8" stroke="#b8bdb5" stroke-width="5"/><path d="M200 720v-60h80" stroke="#3a4046" stroke-width="7" fill="none"/><path d="M280 650h60" stroke="#e8c33a" stroke-width="13" stroke-linecap="round"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#sunM)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The sun is going down</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="suit.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, st = {}, holdUntil = 0;
+  /* the six bolts as YOU see them, hanging upside down: top row p1 p2 p3, bottom row p4 p5 p6 */
+  var BOLTS = {
+    p1: { x: 620, y: 290, kind: 'wash', row: 'top', col: 'left' },
+    p2: { x: 800, y: 290, kind: 'hex', row: 'top', col: 'middle' },
+    p3: { x: 980, y: 290, kind: 'sq', row: 'top', col: 'right' },
+    p4: { x: 620, y: 610, kind: 'sq', row: 'bottom', col: 'left' },
+    p5: { x: 800, y: 610, kind: 'notch', row: 'bottom', col: 'middle' },
+    p6: { x: 980, y: 610, kind: 'hex', row: 'bottom', col: 'right', broken: true }
+  };
+  var LOOKS = {
+    wash: 'A hexagonal bolt with a round washer under it, like a coin under a nut.',
+    hex: 'A plain hexagonal bolt: six sides, nothing else.',
+    sq: 'A square bolt: four sides.',
+    notch: 'A hexagonal bolt with a small notch cut into one edge of its head. From where you are, the notch is at the bottom.'
+  };
+  function boltSvg(b, big) {
+    var s = '', r = big ? 80 : 26;
+    if (b.kind === 'sq') s += '<rect class="head" x="' + (-r * 0.8) + '" y="' + (-r * 0.8) + '" width="' + (r * 1.6) + '" height="' + (r * 1.6) + '" fill="#d4d8d1" stroke="#3a4046" stroke-width="' + (big ? 8 : 4) + '"/>';
+    else {
+      if (b.kind === 'wash') s += '<circle class="head" r="' + (r * 1.32) + '" fill="#b9bdb6" stroke="#3a4046" stroke-width="' + (big ? 6 : 3) + '"/>';
+      var p = [0, 60, 120, 180, 240, 300].map(function (a) { a = a * Math.PI / 180; return (r * Math.cos(a)).toFixed(1) + ',' + (r * Math.sin(a)).toFixed(1); }).join(' ');
+      s += '<polygon class="head" points="' + p + '" fill="#d4d8d1" stroke="#3a4046" stroke-width="' + (big ? 8 : 4) + '"/>';
+      if (b.kind === 'notch') s += '<path class="head" d="M' + (-r * 0.25) + ' ' + (r * 0.87) + 'l' + (r * 0.25) + ' ' + (-r * 0.45) + 'l' + (r * 0.25) + ' ' + (r * 0.45) + 'z" fill="#3a4046"/>';
+    }
+    /* the torque stripe: yellow paint across the head and on to the panel; on p6 the part on the head has turned away from the rest */
+    var L = r * 1.9;
+    s += '<path d="M' + (-L) + ' 0H' + (-r * 0.95) + 'M' + (r * 0.95) + ' 0H' + L + '" stroke="#f2d33a" stroke-width="' + (big ? 12 : 5) + '"/>';
+    s += '<path class="stripeH" d="M' + (-r * 0.9) + ' 0H' + (r * 0.9) + '" stroke="#f2d33a" stroke-width="' + (big ? 12 : 5) + '"' + (b.broken ? ' transform="rotate(38)"' : '') + '/>';
+    return s;
+  }
+  (function draw() {
+    var s = '', k, b, i;
+    for (k in BOLTS) { b = BOLTS[k]; s += '<g class="bolt hot" data-b="' + k + '" transform="translate(' + b.x + ' ' + b.y + ')"><circle r="60" fill="#000" fill-opacity="0"/>' + boltSvg(b) + '</g>'; }
+    $('#bolts').innerHTML = s; s = '';
+    for (i = 700; i < 2000; i += 100) s += '<path d="M700 ' + i + 'L900 ' + (i + 100) + 'M900 ' + i + 'L700 ' + (i + 100) + '"/>';
+    $('#mlat').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'station-a', storyTitle: 'Read It Back', id: 'mast', no: 'III', title: 'The Mast',
+    go: 'Take hold of the mast',
+    intro: [
+      'Control read you the path from the manual: from the hatch up to handrail 13, along the top to 15 (one five: the blue cap; five zero is the other blue cap, on the cooling pipe), clip on there, then down the front to 33, on down to 52, along the bottom edge to 55, and up to the foot of the mast. It was the right manual because the tag on your bag said mast type M3-B, panel issue 2.',
+      'It is twelve minutes past two. The sun will set at eighteen minutes to three: in half an hour.'
+    ],
+    exit: {"next":"night","w":{"26ac6277":"99391f23"}}, tags: {"keep":["48e7574c","3bdb5646"]},
+    hints: hints, onBegin: begin
+  });
+
+  st = ER.flag('a3') || {};
+  st.out = st.out || [];
+  function save() { ER.flag('a3', st); }
+  function isBusy() { return busy; }
+  function held() { if (Date.now() < holdUntil) { ER.say('Flight is still holding. Wait.'); return true; } return false; }
+  function paint() {
+    document.body.classList.toggle('open', !!st.file);
+    ER.$$('.bolt').forEach(function (n) { n.classList.toggle('out', st.out.indexOf(n.getAttribute('data-b')) >= 0); });
+    $('#go').classList.toggle('on', !!st.file);
+    ER.pips(st.out.length + (st.file ? 1 : 0), 5);
+    if (st.file) SU.card([['Tell your partner', ['&ldquo;Control, EV One. The panel is open. The pointing box looks fine. But the cable bracket &hellip;&rdquo;', '&ldquo;The bolt with the broken stripe was the &hellip; one at my &hellip;&rdquo;']]]);
+    else if (st.out.length === 4) SU.card([['Tell your partner', ['&ldquo;Four bolts undone. I&rsquo;m opening the panel now.&rdquo;']], ['Ask your partner', ['&ldquo;Is it safe to swing it open?&rdquo;']]]);
+    else SU.card([['Tell your partner', ['&ldquo;Control, EV One. The panel has six bolts. On my top row there&rsquo;s a &hellip;, a &hellip; and a &hellip; .&rdquo;', '&ldquo;One of them has a broken yellow stripe.&rdquo;']], ['Ask your partner', ['&ldquo;Which four do I undo? Which two must stay?&rdquo;', '&ldquo;Your left or my left? Which way up is your drawing?&rdquo;']]]);
+  }
+  function hints() {
+    if (st.file) return ['go', ['The panel is open. Tell Control what you found, and which bolt had the broken stripe. Then go on: the sun is setting.']];
+    if (st.out.length === 4) return ['open', [
+      'Four bolts are undone. Click on the panel to swing it open, and tell Control exactly what you see behind it.',
+      'Control also has to report the bolt with the broken yellow stripe. Tell them where it is, as you see it.'
+    ]];
+    return ['bolts', [
+      'Control has a drawing of this panel with six numbered bolts. Four of them come out; two hold the hinge and must stay in. Describe all six to Control: the shape of each head, where it is, and anything special about it.',
+      'If Control&rsquo;s drawing and your panel do not agree, look at the letters and the arrow painted on the panel. Where is the drawing&rsquo;s UP? Which way up are you?',
+      'You are upside down compared with the drawing. Its top row is your bottom row, and its left is your right: a bolt at the drawing&rsquo;s top left is at your bottom right. Turn the drawing round in your head before you touch a bolt.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (st.file) { busy = false; ER.say('The open panel, the box, the torn bracket. The sun is low.'); return; }
+    if (st.intro) { busy = false; ER.say('Panel 4, six bolts, and the Earth over your head.'); return; }
+    ER.narrate([
+      'At the foot of the mast you turn yourself round to face the panel, and hook your boots under a handrail. Now the Earth is over your head, and the dish is somewhere below your boots.',
+      'Panel 4 is a square of grey metal set into the gold blanket round the foot of the mast. Six bolts hold it on. Every bolt has a stripe of yellow paint across its head.',
+      'Around the mast just below you, a thick black cable is wound twice, as tight as a spring. You do not remember that from the pictures.',
+      'Your power tool floats beside your hand on its tether. Nils, on the radio: &ldquo;Take your time. You have half an hour of daylight. Then you have the dark, which is also fine. Just darker.&rdquo;'
+    ], function () { busy = false; st.intro = 1; save(); paint(); });
+  }
+
+  /* ---------- the bolts ---------- */
+  ER.$$('.bolt').forEach(function (n) {
+    n.addEventListener('click', function () {
+      if (busy || held()) return;
+      var k = n.getAttribute('data-b'), b = BOLTS[k], out = st.out.indexOf(k) >= 0;
+      SU.look({
+        kicker: 'Panel 4 · your ' + b.row + ' row, ' + (b.col === 'middle' ? 'in the middle' : 'on your ' + b.col), title: out ? 'An undone bolt' : 'A bolt',
+        pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#a9ada6"/><g transform="translate(190 150)">' + boltSvg(b, true) + '</g></svg>',
+        text: '<p>' + LOOKS[b.kind] + '</p>' + (b.broken ? '<p>Its yellow stripe is broken: the paint on the head of the bolt no longer lines up with the paint on the panel. This bolt has turned since it was painted.</p>' : '<p>Its yellow stripe runs straight across the head and on to the panel, unbroken.</p>') +
+          (out ? '<p>You have undone this one. It floats loose in its hole, held in by a little ring.</p>' : ''),
+        acts: out ? [] : [{ id: 'acw', label: 'Undo it: anticlockwise', fn: function (api) { undo(k, api); } }, { id: 'cw', label: 'Turn it clockwise', fn: function (api) { ER.sfx.no(); api.msg('It will not turn that way at all: it is already as tight as it was made.'); } }]
+      });
+      if (b.broken) ER.addWord('torque stripe', 'a line of paint across a bolt and the panel, which breaks if the bolt turns');
+    });
+  });
+  function undo(k, api) {
+    SU.sfx.whirr();
+    if (ER.check('keep', k)) {
+      api.acts([]);
+      setTimeout(function () {
+        ER.sfx.no();
+        var had = st.out.length; st.out = []; save(); paint();
+        api.msg('Seven turns, and the whole panel moves with the bolt, twisting on its edge the wrong way. This bolt is part of the hinge! You do it up again, fast.' + (had ? ' And every bolt you had undone has to go back in before the panel bends: ' + had + ' more to do up.' : ''));
+        holdUntil = Date.now() + 15000;
+        setTimeout(function () { ER.close(); ER.say('Flight calls an all-stop for fifteen seconds while everybody looks at the drawing again. Ask Control: which way up is the drawing?', 6000); }, 3200);
+      }, 900);
+      return;
+    }
+    st.out.push(k); st.out.sort(); save();
+    setTimeout(function () {
+      paint(); api.acts([]);
+      api.msg('Fifteen turns, anticlockwise. The bolt comes loose, but it stays in its hole in the panel, held by a little ring, the way it was made to.' + (st.out.length === 4 ? ' That is four. The panel is held only by the two hinge bolts now.' : ''));
+    }, 900);
+  }
+
+  /* ---------- opening the panel ---------- */
+  $('#panel').addEventListener('click', function () {
+    if (busy || held()) return;
+    if (st.out.length < 4) { ER.say('The panel does not move. ' + (st.out.length ? 'Some bolts are still holding it.' : 'Six bolts are holding it.') + ' Four must come out; two must stay.'); return; }
+    var file = ER.exit([st.out.join('-')], { wait: true });
+    if (!file) { ER.sfx.no(); ER.say('The panel will not swing. Check the bolts with Control.'); return; }
+    SU.sfx.clunk(); st.file = file; save(); busy = true; paint();
+    ER.narrate([
+      'The panel swings open on its hinge, on your left, like the door of a cupboard.',
+      'Inside is the pointing box: grey, square, with cooling fins, and not a mark on it. It does not look like a box that has failed.',
+      'Next to it there should be the cable bracket: a small plate with four sockets, held on two posts. The posts are there. The bracket is not on them. It has been torn off, and it floats on the end of its cables, and all four plugs have been pulled out of it. They drift round it like the legs of a jellyfish.',
+      'You look at the cable wound round the mast, twice, as tight as a spring. Something turned the dish round and round, too far, until its cables pulled the bracket off its posts. The box was never broken at all.',
+      'Nils, on the radio, after a long moment: &ldquo;So. We carried a spare box all the way out there for nothing. Tell Control. And look at the sun.&rdquo;'
+    ], function () { busy = false; paint(); });
+  });
+
+  /* ---------- other things ---------- */
+  SU.thing('#earth', null, 'The Earth is over your head, and the clouds on it are sliding from left to right. You are the one upside down. Probably.', isBusy);
+  SU.thing('#dish', 'dish', 'The big dish, at the far end of the mast, below your boots. It is pointing at empty black sky, where nothing is listening.', isBusy);
+  SU.thing('#coil', null, 'A thick black cable runs from the foot of the mast to the dish. It should run straight. It is wound twice round the mast, as tight as a spring, as if the dish had been turned round and round.', isBusy);
+  SU.thing('#tool', 'power tool', 'Your power tool, on a short tether clipped to your suit. If you let go of it, it floats at the end of its tether, like a dog on a lead. Nothing out here is ever not clipped to something.', isBusy);
+  SU.thing('#bag', null, 'The spare pointing box, in its bag, clipped to a handrail beside you.', isBusy);
+  $('#go').addEventListener('click', function () { if (st.file && !busy) ER.leave(st.file); });
+})();
+</script>
+</body>
+</html>

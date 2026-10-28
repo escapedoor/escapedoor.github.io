@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Airlock · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="suit.css">
+<style>
+  body{--bg:#c9cdc6;--accent:#ffb347;--font-display:'Oswald',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,18,24,.95);--tc-ink:#f2f4f1;--cap-bg:rgba(16,20,26,.93);--panel:#121821;--face-bg:#1d2a36;--q-ink:#ffd8a0;--fade:#05070a;--hud-bg:rgba(16,20,26,.84)}
+  #doorOpen,#rings,#space{display:none}
+  body.open #doorOpen,body.open #rings,body.open #space{display:inline}
+  body.open #door{display:none}
+  .drift{animation:drift 60s linear infinite}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(-160px)}}
+  .blink{animation:blink 2.4s steps(2,end) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  #needle{transition:transform .12s linear}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <clipPath id="holeC"><circle cx="800" cy="430" r="205"/></clipPath>
+  <clipPath id="winC"><circle cx="800" cy="330" r="40"/></clipPath>
+  <radialGradient id="earthG" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#4fa3e0"/><stop offset=".6" stop-color="#1f5f9e"/><stop offset="1" stop-color="#0d2f5a"/></radialGradient>
+  <radialGradient id="lampA" cx="50%" cy="8%" r="80%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".5"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigA" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#c3c8c1"/>
+<!-- the inside of the airlock: a white cylinder, looking along it to the outer hatch -->
+<g fill="none" stroke="#a9afa7" stroke-width="3"><circle cx="800" cy="430" r="900"/><circle cx="800" cy="430" r="700"/><circle cx="800" cy="430" r="520"/></g>
+<g stroke="#b3b9b1" stroke-width="2"><path d="M800 430L-200 -570M800 430L1800 -570M800 430L-200 1430M800 430L1800 1430M800 430L800 -700M800 430L800 1600M800 430L-1000 430M800 430L2600 430"/></g>
+<rect x="560" y="-120" width="480" height="40" rx="8" fill="#fbfbf3" opacity=".9"/>
+<circle cx="800" cy="430" r="340" fill="#bcc2bb" stroke="#9aa199" stroke-width="4"/>
+<!-- the wall: a patch, a strip of handholds -->
+<g id="patch" class="hot" transform="rotate(-6 230 300)"><circle cx="230" cy="300" r="62" fill="#14243a" stroke="#e8562a" stroke-width="8"/><circle cx="230" cy="300" r="40" fill="#2f6fae"/><path d="M196 316q34 -40 68 -6" stroke="#e9f2fb" stroke-width="5" fill="none"/>
+  <path d="M168 300a62 62 0 0 1 124 0" fill="none" id="patchArc"/><text font-family="Outfit,sans-serif" font-weight="700" font-size="13" fill="#f2f4f1" letter-spacing="2"><textPath href="#patchArc" startOffset="50%" text-anchor="middle">EVA 8 · VESPER</textPath></text>
+  <text x="230" y="352" class="sv" font-size="10" fill="#f2f4f1" letter-spacing="1">SOLBERG · OVERGAARD</text></g>
+<g id="bags" class="hot"><rect x="120" y="470" width="150" height="120" rx="14" fill="#eceee8" stroke="#a9afa7" stroke-width="3"/><rect x="290" y="500" width="70" height="90" rx="10" fill="#e4e7e0" stroke="#a9afa7" stroke-width="3"/><path d="M130 500h130M300 524h50" stroke="#c4c9c1" stroke-width="10"/></g>
+<!-- the hatch panel: three knobs, no labels -->
+<g id="panel"><rect x="372" y="236" width="196" height="330" rx="14" fill="#dde0da" stroke="#8f978f" stroke-width="4"/><g fill="#8f978f"><circle cx="388" cy="252" r="4"/><circle cx="552" cy="252" r="4"/><circle cx="388" cy="550" r="4"/><circle cx="552" cy="550" r="4"/></g>
+  <g fill="none" stroke="#c4c9c1" stroke-width="2" stroke-dasharray="4 6"><rect x="398" y="282" width="64" height="20"/><rect x="484" y="282" width="64" height="20"/><rect x="440" y="420" width="64" height="20"/></g></g>
+<g class="valve hot" data-v="vA"><rect x="390" y="300" width="80" height="90" fill="#000" fill-opacity="0"/><path d="M400 330h60M430 330v44" stroke="#22262a" stroke-width="14" stroke-linecap="round"/><path d="M400 330h60" stroke="#ecc53a" stroke-width="14" stroke-dasharray="8 8"/><circle cx="430" cy="378" r="10" fill="#555b60"/></g>
+<g class="valve hot" data-v="vB"><circle cx="516" cy="346" r="30" fill="#8d9398" stroke="#5c6267" stroke-width="3"/><g stroke="#5c6267" stroke-width="3">
+  <path d="M516 316v8M516 368v8M486 346h8M538 346h8M495 325l6 6M531 361l6 6M537 325l-6 6M501 361l-6 6"/></g><circle cx="516" cy="346" r="12" fill="#a9afb4"/></g>
+<g class="valve hot" data-v="vC"><rect x="452" y="452" width="40" height="40" fill="#2f62b0" stroke="#1d3c70" stroke-width="3"/><path d="M444 444h56v14h-56z" fill="#c9cfd3" stroke="#7a8288" stroke-width="2" opacity=".85"/><path d="M500 452q14 10 2 26" stroke="#b8862a" stroke-width="2" fill="none"/><circle cx="502" cy="480" r="4" fill="#9a9a9a"/></g>
+<!-- the outer hatch: its frame, the space behind it, the door -->
+<circle cx="800" cy="430" r="234" fill="#9aa29c" stroke="#7d857f" stroke-width="4"/>
+<g id="space" clip-path="url(#holeC)"><rect x="590" y="220" width="420" height="420" fill="#03050a"/><g id="holeStars"></g>
+  <circle cx="800" cy="1260" r="760" fill="url(#earthG)"/><g class="drift" opacity=".8" fill="#eef4fa"><ellipse cx="700" cy="560" rx="70" ry="16"/><ellipse cx="860" cy="600" rx="110" ry="20"/><ellipse cx="1000" cy="540" rx="60" ry="12"/><ellipse cx="620" cy="620" rx="90" ry="18"/><ellipse cx="1080" cy="610" rx="80" ry="14"/></g>
+  <path d="M40 500q760 -110 1520 0" stroke="#9fd4ff" stroke-width="6" fill="none" opacity=".7"/></g>
+<circle cx="800" cy="430" r="205" fill="none" stroke="#6c746e" stroke-width="5"/>
+<g id="rings"><g class="ring hot" data-r="rD"><rect x="560" y="440" width="70" height="100" fill="#000" fill-opacity="0"/><path d="M596 456q-26 0 -26 26t26 26z" fill="none" stroke="#3a4046" stroke-width="7"/><path d="M596 452v60" stroke="#3a4046" stroke-width="7"/><rect x="584" y="512" width="22" height="30" fill="#ecc53a" stroke="#6a5a1a" stroke-width="2"/></g>
+  <g class="ring hot" data-r="rO"><rect x="972" y="446" width="70" height="80" fill="#000" fill-opacity="0"/><circle cx="1006" cy="482" r="18" fill="none" stroke="#3a4046" stroke-width="7"/><circle cx="1006" cy="466" r="4" fill="#3a4046"/></g></g>
+<g id="door" class="hot"><circle cx="800" cy="430" r="203" fill="#e6e8e3" stroke="#a9afa7" stroke-width="3"/><circle cx="800" cy="430" r="170" fill="none" stroke="#cfd3cd" stroke-width="2"/>
+  <circle cx="800" cy="330" r="44" fill="#9aa29c"/><g clip-path="url(#winC)"><rect x="756" y="286" width="88" height="88" fill="#03050a"/><circle cx="800" cy="520" r="160" fill="url(#earthG)"/><path d="M700 372q100 -26 200 0" stroke="#9fd4ff" stroke-width="3" fill="none"/></g>
+  <path d="M712 430h176" stroke="#5c6267" stroke-width="16" stroke-linecap="round"/><circle cx="800" cy="430" r="26" fill="#7a8288" stroke="#4a5055" stroke-width="3"/>
+  <g transform="translate(800 532)"><rect x="-140" y="-40" width="280" height="84" fill="#f2d33a" stroke="#1a1a1a" stroke-width="4"/><rect x="-132" y="-32" width="264" height="68" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <text y="-10" class="sv" font-size="15" fill="#1a1a1a">OUTER HATCH · OPENS INWARDS</text><text y="10" class="sv" font-size="15" fill="#1a1a1a">IT WILL NOT OPEN UNTIL</text><text y="29" class="sv" font-size="15" fill="#1a1a1a">THE GAUGE READS ZERO</text></g></g>
+<g id="doorOpen" class="hot"><ellipse cx="1096" cy="430" rx="44" ry="206" fill="#e6e8e3" stroke="#a9afa7" stroke-width="3"/><path d="M1096 360v140" stroke="#5c6267" stroke-width="12" stroke-linecap="round"/><rect x="1080" y="510" width="34" height="60" fill="#f2d33a" stroke="#1a1a1a" stroke-width="2"/></g>
+<!-- the gauge -->
+<g id="gauge" class="hot"><circle cx="1196" cy="300" r="74" fill="#5c6267"/><circle cx="1196" cy="300" r="64" fill="#f6f5ef"/><g id="ticks"></g>
+  <text x="1196" y="344" class="sv" font-size="13" fill="#2a2f34" letter-spacing="2">kPa</text><g id="needle"><path d="M1196 308V246" stroke="#c4372b" stroke-width="4" stroke-linecap="round"/></g><circle cx="1196" cy="300" r="7" fill="#2a2f34"/></g>
+<!-- the little screen by the door: Nils, inside -->
+<g id="screen" class="hot"><rect x="1250" y="470" width="176" height="122" rx="8" fill="#1a1f24" stroke="#4a5055" stroke-width="4"/><rect x="1262" y="482" width="152" height="98" fill="#20354a"/>
+  <circle cx="1338" cy="526" r="22" fill="#efcaac"/><path d="M1314 520q0 -26 24 -28q24 2 24 28q-6 -14 -24 -14q-18 0 -24 14z" fill="#d9c08a"/><path d="M1300 580q4 -30 38 -32q34 2 38 32z" fill="#2b4b6a"/><rect x="1354" y="534" width="16" height="10" rx="3" fill="#c9a26a"/>
+  <circle cx="1418" cy="476" r="4" fill="#ff5a3a" class="blink"/></g>
+<!-- your waist tether, clipped to a handrail on the wall -->
+<g id="waist" class="hot"><rect x="1210" y="676" width="150" height="20" rx="8" fill="#e8c33a" stroke="#8a6a12" stroke-width="3"/><path d="M1290 696q10 120 120 260" stroke="#3a4046" stroke-width="12" fill="none"/><path d="M1276 688q14 -22 30 0" stroke="#8a9096" stroke-width="8" fill="none"/></g>
+<!-- your own left arm: the cuff checklist and the wrist mirror -->
+<g id="arm"><path d="M-200 1000q160 -220 470 -250l60 70q-260 60 -380 260z" fill="#f2f3ee" stroke="#b8bdb5" stroke-width="4"/><path d="M262 744q40 -10 70 10l-10 60q-30 -16 -66 -10z" fill="#e8562a"/>
+  <path d="M320 750q40 -30 80 -10q20 30 -4 60q-30 20 -60 10z" fill="#e9eae4" stroke="#b8bdb5" stroke-width="4"/></g>
+<g id="cuffg" class="hot"><rect x="150" y="770" width="110" height="80" rx="6" fill="#f6f2e2" stroke="#e8562a" stroke-width="5" transform="rotate(-14 205 810)"/><path d="M170 790h70M168 806h60M166 822h66" stroke="#7a7f86" stroke-width="3" transform="rotate(-14 205 810)"/></g>
+<g id="mirror" class="hot"><path d="M300 760l50 -70" stroke="#8a9096" stroke-width="7"/><ellipse cx="362" cy="668" rx="44" ry="30" fill="#bfd6e6" stroke="#5c6267" stroke-width="5" transform="rotate(-20 362 668)"/><path d="M340 660q16 -12 36 -6" stroke="#fff" stroke-width="4" fill="none" opacity=".8"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampA)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigA)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out onto the truss</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="suit.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, st = {}, gauge = 101, falling = null, holdUntil = 0;
+
+  (function () {
+    var s = '', v, a, r1;
+    for (v = 0; v <= 110; v += 10) {
+      a = (-135 + v * 2.4545) * Math.PI / 180; r1 = v % 50 ? 52 : 46;
+      s += '<path d="M' + (1196 + r1 * Math.sin(a)).toFixed(1) + ' ' + (300 - r1 * Math.cos(a)).toFixed(1) + 'L' + (1196 + 60 * Math.sin(a)).toFixed(1) + ' ' + (300 - 60 * Math.cos(a)).toFixed(1) + '" stroke="#2a2f34" stroke-width="' + (v % 50 ? 1.6 : 3.2) + '"/>';
+      if (!(v % 50)) s += '<text x="' + (1196 + 34 * Math.sin(a)).toFixed(1) + '" y="' + (300 - 34 * Math.cos(a) + 5).toFixed(1) + '" class="sv" font-size="14" fill="#2a2f34">' + v + '</text>';
+    }
+    $('#ticks').innerHTML = s;
+    $('#holeStars').innerHTML = SU.stars(60, 11, 590, 220, 420, 260);
+  })();
+  function needle(v) { gauge = v; $('#needle').setAttribute('transform', 'rotate(' + (-135 + v * 2.4545).toFixed(1) + ' 1196 300)'); }
+
+  ER.init({
+    theme: 'duo', story: 'station-a', storyTitle: 'Read It Back', id: 'airlock', no: 'I', title: 'The Airlock',
+    go: 'Close the visor',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays MISSION CONTROL (part B) on another screen. Do not show each other your screens: talk. You can see the station; your partner has the manuals and the checklists. Everything one of you can see, the other one needs.</b>',
+      'Vesper Station, four hundred kilometres above the Earth, going round it once every ninety-two minutes. For three days its big dish antenna has been stuck, pointing at nothing. The station is full of pictures and measurements that cannot get home.',
+      'Today somebody has to go outside and fix it. That somebody is you: EV One, on your first spacewalk. You are in the airlock, in your suit, and the air is about to be let out.',
+      'On the ground, in the Ops Room of Vesper Flight Control, is the other person in this story: the one who talks to you, with every checklist in the building. You have never met. You are about to trust each other with everything.'
+    ],
+    exit: {"next":"truss","w":{"94f5e826":"45c6e934"}}, tags: {"dep":["02e9dbfd"],"ring":["209c6975"]},
+    hints: hints, onBegin: begin
+  });
+
+  st = ER.flag('a1') || {};
+  function save() { ER.flag('a1', st); }
+  function isBusy() { return busy; }
+  function held() {
+    if (Date.now() < holdUntil) { ER.say('Flight is still holding. A few more seconds, and then you can go on.'); return true; }
+    return false;
+  }
+  function hold(why) { holdUntil = Date.now() + 12000; ER.say(why + ' Flight calls a hold for twelve seconds while everybody checks the drawing.', 5000); }
+  function paint() {
+    document.body.classList.toggle('open', !!st.open);
+    needle(st.zero ? 0 : gauge);
+    $('#go').classList.toggle('on', !!st.file);
+    ER.pips((st.s ? 1 : 0) + (st.zero ? 1 : 0) + (st.open ? 1 : 0) + (st.ring ? 1 : 0) + (st.file ? 1 : 0), 5);
+    if (st.file) SU.card([['Tell your partner', ['&ldquo;Control, EV One. Safety tether hooked, waist tether off. I&rsquo;m outside. Over.&rdquo;']]]);
+    else if (st.ring) SU.card([['Tell your partner', ['&ldquo;Control, EV One. Safety tether hooked on the &hellip; ring. Can I unclip my waist tether?&rdquo;']]]);
+    else if (st.open) SU.card([['Ask your partner', ['&ldquo;There are two rings in the hatch frame. Which one is the tether ring: the one on my left or the one on my right?&rdquo;']], ['Tell your partner', ['&ldquo;The one on my left is shaped like &hellip; and it has &hellip;&rdquo;']]]);
+    else if (st.zero) SU.card([['Tell your partner', ['&ldquo;Control, EV One. The gauge reads zero. The sticker on the hatch says &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What is the next step? Read it to me, please.&rdquo;']]]);
+    else if (st.s) SU.card([['Ask your partner', ['&ldquo;Which valve lets the air out? What shape is it, and what colour?&rdquo;']], ['Tell your partner', ['&ldquo;I can see three knobs on the panel: a &hellip;, a &hellip; and a &hellip;. And a sticker on the hatch that says &hellip;&rdquo;']]]);
+    else SU.card([['Tell your partner', ['&ldquo;Control, EV One. How do you hear me? Over.&rdquo;', '&ldquo;My suit numbers: suit pressure two nine point six &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Is that a GO?&rdquo;']]]);
+  }
+  function hints() {
+    if (st.file) return ['go', ['You are out of the airlock. The truss is waiting: the button at the bottom of the screen takes you there.']];
+    if (!st.s) return ['suit', [
+      'The first step on Control&rsquo;s checklist is the suit check: Control wants your three suit numbers before anything else. Your chest is too close to your helmet to read.',
+      'There is a little mirror on your left wrist (bottom left of the screen). Click it, and read the three numbers to Control, digit by digit: &ldquo;two nine point six&rdquo;, not &ldquo;twenty-nine point six&rdquo;.'
+    ]];
+    if (!st.zero) return ['valve', [
+      'The air must come out of the airlock before you can go anywhere. The three knobs on the panel left of the hatch have no labels. Control has a drawing that names them. Describe all three to Control: shape, colour, where on the panel.',
+      'One of the knobs lets the air out; one does the opposite and puts air back in; one is for emergencies. Ask Control which one is the DEPRESS valve before you touch anything.',
+      'Turn the depress valve, and then wait, without touching anything else, until the needle on the gauge (right of the hatch) reaches zero.'
+    ]];
+    if (!st.open) return ['hatch', [
+      'Read the yellow sticker on the hatch to Control, word for word. It is the reason the steps must go in this order.',
+      'The gauge reads zero, so now the hatch can move. Turn its handle. It opens inwards, towards you.'
+    ]];
+    if (!st.ring) return ['ring', [
+      'Now that the hatch is open you can see two rings in its frame, one on each side. Only one of them will hold a person. Describe both to Control.',
+      'Control&rsquo;s drawing describes the tether ring by its shape and by the colour of its tag. Ask which shape, which colour, and which side.'
+    ]];
+    return ['out', [
+      'Your safety tether is hooked. Now unclip the short waist tether that holds you to the handrail on the airlock wall (on the right).',
+      'Tell Control first: &ldquo;Control, EV One. Safety tether hooked. Unclipping my waist tether.&rdquo;'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (st.file) { busy = false; ER.say('The hatch is open. Beyond it, the Earth, very large, very blue.'); return; }
+    if (st.intro) { busy = false; ER.say('The airlock. The panel, the hatch, the gauge, and the radio waiting for you to speak.'); return; }
+    ER.narrate([
+      'Your visor clicks shut. Now the world has three sounds in it: your own breathing, the hum of the suit, and the radio.',
+      'Commander Nils Overgaard helped you into the suit, checked every clip twice, and went back inside the station. He shut the inner hatch behind you. On the little screen by the door you can see him on the other side of it, eating a biscuit and pretending not to watch.',
+      'In front of you is the outer hatch, and behind it, four hundred kilometres of nothing between you and the sea. Beside the hatch there is a panel of knobs. Their labels came off years ago. Somewhere on the ground, somebody has a drawing of them.',
+      'The radio clicks. Somebody you have never met is listening, in a room full of screens, with every checklist in the building. They are waiting for you to speak first.'
+    ], function () { busy = false; st.intro = 1; save(); paint(); });
+  }
+
+  /* ---------- the suit check, in the wrist mirror ---------- */
+  var MIRROR = '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#05080d"/><ellipse cx="190" cy="150" rx="176" ry="136" fill="#d9dfe2" stroke="#5c6267" stroke-width="10"/>' +
+    '<rect x="64" y="56" width="252" height="92" rx="8" fill="#1c2a22" stroke="#4a5a50" stroke-width="4"/>' +
+    '<g font-family="Space Mono,monospace" font-weight="700" fill="#8ff0a8"><text x="80" y="82" font-size="15">SUIT</text><text x="300" y="82" font-size="19" text-anchor="end">29.6 kPa</text>' +
+    '<text x="80" y="108" font-size="15">O2</text><text x="300" y="108" font-size="19" text-anchor="end">91 %</text><text x="80" y="134" font-size="15">BATT</text><text x="300" y="134" font-size="19" text-anchor="end">50 %</text></g>' +
+    '<g font-family="Outfit,sans-serif" font-weight="700" font-size="13" fill="#2a2f34" text-anchor="middle"><circle cx="110" cy="200" r="20" fill="#8d9398"/><text x="110" y="238">FAN</text><circle cx="190" cy="204" r="16" fill="#2f62b0"/><text x="190" y="238">WATER</text><rect x="250" y="186" width="36" height="30" rx="4" fill="#5c6267"/><text x="268" y="238">PURGE</text></g>' +
+    '<path d="M80 50q40 -20 90 -14" stroke="#fff" stroke-width="5" fill="none" opacity=".5"/></svg>';
+  $('#mirror').addEventListener('click', function () {
+    if (busy) return;
+    SU.look({
+      kicker: 'On your left wrist', title: 'The wrist mirror', pic: MIRROR, lock: false,
+      text: '<p>A little mirror on a stalk. In it you can see the controls on the front of your suit, which are too close to your helmet to look at.</p><p>The labels on your chest are printed backwards on the suit, so that in this mirror they read the right way round. The display shows three numbers.</p>'
+    });
+    if (!st.s) { st.s = 1; save(); paint(); }
+  });
+  $('#cuffg').addEventListener('click', function () { if (!busy) SU.cuff(); });
+
+  /* ---------- the three knobs ---------- */
+  var KNOB = {
+    vA: { title: 'A T-shaped handle', text: 'A handle shaped like a letter T, top left on the panel, striped black and yellow like a wasp.' },
+    vB: { title: 'A round knob', text: 'A round grey knob, top right on the panel, with ridges all round its edge so that a glove can grip it.' },
+    vC: { title: 'A small square knob', text: 'A small blue square knob, low down on the panel, under a little hinged cap. A thin wire goes through the cap, with a lead seal on it.' }
+  };
+  function knobPic(v) {
+    var s = '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#dde0da"/>';
+    if (v === 'vA') s += '<path d="M110 120h160M190 120v120" stroke="#22262a" stroke-width="36" stroke-linecap="round"/><path d="M110 120h160" stroke="#ecc53a" stroke-width="36" stroke-dasharray="22 22"/>';
+    else if (v === 'vB') { s += '<circle cx="190" cy="150" r="90" fill="#8d9398" stroke="#5c6267" stroke-width="6"/><circle cx="190" cy="150" r="36" fill="#a9afb4"/>'; for (var a = 0; a < 360; a += 20) s += '<path d="M190 60v22" stroke="#5c6267" stroke-width="6" transform="rotate(' + a + ' 190 150)"/>'; }
+    else s += '<rect x="130" y="110" width="120" height="120" fill="#2f62b0" stroke="#1d3c70" stroke-width="6"/><path d="M110 88h160v40h-160z" fill="#c9cfd3" stroke="#7a8288" stroke-width="4" opacity=".9"/><path d="M270 110q40 30 6 80" stroke="#b8862a" stroke-width="4" fill="none"/><circle cx="276" cy="196" r="10" fill="#9a9a9a"/>';
+    return s + '</svg>';
+  }
+  function fall() {
+    if (falling) return;
+    falling = setInterval(function () {
+      needle(Math.max(0, gauge - 2.5));
+      if (gauge <= 0) {
+        clearInterval(falling); falling = null; st.zero = 1; save(); paint();
+        ER.say('The needle reaches zero. The airlock is empty of air: there is nothing outside your suit now but the station, and beyond the hatch, nothing at all.');
+      }
+    }, 140);
+  }
+  ER.$$('.valve').forEach(function (n) {
+    n.addEventListener('click', function () {
+      if (busy || held()) return;
+      var v = n.getAttribute('data-v'), k = KNOB[v];
+      SU.look({
+        kicker: 'On the panel, left of the hatch', title: k.title, pic: knobPic(v), text: '<p>' + k.text + '</p><p>No label. There is a pale square on the panel above it where a label used to be.</p>',
+        acts: [{ id: 'turn', label: 'Turn it', fn: function (api) { turn(v, api); } }]
+      });
+    });
+  });
+  function turn(v, api) {
+    if (st.open) { api.msg('The hatch is open. You leave the panel alone.'); return; }
+    if (!st.s) { ER.sfx.no(); api.msg('Your hand stops. Step one, before anything else, is the suit check: Control wants your three suit numbers first. They are on your chest; use the mirror on your wrist.'); return; }
+    if (v === 'vC') { ER.sfx.no(); api.msg('You lift the corner of the little cap. It will not come up: the wire holds it, and the lead seal on the wire is unbroken. Nobody turns this knob by accident, and nobody should.'); return; }
+    if (ER.check('dep', v)) {
+      if (st.zero || falling) { api.msg('It is already open. Watch the gauge.'); return; }
+      SU.sfx.hiss(6); st.dep = v; save();
+      api.msg('You turn the handle a quarter of a turn. A long hiss, which you feel through your gloves more than you hear it. The needle on the gauge begins to fall.');
+      setTimeout(function () { ER.close(); fall(); }, 1600);
+      return;
+    }
+    ER.sfx.no();
+    if (gauge >= 100) { api.msg('A short hiss, and the needle on the gauge does not move at all. Whatever this knob does, it does not let air out. You turn it back.'); return; }
+    if (falling) { clearInterval(falling); falling = null; }
+    SU.sfx.hiss(1.2); needle(101); st.zero = 0; save(); paint();
+    api.msg('Air roars back into the airlock and the needle swings up to the top of the gauge. This knob puts air IN. Everything you let out is back.');
+    setTimeout(function () { ER.close(); hold('Nils puts his biscuit down.'); }, 2200);
+  }
+
+  /* ---------- the hatch ---------- */
+  function hatch() {
+    if (busy || held()) return;
+    if (st.open) { ER.say('The hatch is open, pushed back against the wall on its hinge.'); return; }
+    var api = SU.look({
+      kicker: 'In front of you', title: 'The outer hatch',
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#9aa29c"/><circle cx="190" cy="150" r="140" fill="#e6e8e3"/><path d="M90 150h200" stroke="#5c6267" stroke-width="20" stroke-linecap="round"/><circle cx="190" cy="150" r="26" fill="#7a8288"/>' +
+        '<rect x="70" y="196" width="240" height="78" fill="#f2d33a" stroke="#1a1a1a" stroke-width="4"/><g font-family="Outfit,sans-serif" font-weight="700" font-size="16" fill="#1a1a1a" text-anchor="middle"><text x="190" y="220">OUTER HATCH · OPENS INWARDS</text><text x="190" y="242">IT WILL NOT OPEN UNTIL</text><text x="190" y="264">THE GAUGE READS ZERO</text></g></svg>',
+      text: '<p>A round white door, as wide as your shoulders, with a handle across the middle and a little window at the top. Under the handle, a yellow sticker:</p><p><b>OUTER HATCH · OPENS INWARDS · IT WILL NOT OPEN UNTIL THE GAUGE READS ZERO</b></p>',
+      acts: [{ id: 'handle', label: 'Turn the handle', fn: function (a) { handle(a); } }]
+    });
+    ER.addWord('hatch', 'a small door in a ship, a plane or a spacecraft');
+    return api;
+  }
+  function handle(api) {
+    if (!st.s) { ER.sfx.no(); api.msg('Your hand stops on the handle. Nobody has said GO yet: step one is the suit check, and Control has not heard your numbers.'); return; }
+    if (!st.zero) {
+      ER.sfx.no(); SU.sfx.clunk();
+      api.msg(falling ? 'The handle turns, but the hatch does not move. The needle is still falling: there is still air in here, pressing on the door. Wait for zero.' : 'The handle turns, but the hatch does not move at all, not even a little. The air in the airlock is pressing it shut, like a hand flat on a door. The sticker is right in front of your visor.');
+      return;
+    }
+    SU.sfx.clunk(); st.open = 1; save();
+    api.msg('The handle turns, and this time the hatch moves: it swings in towards you, slow and heavy, on its hinge.');
+    setTimeout(function () {
+      ER.closeAll(); paint();
+      ER.say('Beyond the hatch there is nothing at all, and then, filling the bottom of the circle, the Earth. In the frame of the hatch, one on each side, two rings.', 6000);
+    }, 1800);
+  }
+  $('#door').addEventListener('click', hatch);
+  $('#doorOpen').addEventListener('click', function () { if (!busy) ER.say('The hatch, swung back against the wall. Its sticker now faces the wall, which is fine: it has done its job.'); });
+
+  /* ---------- the two rings ---------- */
+  ER.$$('.ring').forEach(function (n) {
+    n.addEventListener('click', function () {
+      if (busy || held()) return;
+      var r = n.getAttribute('data-r');
+      if (st.ring) { ER.say('Your safety tether is already hooked on.'); return; }
+      SU.look({
+        kicker: r === 'rD' ? 'In the hatch frame, on your left' : 'In the hatch frame, on your right', title: r === 'rD' ? 'A D-shaped ring' : 'A round ring',
+        pic: r === 'rD' ? '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#9aa29c"/><path d="M190 60q-90 0 -90 90t90 90z" fill="none" stroke="#3a4046" stroke-width="22"/><path d="M190 50v200" stroke="#3a4046" stroke-width="22"/><rect x="200" y="200" width="60" height="80" fill="#ecc53a" stroke="#6a5a1a" stroke-width="4"/></svg>'
+          : '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#9aa29c"/><circle cx="190" cy="160" r="70" fill="none" stroke="#3a4046" stroke-width="22"/><circle cx="190" cy="80" r="14" fill="#3a4046"/></svg>',
+        text: r === 'rD' ? '<p>A thick steel ring shaped like a letter D, with its straight side bolted to the frame. A yellow tag hangs from it.</p>' : '<p>A round steel ring, about as big as a coin, fixed to the frame with one screw.</p>',
+        acts: [{ id: 'hook', label: 'Hook the safety tether here', fn: function (api) { hook(r, api); } }]
+      });
+    });
+  });
+  function hook(r, api) {
+    if (ER.check('ring', r)) {
+      SU.sfx.clip(); st.ring = r; save(); paint();
+      api.msg('Click, and click again: the hook is shut. You give it a pull. The safety tether runs from the reel on your suit to the ring, and it will reel out behind you wherever you go.');
+      ER.addWord('safety tether', 'a long line that joins a spacewalker to the station at all times');
+      return;
+    }
+    ER.sfx.no();
+    api.msg('You hook on, and pull. The little ring bends towards you. It is held on by one screw, and it was made for a bag of tools, not for a person. You unhook again.');
+    setTimeout(function () { ER.close(); hold('Nils has stopped eating his biscuit.'); }, 2400);
+  }
+
+  /* ---------- the waist tether: going out ---------- */
+  $('#waist').addEventListener('click', function (e) {
+    if (busy || held()) return;
+    if (st.file) { ER.say('Your waist tether is off the wall. It will go on the first handrail outside.'); return; }
+    ER.wordAt(e.clientX, e.clientY, 'waist tether');
+    if (!st.ring) { ER.sfx.no(); ER.say('Your hand stops on the clip. The back page of your cuff: never let go of anything that is not clipped to something. Your safety tether is not hooked on yet.', 6000); return; }
+    var file = ER.exit([st.dep + '|' + st.ring], { wait: true });
+    if (!file) { ER.sfx.no(); ER.say('Something is not right. Check every step with Control again.'); return; }
+    SU.sfx.clip(); st.file = file; save(); busy = true; paint();
+    ER.narrate([
+      'You unclip the waist tether from the airlock wall. For a moment nothing holds you but the safety tether and your own two hands.',
+      'Then you pull yourself to the hatch, hands first, and out. There is no up and no down. There is the station, white and gold in the sunlight, and under it, turning slowly, the whole blue Earth.',
+      'Inside, on the little screen, Nils gives you a thumbs-up with half a biscuit in it.'
+    ], function () { busy = false; paint(); });
+  });
+
+  /* ---------- other things ---------- */
+  SU.thing('#gauge', 'gauge', function () { return st.zero ? 'The gauge reads zero. No air in the airlock at all.' : 'The pressure gauge for the airlock, in kilopascals. Now it says about a hundred: the same air pressure as in a room on Earth.'; }, isBusy);
+  SU.thing('#patch', 'patch', 'A mission patch, stuck to the wall: EVA 8 · VESPER · SOLBERG · OVERGAARD. The last walk out to the antenna mast, two and a half years ago. Marit Solberg went out with Nils. He says she talked the whole time, and was right about everything.', isBusy);
+  SU.thing('#bags', null, 'Cloth bags on the wall. Spare gloves, wipes, and a bag of tools with a label: CLIP EVERYTHING.', isBusy);
+  SU.thing('#panel', null, 'A panel beside the hatch, with three knobs. Pale squares show where the labels used to be.', isBusy);
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Commander Nils Overgaard', role: 'Vesper Station · inside, by the inner hatch', face: SU.FACE.nils,
+      lines: [
+        { note: 'On the little screen, Nils puts down his biscuit and presses the button on his headset.', a: '&ldquo;You look very good. Very white. Remember: everything you do out there, you tell Control first. They have the books. You have the eyes.&rdquo;' },
+        { q: 'Have you been out to the mast?', a: '&ldquo;Twice. The second time with Marit Solberg, two and a half years ago. Marit changed something at the foot of the mast: a cable, I think. I held the torch and the tools, and I said &lsquo;Yes, Marit&rsquo; about four hundred times.&rdquo;' },
+        { q: 'What if I drop something?', a: '&ldquo;You do not drop things. Your tools are clipped to you, and you are clipped to the station. If you let go of a spanner out there, it goes round the Earth on its own for a year, and somebody on the ground has to write a report about it.&rdquo;' },
+        { q: 'Why is it so quiet?', a: '&ldquo;There is no air outside to carry sound. Out there you will hear your suit, your breathing and Control, and nothing else at all. Enjoy it. In here I listen to the air fans all day.&rdquo;' }
+      ],
+      clue: { id: 'nils1', title: 'Commander Overgaard, before the walk', kind: 'What he said' }
+    });
+  });
+  $('#go').addEventListener('click', function () { if (st.file && !busy) ER.leave(st.file); });
+})();
+</script>
+</body>
+</html>
