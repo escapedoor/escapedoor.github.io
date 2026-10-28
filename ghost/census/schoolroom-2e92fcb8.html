@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Schoolroom · Not a Soul Missed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="census.css">
+<style>
+  body{--bg:#141c1a;--accent:#d9b44a;--font-display:'Stardos Stencil',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,24,22,.96);--tc-ink:#eef0e6;--cap-bg:rgba(16,24,22,.95);--panel:#16201c;--face-bg:#2a2c3e;--q-ink:#d9b44a;--fade:#080c0a;--hud-bg:rgba(16,24,22,.8)}
+  .tc-room{font-size:clamp(44px,6.6vw,90px)}
+  .rain{animation:rain .7s linear infinite}
+  @keyframes rain{0%{transform:translateY(-40px)}100%{transform:translateY(40px)}}
+  #lid{transition:transform .4s;transform-origin:1100px 667px}
+  #lid.up{transform:rotate(-38deg)}
+  .lampy{animation:lampy 6s ease-in-out infinite;transform-origin:400px 0}
+  .lampy.b{transform-origin:1200px 0;animation-delay:-3s}
+  @keyframes lampy{50%{transform:rotate(1.2deg)}}
+
+  /* the log book on the left, the register on the right */
+  .sr{width:min(1180px,96vw);display:flex;gap:14px;align-items:flex-start}
+  .sr .doc.log{flex:0 0 500px;width:auto;max-height:min(620px,calc(100vh - 140px));font-size:12.5px;line-height:26px;background-image:repeating-linear-gradient(transparent 0,transparent 25px,#c9c2ab 25px,#c9c2ab 26px)}
+  .sr .doc.log h4{line-height:26px}
+  .sr .doc.log .sel{color:#4a2a6a;font-size:12px}
+  .sr-side{flex:1 1 0;min-width:0}
+  .reg{background:#f3eedf;color:#262236;padding:10px 12px 8px;border:1px solid #a89c80;position:relative}
+  .reg h6{margin:0 0 6px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.06em;display:flex;justify-content:space-between}
+  .reg h6 span{font-family:'EB Garamond',serif;font-weight:normal;font-size:12.5px}
+  .reg table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .reg th{font-family:'EB Garamond',serif;font-size:11.5px;font-weight:600;border:1px solid #a89c80;padding:0;height:46px;vertical-align:bottom}
+  .reg th.nm{width:186px;text-align:left;padding:2px 4px;vertical-align:bottom}
+  .reg th button{width:100%;height:100%;border:0;background:transparent;cursor:pointer;font:inherit;color:#262236;line-height:1.1;padding:12px 0 2px;position:relative}
+  .reg th button:hover{background:rgba(217,180,74,.25)}
+  .reg th button.on{background:rgba(217,180,74,.45)}
+  .reg th button.on:before{content:'';position:absolute;left:50%;top:2px;width:14px;height:8px;margin-left:-7px;border-left:3px solid #f6f2e6;border-bottom:3px solid #f6f2e6;transform:rotate(-45deg);filter:drop-shadow(0 0 1px #262236)}
+  .reg td{border:1px solid #c9c2ab;height:30px;text-align:center;font-family:'Homemade Apple',cursive;font-size:13px;color:#262236}
+  .reg td.nm{text-align:left;padding:0 4px;font-size:11.5px;white-space:nowrap;overflow:hidden}
+  .reg tr.off td.nm{text-decoration:line-through;color:#5a5070}
+  .reg tr.off td.nm i{text-decoration:none;display:inline-block;font-style:normal;color:#9c2a2a;font-size:9.5px;margin-left:4px}
+  .reg .pencil{margin:6px 0 0;font-family:'Caveat',cursive;font-size:19px;color:#8a8690;transform:rotate(-1.5deg)}
+  .reg .key{margin:4px 0 0;font-family:'EB Garamond',serif;font-size:12.5px;color:#5a5070}
+  .sr .pmsg{color:#f3ecd9;font-size:17px;min-height:100px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="upG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfc6a8"/><stop offset="1" stop-color="#b4ab8c"/></linearGradient>
+  <linearGradient id="greenG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3e5a44"/><stop offset="1" stop-color="#2a4030"/></linearGradient>
+  <linearGradient id="boardsG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#3a2814"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1020"/><stop offset="1" stop-color="#1a2438"/></linearGradient>
+  <radialGradient id="shadeG"><stop offset="0" stop-color="#fff2c8" stop-opacity=".35"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#050806" stop-opacity=".26"/><stop offset="1" stop-color="#020302" stop-opacity=".88"/></radialGradient>
+</defs>
+
+<!-- cream above, school green below, a floor of boards -->
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#upG)"/>
+<rect x="-1000" y="500" width="3600" height="260" fill="url(#greenG)"/><path d="M-1000 500H2600" stroke="#2a2214" stroke-width="8"/>
+<rect x="-1000" y="760" width="3600" height="580" fill="url(#boardsG)"/>
+<g stroke="#2a1c0e" stroke-width="2" opacity=".6"><path d="M-1000 790H2600M-1000 830H2600M-1000 875H2600"/></g>
+
+<!-- three tall windows, rain on them -->
+<g id="wins" class="hot">
+  <g id="w1"><path d="M470 470V170Q470 100 540 100T610 170V470Z" fill="#4a4030"/><path d="M482 462V174Q482 114 540 114T598 174V462Z" fill="url(#winG)"/><path d="M540 114V462M482 260h116M482 360h116" stroke="#4a4030" stroke-width="5"/></g>
+  <g id="w2"><path d="M730 470V150Q730 70 800 70T870 150V470Z" fill="#4a4030"/><path d="M742 462V154Q742 84 800 84T858 154V462Z" fill="url(#winG)"/><path d="M800 84V462M742 250h116M742 350h116" stroke="#4a4030" stroke-width="5"/></g>
+  <g id="w3"><path d="M990 470V170Q990 100 1060 100T1130 170V470Z" fill="#4a4030"/><path d="M1002 462V174Q1002 114 1060 114T1118 174V462Z" fill="url(#winG)"/><path d="M1060 114V462M1002 260h116M1002 360h116" stroke="#4a4030" stroke-width="5"/></g>
+  <g class="rain" stroke="#7a8aa8" stroke-width="1.500" opacity=".55"><path d="M495 140l-6 30M560 200l-6 30M520 320l-6 30M580 400l-6 30M760 120l-6 30M820 220l-6 30M780 330l-6 30M840 410l-6 30M1020 150l-6 30M1080 240l-6 30M1040 330l-6 30M1100 420l-6 30"/></g>
+</g>
+
+<!-- the master's desk, high on its step, and the cupboard behind it -->
+<g id="cupboard" class="hot"><rect x="90" y="190" width="190" height="570" fill="#5a3a1e" stroke="#2a1a0c" stroke-width="5"/><path d="M185 194V756" stroke="#2a1a0c" stroke-width="4"/>
+  <rect x="104" y="214" width="66" height="250" fill="none" stroke="#3a2412" stroke-width="3"/><rect x="200" y="214" width="66" height="250" fill="none" stroke="#3a2412" stroke-width="3"/><circle cx="176" cy="480" r="6" fill="#c9a24a"/><circle cx="194" cy="480" r="6" fill="#c9a24a"/>
+  <rect x="112" y="500" width="54" height="40" fill="#fbfbf6"/><path d="M118 512h42M118 522h36M118 532h40" stroke="#8a948c" stroke-width="2.500"/></g>
+<g id="mdesk" class="hot"><rect x="260" y="700" width="300" height="40" fill="#3a2814"/><path d="M290 560l-10 140h260l-10 -140z" fill="#6a4424"/><path d="M286 560h268l-10 -30h-248z" fill="#7a5430"/>
+  <rect x="330" y="512" width="70" height="20" fill="#2a2a2a"/><rect x="420" y="516" width="44" height="14" fill="#e9e2d0"/></g>
+
+<!-- the honours board -->
+<g id="honours" class="hot"><rect x="1210" y="140" width="300" height="300" fill="#141414" stroke="#c9a24a" stroke-width="6"/>
+  <text x="1360" y="176" class="fZ" font-size="15" font-weight="700" text-anchor="middle" fill="#d9b44a">SATTERSBY SCHOOL</text><text x="1360" y="196" class="fZ" font-size="11" text-anchor="middle" fill="#d9b44a">NEVER ABSENT · NEVER LATE</text>
+  <g font-family="Cinzel,serif" font-size="12" fill="#d9b44a"><text x="1232" y="232">1877  Thomas Spence</text><text x="1232" y="256">1878  Victoria Spence</text><text x="1232" y="280">1879  William Swales</text><text x="1232" y="304">1880  Tabitha Thackray</text><text x="1232" y="328">1880  Timothy Wray</text><text x="1232" y="352">1882  Zachary Tasker</text><text x="1232" y="376">1883  Stephen Ulyett</text></g>
+  <text x="1360" y="420" class="fZ" font-size="10" text-anchor="middle" fill="#8a7a4a">1881 &#8212;</text></g>
+<!-- the map, the stove, the urn, and the notices of the village hall -->
+<g id="map" class="hot"><rect x="1240" y="470" width="240" height="150" fill="#e9e2c8" stroke="#3a2814" stroke-width="4"/><path d="M1260 600q20 -60 60 -70t40 -40q30 10 60 -10q20 20 40 60q-30 40 -60 50t-80 20z" fill="#cfe0b0" stroke="#6a7a4a" stroke-width="2"/><path d="M1300 560q40 -20 90 -30" stroke="#5a8ac8" stroke-width="2.500" fill="none"/>
+  <text x="1360" y="492" class="fZ" font-size="11" text-anchor="middle" fill="#3a2814">THE NORTH RIDING OF YORKSHIRE</text></g>
+<g id="stove" class="hot"><rect x="640" y="590" width="110" height="170" rx="10" fill="#1a1a1c"/><rect x="666" y="420" width="22" height="170" fill="#222224"/><path d="M666 420V80" stroke="#222224" stroke-width="22"/><rect x="656" y="650" width="78" height="44" fill="#2a1410"/><path d="M630 760h130" stroke="#0e0e10" stroke-width="10"/></g>
+<g id="urn" class="hot"><rect x="1360" y="660" width="210" height="16" fill="#9a9aa0"/><rect x="1370" y="676" width="10" height="84" fill="#6a6a70"/><rect x="1550" y="676" width="10" height="84" fill="#6a6a70"/>
+  <path d="M1400 660v-70q0 -14 30 -14t30 14v70z" fill="#c9ccd0"/><rect x="1480" y="620" width="70" height="40" fill="#f2f2ee"/><text x="1515" y="645" class="fO" font-size="10" text-anchor="middle" fill="#2a3a8a">W.I.</text></g>
+<g id="chairs" class="hot"><g fill="#3a5a8a"><path d="M920 760v-140h70v140z"/><path d="M926 620v-12h58v12z"/></g><g fill="#2f4e7a"><path d="M920 616v-10h70v10zM920 604v-10h70v10zM920 592v-10h70v10z"/></g></g>
+
+<!-- the old desks, two rows, iron and oak -->
+<g id="desks"></g>
+<g id="lid" class="hot"><rect x="1100" y="660" width="160" height="14" fill="#7a5430"/></g>
+
+<!-- two lamps, swinging a very little -->
+<g class="lampy"><path d="M400 -400V180" stroke="#2a2a2a" stroke-width="3"/><path d="M370 180h60l18 30h-96z" fill="#2f4a36"/><circle cx="400" cy="214" r="10" fill="#fff2c8"/><circle cx="400" cy="300" r="260" fill="url(#shadeG)" pointer-events="none"/></g>
+<g class="lampy b"><path d="M1200 -400V180" stroke="#2a2a2a" stroke-width="3"/><path d="M1170 180h60l18 30h-96z" fill="#2f4a36"/><circle cx="1200" cy="214" r="10" fill="#fff2c8"/><circle cx="1200" cy="300" r="260" fill="url(#shadeG)" pointer-events="none"/></g>
+
+<g id="stella" class="hot" transform="translate(360 880) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Next door, to the School House</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="census.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var CARD = '<h4>Inside the cupboard door</h4>' +
+    '<p><b>The log book.</b> By the Code of the Education Department, the head teacher had to write in the log book at least once a week: the shortest entry that would record the ordinary progress of the school, or any other fact about the school or its teachers worth remembering later. And: <i>no reflections or opinions of a general character are to be entered in the log book.</i></p>' +
+    '<p>So a log book says what happened, and only that. Whatever a head teacher felt, he wrote somewhere else.</p>' +
+    '<p><b>The registers.</b> Each class had its own. A child went on the roll on the day of admission, and was struck off, with a line through the name and the date, on the day of leaving. Every morning each name on the roll was marked: a stroke | for present, a nought o for absent. A child who was not on the roll had no line to be marked on.</p>' +
+    '<p class="sm"><i>S. Tunstall: a teacher in this room 1977&ndash;1984, head teacher of the new school 1989&ndash;2015. I kept a log book too. On a computer, which is worse.</i></p>';
+  var DAYS = [['28', 'Mon', 'Mar'], ['29', 'Tue', 'Mar'], ['30', 'Wed', 'Mar'], ['31', 'Thu', 'Mar'], ['1', 'Fri', 'Apr'], ['4', 'Mon', 'Apr'], ['5', 'Tue', 'Apr'], ['6', 'Wed', 'Apr'], ['7', 'Thu', 'Apr'], ['8', 'Fri', 'Apr']];
+  /* the Upper Standards (IV to VI) on the roll, and their marks for the ten mornings: | present, o absent */
+  var ROLL = [
+    ['Thomas Spence', '||o|||||||'], ['Victoria Spence', '||||||||oo'], ['Zachary Tasker', '||||||||||'], ['Stephen Ulyett', '||||||||||'],
+    ['Wilhelmina Ulyett', '|o||||||||'], ['William Swales', '||||||||||'], ['Timothy Wray', '|||||o||||'], ['Tabitha Thackray', '', 'left 18th Mar.']
+  ];
+  var LOG = '<h4>Sattersby School &middot; Log Book</h4>' +
+    '<p><span class="d">Mar. 18th</span>Tabitha Thackray left this day, to go to service at Ulgarth Farm from Lady Day. Upper Standards on roll: 7.</p>' +
+    '<p><span class="d">Mar. 25th</span>Lady Day. Ordinary progress. Copybooks examined.</p>' +
+    '<p class="sel"><span class="d">Mar. 28th</span>The Master absent this fortnight upon the Census, by leave of the Managers. School taken by Mrs Tasker. Upper Standards present 7.</p>' +
+    '<p class="sel"><span class="d">Mar. 29th</span>The Vicar&rsquo;s niece, from York, sat with the Upper Standards this morning. Present 7.</p>' +
+    '<p class="sel"><span class="d">Mar. 30th</span>Upper Standards present 6.</p>' +
+    '<p class="sel"><span class="d">Mar. 31st</span>Upper Standards present 8.</p>' +
+    '<p class="sel"><span class="d">Apr. 1st</span>Upper Standards present 8. Needlework.</p>' +
+    '<p class="sel"><span class="d">Apr. 4th</span>Timothy Wray absent: a sister born in the night. Upper Standards present 7.</p>' +
+    '<p class="sel"><span class="d">Apr. 5th</span>Upper Standards present 8.</p>' +
+    '<p class="sel"><span class="d">Apr. 6th</span>A wet day. Upper Standards present 7.</p>' +
+    '<p class="sel"><span class="d">Apr. 7th</span>Upper Standards present 7.</p>' +
+    '<p class="sel"><span class="d">Apr. 8th</span>Upper Standards present 7.</p>' +
+    '<p><span class="d">Apr. 11th</span>Resumed charge of the school. S. Tasker.</p>' +
+    '<p><span class="d">Apr. 14th</span>Broke up for the Easter holiday.</p>' +
+    '<p><span class="d">Apr. 25th</span>The school closed for three weeks by order of the Medical Officer. Notice pasted below.</p>';
+  var NOTICE = '<h4>Pasted into the log book</h4><p><b>NOTICE.</b> Scarlet fever being present in the village of Sattersby, <b>the said School</b> is to be closed for three weeks from Monday the 25th <b>inst.</b>, by order of the Medical Officer of Health.</p><p>Dated the 22nd day of April, 1881.</p>' +
+    '<p class="sm"><i>&ldquo;The said School&rdquo;: the school just named. &ldquo;Inst.&rdquo;: of this month. Official English of the time. &mdash; S.T.</i></p>';
+
+  ER.init({
+    theme: 'ghost', story: 'census', storyTitle: 'Not a Soul Missed', id: 'schoolroom', no: 'IV', title: 'The Schoolroom',
+    go: 'Put the lights on',
+    intro: [
+      'Every name on the stones went with its funeral in the burial books, and nine of the ten agreed. The tenth did not: the stone says Tabitha Thackray died on March 19th 1881, but the vicar buried her on April 23rd. The stone was put up after her father died in 1902, twenty-one years later; the book was written that week. The book is right. Tabitha was alive on census night.',
+      'And Violet Wray&rsquo;s black stone says, in gold, that she was born on census night.',
+      'Across the lane stands the old school: one tall room. In 1984 the school moved to a new building down the road, and the old room became the village hall. It has started to rain.'
+    ],
+    exit: {"next":"schoolhouse","w":{"d7094840":"6cbcceaa"}}, tags: {"day":["534e5ce7","b5e87f12","e49af3e9","7c8f216a","8f417565","257263d6"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('s-file') || null; told = ER.flag('s-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('s-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#stella').classList.toggle('ready', !!(told.in && !told.stella));
+    $('#cupboard').classList.toggle('ready', !!(told.stella && !told.card));
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#lid').classList.toggle('up', !!told.lid && !told.liddown);
+    ER.pips((told.stella ? 1 : 0) + (told.card ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.in) return null;
+    if (nextFile) return ['go', ['Mr Tasker&rsquo;s diary is next door, in the School House. Click the button at the bottom of the screen.']];
+    if (!told.stella) return ['stella', ['Miss Tunstall is by the master&rsquo;s desk, on the left. Click her.']];
+    if (lock && lock.isOpen()) return ['days', [
+      'The log gives the number of Upper Standards children in the room each morning. The register has a mark for each child on the roll. For each day, count the strokes on the register and compare the two.',
+      'Where the log says one more than the register, somebody was in the room who was not on the roll. But read the log for each of those days: on one of them it tells you who the extra person was.',
+      'Five noughts on the register, on five different days. On Tuesday the 29th the Vicar&rsquo;s niece sat in. Mark only the mornings when the extra child is not explained.'
+    ]];
+    if (!told.card) return ['read', ['Read the card inside the door of the tall cupboard on the left: what a log book was for, and how the register was marked.']];
+    return ['open', ['Click Miss Tunstall, or the cupboard, to open the log book and the register side by side.']];
+  }
+
+  function begin() {
+    $('#stella').innerHTML = CS.stella({});
+    drawDesks();
+    CS.clicker(told.tick ? 16 : 15);
+    paint();
+    if (nextFile) { busy = false; ER.say('The schoolroom. On the register, a pencil note: <i>T.T. &mdash; told S. 10th &mdash; S.T.</i>'); return; }
+    if (told.in) { busy = false; ER.say('The old schoolroom, and the rain on the tall windows.'); return; }
+    ER.narrate([
+      'One tall room: high windows, green walls, an iron stove that has not been lit since 1984, two rows of the old iron desks kept for the Lantern Walk, and everywhere else the village hall: stacked blue chairs, a tea urn, the W.I.&rsquo;s notices.',
+      'Miss Tunstall stands at the master&rsquo;s desk for a moment, the way you stand somewhere you used to stand every day. &ldquo;I taught in this room for seven years,&rdquo; she says, &ldquo;before the new school was built down the road. Mr Tasker taught in it for thirty-one.&rdquo;'
+    ], function () {
+      setTimeout(function () {
+        tell('lid'); paint(); CS.sfx.stone(); CS.clicker(16, true); tell('tick');
+        ER.narrate([
+          'In the back row, the lid of one of the old desks lifts by itself, and stays up, as if somebody were looking for a book in it. In Miss Tunstall&rsquo;s pocket, a click.',
+          'Miss Tunstall walks down the room and puts the lid down. It stays down. &ldquo;Draught,&rdquo; she says, not very firmly. &ldquo;The school records are in the cupboard. They should be at the record office. They are going there. Eventually.&rdquo;'
+        ], function () { tell('liddown'); tell('in'); busy = false; paint(); });
+      }, 900);
+    });
+  }
+  function drawDesks() {
+    var s = '', r, i, x, y;
+    for (r = 0; r < 2; r++) for (i = 0; i < 4; i++) {
+      x = 640 + i * 230 + r * 40 - (r ? 90 : 0); y = 660 + r * 60;
+      if (r === 0 && i === 2) continue;
+      s += '<rect x="' + x + '" y="' + y + '" width="160" height="14" fill="#7a5430"/><rect x="' + (x + 4) + '" y="' + (y + 14) + '" width="152" height="30" fill="#5a3a1e"/>' +
+        '<path d="M' + (x + 12) + ' ' + (y + 44) + 'l-8 ' + (100 - r * 60) + 'M' + (x + 148) + ' ' + (y + 44) + 'l8 ' + (100 - r * 60) + '" stroke="#1a1a1c" stroke-width="6"/><circle cx="' + (x + 40) + '" cy="' + (y + 7) + '" r="4" fill="#1a1a1c"/><circle cx="' + (x + 120) + '" cy="' + (y + 7) + '" r="4" fill="#1a1a1c"/>';
+    }
+    s += '<rect x="1104" y="674" width="152" height="30" fill="#5a3a1e"/><path d="M1112 704l-8 100M1248 704l8 100" stroke="#1a1a1c" stroke-width="6"/>';
+    $('#desks').innerHTML = s;
+  }
+
+  function talkStella() {
+    ER.talk({
+      who: 'Miss Stella Tunstall', role: 'Head teacher of Sattersby School, 1989 to 2015', face: window.FACE('stella'),
+      lines: [
+        { a: '&ldquo;If Tabitha went into service, Mr Tasker wrote down the day she left, in the log book. He wrote down everything that happened in this room for thirty-one years, and nothing that he felt about it. That was the rule.&rdquo;' },
+        { a: '&ldquo;If she went to a place at Ulgarth before census night, then Ulgarth counted her, and she is on some other page, and she is not our woman. And then it is Great-gran, and the family story is true, and I shall never hear the end of it from my cousins.&rdquo;' },
+        { q: 'And if she did not go?', a: '&ldquo;Then the register will show it. A teacher marks every child on the roll, every morning. And the log book gives the number in the room. Two counts, kept by two different hands. When two counts disagree&hellip;&rdquo; She smiles slightly. &ldquo;We have been here before tonight.&rdquo;' }
+      ],
+      clue: { id: 'stella4', title: 'Miss Tunstall: two counts in two hands', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('stella'); paint(); }
+    });
+  }
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); }
+  $('#stella').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;His diary,&rdquo; says Miss Tunstall. &ldquo;I bought it at the school sale in 1984, with the honours board and a box of chalk. I always thought it was the dullest book in Yorkshire.&rdquo;'); return; }
+    if (!told.stella) talkStella(); else if (!told.card) $('#cupboard').dispatchEvent(new MouseEvent('click')); else openLock();
+  });
+  $('#cupboard').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.stella) { ER.say('The school cupboard, locked. Miss Tunstall has the key on a ring with about forty others.'); return; }
+    if (!told.card) { ER.read({ html: CARD, cls: 'card', clue: { id: 'logcard', title: 'The log book and the registers', kind: 'From the schoolroom' }, done: function () { tell('card'); CS.terms(['log book', 'roll', 'struck off', 'attendance', 'Standard']); paint(); } }); return; }
+    openLock();
+  });
+  $('#honours').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'honours board');
+    ER.say('NEVER ABSENT, NEVER LATE. For 1880, two names: Tabitha Thackray and Timothy Wray. For 1881, a dash: nobody.');
+    if (!told.hon) { tell('hon'); CS.mine('honours', 'The honours board', '<p>Sattersby School: NEVER ABSENT, NEVER LATE. 1880: <b>Tabitha Thackray</b> and Timothy Wray. 1881: nobody.</p>', true); }
+  });
+  CS.thing('#stove', null, 'The stove: cold, black, and as big as a pony. In winter the children nearest it roasted and the ones at the back wore their coats.', isBusy);
+  CS.thing('#map', null, 'A map of the North Riding of Yorkshire, brown with age. Sattersby is a pencil dot at the head of a dale. Ulgarth is another, five miles over the moor.', isBusy);
+  CS.thing('#urn', null, 'The tea urn of the village hall, and a notice from the W.I.: CHAIR YOGA, TUESDAYS, 7 PM. BRING A CHAIR. (CHAIRS PROVIDED.)', isBusy);
+  CS.thing('#chairs', null, 'Stacked blue plastic chairs. The village hall has more chairs than the village has people.', isBusy);
+  CS.thing('#mdesk', null, 'The master&rsquo;s desk, high on its step, where he could see every child in the room. Miss Tunstall taught from it for seven years. He taught from it for thirty-one.', isBusy);
+  CS.thing('#wins', null, 'Rain on the tall windows. They were made high so that the children could not look out of them.', isBusy);
+  CS.thing('#lid', null, 'The desk in the back row. Its lid is down, and it stays down now.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the log and the register: the mornings with one child too many ---------- */
+  function makeLock() {
+    var marked = ER.flag('s-days') || {}, wait = false;
+    var box = ER.el('div', 'sr'), side = ER.el('div', 'sr-side');
+    var log = ER.el('div', 'doc log', ER.gloss(LOG));
+    var s = '<div class="reg"><h6>Upper Standards (IV to VI) &middot; Register <span>March 28th to April 8th, 1881</span></h6><table><tr><th class="nm">Name</th>';
+    DAYS.forEach(function (d) { s += '<th><button type="button" data-d="' + d[0] + '">' + d[1] + '<br>' + d[0] + '</button></th>'; });
+    s += '</tr>';
+    ROLL.forEach(function (r) {
+      s += '<tr' + (r[2] ? ' class="off"' : '') + '><td class="nm">' + r[0] + (r[2] ? '<i>' + r[2] + '</i>' : '') + '</td>';
+      DAYS.forEach(function (d, k) { s += '<td>' + (r[1] ? (r[1].charAt(k) === 'o' ? 'o' : '|') : '') + '</td>'; });
+      s += '</tr>';
+    });
+    s += '</table><p class="key">| present &middot; o absent. Click the day at the top of a column to mark a morning when somebody was in the room who was not on the roll.</p>' +
+      '<p class="pencil">T.T. &mdash; told S. 10th &mdash; S.T.</p></div>' +
+      '<div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Show Miss Tunstall</button></div>';
+    side.innerHTML = s;
+    box.appendChild(log); box.appendChild(side);
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function paintDays() {
+      ER.$$('.reg th button', side).forEach(function (b) { b.classList.toggle('on', !!marked[b.getAttribute('data-d')]); });
+      box.setAttribute('data-days', chosen().join('-'));
+    }
+    function chosen() { return DAYS.filter(function (d) { return marked[d[0]]; }).map(function (d) { return d[0]; }); }
+    ER.$$('.reg th button', side).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || nextFile) return;
+        var d = b.getAttribute('data-d'); if (marked[d]) delete marked[d]; else marked[d] = 1;
+        ER.flag('s-days', marked); CS.sfx.chalk(); paintDays(); msg('');
+      });
+    });
+    var WHY = {
+      '28': 'Monday the 28th: seven on the roll and no noughts, and seven in the log. They agree.',
+      '29': 'Tuesday the 29th: the log has one more than the register, yes. Read the log for that morning: who sat with the Upper Standards?',
+      '30': 'Wednesday the 30th: one nought on the register, so six present. The log says six. They agree.',
+      '31': 'Thursday the 31st: count the strokes on the register, and read the log for that morning.',
+      '1': 'Friday the 1st: count the strokes on the register, and read the log for that morning.',
+      '4': 'Monday the 4th: Timothy Wray was absent. How many strokes does that leave on the register, and what does the log say?',
+      '5': 'Tuesday the 5th: count the strokes on the register, and read the log for that morning.',
+      '6': 'Wednesday the 6th: count the strokes again. The log says seven.',
+      '7': 'Thursday the 7th: Victoria Spence was absent. How many strokes, and what does the log say?',
+      '8': 'Friday the 8th: Victoria Spence was absent again. How many strokes, and what does the log say?'
+    };
+    side.querySelector('#s-go').addEventListener('click', function () {
+      var i, d, file, ch = chosen();
+      if (wait || nextFile) return;
+      if (!ch.length) { msg('&ldquo;No mornings marked,&rdquo; says Miss Tunstall. &ldquo;Count each day: the strokes on the register, and the number in the log.&rdquo;'); return; }
+      for (i = 0; i < DAYS.length; i++) {
+        d = DAYS[i][0];
+        if (!!marked[d] !== ER.check('day', d)) { ER.sfx.no(); CS.flash(side.querySelector('.reg th button[data-d="' + d + '"]')); msg('Miss Tunstall puts her finger on one column. &ldquo;' + WHY[d] + '&rdquo;'); return; }
+      }
+      file = ER.exit([ch.join('-')], { wait: true });
+      if (!file) { msg('Something is wrong with this page. Tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('s-file', file);
+      msg('Six mornings with one child more in the room than on the roll: <b>Thursday 31 March, Friday 1 April, Monday 4 April, Tuesday 5, Thursday 7 and Friday 8</b>. Not the 29th: that was the Vicar&rsquo;s niece.');
+      CS.mine('school', 'The school: one child too many', '<p>Mrs Tasker kept the school while her husband was out counting. Her log gives the Upper Standards in the room each morning; the register has a mark for each child on the roll.</p>' +
+        '<p>On <b>Thursday 31 March, Friday 1 April, Monday 4 April, Tuesday 5, Thursday 7 and Friday 8 April</b> the log has one more child than the register. (On the 29th the extra one was the Vicar&rsquo;s niece; on the wet 6th, nobody extra.)</p>' +
+        '<p>Tabitha Thackray was struck off the roll on 18 March, &ldquo;to go to service at Ulgarth Farm from Lady Day&rdquo;. The pencil note at the foot: <i>T.T. &mdash; told S. 10th &mdash; S.T.</i> (Selina Tasker.)</p>' +
+        '<p>So a child not on the roll was in this room on <b>Friday 1 April and Monday 4 April</b>, either side of census night. Tabitha had not gone to Ulgarth. She slept in Sattersby on Sunday 3 April.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Miss Tunstall reads the pencil note at the foot of the register twice. <i>T.T. &mdash; told S. 10th &mdash; S.T.</i>',
+          '&ldquo;T.T. Tabitha Thackray. Struck off on the eighteenth, gone to her place at Ulgarth. And here she is, back in this room on the thirty-first, and on Friday the first, and on Monday the fourth, and all that week but the wet Wednesday. Not on the roll, so nobody marked her. But Selina counted her, because Selina counted heads.&rdquo;',
+          '&ldquo;Friday before census night, and Monday after. Ulgarth is five miles over the moor. She was not at Ulgarth on Sunday night. She was in her own bed on Church Lane, and her name is not on page 9.&rdquo;',
+          '&ldquo;S.T. is Selina Tasker. The same initials as mine: I used to think that was a sign. <i>Told S. 10th.</i> Selina told her husband something on the tenth of April, the day after he took his book to the Registrar.&rdquo;',
+          '&ldquo;He kept a diary. It is on my kitchen table. Come next door.&rdquo;'
+        ], function () { busy = false; ER.addClue('notice', 'The Medical Officer&rsquo;s notice, April 1881', NOTICE, 'card', 'From the schoolroom'); CS.terms(['the said', 'inst.', 'Medical Officer', 'scarlet fever']); paint(); });
+      }, 2600);
+    });
+    paintDays();
+    msg(chosen().length ? 'The mornings you have marked so far.' : 'For each morning, compare the number in the log with the strokes on the register. Mark the mornings when somebody was in the room who was not on the roll.');
+    return { open: function () { ER.open('ov-lock', box, function () { ER.addClue('log', 'The log book, March and April 1881', LOG, 'log', 'From the schoolroom'); ER.addClue('reg', 'The register of the Upper Standards', side.querySelector('.reg').outerHTML, 'card', 'From the schoolroom'); paint(); }); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

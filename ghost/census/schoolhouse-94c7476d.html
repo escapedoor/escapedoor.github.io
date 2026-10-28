@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The School House · Not a Soul Missed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="census.css">
+<style>
+  body{--bg:#1e140e;--accent:#e8a06a;--font-display:'Architects Daughter',cursive;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,20,14,.96);--tc-ink:#f4ece0;--cap-bg:rgba(30,20,14,.95);--panel:#24180f;--face-bg:#2a2c3e;--q-ink:#e8a06a;--fade:#0c0806;--hud-bg:rgba(30,20,14,.8)}
+  .tc-room{font-size:clamp(44px,6.6vw,90px);font-weight:700}
+  #fire{animation:fire .5s steps(3,end) infinite}
+  @keyframes fire{33%{transform:scaleY(.92)}66%{transform:scaleY(1.06)}}
+  #fire{transform-origin:460px 640px}
+  #tail{animation:tail 4s ease-in-out infinite;transform-origin:1268px 640px}
+  @keyframes tail{50%{transform:rotate(14deg)}}
+  #eye{display:none}
+  #scene.look #eye{display:block}
+
+  /* the diary, and three pencils */
+  .dy{width:min(1120px,96vw);display:flex;gap:14px;align-items:flex-start}
+  .dy .doc.diary{flex:1 1 0;width:auto;max-height:min(640px,calc(100vh - 140px));font-size:13.5px;line-height:1.85;padding:14px 24px 12px}
+  .dy .doc.diary .d{font-size:13.5px;margin:7px 0 0}
+  .dy .doc.diary .d.pick{cursor:pointer;border-radius:3px}
+  .dy .doc.diary .d.pick:hover{background:rgba(232,160,106,.28)}
+  .dy .doc.diary .d.left{background:rgba(210,69,47,.25)}
+  .dl{cursor:pointer;border-radius:3px;padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .dl:hover{background:rgba(232,160,106,.22)}
+  .dl[data-m=a]{background:rgba(70,150,80,.22);box-shadow:inset 0 -3px 0 #3a8a4a}
+  .dl[data-m=x]{background:rgba(200,60,40,.2);box-shadow:inset 0 -3px 0 #c83a2a}
+  .dl[data-m=q]{background:rgba(120,120,130,.22);box-shadow:inset 0 -3px 0 #7a7a86}
+  .dl b.tag{display:inline-block;margin-left:4px;padding:0 5px;font-family:'Oswald',sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.1em;line-height:16px;vertical-align:2px;color:#fff;border-radius:2px}
+  .dl[data-m=a] b.tag{background:#3a8a4a}.dl[data-m=x] b.tag{background:#c83a2a}.dl[data-m=q] b.tag{background:#7a7a86}
+  .dim{color:#8a7a6a}
+  .dy-side{flex:0 0 300px;display:flex;flex-direction:column;gap:10px}
+  .pens{display:flex;flex-direction:column;gap:7px}
+  .pen{display:flex;align-items:center;gap:10px;padding:8px 10px;background:#2a1e16;border:1px solid #6a5444;color:#f4ece0;font-family:'EB Garamond',serif;font-size:16.5px;cursor:pointer;text-align:left}
+  .pen i{flex:0 0 60px;height:10px;border-radius:0 5px 5px 0;position:relative}
+  .pen i:before{content:'';position:absolute;left:-10px;top:0;border-right:10px solid #e9d8b8;border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .pen[data-m=a] i{background:#3a8a4a}.pen[data-m=x] i{background:#c83a2a}.pen[data-m=q] i{background:#7a7a86}
+  .pen.on{border-color:#e8a06a;box-shadow:0 0 0 2px #e8a06a inset}
+  .dy .pmsg{color:#f3ecd9;font-size:17px;min-height:120px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a3a2a"/><stop offset="1" stop-color="#4a2618"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2616"/><stop offset="1" stop-color="#1c120a"/></linearGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffd07a" stop-opacity=".55"/><stop offset="1" stop-color="#ff8a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff0c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff0c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0604" stop-opacity=".25"/><stop offset="1" stop-color="#050302" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- a low room: red walls, black beams, books -->
+<rect x="-1000" y="-400" width="3600" height="1160" fill="url(#wallG)"/>
+<rect x="-1000" y="760" width="3600" height="580" fill="url(#floorG)"/>
+<g fill="#1a0e08"><rect x="-1000" y="40" width="3600" height="26"/><rect x="380" y="-400" width="28" height="466"/><rect x="1180" y="-400" width="28" height="466"/></g>
+
+<!-- the bookshelves, floor to beam -->
+<g id="books" class="hot"><rect x="1360" y="66" width="300" height="694" fill="#2a1a10"/><g id="spines"></g></g>
+<!-- the window: rain, and the dark school across the yard -->
+<g id="win" class="hot"><rect x="640" y="150" width="300" height="260" fill="#120c08"/><rect x="654" y="164" width="272" height="232" fill="#0c1424"/>
+  <path d="M680 396V300l60 -50l60 50v96zM820 396V280h90v116z" fill="#05080e"/><path d="M790 164v232M654 280h272" stroke="#120c08" stroke-width="7"/>
+  <g stroke="#6a7a98" stroke-width="1.300" opacity=".5"><path d="M680 180l-4 22M720 230l-4 22M760 190l-4 22M850 210l-4 22M890 260l-4 22M700 320l-4 22M870 330l-4 22"/></g>
+  <rect x="620" y="408" width="340" height="18" fill="#3a2414"/><g id="bell"><path d="M900 408v-30q0 -18 14 -22q14 4 14 22v30z" fill="#b08a3a"/><rect x="910" y="340" width="8" height="16" fill="#3a2414"/></g></g>
+<!-- the fireplace, tiled, with a small coal fire -->
+<g id="hearth" class="hot"><rect x="360" y="460" width="200" height="300" fill="#2a1a12"/><rect x="376" y="476" width="168" height="270" fill="#3a5a6a"/><g fill="#2f4a58"><rect x="376" y="476" width="168" height="30"/><rect x="376" y="530" width="168" height="30"/></g>
+  <rect x="400" y="580" width="120" height="166" fill="#0e0806"/><g id="fire"><path d="M410 700q20 -60 40 -40q10 -40 30 -10q20 -30 30 20q10 20 0 30h-100z" fill="#e8642a"/><path d="M430 700q10 -30 24 -20q10 -20 20 0q10 -10 16 20z" fill="#ffc05a"/></g>
+  <rect x="404" y="700" width="112" height="22" fill="#1a1a1a"/><circle cx="460" cy="650" r="200" fill="url(#fireG)" pointer-events="none"/><rect x="340" y="444" width="240" height="20" fill="#1a0e08"/>
+  <g id="photo" class="hot"><rect x="372" y="388" width="60" height="56" fill="#c9a24a"/><rect x="378" y="394" width="48" height="44" fill="#d9ccb0"/><circle cx="402" cy="410" r="8" fill="#8a7a6a"/><path d="M386 438q16 -20 32 0z" fill="#6a5a8a"/></g>
+  <g id="radio"><rect x="470" y="404" width="80" height="40" rx="6" fill="#6a4a2a"/><circle cx="530" cy="424" r="10" fill="#2a1a10"/><rect x="480" y="414" width="30" height="20" fill="#d9c08a"/></g></g>
+
+<!-- the kitchen table, and what is on it -->
+<g id="table"><rect x="560" y="610" width="620" height="24" fill="#c9b48a"/><path d="M560 634h620v24H560z" fill="#a8946a"/><rect x="590" y="658" width="22" height="110" fill="#4a3018"/><rect x="1130" y="658" width="22" height="110" fill="#4a3018"/>
+  <g id="teapot"><path d="M640 610v-40q0 -20 34 -20t34 20v40z" fill="#c83a5a"/><path d="M646 560q28 -16 56 0" stroke="#e85a7a" stroke-width="6" fill="none"/><circle cx="674" cy="546" r="7" fill="#e85a7a"/></g>
+  <g id="bible" class="hot"><rect x="740" y="572" width="150" height="38" fill="#14100e"/><rect x="746" y="566" width="138" height="8" fill="#e9dcc0"/><path d="M760 588h110" stroke="#b8923a" stroke-width="3"/><text x="815" y="602" class="fZ" font-size="10" text-anchor="middle" fill="#b8923a">HOLY BIBLE</text></g>
+  <g id="folder" class="hot"><rect x="910" y="594" width="120" height="16" fill="#3a5a8a"/><rect x="914" y="588" width="112" height="8" fill="#f2f0e8"/></g>
+  <g id="diary" class="hot"><rect x="1050" y="584" width="70" height="26" rx="3" fill="#5a1c22"/><rect x="1054" y="580" width="62" height="6" fill="#f6f0e0"/><text x="1085" y="602" class="fZ" font-size="8" text-anchor="middle" fill="#d9b85a">1881</text></g></g>
+<!-- two chairs: the cat's, and the empty one -->
+<g id="chair2"><path d="M1190 760v-130h80v130M1190 630v-120h12v120M1258 630v-120h12v120M1190 520h80" stroke="#3a2412" stroke-width="10" fill="none"/></g>
+<g id="cat" class="hot"><path d="M300 760v-120h90v120M300 640v-130M390 640v-130M300 520h90" stroke="#3a2412" stroke-width="10" fill="none"/>
+  <path d="M306 640q0 -40 44 -42q46 2 40 42z" fill="#d97a2a"/><circle cx="330" cy="596" r="18" fill="#d97a2a"/><path d="M316 584l4 -16l10 12zM334 580l10 -12l4 16z" fill="#d97a2a"/>
+  <path d="M322 596h6M336 596h6" stroke="#3a2010" stroke-width="2.500" stroke-linecap="round"/><g id="eye"><circle cx="339" cy="596" r="3" fill="#d9e04a"/></g><path id="tail" d="M388 632q30 -6 24 -40" stroke="#d97a2a" stroke-width="9" fill="none" stroke-linecap="round"/></g>
+<!-- the lamp over the table -->
+<path d="M870 -400V200" stroke="#1a0e08" stroke-width="3"/><path d="M830 200h80l24 40h-128z" fill="#c9a24a"/><circle cx="870" cy="420" r="380" fill="url(#lampG)" pointer-events="none"/>
+
+<g id="stella" class="hot" transform="translate(1440 880) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the lane, to the Tup</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="census.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var SHEET = '<h4>Is a diary true?</h4><p>A diary is written by one person, for himself, on the day or soon after. It can tell you what records never tell you: what somebody thought, and felt.</p>' +
+    '<p>But a diary is not a record. Its writer chooses what to put in and what to leave out. He may not know the whole truth. He may write things kindly, or proudly, or to make himself feel better about them.</p>' +
+    '<p>So check it. Some things in a diary can be checked against records written by other hands at the time, and they agree, or they do not. Some things cannot be checked at all. And the things a diary does not say can matter as much as the things it does.</p>' +
+    '<p class="sm"><i>Year 6 history club, Sattersby School, 1998. &mdash; Miss T.</i></p>';
+  var BIBLE = '<h4>The Family Bible of Samuel and Tabitha Wray</h4><p class="ink">Samuel Wray and Tabitha Thackray were married November 21st 1867.</p><p class="ink">Timothy born February 5th 1869.</p><p class="ink">Sarah born January 15th 1872.</p>' +
+    '<p class="ink">Samuel born April 20th 1873, died July 29th 1873.</p><p class="ink">Sydney born August 10th 1875.</p><p class="ink">Violet born on the night of the Census, 1881.</p><p class="sm"><i>(All in one hand: Tabitha Wray&rsquo;s, Miss Tunstall thinks.)</i></p>';
+  var TRANS = '<h4>Sattersby Local History Society &middot; 1974</h4><p>PARISH REGISTER TRANSCRIPTS: BAPTISMS 1881</p><p>No. 549. Jan. 23rd. Susan, d. of Thomas &amp; Sarah Thackray, Church Lane, labourer.</p>' +
+    '<p>No. 553. April 24th. Violet, d. of Samuel &amp; Tabitha Wray, Church Lane, waller. (In margin: &ldquo;born April 1st&rdquo;.)</p><p>Typed by Mrs V. Sowter. Checked by &mdash;</p><p class="sm"><i>(Nobody signed for checking it.)</i></p>';
+  /* the diary: [line, its text] for the lines to be marked; the dates are headings */
+  var D = [
+    ['Friday, March 18th', [['d1', 'The Thackray girl, Tabitha, left school today, for her place at Ulgarth Farm from Lady Day.'], ['d2', 'My best reader in Standard IV.']]],
+    ['Monday, March 28th', [['d3', 'The Managers give me a fortnight&rsquo;s leave upon the Census; Selina will keep the school.']]],
+    ['Saturday, April 2nd', [['d4', 'A cold bright evening, and the curlews back on the moor.']]],
+    ['Sunday, April 3rd. Census night', [['d5', 'Vavasour preached forty minutes on the numbering of the people.']]],
+    ['Monday, April 4th', [['d6', 'Collected every schedule by noon.'], ['d7', 'Thackray cannot write, so I wrote his down for him at the door.'], ['d8', 'His girl is at her place at Ulgarth since the 25th ult.']]],
+    ['Saturday, April 9th', [['d9', 'Took my Book to the Registrar: two hundred and fourteen souls in the parish.'], ['d10', 'Not a soul missed.']]],
+    ['Sunday, April 10th', [['', 'Church twice. A quiet day.']]],
+    ['Monday, April 11th', [['d11', 'Back in school.']]],
+    ['Saturday, April 23rd', [['d12', 'Tabitha Thackray buried today, aged twelve.'], ['d13', 'She was never a strong child.']]],
+    ['Monday, April 25th', [['d14', 'The Medical Officer has closed the school for three weeks: scarlet fever.']]]
+  ];
+  var DATES = ['18', '28', '2', '3', '4', '9', '10', '11', '23', '25'];
+  function diaryHtml(marks) {
+    var s = '<h4>S. Tasker &middot; Letts&rsquo;s Diary for 1881</h4>';
+    D.forEach(function (e, k) {
+      s += '<span class="d" data-day="' + DATES[k] + '">' + e[0] + '</span><p>';
+      e[1].forEach(function (l) {
+        if (!l[0]) s += '<span class="dim">' + l[1] + '</span> ';
+        else s += '<span class="dl" data-d="' + l[0] + '"' + (marks && marks[l[0]] ? ' data-m="' + marks[l[0]] + '"' : '') + '>' + l[1] + '</span> ';
+      });
+      s += '</p>';
+    });
+    return s;
+  }
+
+  ER.init({
+    theme: 'ghost', story: 'census', storyTitle: 'Not a Soul Missed', id: 'schoolhouse', no: 'V', title: 'The School House',
+    go: 'Sit at the table',
+    intro: [
+      'The log book and the register were two counts in two hands. On six mornings Mrs Tasker&rsquo;s log had one child more in the room than the register had on the roll: from Thursday 31 March, on Friday 1 April and Monday 4 April, and on through the week but the wet Wednesday. The Vicar&rsquo;s niece explained the 29th. Nothing explained the others but the pencil note at the foot: <i>T.T. &mdash; told S. 10th &mdash; S.T.</i>',
+      'Tabitha Thackray had been struck off to go to her place at Ulgarth. But she was at school in Sattersby on the Friday before census night and the Monday after.',
+      'Next door, the School House: the schoolmaster&rsquo;s house in 1881, and Miss Tunstall&rsquo;s now. Mr Tasker&rsquo;s diary is on the kitchen table.'
+    ],
+    exit: {"next":"snug","w":{"b26c463b":"5f8f6e4e"}}, tags: {"d1":["c6d88b7f"],"d2":["e748b342"],"d3":["e2a9ecbb"],"d4":["2a034046"],"d5":["2afe217f"],"d6":["8507436e"],"d7":["6b134ea4"],"d8":["df54b4d4"],"d9":["0343da68"],"d10":["324a8741"],"d11":["e8bfe99c"],"d12":["5d57afab"],"d13":["f8375cac"],"d14":["92e34064"],"left":["b83feb75"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('h-file') || null; told = ER.flag('h-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('h-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#stella').classList.toggle('ready', !!(told.in && !told.stella));
+    $('#diary').classList.toggle('ready', !!(told.stella && !nextFile && !(lock && lock.isOpen())));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.stella ? 1 : 0) + (told.sheet ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.in) return null;
+    if (nextFile) return ['go', ['The Tup has the only phone signal in Sattersby, and Ulgarth&rsquo;s page is online. Click the button at the bottom of the screen.']];
+    if (!told.stella) return ['stella', ['Miss Tunstall is by the bookshelves, on the right. Click her.']];
+    if (lock && lock.isOpen()) return lock.hints();
+    if (!told.sheet) return ['read', ['Read Miss Tunstall&rsquo;s old worksheet first: it is the paper sticking out of the books on the shelves, on the right.', 'Then open the diary: the small red book on the table.']];
+    return ['open', ['Click the small red diary on the table.']];
+  }
+
+  function begin() {
+    $('#stella').innerHTML = CS.stella({});
+    drawSpines();
+    CS.clicker(told.tick ? 17 : 16);
+    paint();
+    if (nextFile) { busy = false; ER.say('The School House kitchen. The diary is shut. Sexton is asleep.'); return; }
+    if (told.in) { busy = false; ER.say('The School House: books, a fire, and the cat.'); return; }
+    ER.narrate([
+      'A low red kitchen with black beams, a coal fire, a teapot in a knitted cosy, and books on every wall that is not a window. Through the window, the school, dark, across the yard.',
+      'A large ginger cat is asleep on the chair nearest the fire. &ldquo;Sexton,&rdquo; says Miss Tunstall. &ldquo;He came with the house. Or the house came with him.&rdquo;'
+    ], function () {
+      setTimeout(function () {
+        $('#scene').classList.add('look'); CS.clicker(17, true); tell('tick');
+        ER.narrate([
+          'Sexton opens one eye and looks across the table at the empty chair. He watches it for a long time, the way cats watch a person who is about to sit down. Then he purrs. In Miss Tunstall&rsquo;s pocket, a click.',
+          'Miss Tunstall looks at the empty chair too. &ldquo;Seventeen,&rdquo; she says. &ldquo;Sit down, then. Both of you.&rdquo;'
+        ], function () { tell('in'); busy = false; paint(); });
+      }, 900);
+    });
+  }
+  function drawSpines() {
+    var s = '', y, x, w, c = ['#7a2a1c', '#2a4a6a', '#3a5a2a', '#8a6a2a', '#4a2a4a', '#6a6a6a', '#1c3a3a', '#9a4a2a'], k = 0;
+    for (y = 80; y < 740; y += 110) {
+      for (x = 1368; x < 1650; x += w + 2) { w = 10 + ((k * 7) % 14); s += '<rect x="' + x + '" y="' + (y + ((k * 13) % 18)) + '" width="' + w + '" height="' + (96 - ((k * 13) % 18)) + '" fill="' + c[k % c.length] + '"/>'; k++; }
+      s += '<rect x="1360" y="' + (y + 96) + '" width="300" height="10" fill="#1a0e08"/>';
+    }
+    s += '<rect x="1420" y="300" width="40" height="52" fill="#fbfaf2" transform="rotate(-8 1440 326)"/><path d="M1426 314h28M1426 324h24M1426 334h28" stroke="#8a948c" stroke-width="2" transform="rotate(-8 1440 326)"/>';
+    $('#spines').innerHTML = s;
+  }
+
+  function talkStella() {
+    ER.talk({
+      who: 'Miss Stella Tunstall', role: 'Of the School House', face: window.FACE('stella'),
+      lines: [
+        { note: 'She puts the small red diary on the table.', a: '&ldquo;Mr Tasker&rsquo;s diary for 1881. A schoolmaster&rsquo;s diary: weather, sermons, the price of coal. I have read it twice in forty years and fallen asleep both times.&rdquo;' },
+        { a: '&ldquo;The log book was for the Inspector. This was for himself. Same man, same weeks, same pen. Let us see where they part company.&rdquo;' },
+        { q: 'How?', a: '&ldquo;Go through it line by line with my pencils. Green where the records written at the time agree with him. Red where they say otherwise. Grey where nothing can check him one way or the other. I used to do this with ten-year-olds. They were very hard on Henry the Eighth.&rdquo;' },
+        { a: '&ldquo;My old worksheet is in the shelves somewhere, sticking out. Read it. I wrote it, so&hellip;&rdquo; She waits. &ldquo;Go on.&rdquo; &ldquo;It&rsquo;s correct.&rdquo; &ldquo;Good.&rdquo;' }
+      ],
+      clue: { id: 'stella5', title: 'Miss Tunstall: green, red and grey', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('stella'); paint(); }
+    });
+  }
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); paint(); }
+  $('#stella').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The Tup,&rdquo; says Miss Tunstall, putting on her coat. &ldquo;Vince&rsquo;s snug has the only signal in the village. I want to see Ulgarth&rsquo;s page. And I want a drink.&rdquo;'); return; }
+    if (!told.stella) talkStella(); else openLock();
+  });
+  $('#books').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEET, cls: 'card', clue: { id: 'sheet', title: 'Is a diary true?', kind: 'From the School House' }, done: function () { tell('sheet'); CS.terms(['diary', 'contradict']); paint(); } });
+  });
+  $('#diary').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.stella) { ER.say('A small red diary for 1881. &ldquo;Wait,&rdquo; says Miss Tunstall. &ldquo;Let me find my pencils.&rdquo;'); return; }
+    openLock();
+  });
+  $('#bible').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BIBLE, cls: 'bible', clue: { id: 'bible', title: 'The Wrays&rsquo; family Bible', kind: 'From the School House' }, done: function () {
+      CS.terms(['family Bible']);
+      ER.say('&ldquo;That is where the family story starts,&rdquo; says Miss Tunstall. &ldquo;Born on the night of the Census. In her own mother&rsquo;s hand.&rdquo;');
+    } });
+  });
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TRANS, cls: 'trans', clue: { id: 'trans', title: 'The typed list of 1974', kind: 'From the School House' }, done: function () {
+      CS.terms(['transcript']);
+      ER.say('&ldquo;Born April the first,&rdquo; says Miss Tunstall. &ldquo;Typed in 1974, and I have believed it ever since. And the vicar&rsquo;s margin looked just the same to me tonight.&rdquo;');
+    } });
+  });
+  $('#photo').addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (busy) return;
+    ER.say('A photograph on the mantelpiece: a tiny old lady in a hat, with a cake. Written on the back: <i>Great-gran&rsquo;s 95th, 3rd April 1976. Census night, as she always said. S.T. (21) holding the cake.</i>');
+    if (!told.photo) { tell('photo'); CS.mine('photo', 'Violet&rsquo;s birthday', '<p>Violet Wray (later Tunstall) always kept her birthday on <b>3rd April</b>, census night, &ldquo;as she always said&rdquo;. The photograph of her 95th birthday is dated 3rd April 1976.</p>', true); }
+  });
+  CS.thing('#cat', null, function () { return 'Sexton, the cat. He is watching the empty chair across the table, and purring.'; }, isBusy);
+  CS.thing('#hearth', null, 'A small coal fire in a tiled grate. Miss Tunstall says the School House chimney has drawn badly since 1868.', isBusy);
+  CS.thing('#win', null, 'Through the rain, the dark shape of the school across the yard, and on the windowsill the old school bell, which nobody rings now.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the diary, line by line; then the day it leaves out ---------- */
+  function makeLock() {
+    var marks = ER.flag('h-marks') || {}, pen = null, wait = false, step = ER.flag('h-step') || 1;
+    var box = ER.el('div', 'dy'), doc = ER.el('div', 'doc diary', ER.gloss(diaryHtml(marks))), side = ER.el('div', 'dy-side');
+    side.innerHTML = '<div class="frame"><h5>Miss Tunstall&rsquo;s pencils</h5><div class="pens">' +
+      '<button type="button" class="pen" data-m="a"><i></i>The records agree</button><button type="button" class="pen" data-m="x"><i></i>The records say otherwise</button><button type="button" class="pen" data-m="q"><i></i>Nothing can check it</button></div></div>' +
+      '<div class="pfoot" style="flex-direction:column;align-items:stretch"><button type="button" class="btn" id="h-go">Show Miss Tunstall</button><p class="pmsg"></p></div>';
+    box.appendChild(doc); box.appendChild(side);
+    var LABEL = { a: 'AGREE', x: 'OTHERWISE', q: 'CAN&rsquo;T CHECK' };
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function paintMarks() {
+      ER.$$('.dl', doc).forEach(function (l) {
+        var m = marks[l.getAttribute('data-d')], t = l.querySelector('b.tag');
+        if (m) { l.setAttribute('data-m', m); if (!t) { t = ER.el('b', 'tag'); l.appendChild(t); } t.innerHTML = LABEL[m]; } else { l.removeAttribute('data-m'); if (t) l.removeChild(t); }
+      });
+      ER.$$('.pen', side).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-m') === pen); });
+      ER.$$('.d', doc).forEach(function (d) { d.classList.toggle('pick', step === 2); });
+      box.setAttribute('data-marks', order().join('-'));
+    }
+    function order() { var o = [], i; for (i = 1; i <= 14; i++) o.push(marks['d' + i] || '-'); return o; }
+    ER.$$('.pen', side).forEach(function (b) { b.addEventListener('click', function () { if (step > 1) return; pen = pen === b.getAttribute('data-m') ? null : b.getAttribute('data-m'); paintMarks(); }); });
+    doc.addEventListener('click', function (e) {
+      if (wait || nextFile) return;
+      if (step === 2) { var d = e.target.closest('.d'); if (d) pickDay(d.getAttribute('data-day'), d); return; }
+      var l = e.target.closest('.dl'); if (!l) return;
+      if (!pen) { msg('Pick up a pencil first: green, red or grey.'); return; }
+      var k = l.getAttribute('data-d'); if (marks[k] === pen) delete marks[k]; else marks[k] = pen;
+      ER.flag('h-marks', marks); CS.sfx.chalk(); paintMarks(); msg('');
+    });
+    var WHERE = {
+      d1: 'The log book has an entry for the 18th of March. What does it say?',
+      d2: 'Is there any record of who read best? A log book has no opinions in it.',
+      d3: 'The log for the 28th of March, in Mrs Tasker&rsquo;s hand. What does it say?',
+      d4: 'Did anybody write down the weather that evening, or the curlews?',
+      d5: 'Who else wrote down how long the sermon was?',
+      d6: 'The schedules themselves were destroyed. Is there any record of the hour he collected them?',
+      d7: 'Look at the marriage register: how did Thomas Thackray sign his name?',
+      d8: 'Where was Tabitha on Friday the 1st and Monday the 4th? The log and the register.',
+      d9: 'What does his own total at the back of his book say?',
+      d10: 'Count the women and girls on page 9 again.',
+      d11: 'The log book for the 11th of April.',
+      d12: 'The burial book for the 23rd of April.',
+      d13: 'Look at the honours board in the schoolroom.',
+      d14: 'The log for the 25th of April, and the notice pasted into it.'
+    };
+    var DAYNO = {
+      '18': 'He wrote what happened on the 18th: she left school. The log says so too.',
+      '28': 'The leave and Selina keeping the school: all of it is in the log.',
+      '2': 'A cold bright evening and curlews. If anything else happened that day, no record shows it.',
+      '3': 'Census night. He was at church twice, and the census was taken. Nothing else is recorded for that day.',
+      '4': 'He wrote a great deal on the 4th. What he got wrong you have already marked in red.',
+      '9': 'The day he took his book to the Registrar. He wrote that down.',
+      '11': 'Back in school, as the log says.',
+      '23': 'The funeral, which he wrote down.',
+      '25': 'The school closed, which he wrote down.'
+    };
+    function pickDay(day, el) {
+      var file;
+      if (!ER.check('left', day)) { ER.sfx.no(); CS.flash(el); msg('&ldquo;' + DAYNO[day] + '&rdquo;'); return; }
+      file = ER.exit([order().join('-') + '-' + day], { wait: true });
+      if (!file) { msg('Something is wrong with this page. Tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('h-file', file); el.classList.add('left');
+      msg('Sunday, April 10th: <i>Church twice. A quiet day.</i> The register says that on the 10th Selina told him. <b>He does not write what she told him.</b>');
+      CS.mine('diary', 'Mr Tasker&rsquo;s diary: what it says and what it leaves out', '<p><b>Agree with the records:</b> Tabitha left school on 18 March for her place at Ulgarth; his leave from 28 March, with Selina keeping the school; Thackray cannot write (his mark in the marriage register); 214 souls by his own count; back in school on 11 April; Tabitha buried on 23 April aged twelve; the school closed for scarlet fever on 25 April.</p>' +
+        '<p><b>Cannot be checked:</b> his best reader; the weather and the curlews; the sermon; the hour he collected the schedules.</p>' +
+        '<p><b>The records say otherwise:</b> &ldquo;His girl is at her place at Ulgarth since the 25th ult.&rdquo; (she was at school in Sattersby on 1 and 4 April); &ldquo;Not a soul missed&rdquo; (page 9 has six women and girls, and his own total says seven); &ldquo;She was never a strong child&rdquo; (never absent, never late, 1880).</p>' +
+        '<p><b>What it leaves out:</b> Sunday 10 April, &ldquo;a quiet day&rdquo;: the day Selina told him (&ldquo;told S. 10th&rdquo;), the day after his book went to the Registrar.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Miss Tunstall closes the diary and sits with her hand on it.',
+          '&ldquo;He wrote Thackray&rsquo;s schedule for him at the door, because Thackray could not write. And when he came to the girl, he knew better than her father. His own log book said she had gone to Ulgarth on Lady Day. So he left her out.&rdquo;',
+          '&ldquo;On the Saturday he took his book to the Registrar, and swore to two hundred and fourteen souls and not one missed. On the Sunday Selina told him: Tabitha was at home that night, the place was put off. And he wrote: <i>a quiet day.</i>&rdquo;',
+          '&ldquo;Nine days later she died, of the fever. And he wrote that she was never strong, poor child. She was never absent in her life. He was not a wicked man. He was a proud one, and then he was sorry, and he wrote it down kindly, so that he could bear to read it.&rdquo;',
+          'She picks up the typed list of 1974 and the photograph from the mantelpiece. &ldquo;It is still two girls, though. Great-gran was born on census night. Every record in this house says so. Ulgarth&rsquo;s page is online, and the only signal in Sattersby is in Vince&rsquo;s snug. Coat on.&rdquo;'
+        ], function () { busy = false; CS.terms(['ult.', 'Registrar']); paint(); });
+      }, 3000);
+    }
+    side.querySelector('#h-go').addEventListener('click', function () {
+      var i, k, left = 0;
+      if (wait || nextFile || step > 1) return;
+      for (i = 1; i <= 14; i++) if (!marks['d' + i]) left++;
+      if (left === 14) { msg('&ldquo;Not a mark on it,&rdquo; says Miss Tunstall. &ldquo;Pick up a pencil and click a line.&rdquo;'); return; }
+      if (left) { msg('&ldquo;' + (left === 1 ? 'One line' : left + ' lines') + ' still unmarked,&rdquo; says Miss Tunstall. &ldquo;Every line gets a colour.&rdquo;'); return; }
+      for (i = 1; i <= 14; i++) {
+        k = 'd' + i;
+        if (!ER.check(k, marks[k])) { ER.sfx.no(); CS.flash(doc.querySelector('.dl[data-d="' + k + '"]')); msg('Miss Tunstall taps one line with her pencil. &ldquo;' + WHERE[k] + '&rdquo;'); return; }
+      }
+      step = 2; ER.flag('h-step', 2); pen = null; CS.solved(true); paintMarks();
+      msg('Every line has its colour. &ldquo;One more thing,&rdquo; says Miss Tunstall. &ldquo;A diary can be wrong by what it leaves out. On one of these days something happened that another record shows, and he does not say it. Click that day&rsquo;s date.&rdquo;');
+    });
+    function hintsNow() {
+      if (step === 1) return ['marks', [
+        'Take one line at a time. Ask: which paper from tonight could check it? The log book, the register, the burial book, the marriage register, page 9, his own total, the honours board.',
+        'Opinions, the weather and the length of a sermon were never written down by anybody else: grey. Where the log or a register says the same thing: green. Where a record shows the opposite: red.',
+        'Three lines are red: where Tabitha was, whether anybody was missed, and whether she was strong. The marriage register shows that Thackray made his mark: that line is green.'
+      ]];
+      return ['left', [
+        'Look at the pencil note at the foot of the school register: &ldquo;told S. 10th&rdquo;.',
+        'On the 10th of April Selina told her husband something. What does his diary say for that day?'
+      ]];
+    }
+    paintMarks();
+    msg(step === 2 ? 'Click the date of the day he leaves something out.' : Object.keys(marks).length ? 'Your marks so far.' : 'Pick up a pencil, then click a line of the diary to mark it. Click a line again with the same pencil to take the mark off.');
+    return { open: function () { ER.open('ov-lock', box, function () { ER.addClue('diaryt', 'Mr Tasker&rsquo;s diary, 1881', diaryHtml(), 'diary', 'From the School House'); paint(); }); }, isOpen: function () { return !!box.parentNode; }, hints: hintsNow };
+  }
+})();
+</script>
+</body>
+</html>

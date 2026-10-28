@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Churchyard · Not a Soul Missed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="census.css">
+<style>
+  body{--bg:#05070c;--accent:#e9c46a;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(6,8,12,.96);--tc-ink:#e9eef2;--cap-bg:rgba(6,8,12,.95);--panel:#10141a;--face-bg:#2a2c3e;--q-ink:#e9c46a;--fade:#020304;--hud-bg:rgba(6,8,12,.8)}
+  .tc-room{font-size:clamp(48px,7vw,96px);font-weight:700}
+  #flame{animation:flame .4s steps(2,end) infinite}
+  @keyframes flame{50%{transform:scaleY(.9)}}
+  .ins{font-family:'Cinzel',serif;fill:#3a3e40}
+  .cs{transition:filter .2s}
+
+  /* the burial books on the left, the names off the stones on the right */
+  .by{width:min(1180px,96vw);display:flex;gap:14px;align-items:flex-start}
+  .by-books{flex:0 0 560px;background:#f1e8d2;color:#2a2218;padding:8px 10px 6px;border:1px solid #9c8a64}
+  .by-books h6{margin:6px 0 2px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em}
+  .en{display:grid;grid-template-columns:30px 130px 92px 104px 52px 1fr;align-items:center;gap:4px;min-height:33px;border-bottom:1px solid rgba(122,106,76,.35);font-family:'Homemade Apple',cursive;font-size:11px;color:#2c2440}
+  .en .no{font-family:'EB Garamond',serif;font-size:12px;color:#2a2218}
+  .en .slot{min-height:29px;border:1.5px dashed #a8967a;border-radius:3px;background:rgba(255,255,255,.35)}
+  .by-side{flex:1 1 0;min-width:0}
+  .names{background:#2a2e30;border:1px solid #5a6064;padding:8px;display:flex;flex-wrap:wrap;gap:6px;min-height:200px;align-content:flex-start}
+  .names h6{flex:0 0 100%;margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#cfd8d0}
+  .nt{display:inline-block;padding:4px 9px 3px;background:#d9dbd5;color:#262a2c;font-family:'Cinzel',serif;font-size:11.5px;line-height:1.25;border-radius:8px 8px 2px 2px;box-shadow:0 2px 5px rgba(0,0,0,.4);cursor:grab;white-space:nowrap}
+  .nt small{display:block;font-family:'EB Garamond',serif;font-size:12px}
+  .nt.held{outline:3px solid #e9c46a}
+  .en .slot .nt{display:block;box-shadow:none;margin:1px;padding:2px 7px 1px}
+  .by .pmsg{color:#f3ecd9;font-size:17px;min-height:90px}
+  /* the Thackray stone, close to */
+  .zs{width:min(1060px,96vw);display:flex;gap:18px;align-items:flex-start}
+  .zs-stone{flex:0 0 430px}
+  .zs-stone svg{display:block;width:100%;height:auto}
+  .zs-stone .ln{cursor:pointer}
+  .zs-stone .ln:hover rect{fill:rgba(233,196,106,.25)}
+  .zs-stone .ln.mk rect{fill:rgba(210,69,47,.3)}
+  .zs-side{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:10px}
+  .zs .doc{width:auto;max-height:none}
+  .zs .pmsg{color:#f3ecd9;font-size:17.5px;min-height:96px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05060c"/><stop offset="1" stop-color="#141a2a"/></linearGradient>
+  <linearGradient id="grassG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18221c"/><stop offset="1" stop-color="#0a0e0c"/></linearGradient>
+  <linearGradient id="stoneG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9bdb6"/><stop offset="1" stop-color="#7a7e78"/></linearGradient>
+  <linearGradient id="graniteG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2c30"/><stop offset=".5" stop-color="#3e4046"/><stop offset="1" stop-color="#141518"/></linearGradient>
+  <radialGradient id="holeG"><stop offset="0" stop-color="#000"/><stop offset=".55" stop-color="#000" stop-opacity=".85"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warmG"><stop offset="0" stop-color="#ffd890" stop-opacity=".28"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <mask id="lm"><rect x="-1000" y="-400" width="3600" height="1740" fill="#fff"/><circle id="hole" cx="800" cy="600" r="230" fill="url(#holeG)"/></mask>
+</defs>
+
+<!-- the night, the church, the far wall -->
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#nightG)"/>
+<g fill="#fff"><circle cx="210" cy="80" r="1.500"/><circle cx="460" cy="150" r="1.100"/><circle cx="700" cy="60" r="1.300"/><circle cx="980" cy="120" r="1"/><circle cx="1180" cy="40" r="1.500"/><circle cx="1500" cy="160" r="1.200"/><circle cx="90" cy="230" r="1"/><circle cx="600" cy="250" r="1.200"/></g>
+<path d="M340 90a26 26 0 1 0 22 40a20 20 0 1 1 -22 -40z" fill="#e9eef2" opacity=".75"/>
+<g id="church" class="hot"><path d="M1180 480V170h110v310z" fill="#0c0e16"/><path d="M1170 170h130v-14h-12v-12h-14v12h-14v-12h-14v12h-14v-12h-14v12h-14v-12h-14v12h-12z" fill="#0e1018"/>
+  <path d="M1290 480V320l310 -70v230z" fill="#0a0c14"/><path d="M1450 330q14 -26 28 0v60h-28z" fill="#f2d78a" opacity=".85"/><circle cx="1464" cy="360" r="60" fill="url(#warmG)"/></g>
+<path d="M-1000 470Q0 450 800 480T2600 470V900H-1000Z" fill="url(#grassG)"/>
+<path d="M-1000 488H2600" stroke="#2a2a32" stroke-width="16"/>
+<g id="yew" class="hot"><path d="M40 560Q10 330 120 250Q230 210 300 330Q340 430 300 560Z" fill="#0a120e"/></g>
+<path id="gatefar" d="M-40 480V420l60 -40l60 40v60z" fill="#0c0e14"/>
+<path d="M620 900Q700 700 760 520Q790 490 840 490" stroke="#24262c" stroke-width="44" fill="none" opacity=".8"/>
+
+<!-- worn stones that nobody can read any more -->
+<g id="worn" class="hot" fill="#4a4e4a"><path d="M150 760v-70q0 -24 26 -24t26 24v70z"/><path d="M1460 820v-80q0 -26 30 -26t30 26v80z" transform="rotate(4 1490 780)"/><path d="M700 470v-46q0 -16 18 -16t18 16v46z"/><path d="M960 480v-40q0 -14 16 -14t16 14v40z" transform="rotate(-6 976 460)"/></g>
+
+<!-- 1. the Thackray stone, 1902 -->
+<g id="s1" class="hot cs" transform="rotate(-3 520 600)"><path d="M440 690V530q0 -60 80 -60t80 60v160z" fill="url(#stoneG)"/><rect x="430" y="688" width="180" height="16" fill="#5a5e58"/>
+  <g class="ins" text-anchor="middle"><text x="520" y="528" font-size="9">IN LOVING MEMORY OF</text><text x="520" y="548" font-size="13" font-weight="700">THOMAS THACKRAY</text><text x="520" y="564" font-size="8.500">WHO DIED NOV. 30TH 1902</text><text x="520" y="577" font-size="8.500">AGED 66 YEARS</text>
+    <text x="520" y="600" font-size="9">ALSO TABITHA</text><text x="520" y="613" font-size="8.500">DAUGHTER OF THE ABOVE</text><text x="520" y="626" font-size="8.500">WHO DIED MARCH 19TH 1881</text><text x="520" y="639" font-size="8.500">AGED 12 YEARS</text><text x="520" y="664" font-size="9" font-style="italic">THY WILL BE DONE</text></g></g>
+<!-- 2. the Wray stone, 1919 -->
+<g id="s2" class="hot cs"><path d="M760 640V440h36v-30h28v30h36v200z" fill="url(#stoneG)"/><rect x="750" y="638" width="120" height="14" fill="#5a5e58"/>
+  <g class="ins" text-anchor="middle" font-size="7.500"><text x="810" y="462">SAMUEL WRAY</text><text x="810" y="474">WALLER, OF THIS PARISH</text><text x="810" y="486">DIED MAY 3RD 1919, AGED 75</text><text x="810" y="504">ALSO SAMUEL</text><text x="810" y="515">INFANT SON OF THE ABOVE</text><text x="810" y="526">DIED JULY 29TH 1873</text><text x="810" y="537">AGED 3 MONTHS</text>
+    <text x="810" y="555">ALSO TABITHA</text><text x="810" y="566">RELICT OF THE ABOVE</text><text x="810" y="577">SAMUEL WRAY</text><text x="810" y="588">DIED FEB. 9TH 1931, AGED 85</text></g></g>
+<!-- 3. Violet's stone: black granite, gilt letters, 1979 -->
+<g id="s3" class="hot cs"><path d="M1020 760V610q0 -10 10 -14l70 -16l70 16q10 4 10 14v150z" fill="url(#graniteG)"/><rect x="1010" y="758" width="180" height="16" fill="#1a1b1e"/>
+  <g font-family="Cinzel,serif" text-anchor="middle" fill="#d9b85a"><text x="1100" y="624" font-size="11" font-weight="700">VIOLET TUNSTALL</text><text x="1100" y="638" font-size="8">N&#201;E WRAY</text><text x="1100" y="660" font-size="9">BORN ON CENSUS NIGHT 1881</text><text x="1100" y="676" font-size="8">DIED 12TH JANUARY 1979</text><text x="1100" y="690" font-size="8">AGED 97</text><text x="1100" y="716" font-size="9" font-style="italic">AT REST</text></g></g>
+<!-- 4. the schoolmaster, with a stone book on top -->
+<g id="s4" class="hot cs"><path d="M240 800V660h160v140z" fill="url(#stoneG)"/><path d="M248 660l36 -24h72l36 24z" fill="#9a9e98"/><path d="M290 640q30 -10 30 0q0 -10 30 0" stroke="#5a5e58" stroke-width="2" fill="none"/><rect x="232" y="798" width="176" height="14" fill="#5a5e58"/>
+  <g class="ins" text-anchor="middle" font-size="7.500"><text x="320" y="678" font-size="10" font-weight="700">SEPTIMUS TASKER</text><text x="320" y="692">FOR THIRTY-ONE YEARS</text><text x="320" y="703">MASTER OF SATTERSBY SCHOOL</text><text x="320" y="716">DIED MARCH 6TH 1899, AGED 70</text><text x="320" y="734" font-style="italic" font-size="8.500">HE KEPT A TRUE ACCOUNT</text>
+    <text x="320" y="756">ALSO SELINA, HIS WIFE</text><text x="320" y="768">DIED OCT. 2ND 1904, AGED 71</text></g></g>
+<!-- 5. the grandparents, leaning, with lichen -->
+<g id="s5" class="hot cs" transform="rotate(7 1330 620)"><path d="M1270 700V560q0 -40 60 -40t60 40v140z" fill="url(#stoneG)"/><g fill="#9aa86a" opacity=".55"><circle cx="1290" cy="560" r="10"/><circle cx="1366" cy="660" r="12"/><circle cx="1300" cy="680" r="7"/></g>
+  <g class="ins" text-anchor="middle" font-size="7.500"><text x="1330" y="570">WILLIAM THACKRAY</text><text x="1330" y="582">DIED MARCH 10TH 1870</text><text x="1330" y="593">AGED 61</text><text x="1330" y="616">ALSO ZIPPORAH</text><text x="1330" y="627">HIS WIFE</text><text x="1330" y="638">DIED JAN. 2ND 1878</text><text x="1330" y="649">AGED 66</text></g></g>
+
+
+<!-- the dark, and the hole the lantern makes in it -->
+<rect id="dark" x="-1000" y="-400" width="3600" height="1740" fill="#03040a" opacity=".9" mask="url(#lm)" pointer-events="none"/>
+<!-- Miss Tunstall has the torch on her phone, pointed at her feet -->
+<circle cx="1480" cy="840" r="110" fill="url(#warmG)" pointer-events="none"/><g id="stella" class="hot" transform="translate(1480 880) scale(.95)" opacity=".8"></g>
+<g id="lamp" pointer-events="none" transform="translate(800 600)"><circle r="150" fill="url(#warmG)"/><path d="M-11 -18h22l-3 -8h-16z" fill="#1a1a1a"/><rect x="-10" y="-18" width="20" height="28" rx="3" fill="#f6d27a" opacity=".9"/>
+  <path id="flame" d="M0 -8q-5 6 0 12q5 -6 0 -12z" fill="#fff6d0"/><path d="M-10 -18h20M-10 10h20" stroke="#1a1a1a" stroke-width="3"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the school</button>
+<button type="button" class="gobtn" id="books" style="bottom:calc(5vh + 64px)">Open the burial books</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="census.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var CARD = '<h4>Reading a stone</h4><p>Most people in a village like this never had a stone at all: a stone cost money. When a family could pay, the mason cut what he was given, and often he was given it years later, when somebody else died and the stone went up at last. More names were added below, each beginning <b>Also</b>.</p>' +
+    '<p>So a stone can be wrong: a date remembered, an age guessed. The burial register was written by the vicar within days of the funeral.</p>' +
+    '<p><b>In loving memory of</b>: the usual first words. <b>Who departed this life</b>: who died. <b>Relict of</b>: widow of. <b>The late</b>: who had died. <b>Infant son of</b>: baby boy of. <b>The above</b>: the person named above. <b>N&eacute;e</b>: born with the surname. <b>Aged 12 years</b>: the age at death.</p>' +
+    '<p class="sm"><i>Lantern Walk, stop 4. &mdash; S.T.</i></p>';
+  var STONES = {
+    s1: ['The Thackray stone', '<p class="sm">IN LOVING MEMORY OF</p><p><b>THOMAS THACKRAY</b></p><p class="sm">WHO DIED NOV. 30TH 1902, AGED 66 YEARS.</p><p class="sm">&nbsp;</p><p>ALSO TABITHA,</p><p class="sm">DAUGHTER OF THE ABOVE,</p><p class="sm">WHO DIED MARCH 19TH 1881, AGED 12 YEARS.</p><p class="ep">Thy will be done.</p>'],
+    s2: ['The Wray stone', '<p><b>SAMUEL WRAY</b>,</p><p class="sm">WALLER, OF THIS PARISH,</p><p class="sm">DIED MAY 3RD 1919, AGED 75.</p><p class="sm">&nbsp;</p><p>ALSO SAMUEL,</p><p class="sm">INFANT SON OF THE ABOVE, DIED JULY 29TH 1873, AGED 3 MONTHS.</p><p class="sm">&nbsp;</p><p>ALSO TABITHA,</p><p class="sm">RELICT OF THE ABOVE SAMUEL WRAY, DIED FEB. 9TH 1931, AGED 85.</p>'],
+    s3: ['Violet&rsquo;s stone', '<p><b>VIOLET TUNSTALL</b></p><p class="sm">N&Eacute;E WRAY</p><p>BORN ON CENSUS NIGHT 1881</p><p class="sm">DIED 12TH JANUARY 1979, AGED 97</p><p class="ep">At rest.</p><p class="sm"><i>(Black granite with gilt letters: the newest stone in the row.)</i></p>'],
+    s4: ['The schoolmaster&rsquo;s stone', '<p><b>SEPTIMUS TASKER</b></p><p class="sm">FOR THIRTY-ONE YEARS MASTER OF SATTERSBY SCHOOL,</p><p class="sm">DIED MARCH 6TH 1899, AGED 70.</p><p class="ep">He kept a true account.</p><p class="sm">&nbsp;</p><p>ALSO SELINA, HIS WIFE,</p><p class="sm">DIED OCT. 2ND 1904, AGED 71.</p><p class="sm"><i>(A stone book lies open on the top.)</i></p>'],
+    s5: ['The old Thackray stone', '<p><b>WILLIAM THACKRAY</b></p><p class="sm">DIED MARCH 10TH 1870, AGED 61.</p><p class="sm">&nbsp;</p><p>ALSO ZIPPORAH, HIS WIFE,</p><p class="sm">DIED JAN. 2ND 1878, AGED 66.</p><p class="sm"><i>(Leaning, and spotted with lichen.)</i></p>']
+  };
+  /* the burial books: [entry, No., name, abode, when buried, age, which book] */
+  var BUR = [
+    ['b1', 401, 'William Thackray', 'Church Lane', 'March 14th 1870', '61', 'The book of 1813 to 1885'],
+    ['b2', 422, 'Samuel Wray', 'Church Lane', 'August 1st 1873', '3 months'],
+    ['b3', 447, 'Zipporah Thackray', 'Church Lane', 'January 5th 1878', '66'],
+    ['b4', 463, 'Tabitha Thackray', 'Church Lane', 'April 23rd 1881', '12'],
+    ['b5', 31, 'Sophia Varey', 'Church Lane', 'November 17th 1888', '68', 'The book of 1885 to 1950'],
+    ['b6', 112, 'Septimus Tasker', 'School House', 'March 10th 1899', '70'],
+    ['b7', 151, 'Thomas Thackray', 'Church Lane', 'December 4th 1902', '66'],
+    ['b8', 166, 'Selina Tasker', 'Main Street', 'October 6th 1904', '71'],
+    ['b9', 298, 'Samuel Wray', 'Church Lane', 'May 7th 1919', '75'],
+    ['b10', 371, 'Tabitha Wray', 'Church Lane', 'February 13th 1931', '85'],
+    ['b11', 61, 'Violet Tunstall', 'Main Street', 'January 17th 1979', '97', 'The book of 1950 onwards']
+  ];
+  /* the names off the stones */
+  var NAMES = [
+    ['tt', 'Thomas Thackray', 'died Nov. 30th 1902, aged 66'],
+    ['ta', 'Tabitha, daughter of the above', 'died March 19th 1881, aged 12'],
+    ['sw', 'Samuel Wray, waller', 'died May 3rd 1919, aged 75'],
+    ['si', 'Samuel, infant son of the above', 'died July 29th 1873, aged 3 months'],
+    ['tw', 'Tabitha, relict of the above', 'died Feb. 9th 1931, aged 85'],
+    ['vt', 'Violet Tunstall, n&eacute;e Wray', 'died 12th January 1979, aged 97'],
+    ['st', 'Septimus Tasker', 'died March 6th 1899, aged 70'],
+    ['sl', 'Selina, his wife', 'died Oct. 2nd 1904, aged 71'],
+    ['wt', 'William Thackray', 'died March 10th 1870, aged 61'],
+    ['zt', 'Zipporah, his wife', 'died Jan. 2nd 1878, aged 66']
+  ];
+  function burPage() {
+    var s = '<h4>Burials in the Parish of Sattersby</h4><h5>three books, the entries for the stones by the path</h5><table><tr><th>No.</th><th>Name</th><th>Abode</th><th>When buried</th><th>Age</th></tr>';
+    BUR.forEach(function (b) { s += (b[6] ? '<tr><td colspan="5" class="pr"><i>' + b[6] + '</i></td></tr>' : '') + '<tr><td class="pr">' + b[1] + '</td><td>' + b[2] + '</td><td>' + b[3] + '</td><td>' + b[4] + '</td><td>' + b[5] + '</td></tr>'; });
+    return s + '</table>';
+  }
+
+  ER.init({
+    theme: 'ghost', story: 'census', storyTitle: 'Not a Soul Missed', id: 'churchyard', no: 'III', title: 'The Churchyard',
+    go: 'Take the lantern',
+    intro: [
+      'Each baptism went with its person on page 9. Lines stayed empty for the people born at Ulgarth, and for Mrs Varey, born before the book began. Tabitha Wray, the wife, was the Tabitha Thackray baptised in 1846: the marriage register shows her wedding to Samuel Wray. Thomas, the head, said he was forty-three, though his baptism makes him a year older: a census age is what a person said.',
+      'Three baptisms were left. The baby Samuel Wray was buried in 1873. Tabitha Thackray, baptised in 1868, was buried on 23 April 1881, aged twelve: alive on census night, and not on the page. And Violet Wray, baptised three weeks after the census, &ldquo;born April&hellip;&rdquo; something.',
+      'Outside it is properly dark now. Miss Tunstall gives you the lantern.'
+    ],
+    exit: {"next":"schoolroom","w":{"930170b6":"bedce993"}}, tags: {"b1":["185786a4"],"b2":["7a3439ac"],"b3":["25afb4d5"],"b4":["c67154e1"],"b5":["d510778b"],"b6":["ebf48218"],"b7":["76a74c7e"],"b8":["51121ae3"],"b9":["9b3d6b20"],"b10":["f2598f33"],"b11":["48f7736d"],"wrong":["79a4a891"],"cut":["08feae0f"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  var seen = ER.flag('c-seen') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function nSeen() { return Object.keys(seen).length; }
+  function paint() {
+    $('#stella').classList.toggle('ready', !!(told.in && !told.stella));
+    $('#books').classList.toggle('on', !!(told.stella && nSeen() >= 5 && !nextFile));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.stella ? 1 : 0) + (nSeen() >= 5 ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.in) return null;
+    if (nextFile) return ['go', ['The school is next. Click the button at the bottom of the screen.']];
+    if (!told.stella) return ['stella', ['Miss Tunstall is standing on the right, by the church wall. Click her.']];
+    if (lock && lock.isOpen()) return lock.hints();
+    if (nSeen() < 5) return ['stones', [
+      'Move the lantern with the mouse. There are five stones with names you can read, along the path and the wall. Click each one to read it.',
+      'Two Thackray stones, a Wray stone, a black stone with gold letters, and one with a stone book on top. Some others are worn smooth.'
+    ]];
+    return ['books', ['You have read all five stones. Click &ldquo;Open the burial books&rdquo; at the bottom of the screen.']];
+  }
+
+  function begin() {
+    $('#stella').innerHTML = CS.stella({});
+    CS.clicker(told.tick ? 15 : 14);
+    paint();
+    var svg = $('#scene');
+    svg.addEventListener('pointermove', function (e) { moveLamp(ER.pt(svg, e)); });
+    svg.addEventListener('pointerdown', function (e) { moveLamp(ER.pt(svg, e)); });
+    if (nextFile) { busy = false; ER.say('The churchyard. On the Thackray stone, a date that is five weeks out.'); return; }
+    if (told.in) { busy = false; ER.say('The churchyard, by lantern. ' + (nSeen() < 5 ? 'Five stones to read.' : 'The burial books are on the bench.')); return; }
+    ER.narrate([
+      'The lantern makes a small warm room in the dark, and the stones come into it one at a time as you move: grey faces, lichen, letters.',
+      'Miss Tunstall has brought the burial books out of the vestry in a shopping bag. She stands on the path and waits for you.'
+    ], function () { tell('in'); busy = false; paint(); });
+  }
+  var near = false;
+  function moveLamp(p) {
+    $('#hole').setAttribute('cx', p.x.toFixed(0)); $('#hole').setAttribute('cy', p.y.toFixed(0));
+    $('#lamp').setAttribute('transform', 'translate(' + p.x.toFixed(0) + ' ' + p.y.toFixed(0) + ')');
+    var d = Math.abs(p.x - 520) + Math.abs(p.y - 590), lean = d < 260 && !busy;
+    $('#flame').setAttribute('transform', lean ? 'rotate(' + (p.x > 520 ? -28 : 28) + ')' : '');
+    if (lean && !near && !told.lean) { tell('lean'); CS.clicker(15, true); tell('tick'); ER.say('The lantern flame leans over, as if a door had opened somewhere, though there is no door. In Miss Tunstall&rsquo;s pocket, a click.'); }
+    near = lean;
+  }
+
+  function talkStella() {
+    ER.talk({
+      who: 'Miss Stella Tunstall', role: 'Guide of the Lantern Walk', face: window.FACE('stella'),
+      lines: [
+        { a: '&ldquo;The families are along this path, all of them. Thackrays, Wrays, and Mr Tasker himself, under his stone book. Read the stones that can still be read. Some of the old ones have been rained clean.&rdquo;' },
+        { a: '&ldquo;Then the burial books. Every name on a stone should have its funeral in a book, a few days after the death. Put each name with its entry, and see whether they agree.&rdquo;' },
+        { q: 'And if they don&rsquo;t?', a: '&ldquo;Then one of them is wrong, and we shall have to decide which. My card is on the bench: Lantern Walk, stop 4. I wrote it, so&hellip;&rdquo; &ldquo;It&rsquo;s correct.&rdquo; &ldquo;You&rsquo;re learning.&rdquo;' }
+      ],
+      clue: { id: 'stella3', title: 'Miss Tunstall: the stones and the books', kind: 'What she said' },
+      done: function (seen2) {
+        if (!seen2) return; tell('stella'); paint();
+        ER.read({ html: CARD, cls: 'card', clue: { id: 'stonecard', title: 'Reading a stone', kind: 'From the churchyard' }, done: function () { CS.terms(['relict', 'the late', 'infant son', 'the above', 'née', 'in loving memory', 'mason', 'epitaph']); paint(); } });
+      }
+    });
+  }
+  $('#stella').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The school,&rdquo; says Miss Tunstall. &ldquo;If Tabitha went into service, Mr Tasker wrote down the day she left.&rdquo;'); return; }
+    if (!told.stella) talkStella();
+    else ER.read({ html: CARD, cls: 'card', clue: { id: 'stonecard', title: 'Reading a stone', kind: 'From the churchyard' } });
+  });
+  ['s1', 's2', 's3', 's4', 's5'].forEach(function (id) {
+    $('#' + id).addEventListener('click', function () {
+      if (busy) return;
+      CS.sfx.stone();
+      ER.read({ html: '<h4>' + STONES[id][0] + '</h4>' + STONES[id][1], cls: 'stone', clue: { id: 'st-' + id, title: 'Stone: ' + STONES[id][0].replace(/^The /, '').replace(/^Violet/, 'Violet'), kind: 'From the churchyard' }, done: function () {
+        if (!seen[id]) { seen[id] = 1; ER.flag('c-seen', seen); }
+        if (id === 's3') ER.say('&ldquo;I had that cut in 1979,&rdquo; says Miss Tunstall. &ldquo;Her own words. She would have haunted me otherwise.&rdquo;');
+        else if (id === 's4') ER.say('&ldquo;He kept a true account,&rdquo; Miss Tunstall reads. &ldquo;Did he, though.&rdquo;');
+        else if (nSeen() >= 5) ER.say('Five stones read. The burial books are waiting.');
+        paint();
+      } });
+    });
+  });
+  CS.thing('#worn', 'gravestone', 'Worn smooth. Two hundred winters have taken the names off.', isBusy);
+  CS.thing('#yew', 'yew', 'The great yew by the wall. Under it, the ground is dry and bare.', isBusy);
+  CS.thing('#church', null, 'The church, black against the stars, and one small lit window: the vestry, where you left the strip light on.', isBusy);
+  $('#books').addEventListener('click', function () { if (!busy && !nextFile) openLock(); });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); }
+
+  /* ---------- the burial books against the stones; then the stone that disagrees ---------- */
+  function makeLock() {
+    var placed = ER.flag('c-placed') || {}, wait = false, step = ER.flag('c-step') || 1, picks = ER.flag('c-picks') || {};
+    var box = ER.el('div', 'by'), books = ER.el('div', 'by-books'), side = ER.el('div', 'by-side'), zoom = ER.el('div', 'zs'), cur = null;
+    var s = '';
+    BUR.forEach(function (b) {
+      if (b[6]) s += '<h6>' + b[6] + '</h6>';
+      s += '<div class="en" data-b="' + b[0] + '"><span class="no">' + b[1] + '</span><span>' + b[2] + '</span><span>' + b[3] + '</span><span>' + b[4] + '</span><span>' + b[5] + '</span><div class="slot" data-b="' + b[0] + '"></div></div>';
+    });
+    books.innerHTML = s;
+    side.innerHTML = '<div class="names"><h6>Names off the stones</h6></div><div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Show Miss Tunstall</button></div>';
+    box.appendChild(books); box.appendChild(side);
+    var home = side.querySelector('.names');
+    NAMES.forEach(function (n) {
+      var el = ER.el('span', 'nt dnd-item', n[1] + '<small>' + n[2] + '</small>'); el.setAttribute('data-n', n[0]);
+      var where = null; Object.keys(placed).forEach(function (b) { if (placed[b] === n[0]) where = b; });
+      (where ? books.querySelector('.slot[data-b="' + where + '"]') : home).appendChild(el);
+    });
+    function msg(t, root) { (root || side).querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      placed = {};
+      BUR.forEach(function (b) { var el = books.querySelector('.slot[data-b="' + b[0] + '"] .nt'); placed[b[0]] = el ? el.getAttribute('data-n') : 'x'; });
+      ER.flag('c-placed', placed);
+      box.setAttribute('data-placed', BUR.map(function (b) { return placed[b[0]]; }).join('-'));
+    }
+    ER.dnd(box, { item: '.nt', slot: '.slot', home: home, lock: function () { return wait || step > 1; }, change: function () { read(); CS.sfx.stone(); msg(''); } });
+    var WHY = {
+      b1: 'William Thackray, buried March 1870, aged 61. Which stone has a man who died that month?',
+      b2: 'Samuel Wray, buried August 1873, aged three months: a baby. There are two Samuel Wrays on the Wray stone.',
+      b3: 'Zipporah Thackray, buried January 1878, aged 66.',
+      b4: 'Tabitha Thackray, buried April 1881, aged 12. Which Tabitha was twelve?',
+      b5: 'Mrs Varey, the monthly nurse, buried 1888. Is her name on any of the five stones? Most people in a village never had a stone at all.',
+      b6: 'Septimus Tasker, buried March 1899, aged 70.',
+      b7: 'Thomas Thackray, buried December 1902, aged 66.',
+      b8: 'Selina Tasker, buried October 1904, aged 71.',
+      b9: 'Samuel Wray, buried May 1919, aged 75: the waller, not the baby.',
+      b10: 'Tabitha Wray, buried February 1931, aged 85: the widow. &ldquo;Relict&rdquo; means widow.',
+      b11: 'Violet Tunstall, buried January 1979, aged 97.'
+    };
+    side.querySelector('#c-go').addEventListener('click', function () {
+      var left = home.querySelectorAll('.nt').length, i, b;
+      if (wait || step > 1) return;
+      read();
+      if (left > 0 && left === NAMES.length) { msg('&ldquo;Not one name with its entry yet,&rdquo; says Miss Tunstall. Drag each name off a stone to its burial, or click the name and then the entry.'); return; }
+      if (left) { msg('&ldquo;' + (left === 1 ? 'One name off the stones is' : left + ' names off the stones are') + ' still waiting,&rdquo; says Miss Tunstall. &ldquo;Every one of them was buried here.&rdquo;'); return; }
+      for (i = 0; i < BUR.length; i++) {
+        b = BUR[i][0];
+        if (!ER.check(b, placed[b])) { ER.sfx.no(); CS.flash(books.querySelector('.en[data-b="' + b + '"]')); msg('Miss Tunstall holds the lantern to one entry. &ldquo;' + WHY[b] + '&rdquo;'); return; }
+      }
+      step = 2; ER.flag('c-step', 2); CS.solved(true);
+      msg('Every name has its burial. Now the dates: a funeral comes a few days after a death. Nine of the ten agree.');
+      setTimeout(showZoom, 1800);
+    });
+    /* step 2: the stone and its entry side by side */
+    var PARTS = [['top', 'IN LOVING MEMORY OF', 9], ['thomas', 'THOMAS THACKRAY, WHO DIED NOV. 30TH 1902, AGED 66 YEARS', 9], ['also', 'ALSO TABITHA, DAUGHTER OF THE ABOVE,', 9], ['march', 'WHO DIED MARCH 19TH 1881,', 9], ['aged', 'AGED 12 YEARS.', 9], ['ep', 'THY WILL BE DONE.', 9]];
+    function stoneSvg() {
+      var s = '<svg viewBox="0 0 430 460" xmlns="http://www.w3.org/2000/svg"><path d="M30 450V140Q30 20 215 20T400 140V450Z" fill="#c9ccc6" stroke="#7a7e78" stroke-width="4"/>', y = [92, 150, 236, 278, 320, 390], k;
+      for (k = 0; k < PARTS.length; k++) {
+        s += '<g class="ln" data-p="' + PARTS[k][0] + '"><rect x="44" y="' + (y[k] - 26) + '" width="342" height="' + (PARTS[k][0] === 'thomas' ? 62 : 36) + '" rx="4" fill="rgba(0,0,0,0)"/>';
+        if (PARTS[k][0] === 'thomas') s += '<text x="215" y="' + y[k] + '" font-family="Cinzel,serif" font-size="20" font-weight="700" text-anchor="middle" fill="#2a2e30">THOMAS THACKRAY</text><text x="215" y="' + (y[k] + 26) + '" font-family="Cinzel,serif" font-size="14" text-anchor="middle" fill="#2a2e30">WHO DIED NOV. 30TH 1902, AGED 66 YEARS</text>';
+        else s += '<text x="215" y="' + y[k] + '" font-family="Cinzel,serif" font-size="' + (PARTS[k][0] === 'ep' ? 15 : 16) + '" ' + (PARTS[k][0] === 'ep' ? 'font-style="italic" ' : '') + 'text-anchor="middle" fill="#2a2e30">' + PARTS[k][1] + '</text>';
+        s += '</g>';
+      }
+      return s + '</svg>';
+    }
+    function showZoom() {
+      if (!zoom.innerHTML) {
+        zoom.innerHTML = '<div class="zs-stone">' + stoneSvg() + '</div><div class="zs-side"><div class="doc reg"><h4>Burials, the book of 1813 to 1885</h4><table><tr><th>No.</th><th>Name</th><th>Abode</th><th>When buried</th><th>Age</th></tr>' +
+          '<tr><td class="pr">463</td><td>Tabitha Thackray</td><td>Church Lane</td><td>April 23rd 1881</td><td>12</td></tr></table><p>Written by the Revd Stephen Vavasour, who took the funeral.</p></div>' +
+          '<div class="frame"><h5 id="z-q"></h5><p class="pmsg"></p></div></div>';
+        ER.$$('.ln', zoom).forEach(function (g) { g.addEventListener('click', function () { pick(g.getAttribute('data-p')); }); });
+      }
+      if (ER.isOpen()) ER.close();
+      ER.open('ov-lock', zoom, function () { paint(); });
+      askNow();
+    }
+    function askNow() {
+      ER.$$('.ln', zoom).forEach(function (g) { g.classList.toggle('mk', g.getAttribute('data-p') === picks.wrong); });
+      zoom.querySelector('#z-q').textContent = step === 2 ? 'The stone and its entry disagree. On the stone, click what is wrong.' : 'Now click what shows that this stone was cut long after 1881.';
+      if (!zoom.querySelector('.pmsg').innerHTML) msg(step === 2 ? 'Tabitha&rsquo;s funeral, says the book, was on April 23rd 1881, and she was twelve. Read her lines on the stone against it, one by one.' : '&ldquo;So the stone is wrong,&rdquo; says Miss Tunstall. &ldquo;How could a mason get it wrong? He was cutting the stone the week she died, surely?&rdquo;', zoom);
+    }
+    var NO2 = {
+      top: 'Every stone in the row begins like that. It tells you nothing about Tabitha.',
+      thomas: 'That is her father&rsquo;s line, and it agrees with his burial: died November 30th 1902, buried December 4th. Read her lines.',
+      also: '&ldquo;Daughter of the above&rdquo;: her baptism says she was the daughter of Thomas and Sarah. That agrees.',
+      aged: 'Twelve agrees with the book, and with her baptism in December 1868.',
+      ep: '&ldquo;Thy will be done.&rdquo; That is a prayer, not a fact. It cannot be wrong.'
+    };
+    var NO3 = {
+      top: 'Every stone has those words, whenever it was cut.',
+      also: '&ldquo;Also&rdquo; is how a stone adds a name below another one, but it does not say which name came first. Look at the name above hers.',
+      march: 'That is the date that is wrong. What else on the stone tells you when it was cut?',
+      aged: 'Her age tells you when she died, not when the stone was cut.',
+      ep: 'A prayer has no date in it.'
+    };
+    function pick(p) {
+      var file;
+      if (wait) return;
+      if (step === 2) {
+        if (!ER.check('wrong', p)) { ER.sfx.no(); msg(NO2[p], zoom); return; }
+        picks.wrong = p; ER.flag('c-picks', picks); step = 3; ER.flag('c-step', 3); CS.sfx.chalk();
+        zoom.querySelector('.pmsg').innerHTML = ''; askNow(); return;
+      }
+      if (step === 3) {
+        if (!ER.check('cut', p)) { ER.sfx.no(); msg(NO3[p], zoom); return; }
+        file = ER.exit([BUR.map(function (b) { return placed[b[0]]; }).join('-') + '-' + picks.wrong + '-' + p], { wait: true });
+        if (!file) { msg('Something is wrong with this page. Tell your teacher.', zoom); return; }
+        wait = true; nextFile = file; ER.flag('c-file', file);
+        msg('Thomas Thackray died in November 1902. The stone went up after that, with his name at the top and his daughter&rsquo;s below: <b>cut twenty-one years after she died</b>, by a mason who had her date from her family&rsquo;s memory. The burial book was written that week.', zoom);
+        CS.mine('stone', 'The Thackray stone is wrong', '<p>Every stone name has its burial, and nine of the ten agree: a funeral a few days after the death. Mrs Varey (1888) has no stone at all.</p>' +
+          '<p>Tabitha Thackray&rsquo;s stone says she <b>died March 19th 1881</b>. The burial book says she was <b>buried April 23rd 1881</b>, aged 12, by the vicar who took the funeral.</p>' +
+          '<p>The stone was put up after her father died, in November 1902: his name is at the top. So her line was cut twenty-one years after her death, from memory. The book, written that week, is right: <b>she was alive on census night</b>, Sunday 3 April 1881.</p>');
+        setTimeout(function () {
+          ER.closeAll(); busy = true;
+          ER.narrate([
+            'Miss Tunstall puts her hand flat on the Thackray stone, the way you might put a hand on a horse.',
+            '&ldquo;March, for April. Somebody told the mason in 1902, and got the month wrong, and nobody has looked properly for a hundred and twenty-four years. Including me. I walk past this stone twice a week.&rdquo;',
+            'She lifts the lantern to the black stone with the gold letters. BORN ON CENSUS NIGHT 1881. &ldquo;And Great-gran. Born on census night: it says so in gold.&rdquo;',
+            '&ldquo;Two of them, still. A girl of twelve who was alive that night and isn&rsquo;t on the page, and a baby born that night who isn&rsquo;t either. If Tabitha had gone into service somewhere, Mr Tasker will have written down the day she left school. The school is across the lane.&rdquo;'
+          ], function () { busy = false; ER.addClue('bur2', 'Burials of the people on the stones', burPage(), 'reg', 'From the churchyard'); paint(); });
+        }, 3200);
+      }
+    }
+    function hintsNow() {
+      if (step === 1) return ['match', [
+        'Every name on the stones has a burial in one of the three books. Match them by the name, then by the year and the age: a funeral comes a few days after the death.',
+        'There are two Samuel Wrays (a baby of 1873 and the waller of 1919) and two Tabithas (a girl of twelve in 1881 and a widow of eighty-five in 1931). &ldquo;Relict&rdquo; means widow.',
+        'One entry in the books has no stone: Mrs Varey, the monthly nurse. Leave her slot empty.'
+      ]];
+      if (step === 2) return ['wrong', [
+        'Compare the stone with the burial book, line by line. A funeral is a few days after a death, not five weeks.',
+        'Her age and her parents agree with the book and the baptism. The date does not. Click the date of death on the stone.'
+      ]];
+      return ['cut', [
+        'A stone goes up when somebody is buried, and later names are added under it. Whose name is at the top of this one?',
+        'Her father&rsquo;s line says he died in November 1902. The stone could not have been put up before that. Click his line.'
+      ]];
+    }
+    read();
+    if (step === 1) msg(Object.keys(placed).length ? 'The books and the stones, as far as you have got.' : 'Put each name off the stones with its entry in the burial books. One entry has no stone.');
+    return {
+      open: function () { if (step > 1) showZoom(); else ER.open('ov-lock', box, function () { paint(); }); },
+      isOpen: function () { return !!box.parentNode || !!zoom.parentNode; },
+      hints: hintsNow
+    };
+  }
+})();
+</script>
+</body>
+</html>

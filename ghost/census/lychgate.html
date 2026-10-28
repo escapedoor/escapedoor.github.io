@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Lych-gate · Not a Soul Missed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="census.css">
+<style>
+  body{--bg:#1c1a2c;--accent:#f0b860;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,18,32,.96);--tc-ink:#efe9f2;--cap-bg:rgba(20,18,32,.95);--panel:#1e1c2c;--face-bg:#2a2c3e;--q-ink:#f0b860;--fade:#0a0910;--hud-bg:rgba(20,18,32,.8)}
+  .tc-room{font-size:clamp(48px,7vw,96px);font-weight:700}
+  .rook{animation:rook 26s linear infinite}
+  .rook.b{animation-duration:34s;animation-delay:-12s}
+  @keyframes rook{0%{transform:translate(-300px,40px)}100%{transform:translate(1900px,-60px)}}
+  #glow{animation:glow 3.2s steps(4,end) infinite}
+  @keyframes glow{50%{opacity:.75}}
+  #boardsheet.flut{animation:flut .25s steps(2,end) 4}
+  @keyframes flut{50%{transform:skewY(-2deg)}}
+
+  /* the photographs of pages 8 and 9, and Miss Tunstall's count */
+  .lk{width:min(1200px,96vw);display:flex;gap:14px;align-items:flex-start}
+  .lk-page{flex:1 1 0;min-width:0}
+  .lk-tabs{display:flex;gap:6px;margin-bottom:6px}
+  .lk-tabs button{padding:6px 14px 5px;border:1px solid #6a6a7a;background:#26243a;color:#e9e4f0;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+  .lk-tabs button.on{background:#efe6cf;color:#2a2218;border-color:#efe6cf}
+  .lk-side{flex:0 0 290px}
+  .tallyc{background:#fbfbf6;color:#1b2430;padding:12px 14px 10px;border-top:6px solid #2a3a2e;font-family:'Outfit',sans-serif}
+  .tallyc h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#2a3a2e}
+  .tallyc .pg{margin:0 0 8px;padding:6px 0 4px;border-bottom:1px dashed #9aa89c}
+  .tallyc .pg b{display:block;font-family:'Cinzel',serif;font-size:14px;margin-bottom:3px}
+  .dial{display:flex;align-items:center;gap:6px;margin:3px 0;font-size:15px}
+  .dial span{flex:1}
+  .dial button{width:30px;height:28px;border:1px solid #2a3a2e;background:#fff;color:#2a3a2e;font-size:18px;line-height:1;cursor:pointer;border-radius:2px}
+  .dial button:hover{background:#2a3a2e;color:#fff}
+  .dial i{display:inline-block;min-width:34px;text-align:center;font-style:normal;font-family:'Special Elite',monospace;font-size:20px;background:#efe6cf;padding:2px 0;border:1px solid #9aa89c}
+  .lk .pmsg{font-size:17px;min-height:110px;margin-top:8px}
+  .lk .pfoot{flex-direction:column;align-items:stretch;gap:6px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14132a"/><stop offset=".45" stop-color="#3a2c52"/><stop offset=".75" stop-color="#8a5466"/><stop offset="1" stop-color="#e2a066"/></linearGradient>
+  <linearGradient id="laneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3440"/><stop offset="1" stop-color="#16141c"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1c14"/><stop offset=".5" stop-color="#4a3424"/><stop offset="1" stop-color="#22160e"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".5"/><stop offset=".4" stop-color="#f0b860" stop-opacity=".14"/><stop offset="1" stop-color="#f0b860" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#05040a" stop-opacity=".28"/><stop offset="1" stop-color="#020205" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- the sky over the dale, the last of the light, and the moor -->
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<circle cx="1420" cy="120" r="1.600" fill="#fff" opacity=".7"/><circle cx="1210" cy="70" r="1.200" fill="#fff" opacity=".6"/><circle cx="320" cy="90" r="1.400" fill="#fff" opacity=".6"/><circle cx="640" cy="40" r="1.100" fill="#fff" opacity=".5"/>
+<path d="M-1000 520Q-500 450 0 480T700 470T1300 455T2000 470T2600 490V600H-1000Z" fill="#2a2638"/>
+<path d="M-1000 545Q-300 500 300 520T1100 505T2600 520V620H-1000Z" fill="#221e2e"/>
+<g class="rook"><path d="M0 0q8 -6 14 0q6 -6 14 0" stroke="#100e18" stroke-width="2.600" fill="none"/></g>
+<g class="rook b"><path d="M0 60q6 -5 11 0q5 -5 11 0" stroke="#100e18" stroke-width="2.200" fill="none"/><path d="M40 40q7 -5 12 0q5 -5 12 0" stroke="#100e18" stroke-width="2.200" fill="none"/></g>
+
+<!-- St Oswald's: the tower and the nave, beyond the wall -->
+<g id="tower" class="hot">
+  <path d="M1010 560V200h120v360z" fill="#262232"/><path d="M1000 200h140v-16h-14v-14h-16v14h-16v-14h-16v14h-16v-14h-16v14h-16v-14h-16v14h-14z" fill="#2c2838"/>
+  <path d="M1048 300q22 -36 44 0v60h-44z" fill="#14121c"/><path d="M1054 318h32M1054 332h32M1054 346h32" stroke="#2c2838" stroke-width="4"/>
+  <path d="M1056 450q14 -24 28 0v40h-28z" fill="#14121c"/>
+  <path d="M1130 560V400l200 -60l200 60v160z" fill="#221e2c"/><path d="M1180 470q14 -26 28 0v50h-28zM1300 460q14 -26 28 0v60h-28zM1420 470q14 -26 28 0v50h-28z" fill="#14121c"/>
+  <path d="M1070 184v-26M1062 166h16" stroke="#2c2838" stroke-width="3"/>
+</g>
+
+<!-- the yews, older than the tower -->
+<g id="yew" class="hot"><path d="M330 600Q300 420 380 330Q450 290 510 360Q560 440 530 600Z" fill="#141c18"/><path d="M380 600Q360 460 420 380Q470 360 500 420Q520 500 500 600Z" fill="#1a241e"/>
+  <path d="M1150 600Q1130 470 1190 420Q1250 400 1290 470Q1310 540 1290 600Z" fill="#141c18"/></g>
+
+<!-- the lane: down to the left, to the Tup -->
+<rect x="-1000" y="600" width="3600" height="740" fill="url(#laneG)"/>
+<path d="M-1000 640Q200 600 600 650T1300 700T2600 690" stroke="#4a4450" stroke-width="2" fill="none" opacity=".5"/>
+<g id="inn" class="hot">
+  <path d="M40 590V500l120 -40l130 40v90z" fill="#1c1820"/><path d="M30 502l130 -50l140 52" stroke="#2c2630" stroke-width="10" fill="none"/>
+  <rect id="glow" x="72" y="520" width="34" height="26" fill="#f2b45a"/><rect x="196" y="520" width="34" height="26" fill="#f2b45a" opacity=".85"/><rect x="138" y="532" width="26" height="58" fill="#3a2a1c"/>
+  <circle cx="151" cy="520" r="6" fill="#ffd890"/><circle cx="151" cy="520" r="40" fill="url(#lampG)"/>
+  <g fill="#0e0c12"><path d="M330 612v-22a6 6 0 0 1 12 0v22zM350 614v-26a6 6 0 0 1 12 0v26zM372 612v-24a6 6 0 0 1 12 0v24zM394 615v-25a6 6 0 0 1 12 0v25z"/><circle cx="336" cy="582" r="5"/><circle cx="356" cy="579" r="5"/><circle cx="378" cy="581" r="5"/><circle cx="400" cy="580" r="5"/></g>
+</g>
+
+<!-- the drystone wall, either side of the gate -->
+<g id="wall"></g>
+
+<!-- the lych-gate: four oak posts, a stone-slate roof, two open gates, the coffin stone, two boards -->
+<g id="gate">
+  <rect x="640" y="380" width="22" height="240" fill="url(#oakG)"/><rect x="900" y="380" width="22" height="240" fill="url(#oakG)"/>
+  <path d="M662 610l40 -16v-200l-40 -6z" fill="#3a2a1e"/><path d="M900 610l-40 -16v-200l40 -6z" fill="#3a2a1e"/>
+  <g stroke="#22160e" stroke-width="3"><path d="M670 420h26M670 470h26M670 520h26M670 570h26M866 420h26M866 470h26M866 520h26M866 570h26"/></g>
+  <g id="slab" class="hot"><path d="M720 660l20 -22h82l20 22z" fill="#5a5660"/><rect x="720" y="660" width="122" height="18" fill="#3a3640"/></g>
+  <g id="notices" class="hot"><rect x="676" y="420" width="110" height="90" fill="#3a2a1e" stroke="#22160e" stroke-width="3"/><rect x="684" y="428" width="44" height="58" fill="#f4e9a8" transform="rotate(-3 706 457)"/>
+    <rect x="734" y="430" width="44" height="34" fill="#e9eef2"/><rect x="738" y="470" width="36" height="32" fill="#f2c6b8" transform="rotate(4 756 486)"/><path d="M690 440h30M690 450h28M690 460h30M690 470h24" stroke="#6a5420" stroke-width="2" transform="rotate(-3 706 457)"/>
+    <circle cx="706" cy="430" r="2.500" fill="#c83a2a"/><circle cx="756" cy="432" r="2.500" fill="#2a6ac8"/></g>
+  <g id="board" class="hot"><g id="boardsheet"><rect x="790" y="402" width="102" height="128" fill="#fbfbf6" stroke="#2a3a2e" stroke-width="4"/>
+    <text x="841" y="420" class="fZ" font-size="8.500" text-anchor="middle" fill="#2a3a2e" font-weight="700">SATTERSBY</text><text x="841" y="430" class="fO" font-size="6.500" text-anchor="middle" fill="#5a6a5e" letter-spacing="1">CENSUS NIGHT 1881</text>
+    <g stroke="#8a948c" stroke-width="2"><path d="M800 440h36M800 448h40M800 456h32M800 464h38M800 472h30M846 440h36M846 448h38M846 456h30M846 464h40M846 472h34M800 484h40M800 492h34M800 500h38M846 484h36M846 492h40M846 500h30"/></g>
+    <text x="841" y="520" class="fC" font-size="11" text-anchor="middle" fill="#1d3a8c">213 souls</text></g></g>
+  <path d="M560 400L781 228L1002 400Z" fill="#2c2a32"/><path d="M560 400L781 228L1002 400" stroke="#3e3a44" stroke-width="10" fill="none"/>
+  <g stroke="#1e1c24" stroke-width="2" opacity=".8"><path d="M600 370h362M630 346h302M660 322h242M690 298h182M720 274h122"/></g>
+  <rect x="570" y="398" width="422" height="16" fill="#3a2a1e"/><rect x="600" y="410" width="28" height="230" fill="url(#oakG)"/><rect x="934" y="410" width="28" height="230" fill="url(#oakG)"/>
+  <path d="M628 440q40 -10 50 -30M934 440q-40 -10 -50 -30" stroke="#3a2a1e" stroke-width="12" fill="none"/>
+  <rect x="590" y="628" width="48" height="22" fill="#4a4650"/><rect x="924" y="628" width="48" height="22" fill="#4a4650"/>
+</g>
+<g id="tin" class="hot"><rect x="1000" y="548" width="34" height="22" rx="3" fill="#8a2a24"/><rect x="998" y="544" width="38" height="7" rx="2" fill="#a8423a"/><path d="M1010 547h14" stroke="#1a0a08" stroke-width="2"/><text x="1017" y="563" class="fO" font-size="7" text-anchor="middle" fill="#f2d78a">TOFFEE</text></g>
+
+<circle cx="1240" cy="700" r="380" fill="url(#lampG)" pointer-events="none"/>
+<g id="stella" class="hot" transform="translate(1240 870) scale(1.12)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the church</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="census.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var LEAF = '<h4>Sattersby by Lantern</h4><h5>Stop 1 &middot; The lych-gate &middot; The census of 1881</h5>' +
+    '<p>Every ten years since 1841, every household in England and Wales has been counted on one single night. (There was no count in 1941: there was a war on.) In 1881 the night was <b>Sunday, 3 April</b>.</p>' +
+    '<p>In the week before, a local man, the <b>enumerator</b>, left a form called a <b>schedule</b> at every house. The head of the house wrote down everybody who spent that night under his roof: family, servants, lodgers and visitors. On Monday the enumerator collected the schedules and copied them, house by house, into his <b>enumerator&rsquo;s book</b>. The book survives; the schedules were destroyed.</p>' +
+    '<div class="fig">' + figCols() + '</div>' +
+    '<p>The returns are kept closed for a hundred years. The 1921 census was opened in January 2022. The 1931 census was lost in a fire in 1942.</p>';
+  var INSTR = '<h5>Census of England and Wales, 1881</h5><h4>Instructions to the Enumerator (shortened)</h4><ol>' +
+    '<li>Enter every person alive at midnight on the night of Sunday, 3 April, who slept or abode in the house that night.</li>' +
+    '<li>Do not enter a person who died before midnight, or a child born after it.</li>' +
+    '<li>Enter each person once only, in the house where he or she spent the night: a visitor in the house where she stayed, not in her own.</li>' +
+    '<li>Write the age at the last birthday: a male&rsquo;s in the column for Males, a female&rsquo;s in the column for Females. For a child under one year, write the age in months: &ldquo;3 mos&rdquo;.</li>' +
+    '<li>Begin each house with its schedule number. An empty house is marked U, and has no schedule.</li>' +
+    '<li>&ldquo;do.&rdquo; (ditto) means &ldquo;the same as in the line above&rdquo;.</li>' +
+    '<li>At the foot of each page, write the total of houses, and the total of males and of females.</li></ol>' +
+    '<p class="note">Copied out by S. Tunstall from the front of the book. The book itself is at the National Archives, at Kew; these are photographs.</p>';
+  var BOARD = '<h4>Sattersby on Census Night</h4><h5>Sunday 3 April 1881 &middot; every soul who slept in the parish &middot; 213</h5>' +
+    '<h6>Church Lane</h6>' +
+    '<p><b>27, the Tup Inn.</b> Uriah Spence (46), innkeeper; Tamar, his wife (44); Thomas (13); Victoria (11); Tryphena Ulyett (16), servant; Victor Tweddle (24), lodger, quarryman.</p>' +
+    '<p><b>28, the School House.</b> Septimus Tasker (52), schoolmaster, who wrote all of this down; Selina, his wife (48), sewing mistress; Zachary (12).</p>' +
+    '<p><b>Lane End.</b> Empty.</p>' +
+    '<p><b>29.</b> Stephen Ulyett (39), blacksmith; Thomasina, his wife (37); Stephen (12); Wilhelmina (11); Theodora (4).</p>' +
+    '<p><b>30.</b> Samuel Wray (37), stone waller; Tabitha, his wife (34); Timothy (12); Sarah (9); Sydney (5); and Mrs Sophia Varey (61), monthly nurse, staying the night.</p>' +
+    '<p><b>31.</b> Thomas Thackray (43), farm labourer; Sarah, his wife (40); William (17); Thomas (9); Sybil (6); Samuel (3); Susan (3 months).</p>' +
+    '<p><b>32.</b> William Swales (66), widower, farm labourer; William, his grandson (12).</p>' +
+    '<p><i>Main Street, Moor Lane and the farms are on the back of the board.</i></p>' +
+    '<p class="hand">His own total, at the back of his book, says 214. He must have counted one too many! &mdash; S.T.</p>';
+
+  /* the columns of the book, drawn for the leaflet */
+  function figCols() {
+    var cols = [['NAME', 'who'], ['RELATION', 'to the head'], ['CONDITION', 'Mar. Unm. Wid.'], ['AGE', 'Males | Females'], ['OCCUPATION', 'work'], ['WHERE BORN', 'county, place']], s = '', x = 0;
+    s += '<svg viewBox="0 0 620 92" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="618" height="90" fill="#fbf6d8" stroke="#6a5420" stroke-width="2"/>';
+    cols.forEach(function (c, i) {
+      var w = i === 0 ? 130 : i === 3 ? 110 : 94;
+      s += '<rect x="' + (x + 1) + '" y="1" width="' + w + '" height="34" fill="none" stroke="#6a5420" stroke-width="1.500"/>' +
+        '<text x="' + (x + w / 2 + 1) + '" y="23" font-family="EB Garamond,serif" font-size="13" font-weight="700" text-anchor="middle" fill="#3a2a10">' + c[0] + '</text>' +
+        '<text x="' + (x + w / 2 + 1) + '" y="70" font-family="Caveat,cursive" font-size="17" text-anchor="middle" fill="#1d3a8c">' + c[1] + '</text>';
+      if (i === 3) s += '<path d="M' + (x + 56) + ' 35v56" stroke="#6a5420" stroke-width="1.200" stroke-dasharray="3 3"/>';
+      x += w;
+    });
+    return s + '</svg>';
+  }
+
+  ER.init({
+    theme: 'ghost', story: 'census', storyTitle: 'Not a Soul Missed', id: 'lychgate', no: 'I', title: 'The Lych-gate',
+    go: 'Stand by the gate',
+    intro: [
+      'Sattersby: one street of grey stone at the head of a Yorkshire dale, a church, a school that is now the village hall, and an inn called the Tup. Friday, 30 October 2026. Five o&rsquo;clock, and the light going fast.',
+      'It is half-term, and you are helping Miss Tunstall with her Lantern Walk, a history walk round the village in the dark. You hold the ticket tin. Miss Tunstall holds everything else.',
+      'Every evening this week she has counted her walkers at the lych-gate of St Oswald&rsquo;s before the walk begins. Every evening this week she has counted one too many.'
+    ],
+    exit: {"next":"vestry","w":{"4797421e":"bfb1bb04"}}, tags: {"p8m":["6aaf15de"],"p8f":["b13db3fa"],"p9m":["7afc9c5d"],"p9f":["f2d74e43"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('g-file') || null; told = ER.flag('g-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('g-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#stella').classList.toggle('ready', !!(told.counted && !told.stella));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.stella ? 1 : 0) + (told.leaf && told.instr ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.counted) return null;
+    if (nextFile) return ['go', ['The registers are kept in the vestry. Click the button at the bottom of the screen.']];
+    if (!told.stella) return ['stella', ['Miss Tunstall is standing by the wall with the lantern, on the right. Click her.']];
+    if (lock && lock.isOpen()) return ['count', [
+      'Count people, not lines. Lane End has a line in the book, but the house was empty that night: nobody slept in it.',
+      'Whether a person is male or female is shown by the column the age is written in: Males or Females. A lodger, a servant, a visitor and a baby of three months are all people, and all slept there that night.',
+      'Page 8: the inn has a servant girl and a lodger; the School House has three people. Page 9: the Wrays have a visitor, the monthly nurse; the Thackrays have a baby of 3 months; the Swales house has a grandson. Count the names yourself. Do not copy his totals.'
+    ]];
+    if (!told.leaf || !told.instr) return ['read', [
+      'There are two papers to read first: the leaflet on the notice board inside the gate (left), and the instructions in the front of the book (the board on the right post opens the folder).',
+      'Read how the census counted people: who was written down, where, and how ages were written.'
+    ]];
+    return ['open', ['Click the board on the right-hand post of the gate, or Miss Tunstall, to open the photographs of pages 8 and 9.']];
+  }
+
+  function begin() {
+    $('#stella').innerHTML = CS.stella({ lamp: true });
+    drawWall();
+    CS.clicker(told.counted ? 13 : 0);
+    paint();
+    if (nextFile) { busy = false; ER.say('The lych-gate, in the dark now. The board says 213. His total says 214.'); return; }
+    if (told.counted) { busy = false; ER.say('The lych-gate of St Oswald&rsquo;s. The walkers have gone down to the Tup for their soup.'); return; }
+    ER.narrate([
+      'Twelve people in warm coats stand in the lane, stamping their feet. Miss Tunstall lifts her lantern and her tally counter, and counts them as they come in under the roof of the gate.'
+    ], function () {
+      var n = 0, t = setInterval(function () {
+        n++; CS.clicker(n, true);
+        if (n >= 13) {
+          clearInterval(t);
+          setTimeout(function () {
+            ER.narrate([
+              '&ldquo;&hellip;eleven. Twelve. Thirteen.&rdquo; She stops. She looks at the counter, and then into the ticket tin in your hands. Twelve stubs.',
+              '&ldquo;Soup first,&rdquo; she tells the walkers brightly, &ldquo;and ghosts after. The Tup does a very good leek and potato.&rdquo; They go off down the lane towards the lit windows of the inn, counting themselves, and laughing.',
+              'Then the lane is empty, and it is just the two of you, the lantern, and the new board in the gate.'
+            ], function () { tell('counted'); busy = false; paint(); });
+          }, 500);
+        }
+      }, 230);
+    });
+  }
+
+  /* the drystone wall: grey stones laid by hand, a little different every time the wall is drawn */
+  function drawWall() {
+    var s = '', seed = 7, x, y, w;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    s += '<path d="M-1000 560H600V652H-1000ZM962 560H2600V652H962Z" fill="#3a3844"/>';
+    for (y = 566; y < 648; y += 16) for (x = -1000 + (y % 32 ? 14 : 0); x < 2600; x += w + 4) {
+      w = 26 + Math.round(rnd() * 30);
+      if (x + w > 596 && x < 966) continue;
+      s += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="13" rx="4" fill="' + (rnd() > 0.5 ? '#4e4c58' : '#45434e') + '"/>';
+    }
+    s += '<path d="M-1000 558H600M962 558H2600" stroke="#5a5864" stroke-width="7"/>';
+    for (x = -1000; x < 2600; x += 22) if (x < 596 || x > 962) s += '<rect x="' + x + '" y="546" width="16" height="14" rx="3" fill="#4a4854"/>';
+    $('#wall').innerHTML = s;
+  }
+
+  function talkStella() {
+    ER.talk({
+      who: 'Miss Stella Tunstall', role: 'Guide of the Lantern Walk; churchwarden', face: window.FACE('stella'),
+      lines: [
+        { note: 'She clicks the counter back to nothing, and puts it in her pocket.', a: '&ldquo;Thirteen. Twelve tickets and thirteen heads, five evenings running. I have counted children on and off coaches for thirty-eight years. I do not count wrong.&rdquo;' },
+        { a: '&ldquo;Nobody brings a friend. Nobody leaves early. By the time we reach the school there are twelve of them again, and none of them remembers anybody else.&rdquo;' },
+        { q: 'When did it start?', a: '&ldquo;On Monday. On Saturday I put up that board: every soul who slept in Sattersby on census night, 1881. Two hundred and thirteen names, copied from the enumerator&rsquo;s book, page by page.&rdquo;' },
+        { a: '&ldquo;At the back of his book, his own total says two hundred and fourteen. I put it down to him. I wrote it on the board: he must have counted one too many.&rdquo; She looks at the board. &ldquo;I am beginning to think that was rude of me.&rdquo;' },
+        { q: 'Who was he?', a: '&ldquo;Mr Septimus Tasker. Master of the village school for thirty-one years, and the enumerator in 1881. He lived in my house: the School House. Like me, he did not count wrong. One of us, it seems, did.&rdquo;' },
+        { a: '&ldquo;Here are my photographs of his pages. At the foot of each page he wrote his totals: so many males, so many females. Count the people on Church Lane, pages 8 and 9, the way he would have counted them, and see whether his totals agree. Read the leaflet first, if you like. I wrote it, so it is correct.&rdquo;' }
+      ],
+      clue: { id: 'stella1', title: 'Miss Tunstall: one too many', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('stella'); paint(); }
+    });
+  }
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); }
+  $('#stella').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The vestry,&rdquo; says Miss Tunstall, already walking. &ldquo;I have the key. I am also the churchwarden. In a village this size you are whatever nobody else will be.&rdquo;'); return; }
+    if (!told.stella) talkStella(); else openLock();
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOARD, cls: 'board', clue: { id: 'board', title: 'The board in the lych-gate', kind: 'From the lych-gate' }, done: function () {
+      tell('board'); CS.terms(['lych-gate', 'census', 'innkeeper', 'monthly nurse', 'widower', 'stone waller']); paint();
+      if (!told.stella) ER.say('&ldquo;Two hundred and thirteen,&rdquo; says Miss Tunstall behind you. &ldquo;Come here a moment. I&rsquo;ll tell you about the other one.&rdquo;');
+      else if (!nextFile) setTimeout(openLock, 300);
+    } });
+  });
+  $('#notices').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEAF, cls: 'leaf', clue: { id: 'leaf', title: 'Leaflet: the census of 1881', kind: 'From the lych-gate' }, done: function () {
+      tell('leaf'); CS.terms(['enumerator', 'schedule', 'household', 'occupation', 'condition']); paint();
+      ER.say('Also on the board: the flower rota, a lost glove, and a notice of the Harvest Supper, which has been.');
+    } });
+  });
+  CS.thing('#slab', 'coffin stone', '&ldquo;Lych&rdquo; is an old word for a dead body. The coffin rested on this stone, out of the rain, until the parson came down the path to meet it.', isBusy);
+  CS.thing('#tin', 'ticket tin', 'The ticket tin: an old toffee tin with a slot cut in the lid. Twelve stubs inside, numbered 61 to 72. Twelve.', isBusy);
+  CS.thing('#tower', 'tower', 'The tower of St Oswald&rsquo;s, black against the last of the light. There has been a church here for eight hundred years.', isBusy);
+  CS.thing('#inn', 'inn', 'Far down the lane, the lit windows of the Tup. Twelve people are in there now, being given soup.', isBusy);
+  CS.thing('#yew', 'yew', 'The yews by the wall are older than the tower. A great many people have gone in through this gate under them.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- pages 8 and 9: count the people the way the enumerator did ---------- */
+  function makeLock() {
+    var cnt = ER.flag('g-cnt') || { p8m: 0, p8f: 0, p9m: 0, p9f: 0 }, page = 8, wait = false;
+    var box = ER.el('div', 'lk'), left = ER.el('div', 'lk-page'), side = ER.el('div', 'lk-side');
+    left.innerHTML = '<div class="lk-tabs"><button type="button" data-p="8" class="on">Page 8</button><button type="button" data-p="9">Page 9</button><button type="button" data-p="i">Instructions</button></div><div class="lk-view"></div>';
+    side.innerHTML = '<div class="tallyc"><h6>Your count: the names</h6>' +
+      '<div class="pg"><b>Page 8</b>' + dial('p8m', 'Males') + dial('p8f', 'Females') + '</div>' +
+      '<div class="pg"><b>Page 9</b>' + dial('p9m', 'Males') + dial('p9f', 'Females') + '</div></div>' +
+      '<div class="pfoot"><button type="button" class="btn" id="g-go">Check against his totals</button><p class="pmsg"></p></div>';
+    box.appendChild(left); box.appendChild(side);
+    function dial(k, label) { return '<div class="dial" data-k="' + k + '"><span>' + label + '</span><button type="button" data-d="-1">&minus;</button><i>0</i><button type="button" data-d="1">+</button></div>'; }
+    function show(p) {
+      page = p;
+      ER.$$('.lk-tabs button', left).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === String(p)); });
+      left.querySelector('.lk-view').innerHTML = p === 'i' ? '<div class="doc instr" style="width:auto;max-height:none">' + ER.gloss(INSTR) + '</div>' : CS.page(p);
+      if (p === 'i' && !told.instr) { tell('instr'); ER.addClue('instr', 'Instructions to the Enumerator, 1881', INSTR, 'instr', 'From the lych-gate'); CS.terms(['midnight', 'ditto', 'abode']); paint(); }
+      ER.sfx.paper();
+    }
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function paintDials() {
+      ER.$$('.dial', side).forEach(function (d) { d.querySelector('i').textContent = cnt[d.getAttribute('data-k')]; });
+      box.setAttribute('data-count', [cnt.p8m, cnt.p8f, cnt.p9m, cnt.p9f].join('-'));
+    }
+    ER.$$('.lk-tabs button', left).forEach(function (b) { b.addEventListener('click', function () { var p = b.getAttribute('data-p'); show(p === 'i' ? 'i' : +p); }); });
+    ER.$$('.dial button', side).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (wait || nextFile) return;
+        var k = b.parentNode.getAttribute('data-k');
+        cnt[k] = Math.max(0, Math.min(30, cnt[k] + +b.getAttribute('data-d'))); ER.flag('g-cnt', cnt); CS.sfx.count(); paintDials(); msg('');
+      });
+    });
+    var WHY = {
+      p8m: 'Page 8, males: count again. Read down the Males column only, and remember who else slept at the inn that night besides the family.',
+      p8f: 'Page 8, females: count again. The servant girl slept at the inn; and Lane End is a line in the book with nobody on it.',
+      p9m: 'Page 9, males: count again, in the Males column only. &ldquo;William do.&rdquo; on the last line is a person too: the grandson.',
+      p9f: 'Page 9, females: count again, in the Females column only. The monthly nurse stayed the night at the Wrays&rsquo;, and a baby of three months is a person.'
+    };
+    side.querySelector('#g-go').addEventListener('click', function () {
+      var ks = ['p8m', 'p8f', 'p9m', 'p9f'], i, k, file;
+      if (wait || nextFile) return;
+      if (!cnt.p8m && !cnt.p8f && !cnt.p9m && !cnt.p9f) { msg('&ldquo;All noughts,&rdquo; says Miss Tunstall. &ldquo;Even in 1881 there was somebody on Church Lane.&rdquo; Count the names on each page and set the four numbers.'); return; }
+      for (i = 0; i < ks.length; i++) {
+        k = ks[i];
+        if (!ER.check(k, String(cnt[k]))) {
+          ER.sfx.no(); CS.flash(side.querySelector('.dial[data-k="' + k + '"]'));
+          if (k === 'p9f' && cnt[k] === 7) msg('&ldquo;Seven is <i>his</i> total, at the foot of the page,&rdquo; says Miss Tunstall. &ldquo;Count the names, not the totals. The totals are what he wrote down. The names are the people.&rdquo;');
+          else msg('&ldquo;' + WHY[k] + '&rdquo;');
+          return;
+        }
+      }
+      file = ER.exit([[cnt.p8m, cnt.p8f, cnt.p9m, cnt.p9f].join('-')], { wait: true });
+      if (!file) { msg('Something is wrong with this page. Tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('g-file', file);
+      msg('Page 8: seven and seven, and so are his totals. Page 9: nine males, and his total is nine. Females: <b>six names</b>. His total: <b>seven</b>.');
+      CS.mine('count', 'Pages 8 and 9: the count', '<p>Page 8 (the Tup, the School House, Lane End, the Ulyetts): 7 males and 7 females by the names. His totals: 7 and 7. They agree.</p>' +
+        '<p>Page 9 (the Wrays, the Thackrays, the Swales house): 9 males by the names, and his total is 9. <b>Females: 6 names, but his total says 7.</b></p>' +
+        '<p>So one woman or girl on page 9, on Church Lane, was counted by him on census night and never written in. That is the difference between the 213 names and his 214.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        $('#boardsheet').classList.add('flut'); CS.sfx.gust();
+        ER.narrate([
+          'Miss Tunstall holds the photograph of page 9 close to the lantern, and counts it again with her finger, under her breath. Then once more.',
+          '&ldquo;Six,&rdquo; she says. &ldquo;Six women and girls on page 9, and he wrote seven at the foot. He didn&rsquo;t count one too many. He counted somebody, and then he never wrote her name.&rdquo;',
+          'A gust of wind comes up the lane and the board in the gate rattles on its nails, once, as if somebody had knocked against it in passing. There is nobody in the lane.',
+          '&ldquo;A woman or a girl on Church Lane,&rdquo; says Miss Tunstall. &ldquo;If she was born in Sattersby, she was baptised in that church. The registers are in the vestry.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    show(8); paintDials();
+    msg(cnt.p8m || cnt.p8f || cnt.p9m || cnt.p9f ? 'Your count, as far as you have got with it.' : 'Count the people on each page, males and females, from the names, and set the numbers. Then check them against his totals at the foot of each page.');
+    return { open: function () { ER.open('ov-lock', box, function () { ER.addClue('pages', 'The enumerator&rsquo;s book: pages 8 and 9', CS.page(8) + '<p></p>' + CS.page(9), 'typed', 'Photographs'); }); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Snug · Not a Soul Missed</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="census.css">
+<style>
+  body{--bg:#101a14;--accent:#e8b04a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,22,16,.96);--tc-ink:#f2eedf;--cap-bg:rgba(14,22,16,.95);--panel:#16221a;--face-bg:#4a1c16;--q-ink:#e8b04a;--fade:#060a08;--hud-bg:rgba(14,22,16,.8)}
+  .tc-room{font-size:clamp(48px,7vw,96px)}
+  #flames{animation:flm .45s steps(3,end) infinite;transform-origin:250px 690px}
+  @keyframes flm{33%{transform:scaleY(.9)}66%{transform:scaleY(1.08)}}
+  #mark{display:none}
+  #scene.mark #mark{display:block}
+  .glint{animation:glint 4s ease-in-out infinite}
+  @keyframes glint{50%{opacity:.4}}
+
+  /* the vicar's figures */
+  .vf{width:min(1000px,96vw);display:flex;gap:14px;align-items:flex-start}
+  .vf-main{flex:1 1 0;min-width:0;background:#f1e8d2;color:#2a2218;padding:12px 14px 10px;border:1px solid #9c8a64}
+  .vf-main h6{margin:0 0 6px;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.06em}
+  .vf-main p{margin:0 0 6px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.35}
+  .clips{display:flex;flex-wrap:wrap;gap:8px;min-height:96px;padding:8px;background:#e2d6b8;border:1px dashed #9c8a64}
+  .clip{display:inline-flex;flex-direction:column;align-items:center;gap:2px;width:118px;padding:6px 4px 4px;background:#fbf6e6;border:1px solid #b8a882;box-shadow:0 2px 5px rgba(0,0,0,.25);cursor:grab;
+    font-family:'Outfit',sans-serif;font-size:11px;line-height:1.2;color:#4a3a2a;text-align:center}
+  .clip.big{width:150px;border:2px solid #9c2a2a;background:#fff6ea}
+  .clip.held{outline:3px solid #2f7a4a}
+  .piles{display:flex;gap:10px;margin-top:8px}
+  .pile{flex:1 1 0;background:#2a3a2e;border:1px solid #5a6a5e;padding:6px}
+  .pile h6{margin:0 0 4px;color:#e9e4d8;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+  .pile .row{display:flex;flex-wrap:wrap;gap:6px}
+  .pile .slot{width:126px;min-height:84px;border:1.5px dashed #7a8a7e;border-radius:3px}
+  .pile .slot .clip{margin:2px}
+  .vf-side{flex:0 0 260px}
+  .vf .pmsg,.wi .pmsg{color:#f3ecd9;font-size:17px;min-height:140px}
+  /* writing her in */
+  .wi{width:min(1180px,96vw);display:flex;flex-direction:column;gap:10px}
+  .wi .eb td{height:21px;font-size:11.5px}
+  .wi .eb thead th{font-size:10px;padding:1px 2px}
+  .wi .gap td{height:10px;padding:0;border-bottom:0;background:transparent}
+  .wi .gap td button{display:block;width:100%;height:10px;border:0;background:rgba(214,170,60,.18);cursor:pointer;font:inherit;font-size:8.5px;line-height:10px;color:#6a5420;letter-spacing:.2em}
+  .wi .gap td button:hover{background:rgba(214,170,60,.5)}
+  .wi .gap.on td{height:28px}
+  .wi .gap.on td button{display:none}
+  .wi .cellb{display:inline-block;min-width:100%;padding:2px 3px;border:1.5px solid #c9a24a;border-radius:3px;background:#fff8e2;font:inherit;color:#22305a;cursor:pointer;text-align:left}
+  .wi .cellb:hover{background:#ffeec0}
+  .wi-foot{display:flex;gap:14px;align-items:flex-start;padding:8px 12px;background:#20242a linear-gradient(160deg,#2a2f36,#15181d);border:1px solid #59606a}
+  .wi-foot .btn{flex:0 0 auto}
+  .wi-foot .pmsg{min-height:50px}
+  .wi .line{display:flex;align-items:center;gap:10px;padding:6px 10px;background:#2a3a2e;border:1px solid #5a6a5e;color:#e9e4d8;font-family:'EB Garamond',serif;font-size:16px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="panelG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a2c"/><stop offset="1" stop-color="#1a2a1e"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2e18"/><stop offset="1" stop-color="#2a1a0c"/></linearGradient>
+  <linearGradient id="seatG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a2a24"/><stop offset="1" stop-color="#4a1410"/></linearGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffd07a" stop-opacity=".5"/><stop offset="1" stop-color="#ff8a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#040805" stop-opacity=".25"/><stop offset="1" stop-color="#020302" stop-opacity=".88"/></radialGradient>
+</defs>
+
+<!-- dark green panelling, an oak floor, low beams with brasses -->
+<rect x="-1000" y="-400" width="3600" height="1160" fill="url(#panelG)"/>
+<g stroke="#122016" stroke-width="4"><path d="M-1000 420H2600M100 420V760M300 420V760M700 420V760M900 420V760M1100 420V760M1300 420V760"/></g>
+<rect x="-1000" y="760" width="3600" height="580" fill="url(#oakG)"/>
+<rect x="-1000" y="40" width="3600" height="40" fill="#1a0e06"/>
+<g id="brasses" class="hot"><g fill="#c9a24a" class="glint"><circle cx="420" cy="110" r="18"/><circle cx="560" cy="110" r="18"/><circle cx="700" cy="110" r="18"/><circle cx="840" cy="110" r="18"/></g><g fill="#1a0e06"><circle cx="420" cy="110" r="8"/><path d="M552 104h16v12h-16z"/><path d="M700 98l8 14h-16z"/><circle cx="840" cy="110" r="6"/></g>
+  <path d="M420 80v12M560 80v12M700 80v12M840 80v12" stroke="#5a3a1a" stroke-width="3"/></g>
+
+<!-- the fire, and the photograph over it -->
+<g id="fire" class="hot"><rect x="150" y="520" width="200" height="240" fill="#2a2a2a"/><rect x="170" y="560" width="160" height="200" fill="#0c0806"/>
+  <g id="flames"><path d="M190 730q20 -70 44 -46q10 -44 34 -10q22 -34 32 20q10 20 0 36h-110z" fill="#e8642a"/><path d="M210 730q10 -34 26 -22q12 -22 22 0q12 -12 18 22z" fill="#ffc05a"/></g>
+  <rect x="140" y="500" width="220" height="22" fill="#1a0e06"/><circle cx="250" cy="680" r="230" fill="url(#fireG)" pointer-events="none"/></g>
+<g id="oldphoto" class="hot"><rect x="180" y="300" width="140" height="110" fill="#3a2a1a" stroke="#c9a24a" stroke-width="3"/><rect x="192" y="312" width="116" height="86" fill="#b8a888"/>
+  <path d="M200 398V350l50 -24l50 24v48z" fill="#6a5a48"/><rect x="236" y="364" width="20" height="34" fill="#3a2a1a"/><circle cx="246" cy="382" r="4" fill="#2a2a2a"/><path d="M243 386v12M249 386v12" stroke="#2a2a2a" stroke-width="3"/></g>
+
+<!-- the dartboard and its blackboard -->
+<g id="darts" class="hot"><circle cx="1010" cy="250" r="88" fill="#1a1a1a"/><circle cx="1010" cy="250" r="76" fill="#e9dcc0"/><g fill="#1a1a1a"><path d="M1010 250L1010 174A76 76 0 0 1 1033 178Z"/><path d="M1010 250L1054 188A76 76 0 0 1 1070 205Z"/><path d="M1010 250L1084 238A76 76 0 0 1 1084 262Z"/><path d="M1010 250L1070 295A76 76 0 0 1 1054 312Z"/><path d="M1010 250L1033 322A76 76 0 0 1 1010 326Z"/><path d="M1010 250L966 312A76 76 0 0 1 950 295Z"/><path d="M1010 250L936 262A76 76 0 0 1 936 238Z"/><path d="M1010 250L950 205A76 76 0 0 1 966 188Z"/></g>
+  <circle cx="1010" cy="250" r="56" fill="none" stroke="#2a7a3a" stroke-width="5"/><circle cx="1010" cy="250" r="76" fill="none" stroke="#a8302a" stroke-width="5"/><circle cx="1010" cy="250" r="8" fill="#a8302a"/><circle cx="1010" cy="250" r="16" fill="none" stroke="#2a7a3a" stroke-width="4"/></g>
+<g id="board" class="hot"><rect x="1130" y="170" width="220" height="200" fill="#16201c" stroke="#5a3a1a" stroke-width="8"/>
+  <text x="1240" y="200" class="fC" font-size="22" text-anchor="middle" fill="#e9e4d8">Thursday</text><text x="1180" y="240" class="fC" font-size="20" fill="#e9e4d8">Sattersby  3</text><text x="1180" y="272" class="fC" font-size="20" fill="#e9e4d8">Ulgarth    2</text>
+  <path d="M1170 284h150" stroke="#e9e4d8" stroke-width="2" opacity=".6"/><g id="mark"><path d="M1328 344v-26" stroke="#e9e4d8" stroke-width="3.500" stroke-linecap="round"/></g></g>
+
+<!-- the window onto the lane -->
+<g id="win" class="hot"><rect x="520" y="200" width="220" height="200" fill="#1a0e06"/><rect x="532" y="212" width="196" height="176" fill="#0a1220"/><path d="M630 212v176M532 300h196" stroke="#1a0e06" stroke-width="6"/>
+  <g stroke="#6a7a98" stroke-width="1.300" opacity=".5"><path d="M550 230l-4 20M600 260l-4 20M660 240l-4 20M700 300l-4 20M560 330l-4 20"/></g><circle cx="690" cy="250" r="5" fill="#f2d78a" opacity=".7"/></g>
+
+<!-- the hatch to the bar, and the landlord in it -->
+<g id="hatch" class="hot"><rect x="1360" y="400" width="300" height="320" fill="#2a1a0c"/><rect x="1376" y="416" width="268" height="190" fill="#3a2414"/>
+  <g transform="translate(1450 470) scale(.9)"><circle cx="40" cy="20" r="40" fill="#e2b08e"/><path d="M10 40q30 50 60 0q-10 26 -30 28q-20 -2 -30 -28z" fill="#a8a29a"/><path d="M-30 150q0 -70 70 -80q70 10 70 80z" fill="#2c3442"/><path d="M14 80h52v70H14z" fill="#e9e2d0"/><path d="M28 18h6M48 18h6" stroke="#2a2a2a" stroke-width="3" stroke-linecap="round"/></g>
+  <rect x="1360" y="606" width="300" height="30" fill="#5a3a1a"/><g fill="#c9a24a"><rect x="1400" y="560" width="12" height="46"/><rect x="1440" y="560" width="12" height="46"/><rect x="1480" y="560" width="12" height="46"/></g></g>
+
+<!-- the settle, and the little table with Miss Tunstall's tablet on it -->
+<g id="settle"><rect x="380" y="560" width="440" height="40" fill="url(#seatG)"/><rect x="380" y="430" width="440" height="130" fill="#5a2a1c"/><rect x="380" y="600" width="440" height="160" fill="#3a1c10"/></g>
+<g id="table"><ellipse cx="870" cy="640" rx="130" ry="26" fill="#5a3a1a"/><rect x="860" y="660" width="20" height="100" fill="#3a2410"/>
+  <g id="tablet" class="hot"><rect x="790" y="600" width="120" height="34" rx="5" fill="#101418" transform="rotate(-6 850 617)"/><rect x="798" y="604" width="104" height="26" fill="#3a6a9a" transform="rotate(-6 850 617)"/></g>
+  <g id="glass"><path d="M940 630v-40h26v40z" fill="#6a3a12" opacity=".85"/><path d="M940 600h26" stroke="#f2e6c8" stroke-width="6"/></g></g>
+
+<g id="stella" class="hot" transform="translate(620 880) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the lych-gate</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="census.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, figs = null, page = null;
+
+  var TAB = '<h4>1881 census &middot; Township of Ulgarth &middot; page 2</h4>' +
+    '<div style="background:#efe6cf;padding:2px;border-radius:4px">' + CS.page(9, { rows: [
+      { s: '3', h: 'Ulgarth Farm', i: '1', n: 'Titus Sunter', r: 'Head', c: 'Mar', m: '51', o: 'Farmer of 160 acres, employing 1 man and 1 boy', b: 'Yorkshire Ulgarth' },
+      { n: 'Thirza do.', r: 'Wife', c: 'Mar', f: '47', b: 'do. do.' },
+      { n: 'Titus do.', r: 'Son', c: 'Unm', m: '19', o: 'Farmer&rsquo;s Son', b: 'do. do.' },
+      { n: 'Saul Tindle', r: 'Servt', c: 'Unm', m: '22', o: 'Farm Servant', b: 'Durham Weardale' },
+      { n: 'Swithin Tuke', r: 'Servt', m: '14', o: 'Cow Boy', b: 'Yorkshire Ulgarth', e: 2 }], foot: false }).replace('Page 9', 'Page 2').replace(/Civil Parish of <i>Sattersby<\/i>[^<]*<i>St Oswald, Sattersby<\/i>/, 'Township of <i>Ulgarth</i>') + '</div>' +
+    '<p>Miss Tunstall&rsquo;s search, on the same site: <b>Tabitha Thackray, born 1866 to 1872, anywhere in England and Wales, 1881: no results.</b></p>' +
+    '<p>&ldquo;The 1881 census was copied out in full by volunteers, years ago, and anybody can search the whole of it. She is not at Ulgarth. She is not anywhere.&rdquo;</p>';
+  /* the vicar's figures, cut from the registers in your notebook: [id, which figure it is, from where] */
+  var CLIPS = [
+    ['k1', '4', 'the last figure of the year of Sybil Thackray&rsquo;s baptism'],
+    ['k2', '1', 'the first figure of the day of William Thackray&rsquo;s burial'],
+    ['k3', '4', 'the last figure of the day of Violet Wray&rsquo;s own baptism'],
+    ['k4', '1', 'the last figure of the year of Susan Thackray&rsquo;s baptism'],
+    ['k5', '4', 'the day of the baptism of the baby Samuel Wray'],
+    ['k6', '1', 'the last figure of William Thackray&rsquo;s age at his burial']
+  ];
+
+  ER.init({
+    theme: 'ghost', story: 'census', storyTitle: 'Not a Soul Missed', id: 'snug', no: 'VI', title: 'The Snug',
+    go: 'Sit by the fire',
+    intro: [
+      'Mr Tasker&rsquo;s diary was marked line by line. Green where the records agree: Tabitha leaving school on 18 March, his leave, Thackray&rsquo;s mark, his 214, the funeral on 23 April. Grey where nothing can check it: the weather, the sermon, his best reader. Red where the records say otherwise: that Tabitha was at Ulgarth on census night, that not a soul was missed, that she was never strong.',
+      'And one day where he wrote nothing that mattered: Sunday 10 April, &ldquo;a quiet day&rdquo;, the day his wife told him.',
+      'Down the lane, the Tup. The walkers have had their soup and gone home. Vince, the landlord, is drying glasses.'
+    ],
+    exit: {"next":"count","w":{"8e0043c0":"c2f835de"}}, tags: {"num":["778954e0"],"pos":["2f5a1176"],"rel":["ef2617c7"],"age":["bd95befe"],"occ":["8cee8f7d"],"born":["e73b5a97"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('n-file') || null; told = ER.flag('n-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('n-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#hatch').classList.toggle('ready', !!(told.in && !told.vince));
+    $('#tablet').classList.toggle('ready', !!(told.vince && !told.tab));
+    $('#stella').classList.toggle('ready', !!(told.tab && !told.four && !told.stella));
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#scene').classList.toggle('mark', !!told.markseen && !told.markgone);
+    ER.pips((told.tab ? 1 : 0) + (told.four ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.in) return null;
+    if (nextFile) return ['go', ['The board is in the lych-gate. Click the button at the bottom of the screen.']];
+    if (figs && figs.isOpen()) return ['figs', [
+      'Every clipping is in the vicar&rsquo;s hand, from the registers in your notebook. Look each date up: Sybil was baptised in 1874; William Thackray was buried on March 14th 1870, aged 61; and so on. Then you know which figure each clipping is.',
+      'When the six are sorted, compare. His 1 is one stroke with a little flag at the top. His 4 has a bar across, and its upright runs on below the bar.',
+      'The figure from Violet&rsquo;s margin has a bar, and an upright that runs on below it. The first stroke has faded. Which of his figures has a bar?'
+    ]];
+    if (page && page.isOpen()) return ['line', [
+      'Choose where her line goes first. The enumerator wrote a family&rsquo;s children eldest first: William is seventeen, Thomas nine.',
+      'Then each column, from tonight&rsquo;s papers: her relation to the head (her baptism), her age on 3 April 1881 and its column (baptised December 1868; buried aged twelve), her occupation that week (the school log), and where she was born (her baptism; and what &ldquo;do.&rdquo; means under William&rsquo;s line).'
+    ]];
+    if (!told.vince) return ['vince', ['Vince the landlord is at the hatch to the bar, on the right. Click him.']];
+    if (!told.tab) return ['tab', ['Miss Tunstall&rsquo;s tablet is on the little table. Click it: Ulgarth&rsquo;s page of the census.']];
+    if (!told.four) return ['stella', ['Click Miss Tunstall, by the settle. She has something to say about her great-grandmother.']];
+    return ['open', ['Click Miss Tunstall to go on.']];
+  }
+
+  function begin() {
+    $('#stella').innerHTML = CS.stella({});
+    CS.clicker(told.tick ? 18 : 17);
+    paint();
+    if (nextFile) { busy = false; ER.say('The snug of the Tup. On page 9, a new line in pencil, between William and Thomas.'); return; }
+    if (told.in) { busy = false; ER.say('The snug of the Tup: a fire, a dartboard, and the only phone signal in Sattersby.'); return; }
+    ER.narrate([
+      'The snug of the Tup: dark green panelling, a coal fire, horse brasses on the beam, a dartboard, and a blackboard with Thursday&rsquo;s score on it. Rain on the window. The walkers have gone. Vince has not.',
+      'Miss Tunstall sits on the settle with her coat still on and a glass of something brown, and puts her tablet on the little table. &ldquo;Signal,&rdquo; she says, &ldquo;at last.&rdquo;'
+    ], function () {
+      setTimeout(function () {
+        tell('markseen'); CS.clicker(18, true); tell('tick'); paint(); CS.sfx.chalk();
+        ER.narrate([
+          'There is a small sound from the blackboard, like chalk. In the bottom corner, under Thursday&rsquo;s score, there is a single white stroke that was not there a moment ago. A tally mark. In Miss Tunstall&rsquo;s pocket, a click.',
+          'Vince looks at the blackboard, and then at his cloth, and then at Miss Tunstall. &ldquo;That wasn&rsquo;t me,&rdquo; he says.'
+        ], function () { tell('in'); busy = false; paint(); });
+      }, 900);
+    });
+  }
+
+  $('#hatch').addEventListener('click', function () {
+    if (busy) return;
+    if (told.vince) { ER.say('&ldquo;Same again?&rdquo; says Vince. &ldquo;No? Suit yourself. I&rsquo;m only the landlord.&rdquo;'); return; }
+    ER.talk({
+      who: 'Vince Thewlis', role: 'Landlord of the Tup', face: window.FACE('vince'),
+      lines: [
+        { a: '&ldquo;Soup&rsquo;s gone, pudding&rsquo;s gone, walkers have gone. Two of them asked me whether the Tup&rsquo;s haunted. I said only by the brewery.&rdquo;' },
+        { a: '&ldquo;My great-great-grandad kept this place in 1881. Uriah Spence. Stella says he&rsquo;s on her page 8, innkeeper, with a lodger and a servant girl. I like to think he counted his till better than the schoolmaster counted the houses.&rdquo;' },
+        { q: 'And the blackboard?', a: '&ldquo;Thursday&rsquo;s darts. Sattersby three, Ulgarth two. I wiped the corner of that board clean at six o&rsquo;clock. I&rsquo;ll not say any more than that.&rdquo; He dries a glass that is already dry. &ldquo;Signal&rsquo;s best by the dartboard. Stand on your left foot.&rdquo;' }
+      ],
+      clue: { id: 'vince', title: 'Vince: the blackboard', kind: 'What he said' },
+      done: function (seen) { if (!seen) return; tell('vince'); paint(); }
+    });
+  });
+  $('#tablet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TAB, cls: 'tab', clue: { id: 'ulgarth', title: 'Ulgarth, 1881, and the search', kind: 'From the snug' }, done: function () {
+      tell('tab'); paint(); CS.terms(['hired']);
+      if (!told.four) ER.say('&ldquo;No servant girl at Ulgarth,&rdquo; says Miss Tunstall. &ldquo;No Tabitha anywhere. Which leaves the two of them. Come and sit down.&rdquo;');
+    } });
+  });
+  $('#stella').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The board,&rdquo; says Miss Tunstall, already on her feet. &ldquo;Tonight. I have a pen.&rdquo;'); return; }
+    if (!told.tab) { ER.say('&ldquo;Look at Ulgarth first,&rdquo; says Miss Tunstall, and pushes the tablet across the table.'); return; }
+    if (!told.four) { talkFour(); return; }
+    if (!told.figs) openFigs(); else openPage();
+  });
+  function talkFour() {
+    ER.talk({
+      who: 'Miss Stella Tunstall', role: 'Great-granddaughter of Violet Wray', face: window.FACE('stella'),
+      lines: [
+        { a: '&ldquo;Tabitha is not at Ulgarth, and not anywhere. I grant you that. But my great-grandmother was born on census night, and nobody wrote <i>her</i> down either.&rdquo;' },
+        { a: '&ldquo;Four records say so. Her mother&rsquo;s Bible: <i>born on the night of the Census</i>. Her own stone: <i>born on census night</i>. My photograph: her birthday kept on the third of April, every year of her life. And the vicar&rsquo;s margin, in the typed list and in the book itself: <i>born April the first</i>.&rdquo;' },
+        { a: '&ldquo;If she was born on the first, or the third, before midnight, she was alive at midnight and should be on page 9. Then she is the seventh woman, and his total is right, and Tabitha is&hellip; somebody else&rsquo;s mistake.&rdquo;' },
+        { q: 'And if not?', a: '&ldquo;Then show me. Not a family story: a record written by somebody who was there.&rdquo; She puts the photograph of the vicar&rsquo;s margin on the table. &ldquo;It says the first. I have read it a hundred times.&rdquo;' }
+      ],
+      clue: { id: 'stella6', title: 'Miss Tunstall: four records for Violet', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('four'); paint(); openFigs(); }
+    });
+  }
+  CS.thing('#darts', 'dartboard', 'The dartboard, with three darts in the treble twenty. Vince says they have been there since the Coronation, and is not clear which one.', isBusy);
+  CS.thing('#board', null, function () { return told.markgone ? 'Thursday&rsquo;s score. The corner of the board is clean again.' : 'Thursday&rsquo;s score: Sattersby 3, Ulgarth 2. And in the corner, one white chalk stroke, like a tally mark.'; }, isBusy);
+  CS.thing('#oldphoto', null, 'An old photograph over the fire: the Tup in about 1890, and a big man with a beard in the doorway. Uriah Spence, innkeeper. He does not look like a man who missed much.', isBusy);
+  CS.thing('#brasses', null, 'Horse brasses on the beam, polished every Monday by Vince, who has never owned a horse.', isBusy);
+  CS.thing('#fire', null, 'A coal fire, and a fireguard, and a dog-shaped space on the rug where a dog used to lie.', isBusy);
+  CS.thing('#win', null, 'Rain, and the lane, and far up it the dark shape of the lych-gate.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- 1. the vicar's figures: is it a 1 or a 4? ---------- */
+  function openFigs() { if (!figs) figs = makeFigs(); figs.open(); }
+  function makeFigs() {
+    var placed = ER.flag('n-figs') || {}, done = !!told.figs;
+    var box = ER.el('div', 'vf'), main = ER.el('div', 'vf-main'), side = ER.el('div', 'vf-side');
+    main.innerHTML = '<h6>The Revd Stephen Vavasour&rsquo;s figures</h6><p>Six figures cut from his entries in the registers (in your notebook), and the one from the margin of Violet&rsquo;s baptism. Sort his six into ones and fours. Then put the margin figure with the ones it matches.</p>' +
+      '<div class="clips"></div><div class="piles"><div class="pile" data-v="1"><h6>His 1s</h6><div class="row"><div class="slot" data-s="1a"></div><div class="slot" data-s="1b"></div><div class="slot" data-s="1c"></div><div class="slot" data-s="1d"></div></div></div>' +
+      '<div class="pile" data-v="4"><h6>His 4s</h6><div class="row"><div class="slot" data-s="4a"></div><div class="slot" data-s="4b"></div><div class="slot" data-s="4c"></div><div class="slot" data-s="4d"></div></div></div></div>';
+    side.innerHTML = '<div class="frame"><h5>Born April &hellip;th</h5><p class="pmsg"></p><button type="button" class="btn" id="f-go">Show Miss Tunstall</button></div>';
+    box.appendChild(main); box.appendChild(side);
+    var home = main.querySelector('.clips');
+    CLIPS.concat([['km', '?', 'the margin of Violet Wray&rsquo;s baptism: <b>born April ? th</b>']]).forEach(function (c) {
+      var el = ER.el('span', 'clip dnd-item' + (c[0] === 'km' ? ' big' : ''), CS.glyph(c[0] === 'km' ? '4f' : c[1], true) + '<span>' + c[2] + '</span>');
+      el.setAttribute('data-k', c[0]);
+      (placed[c[0]] ? main.querySelector('.slot[data-s="' + placed[c[0]] + '"]') : home).appendChild(el);
+    });
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      placed = {};
+      ER.$$('.clip', box).forEach(function (el) { var s = el.parentNode.getAttribute('data-s'); if (s) placed[el.getAttribute('data-k')] = s; });
+      ER.flag('n-figs', placed);
+      box.setAttribute('data-figs', ['k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'km'].map(function (k) { return placed[k] ? placed[k].charAt(0) : '-'; }).join(''));
+    }
+    ER.dnd(box, { item: '.clip', slot: '.slot', home: home, lock: function () { return done; }, change: function () { read(); CS.sfx.slip(); msg(''); } });
+    var KNOW = {
+      k1: 'Sybil Thackray was baptised on October 4th 1874.',
+      k2: 'William Thackray was buried on March 14th 1870.',
+      k3: 'Violet was baptised on April 24th 1881.',
+      k4: 'Susan Thackray was baptised on January 23rd 1881.',
+      k5: 'The baby Samuel Wray was baptised on May 4th 1873.',
+      k6: 'William Thackray was 61 when he was buried.'
+    };
+    side.querySelector('#f-go').addEventListener('click', function () {
+      var i, c, pile;
+      if (done) return;
+      read();
+      for (i = 0; i < CLIPS.length; i++) {
+        c = CLIPS[i]; pile = placed[c[0]] ? placed[c[0]].charAt(0) : null;
+        if (!pile) { msg('Sort all six of his figures first. Look each date up in your notebook: the baptisms and the burials.'); return; }
+        if (pile !== c[1]) { ER.sfx.no(); CS.flash(box.querySelector('.clip[data-k="' + c[0] + '"]')); msg(KNOW[c[0]] + ' So which figure is this one?'); return; }
+      }
+      pile = placed.km ? placed.km.charAt(0) : null;
+      if (!pile) { msg('His six are sorted. Now look closely, and put the figure from Violet&rsquo;s margin with the ones it matches.'); return; }
+      if (!ER.check('num', pile)) {
+        ER.sfx.no(); CS.flash(box.querySelector('.clip[data-k="km"]'));
+        msg('&ldquo;There,&rdquo; says Miss Tunstall. &ldquo;A one.&rdquo; Then she looks again. His 1s are a single stroke with a little flag at the top, and nothing else. Look at the margin figure: what else has it got, that his 1s have not?');
+        return;
+      }
+      done = true; tell('figs'); CS.solved(true);
+      msg('A bar across, and the upright running on below the bar: <b>his 4</b>, with its first stroke faded. <i>Born April 4th.</i>');
+      CS.mine('four', 'Born April 4th', '<p>The vicar&rsquo;s 1 is one stroke with a little flag. His 4 has a bar across and an upright that runs on below it. The figure in the margin of Violet&rsquo;s baptism has the bar and the long upright; only its first stroke has faded. So it is a <b>4</b>, and the typed list of 1974 read it wrong.</p>' +
+        '<p>Violet Wray was born on <b>Monday 4 April 1881</b>: in the small hours after census night. The instructions: <i>a child born after midnight is not entered.</i> She was not missed. She was not yet born.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Miss Tunstall holds the photograph of the margin under the lamp for a long time. Then she takes off her glasses.',
+          '&ldquo;April the fourth. A Monday. In the night of the census: that part was true. My great-great-grandmother wrote <i>the night of the Census</i> in her Bible, and every one of us after her made it mean <i>before midnight</i>.&rdquo;',
+          '&ldquo;She was born after midnight. A child born after midnight is not entered. Mr Tasker did not miss her. He was right not to count her.&rdquo; A short laugh. &ldquo;She kept her birthday a day early for ninety-seven years. I shall have to tell my cousins.&rdquo;',
+          '&ldquo;So there is only one. Tabitha.&rdquo; She pulls the photograph of page 9 across the table, and a pencil. &ldquo;Write her in. Properly, as he should have: every column. Where she goes, and what she was, that night.&rdquo;'
+        ], function () { busy = false; paint(); openPage(); });
+      }, 2600);
+    });
+    read();
+    if (done) msg('Born April 4th.');
+    else msg(Object.keys(placed).length ? 'The figures, as far as you have got.' : 'Drag each figure to a pile, or click it and then a space. The registers are in your notebook.');
+    return { open: function () { ER.open('ov-lock', box, function () { paint(); }); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- 2. write her in: her line on page 9 ---------- */
+  function openPage() { if (!page) page = makePage(); page.open(); }
+  function makePage() {
+    var st = ER.flag('n-line') || { pos: null, rel: 0, age: 0, occ: 0, born: 0 }, wait = false;
+    var REL = [['servt', 'Servt'], ['dau', 'Dau'], ['visitor', 'Visitor'], ['niece', 'Niece']];
+    var AGE = [['m12', 'M', '12'], ['f12', 'F', '12'], ['f13', 'F', '13'], ['f11', 'F', '11']];
+    var OCC = [['gs', 'General Servant'], ['sch', 'Scholar'], ['none', '&mdash;']];
+    var BORN = [['du', 'do. Ulgarth'], ['dd', 'do. do.'], ['yu', 'Yorkshire Ulgarth']];
+    var POS = ['h', 'wi', 'w', 't', 'sy', 'sa', 'su'];                 /* after Thomas, Sarah, William, Thomas, Sybil, Samuel, Susan */
+    var box = ER.el('div', 'wi');
+    function rows() {
+      var R = CS.PAGES[9].rows, s = '', k, i = 0, A = AGE[st.age];
+      for (k = 0; k < R.length; k++) {
+        s += row(R[k]);
+        if (k >= 6 && k <= 12) {
+          if (st.pos === POS[i]) s += '<tr class="ins"><td class="num"></td><td></td><td></td><td></td><td>Tabitha do.</td><td><button type="button" class="cellb" data-c="rel">' + REL[st.rel][1] + '</button></td><td></td>' +
+            '<td class="num">' + (A[1] === 'M' ? '<button type="button" class="cellb" data-c="age">' + A[2] + '</button>' : '') + '</td><td class="num">' + (A[1] === 'F' ? '<button type="button" class="cellb" data-c="age">' + A[2] + '</button>' : '') + '</td>' +
+            '<td><button type="button" class="cellb" data-c="occ">' + OCC[st.occ][1] + '</button></td><td><button type="button" class="cellb" data-c="born">' + BORN[st.born][1] + '</button></td></tr>';
+          else s += '<tr class="gap"><td colspan="11"><button type="button" data-p="' + POS[i] + '">+ HER LINE HERE</button></td></tr>';
+          i++;
+        }
+      }
+      return s;
+    }
+    function row(r) {
+      return '<tr' + (r.e === 2 ? ' class="end2"' : '') + '><td class="num">' + (r.s || '') + '</td><td>' + (r.h || '') + '</td><td class="num">' + (r.i || '') + '</td><td class="num">' + (r.u || '') + '</td><td>' + (r.n || '') + '</td><td>' + (r.r || '') + '</td><td>' + (r.c || '') + '</td><td class="num">' + (r.m || '') + '</td><td class="num">' + (r.f || '') + '</td><td>' + (r.o || '') + '</td><td>' + (r.b || '') + '</td></tr>';
+    }
+    function draw() {
+      var html = CS.page(9), tb = rows();
+      html = html.replace(/<tbody>[\s\S]*<\/tbody>/, '<tbody>' + tb + '</tbody>');
+      box.innerHTML = html + '<div class="wi-foot"><p class="pmsg"></p><button type="button" class="btn" id="w-go">Write her in</button></div>';
+      ER.$$('.gap button', box).forEach(function (b) { b.addEventListener('click', function () { if (wait || nextFile) return; st.pos = b.getAttribute('data-p'); save(); CS.sfx.slip(); draw(); }); });
+      ER.$$('.cellb', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (wait || nextFile) return;
+          var c = b.getAttribute('data-c'), n = { rel: REL, age: AGE, occ: OCC, born: BORN }[c].length;
+          st[c] = (st[c] + 1) % n; save(); CS.sfx.chalk(); draw();
+        });
+      });
+      box.querySelector('#w-go').addEventListener('click', tryIt);
+      box.setAttribute('data-line', cand());
+    }
+    function cand() { return [st.pos || '-', REL[st.rel][0], AGE[st.age][0], OCC[st.occ][0], BORN[st.born][0]].join('-'); }
+    function save() { ER.flag('n-line', st); }
+    function msg(t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    var WHY = {
+      pos: 'The enumerator wrote a family&rsquo;s children eldest first. Tabitha was twelve. Who is older than her, and who is younger?',
+      rel: { servt: 'Whose servant? On census night her place had not begun, and this was her own father&rsquo;s house.', visitor: 'A visitor is somebody staying in another family&rsquo;s house. This was her own home.', niece: 'Niece of whom? The head is Thomas Thackray. Her baptism says whose daughter she was.' },
+      age: { m12: 'A girl&rsquo;s age goes in the column for Females.', f13: 'Baptised in December 1868, and buried aged twelve. On 3 April 1881 she was twelve.', f11: 'Baptised in December 1868, and buried aged twelve. On 3 April 1881 she was twelve.' },
+      occ: { gs: 'That week she was not anybody&rsquo;s servant: Mrs Tasker&rsquo;s log counted her in school on the Friday and the Monday.', none: 'What did the enumerator write for every child at school? Look at Thomas and Sybil.' },
+      born: { du: 'Her baptism is in Sattersby&rsquo;s book. And under William&rsquo;s &ldquo;do. Sattersby&rdquo;, what does &ldquo;do. do.&rdquo; mean?', yu: 'Her baptism is in Sattersby&rsquo;s book, not Ulgarth&rsquo;s.' }
+    };
+    function tryIt() {
+      var file, k;
+      if (wait || nextFile) return;
+      if (!st.pos) { msg('First choose where her line goes: click one of the gaps between the Thackrays.'); return; }
+      if (!ER.check('pos', st.pos)) { ER.sfx.no(); msg('&ldquo;' + WHY.pos + '&rdquo;'); return; }
+      k = REL[st.rel][0]; if (!ER.check('rel', k)) { ER.sfx.no(); CS.flash(box.querySelector('[data-c=rel]')); msg('&ldquo;' + WHY.rel[k] + '&rdquo;'); return; }
+      k = AGE[st.age][0]; if (!ER.check('age', k)) { ER.sfx.no(); CS.flash(box.querySelector('[data-c=age]')); msg('&ldquo;' + WHY.age[k] + '&rdquo;'); return; }
+      k = OCC[st.occ][0]; if (!ER.check('occ', k)) { ER.sfx.no(); CS.flash(box.querySelector('[data-c=occ]')); msg('&ldquo;' + WHY.occ[k] + '&rdquo;'); return; }
+      k = BORN[st.born][0]; if (!ER.check('born', k)) { ER.sfx.no(); CS.flash(box.querySelector('[data-c=born]')); msg('&ldquo;' + WHY.born[k] + '&rdquo;'); return; }
+      file = ER.exit([cand()], { wait: true });
+      if (!file) { msg('Something is wrong with this page. Tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('n-file', file);
+      msg('<i>Tabitha do. &middot; Dau &middot; 12 (Females) &middot; Scholar &middot; do. do.</i> Page 9, females: <b>seven names</b>. His total at the foot: <b>seven</b>. The parish: <b>214</b>, and so is his.');
+      CS.mine('line', 'Tabitha&rsquo;s line on page 9', '<p>Between William (17) and Thomas (9), eldest first:</p><p><b>Tabitha do. &middot; Dau &middot; age 12, in the Females column &middot; Scholar &middot; do. do. (Yorkshire, Sattersby)</b></p>' +
+        '<p>Page 9 now has seven women and girls, and his total says seven. The parish has 214 names, and his own total says 214. He counted her. He never wrote her down.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; tell('markgone'); paint(); CS.sfx.gust();
+        ER.narrate([
+          'Miss Tunstall counts page 9 with the end of the pencil. &ldquo;Seven. And two hundred and fourteen. He was right all along. He counted her at the door, eight in the house, because her father said eight. And then he knew better, and left her name off.&rdquo;',
+          'The fire draws, all at once, as if a door had opened. When you look at the blackboard again, the chalk stroke in the corner has gone. The corner is clean.',
+          'Vince puts down his cloth. &ldquo;I&rsquo;ll get my coat,&rdquo; he says. &ldquo;I&rsquo;d like to see this.&rdquo;',
+          '&ldquo;The board,&rdquo; says Miss Tunstall. &ldquo;Tonight. I have a pen.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3200);
+    }
+    draw();
+    msg(st.pos ? 'Her line, as far as you have got. Click any pencilled box to change it.' : 'Page 9 as he wrote it. Click a gap between the Thackrays to choose where her line goes; then click each pencilled box to set it from the records.');
+    return { open: function () { ER.open('ov-lock', box, function () { paint(); }); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

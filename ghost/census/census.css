@@ -1,0 +1,223 @@
+/* Not a Soul Missed - what every room of the story shares: the papers of a village (a census leaflet, the enumerator's
+   book of 1881, the parish registers, a school log and register, a schoolmaster's diary, a family Bible), the frames
+   round the pieces of work done with the hands, the tally counter in Miss Tunstall's pocket, and a church's colours for
+   the notebook, the hints and the word tags. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.34em}
+.tc-room{line-height:1.04;letter-spacing:.01em}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.46vw,22px);line-height:1.46}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.48}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.2)}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 12px;border:1.5px solid var(--accent,#e2b25c);
+  color:#16120c;background:var(--accent,#e2b25c);font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.2em;text-transform:uppercase;border-radius:2px;
+  box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff4d8;border-color:#fff4d8}
+.ready{animation:rdy 1.7s steps(1,end) infinite}
+@keyframes rdy{50%{filter:brightness(1.5)}}
+
+/* lettering inside drawings */
+.fA{font-family:'Abril Fatface',serif}
+.fO{font-family:'Oswald',sans-serif}
+.fG{font-family:'EB Garamond',serif}
+.fT{font-family:'Special Elite',monospace}
+.fC{font-family:'Caveat',cursive}
+.fZ{font-family:'Cinzel',serif}
+.fS{font-family:'Stardos Stencil',serif}
+.fH{font-family:'Homemade Apple',cursive}
+.fU{font-family:'Outfit',sans-serif}
+.fD{font-family:'Architects Daughter',cursive}
+.fR{font-family:'Rock Salt',cursive}
+
+/* ---- Miss Tunstall's tally counter, bottom left ---- */
+.clicker{position:fixed;left:18px;bottom:16px;z-index:30;display:flex;align-items:center;gap:9px;padding:7px 12px 7px 8px;background:rgba(10,12,16,.72);border:1px solid rgba(255,255,255,.18);
+  border-radius:20px;color:#e9e4d8;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;pointer-events:none}
+.clicker svg{width:34px;height:34px;flex:0 0 auto}
+.clicker b{display:inline-block;min-width:34px;padding:2px 5px 1px;background:#0c0c0c;color:#f6f2e6;font-family:'Special Elite',monospace;font-size:17px;letter-spacing:.12em;text-align:center;border-radius:2px}
+.clicker.tick b{animation:tick .5s steps(1,end) 2}
+@keyframes tick{50%{background:#f6f2e6;color:#0c0c0c}}
+
+/* ---- a piece of work: the line that answers, the button ---- */
+.pmsg{flex:1;min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.34;color:#f3ecd9}
+.pmsg b{color:var(--accent,#e2b25c);font-weight:600}
+.pfoot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pfoot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.42)}
+.bad{outline:3px solid #d2452f;outline-offset:2px}
+.good{outline:3px solid #6fae6a;outline-offset:2px}
+.frame{background:#20242a linear-gradient(160deg,#2a2f36,#15181d);border:1px solid #59606a;box-shadow:0 26px 70px rgba(0,0,0,.75);padding:12px 14px;color:#e9e4d8;
+  -webkit-user-select:none;user-select:none}
+.frame h5{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent,#e2b25c)}
+
+/* ---- the enumerator's book, 1881: printed columns, the enumerator's ink ---- */
+.eb{background:#efe6cf linear-gradient(176deg,rgba(255,252,240,.55),rgba(140,110,60,.16));color:#2a2218;padding:8px 10px 8px;border:1px solid #9c8a64;box-shadow:inset 0 0 30px rgba(120,90,40,.18)}
+.eb .eb-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-family:'EB Garamond',serif;font-size:12.5px;line-height:1.2;border-bottom:1px solid #7a6a4c;padding-bottom:3px;margin-bottom:2px}
+.eb .eb-top b{font-family:'Cinzel',serif;font-size:13px}
+.eb .eb-top i{font-family:'Homemade Apple',cursive;font-style:normal;font-size:12.5px;color:#22305a}
+.eb table{width:100%;border-collapse:collapse;table-layout:fixed}
+.eb th{font-family:'EB Garamond',serif;font-weight:600;font-size:10.5px;line-height:1.05;padding:2px 2px;border:1px solid #7a6a4c;vertical-align:bottom;text-align:center;color:#3a2e1e}
+.eb td{height:24px;padding:0 3px;border-left:1px solid #9c8a64;border-right:1px solid #9c8a64;border-bottom:1px solid rgba(122,106,76,.35);font-family:'Homemade Apple',cursive;font-size:12px;line-height:1;color:#22305a;
+  white-space:nowrap;overflow:hidden;text-overflow:clip;vertical-align:middle}
+.eb td.num{text-align:center}
+.eb td.pr{font-family:'EB Garamond',serif;font-size:12px;color:#3a2e1e}
+.eb tr.end2 td{border-bottom:2px solid #7a6a4c}
+.eb tr.u td{color:#22305a}
+.eb tfoot td{font-family:'EB Garamond',serif;font-size:12px;color:#3a2e1e;border-top:2px solid #7a6a4c;height:22px}
+.eb tfoot td.hand{font-family:'Homemade Apple',cursive;color:#22305a;text-align:center;font-size:13px}
+.eb tr.ins td{background:rgba(214,170,60,.28)}
+.eb tr.sel{cursor:pointer}
+.eb tr.sel:hover td{background:rgba(214,170,60,.18)}
+.eb .eb-sum{margin-top:4px;font-family:'EB Garamond',serif;font-size:12px;color:#3a2e1e}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the walk leaflet, a photocopy on yellow paper */
+.doc.leaf{width:min(680px,94vw);background:#f4e9a8 linear-gradient(172deg,rgba(255,252,220,.5),rgba(150,120,40,.14));color:#1e1c16;font-family:'Outfit',Arial,sans-serif;font-size:16.5px;line-height:1.5;padding:22px 30px 18px}
+.doc.leaf h4{margin:0 0 2px;font-family:'Abril Fatface',serif;font-size:30px;line-height:1.05;color:#3a2a10}
+.doc.leaf h5{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#6a5420}
+.doc.leaf p{margin:0 0 8px}
+.doc.leaf .fig{margin:8px 0 6px}
+/* the printed instructions in the front of the enumerator's book */
+.doc.instr{width:min(660px,93vw);background:#efe6cf;color:#241e16;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.42;padding:20px 32px 18px;border:1px solid #9c8a64;outline:1px solid #9c8a64;outline-offset:-7px}
+.doc.instr h5{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.2em;text-align:center}
+.doc.instr h4{margin:2px 0 10px;font-family:'Cinzel',serif;font-weight:700;font-size:21px;letter-spacing:.06em;text-align:center}
+.doc.instr ol{margin:0 0 6px;padding-left:24px}
+.doc.instr li{margin:0 0 5px}
+.doc.instr .note{font-style:italic;border-left:3px solid #9c8a64;padding-left:10px;margin:8px 0 0}
+/* Miss Tunstall's board in the lych-gate: laminated, typed */
+.doc.board{width:min(700px,94vw);background:#fbfbf6;color:#1b2430;font-family:'Outfit',Arial,sans-serif;font-size:15.5px;line-height:1.42;padding:18px 26px 16px;border:6px solid #2a3a2e}
+.doc.board h4{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:23px;letter-spacing:.05em;color:#2a3a2e}
+.doc.board h5{margin:2px 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#5a6a5e}
+.doc.board h6{margin:8px 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#2a3a2e;border-bottom:1px solid #9aa89c}
+.doc.board p{margin:0 0 4px}
+.doc.board .hand{font-family:'Caveat',cursive;font-size:21px;line-height:1.2;color:#1d3a8c}
+/* a parish register: a printed page, the vicar's ink */
+.doc.reg{width:min(760px,95vw);background:#f1e8d2 linear-gradient(178deg,rgba(255,252,240,.5),rgba(140,110,60,.14));color:#2a2218;font-family:'EB Garamond',Georgia,serif;font-size:15px;line-height:1.3;padding:16px 22px 14px;border:1px solid #9c8a64}
+.doc.reg h4{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:17px;letter-spacing:.08em;text-align:center}
+.doc.reg h5{margin:1px 0 8px;font-family:'EB Garamond',serif;font-style:italic;font-size:14px;text-align:center}
+.doc.reg table{width:100%;border-collapse:collapse}
+.doc.reg th{font-weight:600;font-size:12px;line-height:1.1;border:1px solid #7a6a4c;padding:3px 4px;vertical-align:bottom}
+.doc.reg td{border:1px solid #9c8a64;padding:3px 5px;font-family:'Homemade Apple',cursive;font-size:12.5px;line-height:1.55;color:#2c2440;vertical-align:top}
+.doc.reg td.pr{font-family:'EB Garamond',serif;font-size:13px;color:#2a2218}
+.doc.reg .mg{font-size:11px;color:#5a4a6a}
+.doc.reg p{margin:8px 0 0;font-size:14.5px}
+/* a stone, as Miss Tunstall copied it into her walk notes */
+.doc.stone{width:min(560px,92vw);background:#cfd2cc linear-gradient(170deg,#e2e4de,#a9ada6);color:#262a2c;font-family:'Cinzel',serif;font-size:16px;line-height:1.5;padding:26px 30px 22px;text-align:center;
+  border-radius:120px 120px 6px 6px;box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 0 40px rgba(0,0,0,.18)}
+.doc.stone h4{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#4a4e50}
+.doc.stone p{margin:0 0 4px;letter-spacing:.06em}
+.doc.stone .sm{font-size:13px}
+.doc.stone .ep{font-family:'EB Garamond',serif;font-style:italic;font-size:17px;letter-spacing:0}
+/* the school log book, and the class register */
+.doc.log{width:min(700px,94vw);background:#f3eedf repeating-linear-gradient(transparent 0,transparent 27px,#c9c2ab 27px,#c9c2ab 28px);color:#262236;font-family:'Homemade Apple',cursive;font-size:13.5px;line-height:28px;
+  padding:12px 28px 12px 64px;border-left:3px double #c48a8a;background-position:0 6px}
+.doc.log h4{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:14px;line-height:28px;letter-spacing:.12em;color:#3a2e1e}
+.doc.log p{margin:0}
+.doc.log .d{display:inline-block;width:92px;margin-left:-56px;font-family:'EB Garamond',serif;font-size:13.5px;color:#7a2a1c}
+.doc.log .sel{color:#4a2a6a}
+/* the schoolmaster's pocket diary */
+.doc.diary{width:min(720px,94vw);background:#f6f0e0;color:#2a2018;font-family:'Homemade Apple',cursive;font-size:14px;line-height:1.95;padding:18px 28px 14px;border-left:14px solid #5a1c22}
+.doc.diary h4{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:#5a1c22}
+.doc.diary .d{display:block;margin:6px 0 0;font-family:'EB Garamond',serif;font-size:14px;font-weight:600;color:#5a1c22;letter-spacing:.06em;line-height:1.4}
+.doc.diary p{margin:0}
+/* the Wrays' family Bible, the front page */
+.doc.bible{width:min(560px,92vw);background:#efe2c4 radial-gradient(ellipse at 40% 30%,rgba(255,250,230,.6),rgba(120,82,30,.2));color:#2a1a10;font-family:'EB Garamond',serif;font-size:17px;line-height:1.5;padding:22px 34px 18px;
+  border:10px solid #3a1c12;outline:2px solid #b8923a;outline-offset:-16px}
+.doc.bible h4{margin:0 0 10px;font-family:'Cinzel',serif;font-weight:700;font-size:20px;letter-spacing:.1em;text-align:center;color:#5a2a1c}
+.doc.bible p{margin:0 0 6px}
+.doc.bible .ink{font-family:'Homemade Apple',cursive;font-size:14px;line-height:2;color:#3a2a5a}
+/* typed in 1974 by the Local History Society */
+.doc.trans{width:min(620px,93vw);background:#f2f0e8;color:#1e1e22;font-family:'Special Elite',monospace;font-size:15px;line-height:1.5;padding:20px 28px 16px;border-top:10px solid #4a5a6a}
+.doc.trans h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#4a5a6a}
+.doc.trans p{margin:0 0 6px}
+/* a page of a census, on a tablet */
+.doc.tab{width:min(760px,95vw);background:#101418;color:#e9eef2;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.45;padding:14px 16px 14px;border-radius:18px;border:10px solid #22272e}
+.doc.tab h4{margin:0 0 6px;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;letter-spacing:.08em;color:#9fc4e8}
+.doc.tab p{margin:6px 2px 0}
+.doc.tab .eb td{white-space:normal;height:auto;padding:3px}
+/* a notice, a card on the wall */
+.doc.card{width:min(620px,93vw);background:#fbfaf2;color:#20242b;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.42;padding:20px 30px 16px;border-top:10px solid var(--card,#2a3a2e)}
+.doc.card h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--card,#2a3a2e)}
+.doc.card p{margin:0 0 7px}
+.doc.card .fig{float:right;width:230px;margin:2px 0 6px 14px}
+/* what you worked out yourself: a note on your phone */
+.doc.mine{width:min(540px,92vw);background:#fdfdfb;color:#1f2530;font-family:'Outfit',Arial,sans-serif;font-weight:400;font-size:16.5px;line-height:1.5;padding:18px 24px 18px;border-radius:14px;border:1px solid #c5ccd6;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 4px rgba(240,243,248,.9)}
+.doc.mine h4{margin:0 0 8px;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#2a5a3a}
+.doc.mine p{margin:0 0 5px}
+.doc.mine b{font-weight:600}
+.doc.statement{background:#f1ecdc;font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.46;border-left:6px solid #2a3a2e}
+.doc.statement h4{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#2a3a2e}
+.doc .w:hover{color:#8c2f24}
+.nb-view .doc{transform:none}
+
+/* ---- the notebook: a churchwarden's box file ---- */
+.nb{background:#1c2420 linear-gradient(140deg,#26302a,#121814);border:1px solid #6a7a5e;border-radius:3px;color:#e9eadf;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0c100e}
+.nb-tabs{border-bottom-color:#6a7a5e}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.2em;color:#cfd8a8}
+.nb-tabs button.on{background:#efe6cf;color:#1c2420;border-color:#6a7a5e}
+.nb-list{border-right-color:#6a7a5e}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#e9eadf}
+.nb-list button small{font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.18em}
+.nb-list button.on{background:#efe6cf;color:#1c2420}
+.nb-view{background:#0e1210}
+.nb-words{background:#efe6cf;color:#1e2018}
+.nb-words b{font-family:'Special Elite',monospace;font-size:17.5px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.3;color:#4a4e3a}
+.nb-ko{border-color:#6a7a5e;color:#5a5e4a}
+.nb-ko.on{background:#1c2420;color:#e0c070;border-color:#1c2420}
+/* a word tag is a parish label; the dictionary and the hints are cards from the vestry */
+.wtag{background:#efe6cf;color:#1c2420;border-radius:2px;border:1px solid #6a7a5e}
+.wtag b,.wtip b{font-family:'Oswald',sans-serif;letter-spacing:.08em}
+.wtip{background:#f6f2e4;border-top:4px solid #2a3a2e;border-radius:2px}
+.hintbox{background:#f6f2e4;color:#1e2018;border-top:6px solid #2a3a2e;border-radius:2px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3em;color:#2a3a2e}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.36}
+.hintbox p i{background:#2a3a2e;color:#f6f2e4}
+.hintbox .btn{border-color:#2a3a2e;color:#2a3a2e}
+.hintbox .btn:hover:not([disabled]){background:#2a3a2e;color:#f6f2e4}
+.hint-x:hover{color:#2a3a2e}
+.toast{font-family:'Oswald',sans-serif;font-weight:500;background:rgba(14,20,16,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(520px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 24px 12px;display:none;background:#f4f1e6;color:#1e2018;border-top:9px solid #2a3a2e;
+  box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:3px 14px 1px;border:3.5px solid #2a3a2e;color:#2a3a2e;font-family:'Cinzel',serif;font-weight:700;font-size:20px;letter-spacing:.14em;transform:rotate(-3deg);margin-bottom:8px}
+.done h6{margin:0 0 5px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:25px;line-height:1.1;color:#1c2420}
+.done p{margin:0 0 2px;font-family:'Special Elite',monospace;font-size:14px;line-height:1.42}
+.done .last{margin:8px 0 2px;font-family:'EB Garamond',serif;font-style:italic;font-size:17.5px;line-height:1.34}
+.done .know{margin:8px 0 0;padding:8px 12px 6px;background:#fbf9f0;border-left:4px solid #2a3a2e}
+.done .know h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#2a3a2e}
+.done .know ul{margin:0;padding-left:18px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.3}
+.done .know li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.done .btn{--accent:#2a3a2e;font-size:12.5px;padding:8px 13px}
+.done .btn:hover:not([disabled]){color:#f4f1e6}
+.done small{display:block;margin-top:8px;font-family:'Special Elite',monospace;font-size:12px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(800px,94vw);max-height:82vh;overflow:auto;background:#f4f1e6;color:#1e2018;padding:20px 32px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:9px solid #2a3a2e}
+.rp h4{margin:0 0 3px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#2a3a2e}
+.rp h3{margin:0 0 8px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:30px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.38;margin:0 0 6px}
+.rp .use{font-family:'Special Elite',monospace;font-size:14.5px;color:#2a3a2e}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:23px;line-height:30px;color:#1e2018;background:#fff repeating-linear-gradient(transparent 0,transparent 29px,#c9d2c0 29px,#c9d2c0 30px);border:1px solid #6a7a5e;padding:0 12px;border-radius:0;resize:vertical;
+  -webkit-user-select:text;user-select:text}
+.rp #r1{min-height:182px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.04em;opacity:.85;text-align:right;margin:2px 0 8px}
+.rp .count.ok{color:#2f5a3c;opacity:1;font-weight:bold}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Special Elite',monospace;font-size:12.5px;opacity:.75}
+.rp .btn{--accent:#2a3a2e}.rp .btn:hover:not([disabled]){color:#f4f1e6}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}
