@@ -175,7 +175,7 @@ var ROOMS = {
   'mystery/forty/street': 'noir',
   'mystery/forty/hall': ['noir', { drop: ['mel'] }],                      /* the ship's clock is listened to here */
   'mystery/forty/chart': ['noir', { root: 53, bpm: 52 }],                  /* a room for reading: slower */
-  'mystery/forty/cellar': ['noir', { root: 45, drop: ['mel'], level: 0.9 }],
+  'mystery/forty/cellar': ['noir', { root: 45, drop: ['mel'], level: 0.98 }],
   'mystery/forty/office': ['noir', { root: 48 }],
   'mystery/forty/midnight': ['noir', { mood: 'tense', drop: ['mel', 'ost'] }],       /* and again here: nothing with a beat */
   'mystery/forty/morning': 'morning',
@@ -303,7 +303,7 @@ var ROOMS = {
   'wild/tide/box': ['trail', { root: 55, bpm: 50, drop: ['mel', 'arp', 'ost', 'bass'], level: 1.05, beds: [['sea', 0.9], ['wind', 0.3]] }],     /* a boat's horn is answered with a bell: nothing with a beat */
   'scifi/benthos/watch': ['orbit', { root: 45, bpm: 44, drop: ['mel'], lead: 'keys', beds: [['hum', 0.6]] }],            /* pings carry meaning in this story: the tune of the scape is a ping, so it is dropped, and the solved phrase is played on keys */
   'scifi/benthos/lab': ['orbit', { root: 52, bpm: 50, drop: ['mel'], lead: 'keys', beds: [['drips', 0.5], ['hum', 0.3]] }],
-  'scifi/benthos/pumps': ['orbit', { root: 43, bpm: 52, mood: 'tense', drop: ['mel'], lead: 'keys', beds: [['hum', 1], ['drips', 0.4]] }],
+  'scifi/benthos/pumps': ['orbit', { root: 43, bpm: 52, mood: 'tense', drop: ['mel'], lead: 'keys', level: 0.92, beds: [['hum', 1], ['drips', 0.4]] }],
   'scifi/benthos/floor': ['orbit', { root: 40, bpm: 42, mood: 'tense', drop: ['mel', 'ost'], lead: 'keys', beds: [['static', 0.5]] }],    /* orders go out and pings come back: no tune and no pulse */
   'scifi/benthos/dock': ['orbit', { root: 50, bpm: 50, drop: ['mel'], lead: 'keys', beds: [['drips', 0.7]], then: ['morning', { root: 50, bpm: 66 }] }],
   'fantasy/hours/stair': ['candle', { root: 50, bpm: 60, drop: ['mel'], beds: [['night', 0.5], ['wind', 0.3]] }],            /* a clock ticks and strikes in this story: no small bright notes */
@@ -419,7 +419,7 @@ var ROOMS = {
   'ai/voice/office': ['circuit', { root: 48, bpm: 66, drop: ['mel', 'arp'], lead: 'keys', level: 1.05, beds: [['night', 0.4]] }],
   'ai/voice/onair': ['circuit', { root: 52, bpm: 84, scale: [0, 2, 4, 5, 7, 9, 11], drop: ['mel'], lead: 'keys' }],
   /* econ/bank: a rumour, a queue and a sound bank */
-  'econ/bank/hall': ['ledger', { root: 50, bpm: 84, drop: ['mel'], beds: [['hum', 0.3]] }],    /* a quiet banking hall with a lot to read */
+  'econ/bank/hall': ['ledger', { root: 50, bpm: 84, drop: ['mel'], level: 1.1, beds: [['hum', 0.3]] }],    /* a quiet banking hall with a lot to read */
   'econ/bank/office': ['ledger', { root: 45, bpm: 76, drop: ['mel'], level: 1.1 }],    /* the manager's office: slow, for reading */
   'econ/bank/cafe': ['ledger', { root: 47, bpm: 92, beds: [['crowd', 0.45]] }],    /* a busy café, chatter under the tune */
   'econ/bank/backoffice': ['ledger', { root: 43, bpm: 72, drop: ['mel'], level: 1.1, beds: [['hum', 0.35]] }],    /* sums under a strip light */
@@ -454,8 +454,8 @@ var ROOMS = {
   'lang/accent/maps': ['babel', { root: 52, bpm: 66, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['rain', 0.55], ['wind', 0.35]] }],
   'lang/accent/dawn': ['babel', { root: 52, bpm: 72, mood: 'calm', level: 0.95, beds: [['birds', 0.4]] }],
   /* econ/tulip: a tulip bubble, a chain of promises, a drain and a common */
-  'econ/tulip/saleroom': ['ledger', { root: 48, bpm: 84, drop: ['mel'], beds: [['crowd', 0.25]] }],    /* a big hall at viewing time, a few people */
-  'econ/tulip/backroom': ['ledger', { root: 45, bpm: 72, drop: ['mel'], beds: [['fire', 0.5]] }],    /* a tavern back room, last night's fire */
+  'econ/tulip/saleroom': ['ledger', { root: 48, bpm: 84, drop: ['mel'], level: 1.1, beds: [['crowd', 0.25]] }],    /* a big hall at viewing time, a few people */
+  'econ/tulip/backroom': ['ledger', { root: 45, bpm: 72, drop: ['mel'], level: 1.1, beds: [['fire', 0.5]] }],    /* a tavern back room, last night's fire */
   'econ/tulip/museum': ['ledger', { root: 43, bpm: 66, drop: ['mel'], level: 1.1, beds: [['hum', 0.25]] }],    /* a quiet museum, much to read */
   'econ/tulip/window': ['ledger', { root: 50, bpm: 96, beds: [['hum', 0.2]] }],    /* a bright, brisk office: the tune kept, Tebbutt's mood */
   'econ/tulip/ings': ['ledger', { root: 47, bpm: 80, drop: ['mel'], beds: [['wind', 0.5], ['birds', 0.35]] }],    /* an open water meadow */
@@ -477,6 +477,214 @@ var ROOMS = {
   'ai/imitation/cafe': ['circuit', { root: 52, bpm: 72, drop: ['mel'], lead: 'keys', level: 1.0, beds: [['rain', 0.4], ['crowd', 0.25]] }],
   'ai/imitation/office': ['circuit', { root: 45, bpm: 60, mood: 'tense', drop: ['mel', 'arp'], lead: 'keys', level: 1.08 }],
   'ai/imitation/hall': ['circuit', { root: 50, bpm: 84, scale: [0, 2, 4, 5, 7, 9, 11], drop: ['mel'], lead: 'keys', level: 1.0, beds: [['crowd', 0.4]] }],
+  /* court/will: In Our Joint Presence (2026-10-20) */
+  'court/will/office': ['bench', { root: 45, bpm: 58, drop: ['mel', 'ost'], beds: [['rain', 0.35]] }],    /* rain on the solicitor's back-office window */
+  'court/will/study': ['bench', { root: 43, bpm: 52, drop: ['mel', 'ost'], beds: [['wind', 0.35]] }],    /* dusk wind in the apple tree; no pulse, because the typewriter strikes are story effects */
+  'court/will/post': ['bench', { root: 48, bpm: 60, drop: ['mel', 'ost'], beds: [['hum', 0.25], ['rain', 0.2]] }],    /* the shop fridge and drizzle; the door bell is an effect */
+  'court/will/robing': ['bench', { root: 41, bpm: 54, drop: ['mel', 'ost'], beds: [['crowd', 0.2]] }],    /* voices in the corridor */
+  'court/will/court': ['bench', { root: 47, bpm: 56, drop: ['mel', 'ost'], beds: [['rain', 0.2]], level: 0.95 }],    /* a reading-heavy room: no tune */
+  'court/will/ruling': ['bench', { scale: MAJ, root: 48, bpm: 66, drop: ['ost'], beds: [['birds', 0.4]] }],    /* the same music in a major key, after the rain */
+  /* forensic/orchid: Lane Seven (2026-10-20) */
+  'forensic/orchid/shed': ['lab', { root: 50, bpm: 70, drop: ['mel'], beds: [['rain', 0.55]] }],    /* rain on the customs shed roof; lots to read, no tune */
+  'forensic/orchid/bay': ['lab', { root: 48, bpm: 76, drop: ['arp'], beds: [['rain', 0.8]] }],    /* the open mouth of the bay: heavier rain */
+  'forensic/orchid/deck': ['lab', { root: 45, bpm: 74, mood: 'tense', drop: ['arp'], beds: [['hum', 0.6]] }],    /* the engines are running and the ship is waiting; the horn is an effect */
+  'forensic/orchid/lab': ['lab', { root: 52, bpm: 62, drop: ['mel', 'arp'], beds: [['sea', 0.35]] }],    /* the quietest room, for counting grains */
+  'forensic/orchid/control': ['lab', { root: 47, bpm: 66, drop: ['arp'], beds: [['wind', 0.3]] }],    /* wind on the long window over the lanes */
+  'forensic/orchid/quay': ['morning', { root: 53, bpm: 70, beds: [['sea', 0.5]] }],    /* dawn on the quay, in a major key */
+  /* scifi/greeting: With Open Arms (2026-10-20) */
+  'scifi/greeting/control': ['orbit', { root: 45, bpm: 46, drop: ['mel'], lead: 'keys', beds: [['hum', 0.5]] }],    /* a warm humming control room; no pings, because pulses mean something in this story */
+  'scifi/greeting/kitchen': ['orbit', { root: 50, bpm: 48, drop: ['mel'], lead: 'keys', beds: [['hum', 0.3], ['drips', 0.35]] }],    /* the fridge and a dripping tap */
+  'scifi/greeting/archive': ['orbit', { root: 47, bpm: 46, drop: ['mel', 'ost'], lead: 'keys', beds: [['static', 0.3]] }],    /* old-tape hiss in the basement */
+  'scifi/greeting/hut': ['orbit', { root: 52, bpm: 48, drop: ['mel'], lead: 'keys', beds: [['hum', 0.8], ['static', 0.2]] }],    /* the helium compressor, and cold */
+  'scifi/greeting/dish': ['orbit', { root: 43, bpm: 52, mood: 'tense', drop: ['mel'], lead: 'keys', beds: [['wind', 0.7]] }],    /* wind fifty metres up, with the clock running */
+  'scifi/greeting/sky': ['morning', { root: 50, bpm: 62, drop: ['mel'], beds: [['wind', 0.3]] }],    /* the reply going out, in a major key */
+  /* news/figures: Same Rules (2026-10-20) */
+  'news/figures/desk': ['desk', { bpm: 104, drop: ['mel'], beds: [['hum', 0.4]] }],    /* a newsroom on debate night: a pulse and machine hum, no tune */
+  'news/figures/gallery': ['desk', { root: 47, bpm: 112, mood: 'tense', drop: ['mel'], beds: [['hum', 0.5]] }],    /* live television, tense */
+  'news/figures/archive': ['desk', { root: 43, bpm: 76, drop: ['mel', 'ost'], beds: [['hum', 0.25], ['drips', 0.3]] }],    /* the tape library under the boiler: the quietest room */
+  'news/figures/carpark': ['desk', { root: 45, bpm: 92, drop: ['mel'], beds: [['rain', 0.5], ['night', 0.35]] }],    /* rain in the car park at night */
+  'news/figures/green': ['desk', { root: 48, bpm: 116, mood: 'tense', drop: ['mel'], beds: [['crowd', 0.25]] }],    /* the break, with the clock running */
+  'news/figures/air': ['morning', { root: 50, bpm: 72, beds: [['crowd', 0.25]] }],    /* on air, then the morning after, in a major key */
+  /* fantasy/border: A Nice Measure (2026-10-20) */
+  'fantasy/border/maproom': ['candle', { root: 50, bpm: 60, drop: ['mel'], beds: [['fire', 0.45], ['night', 0.3]] }],    /* a warm old room at night; the Table's pen is heard, so no small bright notes */
+  'fantasy/border/archive': ['candle', { root: 45, bpm: 52, drop: ['mel', 'arp'], beds: [['night', 0.5], ['drips', 0.25]] }],    /* a cold roof room at midnight, much to read: low, slow, nothing plucked */
+  'fantasy/border/copying': ['candle', { root: 48, bpm: 56, drop: ['mel'], beds: [['rain', 0.5]] }],    /* rain at three in the morning, and the most reading in the story */
+  'fantasy/border/tower': ['candle', { root: 52, bpm: 64, beds: [['wind', 0.55], ['birds', 0.4]] }],    /* the top of a tower at sunrise: open air, the whole tune */
+  'fantasy/border/bridge': ['candle', { root: 55, bpm: 70, drop: ['mel'], beds: [['crowd', 0.45], ['wind', 0.25]] }],    /* a bright morning on a busy bridge, with something at stake but no clock running */
+  'fantasy/border/reading': ['candle', { root: 50, bpm: 58, drop: ['mel'], beds: [['crowd', 0.3]], then: ['morning', { root: 50, bpm: 72, drop: ['mel'] }] }],    /* noon, a full room, the words read aloud over the music; it opens into the morning scape at the end */
+  /* ghost/picture: Till the Lights Go Up (2026-10-20). Stalls: no tune, the piano belongs to the story; reel: major key at last */
+  'ghost/picture/foyer': ['hush', { root: 45, bpm: 52, drop: ['bass'], beds: [['rain', 0.35]] }],
+  'ghost/picture/stalls': ['hush', { root: 48, bpm: 50, drop: ['mel'], beds: [['rain', 0.16]] }],
+  'ghost/picture/office': ['hush', { root: 50, bpm: 48, drop: ['mel', 'bass'], beds: [['rain', 0.24]] }],
+  'ghost/picture/box': ['hush', { root: 43, bpm: 48, drop: ['mel'], beds: [['hum', 0.45]] }],
+  'ghost/picture/rewind': ['hush', { root: 47, bpm: 46, drop: ['mel', 'bass'], beds: [['drips', 0.3]] }],
+  'ghost/picture/reel': ['hush', { scale: MAJ, root: 48, bpm: 56, drop: ['mel'], beds: [['hum', 0.3]] }],
+  /* wild/karst: The Cave That Breathes (2026-10-20) */
+  'wild/karst/hut': ['trail', { root: 50, bpm: 58, drop: ['mel'], beds: [['fire', 0.6], ['rain', 0.25]] }],    /* a warm room with a stove; much to read and fill in: no tune */
+  'wild/karst/entrance': ['trail', { root: 45, bpm: 54, drop: ['mel'], beds: [['rain', 0.7], ['wind', 0.45]] }],    /* drizzle at the foot of the scar, a beck, much to read: no tune */
+  'wild/karst/chamber': ['trail', { root: 48, bpm: 50, drop: ['mel', 'arp'], level: 0.95, beds: [['drips', 0.8], ['rain', 0.2]] }],    /* a big dark chamber; a sound is listened for here: no tune, no plucked notes */
+  'wild/karst/pool': ['trail', { root: 43, bpm: 52, mood: 'tense', drop: ['mel', 'arp'], beds: [['rain', 0.55], ['drips', 0.5]] }],    /* rushing water in the dark, and a long wait: low, slow, no tune, no plucked notes */
+  'wild/karst/attic': ['trail', { root: 46, bpm: 46, drop: ['mel', 'arp', 'ost'], level: 0.95, beds: [['drips', 0.45]] }],    /* the stillest room: a candle, a long wait, and a sound to be listened to: no tune, no plucked notes */
+  'wild/karst/dawn': ['trail', { root: 52, bpm: 62, beds: [['wind', 0.35], ['birds', 0.45]] }],    /* the morning after: the theme's own tune comes back, in a major key */
+  /* adventure/river: A Little Water (2026-10-20) */
+  'adventure/river/landing': ['trail', { root: 48, bpm: 56, drop: ['mel'], beds: [['birds', 0.6], ['crowd', 0.2]] }],
+  'adventure/river/wheelhouse': ['trail', { root: 50, bpm: 60, drop: ['mel'], beds: [['hum', 0.5], ['birds', 0.35]] }],
+  'adventure/river/awning': ['trail', { root: 45, bpm: 50, drop: ['mel', 'arp', 'bass'], level: 1.05, beds: [['night', 0.8]] }],
+  'adventure/river/post': ['trail', { root: 53, bpm: 58, drop: ['mel'], beds: [['birds', 0.45], ['crowd', 0.15]] }],
+  'adventure/river/camp': ['trail', { root: 43, bpm: 54, mood: 'tense', drop: ['mel'], beds: [['birds', 0.4], ['drips', 0.5]] }],
+  'adventure/river/canopy': ['trail', { root: 50, bpm: 48, drop: ['mel', 'arp'], beds: [['night', 0.7]] }],
+  /* econ/ticket: The Second Night (2026-10-20) */
+  'econ/ticket/queue': ['ledger', { root: 43, bpm: 66, drop: ['mel'], level: 1.0, beds: [['night', 0.45], ['wind', 0.3]] }],
+  'econ/ticket/boxoffice': ['ledger', { root: 48, bpm: 88, drop: ['mel'], level: 1.05, beds: [['crowd', 0.3]] }],
+  'econ/ticket/office': ['ledger', { root: 52, bpm: 100, level: 1.0, beds: [['hum', 0.2]] }],
+  'econ/ticket/spareroom': ['ledger', { root: 45, bpm: 70, drop: ['mel', 'arp'], level: 1.1, beds: [['rain', 0.35]] }],
+  'econ/ticket/rehearsal': ['ledger', { root: 47, bpm: 80, drop: ['mel'], level: 1.0, beds: [['hum', 0.3]] }],
+  'econ/ticket/hall': ['ledger', { root: 50, bpm: 76, drop: ['mel'], level: 1.0 }],
+  /* lit/stardust: Stardust at Half Past Seven (2026-10-20) */
+  'lit/stardust/foyer': ['orbit', { root: 50, bpm: 50, drop: ['mel'], beds: [['wind', 0.45]] }],
+  'lit/stardust/office': ['orbit', { root: 45, bpm: 46, drop: ['mel'], beds: [['wind', 0.25]] }],
+  'lit/stardust/desk': ['orbit', { root: 47, bpm: 48, drop: ['mel'], beds: [['hum', 0.55]] }],
+  'lit/stardust/scaffold': ['orbit', { root: 52, bpm: 52, drop: ['mel'], beds: [['wind', 0.35]] }],
+  'lit/stardust/roof': ['orbit', { root: 43, bpm: 46, beds: [['wind', 0.5], ['night', 0.4]] }],
+  'lit/stardust/show': ['orbit', { root: 48, bpm: 56, scale: MAJ, beds: [['crowd', 0.25]] }],
+  /* lang/roots: Passed for Press (2026-10-20) */
+  'lang/roots/attic': ['babel', { root: 50, bpm: 62, drop: ['mel'], level: 1.0, beds: [['wind', 0.35]] }],
+  'lang/roots/slips': ['babel', { root: 53, bpm: 58, drop: ['arp'], level: 1.05, beds: [['rain', 0.4]] }],
+  'lang/roots/study': ['babel', { root: 48, bpm: 56, drop: ['mel'], level: 1.0, beds: [['fire', 0.5]] }],
+  'lang/roots/proof': ['babel', { root: 55, bpm: 64, drop: ['mel'], mood: 'tense', level: 1.0, beds: [['hum', 0.35]] }],
+  'lang/roots/press': ['babel', { root: 52, bpm: 70, mood: 'calm', level: 0.95, beds: [['hum', 0.3]] }],
+  /* history/stone: Sign by Sign (2026-10-20) */
+  'history/stone/office': ['archive', { root: 50, bpm: 52, drop: ['mel'], beds: [['crowd', 0.15], ['wind', 0.25]] }],
+  'history/stone/attic': ['archive', { root: 53, bpm: 48, drop: ['mel', 'ost'], beds: [['rain', 0.4]] }],
+  'history/stone/quai': ['archive', { root: 48, bpm: 56, drop: ['mel'], beds: [['birds', 0.3], ['wind', 0.25]] }],
+  'history/stone/press': ['archive', { root: 45, bpm: 58, drop: ['mel'], beds: [['hum', 0.35], ['drips', 0.3]] }],
+  'history/stone/cafe': ['archive', { root: 47, bpm: 54, drop: ['mel'], beds: [['crowd', 0.35], ['fire', 0.2]] }],
+  'history/stone/academy': ['archive', { root: 53, bpm: 60, beds: [['crowd', 0.3]] }],
+  /* econ/island: Small Change (2026-10-20) */
+  'econ/island/shop': ['ledger', { root: 48, bpm: 84, drop: ['mel'], level: 1.0, beds: [['rain', 0.35], ['sea', 0.3]] }],
+  'econ/island/cafe': ['ledger', { root: 52, bpm: 92, level: 1.0, beds: [['crowd', 0.3], ['rain', 0.2]] }],
+  'econ/island/bakery': ['ledger', { root: 45, bpm: 76, drop: ['mel'], level: 1.05, beds: [['fire', 0.5]] }],
+  'econ/island/hut': ['ledger', { root: 43, bpm: 70, mood: 'tense', drop: ['mel', 'arp'], level: 1.1, beds: [['rain', 0.45], ['sea', 0.35], ['static', 0.2]] }],
+  'econ/island/hall': ['ledger', { root: 50, bpm: 88, level: 1.0, beds: [['crowd', 0.4], ['wind', 0.2]] }],
+  /* ai/sorter: Mostly Paper (2026-10-20) */
+  'ai/sorter/hall': ['circuit', { root: 50, bpm: 78, drop: ['mel'], lead: 'keys', level: 1.0, beds: [['rain', 0.6]] }],
+  'ai/sorter/line': ['circuit', { root: 47, bpm: 84, drop: ['mel', 'arp'], lead: 'keys', level: 1.05, beds: [['hum', 0.7]] }],
+  'ai/sorter/control': ['circuit', { root: 45, bpm: 66, drop: ['mel', 'arp'], lead: 'keys', level: 1.08, beds: [['rain', 0.35]] }],
+  'ai/sorter/yard': ['circuit', { root: 48, bpm: 72, mood: 'tense', drop: ['mel'], lead: 'keys', level: 1.0, beds: [['rain', 0.45], ['wind', 0.35]] }],
+  'ai/sorter/weighbridge': ['circuit', { root: 52, bpm: 80, scale: MAJ, drop: ['mel'], lead: 'keys', level: 1.0, beds: [['birds', 0.4]] }],
+  /* mystery/seventh: The Seventh Book (2026-10-20) */
+  'mystery/seventh/evening': ['noir', { root: 50, bpm: 58, level: 1.0, beds: [['fire', 0.6], ['crowd', 0.3]] }],
+  'mystery/seventh/study': ['noir', { root: 45, bpm: 52, drop: ['mel'], level: 1.05, beds: [['birds', 0.3]] }],
+  'mystery/seventh/landing': ['noir', { root: 48, bpm: 54, drop: ['mel'], level: 1.05, beds: [['wind', 0.25]] }],
+  'mystery/seventh/garden': ['noir', { root: 53, bpm: 56, level: 1.0, beds: [['birds', 0.6], ['wind', 0.2]] }],
+  'mystery/seventh/kitchen': ['noir', { root: 43, bpm: 60, mood: 'tense', drop: ['mel'], level: 1.05, beds: [['fire', 0.45]] }],
+  'mystery/seventh/library': ['noir', { root: 47, bpm: 50, drop: ['mel'], level: 1.05, beds: [['rain', 0.45]] }],
+  'mystery/seventh/drive': ['morning', { root: 50, bpm: 70, level: 1.0, beds: [['birds', 0.5]] }],
+  /* fantasy/names: A Name That Is True (2026-10-20) */
+  'fantasy/names/gate': ['candle', { root: 47, bpm: 58, drop: ['mel'], level: 1.0, beds: [['wind', 0.5], ['sea', 0.3]] }],
+  'fantasy/names/street': ['candle', { root: 52, bpm: 54, drop: ['mel', 'arp'], level: 1.0, beds: [['night', 0.5]] }],
+  'fantasy/names/market': ['candle', { root: 55, bpm: 68, drop: ['mel'], level: 1.0, beds: [['crowd', 0.4], ['wind', 0.2]] }],
+  'fantasy/names/bridge': ['candle', { root: 45, bpm: 52, drop: ['mel', 'arp'], level: 1.0, beds: [['wind', 0.6], ['drips', 0.2]] }],
+  'fantasy/names/hall': ['candle', { root: 48, bpm: 56, drop: ['mel'], level: 1.0, beds: [['fire', 0.5]] }],
+  'fantasy/names/stair': ['candle', { root: 50, bpm: 62, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['drips', 0.5], ['night', 0.3]] }],
+  'fantasy/names/spring': ['candle', { root: 50, bpm: 50, drop: ['mel'], level: 1.0, beds: [['night', 0.4], ['drips', 0.4]], then: ['morning', { root: 50, bpm: 70, beds: [['birds', 0.5]] }] }],
+  /* scifi/copy: Whilst You Were Out (2026-10-20) */
+  'scifi/copy/comms': ['orbit', { root: 45, bpm: 50, drop: ['mel'], level: 1.0, beds: [['hum', 0.4], ['static', 0.25]] }],
+  'scifi/copy/galley': ['orbit', { root: 50, bpm: 54, level: 1.0, beds: [['hum', 0.3], ['drips', 0.25]] }],
+  'scifi/copy/greenhouse': ['orbit', { root: 52, bpm: 56, level: 1.0, beds: [['drips', 0.5], ['hum', 0.2]] }],
+  'scifi/copy/suits': ['orbit', { root: 47, bpm: 50, drop: ['mel'], level: 1.0, beds: [['hum', 0.6], ['wind', 0.25]] }],
+  'scifi/copy/power': ['orbit', { root: 43, bpm: 52, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['hum', 0.9]] }],
+  'scifi/copy/garage': ['orbit', { root: 41, bpm: 56, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['wind', 0.6], ['hum', 0.4]] }],
+  'scifi/copy/cupola': ['morning', { root: 50, bpm: 62, level: 1.0, beds: [['wind', 0.3]] }],
+  /* ghost/census: Not a Soul Missed (2026-10-20) */
+  'ghost/census/lychgate': ['hush', { root: 45, bpm: 52, drop: ['bass'], level: 1.0, beds: [['wind', 0.45], ['birds', 0.2]] }],
+  'ghost/census/vestry': ['hush', { root: 48, bpm: 50, drop: ['mel'], level: 1.05, beds: [['hum', 0.35]] }],
+  'ghost/census/churchyard': ['hush', { root: 43, bpm: 50, drop: ['bass'], level: 1.0, beds: [['night', 0.5], ['wind', 0.35]] }],
+  'ghost/census/schoolroom': ['hush', { root: 50, bpm: 54, drop: ['mel'], level: 1.05, beds: [['rain', 0.35]] }],
+  'ghost/census/schoolhouse': ['hush', { root: 47, bpm: 50, drop: ['mel', 'bass'], level: 1.1, beds: [['fire', 0.45], ['rain', 0.2]] }],
+  'ghost/census/snug': ['hush', { root: 52, bpm: 56, level: 1.0, beds: [['fire', 0.4], ['crowd', 0.2]] }],
+  'ghost/census/count': ['hush', { scale: MAJ, root: 48, bpm: 54, drop: ['bass'], level: 1.0, beds: [['night', 0.4]] }],
+  /* court/appeal: Under the Lamp (2026-10-20) */
+  'court/appeal/clerks': ['bench', { root: 44, bpm: 57, drop: ['mel', 'ost'], level: 1.0, beds: [['rain', 0.3]] }],
+  'court/appeal/library': ['bench', { root: 46, bpm: 52, drop: ['mel', 'ost'], level: 1.0, beds: [['hum', 0.2]] }],
+  'court/appeal/conference': ['bench', { root: 49, bpm: 55, drop: ['mel', 'ost'], level: 1.0, beds: [['rain', 0.2], ['night', 0.25]] }],
+  'court/appeal/strand': ['bench', { root: 47, bpm: 62, drop: ['mel', 'ost'], level: 1.0, beds: [['crowd', 0.3], ['rain', 0.15]] }],
+  'court/appeal/hall': ['bench', { root: 42, bpm: 54, drop: ['mel', 'ost'], level: 1.0, beds: [['crowd', 0.25]] }],
+  'court/appeal/court': ['bench', { root: 45, bpm: 60, drop: ['mel', 'ost'], level: 1.0 }],
+  'court/appeal/judgment': ['bench', { scale: MAJ, root: 48, bpm: 66, drop: ['ost'], level: 1.0, beds: [['birds', 0.3], ['crowd', 0.2]] }],
+  /* forensic/cold: Under Seal (2026-10-20) */
+  'forensic/cold/store': ['lab', { root: 47, bpm: 64, drop: ['mel'], level: 1.0, beds: [['hum', 0.4]] }],
+  'forensic/cold/bench': ['lab', { root: 50, bpm: 68, drop: ['arp'], level: 1.0 }],
+  'forensic/cold/fibres': ['lab', { root: 52, bpm: 60, drop: ['mel', 'arp'], level: 1.0, beds: [['hum', 0.3]] }],
+  'forensic/cold/profiles': ['lab', { root: 45, bpm: 72, drop: ['mel'], level: 1.0, beds: [['hum', 0.5]] }],
+  'forensic/cold/records': ['lab', { root: 48, bpm: 62, drop: ['arp'], level: 1.0, beds: [['rain', 0.35]] }],
+  'forensic/cold/oldend': ['lab', { root: 43, bpm: 70, mood: 'tense', drop: ['arp'], level: 1.0, beds: [['wind', 0.3]] }],
+  'forensic/cold/dawn': ['morning', { root: 53, bpm: 66, level: 1.0, beds: [['birds', 0.3]] }],
+  /* news/leak: Letterhead (2026-10-20) */
+  'news/leak/front': ['desk', { root: 46, bpm: 98, level: 1.0, drop: ['mel'], beds: [['rain', 0.4]] }],
+  'news/leak/archive': ['desk', { root: 43, bpm: 76, level: 1.05, drop: ['mel', 'ost'], beds: [['drips', 0.25]] }],
+  'news/leak/print': ['desk', { root: 48, bpm: 88, level: 1.0, drop: ['mel'], beds: [['hum', 0.55]] }],
+  'news/leak/council': ['desk', { root: 41, bpm: 84, level: 1.0, drop: ['mel'], beds: [['crowd', 0.2]] }],
+  'news/leak/plough': ['desk', { root: 47, bpm: 92, level: 1.0, drop: ['mel'], beds: [['crowd', 0.45], ['fire', 0.4]] }],
+  'news/leak/glass': ['desk', { root: 50, bpm: 112, mood: 'tense', level: 1.0, drop: ['mel'], beds: [['hum', 0.3]] }],
+  'news/leak/press': ['morning', { root: 52, bpm: 70, scale: MAJ, level: 1.0, beds: [['birds', 0.3]] }],
+  /* wild/ice: The Needle Points Down (2026-10-20) */
+  'wild/ice/mess': ['trail', { root: 50, bpm: 56, drop: ['mel'], beds: [['wind', 0.5], ['hum', 0.35]] }],
+  'wild/ice/radio': ['trail', { root: 47, bpm: 52, drop: ['mel', 'arp'], beds: [['wind', 0.55], ['static', 0.35]] }],
+  'wild/ice/cache': ['trail', { root: 52, bpm: 58, drop: ['mel'], beds: [['wind', 0.8]] }],
+  'wild/ice/grid': ['trail', { root: 45, bpm: 50, mood: 'tense', drop: ['mel', 'arp'], beds: [['wind', 0.7]] }],
+  'wild/ice/drift': ['trail', { root: 43, bpm: 60, mood: 'tense', drop: ['mel'], beds: [['wind', 1.3]] }],
+  'wild/ice/tent': ['trail', { root: 48, bpm: 50, drop: ['mel', 'arp', 'ost'], level: 1.05, beds: [['wind', 0.45]] }],
+  'wild/ice/skiway': ['trail', { root: 53, bpm: 64, beds: [['wind', 0.3], ['hum', 0.25]] }],
+  /* adventure/crown: Before the Doors Open (2026-10-20) */
+  'adventure/crown/bay': ['corridor', { root: 45, bpm: 58, beds: [['rain', 0.3], ['night', 0.35]] }],
+  'adventure/crown/office': ['corridor', { root: 48, bpm: 62, beds: [['hum', 0.5], ['static', 0.3]] }],
+  'adventure/crown/account': ['corridor', { root: 43, bpm: 56, beds: [['hum', 0.3], ['rain', 0.25]] }],
+  'adventure/crown/studio': ['corridor', { root: 50, bpm: 64, beds: [['drips', 0.4], ['hum', 0.25]] }],
+  'adventure/crown/gallery': ['corridor', { root: 47, bpm: 60, beds: [['night', 0.3]] }],
+  'adventure/crown/stair': ['corridor', { root: 42, bpm: 66, mood: 'tense', beds: [['hum', 0.45], ['static', 0.35]] }],
+  'adventure/crown/hall': ['corridor', { root: 52, bpm: 60, scale: MAJ, beds: [['birds', 0.4]] }],
+  /* lit/reader: Don't Skip to the End (2026-10-20) */
+  'lit/reader/desk': ['storybook', { root: 45, bpm: 104, drop: ['mel'], level: 1.05, beds: [['rain', 0.35]] }],
+  'lit/reader/corner': ['storybook', { root: 50, bpm: 120, level: 1.0, beds: [['hum', 0.25]] }],
+  'lit/reader/stacks': ['storybook', { root: 43, bpm: 92, drop: ['hit'], level: 1.05, beds: [['wind', 0.25]] }],
+  'lit/reader/history': ['storybook', { root: 41, bpm: 88, drop: ['mel'], level: 1.1, beds: [['rain', 0.2]] }],
+  'lit/reader/steps': ['storybook', { root: 48, bpm: 112, scale: MAJ, level: 1.0, beds: [['crowd', 0.3], ['wind', 0.2]] }],
+  /* duo/station-b: Read It Back (B) (2026-10-20) */
+  'duo/station-b/console': ['duet', { root: 50, bpm: 78, drop: ['mel'], level: 1.0, beds: [['crowd', 0.3], ['hum', 0.4]] }],
+  'duo/station-b/shelf': ['duet', { root: 47, bpm: 68, drop: ['mel'], level: 1.0, beds: [['hum', 0.4]] }],
+  'duo/station-b/whiteboard': ['duet', { root: 45, bpm: 76, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['crowd', 0.25], ['hum', 0.3]] }],
+  'duo/station-b/backroom': ['duet', { root: 43, bpm: 72, mood: 'tense', scale: [0, 2, 3, 5, 7, 8, 10], drop: ['mel'], level: 1.0, beds: [['hum', 0.5]] }],
+  'duo/station-b/screen': ['duet', { root: 53, bpm: 84, scale: MAJ, drop: ['mel'], level: 1.0, beds: [['crowd', 0.4]] }],
+  /* duo/station-a: Read It Back (A) (2026-10-20) */
+  'duo/station-a/airlock': ['duet', { root: 48, bpm: 72, drop: ['mel'], level: 1.0, beds: [['hum', 0.6]] }],
+  'duo/station-a/truss': ['duet', { root: 50, bpm: 66, drop: ['mel', 'arp'], level: 1.05, beds: [['hum', 0.4], ['static', 0.25]] }],
+  'duo/station-a/mast': ['duet', { root: 45, bpm: 74, mood: 'tense', drop: ['mel'], level: 1.0, beds: [['hum', 0.4], ['static', 0.3]] }],
+  'duo/station-a/night': ['duet', { root: 43, bpm: 70, mood: 'tense', scale: [0, 2, 3, 5, 7, 8, 10], drop: ['mel'], level: 1.0, beds: [['hum', 0.5]] }],
+  'duo/station-a/sunrise': ['duet', { root: 53, bpm: 80, scale: MAJ, drop: ['mel'], level: 1.0, beds: [['hum', 0.3]] }],
+  /* lang/summit: Eventually (2026-10-20) */
+  'lang/summit/booth': ['babel', { root: 50, bpm: 58, drop: ['mel'], level: 1.0, beds: [['hum', 0.4]] }],
+  'lang/summit/hall': ['babel', { root: 53, bpm: 62, drop: ['arp'], level: 1.05, beds: [['hum', 0.25], ['night', 0.2]] }],
+  'lang/summit/lounge': ['babel', { root: 55, bpm: 66, drop: ['mel'], level: 1.0, beds: [['rain', 0.4], ['hum', 0.2]] }],
+  'lang/summit/corridor': ['babel', { root: 48, bpm: 56, drop: ['arp'], level: 1.05, beds: [['hum', 0.3]] }],
+  'lang/summit/terrace': ['babel', { root: 52, bpm: 60, drop: ['mel'], mood: 'tense', level: 1.0, beds: [['wind', 0.55], ['night', 0.3]] }],
+  'lang/summit/office': ['babel', { root: 47, bpm: 64, drop: ['mel'], mood: 'tense', level: 1.0, beds: [['hum', 0.45]] }],
+  'lang/summit/signing': ['babel', { root: 55, bpm: 72, scale: MAJ, mood: 'calm', level: 0.95, beds: [['birds', 0.3], ['crowd', 0.3]] }],
+  /* lit/nanny: Everything Is Somewhere (2026-10-20) */
+  'lit/nanny/night': ['storybook', { root: 50, bpm: 92, drop: ['hit'], level: 1.0, beds: [['birds', 0.35], ['wind', 0.2]] }],
+  'lit/nanny/day': ['storybook', { root: 45, bpm: 100, drop: ['mel'], level: 1.05, beds: [['fire', 0.4]] }],
+  'lit/nanny/kitchen': ['storybook', { root: 43, bpm: 112, level: 1.0, beds: [['fire', 0.35], ['drips', 0.3]] }],
+  'lit/nanny/drawing': ['storybook', { root: 41, bpm: 88, drop: ['mel'], level: 1.1, beds: [['crowd', 0.15]] }],
+  'lit/nanny/hall': ['storybook', { root: 47, bpm: 96, drop: ['hit', 'mel'], level: 1.1, beds: [['crowd', 0.2]] }],
+  'lit/nanny/square': ['storybook', { root: 48, bpm: 116, scale: MAJ, level: 1.0, beds: [['birds', 0.5], ['crowd', 0.25]] }],
+  /* lit/hut: The Fourth Draft (2026-10-20) */
+  'lit/hut/hut': ['storybook', { root: 46, bpm: 96, drop: ['mel'], level: 1.05, beds: [['wind', 0.25]] }],
+  'lit/hut/shed': ['storybook', { root: 43, bpm: 108, drop: ['hit'], level: 1.0, beds: [['rain', 0.35]] }],
+  'lit/hut/glass': ['storybook', { root: 48, bpm: 116, level: 1.0, beds: [['drips', 0.35], ['birds', 0.25]] }],
+  'lit/hut/attic': ['storybook', { root: 44, bpm: 90, drop: ['mel'], level: 1.1, beds: [['wind', 0.2]] }],
+  'lit/hut/path': ['storybook', { root: 50, bpm: 120, level: 1.0, beds: [['birds', 0.4], ['wind', 0.2]] }],
+  'lit/hut/bench': ['storybook', { root: 45, bpm: 84, drop: ['hit'], level: 1.0, beds: [['night', 0.3], ['birds', 0.15]] }],
+  'lit/hut/lamp': ['storybook', { root: 48, bpm: 112, scale: MAJ, level: 1.0, beds: [['night', 0.25], ['fire', 0.25]] }],
   'ghost/orchard/supper': ['hush', { scale: MAJ, root: 48, bpm: 56, beds: [['fire', 0.6]] }]                 /* the same slow tune in a major key, and a fire in the range */
 };
 
