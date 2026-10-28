@@ -1,0 +1,210 @@
+/* Till the Lights Go Up - what every room of the story shares: the papers of a picture house (a programme, a cutting,
+   two notebooks forty years apart, letters in one hand, a cue sheet, the rules of the box, the operator's manual), the
+   frame round a piece of work done with the hands, and a cinema's colours for the notebook, the hints and the word tags.
+   Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.34em}
+.tc-room{line-height:1.04;letter-spacing:.01em}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.46vw,22px);line-height:1.46}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.48}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.18)}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 12px;border:1.5px solid var(--accent,#e2b25c);
+  color:#1c120c;background:var(--accent,#e2b25c);font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.2em;text-transform:uppercase;border-radius:2px;
+  box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff4d8;border-color:#fff4d8}
+.ready{animation:rdy 1.7s steps(1,end) infinite}
+@keyframes rdy{50%{filter:brightness(1.45)}}
+
+/* lettering inside drawings */
+.fA{font-family:'Abril Fatface',serif}
+.fO{font-family:'Oswald',sans-serif}
+.fG{font-family:'EB Garamond',serif}
+.fT{font-family:'Special Elite',monospace}
+.fC{font-family:'Caveat',cursive}
+.fZ{font-family:'Cinzel',serif}
+.fS{font-family:'Stardos Stencil',serif}
+.fH{font-family:'Homemade Apple',cursive}
+.fU{font-family:'Outfit',sans-serif}
+.fD{font-family:'Architects Daughter',cursive}
+.fR{font-family:'Rock Salt',cursive}
+
+/* ---- a piece of work: the line that answers, the button ---- */
+.pmsg{flex:1;min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.34;color:#f3ecd9}
+.pmsg b{color:var(--accent,#e2b25c);font-weight:600}
+.pfoot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pfoot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.42)}
+.bad{outline:3px solid #d2452f;outline-offset:2px}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the programme of the last silent week, 1929 */
+.doc.prog{width:min(660px,93vw);background:#f2e6c8 linear-gradient(172deg,rgba(255,250,230,.6),rgba(150,110,50,.18));color:#2a1a10;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.42;
+  padding:22px 34px 20px;border:2px solid #7a2a1c;outline:1px solid #7a2a1c;outline-offset:-8px}
+.doc.prog h4{margin:0;font-family:'Abril Fatface',serif;font-size:34px;line-height:1.04;text-align:center;color:#7a2a1c;letter-spacing:.03em}
+.doc.prog h5{margin:2px 0 10px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.3em;text-align:center;text-transform:uppercase}
+.doc.prog h6{margin:12px 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c;border-top:1px solid #7a2a1c;padding-top:8px}
+.doc.prog p{margin:0 0 7px}
+.doc.prog .big{font-family:'Abril Fatface',serif;font-size:24px;text-align:center;margin:4px 0}
+.doc.prog table{width:100%;border-collapse:collapse;font-size:16px}
+.doc.prog td{padding:1px 6px 1px 0;border-bottom:1px dotted #a88a5a}
+.doc.prog td:first-child{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+/* a cutting from the local paper */
+.doc.cutting{width:min(600px,93vw);background:#e4ddcc linear-gradient(176deg,rgba(255,255,255,.35),rgba(90,80,60,.16));color:#1e1c18;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.42;
+  padding:20px 30px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.doc.cutting h5{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.24em;text-align:center;border-bottom:3px double #1e1c18;padding-bottom:5px}
+.doc.cutting h4{margin:8px 0 2px;font-family:'Oswald',sans-serif;font-weight:700;font-size:25px;line-height:1.08;text-transform:uppercase;letter-spacing:.02em}
+.doc.cutting h6{margin:0 0 9px;font-family:'Oswald',sans-serif;font-weight:400;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.doc.cutting p{margin:0 0 7px;text-align:justify}
+/* the back of the photograph: Mr Eade's ink */
+.doc.eade{width:min(560px,92vw);background:#efe9da;color:#2a2622;font-family:'Rock Salt',cursive;font-size:13.5px;line-height:2;padding:20px 28px;border:1px solid #b6ab92}
+.doc.eade h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a50}
+.doc.eade p{margin:0 0 4px}
+.doc.eade .torn{display:block;height:22px;margin:4px -28px -20px;background:linear-gradient(170deg,transparent 44%,#2a2018 45%) 0 0/26px 22px repeat-x}
+/* Gran's notebook, 1969: a school exercise book and a blue biro */
+.doc.gran{width:min(700px,94vw);background:#fbfaf2 repeating-linear-gradient(transparent 0,transparent 29px,#b9cde0 29px,#b9cde0 30px);color:#1d3a8c;font-family:'Caveat',cursive;font-size:23px;line-height:30px;
+  padding:26px 32px 18px 58px;border-left:3px double #e0a0a0;background-position:0 12px}
+.doc.gran h4{margin:0 0 0;font-family:'Caveat',cursive;font-weight:700;font-size:27px;line-height:30px;color:#1d3a8c}
+.doc.gran h5{margin:12px 0 0;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:30px;text-decoration:underline;color:#1d3a8c}
+.doc.gran p{margin:0}
+.doc.gran .side{color:#8c2f24}
+/* Ernie's notebook: the operator's log, pencil on squared paper */
+.doc.ernie{width:min(720px,94vw);background:#f4f1e6 linear-gradient(90deg,rgba(80,110,140,.12) 1px,transparent 1px) 0 0/22px 22px,linear-gradient(rgba(80,110,140,.12) 1px,transparent 1px) 0 0/22px 22px;
+  background-color:#f4f1e6;color:#2e3038;font-family:'Architects Daughter',cursive;font-size:17px;line-height:1.5;padding:22px 32px 18px;border-left:16px solid #1e1e22}
+.doc.ernie h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#4a4a52}
+.doc.ernie .d{display:block;margin:10px 0 1px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.14em;color:#7a2a1c}
+.doc.ernie p{margin:0 0 4px}
+.doc.ernie .shaky{transform:rotate(-.4deg);letter-spacing:.04em;color:#4a4c58}
+.doc.ernie .pin{display:block;margin:6px 0 6px 18px;padding:8px 14px 6px;background:#f6eef4;color:#4a2a5a;font-family:'Homemade Apple',cursive;font-size:14.5px;line-height:1.75;border-top:3px solid #8a5a9a;
+  box-shadow:0 3px 7px rgba(0,0,0,.25);transform:rotate(-1deg);max-width:440px}
+.doc.ernie .stub{display:inline-block;margin:6px 0 6px 18px;padding:6px 12px 4px 10px;background:#f2b8c0;color:#5a1a24;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.14em;line-height:1.4;
+  border:1px dashed #8a3a44;border-right:0;clip-path:polygon(0 0,100% 0,92% 18%,100% 36%,91% 55%,100% 74%,93% 90%,100% 100%,0 100%);transform:rotate(1.5deg)}
+.doc.ernie .stub b{font-size:16px}
+/* letters in Effie's hand, in 1929 and in 1969 */
+.doc.effie{width:min(640px,93vw);background:#f7f2ec linear-gradient(170deg,rgba(255,255,255,.6),rgba(140,110,150,.14));color:#3e2450;font-family:'Homemade Apple',cursive;font-size:16px;line-height:1.95;
+  padding:24px 34px 18px}
+.doc.effie h4{margin:0 0 6px;font-family:'Homemade Apple',cursive;font-size:15px;text-align:right;color:#6a4a7a}
+.doc.effie p{margin:0 0 6px}
+.doc.effie .sig{text-align:right}
+.doc.effie .env{margin:0 0 10px;font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#7a6a80;border-bottom:1px solid #c9b9cf;padding-bottom:6px;line-height:1.5}
+.doc.effie .stub{display:inline-block;margin:8px 0 2px;padding:6px 10px 4px 14px;background:#f2b8c0;color:#5a1a24;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.14em;line-height:1.4;
+  border:1px dashed #8a3a44;border-left:0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,8% 88%,0 72%,9% 52%,0 34%,7% 16%);transform:rotate(-2deg)}
+.doc.effie .stub b{font-size:16px}
+/* the conditions of the licence, framed */
+.doc.rules{width:min(660px,93vw);background:#f4f0e2;color:#1f1d1a;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.4;padding:20px 32px 18px;border:7px solid #2a2622;outline:2px solid #b49a5a;outline-offset:-12px}
+.doc.rules h5{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.2em;text-align:center}
+.doc.rules h4{margin:2px 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:21px;letter-spacing:.06em;text-align:center}
+.doc.rules p{margin:0 0 7px}
+.doc.rules ol{margin:4px 0 6px;padding-left:26px}
+.doc.rules li{margin:0 0 4px}
+.doc.rules .why{font-style:italic;border-left:3px solid #b49a5a;padding-left:12px}
+/* the renters' music cue sheet, with the pianist's pencil */
+.doc.cue{width:min(760px,95vw);background:#f0ecdf;color:#1d1d24;font-family:'Special Elite',monospace;font-size:14.5px;line-height:1.45;padding:18px 26px 16px;border-top:12px solid #3a4a6a}
+.doc.cue h4{margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.24em;text-transform:uppercase}
+.doc.cue h5{margin:0 0 8px;font-family:'Special Elite',monospace;font-size:13px;color:#4a4a5a}
+.doc.cue table{width:100%;border-collapse:collapse}
+.doc.cue th{font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.16em;text-align:left;border-bottom:2px solid #1d1d24;padding:2px 6px 2px 0}
+.doc.cue td{padding:3px 6px 3px 0;border-bottom:1px dotted #8a8a9a;vertical-align:top}
+.doc.cue .pen{font-family:'Homemade Apple',cursive;font-size:13px;line-height:1.6;color:#4a2a5a}
+.doc.cue .foot{margin:8px 0 0;font-size:13px}
+/* the operator's manual */
+.doc.manual{width:min(740px,95vw);background:#f3f1ea;color:#1c1e22;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.4;padding:18px 30px 16px;border-top:10px solid #2f4a3c}
+.doc.manual h5{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:#2f4a3c}
+.doc.manual h4{margin:2px 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;letter-spacing:.04em}
+.doc.manual p{margin:0 0 7px}
+.doc.manual .fig{float:right;width:250px;margin:2px 0 6px 16px}
+/* a slip from the film renters, and the operator's card on the wall */
+.doc.slip{width:min(680px,94vw);background:#fbfaf2;color:#20242b;font-family:'Special Elite',monospace;font-size:15px;line-height:1.48;padding:18px 26px 14px;border-top:10px solid #7a2a1c}
+.doc.slip h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c}
+.doc.slip p{margin:0 0 7px}
+.doc.slip b{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.04em}
+.doc.ccard{width:min(660px,94vw);background:#e9ecef;color:#1c2028;font-family:'Architects Daughter',cursive;font-size:17px;line-height:1.5;padding:18px 28px 14px;border:2px solid #4a5260}
+.doc.ccard h4{margin:0 0 6px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:21px;letter-spacing:.08em}
+.doc.ccard p{margin:0 0 6px}
+.doc.ccard .fig{float:right;width:210px;margin:0 0 6px 14px}
+/* the archive's label for the photograph */
+.doc.label{width:min(560px,92vw);background:#fff;color:#1f2530;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.5;padding:18px 24px;border-left:8px solid #c9302c}
+.doc.label h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#c9302c}
+.doc.label p{margin:0 0 4px}
+/* what you worked out yourself: a note on your phone */
+.doc.mine{width:min(540px,92vw);background:#fdfdfb;color:#1f2530;font-family:'Outfit',Arial,sans-serif;font-weight:400;font-size:16.5px;line-height:1.5;padding:18px 24px 18px;border-radius:14px;border:1px solid #c5ccd6;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 4px rgba(240,243,248,.9)}
+.doc.mine h4{margin:0 0 8px;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#9c2a2a}
+.doc.mine p{margin:0 0 5px}
+.doc.mine b{font-weight:600}
+.doc.statement{background:#f1ecdc;font-family:'EB Garamond',Georgia,serif;font-size:18.5px;line-height:1.46;border-left:6px solid #7a2a1c}
+.doc.statement h4{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#7a2a1c}
+.doc .w:hover{color:#9c2a2a}
+.nb-view .doc{transform:none}
+
+/* ---- the notebook: a programme seller's tray ---- */
+.nb{background:#2a1418 linear-gradient(140deg,#3e1c22,#1c0c10);border:1px solid #8a6a3a;border-radius:3px;color:#f2e6cc;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #140808}
+.nb-tabs{border-bottom-color:#8a6a3a}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.2em;color:#d9c08a}
+.nb-tabs button.on{background:#f2e6c8;color:#2a1418;border-color:#8a6a3a}
+.nb-list{border-right-color:#8a6a3a}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#f2e6cc}
+.nb-list button small{font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.18em}
+.nb-list button.on{background:#f2e6c8;color:#2a1418}
+.nb-view{background:#120808}
+.nb-words{background:#f2e6c8;color:#23180f}
+.nb-words b{font-family:'Special Elite',monospace;font-size:17.5px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.3;color:#5a4636}
+.nb-ko{border-color:#8a6a3a;color:#6a5a48}
+.nb-ko.on{background:#2a1418;color:#e2b25c;border-color:#2a1418}
+/* a word tag is a ticket; the dictionary and the hints are programme slips */
+.wtag{background:#f2b8c0;color:#3a1418;border-radius:2px;border:1px dashed #8a3a44}
+.wtag b,.wtip b{font-family:'Oswald',sans-serif;letter-spacing:.08em}
+.wtip{background:#f6efdc;border-top:4px solid #7a2a1c;border-radius:2px}
+.hintbox{background:#f6efdc;color:#23180f;border-top:6px solid #7a2a1c;border-radius:2px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3em;color:#7a2a1c}
+.hintbox p{font-family:'EB Garamond',serif;font-size:18.5px;line-height:1.36}
+.hintbox p i{background:#7a2a1c;color:#f6efdc}
+.hintbox .btn{border-color:#7a2a1c;color:#7a2a1c}
+.hintbox .btn:hover:not([disabled]){background:#7a2a1c;color:#f6efdc}
+.hint-x:hover{color:#7a2a1c}
+.toast{font-family:'Oswald',sans-serif;font-weight:500;background:rgba(30,10,12,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(500px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 24px 12px;display:none;background:#f6efdc;color:#23180f;border-top:9px solid #7a2a1c;
+  box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:3px 14px 1px;border:3.5px solid #7a2a1c;color:#7a2a1c;font-family:'Abril Fatface',serif;font-size:22px;letter-spacing:.14em;transform:rotate(-3deg);margin-bottom:8px}
+.done h6{margin:0 0 5px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:24px;line-height:1.1;color:#3a1418}
+.done p{margin:0 0 2px;font-family:'Special Elite',monospace;font-size:14px;line-height:1.42}
+.done .last{margin:8px 0 2px;font-family:'EB Garamond',serif;font-style:italic;font-size:17.5px;line-height:1.34}
+.done .know{margin:8px 0 0;padding:8px 12px 6px;background:#fbf7ea;border-left:4px solid #7a2a1c}
+.done .know h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#7a2a1c}
+.done .know ul{margin:0;padding-left:18px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.3}
+.done .know li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.done .btn{--accent:#7a2a1c;font-size:12.5px;padding:8px 13px}
+.done .btn:hover:not([disabled]){color:#f6efdc}
+.done small{display:block;margin-top:8px;font-family:'Special Elite',monospace;font-size:12px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(800px,94vw);max-height:86vh;overflow:auto;background:#f6efdc;color:#23180f;padding:20px 32px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:9px solid #7a2a1c}
+.rp h4{margin:0 0 3px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#7a2a1c}
+.rp h3{margin:0 0 8px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:30px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.38;margin:0 0 6px}
+.rp .use{font-family:'Special Elite',monospace;font-size:14.5px;color:#7a2a1c}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:23px;line-height:30px;color:#23180f;background:#fff repeating-linear-gradient(transparent 0,transparent 29px,#e0c9b0 29px,#e0c9b0 30px);border:1px solid #9c7b5a;padding:0 12px;border-radius:0;resize:vertical;
+  -webkit-user-select:text;user-select:text}
+.rp #r1{min-height:182px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Special Elite',monospace;font-size:13px;letter-spacing:.04em;opacity:.85;text-align:right;margin:2px 0 8px}
+.rp .count.ok{color:#2f5a3c;opacity:1;font-weight:bold}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Special Elite',monospace;font-size:12.5px;opacity:.75}
+.rp .btn{--accent:#7a2a1c}.rp .btn:hover:not([disabled]){color:#f6efdc}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

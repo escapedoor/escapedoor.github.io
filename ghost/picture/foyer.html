@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Foyer · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#1a0a0c;--accent:#e8c26a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,10,12,.96);--tc-ink:#f6ead2;--cap-bg:rgba(28,10,12,.95);--panel:#2a1014;--face-bg:#3a1418;--q-ink:#e8c26a;--fade:#0a0405;--hud-bg:rgba(28,10,12,.82)}
+  .tc-room{font-size:clamp(48px,7vw,96px)}
+  .rain{animation:rain .6s linear infinite}
+  .rain.r2{animation-duration:.75s;animation-delay:-.3s}
+  @keyframes rain{0%{transform:translate(0,-60px)}100%{transform:translate(-14px,120px)}}
+  #lampglow{animation:glow 4.8s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:1}44%{opacity:.92}47%{opacity:1}81%{opacity:.95}}
+
+  /* the photograph on the table, and the Archive's tags */
+  .ph{width:min(1220px,97vw);display:flex;gap:16px;align-items:flex-start;-webkit-user-select:none;user-select:none}
+  .ph-pic{position:relative;flex:1 1 0;background:#d9c7a4;padding:16px 16px 12px;box-shadow:0 22px 60px rgba(0,0,0,.7);transform:rotate(-.4deg)}
+  .ph-pic svg{display:block;width:100%;height:auto}
+  .ph-pic .back{position:absolute;left:16px;right:16px;top:16px;bottom:12px;display:none;overflow:auto}
+  .ph-pic.flip .back{display:block}
+  .ph-pic .back .doc{width:auto;margin:0;min-height:100%;box-sizing:border-box}
+  .ph-slot{position:absolute;width:13.5%;min-height:40px;border:1.5px dashed rgba(60,40,20,.55);background:rgba(255,250,235,.35);border-radius:2px}
+  .ph-pic.flip .ph-slot{visibility:hidden}
+  .ph-side{flex:0 0 330px}
+  .ph-tray{display:flex;flex-direction:column;gap:6px;min-height:290px;padding:10px;background:#2a1014 linear-gradient(160deg,#3a161c,#1e0a0e);border:1px solid #8a6a3a;border-radius:3px}
+  .ph-tray h5{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.24em;color:#d9c08a}
+  .ph-tag{display:block;padding:7px 10px 5px 26px;background:#fff;color:#1f2530;font-family:'Outfit',sans-serif;font-weight:500;font-size:14.5px;line-height:1.15;border-left:6px solid #c9302c;
+    box-shadow:0 3px 6px rgba(0,0,0,.35);position:relative;cursor:grab}
+  .ph-tag:before{content:'';position:absolute;left:8px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;border:2px solid #9aa0aa}
+  .ph-tag.held{outline:3px solid #e8c26a}
+  .ph-slot .ph-tag{font-size:13px;padding:5px 6px 4px 20px}
+  .ph-slot .ph-tag:before{left:5px}
+  .ph .pmsg{font-size:17.5px;min-height:110px}
+  .ph .flipb{margin-top:8px;width:100%;background:rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5e1c22"/><stop offset=".75" stop-color="#43121a"/><stop offset="1" stop-color="#2c0a10"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3a30"/><stop offset="1" stop-color="#140e0c"/></linearGradient>
+  <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7a0"/><stop offset=".5" stop-color="#c9973a"/><stop offset="1" stop-color="#6a4a14"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1626"/><stop offset=".6" stop-color="#18263a"/><stop offset="1" stop-color="#0a121e"/></linearGradient>
+  <linearGradient id="leatherG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a1418"/><stop offset=".5" stop-color="#7a2026"/><stop offset="1" stop-color="#4a1014"/></linearGradient>
+  <linearGradient id="sepiaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9c29a"/><stop offset="1" stop-color="#a88a5c"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff2c8" stop-opacity=".75"/><stop offset=".3" stop-color="#ffd98a" stop-opacity=".25"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="streetG"><stop offset="0" stop-color="#ffb860" stop-opacity=".55"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="52%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#0a0405" stop-opacity=".25"/><stop offset="1" stop-color="#040102" stop-opacity=".88"/></radialGradient>
+  <clipPath id="outC"><rect x="40" y="200" width="196" height="420"/></clipPath>
+</defs>
+
+<!-- ceiling with its plaster sunrise, the red walls, the terrazzo floor -->
+<rect x="-1000" y="-400" width="3600" height="520" fill="#1c0b0d"/>
+<g fill="none" stroke="#5a4020" stroke-width="3" opacity=".7"><path d="M-1000 64H2600M-1000 92H2600"/></g>
+<g id="rays" stroke="#4a3418" stroke-width="2" opacity=".6"></g>
+<rect x="-1000" y="112" width="3600" height="528" fill="url(#wallG)"/>
+<rect x="-1000" y="112" width="3600" height="10" fill="url(#goldG)"/>
+<rect x="-1000" y="516" width="3600" height="124" fill="#2a0a0e"/><rect x="-1000" y="512" width="3600" height="7" fill="url(#goldG)"/>
+<rect x="-1000" y="640" width="3600" height="700" fill="url(#floorG)"/>
+<g id="terr" stroke="#6a5444" stroke-width="2" opacity=".55"></g>
+<path d="M560 640L1040 640L1260 1340L340 1340Z" fill="#6a1a20" opacity=".55"/><path d="M560 640L340 1340M1040 640L1260 1340" stroke="#c9973a" stroke-width="3" opacity=".5"/>
+
+<!-- the way in from the street: glass doors, rain, and the notice -->
+<g id="entrance"><rect x="20" y="180" width="232" height="460" fill="#1a0c0a"/>
+  <g clip-path="url(#outC)"><rect x="40" y="200" width="196" height="420" fill="url(#glassG)"/><circle cx="196" cy="300" r="120" fill="url(#streetG)"/><rect x="186" y="300" width="6" height="320" fill="#0a0e14"/><rect x="176" y="286" width="26" height="18" rx="4" fill="#ffcf80"/>
+    <g stroke="#9ab4d4" stroke-width="1.5" opacity=".5"><g class="rain"><path d="M60 200l-6 26M100 240l-6 26M140 210l-6 26M180 260l-6 26M220 230l-6 26M80 320l-6 26M120 360l-6 26M200 340l-6 26M70 440l-6 26M160 420l-6 26M210 480l-6 26M110 520l-6 26"/></g>
+    <g class="rain r2"><path d="M80 260l-6 26M130 290l-6 26M170 230l-6 26M230 300l-6 26M60 380l-6 26M150 390l-6 26M190 450l-6 26M90 480l-6 26M140 540l-6 26M220 560l-6 26"/></g></g></g>
+  <path d="M137 200v420" stroke="#2a1410" stroke-width="10"/><g stroke="url(#goldG)" stroke-width="7" stroke-linecap="round"><path d="M96 420h30M148 420h30"/></g>
+  <rect x="20" y="180" width="232" height="460" fill="none" stroke="#3a1a10" stroke-width="16"/></g>
+<g id="notice" class="hot" transform="rotate(-3 106 370)"><rect x="58" y="320" width="96" height="112" fill="#f2d23a"/><rect x="58" y="320" width="96" height="22" fill="#141414"/>
+  <text x="106" y="336" class="fO" font-size="12" font-weight="700" text-anchor="middle" fill="#f2d23a" letter-spacing="2">DANGER</text>
+  <text x="106" y="362" class="fO" font-size="11" font-weight="700" text-anchor="middle" fill="#141414">DEMOLITION</text><text x="106" y="378" class="fO" font-size="9" text-anchor="middle" fill="#141414">SITE CLOSED FROM</text><text x="106" y="394" class="fO" font-size="13" font-weight="700" text-anchor="middle" fill="#141414">08.00</text><text x="106" y="410" class="fO" font-size="9" text-anchor="middle" fill="#141414">SAT 28 NOV</text>
+  <path d="M60 318l18 8M152 318l-18 8" stroke="#d9d4c4" stroke-width="7" opacity=".8"/></g>
+
+<!-- the box office -->
+<g id="boxoff" class="hot"><path d="M290 640V300q0 -70 100 -70t100 70V640Z" fill="#4a2a18"/><path d="M300 640V304q0 -62 90 -62t90 62V640Z" fill="#6a3c20"/>
+  <path d="M316 270q74 -46 148 0" stroke="url(#goldG)" stroke-width="5" fill="none"/>
+  <text x="390" y="292" class="fA" font-size="22" text-anchor="middle" fill="#ffe7a0" letter-spacing="1.500">BOX OFFICE</text>
+  <rect x="322" y="326" width="136" height="110" fill="#120a08"/><g id="tickets"></g>
+  <g stroke="url(#goldG)" stroke-width="3"><path d="M322 326v110M339 326v110M356 326v110M373 326v110M390 326v110M407 326v110M424 326v110M441 326v110M458 326v110"/><path d="M322 326h136M322 436h136"/></g>
+  <path d="M308 436h164v18h-164z" fill="url(#goldG)"/><rect x="318" y="470" width="144" height="150" fill="#5a3218" stroke="#3a1e0e" stroke-width="3"/><path d="M330 496h120M330 594h120" stroke="#c9973a" stroke-width="2" opacity=".6"/>
+  <text x="390" y="552" class="fO" font-size="14" text-anchor="middle" fill="#e8c26a" letter-spacing="3">STALLS 1/3</text><text x="390" y="574" class="fO" font-size="12" text-anchor="middle" fill="#e8c26a" letter-spacing="3">CIRCLE 1/9</text></g>
+
+<!-- the poster of the last silent picture -->
+<g id="poster" class="hot"><rect x="534" y="164" width="176" height="276" fill="url(#goldG)"/><rect x="544" y="174" width="156" height="256" fill="#1c2a3a"/>
+  <path d="M544 360q40 -20 78 0t78 0V430H544Z" fill="#2c4a5a"/><path d="M600 360L612 250h20l12 110z" fill="#e9e2cc"/><path d="M608 290h28M604 322h36" stroke="#b8322c" stroke-width="7"/><rect x="606" y="232" width="32" height="20" fill="#ffe7a0"/>
+  <path d="M638 242L700 222V262Z" fill="#ffe7a0" opacity=".35"/><path d="M606 242L544 222V262Z" fill="#ffe7a0" opacity=".2"/>
+  <text x="622" y="196" class="fA" font-size="21" text-anchor="middle" fill="#ffe7a0">BESS</text><text x="622" y="214" class="fO" font-size="11" text-anchor="middle" fill="#ffe7a0" letter-spacing="3">OF THE LIGHT</text>
+  <text x="622" y="398" class="fO" font-size="10" text-anchor="middle" fill="#ffe7a0" letter-spacing="2">A DRAMA OF THE SEA</text><text x="622" y="414" class="fO" font-size="9" text-anchor="middle" fill="#ffe7a0" letter-spacing="1.500">IN SIX REELS</text></g>
+
+<!-- the doors of the stalls -->
+<g id="doors" class="hot"><rect x="728" y="250" width="214" height="390" fill="#2a0a0e"/><text x="835" y="232" class="fA" font-size="28" text-anchor="middle" fill="#c9973a" letter-spacing="4">STALLS</text>
+  <rect x="740" y="262" width="92" height="378" fill="url(#leatherG)"/><rect x="838" y="262" width="92" height="378" fill="url(#leatherG)"/>
+  <g id="studs" fill="#d9a83f"></g>
+  <circle cx="786" cy="340" r="24" fill="#0c0606" stroke="url(#goldG)" stroke-width="5"/><circle cx="884" cy="340" r="24" fill="#0c0606" stroke="url(#goldG)" stroke-width="5"/>
+  <rect x="808" y="430" width="16" height="70" rx="5" fill="url(#goldG)"/><rect x="846" y="430" width="16" height="70" rx="5" fill="url(#goldG)"/></g>
+
+<!-- the staff photograph, with a label under it -->
+<g id="photo" class="hot"><rect x="968" y="178" width="250" height="186" fill="#1a0c08"/><rect x="976" y="186" width="234" height="170" fill="url(#goldG)"/><rect x="986" y="196" width="214" height="150" fill="url(#sepiaG)"/>
+  <rect x="986" y="196" width="214" height="54" fill="#8a6c44"/><path d="M986 300h214v6H986zM986 318h214v6H986z" fill="#8a6c44" opacity=".6"/>
+  <g id="tinies"></g>
+  <g transform="rotate(-2 1094 384)"><rect x="1030" y="370" width="128" height="26" fill="#fbfaf2"/><text x="1094" y="389" class="fC" font-size="17" text-anchor="middle" fill="#1d3a8c" font-weight="700">The Bijou sweethearts!</text></g></g>
+
+<!-- two frames: the programme and the cutting -->
+<g id="prog" class="hot"><rect x="1236" y="164" width="92" height="124" fill="url(#goldG)"/><rect x="1243" y="171" width="78" height="110" fill="#f2e6c8"/><text x="1282" y="196" class="fA" font-size="15" text-anchor="middle" fill="#7a2a1c">BIJOU</text>
+  <path d="M1252 206h60M1252 216h60M1252 226h44M1252 244h60M1252 254h52M1252 264h60" stroke="#7a2a1c" stroke-width="2" opacity=".55"/></g>
+<g id="cutting" class="hot"><rect x="1236" y="304" width="92" height="118" fill="#2a1410"/><rect x="1243" y="311" width="78" height="104" fill="#e4ddcc"/><rect x="1250" y="318" width="64" height="12" fill="#2a2620"/>
+  <path d="M1250 340h64M1250 348h64M1250 356h30M1286 356h28M1250 364h64M1250 372h64M1250 380h64M1250 388h44M1250 396h64M1250 404h56" stroke="#5a564c" stroke-width="2"/></g>
+
+<!-- the kiosk -->
+<g id="kiosk" class="hot"><rect x="1352" y="190" width="260" height="330" fill="#2a0c10"/><rect x="1366" y="204" width="232" height="300" fill="#3c1216"/>
+  <g fill="#c9973a" opacity=".7"><rect x="1366" y="290" width="232" height="6"/><rect x="1366" y="380" width="232" height="6"/></g><g id="jars"></g>
+  <rect x="1380" y="140" width="204" height="46" rx="4" fill="#1c0608" stroke="url(#goldG)" stroke-width="3"/><text x="1482" y="173" class="fA" font-size="28" text-anchor="middle" fill="#f2a0a8" letter-spacing="6">ICES</text>
+  <path d="M1336 520h290v18h-290z" fill="url(#goldG)"/><rect x="1342" y="538" width="278" height="112" fill="#5a1418"/><rect x="1342" y="538" width="278" height="112" fill="none" stroke="#2a0608" stroke-width="4"/>
+  <rect x="1352" y="470" width="258" height="50" fill="#9ab8c8" opacity=".25"/><path d="M1352 470h258" stroke="#d6e4ea" stroke-width="2" opacity=".6"/>
+  <rect x="1440" y="590" width="80" height="14" rx="3" fill="#2a0608"/><circle cx="1480" cy="597" r="4" fill="url(#goldG)"/></g>
+
+<!-- a work lamp on the floor, and Della -->
+<circle id="lampglow" cx="1060" cy="700" r="520" fill="url(#lampG)" pointer-events="none"/>
+<g pointer-events="none"><path d="M1040 840l20 -90 20 90z" fill="#2a2a2a"/><rect x="1036" y="724" width="48" height="34" rx="6" fill="#f2c94c"/><rect x="1042" y="730" width="36" height="22" fill="#fff6d0"/></g>
+<g id="della" class="hot" transform="translate(560 868) scale(1.12)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the stalls</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var POSTER = '<h5>THE BIJOU &middot; CASTLE STREET &middot; DELVERTON</h5><h4>BESS OF THE LIGHT</h4><p class="big">A Drama of the Sea, in Six Reels</p>' +
+    '<p style="text-align:center">Monday 25th November 1929, for six days. Twice nightly: first house 6.30, second house 8.35.</p>' +
+    '<p style="text-align:center">An old lighthouse keeper. His only daughter. A young fisherman who will go out in any weather. And one night of storm that the keeper never spoke of.</p>' +
+    '<p style="text-align:center"><i>With Miss Effie Dorrell at the piano.</i></p><h6 style="text-align:center">The last week of the silent picture</h6>';
+  var PROG = '<h5>The Bijou &middot; Programme for the week of 25th November 1929</h5><h4>THE BIJOU TALKS!</h4>' +
+    '<p>From Monday 2nd December the Bijou will show the new TALKING PICTURES, with the finest sound equipment.</p>' +
+    '<p>You will have read of <i>The Jazz Singer</i> (1927), the American picture in which audiences heard Mr Al Jolson sing, and even speak, from the screen. Its sound came from large gramophone records, played in step with the film. Newer pictures carry their sound on the film itself.</p>' +
+    '<p>A sound picture must always run at exactly the same speed, or the voices go wrong: twenty-four pictures every second. Silent pictures never had a fixed speed. Our operators have run each one as it needed, most often at sixteen to twenty pictures a second.</p>' +
+    '<p>The Management thanks Miss Effie Dorrell, who has played for our silent pictures since 1927. With the talkies, the music comes with the picture, and a picture house has no further need of a pianist.</p>' +
+    '<h6>Your Bijou</h6><table><tr><td>Manager</td><td>Mr Basil Eade</td></tr><tr><td>At the piano</td><td>Miss Effie Dorrell (until Saturday)</td></tr>' +
+    '<tr><td>Operators</td><td>Mr A. Coggins (chief) and Mr E. Bardsley</td></tr><tr><td>Your usherette</td><td>will light you to your seat with her torch</td></tr>' +
+    '<tr><td>Ices</td><td>from Miss C. Daly, who comes round with her tray at every interval</td></tr></table>';
+  var CUT = '<h5>THE DELVERTON ADVERTISER &middot; FRIDAY, DECEMBER 6, 1929</h5><h4>Film fire at the Bijou</h4><h6>Audience leaves in good order</h6>' +
+    '<p>On Saturday night, during the second house, a film caught fire in the operating box of the Bijou, Castle Street. The picture, <i>Bess of the Light</i>, was the last silent picture ever to be shown at the Bijou, and its last reel was never shown.</p>' +
+    '<p>The second operator, Mr Ernest Bardsley (21), was alone in the box. He at once brought down the iron shutters and put the fire out before it could spread to the reels. His hands were burnt, but not badly. Not one of the four hundred people in the house knew of any danger. The Manager, Mr Basil Eade, came out in front of the curtain, announced &ldquo;a slight technical hitch&rdquo;, and sent everybody home with their money back.</p>' +
+    '<p>Mr Albert Coggins, the chief operator, who has been at the Bijou since it opened in 1913, and who will marry Miss Dolly Ferris of the Bijou staff in the spring, praised the young man&rsquo;s quick thinking.</p>';
+  var BACK = '<h4>On the back, in ink</h4><p>The staff of the Bijou, on the front steps. Saturday, 10th August 1929.</p>' +
+    '<p>I wore my hat. Coggins and young Bardsley came down from the box in their white coats and went straight back up again. Miss Dorrell would not be</p><span class="torn"></span>';
+  var NAMES = { eade: 'Mr Basil Eade', daly: 'Miss Cissie Daly', bardsley: 'Mr Ernest Bardsley', ferris: 'Miss Dolly Ferris', coggins: 'Mr Albert Coggins', dorrell: 'Miss Effie Dorrell' };
+  var POS = ['b1', 'b2', 'b3', 'f1', 'f2', 'f3'];
+
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i <= 18; i++) { x = -200 + i * 110; s += '<path d="M800 120L' + x + ' -400"/>'; }
+    $('#rays').innerHTML = s; s = '';
+    for (i = -12; i < 28; i++) { x = i * 90 - 300; s += '<path d="M' + x + ' 640L' + PH.num(800 + (x - 800) * 3.2) + ' 1340"/>'; }
+    [676, 724, 790, 880, 1000].forEach(function (v) { s += '<path d="M-1000 ' + v + 'H2600"/>'; });
+    $('#terr').innerHTML = s; s = '';
+    ['#e9e2cc', '#f2b8c0', '#9ac8a0', '#f2d23a', '#9ab8e0'].forEach(function (c, k) { s += '<circle cx="' + (340 + k * 25) + '" cy="404" r="10" fill="' + c + '" opacity=".75"/><rect x="' + (335 + k * 25) + '" y="404" width="10" height="26" fill="' + c + '" opacity=".6"/>'; });
+    $('#tickets').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) { s += '<circle cx="754" cy="' + (280 + i * 40) + '" r="3"/><circle cx="818" cy="' + (280 + i * 40) + '" r="3"/><circle cx="852" cy="' + (280 + i * 40) + '" r="3"/><circle cx="916" cy="' + (280 + i * 40) + '" r="3"/>'; }
+    $('#studs').innerHTML = s; s = '';
+    ['#e9a0a8', '#f2d23a', '#9ac8a0', '#e9e2cc', '#c98a5a'].forEach(function (c, k) {
+      x = 1392 + k * 46;
+      s += '<rect x="' + x + '" y="232" width="30" height="52" rx="8" fill="#b9d4e0" opacity=".35"/><rect x="' + (x + 3) + '" y="250" width="24" height="32" rx="5" fill="' + c + '" opacity=".75"/><rect x="' + (x + 2) + '" y="226" width="26" height="8" fill="#c9973a"/>';
+      s += '<rect x="' + x + '" y="324" width="30" height="52" rx="8" fill="#b9d4e0" opacity=".35"/><rect x="' + (x + 3) + '" y="346" width="24" height="28" rx="5" fill="' + ['#9ac8a0', '#c98a5a', '#e9a0a8', '#f2d23a', '#e9e2cc'][k] + '" opacity=".75"/><rect x="' + (x + 2) + '" y="318" width="26" height="8" fill="#c9973a"/>';
+      s += '<rect x="' + (x - 4) + '" y="410" width="38" height="56" fill="#f2e6c8" opacity=".85"/><path d="M' + (x - 4) + ' 424h38" stroke="#b8322c" stroke-width="5"/>';
+    });
+    $('#jars').innerHTML = s; s = '';
+    /* six small figures in the photograph on the wall */
+    [[1016, 250, '#4a3a2a'], [1094, 250, '#6a5a44'], [1170, 246, '#e9e2cc'], [1030, 300, '#4a3a2a'], [1066, 298, '#e9e2cc'], [1150, 300, '#3a2c20']].forEach(function (p) {
+      s += '<rect x="' + (p[0] - 9) + '" y="' + p[1] + '" width="18" height="38" fill="' + p[2] + '"/><circle cx="' + p[0] + '" cy="' + (p[1] - 6) + '" r="7" fill="#e9d6b4"/>';
+    });
+    $('#tinies').innerHTML = s;
+    $('#della').innerHTML = PH.della({ lamp: true });
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'foyer', no: 'I', title: 'The Foyer',
+    go: 'Go in out of the rain',
+    intro: [
+      'The Bijou Picture House, Castle Street, Delverton. Opened 1913. Closed 2019. To be pulled down at eight o&rsquo;clock tomorrow morning.',
+      'You are from the County Film Archive, with a van, a list and a pair of cotton gloves. Somebody has told the Archive that there are old film cans in the projection box: nitrate film, which nobody may move but people like you.',
+      'The last manager is waiting for you under the canopy, with a bunch of keys and a work lamp. She has something else to tell you, she says, and she would rather say it inside.'
+    ],
+    exit: {"next":"stalls","w":{"5714c969":"3b1244e7"}}, tags: {"b1":["3294ac4f"],"b2":["d015e1e7"],"b3":["b0ae64fd"],"f1":["1000bbf1"],"f2":["d5912a3c"],"f3":["68189016"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('f-file') || null; told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#della').classList.toggle('ready', !told.della);
+    $('#photo').classList.toggle('ready', !!(told.della && !nextFile && !told.opened));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.della ? 1 : 0) + (told.prog && told.cut ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Della is waiting at the doors of the stalls. It is nearly twenty to ten. Click the button at the bottom of the screen.']];
+    if (!told.della) return ['della', ['Della has something to tell you before anything else. Click her: she is standing in the middle of the foyer with a work lamp.']];
+    if (lock && lock.isOpen()) return ['tags', [
+      'Start with what each person is holding. The programme in the frame says who lights you to your seat with a torch, who comes round with a tray, and who is at the piano.',
+      'Turn the photograph over: Mr Eade wrote on the back. He says which of them wore a hat, and what the two operators had on.',
+      'Two white coats, two operators. The newspaper says that Mr Coggins has been at the Bijou since 1913, so he is the older one, and that he is going to marry Miss Ferris. Which white coat is she holding on to?'
+    ]];
+    return ['photo', [
+      'Della told you where to start: the staff photograph on the wall, to the right of the doors.',
+      'Before you label it, read the three papers on the walls: the poster, the programme in the small gold frame, and the newspaper cutting under it. Between them they name everybody in the photograph.'
+    ]];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Six people on the front steps in 1929, with their names under them at last.'); return; }
+    if (told.in) { busy = false; ER.say('The foyer of the Bijou, by the light of two work lamps. The rain is still coming down outside.'); return; }
+    tell('in');
+    ER.narrate([
+      'The foyer smells of dust, damp carpet and, very faintly, of ninety years of popcorn. The electricity was cut off in 2019. Somebody has brought two work lamps.',
+      '&ldquo;Della Fraser,&rdquo; says the somebody. &ldquo;I ran this place for eight years, and my gran ran it for twenty before me. I&rsquo;ll show you your cans. But first you had better know why the demolition men won&rsquo;t come in here after dark.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  function talkDella() {
+    ER.talk({
+      who: 'Della Fraser', role: 'The last manager of the Bijou', face: window.FACE('della'),
+      lines: [
+        { note: 'She puts her lamp down on the floor, so that it lights the ceiling.', a: '&ldquo;Every night at twenty to ten, the screen in there lights up. Ten seconds, perhaps. Writing on it, going far too fast to read. Then nothing. People see the light in the box window from the street.&rdquo;' },
+        { q: 'Children with a torch? Bad wiring?', a: '&ldquo;The building has had no electricity for seven years. I have checked for children. I have checked for wiring. I have checked for students with phones. I am not a person who believes in ghosts. I would like that written down somewhere.&rdquo;' },
+        { a: '&ldquo;And every morning one seat in the stalls is down. Always the same one. The cleaners used to put it up every night, and every morning it was down again. In the end Gran told them to leave it.&rdquo;' },
+        { q: 'Which seat?', a: '&ldquo;You&rsquo;ll see. Gran&rsquo;s rule in this building was: you look before you&rsquo;re told. I&rsquo;m keeping to it.&rdquo;' },
+        { a: '&ldquo;Tomorrow it all goes in a skip. Your Archive wants the cans. I want one thing before the skip: to know who it is. Start with the photograph by the doors. Gran always called them the Bijou sweethearts: our pianist and the young operator. Your Archive won&rsquo;t take a photograph without names on it, I suppose.&rdquo;' }
+      ],
+      clue: { id: 'della', title: 'Della: twenty to ten, and the seat that is down', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('della'); paint(); ER.say('The staff photograph hangs to the right of the doors of the stalls. The programme and the cutting are in the frames beside it.'); }
+    });
+  }
+  $('#della').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.della) { talkDella(); return; }
+    if (nextFile) { ER.say('&ldquo;Twenty to ten,&rdquo; says Della. &ldquo;Come on. I&rsquo;m not missing it for you.&rdquo;'); return; }
+    ER.say('&ldquo;Names,&rdquo; says Della. &ldquo;Gran never wrote a name on anything if she could help it. It drove me mad.&rdquo;');
+  });
+
+  /* ---------- papers on the walls ---------- */
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'prog', clue: { id: 'poster', title: 'The poster: Bess of the Light', kind: 'From the foyer' },
+      done: function () { if (tell('poster')) ER.say('The last silent picture at the Bijou. &ldquo;Six reels,&rdquo; says Della. &ldquo;Somebody kept two of them. Your cans.&rdquo;'); } });
+  });
+  $('#prog').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PROG, cls: 'prog', clue: { id: 'prog', title: 'The programme: The Bijou Talks!', kind: 'From the foyer' },
+      done: function () {
+        PH.terms(['talkie', 'silent picture', 'operator', 'usherette']);
+        if (tell('prog')) { paint(); ER.say('&ldquo;They thanked her,&rdquo; says Della, &ldquo;and then they put a gramophone in her place.&rdquo;'); }
+      } });
+  });
+  $('#cutting').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUT, cls: 'cutting', clue: { id: 'cutting', title: 'The Delverton Advertiser: film fire at the Bijou', kind: 'From the foyer' },
+      done: function () {
+        PH.terms(['nitrate', 'operating box', 'shutter']);
+        if (tell('cut')) { paint(); ER.say('&ldquo;A slight technical hitch,&rdquo; says Della. &ldquo;Every manager in the country has said that. I&rsquo;ve said it.&rdquo;'); }
+      } });
+  });
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.della) { ER.say('Della is watching you. She wants to say something first.'); return; }
+    if (nextFile) { ER.read({ html: labelHtml(), cls: 'label' }); return; }
+    if (!lock) lock = makeLock();
+    tell('opened'); paint(); lock.open();
+  });
+  PH.thing('#notice', 'demolition', 'A yellow notice on the glass: DEMOLITION. SITE CLOSED FROM 08.00, SAT 28 NOV. Somebody has added in pencil: &ldquo;and good riddance to the damp&rdquo;.', isBusy);
+  PH.thing('#boxoff', 'box office', 'The box office: a brass grille, a ticket machine with five rolls of tickets in five colours, and the prices from the last year that anybody changed them. STALLS 1/3. CIRCLE 1/9.', isBusy);
+  PH.thing('#kiosk', 'kiosk', function () {
+    return told.kiosk ? 'The kiosk. Della has the red exercise book in her coat pocket now.' : 'The kiosk: a glass counter, empty sweet jars, a sign that says ICES. In the drawer, a school exercise book with a red cover. Della takes it before you can. &ldquo;Gran&rsquo;s,&rdquo; she says. &ldquo;Later. In the stalls.&rdquo;';
+  }, isBusy, function () { tell('kiosk'); });
+  PH.thing('#entrance', null, 'The rain is coming down on Castle Street. Across the road, a man at a bus stop is looking at the Bijou the way people look at a building that will not be there tomorrow.', isBusy);
+  $('#doors').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.leave(nextFile); return; }
+    ER.say('&ldquo;Not yet,&rdquo; says Della. &ldquo;Photograph first. We have till twenty to ten.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  function labelHtml() {
+    return '<h4>County Film Archive &middot; item label</h4><p><b>Staff of the Bijou, Delverton, on the front steps, 10 August 1929.</b></p>' +
+      '<p>Back row, left to right: Mr Basil Eade (manager, in a bowler hat); Miss Cissie Daly (kiosk, with her tray of ices); Mr Ernest Bardsley (second operator, in a white coat, looking away from the camera).</p>' +
+      '<p>Front row, left to right: Miss Dolly Ferris (usherette, with her torch); Mr Albert Coggins (chief operator, in a white coat, with a moustache); Miss Effie Dorrell (pianist, with a roll of music).</p>' +
+      '<p>Note: the label &ldquo;The Bijou sweethearts&rdquo;, added in 1969, points at Miss Ferris and Mr Coggins, who married in 1930.</p>';
+  }
+
+  /* ---------- the photograph: six tags for six people ---------- */
+  function makeLock() {
+    var placed = ER.flag('f-placed') || {}, wait = false;
+    var box = ER.el('div', 'ph'), pic = ER.el('div', 'ph-pic'), side = ER.el('div', 'ph-side');
+    /* where the tag goes, under each person (left and top, as a share of the picture) */
+    var AT = { b1: [9, 46], b2: [38, 46], b3: [67, 46], f1: [5, 87], f2: [20, 87], f3: [73, 87] };
+    pic.innerHTML = photoSvg() + '<div class="back"><div class="doc eade">' + BACK + '</div></div>';
+    POS.forEach(function (p) { var d = ER.el('div', 'ph-slot'); d.setAttribute('data-p', p); d.style.left = AT[p][0] + '%'; d.style.top = AT[p][1] + '%'; pic.appendChild(d); });
+    side.innerHTML = '<div class="ph-tray"><h5>COUNTY FILM ARCHIVE &middot; NAME TAGS</h5></div>' +
+      '<button type="button" class="btn flipb" id="p-flip">Turn the photograph over</button><div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="p-go">Show Della</button></div>';
+    box.appendChild(pic); box.appendChild(side);
+    var tray = side.querySelector('.ph-tray');
+    Object.keys(NAMES).forEach(function (k) {
+      var t = ER.el('span', 'ph-tag dnd-item', NAMES[k]); t.setAttribute('data-n', k);
+      var at = null; POS.forEach(function (p) { if (placed[p] === k) at = p; });
+      (at ? pic.querySelector('.ph-slot[data-p="' + at + '"]') : tray).appendChild(t);
+    });
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      placed = {};
+      POS.forEach(function (p) { var t = pic.querySelector('.ph-slot[data-p="' + p + '"] .ph-tag'); if (t) placed[p] = t.getAttribute('data-n'); });
+      ER.flag('f-placed', placed);
+      box.setAttribute('data-placed', POS.map(function (p) { return placed[p] || 'none'; }).join('-'));
+    }
+    ER.dnd(box, { item: '.ph-tag', slot: '.ph-slot', home: tray, lock: function () { return wait || !!nextFile; }, change: function () { read(); PH.sfx.card(); msg(''); } });
+    side.querySelector('#p-flip').addEventListener('click', function () {
+      pic.classList.toggle('flip'); ER.sfx.paper();
+      this.textContent = pic.classList.contains('flip') ? 'Turn it back' : 'Turn the photograph over';
+      if (pic.classList.contains('flip')) ER.addClue('back', 'The back of the photograph', BACK, 'eade', 'From the foyer');
+    });
+    side.querySelector('#p-go').addEventListener('click', tryIt);
+    read();
+    msg(Object.keys(placed).length ? 'The tags, as far as you have got with them.' : 'Six people on the front steps, and six tags from the Archive. Drag each tag to the place under a person, or click a tag and then the place.');
+    /* what Della says about the first tag that is wrong: the things in their hands first, the two white coats last */
+    var WHY = {
+      f3: 'That young woman on the right is holding a roll of music. Who does the programme put &lsquo;at the piano&rsquo;?',
+      f1: 'The girl on the left has a torch in her hand, not music. Gran got that wrong too. What does the programme say about torches? And the paper gives her name.',
+      b2: 'The one at the back with a tray on a strap. Who comes round with a tray at every interval?',
+      b1: 'Read the back of the photograph. Mr Eade says what he had on his head.',
+      f2: 'Two white coats: the two operators. One is twenty-one. The other has been here since 1913, and he is going to marry the girl who has hold of his arm.',
+      b3: 'Two white coats: the two operators. One is twenty-one. The other has been here since 1913, and he is going to marry the girl who has hold of his arm.'
+    };
+    function why() {
+      var order = ['f3', 'f1', 'b2', 'b1', 'f2', 'b3'], i;
+      for (i = 0; i < order.length; i++) if (!ER.check(order[i], placed[order[i]] || '')) return WHY[order[i]];
+      return '';
+    }
+    function tryIt() {
+      var left = tray.querySelectorAll('.ph-tag').length, file, w;
+      if (wait || nextFile) return;
+      read();
+      if (left) { msg('&ldquo;' + (left === 1 ? 'One tag is' : left + ' tags are') + ' still in your hand,&rdquo; says Della. &ldquo;Your Archive doesn&rsquo;t take half a photograph, I&rsquo;m sure.&rdquo;'); return; }
+      w = why();
+      if (w) {
+        ER.sfx.no(); POS.forEach(function (p) { if (!ER.check(p, placed[p] || '')) PH.flash(pic.querySelector('.ph-slot[data-p="' + p + '"]')); });
+        msg('Della reads your tags, and taps one. &ldquo;' + (w || 'Not yet.') + '&rdquo;'); return;
+      }
+      file = ER.exit([POS.map(function (p) { return placed[p]; }).join('-')], { wait: true });
+      if (!file) { msg('The doors will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('f-file', file);
+      msg('Della reads the six tags, left to right, back row and front. Then she reads them again.');
+      ER.addClue('photo', 'The staff photograph, with names', labelHtml(), 'label', 'From the foyer');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;So Gran&rsquo;s sweethearts are Mr Coggins and Miss Ferris,&rdquo; says Della. &ldquo;Married in the spring of 1930, if the paper&rsquo;s right. She had the wrong pair for fifty years and never once asked.&rdquo;',
+          'She holds the lamp up to the glass. &ldquo;And the pianist and the young operator are at opposite ends. Not even standing together.&rdquo; A pause. &ldquo;He isn&rsquo;t looking at the camera, is he? He&rsquo;s looking at her.&rdquo;',
+          '&ldquo;Effie Dorrell. &lsquo;The Management thanks Miss Dorrell.&rsquo; They thanked her, and put a gramophone in her place.&rdquo; She looks at her watch. &ldquo;Twenty-five to ten. If you want to see the screen, it&rsquo;s now.&rdquo;'
+        ], function () { busy = false; PH.terms(['projectionist', 'second house']); paint(); });
+      }, 2400);
+    }
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* the photograph itself, in brown and cream: six people on the steps under the canopy */
+  function photoSvg() {
+    var s = '<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pgS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2cfa8"/><stop offset="1" stop-color="#b8996a"/></linearGradient></defs>';
+    s += '<rect width="900" height="560" fill="url(#pgS)"/><rect y="0" width="900" height="120" fill="#8a6c44"/><text x="450" y="84" font-family="Abril Fatface,serif" font-size="58" text-anchor="middle" fill="#d9c29a" letter-spacing="10">BIJOU</text>';
+    s += '<rect x="250" y="120" width="400" height="190" fill="#6a5034"/><path d="M450 120v190" stroke="#4a3622" stroke-width="6"/><path d="M0 300h900v18H0zM0 352h900v18H0zM0 404h900v18H0z" fill="#9a7c50" opacity=".7"/>';
+    function man(x, y, o) {
+      var t = '';
+      t += '<rect x="' + (x - 26) + '" y="' + (y + 60) + '" width="22" height="120" fill="' + (o.legs || '#3a2c1e') + '"/><rect x="' + (x + 4) + '" y="' + (y + 60) + '" width="22" height="120" fill="' + (o.legs || '#3a2c1e') + '"/>';
+      t += '<path d="M' + (x - 44) + ' ' + (y + o.hem) + 'L' + (x - 38) + ' ' + (y - 40) + 'Q' + x + ' ' + (y - 60) + ' ' + (x + 38) + ' ' + (y - 40) + 'L' + (x + 44) + ' ' + (y + o.hem) + 'Z" fill="' + o.coat + '"/>';
+      t += '<rect x="' + (x - 8) + '" y="' + (y - 70) + '" width="16" height="16" fill="#e9d6b4"/><circle cx="' + (x + (o.turn || 0)) + '" cy="' + (y - 86) + '" r="24" fill="#e9d6b4"/>';
+      t += '<path d="M' + (x - 24) + ' ' + (y - 92) + 'q' + 24 + ' -30 48 0q-6 -12 -24 -12t-24 12z" fill="' + (o.hair || '#4a3622') + '"/>';
+      if (o.eyes !== false) t += '<path d="M' + (x - 10 + (o.turn || 0) * 1.4) + ' ' + (y - 88) + 'h6M' + (x + 4 + (o.turn || 0) * 1.4) + ' ' + (y - 88) + 'h6" stroke="#2a1e14" stroke-width="3" stroke-linecap="round"/>';
+      return t + (o.extra || '');
+    }
+    /* back row, on the top step */
+    s += man(140, 230, { coat: '#3a2c20', hem: 60, extra: '<path d="M106 128h68v-8q0 -30 -34 -30t-34 30z" fill="#1e1610"/><path d="M98 130h84" stroke="#1e1610" stroke-width="7" stroke-linecap="round"/><path d="M128 200q12 10 24 0" stroke="#d9c29a" stroke-width="3" fill="none"/><path d="M116 214l48 -4" stroke="#1e1610" stroke-width="10" stroke-linecap="round"/>' });
+    s += man(400, 236, { coat: '#5a4632', hem: 40, hair: '#6a4a2a', legs: '#5a4632', extra: '<path d="M376 134q24 -12 48 0v-8h-48z" fill="#2a1e14"/><path d="M362 192L400 232L438 192" stroke="#2a1e14" stroke-width="4" fill="none"/><rect x="360" y="226" width="80" height="16" rx="3" fill="#2a1e14"/><rect x="366" y="214" width="14" height="14" rx="3" fill="#e2cfa8"/><rect x="386" y="214" width="14" height="14" rx="3" fill="#e2cfa8"/><rect x="406" y="214" width="14" height="14" rx="3" fill="#e2cfa8"/><rect x="424" y="214" width="12" height="14" rx="3" fill="#e2cfa8"/>' });
+    s += man(660, 218, { coat: '#f2ead6', hem: 70, turn: 7, hair: '#3a2a1c', extra: '<path d="M642 112q22 -20 50 -4l2 8h-54z" fill="#3a2a1c"/><path d="M636 116h66" stroke="#3a2a1c" stroke-width="5" stroke-linecap="round"/><path d="M660 170v116" stroke="#c9b48a" stroke-width="3"/><circle cx="660" cy="200" r="3" fill="#8a7a5a"/><circle cx="660" cy="232" r="3" fill="#8a7a5a"/>' });
+    /* front row, on the pavement */
+    s += man(110, 384, { coat: '#2a2018', hem: 70, hair: '#3a2416', legs: '#d9c29a', extra: '<rect x="94" y="268" width="32" height="14" rx="4" fill="#1e1610"/><path d="M60 342l-26 16" stroke="#2a2018" stroke-width="14" stroke-linecap="round"/><rect x="18" y="352" width="34" height="14" rx="3" fill="#1e1610"/><circle cx="18" cy="359" r="6" fill="#f2ead6"/><path d="M146 344q30 10 46 0" stroke="#2a2018" stroke-width="14" stroke-linecap="round"/>' });
+    s += man(232, 382, { coat: '#f2ead6', hem: 70, hair: '#8a7a64', extra: '<path d="M218 306q14 -6 28 0q-14 7 -28 0z" fill="#4a3a28"/><path d="M232 330v110" stroke="#c9b48a" stroke-width="3"/>' });
+    s += man(720, 384, { coat: '#2a2018', hem: 110, hair: '#2a1a10', legs: '#2a2018', extra: '<path d="M696 300q24 -24 48 0" stroke="#2a1a10" stroke-width="8" fill="none"/><rect x="752" y="330" width="22" height="80" rx="9" fill="#efe6cc" transform="rotate(14 763 370)"/><path d="M758 348h14M758 362h14M758 376h14" stroke="#8a7a5a" stroke-width="2" transform="rotate(14 763 370)"/>' });
+    s += '<rect width="900" height="560" fill="none" stroke="#efe2c4" stroke-width="14"/></svg>';
+    return s;
+  }
+})();
+</script>
+</body>
+</html>

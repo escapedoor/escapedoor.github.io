@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Rewind Room · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#0a0c10;--accent:#bcd4f2;--font-display:'Architects Daughter',cursive;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,12,16,.96);--tc-ink:#eef2f6;--cap-bg:rgba(10,12,16,.95);--panel:#12161c;--face-bg:#3a1418;--q-ink:#bcd4f2;--fade:#030405;--hud-bg:rgba(10,12,16,.82)}
+  .tc-room{font-size:clamp(44px,6.4vw,88px);font-weight:700}
+  #glass{animation:glass 5.4s steps(1,end) infinite}
+  @keyframes glass{0%{opacity:1}33%{opacity:.94}35%{opacity:1}}
+
+  /* the light box: fifteen places in four rows, a strip of film in each */
+  .lb{width:min(1120px,97vw);padding:12px 14px 10px;background:#1c2028;border:8px solid #2a2e36;box-shadow:0 26px 70px rgba(0,0,0,.75);-webkit-user-select:none;user-select:none}
+  .lb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;background:#eef4fa linear-gradient(170deg,#ffffff,#d6e2ee);box-shadow:inset 0 0 40px rgba(120,160,210,.5)}
+  .cell{position:relative;min-height:90px;border:1.5px dashed rgba(40,60,90,.35);border-radius:2px}
+  .cell i{position:absolute;left:4px;top:2px;font-style:normal;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;color:#4a5a70;z-index:0}
+  .fs{position:relative;display:flex;align-items:center;justify-content:center;min-height:88px;padding:12px 10px;background:#141414;color:#efe8d4;font-family:'EB Garamond',serif;font-size:14px;line-height:1.22;text-align:center;
+    box-shadow:0 2px 5px rgba(0,0,0,.4);cursor:grab;z-index:1}
+  .fs:before,.fs:after{content:'';position:absolute;left:4px;right:4px;height:6px;background:repeating-linear-gradient(90deg,#efe8d4 0 6px,transparent 6px 14px);opacity:.7}
+  .fs:before{top:3px}.fs:after{bottom:3px}
+  .fs .t{border:1px solid rgba(239,232,212,.55);padding:5px 8px;width:100%}
+  .fs .t.capt{font-family:'Abril Fatface',serif;font-size:13px;letter-spacing:.03em}
+  .fs svg{display:block;width:100%;height:64px}
+  .fs.card{background:#4a0e14;color:#fff2d6;font-family:'Architects Daughter',cursive;font-size:14.5px}
+  .fs.fixed{cursor:default;background:#262626}
+  .fs.fixed .t{display:flex;gap:6px;align-items:center;border:0;padding:0}
+  .fs.fixed .t span{flex:1;border:1px solid rgba(239,232,212,.55);padding:5px 6px;font-family:'Abril Fatface',serif;font-size:11.5px}
+  .fs.fixed svg{width:110px;flex:0 0 110px;height:58px}
+  .fs.held{outline:3px solid #bcd4f2}
+  .lb .pmsg{color:#eef2f6;font-size:17px;min-height:50px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3038"/><stop offset="1" stop-color="#1a1e24"/></linearGradient>
+  <linearGradient id="benchG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4a3a"/><stop offset="1" stop-color="#2a2018"/></linearGradient>
+  <linearGradient id="glassG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f8ff"/><stop offset="1" stop-color="#b8cce4"/></linearGradient>
+  <radialGradient id="glowG"><stop offset="0" stop-color="#d8e8ff" stop-opacity=".55"/><stop offset=".4" stop-color="#a8c4ea" stop-opacity=".16"/><stop offset="1" stop-color="#a8c4ea" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="54%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#030405" stop-opacity=".35"/><stop offset="1" stop-color="#010102" stop-opacity=".92"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#wallG)"/>
+<g stroke="#20262c" stroke-width="3" opacity=".7"><path d="M-1000 120H2600M-1000 260H2600M-1000 400H2600"/></g>
+<rect x="-1000" y="700" width="3600" height="700" fill="#16120e"/>
+
+<!-- shelves of empty cans on the left -->
+<g id="shelf" class="hot"><g id="cans"></g></g>
+
+<!-- a cork board: the envelope, the changeover card, and his calendar -->
+<g id="cork"><rect x="520" y="90" width="520" height="250" fill="#a8825a"/><rect x="520" y="90" width="520" height="250" fill="none" stroke="#4a3a2a" stroke-width="10"/></g>
+<g id="envelope" class="hot" transform="rotate(-4 620 200)"><rect x="560" y="150" width="130" height="86" fill="#efe6cc"/><path d="M560 150l65 46 65 -46" fill="none" stroke="#b8a882" stroke-width="2"/>
+  <text x="625" y="222" class="fD" font-size="13" text-anchor="middle" fill="#2e3038">FOR THE END</text><circle cx="625" cy="146" r="6" fill="#c9302c"/></g>
+<g id="ccard" class="hot" transform="rotate(2 800 210)"><rect x="720" y="120" width="160" height="190" fill="#e9ecef"/><text x="800" y="146" class="fS" font-size="15" font-weight="700" text-anchor="middle" fill="#1c2028">CHANGING</text><text x="800" y="164" class="fS" font-size="15" font-weight="700" text-anchor="middle" fill="#1c2028">OVER</text>
+  <rect x="740" y="178" width="120" height="70" fill="#5a6a7a"/><circle cx="846" cy="190" r="6" fill="#f4f1e6"/><path d="M740 266h120M740 278h96M740 290h110" stroke="#6a7280" stroke-width="2"/><circle cx="800" cy="116" r="6" fill="#2a6ac9"/></g>
+<g id="cal69" class="hot"><rect x="910" y="120" width="104" height="140" fill="#fbfaf4"/><rect x="910" y="120" width="104" height="26" fill="#2a4a7a"/><text x="962" y="138" class="fO" font-size="11" text-anchor="middle" fill="#fbfaf4" letter-spacing="1.500">NOV 1969</text>
+  <g id="calg" stroke="#c9c2b0" stroke-width="1"></g><ellipse cx="971" cy="236" rx="10" ry="8" fill="none" stroke="#c9302c" stroke-width="2.500"/></g>
+
+<!-- the bench, the light box with the pieces of reel 6 under its glass, the rewinders, the splicer -->
+<circle cx="800" cy="500" r="560" fill="url(#glowG)" pointer-events="none"/>
+<rect x="160" y="520" width="1280" height="34" fill="url(#benchG)"/><rect x="180" y="554" width="1240" height="170" fill="#1e1812"/>
+<g id="lightbox" class="hot"><rect id="glass" x="470" y="456" width="660" height="66" fill="url(#glassG)"/><rect x="470" y="456" width="660" height="66" fill="none" stroke="#3a3e46" stroke-width="8"/><g id="strips"></g></g>
+<g id="rewL" class="hot"><rect x="250" y="440" width="18" height="82" fill="#3a3e46"/><circle cx="259" cy="430" r="58" fill="#2a2e34" stroke="#5a5e66" stroke-width="5"/><circle cx="259" cy="430" r="12" fill="#8a8e96"/><path d="M259 430l50 40" stroke="#8a8e96" stroke-width="6" stroke-linecap="round"/><circle cx="309" cy="470" r="9" fill="#b8282c"/></g>
+<g id="rewR" class="hot"><rect x="1332" y="440" width="18" height="82" fill="#3a3e46"/><circle cx="1341" cy="430" r="58" fill="#2a2e34" stroke="#5a5e66" stroke-width="5"/><circle cx="1341" cy="430" r="12" fill="#8a8e96"/><circle cx="1341" cy="430" r="40" fill="none" stroke="#efe8d4" stroke-width="4" opacity=".4"/></g>
+<g id="splicer" class="hot"><rect x="1170" y="486" width="110" height="36" fill="#6a7078"/><rect x="1176" y="470" width="98" height="18" rx="4" fill="#8a9098"/><path d="M1200 470v-26h50v26" fill="none" stroke="#8a9098" stroke-width="7"/></g>
+
+<g id="della" class="hot" transform="translate(150 880) scale(1.12)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the machines</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var SLIP = '<h4>The renters &middot; a note for operators: making up a damaged reel</h4>' +
+    '<p>When the titles of a reel have come apart, the story itself will tell you their order. There are two kinds of title.</p>' +
+    '<p><b>A spoken title</b> (in inverted commas) comes straight after a picture of the person who says it.</p>' +
+    '<p><b>A story title</b> tells what the pictures cannot: the time, the place, what somebody thinks. A title that sets the time or the place comes straight before the picture it describes.</p>' +
+    '<p><b>A flashback</b> is a scene from earlier, inside the story. It opens with a title that names the earlier time (&ldquo;Ten years before&rdquo;), keeps its own people together (younger faces, no grey hair), and ends where a title brings us back (&ldquo;Meanwhile&rdquo;, &ldquo;Now&rdquo;, &ldquo;By morning&rdquo;).</p>' +
+    '<p><b>Tenses.</b> &ldquo;Had&rdquo; with a past participle reaches back before the moment of the title: &ldquo;She had gone&rdquo; happened first.</p>' +
+    '<p><b>Every title leads on.</b> Words like <i>it</i>, <i>him</i> and <i>that night</i> point back to something just shown. A question wants its answer next.</p>';
+  var ENV = '<h4>The envelope on the cork board</h4><p>A small brown envelope, pinned up by one corner. On the front, in Ernie&rsquo;s capitals: FOR THE END.</p>' +
+    '<p>On the back, in pencil: <i>Goes in where the old man asks his question. E. B., Nov. 1969.</i></p><p>Inside there are eight feet of film: one title, by itself, joined to nothing.</p>';
+  var CCARD = '<h4>Changing over</h4><svg class="fig" viewBox="0 0 210 190"><rect x="10" y="10" width="190" height="104" fill="#5a6a7a"/><circle cx="182" cy="26" r="8" fill="#f4f1e6"/><text x="105" y="70" font-family="Oswald" font-size="13" text-anchor="middle" fill="#e9ecef">the picture</text><path d="M170 40l-26 22" stroke="#1c2028" stroke-width="2"/><text x="132" y="78" font-family="Architects Daughter" font-size="12" fill="#1c2028">dot</text>' +
+    '<path d="M10 150h190" stroke="#1c2028" stroke-width="3"/><circle cx="60" cy="150" r="7" fill="#1c2028"/><circle cx="178" cy="150" r="7" fill="#1c2028"/><path d="M200 140v20" stroke="#9c2a2a" stroke-width="4"/>' +
+    '<text x="60" y="176" font-family="Architects Daughter" font-size="12" text-anchor="middle" fill="#1c2028">1st: motor</text><text x="160" y="176" font-family="Architects Daughter" font-size="12" text-anchor="middle" fill="#1c2028">2nd: change</text><text x="200" y="134" font-family="Oswald" font-size="11" text-anchor="end" fill="#9c2a2a">end</text></svg>' +
+    '<p>A picture comes in reels of up to a thousand feet: ten minutes or more each. So there are two machines. While one shows a reel, the other stands ready with the next.</p>' +
+    '<p>Near the end of every reel I punch two cue dots, a few frames each, in the top right-hand corner of the picture. The audience hardly sees them. You must.</p>' +
+    '<p><b>First dot</b>, about eight seconds before the end: start the motor of the other machine. It needs those seconds to come up to speed.</p>' +
+    '<p><b>Second dot</b>, about a second before the end: change over. Open the other machine&rsquo;s shutter and close this one&rsquo;s, both at once. Done right, nobody in the house knows there was a join.</p>' +
+    '<p>Too early, and they miss the end of the reel. Too late, and they get a white screen, and Mr Eade. &mdash; E. B.</p>';
+
+  /* the pieces of reel 6: the id says nothing about where a piece goes */
+  var PIECE = {
+    a: ['t', '&ldquo;Davy has gone out to the Rock to light the lamp, Father, because you could not.&rdquo;'],
+    b: ['t', 'Old Elias said nothing for a long time. Then he spoke of a night he had never spoken of before.'],
+    c: ['t', 'THIRTY YEARS BEFORE, on a night like this one, a young keeper waited at the same window.', 'capt'],
+    d: ['p', 'young'],
+    e: ['t', 'Annie had told him: if he wanted her, he was to light a lamp in his window, and she would come across.'],
+    f: ['t', 'He was too proud to light it. Years later, he heard that she had married a man from the mainland.'],
+    g: ['t', 'MEANWHILE, on the Rock, Davy was still fighting to make the great lamp burn. He could not see the shore.', 'capt'],
+    h: ['p', 'rock'],
+    i: ['p', 'old'],
+    j: ['t', '&ldquo;Light the lamp in the window, girl. I&rsquo;ll not be too proud twice.&rdquo;'],
+    k: ['t', 'By morning the storm had blown itself out, and Davy&rsquo;s boat came home on the tide.'],
+    l: ['t', 'Old Elias looked at the two of them. &ldquo;Well, lad? Are you going to ask her, or must I?&rdquo;'],
+    x: ['card', 'EFFIE &mdash; WILL YOU MARRY ME?<br>IF YOU WILL, PLAY OUR TUNE.<br>ERNIE']
+  };
+  var START = ['g', 'd', 'x', 'b', 'k', 'i', 'a', 'l', 'e', 'h', 'c', 'j', 'f'];
+  /* what Della says when a piece is in the wrong company: keyed by the piece that does not follow on from the one before it */
+  var AFTER = {
+    a: 'Bess speaks. A spoken title comes straight after a picture of the person who says it.',
+    b: '&lsquo;Old Elias said nothing for a long time.&rsquo; Nothing in answer to what?',
+    c: '&lsquo;Thirty years before&rsquo; opens the flashback. What makes the old man start to tell it?',
+    d: 'This picture shows a young man at a window, beside a lamp nobody has lit. Which title describes it? A title that sets the time and place comes straight before its picture.',
+    e: '&lsquo;Annie had told him.&rsquo; Had told: before what? And who is &lsquo;him&rsquo;? We have just seen him.',
+    f: '&lsquo;He was too proud to light it.&rsquo; Light what? &lsquo;It&rsquo; points back to something that has just been named.',
+    g: '&lsquo;Meanwhile&rsquo; brings us back from the old story to the night of the storm. It comes when the old story is finished.',
+    h: 'This picture shows Davy on the Rock, with the sea breaking over him. Which title describes it?',
+    i: 'The old man takes up a lamp. Why now? What is it that Davy cannot see?',
+    j: 'Elias speaks. A spoken title comes straight after a picture of the person who says it.',
+    k: '&lsquo;By morning the storm had blown itself out.&rsquo; What had to happen in the night, before the boat could come home?',
+    l: '&lsquo;Well, lad?&rsquo; He says it to Davy and Bess together. Davy has to be home first.',
+    x: 'Ernie&rsquo;s card. The envelope says where it goes: &lsquo;where the old man asks his question&rsquo;.'
+  };
+
+  (function () {
+    var s = '', i, j, x, y;
+    for (j = 0; j < 4; j++) { y = 150 + j * 110; s += '<rect x="-40" y="' + (y + 60) + '" width="400" height="12" fill="#3a3028"/>'; for (i = 0; i < 6; i++) { x = -20 + i * 62; s += '<circle cx="' + (x + 26) + '" cy="' + (y + 40) + '" r="26" fill="#5a6068" stroke="#3a3e46" stroke-width="3"/><circle cx="' + (x + 26) + '" cy="' + (y + 40) + '" r="6" fill="#2a2e34"/>'; } }
+    $('#cans').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) s += '<path d="M916 ' + (164 + i * 15) + 'h92"/>';
+    for (i = 0; i < 8; i++) s += '<path d="M' + PH.num(916 + i * 13.100) + ' 164v76"/>';
+    $('#calg').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) { x = 490 + i * 70; s += '<rect x="' + x + '" y="470" width="56" height="40" fill="#141414" opacity=".85"/><rect x="' + (x + 6) + '" y="478" width="44" height="24" fill="' + (i % 3 ? '#efe8d4' : '#8a8a8a') + '" opacity=".5"/>'; }
+    $('#strips').innerHTML = s;
+    $('#della').innerHTML = PH.della({});
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'rewind', no: 'V', title: 'The Rewind Room',
+    go: 'Put the lamp under the glass',
+    intro: [
+      'The film runs from the top spool box through the fire trap, over a steady sprocket, into a loop of slack, through the gate where each picture stops, over the sprocket that jerks it down, into a second loop, over a steady sprocket again, through the lower fire trap and into the bottom box.',
+      'And the speed: nine hundred feet of film, sixteen pictures to the foot, in the twelve minutes that the cue sheet gives reel 6. Twenty pictures a second. Not twenty-four: that is for sound.',
+      'The rewind room is hardly bigger than a cupboard. On the bench, under a sheet of glass with no light behind it, lie the pieces of reel 6, exactly as Ernie left them on Wednesday 26 November 1969.'
+    ],
+    exit: {"next":"reel","w":{"4a436979":"09264cbd"}}, tags: {"adj":["8f198942","c8df2b9d","4c7e6f45","a5674720","67df7977","c52130ea","a81d6ffc","08ff06c3","ff917779","1df3a07c","6fff7a11","0db8047f","efcbaf34"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('r-file') || null; told = ER.flag('r-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('r-told', told); return true; }
+  function isBusy() { return busy; }
+  function solved() { return !!ER.flag('r-solved'); }
+  function paint() {
+    $('#lightbox').classList.toggle('ready', !solved() && !told.opened);
+    $('#ccard').classList.toggle('ready', solved() && !told.ccard);
+    $('#go').classList.toggle('on', !!(nextFile && told.ccard));
+    ER.pips((told.slip ? 1 : 0) + (told.env ? 1 : 0) + (solved() ? 1 : 0) + (told.ccard ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile && told.ccard) return ['go', ['Reel 6 is made up. Click the button at the bottom of the screen to go back to the machines.']];
+    if (solved()) return ['ccard', ['Before you run it: Ernie&rsquo;s card on the cork board, CHANGING OVER. Click it and read it.']];
+    if (lock && lock.isOpen()) return ['order', [
+      'Use the renters&rsquo; note, in your notebook. Find the pairs first: each picture and the title that describes it; each spoken title and the picture of the person who says it.',
+      'The flashback starts with &lsquo;Thirty years before&rsquo;. Everything with the young keeper and Annie stays together after it, until a title brings us back to the storm. Inside it, &lsquo;had told&rsquo; and &lsquo;it&rsquo; give you the order.',
+      'After the flashback: back to Davy on the Rock, who cannot see the shore; then the old man at the window, and what he says; then the morning; then his question. Ernie&rsquo;s card goes where the envelope says. The light box is read like a page: left to right, row by row.'
+    ]];
+    return ['look', [
+      'Read the two papers on the cork board first: the renters&rsquo; note is pinned on the bench, and the envelope says where Ernie&rsquo;s card goes.',
+      'Then click the light box in the middle of the bench.'
+    ]];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile && told.ccard) { busy = false; ER.say('The rewind room. Reel 6 is on a spool, made up, its titles in their order.'); return; }
+    if (told.in) { busy = false; ER.say('The rewind room. The light box glows under Della&rsquo;s lamp.'); return; }
+    tell('in');
+    ER.narrate([
+      'Della slides her work lamp under the bench, and the glass of the light box turns a cold white. Under it, laid out in rows, are short lengths of film: title after title, and a few pictures, every one of them by itself.',
+      'There is a typed slip under the edge of the glass, from the people who rented the picture out. And on the cork board above the bench there is a brown envelope, a card of Ernie&rsquo;s, and a calendar for November 1969 with a ring round the 29th.',
+      '&ldquo;He had all of it apart,&rdquo; says Della quietly. &ldquo;Every title. Then Thursday came.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  function readSlip(after) {
+    ER.read({ html: SLIP, cls: 'slip', clue: { id: 'slip', title: 'The renters&rsquo; note: making up a damaged reel', kind: 'From the rewind room' }, done: function () {
+      PH.terms(['flashback', 'title card', 'splice']);
+      if (tell('slip')) paint();
+      if (after) after();
+    } });
+  }
+  $('#envelope').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ENV, cls: 'slip', clue: { id: 'envelope', title: 'The envelope: For the end', kind: 'From the rewind room' }, done: function () {
+      if (tell('env')) { paint(); ER.say('&ldquo;Eight feet of film,&rdquo; says Della. &ldquo;Six or seven seconds on the screen. Forty years in an envelope.&rdquo;'); }
+    } });
+  });
+  $('#ccard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CCARD, cls: 'ccard', clue: { id: 'ccard', title: 'Ernie&rsquo;s card: changing over', kind: 'From the rewind room' }, done: function () {
+      PH.terms(['changeover', 'cue dot']);
+      if (tell('ccard')) {
+        paint();
+        if (solved()) ER.say('&ldquo;You&rsquo;ll be on the machines,&rdquo; says Della. &ldquo;Reel 5 on A, reel 6 on B. Watch for his dots. I&rsquo;ve got something else to do downstairs.&rdquo;');
+      }
+    } });
+  });
+  PH.thing('#cal69', null, 'Ernie&rsquo;s calendar: November 1969, from a garage in Castle Street. A ring round Saturday the 29th. Nothing written on the Thursday.', isBusy);
+  PH.thing('#shelf', 'can', 'Shelves of empty film cans, round and flat, with labels from pictures nobody remembers. One label says <i>NOT NITRATE &middot; SAFETY FILM &middot; 1952</i>.', isBusy);
+  PH.thing('#rewL', 'rewinder', 'A rewinder: a spindle and a handle, to wind film from one spool to another by hand, and look at it on the way.', isBusy);
+  PH.thing('#rewR', null, 'The other rewinder, with an empty spool on it, ready for reel 6.', isBusy);
+  PH.thing('#splicer', 'splicer', 'The splicer: it cuts two ends of film straight, and holds them while the cement sets, so that two pieces become one strip.', isBusy);
+  $('#lightbox').addEventListener('click', function () {
+    if (busy) return;
+    if (solved()) { ER.say('The light box is empty now. Reel 6 is on the spool, in one piece.'); return; }
+    if (!told.slip) { readSlip(function () { ER.say('Now the light box: click it again.'); }); return; }
+    if (!lock) lock = makeLock();
+    tell('opened'); paint(); lock.open();
+  });
+  $('#della').addEventListener('click', function () {
+    if (busy) return;
+    if (solved()) { ER.say(told.ccard ? '&ldquo;Machines,&rdquo; says Della. &ldquo;It&rsquo;s nearly midnight.&rdquo;' : '&ldquo;Read his card on the board first,&rdquo; says Della. &ldquo;Changing over. You&rsquo;ll need it.&rdquo;'); return; }
+    ER.say('&ldquo;I could splice in my sleep,&rdquo; says Della, &ldquo;but I can&rsquo;t tell you what order a film from 1927 goes in. That&rsquo;s your job. Read the renters&rsquo; note.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile && told.ccard) ER.leave(nextFile); });
+
+  /* ---------- the light box: thirteen pieces between the head of the reel and THE END ---------- */
+  function stripHtml(id) {
+    var p = PIECE[id];
+    if (p[0] === 'p') return '<div class="fs dnd-item" data-k="' + id + '">' + pic(p[1]) + '</div>';
+    if (p[0] === 'card') return '<div class="fs dnd-item card" data-k="' + id + '"><div class="t">' + p[1] + '</div></div>';
+    return '<div class="fs dnd-item" data-k="' + id + '"><div class="t' + (p[2] ? ' capt' : '') + '">' + p[1] + '</div></div>';
+  }
+  function pic(which) {
+    var s = '<svg viewBox="0 0 220 64" preserveAspectRatio="xMidYMid meet"><rect width="220" height="64" fill="#2a2620"/>';
+    if (which === 'young') s += '<rect x="20" y="8" width="70" height="50" fill="#4a5058"/><path d="M55 8v50M20 33h70" stroke="#2a2620" stroke-width="3"/><rect x="100" y="38" width="10" height="16" fill="#8a7a5a"/><circle cx="105" cy="34" r="5" fill="#5a5048"/>' +
+      '<rect x="128" y="30" width="34" height="34" fill="#5a4a3a"/><circle cx="145" cy="20" r="11" fill="#d9c4a4"/><path d="M134 18q11 -14 22 0" fill="#2a1a10"/><text x="196" y="14" font-family="Oswald" font-size="9" text-anchor="end" fill="#8a8070">PICTURE</text>';
+    else if (which === 'old') s += '<rect x="20" y="8" width="70" height="50" fill="#4a5058"/><path d="M55 8v50M20 33h70" stroke="#2a2620" stroke-width="3"/>' +
+      '<rect x="128" y="30" width="34" height="34" fill="#4a4a4a"/><circle cx="145" cy="20" r="11" fill="#d9c4a4"/><path d="M134 16q11 -10 22 0" fill="#e9e6e0"/><path d="M136 24q9 18 18 0" fill="#e9e6e0"/><rect x="104" y="34" width="12" height="18" fill="#c9a24a"/><circle cx="110" cy="32" r="6" fill="#ffe08a"/><text x="196" y="14" font-family="Oswald" font-size="9" text-anchor="end" fill="#8a8070">PICTURE</text>';
+    else if (which === 'bess') s += '<rect x="0" y="0" width="120" height="64" fill="#3a444c"/><path d="M0 46q30 -10 60 0t60 0V64H0Z" fill="#5a6a74"/><rect x="120" y="0" width="100" height="64" fill="#4a3a2a"/><rect x="138" y="6" width="64" height="58" fill="#1e1a16"/>' +
+      '<path d="M150 64V30q20 -26 40 0V64Z" fill="#6a6a6a"/><circle cx="170" cy="24" r="9" fill="#d9c4a4"/><path d="M158 26q12 -22 24 0v10q-12 -6 -24 0z" fill="#8a7a6a"/>';
+    else s += '<path d="M0 50q30 -14 60 0t60 0 60 0 60 0V64H0Z" fill="#4a5a64"/><path d="M80 52l20 -30 24 30z" fill="#3a3a3a"/><rect x="96" y="16" width="10" height="14" fill="#ffe08a"/><circle cx="101" cy="14" r="8" fill="#ffe08a" opacity=".35"/>' +
+      '<rect x="112" y="30" width="8" height="18" fill="#5a4a3a"/><circle cx="116" cy="26" r="5" fill="#d9c4a4"/><path d="M40 40q20 -24 40 4" stroke="#efe8d4" stroke-width="3" fill="none"/><path d="M150 46q14 -20 34 2" stroke="#efe8d4" stroke-width="3" fill="none"/><text x="196" y="14" font-family="Oswald" font-size="9" text-anchor="end" fill="#8a8070">PICTURE</text>';
+    return s + '</svg>';
+  }
+  function makeLock() {
+    var order = ER.flag('r-order') || START.slice(), wait = false;
+    var box = ER.el('div', 'lb'), s = '<div class="lb-grid">', n;
+    s += '<div class="cell"><div class="fs fixed"><div class="t">' + pic('bess') + '<span>ALL THAT NIGHT THE STORM BLEW, AND THE LIGHT ON THE ROCK WAS DARK.</span></div></div></div>';
+    for (n = 1; n <= 13; n++) s += '<div class="cell slot" data-i="' + n + '"><i>' + n + '</i></div>';
+    s += '<div class="cell"><div class="fs fixed"><div class="t"><span style="font-size:15px">THE END</span></div></div></div></div>';
+    s += '<div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="r-go">Show Della</button></div><div class="home" style="display:none"></div>';
+    box.innerHTML = s;
+    var home = box.querySelector('.home');
+    order.forEach(function (id, k) { box.querySelector('.slot[data-i="' + (k + 1) + '"]').insertAdjacentHTML('beforeend', ER.gloss(stripHtml(id))); });
+    function msg(t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      order = [];
+      for (var k = 1; k <= 13; k++) { var f = box.querySelector('.slot[data-i="' + k + '"] .fs'); order.push(f ? f.getAttribute('data-k') : ''); }
+      ER.flag('r-order', order); box.setAttribute('data-order', order.join('-'));
+    }
+    /* a strip put on a place that is taken changes places with the one that was there */
+    function settle() {
+      var loose = home.querySelector('.fs'), k, sl;
+      if (!loose) return;
+      for (k = 1; k <= 13; k++) { sl = box.querySelector('.slot[data-i="' + k + '"]'); if (!sl.querySelector('.fs')) { sl.appendChild(loose); return; } }
+    }
+    ER.dnd(box, { item: '.fs.dnd-item', slot: '.slot', home: home, lock: function () { return wait || solved(); }, change: function () { settle(); read(); PH.sfx.strip(); msg(''); } });
+    box.querySelector('#r-go').addEventListener('click', tryIt);
+    read();
+    msg('Thirteen pieces between the head of the reel and THE END. Drag a piece on to another to make them change places, or click one and then the other. Read the light box like a page: left to right, row by row.');
+    function tryIt() {
+      var full = ['head'].concat(order), k, file;
+      if (wait || solved()) return;
+      read();
+      for (k = 1; k < full.length; k++) {
+        if (!ER.check('adj', full[k - 1] + '>' + full[k])) {
+          ER.sfx.no(); PH.flash(box.querySelector('.slot[data-i="' + k + '"]'));
+          msg('Della reads along the glass and stops at piece ' + k + '. &ldquo;' + AFTER[full[k]] + '&rdquo;'); return;
+        }
+      }
+      file = ER.exit([order.join('-')], { wait: true });
+      if (!file) { msg('Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('r-file', file); ER.flag('r-solved', 1);
+      msg('Della reads the whole reel along the glass, from the storm to THE END, moving her lips. At Ernie&rsquo;s card she stops moving them.');
+      ER.addClue('reel6', 'Reel 6, made up in order', reelHtml(), 'slip', 'From the rewind room');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'The flashback in its place: <i>Thirty years before</i>, the young keeper at the window, the lamp he was too proud to light. Then <i>Meanwhile</i>, and the storm again, and an old man who is not too proud twice.',
+          'And at the end, after the old man&rsquo;s question, eight feet of film in Ernie&rsquo;s own lettering: <i>EFFIE &mdash; WILL YOU MARRY ME? IF YOU WILL, PLAY OUR TUNE. ERNIE.</i>',
+          'Della joins the pieces at the splicer, one by one, without a word. Then she winds reel 6 on to a spool by hand, slowly, and puts it in your gloved hands.',
+          '&ldquo;Before we run it,&rdquo; she says, &ldquo;read his card. Changing over. Reel 5 has to finish on one machine and reel 6 start on the other, and he&rsquo;d want it done his way.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    }
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function reelHtml() {
+    var s = '<h4>Reel 6 of Bess of the Light, in order</h4><p>ALL THAT NIGHT THE STORM BLEW, AND THE LIGHT ON THE ROCK WAS DARK. <i>(Picture: Bess at the door.)</i></p>';
+    (ER.flag('r-order') || []).forEach(function (id) {
+      var p = PIECE[id];
+      s += '<p>' + (p[0] === 'p' ? '<i>(Picture: ' + { young: 'a young man with dark hair at a window, beside a lamp nobody has lit', old: 'old Elias, with a white beard, at the same window, a lamp in his hands', rock: 'Davy on the Rock, the sea breaking over him' }[p[1]] + '.)</i>' : p[0] === 'card' ? '<b>' + p[1].replace(/<br>/g, ' ') + '</b>' : p[1]) + '</p>';
+    });
+    return s + '<p>THE END</p>';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Box · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#0e1412;--accent:#cfe08a;--font-display:'Stardos Stencil',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,18,16,.96);--tc-ink:#e6eee2;--cap-bg:rgba(12,18,16,.95);--panel:#141c18;--face-bg:#3a1418;--q-ink:#cfe08a;--fade:#040605;--hud-bg:rgba(12,18,16,.82)}
+  .tc-room{font-size:clamp(52px,7.6vw,104px);font-weight:700;letter-spacing:.06em}
+  #bulb{animation:bulb 3.1s steps(1,end) infinite}
+  @keyframes bulb{0%{opacity:1}12%{opacity:.55}14%{opacity:1}57%{opacity:.85}59%{opacity:1}}
+  #scene.ran #spinB{animation:spin .5s linear infinite}
+  @keyframes spin{100%{transform:rotate(360deg)}}
+
+  /* machine B, opened up for threading, and its speed dial */
+  .tb{width:min(1080px,97vw);display:flex;gap:16px;align-items:flex-start;-webkit-user-select:none;user-select:none}
+  .tb-mach{flex:0 0 auto;width:min(470px,46vw);background:#1c2420 linear-gradient(160deg,#26302a,#121814);border:1px solid #4a5a4e;padding:6px;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .tb-mach svg{display:block;width:100%;height:auto;max-height:calc(100vh - 170px)}
+  .tb-mach .pt{cursor:pointer}
+  .tb-mach .pt:hover .hl{stroke:#cfe08a;stroke-width:3}
+  .tb-mach .hl.bad{stroke:#d2452f;stroke-width:5;outline:0}
+  .tb-side{flex:1 1 0;display:flex;flex-direction:column;gap:10px}
+  .tb-card{background:#e9ecef;color:#1c2028;padding:12px 18px 10px;border:2px solid #4a5260;font-family:'Architects Daughter',cursive;font-size:16px;line-height:1.45}
+  .tb-card h5{margin:0 0 4px;font-family:'Stardos Stencil',serif;font-size:18px;letter-spacing:.06em}
+  .tb-card ol{margin:2px 0 0;padding-left:22px;min-height:40px;columns:2;column-gap:22px;font-size:15px}
+  .dial{display:none;align-items:center;gap:14px;background:#1c2420;border:1px solid #4a5a4e;padding:10px 14px}
+  .tb.st2 .dial{display:flex}
+  .dial svg{width:150px;height:150px}
+  .dial .btns{display:flex;flex-direction:column;gap:8px}
+  .dial .btn{min-width:150px}
+  .dial .rd{font-family:'Stardos Stencil',serif;font-size:40px;color:#cfe08a;line-height:1}
+  .dial .rd small{display:block;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.22em;color:#a8b89a}
+  .tb .pmsg{font-size:17.5px;min-height:120px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3e4e46"/><stop offset="1" stop-color="#2c3832"/></linearGradient>
+  <linearGradient id="metalG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a1c1e"/><stop offset=".5" stop-color="#3a3e42"/><stop offset="1" stop-color="#141618"/></linearGradient>
+  <linearGradient id="greyG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a6268"/><stop offset=".5" stop-color="#8a949a"/><stop offset="1" stop-color="#4a5258"/></linearGradient>
+  <linearGradient id="steelG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8288"/><stop offset="1" stop-color="#4a5056"/></linearGradient>
+  <radialGradient id="bulbG"><stop offset="0" stop-color="#fff6d0" stop-opacity=".6"/><stop offset=".4" stop-color="#ffe08a" stop-opacity=".16"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="44%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#040605" stop-opacity=".3"/><stop offset="1" stop-color="#020302" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- green walls, white tiles, brown lino -->
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#wallG)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#26302a"/><path d="M-1000 40H2600" stroke="#1a221e" stroke-width="8"/>
+<rect x="-1000" y="520" width="3600" height="190" fill="#d9ddd6"/><g id="tiles" stroke="#aeb4ac" stroke-width="2"></g>
+<rect x="-1000" y="700" width="3600" height="700" fill="#3a2a20"/><path d="M-1000 700H2600" stroke="#141010" stroke-width="6"/>
+<g id="lino" stroke="#2a1e16" stroke-width="2" opacity=".6"></g>
+
+<!-- a bare bulb, and the rules of the box -->
+<path d="M800 -400V80" stroke="#141414" stroke-width="3"/><circle id="bulbglow" cx="800" cy="96" r="430" fill="url(#bulbG)" pointer-events="none"/><circle id="bulb" cx="800" cy="96" r="14" fill="#fff6d0"/>
+<g id="sign" class="hot"><rect x="566" y="250" width="214" height="70" fill="#f4f1e6"/><text x="673" y="280" class="fS" font-size="18" font-weight="700" text-anchor="middle" fill="#9c2a2a" letter-spacing="1.500">MOVING FILM IS SAFE</text>
+  <text x="673" y="306" class="fS" font-size="16" font-weight="700" text-anchor="middle" fill="#1a1c1e" letter-spacing="1.500">STANDING FILM IS NOT</text></g>
+
+<!-- the two portholes for the old pair, with their iron shutters, and the old machines A and B -->
+<g id="ports" class="hot"><g id="portholes"></g></g>
+<g id="oldA" class="hot"><g id="machA"></g></g>
+<g id="oldB" class="hot"><g id="machB"></g></g>
+
+<!-- the two newer machines, No. 1 and No. 2 -->
+<g id="newer" class="hot"><g id="machN"></g></g>
+
+<!-- the shelf with the handbook, the sand buckets, the film safe, the rewind room door -->
+<g id="manual" class="hot"><rect x="40" y="160" width="190" height="12" fill="#4a3222"/><rect x="56" y="104" width="22" height="56" fill="#2f4a3c"/><rect x="80" y="112" width="18" height="48" fill="#6a2a22"/>
+  <rect x="104" y="98" width="30" height="62" fill="#e9e2cc"/><path d="M108 112h22M108 120h22" stroke="#2f4a3c" stroke-width="3"/><rect x="140" y="126" width="64" height="34" fill="#c9b48a" transform="rotate(-8 172 143)"/></g>
+<g id="buckets" class="hot"><path d="M660 640h60l-6 72h-48zM740 640h60l-6 72h-48z" fill="#b8282c"/><path d="M660 640h60M740 640h60" stroke="#e9e2cc" stroke-width="4"/>
+  <text x="690" y="684" class="fS" font-size="15" font-weight="700" text-anchor="middle" fill="#f4f1e6">FIRE</text><text x="770" y="684" class="fS" font-size="15" font-weight="700" text-anchor="middle" fill="#f4f1e6">SAND</text></g>
+<g id="fsafe" class="hot"><rect x="1250" y="330" width="170" height="380" fill="url(#steelG)"/><rect x="1250" y="330" width="170" height="20" fill="#8a9298"/>
+  <g id="safedoors"></g><text x="1335" y="346" class="fS" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1c1e" letter-spacing="2">FILM SAFE</text></g>
+<g id="rdoor" class="hot"><rect x="1444" y="200" width="150" height="500" fill="#1a221e"/><rect x="1456" y="212" width="126" height="488" fill="#4a3a2a"/><rect x="1466" y="236" width="106" height="20" fill="#f4f1e6"/>
+  <text x="1519" y="251" class="fS" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1c1e" letter-spacing="1">REWIND ROOM</text><circle cx="1470" cy="460" r="7" fill="#c9b48a"/></g>
+
+<g id="della" class="hot" transform="translate(320 872) scale(1.08)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the rewind room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var MANUAL = '<h5>The Delta No. 4 machine &middot; Handbook for operators &middot; 1926</h5><h4>How the machine makes a picture move</h4>' +
+    '<svg class="fig" viewBox="0 0 250 230"><rect x="10" y="10" width="70" height="210" fill="#2a2a2a"/><g fill="#f3f1ea"><rect x="16" y="16" width="8" height="8"/><rect x="16" y="44" width="8" height="8"/><rect x="16" y="72" width="8" height="8"/><rect x="16" y="100" width="8" height="8"/><rect x="16" y="128" width="8" height="8"/><rect x="16" y="156" width="8" height="8"/><rect x="16" y="184" width="8" height="8"/><rect x="66" y="16" width="8" height="8"/><rect x="66" y="44" width="8" height="8"/><rect x="66" y="72" width="8" height="8"/><rect x="66" y="100" width="8" height="8"/><rect x="66" y="128" width="8" height="8"/><rect x="66" y="156" width="8" height="8"/><rect x="66" y="184" width="8" height="8"/></g>' +
+    '<g fill="#c9d4c0"><rect x="28" y="14" width="34" height="50"/><rect x="28" y="70" width="34" height="50"/><rect x="28" y="126" width="34" height="50"/><rect x="28" y="182" width="34" height="34"/></g><circle cx="45" cy="44" r="8" fill="#2f4a3c"/><circle cx="47" cy="98" r="8" fill="#2f4a3c"/><circle cx="49" cy="152" r="8" fill="#2f4a3c"/>' +
+    '<path d="M90 14v50M86 14h8M86 64h8" stroke="#2f4a3c" stroke-width="2"/><text x="100" y="34" font-family="Oswald" font-size="12" fill="#1c1e22">one frame</text><text x="100" y="50" font-family="Oswald" font-size="12" fill="#1c1e22">(16 to a foot)</text>' +
+    '<circle cx="190" cy="150" r="44" fill="none" stroke="#1c1e22" stroke-width="2"/><path d="M190 150L190 106A44 44 0 0 1 228 172Z" fill="#1c1e22"/><path d="M190 150L190 194A44 44 0 0 1 152 128Z" fill="#1c1e22"/><text x="190" y="216" font-family="Oswald" font-size="12" text-anchor="middle" fill="#1c1e22">the shutter</text>' +
+    '<text x="100" y="90" font-family="Oswald" font-size="12" fill="#1c1e22">sprocket holes</text><path d="M98 86L76 80" stroke="#2f4a3c" stroke-width="1.500"/></svg>' +
+    '<p>A film is a long strip of still pictures, called frames: sixteen of them to every foot of film. Shown one after another, fast enough, still pictures look to us like movement.</p>' +
+    '<p>In the gate, each frame must stand quite still in front of the lamp for a moment, then be pulled down sharply, and the next one brought in. A shutter turns in front of the lens and blocks the light while the film moves, so that the jerk is never seen.</p>' +
+    '<p><b>Threading.</b> From the top spool box the film passes through the fire trap, and then over the top sprocket, which turns steadily. Under the gate it is the other way: the intermittent sprocket jerks the film down one frame at a time. A steady sprocket cannot feed a jerking gate, so leave a loop of slack above the gate, and another below the intermittent sprocket. After that the bottom sprocket, steady again; then the lower fire trap, and the bottom spool box.</p>' +
+    '<p><b>Speed.</b> The dial on the motor shows pictures a second. Run every picture at the speed it was made for.</p>';
+  var CANS = '<h4>The film safe</h4><p>Ten steel compartments, one reel in each. Eight are empty. Two have labels in the same pencil:</p>' +
+    '<p><b>BESS OF THE LIGHT &middot; REEL 5 &middot; 1000 FT &middot; NITRATE</b><br>In its can. The can is heavy.</p>' +
+    '<p><b>BESS OF THE LIGHT &middot; REEL 6 &middot; 900 FT &middot; NITRATE</b><br>The can is empty. A note inside the lid: <i>In the rewind room. E. B.</i></p>';
+  /* the parts of machine B: x, y of the point the film passes, and what to call it in a message */
+  var P = {
+    s1: [250, 92, 'the top spool box'], f1: [250, 186, 'the upper fire trap'], k1: [272, 236, 'the top sprocket'], l1: [330, 290, 'the space above the gate'],
+    g: [252, 352, 'the gate'], i: [262, 420, 'the sprocket under the gate'], l2: [330, 474, 'the space below it'], k2: [272, 530, 'the bottom sprocket'],
+    f2: [250, 584, 'the lower fire trap'], s2: [250, 670, 'the bottom spool box'],
+    lamp: [110, 352, 'the lamp house'], lens: [356, 352, 'the lens'], shut: [430, 352, 'the shutter']
+  };
+  /* what Della says when the next step is something else: keyed by the step that should have come next */
+  var NEXT = {
+    s1: 'Every threading starts at the top: where the film comes from.',
+    f1: '&ldquo;Straight out of the spool box and on? On nitrate? Where the film leaves the top box, the licence wants something between the reel and any fire.&rdquo;',
+    k1: '&ldquo;What pulls the film down out of the box, steadily, before it gets anywhere near the gate?&rdquo;',
+    l1: '&ldquo;Straight from a steady sprocket into the gate, with no slack? The gate jerks and the sprocket doesn&rsquo;t. Something would tear.&rdquo;',
+    g: '&ldquo;The picture has to stop somewhere in front of the lamp. Where?&rdquo;',
+    i: '&ldquo;Something has to pull each frame down, one at a time, just under the gate.&rdquo;',
+    l2: '&ldquo;Now the film is jerking. Can a steady sprocket take it straight from a jerking one?&rdquo;',
+    k2: '&ldquo;What takes the film away below, steadily again?&rdquo;',
+    f2: '&ldquo;Into the bottom box with nothing at its mouth? A fire in the gate would go straight down into the reel.&rdquo;',
+    s2: '&ldquo;And where does it all end up?&rdquo;'
+  };
+  var NEVER = { lamp: '&ldquo;The film never goes into the lamp house. The lamp shines through the gate from behind.&rdquo;', lens: '&ldquo;The lens is for the light, not the film.&rdquo;', shut: '&ldquo;The shutter spins in front of the lens. The film never goes near it.&rdquo;' };
+
+  (function () {
+    var s = '', i, x, y;
+    for (i = -20; i < 60; i++) s += '<path d="M' + (i * 40) + ' 520v190"/>';
+    for (y = 560; y < 710; y += 40) s += '<path d="M-1000 ' + y + 'H2600"/>';
+    $('#tiles').innerHTML = s; s = '';
+    for (i = -14; i < 30; i++) { x = i * 110 - 300; s += '<path d="M' + x + ' 700L' + PH.num(800 + (x - 800) * 3) + ' 1340"/>'; }
+    $('#lino').innerHTML = s; s = '';
+    [210, 335, 460].forEach(function (px) {
+      s += '<circle cx="' + px + '" cy="176" r="32" fill="#0a0c0c" stroke="#1a1c1e" stroke-width="10"/><circle cx="' + (px + 6) + '" cy="172" r="9" fill="#9a2430" opacity=".5"/>';
+      s += '<rect x="' + (px - 44) + '" y="96" width="88" height="34" fill="#2a2c2e"/><path d="M' + px + ' 96V-40" stroke="#8a7a5a" stroke-width="2"/><circle cx="' + px + '" cy="60" r="8" fill="none" stroke="#5a5a5a" stroke-width="4"/>';
+    });
+    $('#portholes').innerHTML = s;
+    function old(x, lbl, spin) {
+      var t = '<rect x="' + (x - 70) + '" y="560" width="140" height="150" fill="#1a1c1e"/><rect x="' + (x - 90) + '" y="700" width="180" height="16" fill="#0e1010"/>';
+      t += '<rect x="' + (x - 110) + '" y="370" width="90" height="120" fill="#2a2c2e"/><path d="M' + (x - 110) + ' 386h90" stroke="#4a4e52" stroke-width="3"/><rect x="' + (x - 104) + '" y="330" width="22" height="40" fill="#2a2c2e"/>';
+      t += '<rect x="' + (x - 22) + '" y="360" width="64" height="150" fill="url(#metalG)"/><rect x="' + (x + 42) + '" y="410" width="58" height="26" fill="#1a1c1e"/><circle cx="' + (x + 100) + '" cy="423" r="16" fill="#3a3e42"/>';
+      t += '<g' + (spin ? ' id="' + spin + '"' : '') + ' style="transform-origin:' + (x + 10) + 'px 300px"><circle cx="' + (x + 10) + '" cy="300" r="62" fill="url(#metalG)"/><circle cx="' + (x + 10) + '" cy="300" r="14" fill="#5a5e62"/><path d="M' + (x + 10) + ' 248v104M' + (x - 42) + ' 300h104" stroke="#2a2c2e" stroke-width="5"/></g>';
+      t += '<circle cx="' + (x + 10) + '" cy="560" r="56" fill="url(#metalG)"/><circle cx="' + (x + 10) + '" cy="560" r="12" fill="#5a5e62"/>';
+      t += '<rect x="' + (x - 16) + '" y="470" width="40" height="22" fill="#e9e2cc"/><text x="' + (x + 4) + '" y="487" class="fS" font-size="17" font-weight="700" text-anchor="middle" fill="#1a1c1e">' + lbl + '</text>';
+      return t;
+    }
+    $('#machA').innerHTML = old(200, 'A', null);
+    $('#machB').innerHTML = old(450, 'B', 'spinB');
+    s = '';
+    [880, 1100].forEach(function (x, k) {
+      s += '<circle cx="' + (x + 10) + '" cy="96" r="26" fill="#0a0c0c" stroke="#1a1c1e" stroke-width="9"/>';
+      s += '<rect x="' + (x - 80) + '" y="540" width="160" height="170" fill="#4a5258"/><rect x="' + (x - 100) + '" y="700" width="200" height="16" fill="#2a3036"/>';
+      s += '<rect x="' + (x - 60) + '" y="360" width="140" height="180" fill="url(#greyG)"/><rect x="' + (x - 130) + '" y="380" width="80" height="110" fill="#3a4248"/><rect x="' + (x + 80) + '" y="420" width="50" height="34" fill="#2a3036"/>';
+      s += '<circle cx="' + (x + 10) + '" cy="250" r="96" fill="#6a7278"/><circle cx="' + (x + 10) + '" cy="250" r="20" fill="#3a4248"/><circle cx="' + (x + 10) + '" cy="250" r="86" fill="none" stroke="#3a4248" stroke-width="3"/>';
+      s += '<rect x="' + (x - 14) + '" y="508" width="48" height="26" fill="#e9e2cc"/><text x="' + (x + 10) + '" y="528" class="fS" font-size="20" font-weight="700" text-anchor="middle" fill="#1a1c1e">' + (k + 1) + '</text>';
+    });
+    $('#machN').innerHTML = s; s = '';
+    for (i = 0; i < 10; i++) { x = 1260 + (i % 2) * 80; y = 362 + Math.floor(i / 2) * 66; s += '<rect x="' + x + '" y="' + y + '" width="70" height="54" fill="#5a6268" stroke="#3a4248" stroke-width="2"/><circle cx="' + (x + 64) + '" cy="' + (y + 27) + '" r="4" fill="#2a3036"/>'; if (i === 8 || i === 9) s += '<rect x="' + (x + 10) + '" y="' + (y + 18) + '" width="44" height="16" fill="#f4f1e6"/><text x="' + (x + 32) + '" y="' + (y + 30) + '" class="fD" font-size="10" text-anchor="middle" fill="#2e3038">BESS ' + (i - 3) + '</text>'; }
+    $('#safedoors').innerHTML = s;
+    $('#della').innerHTML = PH.della({ back: true });
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'box', no: 'IV', title: 'The Box',
+    go: 'Climb in',
+    intro: [
+      'The same seat, F7, in 1928 and in 1969. The two halves of one pink ticket, No. 2417. The same tune, <i>If You Ask Me</i>. The same words at the end of two letters: &ldquo;Yours till the lights go up&rdquo;. Mrs A. was Effie Dorrell, the pianist, come home after forty years. Two love stories, and one story.',
+      'Twice Ernie Bardsley tried to show her the end of <i>Bess of the Light</i>. In 1929 the film caught fire a minute before the last reel. In 1969 he died two days before.',
+      'The box is at the top of an iron ladder, behind the back of the circle. Della goes first. &ldquo;Mind your head,&rdquo; she says. &ldquo;He didn&rsquo;t, for forty-three years.&rdquo;'
+    ],
+    exit: {"next":"rewind","w":{"c2b8cc5b":"5a2cfb9d"}}, tags: {"th":["c713b536","00ec04df","d35a75f6","8de4c0f1","30c40e33","256f4b5e","253c0a05","d91f2642","5e4ce57d","f4b6f978"],"fps":["839bec7e"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#oldB').classList.toggle('ready', !nextFile && !told.opened);
+    $('#scene').classList.toggle('ran', !!nextFile);
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.manual ? 1 : 0) + (told.cans ? 1 : 0) + (ER.flag('b-threaded') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Reel 6 is in pieces in the rewind room. Click the button at the bottom of the screen, or the door on the right.']];
+    if (lock && lock.isOpen() && ER.flag('b-threaded')) return ['speed', [
+      'The dial counts pictures a second. You need three numbers: how long reel 6 is (the label on its can, in the film safe), how many pictures there are in a foot of film (the handbook), and how many minutes reel 6 should take (the cue sheet from the office).',
+      'Count the pictures in reel 6: feet times pictures in a foot. Count the seconds in its running time: minutes times sixty. Then divide the pictures by the seconds.',
+      'Not 24: that is the speed for sound pictures, and it would make reel 6 too short. Nine hundred feet, sixteen pictures to the foot, is 14,400 pictures; twelve minutes is 720 seconds.'
+    ]];
+    if (lock && lock.isOpen()) return ['thread', [
+      'The handbook says how the film goes: it is in your notebook. Start at the top spool box, and remember what the licence on the office wall says must be at the mouth of every spool box.',
+      'Sprockets are the wheels with teeth. The top one turns steadily; the one just under the gate jerks. Between a steady sprocket and a jerking one the film needs slack: click the empty space where a loop goes.',
+      'Below the gate it is the top half again, the other way up: after the jerking sprocket, a loop, then a steady sprocket, then a fire trap, then a spool box. Which sprocket under the gate is the one that jerks? The one nearer the gate.'
+    ]];
+    return ['look', [
+      'Machine B, the right-hand one of the old black pair, is empty. Della is threading A. Click B to open it up.',
+      'Read the operator&rsquo;s handbook on the shelf on the left, and look at the labels on the cans in the film safe on the right. You will need both, and the cue sheet from the office.'
+    ]];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The box. Machine B is threaded with white leader, its dial at twenty.'); return; }
+    if (told.in) { busy = false; ER.say('The box, under one bare bulb. Della is still working at machine A.'); return; }
+    tell('in');
+    ER.narrate([
+      'A long narrow room with green walls, a band of white tiles and one bare bulb, which Della has wired to a battery. Five small windows in the front wall: two for the newer machines, two for the old pair, and one to look through.',
+      'Machines No. 1 and No. 2, from the 1960s, stand at their windows like two grey cows. In the corner, by the two smaller windows, stand the old pair: A and B, black, tall, older than anything in Delverton but the church.',
+      '&ldquo;He wouldn&rsquo;t let them scrap these,&rdquo; says Della. &ldquo;The new ones only do twenty-four pictures a second: sound speed. A silent picture wants a machine that can go slower.&rdquo; She is already opening up A. &ldquo;I&rsquo;ll thread A. You thread B, with the white leader, not the nitrate. And then tell me what speed. I&rsquo;ll check your work. He would have.&rdquo;'
+    ], function () { busy = false; PH.terms(['projector', 'leader']); paint(); });
+  }
+
+  PH.thing('#sign', null, 'MOVING FILM IS SAFE. STANDING FILM IS NOT. Painted on a board in red and black, and screwed to the wall.', isBusy);
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual', title: 'The handbook: how the machine makes a picture move', kind: 'From the box' }, done: function () {
+      PH.terms(['frame', 'sprocket', 'intermittent', 'loop', 'shutter', 'spool box']);
+      if (tell('manual')) { paint(); ER.say('&ldquo;Sixteen frames to the foot,&rdquo; says Della, without looking round. &ldquo;Some things never changed.&rdquo;'); }
+    } });
+  });
+  $('#fsafe').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CANS, cls: 'slip', clue: { id: 'cans', title: 'The film safe: the cans of reels 5 and 6', kind: 'From the box' }, done: function () {
+      PH.terms(['can']);
+      if (tell('cans')) { paint(); ER.say('Reel 5 in its can, and reel 6&rsquo;s can empty. &ldquo;Your Archive is getting two reels of nitrate,&rdquo; says Della, &ldquo;and a story.&rdquo;'); }
+    } });
+  });
+  PH.thing('#buckets', null, 'Two red buckets: FIRE, and SAND. Sand, not water. &ldquo;Nitrate makes its own oxygen,&rdquo; says Della. &ldquo;You can&rsquo;t smother it. You cut it off and let it burn out in a bucket.&rdquo;', isBusy);
+  PH.thing('#ports', 'porthole', function () {
+    return 'Through the little window between the two old machines: the stalls, far below, in the light of the lamp Della left down there. One seat is lit more than the others. F7, down.';
+  }, isBusy);
+  PH.thing('#newer', null, 'Machines No. 1 and No. 2, the 1960s pair. Their motors run at one speed only: twenty-four pictures a second, for sound. They cannot go any slower.', isBusy);
+  PH.thing('#oldA', null, function () { return nextFile ? 'Machine A, threaded by Della, its dial set to match B&rsquo;s: twenty.' : 'Machine A. Della has its gate open and is threading it, fast, without looking at the book.'; }, isBusy);
+  $('#oldB').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Machine B: threaded with white leader, the loops holding their shape, the dial at twenty.'); return; }
+    if (!lock) lock = makeLock();
+    tell('opened'); paint(); lock.open();
+  });
+  $('#della').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Rewind room,&rdquo; says Della. &ldquo;Reel 6 is waiting. It&rsquo;s been waiting since 1969.&rdquo;'); return; }
+    ER.say(ER.flag('b-threaded') ? '&ldquo;Now the speed,&rdquo; says Della. &ldquo;Work it out. Don&rsquo;t guess. He never guessed.&rdquo;' : '&ldquo;Thread B,&rdquo; says Della. &ldquo;The handbook is on the shelf. I&rsquo;m not going to tell you; I&rsquo;m going to watch.&rdquo;');
+  });
+  $('#rdoor').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.leave(nextFile); return; }
+    ER.say('&ldquo;Machine first,&rdquo; says Della. &ldquo;His rule: you never bring nitrate to a machine that isn&rsquo;t ready.&rdquo;');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- machine B: thread it, then set its speed ---------- */
+  function makeLock() {
+    var done = ER.flag('b-threaded') ? 10 : 0, path = [], fps = ER.flag('b-fps') || 16, wait = false;
+    var box = ER.el('div', 'tb' + (done === 10 ? ' st2' : '')), mach = ER.el('div', 'tb-mach'), side = ER.el('div', 'tb-side');
+    mach.innerHTML = machSvg();
+    side.innerHTML = '<div class="tb-card"><h5>MACHINE B &middot; THREADING</h5><ol id="b-steps"></ol></div>' +
+      '<div class="dial"><svg viewBox="0 0 150 150" id="b-dial"></svg><div class="rd"><span id="b-rd"></span><small>PICTURES A SECOND</small></div><div class="btns"><button type="button" class="btn" id="b-up">Faster</button><button type="button" class="btn" id="b-down">Slower</button><button type="button" class="btn" id="b-run">Run the leader</button></div></div>' +
+      '<div class="pfoot"><p class="pmsg"></p></div>';
+    box.appendChild(mach); box.appendChild(side);
+    var PARTS = ['g', 'k2', 's2', 'l1', 'f1', 'i', 's1', 'l2', 'f2', 'k1'];
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    /* which part comes at step n? asked of the tags, one part at a time */
+    function expect(n) { for (var i = 0; i < PARTS.length; i++) if (ER.check('th', n + ':' + PARTS[i])) return PARTS[i]; return null; }
+    function drawPath() {
+      var d = '', i, a, b;
+      for (i = 1; i < path.length; i++) {
+        a = P[path[i - 1]]; b = P[path[i]];
+        if (path[i] === 'l1' || path[i] === 'l2') d += 'M' + a[0] + ' ' + a[1] + 'Q' + (b[0] + 40) + ' ' + b[1] + ' ' + b[0] + ' ' + b[1];
+        else if (path[i - 1] === 'l1' || path[i - 1] === 'l2') d += 'M' + a[0] + ' ' + a[1] + 'Q' + (a[0] + 30) + ' ' + (b[1] - 10) + ' ' + b[0] + ' ' + b[1];
+        else d += 'M' + a[0] + ' ' + a[1] + 'L' + b[0] + ' ' + b[1];
+      }
+      mach.querySelector('#filmpath').setAttribute('d', d);
+      side.querySelector('#b-steps').innerHTML = path.map(function (p) { return '<li>' + P[p][2] + '</li>'; }).join('');
+      box.setAttribute('data-path', path.join('-'));
+    }
+    if (done === 10) path = String(ER.flag('b-path') || '').split('-').filter(Boolean);
+    drawPath();
+    ER.$$('.pt', mach).forEach(function (n) {
+      n.addEventListener('click', function () {
+        var p = n.getAttribute('data-p'), want;
+        if (wait || nextFile || path.length === 10) return;
+        if (NEVER[p]) { ER.sfx.no(); msg(NEVER[p]); return; }
+        if (ER.check('th', (path.length + 1) + ':' + p)) {
+          path.push(p); PH.sfx.strip(); drawPath(); msg('');
+          if (path.length === 10) {
+            ER.flag('b-threaded', 1); ER.flag('b-path', path.join('-')); PH.solved(true); paint();
+            msg('The leader runs from the top box to the bottom one, with a loop above the gate and a loop below it. Della leans over and looks. &ldquo;Good. Now the speed.&rdquo;');
+            box.classList.add('st2'); paintDial(); PH.mine('thread', 'How machine B is threaded', '<p>' + path.map(function (q) { return P[q][2]; }).join(', ') + '.</p><p>The top and bottom sprockets turn steadily; the one just under the gate jerks the film down one frame at a time. The loops are slack between them, so that the film does not tear. The fire traps keep a fire in the gate away from the reels.</p>');
+          }
+          return;
+        }
+        want = expect(path.length + 1);
+        ER.sfx.no(); PH.flash(n.querySelector('.hl') || n);
+        msg((NEXT[want] || 'Not there.') + (path.length ? ' The leader comes out: start again from the top.' : ''));
+        path = []; drawPath();
+      });
+    });
+    function paintDial() {
+      var a = -135 + (fps - 12) / 16 * 270, s = '<circle cx="75" cy="75" r="68" fill="#e9e2cc" stroke="#3a3e42" stroke-width="6"/>', v, b;
+      for (v = 12; v <= 28; v++) { b = (-135 + (v - 12) / 16 * 270 - 90) * Math.PI / 180; s += '<path d="M' + PH.num(75 + Math.cos(b) * 56) + ' ' + PH.num(75 + Math.sin(b) * 56) + 'L' + PH.num(75 + Math.cos(b) * (v % 4 ? 62 : 66)) + ' ' + PH.num(75 + Math.sin(b) * (v % 4 ? 62 : 66)) + '" stroke="#1a1c1e" stroke-width="2"/>'; if (v % 4 === 0) s += '<text x="' + PH.num(75 + Math.cos(b) * 44) + '" y="' + PH.num(79 + Math.sin(b) * 44) + '" font-family="Oswald" font-size="12" text-anchor="middle" fill="#1a1c1e">' + v + '</text>'; }
+      s += '<path d="M75 75L75 20" stroke="#9c2a2a" stroke-width="4" stroke-linecap="round" transform="rotate(' + PH.num(a) + ' 75 75)"/><circle cx="75" cy="75" r="7" fill="#1a1c1e"/>';
+      side.querySelector('#b-dial').innerHTML = s; side.querySelector('#b-rd').textContent = fps; box.setAttribute('data-fps', fps);
+    }
+    paintDial();
+    side.querySelector('#b-up').addEventListener('click', function () { if (wait || nextFile || fps >= 28) return; fps++; ER.flag('b-fps', fps); PH.sfx.dial(); paintDial(); msg(''); });
+    side.querySelector('#b-down').addEventListener('click', function () { if (wait || nextFile || fps <= 12) return; fps--; ER.flag('b-fps', fps); PH.sfx.dial(); paintDial(); msg(''); });
+    side.querySelector('#b-run').addEventListener('click', function () {
+      var file, mins;
+      if (wait || nextFile) return;
+      wait = true; PH.sfx.run(2.2, fps); msg('The motor starts. The white leader runs through the gate with a noise like a sewing machine in a hurry&hellip;');
+      setTimeout(function () {
+        wait = false;
+        if (!ER.check('fps', String(fps))) {
+          ER.sfx.no(); mins = 900 * 16 / (fps * 60);
+          msg(fps === 24 ? 'Della stops the motor. &ldquo;Twenty-four. That&rsquo;s sound speed, and true for every talkie ever made. This one isn&rsquo;t a talkie. At twenty-four, reel 6 would be over in ten minutes. How long does its own cue sheet say it takes?&rdquo;' :
+            'Della stops the motor. &ldquo;At ' + fps + ' a second, reel 6 would last ' + PH.num(mins) + ' minutes. Its cue sheet says how long it should take. Work it out from that.&rdquo;');
+          return;
+        }
+        file = ER.exit([path.join('-') + '>' + fps], { wait: true });
+        if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+        wait = true; nextFile = file; ER.flag('b-file', file);
+        msg('Della watches the take-up spool turn for a long moment. Then she stops the motor, and sets A&rsquo;s dial to match.');
+        PH.mine('speed', 'The speed for reel 6', '<p>Reel 6 is 900 feet long (the label on its can). A foot of film holds 16 frames (the handbook). So reel 6 is 900 × 16 = 14,400 pictures.</p>' +
+          '<p>The cue sheet says reel 6 runs for 12 minutes: 720 seconds. 14,400 ÷ 720 = <b>' + fps + ' pictures a second</b>.</p><p>Not 24: that is the speed for sound pictures. At 24, reel 6 would be over in 10 minutes, and everything on it would move too fast, like the screen at twenty to ten.</p>');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            '&ldquo;Twenty,&rdquo; says Della. &ldquo;Nine hundred feet in twelve minutes. Not twenty-four.&rdquo; She looks at the newer machines. &ldquo;Whatever runs that screen at twenty to ten, it runs at sound speed and in the wrong order. No wonder nobody can read it.&rdquo;',
+            '&ldquo;You&rsquo;d have got a job here. Ernie wouldn&rsquo;t have said so. He&rsquo;d have said nothing, which was how you knew.&rdquo;',
+            '&ldquo;Reel 5 is in the safe and it can stay there till we need it. Reel 6 is in the rewind room, in pieces. Come on.&rdquo;'
+          ], function () { busy = false; paint(); });
+        }, 2600);
+      }, 2300);
+    });
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* machine B with its door open: every part the film might pass, and three that it never does */
+  function machSvg() {
+    var s = '<svg viewBox="0 0 470 740" xmlns="http://www.w3.org/2000/svg">';
+    s += '<rect x="0" y="0" width="470" height="740" fill="#161c18"/>';
+    function hit(p, inner) { return '<g class="pt" data-p="' + p + '">' + inner + '</g>'; }
+    s += hit('s1', '<circle class="hl" cx="250" cy="92" r="78" fill="#2a2e30" stroke="#4a5054" stroke-width="2"/><circle cx="250" cy="92" r="52" fill="#e9e2cc" opacity=".25"/><circle cx="250" cy="92" r="12" fill="#5a5e62"/><rect x="232" y="166" width="36" height="8" fill="#4a5054"/>');
+    s += hit('f1', '<rect class="hl" x="214" y="174" width="72" height="26" fill="#1a1e20" stroke="#4a5054" stroke-width="2"/><circle cx="240" cy="187" r="8" fill="#8a9298"/><circle cx="260" cy="187" r="8" fill="#8a9298"/>');
+    s += hit('k1', '<circle class="hl" cx="272" cy="236" r="24" fill="#3a3e42" stroke="#4a5054" stroke-width="2"/>' + teeth(272, 236, 24) + '<circle cx="272" cy="236" r="6" fill="#1a1e20"/>');
+    s += hit('l1', '<rect class="hl" x="300" y="262" width="80" height="56" rx="10" fill="#1a201c" stroke="#3a4a3e" stroke-width="2" stroke-dasharray="5 4"/>');
+    s += hit('lamp', '<rect class="hl" x="40" y="300" width="150" height="104" fill="#2a2420" stroke="#4a4038" stroke-width="2"/><circle cx="110" cy="352" r="22" fill="#5a4a30"/><path d="M60 316h110M60 388h110" stroke="#3a3028" stroke-width="5"/><rect x="190" y="342" width="40" height="20" fill="#3a3028"/>');
+    s += hit('g', '<rect class="hl" x="232" y="314" width="40" height="76" fill="#3a3e42" stroke="#4a5054" stroke-width="2"/><rect x="242" y="338" width="20" height="28" fill="#0a0c0c"/>');
+    s += hit('lens', '<rect class="hl" x="286" y="336" width="90" height="32" rx="6" fill="#2a2e30" stroke="#4a5054" stroke-width="2"/><circle cx="376" cy="352" r="16" fill="#5a7a8a" opacity=".6"/>');
+    s += hit('shut', '<g class="hl" fill="none" stroke="#4a5054" stroke-width="2"><circle cx="430" cy="352" r="34"/></g><path d="M430 352L430 318A34 34 0 0 1 459 369Z" fill="#3a3e42"/><path d="M430 352L430 386A34 34 0 0 1 401 335Z" fill="#3a3e42"/>');
+    s += hit('i', '<circle class="hl" cx="262" cy="420" r="20" fill="#4a3a2a" stroke="#4a5054" stroke-width="2"/>' + teeth(262, 420, 20) + '<path d="M262 420l10 -10" stroke="#1a1e20" stroke-width="4"/>');
+    s += hit('l2', '<rect class="hl" x="300" y="446" width="80" height="56" rx="10" fill="#1a201c" stroke="#3a4a3e" stroke-width="2" stroke-dasharray="5 4"/>');
+    s += hit('k2', '<circle class="hl" cx="272" cy="530" r="24" fill="#3a3e42" stroke="#4a5054" stroke-width="2"/>' + teeth(272, 530, 24) + '<circle cx="272" cy="530" r="6" fill="#1a1e20"/>');
+    s += hit('f2', '<rect class="hl" x="214" y="572" width="72" height="26" fill="#1a1e20" stroke="#4a5054" stroke-width="2"/><circle cx="240" cy="585" r="8" fill="#8a9298"/><circle cx="260" cy="585" r="8" fill="#8a9298"/>');
+    s += hit('s2', '<circle class="hl" cx="250" cy="670" r="64" fill="#2a2e30" stroke="#4a5054" stroke-width="2"/><circle cx="250" cy="670" r="12" fill="#5a5e62"/><rect x="232" y="600" width="36" height="8" fill="#4a5054"/>');
+    s += '<path id="filmpath" d="" fill="none" stroke="#f2ead6" stroke-width="6" stroke-linecap="round" pointer-events="none"/>';
+    s += '<text x="20" y="728" font-family="Oswald" font-size="13" letter-spacing="3" fill="#8a9a8e">DELTA No. 4 &middot; MACHINE B</text>';
+    return s + '</svg>';
+  }
+  function teeth(cx, cy, r) {
+    var s = '', k, a;
+    for (k = 0; k < 12; k++) { a = k * Math.PI / 6; s += '<rect x="' + PH.num(cx + Math.cos(a) * r - 3) + '" y="' + PH.num(cy + Math.sin(a) * r - 3) + '" width="6" height="6" fill="#8a9298"/>'; }
+    return s;
+  }
+})();
+</script>
+</body>
+</html>

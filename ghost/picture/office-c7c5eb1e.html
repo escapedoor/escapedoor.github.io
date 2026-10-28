@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Manager's Office · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#16120c;--accent:#e9c46a;--font-display:'Special Elite',monospace;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,18,10,.96);--tc-ink:#f2ead8;--cap-bg:rgba(22,16,10,.95);--panel:#211a10;--face-bg:#3a1418;--q-ink:#e9c46a;--fade:#080604;--hud-bg:rgba(22,16,10,.82)}
+  .tc-room{font-size:clamp(40px,5.6vw,78px)}
+  .rain{animation:rain .7s linear infinite}
+  @keyframes rain{0%{transform:translate(0,-50px)}100%{transform:translate(-10px,100px)}}
+  #lamp{animation:lamp 6s steps(1,end) infinite}
+  @keyframes lamp{0%{opacity:1}61%{opacity:.9}63%{opacity:1}}
+
+  /* the desk blotter: four rows, two years */
+  .pr{width:min(1120px,97vw);padding:14px 18px 12px;background:#24402e linear-gradient(170deg,#2e5038,#1a3022);border:10px solid #4a3220;box-shadow:0 26px 70px rgba(0,0,0,.7);-webkit-user-select:none;user-select:none}
+  .pr-head{display:grid;grid-template-columns:150px 1fr 1fr;gap:10px;margin-bottom:6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;color:#d9e6c9}
+  .pr-row{display:grid;grid-template-columns:150px 1fr 1fr;gap:10px;align-items:stretch;margin-bottom:8px}
+  .pr-row i{font-style:normal;font-family:'Special Elite',monospace;font-size:16px;color:#f2ead8;align-self:center;letter-spacing:.06em}
+  .pslot{min-height:56px;border:1.5px dashed rgba(240,236,220,.4);border-radius:3px;background:rgba(0,0,0,.18)}
+  .pr-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:120px;margin-top:10px;padding:8px;background:rgba(0,0,0,.25);border-radius:3px}
+  .pc{display:block;width:calc(33.33% - 4px);box-sizing:border-box;padding:7px 10px 6px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.24;box-shadow:0 3px 6px rgba(0,0,0,.4);cursor:grab}
+  .pc small{display:block;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;opacity:.8;margin-bottom:2px}
+  .pc.y29{background:#f2e6c8;color:#2a1a10;border-left:6px solid #7a2a1c}
+  .pc.y69{background:#dfe9f2;color:#16243a;border-left:6px solid #2a4a7a}
+  .pslot .pc{width:auto}
+  .pc.held{outline:3px solid #e9c46a}
+  .pr .pmsg{font-size:17.5px;min-height:52px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9b48a"/><stop offset="1" stop-color="#a8916a"/></linearGradient>
+  <linearGradient id="panelG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3c22"/><stop offset="1" stop-color="#2e1e10"/></linearGradient>
+  <linearGradient id="safeG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e3a2a"/><stop offset=".5" stop-color="#2e5a40"/><stop offset="1" stop-color="#16301f"/></linearGradient>
+  <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7a0"/><stop offset=".5" stop-color="#c9973a"/><stop offset="1" stop-color="#6a4a14"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1220"/><stop offset="1" stop-color="#1a2638"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff2c8" stop-opacity=".7"/><stop offset=".35" stop-color="#ffd98a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="46%" cy="52%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#0a0604" stop-opacity=".25"/><stop offset="1" stop-color="#040302" stop-opacity=".88"/></radialGradient>
+  <clipPath id="winC"><rect x="1080" y="140" width="360" height="330"/></clipPath>
+</defs>
+
+<!-- a cream wall above brown panelling, and a worn carpet -->
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#wallG)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#b49c72" opacity=".35"/>
+<rect x="-1000" y="470" width="3600" height="230" fill="url(#panelG)"/><g id="panels" stroke="#2a1a0c" stroke-width="3" fill="none" opacity=".7"></g>
+<rect x="-1000" y="462" width="3600" height="10" fill="#6a4a2a"/>
+<rect x="-1000" y="700" width="3600" height="700" fill="#3a2418"/><path d="M-1000 700H2600" stroke="#1a0e08" stroke-width="6"/>
+<path d="M300 720H1300L1500 1340H100Z" fill="#6a2a22" opacity=".55"/>
+
+<!-- the window, with the back of the sign outside it -->
+<g id="window" class="hot"><rect x="1064" y="124" width="392" height="362" fill="#4a3220"/>
+  <g clip-path="url(#winC)"><rect x="1080" y="140" width="360" height="330" fill="url(#nightG)"/>
+    <g transform="translate(2544 0) scale(-1 1)" stroke="#6a7a8a" stroke-width="10" fill="none" stroke-linecap="round" opacity=".85">
+      <path d="M1110 200v120h40q24 0 24 -30t-24 -30q20 0 20 -28t-22 -32z"/><path d="M1210 200v120"/><path d="M1270 200v96q0 26 -24 26"/><ellipse cx="1330" cy="260" rx="30" ry="60"/><path d="M1390 200v90q0 32 30 32t30 -32v-90"/></g>
+    <path d="M1080 360h360v12h-360z" fill="#2a3644"/><g stroke="#8aa0b8" stroke-width="1.500" opacity=".45" class="rain"><path d="M1100 150l-5 22M1150 190l-5 22M1200 160l-5 22M1260 210l-5 22M1320 170l-5 22M1380 220l-5 22M1420 160l-5 22M1120 260l-5 22M1240 300l-5 22M1360 280l-5 22M1180 380l-5 22M1300 400l-5 22M1410 420l-5 22"/></g></g>
+  <g stroke="#4a3220" stroke-width="10" fill="none"><rect x="1080" y="140" width="360" height="330"/><path d="M1260 140v330M1080 305h360"/></g><rect x="1056" y="480" width="408" height="16" fill="#6a4a2a"/></g>
+
+<!-- the conditions of the licence, framed, and a calendar that stopped in 2019 -->
+<g id="rules" class="hot"><rect x="536" y="150" width="200" height="250" fill="#2a2622"/><rect x="548" y="162" width="176" height="226" fill="#f4f0e2"/><rect x="556" y="170" width="160" height="210" fill="none" stroke="#b49a5a" stroke-width="2"/>
+  <text x="636" y="194" class="fZ" font-size="11" font-weight="700" text-anchor="middle" fill="#1f1d1a" letter-spacing="1">CINEMATOGRAPH</text><text x="636" y="210" class="fZ" font-size="11" font-weight="700" text-anchor="middle" fill="#1f1d1a" letter-spacing="1">ACT 1909</text>
+  <g stroke="#6a6458" stroke-width="2"><path d="M568 228h136M568 240h136M568 252h110M568 270h136M568 282h136M568 294h96M568 312h136M568 324h136M568 336h120M568 354h136M568 366h80"/></g></g>
+<g id="cal" class="hot"><rect x="774" y="196" width="104" height="138" fill="#fbfaf4"/><rect x="774" y="196" width="104" height="28" fill="#7a2a1c"/><text x="826" y="215" class="fO" font-size="12" text-anchor="middle" fill="#fbfaf4" letter-spacing="2">SEPT 2019</text>
+  <g id="calgrid" stroke="#c9c2b0" stroke-width="1"></g><path d="M842 300l14 14M856 300l-14 14" stroke="#7a2a1c" stroke-width="3"/><circle cx="826" cy="190" r="4" fill="#3a2a1a"/></g>
+
+<!-- the safe, its door open, and the tin in it -->
+<g id="safe" class="hot"><rect x="110" y="310" width="290" height="400" rx="8" fill="url(#safeG)"/><rect x="124" y="324" width="262" height="372" rx="4" fill="none" stroke="url(#goldG)" stroke-width="3"/>
+  <rect x="150" y="360" width="210" height="160" fill="#0c1610"/><rect x="150" y="530" width="210" height="140" fill="#0c1610"/><path d="M150 520h210" stroke="#1e3a2a" stroke-width="10"/>
+  <text x="255" y="350" class="fZ" font-size="15" font-weight="700" text-anchor="middle" fill="url(#goldG)" letter-spacing="3">FIRE-RESISTING</text>
+  <path d="M400 316L480 340V700L400 710Z" fill="#16301f"/><circle cx="452" cy="520" r="20" fill="url(#goldG)"/><circle cx="452" cy="520" r="10" fill="#16301f"/>
+  <g fill="#e9e2cc" opacity=".8"><rect x="170" y="560" width="70" height="90"/><rect x="250" y="566" width="60" height="84"/></g><path d="M176 580h58M176 594h58M256 586h48" stroke="#8a8270" stroke-width="2"/></g>
+<g id="tin" class="hot"><rect x="176" y="436" width="160" height="78" rx="6" fill="#8a2a22"/><rect x="176" y="436" width="160" height="16" rx="6" fill="#a8382c"/><rect x="200" y="464" width="112" height="34" fill="#efe2c0"/>
+  <text x="256" y="480" class="fD" font-size="10.500" text-anchor="middle" fill="#2e3038">E. BARDSLEY</text><text x="256" y="493" class="fD" font-size="9" text-anchor="middle" fill="#2e3038">PERSONAL 1969</text></g>
+
+<!-- the desk, its blotter and Della's lamp -->
+<g id="desk" class="hot"><rect x="520" y="560" width="560" height="26" fill="#5a3a1e"/><rect x="540" y="586" width="150" height="190" fill="#4a2e18"/><rect x="910" y="586" width="150" height="190" fill="#4a2e18"/>
+  <path d="M556 620h118M556 680h118M926 620h118M926 680h118" stroke="#2a1a0c" stroke-width="3"/><circle cx="615" cy="650" r="5" fill="url(#goldG)"/><circle cx="985" cy="650" r="5" fill="url(#goldG)"/>
+  <rect x="640" y="540" width="300" height="22" fill="#2e5038"/><rect x="700" y="526" width="96" height="30" fill="#f4f1e6" transform="rotate(-4 748 541)"/><path d="M712 536h70M712 544h60" stroke="#6a6a7a" stroke-width="2" transform="rotate(-4 748 541)"/>
+  <rect x="838" y="530" width="72" height="26" fill="#f7f2ec" transform="rotate(6 874 543)"/></g>
+<circle id="lamp" cx="1010" cy="520" r="420" fill="url(#lampG)" pointer-events="none"/>
+<g pointer-events="none"><path d="M990 562l20 -50 20 50z" fill="#2a2a2a"/><rect x="986" y="498" width="48" height="30" rx="6" fill="#f2c94c"/><rect x="992" y="504" width="36" height="18" fill="#fff6d0"/></g>
+
+<!-- the filing cabinet -->
+<g id="cabinet" class="hot"><rect x="1150" y="500" width="180" height="290" fill="#5a6058"/><rect x="1150" y="500" width="180" height="12" fill="#6a706a"/>
+  <rect x="1164" y="526" width="152" height="74" fill="#4a5048"/><rect x="1164" y="614" width="152" height="74" fill="#4a5048"/><rect x="1164" y="702" width="152" height="74" fill="#4a5048"/>
+  <rect x="1218" y="544" width="44" height="14" fill="#efe8d4"/><text x="1240" y="555" class="fO" font-size="9" text-anchor="middle" fill="#2a2a2a">1925-35</text><rect x="1220" y="572" width="40" height="8" rx="3" fill="#c9c9c0"/>
+  <rect x="1218" y="632" width="44" height="14" fill="#efe8d4"/><text x="1240" y="643" class="fO" font-size="9" text-anchor="middle" fill="#2a2a2a">1936-60</text><rect x="1220" y="660" width="40" height="8" rx="3" fill="#c9c9c0"/>
+  <rect x="1218" y="720" width="44" height="14" fill="#efe8d4"/><text x="1240" y="731" class="fO" font-size="9" text-anchor="middle" fill="#2a2a2a">1961-</text><rect x="1220" y="748" width="40" height="8" rx="3" fill="#c9c9c0"/></g>
+
+<g id="della" class="hot" transform="translate(1440 880) scale(1.14)"></g>
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the ladder to the box</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var ERNIE = '<h4>Operator&rsquo;s notes &middot; E. Bardsley &middot; the Bijou</h4><p><i>Films, footage, faults. And a few things that are none of the Management&rsquo;s business.</i></p>' +
+    '<span class="d">THURSDAY 6 OCTOBER 1927</span><p>New pianist tonight, a Miss Dorrell, seventeen. She played the comedy faster than I was running it, so I ran it faster. She played faster still. Coggins says I am to stop that.</p>' +
+    '<span class="d">THURSDAY 27 SEPTEMBER 1928</span><p>She used to eat her sandwiches in the back row while I threaded up for the first house. This week she has started sitting in F7. F7 is on the gangway, and it is the one seat in the stalls that I can see from my window without leaning. I have not told her that. I think she knows.</p>' +
+    '<span class="pin">Mr E. &mdash; Mr Eade is watching, so I can&rsquo;t come up. F7 at six, if you can get away for a sandwich. I will play ours at the kiss. Yours till the lights go up, E.</span>' +
+    '<span class="d">SATURDAY 10 AUGUST 1929</span><p>Mr Eade had us all photographed on the front steps. Coggins and Dolly stood arm in arm, and nobody said a word, because nobody ever does. I stood at the end of the back row. I was not looking at the camera.</p>' +
+    '<span class="d">MONDAY 18 NOVEMBER 1929</span><p>It is settled: the Bijou goes over to sound on Monday 2 December. Mr Eade told her this afternoon that she will not be wanted after Saturday. She played the whole evening without one wrong note, and went home without speaking to anybody.</p>' +
+    '<span class="d">MONDAY 25 NOVEMBER 1929</span><p>Last week of silent pictures: <i>Bess of the Light</i>, six reels. On Saturday Mr Eade wants the sound engineers to play gramophone records for the last reel, so that the public can hear what is coming. So she is to stop at the end of reel 5, and go home.</p>' +
+    '<p>She is not going home. I have bought her a ticket for the second house, F7, so that she can sit and watch the last reel like anybody else. I tore it in two. Half for her, and half for me: she is to give me hers when she has seen the end. I have had a card made. It goes in at the end of reel 6.</p>' +
+    '<span class="stub">THE BIJOU &middot; STALLS &middot; 1/3<br>No. <b>2417</b></span>' +
+    '<span class="d">SATURDAY 30 NOVEMBER 1929</span><p class="shaky">Reel 5 stuck in the gate a minute before the end. By the time I had the shutters down, the film in the gate was already alight. I had put it out before Coggins got up the ladder. Mr Eade sent the house home. Reel 6 was never shown. Dolly says that when the lights came up, she was standing by F7 with her half of the ticket in her hand.</p>' +
+    '<span class="d">THURSDAY 5 DECEMBER 1929</span><p class="shaky">Hands still in bandages. She went on the Monday morning train, to a band at the seaside. I was at the hospital, having my hands dressed. She left no address with anybody.</p>' +
+    '<span class="d">SATURDAY 20 SEPTEMBER 1969</span><p>She is back. F7. Second house. I knew her by the back of her head.</p>' +
+    '<span class="d">SATURDAY 4 OCTOBER 1969</span><p>Bought an ice at the kiosk at the interval, which I have not done since the war. Young Fay asked me if I was feeling quite well.</p>' +
+    '<span class="d">SATURDAY 1 NOVEMBER 1969</span><p>I have kept the card for forty years, and the old machines. I shall show her the end: Saturday the 29th, after the last house. Forty years, less one day. Gave young Fay a note for her.</p>' +
+    '<span class="d">WEDNESDAY 26 NOVEMBER 1969</span><p>Reel 6 is in pieces on the bench in the rewind room. The old joins had gone brittle, and I have taken every title out to make them good. Tomorrow night I shall put them all back in order, and the card with them.</p>' +
+    '<p><i>There are no more entries.</i></p>';
+  var LETTER = '<div class="env">Mr E. Bardsley &middot; The Bijou, Castle Street &middot; By hand</div><h4>Tuesday 11th November 1969</h4><p>Dear Mr Bardsley,</p>' +
+    '<p>Young Fay gave me your note, and pretended that she had not read it.</p><p>Yes. I will come on the 29th, after the last house, and sit where you say. You did not need to tell me which seat.</p>' +
+    '<p>I am sending you something that I have kept for forty years, first in my music case and then in my handbag. I was to give it to you when I had seen the end, and I never did see the end. I always wondered how that picture finished.</p>' +
+    '<p>I waited at the station on the Monday. I know now why you did not come.</p><p class="sig">Yours till the lights go up,<br>E. A.</p>' +
+    '<span class="stub">THE BIJOU &middot; STALLS &middot; 1/3<br>No. <b>2417</b></span>';
+  var CUE = '<h4>Music cue sheet &middot; Bess of the Light</h4><h5>Six reels. Supplied by the renters with every copy of the picture. Running times are for the speed at which the picture was made to be shown: do not run it faster.</h5>' +
+    '<table><tr><th>REEL</th><th>RUNS</th><th>AT THE TITLE OR SCENE</th><th>SUGGESTED MUSIC</th></tr>' +
+    '<tr><td>1</td><td>13 min</td><td>Opening: the lighthouse</td><td>Something of the sea, slow</td></tr>' +
+    '<tr><td>2</td><td>12 min</td><td>Bess at the harbour</td><td>A light waltz</td></tr>' +
+    '<tr><td>3</td><td>13 min</td><td>THE KISS</td><td>A love song <span class="pen">&mdash; If You Ask Me (ours!)</span></td></tr>' +
+    '<tr><td>4</td><td>14 min</td><td>The quarrel</td><td>Agitato</td></tr>' +
+    '<tr><td>5</td><td>13 min</td><td>The storm</td><td>Storm music, loud <span class="pen">End of reel 5: stop. Mr Eade&rsquo;s orders. Gramophone for 6.</span></td></tr>' +
+    '<tr><td>6</td><td>12 min</td><td>Elias at the window</td><td>Slow and quiet, to the end <span class="pen">Never mind. I shall be in F7.</span></td></tr></table>' +
+    '<p class="foot">Total running time: 77 minutes.</p>';
+  var RULES = '<h5>Conditions of licence under the</h5><h4>Cinematograph Act, 1909</h4>' +
+    '<p>Cinematograph film is made of cellulose nitrate. It catches fire very easily and burns fiercely. Once alight it makes its own oxygen, so it cannot be put out by smothering it, and it gives off poisonous smoke. Therefore:</p>' +
+    '<ol><li>Films shall be shown only from an operating box built of fireproof materials, outside the auditorium.</li>' +
+    '<li>Every window of the box shall have an iron shutter, hung so that it falls by itself and closes the window if a fire starts.</li>' +
+    '<li>Every machine shall have a fire trap where the film leaves the top spool box and another where it enters the bottom one, so that a fire in the gate cannot reach the reels.</li>' +
+    '<li>No film shall be out of its can, or out of the film safe, except the reel being shown.</li><li>No smoking in the box, and no naked light.</li></ol>' +
+    '<p class="why">The danger is greatest when the film stops in the gate. The lamp that lights the picture is hot enough to set a frame alight in a moment. Moving film is safe; standing film is not.</p>';
+  /* the cards on the blotter: the id says which year a card is from, and nothing about where it goes */
+  var CARDS = {
+    c1: ['1929', 'Ernie&rsquo;s notes, September 1928: &ldquo;This week she has started sitting in F7.&rdquo;'],
+    c2: ['1929', 'Ernie&rsquo;s notes, November 1929: half a pink ticket, STALLS 1/3, No. 2417, torn across.'],
+    c3: ['1929', 'The cue sheet, reel 3, in the pianist&rsquo;s pencil: &ldquo;If You Ask Me (ours!)&rdquo;'],
+    c4: ['1929', 'Effie&rsquo;s note, pinned in Ernie&rsquo;s book: &ldquo;Yours till the lights go up, E.&rdquo;'],
+    c5: ['1929', 'The photograph: &ldquo;The Bijou sweethearts&rdquo;, arm in arm on the steps.'],
+    c6: ['1929', 'The programme: &ldquo;The Management thanks Miss Effie Dorrell.&rdquo;'],
+    d1: ['1969', 'Your plan of Gran&rsquo;s stalls: Mrs A. sat in F7.'],
+    d2: ['1969', 'Mrs Ashton&rsquo;s letter: the other half of a pink ticket, STALLS 1/3, No. 2417.'],
+    d3: ['1969', 'Gran: &ldquo;It&rsquo;s called If You Ask Me, and nobody has ever heard of it.&rdquo;'],
+    d4: ['1969', 'Mrs Ashton&rsquo;s letter: &ldquo;Yours till the lights go up, E. A.&rdquo;'],
+    d5: ['1969', 'Gran: &ldquo;Mr B. has bought a new tie. It is brown, which is a start.&rdquo;']
+  };
+  var ROWSP = [['seat', 'SAME SEAT'], ['tick', 'SAME TICKET'], ['tune', 'SAME TUNE'], ['hand', 'SAME HAND']];
+
+  (function () {
+    var s = '', i, x;
+    for (i = 0; i < 16; i++) { x = -980 + i * 230; s += '<rect x="' + x + '" y="492" width="200" height="186" rx="4"/>'; }
+    $('#panels').innerHTML = s; s = '';
+    for (i = 0; i < 6; i++) s += '<path d="M780 ' + (240 + i * 15) + 'h92"/>';
+    for (i = 0; i < 8; i++) s += '<path d="M' + PH.num(780 + i * 13.100) + ' 240v75"/>';
+    $('#calgrid').innerHTML = s;
+    $('#della').innerHTML = PH.della({ lamp: false });
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'office', no: 'III', title: 'The Manager&rsquo;s Office',
+    go: 'Go up the back stairs',
+    intro: [
+      'Mrs A. sat in F7, on the gangway: the one Saturday seat that Mr B. could see from his window, because the balcony hid rows J to M. Mrs Eccles <i>used to</i> sit under the balcony, but not any more; and the two rings under it stayed empty.',
+      'In November 1969 Mr Bardsley asked the lady in F7 to come after the last house and see &ldquo;the end of the picture&rdquo;. He died two days before. She came anyway, and sat until twelve.',
+      'The manager&rsquo;s office is up a narrow stair behind the circle. The safe has not been locked for years. &ldquo;Nothing in it worth stealing,&rdquo; says Della. &ldquo;Only one tin.&rdquo;'
+    ],
+    exit: {"next":"box","w":{"d8118825":"2861504b"}}, tags: {"seat29":["a3efbf7d"],"seat69":["e1aa38c7"],"tick29":["5c8893d8"],"tick69":["f3ac9358"],"tune29":["a6f1d238"],"tune69":["03843300"],"hand29":["84785f9c"],"hand69":["799d82da"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('o-file') || null; told = ER.flag('o-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('o-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#tin').classList.toggle('ready', !told.tin);
+    $('#della').classList.toggle('ready', !!(told.notes && told.letter && !told.della));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.notes && told.letter ? 1 : 0) + (told.cue ? 1 : 0) + (told.della ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The box is up the ladder. Click the button at the bottom of the screen.']];
+    if (!told.tin) return ['tin', ['Mr Bardsley&rsquo;s things went into the safe in 1969. Click the open safe on the left: the red tin is inside.']];
+    if (lock && lock.isOpen()) return ['board', [
+      'Each row wants one thing from 1929 and the same thing again in 1969. Start with the seat: where did she start sitting in 1928? Where did Mrs A. sit in 1969?',
+      'A ticket torn in two leaves two halves with the same number. One half is pinned in Ernie&rsquo;s notes. Where did the other half turn up?',
+      'The tune: the pianist&rsquo;s pencil on the cue sheet, and what Mrs A. hummed at the kiosk. The hand: how Effie signed her note in 1928, and how Mrs Ashton signed her letter. Three cards prove nothing about who she was: the sweethearts, the programme&rsquo;s thanks and the brown tie.'
+    ]];
+    if (!(told.notes && told.letter)) return ['read', ['Read what was in the tin: Mr Bardsley&rsquo;s notes and the letter. Click the tin again to choose.', 'The filing cabinet on the right has the music for Bess of the Light. The frame on the wall has the rules of the box.']];
+    if (!told.della) return ['della', ['Della has been reading over your shoulder. Click her: she has something to say about it.']];
+    return ['open', ['Click the desk, or Della, to put the cards out on the blotter again.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The manager&rsquo;s office. Four rows of cards on the blotter, and one story.'); return; }
+    if (told.in) { busy = false; ER.say('The manager&rsquo;s office. The rain is running down the window, behind the back of the sign.'); return; }
+    tell('in');
+    ER.narrate([
+      'A small square office under the roof. Through the window, in the rain, you can see the back of the great sign over the canopy: five tall letters in glass tubes, back to front. U O J I B.',
+      'Della goes straight to the safe and pulls the door wide. Inside, on the top shelf, there is a red biscuit tin with a label stuck on the lid.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the tin and its papers ---------- */
+  function readNotes() {
+    ER.read({ html: ERNIE, cls: 'ernie', clue: { id: 'notes', title: 'Ernie Bardsley&rsquo;s notes, 1927 to 1969', kind: 'From the tin' }, done: function () {
+      PH.terms(['gate', 'reel', 'rewind room', 'title card']);
+      if (tell('notes')) { paint(); ER.say('&ldquo;He never once writes her name after the first page,&rdquo; says Della. &ldquo;Not once. Forty years of &lsquo;she&rsquo;.&rdquo;'); }
+    } });
+  }
+  function readLetter() {
+    ER.read({ html: LETTER, cls: 'effie', clue: { id: 'letter', title: 'A letter to Mr Bardsley, 11 November 1969', kind: 'From the tin' }, done: function () {
+      if (tell('letter')) { paint(); ER.say('&ldquo;E. A.,&rdquo; says Della. &ldquo;Mrs A. Gran&rsquo;s Mrs A.&rdquo;'); }
+    } });
+  }
+  function openTin() {
+    var box = ER.el('div', 'doc slip', '<h4>In the tin</h4><p>A black notebook with squared pages, held shut by a rubber band. A letter in a small envelope, opened. A pair of reading glasses, folded.</p>' +
+      '<p><button type="button" class="btn" id="t-notes">Read the notebook</button> <button type="button" class="btn" id="t-letter">Read the letter</button></p>');
+    box.querySelector('#t-notes').addEventListener('click', function () { ER.close(); setTimeout(readNotes, 60); });
+    box.querySelector('#t-letter').addEventListener('click', function () { ER.close(); setTimeout(readLetter, 60); });
+    ER.open('ov-read', box);
+  }
+  $('#tin').addEventListener('click', function () { if (busy) return; if (tell('tin')) paint(); PH.sfx.key(); openTin(); });
+  $('#safe').addEventListener('click', function (e) { if (busy) return; if (e.target.closest && e.target.closest('#tin')) return; ER.wordAt(e.clientX, e.clientY, 'safe'); ER.say('A green fire-resisting safe, older than anybody in Delverton. The tin is on the top shelf. The bottom shelf holds the takings books from 1961 to 2019.'); });
+  $('#cabinet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUE, cls: 'cue', clue: { id: 'cue', title: 'The music cue sheet for Bess of the Light', kind: 'From the filing cabinet' }, done: function () {
+      PH.terms(['cue sheet']);
+      if (tell('cue')) { paint(); ER.say('The top drawer, 1925 to 1935: a folder marked BESS OF THE LIGHT, MUSIC. &ldquo;Mr Eade kept everything,&rdquo; says Della. &ldquo;Including, apparently, her pencil.&rdquo;'); }
+    } });
+  });
+  $('#rules').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RULES, cls: 'rules', clue: { id: 'rules', title: 'The rules of the box (Cinematograph Act, 1909)', kind: 'From the office wall' }, done: function () {
+      PH.terms(['fire trap', 'film safe', 'cellulose nitrate']);
+      if (tell('rules')) ER.say('&ldquo;Moving film is safe; standing film is not,&rdquo; says Della. &ldquo;We had that on the wall of the box too, when I trained. On real film, the last few years before it all went digital.&rdquo;');
+    } });
+  });
+  PH.thing('#cal', null, 'A calendar from September 2019. The last Sunday is crossed out: the last day the Bijou was open.', isBusy);
+  PH.thing('#window', 'sign', 'The back of the BIJOU sign, five letters in glass tubes. From in here it reads U O J I B. It has not been lit since 2019.', isBusy);
+  $('#desk').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Four rows of cards on the blotter. Della has not moved one of them.'); return; }
+    if (!told.della) { ER.say('The manager&rsquo;s desk, with its green blotter. Della is watching you read, and waiting to say something.'); return; }
+    openLock();
+  });
+
+  /* ---------- Della: two love stories, or one? ---------- */
+  function talkDella() {
+    ER.talk({
+      who: 'Della Fraser', role: 'The last manager of the Bijou', face: window.FACE('della'),
+      lines: [
+        { note: 'Della has the black notebook open on the desk, at the last page.', a: '&ldquo;Right. I&rsquo;ll say what I see. 1929: a young operator and the pianist. A ticket, a card, a fire. She goes away. 1969: an old operator and a widow, Mrs A., new in town, from somewhere else. He dies. Two love stories, forty years apart. He was unlucky twice.&rdquo;' },
+        { q: 'Or once.', a: '&ldquo;Or once, you&rsquo;re going to say. That Mrs A. was Effie Dorrell, come back. Gran never said so. Gran knew everything about everybody in this town, and she never said so.&rdquo;' },
+        { a: '&ldquo;Then prove it. Four things would do it for me: the same seat, the same ticket, the same tune, the same hand. Show me each one in 1929, and the same thing again in 1969. Not who you think. Who you can show.&rdquo;' }
+      ],
+      clue: { id: 'della3', title: 'Della: two love stories, or one?', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('della'); paint(); openLock(); }
+    });
+  }
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); }
+  $('#della').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The box,&rdquo; says Della. &ldquo;Mind the ladder. He didn&rsquo;t, for forty-three years.&rdquo;'); return; }
+    if (!told.tin) { ER.say('&ldquo;The tin,&rdquo; says Della. &ldquo;Go on. He won&rsquo;t mind now.&rdquo;'); return; }
+    if (!(told.notes && told.letter)) { ER.say('&ldquo;Read it all first,&rdquo; says Della. &ldquo;The notebook and the letter. Then I&rsquo;ll tell you what I think.&rdquo;'); return; }
+    if (!told.della) talkDella(); else openLock();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  function oneHtml() {
+    return '<p>Four things, in 1929 and again in 1969:</p><p><b>Seat:</b> she started sitting in F7 in 1928; Mrs A. sat in F7 in 1969.</p><p><b>Ticket:</b> two halves of one pink ticket, No. 2417: his in his notes, hers sent back with her letter.</p>' +
+      '<p><b>Tune:</b> she played <i>If You Ask Me</i> at the kiss in 1929; Mrs A. hummed it at the kiosk in 1969.</p><p><b>Hand:</b> &ldquo;Yours till the lights go up, E.&rdquo; in 1928, and &ldquo;Yours till the lights go up, E. A.&rdquo; in 1969.</p>' +
+      '<p>So Mrs A. (Mrs Ashton) was Effie Dorrell. One love story, not two. Twice she never saw the end of reel 6: in 1929 the film caught fire a minute before it; in 1969 he died two days before.</p>';
+  }
+
+  /* ---------- the blotter: four rows, a 1929 card and a 1969 card in each ---------- */
+  function makeLock() {
+    var placed = ER.flag('o-placed') || {}, wait = false, SLOTS = [];
+    var box = ER.el('div', 'pr'), s = '<div class="pr-head"><span></span><span>1929</span><span>1969</span></div>';
+    ROWSP.forEach(function (r) { s += '<div class="pr-row"><i>' + r[1] + '</i><div class="pslot" data-s="' + r[0] + '29"></div><div class="pslot" data-s="' + r[0] + '69"></div></div>'; SLOTS.push(r[0] + '29', r[0] + '69'); });
+    s += '<div class="pr-tray"></div><div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="o-go">Show Della</button></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.pr-tray');
+    ['c2', 'd3', 'c5', 'd1', 'c4', 'd5', 'c1', 'd4', 'c6', 'c3', 'd2'].forEach(function (k) {
+      var c = ER.el('div', 'pc dnd-item y' + CARDS[k][0].slice(2), '<small>' + CARDS[k][0] + '</small>' + ER.gloss(CARDS[k][1])), at = null;
+      c.setAttribute('data-c', k);
+      SLOTS.forEach(function (sl) { if (placed[sl] === k) at = sl; });
+      (at ? box.querySelector('.pslot[data-s="' + at + '"]') : tray).appendChild(c);
+    });
+    function msg(t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      placed = {};
+      SLOTS.forEach(function (sl) { var c = box.querySelector('.pslot[data-s="' + sl + '"] .pc'); if (c) placed[sl] = c.getAttribute('data-c'); });
+      ER.flag('o-placed', placed);
+      box.setAttribute('data-placed', SLOTS.map(function (sl) { return placed[sl] || 'none'; }).join('-'));
+    }
+    ER.dnd(box, { item: '.pc', slot: '.pslot', home: tray, lock: function () { return wait || !!nextFile; }, change: function () { read(); PH.sfx.card(); msg(''); } });
+    box.querySelector('#o-go').addEventListener('click', tryIt);
+    read();
+    msg(Object.keys(placed).length ? 'The blotter, as far as you have got with it.' : 'Four rows: the same seat, the same ticket, the same tune, the same hand. In each row, a card from 1929 and a card from 1969. Drag a card to its place, or click it and then the place.');
+    var DECOY = {
+      c5: '&ldquo;The sweethearts? You showed me yourself that&rsquo;s Mr Coggins and Dolly Ferris.&rdquo;',
+      c6: '&ldquo;That proves they sacked her. It doesn&rsquo;t prove she ever came back.&rdquo;',
+      d5: '&ldquo;A brown tie proves he was trying. It proves nothing at all about her.&rdquo;'
+    };
+    var ROWWHY = {
+      seat: '&ldquo;The same seat. In 1928, where does he say she started sitting? In 1969, where does your own plan put Mrs A.?&rdquo;',
+      tick: '&ldquo;The same ticket. A ticket torn in two leaves two halves with one number. Where is each half?&rdquo;',
+      tune: '&ldquo;The same tune. Who wrote its name in pencil in 1929, and who hummed it in 1969?&rdquo;',
+      hand: '&ldquo;The same hand. Look at how two letters end, forty years apart.&rdquo;'
+    };
+    function tryIt() {
+      var empty = SLOTS.filter(function (sl) { return !placed[sl]; }).length, i, sl, c, file;
+      if (wait || nextFile) return;
+      read();
+      if (empty) { msg('&ldquo;' + (empty === 1 ? 'One place is' : empty + ' places are') + ' still empty,&rdquo; says Della. &ldquo;Four rows. Both years. I said I wanted all of it.&rdquo;'); return; }
+      for (i = 0; i < SLOTS.length; i++) {
+        sl = SLOTS[i]; c = placed[sl];
+        if (DECOY[c]) { ER.sfx.no(); PH.flash(box.querySelector('.pslot[data-s="' + sl + '"]')); msg('Della picks one card up and puts it down again. ' + DECOY[c]); return; }
+      }
+      for (i = 0; i < SLOTS.length; i++) {
+        sl = SLOTS[i];
+        if (!ER.check(sl, placed[sl])) { ER.sfx.no(); PH.flash(box.querySelector('.pslot[data-s="' + sl + '"]')); msg('Della runs her finger along one row and stops. ' + ROWWHY[sl.slice(0, 4)]); return; }
+      }
+      file = ER.exit([ROWSP.map(function (r) { return placed[r[0] + '29'] + '-' + placed[r[0] + '69']; }).join('|')], { wait: true });
+      if (!file) { msg('The door will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('o-file', file);
+      msg('Della reads the four rows twice. Then she sits down in the manager&rsquo;s chair, which she has not done since 2019.');
+      PH.mine('one', 'One story, not two', oneHtml());
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;Mrs A. was Effie Dorrell,&rdquo; says Della. &ldquo;Mrs Ashton, by then. Forty years, and she came back, and sat in the same seat, and hummed the same tune at my gran, and Gran never once guessed. Not two love stories. One.&rdquo;',
+          '&ldquo;He bought her a ticket so that she could watch the last reel like anybody else. He had a card made, for the end of reel 6. And twice she never saw it. In 1929 the film caught fire a minute before. In 1969 he died two days before.&rdquo;',
+          'She picks up the letter again. &ldquo;<i>I always wondered how that picture finished.</i>&rdquo; She puts it down. &ldquo;And every night at twenty to ten, just when reel 5 would have been ending in the second house, something tries to show it: much too fast, and in the wrong order. And every morning she&rsquo;s in F7, waiting.&rdquo;',
+          '&ldquo;Well. I&rsquo;m not having that on my last night.&rdquo; She stands up. &ldquo;Reel 6 is in pieces in the rewind room, he says. But the box first. If we are going to show this, we&rsquo;ll show it properly.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    }
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

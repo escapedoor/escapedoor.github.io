@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Stalls · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#06090c;--accent:#d9c08a;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,12,16,.96);--tc-ink:#e9eef0;--cap-bg:rgba(8,12,16,.95);--panel:#10161c;--face-bg:#3a1418;--q-ink:#d9c08a;--fade:#020304;--hud-bg:rgba(8,12,16,.8)}
+  .tc-room{font-size:clamp(48px,7vw,96px);font-weight:700}
+  #beam,#flick{display:none}
+  #scene.lit #beam,#scene.lit #flick{display:block}
+  #scene.lit #screenface{fill:#e9eef2}
+  #beam{animation:beam .09s steps(1,end) infinite}
+  @keyframes beam{50%{opacity:.75}}
+  .str{transition:transform .2s}
+  #scene.humming .str{animation:str .07s linear infinite}
+  @keyframes str{50%{transform:translateY(1.5px)}}
+  #f7glint{animation:glint 3.4s ease-in-out infinite}
+  @keyframes glint{50%{opacity:.25}}
+
+  /* Gran's book open on the left, her plan of the stalls on the right */
+  .sp{width:min(1240px,98vw);display:flex;gap:16px;align-items:flex-start;-webkit-user-select:none;user-select:none}
+  .sp .doc.gran{flex:1 1 0;width:auto;max-height:min(640px,calc(100vh - 150px));font-size:21px;line-height:27px;padding:16px 22px 12px 46px;background-size:auto;
+    background-image:repeating-linear-gradient(transparent 0,transparent 26px,#b9cde0 26px,#b9cde0 27px)}
+  .sp .doc.gran h4{font-size:24px;line-height:27px}
+  .sp .doc.gran h5{font-size:21px;line-height:27px;margin-top:8px}
+  .sp-side{flex:0 0 540px}
+  .plan{position:relative;background:#fbfaf2;padding:8px 10px 6px;box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:5px solid #c9302c}
+  .plan svg{display:block;width:100%;height:auto}
+  .ring{position:absolute;width:62px;height:30px;margin:-15px 0 0 -31px;border-radius:50%;border:2.5px solid #1d3a8c;background:rgba(251,250,242,.6)}
+  .ring .tok{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;z-index:2}
+  .tray{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;margin-top:8px;padding:8px;background:#10161c;border:1px solid #4a5a6a;border-radius:3px}
+  .tok{display:inline-block;padding:5px 10px 3px;background:#f2b8c0;color:#3a1418;font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.1;border:1px dashed #8a3a44;box-shadow:0 3px 6px rgba(0,0,0,.35);cursor:grab}
+  .tok.held{outline:3px solid #d9c08a}
+  .sp .pmsg{font-size:17.5px;min-height:76px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16242c"/><stop offset="1" stop-color="#0a1218"/></linearGradient>
+  <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9d290"/><stop offset=".5" stop-color="#a8823a"/><stop offset="1" stop-color="#4a3414"/></linearGradient>
+  <linearGradient id="tabG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a0c10"/><stop offset=".5" stop-color="#6a1820"/><stop offset="1" stop-color="#3a0c10"/></linearGradient>
+  <linearGradient id="beamG" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f2ff" stop-opacity=".55"/><stop offset="1" stop-color="#e9f2ff" stop-opacity=".05"/></linearGradient>
+  <linearGradient id="seatG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a1c24"/><stop offset="1" stop-color="#4a0c12"/></linearGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff2c8" stop-opacity=".55"/><stop offset=".35" stop-color="#ffd98a" stop-opacity=".16"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="44%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#020406" stop-opacity=".3"/><stop offset="1" stop-color="#010203" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- the dark of the house, the walls, the proscenium, the tabs and the screen -->
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#wallG)"/>
+<path d="M250 540V170Q250 96 720 96T1190 170V540" fill="none" stroke="url(#goldG)" stroke-width="22"/>
+<path d="M276 540V176Q276 122 720 122T1164 176V540" fill="#05080a"/>
+<g id="screen" class="hot"><rect id="screenface" x="360" y="170" width="720" height="330" fill="#3a4246"/><g id="flick"><rect x="360" y="170" width="720" height="330" fill="#0c0c0c"/><rect x="400" y="200" width="640" height="270" fill="none" stroke="#e9e2cc" stroke-width="4"/>
+  <text id="fltext" x="720" y="344" class="fA" font-size="34" text-anchor="middle" fill="#efe8d4"></text></g></g>
+<g id="tabs" class="hot"><path d="M276 140H500Q470 330 500 540H276Z" fill="url(#tabG)"/><path d="M1164 140H940Q970 330 940 540H1164Z" fill="url(#tabG)"/>
+  <g stroke="#2a080c" stroke-width="3" opacity=".7"><path d="M316 140q-10 200 0 400M356 140q-12 200 0 400M396 140q-12 200 0 400M436 140q-12 200 0 400M1124 140q10 200 0 400M1084 140q12 200 0 400M1044 140q12 200 0 400M1004 140q12 200 0 400"/></g>
+  <path d="M276 122H1164V160H276Z" fill="#5a141a"/><path d="M276 160q37 18 74 0t74 0 74 0 74 0 74 0 74 0 74 0 74 0 74 0 74 0 74 0 74 0" fill="#5a141a"/></g>
+<rect x="220" y="540" width="1000" height="26" fill="#1c262c"/><path d="M220 540h1000" stroke="url(#goldG)" stroke-width="4"/>
+
+<!-- the piano in the pit -->
+<g id="piano" class="hot"><rect x="300" y="566" width="200" height="40" fill="#0a0e10"/><path d="M314 600V470h172V600Z" fill="#2a1a12"/><path d="M314 470h172v-12h-172z" fill="#3a2418"/>
+  <rect x="326" y="482" width="148" height="64" fill="#16100a"/><g class="str" stroke="#a8823a" stroke-width="1.6"><path d="M334 486v56M346 486v56M358 486v56M370 486v56M382 486v56M394 486v56M406 486v56M418 486v56M430 486v56M442 486v56M454 486v56M466 486v56"/></g>
+  <path d="M306 560h188v14h-188z" fill="#efe8d4"/><g fill="#141414"><rect x="314" y="560" width="5" height="8"/><rect x="326" y="560" width="5" height="8"/><rect x="344" y="560" width="5" height="8"/><rect x="356" y="560" width="5" height="8"/><rect x="368" y="560" width="5" height="8"/><rect x="386" y="560" width="5" height="8"/><rect x="398" y="560" width="5" height="8"/><rect x="416" y="560" width="5" height="8"/><rect x="428" y="560" width="5" height="8"/><rect x="440" y="560" width="5" height="8"/><rect x="458" y="560" width="5" height="8"/><rect x="470" y="560" width="5" height="8"/></g>
+  <path d="M314 470L300 444h200L486 470" fill="#3a2418"/></g>
+
+<!-- the beam, when it comes, from the box window behind and above you -->
+<path id="beam" d="M1640 -60L1720 20L1080 500L360 170Z" fill="url(#beamG)" pointer-events="none"/>
+
+<!-- the stalls: rows of red seats, the nearer the bigger -->
+<g id="rows"></g>
+<g id="f7" class="hot"><rect id="f7hit" x="0" y="0" width="0" height="0" fill="#000" opacity="0"/></g>
+
+<!-- the right-hand wall: the exit and its clock -->
+<g id="exitR" class="hot"><path d="M1290 220L1600 120V900H1290Z" fill="#0e161c"/><path d="M1392 360L1528 330V600L1392 610Z" fill="#1c262c"/><path d="M1402 372L1518 346V596L1402 602Z" fill="#26323a"/>
+  <rect x="1416" y="318" width="92" height="28" fill="#0a2a1a"/><text x="1462" y="339" class="fO" font-size="19" text-anchor="middle" fill="#7ad4a0" letter-spacing="4">EXIT</text>
+  <circle cx="1460" cy="280" r="34" fill="#efe8d4" stroke="url(#goldG)" stroke-width="6"/><path d="M1460 280v-22M1460 280l-16 10" stroke="#141414" stroke-width="4" stroke-linecap="round"/></g>
+
+<!-- the underneath of the balcony, over your head -->
+<g id="balcony" class="hot"><path d="M-1000 -400H2600V40Q1600 120 800 92T-1000 60Z" fill="#0a1014"/><path d="M-1000 60Q-100 100 800 92T2600 40" stroke="url(#goldG)" stroke-width="10" fill="none"/>
+  <g id="lyres" fill="none" stroke="#a8823a" stroke-width="3" opacity=".6"></g></g>
+
+<circle cx="1300" cy="720" r="460" fill="url(#lampG)" pointer-events="none"/>
+<g id="della" class="hot" transform="translate(1250 880) scale(1.16)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the office</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null;
+
+  var GRAN = '<h4>PEOPLE OF THE SECOND HOUSE</h4><p class="side">Research by F. Ellery, usherette and kiosk, aged 17. Saturdays only. NOT to be read by Mr B.</p>' +
+    '<p class="side">I have drawn the stalls and put a ring round the seat of every Saturday regular, but I have not written the names in, in case Mr B. picks this up. You will just have to know.</p>' +
+    '<h5>The Cobham boy</h5><p>Always the front row, as near the screen as a person can get without being in the picture. He used to bring a girl. Now he brings a bag of sherbet lemons and eats the lot.</p>' +
+    '<h5>Mrs Eccles</h5><p>For years and years she used to sit at the back, under the balcony, because she said it was warm. Then in August the balcony dripped on her hat. Now she will not sit under it at all. She sits three rows from the front, on the other side of the gangway from the Cobham boy, and talks.</p>' +
+    '<h5>Mr Danvers</h5><p>He would sit anywhere until his knee went. Now he must have the end of a row, right by an exit, so that he can get out before the National Anthem. The left-hand exit, he says, because the right-hand one has two steps.</p>' +
+    '<h5>The Misses Fitch</h5><p>Two sisters, one ticket: they take turns, and the other one waits in the caf&eacute;. Whichever comes always sits by the right-hand wall, where she can see the clock over the exit, because their last bus goes at 10.52. You cannot see that clock from under the balcony.</p>' +
+    '<h5>Mrs A.</h5><p>New this autumn: she first came on Saturday 20 September. Always the second house, always the same seat, and she will not take any other, even when it has chewing gum on it. It is on the gangway, so that she can get out quickly, she says. She always comes in after the lights have gone down.</p>' +
+    '<p>At the interval she comes to the kiosk for a choc ice, and hums while I find her change: always the same old tune. I asked. &ldquo;It&rsquo;s called <i>If You Ask Me</i>,&rdquo; she said, &ldquo;and nobody has ever heard of it.&rdquo; Which is true. I asked Mum.</p>' +
+    '<h5>Mr B.</h5><p>(Mr Bardsley, chief operator. Sixty-one. In my whole year here he has never once come down to the kiosk.) Since Mrs A. came, he comes down at every interval and buys an ice that he does not eat.</p>' +
+    '<p>He says his window looks straight down the gangway, but the balcony hides the back rows, J to M. I asked him which seat he looks at. He said, &ldquo;Hers.&rdquo;</p>' +
+    '<p class="side">4 October. Mr B. has bought a new tie. It is brown, which is a start.</p>';
+  var LAST = '<h4>The last pages</h4><p class="side">1 November. Mr B. gave me a note to give to Mrs A. I did not read it. (I read it. It said: <i>Saturday the 29th, after the last house, the same seat. The end of the picture. E. B.</i> I don&rsquo;t know what picture.)</p>' +
+    '<p class="side">29 November. Mr B. died on Thursday, in his sleep. His heart, they say. Mrs A. came tonight anyway. I told her at the door. She went in after the last house and sat in her seat, and I let her, and I stayed. At twelve she got up and said, &ldquo;I never do get to see the end of that picture.&rdquo; Then she went home.</p>' +
+    '<p class="side">I am not going to write any more in this book.</p>';
+  var TOK = { cobham: 'the Cobham boy', eccles: 'Mrs Eccles', danvers: 'Mr Danvers', fitch: 'the Misses Fitch', ashton: 'Mrs A.' };
+  var RINGS = ['A3', 'C10', 'F7', 'F14', 'H1', 'K8', 'K14'];
+  var FLASH = ['THIRTY YEARS BEFORE', 'MEANWHILE, ON THE ROCK', '"WELL, LAD?"', 'BY MORNING', '"LIGHT THE LAMP, GIRL"', 'YEARS LATER', 'THE END', '"IF YOU WANT ME, ELIAS"'];
+
+  /* row y, seat height and the left edge, for rows A (far, small) to M (near, big): the seats are drawn, row F's seat 7 is down */
+  var ROWS = 'ABCDEFGHJKLM'.split('');
+  function rowGeom(r) { var t = r / (ROWS.length - 1), y = 610 + Math.pow(t, 1.5) * 300, w = 34 + t * 62; return { y: y, w: w, x0: 720 - 7.3 * w - t * 140 }; }
+  (function () {
+    var s = '', r, i, g, x, gw, ln;
+    for (r = 0; r < ROWS.length; r++) {
+      g = rowGeom(r); gw = g.w * 0.9;
+      for (i = 1; i <= 14; i++) {
+        x = g.x0 + (i - 1) * g.w + (i > 7 ? gw : 0);
+        if (ROWS[r] === 'F' && i === 7) {
+          s += '<rect x="' + PH.num(x) + '" y="' + PH.num(g.y - g.w * 0.95) + '" width="' + PH.num(g.w * 0.92) + '" height="' + PH.num(g.w * 0.95) + '" rx="' + PH.num(g.w * 0.2) + '" fill="#9a2430"/>' +
+            '<rect x="' + PH.num(x - 2) + '" y="' + PH.num(g.y - 4) + '" width="' + PH.num(g.w * 0.92 + 4) + '" height="' + PH.num(g.w * 0.34) + '" rx="4" fill="#b8323c"/>' +
+            '<rect id="f7glint" x="' + PH.num(x - 6) + '" y="' + PH.num(g.y - g.w * 0.95 - 6) + '" width="' + PH.num(g.w * 0.92 + 12) + '" height="' + PH.num(g.w * 1.35 + 10) + '" rx="8" fill="none" stroke="#e9d290" stroke-width="2" opacity=".55"/>';
+          $('#f7hit').setAttribute('x', PH.num(x - 8)); $('#f7hit').setAttribute('y', PH.num(g.y - g.w)); $('#f7hit').setAttribute('width', PH.num(g.w + 16)); $('#f7hit').setAttribute('height', PH.num(g.w * 1.5));
+        } else s += '<rect x="' + PH.num(x) + '" y="' + PH.num(g.y - g.w * 0.95) + '" width="' + PH.num(g.w * 0.92) + '" height="' + PH.num(g.w * 1.25) + '" rx="' + PH.num(g.w * 0.2) + '" fill="url(#seatG)"/>';
+      }
+      ln = g.x0 - g.w * 0.5;
+      s += '<text x="' + PH.num(ln) + '" y="' + PH.num(g.y - g.w * 0.2) + '" class="fO" font-size="' + PH.num(g.w * 0.42) + '" text-anchor="middle" fill="#a8823a">' + ROWS[r] + '</text>';
+    }
+    $('#rows').innerHTML = s;
+    $('#f7').appendChild($('#f7hit'));
+    s = '';
+    for (i = 0; i < 12; i++) { x = -200 + i * 170; s += '<path d="M' + x + ' 30q-20 -30 0 -50q20 20 0 50M' + (x - 14) + ' 10h28"/>'; }
+    $('#lyres').innerHTML = s;
+    $('#della').innerHTML = PH.della({ lamp: true });
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'stalls', no: 'II', title: 'The Stalls',
+    go: 'Push open the doors',
+    intro: [
+      'The young woman with the roll of music was Effie Dorrell, the pianist: the programme put her &ldquo;at the piano&rdquo;. The girl with the torch was the usherette, Dolly Ferris, and the paper said whom she was going to marry: Mr Coggins, the older operator, the one she had hold of.',
+      'So Gran&rsquo;s &ldquo;sweethearts&rdquo; were the wrong pair. The young man at the end of the back row, in the white coat, looking anywhere but at the camera, was Ernest Bardsley, twenty-one.',
+      'The doors of the stalls are swollen with damp. Della puts her shoulder to them.'
+    ],
+    exit: {"next":"office","w":{"4c879cc0":"3c6e4327"}}, tags: {"A3":["2b5812d8"],"C10":["40243213"],"F7":["d9a593ac"],"F14":["531c4329"],"H1":["d2cb0f24"],"K8":["f64fff17"],"K14":["442daba3"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('s-file') || null; told = ER.flag('s-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('s-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#della').classList.toggle('ready', !!(told.seen && !told.della));
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.seen ? 1 : 0) + (told.della ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (busy && !told.seen) return null;
+    if (nextFile) return ['go', ['Mr Bardsley&rsquo;s things are in the office safe. Click the button at the bottom of the screen.']];
+    if (!told.della) return ['della', ['Della has the red exercise book from the kiosk. Click her: she is on the right, in the aisle.']];
+    if (lock && lock.isOpen()) return ['plan', [
+      'Start with the easy ones. The Cobham boy: which row? Mr Danvers: the end of a row, by which exit? The plan shows both exits.',
+      'Mrs Eccles &lsquo;used to&rsquo; sit under the balcony. Used to: she does not any more. Where does she sit now? Count three rows from the screen. The Misses Fitch must be able to see the clock.',
+      'Mrs A. sits on the gangway, and Mr B. can see her seat from his window. The window looks straight down the gangway, but the balcony hides rows J to M. Two rings are on the gangway: which one can the window see? Two rings stay empty.'
+    ]];
+    return ['open', ['Click Della, or the seat that is down in row F, to open Gran&rsquo;s book and her plan.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The stalls of the Bijou. In row F, one seat is down.'); return; }
+    if (told.seen) { busy = false; ER.say('The stalls, in the light of Della&rsquo;s lamp. It is after twenty to ten now.'); return; }
+    ER.narrate([
+      'The stalls: four hundred red seats in the dark, and the smell of damp plush. Della&rsquo;s lamp reaches about six rows. Above your heads hangs the underneath of the balcony.',
+      '&ldquo;Twenty-two minutes to ten,&rdquo; says Della. &ldquo;Sit anywhere you like. Not there.&rdquo;'
+    ], function () {
+      $('#scene').classList.add('humming'); PH.sfx.hum();
+      setTimeout(function () {
+        ER.narrate([
+          'From somewhere down by the screen comes a low sound: the strings of the piano, humming all together, very softly, like a bee in a jar.',
+          '&ldquo;The 9.38,&rdquo; says Della, without turning round. &ldquo;Goods train. The line runs right behind the screen wall, and it sets the piano off every night. That&rsquo;s not the ghost. That&rsquo;s the railway.&rdquo;'
+        ], function () { $('#scene').classList.remove('humming'); setTimeout(flicker, 900); });
+      }, 1600);
+    });
+  }
+  function flicker() {
+    var n = 0, t;
+    ER.mood('tense'); $('#scene').classList.add('lit'); PH.sfx.run(5, 24); ER.flag('s-flick', 1);
+    t = setInterval(function () {
+      $('#fltext').textContent = FLASH[(n * 5 + 3) % FLASH.length]; n++;
+      if (n > 40) {
+        clearInterval(t); $('#scene').classList.remove('lit'); $('#fltext').textContent = ''; ER.mood('calm');
+        ER.narrate([
+          'At twenty to ten exactly, a beam of light came from the back of the house, over your heads, and the screen was alive: words, one after another, much too fast to read. A title. The sea. Another title. A face. In no order that anybody could follow.',
+          'Ten seconds. Then the dark again, and the smell of damp plush.',
+          '&ldquo;There,&rdquo; says Della. Her voice is perfectly steady. &ldquo;Every night. Now look at row F, seventh seat in from the left.&rdquo;'
+        ], function () { tell('seen'); busy = false; paint(); });
+      }
+    }, 125);
+  }
+
+  function talkDella() {
+    ER.talk({
+      who: 'Della Fraser', role: 'The last manager of the Bijou', face: window.FACE('della'),
+      lines: [
+        { note: 'She takes the red exercise book out of her coat and holds it out.', a: '&ldquo;Gran was the usherette here in 1969. Seventeen. She wrote down everybody who came on a Saturday night. She called it research. Everybody else called it being nosy.&rdquo;' },
+        { a: '&ldquo;She drew a plan of the stalls and put a ring round the seat of every Saturday regular. But she never wrote one name on the plan. Not one. So that Mr B. couldn&rsquo;t read it.&rdquo;' },
+        { q: 'Mr B.?', a: '&ldquo;Mr Bardsley. Chief operator in 1969. Your young man from the photograph, forty years older. He ran that box from the war until the day he died.&rdquo;' },
+        { a: '&ldquo;Put Gran&rsquo;s people back in their seats. Then tell me whose seat that is in row F, and how you know. That was Gran&rsquo;s other rule: not who you think. Who you can show.&rdquo;' }
+      ],
+      clue: { id: 'della2', title: 'Della: Gran&rsquo;s research', kind: 'What she said' },
+      done: function (seen) { if (!seen) return; tell('della'); paint(); openLock(); }
+    });
+  }
+  function openLock() { if (!lock) lock = makeLock(); lock.open(); }
+  $('#della').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The office,&rdquo; says Della. &ldquo;His things went into the safe in 1969. Nobody has opened the tin since.&rdquo;'); return; }
+    if (!told.della) talkDella(); else openLock();
+  });
+  $('#f7').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'tip-up seat');
+    if (nextFile) { ER.say('F7. Hers. The seat is still down.'); return; }
+    if (!told.f7) { tell('f7'); ER.say('Row F, the seventh seat: down, as if somebody were sitting in it. There is dust on every seat in the row except this one.'); return; }
+    if (told.della) openLock(); else ER.say('The seat is down. Della is waiting to tell you something.');
+  });
+  PH.thing('#piano', 'pit', function () { return told.seen ? 'The Bijou&rsquo;s upright piano, down in the pit. The strings are quiet again. The lid is open. &ldquo;I closed that in 2019,&rdquo; says Della. &ldquo;Damp. Lids swell.&rdquo;' : 'The Bijou&rsquo;s upright piano, down in the pit below the screen.'; }, isBusy);
+  PH.thing('#screen', 'screen', 'The screen, grey in the lamplight. Whatever was on it has gone. There is no projector in this building that has had any power since 2019.', isBusy);
+  PH.thing('#tabs', 'tabs', 'The tabs: the heavy red curtains in front of the screen, half open, the way they were left on the last night.', isBusy);
+  PH.thing('#balcony', 'balcony', 'The underneath of the balcony, with plaster lyres along the front. The back rows of the stalls, J to M, are in its shadow.', isBusy);
+  PH.thing('#exitR', 'exit', 'The right-hand exit, and over it a clock that has stopped at twenty to ten. &ldquo;Batteries,&rdquo; says Della. &ldquo;I&rsquo;m almost sure.&rdquo;', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- Gran's plan: five regulars, seven rings ---------- */
+  function makeLock() {
+    var placed = ER.flag('s-placed') || {}, wait = false;
+    var box = ER.el('div', 'sp'), doc = ER.el('div', 'doc gran', ER.gloss(GRAN)), side = ER.el('div', 'sp-side');
+    side.innerHTML = '<div class="plan">' + planSvg() + '</div><div class="tray"></div><div class="pfoot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Show Della</button></div>';
+    box.appendChild(doc); box.appendChild(side);
+    var plan = side.querySelector('.plan'), tray = side.querySelector('.tray');
+    /* the rings, placed over the drawing (which sits inside 10px of padding left and right, 8px top and 6px bottom) */
+    RINGS.forEach(function (id) {
+      var d = ER.el('div', 'ring'), r = 'ABCDEFGHJKLM'.indexOf(id.charAt(0)), n = +id.slice(1); d.setAttribute('data-r', id);
+      d.style.left = 'calc(10px + (100% - 20px) * ' + (CX(n) / 560).toFixed(4) + ')'; d.style.top = 'calc(8px + (100% - 14px) * ' + (RY(r) / 440).toFixed(4) + ')'; plan.appendChild(d);
+    });
+    Object.keys(TOK).forEach(function (k) {
+      var t = ER.el('span', 'tok dnd-item', TOK[k]), where = null; t.setAttribute('data-t', k);
+      RINGS.forEach(function (r) { if (placed[r] === k) where = r; });
+      (where ? plan.querySelector('.ring[data-r="' + where + '"]') : tray).appendChild(t);
+    });
+    function msg(t) { side.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function read() {
+      placed = {};
+      RINGS.forEach(function (r) { var t = plan.querySelector('.ring[data-r="' + r + '"] .tok'); if (t) placed[r] = t.getAttribute('data-t'); });
+      ER.flag('s-placed', placed);
+      box.setAttribute('data-placed', RINGS.map(function (r) { return placed[r] || 'none'; }).join('-'));
+    }
+    ER.dnd(box, { item: '.tok', slot: '.ring', home: tray, lock: function () { return wait || !!nextFile; }, change: function () { read(); PH.sfx.card(); msg(''); } });
+    side.querySelector('#s-go').addEventListener('click', tryIt);
+    read();
+    msg(Object.keys(placed).length ? 'Gran&rsquo;s plan, as far as you have got with it.' : 'Seven rings on Gran&rsquo;s plan, and five Saturday regulars in her book. Drag each name to a ring, or click a name and then a ring.');
+    /* what Della says about somebody in the wrong ring: what Gran wrote about that person */
+    var WHY = {
+      cobham: 'The Cobham boy: &lsquo;as near the screen as a person can get&rsquo;.',
+      eccles: 'Mrs Eccles: count the rows from the screen, and remember which side of the gangway the Cobham boy is on.',
+      eccles2: 'Mrs Eccles <i>used to</i> sit under the balcony. Used to. Read on: what does she do now?',
+      danvers: 'Mr Danvers: the end of a row, right by an exit. Which exit does he say, and why?',
+      fitch: 'The Misses Fitch have a bus to catch. They must see the clock. Can you see it from under the balcony?',
+      ashton: 'Mrs A. sits on the gangway, and Mr B. can see her seat from his window. What does the balcony hide from his window?'
+    };
+    function tryIt() {
+      var left = tray.querySelectorAll('.tok').length, i, r, who, file;
+      if (wait || nextFile) return;
+      read();
+      if (left) { msg('&ldquo;' + (left === 1 ? 'Somebody is' : left + ' people are') + ' still standing in the aisle,&rdquo; says Della. &ldquo;Gran never let anybody stand in the aisle.&rdquo;'); return; }
+      for (i = 0; i < RINGS.length; i++) {
+        r = RINGS[i]; who = placed[r];
+        if (who && !ER.check(r, who)) {
+          ER.sfx.no(); PH.flash(plan.querySelector('.ring[data-r="' + r + '"]'));
+          msg('Della looks at the plan, and puts her finger on one ring. &ldquo;' + (who === 'eccles' && r.charAt(0) === 'K' ? WHY.eccles2 : WHY[who]) + '&rdquo;'); return;
+        }
+      }
+      file = ER.exit([RINGS.map(function (r) { return placed[r] || 'none'; }).join('-')], { wait: true });
+      if (!file) { msg('The doors will not open. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('s-file', file);
+      msg('Della reads the plan with her lamp held close. She stops at one ring, on the gangway, six rows from the screen.');
+      PH.mine('plan', 'Gran&rsquo;s plan of the stalls, 1969', '<p>The Cobham boy: A3, the front row.</p><p>Mrs Eccles: C10, three rows from the front, across the gangway from him. (She <i>used to</i> sit under the balcony; not any more.)</p>' +
+        '<p><b>Mrs A.: F7</b>, on the gangway, the one Saturday seat that Mr B. could see from the box window. The balcony hides rows J to M.</p><p>The Misses Fitch: F14, by the right-hand wall, where the clock can be seen.</p><p>Mr Danvers: H1, the end of a row by the left-hand exit.</p><p>Empty: K8 and K14, under the balcony.</p>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;F7,&rdquo; says Della. &ldquo;Mrs A. The seat that&rsquo;s down every morning.&rdquo; She looks along the row at it for a while. &ldquo;Gran kept F7 empty on Saturdays for as long as she ran this place. She told me to do the same. I thought it was one of her jokes.&rdquo;',
+          'She turns to the last pages of the red book, and reads them out, slowly.',
+          '<i>1 November. Mr B. gave me a note to give to Mrs A. I did not read it. (I read it. It said: Saturday the 29th, after the last house, the same seat. The end of the picture. E. B. I don&rsquo;t know what picture.)</i>',
+          '<i>29 November. Mr B. died on Thursday, in his sleep. Mrs A. came tonight anyway. I told her at the door. She went in after the last house and sat in her seat, and I let her, and I stayed. At twelve she got up and said, &ldquo;I never do get to see the end of that picture.&rdquo; Then she went home.</i>',
+          'Della shuts the book. &ldquo;So that&rsquo;s Gran&rsquo;s love story. 1969: an old operator and a widow from somewhere else. And in 1929 a young operator and a pianist, in your photograph. Forty years apart. Two love stories, and the poor man unlucky in both.&rdquo;',
+          '&ldquo;His things went into the office safe when he died. A biscuit tin. Nobody&rsquo;s opened it since. Shall we?&rdquo;'
+        ], function () {
+          busy = false; ER.addClue('gran2', 'Gran&rsquo;s book: the last pages', LAST, 'gran', 'From the stalls'); PH.terms(['gangway', 'regular', 'the last house']); paint();
+        });
+      }, 2400);
+    }
+    return { open: function () { ER.open('ov-lock', box, function () { ER.addClue('gran', 'Gran&rsquo;s book: People of the Second House (1969)', GRAN, 'gran', 'From the stalls'); }); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* Gran's plan of the stalls, in blue biro: the screen at the top, the box window at the bottom */
+  function CX(n) { return n <= 7 ? 64 + n * 28 : 100 + n * 28; }      /* the middle of seat n on the plan */
+  function RY(r) { return 80 + r * 26; }                             /* the middle of row r (A = 0) */
+  function planSvg() {
+    var s = '<svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg">', r, n, y;
+    s += '<rect x="162" y="10" width="260" height="22" fill="none" stroke="#1d3a8c" stroke-width="2.5"/><text x="292" y="26" font-family="Caveat,cursive" font-size="18" font-weight="700" text-anchor="middle" fill="#1d3a8c">SCREEN</text>';
+    s += '<rect x="96" y="36" width="56" height="16" fill="none" stroke="#1d3a8c" stroke-width="1.500" stroke-dasharray="4 3"/><text x="124" y="48" font-family="Caveat,cursive" font-size="13" text-anchor="middle" fill="#1d3a8c">piano</text>';
+    for (r = 0; r < 12; r++) {
+      y = RY(r);
+      s += '<text x="52" y="' + (y + 5) + '" font-family="Caveat,cursive" font-size="17" font-weight="700" text-anchor="middle" fill="#1d3a8c">' + 'ABCDEFGHJKLM'.charAt(r) + '</text>';
+      for (n = 1; n <= 14; n++) s += '<rect x="' + (CX(n) - 11) + '" y="' + (y - 8) + '" width="22" height="16" rx="3" fill="none" stroke="#7a8ab0" stroke-width="1.200"/>';
+    }
+    for (n = 1; n <= 14; n++) s += '<text x="' + CX(n) + '" y="66" font-family="Caveat,cursive" font-size="13" text-anchor="middle" fill="#1d3a8c">' + n + '</text>';
+    s += '<text x="292" y="190" font-family="Caveat,cursive" font-size="14" text-anchor="middle" fill="#1d3a8c" transform="rotate(-90 292 190)">gangway</text>';
+    s += '<rect x="74" y="292" width="436" height="106" fill="#1d3a8c" opacity=".1"/><path d="M70 292h444" stroke="#1d3a8c" stroke-width="2.5" stroke-dasharray="8 5"/>';
+    s += '<text x="512" y="406" font-family="Caveat,cursive" font-size="14" text-anchor="end" fill="#1d3a8c">balcony over (J to M)</text>';
+    s += '<path d="M10 262h24M10 250v24" stroke="#1d3a8c" stroke-width="3"/><text x="14" y="290" font-family="Caveat,cursive" font-size="14" fill="#1d3a8c">exit</text>';
+    s += '<path d="M526 210h24M550 198v24" stroke="#1d3a8c" stroke-width="3"/><text x="524" y="196" font-family="Caveat,cursive" font-size="14" fill="#1d3a8c">exit</text><circle cx="538" cy="170" r="9" fill="none" stroke="#1d3a8c" stroke-width="2"/><path d="M538 170v-5M538 170l4 2" stroke="#1d3a8c" stroke-width="1.500"/><text x="530" y="152" font-family="Caveat,cursive" font-size="12" text-anchor="middle" fill="#1d3a8c">clock</text>';
+    s += '<rect x="274" y="410" width="36" height="14" fill="none" stroke="#1d3a8c" stroke-width="2.5"/><text x="320" y="422" font-family="Caveat,cursive" font-size="13" fill="#1d3a8c">Mr B.’s window (up in the box)</text>';
+    s += '<path d="M292 408V70" stroke="#c9302c" stroke-width="1.200" stroke-dasharray="2 5" opacity=".7"/>';
+    return s + '</svg>';
+  }
+})();
+</script>
+</body>
+</html>

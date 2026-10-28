@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Last Reel · Till the Lights Go Up</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ghost.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="picture.css">
+<style>
+  body{--bg:#050606;--accent:#f2d78a;--font-display:'Abril Fatface',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(6,6,6,.96);--tc-ink:#f6f0e0;--cap-bg:rgba(8,8,8,.95);--panel:#141414;--face-bg:#3a1418;--q-ink:#f2d78a;--fade:#020202;--hud-bg:rgba(8,8,8,.82)}
+  .tc-room{font-size:clamp(48px,7vw,96px)}
+  #beam,#scrlit{display:none}
+  #scene.run #beam,#scene.run #scrlit{display:block}
+  #beam{animation:beam .1s steps(1,end) infinite}
+  @keyframes beam{50%{opacity:.85}}
+  #f7up{display:none}
+  #scene.gone #f7up{display:block}
+  #scene.gone #f7down{display:none}
+  #scene.gone #portglow{opacity:0}
+  #portglow{transition:opacity 2.5s}
+  .runbtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none}
+
+  /* the two machines: A runs out reel 5, B waits with reel 6 */
+  .co{width:min(980px,96vw);display:flex;gap:16px;align-items:flex-start;padding:14px;background:#1c2420 linear-gradient(160deg,#26302a,#121814);border:1px solid #4a5a4e;box-shadow:0 26px 70px rgba(0,0,0,.75);-webkit-user-select:none;user-select:none}
+  .co-view{flex:0 0 auto;width:min(520px,52vw);position:relative;background:#000;border-radius:50%;overflow:hidden;border:14px solid #2a2e30;box-shadow:inset 0 0 40px #000}
+  .co-view svg{display:block;width:100%;height:auto}
+  .co-side{flex:1 1 0;display:flex;flex-direction:column;gap:10px;color:#e6eee2}
+  .co-side h5{margin:0;font-family:'Stardos Stencil',serif;font-size:19px;letter-spacing:.06em;color:#cfe08a}
+  .co-side .row{display:flex;gap:8px;flex-wrap:wrap}
+  .co-side .btn{min-width:150px}
+  .lamp{display:inline-block;width:12px;height:12px;border-radius:50%;background:#3a3e42;margin-right:6px;vertical-align:-1px}
+  .lamp.on{background:#cfe08a;box-shadow:0 0 8px #cfe08a}
+  .co-side p.st{margin:0;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:.12em}
+  .co .pmsg{font-size:17.5px;min-height:110px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="boxwallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26302a"/><stop offset="1" stop-color="#141a16"/></linearGradient>
+  <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9d290"/><stop offset=".5" stop-color="#a8823a"/><stop offset="1" stop-color="#4a3414"/></linearGradient>
+  <linearGradient id="beamG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#eef4ff" stop-opacity=".5"/><stop offset="1" stop-color="#eef4ff" stop-opacity=".06"/></linearGradient>
+  <linearGradient id="metalG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#101214"/><stop offset=".5" stop-color="#2a2e32"/><stop offset="1" stop-color="#0c0e10"/></linearGradient>
+  <radialGradient id="pglow"><stop offset="0" stop-color="#fff2c8" stop-opacity=".22"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#020202" stop-opacity=".25"/><stop offset="1" stop-color="#010101" stop-opacity=".9"/></radialGradient>
+  <clipPath id="portC"><circle cx="800" cy="420" r="350"/></clipPath>
+</defs>
+
+<!-- the wall of the box, and the big window in it -->
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#boxwallG)"/>
+<g clip-path="url(#portC)">
+  <rect x="400" y="60" width="800" height="740" fill="#06080a"/>
+  <!-- the house, far below: proscenium, screen, pit, stalls -->
+  <path d="M500 400V150Q500 92 800 92T1100 150V400" fill="none" stroke="url(#goldG)" stroke-width="14"/>
+  <rect id="scr" x="540" y="130" width="520" height="240" fill="#2a3034"/>
+  <g id="scrlit"><rect x="540" y="130" width="520" height="240" fill="#0e0e0e"/><g id="scrin"></g></g>
+  <path d="M500 400h600v14H500z" fill="#1c262c"/>
+  <g id="piano" class="hot"><rect x="560" y="420" width="70" height="44" fill="#2a1a12"/><rect x="560" y="458" width="70" height="6" fill="#efe8d4"/>
+    <g transform="translate(600 528) scale(.32)" id="dellasit"></g></g>
+  <g id="rows"></g>
+  <g id="f7" class="hot"><g id="f7down"><rect x="0" y="0" width="0" height="0"/></g><g id="f7up"></g></g>
+  <path id="beam" d="M770 830L830 830L1060 130L540 130Z" fill="url(#beamG)" pointer-events="none"/>
+</g>
+<circle cx="800" cy="420" r="350" fill="none" stroke="#2a2e30" stroke-width="40"/><circle cx="800" cy="420" r="372" fill="none" stroke="#3a3e42" stroke-width="6"/>
+<circle id="portglow" cx="800" cy="420" r="420" fill="url(#pglow)" pointer-events="none"/>
+
+<!-- the old pair, either side of the window: A on the left, B on the right -->
+<g id="machA" class="hot"><rect x="40" y="440" width="220" height="460" fill="url(#metalG)"/><circle cx="150" cy="380" r="110" fill="url(#metalG)"/><circle cx="150" cy="380" r="18" fill="#3a3e42"/><rect x="200" y="560" width="120" height="40" fill="#141618"/>
+  <rect x="96" y="470" width="44" height="26" fill="#e9e2cc"/><text x="118" y="490" class="fS" font-size="19" font-weight="700" text-anchor="middle" fill="#1a1c1e">A</text></g>
+<g id="machB" class="hot"><rect x="1340" y="440" width="220" height="460" fill="url(#metalG)"/><circle cx="1450" cy="380" r="110" fill="url(#metalG)"/><circle cx="1450" cy="380" r="18" fill="#3a3e42"/><rect x="1280" y="560" width="120" height="40" fill="#141618"/>
+  <rect x="1460" y="470" width="44" height="26" fill="#e9e2cc"/><text x="1482" y="490" class="fS" font-size="19" font-weight="700" text-anchor="middle" fill="#1a1c1e">B</text></g>
+
+<rect x="-1000" y="-400" width="3600" height="1740" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn runbtn" id="run">To the machines</button>
+<div class="done" id="done">
+  <div class="okstamp">THE END</div>
+  <h6>Till the Lights Go Up</h6>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p class="last">The demolition men came at eight. They found the Bijou unlocked, the stalls empty, and every seat in row F turned up. Della Fraser was on the front steps with a flask of tea. She told them they could start whenever they liked.</p>
+  <div class="row"><button type="button" class="btn" id="b-task">Your last reel</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <div class="know"><h5>What you now know</h5><ul>
+    <li>A film is a strip of still frames, sixteen to the foot. A projector stops each frame in the gate, hides the jerk with a shutter, and at sixteen or more pictures a second we see movement.</li>
+    <li>Silent pictures had no fixed speed (often 16 to 20 a second). Sound pictures run at exactly 24, because a sound track must run at an even speed.</li>
+    <li>The talkies came with <i>The Jazz Singer</i> (1927), and within a few years most picture houses had no more use for their pianists.</li>
+    <li>Old film was cellulose nitrate. It burns fiercely and makes its own oxygen, so projection boxes were fireproof, with iron shutters, fire traps and a film safe.</li>
+    <li>A picture came in reels. The operator changed from one machine to the other on two cue dots in the corner of the picture: the first to start the motor, the second to change over.</li>
+    <li>Title cards go in order by time words (by morning, meanwhile, years later), by tense (&ldquo;had&rdquo; reaches further back), by who speaks and by what each one answers. A flashback is a story inside the story.</li>
+    <li>&ldquo;Used to&rdquo; and &ldquo;would&rdquo; tell of old habits; and what a writer leaves out, like a name, can tell you as much as what he writes.</li>
+  </ul></div>
+  <small>Till the Lights Go Up &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="picture.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {};
+
+  /* the titles of reel 6, to show on the screen, in the order the reel was made up in */
+  var TEXT = {
+    head: 'ALL THAT NIGHT THE STORM BLEW, AND THE LIGHT ON THE ROCK WAS DARK.',
+    a: '&ldquo;Davy has gone out to the Rock to light the lamp, Father, because you could not.&rdquo;',
+    b: 'Old Elias said nothing for a long time. Then he spoke of a night he had never spoken of before.',
+    c: 'THIRTY YEARS BEFORE, on a night like this one, a young keeper waited at the same window.',
+    d: '', e: 'Annie had told him: if he wanted her, he was to light a lamp in his window, and she would come across.',
+    f: 'He was too proud to light it. Years later, he heard that she had married a man from the mainland.',
+    g: 'MEANWHILE, on the Rock, Davy was still fighting to make the great lamp burn. He could not see the shore.',
+    h: '', i: '', j: '&ldquo;Light the lamp in the window, girl. I&rsquo;ll not be too proud twice.&rdquo;',
+    k: 'By morning the storm had blown itself out, and Davy&rsquo;s boat came home on the tide.',
+    l: 'Old Elias looked at the two of them. &ldquo;Well, lad? Are you going to ask her, or must I?&rdquo;',
+    x: 'EFFIE &mdash; WILL YOU MARRY ME? IF YOU WILL, PLAY OUR TUNE. ERNIE'
+  };
+  var PICS = { d: 'the young keeper at the window', h: 'Davy on the Rock', i: 'old Elias, with a lamp in his hands' };
+
+  (function () {
+    var s = '', r, i, y, w, x0, x;
+    for (r = 0; r < 12; r++) {
+      y = 486 + r * 26; w = 26 + r * 1.6; x0 = 800 - 7.5 * w - 10;
+      for (i = 1; i <= 14; i++) {
+        x = x0 + (i - 1) * w + (i > 7 ? 20 : 0);
+        if (r === 5 && i === 7) {
+          $('#f7down').innerHTML = '<rect x="' + PH.num(x) + '" y="' + PH.num(y - 14) + '" width="' + PH.num(w * 0.86) + '" height="14" rx="3" fill="#b8323c"/><rect x="' + PH.num(x - 1) + '" y="' + PH.num(y - 2) + '" width="' + PH.num(w * 0.86 + 2) + '" height="6" rx="2" fill="#d84a52"/><circle cx="' + PH.num(x + w * 0.43) + '" cy="' + PH.num(y - 6) + '" r="18" fill="#fff2c8" opacity=".12"/>';
+          $('#f7up').innerHTML = '<rect x="' + PH.num(x) + '" y="' + PH.num(y - 14) + '" width="' + PH.num(w * 0.86) + '" height="18" rx="3" fill="#6a1820"/>';
+        } else s += '<rect x="' + PH.num(x) + '" y="' + PH.num(y - 14) + '" width="' + PH.num(w * 0.86) + '" height="18" rx="3" fill="#5a141c"/>';
+      }
+    }
+    $('#rows').innerHTML = s;
+    $('#dellasit').innerHTML = PH.della({ back: true });
+  })();
+
+  ER.init({
+    theme: 'ghost', story: 'picture', storyTitle: 'Till the Lights Go Up', id: 'reel', no: 'VI', title: 'The Last Reel',
+    go: 'Lights down',
+    intro: [
+      'The pieces of reel 6 went back in the order that the titles themselves gave: a spoken title straight after a picture of the person who says it; a title that sets the time and place straight before its picture; the flashback, &ldquo;Thirty years before&rdquo;, kept together until &ldquo;Meanwhile&rdquo; brought the story back to the Rock. And Ernie&rsquo;s card went where the old man asks his question.',
+      'Della joined them at the splicer, one by one. Reel 5 is on machine A, wound on to its last minute. Reel 6 is on machine B, at twenty pictures a second.',
+      'Ten minutes to midnight. Della has gone down to the stalls. &ldquo;Somebody has to sit at the piano,&rdquo; she said. &ldquo;Her cue sheet says a gramophone for reel 6. I&rsquo;m not having a gramophone.&rdquo;'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function paint() {
+    var done = !!ER.flag('e-done');
+    $('#scene').classList.toggle('gone', done);
+    $('#run').style.display = !done && !ER.flag('e-changed') && !busy ? 'block' : 'none';
+    ER.pips((ER.flag('e-changed') ? 1 : 0) + (done ? 1 : 0), 2);
+  }
+  function hints() {
+    if (ER.flag('e-done') || ER.flag('e-changed')) return null;
+    return ['change', [
+      'Ernie&rsquo;s card from the rewind room is in your notebook: CHANGING OVER. Watch the top right-hand corner of the picture through the window.',
+      'On the first dot, start machine B&rsquo;s motor. On the second dot, a few seconds later, change over. If you miss, Della will wind it back: there is no hurry tonight.'
+    ]];
+  }
+
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    if (ER.flag('e-done')) { busy = false; paint(); finish(true); return; }
+    if (ER.flag('e-changed')) { busy = false; paint(); playReel(); return; }
+    if (told.in) { busy = false; paint(); ER.say('Through the window: the dark house, Della at the piano, and F7. Reel 5 is on A, reel 6 on B.'); return; }
+    tell('in');
+    ER.narrate([
+      'You are alone in the box, between the two old machines, in front of the big window that Ernie looked through for forty-three years.',
+      'Far below, a small light: Della, at the piano in the pit. She has propped her lamp on top of it. Beyond her, in the dark rows, one seat catches the light. F7. Down.',
+      'Reel 5 is on A: the end of the storm, and Ernie&rsquo;s two dots punched into its last few feet. Reel 6 is on B, waiting. Run the last minute of reel 5, and change over on his dots.'
+    ], function () { busy = false; paint(); });
+  }
+  $('#run').addEventListener('click', function () { if (!busy) openCo(); });
+  $('#machA').addEventListener('click', function () { if (busy) return; if (ER.flag('e-changed')) { ER.say('Machine A has run out its reel. Reel 5 is finished, ninety-seven years late, and nobody was hurt.'); return; } openCo(); });
+  $('#machB').addEventListener('click', function () { if (busy) return; if (ER.flag('e-changed')) { ER.say(ER.flag('e-done') ? 'Machine B is still. The spool of reel 6 has run right through.' : 'Machine B, running at twenty pictures a second.'); return; } openCo(); });
+  $('#piano').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('e-done') ? 'The piano lid is down. Della is sitting on the stool with her hands in her lap, and has not moved for some time.' : 'Della, at the piano, far below. She is not playing. She is waiting for you.'); });
+  $('#f7').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('e-done') ? 'F7. The seat is up, like every other seat in the row.' : 'F7, down, in the light of Della&rsquo;s lamp.'); });
+
+  /* ---------- the changeover: reel 5's last seconds through the window, and two buttons ---------- */
+  function openCo() {
+    var box = ER.el('div', 'co'), state = 'ready', timers = [], motor = false;
+    box.innerHTML = '<div class="co-view"><svg viewBox="0 0 520 520" id="cov"></svg></div><div class="co-side"><h5>THE LAST MINUTE OF REEL 5</h5>' +
+      '<p class="st"><span class="lamp on" id="lA"></span>A: reel 5 &nbsp; <span class="lamp" id="lB"></span>B: reel 6</p>' +
+      '<div class="row"><button type="button" class="btn" id="c-run">Run reel 5</button><button type="button" class="btn" id="c-motor">Start B&rsquo;s motor</button><button type="button" class="btn" id="c-change">Change over</button></div>' +
+      '<div class="pfoot"><p class="pmsg"></p></div></div>';
+    var view = box.querySelector('#cov'), wave = 0;
+    function msg(t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+    function set(s) { state = s; box.setAttribute('data-state', s); }
+    function frame(dot, white) {
+      var s = '<rect width="520" height="520" fill="#06080a"/>';
+      if (white) s += '<rect x="40" y="130" width="440" height="260" fill="#f2f2ea"/>';
+      else {
+        s += '<rect x="40" y="130" width="440" height="260" fill="#3a444c"/><path d="M40 ' + (300 + wave % 3 * 6) + 'q55 -' + (30 + wave % 4 * 6) + ' 110 0t110 0 110 0 110 0V390H40Z" fill="#7a8a94"/>' +
+          '<path d="M300 300l30 -110 30 110z" fill="#2a2a2a"/><rect x="318" y="176" width="24" height="18" fill="' + (wave % 2 ? '#ffe08a' : '#8a7a5a') + '"/><path d="M60 ' + (220 + wave % 5 * 4) + 'q60 -30 120 6" stroke="#cfd8de" stroke-width="5" fill="none"/>';
+        if (dot) s += '<circle cx="452" cy="156" r="11" fill="#f6f2e6"/>';
+      }
+      view.innerHTML = s + '<text x="260" y="452" font-family="Oswald" font-size="15" text-anchor="middle" fill="#6a7a6e" letter-spacing="3">THROUGH THE WINDOW</text>';
+    }
+    function stop() { timers.forEach(clearTimeout); timers = []; }
+    function later(ms, f) { timers.push(setTimeout(f, ms)); }
+    function fail(t) { stop(); set('failed'); ER.sfx.no(); frame(false, false); box.querySelector('#lB').classList.remove('on'); motor = false; msg(t + ' &ldquo;Again,&rdquo; calls Della from below. &ldquo;I&rsquo;ll wind it back. There&rsquo;s no hurry tonight.&rdquo; Press <b>Run reel 5</b>.'); }
+    function run() {
+      var k;
+      if (state === 'running' || state === 'dot1' || state === 'dot2') return;
+      stop(); motor = false; box.querySelector('#lB').classList.remove('on'); set('running'); msg('Reel 5 runs: the storm, the last of it. Watch the top right-hand corner.');
+      PH.sfx.run(11, 20);
+      for (k = 0; k < 44; k++) later(k * 250, function () { wave++; frame(state === 'dot1' || state === 'dot2', false); });
+      later(3800, function () { set('dot1'); frame(true, false); });
+      later(5300, function () { if (state === 'dot1') set('between'); frame(false, false); });
+      later(9000, function () { set('dot2'); frame(true, false); });
+      later(10500, function () { if (state === 'dot2') fail('A white screen. Too late: reel 5 ran out before you changed over. Mr Eade would have had words.'); });
+    }
+    box.querySelector('#c-run').addEventListener('click', run);
+    box.querySelector('#c-motor').addEventListener('click', function () {
+      if (state === 'ready' || state === 'failed') { msg('Reel 5 is not running yet. Press <b>Run reel 5</b> first.'); return; }
+      if (state === 'running') { fail('Too early. B&rsquo;s motor started before the first dot, and reel 6 began running into the dark before anybody could see it.'); return; }
+      if (motor) return;
+      motor = true; PH.sfx.dial(); box.querySelector('#lB').classList.add('on'); msg('B&rsquo;s motor is running, coming up to speed. Now wait for the second dot.');
+    });
+    box.querySelector('#c-change').addEventListener('click', function () {
+      if (state === 'ready' || state === 'failed') { msg('Reel 5 is not running yet. Press <b>Run reel 5</b> first.'); return; }
+      if (!motor) { fail('Machine B was not running. On the first dot, start its motor: it needs a few seconds to come up to speed.'); return; }
+      if (state !== 'dot2') { fail('Too early. You changed over before the second dot, and cut off the last seconds of reel 5.'); return; }
+      stop(); set('done'); PH.sfx.shutter(); PH.solved(true); ER.flag('e-changed', 1);
+      msg('A&rsquo;s shutter closes and B&rsquo;s opens, both at once. On the screen there is no join at all. Reel 6 is running.');
+      setTimeout(function () { ER.closeAll(); paint(); playReel(); }, 2200);
+    });
+    frame(false, false); set('ready');
+    msg('Ernie&rsquo;s card: on the first dot, start the motor of the other machine; on the second, change over. Press <b>Run reel 5</b> when you are ready.');
+    ER.open('ov-lock', box, function () { stop(); if (!ER.flag('e-changed')) paint(); });
+  }
+
+  /* ---------- reel 6, shown properly ---------- */
+  function showCard(html, big) {
+    var g = $('#scrin');
+    g.innerHTML = '<rect x="564" y="150" width="472" height="200" fill="none" stroke="#efe8d4" stroke-width="3"/><foreignObject x="580" y="160" width="440" height="180"><div xmlns="http://www.w3.org/1999/xhtml" style="height:180px;display:flex;align-items:center;justify-content:center;text-align:center;color:#efe8d4;font-family:' +
+      (big ? '\'Architects Daughter\',cursive;font-size:26px' : '\'EB Garamond\',serif;font-size:21px') + ';line-height:1.25">' + html + '</div></foreignObject>';
+  }
+  function showPic(label) {
+    $('#scrin').innerHTML = '<rect x="540" y="130" width="520" height="240" fill="#3a444c"/><path d="M540 320q65 -24 130 0t130 0 130 0 130 0V370H540Z" fill="#5a6a74"/><text x="800" y="250" class="fG" font-size="22" font-style="italic" text-anchor="middle" fill="#d9e0e4">(' + label + ')</text>';
+  }
+  function playReel() {
+    var seq = ['head'].concat(ER.flag('r-order') || ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'x']), n = 0;
+    busy = true; $('#scene').classList.add('run'); ER.mood('calm'); paint();
+    ER.narrate([
+      'On the screen, at twenty pictures a second, steady as a clock: the last reel of <i>Bess of the Light</i>, ninety-seven years late. Every title stays long enough to read.'
+    ], function () { next(); });
+    function next() {
+      var id = seq[n++];
+      if (!id) return;
+      if (id === 'x') { showCard(TEXT.x, true); setTimeout(answer, 3200); return; }
+      if (PICS[id]) showPic(PICS[id]); else showCard(TEXT[id], false);
+      PH.sfx.run(2.4, 20);
+      setTimeout(next, 2600);
+    }
+  }
+  function answer() {
+    ER.narrate([
+      '<i>EFFIE &mdash; WILL YOU MARRY ME? IF YOU WILL, PLAY OUR TUNE. ERNIE.</i>',
+      'Eight feet of film, six seconds. Down in the pit, Della has her hands in her lap. She told you she was not going to play it. She is not playing it.'
+    ], function () {
+      var secs = PH.song(0.5);
+      try { if (ER.track) { ER.track.duck(true); setTimeout(function () { ER.track.duck(false); }, secs * 1000 + 500); } } catch (e) {}
+      ER.narrate([
+        'The piano begins anyway. <i>If You Ask Me</i>: slowly, from the first note to the last, the way it was played at the kiss in reel 3 every night in 1929. Nobody is sitting at the keys but Della, and Della&rsquo;s hands are in her lap.',
+        'Everybody in Delverton who heard it in 1929 knew how the last line went: <i>and if you ask me, I&rsquo;ll say yes.</i>',
+        'In row F, with a soft clack, the seat goes up.'
+      ], function () {
+        PH.sfx.seat(); $('#scene').classList.add('gone');
+        showCard('THE END', false);
+        setTimeout(function () {
+          $('#scene').classList.remove('run');
+          ER.narrate([
+            'Reel 6 runs out. The beam goes. For a moment the big window of the box stays faintly lit, as if somebody were standing in it and looking down. Then it is as dark as the rest.',
+            'After a while Della&rsquo;s voice comes up from the pit. &ldquo;There&rsquo;s no train at ten past twelve,&rdquo; she says. &ldquo;I looked it up.&rdquo;',
+            'Then, after another while: &ldquo;That&rsquo;s a yes, then.&rdquo;'
+          ], function () {
+            busy = false; ER.flag('e-done', 1); paint();
+            ER.addClue('ending', 'The end of the picture', '<h4>The end of the picture</h4><p>Reel 5 ran out on machine A, and on Ernie&rsquo;s second dot reel 6 came in on machine B, at twenty pictures a second, its titles in their order. After the old man&rsquo;s question came Ernie&rsquo;s card: <i>Effie &mdash; will you marry me? If you will, play our tune.</i></p><p>Nobody played the piano. It played <i>If You Ask Me</i>. Then the seat in F7 went up, and the light in the box window went out.</p>', 'mine', 'Your notes', true);
+            finish(false);
+          });
+        }, Math.max(1800, secs * 300));
+      });
+    });
+  }
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = PH.minutesPlayed(), hn = ER.hintsUsed();
+    paint();
+    $('#d-time').textContent = 'From the foyer at nine to the last reel at midnight: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) { showCard('THE END', false); ER.say('The Bijou, after midnight. Every seat in row F is up.'); }
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    var USE = [/\bwhen\b/i, /\bafter\b/i, /\bby then\b/i, /\bmeanwhile\b/i, /\byears later\b/i, /\bthe next (morning|day)\b/i, /\bhad (been|gone|done|told|made|lost|left|found|seen|said|heard|known|kept|come|run|\w+ed)\b/i, /\bused to\b/i, /\bwould\b/i];
+    box.innerHTML = '<h4>Till the Lights Go Up &middot; in your own words</h4><h3>Your last reel</h3>' +
+      '<p>Ernie waited forty years to show one card at the end of a reel. Now write the title cards for the last reel of a silent picture of your own: six to ten cards, 60 to 140 words, with a flashback inside it. Put each card on a new line.</p>' +
+      '<p>Use at least five of these:</p><p class="use">when &middot; after &middot; by then &middot; meanwhile &middot; years later &middot; the next morning &middot; had + a past participle &middot; used to &middot; would</p>' +
+      '<textarea id="r1"></textarea><div class="count" id="c1"></div>' +
+      '<label for="r2">And one sentence more: if you could show one ending that nobody ever saw, whose would it be, and why?</label><input type="text" id="r2" maxlength="240">' +
+      '<label for="r3">Name</label><input type="text" id="r3" maxlength="60">' +
+      '<p>Then, out loud, to your teacher or a friend: explain in one minute how a projector makes still pictures move.</p>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || ''; box.querySelector('#r3').value = saved.r3 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value, r3: box.querySelector('#r3').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length, k = 0, c1 = box.querySelector('#c1');
+      USE.forEach(function (re) { if (re.test(o.r1)) k++; });
+      c1.textContent = n + (n === 1 ? ' word' : ' words') + ' · ' + k + ' of the nine used' + (n >= 60 && n <= 140 && k >= 5 ? ' · Ernie would run it.' : '');
+      c1.classList.toggle('ok', n >= 60 && n <= 140 && k >= 5);
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
