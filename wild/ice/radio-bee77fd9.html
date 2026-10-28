@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Radio Box · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#16305a;--accent:#ff6a4a;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(14,30,58,.95);--tc-ink:#eef4ff;--cap-bg:rgba(14,28,54,.92);--panel:#13284a;--face-bg:#1c3660;--q-ink:#ffb89a;--fade:#0a1830;--hud-bg:rgba(14,28,54,.84)}
+  #glare{animation:glare 3s steps(1,end) infinite}
+  @keyframes glare{50%{opacity:.8}}
+  #wire{animation:wire 2.4s steps(2,end) infinite}
+  @keyframes wire{50%{transform:translateY(2px)}}
+  .cp{display:grid;grid-template-columns:420px minmax(0,1fr);background:#e8eef4}
+  .cp svg{display:block;width:100%;height:auto;background:#cfdde8}
+  .pano{background:#0e2242;padding:12px 14px 10px}
+  .pano svg{display:block;width:100%;height:auto}
+  .pano p{margin:6px 0 0;font-family:'Overpass',sans-serif;font-size:13px;color:#cfe0f0;line-height:1.4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2a62"/><stop offset=".6" stop-color="#3a72c0"/><stop offset="1" stop-color="#bcd8f2"/></linearGradient>
+  <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f2fa"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#ffffff"/><stop offset=".12" stop-color="#fffbe8"/><stop offset=".4" stop-color="#fff6d0" stop-opacity=".35"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="950" fill="url(#skyG)"/>
+<circle id="glare" cx="330" cy="150" r="260" fill="url(#sunG)"/><circle cx="330" cy="150" r="26" fill="#ffffff"/>
+<path d="M-1000 520H2600V1300H-1000Z" fill="url(#snowG)"/>
+<g stroke="#c8dcec" stroke-width="3" fill="none" opacity=".8"><path d="M-200 600q300 -10 600 0t600 4t600 -4M-200 700q400 -14 800 0t900 2M-200 820q500 -16 1000 0t900 4"/></g>
+<!-- tents and drums far back -->
+<g><path d="M1260 520l50 -80l50 80z" fill="#f2c230" stroke="#a8841a" stroke-width="2"/><path d="M1380 522l44 -70l44 70z" fill="#f2c230" stroke="#a8841a" stroke-width="2"/><path d="M1500 520l40 -64l40 64z" fill="#f2c230" stroke="#a8841a" stroke-width="2"/>
+  <path d="M60 520q0 -60 110 -64q110 4 110 64z" fill="#e8641c"/><g fill="#5a6a7a"><rect x="1150" y="496" width="16" height="24"/><rect x="1170" y="496" width="16" height="24"/><rect x="1190" y="496" width="16" height="24"/></g></g>
+<!-- the skiway line (black flags) and the cache line (green flags) going away -->
+<g id="lines">
+  <g stroke="#2a2a2a" stroke-width="2.4"><path d="M140 900l14 -60M236 760l6 -34M300 664l4 -22M342 606l3 -14M368 568l2 -9M384 546l2 -6"/></g>
+  <g fill="#1a1a1a"><path d="M154 840l26 8l-24 8zM242 726l16 5l-15 5zM304 642l10 3l-9 3zM345 592l7 2l-6 2zM370 559l5 1.5l-4 1.5z"/></g>
+  <g stroke="#2a2a2a" stroke-width="2.4"><path d="M1380 900l-10 -60M1250 760l-5 -34M1166 664l-3 -22M1114 606l-2 -14M1082 568l-1.5 -9M1062 546l-1 -6"/></g>
+  <g fill="#1e8a3e"><path d="M1370 840l26 8l-24 8zM1245 726l16 5l-15 5zM1163 642l10 3l-9 3zM1112 592l7 2l-6 2zM1080.500 559l5 1.5l-4 1.5z"/></g>
+  <text x="230" y="900" font-family="Handlee,cursive" font-size="22" fill="#5a6a7a">to the skiway</text><text x="1380" y="900" font-family="Handlee,cursive" font-size="22" fill="#2a6a3a">to the fuel cache</text>
+</g>
+<!-- the aerial: a wire between two masts -->
+<g id="mast" class="hot"><path d="M700 520V160M1500 520V200" stroke="#8a9aa8" stroke-width="6"/><path id="wire" d="M700 170Q1100 230 1500 210" stroke="#3a3a3a" stroke-width="2.400" fill="none"/><path d="M1100 216V330" stroke="#3a3a3a" stroke-width="2"/>
+  <path d="M700 160l-60 360M700 160l60 360M1500 200l-50 320M1500 200l50 320" stroke="#a8b4c0" stroke-width="1.400"/></g>
+<!-- the skidoos and sledges, loaded -->
+<g id="skidoo" class="hot">
+  <path d="M120 760h300l30 -40h-80l-30 -40h-120l-40 40h-60z" fill="#e8c81e" stroke="#7a6a10" stroke-width="3"/><path d="M110 770q-10 30 30 30h300" stroke="#2a2a2a" stroke-width="10" fill="none"/>
+  <rect x="210" y="644" width="70" height="36" rx="8" fill="#2a2a2a"/><path d="M300 680l40 -40" stroke="#2a2a2a" stroke-width="7"/>
+  <rect x="470" y="700" width="230" height="60" fill="#6a8aa8" stroke="#2a3a4a" stroke-width="3"/><path d="M460 770h260" stroke="#2a2a2a" stroke-width="7"/><path d="M450 730h20" stroke="#2a2a2a" stroke-width="4"/>
+  <rect x="490" y="676" width="80" height="26" fill="#f2c230"/><rect x="590" y="670" width="90" height="32" fill="#c8321e"/>
+</g>
+<!-- Vidar, with his compass -->
+<g id="vidar" class="hot">
+  <path d="M500 700l12 -200q4 -28 40 -30h26q38 2 42 30l12 200z" fill="#e8641c"/><path d="M500 700l6 -110q28 12 38 0l4 110zM632 700l-6 -110q-28 12 -38 0l-4 110z" fill="#2a2a2e"/>
+  <rect x="556" y="446" width="22" height="28" fill="#e0a888"/><circle cx="567" cy="420" r="30" fill="#eab496"/><path d="M540 426q2 32 27 38q25 -6 27 -38q-12 10 -27 8q-15 2 -27 -8z" fill="#d8b46a"/>
+  <path d="M536 414q-2 -38 31 -40q33 2 31 40q-31 -14 -62 0z" fill="#b8241a"/><circle cx="567" cy="374" r="7" fill="#b8241a"/>
+  <path d="M624 540q30 -10 10 -50" stroke="#e8641c" stroke-width="16" fill="none" stroke-linecap="round"/>
+</g>
+<g id="vcomp" class="hot"><path d="M560 470l8 60" stroke="#2a2a2a" stroke-width="2"/><rect x="552" y="524" width="40" height="52" rx="5" fill="#cfe4f0" stroke="#2a4a6a" stroke-width="3" opacity=".95"/><circle cx="572" cy="548" r="14" fill="#f4f8fa" stroke="#2a4a6a" stroke-width="2"/><path d="M572 548l6 10" stroke="#c8321e" stroke-width="4" stroke-linecap="round"/></g>
+<!-- the radio box: a red plywood hut on skis -->
+<g id="box">
+  <path d="M800 640V350L1000 300L1200 350V640Z" fill="#c8321e" stroke="#6a1a10" stroke-width="5"/><path d="M790 352L1000 296L1210 352" stroke="#f4f4f0" stroke-width="12" fill="none"/>
+  <path d="M780 660h440" stroke="#4a4a4a" stroke-width="12" stroke-linecap="round"/><path d="M800 640l-10 20M1200 640l10 20" stroke="#4a4a4a" stroke-width="8"/>
+  <rect x="1060" y="400" width="100" height="70" fill="#bcd8f2" stroke="#6a1a10" stroke-width="5"/><path d="M1110 400v70M1060 435h100" stroke="#6a1a10" stroke-width="3"/>
+  <text x="860" y="390" font-family="Stardos Stencil,serif" font-size="22" fill="#f4f4f0">RADIO</text>
+</g>
+<rect x="900" y="420" width="130" height="220" fill="#3a1410"/>
+<!-- the sun card, laminated, on the door frame -->
+<g id="suncard" class="hot"><rect x="1036" y="500" width="54" height="70" fill="#fff8e8" stroke="#2a2a2a" stroke-width="2"/><circle cx="1063" cy="522" r="11" fill="none" stroke="#e8641c" stroke-width="3"/><path d="M1044 544h38M1044 552h38M1044 560h30" stroke="#1d2a52" stroke-width="2"/></g>
+<!-- Yusra's clipboard of notes on the wall -->
+<g id="notes" class="hot"><rect x="820" y="460" width="64" height="86" fill="#6a6f78" rx="3"/><rect x="826" y="472" width="52" height="68" fill="#fcfcf8"/><rect x="838" y="456" width="28" height="12" rx="3" fill="#c8c8c8"/><path d="M832 486h40M832 496h36M832 506h40M832 516h28" stroke="#1d2a52" stroke-width="2"/></g>
+<!-- Yusra in the doorway -->
+<g id="yusra" class="hot">
+  <path d="M916 640l10 -150q4 -26 40 -28h18q36 2 40 28l10 150z" fill="#e8b81e"/><path d="M964 520v120" stroke="#b8901a" stroke-width="3"/>
+  <path d="M940 452q-6 -60 35 -62q41 2 35 62q0 30 -35 34q-35 -4 -35 -34z" fill="#8a8e96"/><path d="M948 450q-4 -48 27 -50q31 2 27 50q0 26 -27 30q-27 -4 -27 -30z" fill="#1f2a52"/>
+  <path d="M956 446q0 -30 19 -32q19 2 19 32q0 18 -19 22q-19 -4 -19 -22z" fill="#c8946c"/>
+  <path d="M946 476q2 20 29 22q27 -2 29 -22" stroke="#2a2a2e" stroke-width="5" fill="none"/>
+  <rect x="1000" y="540" width="40" height="54" fill="#8a6a4a" transform="rotate(-10 1020 567)"/>
+</g>
+<!-- the red flag for north, stuck in the snow -->
+<g id="pole" class="hot"><rect x="1250" y="580" width="120" height="250" fill="transparent"/><path d="M1290 820V600" stroke="#c8a060" stroke-width="7"/><path d="M1292 604l60 18l-60 18z" fill="#e8321e"/><ellipse cx="1290" cy="822" rx="24" ry="6" fill="#c8dcec"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the flag line</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'radio', no: 'II', title: 'The Radio Box',
+    go: 'Go out',
+    intro: [
+      'You worked it out on the flow map. The ice is stretched just past the top of the Hump, where the speeds jump from 14 to 23, and on the outside of the bend round Yoke Nunatak, where they jump from 18 to 29. A crevasse opens at right angles to the stretching, so the cracks lie across the flow, under snow that looks as smooth as a sheet. Not Vidar&rsquo;s straight route A, then, but route C: down the flags to the fuel cache, and across from there on a bearing of 073.',
+      'Twenty past nine. Outside, the cold takes hold of your face like a hand. The sun is bright and white in the north-east. Beside the red radio box Yusra has stuck a red flag in the snow, and Vidar is frowning at his compass.'
+    ],
+    exit: {"next":"cache","w":{"37e18da0":"c2fe8d46","c6fe334f":"aae35007","cc65614d":"8fca199e"}}, tags: {"under":["9bd5d314","0ae19178","ffa90729","7dc9748c"],"wrongway":["5d677396","7df0d6f1","cc22f940","747aa89a"],"needle":["5e92debd","74e430ca","8b4cd45d","5ccaa2ab"],"noon":["c1d8ee66"],"camp":["da053d25","2042c56a","f53a3585","bcaf8070","4c6b4eb6","b5ca7ab4","8a3d4abb"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.yusra && told.notes && told.sun && told.needle; }
+  function paint() {
+    $('#pole').classList.toggle('ready', !!(ready() && !nextFile));
+    $('#vcomp').classList.toggle('ready', !!(told.vidar && !told.needle));
+    ER.pips((told.yusra ? 1 : 0) + (told.notes ? 1 : 0) + (told.sun ? 1 : 0) + (told.needle ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['North is marked, by the sun. Set off down the flag line.']];
+    if (!told.yusra) return ['yusra', ['Yusra wants to see you before you go. She is in the doorway of the red radio box.', 'Click Yusra and listen to the end: the weather, the plane, and what she asks you to do.']];
+    if (!told.notes || !told.sun) return ['read', [
+      'Two things are pinned to the radio box: Yusra&rsquo;s notes about the compass, and a laminated card about the sun.',
+      'The clipboard hangs on the wall to the left of the door; the sun card is on the right of the door frame. Read both.'
+    ]];
+    if (!told.vidar) return ['vidar', ['Vidar is on the left with his compass. Talk to him.']];
+    if (!told.needle) return ['needle', ['Have a look at Vidar&rsquo;s compass yourself.', 'Click the compass on Vidar&rsquo;s chest. Hold it level, then tap it a few times and watch where the needle settles.']];
+    return ['north' + (lastErr ? '-' + lastErr : ''), northHints()];
+  }
+  function northHints() {
+    var H = {
+      under: ['The sun is in the north only at local noon. What time is it now, and where does the sun table put the sun at that time?', 'At half past nine the sun is half way between its bearing at 09.00 and at 10.00. North is that many degrees away from the sun.'],
+      wrongway: ['You measured the right number of degrees, but the wrong way.', 'A bearing is measured clockwise from north. If the sun is at 62 degrees, north is 62 degrees anticlockwise from it: to the LEFT of the sun as you face it.'],
+      needle: ['That is where the compass needle points. Read Yusra&rsquo;s notes again: which way does the N end of a needle point here?', 'The needle points roughly south, away from the magnetic pole. Use the sun.'],
+      camp: ['Close, but not close enough. The quick 24-hour dial is only good to ten degrees here. Use the table.', 'From the table: 70 degrees at 09.00, 54 at 10.00. At 09.30 the sun is at 62. Count 62 degrees to the left of the sun on the ruler.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click the red flag in the snow and plant it on the horizon where north is.',
+      'The sun table gives the sun&rsquo;s bearing for every hour. Find where the sun is at half past nine.',
+      'At 09.30 the sun is at 62 degrees (half way between 70 and 54). North is 62 degrees to the left of the sun. Use the ruler under the picture to count.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The red flag points north, along the green flags. Vidar&rsquo;s compass is in his pocket, for luck.'); return; }
+    if (told.in) { busy = false; ER.say('The radio box, the two flag lines, and a red flag waiting.'); return; }
+    tell('in');
+    ER.narrate([
+      'The radio box is a hut of red plywood on skis, with a wire aerial strung between two masts above it. Inside, a radio hisses quietly to itself.',
+      'Two lines of flags leave the camp: black flags towards the skiway, where the plane will land tomorrow, and green flags towards the fuel cache, twelve kilometres away, where today begins. From here they go off in nearly opposite directions.',
+      '&ldquo;There you are,&rdquo; says Yusra from the doorway. &ldquo;Come here. I have a job for you, and you will not like it, and you will thank me.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#yusra').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Yusra Wahid', role: 'Camp manager and radio operator', face: window.FACE('yusra'),
+      lines: [
+        { note: 'She has a headset round her neck and a pencil behind one ear.', a: '&ldquo;Nine o&rsquo;clock sked is done. Sit down. Listen. Then you can go.&rdquo;' },
+        { q: 'What is a sked?', a: '&ldquo;A radio call at a time fixed in advance. Today, while you are out: every two hours, on the hour. Twelve, two, four, six, eight. If you miss one, I worry. If you miss two, I make a plan. If you miss three, I make a plan that costs a great deal of money.&rdquo;' },
+        { q: 'What is the weather going to do?', a: '&ldquo;Clear, and a light wind till the evening. Then the usual: the wind off the ice from about nine tonight, strongest in the small hours, easing in the morning. And tomorrow a front comes in from the coast at about midday. That&rsquo;s why Zara lands at ten and has to be off the skiway by a quarter to eleven. Forty-five minutes on the ground, she says, and she means forty-four.&rdquo;' },
+        { q: 'Who is Zara?', a: '&ldquo;The pilot. Canadian. Flies a little red ski plane as if it were a bicycle. She will take all four of us and Uma&rsquo;s boxes to the coast, and I will have Christmas with people I have not seen for two months.&rdquo;' },
+        { q: 'What is the job?', a: '&ldquo;Read my notes on the wall about compasses. Read the sun card on the door. Look at Vidar&rsquo;s compass with your own eyes. Then plant that red flag pointing north. Not with the compass. Everybody who works for me can find north without a machine.&rdquo;' },
+        { q: 'Is anybody else near?', a: '&ldquo;The nearest neighbours are at Dumont d&rsquo;Urville, the French station on the coast, three hundred kilometres away. They are very nice, and they are not coming round for tea.&rdquo;' }
+      ],
+      clue: { id: 'yus1', title: 'Yusra, at the radio box', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('yusra')) { paint(); ICE.terms(['sked', 'skiway']); ER.say('Yusra goes back inside. The radio hisses at her, and she hisses back.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'Field guide', face: window.FACE('vidar'),
+      lines: [
+        { note: 'He holds the compass flat on his glove and turns slowly on the spot.', a: '&ldquo;This is very interesting. Look. The needle says north is that way: down the skiway line. So the flag line to the cache runs south. Either Uma&rsquo;s map is upside down, or the world is.&rdquo;' },
+        { q: 'Is the needle steady?', a: '&ldquo;It is a little lazy this morning. It sticks. It must be the cold: the oil in the capsule gets thick.&rdquo; He taps it. &ldquo;There. Now it moves.&rdquo;' },
+        { q: 'Could the compass be wrong here?', a: '&ldquo;A compass is never wrong. It points north. It has pointed north for me on every glacier in Svalbard. People are wrong, maps are wrong; a needle is a needle.&rdquo;' },
+        { q: 'Where is the sun in the middle of the day?', a: '&ldquo;In the south, of course. At midday the sun is always in the south. Every child knows that.&rdquo; He looks at the sun, then at the compass, then at the sun again, and says nothing for a moment.' }
+      ],
+      clue: { id: 'vid2', title: 'Vidar and his compass', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ER.say('&ldquo;Here,&rdquo; says Vidar, holding out the compass on its cord. &ldquo;You try.&rdquo;'); } }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var NOTES = '<h4>Why the needle points down &middot; Y.W.</h4><div class="two"><div>' +
+    '<p>A compass needle does not point at the North Pole. It lines up with the Earth&rsquo;s <b>magnetic field</b>, and it turns only because part of that field runs along the ground.</p>' +
+    '<p>The south <b>magnetic pole</b> is not the South Pole. It is in the sea about 520 km due north of this camp, and it moves about ten kilometres a year. There the field points straight up and down. So at Camp Yoke:</p>' +
+    '<p>1. The field is 87 degrees from flat, so the needle wants to stand on end (the <b>dip</b>). A compass made for the north drags on its case and sticks.</p>' +
+    '<p>2. Very little of the field runs along the ground, about a fifth of what turns a needle in London, so the needle is slow and wanders.</p>' +
+    '<p>3. Its N end points away from the magnetic pole: roughly SOUTH. The gap between compass north and <b>true north</b> (the <b>declination</b>) is 168 degrees.</p>' +
+    '<p>So the compass stays in the box.</p></div>' +
+    '<div><svg viewBox="0 0 300 300"><rect width="300" height="300" fill="#fcfcf8" opacity=".6"/>' +
+    '<path d="M10 200H290" stroke="#1d2a52" stroke-width="3"/><text x="12" y="222" font-family="Handlee,cursive" font-size="15" fill="#1d2a52">the ground</text>' +
+    '<g stroke="#a8321e" stroke-width="2" fill="none"><path d="M60 200Q66 120 120 40"/><path d="M110 200Q114 120 150 40"/><path d="M160 200Q160 120 180 40"/><path d="M210 200Q206 120 210 40"/></g>' +
+    '<text x="186" y="30" font-family="Handlee,cursive" font-size="14" fill="#a8321e">the field here: nearly upright</text>' +
+    '<g transform="translate(150 140) rotate(-87)"><path d="M-46 0L0 -7L46 0L0 7Z" fill="#1d2a52"/><path d="M0 -7L46 0L0 7Z" fill="#c8321e"/></g><circle cx="150" cy="140" r="4" fill="#fcfcf8" stroke="#1d2a52" stroke-width="2"/>' +
+    '<text x="196" y="150" font-family="Handlee,cursive" font-size="15" fill="#1d2a52">87&#176;</text><path d="M150 140H200" stroke="#1d2a52" stroke-dasharray="3 3"/>' +
+    '<text x="20" y="254" font-family="Handlee,cursive" font-size="15" fill="#1d2a52">magnetic pole: 520 km north, in the sea</text><path d="M20 270h120" stroke="#1d2a52" stroke-width="2"/><path d="M140 270l-10 -5v10z" fill="#1d2a52"/></svg></div></div>';
+  var SUN = [[0, 193, 3], [1, 180, 2], [2, 166, 3], [3, 152, 5], [4, 139, 8], [5, 125, 12], [6, 112, 17], [7, 99, 22], [8, 85, 27], [9, 70, 33], [10, 54, 38], [11, 37, 42],
+    [12, 19, 44], [13, 0, 45], [14, 340, 44], [15, 322, 41], [16, 305, 37], [17, 289, 32], [18, 275, 27], [19, 261, 22], [20, 247, 16], [21, 234, 12], [22, 221, 8], [23, 207, 5]];
+  function table() {
+    var s = '<table><tr><th>camp clock</th><th>sun&rsquo;s bearing</th><th>height</th><th></th><th>camp clock</th><th>sun&rsquo;s bearing</th><th>height</th></tr>', i, a, b;
+    for (i = 0; i < 12; i++) {
+      a = SUN[i]; b = SUN[i + 12];
+      s += '<tr' + (i === 1 ? ' class="hl"' : '') + '><td>' + ICE.two(a[0]) + '.00</td><td>' + ICE.d3(a[1]) + '&#176;</td><td>' + a[2] + '&#176;</td><td></td><td' + (i === 1 ? ' class="hl"' : '') + '>' + ICE.two(b[0]) + '.00</td><td>' + ICE.d3(b[1]) + '&#176;</td><td>' + b[2] + '&#176;</td></tr>';
+    }
+    return s + '</table>';
+  }
+  var CARD = '<h4>The sun as a compass &middot; sun table for Camp Yoke, 20 to 26 December</h4><div class="two"><div>' +
+    '<p>In summer here the sun never sets (the <b>midnight sun</b>). It goes round the sky once a day: east in the morning, north at midday, west in the evening, low in the south at night. Seen from above it goes anticlockwise, the other way from the north of the world.</p>' +
+    '<p><b>Local noon</b>, when the sun is due north and highest, is 13.00 by the camp clock, which keeps the coast&rsquo;s time. At 01.00 the sun is due south, two degrees up.</p>' +
+    '<p>Quick way: on a 24-hour dial, set the hour hand to sun time (camp clock minus one hour) and turn the dial until 12 points at the sun. The hand points north, give or take ten degrees.</p>' +
+    '<p>Exact way: this table (bearings true, clockwise from north). Between two hours, take the part of the way.</p>' +
+    '<p>Beware <b>sun dogs</b>: bright spots 22 degrees to each side of the sun, at its height. The real sun is in the middle.</p></div><div>' + table() + '</div></div>';
+  $('#notes').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTES, cls: 'yn', clue: { id: 'needle', title: 'Why the needle points down', kind: 'Yusra&rsquo;s notes' }, done: function () {
+      ICE.terms(['magnetic pole', 'dip', 'declination', 'true north']);
+      if (tell('notes')) { paint(); ER.say('Nearly back to front. Over by the skidoos, Vidar is still turning on the spot.'); }
+    } });
+  });
+  $('#suncard').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'yn', clue: { id: 'suntable', title: 'The sun as a compass, and the sun table', kind: 'Laminated card' }, done: function () {
+      ICE.terms(['midnight sun', 'local noon', 'sun table', 'sun dog']);
+      if (tell('sun')) { paint(); ER.say('Half past nine is coming. You look at the sun, low and white over the tents.'); }
+    } });
+  });
+  ICE.thing('#mast', null, 'The radio aerial: a long wire strung between two masts, humming a little in the breeze. It reaches the coast, and the field radios, and on a good day half of Antarctica.', isBusy);
+  ICE.thing('#skidoo', null, 'Two skidoos, each with a sledge. Uma&rsquo;s carries the science boxes; Vidar&rsquo;s carries the tent, the stove, food and sleeping bags. Nobody leaves camp without a tent. Ever.', isBusy);
+  ICE.thing('#lines', 'skiway', 'The black flags go to the skiway, a strip of flattened snow where the plane lands. The green flags go to the fuel cache. From here, they go off in nearly opposite directions.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- Vidar's compass, in your glove ---------- */
+  var TAPS = [186, 197, 181];
+  function openCompass() {
+    var box = ER.el('div', 'bx'), msgEl, n = 0, level = false, svg, needle;
+    box.innerHTML = '<div class="frame cp"><svg viewBox="0 0 420 420" id="c-svg"><rect width="420" height="420" fill="#cfdde8"/>' +
+      '<path d="M60 400q-20 -160 60 -250q90 -70 180 0q80 90 60 250z" fill="#2a2a2e"/>' +
+      '<rect x="110" y="70" width="200" height="290" rx="16" fill="rgba(220,240,250,.85)" stroke="#2a4a6a" stroke-width="3"/><path d="M210 82v40" stroke="#c8321e" stroke-width="4"/>' +
+      '<circle cx="210" cy="230" r="92" fill="#f4f8fa" stroke="#2a4a6a" stroke-width="4"/><g id="c-ring" font-family="Overpass,sans-serif" font-weight="700" font-size="13" fill="#2a4a6a" text-anchor="middle"></g>' +
+      '<g id="c-needle"><path d="M210 162L218 230L210 298L202 230Z" fill="#2a2a2a"/><path d="M210 162L218 230H202Z" fill="#c8321e"/><circle cx="210" cy="230" r="6" fill="#f4f8fa" stroke="#2a2a2a" stroke-width="2"/></g>' +
+      '<circle id="c-bubble" cx="236" cy="252" r="7" fill="rgba(255,255,255,.9)" stroke="#5a7a9a"/></svg>' +
+      '<div class="side"><h5>Vidar&rsquo;s compass</h5><p>You stand by the radio box with the compass in your glove. The black-flag line to the skiway is on one side of you, the green-flag line to the cache on the other.</p>' +
+      '<div class="row"><button type="button" class="btn" id="c-level">Hold it level</button><button type="button" class="btn" id="c-tap">Tap the case</button></div>' +
+      '<p id="c-log" style="font-family:Overpass Mono,monospace;font-size:13px;color:#ffd8c0"></p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-done">Give it back</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#c-svg'); needle = box.querySelector('#c-needle');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    /* round the edge of the capsule: what is in each direction from where you stand (true bearings, drawn for a compass held with its top towards the cache line) */
+    var ring = [[0, 'cache flags'], [30, 'nunatak'], [190, 'skiway flags'], [100, 'tents'], [280, 'mess tent']], s = '';
+    ring.forEach(function (r) { var a = r[0] * Math.PI / 180, x = 210 + Math.sin(a) * 118, y = 230 - Math.cos(a) * 118; s += '<text x="' + x.toFixed(0) + '" y="' + (y + 4).toFixed(0) + '" font-size="11">' + r[1] + '</text>'; });
+    box.querySelector('#c-ring').innerHTML = s;
+    function point(a) { needle.setAttribute('transform', 'rotate(' + a + ' 210 230)'); }
+    point(150);
+    box.querySelector('#c-level').addEventListener('click', function () {
+      level = true; ICE.sfx.click(); box.querySelector('#c-bubble').setAttribute('cx', '210'); box.querySelector('#c-bubble').setAttribute('cy', '230');
+      msg('Level, as level as a glove can hold it. The needle does not move at all. Look closely: its far end is pressed down against the bottom of the capsule. It wants to stand on end.');
+    });
+    box.querySelector('#c-tap').addEventListener('click', function () {
+      if (!level) { msg('Tilted like that, the needle is jammed against the glass. Hold it level first.'); return; }
+      ICE.sfx.tap(); var a = TAPS[n % TAPS.length]; n++; point(a);
+      box.querySelector('#c-log').innerHTML += 'Tap ' + n + ': the needle swings slowly, and stops with N towards the skiway flags (' + (a === 186 ? 'a little to the left of them' : a === 197 ? 'a little to the right of them' : 'just left of them') + ').<br>';
+      if (n >= 3) {
+        if (tell('needle')) { paint(); ICE.mine('compass', 'Vidar&rsquo;s compass', '<p>Held level, the needle is pressed against the bottom of the capsule. Tapped, it swings slowly and stops with N towards the <b>skiway</b> flags: almost the opposite way to the cache line, and a bit different every tap.</p><p>Slow, sticky, wandering, and nearly back to front.</p>', true); }
+        msg('Three taps, three different answers, all of them pointing at the skiway. Whichever way north is, it is not where this needle says.');
+      } else msg('Watch where it settles. Tap it again.');
+    });
+    box.querySelector('#c-done').addEventListener('click', function () { ER.close(); });
+    ER.open('ov-lock', box, function () { if (told.needle) ER.say('Vidar puts the compass back round his neck. &ldquo;Lazy,&rdquo; he says, without much conviction.'); });
+    msg('Hold it level, then tap it, and watch the N end of the needle.');
+  }
+  $('#vcomp').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.vidar) { ER.say('Vidar&rsquo;s compass, on a cord round his neck. Ask him about it first.'); return; }
+    openCompass();
+  });
+
+  /* ---------- the red flag: show me north ---------- */
+  var B0 = 270, PX = 960 / 360;            /* the left edge of the picture faces west; 2.67 px to a degree */
+  function bx(b) { return 20 + ((b - B0 + 720) % 360) * PX; }
+  function openPano() {
+    var box = ER.el('div', 'bx'), msgEl, svg, pin, r = 180, i, s = '';
+    s += '<svg viewBox="0 0 1000 300" id="p-svg"><defs><linearGradient id="pS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a3a7a"/><stop offset="1" stop-color="#bcd8f2"/></linearGradient></defs>' +
+      '<rect x="0" y="0" width="1000" height="200" fill="url(#pS)"/><rect x="0" y="200" width="1000" height="100" fill="#f4f8fb"/>';
+    /* the world all round you, as you turn on the spot */
+    s += '<circle cx="' + bx(62) + '" cy="96" r="40" fill="#fff6d8" opacity=".35"/><circle cx="' + bx(62) + '" cy="96" r="14" fill="#ffffff"/>';
+    s += '<path d="M' + (bx(30) - 26) + ' 200l14 -30l10 8l12 -22l16 44z" fill="#4a3c34"/>';
+    var FY = [203, 208, 216, 228, 245, 268], FH = [5, 7, 10, 14, 19, 26];
+    for (i = 0; i < 6; i++) s += '<path d="M' + bx(0) + ' ' + FY[i] + 'v' + (-FH[i]) + 'l' + (FH[i] * 0.6).toFixed(1) + ' ' + (FH[i] * 0.2).toFixed(1) + 'l' + (-FH[i] * 0.6).toFixed(1) + ' ' + (FH[i] * 0.2).toFixed(1) + '" stroke="#2a2a2a" stroke-width="1.5" fill="#1e8a3e"/>';
+    for (i = 0; i < 6; i++) s += '<path d="M' + bx(190) + ' ' + FY[i] + 'v' + (-FH[i]) + 'l' + (FH[i] * 0.6).toFixed(1) + ' ' + (FH[i] * 0.2).toFixed(1) + 'l' + (-FH[i] * 0.6).toFixed(1) + ' ' + (FH[i] * 0.2).toFixed(1) + '" stroke="#2a2a2a" stroke-width="1.5" fill="#1a1a1a"/>';
+    s += '<path d="M' + (bx(100) - 40) + ' 200l14 -24l14 24zM' + (bx(100) - 8) + ' 200l12 -20l12 20zM' + (bx(100) + 20) + ' 200l11 -18l11 18z" fill="#f2c230" stroke="#a8841a"/>';
+    s += '<path d="M' + (bx(280) - 46) + ' 200q0 -22 46 -24q46 2 46 24z" fill="#e8641c"/><g fill="#5a6a7a"><rect x="' + (bx(140) - 20) + '" y="186" width="12" height="14"/><rect x="' + (bx(140) - 6) + '" y="186" width="12" height="14"/><rect x="' + (bx(140) + 8) + '" y="186" width="12" height="14"/></g>';
+    /* the horizon ruler: degrees counted from the left edge of the picture */
+    s += '<rect x="0" y="260" width="1000" height="40" fill="#0e2242"/>';
+    for (i = 0; i <= 360; i += 5) s += '<path d="M' + (20 + i * PX).toFixed(1) + ' 260v' + (i % 30 ? (i % 10 ? 6 : 10) : 16) + '" stroke="#cfe0f0" stroke-width="1.4"/>';
+    for (i = 0; i <= 360; i += 30) s += '<text x="' + (20 + i * PX).toFixed(1) + '" y="292" text-anchor="middle" font-family="Overpass Mono,monospace" font-size="11" fill="#cfe0f0">' + i + '</text>';
+    s += '<g id="p-pin" class="grab"><rect x="-16" y="0" width="32" height="300" fill="transparent"/><path d="M0 70V250" stroke="#c8a060" stroke-width="4"/><path d="M2 72l26 9l-26 9z" fill="#e8321e"/><text x="0" y="62" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="14" fill="#fff">N</text></g></svg>';
+    box.innerHTML = '<div class="frame pano">' + s + '<p>The whole horizon, all the way round, as you turn on the spot by the radio box: west at the left edge, round through north, east and south, and back to west. The ruler counts degrees from the left edge. Drag the red flag to where north is.</p></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><span class="nudge"><button type="button" data-d="-5">&lsaquo; 5&#176;</button><button type="button" data-d="5">5&#176; &rsaquo;</button></span><button type="button" class="btn" id="p-go">Plant the flag</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#p-svg'); pin = box.querySelector('#p-pin');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function draw() { pin.setAttribute('transform', 'translate(' + (20 + r * PX).toFixed(1) + ' 0)'); }
+    ER.drag(pin, { move: function (e) { var p = ER.pt(svg, e), v = Math.round(((p.x - 20) / PX) / 5) * 5; v = ICE.clamp(v, 0, 360); if (v !== r) { r = v; draw(); ICE.sfx.notch(); } } });
+    ER.$$('.nudge button', box).forEach(function (b) { b.addEventListener('click', function () { r = ICE.clamp(r + (+b.getAttribute('data-d')), 0, 360); draw(); ICE.sfx.notch(); }); });
+    draw();
+    box.querySelector('#p-go').addEventListener('click', function () {
+      var t = ((r + B0) % 360), c = 'n' + t;
+      if (ER.check('under', c)) { lastErr = 'under'; ICE.sfx.no(); msg('&ldquo;Under the sun?&rdquo; says Yusra. &ldquo;That is right at one o&rsquo;clock, and it is half past nine. Where is the sun at half past nine? The card on the door knows.&rdquo;'); return; }
+      if (ER.check('wrongway', c)) { lastErr = 'wrongway'; ICE.sfx.no(); msg('The right number of degrees, the wrong way round. A bearing counts clockwise from north, so north is that many degrees anticlockwise from the sun.'); return; }
+      if (ER.check('needle', c)) { lastErr = 'needle'; ICE.sfx.no(); msg('&ldquo;That,&rdquo; says Yusra, &ldquo;is where Vidar&rsquo;s needle says. It is also where the plane lands tomorrow. It is not north.&rdquo;'); return; }
+      if (ER.check('camp', c)) { lastErr = 'camp'; ICE.sfx.no(); msg('Near, but a 24-hour dial is only good to ten degrees here, and so is a guess. Work it out exactly from the table: half past nine is half way between nine and ten.'); return; }
+      if (!ER.exitOk([c])) { lastErr = ''; ICE.sfx.no(); msg('Yusra shakes her head. &ldquo;Nothing over there but snow. Start from the sun: where does the table put it at 09.30?&rdquo;'); return; }
+      nextFile = ER.exit([c], { wait: true }); ER.flag('b-file', nextFile); lastErr = '';
+      ICE.sfx.crunch();
+      ICE.mine('north', 'North by the sun', '<p>At 09.30 the sun was at <b>062</b>&#176; (half way between 070 at 09.00 and 054 at 10.00). So north was 62&#176; to the <b>left</b> of the sun: straight along the green flags to the cache.</p><p>The 24-hour dial said nearly the same, ten degrees out: good enough for a rough check, not for steering.</p><p>The compass needle pointed at the skiway, about 190&#176;: nearly back to front, and different every time.</p>', true);
+      msg('The flag goes in with a crunch, its red tail along the line of green flags. Yusra checks it with her 24-hour dial: ten degrees out, just as the card says. &ldquo;Good. The table, not the trick.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Vidar stands behind the red flag and looks along it: down the green flags to the cache, where Uma&rsquo;s map says north is. Then he looks at the needle, which points the other way. Then he looks at the sun.',
+          '&ldquo;So the sun is in the north at midday here,&rdquo; he says slowly. &ldquo;Of course it is. We are upside down.&rdquo; He puts the compass in his pocket, not in the box. &ldquo;For luck,&rdquo; he says, to nobody.',
+          'At ten o&rsquo;clock exactly the two skidoos pull away from camp, Uma in front with the science sledge and the GPS, Vidar behind with the tent sledge and you. The green flags tick past, one every four hundred metres, down the long white slope.'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    ER.open('ov-lock', box);
+    msg('&ldquo;North,&rdquo; says Yusra. &ldquo;By the sun. It is half past nine.&rdquo;');
+  }
+  $('#pole').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The red flag points north, along the green flags. It will still be pointing there tonight.'); return; }
+    if (!told.yusra) { ER.say('A red flag on a bamboo pole. Yusra put it there. Ask her what it is for.'); return; }
+    if (!told.notes || !told.sun) { ER.say('&ldquo;Read first,&rdquo; calls Yusra from inside. &ldquo;The clipboard, and the card on the door.&rdquo;'); return; }
+    if (!told.needle) { ER.say('&ldquo;And look at Vidar&rsquo;s compass,&rdquo; calls Yusra. &ldquo;With your own eyes. Then you will believe me.&rdquo;'); return; }
+    openPano();
+  });
+})();
+</script>
+</body>
+</html>

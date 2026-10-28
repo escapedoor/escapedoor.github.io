@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Fuel Cache · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#0a2a5a;--accent:#ffd23a;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(8,30,64,.95);--tc-ink:#eef6ff;--cap-bg:rgba(8,28,60,.92);--panel:#0c2650;--face-bg:#14346a;--q-ink:#ffe08a;--fade:#061a3a;--hud-bg:rgba(8,28,60,.84)}
+  #cups{animation:cups .9s steps(3,end) infinite;transform-origin:1184px 152px}
+  @keyframes cups{to{transform:rotate(120deg)}}
+  #flag30 path.f{animation:fl 1.2s steps(2,end) infinite;transform-origin:520px 470px}
+  @keyframes fl{50%{transform:skewY(6deg)}}
+  #wisps path{animation:wisp 2.2s steps(5,end) infinite}
+  @keyframes wisp{0%{transform:translate(0,0);opacity:.0}30%{opacity:.7}100%{transform:translate(-160px,10px);opacity:0}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04163e"/><stop offset=".55" stop-color="#1c56aa"/><stop offset="1" stop-color="#9cc8ee"/></linearGradient>
+  <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcebf6"/><stop offset="1" stop-color="#fbfdff"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#ffffff"/><stop offset=".1" stop-color="#fffbe8"/><stop offset=".45" stop-color="#fff6d0" stop-opacity=".25"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="960" fill="url(#skyG)"/>
+<circle cx="880" cy="70" r="200" fill="url(#sunG)"/><circle cx="880" cy="70" r="22" fill="#fff"/>
+<!-- far off: Yoke Nunatak, two black teeth -->
+<g id="nunatak" class="hot"><path d="M1330 520l40 -70l24 26l30 -54l46 98z" fill="#2a2420"/><path d="M1370 450l8 30M1424 422l-6 40" stroke="#5a4a40" stroke-width="3"/><path d="M1330 520l40 -70l14 16" fill="none" stroke="#f4f8fb" stroke-width="3"/></g>
+<path d="M-1000 520H2600V1300H-1000Z" fill="url(#snowG)"/>
+<!-- sastrugi, carved by the wind: long ridges, all one way -->
+<g id="sastrugi" class="hot">
+  <g fill="#ffffff" stroke="#b8cfe2" stroke-width="2"><path d="M-80 860q120 -40 260 -30q-90 20 -260 60z"/><path d="M260 820q140 -34 280 -22q-110 16 -280 44z"/><path d="M620 880q150 -40 300 -26q-120 20 -300 56z"/><path d="M980 830q130 -36 270 -24q-100 18 -270 44z"/><path d="M1300 880q140 -40 290 -26q-120 20 -290 56z"/>
+  <path d="M60 740q80 -20 170 -14q-60 12 -170 28z"/><path d="M500 760q90 -22 180 -14q-70 10 -180 30z"/><path d="M1180 760q90 -22 180 -14q-70 10 -180 30z"/></g>
+  <g fill="#c8dcec" opacity=".7"><path d="M-80 890q160 -40 260 -60l-10 12q-120 30 -250 60z"/><path d="M620 910q170 -40 300 -56l-14 12q-140 26 -286 56z"/></g>
+</g>
+<g id="wisps" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".7"><path d="M1500 700h60"/><path d="M1300 760h50"/><path d="M900 690h40"/></g>
+<!-- the fuel cache: drums on a timber platform -->
+<g id="drums" class="hot">
+  <rect x="80" y="610" width="360" height="20" fill="#7a5a3a"/>
+  <g stroke="#1a2a3a" stroke-width="2"><rect x="96" y="540" width="52" height="72" fill="#1f4f8a"/><rect x="152" y="540" width="52" height="72" fill="#1f4f8a"/><rect x="208" y="540" width="52" height="72" fill="#c8321e"/><rect x="264" y="540" width="52" height="72" fill="#1f4f8a"/><rect x="320" y="540" width="52" height="72" fill="#c8321e"/><rect x="376" y="540" width="52" height="72" fill="#1f4f8a"/></g>
+  <g stroke="#0a1a2a" stroke-width="2" opacity=".5"><path d="M96 564h332M96 590h332"/></g><path d="M90 540q170 -16 344 0v-8q-170 -14 -344 0z" fill="#ffffff"/><path d="M60 632q200 -14 400 0l-10 20h-380z" fill="#ffffff"/>
+</g>
+<!-- flag 30, the last green flag -->
+<g id="flag30" class="hot"><path d="M520 690V440" stroke="#c8a060" stroke-width="6"/><path class="f" d="M522 444l50 14l-50 14z" fill="#1e8a3e"/><rect x="490" y="560" width="62" height="40" fill="#f4f4ee" stroke="#2a2a2a" stroke-width="2"/><text x="521" y="577" text-anchor="middle" font-family="Stardos Stencil,serif" font-size="13" fill="#1e8a3e">FLAG</text><text x="521" y="594" text-anchor="middle" font-family="Stardos Stencil,serif" font-size="15" fill="#1e8a3e">30</text></g>
+<!-- the weather mast -->
+<g id="mast" class="hot">
+  <path d="M1180 700V150" stroke="#9aa8b4" stroke-width="8"/><path d="M1180 260l-110 440M1180 260l110 440" stroke="#b8c4ce" stroke-width="2"/>
+  <g id="cups"><path d="M1184 152l-30 -14M1184 152l32 -10M1184 152l-2 30" stroke="#3a3a3a" stroke-width="3"/><circle cx="1154" cy="138" r="8" fill="#3a3a3a"/><circle cx="1216" cy="142" r="8" fill="#3a3a3a"/><circle cx="1182" cy="182" r="8" fill="#3a3a3a"/></g>
+  <path d="M1180 210h70l14 -10v20l-14 -10" stroke="#3a3a3a" stroke-width="4" fill="#3a3a3a"/>
+  <rect x="1196" y="300" width="90" height="60" fill="#14223a" stroke="#6a7a8a" stroke-width="3" transform="rotate(-20 1240 330)"/>
+  <rect x="1140" y="440" width="80" height="70" fill="#e8e8e0" stroke="#3a3a3a" stroke-width="3"/><rect x="1150" y="452" width="60" height="26" fill="#b8e0a0"/><path d="M1156 470l10 -8l10 6l10 -10l10 4" stroke="#2a4a1a" stroke-width="2" fill="none"/>
+  <path d="M1180 510q-10 30 -40 40" stroke="#2a2a2a" stroke-width="3" fill="none"/>
+</g>
+<!-- the skidoos and sledges -->
+<g id="skidoos">
+  <path d="M600 790h260l26 -34h-70l-26 -34h-100l-34 34h-56z" fill="#e8c81e" stroke="#7a6a10" stroke-width="3"/><path d="M590 800q-8 26 26 26h260" stroke="#2a2a2a" stroke-width="9" fill="none"/>
+  <rect x="680" y="690" width="60" height="30" rx="7" fill="#2a2a2a"/>
+  <rect x="890" y="730" width="230" height="56" fill="#6a8aa8" stroke="#2a3a4a" stroke-width="3"/><path d="M880 796h260" stroke="#2a2a2a" stroke-width="7"/>
+</g>
+<!-- page fourteen, on the sledge -->
+<g id="manual" class="hot"><rect x="900" y="696" width="44" height="58" rx="3" fill="#e8641c" stroke="#7a2a08" stroke-width="2" transform="rotate(-8 922 725)"/><rect x="906" y="706" width="30" height="12" fill="#fff4e4" transform="rotate(-8 922 725)"/></g>
+<!-- Uma's clipboard: the wind plan -->
+<g id="card" class="hot"><rect x="980" y="694" width="70" height="88" rx="3" fill="#6a6f78" transform="rotate(6 1015 738)"/><rect x="986" y="706" width="58" height="70" fill="#fcfcf8" transform="rotate(6 1015 738)"/><path d="M994 724h40M994 734h34M994 744h40M994 754h26" stroke="#1d2a52" stroke-width="2" transform="rotate(6 1015 738)"/></g>
+<!-- Uma by the mast -->
+<g id="uma" class="hot">
+  <path d="M1000 720l10 -170q4 -26 38 -28h20q34 2 38 28l10 170z" fill="#c8321e"/><path d="M1012 620q50 10 100 0" stroke="#a02818" stroke-width="3" fill="none"/>
+  <rect x="1048" y="490" width="20" height="28" fill="#9a6440"/><circle cx="1058" cy="466" r="27" fill="#a86c48"/><path d="M1031 462q-2 -34 27 -36q29 2 27 34q-8 -14 -27 -16q-19 2 -27 18z" fill="#1e1a1c"/>
+  <rect x="1030" y="430" width="56" height="9" rx="4" fill="#2a2a2e"/><path d="M1104 600q40 -30 40 -60" stroke="#c8321e" stroke-width="16" fill="none" stroke-linecap="round"/>
+</g>
+<!-- Vidar, face into the breeze -->
+<g id="vidar" class="hot">
+  <path d="M360 740l12 -200q4 -28 40 -30h26q38 2 42 30l12 200z" fill="#e8641c"/><path d="M360 740l6 -110q28 12 38 0l4 110zM492 740l-6 -110q-28 12 -38 0l-4 110z" fill="#2a2a2e"/>
+  <rect x="416" y="486" width="22" height="28" fill="#e0a888"/><circle cx="427" cy="460" r="30" fill="#eab496"/><path d="M400 466q2 32 27 38q25 -6 27 -38q-12 10 -27 8q-15 2 -27 -8z" fill="#d8b46a"/>
+  <path d="M396 454q-2 -38 31 -40q33 2 31 40q-31 -14 -62 0z" fill="#b8241a"/><circle cx="427" cy="414" r="7" fill="#b8241a"/>
+  <path d="M414 456q6 -3 10 0M432 456q6 -3 10 0" stroke="#7a5a3a" stroke-width="2" fill="none"/>
+</g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across to the stakes</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'cache', no: 'III', title: 'The Fuel Cache',
+    go: 'Get off the skidoo',
+    intro: [
+      'You found north by the sun, not by the needle. At half past nine the sun stood at 062, half way between its bearings for nine and ten, so north lay 62 degrees to its left: straight down the green flags. Vidar&rsquo;s compass, held level, pointed at the skiway, nearly the opposite way and a little differently at every tap. Here the magnetic field is almost upright, only a fifth as strong along the ground as in London, and the N end of a needle points away from the magnetic pole, out in the sea to the north.',
+      'Twenty past eleven. Flag 30, the last green flag, the fuel cache and the weather mast. Twelve kilometres behind you, up the slope, Camp Yoke is a speck. In front of you there are no flags at all.'
+    ],
+    exit: {"next":"grid","w":{"a4daad6c":"80bff8cb"}}, tags: {"wc":["15e9ef1e"],"wc_up":["19810b7e"],"wc_right":["bcd9611b"],"wg":["9a5cbbd7"],"wg_same":["11f6b21f"],"wg_up":["ee5ce01b"],"wg_right":["5d600e5b"],"from":["2516a153"],"from_drift":["e6baef94","3bd8464c"],"to":["e9b8e6d2"],"to_peak":["1a8f82ea"],"to_drift":["d63de268"],"back":["f431430c"],"back_drift":["7a35b521"],"back_late":["c64b9580","24fa08a6"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.uma && told.vidar && told.aws && told.p14; }
+  function paint() {
+    $('#card').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.uma ? 1 : 0) + (told.vidar ? 1 : 0) + (told.aws ? 1 : 0) + (told.p14 ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The wind plan is on the card. Go across to the stakes.']];
+    if (!told.uma || !told.vidar) return ['talk', ['Uma is by the weather mast and Vidar is standing with his face in the breeze. Talk to both.', 'Uma wants a wind plan before you leave the flags. Vidar has an idea about the wind that is worth remembering.']];
+    if (!told.aws || !told.p14) return ['read', [
+      'There are two things to read here: what the weather mast has measured, and the manual&rsquo;s page about this wind.',
+      'Click the box on the weather mast for the printout, and the orange manual on the sledge for page fourteen.'
+    ]];
+    return ['card' + (lastErr ? '-' + lastErr : ''), cardHints()];
+  }
+  function cardHints() {
+    var H = {
+      wc: ['The printout gives the night wind&rsquo;s direction at this mast. You can check it with page fourteen and the contours.', 'Here the contours run east to west, so straight uphill is south (180). Facing uphill, the wind comes from about 30 degrees to your left: 150.'],
+      wg: ['The wind follows the slope, and by the stakes the slope is different. Look at the contours there.', 'By the stakes the contours run from west-north-west to east-south-east, so straight downhill is about 030 and straight uphill about 210. Thirty degrees to the left of uphill is 180.'],
+      times: ['Page fourteen: above fifteen metres a second, nobody drives. On the printout, find the hours above the upper dashed line.', 'Every night it goes above fifteen at 23.00 and comes back below fifteen at 08.00.'],
+      back: ['Page fourteen: be back on a flagged route an hour before the drift starts. The drift starts above ten metres a second.', 'The printout crosses ten at about 21.00 each night. An hour before that is 20.00.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click Uma&rsquo;s clipboard on the sledge. Turn the two wind arrows on the map, and set the times.',
+      'The arrows: page fourteen says the wind comes from 30 degrees to the left of straight uphill. Straight uphill is at right angles to the contours. The contours are not the same here and by the stakes.',
+      'The times: on the printout, find when the wind goes above 15 (too strong to drive), when it comes back below 15, and when it first goes above 10 (drift). Be back on the flags an hour before the drift.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The wind plan is clipped to Uma&rsquo;s sledge. The GPS is on, pointing at 073.'); return; }
+    if (told.in) { busy = false; ER.say('The fuel cache, the weather mast, and open ice to the east.'); return; }
+    tell('in');
+    ER.narrate([
+      'The engines stop, and the silence is so big that you can hear your own coat creak. The fuel cache is forty drums on a platform of timber, half drifted over. Beside it a thin mast holds up spinning cups, a vane, a solar panel and a small grey box.',
+      'All round you the snow is carved into long, hard ridges, like waves that have frozen while they were running. Fine snow slides between them in little smoky threads.',
+      'Uma is already at the mast with a cable. &ldquo;Ten minutes,&rdquo; she says. &ldquo;And a plan for the wind, before we leave the flags.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#uma').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Uma Varghese', role: 'At the weather mast', face: window.FACE('uma'),
+      lines: [
+        { note: 'She is crouched by the mast, plugging a cable into its box.', a: '&ldquo;This mast has measured the wind here every ten minutes for two years. Out here we don&rsquo;t guess the weather. We read it.&rdquo;' },
+        { q: 'What is the wind doing now?', a: '&ldquo;Almost nothing: five metres a second, from wherever it likes. That is the middle of the day. Read the printout for the nights.&rdquo;' },
+        { q: 'Why does it matter today?', a: '&ldquo;Because the wind off the ice is the one thing out here that can stop us. When it lifts the snow you cannot see the next flag, and the next flag is four hundred metres away. So before we leave the flags I want a plan on my clipboard: where the wind will come from, here and at the stakes; when it will be too strong to drive; and when we must be back on the flags.&rdquo;' },
+        { q: 'Can&rsquo;t we just use the GPS?', a: '&ldquo;We will use the GPS. The GPS is excellent. The GPS is also a small box with a battery in it, at minus eighteen. Always have a second way of knowing.&rdquo;' },
+        { q: 'Where do I learn about the wind?', a: '&ldquo;Page fourteen, in the manual on my sledge. Read it before you write anything on the clipboard.&rdquo;' }
+      ],
+      clue: { id: 'uma3', title: 'Uma, at the weather mast', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('uma')) { paint(); ICE.terms(['weather mast', 'fuel cache']); ER.say('Uma goes back to her cable. The box on the mast beeps twice, pleased with itself.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'Face into the breeze', face: window.FACE('vidar'),
+      lines: [
+        { note: 'He stands facing up the line of green flags, eyes shut, face in the breeze.', a: '&ldquo;Feel that? Cold, from up there. The wind comes down from the camp. It is simple: if we ever lose the flags, we walk into the wind, and it takes us home.&rdquo;' },
+        { q: 'Always?', a: '&ldquo;Always. Cold air comes from the high place, and the camp is the high place. That is physics.&rdquo; He opens one eye. &ldquo;I think that is physics.&rdquo;' },
+        { q: 'What are these ridges in the snow?', a: '&ldquo;Sastrugi. The wind carves them, night after night, so they all lie the same way: along the wind. Look: they point up there, to the camp. More or less.&rdquo;' },
+        { q: 'Are you looking forward to Christmas?', a: '&ldquo;In Tromsø now it is dark all day, and my mother is making seven kinds of biscuit. Here it is light all night, and Yusra is guarding one pudding. Yes. I am looking forward.&rdquo;' }
+      ],
+      clue: { id: 'vid3', title: 'Vidar, at the cache', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ICE.terms(['sastrugi']); ER.say('Vidar shuts his eyes again and breathes in the wind, like a man smelling coffee.'); } }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var SP = [17, 19, 20, 20, 19, 18, 17, 16, 12, 8, 6, 5, 4, 4, 4, 5, 5, 6, 7, 8, 10, 12, 14, 16];
+  var DIR = [150, 151, 150, 149, 150, 151, 150, 152, 148, 140, 110, 95, 190, 220, 160, 205, 120, 170, 140, 150, 152, 149, 150, 151];
+  function chart() {
+    var s = '<svg viewBox="0 0 860 330"><rect width="860" height="330" fill="#f4f2ea"/>', d, h, x, y, p, days = ['FRI 19 DEC', 'SAT 20 DEC', 'SUN 21 DEC'], wob = [[0, 1, 0, -1, 0, 1], [1, 0, -1, 0, 1, 0], [-1, 0, 1, 1, 0, -1]];
+    for (d = 0; d < 3; d++) {
+      var top = 14 + d * 104, base = top + 84;
+      s += '<text x="4" y="' + (top + 10) + '" font-family="Overpass Mono,monospace" font-size="11" fill="#22262a">' + days[d] + '</text>';
+      s += '<path d="M60 ' + base + 'H852" stroke="#22262a" stroke-width="1"/><path d="M60 ' + (base - 40) + 'H852" stroke="#22262a" stroke-dasharray="3 3" stroke-width="1"/><path d="M60 ' + (base - 60) + 'H852" stroke="#c8321e" stroke-dasharray="5 3" stroke-width="1"/>';
+      s += '<text x="56" y="' + (base - 37) + '" text-anchor="end" font-family="Overpass Mono,monospace" font-size="10" fill="#22262a">10</text><text x="56" y="' + (base - 57) + '" text-anchor="end" font-family="Overpass Mono,monospace" font-size="10" fill="#c8321e">15</text>';
+      p = '';
+      for (h = 0; h < 24; h++) {
+        x = 60 + h * 33 + 16; y = base - (SP[h] + (wob[d][h % 6] * (SP[h] > 9 ? 0.5 : 0))) * 4;
+        p += (h ? 'L' : 'M') + x + ' ' + y.toFixed(1);
+        if (h % 3 === 0) s += '<text x="' + x + '" y="' + (base + 12) + '" text-anchor="middle" font-family="Overpass Mono,monospace" font-size="10" fill="#22262a">' + ICE.two(h) + '</text>';
+        if (h % 3 === 0) s += '<text x="' + x + '" y="' + (top + 10) + '" text-anchor="middle" font-family="Overpass Mono,monospace" font-size="9.5" fill="#5a5e62">' + ICE.d3(DIR[h] + wob[d][h % 6]) + '</text>';
+      }
+      s += '<path d="' + p + '" fill="none" stroke="#1f4f8a" stroke-width="2.4"/>';
+    }
+    return s + '</svg>';
+  }
+  var AWS = '<h4>Weather mast, fuel cache &middot; wind, last three days</h4>' +
+    '<p>Blue line: wind speed, metres a second (every hour). Dashed lines at 10 and 15. Small figures along the top: where the wind came from, in degrees true.</p>' + chart() +
+    '<p>Every night is nearly the same. Night wind from 148&ndash;152&#176;; by day the wind is light and comes from anywhere. Temperature tonight: &minus;24 &#176;C.</p>';
+  $('#mast').addEventListener('click', function () {
+    if (busy) return;
+    ICE.sfx.beep();
+    ER.read({ html: AWS, cls: 'aws', clue: { id: 'aws', title: 'The weather mast: three nights of wind', kind: 'Weather sheet' }, done: function () {
+      ICE.terms(['weather mast']);
+      if (tell('aws')) { paint(); ER.say('Every night nearly the same. The cups on the mast spin lazily in the midday air.'); }
+    } });
+  });
+  var P14 = '<h4><small>Field manual &middot; Weather on the ice sheet &middot; page 14</small>The wind that falls off the ice</h4><div class="two"><div>' +
+    '<p>The snow cools the air that touches it, most when the sun is low. Cold air is heavy: it slides downhill like water, faster and faster. This is the <b>katabatic wind</b>.</p>' +
+    '<ul><li>It is strongest at night and in the early morning, and eases when the sun is high.</li>' +
+    '<li>Its direction is set by the slope: down the <b>fall line</b> (straight downhill, at right angles to the contours), turned to the left by the spin of the Earth. Here, facing uphill, the wind comes from about 30 degrees to your left.</li>' +
+    '<li>It keeps one direction for hours, so it is a compass: know the slope and you know the wind. The ridges it carves, <b>sastrugi</b>, lie along it.</li>' +
+    '<li>Above about 10 metres a second it lifts the snow (<b>drift</b>): blue sky above, and you cannot see your boots. Be back on a flagged route an hour before the drift starts. Above 15, nobody drives.</li></ul></div>' +
+    '<div><svg viewBox="0 0 300 300"><rect width="300" height="300" fill="#fbfaf5"/>' +
+    '<g stroke="#b08a66" stroke-width="2" fill="none"><path d="M10 60H290"/><path d="M10 130H290"/><path d="M10 200H290"/><path d="M10 270H290"/></g>' +
+    '<g font-family="Overpass,sans-serif" font-size="11" fill="#8a6a4a"><text x="14" y="54">high</text><text x="14" y="264">low</text></g>' +
+    '<path d="M150 70V250" stroke="#1a2230" stroke-width="2" stroke-dasharray="6 4"/><path d="M150 250l-6 -12h12z" fill="#1a2230"/><text x="156" y="240" font-family="Overpass,sans-serif" font-size="11" fill="#1a2230">fall line</text>' +
+    '<path d="M196 82L106 238" stroke="#1f4f8a" stroke-width="5"/><path d="M106 238l2 -18l12 8z" fill="#1f4f8a"/><text x="196" y="96" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">the wind</text>' +
+    '<path d="M150 120A50 50 0 0 1 176 126" stroke="#c8321e" stroke-width="2" fill="none"/><text x="180" y="122" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#c8321e">30&#176;</text>' +
+    '<text x="12" y="292" font-family="Overpass,sans-serif" font-size="10.5" fill="#1a2230">seen from above: it comes down the slope, turned to its left</text></svg></div></div>' +
+    '<p class="pg">The wind is the boss here &middot; 14</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P14, cls: 'fm', clue: { id: 'p14', title: 'The wind that falls off the ice', kind: 'Field manual, page 14' }, done: function () {
+      ICE.terms(['katabatic wind', 'fall line', 'drift', 'contour']);
+      if (tell('p14')) { paint(); ER.say('Turned to the left. You look up the flag line, and at the long ridges at your feet, which do not quite point along it.'); }
+    } });
+  });
+  ICE.thing('#drums', 'fuel cache', 'Forty drums of fuel for skidoos and the plane, on a timber platform, half drifted over. Somebody has written on one: MERRY CHRISTMAS, NOBODY.', isBusy);
+  ICE.thing('#flag30', null, 'Flag 30, the last of the green flags. Behind you, thirty flags back up the slope to camp. In front, nothing but snow.', isBusy);
+  ICE.thing('#nunatak', 'nunatak', 'Yoke Nunatak: two black teeth of rock sticking up through the ice, nine kilometres away. The top of a mountain that the ice sheet has buried up to its chin.', isBusy);
+  ICE.thing('#sastrugi', 'sastrugi', 'Sastrugi: long, hard ridges of snow, carved by the wind night after night. Every one of them lies the same way. They do not lie quite along the flag line.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- Uma's clipboard: the wind plan ---------- */
+  function openCard() {
+    var box = ER.el('div', 'bx'), msgEl, svg, arrows = {}, w = {};
+    var extra = '';
+    function arrowAt(id, x, y) { return '<g id="' + id + '"><circle cx="' + x + '" cy="' + y + '" r="46" fill="rgba(31,79,138,.08)" stroke="#1f4f8a" stroke-width="1.4" stroke-dasharray="3 4"/>' +
+      '<g class="grab" id="' + id + '-a"><rect x="' + (x - 10) + '" y="' + (y - 46) + '" width="20" height="92" fill="transparent"/><path d="M' + x + ' ' + (y - 40) + 'V' + (y + 30) + '" stroke="#1f4f8a" stroke-width="5"/><path d="M' + x + ' ' + (y + 42) + 'l-10 -16h20z" fill="#1f4f8a"/>' +
+      '<path d="M' + (x - 9) + ' ' + (y - 40) + 'l9 8l9 -8M' + (x - 9) + ' ' + (y - 30) + 'l9 8l9 -8" stroke="#1f4f8a" stroke-width="3" fill="none"/></g></g>'; }
+    extra = arrowAt('w-c', ICE.px(0) + 70, ICE.py(12) + 40) + arrowAt('w-g', ICE.px(6.5) + 20, ICE.py(14) - 70) +
+      '<text x="' + (ICE.px(0) + 70) + '" y="' + (ICE.py(12) + 102) + '" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#1f4f8a">wind at the cache</text>' +
+      '<text x="' + (ICE.px(6.5) + 20) + '" y="' + (ICE.py(14) - 124) + '" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#1f4f8a">wind at the stakes</text>';
+    box.innerHTML = '<div class="frame mapwrap"><svg viewBox="0 0 640 640" id="w-svg">' + ICE.MAPDEFS + ICE.map({ stakes: true, extra: extra }) + '</svg>' +
+      '<div class="side"><h5>Wind plan &middot; 22 Dec</h5><p>Turn each blue arrow so that it shows the night wind blowing there: from the feathered tail to the head. Then set the times.</p>' +
+      '<div class="row"><span class="lab">Night wind, from (degrees true)</span><span id="w-read" style="font-family:Overpass Mono,monospace;font-size:15px"></span></div>' +
+      '<div class="row"><span class="lab">Too strong to drive (over 15 m/s)</span><span id="w-t1"></span><span id="w-t2"></span></div>' +
+      '<div class="row"><span class="lab">Back on the flags by</span><span id="w-t3"></span></div></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="w-go">Clip it to the sledge</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#w-svg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function read() { box.querySelector('#w-read').textContent = 'cache ' + ICE.d3(arrows.c.get()) + '  stakes ' + ICE.d3(arrows.g.get()); }
+    /* the arrow is drawn pointing downwind; its angle is the bearing the wind comes from */
+    arrows.c = ICE.turn(box.querySelector('#w-c-a'), { svg: svg, cx: ICE.px(0) + 70, cy: ICE.py(12) + 40, step: 10, start: 0, change: read });
+    arrows.g = ICE.turn(box.querySelector('#w-g-a'), { svg: svg, cx: ICE.px(6.5) + 20, cy: ICE.py(14) - 70, step: 10, start: 0, change: read });
+    read();
+    w.t1 = ICE.wheels(box.querySelector('#w-t1'), { label: 'from', vals: [ICE.HOURS], sep: {}, tail: '.00', start: [12] });
+    w.t2 = ICE.wheels(box.querySelector('#w-t2'), { label: 'to', vals: [ICE.HOURS], tail: '.00', start: [12] });
+    w.t3 = ICE.wheels(box.querySelector('#w-t3'), { vals: [ICE.HOURS], tail: '.00', start: [12] });
+    box.querySelector('#w-go').addEventListener('click', function () {
+      var c = String(arrows.c.get()), g = String(arrows.g.get()), a = w.t1.get(), b = w.t2.get(), k = w.t3.get();
+      if (!ER.check('wc', c)) {
+        lastErr = 'wc'; ICE.sfx.no();
+        msg(ER.check('wc_up', c) ? 'That arrow blows straight down the fall line. Page fourteen: it is turned to the left. And the printout says what the mast really measured.' :
+          ER.check('wc_right', c) ? 'Turned the wrong way. Facing uphill, the wind comes from your LEFT. Check it against the small figures on the printout.' :
+          'The printout says where the night wind comes from at this very mast. Turn the cache arrow to match it.');
+        return;
+      }
+      if (!ER.check('wg', g)) {
+        lastErr = 'wg'; ICE.sfx.no();
+        msg(ER.check('wg_same', g) ? 'The same as at the cache? Look at the contours by the stakes: they do not run east to west there. The wind follows the slope it is on.' :
+          ER.check('wg_up', g) ? 'That blows straight down the fall line by the stakes. Now turn it, as page fourteen says: 30 degrees, from your left as you face uphill.' :
+          ER.check('wg_right', g) ? 'Right slope, wrong side. Facing uphill, the wind comes from the left.' :
+          'Find straight uphill by the stakes first: at right angles to the contours there. Then turn by 30 degrees.');
+        return;
+      }
+      if (!ER.check('from', a) || !ER.check('to', b)) {
+        lastErr = 'times'; ICE.sfx.no();
+        msg(ER.check('from_drift', a) ? 'That is when the snow starts to lift, at ten metres a second. Too strong to drive is over fifteen: the red dashed line.' :
+          ER.check('to_peak', b) ? 'At 07.00 it is still at sixteen. It is below fifteen at the next hour.' :
+          ER.check('to_drift', b) ? 'At 09.00 it is down to eight, but it went below fifteen an hour before that.' :
+          'On the printout, find the hour each night when the line goes over the red dashed line, and the hour it comes back under it.');
+        return;
+      }
+      if (!ER.check('back', k)) {
+        lastErr = 'back'; ICE.sfx.no();
+        msg(ER.check('back_drift', k) ? 'That is when the drift starts. Page fourteen wants you back on the flags an hour BEFORE it.' :
+          ER.check('back_late', k) ? 'Far too late: by then you could not see a flag from the one before it.' :
+          'Back on a flagged route an hour before the drift. When does the wind first reach ten metres a second?');
+        return;
+      }
+      var cand = [c, g, a, b, k].join('|');
+      if (!ER.exitOk([cand])) { ICE.sfx.no(); msg('Something on the clipboard is not right. Check each line.'); return; }
+      nextFile = ER.exit([cand], { wait: true }); ER.flag('c-file', nextFile); lastErr = '';
+      ICE.sfx.pencil();
+      ICE.mine('wind', 'The wind plan', '<p>The night wind comes from about 30&#176; to the left of straight uphill. At the cache: from <b>150</b>. By the stakes, where the slope faces north-north-east: from <b>180</b>.</p><p>The flag line to camp runs 180 from the cache: so even here the wind does <b>not</b> come exactly from the camp.</p><p>Too strong to drive: <b>23.00 to 08.00</b>. Drift from about 21.00. Back on the flags by <b>20.00</b>.</p>', true);
+      msg('Uma reads the clipboard twice, then clips it to her sledge. &ldquo;Good. If the GPS ever stops, the wind is a compass, and now we know which way it points.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          '&ldquo;It comes from the camp,&rdquo; says Vidar happily, tapping the cache arrow.',
+          '&ldquo;Roughly,&rdquo; says Uma. She points up the flag line, then at the ridges at your feet. They are thirty degrees apart. &ldquo;Here, the camp is roughly where the wind comes from. Roughly is a word I would like you to remember, Vidar.&rdquo; Vidar says that he will remember it, roughly.',
+          'At a quarter to twelve the skidoos leave the last flag behind. Uma drives with the GPS on her handlebars, 073 on its little screen, and her sledge&rsquo;s runners hiss over the sastrugi. Ahead, the two black teeth of Yoke Nunatak grow slowly out of the white.'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    ER.open('ov-lock', box);
+    msg('Drag each blue arrow round by its body. The figures show where each wind comes from.');
+  }
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The wind plan, clipped to the sledge: 150 here, 180 at the stakes, back on the flags by 20.00.'); return; }
+    if (!told.uma) { ER.say('Uma&rsquo;s clipboard. She wants something written on it: ask her what.'); return; }
+    if (!told.aws || !told.p14) { ER.say('&ldquo;Read before you write,&rdquo; says Uma from the mast. &ldquo;The printout from the box, and page fourteen.&rdquo;'); return; }
+    if (!told.vidar) { ER.say('Vidar is saying something about the wind, to nobody in particular. Listen to him first.'); return; }
+    openCard();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Mess Tent · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#5a2a14;--accent:#ffb04a;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(60,26,10,.95);--tc-ink:#fff0dc;--cap-bg:rgba(54,24,10,.93);--panel:#3a1c0e;--face-bg:#4a2614;--q-ink:#ffcf8a;--fade:#2a1206;--hud-bg:rgba(54,24,10,.84)}
+  #steam path{animation:steam 3s steps(4,end) infinite}
+  #steam path:nth-child(2){animation-delay:-1.5s}
+  @keyframes steam{0%{opacity:.6;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-60px)}}
+  #glow{animation:glow 2.6s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:.8}40%{opacity:.6}46%{opacity:.9}}
+  #flap{animation:flap 4s steps(2,end) infinite;transform-origin:800px 120px}
+  @keyframes flap{50%{transform:scaleY(.97)}}
+  .mapwrap .side .tray{display:flex;gap:8px;flex-wrap:wrap}
+  .cmark{cursor:grab}
+  .cmark.on{cursor:grabbing}
+  .legend{font-size:12.5px;line-height:1.35;color:#cfdbe8;border-top:1px solid #3a4c64;padding-top:7px;margin-top:4px}
+  .legend b{color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="canvG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset=".55" stop-color="#e8701e"/><stop offset="1" stop-color="#9a3e10"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="stoveG"><stop offset="0" stop-color="#ffd27a" stop-opacity=".6"/><stop offset="1" stop-color="#ff8a3a" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#7a3412"/>
+<!-- the canvas tunnel -->
+<path d="M-1000 760V300Q-1000 -260 800 -280Q2600 -260 2600 300V760Z" fill="url(#canvG)"/>
+<circle cx="800" cy="60" r="520" fill="url(#sunG)"/>
+<g stroke="#b8b0a4" stroke-width="10" fill="none" opacity=".9"><path d="M-60 760V340Q-60 -40 800 -60Q1660 -40 1660 340V760"/><path d="M150 760V360Q150 40 800 20Q1450 40 1450 360V760" opacity=".7"/><path d="M380 760V400Q380 120 800 100Q1220 120 1220 400V760" opacity=".5"/></g>
+<g stroke="#c8601a" stroke-width="2" opacity=".5"><path d="M-200 200Q800 120 1800 200M-200 420Q800 360 1800 420"/></g>
+<!-- the clear window in the canvas -->
+<g id="flap" class="hot"><rect x="690" y="60" width="220" height="120" rx="10" fill="#fff8e8" stroke="#8a3a10" stroke-width="6"/><rect x="700" y="70" width="200" height="100" rx="6" fill="#d8ecff"/>
+  <path d="M700 140Q800 128 900 136V170H700Z" fill="#ffffff"/><path d="M700 70H900V96Q800 86 700 96Z" fill="#2a5aa8"/><circle cx="858" cy="104" r="9" fill="#fffbe8"/></g>
+<!-- paper chains -->
+<g fill="none" stroke-width="5"><path d="M180 250q90 50 180 10t180 10" stroke="#c8321e"/><path d="M1060 250q90 50 180 10t180 10" stroke="#1e8a3e"/><path d="M560 230q120 40 240 0" stroke="#f2c230"/></g>
+<!-- shelves, boxes, socks -->
+<rect x="1250" y="420" width="260" height="12" fill="#8a6a4a"/><g fill="#c8a878" stroke="#6a4a2a" stroke-width="2"><rect x="1262" y="356" width="80" height="64"/><rect x="1352" y="370" width="70" height="50"/><rect x="1430" y="350" width="70" height="70"/></g>
+<g font-family="Stardos Stencil,serif" font-size="14" fill="#5a3a1a"><text x="1274" y="394">FOOD</text><text x="1360" y="400">TEA</text><text x="1440" y="392">SPARES</text></g>
+<path d="M200 300H560" stroke="#6a5a4a" stroke-width="2"/><g><path d="M240 300v40h16v-12h-8v-28z" fill="#4a6aa8"/><path d="M300 300v44h18v-12h-10v-32z" fill="#c8321e"/><path d="M470 300v40h16v-12h-8v-28z" fill="#f2f2ee"/></g>
+<!-- the tin of Christmas pudding -->
+<g id="pudding" class="hot"><rect x="1440" y="300" width="56" height="50" rx="4" fill="#8a1a1a" stroke="#4a0a0a" stroke-width="2"/><rect x="1440" y="314" width="56" height="18" fill="#f2c230"/><path d="M1452 318l6 10l6 -10l6 10l6 -10l6 10" stroke="#1e6a2e" stroke-width="2" fill="none"/></g>
+<!-- the door and the field manual on its hook -->
+<rect x="-200" y="260" width="260" height="500" fill="#4a1e0a"/><rect x="-200" y="280" width="240" height="480" fill="#f4f8fb"/><path d="M-200 280h240v120q-120 30 -240 0z" fill="#ffffff"/><path d="M40 280V760" stroke="#2a1206" stroke-width="10"/>
+<g id="manual" class="hot"><circle cx="140" cy="350" r="4" fill="#5a5a5a"/><path d="M140 350l-14 18M140 350l14 18" stroke="#2a2a2a" stroke-width="2"/><rect x="112" y="368" width="58" height="78" rx="3" fill="#e8641c" stroke="#7a2a08" stroke-width="2"/><rect x="120" y="380" width="42" height="16" fill="#fff4e4"/><path d="M122 408h38M122 418h30M122 428h36" stroke="#ffe2c8" stroke-width="3"/><path d="M114 374v66" stroke="#2a2a2a" stroke-width="3" stroke-dasharray="3 4"/></g>
+<!-- the thermometer by the door -->
+<g id="thermo" class="hot"><rect x="70" y="470" width="22" height="110" rx="10" fill="#f4f0e8" stroke="#5a5a5a" stroke-width="2"/><rect x="78" y="540" width="6" height="30" fill="#c8321e"/><circle cx="81" cy="572" r="7" fill="#c8321e"/></g>
+<!-- the floor -->
+<path d="M-1000 740H2600V1300H-1000Z" fill="#a8845a"/><g stroke="#8a6a44" stroke-width="3"><path d="M-200 800H1800M-200 880H1800M100 740l-20 160M500 740l-8 160M900 740l4 160M1300 740l14 160"/></g>
+<!-- the stove -->
+<g id="stove" class="hot">
+  <circle cx="320" cy="600" r="180" fill="url(#stoveG)" id="glow"/>
+  <rect x="300" y="-100" width="22" height="520" fill="#3a3a3a"/><rect x="250" y="420" width="140" height="190" rx="8" fill="#2a2a2a"/><rect x="272" y="470" width="96" height="56" rx="5" fill="#ffb24a"/>
+  <rect x="270" y="400" width="60" height="24" rx="4" fill="#9aa8b4"/><g id="steam" fill="none" stroke="#fff8ee" stroke-width="6" stroke-linecap="round" opacity=".6"><path d="M296 394q-8 -20 4 -36"/><path d="M308 394q8 -22 -4 -38"/></g>
+  <path d="M260 610v40M380 610v40" stroke="#2a2a2a" stroke-width="10"/>
+</g>
+<!-- Vidar by the stove, with a coil of rope -->
+<g id="vidar" class="hot">
+  <path d="M400 760l14 -230q4 -30 44 -32h28q40 2 44 32l14 230z" fill="#e8641c"/><path d="M400 760l6 -120q30 14 40 0l4 120zM544 760l-6 -120q-30 14 -40 0l-4 120z" fill="#2a2a2e"/>
+  <rect x="460" y="472" width="22" height="30" fill="#e0a888"/><circle cx="471" cy="446" r="32" fill="#eab496"/><path d="M442 452q2 34 29 40q27 -6 29 -40q-12 10 -29 8q-17 2 -29 -8z" fill="#d8b46a"/>
+  <path d="M438 438q-2 -40 33 -42q35 2 33 42q-33 -14 -66 0z" fill="#b8241a"/><circle cx="471" cy="396" r="8" fill="#b8241a"/>
+  <circle cx="420" cy="590" r="34" fill="none" stroke="#d8c43a" stroke-width="10"/><circle cx="420" cy="590" r="22" fill="none" stroke="#d8c43a" stroke-width="8"/>
+  <path d="M528 560q24 -30 18 -60" stroke="#e8641c" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M540 500l10 -26" stroke="#c8c8c8" stroke-width="4"/>
+</g>
+<!-- the table and the map -->
+<g id="map" class="hot">
+  <rect x="600" y="620" width="480" height="20" fill="#8a5a34"/><path d="M630 640v110M1050 640v110" stroke="#6a4224" stroke-width="14"/>
+  <path d="M640 620l20 -46h360l20 46z" fill="#f4f8fa" stroke="#8aa4b8" stroke-width="2"/>
+  <g stroke="#b08a66" stroke-width="1.500" fill="none"><path d="M664 610h352M672 596h336M680 584h320"/></g>
+  <g stroke="#2a6ab0" stroke-width="2" fill="none"><path d="M720 612l10 -36M800 612l8 -38M880 612l14 -34q10 -8 30 -10"/></g>
+  <ellipse cx="760" cy="598" rx="34" ry="8" fill="none" stroke="#6a4a9a" stroke-width="2" stroke-dasharray="2 3"/><path d="M930 590l14 -12l18 6l-6 12z" fill="#4a3c34"/>
+  <path d="M690 572q8 -14 22 -4l-2 6zM1000 570q8 -12 20 -2l-2 6z" fill="#e8e0d0" stroke="#7a6a5a"/>
+</g>
+<g id="tea"><rect x="1010" y="588" width="30" height="32" rx="4" fill="#2a5aa8"/><path d="M1040 596q12 2 10 14q-2 8 -10 6" stroke="#2a5aa8" stroke-width="4" fill="none"/></g>
+<!-- Uma at the table, with a pencil -->
+<g id="uma" class="hot">
+  <rect x="1080" y="640" width="120" height="16" fill="#6a4224"/><path d="M1094 656v100M1188 656v100" stroke="#6a4224" stroke-width="10"/>
+  <path d="M1090 650l8 -150q4 -28 40 -30h22q36 2 40 30l8 150z" fill="#c8321e"/><path d="M1104 560q60 10 112 0M1100 600q64 12 120 0" stroke="#a02818" stroke-width="3" fill="none"/>
+  <rect x="1138" y="444" width="20" height="28" fill="#9a6440"/><circle cx="1148" cy="420" r="28" fill="#a86c48"/>
+  <path d="M1120 416q-2 -36 28 -38q30 2 28 36q-8 -16 -28 -18q-20 2 -28 20z" fill="#1e1a1c"/><path d="M1144 380q-3 10 3 18" stroke="#b8b8bc" stroke-width="5" fill="none"/>
+  <rect x="1118" y="386" width="60" height="9" rx="4" fill="#2a2a2e"/>
+  <path d="M1100 560q-50 30 -78 52" stroke="#c8321e" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M1020 612l-14 -20" stroke="#f2c230" stroke-width="4"/>
+</g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out to the radio box</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'mess', no: 'I', title: 'The Mess Tent',
+    go: 'Go in',
+    intro: [
+      'Camp Yoke, East Antarctica. Monday 22 December, half past eight in the morning by the camp clock. The sun has not set for four weeks, and it will not set for another four.',
+      'Four people live here, high on the ice sheet, three hundred kilometres from the nearest station: Dr Uma Varghese, who studies how the ice moves; Vidar Ulven, the field guide, whose job is to keep everybody alive; Yusra Wahid, who runs the camp and the radio; and you, the field assistant, three weeks on the ice and still told to stay close.',
+      'Tomorrow at ten a ski plane takes everybody to the coast for Christmas. Today is the last trip of the season.'
+    ],
+    exit: {"next":"radio","w":{"e89805dd":"19b31a6d","77a91282":"13c8ab63","90f6e28e":"d9e2944a","704d35b7":"fe29b581","f04841c0":"7f9b0e23","912b5969":"a8d7e696","c67c149a":"714b6006","0e4f483f":"30e35ef3","962faaaf":"f9af7bf2"}}, tags: {"hu":["f2779330"],"bi":["437cccfb"],"fl":["4a12ad6c"],"hdok":["d2ee6f4f","65ff6cf6","ac555ec4"],"bdok":["9d4c3394","9847e047","0acb3fed"],"route":["33ac6f62"],"route_a":["ebcd2bd9"],"route_b":["44c7e98f"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#map').classList.toggle('ready', !!(told.uma && told.vidar && told.p12 && !nextFile));
+    ER.pips((told.uma ? 1 : 0) + (told.vidar ? 1 : 0) + (told.p12 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The route is marked. Go out to the radio box.']];
+    if (!told.uma || !told.vidar) return ['talk', [
+      'Before anybody touches the map, find out what today is for, and what each person thinks.',
+      'Uma is at the table on the right; Vidar is by the stove on the left. Talk to both of them, to the end.'
+    ]];
+    if (!told.p12) return ['p12', [
+      'Uma told you to read something before you judge Vidar&rsquo;s route.',
+      'The orange field manual hangs on a hook by the door, on the far left. Click it: page twelve.'
+    ]];
+    return ['map' + (lastErr ? '-' + lastErr : ''), mapHints()];
+  }
+  function mapHints() {
+    var H = {
+      tray: ['Both pencil marks have to go onto the map. Drag them out of the tray in the top left corner.', 'Each mark goes where the ice is being stretched. There are two such places on this map.'],
+      zone: ['Look at the numbers on the blue arrows. Where a number further along an arrow is bigger than the one behind it, the ice is speeding up, so it is stretched.', 'Along two arrows the numbers jump from 13 and 14 to 21 and 23: that is just past the dashed top line of the Hump, on the downhill (north) side. Round the nunatak, 18 becomes 27 and 29 on the outside of the bend, away from the rock; next to the rock it is only 8.'],
+      angle: ['Page twelve: a crevasse opens at right angles to the stretching. Click a mark (without dragging it) to turn it.', 'The stretching is along the arrows, so the mark should lie across them. Past the Hump the arrows point north: across them is east to west. In the bend they point north-north-east: across them is a line from north-west to south-east.'],
+      route: ['Now choose the way across: A, B or C. Which one stays out of both stretched places?', 'A runs straight from camp over the lee of the Hump. B goes round the outside of the bend. C goes down the flags to the cache and straight across from there.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click the map on the table. Put each pencil mark where the ice is being stretched, and turn it so that it lies the way a crevasse would.',
+      'Stretching shows on the map as arrows whose numbers get bigger as the ice goes on. One place is just past the top of the Hump; one is on the outside of the bend round Yoke Nunatak.',
+      'A crevasse lies at right angles to the stretching, so across the arrows. Then choose the one route that touches neither place.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The route is on the map in green pencil. Vidar is washing up, loudly.'); return; }
+    if (told.in) { busy = false; ER.say('The mess tent. Orange light, a ticking stove, and a map on the table.'); return; }
+    tell('in');
+    ER.narrate([
+      'The mess tent is a long orange tunnel of canvas on metal ribs. The sun comes through the canvas the colour of marmalade, and the stove ticks. On the table there is a laminated map, a pot of tea, and nobody&rsquo;s plate is empty yet.',
+      'Uma is at the table with a pencil. Vidar is by the stove, coiling a rope and eating porridge at the same time, which takes practice.',
+      '&ldquo;Map first,&rdquo; says Uma, without looking up. &ldquo;Nobody goes near Yoke Nunatak until we know where the ice is cracked.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#uma').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Uma Varghese', role: 'Glaciologist, and leader of Camp Yoke', face: window.FACE('uma'),
+      lines: [
+        { note: 'She has the map flat on the table, held down by two mugs.', a: '&ldquo;The stakes by Yoke Nunatak: nine of them, W1 to W9, in a line from the open ice to the rock. Each has a GPS on top. They tell me how fast the ice is being stretched there, to the millimetre.&rdquo;' },
+        { q: 'Why does stretching matter?', a: '&ldquo;Because stretching is what cracks ice. If I know how it stretches, I know where it will crack, years before it does. That is the whole job. Today we fetch the last readings of the season.&rdquo;' },
+        { q: 'How do we get there?', a: '&ldquo;Down the flag line to the fuel cache: twelve kilometres, a flag every four hundred metres, all of it probed. After the cache it is open ice to the stakes, and that part has never been flagged. So we choose the way across on this map, and we choose it before the tea is cold.&rdquo;' },
+        { q: 'What is on the map?', a: '&ldquo;Contours, which you know. Blue arrows: the way the ice flows. The numbers on them: how fast, in metres a year, from our GPS. The purple ring is the Hump, a hill of rock under the ice. We found it with radar last month. You can&rsquo;t see it from the surface. The ice can.&rdquo;' },
+        { q: 'And Vidar&rsquo;s route?', a: 'She takes her glasses off. &ldquo;Vidar has an opinion. Vidar always has an opinion. Read page twelve of the field manual first. Then tell me what you think of it.&rdquo;' },
+        { q: 'Is it dangerous?', a: '&ldquo;Only if we are lazy. Near crevasses we rope up and probe, every step. You will be roped to me. If I go into a hole, you sit down hard and dig your heels in. Then you shout for Vidar, who is very large.&rdquo;' }
+      ],
+      clue: { id: 'uma1', title: 'Uma, in the mess tent', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('uma')) { paint(); ICE.terms(['ice sheet', 'nunatak']); ER.say('Uma pushes the map an inch towards you, and goes back to her tea.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'Field guide, twelve seasons in Svalbard', face: window.FACE('vidar'),
+      lines: [
+        { note: 'He holds up the coiled rope in one hand and a spoon in the other.', a: '&ldquo;Good morning! Porridge in the pot. With cardamom, from home. Eat, eat: it is a long day.&rdquo;' },
+        { q: 'Which way should we go?', a: '&ldquo;Route A. Straight from camp to the stakes: fifteen kilometres, no corners. I looked at it yesterday from the end of the flags, with binoculars. Smooth, smooth, smooth. Smooth ice is safe ice. Definitely.&rdquo;' },
+        { q: 'How can you be sure?', a: '&ldquo;Twelve seasons in Svalbard. Where ice is cracked, you see it: blue lines, holes, a little ridge. Where it is smooth, it is whole. You must trust your eyes.&rdquo;' },
+        { q: 'Have you been to Antarctica before?', a: '&ldquo;First season. But ice is ice, and snow is snow.&rdquo; He pats a compass that hangs on a cord round his neck. &ldquo;And I have this. Thirty years old. It has never lied to me once.&rdquo;' },
+        { q: 'What does Uma say about route A?', a: '&ldquo;Uma says, &lsquo;Vidar, show me the because.&rsquo; Every time.&rdquo; He laughs. &ldquo;She is a scientist and I am a guide. Between us we make one very careful person.&rdquo;' }
+      ],
+      clue: { id: 'vid1', title: 'Vidar, by the stove', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ER.say('Vidar puts down the rope, picks up the porridge, and puts down the porridge. The rope wins.'); } }
+    });
+  });
+
+  /* ---------- page twelve ---------- */
+  var P12 = '<h4><small>Field manual &middot; Travel on glaciers and ice sheets &middot; page 12</small>Where the ice cracks</h4><div class="two"><div>' +
+    '<p>An ice sheet flows downhill, very slowly: here, ten to thirty metres a year. Where the ice in front moves faster than the ice behind, the ice between is <b>stretched</b>, and its cold, brittle surface cracks. These cracks are <b>crevasses</b>, up to thirty metres deep.</p>' +
+    '<p class="rule">A crevasse opens at right angles to the stretching.</p>' +
+    '<ul><li><b>Over a bump</b> in the rock below, the ice speeds up going over the top: crevasses lie across the flow, just past the top.</li>' +
+    '<li><b>On the outside of a bend</b> the ice moves faster and cracks across the flow; the inside is squeezed and stays whole.</li>' +
+    '<li><b>Next to rock</b> the ice is dragged back, and the cracks slant at about 45 degrees to the edge, pointing up the flow.</li></ul>' +
+    '<p>On a flow map, look for speeds that grow along an arrow. Wind can roof a crevasse with snow, a <b>snow bridge</b>, that looks just like the snow around it. Smooth proves nothing.</p></div>' +
+    '<div><svg viewBox="0 0 300 330"><rect width="300" height="330" fill="#fbfaf5"/>' +
+    '<text x="10" y="18" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">FROM THE SIDE: ICE OVER A BUMP</text>' +
+    '<path d="M10 70Q120 60 150 64T290 96V140H10Z" fill="#dceefa" stroke="#6a9ac8" stroke-width="2"/><path d="M10 140Q100 140 130 112Q160 92 190 120Q230 140 290 140V160H10Z" fill="#8a7a6a"/>' +
+    '<path d="M168 66l4 22M184 70l4 24M200 76l4 22" stroke="#1a2230" stroke-width="3"/><path d="M30 50h60l-8 -6M90 50l-8 6" stroke="#2a6ab0" stroke-width="2" fill="none"/><text x="96" y="54" font-family="Overpass,sans-serif" font-size="11" fill="#2a6ab0">flow</text>' +
+    '<text x="160" y="56" font-family="Overpass,sans-serif" font-size="11" fill="#1a2230">cracks just past the top</text>' +
+    '<text x="10" y="186" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">FROM ABOVE: A BEND AND A ROCK</text>' +
+    '<path d="M40 320Q60 230 150 214Q230 206 290 170" stroke="#2a6ab0" stroke-width="2" fill="none"/><path d="M90 320Q110 262 170 250Q230 242 290 214" stroke="#2a6ab0" stroke-width="2" fill="none"/>' +
+    '<path d="M200 300q20 -24 60 -30l30 0v60h-90z" fill="#4a3c34"/>' +
+    '<path d="M66 252l20 18M82 236l14 22M104 222l8 24M128 212l2 26" stroke="#1a2230" stroke-width="3"/><text x="18" y="232" font-family="Overpass,sans-serif" font-size="11" fill="#1a2230">outside</text>' +
+    '<path d="M196 296l-16 -16M214 286l-16 -16M232 278l-16 -16" stroke="#c8321e" stroke-width="3"/><text x="150" y="324" font-family="Overpass,sans-serif" font-size="11" fill="#c8321e">by rock: 45&#176;, up the flow</text></svg></div></div>' +
+    '<p class="pg">Read it before you need it &middot; 12</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P12, cls: 'fm', clue: { id: 'p12', title: 'Where the ice cracks', kind: 'Field manual, page 12' }, done: function () {
+      ICE.terms(['crevasse', 'snow bridge', 'stretch']);
+      if (tell('p12')) { paint(); ER.say('Smooth proves nothing. You look across at Vidar, who is humming.'); }
+    } });
+  });
+  ICE.thing('#pudding', null, 'A tin of Christmas pudding, saved since October. The label says: HEAT GENTLY. Under it Yusra has written: Not before the 25th. I am watching you, Vidar.', isBusy);
+  ICE.thing('#thermo', null, 'The thermometer by the door: minus eighteen outside. In the tent it is a tropical four degrees.', isBusy);
+  ICE.thing('#flap', 'ice sheet', 'Through the clear window in the canvas: white to the edge of the world, and a sky so blue it is nearly black. Somewhere out there, under all that smoothness, the ice is moving.', isBusy);
+  ICE.thing('#stove', null, 'The stove burns paraffin and smells of it. The kettle on top has been nearly boiling since six.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the map: two pencil marks and a route ---------- */
+  function zoneOf(x, y) {          /* kilometres east and north of the camp -> the part of the map */
+    if (x >= 1.0 && x <= 6.0 && y >= 6.35 && y <= 8.9) return 'hd';
+    if (x >= 1.0 && x <= 6.0 && y >= 4.4 && y < 6.35) return 'hu';
+    if (x >= 7.0 && x <= 8.6 && y >= 13.4 && y <= 17.4) return 'bi';
+    if (x >= 2.8 && x < 7.4 && y >= 15.3 && y <= 19.8) return 'bo';
+    return 'fl';
+  }
+  function openMap() {
+    var box = ER.el('div', 'bx'), msgEl, svg, marks = [], route;
+    box.innerHTML = '<div class="frame mapwrap"><svg viewBox="0 0 640 640" id="m-svg">' + ICE.MAPDEFS + ICE.map({ flow: true, speeds: true, hump: true, routes: true, stakes: true }) +
+      '<g id="m-tray"><rect x="8" y="8" width="150" height="66" rx="4" fill="#fff8ec" stroke="#c88a4a" stroke-width="2"/><text x="16" y="24" font-family="Overpass,sans-serif" font-weight="700" font-size="10.5" fill="#a8460e">PENCIL MARKS</text></g>' +
+      '<g id="m-marks"></g></svg>' +
+      '<div class="side"><h5>Where will it crack?</h5>' +
+      '<p>Drag the two pencil marks from the tray onto the map, each where the ice is being stretched. Click a mark (without dragging) to turn it until it lies the way a crevasse would lie.</p>' +
+      '<div class="row"><span class="lab">The way across</span><span id="m-route"></span></div>' +
+      '<p class="legend"><b>Blue arrows</b>: the flow of the ice, with its speed in metres a year. <b>Purple ring</b>: the Hump, rock under the ice; dashed line: its top. <b>Orange dots</b>: the stakes, W9 to W1. <b>A, B, C</b>: three ways from the camp to the stakes.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="m-go">Mark the route</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#m-svg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    route = ICE.picks(box.querySelector('#m-route'), [['a', 'A'], ['b', 'B'], ['c', 'C']], { start: null });
+    [[50, 48], [112, 48]].forEach(function (p0, i) {
+      var g = ICE.el('g', { 'class': 'cmark', 'data-i': String(i) }), m = { g: g, x: p0[0], y: p0[1], a: 0, home: true };
+      g.innerHTML = '<rect x="-26" y="-14" width="52" height="28" fill="transparent"/><path d="M-20 -6h40M-22 0h44M-20 6h40" stroke="#1a2230" stroke-width="3" stroke-linecap="round"/><path d="M0 -12v-6" stroke="#e8641c" stroke-width="3"/>';
+      box.querySelector('#m-marks').appendChild(g);
+      function draw() { g.setAttribute('transform', 'translate(' + m.x.toFixed(1) + ' ' + m.y.toFixed(1) + ') rotate(' + (m.a - 90) + ')'); }
+      var dx = 0, dy = 0;
+      ER.drag(g, {
+        start: function (e) { var p = ER.pt(svg, e); dx = p.x - m.x; dy = p.y - m.y; },
+        move: function (e, moved) { if (!moved) return; var p = ER.pt(svg, e); m.x = ICE.clamp(p.x - dx, 6, 634); m.y = ICE.clamp(p.y - dy, 6, 634); m.home = false; draw(); },
+        end: function (e, moved) { if (!moved) { m.a = (m.a + 15) % 180; ICE.sfx.pencil(); } else ICE.sfx.pencil(); draw(); }
+      });
+      draw(); marks.push(m);
+    });
+    function km(m) { return [(m.x - 196) / ICE.KM, (584 - m.y) / ICE.KM]; }
+    box.querySelector('#m-go').addEventListener('click', function () {
+      var i, z = [], a = [], k, r = route.get(), c;
+      for (i = 0; i < 2; i++) {
+        if (marks[i].home || (marks[i].x < 160 && marks[i].y < 76)) { lastErr = 'tray'; ICE.sfx.no(); msg('Both pencil marks have to go onto the map first.'); return; }
+        k = km(marks[i]); z.push(zoneOf(k[0], k[1])); a.push(String(marks[i].a));
+      }
+      for (i = 0; i < 2; i++) {
+        if (ER.check('fl', z[i])) { lastErr = 'zone'; ICE.sfx.no(); msg('One mark is on ice whose arrows keep the same speed from one number to the next. Ice that does not speed up is not stretched.'); return; }
+        if (ER.check('hu', z[i])) { lastErr = 'zone'; ICE.sfx.no(); msg('On the uphill side of the Hump, before the top, the ice is pushed together, not pulled apart. Look where the numbers grow.'); return; }
+        if (ER.check('bi', z[i])) { lastErr = 'zone'; ICE.sfx.no(); msg('That is the inside of the bend, next to the rock: page twelve says the inside is squeezed. The speeds there are the smallest on the map.'); return; }
+      }
+      if (z[0] === z[1]) { lastErr = 'zone'; ICE.sfx.no(); msg('Both marks are in the same place. There are two places on this map where the ice is stretched.'); return; }
+      for (i = 0; i < 2; i++) {
+        if (!ER.check(z[i] === 'hd' ? 'hdok' : 'bdok', a[i])) {
+          lastErr = 'angle'; ICE.sfx.no();
+          msg(z[i] === 'hd' ? 'The mark past the Hump is in the right place, but it does not lie the right way. The ice there is stretched along the arrows; a crevasse opens at right angles to that.' :
+            'The mark in the bend is in the right place, but it does not lie the right way. There the arrows run north-north-east; a crevasse lies across them.');
+          return;
+        }
+      }
+      if (!r) { lastErr = 'route'; msg('Both marks are right. Now choose the way across: A, B or C.'); return; }
+      if (ER.check('route_a', r)) { lastErr = 'route'; ICE.sfx.no(); msg('Route A runs straight over the lee of the Hump, across the very ice you have just marked. From the end of the flags it looked smooth. Smooth proves nothing.'); return; }
+      if (ER.check('route_b', r)) { lastErr = 'route'; ICE.sfx.no(); msg('Route B swings round the outside of the bend, where the ice is fastest and most stretched. It is the prettiest line on the map, and the worst.'); return; }
+      z = [z[0] + a[0], z[1] + a[1]].sort(); c = z.join('|') + '|' + r;
+      if (!ER.exitOk([c])) { ICE.sfx.no(); msg('Something on the map is not quite right. Look at each mark again.'); return; }
+      nextFile = ER.exit([c], { wait: true }); ER.flag('a-file', nextFile); lastErr = '';
+      ICE.sfx.pencil();
+      ICE.mine('plan', 'The route to the stakes', '<p>Route <b>C</b>: down the flag line to the fuel cache (12 km), then straight across to the stakes: 6.8 km, on a bearing of <b>073</b>.</p><p>No Hump, no bend. Crevasses lie across the stretching: past the top of the Hump they run east to west; on the outside of the bend, north-west to south-east.</p><p>W1 is next to the rock: rope up and probe.</p>', true);
+      msg('Uma looks at the two marks for a long time. Then she draws route C over in green pencil, hard. &ldquo;Good. You read the ice, not the snow.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          '&ldquo;C, then,&rdquo; says Uma. &ldquo;Down the flags to the cache. From the cache the stakes are on a bearing of 073: that is how we went to put them in. The GPS will keep us on it. W1, by the rock, we do on foot, roped, probing. Page twelve, last rule.&rdquo;',
+          'Vidar leans over the map. He looks at your marks, and at route A, and at the Hump, which he could not see from the end of the flags. &ldquo;Hm,&rdquo; he says. &ldquo;Longer. But a good route.&rdquo; He does not say anything else, which for Vidar is a great deal.',
+          '&ldquo;Radio box,&rdquo; says Uma. &ldquo;Yusra has the nine o&rsquo;clock weather, and she wants to see you before you go anywhere. She always does.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2400);
+    });
+    ER.open('ov-lock', box);
+    msg('Two pencil marks, one route. Drag a mark onto the map; click it to turn it.');
+  }
+  $('#map').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Route C, in green pencil, pressed hard enough to dent the plastic.'); return; }
+    if (!told.uma || !told.vidar) { ER.say('&ldquo;Ask first,&rdquo; says Uma. &ldquo;Ask me what we are doing, and ask Vidar which way he wants to go. Then the map.&rdquo;'); return; }
+    if (!told.p12) { ER.say('&ldquo;Page twelve,&rdquo; says Uma, and points her pencil at the orange manual by the door.'); return; }
+    openMap();
+  });
+})();
+</script>
+</body>
+</html>

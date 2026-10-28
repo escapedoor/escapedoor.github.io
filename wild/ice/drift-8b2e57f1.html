@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Drift · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#8a8e9c;--accent:#ff8a3a;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(48,52,66,.96);--tc-ink:#f2f2f6;--cap-bg:rgba(44,48,62,.93);--panel:#30343f;--face-bg:#3c414e;--q-ink:#ffc49a;--fade:#d8dbe2;--hud-bg:rgba(44,48,62,.86)}
+  .band{animation:band 1.4s steps(6,end) infinite}
+  .band.b2{animation-duration:1.1s}.band.b3{animation-duration:.9s}
+  @keyframes band{to{transform:translateX(-300px)}}
+  #pale{animation:pale 3.4s steps(1,end) infinite}
+  @keyframes pale{30%{opacity:.45}36%{opacity:.75}70%{opacity:.55}}
+  .dec{display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr);background:#e9eef2}
+  .dec>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);background:#f7fafb}
+  .sent{background:#fff4e2;color:#2a2420;padding:12px 18px 10px;border-left:12px solid #e8641c}
+  .sent h5{margin:0 0 4px;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#a8460e}
+  .sent p.lead{margin:0 0 8px;font-family:'Lora',serif;font-size:14.5px;line-height:1.4}
+  .srow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(170px,1fr);gap:10px;align-items:center;padding:7px 0;border-top:1px solid #e8d4b8}
+  .srow .say{font-family:'Caveat',cursive;font-size:23px;line-height:1.15}
+  .srow .say small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.14em;color:#a8460e}
+  .srow .picks button{color:#2a2420;background:#fff;border-color:#c8a888;min-height:30px;padding:3px 9px;font-size:12.5px}
+  .srow .picks button.on{background:#e8641c;border-color:#e8641c;color:#fff}
+  .slot{min-height:40px;border:2px dashed #c8a888;border-radius:3px;display:flex;align-items:center;padding:2px;background:rgba(255,255,255,.5)}
+  .slot:empty:before{content:'because ...';font-family:'Caveat',cursive;font-size:20px;color:#b89878;padding-left:6px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px;margin-top:6px;background:#f2e2c8;border-radius:3px;min-height:46px}
+  .chip2{display:inline-block;padding:5px 9px;border-radius:3px;background:#fffdf6;border:1px solid #8a6a4a;font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;line-height:1.25;color:#2a2420;cursor:grab;touch-action:none;max-width:250px}
+  .chip2.held{outline:3px solid #1f4f8a}
+  .chip2.fly{position:fixed;z-index:80;pointer-events:none}
+  .slot .chip2{max-width:100%}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a6a8a"/><stop offset=".45" stop-color="#a8b0c0"/><stop offset="1" stop-color="#e2e4ea"/></linearGradient>
+  <radialGradient id="paleG"><stop offset="0" stop-color="#fff2d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff2d8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#skyG)"/>
+<g id="pale"><circle cx="300" cy="300" r="140" fill="url(#paleG)"/><circle cx="300" cy="300" r="22" fill="#fff6e4" opacity=".8"/></g>
+<path d="M-1000 520H2600V1300H-1000Z" fill="#e8eaf0"/>
+<g class="band b2" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".75"><path d="M100 470h90M420 500h60M760 452h110M1100 488h70M1500 470h90M1800 500h80M260 560h120M640 590h80M980 548h100M1340 580h90M1700 560h120M60 680h100M520 700h130M900 660h70M1260 720h110M1620 690h90M300 800h140M800 830h100M1180 790h120M1560 820h100"/></g>
+<g fill="#ffffff" opacity=".55"><path class="band" d="M-400 420h2600v60h-2600z" opacity=".35"/><path class="band b2" d="M-400 520h2600v110h-2600z" opacity=".5"/><path class="band b3" d="M-400 700h2600v160h-2600z" opacity=".5"/></g>
+<!-- Vidar's skidoo and the tent sledge, Uma on it in her bags -->
+<g id="vskidoo"><path d="M640 680h220l24 -32h-60l-22 -30h-84l-28 30h-50z" fill="#c8b01e" stroke="#5a4a10" stroke-width="3"/><path d="M630 690q-8 24 22 24h220" stroke="#2a2a2a" stroke-width="8" fill="none"/>
+  <rect x="890" y="620" width="380" height="64" fill="#5a7a98" stroke="#2a3a4a" stroke-width="3"/><path d="M880 694h400" stroke="#2a2a2a" stroke-width="7"/></g>
+<g id="vnote" class="hot"><rect x="720" y="604" width="34" height="44" rx="3" fill="#e8641c" stroke="#7a2a08" stroke-width="2" transform="rotate(-10 737 626)"/><path d="M726 616h22M726 624h18" stroke="#fff4e4" stroke-width="2" transform="rotate(-10 737 626)"/></g>
+<g id="map" class="hot"><rect x="930" y="640" width="90" height="40" fill="#f7fafb" stroke="#5a7a9a" stroke-width="2"/><path d="M940 670q20 -14 40 -6t30 -10" stroke="#2a6ab0" stroke-width="2" fill="none"/><circle cx="975" cy="660" r="3" fill="#e8641c"/></g>
+<g id="uma" class="hot">
+  <path d="M1040 630q0 -50 70 -54h80q50 4 50 54z" fill="#e8641c" stroke="#a8460e" stroke-width="2"/><path d="M1060 620q60 -20 170 0" stroke="#a8460e" stroke-width="2" fill="none"/>
+  <circle cx="1076" cy="574" r="24" fill="#a86c48"/><path d="M1052 572q0 -30 24 -32q26 2 26 30q-14 -10 -26 -10q-12 0 -24 12z" fill="#2a2a2e"/><path d="M1050 586q26 20 52 0" stroke="#c8321e" stroke-width="9" fill="none"/>
+</g>
+<g id="radio" class="hot"><rect x="1190" y="560" width="64" height="44" rx="5" fill="#3a4a3e" stroke="#7a8a7a" stroke-width="2"/><rect x="1198" y="568" width="30" height="14" fill="#cfe8a8"/><path d="M1240 560V500" stroke="#9aaa9a" stroke-width="3"/></g>
+<g id="manual" class="hot"><rect x="1270" y="600" width="38" height="50" rx="3" fill="#e8641c" stroke="#7a2a08" stroke-width="2" transform="rotate(8 1289 625)"/><rect x="1276" y="610" width="26" height="10" fill="#fff4e4" transform="rotate(8 1289 625)"/></g>
+<!-- Vidar, pointing into the wind -->
+<g id="vidar" class="hot">
+  <path d="M1360 740l12 -200q4 -28 40 -30h26q38 2 42 30l12 200z" fill="#e8641c"/><path d="M1360 740l6 -110q28 12 38 0l4 110zM1492 740l-6 -110q-28 12 -38 0l-4 110z" fill="#2a2a2e"/>
+  <rect x="1416" y="486" width="22" height="28" fill="#e0a888"/><circle cx="1427" cy="460" r="30" fill="#eab496"/><path d="M1400 466q2 32 27 38q25 -6 27 -38q-12 10 -27 8q-15 2 -27 -8z" fill="#e8eaf0"/>
+  <path d="M1396 454q-2 -38 31 -40q33 2 31 40q-31 -14 -62 0z" fill="#b8241a"/>
+  <path d="M1480 560q60 -40 110 -60" stroke="#e8641c" stroke-width="16" fill="none" stroke-linecap="round"/>
+</g>
+<!-- your skidoo, close, with its dashboard -->
+<g id="yskidoo"><path d="M60 860h460l40 -60h-110l-40 -50h-180l-50 50h-120z" fill="#e8c81e" stroke="#7a6a10" stroke-width="4"/><path d="M40 870q-14 40 40 40h460" stroke="#2a2a2a" stroke-width="14" fill="none"/>
+  <path d="M280 750l60 -70" stroke="#2a2a2a" stroke-width="10"/><path d="M300 690h120" stroke="#2a2a2a" stroke-width="10" stroke-linecap="round"/></g>
+<g id="meter" class="hot"><rect x="226" y="700" width="96" height="46" rx="6" fill="#1a1a1a" stroke="#5a5a5a" stroke-width="2"/><rect x="236" y="710" width="76" height="26" fill="#a8e070"/><text x="274" y="730" text-anchor="middle" font-family="Overpass Mono,monospace" font-weight="600" font-size="18" fill="#1a3a0a">3.4</text></g>
+<g fill="#ffffff" opacity=".7"><path class="band b3" d="M-400 780h2600v40h-2600z" opacity=".35"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the tent</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'drift', no: 'V', title: 'The Drift',
+    go: 'Stop',
+    intro: [
+      'You got everybody out of the cracks by reading them. Next to rock the ice is dragged, so the crevasses there slant at 45 degrees, pointing up the flow; the hole showed it. Vidar&rsquo;s straight line to the skidoos, across the flow, would have run almost along them. You walked north-west, at right angles to them, probing every metre, and put a wand by each of the three you found. Then home by the sun: the back bearing of 073 is 253, and at twenty to six the sun stood at about 279, so you kept it 26 degrees to the right of the bow.',
+      'At twenty past six, three and a half kilometres short of the cache, the drive belt on your skidoo snapped. Vidar changed it with his gloves off, ten minutes at a time, for two and a half hours. Nobody answered the six o&rsquo;clock sked. Nobody answered the eight o&rsquo;clock sked. And at ten to nine, a little early, the wind came down off the ice.'
+    ],
+    exit: {"next":"tent","w":{"2835ce69":"c8a3de34"}}, tags: {"pos":["f1136913"],"pos_near":["22549348","2a0315ea"],"wind":["906c484d"],"wind_camp":["a31c81e6","6b66f411"],"wind_up":["a4e77e96"],"s1":["9da5c12d"],"s1e":["b3e4c5d2","78dc42a2"],"s2":["a1152ae3"],"s2e":["60be8e10"],"s3":["5c5ac06b"],"s3e":["12f7feef","9fb30055"],"s4":["8edffaba"],"s4e":["4868586f","531ce841"],"door":["43ce1885"],"door_wind":["fe0bc1f0"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.uma && told.vidar && told.radio && told.vnote && told.p15 && told.meter; }
+  function paint() {
+    $('#map').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['uma', 'vidar', 'radio', 'vnote', 'p15', 'meter'].filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 7);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The tent is up, its door downwind. Go in.']];
+    if (!told.uma || !told.vidar) return ['talk', ['Talk to Uma, on the sledge, and to Vidar, who is standing with his arm out.', 'Vidar has a plan and is very sure of it. Uma will ask you to decide.']];
+    if (!told.radio || !told.vnote || !told.p15 || !told.meter) return ['gather', [
+      'Before you decide, gather what you know: the radio, Vidar&rsquo;s notebook, the manual, and how far you have come.',
+      'The radio is on the sledge box on the right; Vidar&rsquo;s orange notebook is on his seat; the manual (page fifteen) is behind the radio; the trip meter is on the dashboard of your own skidoo, bottom left.'
+    ]];
+    return ['decide' + (lastErr ? '-' + lastErr : ''), decideHints()];
+  }
+  function decideHints() {
+    var H = {
+      pos: ['You left W9 heading 253, and the trip meter counts how far you have come since then.', 'Slide the dot along your track until it is 3.4 km from W9.'],
+      wind: ['Page fourteen: the wind comes from about 30 degrees to the left of straight uphill. Look at the contours where you are now.', 'Here the contours run east to west, as they do at the cache, so straight uphill is 180 and the wind comes from 150.'],
+      s1: ['Look at the red line on the map: where does walking into the wind from here take you?', 'Into the wind is 150; the camp is at 194 from here. The line passes nine kilometres east of the camp. The camp cannot be up-wind of you. Give it the because from page fourteen or the map.'],
+      s2: ['What does the weather mast say happens to the wind at night?', 'It gets stronger, not weaker: over 15 m/s from 23.00 to 08.00, strongest in the small hours. So it will not drop by midnight.'],
+      s3: ['What does page fifteen say about going on when you cannot see?', 'The flags are 400 metres apart and you can see about 50. And look at Uma&rsquo;s hands on her zip. We should not push on.'],
+      s4: ['Which modal verb gives advice, firmly but not as a law?', 'We should put the tent up now, because of what page fifteen says and what Uma&rsquo;s hands are doing.'],
+      door: ['Page fifteen: back to the wind, door downwind.', 'The wind comes from 150, so it blows towards 330. Turn the tent until the door faces 330.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click Uma&rsquo;s map on the sledge. First: where are you, and where does the wind come from here?',
+      'Then test each of Vidar&rsquo;s sentences: choose the word the evidence allows, and give it a because from your notebook.',
+      'Last, pitch the tent with its door downwind.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The tent is up, door downwind, snow blocks on the valances. The stove is roaring inside.'); return; }
+    if (told.in) { busy = false; ER.say('The drift. You can see about fifty metres, and no further.'); return; }
+    tell('in');
+    ER.narrate([
+      'It does not come like a storm. It comes like a river. First a smoky skin of snow running over the ground; then it is round your boots, then your knees; then the sledge is an island and the skidoos are ships.',
+      'Above, the sky is still almost blue, and the sun is a pale coin low in the south-west. Down here you can see perhaps fifty metres. The flags at the cache, if you were there, would be four hundred metres apart.',
+      'Vidar stands with one arm out straight into the wind, like a signpost. &ldquo;That way,&rdquo; he shouts. &ldquo;Home!&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#uma').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Uma Varghese', role: 'On the tent sledge, in two sleeping bags', face: window.FACE('uma'),
+      lines: [
+        { note: 'She is trying to do up the zip of her outer bag. Her fingers keep missing it.', a: '&ldquo;Can&rsquo;t get this... stupid thing. Gloves. It&rsquo;s the gloves.&rdquo;' },
+        { q: 'Are you all right?', a: 'She stops, and looks at her own hand as if it belonged to somebody else. &ldquo;No. I&rsquo;m cold, and I&rsquo;m starting to think slowly. Fumbling. That is the first sign, and I know it is the first sign, and that is the only clever thing left in my head.&rdquo;' },
+        { q: 'What should we do?', a: '&ldquo;You decide. Not me: I&rsquo;m cold, so my answer is the most dangerous one here. Not Vidar: Vidar is sure, which is nearly as bad.&rdquo; She almost smiles. &ldquo;Test everything he says. Every must, every definitely. Find the because, and see if it holds here.&rdquo;' },
+        { q: 'Why can&rsquo;t Yusra hear us?', a: '&ldquo;I don&rsquo;t know. The radio is working: I can hear it hiss. Either she can&rsquo;t hear us, or she can&rsquo;t talk. Yusra has not missed a sked in eleven years. Something is wrong at camp, or with the air. Either way, it doesn&rsquo;t change what we do here.&rdquo;' }
+      ],
+      clue: { id: 'uma5', title: 'Uma, in the drift', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('uma')) { paint(); ER.say('Uma pulls her hood tight. Her teeth have started to chatter.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'Shouting over the wind', face: window.FACE('vidar'),
+      lines: [
+        { note: 'He has to lean on the wind to stand up. He is grinning, with snow in his beard.', a: '&ldquo;This is not so bad! In Svalbard this is a Tuesday. We go now, into the wind. The camp must be up-wind of us: the wind comes down from the camp. You heard me say it at the cache.&rdquo;' },
+        { q: 'Won&rsquo;t it get worse?', a: '&ldquo;No, no. The wind will definitely drop by midnight. Wind always drops at night: the land cools, everything goes quiet. Every night of my life.&rdquo;' },
+        { q: 'What about the cache?', a: '&ldquo;Or the cache! We must push on to the cache tonight: it is only three and a half kilometres. Twenty minutes. Then the flags, then camp, then Yusra&rsquo;s stove.&rdquo;' },
+        { q: 'Can I see your notebook?', a: '&ldquo;My rules!&rdquo; He nods at his seat. &ldquo;Twelve years of rules. Read them. Some of them I have already... corrected. Today.&rdquo; He looks briefly unhappy, then grins again.' }
+      ],
+      clue: { id: 'vid5', title: 'Vidar, in the drift', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ER.say('Vidar turns back into the wind with his arm out, waiting for you.'); } }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var LOG = '<h4>Field party radio log &middot; 22 Dec</h4>' +
+    '<p>12.00 &nbsp;Camp: copy, on the way to the stakes, all well.</p><p>14.00 &nbsp;Camp: copy, W5, all well.</p>' +
+    '<p>16.30 &nbsp;(late) Camp: copy. Uma ankle, GPS lost in crevasse at W1, all three well otherwise. Back to cache by the sun, then flags. Yusra: &ldquo;Next sked six. Drive gently.&rdquo;</p>' +
+    '<p>18.00 &nbsp;Called camp. No answer. 18.10: called camp. No answer.</p><p>18.20 &nbsp;Drive belt snapped. Called camp. No answer. Hiss only.</p>' +
+    '<p>20.00 &nbsp;Called camp. No answer.</p><p>20.15 &nbsp;Called camp, called anybody. No answer.</p>' +
+    '<p>20.55 &nbsp;Wind up, drift. Visibility about 50 m. Trip meter 3.4 km from W9.</p>';
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    ICE.sfx.hiss();
+    ER.read({ html: LOG, cls: 'radio', clue: { id: 'log', title: 'The radio log', kind: 'Field party log' }, done: function () {
+      if (tell('radio')) { paint(); ER.say('You press the button once more. &ldquo;Camp Yoke, Camp Yoke, field party.&rdquo; Hiss. Only hiss.'); }
+    } });
+  });
+  var VN = '<h4>Svalbard rules &middot; V.U.</h4>' +
+    '<p><s>1. Smooth snow is safe snow.</s> <span class="later">(the Hump)</span></p>' +
+    '<p><s>2. A compass never lies.</s> <span class="later">(upside down here)</span></p>' +
+    '<p><s>3. At midday the sun is in the south.</s> <span class="later">(north! 13.00!)</span></p>' +
+    '<p>4. The wind always drops at night.</p>' +
+    '<p>5. Lost? Walk into the wind. Cold air comes from the high camp.</p>' +
+    '<p>6. A cold bridge is a strong bridge.</p>' +
+    '<p>7. Never argue with Uma before coffee.</p>';
+  $('#vnote').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: VN, cls: 'vn', clue: { id: 'vnote', title: 'Vidar&rsquo;s Svalbard rules', kind: 'Vidar&rsquo;s notebook' }, done: function () {
+      if (tell('vnote')) { paint(); ER.say('Three rules crossed out today, in pencil. Four still standing. Every one of them was true somewhere.'); }
+    } });
+  });
+  var P15 = '<h4><small>Field manual &middot; When things go wrong &middot; page 15</small>Caught out</h4><div class="two"><div>' +
+    '<p>If the drift hides the next flag, or you cannot see far enough to be sure of your way, <b>stop</b>. Moving blind is how people end up in crevasses, or a kilometre from a tent they never saw.</p>' +
+    '<ul><li>Stop before you are tired or cold, not after. Watch your party for the first signs of cold: stumbling, mumbling, fumbling.</li>' +
+    '<li>Pitch the tent at once: its back to the wind and its door <b>downwind</b>, or the door fills with snow. Bury its edges and weigh them with snow blocks.</li>' +
+    '<li>Everybody into sleeping bags; stove on; warm drinks first.</li>' +
+    '<li>Keep your skeds, even if nobody answers.</li>' +
+    '<li>Wait for the wind to ease: usually in the late morning, when the sun is high. Then go.</li>' +
+    '<li>Write down where you are: your last known point, your heading, and the distance since (<b>dead reckoning</b>).</li></ul></div>' +
+    '<div><svg viewBox="0 0 300 260"><rect width="300" height="260" fill="#fbfaf5"/>' +
+    '<path d="M20 60L110 110" stroke="#1f4f8a" stroke-width="6"/><path d="M110 110l-18 -2l8 -12z" fill="#1f4f8a"/><path d="M30 120L104 160" stroke="#1f4f8a" stroke-width="6"/><path d="M104 160l-18 -2l8 -12z" fill="#1f4f8a"/><text x="14" y="40" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">wind</text>' +
+    '<path d="M150 210L200 80L250 210Z" fill="#f2c230" stroke="#a8841a" stroke-width="3"/><path d="M200 210V150l26 60" fill="#e8641c" stroke="#a8460e" stroke-width="2"/>' +
+    '<text x="214" y="238" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#a8460e">door downwind</text><text x="122" y="238" font-family="Overpass,sans-serif" font-size="11" fill="#1a2230">back to wind</text>' +
+    '<g fill="#dfe8f0" stroke="#9ab0c4"><rect x="140" y="208" width="20" height="12"/><rect x="250" y="208" width="20" height="12"/></g></svg></div></div>' +
+    '<p class="pg">A tent you are in beats a camp you cannot see &middot; 15</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P15, cls: 'fm', clue: { id: 'p15', title: 'Caught out', kind: 'Field manual, page 15' }, done: function () {
+      ICE.terms(['dead reckoning', 'pyramid tent', 'drift']);
+      if (tell('p15')) { paint(); ER.say('Stumbling, mumbling, fumbling. On the sledge, Uma is still fighting her zip.'); }
+    } });
+  });
+  $('#meter').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'trip meter');
+    if (tell('meter')) paint();
+    ER.say('The trip meter on your dashboard: 3.4 kilometres since you left W9 on a heading of 253. The cache was 6.8 kilometres away when you started.');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the decision: where you are, the wind, Vidar's sentences, the tent ---------- */
+  var S = [ICE.P.S[0], ICE.P.S[1]], F = [ICE.P.F[0], ICE.P.F[1]], LEN = 6.8;
+  function openDecide() {
+    var box = ER.el('div', 'bx'), msgEl, stage = 1, svg, dist = 1.0, wind, tent, picks = {};
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function along(k) { return [S[0] + (F[0] - S[0]) * k / LEN, S[1] + (F[1] - S[1]) * k / LEN]; }
+    function stage1() {
+      var extra = '<path d="' + ICE.line([S, F]) + '" stroke="#e8641c" stroke-width="3" stroke-dasharray="7 5" fill="none"/>' +
+        '<text x="' + ICE.px(0.9) + '" y="' + (ICE.py(14.2)) + '" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#a8460e">your track from W9, 253</text>' +
+        '<g id="d-into"></g><g id="d-dot" class="grab"><circle r="16" fill="transparent"/><circle r="8" fill="#e8641c" stroke="#2a2a2a" stroke-width="2"/></g>' +
+        '<g id="d-wind"><g class="grab" id="d-wind-a"><rect x="-10" y="-46" width="20" height="92" fill="transparent"/><path d="M0 -40V30" stroke="#1f4f8a" stroke-width="5"/><path d="M0 42l-10 -16h20z" fill="#1f4f8a"/><path d="M-9 -40l9 8l9 -8M-9 -30l9 8l9 -8" stroke="#1f4f8a" stroke-width="3" fill="none"/></g></g>';
+      box.innerHTML = '<div class="frame dec"><svg viewBox="0 0 640 640" id="d-svg">' + ICE.MAPDEFS + ICE.map({ stakes: true, zones: true, extra: extra }) + '</svg>' +
+        '<div class="side"><h5>Where are we?</h5><p>Slide the orange dot along your track to where the trip meter says you are. Then turn the blue arrow to show the wind blowing here: from the feathered tail to the head.</p>' +
+        '<p id="d-read" style="font-family:Overpass Mono,monospace;font-size:14px;color:#ffe2c8"></p>' +
+        '<p style="font-size:12.5px;color:#cfdbe8">Red hatching: crevasse ground, from your map this morning and the wands this afternoon.</p></div></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">That is where we are</button></div>';
+      msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#d-svg');
+      var dot = box.querySelector('#d-dot'), wg = box.querySelector('#d-wind');
+      function place() {
+        var p = along(dist), x = ICE.px(p[0]), y = ICE.py(p[1]);
+        dot.setAttribute('transform', 'translate(' + x + ' ' + y + ')');
+        wg.setAttribute('transform', 'translate(' + (x + 10) + ' ' + (y + 74) + ')');
+        box.querySelector('#d-read').textContent = 'Trip meter: ' + dist.toFixed(1) + ' km from W9.   Wind from: ' + ICE.d3(wind ? wind.get() : 0);
+      }
+      ER.drag(dot, { move: function (e) {
+        var p = ER.pt(svg, e), kx = (p.x - 196) / ICE.KM, ky = (584 - p.y) / ICE.KM, dx = F[0] - S[0], dy = F[1] - S[1];
+        var t = ((kx - S[0]) * dx + (ky - S[1]) * dy) / (dx * dx + dy * dy); t = ICE.clamp(t, 0, 1);
+        var nd = Math.round(t * LEN * 5) / 5; if (nd !== dist) { dist = nd; place(); ICE.sfx.notch(); }
+      } });
+      /* the wind arrow turns round its own middle; it is moved with the dot */
+      wind = ICE.turn(box.querySelector('#d-wind-a'), { svg: svg, cx: 0, cy: 0, step: 10, start: 0, change: place,
+        center: function () { var p = along(dist); return [ICE.px(p[0]) + 10, ICE.py(p[1]) + 74]; } });
+      place();
+      var done1 = false;
+      box.querySelector('#d-go').addEventListener('click', function () {
+        if (done1) { stage = 2; stage2(); return; }
+        var pc = String(Math.round(dist * 10)), wc = String(wind.get());
+        if (!ER.check('pos', pc)) { lastErr = 'pos'; ICE.sfx.no(); msg(ER.check('pos_near', pc) ? 'Close, but the trip meter is exact: 3.4 km.' : 'Look at the trip meter again: how far since W9?'); return; }
+        if (!ER.check('wind', wc)) {
+          lastErr = 'wind'; ICE.sfx.no();
+          msg(ER.check('wind_camp', wc) ? 'That points the wind at the camp, which is Vidar&rsquo;s idea, not the slope&rsquo;s. Where does page fourteen say the wind comes from?' :
+            ER.check('wind_up', wc) ? 'Straight down the fall line. Now turn it as page fourteen says.' : 'Find straight uphill here, at right angles to the contours, and turn 30 degrees to your left.');
+          return;
+        }
+        lastErr = ''; ICE.sfx.click();
+        var p = along(dist), end = [p[0] + Math.sin(150 * Math.PI / 180) * 13, p[1] + Math.cos(150 * Math.PI / 180) * 13];
+        box.querySelector('#d-into').innerHTML = '<path d="' + ICE.line([p, end]) + '" stroke="#c8321e" stroke-width="3" stroke-dasharray="4 4" fill="none"/><text x="' + (ICE.px(end[0]) - 6) + '" y="' + (ICE.py(end[1]) - 8) + '" text-anchor="end" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#c8321e">into the wind, 13 km</text>' +
+          '<path d="' + ICE.line([p, [0, 0]]) + '" stroke="#1a6a3a" stroke-width="2" stroke-dasharray="2 4" fill="none"/><text x="' + (ICE.px(1.1) + 6) + '" y="' + ICE.py(3.6) + '" font-family="Overpass,sans-serif" font-size="11" fill="#1a6a3a">camp: 194, 13.4 km</text>';
+        ER.flag('e-pos', pc + '|' + wc);
+        msg('Here: 3.4 km along, with the wind from 150. The red line shows where walking into it would take you: past the end of the Hump and nine kilometres east of the camp. The green line is where the camp really is. Press on to Vidar&rsquo;s sentences.');
+        box.querySelector('#d-go').innerHTML = 'Now Vidar&rsquo;s sentences'; done1 = true;
+      });
+      msg('Drag the orange dot along the track, and turn the blue arrow.');
+    }
+    function stage2() {
+      var R = [
+        ['s1', 'Vidar', 'The camp ___ be up-wind of us.', [['must', 'must'], ['might', 'might'], ['cant', 'can&rsquo;t']]],
+        ['s2', 'Vidar', 'The wind ___ drop by midnight.', [['def', 'will definitely'], ['might', 'might'], ['wont', 'won&rsquo;t']]],
+        ['s3', 'Vidar', 'We ___ push on to the cache tonight.', [['must', 'must'], ['should', 'should'], ['shouldnt', 'shouldn&rsquo;t']]],
+        ['s4', 'You', 'We ___ put the tent up here, now.', [['should', 'should'], ['might', 'might'], ['neednt', 'needn&rsquo;t']]]
+      ];
+      var CH = [['slope', 'Page 14: the wind comes from 30&#176; left of straight uphill, wherever you are'], ['map', 'The map: the camp is at 194 from here; the wind is from 150'],
+        ['aws', 'The weather mast: over 15 m/s from 23.00 to 08.00, every night'], ['compass', 'Vidar&rsquo;s compass: needle towards the camp side'],
+        ['flags', 'Page 15: if you cannot see the next flag, stop (we can see 50 m)'], ['uma', 'Uma&rsquo;s fingers, fumbling at her zip']];
+      var s = '<div class="frame sent"><h5>Vidar&rsquo;s sentences</h5><p class="lead">For each sentence, choose the word the evidence allows, and drag in the because that proves it (or click a because, then the gap). Some becauses prove nothing.</p>';
+      R.forEach(function (r) { s += '<div class="srow" data-r="' + r[0] + '"><div class="say"><small>' + r[1].toUpperCase() + '</small>' + r[2].replace('___', '<span class="pk"></span>') + '</div><div class="slot" data-r="' + r[0] + '"></div></div>'; });
+      s += '<div class="chips" id="d-chips">' + CH.map(function (c) { return '<span class="chip2 dnd-item" data-k="' + c[0] + '">' + c[1] + '</span>'; }).join('') + '</div></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go2">Say it</button></div>';
+      box.innerHTML = s; msgEl = box.querySelector('.pmsg');
+      R.forEach(function (r) { picks[r[0]] = ICE.picks(box.querySelector('.srow[data-r="' + r[0] + '"] .pk'), r[3], { start: null }); });
+      ER.dnd(box.querySelector('.sent'), { item: '.chip2', slot: '.slot', home: box.querySelector('#d-chips'), change: function () { ICE.sfx.pencil(); } });
+      var done2 = false;
+      box.querySelector('#d-go2').addEventListener('click', function () {
+        if (done2) { stage = 3; stage3(); return; }
+        var i, k, m, e, slot;
+        var BAD = {
+          s1: 'If the camp were up-wind, the red line on the map would pass through it. It passes nine kilometres east.',
+          s2: 'Over flat land at home the wind often drops at night. This wind is made by the night: the mast has measured it, every night.',
+          s3: 'Three and a half kilometres to a single mast, in fifty metres of visibility, with no GPS and a cold passenger.',
+          s4: 'Page fifteen does not leave this to chance, and Uma&rsquo;s hands have started to fumble.'
+        };
+        for (i = 0; i < R.length; i++) {
+          k = R[i][0]; m = picks[k].get(); slot = box.querySelector('.slot[data-r="' + k + '"] .chip2'); e = slot ? slot.getAttribute('data-k') : '';
+          if (!m || !e) { msg('Every sentence needs its word and its because.'); return; }
+          if (!ER.check(k, m)) { lastErr = k; ICE.sfx.no(); msg('&ldquo;' + R[i][2].replace('___', '&hellip;') + '&rdquo; Not with that word. ' + BAD[k]); return; }
+          if (!ER.check(k + 'e', e)) { lastErr = k; ICE.sfx.no(); msg('The word is right, but that because does not prove it. Uma: &ldquo;Which thing that we know makes it true?&rdquo;'); return; }
+        }
+        lastErr = ''; ICE.sfx.click();
+        ER.flag('e-says', [picks.s1.get(), picks.s2.get(), picks.s3.get(), picks.s4.get()].join('|'));
+        msg('Vidar reads the four sentences over your shoulder, with snow blowing between you. His arm comes down slowly. &ldquo;Can&rsquo;t,&rdquo; he says. &ldquo;Won&rsquo;t. Shouldn&rsquo;t.&rdquo; He nods. &ldquo;Should. Yes. Tent.&rdquo;');
+        box.querySelector('#d-go2').textContent = 'Pitch the tent'; done2 = true;
+      });
+      msg('Four sentences. Vidar is waiting, and the drift is getting thicker.');
+    }
+    function stage3() {
+      var s = '<svg viewBox="0 0 600 420" id="t-svg"><rect width="600" height="420" fill="#eef2f6"/>';
+      for (var i = 0; i < 9; i++) s += '<path d="M' + (360 + i * 30) + ' ' + (10 + i * 4) + 'L' + (60 + i * 30) + ' ' + (420 + i * 4) + '" stroke="#ffffff" stroke-width="6" opacity=".9"/>';
+      s += '<g transform="translate(520 60)"><path d="M0 34V0" stroke="#1a2230" stroke-width="2"/><path d="M0 -6l-6 12h12z" fill="#1a2230"/><text y="50" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="13" fill="#1a2230">N</text></g>' +
+        '<g transform="translate(470 120)"><path d="M0 0L-70 121" stroke="#1f4f8a" stroke-width="7"/><path d="M-70 121l2 -20l14 8z" fill="#1f4f8a"/><text x="-30" y="-10" font-family="Overpass,sans-serif" font-weight="700" font-size="13" fill="#1f4f8a">wind from 150</text></g>' +
+        '<g id="t-tent" class="grab"><rect x="160" y="110" width="200" height="200" fill="transparent"/><path d="M260 210L190 140H330V280H190Z" fill="none"/><path d="M190 140L330 140L330 280L190 280Z" fill="#f2c230" stroke="#a8841a" stroke-width="3"/>' +
+        '<path d="M190 140L260 210L330 140M190 280L260 210L330 280" stroke="#a8841a" stroke-width="2"/><path d="M236 140L260 110L284 140Z" fill="#e8641c" stroke="#a8460e" stroke-width="2"/><text x="260" y="104" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#a8460e">door</text></g></svg>';
+      box.innerHTML = '<div class="frame board" style="display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr)">' + s + '<div class="side"><h5>Pitch the tent</h5><p>The pyramid tent, seen from above, north at the top. Drag it round so that its door is where page fifteen wants it.</p><p id="t-read" style="font-family:Overpass Mono,monospace;font-size:14px;color:#ffe2c8"></p></div></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="t-go">Dig it in</button></div>';
+      msgEl = box.querySelector('.pmsg');
+      tent = ICE.turn(box.querySelector('#t-tent'), { svg: box.querySelector('#t-svg'), cx: 260, cy: 210, step: 30, start: 60, change: function (a) { box.querySelector('#t-read').textContent = 'The door faces ' + ICE.d3(a) + '.'; } });
+      box.querySelector('#t-read').textContent = 'The door faces ' + ICE.d3(tent.get()) + '.';
+      box.querySelector('#t-go').addEventListener('click', function () {
+        var d = String(tent.get());
+        if (ER.check('door_wind', d)) { lastErr = 'door'; ICE.sfx.no(); msg('The door straight into the wind: in one minute the tent would be full of snow, and so would Uma.'); return; }
+        if (!ER.check('door', d)) { lastErr = 'door'; ICE.sfx.no(); msg('The wind would catch the door from the side and fill the porch. Back to the wind, door downwind.'); return; }
+        var pz = (ER.flag('e-pos') || '').split('|'), sz = (ER.flag('e-says') || '').split('|');
+        var cand = [pz[0], pz[1]].concat(sz).concat([d]).join('|');
+        if (!ER.exitOk([cand])) { ICE.sfx.no(); msg('Something earlier is not right. Close this and start the decision again.'); return; }
+        nextFile = ER.exit([cand], { wait: true }); ER.flag('e-file', nextFile); lastErr = '';
+        ICE.sfx.flap();
+        ICE.mine('night', 'Why we stopped', '<p>Where: <b>3.4 km</b> from W9 on 253, so 3.4 km short of the cache. The camp is at 194 from here, 13.4 km.</p><p>The wind here comes from <b>150</b>, set by the slope. Into the wind would have taken us nine kilometres east of the camp. The camp <b>can&rsquo;t</b> be up-wind.</p><p>The wind <b>won&rsquo;t</b> drop by midnight: it is strongest from 23.00 to 08.00. We <b>shouldn&rsquo;t</b> push on blind. We <b>should</b> shelter now: Uma is fumbling.</p><p>Tent door to <b>330</b>, downwind.</p>', true);
+        msg('Door to 330, downwind. Vidar cuts snow blocks with the shovel faster than you would have thought a person could, and the tent stops flapping and starts humming.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'By twenty past nine the pyramid tent is up, its back to the wind, its door downwind, its edges buried under snow blocks. Inside it is yellow and loud, and then, when the stove roars, almost warm.',
+            'Uma drinks hot sweet tea with both hands round the mug and stops shivering by ten. &ldquo;Good decision,&rdquo; she says, and goes to sleep in the middle of the word.',
+            'Vidar sits by the door with his notebook and a pencil. You watch him cross out rule four, and then, more slowly, rule five. He writes something underneath. Outside the wind roars all night, exactly as the weather mast said it would, and the sun goes round behind the yellow walls, low and pale, and never sets.'
+          ], function () { busy = false; showGo(); });
+        }, 2600);
+      });
+      msg('Drag the tent round. The wind is shown by the blue arrow.');
+    }
+    var saved = ER.flag('e-pos'), says = ER.flag('e-says');
+    if (saved && says) stage3(); else if (saved) stage2(); else stage1();
+    ER.open('ov-lock', box);
+  }
+  $('#map').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Uma&rsquo;s map, with your dot 3.4 km from W9 and a red line that goes nowhere useful.'); return; }
+    if (!told.uma || !told.vidar) { ER.say('Uma&rsquo;s map. Talk to Uma and to Vidar before you decide anything.'); return; }
+    if (!ready()) { ER.say('Before you decide: the radio, Vidar&rsquo;s notebook, page fifteen, and the trip meter. Know everything you can know.'); return; }
+    openDecide();
+  });
+})();
+</script>
+</body>
+</html>

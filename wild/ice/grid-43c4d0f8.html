@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Stakes · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#1c2a3a;--accent:#5ad8e8;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(20,30,42,.96);--tc-ink:#e8f4f8;--cap-bg:rgba(18,28,40,.93);--panel:#16222e;--face-bg:#22323e;--q-ink:#9ae8f2;--fade:#0c141c;--hud-bg:rgba(18,28,40,.86)}
+  #holeglow{animation:hg 2.8s steps(1,end) infinite}
+  @keyframes hg{50%{opacity:.7}}
+  #spin path{animation:spin 1.8s steps(6,end) infinite}
+  @keyframes spin{0%{transform:translate(0,0);opacity:0}30%{opacity:.8}100%{transform:translate(-120px,4px);opacity:0}}
+  .board{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);background:#e9f0f4}
+  .board>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);background:#f7fbfd}
+  .probe-read{font-family:'Overpass Mono',monospace;font-size:14px;color:#ffe2c8;min-height:44px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1e44"/><stop offset=".6" stop-color="#2a5a9a"/><stop offset="1" stop-color="#a8c8e4"/></linearGradient>
+  <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8dcea"/><stop offset="1" stop-color="#f2f8fc"/></linearGradient>
+  <linearGradient id="rockG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a302a"/><stop offset="1" stop-color="#1e1814"/></linearGradient>
+  <radialGradient id="holeG"><stop offset="0" stop-color="#5ad8e8" stop-opacity=".6"/><stop offset="1" stop-color="#5ad8e8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#skyG)"/>
+<path d="M-1000 470H2600V1300H-1000Z" fill="url(#snowG)"/>
+<!-- the rock of Yoke Nunatak, close: a black wall, a moat of blue ice at its foot -->
+<g id="rock" class="hot">
+  <path d="M1180 900L1240 480L1320 300L1400 120L1470 -60L2600 -100V1300H1180Z" fill="url(#rockG)"/>
+  <g stroke="#5a4a40" stroke-width="4" fill="none"><path d="M1300 340l60 40l-20 90M1420 180l40 60M1360 560l70 30l20 120M1500 300l60 80"/></g>
+  <path d="M1250 470L1180 900H1290L1320 470Z" fill="#7ac8e0" opacity=".7"/><path d="M1180 900L1250 470" stroke="#e8f8ff" stroke-width="4"/>
+  <path d="M1316 300l84 -180l70 -170" stroke="#f4f8fb" stroke-width="5" fill="none"/>
+</g>
+<g id="spin" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M1140 600h50"/><path d="M1000 700h40"/><path d="M760 520h40"/></g>
+<!-- the stakes, W9 far off to W2 near -->
+<g id="stakes" class="hot"><g stroke="#9aa4ac" stroke-width="3"><path d="M150 520v-44M260 530v-52M380 540v-62M520 556v-74M690 580v-90"/></g>
+  <g fill="#e8641c"><rect x="146" y="472" width="8" height="8"/><rect x="255" y="472" width="10" height="10"/><rect x="374" y="470" width="12" height="12"/><rect x="513" y="474" width="14" height="14"/><rect x="682" y="480" width="16" height="16"/></g>
+  <text x="680" y="474" font-family="Overpass,sans-serif" font-weight="700" font-size="13" fill="#a8460e">W2</text></g>
+<!-- W1 by the rock -->
+<g><path d="M1110 640v-110" stroke="#9aa4ac" stroke-width="4"/><rect x="1100" y="520" width="20" height="20" fill="#e8641c"/><text x="1126" y="534" font-family="Overpass,sans-serif" font-weight="700" font-size="13" fill="#a8460e">W1</text></g>
+<!-- the skidoos, small, out on safe snow -->
+<g id="skidoo" class="hot"><path d="M90 560h120l12 -16h-30l-12 -14h-44l-14 14h-24z" fill="#e8c81e" stroke="#7a6a10" stroke-width="2"/><path d="M84 566q-4 12 12 12h120" stroke="#2a2a2a" stroke-width="5" fill="none"/><rect x="230" y="544" width="90" height="24" fill="#6a8aa8" stroke="#2a3a4a" stroke-width="2"/>
+  <path d="M60 600h110l11 -15h-28l-11 -13h-40l-13 13h-22z" fill="#e8c81e" stroke="#7a6a10" stroke-width="2"/><path d="M190 584h90v22h-90z" fill="#c8321e" opacity=".9"/></g>
+<!-- the hole: a slot in the snow, slanting back towards the rock -->
+<g id="hole" class="hot">
+  <ellipse cx="900" cy="770" rx="140" ry="50" fill="url(#holeG)" id="holeglow"/>
+  <path d="M800 800L860 762L1000 728L960 770Z" fill="#0a2a44"/><path d="M820 794L866 766L982 738L950 768Z" fill="#164a6a"/><path d="M860 762L1000 728" stroke="#9ae8f2" stroke-width="2"/>
+  <path d="M780 806q60 -10 100 -40M940 776q40 -20 80 -46" stroke="#ffffff" stroke-width="5" fill="none"/>
+</g>
+<!-- the probe, lying in the snow -->
+<g id="probe" class="hot"><path d="M1000 860L1300 800" stroke="#c8c8d0" stroke-width="7" stroke-linecap="round"/><path d="M1000 860l-8 2" stroke="#2a2a2a" stroke-width="7"/><path d="M1060 848l6 -1M1120 836l6 -1M1180 824l6 -1M1240 812l6 -1" stroke="#c8321e" stroke-width="7"/></g>
+<!-- the rope, from Vidar to Uma -->
+<path d="M560 640q80 50 160 40" stroke="#d8c43a" stroke-width="6" fill="none"/>
+<!-- Vidar, anchored, with the rope -->
+<g id="vidar" class="hot">
+  <path d="M460 720l12 -190q4 -28 40 -30h26q38 2 42 30l12 190z" fill="#e8641c"/><path d="M460 720l6 -100q28 12 38 0l4 100zM592 720l-6 -100q-28 12 -38 0l-4 100z" fill="#2a2a2e"/>
+  <rect x="516" y="476" width="22" height="28" fill="#e0a888"/><circle cx="527" cy="450" r="30" fill="#eab496"/><path d="M500 456q2 32 27 38q25 -6 27 -38q-12 10 -27 8q-15 2 -27 -8z" fill="#d8b46a"/>
+  <path d="M496 444q-2 -38 31 -40q33 2 31 40q-31 -14 -62 0z" fill="#b8241a"/><circle cx="527" cy="404" r="7" fill="#b8241a"/>
+  <path d="M470 610h120" stroke="#d8c43a" stroke-width="8"/><path d="M430 740V650" stroke="#9aa4ac" stroke-width="7"/>
+</g>
+<!-- Uma, sitting on her rucksack, ankle wrapped -->
+<g id="uma" class="hot">
+  <rect x="680" y="690" width="100" height="60" rx="10" fill="#2a4a6a"/>
+  <path d="M690 700l6 -110q4 -24 34 -26h16q30 2 34 26l6 110z" fill="#c8321e"/>
+  <rect x="728" y="540" width="18" height="26" fill="#9a6440"/><circle cx="737" cy="518" r="25" fill="#a86c48"/><path d="M712 514q-2 -30 25 -32q27 2 25 30q-8 -12 -25 -14q-17 2 -25 16z" fill="#1e1a1c"/>
+  <path d="M780 720l70 30l-6 18l-74 -20z" fill="#2a2a2e"/><path d="M836 744l26 10l-4 14l-28 -8z" fill="#7a5a9a"/>
+  <path d="M704 640q-30 30 -10 60" stroke="#c8321e" stroke-width="14" fill="none" stroke-linecap="round"/>
+</g>
+<!-- page thirteen, tucked in Uma's rucksack -->
+<g id="manual" class="hot"><rect x="640" y="700" width="40" height="52" rx="3" fill="#e8641c" stroke="#7a2a08" stroke-width="2" transform="rotate(-14 660 726)"/><rect x="646" y="710" width="26" height="10" fill="#fff4e4" transform="rotate(-14 660 726)"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the evening</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '', partA = null;
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'grid', no: 'IV', title: 'The Stakes',
+    go: 'Look',
+    intro: [
+      'You read the wind from the slope. Straight uphill is at right angles to the contours, and the night wind comes from 30 degrees to the left of it: from 150 at the cache, where the contours run east to west, and from 180 by the stakes, where the slope turns. It will be too strong to drive from eleven at night until eight in the morning, the snow starts to lift at about nine, and so you must be back on the flags by eight in the evening.',
+      'The afternoon went well. W9, W8, W7, all the way along the line towards the rock: a reading from each stake, and a data card into Uma&rsquo;s inside pocket. By half past three there was only W1 left, close under the black wall of Yoke Nunatak. Uma roped herself to Vidar, took the probe, and went on foot.'
+    ],
+    exit: {"next":"drift","w":{"64283487":"21e3f930","16745a4f":"d8cb2104","06e97f9f":"265a640d","e5051580":"9070fa03"}}, tags: {"cord":["562f76d1"],"cord_across":["65475005"],"cord_along":["e0b09eef"],"cord_other":["e9ab9373"],"walk":["88e5592f"],"walk_along":["b857b8d9","c48627f3"],"walk_slant":["5338f410","c68d65e7","74ae8b8f"],"walk_rock":["ade0f369","b9fa104c"],"wands":["f2e19698"],"sun":["d814d51f","33166533","6b8651c4","2e9779f1"],"sun_left":["22079a70","c0554bb9","44a546e3","047d4c82","033ece5b","d5758f60"],"sun_hour":["69b11c65","8bd78b44","6cf69f9c","086ca8aa","e0d3eeef"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {}; partA = ER.flag('d-a') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function readyA() { return told.uma && told.vidar && told.p13 && told.hole; }
+  function paint() {
+    $('#probe').classList.toggle('ready', !!(readyA() && !partA));
+    $('#skidoo').classList.toggle('ready', !!(partA && !nextFile));
+    ER.pips((told.uma ? 1 : 0) + (told.vidar ? 1 : 0) + (told.p13 ? 1 : 0) + (told.hole ? 1 : 0) + (partA ? 1 : 0) + (nextFile ? 1 : 0), 6);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The heading is set by the sun. Drive off into the evening.']];
+    if (!told.uma || !told.vidar) return ['talk', ['Talk to Uma, who is sitting in the snow, and to Vidar, who has the rope.', 'Uma will tell you what has been lost and what is safe; Vidar will tell you which way he would go, and why.']];
+    if (!told.p13 || !told.hole) return ['look', [
+      'Before anybody moves: read about snow bridges, and look closely at the hole.',
+      'The orange manual is tucked into Uma&rsquo;s rucksack (page thirteen). The hole is the dark slot in the snow in the middle.'
+    ]];
+    if (!partA) return ['out' + (lastErr ? '-' + lastErr : ''), outHints()];
+    return ['sun' + (lastErr ? '-' + lastErr : ''), sunHints()];
+  }
+  function outHints() {
+    var H = {
+      cord: ['Look at the slot of the hole on the board: which way does it run? And page twelve, last line: what happens to cracks next to rock?', 'Next to rock the cracks slant at about 45 degrees to the edge, pointing up the flow. The rock edge runs north to south here, and the ice flows north, so the cracks run from south-west to north-east. Turn the red cord to lie that way.'],
+      walk: ['Page thirteen: cross a crevasse at right angles. Never walk along one, and do not walk into the hole.', 'The cracks run south-west to north-east. At right angles to that, and away from the rock, is north-west.'],
+      wands: ['Slide the probe along the arrow a metre at a time. Where it goes in with no push, put a wand.', 'Crevasses come in families, lying side by side. You should find more than one before the probe stays firm for good.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click the probe lying in the snow. First show which way the hidden crevasse runs, and which way you will walk.',
+      'The red cord goes along the crevasse; the blue arrow is the way you will walk. Page twelve says how cracks lie next to rock; page thirteen says how to cross them.',
+      'The cord lies south-west to north-east, at 45 degrees; you walk north-west, at right angles to it and away from the rock. Then probe along the arrow and put a wand at each hollow place.'];
+  }
+  function sunHints() {
+    var H = {
+      side: ['In the evening the sun is in the west. You are heading for the cache, back the way you came.', 'Your heading is 253. At 17.40 the sun&rsquo;s bearing is about 279, which is a bigger number: the sun is clockwise from your heading, so to the RIGHT of the bow.'],
+      hour: ['Use the sun table for 17.40, not for a whole hour.', '17.40 is two-thirds of the way from 17.00 (289) to 18.00 (275). The sun moves 14 degrees in that hour, so at 17.40 it is about 279.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click the skidoos. You need two numbers: your heading to the cache, and the sun&rsquo;s bearing at 17.40.',
+      'You came from the cache on a bearing of 073. Going back is the back bearing: add 180. The sun table gives the sun&rsquo;s bearing hour by hour.',
+      'Heading 253; the sun at 17.40 about 279. So the sun should sit about 26 degrees to the right of the bow.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Engines running. The sun sits on the right of the bow, where it should.'); return; }
+    if (partA) { busy = false; ER.say('Everybody is back on safe snow by the skidoos. Which way is the cache, with no GPS?'); return; }
+    if (told.in) { busy = false; ER.say('The hole, the rope, the rock, and the skidoos far off on safe snow.'); return; }
+    tell('in');
+    ER.narrate([
+      'It happened between two probes. Uma took one step, and the snow under her right leg went with a soft sound, like somebody sighing, and she was in up to her thigh, with blue darkness underneath her boot.',
+      'Vidar sat down hard and dug his heels in, exactly as Uma had said he would. The rope came tight and held. He pulled, and she came out sideways onto the snow, and lay there, and said a word you have not heard her say before.',
+      'Now it is ten to four. Uma is sitting on her rucksack with her right boot off. Vidar is anchored to an aluminium stake with the rope round his waist. Between them, the hole breathes cold air into the afternoon. The skidoos are eighty metres away, small and yellow, on snow that you crossed this afternoon.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#uma').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Uma Varghese', role: 'Sitting in the snow', face: window.FACE('uma'),
+      lines: [
+        { note: 'Her ankle is wrapped in a scarf. Her face is grey, but her voice is perfectly calm.', a: '&ldquo;Well. That was page twelve, last rule, from the inside.&rdquo;' },
+        { q: 'Are you hurt?', a: '&ldquo;A twisted ankle. Not broken: I can move my toes, and I have said several words I learnt in Bristol. I can&rsquo;t walk far on it, and I certainly can&rsquo;t drive.&rdquo;' },
+        { q: 'What fell down the hole?', a: '&ldquo;The GPS. It was round my neck on a cord, and the cord snapped. I heard it hit something a long way down. The nine data cards are in my inside pocket. So the science is safe, and the little box that tells us where we are is not.&rdquo;' },
+        { q: 'How do we get back to the skidoos?', a: '&ldquo;Not in a straight line. We walk out the way the cracks tell us, and we probe every metre. You will lead, with the probe. Vidar will hold the rope. I will be carried, and I will complain.&rdquo;' },
+        { q: 'Why me?', a: '&ldquo;Because Vidar is holding the rope and I am holding my ankle. And because you read page twelve this morning, all the way to the end.&rdquo;' }
+      ],
+      clue: { id: 'uma4', title: 'Uma, by the hole', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('uma')) { paint(); ICE.terms(['probe', 'rope up']); ER.say('Uma pulls her hood up and looks at the hole as if it owes her money.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'On the rope', face: window.FACE('vidar'),
+      lines: [
+        { note: 'His hands on the rope are perfectly steady. His voice is not, quite.', a: '&ldquo;She went in to here,&rdquo; he says, and shows you, on his own leg. &ldquo;And I sat down, and I pulled. That is all. That is the job.&rdquo;' },
+        { q: 'Which way should we go?', a: '&ldquo;Straight to the skidoos. Eighty metres. The crack runs across the flow, east to west, like page twelve says. So we cross it once, there, and we are on good snow.&rdquo;' },
+        { q: 'Are you sure it runs east to west?', a: '&ldquo;It must. Crevasses lie across the flow. You told us so this morning. Definitely.&rdquo;' },
+        { q: 'Thank you for holding the rope.', a: 'He looks at you, surprised. &ldquo;Thank the rope. Norwegian rope. Very good rope.&rdquo;' }
+      ],
+      clue: { id: 'vid4', title: 'Vidar, on the rope', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ER.say('Vidar checks the knot at his waist for the fourth time.'); } }
+    });
+  });
+
+  /* ---------- page thirteen, and the hole ---------- */
+  var P13 = '<h4><small>Field manual &middot; Travel on glaciers and ice sheets &middot; page 13</small>Snow bridges, ropes and probes</h4><div class="two"><div>' +
+    '<p>A snow bridge is snow packed by the wind over a crevasse. It may be a metre thick or as thin as a biscuit, and from above the two look the same. Cold bridges are stronger than warm ones, but no bridge is safe until it has been tested.</p>' +
+    '<ul><li>Where crevasses may be, <b>rope up</b>: if one person breaks through, the others hold them.</li>' +
+    '<li>Probe ahead with a long pole. Firm snow stops the <b>probe</b>; over a crevasse it suddenly goes in with no push at all.</li>' +
+    '<li>Mark each crevasse you find with a <b>wand</b>, a thin bamboo cane.</li>' +
+    '<li>Cross at right angles, to spend as little time as possible on the bridge. Never walk along a crevasse: one metre out, and you are on the bridge the whole way.</li>' +
+    '<li>Crevasses come in families: where there is one, there are others beside it, lying the same way.</li></ul></div>' +
+    '<div><svg viewBox="0 0 300 300"><rect width="300" height="300" fill="#fbfaf5"/>' +
+    '<text x="10" y="18" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">A BRIDGE, FROM THE SIDE</text>' +
+    '<path d="M10 60H290V150H10Z" fill="#eef4fa"/><path d="M110 60h80v14q-40 8 -80 0z" fill="#ffffff" stroke="#9ab8d4"/><path d="M110 74L130 150H170L190 74Q150 82 110 74Z" fill="#1a3a5a"/>' +
+    '<path d="M60 36V70" stroke="#2a2a2a" stroke-width="3"/><text x="66" y="44" font-family="Overpass,sans-serif" font-size="11" fill="#2a2a2a">firm: stops</text><path d="M150 30V110" stroke="#c8321e" stroke-width="3"/><text x="156" y="40" font-family="Overpass,sans-serif" font-size="11" fill="#c8321e">hollow: goes in</text>' +
+    '<text x="10" y="186" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#1f4f8a">FROM ABOVE</text>' +
+    '<path d="M40 280L260 200" stroke="#1a3a5a" stroke-width="10" stroke-linecap="round"/><path d="M110 210l40 60" stroke="#1e8a3e" stroke-width="3"/><path d="M146 262l4 8l-9 -1" fill="none" stroke="#1e8a3e" stroke-width="3"/>' +
+    '<text x="152" y="282" font-family="Overpass,sans-serif" font-size="11" fill="#1e8a3e">across: yes</text><path d="M60 258L220 200" stroke="#c8321e" stroke-width="3" stroke-dasharray="6 4"/><text x="196" y="190" font-family="Overpass,sans-serif" font-size="11" fill="#c8321e">along: never</text></svg></div></div>' +
+    '<p class="pg">Probe, then step &middot; 13</p>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P13, cls: 'fm', clue: { id: 'p13', title: 'Snow bridges, ropes and probes', kind: 'Field manual, page 13' }, done: function () {
+      ICE.terms(['snow bridge', 'probe', 'wand', 'rope up']);
+      if (tell('p13')) { paint(); ER.say('Crevasses come in families. You look at the smooth snow between here and the skidoos, which looks exactly like snow.'); }
+    } });
+  });
+  $('#hole').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'crevasse');
+    if (tell('hole')) paint();
+    ER.say('You lie flat at the edge and look in. A slot as long as your arm, blue at the sides and black below. It does not run straight across the slope: it slants. Away from the rock, it runs back up the way the ice has come.');
+  });
+  ICE.thing('#rock', 'nunatak', 'The black rock of Yoke Nunatak, close enough to touch. At its foot the wind has scooped a moat of bare blue ice. The ice sheet is sliding past this rock, very slowly, and the rock is holding it back.', isBusy);
+  ICE.thing('#stakes', null, 'The stakes, W9 to W2, going away along the line. Each one has given up its data card. W1, by the rock, has too: it is in Uma&rsquo;s pocket with the others.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the way out: a board of the snow round the hole, 200 m by 130 m, north at the top ---------- */
+  var HOLE = [156, 62], UMA = [150, 60], SKI = [40, 20];
+  function bxp(x) { return 3 * x; } function byp(y) { return 395 - 3 * y; }
+  /* where the probe goes in: the family of cracks beside the hole (this is the snow, not an answer) */
+  function crackAt(x, y) {          /* which crack of the family is under this point (-1: none) */
+    if (x < 90 || x > 182) return -1;
+    var s = -0.7071 * (x - HOLE[0]) + 0.7071 * (y - HOLE[1]), k;
+    for (k = 0; k < 4; k++) if (Math.abs(s - 26 * k) < 1.6) return k;
+    return -1;
+  }
+  function hollowAt(x, y) { return crackAt(x, y) >= 0; }
+  function openOut() {
+    var box = ER.el('div', 'bx'), msgEl, svg, cord, walk, stage = 1, d = 0, wands = [];
+    var s = '<svg viewBox="0 0 600 400" id="o-svg"><rect width="600" height="400" fill="#f7fbfd"/>';
+    for (var i = 0; i <= 600; i += 30) s += '<path d="M' + i + ' 0V400" stroke="#e2edf3"/>';
+    for (i = 5; i <= 400; i += 30) s += '<path d="M0 ' + i + 'H600" stroke="#e2edf3"/>';
+    s += '<path d="M' + bxp(181) + ' -10L' + bxp(181) + ' 410L620 410V-10Z" fill="#3a302a"/><path d="M' + bxp(181) + ' -10V410" stroke="#7ac8e0" stroke-width="6"/>' +
+      '<text x="' + (bxp(181) + 8) + '" y="200" font-family="Fjalla One,sans-serif" font-size="15" fill="#e8dcd0" transform="rotate(90 ' + (bxp(181) + 8) + ' 200)">ROCK</text>' +
+      '<g transform="translate(40 60)"><path d="M0 40V0" stroke="#2a6ab0" stroke-width="3"/><path d="M0 -6l-7 12h14z" fill="#2a6ab0"/><text x="10" y="24" font-family="Overpass,sans-serif" font-size="12" fill="#2a6ab0">ice flows north</text></g>' +
+      '<g id="o-cracks"></g>' +
+      '<g transform="rotate(45 ' + bxp(HOLE[0]) + ' ' + byp(HOLE[1]) + ')"><rect x="' + (bxp(HOLE[0]) - 4) + '" y="' + (byp(HOLE[1]) - 12) + '" width="8" height="24" rx="3" fill="#0a2a44"/></g>' +
+      '<text x="' + (bxp(HOLE[0]) + 10) + '" y="' + (byp(HOLE[1]) + 26) + '" font-family="Overpass,sans-serif" font-size="11" fill="#0a2a44">the hole</text>' +
+      '<g id="o-cord" class="grab"><rect x="' + (bxp(HOLE[0]) - 10) + '" y="' + (byp(HOLE[1]) - 150) + '" width="20" height="300" fill="transparent"/><path d="M' + bxp(HOLE[0]) + ' ' + (byp(HOLE[1]) - 150) + 'V' + (byp(HOLE[1]) + 150) + '" stroke="#c8321e" stroke-width="3" stroke-dasharray="8 5"/></g>' +
+      '<circle cx="' + bxp(UMA[0]) + '" cy="' + byp(UMA[1]) + '" r="8" fill="#c8321e" stroke="#2a2a2a" stroke-width="2"/><text x="' + (bxp(UMA[0]) - 12) + '" y="' + (byp(UMA[1]) + 24) + '" text-anchor="end" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#2a2a2a">you, Uma, Vidar</text>' +
+      '<g id="o-walk" class="grab"><rect x="' + (bxp(UMA[0]) - 10) + '" y="' + (byp(UMA[1]) - 96) + '" width="20" height="96" fill="transparent"/><path d="M' + bxp(UMA[0]) + ' ' + (byp(UMA[1]) - 10) + 'V' + (byp(UMA[1]) - 84) + '" stroke="#1f4f8a" stroke-width="5"/><path d="M' + bxp(UMA[0]) + ' ' + (byp(UMA[1]) - 96) + 'l-10 16h20z" fill="#1f4f8a"/></g>' +
+      '<g id="o-wands"></g><g id="o-probe" style="display:none"><circle r="7" fill="none" stroke="#e8641c" stroke-width="3"/><path d="M0 -14V14M-14 0H14" stroke="#e8641c" stroke-width="2"/></g>' +
+      '<g transform="translate(' + bxp(SKI[0]) + ' ' + byp(SKI[1]) + ')"><rect x="-20" y="-8" width="40" height="16" rx="4" fill="#e8c81e" stroke="#2a2a2a" stroke-width="2"/><text x="0" y="28" text-anchor="middle" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#2a2a2a">skidoos</text></g>' +
+      '<g transform="translate(510 360)"><path d="M0 0h' + (3 * 20) + '" stroke="#2a2a2a" stroke-width="4"/><text x="0" y="20" font-family="Overpass,sans-serif" font-size="11" fill="#2a2a2a">20 m</text></g></svg>';
+    box.innerHTML = '<div class="frame board">' + s + '<div class="side"><h5>The way out</h5>' +
+      '<p>The snow round the hole, seen from above, north at the top. Drag the <b>red cord</b> round so that it lies along the crevasse under the snow. Drag the <b>blue arrow</b> round to point the way you will walk.</p>' +
+      '<div class="row" id="o-st2" style="display:none"><span class="lab">Probe along the arrow</span><span class="nudge"><button type="button" data-d="-5">&laquo;</button><button type="button" data-d="-1">&lsaquo;</button><button type="button" data-d="1">&rsaquo;</button><button type="button" data-d="5">&raquo;</button></span><button type="button" class="btn" id="o-wand">Wand here</button></div>' +
+      '<div class="probe-read" id="o-read"></div></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="o-go">That way</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#o-svg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    cord = ICE.turn(box.querySelector('#o-cord'), { svg: svg, cx: bxp(HOLE[0]), cy: byp(HOLE[1]), step: 45, start: 90 });
+    walk = ICE.turn(box.querySelector('#o-walk'), { svg: svg, cx: bxp(UMA[0]), cy: byp(UMA[1]), step: 45, start: 225 });
+    function at(dist) { var a = walk.get() * Math.PI / 180; return [UMA[0] + Math.sin(a) * dist, UMA[1] + Math.cos(a) * dist]; }
+    function probe() {
+      var p = at(d), g = box.querySelector('#o-probe'), h = hollowAt(p[0], p[1]);
+      g.style.display = ''; g.setAttribute('transform', 'translate(' + bxp(p[0]).toFixed(1) + ' ' + byp(p[1]).toFixed(1) + ')');
+      if (h) ICE.sfx.hollow(); else ICE.sfx.probe();
+      box.querySelector('#o-read').innerHTML = d + ' m along: ' + (d === 0 ? 'where you stand.' : h ? 'the probe goes in to the handle with no push at all. HOLLOW.' : p[0] < 90 ? 'the probe stops at forty centimetres. Firm, and the snow feels different here: older, harder.' : 'the probe stops at forty centimetres. Firm.');
+    }
+    ER.$$('.nudge button', box).forEach(function (b) { b.addEventListener('click', function () { d = ICE.clamp(d + (+b.getAttribute('data-d')), 0, 100); probe(); }); });
+    box.querySelector('#o-wand').addEventListener('click', function () {
+      if (!d) return;
+      if (wands.indexOf(d) >= 0) return;
+      wands.push(d); ICE.sfx.crunch();
+      var p = at(d);
+      box.querySelector('#o-wands').innerHTML += '<g transform="translate(' + bxp(p[0]).toFixed(1) + ' ' + byp(p[1]).toFixed(1) + ')"><path d="M0 4V-18" stroke="#c8a060" stroke-width="3"/><path d="M1 -18l10 3l-10 3z" fill="#e8321e"/></g>';
+      msg(wands.length + (wands.length === 1 ? ' wand' : ' wands') + ' in the snow. Go on probing until you are out of the cracks for good, then press &ldquo;Walk out&rdquo;.');
+    });
+    box.querySelector('#o-go').addEventListener('click', function () {
+      var c = String(cord.get() % 180), w = String(walk.get()), i, bad = 0, good = 0, p;
+      if (stage === 1) {
+        if (!ER.check('cord', c)) {
+          lastErr = 'cord'; ICE.sfx.no();
+          msg(ER.check('cord_across', c) ? 'Across the flow, east to west: that is the rule for open ice, and it is what Vidar said. But you are next to rock, and the slot of the hole does not lie that way.' :
+            ER.check('cord_along', c) ? 'Along the flow? Cracks open at right angles to the stretching. Look at the slot of the hole.' :
+            'Look at the slot of the hole again: away from the rock, it runs back up the way the ice has come.');
+          return;
+        }
+        if (!ER.check('walk', w)) {
+          lastErr = 'walk'; ICE.sfx.no();
+          msg(ER.check('walk_along', w) ? 'That way runs along the crack. One metre out, and you are on its bridge the whole way: page thirteen says never.' :
+            ER.check('walk_slant', w) ? 'That way crosses the cracks on a slant, so every bridge is twice as long under your feet. Cross at right angles.' :
+            ER.check('walk_rock', w) ? 'That way goes back towards the rock, and straight over the hole. Away from it.' :
+            'Which way crosses the cracks at right angles, and takes you away from the rock?');
+          return;
+        }
+        stage = 2; lastErr = ''; ICE.sfx.click();
+        box.querySelector('#o-st2').style.display = ''; box.querySelector('#o-go').textContent = 'Walk out';
+        ER.$$('#o-cord, #o-walk', box).forEach(function (n) { n.style.pointerEvents = 'none'; });
+        msg('Cord and arrow are right. Now probe along the arrow, a metre at a time, and put a wand at every hollow place.');
+        probe(); return;
+      }
+      var seen = {};
+      for (i = 0; i < wands.length; i++) { p = at(wands[i]); var kk = crackAt(p[0], p[1]); if (kk < 0) bad++; else if (!seen[kk]) { seen[kk] = 1; good++; } }
+      if (bad) { lastErr = 'wands'; ICE.sfx.no(); msg('One of your wands is on firm snow: a wand marks a hollow, or nobody will believe your wands. Start again from where you stand.'); wands = []; box.querySelector('#o-wands').innerHTML = ''; return; }
+      if (d < 86) { lastErr = 'wands'; ICE.sfx.no(); msg('Not yet: you have not probed far enough to be sure you are out of the family. Keep going along the arrow.'); return; }
+      var cand = [c, w, String(good)].join('|');
+      if (!ER.check('wands', String(good))) { lastErr = 'wands'; ICE.sfx.no(); msg('You have walked past a hollow place without a wand. Go back along the line: every crevasse needs its wand, for whoever comes next.'); return; }
+      partA = cand; ER.flag('d-a', cand); lastErr = '';
+      ICE.mine('walkout', 'The walk out', '<p>By the rock the cracks <b>slant at 45&#176;</b>, south-west to north-east, not east to west: the edge rule, not the open-ice rule. The hole showed it.</p><p>We walked out <b>north-west</b>, at right angles to them, probing every metre. Three hidden crevasses, 26 metres apart, each with a wand. Straight to the skidoos would have gone almost along them.</p>', true);
+      box.querySelector('#o-cracks').innerHTML = [0, 1, 2, 3].map(function (k) { return '<path d="M' + bxp(HOLE[0] - 0.7071 * 26 * k - 60) + ' ' + byp(HOLE[1] + 0.7071 * 26 * k - 60) + 'L' + bxp(HOLE[0] - 0.7071 * 26 * k + 60) + ' ' + byp(HOLE[1] + 0.7071 * 26 * k + 60) + '" stroke="#1a4a6a" stroke-width="4" opacity=".35"/>'; }).join('');
+      msg('Three wands, three hidden crevasses, every one of them slanting just like the hole. Vidar looks at the line of red wands for a long time. &ldquo;Straight to the skidoos,&rdquo; he says quietly, &ldquo;would have been almost along them.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'It takes forty minutes to cover a hundred metres. You probe; Vidar follows on the rope with Uma on his back like a very cross rucksack. At each wand you step across at right angles, and the bridge holds, and then you breathe again.',
+          'At half past four, half an hour late, Uma makes the sked from the skidoos. Yusra&rsquo;s voice comes through clearly: &ldquo;Copy. Ankle, no GPS, all three well. Back to the cache by the sun and up the flags. Next sked at six. Drive gently.&rdquo;',
+          'Then more than an hour of splint, stove, hot sweet tea and straps. Uma rides on the tent sledge behind Vidar, in two sleeping bags; you drive her skidoo behind them. At twenty to six the engines are running, and Uma looks up at you from her bags. &ldquo;Which way, navigator? No GPS. No compass. Show me.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    ER.open('ov-lock', box);
+    msg('Drag the red cord and the blue arrow round. The cord starts the way Vidar thinks the crack runs.');
+  }
+  $('#probe').addEventListener('click', function () {
+    if (busy) return;
+    if (partA) { ER.say('The probe, back on the sledge. A line of red wands stands in the snow behind you.'); return; }
+    if (!told.uma || !told.vidar) { ER.say('Before you pick up the probe, talk to Uma and to Vidar.'); return; }
+    if (!told.p13) { ER.say('&ldquo;Page thirteen,&rdquo; says Uma. &ldquo;In my rucksack. Read it before you probe anything.&rdquo;'); return; }
+    if (!told.hole) { ER.say('Look at the hole first: lie flat at its edge and look in. It will tell you which way it runs.'); return; }
+    openOut();
+  });
+
+  /* ---------- home by the sun: the heading on the skidoo ---------- */
+  function openSun() {
+    var box = ER.el('div', 'bx'), msgEl, svg, sun;
+    var s = '<svg viewBox="0 0 600 400" id="s-svg"><rect width="600" height="400" fill="#eef4f8"/>' +
+      '<circle cx="300" cy="210" r="150" fill="none" stroke="#9ab8d4" stroke-width="2" stroke-dasharray="4 6"/>';
+    for (var a = 0; a < 360; a += 10) { var r1 = a % 30 ? 144 : 138, ra = a * Math.PI / 180; s += '<path d="M' + (300 + Math.sin(ra) * r1).toFixed(1) + ' ' + (210 - Math.cos(ra) * r1).toFixed(1) + 'L' + (300 + Math.sin(ra) * 150).toFixed(1) + ' ' + (210 - Math.cos(ra) * 150).toFixed(1) + '" stroke="#5a7a9a" stroke-width="1.6"/>'; }
+    s += '<g font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#5a7a9a" text-anchor="middle"><text x="300" y="52">bow</text><text x="390" y="74">30 right</text><text x="210" y="74">30 left</text><text x="300" y="380">behind</text></g>' +
+      '<path d="M300 150l22 30v90h-44v-90z" fill="#e8c81e" stroke="#2a2a2a" stroke-width="2"/><rect x="286" y="200" width="28" height="22" rx="5" fill="#2a2a2a"/><path d="M300 150V70" stroke="#1f4f8a" stroke-width="3" stroke-dasharray="6 4"/>' +
+      '<g id="s-sun" class="grab"><circle cx="300" cy="60" r="26" fill="transparent"/><circle cx="300" cy="60" r="16" fill="#ffd23a" stroke="#c88a1a" stroke-width="2"/><path d="M300 36v-8M300 84v8M276 60h-8M324 60h8" stroke="#c88a1a" stroke-width="3"/></g>' +
+      '<g id="s-shadow"></g></svg>';
+    box.innerHTML = '<div class="frame board">' + s + '<div class="side"><h5>The sun on the bow</h5>' +
+      '<p>The skidoo seen from above, its bow at the top. Drag the sun round the ring to where it must sit while you drive towards the cache at twenty to six. Keep it there (it moves round about 15 degrees an hour, so you will move it on as you go).</p>' +
+      '<p id="s-read" style="font-family:Overpass Mono,monospace;font-size:15px;color:#ffe2c8"></p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="s-go">Drive</button></div>';
+    msgEl = box.querySelector('.pmsg'); svg = box.querySelector('#s-svg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function rel() { var v = sun.get(); return v > 180 ? 'l' + (360 - v) : 'r' + v; }
+    function read() {
+      var v = sun.get(), ra = v * Math.PI / 180;
+      box.querySelector('#s-read').textContent = v === 0 ? 'Sun: dead ahead.' : v === 180 ? 'Sun: right behind.' : 'Sun: ' + (v > 180 ? (360 - v) + ' degrees to the left' : v + ' degrees to the right') + ' of the bow.';
+      box.querySelector('#s-shadow').innerHTML = '<path d="M300 210L' + (300 - Math.sin(ra) * 70).toFixed(1) + ' ' + (210 + Math.cos(ra) * 70).toFixed(1) + '" stroke="#5a6a7a" stroke-width="10" stroke-linecap="round" opacity=".35"/>';
+    }
+    sun = ICE.turn(box.querySelector('#s-sun'), { svg: svg, cx: 300, cy: 210, step: 2, start: 0, change: read });
+    read();
+    box.querySelector('#s-go').addEventListener('click', function () {
+      var r = rel(), cand = partA + '|' + r;
+      if (ER.check('sun_left', r)) { lastErr = 'side'; ICE.sfx.no(); msg('That puts the sun on the wrong side. Your heading and the sun&rsquo;s bearing: which number is bigger? A bigger bearing is further clockwise, to the right.'); return; }
+      if (ER.check('sun_hour', r)) { lastErr = 'hour'; ICE.sfx.no(); msg('Nearly. But 17.40 is not on the hour: the sun is two-thirds of the way from where it is at 17.00 to where it is at 18.00.'); return; }
+      if (!ER.exitOk([cand])) { lastErr = ''; ICE.sfx.no(); msg('&ldquo;Where are we going?&rdquo; says Uma from her bags. &ldquo;Back to the cache: the way we came, backwards. And where is the sun at twenty to six?&rdquo;'); return; }
+      nextFile = ER.exit([cand], { wait: true }); ER.flag('d-file', nextFile); lastErr = '';
+      ICE.mine('home', 'Home by the sun', '<p>To the cache: the back bearing of 073 is <b>253</b>, 6.8 km.</p><p>At 17.40 the sun was at about <b>279</b> (two-thirds of the way from 289 to 275). So: the sun about <b>26&#176; to the right</b> of the bow, moving left a few degrees every ten minutes.</p>', true);
+      msg('&ldquo;Twenty-six to the right,&rdquo; says Uma, and closes her eyes. &ldquo;Move it a degree to the left every four minutes. Wake me at the flags.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Vidar sets off, slowly, for Uma&rsquo;s ankle, with the low sun on the right of his bow. You follow his tail light and his tracks. Every few minutes he holds up a glove and moves the sun on, by a finger&rsquo;s width, to the left.',
+          'The engine noise fills your helmet. Ahead the snow is gold and endless, and the long sastrugi run across your path at a slant, all the same way, like the grain in wood.'
+        ], function () { busy = false; showGo(); });
+      }, 2400);
+    });
+    ER.open('ov-lock', box);
+    msg('Drag the sun round the ring.');
+  }
+  $('#skidoo').addEventListener('click', function () {
+    if (busy) return;
+    if (!partA) { ER.say('The skidoos, eighty metres away on safe snow. Nobody walks there in a straight line.'); return; }
+    if (nextFile) { ER.say('The engines are running. The sun is on the right of the bow.'); return; }
+    openSun();
+  });
+})();
+</script>
+</body>
+</html>

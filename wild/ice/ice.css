@@ -1,0 +1,141 @@
+/* The Needle Points Down - what every room of the story shares: the frame round a piece of work, number wheels,
+   buttons to choose from, dials that turn, and the papers of the story (the field manual, Yusra's notes and sun table,
+   the weather sheet, Vidar's notebook, the radio log, your own notes) and a blue field notebook. Each room sets its
+   own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Overpass Mono',monospace;font-size:13.5px;letter-spacing:.3em}
+.tc-room{font-family:var(--font-display,'Fjalla One',sans-serif);letter-spacing:.04em;text-transform:uppercase}
+.tc-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.25vw,19px);line-height:1.55}
+.tc-text p{margin:0 0 10px}
+.cap{font-family:'Lora',Georgia,serif;font-size:clamp(16.5px,1.3vw,20px);line-height:1.5}
+.chip,.hbtn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.15em}
+.btn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.15em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 28px 11px;border:2px solid var(--accent,#e0a030);
+  color:var(--accent,#e0a030);background:var(--hud-bg,rgba(8,10,12,.9));font-family:'Overpass',sans-serif;font-weight:700;font-size:15px;letter-spacing:.22em;
+  text-transform:uppercase;border-radius:2px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e0a030);color:#111}
+.tk-name{font-family:'Lora',serif;font-weight:700;letter-spacing:.01em}
+.tk-role{font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.24vw,19px);line-height:1.55}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.35) saturate(1.3)}}
+
+/* ---- the frame round a piece of work ---- */
+.bx{width:min(1080px,95vw);-webkit-user-select:none;user-select:none}
+.bx .frame{position:relative;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.6);overflow:hidden}
+.bx-foot{display:flex;align-items:center;gap:12px;margin-top:9px;min-height:58px;flex-wrap:wrap}
+.pmsg{flex:1 1 300px;margin:0;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.4;color:#f3f1ea}
+.pmsg b{color:var(--accent,#e0a030);font-weight:700}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.42)}
+.bx svg text{pointer-events:none}
+.bx svg .pick{cursor:pointer}
+.bx svg .grab{cursor:grab;touch-action:none}
+.bx svg .grab.on{cursor:grabbing}
+.nudge{display:inline-flex;gap:4px;flex:0 0 auto}
+.nudge button{min-width:36px;height:36px;padding:0 8px;border:1px solid rgba(255,255,255,.45);border-radius:3px;background:rgba(0,0,0,.42);color:#f3f1ea;font-family:'Overpass',sans-serif;font-weight:700;font-size:14px}
+.nudge button:hover{border-color:var(--accent,#e0a030);color:var(--accent,#e0a030)}
+.picks{display:inline-flex;gap:6px;flex:0 0 auto;flex-wrap:wrap}
+.picks button{min-height:34px;padding:4px 11px;border:1px solid rgba(255,255,255,.45);border-radius:3px;background:rgba(0,0,0,.42);color:#f3f1ea;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em}
+.picks button:hover{border-color:var(--accent,#e0a030);color:var(--accent,#e0a030)}
+.picks button.on{background:var(--accent,#e0a030);border-color:var(--accent,#e0a030);color:#16120c}
+.picks.off button{opacity:.55;cursor:default}
+/* number wheels: the rolling figures of a field watch */
+.wls{display:inline-flex;align-items:center;gap:3px;flex:0 0 auto;padding:4px 10px;background:#1c2630;border-radius:4px;box-shadow:inset 0 0 0 1px #6f8aa0,0 2px 6px rgba(0,0,0,.45)}
+.wls small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:#cfe0ee;margin-right:5px;line-height:1.15;text-align:right}
+.wls i{font-style:normal;font-family:'Overpass Mono',monospace;font-size:19px;color:#cfe0ee;padding:0 1px}
+.wl{display:inline-grid;grid-template-rows:14px 30px 14px;justify-items:center}
+.wl button{width:100%;min-width:25px;height:14px;font-size:9px;line-height:14px;color:#a9c0d4}
+.wl button:hover{color:#ffd76a}
+.wl b{font-family:'Overpass Mono',monospace;font-weight:600;font-size:20px;line-height:30px;color:#121820;background:linear-gradient(#f4f6f8,#cdd8e0 55%,#eef2f4);min-width:23px;padding:0 3px;text-align:center;border-radius:2px;box-shadow:inset 0 0 0 1px #556878}
+.wls.off button{visibility:hidden}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the field manual: an orange-covered booklet, spiral bound, blue headings */
+.doc.fm{width:min(880px,95vw);background:#fbfaf5;color:#1a2230;font-family:'Overpass',sans-serif;font-size:15.5px;line-height:1.48;padding:0 28px 14px;border:1px solid #c45a1a;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.doc.fm h4{margin:0 -28px 12px;padding:10px 28px 8px;background:#e8641c;color:#fff8ee;font-family:'Fjalla One',sans-serif;font-size:25px;letter-spacing:.06em;text-transform:uppercase}
+.doc.fm h4 small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;color:#ffe2c8}
+.doc.fm p{margin:0 0 8px}
+.doc.fm .two{display:grid;grid-template-columns:1fr 300px;gap:22px;align-items:start}
+.doc.fm ul{margin:0 0 8px;padding-left:20px}
+.doc.fm li{margin:0 0 3px}
+.doc.fm .rule{margin:6px 0;padding:7px 12px 6px;background:#eef4fa;border-left:5px solid #1f4f8a;font-weight:700}
+.doc.fm .pg{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#6a7686;text-align:right;border-top:1px solid #d6dae0;padding-top:5px;margin-top:6px}
+.doc.fm b{color:#1f4f8a}
+/* Yusra's notes: squared paper on a clipboard, blue ballpoint */
+.doc.yn{width:min(840px,95vw);background-color:#fcfcf8;color:#1d2a52;font-family:'Handlee',cursive;font-size:18.5px;line-height:26px;padding:20px 30px 16px 40px;
+  background-image:linear-gradient(rgba(70,110,170,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(70,110,170,.14) 1px,transparent 1px);background-size:13px 13px;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:16px solid #6a6f78}
+.doc.yn h4{margin:0 0 6px;font-family:'Special Elite',monospace;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:#a8321e}
+.doc.yn p{margin:0 0 7px}
+.doc.yn .two{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+.doc.yn b{font-weight:normal;text-decoration:underline;color:#a8321e}
+.doc.yn table{border-collapse:collapse;font-family:'Overpass Mono',monospace;font-size:13.5px;line-height:1.25;color:#1d2a52}
+.doc.yn td,.doc.yn th{padding:1px 7px;border:1px solid rgba(29,42,82,.25);text-align:right}
+.doc.yn th{font-family:'Overpass',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.doc.yn tr.hl td{background:rgba(232,100,28,.16)}
+/* the weather sheet: a thermal printout from the weather mast */
+.doc.aws{width:min(900px,95vw);background:#f4f2ea;color:#22262a;font-family:'Overpass Mono',monospace;font-size:14px;line-height:1.45;padding:16px 24px 14px;box-shadow:0 26px 70px rgba(0,0,0,.55);border-left:8px dashed #c8c4b4}
+.doc.aws h4{margin:0 0 6px;font-family:'Overpass Mono',monospace;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#22262a}
+.doc.aws p{margin:0 0 6px}
+/* Vidar's notebook: an orange waterproof notebook, soft pencil, big capitals */
+.doc.vn{width:min(700px,94vw);background:#fff4e2;color:#2a2420;font-family:'Caveat',cursive;font-size:25px;line-height:1.2;padding:18px 30px 16px;border-left:16px solid #e8641c;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.doc.vn h4{margin:0 0 6px;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#a8460e}
+.doc.vn p{margin:0 0 7px}
+.doc.vn .later{color:#1f4f8a;font-size:23px}
+/* the radio log: a ruled ledger */
+.doc.radio{width:min(680px,94vw);background:#eef1ea;color:#1c2418;font-family:'Special Elite',monospace;font-size:15px;line-height:1.5;padding:18px 26px 16px;box-shadow:0 26px 70px rgba(0,0,0,.55);border-top:10px solid #2f4a3a}
+.doc.radio h4{margin:0 0 8px;font-family:'Fjalla One',sans-serif;font-size:19px;letter-spacing:.1em;text-transform:uppercase;color:#2f4a3a}
+.doc.radio p{margin:0 0 5px}
+/* what you worked out yourself: pencil in the blue field notebook */
+.doc.mine{width:min(620px,92vw);background:#f2f5fa;color:#1d2440;font-family:'Caveat',cursive;font-size:24px;line-height:1.2;padding:18px 28px 18px;border-left:12px solid #1f4f8a}
+.doc.mine h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#1f4f8a;margin-bottom:8px}
+.doc.mine p{margin:0 0 8px}
+.doc.statement{background:#f4f2ea;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.55;border-left:6px solid #1f4f8a}
+.doc.statement h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;color:#1f4f8a}
+.doc .w:hover{color:#1f4f8a}
+
+/* ---- the notebook: a blue field notebook with an orange elastic band ---- */
+.nb{background:#2c4d7a linear-gradient(140deg,#3a5f92,#24406a);border:1px solid #142640;border-radius:6px;color:#eef2f8;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #e8641c}
+.nb-tabs{border-bottom-color:#142640}
+.nb-tabs button{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.2em;color:#eef2f8}
+.nb-tabs button.on{background:#f6f8fb;color:#1d2440;border-color:#142640}
+.nb-list{border-right-color:#142640}
+.nb-list button{font-family:'Lora',serif;font-size:14.5px;color:#eef2f8}
+.nb-list button small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;opacity:.75}
+.nb-list button:hover{background:rgba(255,255,255,.12)}
+.nb-list button.on{background:#f6f8fb;color:#1d2440}
+.nb-view{background:#1a2a40}
+.nb-empty{font-family:'Lora',serif}
+.nb-words{background:#f6f8fb;color:#1d2440}
+.nb-words b{font-family:'Overpass',sans-serif;font-weight:700;font-size:15.5px}
+.nb-words span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#3c4458}
+.nb-ko{border-color:#1f4f8a;color:#1f4f8a}
+.nb-ko.on{background:#1f4f8a;color:#f6f8fb;border-color:#1f4f8a}
+.wtip,.wtag{background:#f6f8fb;color:#1d2440;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #e8641c}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Overpass',sans-serif;font-weight:700;font-size:16px}
+.wtip span,.wtag span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#3c4458}
+.hintbox{background:#f6f8fb;color:#1d2440;border-top:6px solid #e8641c;border-radius:2px}
+.hintbox h6{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.3em;color:#a8460e}
+.hintbox p{font-family:'Lora',serif;font-size:15px;line-height:1.46}
+.hintbox p i{background:#e8641c;color:#fff;font-family:'Overpass',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6274;font-size:14.5px}
+.hintbox .btn{border-color:#1f4f8a;color:#1f4f8a}
+.hintbox .btn:hover:not([disabled]){background:#1f4f8a;color:#f6f8fb}
+.toast{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;background:rgba(16,26,40,.94)}
+
+/* ---- the big map (laminated, blue grid): used in several rooms ---- */
+.mapwrap{display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr);gap:0;background:#e9eef2}
+.mapwrap>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);background:#f7fafb}
+.side{padding:14px 18px 12px;background:#1e2d40;color:#eef2f8;font-family:'Overpass',sans-serif;font-size:14px;line-height:1.42;overflow:auto;max-height:calc(100vh - 210px)}
+.side h5{margin:0 0 6px;font-family:'Fjalla One',sans-serif;font-size:19px;letter-spacing:.08em;text-transform:uppercase;color:#ffb27a}
+.side p{margin:0 0 8px}
+.side .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.side .lab{font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#a9c0d4;width:100%}

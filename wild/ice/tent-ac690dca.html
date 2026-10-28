@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Tent · The Needle Points Down</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ice.css">
+<style>
+  body{--bg:#e8c070;--accent:#1f4f8a;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(250,240,216,.97);--tc-ink:#2a2418;--cap-bg:rgba(252,244,224,.95);--cap-ink:#2a2418;--panel:#fbf4e2;--panel-ink:#2a2418;--face-bg:#e8d4a8;--q-ink:#1f4f8a;--fade:#fbf4e2;
+    --hud-bg:rgba(252,244,224,.9);--hud-ink:#2a2418;--hud-line:rgba(42,36,24,.3);--ov-bg:rgba(40,34,20,.78)}
+  .hbtn b{color:#fff}
+  #skin path{animation:skin 2.6s steps(6,end) infinite}
+  @keyframes skin{0%{transform:translateX(0);opacity:0}30%{opacity:.6}100%{transform:translateX(-200px);opacity:0}}
+  #dogs circle{animation:dog 3s steps(1,end) infinite}
+  @keyframes dog{50%{opacity:.75}}
+  #skua{animation:skua 2s steps(2,end) infinite;transform-origin:820px 640px}
+  @keyframes skua{50%{transform:rotate(-4deg)}}
+  .mk{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);background:#e9eef2}
+  .mk>svg{display:block;width:100%;height:auto;max-height:calc(100vh - 210px);background:#f7fafb}
+  .side .wls{margin-top:4px}
+  .bx-foot .btn{color:#ffe6a8;border-color:#ffe6a8}
+  .bx-foot .btn:hover:not([disabled]){background:#ffe6a8;color:#2a2418}
+  .picks button.on{color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a6ab0"/><stop offset=".6" stop-color="#a8c8e8"/><stop offset="1" stop-color="#f4e8d0"/></linearGradient>
+  <radialGradient id="sunG"><stop offset="0" stop-color="#ffffff"/><stop offset=".15" stop-color="#fffbe8"/><stop offset=".5" stop-color="#fff2c8" stop-opacity=".3"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="dogG"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".5" stop-color="#ffe0b0" stop-opacity=".5"/><stop offset="1" stop-color="#ffd0a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="canG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c89a1e"/><stop offset="1" stop-color="#f2c230"/></linearGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyG)"/>
+<!-- the sun, its halo, and two sun dogs -->
+<g id="suns" class="hot">
+  <circle cx="800" cy="250" r="230" fill="none" stroke="#ffffff" stroke-width="18" opacity=".22"/><circle cx="800" cy="250" r="230" fill="none" stroke="#ffd8a8" stroke-width="4" opacity=".4"/>
+  <circle cx="800" cy="250" r="160" fill="url(#sunG)"/><circle cx="800" cy="250" r="20" fill="#ffffff"/>
+  <g id="dogs"><circle cx="562" cy="250" r="54" fill="url(#dogG)"/><circle cx="1038" cy="250" r="40" fill="url(#dogG)"/></g>
+  <path d="M590 238v24M1012 240v20" stroke="#ff9a7a" stroke-width="4" opacity=".7"/>
+</g>
+<path d="M-1000 560H2600V1300H-1000Z" fill="#f6efe2"/>
+<!-- sastrugi with long blue shadows, all lying one way -->
+<g fill="#fffaf0"><path d="M-100 700q160 -40 320 -30q-120 18 -320 56z"/><path d="M380 660q150 -36 300 -26q-110 16 -300 48z"/><path d="M900 720q170 -40 340 -28q-130 20 -340 56z"/><path d="M1260 650q140 -34 280 -24q-100 14 -280 46z"/><path d="M-60 820q200 -50 400 -36q-150 24 -400 70z"/><path d="M700 840q200 -50 400 -36q-150 24 -400 70z"/></g>
+<g fill="#9ab4d4" opacity=".55"><path d="M-100 726q170 -36 320 -56l-20 14q-140 30 -300 64z"/><path d="M380 682q160 -32 300 -48l-18 12q-130 24 -282 52z"/><path d="M900 746q180 -36 340 -54l-22 14q-150 28 -318 62z"/><path d="M-60 852q210 -46 400 -66l-26 18q-180 34 -374 74z"/><path d="M700 872q210 -46 400 -66l-26 18q-180 34 -374 74z"/></g>
+<g id="skin" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M1300 780h60"/><path d="M1000 620h50"/><path d="M500 760h40"/></g>
+<!-- the skidoos, half drifted over, and the skua on the sledge -->
+<g id="sleds"><path d="M560 640h200l20 -26h-50l-18 -24h-70l-22 24h-40z" fill="#e8c81e" stroke="#7a6a10" stroke-width="3"/><path d="M548 648q-6 20 20 20h200" stroke="#2a2a2a" stroke-width="7" fill="none"/>
+  <path d="M520 660q140 -26 300 0v14h-300z" fill="#fffaf0"/><rect x="790" y="604" width="200" height="44" fill="#5a7a98" stroke="#2a3a4a" stroke-width="3"/><path d="M780 660q120 -24 230 0v12h-230z" fill="#fffaf0"/></g>
+<g id="skua" class="hot"><path d="M820 600q-26 -8 -30 -30q10 -14 30 -12q22 2 26 18q24 10 44 4q-10 18 -40 20z" fill="#6a5040"/><circle cx="800" cy="566" r="9" fill="#5a4030"/><path d="M790 566l-12 3l12 2z" fill="#2a2a2a"/><path d="M818 604v8M830 604v8" stroke="#2a2a2a" stroke-width="2"/><path d="M836 580q16 2 30 -2" stroke="#e8dcc8" stroke-width="3" fill="none"/></g>
+<!-- the tent door, framing it all -->
+<path d="M-1000 -400H400L560 900H-1000Z" fill="url(#canG)"/><path d="M2600 -400H1200L1040 900H2600Z" fill="url(#canG)"/>
+<path d="M400 -400L560 900M1200 -400L1040 900" stroke="#a8841a" stroke-width="8"/><path d="M-1000 880H2600V1300H-1000Z" fill="#c8a038"/>
+<g stroke="#e8641c" stroke-width="10" stroke-linecap="round"><path d="M400 140q-40 30 -10 70M1200 140q40 30 10 70"/></g>
+<!-- Uma, in her bag inside, and Vidar crouched at the door -->
+<g id="uma" class="hot">
+  <path d="M60 900q0 -150 120 -160h120q90 10 100 160z" fill="#e8641c"/><path d="M90 820q120 -30 280 0" stroke="#a8460e" stroke-width="3" fill="none"/>
+  <circle cx="230" cy="700" r="40" fill="#a86c48"/><path d="M190 700q-4 -48 40 -50q44 2 40 48q-12 -20 -40 -22q-28 2 -40 24z" fill="#1e1a1c"/><path d="M226 652q-4 12 4 22" stroke="#b8b8bc" stroke-width="6" fill="none"/>
+  <rect x="290" y="760" width="40" height="46" rx="6" fill="#2a5aa8"/><path d="M330 772q14 4 10 20q-4 8 -12 6" stroke="#2a5aa8" stroke-width="5" fill="none"/>
+</g>
+<g id="vidar" class="hot">
+  <path d="M1260 900l20 -210q6 -34 56 -36h30q50 2 56 36l20 210z" fill="#e8641c"/><path d="M1260 900l10 -120q40 16 52 0l6 120zM1442 900l-10 -120q-40 16 -52 0l-6 120z" fill="#2a2a2e"/>
+  <rect x="1336" y="610" width="28" height="34" fill="#e0a888"/><circle cx="1350" cy="578" r="38" fill="#eab496"/><path d="M1316 586q2 40 34 48q32 -8 34 -48q-14 12 -34 10q-20 2 -34 -10z" fill="#d8b46a"/>
+  <path d="M1310 570q-2 -48 40 -50q42 2 40 50q-40 -18 -80 0z" fill="#b8241a"/>
+  <rect x="1250" y="740" width="44" height="58" rx="4" fill="#e8641c" stroke="#7a2a08" stroke-width="2" transform="rotate(-12 1272 769)"/>
+</g>
+<g id="radio" class="hot"><rect x="1460" y="810" width="70" height="48" rx="5" fill="#3a4a3e" stroke="#7a8a7a" stroke-width="2"/><rect x="1468" y="818" width="34" height="14" fill="#cfe8a8"/><path d="M1516 810V740" stroke="#9aaa9a" stroke-width="3"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Drive</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ice.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  ER.init({
+    theme: 'wild', story: 'ice', storyTitle: 'The Needle Points Down', id: 'tent', no: 'VI', title: 'The Tent',
+    go: 'Wake up',
+    intro: [
+      'You decided by reasons, not by how sure anybody sounded. The trip meter put you 3.4 km from W9 on 253. Here, as at the cache, the slope sends the wind from 150, so walking into it would have taken you nine kilometres east of the camp: the camp can&rsquo;t be up-wind. The weather mast showed that the wind won&rsquo;t drop by midnight; it is strongest after eleven. With fifty metres of visibility, flags four hundred metres apart and Uma fumbling at her zip, you shouldn&rsquo;t push on; you should shelter. You pitched the tent with its back to the wind and its door downwind, to 330.',
+      'Tuesday 23 December, a quarter past eight in the morning. Zara lands at Camp Yoke at ten.'
+    ],
+    exit: {"next":"skiway","w":{"ed54d8e3":"5dabf434","8e39f82c":"dfc8171d","3080ea7b":"5856328f","d6d84fae":"1afce18e","55055ab5":"2efdd81d","9ce67f6d":"441f2803","87bdfa1c":"3eee1f5b","c5f38efb":"40514fcc","98a080f8":"bf46e343","6f3dc114":"cd4226ea"}}, tags: {"sun":["53228a0d"],"sun_left":["161cf814"],"sun_right":["4f6e38e8"],"route":["8dd9a2e0"],"route_a":["7f4f027d"],"time":["15a60dba","f8e2f91d"],"time_a":["6516d1ce"],"time_late":["987b95b4","bdb96a44","a97640cb"],"shadow":["3014dbcb","c9152577","4a5dcf54","ebba2020","0e5f17ea"],"shadow_dog":["dcb268db","dd37a1c5","f5d05e01","4a730cb2","7778dcee","8f8db6b0","1f91bde4","14abb9ad"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('f-file') || null; told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.uma && told.vidar && told.suns && told.radio; }
+  function paint() {
+    $('#suns').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['uma', 'vidar', 'suns', 'radio'].filter(function (k) { return told[k]; }).length + (nextFile ? 1 : 0), 5);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Everything is packed and the heading is set. Drive.']];
+    if (!told.uma || !told.vidar) return ['talk', ['Talk to Uma, inside on the left, and to Vidar, at the door on the right.', 'Uma gives you the deadline; Vidar gives you an opinion about the route and the sun.']];
+    if (!told.suns || !told.radio) return ['look', ['Look at the sky through the door, and try the radio.', 'Click the sun in the sky (there seem to be three of them), and the radio by the door on the right.']];
+    return ['plan' + (lastErr ? '-' + lastErr : ''), planHints()];
+  }
+  function planHints() {
+    var H = {
+      sun: ['Yusra&rsquo;s sun card warned you about this. Which of three suns is the real one?', 'Sun dogs sit 22 degrees to each side of the sun, at the same height, on the halo. The real sun is in the middle. And the sun table says where it should be: at 08.20 about 080, which is 110 degrees to the right of a door facing 330.'],
+      route: ['Two ways to camp. Which crosses crevasse ground? And does the other one still get you there before a quarter to eleven?', 'A goes straight over the hatched Hump band, unprobed. B goes 3.4 km to the cache and then 12 km up the flags: 15.4 km at 10 km an hour is about an hour and a half. Leaving at 08.40, that is about ten past ten.'],
+      time: ['Distance divided by speed. B is 3.4 + 12 = 15.4 km, at 10 km an hour.', '15.4 km takes 92 minutes. 08.40 plus 92 minutes is 10.12: set 10.10 or 10.15.'],
+      shadow: ['Your heading to the cache is the same as last night&rsquo;s: 253. Your shadow points straight away from the sun.', 'At 08.40 the sun is at about 075 (two-thirds of the way from 085 to 070). Your shadow points the opposite way: 255. That is 2 degrees to the right of 253: almost dead ahead.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Click the sun. First find the real sun among the three; then choose the route and the time you will arrive; then set your shadow on the skidoo.',
+      'The real sun is in the middle of the halo. Route A crosses crevasse ground; route B is the cache and the flags, and it is in time.',
+      'Leaving at 08.40 on route B, you arrive at about 10.12. Heading 253, the sun at 075, so your shadow points 255: nearly straight ahead.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Packed, roped, engines warm. Your shadow lies ahead of you on the snow.'); return; }
+    if (told.in) { busy = false; ER.say('The tent door, the morning, and three suns.'); return; }
+    tell('in');
+    ER.narrate([
+      'You wake because it is quiet. The tent walls are still. Outside there is only a soft hiss, the last of the drift running low over the snow, like smoke along a floor.',
+      'Uma is sitting up in her bags with tea. Her face has its colour back. Vidar is crouched at the door, holding the flap open, and the light coming in is gold.',
+      '&ldquo;Come and look,&rdquo; he says. &ldquo;There are three suns.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#uma').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Dr Uma Varghese', role: 'In her sleeping bags, with tea', face: window.FACE('uma'),
+      lines: [
+        { note: 'She holds the mug in both hands and breathes the steam.', a: '&ldquo;Morning, navigator. My ankle is the size of a grapefruit, and I feel wonderful.&rdquo;' },
+        { q: 'Can we still meet the plane?', a: '&ldquo;Zara lands at ten and has to leave by a quarter to eleven, before the weather from the coast. Vidar says ten kilometres an hour with me on the sledge, and no faster. We can be packed and moving at twenty to nine. So: which way, and when do we arrive? Work it out on the map. Then show me the sun.&rdquo;' },
+        { q: 'Has Yusra answered?', a: '&ldquo;Not at seven. Try again. I&rsquo;m not worried about Yusra. I&rsquo;m worried about what Yusra is worrying about.&rdquo;' },
+        { q: 'Three suns?', a: '&ldquo;Ice crystals in the air after a night of drift. Yusra&rsquo;s sun card warned you about them. Read it again, if you like: it is in your notebook.&rdquo;' }
+      ],
+      clue: { id: 'uma6', title: 'Uma, in the morning', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('uma')) { paint(); ER.say('Uma finishes her tea and starts packing her bag one-handed.'); } }
+    });
+  });
+  $('#vidar').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vidar Ulven', role: 'At the tent door', face: window.FACE('vidar'),
+      lines: [
+        { note: 'He has a mug in one hand and his notebook in the other.', a: '&ldquo;I have been checking my becauses. All night. It is very tiring.&rdquo;' },
+        { q: 'Which way should we go?', a: '&ldquo;Straight to camp. Thirteen kilometres. We must go straight, or we will miss Zara: the long way round by the cache is much too long. This one I am sure of. I have checked.&rdquo;' },
+        { q: 'Which one is the real sun?', a: '&ldquo;The bright one on the left. Obviously. The brightest one is the sun.&rdquo;' },
+        { q: 'What did you write last night?', a: 'He shows you. Under rules four and five, both crossed out, in very small letters: <b>Check the because.</b> &ldquo;Uma says it is the most expensive thing I have learnt this year.&rdquo;' }
+      ],
+      clue: { id: 'vid6', title: 'Vidar, in the morning', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vidar')) { paint(); ER.say('Vidar goes out to dig the skidoos out, humming.'); } }
+    });
+  });
+  $('#suns').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'sun dog');
+    if (tell('suns')) paint();
+    ER.say(ready() && !nextFile ? 'Three suns in a great pale ring. Time to plan the morning: which is the sun, which way, and when.' : 'Three suns, side by side, at the same height, in a great pale ring of light. Two of them are a little coloured, red on the side nearest the middle one.');
+    if (ready() && !nextFile) setTimeout(openPlan, 900);
+  });
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    ICE.sfx.hiss();
+    if (tell('radio')) paint();
+    ER.say('08.20. &ldquo;Camp Yoke, Camp Yoke, field party.&rdquo; Hiss. You write it in the log: no answer at 07.00, no answer at 08.20.');
+  });
+  ICE.thing('#skua', null, 'A brown bird, the size of a big gull, standing on the sledge as if it owned it: a skua, two hundred and fifty kilometres from the sea. &ldquo;Birds fly to the sea in the morning,&rdquo; says Vidar. &ldquo;Follow the bird!&rdquo; The skua looks at him, and flies off inland, towards nothing at all.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the morning plan: the sun, the route, the shadow ---------- */
+  function openPlan() {
+    if (ER.isOpen()) return;
+    var box = ER.el('div', 'bx'), msgEl;
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    function stage1() {
+      /* the sky through the door, in degrees to the right of the door (which faces 330) */
+      var PX = 4.6, X0 = 20, s = '<svg viewBox="0 0 900 330" id="k-svg"><defs><radialGradient id="kd"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#ffe0b0" stop-opacity=".55"/><stop offset="1" stop-color="#ffd0a0" stop-opacity="0"/></radialGradient></defs>' +
+        '<rect width="900" height="260" fill="#8ab4e0"/><rect y="230" width="900" height="100" fill="#f6efe2"/>';
+      function x(a) { return X0 + a * PX; }
+      s += '<circle cx="' + x(110) + '" cy="130" r="' + (22 * PX) + '" fill="none" stroke="#ffffff" stroke-width="10" opacity=".3"/>';
+      [['left', 87, 34], ['mid', 110, 20], ['right', 133, 26]].forEach(function (c) {
+        s += '<g class="pick" data-k="' + c[0] + '"><circle cx="' + x(c[1]) + '" cy="130" r="40" fill="transparent"/><circle cx="' + x(c[1]) + '" cy="130" r="' + c[2] + '" fill="url(#kd)"/>' + (c[0] === 'mid' ? '<circle cx="' + x(110) + '" cy="130" r="11" fill="#fff"/>' : '<circle cx="' + x(c[1]) + '" cy="130" r="9" fill="#fffaf0"/><path d="M' + (x(c[1]) + (c[0] === 'left' ? 14 : -14)) + ' 112v36" stroke="#ff8a6a" stroke-width="4" opacity=".8"/>') + '</g>';
+      });
+      s += '<path d="M' + X0 + ' 230V330" stroke="#e8641c" stroke-width="4"/><text x="' + (X0 + 6) + '" y="250" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#a8460e">door (330)</text>';
+      for (var a = 0; a <= 180; a += 10) s += '<path d="M' + x(a) + ' 300v' + (a % 30 ? 8 : 14) + '" stroke="#2a2418" stroke-width="1.4"/>' + (a % 30 ? '' : '<text x="' + x(a) + '" y="326" text-anchor="middle" font-family="Overpass Mono,monospace" font-size="11" fill="#2a2418">' + a + '</text>');
+      s += '<text x="' + x(180) + '" y="296" text-anchor="end" font-family="Overpass,sans-serif" font-size="11" fill="#2a2418">degrees to the right of the door</text><g id="k-mark"></g></svg>';
+      box.innerHTML = '<div class="frame" style="background:#fbf4e2;padding:12px 14px 8px">' + s + '<p style="margin:6px 0 0;font-family:Lora,serif;font-size:15px;color:#2a2418">The sky through the tent door. The door faces 330, downwind, as you pitched it. Click the real sun.</p></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go">That is the sun</button></div>';
+      msgEl = box.querySelector('.pmsg');
+      var pick = null;
+      ER.$$('.pick', box).forEach(function (g) { g.addEventListener('click', function () {
+        pick = g.getAttribute('data-k'); ICE.sfx.click();
+        var c = g.querySelector('circle'); box.querySelector('#k-mark').innerHTML = '<circle cx="' + c.getAttribute('cx') + '" cy="130" r="46" fill="none" stroke="#e8641c" stroke-width="3" stroke-dasharray="6 4"/>';
+      }); });
+      box.querySelector('#k-go').addEventListener('click', function () {
+        if (!pick) { msg('Click one of the three suns first.'); return; }
+        if (!ER.check('sun', pick)) { lastErr = 'sun'; ICE.sfx.no(); msg(pick === 'left' ? 'The brightest, as Vidar says: but it is on the edge of the ring, 23 degrees from the middle, and red on its inner side. A sun dog. Steer by that, and you are 23 degrees out.' : 'That one sits on the ring too, 23 degrees from the middle, red on the side nearest the centre. A sun dog.'); return; }
+        lastErr = ''; ER.flag('f-sun', pick); ICE.sfx.click(); stage2();
+      });
+      msg('Three suns. Only one of them is a sun.');
+    }
+    function stage2() {
+      var P = [3.25, 13.0], extra = '<g fill="none" stroke-width="3"><path d="' + ICE.line([P, [0.15, 0.4]]) + '" stroke="#7a3aa8" stroke-dasharray="9 6"/><path d="' + ICE.line([P, [0.1, 12.0]]) + '" stroke="#1a6a3a" stroke-dasharray="12 4 2 4"/></g>' +
+        '<circle cx="' + ICE.px(P[0]) + '" cy="' + ICE.py(P[1]) + '" r="8" fill="#f2c230" stroke="#2a2a2a" stroke-width="2"/><text x="' + (ICE.px(P[0]) + 12) + '" y="' + (ICE.py(P[1]) + 4) + '" font-family="Overpass,sans-serif" font-weight="700" font-size="11" fill="#2a2a2a">the tent</text>' +
+        '<g font-family="Fjalla One,sans-serif" font-size="17"><text x="' + (ICE.px(1.9) + 6) + '" y="' + ICE.py(5.6) + '" fill="#7a3aa8">A</text><text x="' + (ICE.px(1.6)) + '" y="' + (ICE.py(12.4) - 4) + '" fill="#1a6a3a">B</text></g>';
+      box.innerHTML = '<div class="frame mk"><svg viewBox="0 0 640 640">' + ICE.MAPDEFS + ICE.map({ stakes: true, zones: true, hump: true, extra: extra }) + '</svg>' +
+        '<div class="side"><h5>The way to the plane</h5>' +
+        '<p><b>A</b>: straight from the tent to the camp, 13.4 km (your note from last night).<br><b>B</b>: to the cache on 253, 3.4 km, then up the flag line, 12 km.</p>' +
+        '<p>Leave at 08.40. Ten kilometres an hour, no faster. Zara must leave at 10.45.</p>' +
+        '<div class="row"><span class="lab">Route</span><span id="k-route"></span></div><div class="row"><span class="lab">We arrive at camp at</span><span id="k-time"></span></div>' +
+        '<p style="font-size:12.5px;color:#cfdbe8">Red hatching: crevasse ground.</p></div></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go2">That way</button></div>';
+      msgEl = box.querySelector('.pmsg');
+      var route = ICE.picks(box.querySelector('#k-route'), [['a', 'A, straight'], ['b', 'B, cache and flags']], { start: null });
+      var tm = ICE.wheels(box.querySelector('#k-time'), { vals: [['08', '09', '10', '11'], ICE.MIN5], sep: { 1: '.' }, start: [1, 0] });
+      box.querySelector('#k-go2').addEventListener('click', function () {
+        var r = route.get(), t = tm.get();
+        if (!r) { msg('Choose a route.'); return; }
+        if (ER.check('route_a', r)) { lastErr = 'route'; ICE.sfx.no(); msg('Route A runs straight across the hatched ground past the top of the Hump, which nobody has ever probed, and the last of the drift is hiding every snow bridge. Vidar says it is the only way to be in time. Is that true? Work out B.'); return; }
+        if (!ER.check('time', t)) {
+          lastErr = 'time'; ICE.sfx.no();
+          msg(ER.check('time_a', t) ? 'That is when route A would arrive. Route B is longer.' : ER.check('time_late', t) ? 'Too late, and too slow: at ten kilometres an hour, 15.4 km is not that long.' : 'Work it out: B is 3.4 + 12 kilometres, at ten kilometres an hour, leaving at 08.40.');
+          return;
+        }
+        lastErr = ''; ER.flag('f-route', r + '|' + t); ICE.sfx.click(); stage3();
+      });
+      msg('Two routes. Vidar says only one of them is fast enough.');
+    }
+    function stage3() {
+      var s = '<svg viewBox="0 0 600 420" id="h-svg"><rect width="600" height="420" fill="#f6efe2"/>' +
+        '<circle cx="300" cy="230" r="160" fill="none" stroke="#c8b898" stroke-width="2" stroke-dasharray="4 6"/>';
+      for (var a = 0; a < 360; a += 10) { var ra = a * Math.PI / 180, r1 = a % 30 ? 154 : 146; s += '<path d="M' + (300 + Math.sin(ra) * r1).toFixed(1) + ' ' + (230 - Math.cos(ra) * r1).toFixed(1) + 'L' + (300 + Math.sin(ra) * 160).toFixed(1) + ' ' + (230 - Math.cos(ra) * 160).toFixed(1) + '" stroke="#8a7a5a" stroke-width="1.6"/>'; }
+      s += '<g font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#8a7a5a" text-anchor="middle"><text x="300" y="60">bow</text><text x="390" y="88">30 right</text><text x="210" y="88">30 left</text></g>' +
+        '<g id="h-shadow" class="grab"><rect x="285" y="80" width="30" height="150" fill="transparent"/><path d="M300 230V96" stroke="#3a4a6a" stroke-width="16" stroke-linecap="round" opacity=".5"/><circle cx="300" cy="96" r="10" fill="#3a4a6a" opacity=".6"/></g>' +
+        '<path d="M300 170l22 30v90h-44v-90z" fill="#e8c81e" stroke="#2a2a2a" stroke-width="2"/><rect x="286" y="220" width="28" height="22" rx="5" fill="#2a2a2a"/></svg>';
+      box.innerHTML = '<div class="frame board" style="display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr)">' + s + '<div class="side"><h5>The shadow on the snow</h5>' +
+        '<p>Your skidoo from above, the bow at the top, at 08.40 on your way to the cache. The sun is behind you now, so you will steer by your own shadow. Drag the shadow round to where it must lie.</p>' +
+        '<p id="h-read" style="font-family:Overpass Mono,monospace;font-size:15px;color:#ffe2c8"></p></div></div>' +
+        '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="h-go">Go</button></div>';
+      msgEl = box.querySelector('.pmsg');
+      var sh = ICE.turn(box.querySelector('#h-shadow'), { svg: box.querySelector('#h-svg'), cx: 300, cy: 230, step: 2, start: 180, change: read });
+      function rel() { var v = sh.get(); return v > 180 ? 'l' + (360 - v) : 'r' + v; }
+      function read() { var v = sh.get(); box.querySelector('#h-read').textContent = v === 0 ? 'Shadow: dead ahead.' : v === 180 ? 'Shadow: right behind.' : 'Shadow: ' + (v > 180 ? (360 - v) + ' degrees left' : v + ' degrees right') + ' of the bow.'; }
+      read();
+      box.querySelector('#h-go').addEventListener('click', function () {
+        var r = rel(), cand = [ER.flag('f-sun'), (ER.flag('f-route') || '').split('|')[0], (ER.flag('f-route') || '').split('|')[1], r].join('|');
+        if (ER.check('shadow_dog', r)) { lastErr = 'shadow'; ICE.sfx.no(); msg('That is where the shadow of a sun dog would lie, about 23 degrees out. Your shadow comes from the real sun.'); return; }
+        if (!ER.exitOk([cand])) { lastErr = 'shadow'; ICE.sfx.no(); msg('&ldquo;Where is the sun at twenty to nine?&rdquo; says Uma. &ldquo;Your shadow points the opposite way. And where are you heading?&rdquo;'); return; }
+        nextFile = ER.exit([cand], { wait: true }); ER.flag('f-file', nextFile); lastErr = '';
+        ICE.mine('morning', 'The morning plan', '<p>The real sun is the <b>middle</b> one of three: the other two are sun dogs, 22&ndash;23&#176; to each side on the halo. The sun table agreed: at 08.20 the sun at about 080, 110&#176; right of the tent door (330).</p><p>Route <b>B</b>, cache and flags: 15.4 km at 10 km an hour = 92 minutes. Leave 08.40, arrive about <b>10.12</b>, half an hour before Zara must go. Route A crosses the Hump band, unprobed, and is not even needed.</p><p>To the cache on 253: at 08.40 the sun at 075, so my <b>shadow points 255</b>, straight ahead, a hair to the right.</p>', true);
+        msg('&ldquo;Shadow on the bow,&rdquo; says Uma. &ldquo;Lovely. Let&rsquo;s go and catch a plane.&rdquo;');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'Vidar looks at route B, at the times, and at the hatched band across route A. He takes out his notebook, licks his pencil, and crosses out nothing at all. &ldquo;B,&rdquo; he says. &ldquo;Because B is in time, and A is a hole.&rdquo;',
+            'At twenty to nine the tent is down and on the sledge, Uma is strapped on top of it like a parcel, and the skidoos are running. You drive in front this time, with your shadow stretched out ahead of you on the gold snow like a long blue finger, pointing the way.'
+          ], function () { busy = false; showGo(); });
+        }, 2400);
+      });
+      msg('Drag the shadow round the ring.');
+    }
+    var sv = ER.flag('f-sun'), rv = ER.flag('f-route');
+    if (sv && rv) stage3(); else if (sv) stage2(); else stage1();
+    ER.open('ov-lock', box);
+  }
+})();
+</script>
+</body>
+</html>
