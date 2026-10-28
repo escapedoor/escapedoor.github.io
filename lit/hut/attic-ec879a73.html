@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Attic · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#2a2230;--accent:#c8a0e0;--font-display:'Goudy Bookletter 1911',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(40,32,46,.96);--tc-ink:#f0e8f4;--cap-bg:rgba(36,28,42,.94);--cap-ink:#f0e8f4;--panel:#2e2636;--panel-ink:#f0e8f4;--face-bg:#2e3448;--q-ink:#d8b8f0;--fade:#1a141e;--hud-bg:rgba(40,32,46,.92);--hud-ink:#f0e8f4;--hud-line:rgba(240,232,244,.3)}
+  .tc-room{font-family:'Goudy Bookletter 1911',serif;font-size:clamp(56px,8vw,116px);color:#d8b8f0;letter-spacing:.08em}
+  .gobtn{background:rgba(40,32,46,.94)}
+  .gobtn:hover{color:#1a141e}
+  #motes circle{animation:mt 9s steps(18,end) infinite}
+  #motes circle:nth-child(2n){animation-duration:12s;animation-delay:-4s}
+  @keyframes mt{0%{transform:translate(0,0);opacity:0}30%{opacity:.85}100%{transform:translate(40px,-90px);opacity:0}}
+
+  /* the lock: Elliot's cards on the beam, and the clues from draft one */
+  .trial{padding:10px 12px 10px;background:#3a3040;background-image:linear-gradient(180deg,#5a4a3a 0 16px,transparent 16px);border:6px solid #1e1822;box-shadow:0 26px 70px rgba(0,0,0,.65);color:#f0e8f4}
+  .trial h5{margin:16px 0 8px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:22px;text-align:center;color:#f0e8f4}
+  .ends{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.5fr);gap:8px}
+  .end{padding:6px 7px 7px;background:#fbfbf6;color:#2a2a30;border-top:6px solid #c8a0e0;box-shadow:0 3px 6px rgba(0,0,0,.4);display:flex;flex-direction:column}
+  .end h6{margin:0;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.2em;color:#5a3a7a}
+  .end p{margin:2px 0 6px;font-family:'Caveat',cursive;font-size:18px;line-height:1.05}
+  .end p i{display:block;font-style:normal;font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:.12em;color:#8a8a92}
+  .sl{flex:1;min-height:84px;padding:4px;border:2px dashed #b8a8c8;border-radius:2px;cursor:pointer;background:#f2eef6}
+  .sl>b{display:block;font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:.2em;color:#8a6aa8;text-align:center;margin-bottom:2px}
+  .sl.want{border-color:#5a3a7a;background:#e8def2}
+  .who{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 6px}
+  .who button{padding:2px 7px;border:1px solid #8a6aa8;border-radius:10px;background:#fff;font-family:'Outfit',sans-serif;font-size:12px;color:#3a2a4a;cursor:pointer}
+  .who button.on{background:#5a3a7a;color:#fff}
+  .plants{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;flex:1}
+  .plants .sl{min-height:96px}
+  .clu{display:block;width:100%;margin:0 0 4px;padding:4px 6px;background:#fbfbf4;border:1px solid #a8a8b8;border-left:3px solid rgba(210,70,70,.55);box-shadow:0 2px 3px rgba(0,0,0,.3);text-align:left;cursor:pointer;
+    font-family:'Caveat',cursive;font-size:16.5px;line-height:1.05;color:#38383f}
+  .clu.stamp{background:#f4e0e0;border:2px solid #a83a3a;color:#a83a3a;font-family:'Stardos Stencil',serif;font-size:14px;letter-spacing:.06em;text-align:center}
+  .sl .clu{font-size:15.5px}
+  .clu.held{outline:3px solid #c8a0e0;outline-offset:1px}
+  .clu.bad{background:#f6c8b8}
+  .heap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:8px;padding:6px;min-height:60px;border:2px dashed rgba(240,232,244,.4);cursor:pointer}
+  .twist{display:none;margin-top:10px;padding:10px 12px;background:#2a5a3a;border:2px solid #8ac08a;color:#f0f8ec}
+  .twist.on{display:block}
+  .twist p{margin:0 0 6px;font-family:'Alegreya',serif;font-size:17px}
+  .twist button{display:block;width:100%;margin:0 0 5px;padding:6px 10px;border:2px solid #8ac08a;border-radius:3px;background:#1e3a26;color:#f0f8ec;text-align:left;font-family:'Alegreya',serif;font-size:16px;cursor:pointer}
+  .twist button:hover{background:#3a7a4a}
+  .twist button.bad{background:#7a3a2a}
+  .ov-lock .pmsg{color:#f0e8f4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="downs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd8ec"/><stop offset=".6" stop-color="#e8f0e8"/><stop offset="1" stop-color="#9ab87a"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#0a060c" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#3a2e38"/>
+<!-- the gable end: plaster, the round window -->
+<path d="M-200 830L800 40L1800 830z" fill="#8a7a84"/><path d="M-200 830L800 40L1800 830" stroke="#4a3a2a" stroke-width="26" fill="none"/>
+<g id="rwin" class="hot"><circle cx="800" cy="300" r="96" fill="#4a3a2a"/><circle cx="800" cy="300" r="84" fill="url(#downs)"/><path d="M716 330q60 -40 120 -20q30 6 48 -2v80H716z" fill="#7a9a5a"/><path d="M716 300h168M800 216v168" stroke="#4a3a2a" stroke-width="8"/></g>
+<!-- the rafters, going away -->
+<g stroke="#5a4430" stroke-width="22"><path d="M-1000 -300L800 40M2600 -300L800 40"/></g>
+<g stroke="#4a3626" stroke-width="16"><path d="M-1000 100L620 180M2600 100L980 180"/><path d="M-1000 360L420 340M2600 360L1180 340"/></g>
+<!-- the collar beam, with Elliot's five cards taped to it -->
+<rect x="440" y="140" width="720" height="22" fill="#6a5038" stroke="#2a1e14" stroke-width="3"/>
+<g id="cards" class="hot"><g fill="#fbfbf6" stroke="#8a8a92" stroke-width="1.5"><rect x="470" y="162" width="70" height="50" transform="rotate(-4 505 187)"/><rect x="560" y="162" width="70" height="50" transform="rotate(3 595 187)"/><rect x="960" y="162" width="70" height="50" transform="rotate(-3 995 187)"/><rect x="1050" y="162" width="70" height="50" transform="rotate(5 1085 187)"/></g>
+  <rect x="650" y="164" width="60" height="44" fill="#fbfbf6" stroke="#c8a0e0" stroke-width="3" transform="rotate(-2 680 186)"/><text x="680" y="198" text-anchor="middle" font-family="Caveat,cursive" font-size="34" fill="#5a3a7a">?</text>
+  <g stroke="#5a5a62" stroke-width="2"><path d="M480 182h46M482 192h36M570 182h46M572 192h30M970 182h46M972 192h36M1060 182h44M1062 192h30"/></g><g fill="#e8d890" opacity=".8"><rect x="494" y="156" width="20" height="10"/><rect x="584" y="156" width="20" height="10"/><rect x="670" y="156" width="20" height="10"/><rect x="984" y="156" width="20" height="10"/><rect x="1074" y="156" width="20" height="10"/></g></g>
+<!-- the sunbeam from a skylight -->
+<polygon points="1120,-400 1280,-400 1000,900 700,900" fill="url(#beam)" pointer-events="none"/>
+<g id="motes" fill="#fff8e0" pointer-events="none"><circle cx="900" cy="700" r="2"/><circle cx="960" cy="560" r="1.6"/><circle cx="1010" cy="460" r="2.2"/><circle cx="860" cy="620" r="1.5"/><circle cx="1060" cy="380" r="1.8"/><circle cx="940" cy="780" r="1.4"/></g>
+<!-- the floor: boards over the joists, and the pink insulation between -->
+<rect x="-1000" y="780" width="3600" height="520" fill="#d89aa0"/><g fill="#e8b0b4"><path d="M-1000 790q60 -20 120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0V820H-1000z"/></g>
+<rect x="160" y="790" width="1280" height="110" fill="#a8845a" stroke="#5a4028" stroke-width="3"/><g stroke="#6a4a2e" stroke-width="3"><path d="M160 826H1440M160 862H1440M420 790v36M780 826v36M1100 790v36M600 862v40M1300 862v40"/></g>
+<!-- boxes of old drafts -->
+<g id="boxes" class="hot"><g stroke="#6a4a2a" stroke-width="3"><rect x="100" y="640" width="200" height="150" fill="#c8a06a"/><rect x="300" y="660" width="170" height="130" fill="#b8905a"/><rect x="130" y="500" width="190" height="140" fill="#d8b07a"/><rect x="320" y="540" width="140" height="120" fill="#c8a06a"/></g>
+  <g font-family="Gochi Hand,cursive" fill="#2a1e14" font-size="17"><text x="114" y="680">SEVEN WET TUESDAYS</text><text x="114" y="700">1987</text><text x="310" y="700">THE PARROT 1983</text><text x="142" y="540">A CAKE FOR THE</text><text x="142" y="560">BISHOP 1994</text><text x="330" y="578">PHYLLIS&#8217;S</text><text x="330" y="598">WEDDING</text><text x="330" y="618">SPEECH 1971</text></g></g>
+<!-- the open box of this year's drafts, with the exercise book and the handout in its lid -->
+<g id="box" class="hot"><path d="M540 790V650h200v140z" fill="#c8a06a" stroke="#6a4a2a" stroke-width="3"/><path d="M540 650l-30 -40h200l30 40z" fill="#b8905a" stroke="#6a4a2a" stroke-width="3"/>
+  <text x="640" y="740" text-anchor="middle" font-family="Gochi Hand,cursive" font-size="17" fill="#2a1e14">NIGHT ?? 2026</text>
+  <g id="book"><path d="M582 650l10 -40h76l-10 40z" fill="#3a5a8a" stroke="#1a2a4a" stroke-width="2"/><path d="M600 622h40" stroke="#e8e8f0" stroke-width="5"/></g></g>
+<g id="card9" class="hot"><path d="M512 606l-16 -96l92 -12l16 96z" fill="#f2f2ee" stroke="#9a9aa2" stroke-width="2"/><g stroke="#3a3a42" stroke-width="2"><path d="M508 524l60 -8M510 538l70 -9M512 550l66 -9M514 562l70 -9M516 576l50 -7"/></g><path d="M504 520l20 -3" stroke="#3a3a42" stroke-width="4"/></g>
+<!-- the shelf of old paperbacks -->
+<g id="books" class="hot"><rect x="1110" y="520" width="300" height="12" fill="#5a4028"/><path d="M1130 532v40M1390 532v40" stroke="#5a4028" stroke-width="6"/>
+  <g stroke="#1e1822" stroke-width="1.4"><rect x="1120" y="462" width="18" height="58" fill="#a83a3a"/><rect x="1140" y="470" width="16" height="50" fill="#e8d890"/><rect x="1158" y="458" width="20" height="62" fill="#3a6a8a"/><rect x="1180" y="466" width="16" height="54" fill="#e8e0d0"/><rect x="1198" y="460" width="22" height="60" fill="#5a8a5a"/><rect x="1222" y="472" width="14" height="48" fill="#c8742a"/><rect x="1238" y="462" width="18" height="58" fill="#8a4a7a"/><path d="M1260 520l24 -54l14 6l-24 54z" fill="#4a4a6a"/></g></g>
+<!-- the dressmaker's dummy in a bicycle helmet -->
+<g id="dummy" class="hot"><path d="M1490 760v-150" stroke="#2a2a2a" stroke-width="6"/><path d="M1460 770h60" stroke="#2a2a2a" stroke-width="8"/><path d="M1450 610q-10 -80 10 -150q30 -20 60 0q20 70 10 150z" fill="#e8dcc8" stroke="#6a5a4a" stroke-width="3"/>
+  <path d="M1470 462v-26h40v26" fill="#e8dcc8" stroke="#6a5a4a" stroke-width="3"/><path d="M1462 438q28 -40 56 0z" fill="#e8b830" stroke="#6a5010" stroke-width="3"/><path d="M1472 430l8 -12M1490 426v-14M1508 430l-8 -12" stroke="#6a5010" stroke-width="3"/></g>
+<!-- the beanbag, and a roof post -->
+<rect x="1180" y="40" width="22" height="760" fill="#5a4430" stroke="#2a1e14" stroke-width="3"/>
+<g id="bean" class="hot"><path d="M880 800q-20 -80 60 -100q90 -10 120 40q20 40 -10 60z" fill="#7a3a5a" stroke="#3a1a2a" stroke-width="3"/></g>
+<g id="ell" class="hot" transform="translate(1110 830)"></g>
+<g id="ph" class="hot" transform="translate(770 872)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the garden path</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  HT.put('#ell', 'elliot', { h: 380, armL: 'front', armR: 'hip' });
+  HT.put('#ph', 'phoebe', { h: 316, armR: 'front' });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'attic', no: 'IV', title: 'The Attic',
+    go: 'Up the ladder',
+    intro: [
+      'Eleven labels went into four seed trays. Verbal irony says the opposite of what it means: Alison&rsquo;s &ldquo;Marvellous&rdquo;, the narrator&rsquo;s &ldquo;Do help yourself&rdquo;, Elliot&rsquo;s &ldquo;brilliant&rdquo;. Situational irony is the opposite of what was expected: the smoke alarm and the toast, the hut built for peace, Della&rsquo;s hair and Jim&rsquo;s watch. Dramatic irony is the reader knowing what a character does not: Martin and Elliot both thought Gran noticed nothing, and you had read her note. A shut shop and a shared birthday are only bad luck and coincidence.',
+      'The attic is up two flights of stairs and a ladder, under the roof of the tall thin house. It is where Gran&rsquo;s drafts go when she has finished with them.'
+    ],
+    exit: {"next":"path","w":{"c52f252b":"fd587fdb"}}, tags: {"e1":["36989eb8"],"e2":["04c15ab3"],"e3":["e471d495","5739a3ad","42b87942"],"e4":["1159eb68","af2ab82e","3bd40a72","2b0bf967"],"plant":["df457a5e","5de96b1a","aa5946c4","096d3549","10db306c"],"who":["833c773b"],"irony":["0cac95fe"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = HT.told('d-told'); nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ell') && told.has('book') && told.has('card9'); }
+  function paint() {
+    $('#ell').classList.toggle('ready', !told.has('ell'));
+    $('#box').classList.toggle('ready', told.has('ell') && !told.has('book'));
+    $('#card9').classList.toggle('ready', told.has('ell') && !told.has('card9'));
+    $('#cards').classList.toggle('ready', ready() && !nextFile);
+    ER.pips(['ell', 'book', 'card9'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The trial is over. The button at the bottom of the screen takes you down the garden path.', 'If you cannot see the button, close whatever is open (the Escape key) and look at the bottom of the screen.']];
+    if (lock && document.body.contains(lock)) {
+      if (lock.querySelector('.twist.on')) return ['irony', [
+        'Go back to the greenhouse handout, in your notebook: twists are built out of irony. Ask: who expected what?',
+        'What did the narrator lay a trap for, and what did she catch? Which kind of irony is it when what happens is the opposite of what was expected?'
+      ]];
+      return ['trial', [
+        'Gran&rsquo;s test, on the handout: at least three clues on the page before the turn, and not one clue that says no. Put each family ending on trial. Under each, put the one clue from draft one that says no to it. If nothing on the page points to an ending at all, it gets the stamp.',
+        'Nothing on the page points to a dream or a ghost. Something was never taken. A fox cannot sharpen a pencil. And look where Martin&rsquo;s boot prints stop, and whether Martin can spell. One clue says yes to the son: that is why his ending is so tempting, and it does not go under SAYS NO.',
+        'The fifth ending is somebody who is in draft one but on nobody&rsquo;s list of suspects. Her clues: green corrections at school, a mug turned upside down the Guide camp way, a camp torch with a red lens, trainers with a star on the heel. Any three of those are planted.'
+      ]];
+    }
+    if (!ready()) return ['look', [
+      'Elliot is leaning on the roof post on the right: talk to him.',
+      'Read the rest of draft one: the blue exercise book in the open box on the floor (two pages), and the handout pinned inside the lid of that box. Then click Elliot&rsquo;s cards, taped to the beam.'
+    ]];
+    return ['cards', ['Everything is read. Click Elliot&rsquo;s five cards, taped to the beam across the attic.', 'They hang from the long wooden beam near the top of the screen, either side of the round window.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Five cards on the beam. Four of them crossed out.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The attic. Boxes, dust, and a dummy in a bicycle helmet.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Cardboard boxes, dozens of them, each with a title and a year in thick felt pen, stacked between the roof beams. A round window at the end, full of sky and the green backs of the Downs. A dressmaker&rsquo;s dummy wearing a bicycle helmet. A beanbag.',
+      'Elliot Gosling is fifteen, long, and determined not to be impressed by anything. He has taped five index cards along the beam, one for each ending anybody has suggested, and he is pretending he has not.',
+      '&ldquo;Oh, hi,&rdquo; he says. &ldquo;Not reading it. Just checking something.&rdquo; The blue exercise book is lying in the open box at his feet, the right way up.'
+    ], function () { busy = false; paint(); });
+  }
+
+  var P2 = '<span class="pg">DRAFT ONE &middot; PAGE 2</span>' +
+    '<p>It happened again on Thursday, and on Friday, and every night that week. My pages, which I leave in a heap, were in order. My mug was washed and upside down on the shelf, the way Phoebe says they do it at Guide camp, so that earwigs cannot get in. Nothing was ever taken. Things were given back better than I had left them.</p>' +
+    '<p>At breakfast Phoebe came in from the garden in her new trainers, the ones with a star on each heel, and said nothing, as usual.</p>' +
+    '<p>I made a list of suspects, as my detectives always do.</p>' +
+    '<p>The fox. &ldquo;Do help yourself,&rdquo; I told him last June, when he had eaten every strawberry through the net. But a fox cannot sharpen a pencil.</p>' +
+    '<p>Martin. Every night at eleven his boots go down the path, his big white torch makes a circle on my curtain, and then his boots go back. He is checking that I have let the stove go out. He has never once come in: his boot prints in the frost stop at my step.</p>' +
+    '<p>Elliot, who stays up until two playing a game about zombies, and would think sharpening pencils beneath him.</p>';
+  var P3 = '<span class="pg">DRAFT ONE &middot; PAGE 3</span>' +
+    '<p>On Monday I found that I had written &ldquo;definately&rdquo; again, as I have for seventy years, and somebody had drawn a neat green line through it and written &ldquo;definitely&rdquo; in the margin. Martin cannot spell it either. It runs in the family, like big feet.</p>' +
+    '<p>So I laid a trap. I wrote a page with three mistakes in it on purpose, I shook flour over my step, and I went up to bed.</p>' +
+    '<p>At midnight, from the landing window, I saw a small red light moving about in my hut. Elliot would have said a ghost. It was the light a camp torch makes with its red lens on, so as not to wake anybody.</p>' +
+    '<p>In the morning the three mistakes had been corrected in green. In the flour on my step there were small prints, going in and coming out: a trainer, with a star on the heel.</p>' +
+    '<p>I have my suspicions. I am not ready to have them yet.</p>';
+  var CARD9 = '<p class="hh">Thursday writing group &middot; handout 9 &middot; M. J. Gosling</p><h4>TWISTS THAT PLAY FAIR</h4>' +
+    '<p>A twist surprises the reader; then the reader looks back and says: of course. That &ldquo;of course&rdquo; is the whole test.</p>' +
+    '<p>A twist <b>plays fair</b> when its clues are <b>planted</b>: on the page before the turn, in plain sight, while the narrator walks straight past them. A twist <b>cheats</b> when nothing on the page points to it (&ldquo;and then I woke up&rdquo;), or when something on the page says no.</p>' +
+    '<p>O. Henry, &ldquo;The Gift of the Magi&rdquo; (1905): a poor young couple each sell their one treasure to buy a present for the other&rsquo;s. Both treasures, Jim&rsquo;s gold watch and Della&rsquo;s long hair, are shown to us early.</p>' +
+    '<p>Saki, &ldquo;The Open Window&rdquo; (1914): a nervous visitor believes a girl&rsquo;s ghost story. The very first sentence calls her &ldquo;a very self-possessed young lady of fifteen&rdquo;.</p>' +
+    '<p class="rule">MY TEST: at least three clues on the page before the turn, and not one clue that says no.</p>';
+  $('#box').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('ell')) { ER.say('The open box, with the blue exercise book in it. Elliot is watching you look at it.'); return; }
+    ER.read({ html: P2, cls: 'xb', clue: { id: 'xb2', title: 'Draft one, page 2', kind: 'Draft' }, done: function () {
+      ER.read({ html: P3, cls: 'xb', clue: { id: 'xb3', title: 'Draft one, page 3', kind: 'Draft' }, done: function () {
+        if (told.set('book')) { paint(); ER.say('&ldquo;She makes Dad sound like he&rsquo;s got enormous feet,&rdquo; says Elliot. &ldquo;Which, to be fair.&rdquo;'); }
+      } });
+    } });
+  });
+  $('#card9').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD9, cls: 'ho', clue: { id: 'fair', title: 'Twists that play fair', kind: 'Handout' }, done: function () {
+      HT.terms(['twist', 'play fair', 'plant', 'cheat']);
+      if (told.set('card9')) { paint(); ER.say('&ldquo;&lsquo;And then I woke up,&rsquo;&rdquo; reads Elliot. &ldquo;That&rsquo;s my favourite ending. And she&rsquo;s calling it a cheat. In writing.&rdquo;'); }
+    } });
+  });
+  $('#ell').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Fair,&rdquo; says Elliot, to the beam. &ldquo;Annoyingly.&rdquo;'); return; }
+    ER.talk({
+      who: 'Elliot Gosling', role: 'Gran&rsquo;s grandson · fifteen', face: window.FACE('elliot'),
+      lines: [
+        { note: 'Elliot answers every question as if it has slightly disappointed him.', a: '&ldquo;I read it for the twist. There isn&rsquo;t one yet. It just stops.&rdquo;' },
+        { q: 'Why a dream, or a ghost?', a: '&ldquo;Because a twist is meant to come out of nowhere. That&rsquo;s the whole point. If you can guess it, it&rsquo;s not a twist, it&rsquo;s just... the plot.&rdquo;' },
+        { q: 'Is the hut haunted?', a: '&ldquo;Obviously not.&rdquo; A pause. &ldquo;Twice this summer there was a red light in it at midnight. I saw it from my window. Small, red, moving about. Dad says it was the fox on a bicycle. Dad thinks he&rsquo;s funny.&rdquo;' },
+        { q: 'Who broke the greenhouse?', a: '&ldquo;A burglar.&rdquo; He looks at you. &ldquo;Fine. A football. Mine. Can we not.&rdquo;' },
+        { q: 'What do you think of draft one?', a: '&ldquo;It&rsquo;s got all our real names in it. Gran must have forgotten we can read.&rdquo; He nods at the cards on the beam. &ldquo;I wrote everybody&rsquo;s ending on a card. Mine, Mum&rsquo;s, Dad&rsquo;s. Phoebe said &lsquo;a fox&rsquo;, so she got one too. And one blank, in case.&rdquo;' }
+      ],
+      clue: { id: 'ell1', title: 'Elliot, in the attic', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('ell')) paint(); }
+    });
+  });
+  HT.thing('#boxes', 'box', 'Boxes of old drafts, forty years of them. SEVEN WET TUESDAYS, 1987. THE PARROT, 1983. PHYLLIS&rsquo;S WEDDING SPEECH, 1971: three drafts, by the look of it.', isBusy);
+  HT.thing('#books', null, 'A shelf of old paperbacks: O. Henry, Saki, Maupassant, all the endings underlined in pencil. Gran reads the end last, but she reads it twice.', isBusy);
+  HT.thing('#dummy', 'dummy', 'A dressmaker&rsquo;s dummy in a yellow bicycle helmet. &ldquo;That&rsquo;s Elliot&rsquo;s joke,&rdquo; says Phoebe. &ldquo;It has been Elliot&rsquo;s joke since 2023.&rdquo;', isBusy);
+  HT.thing('#rwin', null, 'Through the round window: the long garden below, the green hut at the bottom, and behind it the Downs, bright after the rain.', isBusy);
+  HT.thing('#bean', 'beanbag', 'A beanbag, still warm and Elliot-shaped.', isBusy);
+  HT.thing('#ph', null, function () { return told.has('book') ? 'Phoebe has gone pink. &ldquo;It&rsquo;s a story,&rdquo; she says, to nobody. &ldquo;Gran puts everybody in.&rdquo;' : 'Phoebe is looking at the exercise book and not touching it.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#cards').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Five cards. Four endings crossed out. One name, written on the blank.'); return; }
+    if (!ready()) { ER.say('&ldquo;You can&rsquo;t try an ending,&rdquo; says Elliot, &ldquo;without the rest of draft one. Box. Floor. And the handout in the lid.&rdquo; He says it as if he does not care.'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: five endings on trial against draft one ---------- */
+  var EN = [['e1', 'A DREAM', 'It was all a dream. Or she was a ghost all along.', 'Elliot&rsquo;s ending'], ['e2', 'A BURGLAR', 'A burglar. The police catch him.', 'Alison&rsquo;s ending'], ['e3', 'THE SON', 'The son, keeping an eye on her.', 'Martin&rsquo;s ending'], ['e4', 'THE FOX', 'The fox did it.', 'Phoebe&rsquo;s, said out loud']];
+  var CL = [
+    ['c1', 'Her school makes them correct their own work in green. (p. 1)'],
+    ['c2', 'My mug was washed and upside down, the way Phoebe says they do it at Guide camp. (p. 2)'],
+    ['c3', 'Nothing was ever taken. Things were given back better than I had left them. (p. 2)'],
+    ['c4', 'But a fox cannot sharpen a pencil. (p. 2)'],
+    ['c5', 'He has never once come in: his boot prints in the frost stop at my step. (p. 2)'],
+    ['c6', 'Every night at eleven his boots go down the path, and his big white torch makes a circle on my curtain. (p. 2)'],
+    ['c7', 'Somebody had drawn a neat green line through it and written &ldquo;definitely&rdquo;. (p. 3)'],
+    ['c8', 'Martin cannot spell it either. It runs in the family. (p. 3)'],
+    ['c9', 'In the flour: small prints, a trainer, with a star on the heel. (p. 3)'],
+    ['c10', 'A small red light: the light a camp torch makes with its red lens on. (p. 3)'],
+    ['stamp', 'NOTHING ON THE PAGE POINTS HERE']
+  ];
+  var WHO = [['self', 'the narrator herself'], ['alison', 'Alison'], ['elliot', 'Elliot'], ['phoebe', 'Phoebe']];
+  var WHOWHY = {
+    self: '&ldquo;Then she corrected her own spelling in green, in her sleep?&rdquo; says Elliot. &ldquo;She&rsquo;s spelt it wrong for seventy years. Awake.&rdquo;',
+    alison: '&ldquo;Mum?&rdquo; says Elliot. &ldquo;Mum would have fitted a lock and written a note about it in capitals. And Mum&rsquo;s never been to Guide camp.&rdquo;',
+    elliot: '&ldquo;Me?&rdquo; says Elliot. &ldquo;Page two: I&rsquo;d think sharpening pencils beneath me. Which is true. And I haven&rsquo;t got star trainers. Or a red torch. Or a green pen.&rdquo;'
+  };
+  function openLock() {
+    var put = ER.flag('d-put') || {}, who = ER.flag('d-who') || null, held = null, done = false, stage2 = !!ER.flag('d-board');
+    lock = ER.el('div', 'trial');
+    var h = '<h5>Elliot&rsquo;s cards on the beam &middot; put every ending on trial against draft one</h5><div class="ends">';
+    EN.forEach(function (e) { h += '<div class="end"><h6>' + e[1] + '</h6><p>' + e[2] + '<i>' + e[3] + '</i></p><div class="sl" data-s="' + e[0] + '"><b>SAYS NO</b></div></div>'; });
+    h += '<div class="end"><h6>?</h6><p>Somebody nobody has suggested yet:<i>the blank card</i></p><div class="who"></div><div class="plants"><div class="sl" data-s="p1"><b>PLANTED</b></div><div class="sl" data-s="p2"><b>PLANTED</b></div><div class="sl" data-s="p3"><b>PLANTED</b></div></div></div>';
+    h += '</div><div class="heap"></div><div class="twist"><p>Every ending is tried. One plays fair. Gran&rsquo;s handout in the greenhouse said: twists are built out of irony. Which kind does this one grow from?</p>' +
+      '<button type="button" data-i="v">Verbal: in the ending, the narrator says the opposite of what she means.</button>' +
+      '<button type="button" data-i="s">Situational: she laid a trap for a thief, and caught a reader. The opposite of what she expected.</button>' +
+      '<button type="button" data-i="d">Dramatic: the reader knew who it was all along, and the narrator did not.</button></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="judge">Cross out what fails</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), heap = lock.querySelector('.heap'), nodes = {}, wb = lock.querySelector('.who');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    WHO.forEach(function (w) { var b = ER.el('button', '', w[1]); b.type = 'button'; b.setAttribute('data-w', w[0]); wb.appendChild(b); });
+    CL.forEach(function (c) { var b = ER.el('button', 'clu' + (c[0] === 'stamp' ? ' stamp' : ''), c[1]); b.type = 'button'; b.setAttribute('data-c', c[0]); nodes[c[0]] = b; });
+    function where(k) { for (var s in put) if (put[s] === k) return s; return null; }
+    function draw() {
+      CL.forEach(function (c) {
+        var k = c[0], s = where(k), at = s ? lock.querySelector('.sl[data-s="' + s + '"]') : heap;
+        if (nodes[k].parentNode !== at) at.appendChild(nodes[k]);
+        nodes[k].classList.toggle('held', held === k);
+      });
+      ER.$$('.sl', lock).forEach(function (n) { n.classList.toggle('want', !!held); });
+      ER.$$('.who button', lock).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-w') === who); });
+      lock.querySelector('.twist').classList.toggle('on', stage2);
+      foot.querySelector('#judge').style.visibility = stage2 ? 'hidden' : 'visible';
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    function place(k, s) { var old = put[s], from = where(k); if (from) delete put[from]; if (old && from) put[from] = old; put[s] = k; held = null; HT.sfx.pencil(); ER.flag('d-put', put); clearBad(); draw(); }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var tb = e.target.closest('.twist button');
+      if (tb) { judgeIrony(tb); return; }
+      if (stage2) return;
+      var w = e.target.closest('.who button');
+      if (w) { who = w.getAttribute('data-w'); ER.flag('d-who', who); ER.sfx.click(); clearBad(); draw(); return; }
+      var c = e.target.closest('.clu'), s = e.target.closest('.sl');
+      if (c && held && s && c.getAttribute('data-c') !== held) { place(held, s.getAttribute('data-s')); return; }
+      if (c) { var k = c.getAttribute('data-c'); held = held === k ? null : k; ER.sfx.paper(); clearBad(); draw(); return; }
+      if (s && held) { place(held, s.getAttribute('data-s')); return; }
+      if (e.target.closest('.heap') && held) { var f = where(held); if (f) delete put[f]; held = null; ER.flag('d-put', put); draw(); return; }
+      if (s) msg('First click a clue (or the stamp), then click where it goes.');
+    });
+    function bad(k, t) { ER.sfx.no(); if (nodes[k]) nodes[k].classList.add('bad'); msg(t); }
+    foot.querySelector('#judge').addEventListener('click', function () {
+      if (done || stage2) return;
+      clearBad();
+      var slots = ['e1', 'e2', 'e3', 'e4', 'p1', 'p2', 'p3'], empty = slots.filter(function (s) { return !put[s]; });
+      if (empty.length === slots.length) { ER.sfx.no(); msg('The cards are bare. Click a clue from draft one, then the place it goes. Every family ending needs the clue that says no to it.'); return; }
+      if (empty.some(function (s) { return s.charAt(0) === 'e'; })) { ER.sfx.no(); msg('&ldquo;Every ending gets a trial,&rdquo; says Elliot. &ldquo;Even mine. Especially mine, apparently.&rdquo; Each of the four family cards needs something under SAYS NO.'); return; }
+      var x = put.e1;
+      if (!ER.check('e1', x)) { bad(x, 'Elliot frowns at it. &ldquo;Does that point to a dream? Or a ghost?&rdquo; Gran&rsquo;s test begins: what on the page points to this ending? If nothing does, it doesn&rsquo;t even get as far as a clue that says no.'); return; }
+      x = put.e2;
+      if (!ER.check('e2', x)) { bad(x, x === 'stamp' ? 'There is a clue that says no to a burglar. What do burglars do, and what did this visitor do?' : 'That does not say no to a burglar. What do burglars do, and what did this visitor do?'); return; }
+      x = put.e3;
+      if (!ER.check('e3', x)) { bad(x, x === 'c6' ? '&ldquo;That one says yes to the son,&rdquo; says Elliot, &ldquo;not no. It&rsquo;s why Dad&rsquo;s ending is so tempting. Find the one that says he can&rsquo;t be the visitor.&rdquo;' : 'That does not say no to the son. Where do his boot prints stop? Can he spell &ldquo;definitely&rdquo;? What colour is his torch?'); return; }
+      x = put.e4;
+      if (!ER.check('e4', x)) { bad(x, 'That does not say no to a fox. Can a fox do what the visitor does: sharpen, spell, carry a torch, wear trainers?'); return; }
+      if (!who) { ER.sfx.no(); msg('The blank card needs a name. Click one of the names on it.'); return; }
+      if (!ER.check('who', who)) { ER.sfx.no(); msg(WHOWHY[who]); return; }
+      if (empty.length) { ER.sfx.no(); msg('Gran&rsquo;s test: at least three clues on the page before the turn. The blank card has ' + (3 - empty.length) + '.'); return; }
+      var i, p;
+      for (i = 1; i <= 3; i++) {
+        p = put['p' + i];
+        if (!ER.check('plant', p)) { bad(p, p === 'stamp' ? 'The stamp is for an ending with nothing pointing to it. This one has plenty.' : 'Does that clue point to her? Find three things on the page that only she would leave behind.'); return; }
+      }
+      stage2 = true; ER.flag('d-board', 1); HT.sfx.stamp(); draw();
+      msg('Elliot draws a line through four cards, slowly, one after another. On the blank one he writes a name, and stops.');
+    });
+    function judgeIrony(b) {
+      var k = b.getAttribute('data-i');
+      if (!ER.check('irony', k)) {
+        b.classList.add('bad'); ER.sfx.no();
+        msg(k === 'v' ? 'Nobody in the twist says the opposite of what they mean. Ask the handout&rsquo;s question: who expected what?' : '&ldquo;Did we know?&rdquo; says Elliot. &ldquo;I didn&rsquo;t, and I read it three times.&rdquo; In the finished story the reader is meant to be surprised with her, not ahead of her. The twist is a reversal: what did she set out to catch, and what did she find?');
+        return;
+      }
+      var file = ER.exit([who + '/' + k], { wait: true });
+      if (!file) { msg('The cards will not stay on the beam. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('d-file', file);
+      msg('A trap for a thief, and she caught a reader. The opposite of what she expected: situational irony.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2200);
+    }
+    draw();
+    msg(stage2 ? 'One ending plays fair. Which kind of irony does it grow from?' : 'Click a clue, then the card it goes under. Every family ending needs the clue that SAYS NO to it, or the stamp. The blank card needs a name and three PLANTED clues.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    HT.mine('trial', 'Five endings on trial', '<p>A DREAM (Elliot): nothing on the page points to it. A cheat.</p><p>A BURGLAR (Alison): &ldquo;Nothing was ever taken. Things were given back better.&rdquo;</p>' +
+      '<p>THE SON (Martin): tempting, because his boots really do go down the path at eleven. But his boot prints stop at the step, he cannot spell &ldquo;definitely&rdquo;, and his torch is white, not red.</p><p>THE FOX (Phoebe): a fox cannot sharpen a pencil.</p>' +
+      '<p>THE GIRL, Phoebe in draft one: green corrections at school, the Guide camp mug, the red camp torch, the star on the trainer. Planted on pages one to three, and nothing says no. It plays fair.</p>' +
+      '<p>The twist grows from situational irony: she laid a trap for a thief, and caught a reader.</p>');
+    HT.terms(['twist', 'play fair', 'cheat', 'plant', 'red herring', 'situational irony']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;So it&rsquo;s Phoebe,&rdquo; says Elliot slowly. &ldquo;In the story.&rdquo; Everybody looks at Phoebe, which in the attic is only Elliot and you, but it feels like more.',
+      '&ldquo;In the story,&rdquo; says Phoebe. &ldquo;The Phoebe in draft one isn&rsquo;t me. Gran changes everything. She made the hut blue. She made herself eighty-one. She gave herself a husband who built it. It&rsquo;s a story.&rdquo; She goes down the ladder rather fast.',
+      '&ldquo;She&rsquo;s right, though,&rdquo; says Elliot, to the beam. &ldquo;It isn&rsquo;t a twist if you can guess it.&rdquo; &ldquo;You didn&rsquo;t guess it,&rdquo; Phoebe calls up the ladder. &ldquo;You read it three times. That&rsquo;s the point.&rdquo;',
+      'Elliot thinks about this for some time. &ldquo;Fair,&rdquo; he says at last. Then, louder: &ldquo;She plants her titles, you know. In the vegetable bed. Like actual vegetables. Phoebe knows where.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Greenhouse · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#cfe0c8;--accent:#2f7a3e;--font-display:'Alegreya',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(236,244,228,.97);--tc-ink:#1c2a1c;--cap-bg:rgba(244,250,238,.95);--cap-ink:#1c2a1c;--panel:#f4f8ee;--panel-ink:#1c2a1c;--face-bg:#e2eccc;--q-ink:#2f7a3e;--fade:#ecf4e4;--hud-bg:rgba(244,250,238,.9);--hud-ink:#1c2a1c;--hud-line:rgba(28,42,28,.3)}
+  .tc-room{font-family:'Alegreya',serif;font-style:italic;font-weight:800;font-size:clamp(52px,7.4vw,108px);color:#2f7a3e}
+  .gobtn{background:rgba(244,250,238,.94)}
+  #drops circle{animation:dr 3s steps(12,end) infinite}
+  #drops circle:nth-child(2n){animation-duration:4.2s;animation-delay:-1s}
+  #drops circle:nth-child(3n){animation-duration:5s;animation-delay:-2.2s}
+  @keyframes dr{0%{transform:translateY(0);opacity:.9}80%{opacity:.9}100%{transform:translateY(46px);opacity:0}}
+  #shine{animation:sh 9s ease-in-out infinite alternate}
+  @keyframes sh{from{opacity:.35}to{opacity:.7}}
+
+  /* the lock: four seed trays and eleven plant labels */
+  .sow{padding:12px 14px 10px;background:#7a5a3a;background-image:repeating-linear-gradient(90deg,#8a6a48 0 30px,#6a4a2e 30px 34px);border:6px solid #4a3420;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .sow h5{margin:0 0 8px;font-family:'Alegreya',serif;font-style:italic;font-weight:700;font-size:23px;text-align:center;color:#f4f8ee}
+  .trays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .tr{min-height:244px;padding:6px 6px 8px;background:#2a2420;background-image:radial-gradient(circle at 20% 30%,#4a3a2a 0 3px,transparent 4px),radial-gradient(circle at 70% 60%,#4a3a2a 0 2px,transparent 3px);background-size:22px 22px;
+    border:3px solid #141210;border-radius:4px;cursor:pointer}
+  .tr>b{display:block;margin:0 0 2px;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.2em;text-align:center;color:#e8f0d8}
+  .tr>small{display:block;margin:0 0 6px;font-family:'Gochi Hand',cursive;font-size:15px;line-height:1.05;text-align:center;color:#c8d8b0}
+  .tr:hover{border-color:#6a9a4a}
+  .tr.want{outline:3px dashed #e8f0a8;outline-offset:2px}
+  .lab{display:block;width:100%;margin:0 0 5px;padding:5px 8px 12px;background:#fbfbf6;border:0;text-align:left;cursor:pointer;color:#2a2a30;font-family:'Gochi Hand',cursive;font-size:15.5px;line-height:1.12;
+    clip-path:polygon(0 0,100% 0,100% 82%,50% 100%,0 82%);box-sizing:border-box}
+  .lab i{display:block;font-style:normal;font-family:'Outfit',sans-serif;font-size:10.5px;letter-spacing:.1em;color:#7a7a72;margin-top:2px}
+  .tr .lab{font-size:14.5px}
+  .lab.held{background:#e8f8c8;outline:3px solid #2f7a3e}
+  .lab.bad{background:#f6c8b8}
+  .pack{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px;padding:8px;min-height:60px;background:#c8b088;border:2px dashed #4a3420;cursor:pointer}
+  .ov-lock .pmsg{color:#1c2a1c;background:rgba(244,250,238,.92);padding:6px 10px;border-radius:3px}
+  .ov-lock .pz-foot .btn{color:#1c2a1c;background:rgba(244,250,238,.92);border-color:#2f7a3e}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8cce4"/><stop offset=".7" stop-color="#e4f0f0"/><stop offset="1" stop-color="#d8e8c8"/></linearGradient>
+  <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".45" stop-color="#fffbe0" stop-opacity=".5"/><stop offset=".55" stop-color="#fffbe0" stop-opacity=".0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#000" stop-opacity=".06"/><stop offset="1" stop-color="#1c2a1c" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#sky)"/>
+<!-- outside, through the glass: the garden, the shed, the house -->
+<path d="M-1000 600q600 -60 1300 -20t2300 -10V1300H-1000z" fill="#9ab884"/>
+<g opacity=".55"><rect x="380" y="430" width="120" height="110" fill="#5a3a24"/><path d="M370 432l70 -40l70 40z" fill="#3a2418"/><rect x="1120" y="250" width="110" height="290" fill="#e8dcc8"/><path d="M1110 254l65 -50l65 50z" fill="#6a5a5a"/><g fill="#7a8a9a"><rect x="1140" y="280" width="24" height="34"/><rect x="1186" y="280" width="24" height="34"/><rect x="1140" y="350" width="24" height="34"/><rect x="1186" y="350" width="24" height="34"/></g></g>
+<!-- the glass and its frame -->
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#shine)" id="shine" pointer-events="none"/>
+<g stroke="#f4f6f2" stroke-width="10" fill="none"><path d="M-1000 100H2600M-1000 330H2600M-1000 560H2600"/><path d="M-300 -400V900M60 -400V900M420 -400V900M780 -400V900M1140 -400V900M1500 -400V900M1860 -400V900"/></g>
+<path d="M-1000 -400L800 40L2600 -400" stroke="#f4f6f2" stroke-width="16" fill="none"/>
+<g id="drops" fill="#e8f4ff" stroke="#8ab0c8" stroke-width="1"><circle cx="130" cy="140" r="4"/><circle cx="300" cy="200" r="3"/><circle cx="520" cy="150" r="4"/><circle cx="700" cy="240" r="3"/><circle cx="880" cy="380" r="4"/><circle cx="1060" cy="160" r="3"/><circle cx="1300" cy="230" r="4"/><circle cx="1420" cy="400" r="3"/><circle cx="600" cy="420" r="3"/></g>
+<!-- the broken pane, mended with cardboard -->
+<g id="pane" class="hot"><rect x="900" y="110" width="110" height="140" fill="#c8a878" stroke="#8a6a3a" stroke-width="2"/><path d="M904 130h100M904 200h100" stroke="#e8e0c8" stroke-width="8" opacity=".9"/><path d="M910 230l40 -30l30 20" stroke="#8a6a3a" stroke-width="1.5" fill="none"/></g>
+<!-- the door, with the handout pinned to it -->
+<g><rect x="70" y="190" width="200" height="600" fill="none" stroke="#e8ece6" stroke-width="14"/><path d="M70 480h200" stroke="#e8ece6" stroke-width="10"/><circle cx="250" cy="500" r="8" fill="#9aa4ac"/></g>
+<g id="ho" class="hot"><rect x="112" y="350" width="110" height="146" fill="#f2f2ee" stroke="#9a9aa2" stroke-width="2" transform="rotate(-3 167 423)"/><g stroke="#3a3a42" stroke-width="2" transform="rotate(-3 167 423)"><path d="M122 370h70"/><path d="M122 386h88M122 396h80M122 406h88M122 422h84M122 432h70M122 448h88M122 458h60M122 474h80"/></g><circle cx="167" cy="352" r="4" fill="#d83a3a"/></g>
+<!-- the floor: gravel and grow-bags -->
+<rect x="-1000" y="780" width="3600" height="520" fill="#b8ac94"/><g fill="#9a8e78"><circle cx="300" cy="820" r="4"/><circle cx="420" cy="850" r="3"/><circle cx="610" cy="815" r="4"/><circle cx="780" cy="860" r="3"/><circle cx="940" cy="830" r="4"/><circle cx="1110" cy="870" r="3"/></g>
+<!-- the tomatoes, on canes -->
+<g id="toms" class="hot"><g stroke="#b89a5a" stroke-width="5"><path d="M1290 790V200M1400 790V180M1510 790V210"/></g>
+  <g fill="#4a8a3a" stroke="#2a5a22" stroke-width="2"><path d="M1290 760q-60 -40 -20 -100q-50 -40 0 -90q-40 -60 20 -110q-30 -60 10 -110q40 40 20 100q50 40 10 100q50 50 0 100q40 60 -40 110z"/><path d="M1400 760q-60 -50 -10 -110q-50 -60 10 -110q-40 -60 20 -110q-30 -60 10 -120q50 40 20 110q50 50 0 110q50 60 -10 110q40 60 -40 120z"/><path d="M1510 760q-50 -50 -10 -100q-40 -60 10 -110q-30 -60 20 -110q40 50 10 110q40 60 -10 110q40 60 -20 100z"/></g>
+  <g fill="#d8342a" stroke="#7a1a12" stroke-width="2"><circle cx="1262" cy="560" r="16"/><circle cx="1290" cy="590" r="14"/><circle cx="1418" cy="470" r="15"/><circle cx="1380" cy="640" r="16"/><circle cx="1528" cy="540" r="14"/></g><g fill="#8ac04a" stroke="#4a7a22" stroke-width="2"><circle cx="1312" cy="420" r="12"/><circle cx="1494" cy="380" r="12"/><circle cx="1430" cy="300" r="11"/></g>
+  <rect x="1230" y="770" width="320" height="34" rx="8" fill="#5a8a3a" stroke="#2a4a1a" stroke-width="2"/></g>
+<!-- the staging, with the seed trays, the watering can, the carbon under a flowerpot, the notepad -->
+<g><rect x="360" y="560" width="760" height="16" fill="#8a6a48" stroke="#4a3420" stroke-width="3"/><g stroke="#8a6a48" stroke-width="10"><path d="M380 576v210M1100 576v210M740 576v210"/></g><g stroke="#6a4a2e" stroke-width="4"><path d="M370 590h740M370 604h740"/></g>
+  <rect x="380" y="680" width="720" height="12" fill="#6a4a2e"/><g fill="#c8743a" stroke="#6a3a1a" stroke-width="2"><path d="M420 680l6 -40h40l6 40z"/><path d="M500 680l6 -30h30l6 30z"/></g></g>
+<g id="trays" class="hot"><g fill="#2a2420" stroke="#141210" stroke-width="3"><rect x="560" y="530" width="100" height="30" rx="3"/><rect x="670" y="530" width="100" height="30" rx="3"/><rect x="780" y="530" width="100" height="30" rx="3"/><rect x="890" y="530" width="100" height="30" rx="3"/></g>
+  <g fill="#fbfbf6"><path d="M590 530v-22l6 -4l6 4v22zM700 530v-26l6 -4l6 4v26zM820 530v-20l6 -4l6 4v20zM930 530v-24l6 -4l6 4v24z"/></g><g fill="#6aa04a"><circle cx="630" cy="526" r="5"/><circle cx="740" cy="524" r="5"/><circle cx="850" cy="527" r="4"/><circle cx="960" cy="525" r="5"/></g></g>
+<g id="can" class="hot"><path d="M410 560l8 -50h60l8 50z" fill="#3a7a5a" stroke="#1a3a2a" stroke-width="2"/><path d="M486 524l46 -30" stroke="#3a7a5a" stroke-width="8"/><ellipse cx="534" cy="492" rx="10" ry="6" fill="#3a7a5a" stroke="#1a3a2a" stroke-width="2"/><path d="M424 510q24 -36 48 0" fill="none" stroke="#1a3a2a" stroke-width="5"/></g>
+<g id="carbon" class="hot" transform="translate(-30 0)"><path d="M1030 556l100 -4l2 8l-100 4z" fill="#e2e4ea" stroke="#8a8a98" stroke-width="1.5"/><path d="M1060 554l4 -40h44l4 40z" fill="#c8743a" stroke="#6a3a1a" stroke-width="2"/><path d="M1060 514h48" stroke="#6a3a1a" stroke-width="3"/></g>
+<g id="pad" class="hot"><rect x="600" y="656" width="70" height="24" fill="#f4f8fb" stroke="#4a8ab8" stroke-width="2"/><path d="M604 662h62" stroke="#4a8ab8" stroke-width="4"/></g>
+<!-- Alison, tying up a tomato -->
+<g id="ali" class="hot" transform="translate(1215 850)"></g>
+<g id="ph" class="hot" transform="translate(300 862)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the attic</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  HT.put('#ali', 'alison', { h: 340, armR: 'up', armL: 'front' });
+  HT.put('#ph', 'phoebe', { h: 318 });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'glass', no: 'III', title: 'The Greenhouse',
+    go: 'Along the path',
+    intro: [
+      'You planed the loose page until it fitted. Two cuts: the life story (nobody needs it yet) and the explained joke (an explained joke is a dead joke). One exact word for &ldquo;Suddenly I felt very cold&rdquo;: I shivered. And the green fingers got their STET, and moved to just after &ldquo;the girl&rdquo;, because &ldquo;her school&rdquo; needs a girl in front of it. You kept the mug and the biscuits: you cannot cut a clue before you know what it is for.',
+      'The shower has passed. Alison Gosling&rsquo;s greenhouse stands on the sunny side of the garden, steaming gently, with one pane of glass mended with cardboard.'
+    ],
+    exit: {"next":"attic","w":{"3fd304f5":"c8b43ad0"}}, tags: {"L1":["12f4803b"],"L2":["f99fc6d5"],"L3":["26b2953b"],"L4":["620d08e9"],"L5":["4e902c24"],"L6":["d273bfde"],"L7":["52013c32"],"L8":["8d882f08"],"L9":["a792ac86"],"L10":["64865e46"],"L11":["75a152c1"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = HT.told('c-told'); nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ali') && told.has('ho'); }
+  function paint() {
+    $('#ali').classList.toggle('ready', !told.has('ali'));
+    $('#ho').classList.toggle('ready', told.has('ali') && !told.has('ho'));
+    $('#trays').classList.toggle('ready', ready() && !nextFile);
+    ER.pips((told.has('ali') ? 1 : 0) + (told.has('ho') ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Every label is in its tray. The button at the bottom of the screen takes you up to the attic.', 'If you cannot see the button, close whatever is open (the Escape key) and look at the bottom of the screen.']];
+    if (lock && document.body.contains(lock)) return ['trays', [
+      'For each label, ask the handout&rsquo;s question: who expected what? Somebody saying the opposite of what they mean: verbal. What happens is the opposite of what was planned: situational. We know something a character does not: dramatic. Only chance: not irony.',
+      'Two labels are things people say and mean: Martin&rsquo;s &ldquo;you never notice&rdquo; and Elliot&rsquo;s &ldquo;nobody knows&rdquo;. The irony is not in their words. It is in what we know and they do not.',
+      'There are three of each kind of irony, and two that are not irony at all: the shop shut for the holidays, and the shared birthday. In Romeo and Juliet we know more than Romeo. In The Gift of the Magi each plan undoes the other.'
+    ]];
+    if (!ready()) return ['look', [
+      'Alison is by the tomatoes on the right: talk to her.',
+      'Gran&rsquo;s handout about irony is pinned to the greenhouse door on the left. Read it. Then click the seed trays on the staging.'
+    ]];
+    return ['trays', ['Everything is read. Click the four seed trays in the middle of the staging.', 'They are the black trays with white labels in them, between the watering can and the flowerpot.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Eleven labels, in four trays. Alison is watering them, which makes no difference at all.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The greenhouse, warm and green, dripping.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Inside it is warm and green and smells of tomato leaves. Tomato plants climb their canes almost to the roof. On the long slatted staging: four seed trays, a watering can, a notepad, and the thin grey carbon, held down by a flowerpot.',
+      'Alison Gosling is in yellow gardening gloves, tying up a tomato that does not want to be tied. She works in the pharmacy at the hospital, and she reads the end of every book first.',
+      '&ldquo;Hello, first reader,&rdquo; she says. &ldquo;Has Phoebe told you I want a burglar? I do. A burglar can be caught. You can&rsquo;t put a lock on a ghost.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  var HO = '<p class="hh">Thursday writing group &middot; handout 6 &middot; M. J. Gosling</p><h4>THREE KINDS OF IRONY</h4>' +
+    '<p>Irony is a gap: between what is said and what is meant, or between what is expected and what is.</p>' +
+    '<p><b>Verbal irony</b> is saying the opposite of what you mean. &ldquo;Lovely weather,&rdquo; in a hailstorm. When it is meant to hurt, it is called sarcasm.</p>' +
+    '<p><b>Situational irony</b> is when the opposite of what was expected happens. The fire station burns down. The man who buys a better lock for his treasure locks himself out of it.</p>' +
+    '<p><b>Dramatic irony</b> is when the reader knows something that a character does not. We have seen the letter go into his pocket; he is turning the house upside down to find it.</p>' +
+    '<p><b>Not irony:</b> bad luck, or a coincidence. Rain on your picnic is weather. It becomes irony only if you chose the day because it never rains.</p>' +
+    '<p class="rule">Twists are built out of irony. Ask: who expected what?</p>' +
+    '<p class="back">On the back, in capitals: WATERING ROTA. Mon M. Tue A. Wed E (ha!). Thu P. Fri A. Sat whoever is here. Sun MARJORIE (she won&rsquo;t).</p>';
+  $('#ho').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HO, cls: 'ho', clue: { id: 'irony', title: 'Three kinds of irony', kind: 'Handout' }, done: function () {
+      HT.terms(['irony', 'verbal irony', 'situational irony', 'dramatic irony', 'sarcasm', 'coincidence']);
+      if (told.set('ho')) { paint(); ER.say('&ldquo;She gave that to her Thursday group,&rdquo; says Alison. &ldquo;I use the back for the watering rota. Nobody follows it. That&rsquo;s probably irony too.&rdquo;'); }
+    } });
+  });
+  $('#ali').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Elliot&rsquo;s in the attic,&rdquo; says Alison. &ldquo;Take him a biscuit. Not one of Marjorie&rsquo;s: she counts them.&rdquo;'); return; }
+    ER.talk({
+      who: 'Alison Gosling', role: 'Martin&rsquo;s wife · hospital pharmacist', face: window.FACE('alison'),
+      lines: [
+        { note: 'Alison is brisk, kind, and dry enough to strike a match on.', a: '&ldquo;I read the carbon out here last night, among the tomatoes. Marjorie doesn&rsquo;t mind. Well. She minds, but she says she doesn&rsquo;t, which is nearly the same.&rdquo;' },
+        { q: 'Why a burglar?', a: '&ldquo;Because a burglar is the kind of trouble you can do something about. You ring the police. You fit a lock. And then she moves her desk up to the spare room, where it&rsquo;s warm, and nobody has to walk down a dark garden at eleven o&rsquo;clock to look at a stove.&rdquo; She glances up the garden at the shed.' },
+        { q: 'Do you really read the end first?', a: '&ldquo;Always. I can&rsquo;t enjoy the middle of anything until I know how it ends. Marjorie thinks it&rsquo;s cheating. I think it&rsquo;s good sense.&rdquo;' },
+        { q: 'Has there really been a burglar?', a: '&ldquo;There was a smashed pane in August, and Elliot said he saw a man running away. Then we found his football under the tomatoes.&rdquo; She tightens a knot. &ldquo;So I bought a padlock for the hut, and Marjorie keeps the key under a flowerpot by the door. I put a smoke alarm in there as well. It has gone off once: when I made toast on her stove.&rdquo;' },
+        { q: 'What is irony, exactly?', a: '&ldquo;Ask the handout,&rdquo; she says, nodding at the door. &ldquo;Marjorie says my note is full of irony. I said I meant every word. She said that was the irony.&rdquo;' }
+      ],
+      clue: { id: 'ali1', title: 'Alison, in the greenhouse', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('ali')) paint(); }
+    });
+  });
+  $('#carbon').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('The thin grey carbon of draft two, under a flowerpot, with a green correction on it. &ldquo;Somebody can spell,&rdquo; says Alison. &ldquo;It isn&rsquo;t Martin.&rdquo;');
+  });
+  $('#pane').addEventListener('click', function () {
+    if (busy) return;
+    HT.seed('pane', 'The cardboard pane', '<p>One pane of the greenhouse roof is cardboard, taped in. It was smashed in August. Elliot said he saw a burglar running away; his football was found under the tomatoes.</p>');
+    ER.say('A pane of cardboard in the glass roof. &ldquo;Elliot&rsquo;s burglar,&rdquo; says Alison. &ldquo;Size five, black and white, answers to the name of Elliot.&rdquo;');
+  });
+  HT.thing('#pad', null, 'A notepad from the hospital pharmacy, the same as Alison&rsquo;s note under the hut door. She writes on everything in neat blue capitals.', isBusy);
+  HT.thing('#can', 'watering can', 'A green watering can, half full of rainwater.', isBusy);
+  HT.thing('#toms', 'tomato', 'Tomatoes, red and green, on canes as tall as the roof. &ldquo;The last of them,&rdquo; says Alison. &ldquo;Then I&rsquo;ll make chutney, and nobody will eat it.&rdquo;', isBusy);
+  HT.thing('#ph', null, function () { return 'Phoebe is reading the handout on the door for the second time, very carefully, as if it might change.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#trays').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Eleven labels, in four trays.'); return; }
+    if (!ready()) { ER.say('&ldquo;Read the handout first,&rdquo; says Alison, pointing at the door with a tomato. &ldquo;And talk to me. I&rsquo;m the only one in this family who answers questions.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: eleven labels, four trays ---------- */
+  var LB = [
+    ['L1', 'Marvellous: just what a woman of seventy-eight needs, a stranger in her hut at midnight.', 'Alison&rsquo;s note', 'Read it aloud. Does Alison think a stranger at midnight is marvellous? When the words mean the opposite of what is meant, that is a way of speaking.'],
+    ['L2', 'The fox: &ldquo;Do help yourself,&rdquo; I told him last June, when he had eaten every strawberry through the net.', 'draft one, page two', '&ldquo;Do help yourself,&rdquo; to a fox who has eaten every strawberry. Does she want him to? Set what she says against what she means.'],
+    ['L3', 'Oh, brilliant, another ending where everybody has a nice cup of tea.', 'Elliot&rsquo;s note', 'Elliot calls it brilliant. Read the next two words of his note: &ldquo;Please no.&rdquo; Does he mean brilliant?'],
+    ['L4', 'The smoke alarm Alison put in the hut has gone off once: when Alison made toast.', 'the hut', 'The alarm was put there to keep the hut safe from fire. Who set it off, and how? What was expected, and what happened?'],
+    ['L5', 'Martin built the hut so that his mother could be alone. Now it is the busiest room in the house.', 'the garden', 'Why was the hut built, and what has it turned into? Set the plan against what happened.'],
+    ['L6', 'Della sells her hair to buy a chain for Jim&rsquo;s watch. Jim sells his watch to buy combs for her hair.', 'O. Henry, The Gift of the Magi (1905)', 'Each of them plans the perfect present, and each plan makes the other&rsquo;s present useless. Is that something somebody says, something only the reader knows, or the opposite of what was planned?'],
+    ['L7', '&ldquo;I know you never notice anything once you&rsquo;re in this hut.&rdquo; (Gran&rsquo;s note had already counted his biscuits.)', 'Martin&rsquo;s note', 'Martin means every word: he is not being ironic himself. But you have read Gran&rsquo;s note, and he has not. Who knows more here: Martin, or the reader?'],
+    ['L8', '&ldquo;Nobody knows, I put it back exactly how I found it.&rdquo; (Gran&rsquo;s note had already told him to put it back the right way up.)', 'Elliot&rsquo;s note', 'Elliot means it. But Gran&rsquo;s note has already told him to put the exercise books back the right way up. Who knows more: Elliot, or us?'],
+    ['L9', 'Romeo thinks Juliet is dead. We know she has only taken a drug that makes her sleep.', 'Shakespeare, Romeo and Juliet', 'Romeo does not know what the audience knows. When the audience knows more than a character, which kind is it?'],
+    ['L10', 'The typewriter ribbon ran out in August, and the shop that sells ribbons was shut for the holidays.', 'the hut', 'A shop shut for the holidays is bad luck. Nobody planned the opposite, and nobody is saying anything. The handout has a tray for that.'],
+    ['L11', 'Gran and Phoebe were born on the same day of the year: the third of March.', 'the family', 'Two people born on the same day: a coincidence. Nobody expected anything, and nobody says the opposite of what they mean.']
+  ];
+  var TR = [['v', 'VERBAL', 'saying the opposite of what you mean'], ['s', 'SITUATIONAL', 'the opposite of what was expected'], ['d', 'DRAMATIC', 'the reader knows; a character does not'], ['n', 'NOT IRONY', 'bad luck, coincidence']];
+  function openLock() {
+    var put = ER.flag('c-put') || {}, held = null, done = false;
+    lock = ER.el('div', 'sow');
+    var h = '<h5>Alison&rsquo;s seed trays &middot; which kind of irony is each label?</h5><div class="trays">';
+    TR.forEach(function (t) { h += '<div class="tr" data-t="' + t[0] + '"><b>' + t[1] + '</b><small>' + t[2] + '</small><div class="in"></div></div>'; });
+    h += '</div><div class="pack"></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="water">Hand them to Alison</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), pack = lock.querySelector('.pack'), nodes = {};
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    HT.mix(LB, 23).forEach(function (l) { var b = ER.el('button', 'lab', l[1] + '<i>' + l[2] + '</i>'); b.type = 'button'; b.setAttribute('data-l', l[0]); nodes[l[0]] = b; });
+    function draw() {
+      Object.keys(nodes).forEach(function (k) {
+        var at = put[k] ? lock.querySelector('.tr[data-t="' + put[k] + '"] .in') : pack;
+        if (nodes[k].parentNode !== at) at.appendChild(nodes[k]);
+        nodes[k].classList.toggle('held', held === k);
+      });
+      ER.$$('.tr', lock).forEach(function (t) { t.classList.toggle('want', !!held); });
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var l = e.target.closest('.lab'), tr = e.target.closest('.tr');
+      if (l && held && tr && l.getAttribute('data-l') !== held) { put[held] = tr.getAttribute('data-t'); held = null; HT.sfx.pot(); ER.flag('c-put', put); clearBad(); draw(); return; }
+      if (l) { var id = l.getAttribute('data-l'); held = held === id ? null : id; ER.sfx.paper(); clearBad(); draw(); return; }
+      if (tr && held) { put[held] = tr.getAttribute('data-t'); held = null; HT.sfx.pot(); ER.flag('c-put', put); clearBad(); draw(); return; }
+      if (e.target.closest('.pack') && held) { delete put[held]; held = null; ER.flag('c-put', put); draw(); return; }
+      if (tr) msg('First click a label, then the tray it grows in.');
+    });
+    foot.querySelector('#water').addEventListener('click', function () {
+      if (done) return;
+      clearBad();
+      var left = LB.filter(function (l) { return !put[l[0]]; }).length, i;
+      if (left === LB.length) { ER.sfx.no(); msg('The trays are empty. Click a label, then the tray it grows in.'); return; }
+      if (left) { ER.sfx.no(); msg('&ldquo;All of them,&rdquo; says Alison. &ldquo;I don&rsquo;t leave labels lying about: things get planted in the wrong place.&rdquo; ' + left + (left === 1 ? ' label is' : ' labels are') + ' still in the packet.'); return; }
+      for (i = 0; i < LB.length; i++) {
+        if (!ER.check(LB[i][0], put[LB[i][0]])) { ER.sfx.no(); nodes[LB[i][0]].classList.add('bad'); msg(LB[i][3] + ' (Alison only ever points at the first label that is wrong.)'); return; }
+      }
+      var cand = LB.map(function (l) { return l[0] + put[l[0]]; }).join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The labels will not go in. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('c-file', file);
+      HT.sfx.pot();
+      msg('Alison pushes every label firmly into the soil and waters the lot, out of habit.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2200);
+    });
+    draw();
+    msg('Click a label, then the tray it belongs in. Click a label in a tray to pick it up again, and the packet to put it back.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    HT.mine('ironies', 'Eleven labels, four trays', '<p>VERBAL (the opposite of what is meant): Alison&rsquo;s &ldquo;Marvellous&rdquo;; &ldquo;Do help yourself&rdquo; to the fox; Elliot&rsquo;s &ldquo;brilliant&rdquo;.</p>' +
+      '<p>SITUATIONAL (the opposite of what was expected): the smoke alarm and Alison&rsquo;s toast; the hut built for peace, now the busiest room; Della&rsquo;s hair and Jim&rsquo;s watch.</p>' +
+      '<p>DRAMATIC (we know, they do not): Martin&rsquo;s &ldquo;you never notice&rdquo;; Elliot&rsquo;s &ldquo;nobody knows&rdquo;; Romeo at Juliet&rsquo;s side.</p>' +
+      '<p>NOT IRONY: a shop shut for the holidays (bad luck); a shared birthday (coincidence).</p><p>Twists are built out of irony. Ask: who expected what?</p>');
+    HT.terms(['irony', 'verbal irony', 'situational irony', 'dramatic irony', 'coincidence']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;Eleven labels, four trays,&rdquo; says Alison, peeling off her gloves. &ldquo;Twists are built out of irony, Marjorie says. So which tray will her twist grow in? We won&rsquo;t know that until we know the twist.&rdquo;',
+      'She looks at Phoebe. &ldquo;You&rsquo;re very quiet, Phoebe. You&rsquo;re never quiet unless you&rsquo;ve done something.&rdquo; &ldquo;I&rsquo;m thinking,&rdquo; says Phoebe. &ldquo;People do.&rdquo;',
+      '&ldquo;The exercise book is in the attic,&rdquo; says Alison. &ldquo;Draft one, the whole of it. Elliot&rsquo;s up there reading it for the third time and telling everybody he isn&rsquo;t.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

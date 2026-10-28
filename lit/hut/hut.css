@@ -1,0 +1,198 @@
+/* The Fourth Draft - what every room shares: the papers of the Goslings' house and garden (Gran's note and index card,
+   the three drafts, the family's notes, the editor's letter, the Thursday group's handouts, the title labels, the last
+   page), the frame round every puzzle, the notebook and the hints. Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Outfit',sans-serif;font-size:15px;letter-spacing:.34em;text-transform:uppercase}
+.tc-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.42vw,21px);line-height:1.5}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'Alegreya',Georgia,serif;font-size:clamp(19px,1.5vw,22px);line-height:1.45}
+.chip,.hbtn,.btn{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.14em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:2px solid var(--accent);
+  color:var(--accent);background:var(--hud-bg,rgba(20,14,10,.9));font-family:'Outfit',sans-serif;font-size:19px;letter-spacing:.1em;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent);color:#fff}
+.tk-name{font-family:var(--font-display);font-size:28px}
+.tk-role{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.16em}
+.tk-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+.ready{animation:htglow 1.5s steps(1,end) infinite}
+@keyframes htglow{50%{filter:brightness(1.3) drop-shadow(0 0 7px rgba(255,240,200,.95))}}
+
+/* ---- Gran's note: cream writing paper, fountain pen ---- */
+.doc.gnote{width:min(640px,94vw);background:#fbf6e8;color:#22305a;font-family:'Caveat',cursive;font-size:24px;line-height:1.24;padding:22px 34px 20px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-.4deg);border-top:1px solid #e0d6bc}
+.doc.gnote h4{margin:0 0 6px;font-family:'Caveat',cursive;font-weight:700;font-size:24px;text-align:right;color:#4a5478}
+.doc.gnote p{margin:0 0 7px}
+.doc.gnote .sig{text-align:right;font-size:26px;margin-top:4px}
+.doc.gnote .ps{font-size:21px;color:#3a4470;border-top:1px dashed #b8b0a0;padding-top:6px;margin-top:8px}
+
+/* ---- the index card over the desk ---- */
+.doc.card{width:min(600px,92vw);background:#fff repeating-linear-gradient(transparent 0 29px,#b8cde4 29px 30px);background-position:0 54px;color:#26283a;
+  font-family:'Caveat',cursive;font-size:22px;line-height:30px;padding:14px 30px 16px;border-top:3px solid #d8504a;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(.5deg)}
+.doc.card h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:28px;letter-spacing:.05em;line-height:32px}
+.doc.card .sub{margin:0 0 4px;font-size:18px;color:#6a6a7a;line-height:22px}
+.doc.card ol{margin:0;padding-left:24px}
+.doc.card li{margin:0}
+.doc.card b{color:#a8302a}
+
+/* ---- margin notes in Gran's pencil, and green ink in somebody else's hand ---- */
+.mn{float:right;clear:right;width:170px;margin:0 -200px 4px 14px;font-family:'Caveat',cursive;font-size:19px;line-height:1.05;color:#7a5a4a;transform:rotate(-2deg)}
+.mn.top{float:none;display:block;width:auto;margin:0 0 6px;text-align:right;font-size:21px}
+.gc{font-family:'Gochi Hand',cursive;font-size:18px;color:#1f8a3a;margin-left:6px;white-space:nowrap}
+s.g{text-decoration:none;background:linear-gradient(transparent 54%,#1f8a3a 54%,#1f8a3a 62%,transparent 62%)}
+s.p{text-decoration:line-through;text-decoration-color:#5a5a62;text-decoration-thickness:2px;color:#7a7a82}
+.stet{font-family:'Gochi Hand',cursive;font-size:19px;color:#1f8a3a;letter-spacing:.08em;margin-left:6px}
+
+/* ---- draft one: a school exercise book in pencil ---- */
+.doc.xb{width:min(720px,95vw);background:#fbfbf4 repeating-linear-gradient(transparent 0 31px,rgba(90,120,170,.3) 31px 32px);background-position:0 12px;
+  color:#38383f;font-family:'Caveat',cursive;font-size:24px;line-height:32px;padding:14px 220px 18px 70px;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  border-left:2px solid rgba(210,70,70,.55);background-clip:padding-box}
+.doc.xb h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:28px;line-height:32px;text-decoration:underline;color:#2c2c34}
+.doc.xb p{margin:0}
+.doc.xb .pg{font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:.2em;color:#8a8a98;line-height:32px}
+
+/* ---- draft two: a typed carbon copy on thin grey paper ---- */
+.doc.cc{width:min(720px,95vw);background:#e6e8ee linear-gradient(170deg,rgba(255,255,255,.4),rgba(80,90,120,.12));color:#2a3050;
+  font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:1.55;padding:20px 220px 20px 38px;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  text-shadow:0 0 1px rgba(42,48,80,.55)}
+.doc.cc h4{margin:0 0 10px;font-family:'Special Elite',monospace;font-size:17px;letter-spacing:.24em}
+.doc.cc p{margin:0 0 9px}
+.doc.cc .mn{text-shadow:none}
+
+/* ---- draft three: loose foolscap in pencil ---- */
+.doc.fs{width:min(720px,95vw);background:#f6f1df repeating-linear-gradient(transparent 0 33px,rgba(120,140,170,.26) 33px 34px);background-position:0 10px;
+  color:#3c3c42;font-family:'Caveat',cursive;font-size:23px;line-height:34px;padding:12px 220px 16px 40px;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(.3deg)}
+.doc.fs h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:26px;line-height:34px;color:#2c2c34}
+.doc.fs p{margin:0}
+
+/* ---- the family's notes ---- */
+.doc.mnote{width:min(520px,92vw);background:#fff;color:#1f3aa0;font-family:'Gochi Hand',cursive;font-size:20px;line-height:1.36;padding:16px 28px 18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-1deg);border-top:44px solid #f2efe6}
+.doc.mnote .rc{display:block;margin:-38px 0 12px;font-family:'Special Elite',monospace;font-size:12px;letter-spacing:.14em;color:#8a8478;line-height:16px}
+.doc.mnote p{margin:0 0 7px}
+.doc.anote{width:min(560px,92vw);background:#f4f8fb;color:#1c2a44;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.5;letter-spacing:.04em;text-transform:uppercase;
+  padding:16px 28px 18px;border-top:10px solid #4a8ab8;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(.6deg)}
+.doc.anote .rc{display:block;margin:0 0 10px;font-size:11px;letter-spacing:.24em;color:#4a8ab8}
+.doc.anote p{margin:0 0 8px}
+.doc.enote{width:min(560px,92vw);background:#fbfcf8;background-image:linear-gradient(rgba(90,140,190,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(90,140,190,.22) 1px,transparent 1px);
+  background-size:18px 18px;color:#3a3a40;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.2;padding:18px 28px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(1.2deg)}
+.doc.enote p{margin:0 0 8px}
+.doc.enote .big{font-size:27px}
+
+/* ---- the editor's letter ---- */
+.doc.ed{width:min(680px,94vw);background:#fffefa;color:#1e1e26;font-family:'Alegreya',Georgia,serif;font-size:17.5px;line-height:1.46;padding:18px 40px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.ed .lh{margin:0 0 2px;font-family:'Cinzel',serif;font-size:25px;letter-spacing:.2em;text-align:center;color:#2a5a6a}
+.doc.ed .lh small{display:block;font-family:'Alegreya',serif;font-style:italic;font-size:14px;letter-spacing:.04em;color:#5a6a70}
+.doc.ed .date{text-align:right;margin:6px 0 6px;font-size:15.5px;color:#5a5a62;border-top:1px solid #c8d4d8;padding-top:6px}
+.doc.ed p{margin:0 0 7px}
+.doc.ed .sig{font-family:'Homemade Apple',cursive;font-size:19px;color:#2a3a6a;margin:6px 0 0}
+.doc.ed .sub{font-size:14px;color:#6a6a72}
+
+/* ---- the Thursday group's handouts: photocopied, a little grey ---- */
+.doc.ho{width:min(680px,94vw);background:#f2f2ee linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.08));color:#1c1c20;font-family:'Alegreya',Georgia,serif;font-size:17.5px;line-height:1.42;
+  padding:16px 36px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.ho .hh{margin:0 0 4px;font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#5a5a62;border-bottom:1px solid #9a9aa2;padding-bottom:4px}
+.doc.ho h4{margin:4px 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;letter-spacing:.12em}
+.doc.ho p{margin:0 0 7px}
+.doc.ho .rule{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.08em;border:2px solid #1c1c20;padding:5px 10px;margin-top:8px}
+.doc.ho .back{font-family:'Gochi Hand',cursive;font-size:17px;color:#2a6a8a;border-top:1px dashed #9a9aa2;padding-top:5px;margin-top:8px}
+
+/* ---- the title bed: plant labels in a row ---- */
+.doc.beds{width:min(780px,95vw);background:#5a4030 linear-gradient(180deg,#6a4a34,#4a3426);padding:16px 22px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#f4ead8}
+.doc.beds h4{margin:0 0 10px;font-family:'Gochi Hand',cursive;font-size:22px;color:#f4ead8}
+.doc.beds .row{display:flex;flex-wrap:wrap;gap:10px}
+.doc.beds .lb{position:relative;width:162px;min-height:92px;padding:8px 10px 26px;background:#fbfbf6;color:#33333a;font-family:'Gochi Hand',cursive;font-size:18.5px;line-height:1.15;
+  clip-path:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%);box-sizing:border-box}
+.doc.beds .lb s{text-decoration-color:#7a5a4a;text-decoration-thickness:2px}
+.doc.beds .lb small{display:block;margin-top:4px;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.14em;color:#8a8478}
+.doc.beds p{margin:12px 0 0;font-family:'Alegreya',serif;font-style:italic;font-size:16px;color:#e8dcc4}
+
+/* ---- the last page ---- */
+.doc.last{width:min(700px,95vw);background:#fbf6e6 repeating-linear-gradient(transparent 0 31px,rgba(120,140,170,.22) 31px 32px);background-position:0 8px;color:#22305a;
+  font-family:'Caveat',cursive;font-size:24px;line-height:32px;padding:10px 40px 16px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.last h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:30px;line-height:40px;text-align:center;letter-spacing:.06em}
+.doc.last .sub{margin:0;text-align:center;font-size:19px;color:#6a6a7a}
+.doc.last p{margin:0 0 8px}
+.doc.last .end{font-size:32px;text-align:center;margin-top:10px}
+
+/* ---- what you worked out, and what you noticed ---- */
+.doc.mine{width:min(620px,92vw);background:#eef2e6 repeating-linear-gradient(transparent 0 29px,rgba(60,100,60,.14) 29px 30px);color:#1e2a1e;font-family:'Gochi Hand',cursive;font-size:20px;line-height:30px;
+  padding:22px 30px 20px;border-left:16px solid #3a6a3a}
+.doc.mine h4{font-family:'Outfit',sans-serif;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#3a6a3a;margin:0 0 6px;line-height:30px}
+.doc.mine p{margin:0 0 4px}
+.doc.seed{width:min(560px,92vw);background:#fbf6e6;color:#2a2018;font-family:'Alegreya',serif;font-size:18px;line-height:1.42;padding:18px 26px 16px;border-left:10px solid #b8862a}
+.doc.seed h4{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#8a6a1a;margin:0 0 6px}
+.doc.statement{background:#f4efe4;font-family:'Alegreya',Georgia,serif;font-size:18.5px;line-height:1.5;border-left:6px solid #3a6a3a}
+.doc.statement h4{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.22em;color:#3a6a3a;text-transform:uppercase}
+
+/* ---- the frame round a puzzle ---- */
+.pz{width:min(1180px,97vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:8px}
+.pmsg{flex:1;min-height:48px;margin:0;font-family:'Alegreya',Georgia,serif;font-size:18px;line-height:1.34;color:#f4ece0}
+.pmsg b{color:#f0c86a;font-weight:600}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35);color:#f4ece0;border-color:#c8b890}
+
+/* ---- the notebook: a writer's notebook, green cloth with an elastic band ---- */
+.nb{background:#1c2a22 linear-gradient(90deg,#2a4a34 0 12px,#1e2c24 12px);border:1px solid #4a5a4a;border-radius:3px;color:#eef0e4;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 4px #121c16}
+.nb:after{content:'';position:absolute;top:0;bottom:0;right:44px;width:7px;background:#1a1a1a;opacity:.85;pointer-events:none}
+.nb-tabs{border-bottom-color:#4a5a4a;padding-left:14px}
+.nb-tabs button{font-family:'Gochi Hand',cursive;font-size:19px;letter-spacing:.06em;color:#e2e8d6}
+.nb-tabs button.on{background:#f4f2e6;color:#1c2a22;border-color:#4a5a4a}
+.nb-list{border-right-color:#4a5a4a}
+.nb-list button{font-family:'Alegreya',serif;font-size:17px;color:#eef0e4}
+.nb-list button small{font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.18em}
+.nb-list button.on{background:#f4f2e6;color:#1c2a22}
+.nb-view{background:#121a14}
+.nb-view .doc{transform:none}
+.nb-view .doc .mn{float:none;display:block;width:auto;margin:0 0 4px 30px;transform:none}
+.nb-view .doc.xb,.nb-view .doc.cc,.nb-view .doc.fs{padding-right:30px}
+.nb-words{background:#f4f2e6;color:#1e2a1e}
+.nb-words b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.nb-words span{font-family:'Alegreya',serif;font-size:17px;line-height:1.3;color:#4a5a4a}
+.nb-ko{border-color:#9aa494;color:#4a5a4a}
+.nb-ko.on{background:#1c2a22;color:#e8f0c8;border-color:#1c2a22}
+.wtip,.wtag{background:#f4f2e6;color:#1e2a1e;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #3a6a3a}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.wtip span,.wtag span{font-family:'Alegreya',serif;font-size:17px;line-height:1.3;color:#4a5a4a}
+.hintbox{background:#f1ecd8;color:#22201a;border-top:6px solid #3a6a3a;border-radius:2px}
+.hintbox h6{font-family:'Gochi Hand',cursive;font-size:20px;letter-spacing:.2em;color:#3a6a3a}
+.hintbox p{font-family:'Alegreya',serif;font-size:18px;line-height:1.36}
+.hintbox p i{background:#22201a;color:#f1ecd8;font-family:'Outfit',sans-serif;font-size:12.5px}
+.hintbox p.hint-none{font-style:italic;color:#6a5a4a;font-size:17px}
+.toast{font-family:'Outfit',sans-serif;font-size:14.5px;background:rgba(24,34,26,.95)}
+
+/* ---- the ending card and the last task (used by the last room) ---- */
+.done{position:fixed;right:2vw;top:60px;z-index:34;width:min(580px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fbf8f0;color:#1c1c26;border-top:10px solid #2a5a3a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #2a5a3a;color:#2a5a3a;font-family:'Gochi Hand',cursive;font-size:21px;letter-spacing:.08em;transform:rotate(-2deg);margin-bottom:6px}
+.done h6{margin:9px 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2a5a3a}
+.done p{margin:0 0 3px;font-family:'Outfit',sans-serif;font-size:14.5px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Alegreya',serif;font-size:15px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done ul{margin:0;padding-left:18px;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.3}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#2a5a3a;font-size:13px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#fbf8f0}
+.done small{display:block;margin-top:8px;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf8f0;color:#1c1c26;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #2a5a3a}
+.rp h4{margin:0 0 3px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2a5a3a}
+.rp h3{margin:0 0 8px;font-family:'Gochi Hand',cursive;font-weight:400;font-size:32px;line-height:1.1}
+.rp p,.rp label{display:block;font-family:'Alegreya',serif;font-size:17.5px;line-height:1.4;margin:0 0 6px;color:#1c1c26}
+.rp textarea{width:100%;min-height:184px;font-family:'Caveat',cursive;font-size:24px;line-height:30px;color:#1f6a3a;background:#fff repeating-linear-gradient(transparent 0 29px,#d6e2d6 29px 30px);border:1px solid #a8b8a8;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text;box-sizing:border-box}
+.rp .count{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75}
+.rp .btn{--accent:#2a5a3a}.rp .btn:hover:not([disabled]){color:#fbf8f0}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

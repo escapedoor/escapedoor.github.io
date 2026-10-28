@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Lamp · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#1a2238;--accent:#f0c060;--font-display:'Homemade Apple',cursive;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(26,34,56,.96);--tc-ink:#f8f0dc;--cap-bg:rgba(24,30,50,.94);--cap-ink:#f8f0dc;--panel:#232c48;--panel-ink:#f8f0dc;--face-bg:#f2e2c8;--q-ink:#f0c060;--fade:#10141f;--hud-bg:rgba(26,34,56,.92);--hud-ink:#f8f0dc;--hud-line:rgba(248,240,220,.3)}
+  .tc-room{font-family:'Homemade Apple',cursive;font-size:clamp(46px,6.4vw,92px);line-height:1.4;color:#f0c060}
+  .tk-name{font-family:'Gochi Hand',cursive}
+  .gobtn{background:rgba(26,34,56,.94)}
+  #glow{animation:gl 5s ease-in-out infinite alternate}
+  @keyframes gl{from{opacity:.75}to{opacity:1}}
+  #smoke{opacity:0;transition:opacity 2s}
+  #scene.lit #smoke{opacity:1}
+  #smoke path{animation:sm 4s steps(10,end) infinite}
+  #smoke path:nth-child(2){animation-delay:-2s}
+  @keyframes sm{from{transform:translate(0,0);opacity:.7}to{transform:translate(-30px,-90px);opacity:0}}
+  #stars circle{animation:tw 3s steps(2,end) infinite}
+  #stars circle:nth-child(2n){animation-delay:-1.4s}
+  @keyframes tw{50%{opacity:.35}}
+
+  /* the tin: three brass letter wheels */
+  .tin{width:min(520px,94vw);padding:18px 22px 14px;background:#2a4a8a;background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.18),transparent 60%);border:6px solid #c8a040;border-radius:10px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#f8f0dc;text-align:center}
+  .tin h5{margin:0 0 4px;font-family:'Gochi Hand',cursive;font-weight:normal;font-size:24px}
+  .tin p{margin:0 0 10px;font-family:'Alegreya',serif;font-size:16.5px}
+  .wheels{display:flex;justify-content:center;gap:14px;margin:6px 0 12px}
+  .wh{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .wh button{width:58px;height:30px;border:2px solid #c8a040;border-radius:4px;background:#1a2a5a;color:#f0c060;font-size:16px;cursor:pointer}
+  .wh b{display:block;width:58px;height:62px;line-height:62px;background:linear-gradient(180deg,#8a6a20,#f0d080 40%,#c8a040 60%,#6a5010);border:2px solid #4a3a10;border-radius:6px;font-family:'Cinzel',serif;font-size:36px;color:#2a1a04}
+  .tin .btn{color:#f8f0dc;border-color:#f0c060}
+  .tin .pmsg{min-height:44px;margin-top:8px;color:#f8f0dc;font-size:17px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121a34"/><stop offset=".6" stop-color="#2a3a6a"/><stop offset="1" stop-color="#5a5a8a"/></linearGradient>
+  <radialGradient id="glow" cx="26%" cy="56%" r="34%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset=".6" stop-color="#ffb860" stop-opacity=".12"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <pattern id="brick2" width="48" height="24" patternUnits="userSpaceOnUse"><rect width="48" height="24" fill="#6a4a4a"/><path d="M0 0h48M0 12h48M24 0v12M0 12v12M48 12v12" stroke="#4a3434" stroke-width="2"/></pattern>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#night)"/>
+<g id="stars" fill="#fff"><circle cx="200" cy="60" r="2"/><circle cx="520" cy="110" r="1.6"/><circle cx="880" cy="50" r="2.2"/><circle cx="1100" cy="130" r="1.6"/><circle cx="1380" cy="70" r="2"/><circle cx="1520" cy="160" r="1.5"/></g>
+<path d="M1480 90a40 40 0 1 0 30 66a32 32 0 1 1 -30 -66z" fill="#f4ecd0" opacity=".85"/>
+<!-- the house, far up the garden, with its windows lit -->
+<g><rect x="1180" y="180" width="170" height="320" fill="#2a2e44"/><path d="M1170 186l95 -64l95 64z" fill="#1e2236"/><g fill="#f0c870"><rect x="1206" y="214" width="40" height="56"/><rect x="1284" y="214" width="40" height="56" opacity=".4"/><rect x="1206" y="310" width="40" height="56"/><rect x="1284" y="410" width="40" height="80"/></g></g>
+<path d="M-1000 520q900 -60 3600 -10V1300H-1000z" fill="#24304a"/>
+<!-- the apple tree behind the hut -->
+<g fill="#1a2a2a"><circle cx="160" cy="250" r="140"/><circle cx="360" cy="200" r="150"/><circle cx="560" cy="260" r="120"/></g>
+<!-- the hut at dusk, its lamp lit, its door open -->
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#glow)" pointer-events="none"/><g transform="translate(-170 0)">
+<g><rect x="230" y="360" width="500" height="440" fill="#2e5a3e" stroke="#142a1c" stroke-width="5"/><g stroke="#24482f" stroke-width="3"><path d="M290 360v440M350 360v440M410 360v440M650 360v440M710 360v440"/></g><path d="M200 366l280 -130l280 130z" fill="#2a2a2e" stroke="#141418" stroke-width="4"/>
+  <path d="M600 280v-160h22v172" fill="#2a2a2e"/></g>
+<g id="smoke" fill="none" stroke="#c8c8d8" stroke-width="10" stroke-linecap="round" opacity=".6"><path d="M610 110q-14 -20 0 -40"/><path d="M614 100q14 -24 -4 -46"/></g>
+<g id="hutw" class="hot"><rect x="290" y="440" width="150" height="120" fill="#ffe4a0" stroke="#142a1c" stroke-width="8"/><path d="M365 440v120M290 500h150" stroke="#142a1c" stroke-width="5"/><circle cx="330" cy="520" r="26" fill="#fff8d8" opacity=".7"/><path d="M314 520h32l-7 -20h-18z" fill="#3a6a4a" stroke="#142a1c" stroke-width="2"/><path d="M330 520v30M318 552h24" stroke="#2a2a2a" stroke-width="4"/></g>
+<g><rect x="490" y="470" width="130" height="330" fill="#ffd890"/><path d="M620 470l70 20v300l-70 10z" fill="#2e5a3e" stroke="#142a1c" stroke-width="4"/><circle cx="680" cy="640" r="6" fill="#c8a040"/></g>
+<polygon points="490,800 620,800 760,900 380,900" fill="#ffd890" opacity=".35" pointer-events="none"/>
+<g fill="#8a4a2a" stroke="#3a1a0a" stroke-width="2"><path d="M700 806l6 -30h30l6 30z"/><path d="M750 806l6 -24h24l6 24z"/><path d="M796 806l6 -30h30l6 30z"/></g>
+</g><!-- the brick path -->
+<path d="M450 800L1600 760V900H330z" fill="url(#brick2)" opacity=".9"/>
+<g id="ph" class="hot" transform="translate(590 860)"></g>
+<g id="gran" class="hot" transform="translate(700 846)"></g>
+<g id="mar" class="hot" transform="translate(820 862)"></g>
+<g id="ali" class="hot" transform="translate(930 866)"></g>
+<g id="ell" class="hot" transform="translate(1050 874)"></g>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Come in by day</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A draft is a step, not a failure. Between drafts a writer cuts what the reader does not need, adds what the reader must not miss, moves the strongest thing to the first line or the last, and sharpens two vague words into one exact one. STET means &ldquo;let it stand&rdquo;.</li>
+    <li>Drafts can be put in order by their evidence: a note in one margin is an order to the next draft, and the next draft obeys it. Neat is not the same as new.</li>
+    <li>Irony is a gap between what is said or expected and what is. Verbal irony says the opposite of what it means; situational irony is the opposite of what was expected; dramatic irony is the reader knowing what a character does not. Bad luck and coincidence are not irony.</li>
+    <li>A twist plays fair when its clues are planted on the page before the turn, in plain sight, and no clue says no. A twist that nothing on the page points to is a cheat. Twists are built out of irony: ask who expected what.</li>
+    <li>Plot is what happens; a topic is a word or two; a theme is what a story says about people, in a whole sentence that is true outside the story. What survives every draft is the theme, and the ending has to agree with it.</li>
+    <li>A first-person narrator is not the author, even when the author lends the narrator her own life. The author changes things (an age, a colour, a husband), and she knows the ending before the narrator does: she plants the clues, and the narrator walks past them.</li>
+    <li>A carbon copy is the second copy a typist makes at the same time as the first, and keeps. That is what &ldquo;cc&rdquo; still means at the top of an email.</li>
+  </ol>
+  <h6>Twists that play fair, to read next</h6>
+  <ul>
+    <li>O. Henry, &ldquo;The Gift of the Magi&rdquo; (1905): two presents, two treasures given up, and the clues on the first page.</li>
+    <li>Saki, &ldquo;The Open Window&rdquo; (1914): a girl of fifteen, a nervous visitor, and a last line Gran says is the best in English.</li>
+    <li>Guy de Maupassant, &ldquo;The Necklace&rdquo; (1884; read it in English): ten years of hard work for a borrowed necklace.</li>
+    <li>W. W. Jacobs, &ldquo;The Monkey&rsquo;s Paw&rdquo; (1902): three wishes, each granted in the worst way. Not for reading alone at midnight, even with a red torch.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">From the other chair</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>The Fourth Draft &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told;
+  HT.put('#ph', 'phoebe', { h: 300 });
+  HT.put('#gran', 'gran', { h: 300, armR: 'out', hold: function (x, y) { return '<path d="M' + x + ' ' + y + 'L' + (x + 14) + ' ' + (y + 120) + '" stroke="#3a2a1a" stroke-width="6" stroke-linecap="round"/>'; } });
+  HT.put('#mar', 'martin', { h: 360, armL: 'front' });
+  HT.put('#ali', 'alison', { h: 340, gloves: null, armR: 'front' });
+  HT.put('#ell', 'elliot', { h: 380 });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'lamp', no: 'VII', title: 'The Lamp',
+    go: 'Six o&rsquo;clock',
+    intro: [
+      'On the bench you sorted every I. The narrator is eighty-one, with a blue hut and a husband who built it; Gran is seventy-eight, her hut is green, and Martin built it. The author knew the visitor before page one (Plant it now. Don&rsquo;t let I see it); the narrator did not. Three things were true of both: the spelling, the son with his torch at eleven, and green corrections that nobody mentioned. The real carbon was corrected in this house. Phoebe has been the night reader since January.',
+      'It is six o&rsquo;clock. The light is nearly gone, and somebody small is coming down the garden path, with a handbag and a walking stick.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {"tin":["26ee6a01"]},
+    hints: hints, onBegin: begin
+  });
+  told = HT.told('g-told');
+  function hints() {
+    if (told.has('end')) return null;
+    if (told.has('read')) return null;
+    if (document.querySelector('.tin')) return ['tin', [
+      'Gran&rsquo;s note: the tin opens to the last word of the story. Which ending agreed with the theme on the washing line?',
+      'It is in your notebook, under &ldquo;The washing line&rdquo;: the last line of the ending that agrees. Its last word is the opposite of night.'
+    ]];
+    if (told.has('home')) return ['gran', ['Gran is waiting by the hut door with the tin: click her.', 'She is the small person in the red coat, in the middle.']];
+    return null;
+  }
+  function paint() {
+    $('#gran').classList.toggle('ready', told.has('home') && !told.has('read'));
+    $('#scene').classList.toggle('lit', told.has('end'));
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('read')) { busy = false; reactions(); return; }
+    if (told.has('home')) { busy = false; ER.say('Gran is waiting by the hut door, with the tin.'); return; }
+    ER.narrate([
+      'Gran is small, upright and seventy-eight, in a red coat, with a slice of birthday cake wrapped in a paper napkin. She sees the whole family standing outside her hut in the dusk, and her first reader, and Phoebe holding a red torch, and she says: &ldquo;Ah. Somebody has been reading.&rdquo;',
+      'Martin opens his mouth. Alison puts her hand on his arm. Elliot pretends to look at the moon.',
+      'Gran goes into the hut, lights the lamp on the desk, takes the biscuit tin out of the cold stove, and comes back to the door with it. &ldquo;Well?&rdquo; she says, to you. &ldquo;Do you know the last word?&rdquo;'
+    ], function () { told.set('home'); busy = false; paint(); });
+  }
+
+  $('#gran').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('read')) { ER.say('&ldquo;Ten o&rsquo;clock tomorrow,&rdquo; says Gran. &ldquo;Not midnight. I need my sleep, even if some people don&rsquo;t.&rdquo;'); return; }
+    if (!told.has('home')) return;
+    openTin();
+  });
+  HT.thing('#mar', null, function () { return told.has('read') ? 'Martin is holding the planed page very carefully, as if it might warp.' : 'Martin, with his hands in his pockets, looking at his boots.'; }, function () { return busy; });
+  HT.thing('#ali', null, function () { return told.has('read') ? 'Alison has taken her glasses off and is cleaning them for no reason.' : 'Alison, who has already guessed the ending, for once does not want to read it first.'; }, function () { return busy; });
+  HT.thing('#ell', null, function () { return told.has('read') ? '&ldquo;Fair,&rdquo; says Elliot. &ldquo;Annoyingly fair.&rdquo;' : 'Elliot, looking at the moon, not at anybody.'; }, function () { return busy; });
+  HT.thing('#ph', null, function () { return told.has('read') ? 'Phoebe has switched the red torch off. She does not need it.' : 'Phoebe, holding the red torch, not switching it off.'; }, function () { return busy; });
+  HT.thing('#hutw', null, 'The hut window, lit. Inside: the desk, the lamp, Gran&rsquo;s chair, and the old kitchen chair beside it.', function () { return busy; });
+
+  function openTin() {
+    var L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', w = ER.flag('g-wheels') || [15, 4, 13], tries = 0;
+    var box = ER.el('div', 'tin');
+    box.innerHTML = '<h5>The biscuit tin from the stove</h5><p>Three brass wheels. Gran&rsquo;s note: it opens to the last word of the story.</p><div class="wheels"></div><button type="button" class="btn" id="open">Open the tin</button><p class="pmsg"></p>';
+    var wh = box.querySelector('.wheels'), m = box.querySelector('.pmsg');
+    function draw() {
+      wh.innerHTML = '';
+      w.forEach(function (n, i) {
+        var d = ER.el('div', 'wh', '<button type="button" data-w="' + i + '" data-d="-1">&#9650;</button><b>' + L.charAt(n) + '</b><button type="button" data-w="' + i + '" data-d="1">&#9660;</button>');
+        wh.appendChild(d);
+      });
+    }
+    wh.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var i = +b.getAttribute('data-w'); w[i] = (w[i] + (+b.getAttribute('data-d')) + 26) % 26; HT.sfx.dial(); ER.flag('g-wheels', w); draw();
+    });
+    box.querySelector('#open').addEventListener('click', function () {
+      var word = w.map(function (n) { return L.charAt(n); }).join('').toLowerCase();
+      if (!ER.check('tin', word)) {
+        tries++; ER.sfx.no();
+        m.innerHTML = ER.gloss(tries < 3 ? '&ldquo;That&rsquo;s a word,&rdquo; says Gran, &ldquo;but not my last one. What did the girl find written at the bottom of the page?&rdquo;' : '&ldquo;Come in by&hellip;?&rdquo; says Gran, very kindly.');
+        return;
+      }
+      HT.sfx.latch(); told.set('opened');
+      m.innerHTML = 'The lid comes off with a small sigh. Inside, folded once: one page, in Gran&rsquo;s best handwriting.';
+      setTimeout(function () { ER.close(); readLast(); }, 1500);
+    });
+    draw();
+    ER.open('ov-lock', box);
+  }
+  var LAST = '<h4>THE NIGHT READER</h4><p class="sub">by M. J. Gosling &middot; draft four, the last page</p>' +
+    '<p>At midnight I put on my coat and went down the garden without a torch. There was a small red light in my hut.</p>' +
+    '<p>She was sitting in my chair with her knees under her chin, reading the page I had written that afternoon, with a green pen in her teeth. She did not hear me. She was too busy with my spelling.</p>' +
+    '<p>I had laid a trap for a thief, and I had caught a reader.</p>' +
+    '<p>I went back up to the house without a word. On the landing I passed my son&rsquo;s door; he checks my stove every night at eleven, and thinks I do not know. His wife, who reads the last page of every book first because she cannot bear not to know that everybody is safe, had left the landing light on for me. The boy, who wants the world to surprise him and pretends it never does, was asleep with his window open.</p>' +
+    '<p>In the morning I carried the old kitchen chair down the garden and put it beside mine at the desk. I sharpened two pencils. And at the bottom of the page, where I usually write THE END, I wrote something else:</p>' +
+    '<p class="end">Come in by day.</p>';
+  function readLast() {
+    ER.read({ html: LAST, cls: 'last', clue: { id: 'last', title: 'The last page', kind: 'Draft four' }, done: function () {
+      told.set('read'); reactions();
+    } });
+  }
+  function reactions() {
+    if (told.has('end')) { finish(true); return; }
+    busy = true; paint();
+    ER.narrate([
+      '&ldquo;She knew about the stove,&rdquo; says Martin, to nobody in particular. &ldquo;Every night. She knew.&rdquo; &ldquo;Every night,&rdquo; says Gran. &ldquo;Eleven o&rsquo;clock. I used to wave.&rdquo;',
+      'Alison has gone pink. &ldquo;Because I can&rsquo;t bear not knowing that everybody&rsquo;s safe,&rdquo; she says slowly. &ldquo;That&rsquo;s exactly why I read the end first. I&rsquo;ve never told anybody that.&rdquo; &ldquo;You didn&rsquo;t need to,&rdquo; says Gran.',
+      '&ldquo;I didn&rsquo;t see it coming,&rdquo; says Elliot. Then, crossly: &ldquo;And it was all there, in draft one. With our actual names on.&rdquo; &ldquo;That,&rdquo; says Gran, &ldquo;is a twist.&rdquo;',
+      'Gran goes into the hut and pulls the old kitchen chair out from under the desk, where it has been waiting all along, and puts it beside her own. She sharpens two pencils. &ldquo;Tomorrow,&rdquo; she says to Phoebe. &ldquo;Ten o&rsquo;clock. Bring your own pen. A green one, if you must.&rdquo; Phoebe does not say anything at all, which for once means yes.',
+      'Then Gran takes the planed page from Martin, reads it, and looks at you. &ldquo;Somebody has been at this with a saw,&rdquo; she says. &ldquo;Good. Bernice shall have it on Monday, with an ending.&rdquo;',
+      'And she opens the stove, puts in some kindling and a log, and for the first time today, lights it. On the ceiling, the smoke alarm says nothing at all.'
+    ], function () {
+      HT.sfx.match(); told.set('end'); busy = false; paint();
+      HT.mine('fourth', 'The fourth draft', '<p>The title: THE NIGHT READER. The last word: day. The night reader was the girl, and in life it was Phoebe; the author knew from draft one, and the narrator found out at midnight. In the last page, Gran showed each of the family she had noticed them: the son and the stove, the wife who reads the end first so that she knows everybody is safe, the boy who wants to be surprised. Everybody wants to be noticed, even the one who does all the noticing.</p>', true);
+      finish(false);
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = HT.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the hut at ten past ten to the lamp at six: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on'); paint();
+    if (quick) ER.say('The hut at night, with its lamp lit and its stove going. Two chairs at the desk.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>The Fourth Draft &middot; in your own words</h4><h3>From the other chair</h3>' +
+      '<p>Gran wrote the midnight scene from her own chair. Now write the same moment from the other one: Phoebe&rsquo;s diary for that night, in 60 to 100 words, aloud or on paper.</p>' +
+      '<p><b>1</b> First person, as Phoebe: only what she sees, hears and thinks. <b>2</b> One line of dramatic irony: something the reader knows and Phoebe does not (somebody is standing in the dark garden, watching). <b>3</b> Sharpen: one exact word where you wanted two vague ones. <b>4</b> Plant one small thing that a reader will only understand at the end.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, n = (o.r1.match(/[A-Za-z0-9’',.]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

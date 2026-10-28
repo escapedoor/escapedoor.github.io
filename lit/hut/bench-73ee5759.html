@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bench · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#4a3a52;--accent:#e89a7a;--font-display:'EB Garamond',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(52,40,60,.96);--tc-ink:#fbe8e0;--cap-bg:rgba(44,34,52,.94);--cap-ink:#fbe8e0;--panel:#3a2e44;--panel-ink:#fbe8e0;--face-bg:#cfe2d4;--q-ink:#f0b8a0;--fade:#241a2a;--hud-bg:rgba(52,40,60,.92);--hud-ink:#fbe8e0;--hud-line:rgba(251,232,224,.3)}
+  .tc-room{font-family:'EB Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(56px,8vw,120px);color:#f0b8a0}
+  .gobtn{background:rgba(52,40,60,.94)}
+  .gobtn:hover{color:#241a2a}
+  #robin{animation:hop 5s steps(1,end) infinite}
+  @keyframes hop{0%,60%{transform:translate(0,0)}61%,80%{transform:translate(-18px,-6px)}81%,100%{transform:translate(-18px,0)}}
+  #star1,#star2{animation:tw 3s steps(2,end) infinite}
+  @keyframes tw{50%{opacity:.3}}
+  #scene.red #redlight{opacity:1}
+  #redlight{opacity:0;transition:opacity 1.2s}
+
+  /* the lock: three slats of the bench */
+  .slats{padding:12px 14px 10px;background:#5a4030;border:6px solid #2a1a12;box-shadow:0 26px 70px rgba(0,0,0,.65);color:#fbe8e0}
+  .slats h5{margin:0 0 8px;font-family:'EB Garamond',serif;font-style:italic;font-weight:600;font-size:25px;text-align:center;color:#fbe8e0}
+  .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .slat{min-height:230px;padding:6px 7px;background:#a8784a;background-image:repeating-linear-gradient(0deg,rgba(60,30,10,.18) 0 2px,transparent 2px 22px);border:3px solid #3a2414;border-radius:3px;cursor:pointer}
+  .slat>b{display:block;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.2em;text-align:center;color:#2a1608}
+  .slat>small{display:block;margin:0 0 6px;font-family:'Alegreya',serif;font-style:italic;font-size:14px;text-align:center;color:#3a2010}
+  .slat.want{outline:3px dashed #f0d0a0;outline-offset:2px}
+  .ic{display:block;width:100%;margin:0 0 5px;padding:6px 9px;background:#fff8ec;border:1px solid #c8a888;box-shadow:0 2px 3px rgba(0,0,0,.3);text-align:left;cursor:pointer;
+    font-family:'EB Garamond',serif;font-size:17px;line-height:1.18;color:#2a1a12}
+  .ic:before{content:'I \2026 ';font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.2em;color:#a8784a}
+  .ic.held{outline:3px solid #e89a7a;background:#fff0dc}
+  .ic.bad{background:#f6c8b8}
+  .pile{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px;padding:6px;min-height:56px;border:2px dashed rgba(251,232,224,.4);cursor:pointer}
+  .tinbox{display:none;margin-top:10px;padding:10px 12px;background:#2a2a38;border:3px solid #c8a040;color:#fbe8e0}
+  .tinbox.on{display:block}
+  .tinbox p{margin:0 0 6px;font-family:'Alegreya',serif;font-size:17px;line-height:1.35}
+  .tinbox .things{font-style:italic;color:#f0d0a0}
+  .names{display:flex;flex-wrap:wrap;gap:6px}
+  .names button{padding:6px 12px;border:2px solid #c8a040;border-radius:3px;background:#3a3a4a;color:#fbe8e0;font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.08em;cursor:pointer}
+  .names button:hover{background:#5a5a6a}
+  .names button.bad{background:#7a3a2a}
+  .ov-lock .pmsg{color:#fbe8e0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5a8a"/><stop offset=".45" stop-color="#c88aa0"/><stop offset=".8" stop-color="#f4b890"/><stop offset="1" stop-color="#f8d8a8"/></linearGradient>
+  <pattern id="flint" width="60" height="40" patternUnits="userSpaceOnUse"><rect width="60" height="40" fill="#a8a4a0"/><g fill="#5a5a62" stroke="#d8d4cc" stroke-width="2"><ellipse cx="14" cy="10" rx="11" ry="8"/><ellipse cx="42" cy="12" rx="12" ry="9"/><ellipse cx="28" cy="30" rx="12" ry="8"/><ellipse cx="56" cy="32" rx="8" ry="7"/><ellipse cx="2" cy="32" rx="8" ry="7"/></g></pattern>
+  <radialGradient id="redlight" cx="16%" cy="52%" r="30%"><stop offset="0" stop-color="#ff4a3a" stop-opacity=".55"/><stop offset="1" stop-color="#ff4a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="55%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#1a1020" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#dusk)"/>
+<circle id="star1" cx="300" cy="60" r="2.5" fill="#fff"/><circle id="star2" cx="1240" cy="40" r="2" fill="#fff"/>
+<!-- the Downs, dark against the sky -->
+<path d="M-1000 480q400 -180 900 -130t900 -50t900 60t900 40V700H-1000z" fill="#4a4a5a"/><path d="M-1000 520q600 -100 1200 -70t1400 -10t1000 40V700H-1000z" fill="#3e3e4e"/>
+<!-- the old flint wall -->
+<rect x="380" y="560" width="2220" height="260" fill="url(#flint)"/><rect x="380" y="548" width="2220" height="18" fill="#c8c0b8" stroke="#6a6a6a" stroke-width="2"/>
+<!-- the apple tree, leaning -->
+<g><path d="M930 830q-10 -200 30 -360q20 -80 80 -120" fill="none" stroke="#3a2a22" stroke-width="44" stroke-linecap="round"/><path d="M990 420q60 -40 140 -40M960 480q-80 -40 -170 -30" fill="none" stroke="#3a2a22" stroke-width="20" stroke-linecap="round"/>
+  <g fill="#3a5a3a" opacity=".95"><circle cx="760" cy="300" r="120"/><circle cx="930" cy="220" r="150"/><circle cx="1120" cy="260" r="140"/><circle cx="1260" cy="330" r="100"/><circle cx="1020" cy="360" r="110"/></g><g fill="#4a6a42"><circle cx="840" cy="240" r="70"/><circle cx="1060" cy="200" r="80"/></g>
+  <g fill="#c83a2a"><circle cx="820" cy="330" r="10"/><circle cx="980" cy="290" r="9"/><circle cx="1140" cy="330" r="10"/><circle cx="1210" cy="250" r="9"/><circle cx="900" cy="380" r="9"/></g></g>
+<!-- the back of the hut, with Gran's handout taped in its little back window -->
+<g><rect x="-400" y="300" width="820" height="520" fill="#2e5a3e" stroke="#1a3a24" stroke-width="5"/><g stroke="#24482f" stroke-width="3"><path d="M-300 300v520M-200 300v520M-100 300v520M0 300v520M100 300v520M200 300v520M300 300v520"/></g><path d="M-420 306l420 -150l440 150" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="4"/><path d="M240 230v-70h18v80" fill="#2a2a2e"/></g>
+<g id="ho8" class="hot"><rect x="230" y="410" width="150" height="120" fill="#e8d8b8" stroke="#1a3a24" stroke-width="8"/><rect x="250" y="424" width="110" height="94" fill="#f2f2ee" stroke="#9a9aa2" stroke-width="1.5"/><path d="M262 440h60" stroke="#1c1c20" stroke-width="4"/><g stroke="#3a3a42" stroke-width="1.6"><path d="M262 454h86M262 464h80M262 474h86M262 484h60M262 494h80M262 504h70"/></g><g fill="#e8e0a0" opacity=".8"><rect x="246" y="420" width="16" height="7"/><rect x="348" y="420" width="16" height="7"/></g></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#redlight)" pointer-events="none"/>
+<!-- the grass -->
+<path d="M-1000 800q800 -30 3600 0V1300H-1000z" fill="#4a6a3a"/><g stroke="#3a5a2a" stroke-width="2"><path d="M520 840l4 -12M640 870l4 -12M1100 860l4 -12M1280 830l4 -12M820 880l4 -12"/></g>
+<g id="apples" class="hot"><circle cx="640" cy="842" r="12" fill="#b83a2a" stroke="#5a1a12" stroke-width="2"/><circle cx="1060" cy="868" r="11" fill="#c8842a" stroke="#5a3a12" stroke-width="2"/><circle cx="1180" cy="846" r="10" fill="#b83a2a" stroke="#5a1a12" stroke-width="2"/><path d="M640 830l4 -8M1060 857l3 -7" stroke="#3a2a12" stroke-width="2"/></g>
+<!-- the bench -->
+<g id="bench" class="hot"><g fill="#8a6a4a" stroke="#3a2414" stroke-width="3"><rect x="720" y="620" width="440" height="22" rx="3"/><rect x="720" y="652" width="440" height="22" rx="3"/><rect x="700" y="712" width="480" height="20" rx="3"/><rect x="700" y="736" width="480" height="18" rx="3"/></g>
+  <g stroke="#2a1a10" stroke-width="12"><path d="M740 610v220M1140 610v220"/></g><path d="M700 722l-10 100M1180 722l10 100" stroke="#2a1a10" stroke-width="10"/></g>
+<!-- the robin on the wall -->
+<g id="robin" class="hot"><ellipse cx="1300" cy="538" rx="16" ry="12" fill="#6a5040"/><circle cx="1312" cy="528" r="8" fill="#6a5040"/><path d="M1296 534q8 10 18 2q-2 10 -12 10z" fill="#e8642a"/><path d="M1320 528l7 2l-7 2z" fill="#2a1a10"/><circle cx="1314" cy="526" r="1.6" fill="#000"/><path d="M1284 536l-12 -4" stroke="#6a5040" stroke-width="5"/><path d="M1298 550v8M1304 550v8" stroke="#2a1a10" stroke-width="1.5"/></g>
+<!-- the hedge, with something tucked into it -->
+<g id="hedge" class="hot"><g fill="#2e4a2a"><circle cx="1400" cy="560" r="80"/><circle cx="1520" cy="520" r="90"/><circle cx="1460" cy="660" r="100"/><circle cx="1600" cy="640" r="100"/><circle cx="1360" cy="720" r="80"/></g><g fill="#3a5a32"><circle cx="1440" cy="600" r="40"/><circle cx="1560" cy="580" r="40"/></g>
+  <g id="tin2"><rect x="1352" y="744" width="70" height="44" rx="5" fill="#2a4a8a" stroke="#c8a040" stroke-width="3"/><path d="M1352 756h70" stroke="#c8a040" stroke-width="2"/><circle cx="1387" cy="770" r="7" fill="#c8a040"/></g></g>
+<g id="ph" class="hot" transform="translate(1210 846)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Round to the front of the hut</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  HT.put('#ph', 'phoebe', { h: 300, armL: 'front', armR: 'front' });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'bench', no: 'VI', title: 'The Bench',
+    go: 'Round the back',
+    intro: [
+      'On the washing line you pegged every sentence that wanted to be the theme. Plot says what happens; a topic is a word or two; a sentence with names in it is only about these people; an order is a moral. One sentence passed every test, and it is what survives every draft: Everybody wants to be noticed, even the one who does all the noticing. Two endings fought it, a secret kept for ever and a lock on the door. Only one agreed: a second chair, two pencils, and at the bottom of the page, Come in by day.',
+      'Behind the hut, against the old flint wall at the very bottom of the garden, there is a bench under an apple tree. Nobody in the family ever sits on it. That is what Phoebe likes about it.'
+    ],
+    exit: {"next":"lamp","w":{"1af5ff22":"eb5931f8"}}, tags: {"i1":["f5e34231"],"i2":["93a11901"],"i3":["c093cb82"],"i4":["d10d6613"],"i5":["db0917b0"],"i6":["ca7a5c85"],"i7":["64974825"],"i8":["333b071c"],"who":["9783574b"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = HT.told('f-told'); nextFile = ER.flag('f-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ph') && told.has('ho8'); }
+  function paint() {
+    $('#ph').classList.toggle('ready', !told.has('ph'));
+    $('#ho8').classList.toggle('ready', told.has('ph') && !told.has('ho8'));
+    $('#bench').classList.toggle('ready', ready() && !ER.flag('f-sorted') && !nextFile);
+    $('#hedge').classList.toggle('ready', !!ER.flag('f-sorted') && !nextFile);
+    $('#scene').classList.toggle('red', !!nextFile);
+    ER.pips(['ph', 'ho8'].filter(function (k) { return told.has(k); }).length + (ER.flag('f-sorted') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Phoebe has told you everything. The button at the bottom of the screen takes you round to the front of the hut.', 'If you cannot see the button, close whatever is open (the Escape key) and look at the bottom of the screen.']];
+    if (lock && document.body.contains(lock)) {
+      if (lock.querySelector('.tinbox.on')) return ['who', [
+        'Somebody corrected the real carbon in green, and wrote STET on the real loose page. The carbon never left the house: Bernice has the top copy, on her desk.',
+        'Look at what is in the tin. Who goes to Guide camp, has trainers with stars on, a green pen behind her ear, and a bedroom window that looks down at the hut?'
+      ]];
+      return ['sort', [
+        'For every I, ask the handout&rsquo;s question: is it true of the woman in the story, of Gran who wrote the story, or of both? Use what you have seen of the real Goslings: the real hut, Martin&rsquo;s plans, Alison&rsquo;s note, Bernice&rsquo;s letter.',
+        'The narrator is eighty-one, with a blue hut that her husband built. The real Gran is seventy-eight, her hut is green, and Martin built it. And who wrote &ldquo;Plant it now. Don&rsquo;t let I see it&rdquo; in the margin of draft one? The author knows what the narrator does not.',
+        'Three things are true of both: the spelling, the son with his torch at eleven, and the green corrections that nobody mentions. Look at the real carbon in your notebook.'
+      ]];
+    }
+    if (ER.flag('f-sorted')) return ['tin', ['Every I is sorted. Now look in the hedge, on the right: something is tucked into it.', 'Click the blue tin at the bottom of the hedge.']];
+    if (!ready()) return ['look', [
+      'Talk to Phoebe, by the bench.',
+      'Read Gran&rsquo;s handout, taped inside the little back window of the hut on the left. Then click the bench.'
+    ]];
+    return ['bench', ['Everything is read. Click the bench under the apple tree, and sit down.', 'It is in the middle of the screen, in front of the flint wall.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('A small red light under the apple tree. Phoebe has not switched it off.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The bench under the apple tree. The light is going.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The sun has gone behind the Downs and the sky is the colour of the inside of a peach. Windfall apples in the grass. A robin on the wall, keeping an eye on everything.',
+      'Phoebe is standing by the bench with her hands in her sleeves. Under the hedge, half hidden, there is a blue biscuit tin that does not look as if it belongs to the garden.',
+      '&ldquo;Gran&rsquo;s got a handout for this as well,&rdquo; says Phoebe, without looking round. &ldquo;Of course she has. It&rsquo;s taped in the hut&rsquo;s back window. You can read it from here.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  var HO8 = '<p class="hh">Thursday writing group &middot; handout 8 &middot; M. J. Gosling</p><h4>I IS NOT ME</h4>' +
+    '<p>A first-person <b>narrator</b> says I. The <b>author</b> is the real person who wrote the words down. They are never quite the same person, even when the author lends the narrator her own life.</p>' +
+    '<p>A writer takes from her life what the story needs and changes the rest: an age, a town, the colour of a door, a husband, a name. Her family will recognise themselves, and they will be wrong about some of it.</p>' +
+    '<p>The biggest difference is what each one knows. The narrator lives the story one page at a time, and does not know how it ends. The author knew the ending before she wrote the first page. She planted the clues; the narrator walks past them.</p>' +
+    '<p class="rule">So ask of every I: is this true of the person in the story, of the person who wrote it, or of both?</p>';
+  $('#ho8').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HO8, cls: 'ho', clue: { id: 'inotme', title: 'I is not me', kind: 'Handout' }, done: function () {
+      HT.terms(['narrator', 'author']);
+      if (told.set('ho8')) { paint(); ER.say('&ldquo;She planted the clues,&rdquo; says Phoebe. &ldquo;The narrator walks past them.&rdquo; She sits down on the very end of the bench.'); }
+    } });
+  });
+  $('#ph').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Since January,&rdquo; says Phoebe. &ldquo;Every night. Don&rsquo;t tell Mum about the midnight part.&rdquo;'); return; }
+    ER.talk({
+      who: 'Phoebe Gosling', role: 'Gran&rsquo;s granddaughter · twelve', face: window.FACE('phoebe'),
+      lines: [
+        { note: 'Phoebe answers in as few words as possible, which for Phoebe is still quite a lot.', a: '&ldquo;Everybody thinks the story&rsquo;s about them. Dad thinks he&rsquo;s the hero. Mum thinks she&rsquo;s the sensible one. Elliot thinks he isn&rsquo;t in it at all.&rdquo;' },
+        { q: 'Is the girl in the story you?', a: '&ldquo;The girl in the story is a girl in a story. Gran made the narrator eighty-one. She gave her a husband who built the hut and then died. Grandad is alive and well and playing golf in Portugal, and Dad built the hut.&rdquo;' },
+        { q: 'Who corrected the spelling on the carbon?', a: '&ldquo;Bernice, probably,&rdquo; she says, too quickly. &ldquo;Editors do that.&rdquo;' },
+        { q: 'Do you go to Guide camp?', a: '&ldquo;Everybody goes to Guide camp.&rdquo;' },
+        { q: 'Why don&rsquo;t you mind how it ends?', a: '&ldquo;I said I don&rsquo;t mind how it ends.&rdquo; A long pause. &ldquo;I mind that it ends.&rdquo;' }
+      ],
+      clue: { id: 'ph4', title: 'Phoebe, at the bench', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('ph')) paint(); }
+    });
+  });
+  HT.thing('#robin', 'robin', 'A robin on the flint wall, watching you with one black eye. Robins notice everything too.', isBusy);
+  HT.thing('#apples', 'windfall', 'Windfall apples in the grass. Nobody has picked them up; nobody comes round here.', isBusy);
+  $('#hedge').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The tin is open on the bench now. Nothing in it is a secret any more.'); return; }
+    if (!ER.flag('f-sorted')) { ER.say('A blue biscuit tin, tucked into the hedge. You reach for it. &ldquo;Don&rsquo;t,&rdquo; says Phoebe. Then, more quietly: &ldquo;Not yet. Sit down first.&rdquo;'); return; }
+    openLock(true);
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#bench').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The bench under the apple tree. Phoebe&rsquo;s torch is lying on it, still on.'); return; }
+    if (!ready()) { ER.say('&ldquo;Read the handout first,&rdquo; says Phoebe. &ldquo;Then sit down. Then we&rsquo;ll see.&rdquo;'); return; }
+    openLock(false);
+  });
+
+  /* ---------- the lock: who is I? ---------- */
+  var IS = [
+    ['i1', 'am eighty-one.', 'Who is eighty-one? The I on the loose page says so. Alison&rsquo;s note says how old Gran is.'],
+    ['i2', 'had my hut built by my husband, the summer before he died.', 'Who built the real hut? Martin&rsquo;s plans are on the shed wall, dated April 2025. And Phoebe says Grandad is alive and playing golf.'],
+    ['i3', 'have a blue hut.', 'Look at the real hut. What colour is it, inside and out?'],
+    ['i4', 'knew who the night visitor was before I wrote the first page.', 'The narrator does not know: &ldquo;I have my suspicions. I am not ready to have them yet.&rdquo; So who wrote &ldquo;Plant it now. Don&rsquo;t let I see it&rdquo; in the margin of draft one?'],
+    ['i5', 'must send this page to my editor by Monday.', 'Is there an editor anywhere in the story? Bernice&rsquo;s letter is to Gran.'],
+    ['i6', 'have spelt &ldquo;definitely&rdquo; wrong all my life.', 'The narrator says so on page three of draft one. And look at the real carbon in your notebook: whose spelling was corrected in green?'],
+    ['i7', 'have a son who walks down the path at eleven every night to check my stove.', 'The narrator says so on page two of draft one. And what did Martin tell you in the shed?'],
+    ['i8', 'found my spelling corrected in green, and said nothing about it to anybody.', 'In draft one the narrator says nothing. And in real life the carbon has a green correction and the loose page has a green STET. Has Gran said one word about them to anybody?']
+  ];
+  var SL = [['n', 'THE NARRATOR', 'the woman in the story'], ['b', 'BOTH', 'true in the story and in life'], ['a', 'THE AUTHOR', 'Gran, M. J. Gosling, who wrote it']];
+  var NM = [['bernice', 'Bernice, the editor'], ['martin', 'Martin'], ['alison', 'Alison'], ['elliot', 'Elliot'], ['phoebe', 'Phoebe']];
+  var NMWHY = {
+    bernice: '&ldquo;Bernice has the top copy,&rdquo; you remember, &ldquo;on her desk, covered in coffee.&rdquo; The carbon never left the house, and the photocopy she was sent had no STET on it.',
+    martin: 'Martin cannot spell &ldquo;definitely&rdquo; either, and he does not do Latin: he said so. And he has never once gone into the hut.',
+    alison: 'Alison writes in neat blue capitals, and she read the carbon for the first time last night, among the tomatoes. The green corrections were in draft one, in February.',
+    elliot: 'Elliot has no green pen, no red torch and no star trainers, and he would think sharpening pencils beneath him: draft one says so, and so does he.'
+  };
+  function openLock(atTin) {
+    var put = ER.flag('f-put') || {}, held = null, done = false, sorted = !!ER.flag('f-sorted');
+    lock = ER.el('div', 'slats');
+    var h = '<h5>Sitting on the bench &middot; who is I? The woman in the story, or Gran, or both?</h5><div class="three">';
+    SL.forEach(function (s) { h += '<div class="slat" data-s="' + s[0] + '"><b>' + s[1] + '</b><small>' + s[2] + '</small><div class="in"></div></div>'; });
+    h += '</div><div class="pile"></div><div class="tinbox"><p>The tin from the hedge. Inside it:</p><p class="things">a camp torch with a red lens; a green pen; a mug, turned upside down; and a notebook with a star drawn on the cover, labelled PRIVATE.</p>' +
+      '<p>So somebody in this house corrected Gran&rsquo;s real carbon in green, and wrote STET beside her real loose page. Who?</p><div class="names"></div></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="sit">Read them to Phoebe</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), pile = lock.querySelector('.pile'), nodes = {}, nb = lock.querySelector('.names');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    HT.mix(IS, 41).forEach(function (s) { var b = ER.el('button', 'ic', s[1]); b.type = 'button'; b.setAttribute('data-i', s[0]); nodes[s[0]] = b; });
+    NM.forEach(function (n) { var b = ER.el('button', '', n[1]); b.type = 'button'; b.setAttribute('data-n', n[0]); nb.appendChild(b); });
+    function draw() {
+      Object.keys(nodes).forEach(function (k) {
+        var at = put[k] ? lock.querySelector('.slat[data-s="' + put[k] + '"] .in') : pile;
+        if (nodes[k].parentNode !== at) at.appendChild(nodes[k]);
+        nodes[k].classList.toggle('held', held === k);
+      });
+      ER.$$('.slat', lock).forEach(function (s) { s.classList.toggle('want', !!held); });
+      var tinOn = sorted && atTin;
+      lock.querySelector('.tinbox').classList.toggle('on', tinOn);
+      foot.querySelector('#sit').style.visibility = sorted ? 'hidden' : 'visible';
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var n = e.target.closest('.names button');
+      if (n) { pickName(n); return; }
+      if (sorted) return;
+      var c = e.target.closest('.ic'), s = e.target.closest('.slat');
+      if (c && held && s && c.getAttribute('data-i') !== held) { put[held] = s.getAttribute('data-s'); held = null; ER.sfx.paper(); ER.flag('f-put', put); clearBad(); draw(); return; }
+      if (c) { var k = c.getAttribute('data-i'); held = held === k ? null : k; ER.sfx.paper(); clearBad(); draw(); return; }
+      if (s && held) { put[held] = s.getAttribute('data-s'); held = null; ER.sfx.paper(); ER.flag('f-put', put); clearBad(); draw(); return; }
+      if (e.target.closest('.pile') && held) { delete put[held]; held = null; ER.flag('f-put', put); draw(); return; }
+      if (s) msg('First click an I, then the slat it belongs on.');
+    });
+    foot.querySelector('#sit').addEventListener('click', function () {
+      if (done || sorted) return;
+      clearBad();
+      var left = IS.filter(function (s) { return !put[s[0]]; }).length, i;
+      if (left === IS.length) { ER.sfx.no(); msg('The bench is empty. Click an I, then the slat it belongs on.'); return; }
+      if (left) { ER.sfx.no(); msg('&ldquo;All of them,&rdquo; says Phoebe. &ldquo;Every I.&rdquo; ' + left + ' still ' + (left === 1 ? 'is' : 'are') + ' in the grass.'); return; }
+      for (i = 0; i < IS.length; i++) {
+        if (!ER.check(IS[i][0], put[IS[i][0]])) { ER.sfx.no(); nodes[IS[i][0]].classList.add('bad'); msg(IS[i][2] + ' (Phoebe only ever points at the first one that is wrong.)'); return; }
+      }
+      sorted = true; ER.flag('f-sorted', 1); HT.sfx.stamp(); paint();
+      msg('Phoebe reads the BOTH slat twice. The last line on it is the one about the green corrections. She looks at the hedge.');
+      setTimeout(function () { ER.close(); busy = true; ER.narrate([
+        '&ldquo;So some of it is true,&rdquo; you say. &ldquo;The spelling. Your dad and his torch. And somebody correcting her pages in green, and Gran never saying a word.&rdquo;',
+        'Phoebe says nothing at all. Then she gets up, goes to the hedge, and pulls out the blue tin, and puts it on the bench between you, and takes her hands away from it.'
+      ], function () { busy = false; paint(); }); }, 2000);
+    });
+    function pickName(b) {
+      var k = b.getAttribute('data-n');
+      if (!ER.check('who', k)) { b.classList.add('bad'); ER.sfx.no(); msg(NMWHY[k]); return; }
+      var cand = IS.map(function (s) { return s[0] + put[s[0]]; }).join('/') + '/' + k;
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The tin will not close. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('f-file', file);
+      HT.sfx.latch();
+      msg('Phoebe takes the torch out of the tin, and switches it on.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2000);
+    }
+    draw();
+    msg(sorted ? 'Look at what is in the tin. Then choose.' : 'Click an I, then the slat it belongs on. Click an I on a slat to pick it up again, and the grass to put it back.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    HT.mine('nightreader', 'Who is I?', '<p>THE NARRATOR only: eighty-one; a blue hut; a husband who built it and died. THE AUTHOR only: knew the visitor before page one (&ldquo;Plant it now. Don&rsquo;t let I see it&rdquo;); has an editor who wants the page by Monday.</p>' +
+      '<p>BOTH: spells &ldquo;definitely&rdquo; wrong; has a son who checks the stove at eleven; found her spelling corrected in green and said nothing.</p>' +
+      '<p>The real carbon was corrected in this house, and the real loose page got its STET here. The night reader is Phoebe, since January, with a red camp torch and a green pen. And Gran, the author, has known all along.</p>');
+    HT.terms(['narrator', 'author', 'dramatic irony']);
+    paint(); busy = true;
+    ER.narrate([
+      'A small red light, under the apple tree, in the dusk.',
+      '&ldquo;Since January,&rdquo; says Phoebe. &ldquo;I got the torch for Christmas. I couldn&rsquo;t sleep, and I can see the hut from my window, and I wanted to know what happened next. Gran never lets anybody read anything till it&rsquo;s finished. So I went down at midnight and read it. And then I couldn&rsquo;t stop myself correcting the spelling. And sharpening the pencils. She leaves them blunt. It&rsquo;s unbearable.&rdquo;',
+      '&ldquo;And then in February she started writing a story about somebody who comes into her hut at night and sharpens her pencils. And I read that too. Every night. A story about me, and I didn&rsquo;t know how it ended.&rdquo;',
+      '&ldquo;I put STET by the green fingers because it was the best line. I didn&rsquo;t know it was a clue against me.&rdquo; She switches the torch off. &ldquo;That&rsquo;s dramatic irony, isn&rsquo;t it. You knew, and I didn&rsquo;t.&rdquo;',
+      '&ldquo;She knew all along,&rdquo; you say. &ldquo;She&rsquo;s the author. She planted it in draft one.&rdquo; Phoebe looks at the hut for a long time. &ldquo;Then what does she want?&rdquo;',
+      'Up at the house, the back door opens and shuts. Somebody small, with a walking stick, is coming down the garden path.'
+    ], function () { HT.sfx.latch(); busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

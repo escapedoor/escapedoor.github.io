@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Hut · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#3a2a1c;--accent:#b8642a;--font-display:'Fredericka the Great',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(246,236,214,.97);--tc-ink:#2a1e14;--cap-bg:rgba(250,244,230,.95);--cap-ink:#2a1e14;--panel:#faf4e6;--panel-ink:#2a1e14;--face-bg:#cfe2d4;--q-ink:#8a4a1a;--fade:#f6ecd6;--hud-bg:rgba(250,244,230,.9);--hud-ink:#2a1e14;--hud-line:rgba(42,30,20,.3)}
+  .tc-room{font-family:'Fredericka the Great',serif;font-size:clamp(50px,7vw,100px);color:#3a6a4a}
+  .gobtn{background:rgba(250,244,230,.94)}
+  #drizzle path{animation:dz 1.1s linear infinite}
+  #drizzle path:nth-child(2n){animation-duration:1.5s;animation-delay:-.4s}
+  @keyframes dz{from{transform:translate(0,-30px);opacity:0}30%{opacity:.7}to{transform:translate(-8px,60px);opacity:0}}
+  #pinned{display:none}#scene.pinned #pinned{display:inline}#scene.pinned #pa,#scene.pinned #pb,#scene.pinned #pc{display:none}
+  #steam path{animation:st 4s steps(8,end) infinite;opacity:.0}
+  @keyframes st{0%{opacity:0;transform:translateY(0)}40%{opacity:.5}100%{opacity:0;transform:translateY(-30px)}}
+
+  /* the lock: the desk, three places and two pins */
+  .ord{padding:14px 18px 12px;background:#b8844a;background-image:repeating-linear-gradient(90deg,rgba(90,50,20,.18) 0 2px,transparent 2px 46px),linear-gradient(180deg,#c8945a,#a8743a);
+    border:8px solid #6a4020;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#2a1e14}
+  .ord h5{margin:0 0 8px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:24px;text-align:center;color:#2a1608}
+  .lane{display:grid;grid-template-columns:1fr 150px 1fr 150px 1fr;gap:8px;align-items:stretch}
+  .slot{min-height:126px;padding:6px;background:rgba(255,248,230,.35);border:2px dashed rgba(60,30,10,.55);border-radius:3px;cursor:pointer}
+  .slot>b{display:block;font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:.26em;text-align:center;color:#3a2010;margin-bottom:4px}
+  .pin{min-height:126px;padding:6px 5px;background:rgba(40,20,8,.18);border:2px dashed rgba(255,240,210,.6);border-radius:3px;cursor:pointer;display:flex;flex-direction:column}
+  .pin>b{display:block;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.22em;text-align:center;color:#fff4dc;margin-bottom:4px}
+  .pin>b:after{content:' \2192'}
+  .pg{display:block;width:100%;padding:6px 8px;border:1px solid #9a9080;box-shadow:0 2px 4px rgba(0,0,0,.3);text-align:left;cursor:pointer;font-size:14px;line-height:1.2;color:#2a2a30}
+  .pg i{display:block;font-style:normal;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6a5a4a;margin-bottom:3px}
+  .pg[data-p="xb"]{background:#fbfbf4 repeating-linear-gradient(transparent 0 15px,rgba(90,120,170,.28) 15px 16px);font-family:'Caveat',cursive;font-size:18px;border-left:3px solid rgba(210,70,70,.6)}
+  .pg[data-p="cc"]{background:#e6e8ee;font-family:'Special Elite',monospace;font-size:13px;color:#2a3050}
+  .pg[data-p="fs"]{background:#f6f1df repeating-linear-gradient(transparent 0 16px,rgba(120,140,170,.26) 16px 17px);font-family:'Caveat',cursive;font-size:18px}
+  .ch{display:block;width:100%;margin:0 0 5px;padding:5px 7px;background:#fffdf4;border:1px solid #b8a888;box-shadow:0 2px 3px rgba(0,0,0,.25);text-align:left;cursor:pointer;
+    font-family:'Alegreya',serif;font-size:14.5px;line-height:1.18;color:#2a1e14}
+  .pin .ch{font-size:13.5px}
+  .tray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) repeat(4,minmax(0,1fr));gap:6px;margin-top:10px;padding:6px;min-height:70px;border:2px dashed rgba(60,30,10,.4);cursor:pointer}
+  .tray .pg{min-height:58px}
+  .held{outline:3px solid #2a6a3a;outline-offset:1px}
+  .bad{background:#f6c8b8!important}
+  .ov-lock .pmsg{color:#fbf2e0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="planks" width="64" height="200" patternUnits="userSpaceOnUse"><rect width="64" height="200" fill="#c8955a"/><path d="M0 0v200" stroke="#9a6a3a" stroke-width="3"/><path d="M30 40q4 8 0 14M44 140q-3 6 0 12" stroke="#a8784a" stroke-width="2" fill="none"/></pattern>
+  <pattern id="floor" width="220" height="40" patternUnits="userSpaceOnUse"><rect width="220" height="40" fill="#7a5232"/><path d="M0 40h220M120 0v40" stroke="#5a3a20" stroke-width="3"/></pattern>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8d2d8"/><stop offset="1" stop-color="#e8e8e0"/></linearGradient>
+  <radialGradient id="lampglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".55"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".1"/><stop offset="1" stop-color="#1a0e04" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#planks)"/>
+<!-- the roof boards, sloping -->
+<path d="M-1000 -400H2600V40L800 130L-1000 40z" fill="#a8784a"/><path d="M-1000 40L800 130L2600 40" stroke="#6a4424" stroke-width="10" fill="none"/>
+<g stroke="#8a5a30" stroke-width="3" fill="none"><path d="M-1000 0L800 90L2600 0M-1000 -40L800 50L2600 -40"/></g>
+<rect x="-1000" y="770" width="3600" height="530" fill="url(#floor)"/><rect x="-1000" y="760" width="3600" height="14" fill="#5a3a20"/>
+<!-- the smoke alarm -->
+<g id="alarm" class="hot"><circle cx="760" cy="112" r="22" fill="#f4f2ea" stroke="#8a8478" stroke-width="3"/><circle cx="760" cy="112" r="8" fill="none" stroke="#b8b0a0" stroke-width="2"/><circle cx="772" cy="104" r="2.5" fill="#d84a3a"/></g>
+<!-- the shelf of Gran's own books -->
+<g id="shelf" class="hot"><rect x="100" y="330" width="300" height="12" fill="#6a4424"/><path d="M120 342l10 24M380 342l-10 24" stroke="#6a4424" stroke-width="6"/>
+  <g stroke="#2a1e14" stroke-width="1.5"><rect x="118" y="262" width="22" height="68" fill="#b8322a"/><rect x="142" y="270" width="18" height="60" fill="#2a5a7a"/><rect x="162" y="258" width="24" height="72" fill="#e8b830"/><rect x="188" y="266" width="20" height="64" fill="#3a6a4a"/><rect x="210" y="262" width="16" height="68" fill="#8a4a7a"/><rect x="228" y="272" width="22" height="58" fill="#e8e0d0"/><rect x="252" y="260" width="20" height="70" fill="#c8742a"/><path d="M276 330l30 -64l16 7l-30 64z" fill="#4a6a9a"/></g>
+  <rect x="330" y="290" width="48" height="40" fill="#e8dcc0" stroke="#8a7a5a" stroke-width="2"/><path d="M336 302h36M336 312h30" stroke="#8a7a5a" stroke-width="2"/></g>
+<!-- the window, the garden going up to the house -->
+<g id="window" class="hot"><rect x="548" y="186" width="364" height="300" fill="#3a6a4a"/><rect x="566" y="202" width="328" height="268" fill="url(#sky)"/>
+  <clipPath id="wc"><rect x="566" y="202" width="328" height="268"/></clipPath><g clip-path="url(#wc)">
+  <path d="M566 360q120 -40 328 -20V470H566z" fill="#8aa874"/><path d="M566 330q80 -50 160 -40q90 10 168 -24V360H566z" fill="#a8b894" opacity=".8"/>
+  <rect x="770" y="232" width="56" height="120" fill="#e8dcc8" stroke="#8a7a6a" stroke-width="2"/><path d="M764 236l34 -24l34 24z" fill="#6a5a5a"/><g fill="#5a6a7a"><rect x="782" y="250" width="12" height="18"/><rect x="804" y="250" width="12" height="18"/><rect x="782" y="290" width="12" height="18"/><rect x="804" y="290" width="12" height="18"/></g>
+  <rect x="640" y="330" width="52" height="34" fill="#6a4a30"/><path d="M636 332l30 -16l30 16z" fill="#4a3424"/><rect x="842" y="328" width="44" height="30" fill="#cfe6e0" stroke="#8aa0a0" stroke-width="2" opacity=".85"/>
+  <path d="M720 470q20 -60 76 -120" stroke="#b8846a" stroke-width="14" fill="none"/>
+  <g id="drizzle" stroke="#8a98a8" stroke-width="1.4"><path d="M600 220l-4 14"/><path d="M660 250l-4 14"/><path d="M730 210l-4 14"/><path d="M850 240l-4 14"/><path d="M700 300l-4 14"/><path d="M880 290l-4 14"/></g></g>
+  <path d="M730 202v268M566 336h328" stroke="#3a6a4a" stroke-width="10"/><rect x="540" y="482" width="380" height="16" fill="#2e5a3e"/></g>
+<!-- the index card, pinned over the desk -->
+<g id="card" class="hot"><rect x="932" y="294" width="104" height="72" fill="#fff" stroke="#8a8a98" stroke-width="1.5" transform="rotate(3 984 330)"/><path d="M938 304h92" stroke="#d8504a" stroke-width="2" transform="rotate(3 984 330)"/>
+  <g stroke="#5a5a6a" stroke-width="1.6" transform="rotate(3 984 330)"><path d="M942 316h60M942 326h80M942 336h70M942 346h76M942 356h50"/></g><circle cx="984" cy="298" r="4" fill="#d83a3a"/></g>
+<!-- the lamp -->
+<circle cx="520" cy="470" r="120" fill="url(#lampglow)" pointer-events="none"/>
+<g><path d="M500 560l14 -80l10 0" stroke="#2a2a2a" stroke-width="6" fill="none"/><path d="M500 452l46 0l-14 -34h-18z" fill="#3a6a4a" stroke="#1a3a24" stroke-width="2"/><ellipse cx="506" cy="562" rx="26" ry="6" fill="#2a2a2a"/></g>
+<!-- the desk -->
+<g><rect x="470" y="556" width="560" height="20" fill="#8a5a30" stroke="#4a2a10" stroke-width="3"/><path d="M490 576v190M1010 576v190" stroke="#6a4020" stroke-width="16"/><rect x="820" y="580" width="180" height="90" fill="#7a4e2a" stroke="#4a2a10" stroke-width="3"/><circle cx="910" cy="626" r="5" fill="#c8a040"/></g>
+<!-- the old kitchen chair, pushed right in under the desk -->
+<g id="kchair" class="hot"><path d="M560 690h140v12H560z" fill="#d8c8a8" stroke="#6a5a40" stroke-width="2"/><path d="M570 702v60M690 702v60" stroke="#b8a888" stroke-width="7"/></g>
+<!-- Gran's chair -->
+<g id="chair" class="hot"><path d="M640 600v170M770 600v170" stroke="#5a3a1e" stroke-width="10"/><rect x="630" y="640" width="150" height="16" fill="#6a4424"/><path d="M630 640l-6 130M780 640l6 130" stroke="#5a3a1e" stroke-width="9"/>
+  <rect x="640" y="626" width="130" height="18" rx="7" fill="#b8473a" stroke="#6a1e16" stroke-width="2"/><path d="M640 600h130" stroke="#5a3a1e" stroke-width="10"/><path d="M660 600v40M705 600v40M750 600v40" stroke="#5a3a1e" stroke-width="5"/></g>
+<!-- the three pages on the desk -->
+<g id="pa" class="hot"><path d="M520 524l78 -6l6 40l-80 6z" fill="#fbfbf4" stroke="#8a8a98" stroke-width="1.6"/><path d="M524 528l-2 32" stroke="#d87070" stroke-width="1.5"/><g stroke="#8a9ab8" stroke-width="1"><path d="M530 534l66 -5M530 542l66 -5M531 550l66 -5"/></g><g stroke="#5a5a62" stroke-width="1.4"><path d="M534 533l40 -3M534 541l56 -4M535 549l30 -2"/></g></g>
+<g id="pb" class="hot"><path d="M614 520l80 2l-2 40l-80 -2z" fill="#e2e4ea" stroke="#8a8a98" stroke-width="1.6"/><g stroke="#3a4060" stroke-width="1.4"><path d="M620 530h60M620 538h66M619 546h52M619 554h62"/></g></g>
+<g id="pc" class="hot"><path d="M706 514l92 4l-4 48l-92 -4z" fill="#f6f1df" stroke="#8a8a98" stroke-width="1.6"/><g stroke="#5a5a62" stroke-width="1.4"><path d="M712 528l60 2M712 537l74 3M711 546l40 2M711 555l66 3"/></g><path d="M716 541l52 2" stroke="#3a3a42" stroke-width="2"/><path d="M776 535l10 0" stroke="#1f8a3a" stroke-width="2.4"/></g>
+<!-- the pencils, all blunt -->
+<g id="pencils" class="hot"><g stroke-width="5" stroke-linecap="round"><path d="M540 572l60 -4" stroke="#e8b830"/><path d="M606 572l58 -2" stroke="#e8b830"/><path d="M676 573l52 0" stroke="#3a6a4a"/></g><rect x="530" y="562" width="210" height="18" fill="transparent"/></g>
+<!-- the typewriter, with its label -->
+<g id="tw" class="hot"><path d="M820 556l14 -48h118l14 48z" fill="#2e3a34" stroke="#121a16" stroke-width="3"/><rect x="842" y="486" width="104" height="22" rx="8" fill="#3e4a44" stroke="#121a16" stroke-width="2"/><rect x="852" y="470" width="84" height="18" fill="#fbfbf4" stroke="#8a8a98" stroke-width="1.5"/>
+  <g fill="#d8d0c0"><circle cx="846" cy="530" r="4"/><circle cx="862" cy="530" r="4"/><circle cx="878" cy="530" r="4"/><circle cx="894" cy="530" r="4"/><circle cx="910" cy="530" r="4"/><circle cx="926" cy="530" r="4"/><circle cx="942" cy="530" r="4"/><circle cx="854" cy="544" r="4"/><circle cx="870" cy="544" r="4"/><circle cx="886" cy="544" r="4"/><circle cx="902" cy="544" r="4"/><circle cx="918" cy="544" r="4"/><circle cx="934" cy="544" r="4"/></g>
+  <rect x="950" y="516" width="40" height="24" fill="#fff6c8" stroke="#a89a6a" stroke-width="1.5" transform="rotate(8 970 528)"/><path d="M955 524h28M955 531h22" stroke="#5a5a62" stroke-width="1.4" transform="rotate(8 970 528)"/></g>
+<!-- Gran's mug -->
+<g id="mug" class="hot"><path d="M996 528h30v28h-30z" fill="#e8dcc8" stroke="#5a4a3a" stroke-width="2"/><path d="M1026 534q12 0 10 10q-2 8 -10 8" fill="none" stroke="#5a4a3a" stroke-width="3"/><path d="M1000 534h22" stroke="#6a4a2a" stroke-width="3"/></g>
+<!-- the stove, its pipe, Gran's note propped on top, the tin behind the glass door -->
+<g><path d="M1244 520V-400h26V520z" fill="#2a2a2e"/><path d="M1240 300h34M1240 120h34" stroke="#1a1a1e" stroke-width="5"/></g>
+<g id="stove" class="hot"><rect x="1180" y="520" width="150" height="200" rx="8" fill="#2e2e32" stroke="#141416" stroke-width="4"/><rect x="1170" y="512" width="170" height="16" rx="4" fill="#3a3a40" stroke="#141416" stroke-width="3"/>
+  <rect x="1206" y="574" width="98" height="76" rx="6" fill="#141416" stroke="#4a4a50" stroke-width="3"/><rect x="1218" y="586" width="74" height="52" fill="#3a2a1a" opacity=".85"/><rect x="1226" y="598" width="58" height="34" fill="#a8b4c0" stroke="#5a6470" stroke-width="2"/><g fill="#c8a040"><circle cx="1246" cy="615" r="5"/><circle cx="1258" cy="615" r="5"/><circle cx="1270" cy="615" r="5"/></g>
+  <path d="M1190 720v24M1320 720v24" stroke="#141416" stroke-width="10"/><g id="steam" stroke="#fff" stroke-width="0" fill="none"><path d="M1200 500q6 -10 0 -20"/></g></g>
+<g id="gnote" class="hot"><path d="M1204 512l8 -46l72 6l-6 42z" fill="#fbf6e8" stroke="#a89a7a" stroke-width="2"/><g stroke="#2a3a6a" stroke-width="1.6"><path d="M1216 478l52 4M1214 488l60 5M1213 498l40 3"/></g></g>
+<!-- the door, with the three notes pushed under it -->
+<g id="door"><rect x="1400" y="220" width="170" height="548" fill="#3a6a4a" stroke="#1e3a28" stroke-width="5"/><rect x="1420" y="250" width="130" height="200" fill="#e8ece0" stroke="#1e3a28" stroke-width="4"/><path d="M1485 250v200M1420 350h130" stroke="#1e3a28" stroke-width="4"/>
+  <circle cx="1424" cy="520" r="9" fill="#c8a040" stroke="#6a5010" stroke-width="2"/><path d="M1412 560l22 0l0 30l-22 0z" fill="#2a2a2a" opacity=".6"/></g>
+<g id="notes" class="hot"><path d="M1372 786l58 -8l8 18l-58 8z" fill="#fff" stroke="#8a8478" stroke-width="1.5"/><path d="M1426 792l50 -12l8 16l-50 12z" fill="#e4f0f8" stroke="#6a8aa8" stroke-width="1.5"/><path d="M1470 780l56 4l-2 18l-56 -4z" fill="#f4f8f0" stroke="#7a9ab8" stroke-width="1.5"/><path d="M1478 786h44M1478 792h40" stroke="#9ab4d0" stroke-width="1"/></g>
+<g id="ph" class="hot" transform="translate(300 860)"></g>
+<g id="pinned"><g transform="rotate(-3 410 400)"><rect x="380" y="360" width="56" height="74" fill="#fbfbf4" stroke="#8a8a98" stroke-width="1.5"/><path d="M386 376h44M386 386h40M386 396h44M386 406h30" stroke="#5a5a62" stroke-width="1.4"/></g><g transform="rotate(2 470 402)"><rect x="442" y="362" width="56" height="74" fill="#e2e4ea" stroke="#8a8a98" stroke-width="1.5"/><path d="M448 378h44M448 388h40M448 398h44" stroke="#3a4060" stroke-width="1.4"/></g><circle cx="408" cy="362" r="4" fill="#d83a3a"/><circle cx="470" cy="364" r="4" fill="#d83a3a"/><circle cx="532" cy="362" r="4" fill="#d83a3a"/></g>
+<g id="desk" class="hot"><rect x="790" y="556" width="240" height="24" fill="transparent"/></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the garden to the shed</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  HT.put('#ph', 'phoebe', { h: 330, armR: 'hip' });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'hut', no: 'I', title: 'The Hut',
+    go: 'Down the garden',
+    intro: [
+      'Lewes, East Sussex. Saturday 17 October 2026, ten past ten in the morning.',
+      'You have been Mrs Gosling&rsquo;s first reader since you were eight. She lives in the tall thin house next door, she has written stories for fifty years, and she writes them in a green wooden hut at the very bottom of her garden. Whenever she finishes something, it comes over the fence to you before it goes anywhere else.',
+      'This morning it is Phoebe, her granddaughter, who comes over the fence. &ldquo;Gran&rsquo;s gone to Eastbourne for Aunt Phyllis&rsquo;s eightieth,&rdquo; she says. &ldquo;She finished her story at two in the morning, and she&rsquo;s locked the end of it in a tin. And everybody in our house wants it to end differently. You&rsquo;d better come.&rdquo;'
+    ],
+    exit: {"next":"shed","w":{"79c35069":"d831fb46","078d97f1":"74844e77","d1832576":"fc5f356f"}}, tags: {"p1":["7890c318"],"p2":["f1ec44a1"],"p3":["958286f5"],"a1":["bd7b05a3","469873e5","3d58aae6"],"a2":["0e43a968"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = HT.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  var NEED = ['gnote', 'ph', 'card', 'xb', 'cc', 'fs', 'notes'];
+  function ready() { return NEED.every(function (k) { return told.has(k); }); }
+  function paint() {
+    $('#gnote').classList.toggle('ready', !told.has('gnote'));
+    $('#ph').classList.toggle('ready', told.has('gnote') && !told.has('ph'));
+    $('#desk').classList.toggle('ready', ready() && !nextFile);
+    ['pa', 'pb', 'pc'].forEach(function (p, i) { $('#' + p).classList.toggle('ready', told.has('ph') && !told.has(['xb', 'cc', 'fs'][i])); });
+    $('#notes').classList.toggle('ready', told.has('ph') && !told.has('notes'));
+    $('#card').classList.toggle('ready', told.has('ph') && !told.has('card'));
+    $('#scene').classList.toggle('pinned', !!nextFile);
+    ER.pips(NEED.filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0), NEED.length + 1);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The drafts are in order. The button at the bottom of the screen takes you up the garden to Martin&rsquo;s shed.', 'If you cannot see the button, close whatever is open (the Escape key) and look at the bottom of the screen.']];
+    if (lock && document.body.contains(lock)) return ['order', [
+      'Read the margins. Rule 7 on Gran&rsquo;s card: every note in a margin is an order to the next draft. So look for a page that obeys another page&rsquo;s notes.',
+      'The exercise book says START with the pencils, Cut the weather, and Names!!. Which page starts with the pencils, has no weather in it, and has changed the names? That page came next. Then do the same with that page&rsquo;s own note.',
+      'Neat is not new: the label on the typewriter says the ribbon ran out in August, so a later draft can be in pencil. And the narrator&rsquo;s age is not Gran&rsquo;s. Each pin needs a reason that points from one page to the next.'
+    ]];
+    if (!told.has('gnote')) return ['look', ['Start with Gran&rsquo;s note, propped on top of the black stove on the right.', 'Things that glow are the next things to look at. After the note, talk to Phoebe: she is standing on the left.']];
+    if (!ready()) return ['look', [
+      'Read everything on and over the desk: the three pages lying on it, and the index card pinned on the wall above the typewriter.',
+      'The three folded notes on the floor by the door are the family&rsquo;s. Read them too: one of them says how old Gran is.'
+    ]];
+    return ['desk', ['Everything is read. Now put the three pages in order.', 'Click the front edge of the desk, just below the pages: it glows.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Three pages, in order, under three drawing pins.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Gran&rsquo;s hut. The stove is cold, and so is the coffee.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The hut is the size of a garden shed and smells of pencil shavings and cold coffee. A desk under the window, a wooden chair with a red cushion, a typewriter with a label on it, a little black stove with its pipe going up through the roof. On the wall above the desk, one index card, held up by a drawing pin.',
+      'Three sheets of paper lie side by side on the desk: a page from a school exercise book, a thin grey typed page, and a big loose page in pencil. On the floor just inside the door, three folded notes, where somebody pushed them under it.',
+      '&ldquo;Gran&rsquo;s note is on the stove,&rdquo; says Phoebe. &ldquo;Read it first. Everybody else has.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var GNOTE = '<h4>Saturday, 6 a.m.</h4><p>Dear All,</p>' +
+    '<p>I finished it at two this morning. The last page is locked in the tin in the stove. The stove is cold; please keep it that way. The tin opens to the last word of the story.</p>' +
+    '<p>Each of you has told me how it should end. Thank you. I have read your notes, all three, and the stove has not.</p>' +
+    '<p>Before anybody opens the tin, I would like somebody to work out what the ending must be, from what is on the page. Everything you need is in the drafts, and the drafts are here, in the attic, in the shed and among the tomatoes. Fetch my first reader from next door. Nobody else in this family reads to the end.</p>' +
+    '<p>The third draft wants one more going-over before Bernice has it on Monday. My first reader has an eye.</p>' +
+    '<p>I am at Phyllis&rsquo;s eightieth in Eastbourne. Back by six.</p>' +
+    '<p class="sig">Love, Gran (M. J. G.)</p>' +
+    '<p class="ps">PS Martin: eleven ginger biscuits since Monday.<br>PS Elliot: the exercise books go back in their box the right way up.<br>PS Alison: the key is under the third flowerpot. So is everybody else&rsquo;s.</p>';
+  var CARD = '<h4>WHAT A DRAFT IS FOR</h4><p class="sub">pinned above my desk since 1979</p><ol>' +
+    '<li><b>CUT</b> what the reader does not need: weather, throat-clearing, life stories, every &ldquo;suddenly&rdquo;, and any joke you have to explain.</li>' +
+    '<li><b>ADD</b> what the reader must not miss: the clue, planted early, in plain sight.</li>' +
+    '<li><b>MOVE</b> the strongest thing to where it will be noticed: the first line or the last.</li>' +
+    '<li><b>SHARPEN.</b> One exact word does the work of two vague ones. (Walked slowly: crept.)</li>' +
+    '<li><b>STET</b> is Latin for &ldquo;let it stand&rdquo;. Write it beside a line you crossed out and want back.</li>' +
+    '<li>Never cut a clue, even one you cannot explain yet.</li>' +
+    '<li>Every note in a margin is an order to the next draft.</li></ol>';
+  var XB = '<span class="mn top">Names!! They WILL read it.</span><h4>THE INTRUDER</h4>' +
+    '<p>It was a grey, wet morning at the beginning of February, and the wind was coming up the garden from the river.<span class="mn">Cut the weather. Nobody has ever read weather.</span></p>' +
+    '<p>I went down to my hut at nine o&rsquo;clock, as I always do, with my coffee and two ginger biscuits. My hut is blue, and my husband built it for me the summer before he died.</p>' +
+    '<p>I sat down at my desk, and suddenly I had a very strange feeling that something was not quite right.<span class="mn">suddenly = lazy. And WHAT feeling?</span></p>' +
+    '<p>At breakfast Martin had said &ldquo;Morning, Mum&rdquo; into his toast, and Phoebe had said nothing, as usual. Her school makes them correct their own work in green, and her fingers were green to the knuckle.<span class="mn">Plant it now. Don&rsquo;t let &ldquo;I&rdquo; see it.</span></p>' +
+    '<p>Then I saw what it was. Somebody had sharpened all six of my pencils, and laid them in a row with their points to the window.<span class="mn">START with this! ↑</span></p>';
+  var CC = '<h4>NIGHT VISITOR</h4>' +
+    '<p>Somebody had sharpened my pencils. All six of them lay on my desk in a row, points to the window, like soldiers waiting for orders. I had left them blunt. I always leave them blunt; it gives me something to do before I start.</p>' +
+    '<p>I looked round my hut. My hut is blue, and my husband built it the summer before he died. Nothing was missing. My coffee mug, which I had left dirty, was clean and upside down on the shelf. I was <s class="g">definately</s> alone.<span class="gc">definitely</span></p>' +
+    '<p>Up at the house Stuart would be eating toast, and Polly would be saying nothing.<span class="mn">Even &ldquo;Stuart&rdquo; is Martin. Even &ldquo;Polly&rdquo; is P. They will know. Roles only.</span></p>' +
+    '<p>I counted my biscuits. There were fourteen, which was the right number. Whoever came into my hut at night did not come to eat.</p>';
+  var FS = '<h4>SOMEBODY IS READING?</h4>' +
+    '<p>Somebody had sharpened my pencils. All six lay in a row on my desk, points to the window, like soldiers waiting for orders. I had left them blunt. I always leave them blunt; sharpening them is how I start. I am eighty-one, and I have written in this hut every morning for nine years. Nothing was missing. My mug, which I had left dirty, was clean and upside down on the shelf. <s class="p">Her school makes them correct their own work in green, and her fingers were green to the knuckle.</s><span class="stet">STET</span><span class="mn">It&rsquo;s the plant! But not here.</span> Suddenly I felt very cold. Up at the house my son would be eating toast, his wife would be reading the last page of a book she had not started, the boy would be hoping for an earthquake, and the girl would be saying nothing. I counted my biscuits. Fourteen. Whoever came into my hut at night did not come for biscuits. This was a joke about my son, who eats them.<span class="mn">Never explain a joke!</span></p>';
+  var MN = '<span class="rc">WEALDEN TIMBER &middot; RECEIPT No. 40417 &middot; 2 × 4 PLANED, 12 LENGTHS</span>' +
+    '<p>Mum &mdash; I borrowed the spare copy of your big loose pages, the one you photocopied for Bernice, and read it in the shed last night. Sorry. Here is your ending. The visitor is the son. He&rsquo;s been coming down every night to keep an eye on her, because he worries about her and he isn&rsquo;t a talker. She catches him with his torch, they have a cup of tea, THE END. Simple. Happy. You can say he&rsquo;s handsome.</p>' +
+    '<p>I know you never notice anything once you&rsquo;re in this hut, so I&rsquo;m putting this under the door where you&rsquo;ll tread on it. M.</p><p>PS Biscuits are getting low.</p>';
+  var AN = '<span class="rc">Pharmacy &middot; with compliments</span>' +
+    '<p>Marjorie &mdash; I read the thin grey typed copy among the tomatoes. I hope you don&rsquo;t mind.</p>' +
+    '<p>Please let the visitor be a burglar. The police catch him, you have a proper lock fitted, and you move your desk up to the spare room, where it&rsquo;s warm and the stairs have a rail. Everything explained, nobody hurt.</p>' +
+    '<p>Marvellous: just what a woman of seventy-eight needs, a stranger in her hut at midnight.</p>' +
+    '<p>I read the last page of every book first, as you know. I would like to be able to do it with yours. Love, A.</p>';
+  var EN = '<p>Gran. Read the exercise book in the attic. Nobody knows, I put it back exactly how I found it.</p>' +
+    '<p class="big">OK so the ending has to be a TWIST.</p>' +
+    '<p>Like: it was all a dream. Or she was a ghost the whole time. Or aliens. Something NOBODY sees coming, that is literally the whole point of a twist.</p>' +
+    '<p>Oh, brilliant, another ending where everybody has a nice cup of tea (Dad&rsquo;s). Please no.</p>' +
+    '<p>E.</p><p>PS The thing about a twist is it can&rsquo;t have clues, or people guess it.</p>';
+
+  function after(k, line) { return function () { if (told.set(k)) { paint(); if (line) ER.say(line); } else paint(); }; }
+  $('#gnote').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GNOTE, cls: 'gnote', clue: { id: 'gnote', title: 'Gran&rsquo;s note, on the stove', kind: 'Letter' },
+      done: after('gnote', '&ldquo;She counts the biscuits,&rdquo; says Phoebe. &ldquo;Dad thinks she doesn&rsquo;t. Dad is wrong about most things in that hut.&rdquo;') });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'What a draft is for', kind: 'Index card' }, done: function () {
+      HT.terms(['draft', 'revise', 'cut', 'plant', 'sharpen', 'STET', 'margin note']);
+      after('card', '&ldquo;Since 1979,&rdquo; says Phoebe. &ldquo;The drawing pin is nearly as old as Dad.&rdquo;')();
+    } });
+  });
+  $('#pa').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: XB, cls: 'xb', clue: { id: 'xb', title: 'The exercise-book page', kind: 'Draft' },
+      done: after('xb', 'Real names. Martin, and Phoebe. &ldquo;Gran forgets we can read,&rdquo; says Phoebe, without looking at you.') });
+  });
+  $('#pb').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CC, cls: 'cc', clue: { id: 'cc', title: 'The typed carbon copy', kind: 'Draft' }, done: function () {
+      HT.terms(['carbon copy']);
+      after('cc', 'A carbon copy: thin grey paper, the copy a typist keeps. Somebody has corrected one word on it in green ink. &ldquo;Her editor, probably,&rdquo; says Phoebe.')();
+    } });
+  });
+  $('#pc').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FS, cls: 'fs', clue: { id: 'fs', title: 'The loose page in pencil', kind: 'Draft' },
+      done: after('fs', 'One line is crossed out in pencil, and somebody has written STET beside it in green.') });
+  });
+  $('#notes').addEventListener('click', function () {
+    if (busy) return;
+    var seq = [[MN, 'mnote', 'mnote', 'Martin&rsquo;s note'], [AN, 'anote', 'anote', 'Alison&rsquo;s note'], [EN, 'enote', 'enote', 'Elliot&rsquo;s note']], i = 0;
+    (function next() {
+      if (i >= seq.length) { HT.terms(['twist']); after('notes', '&ldquo;Dad, Mum, Elliot,&rdquo; says Phoebe. &ldquo;A son, a burglar, and aliens. And they all think Gran never notices anything.&rdquo;')(); return; }
+      var s = seq[i++];
+      ER.read({ html: s[0], cls: s[1], clue: { id: s[2], title: s[3] + ', under the door', kind: 'Note' }, done: next });
+    })();
+  });
+  $('#ph').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Shed,&rdquo; says Phoebe. &ldquo;Bring the loose page. Dad will want to clamp it in his vice, so it can&rsquo;t get away.&rdquo;'); return; }
+    if (told.has('ph')) { ER.say('Phoebe is clicking her green pen. Click, click, click.'); return; }
+    if (!told.has('gnote')) { ER.say('&ldquo;Note first,&rdquo; says Phoebe, pointing at the stove.'); return; }
+    ER.talk({
+      who: 'Phoebe Gosling', role: 'Gran&rsquo;s granddaughter · twelve', face: window.FACE('phoebe'),
+      lines: [
+        { note: 'Phoebe is twelve, in her school jumper on a Saturday, with a green pen behind one ear. She talks quickly and drily, like somebody who has read too many books for her age and knows it.', a: '&ldquo;Gran writes every story three times at least. She says the first draft is for finding out what happens, the second is for finding out what it means, and the third is for taking out everything that gets in the way.&rdquo;' },
+        { q: 'What is the story about?', a: '&ldquo;An old writer who works in a hut at the bottom of her family&rsquo;s garden. Somebody comes into the hut at night and sharpens her pencils, and she doesn&rsquo;t know who. That&rsquo;s it. That&rsquo;s as far as anybody&rsquo;s got.&rdquo;' },
+        { q: 'And the family?', a: '&ldquo;They&rsquo;ve each read a different draft behind her back, and they&rsquo;ve each written her a note saying how it ought to end. Dad, Mum and Elliot. The notes are on the floor by the door. She says she&rsquo;s read them all.&rdquo;' },
+        { q: 'How do you want it to end?', a: '&ldquo;Me?&rdquo; She shrugs. &ldquo;I don&rsquo;t mind how it ends.&rdquo; She looks out of the window. &ldquo;Honestly.&rdquo;' },
+        { q: 'Where do we start?', a: '&ldquo;Those three pages on the desk are the same scene, the beginning of the story, from three different drafts. Gran never numbers anything; she says numbers are for people who don&rsquo;t read. But if we&rsquo;re going to work out the ending, we&rsquo;d better know which draft is which. The first draft is where she plants things.&rdquo;' }
+      ],
+      clue: { id: 'ph1', title: 'Phoebe, in the hut', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('ph')) paint(); }
+    });
+  });
+  $('#tw').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'typewriter');
+    HT.seed('ribbon', 'The label on the typewriter', '<p>In Gran&rsquo;s hand, stuck to the typewriter: RIBBON FINISHED 28 AUG. New one ordered. Pencil till then. M.</p>');
+    ER.say('A label on the typewriter, in Gran&rsquo;s hand: RIBBON FINISHED 28 AUG. New one ordered. Pencil till then. M.');
+  });
+  $('#window').addEventListener('click', function () {
+    if (busy) return;
+    HT.seed('green', 'The hut is green', '<p>The hut is painted green, inside and out. Through the window: the long garden going up to the tall thin house, a shed halfway up, a greenhouse in the sun, and the Downs behind. Phoebe says her dad built the hut in the spring of last year.</p>');
+    ER.say('The window frame is green, and so is the outside of the hut. Up the garden: a shed, a greenhouse, and the tall thin house, with the Downs behind it in the drizzle.');
+  });
+  $('#stove').addEventListener('click', function () {
+    if (busy) return;
+    HT.seed('tin', 'The tin in the stove', '<p>Behind the stove&rsquo;s little glass door: a square biscuit tin with a lock of three brass wheels, each with the alphabet on it. Gran&rsquo;s note says it opens to the last word of the story. Phoebe has tried PEN, END and CAT.</p>');
+    ER.say('Behind the little glass door of the stove: a biscuit tin with three brass letter wheels. &ldquo;I&rsquo;ve tried PEN, END and CAT,&rdquo; says Phoebe. &ldquo;The last word of the story. Three letters.&rdquo;');
+  });
+  $('#kchair').addEventListener('click', function () {
+    if (busy) return;
+    HT.seed('kchair', 'A second chair', '<p>Under Gran&rsquo;s desk, pushed right in: an old wooden kitchen chair, as well as her own. Nobody seems to know why it is there.</p>');
+    ER.say('Pushed right in under the desk there is an old kitchen chair as well as Gran&rsquo;s own. &ldquo;That&rsquo;s been there for ages,&rdquo; says Phoebe. &ldquo;Nobody sits on it.&rdquo;');
+  });
+  HT.thing('#alarm', 'smoke alarm', 'A smoke alarm, with a sticker: FITTED BY A. G. TEST MONTHLY. &ldquo;Mum put it in,&rdquo; says Phoebe. &ldquo;It&rsquo;s gone off once. When Mum made toast on the stove.&rdquo;', isBusy);
+  HT.thing('#shelf', null, 'Gran&rsquo;s own books, fifty years of them: Seven Wet Tuesdays, The Parrot Who Knew Too Much, A Cake for the Bishop. And a box of exercise books, all the same blue.', isBusy);
+  HT.thing('#pencils', null, 'Six pencils, all blunt. &ldquo;Gran leaves them blunt,&rdquo; says Phoebe. &ldquo;Sharpening them is how she starts.&rdquo; She says it as if she minds.', isBusy);
+  HT.thing('#mug', 'mug', 'Gran&rsquo;s mug, with a cold brown ring of coffee in the bottom. The right way up.', isBusy);
+  HT.thing('#chair', null, 'Gran&rsquo;s chair, with a flat red cushion.', isBusy);
+  HT.thing('#door', null, 'The hut door. Outside, by the step, a row of flowerpots. The third one has a key under it, as everybody knows.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#desk').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Exercise book, carbon, loose page. Pinned in order.'); return; }
+    if (!ready()) { ER.say('&ldquo;Not yet,&rdquo; says Phoebe. &ldquo;Read everything first: the note, the card, all three pages, and the notes by the door.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: three pages in order, and a reason for each step ---------- */
+  var PG = [['xb', 'Exercise book', 'THE INTRUDER &middot; It was a grey, wet morning&hellip;'], ['cc', 'Typed carbon', 'NIGHT VISITOR &middot; Somebody had sharpened my pencils&hellip;'], ['fs', 'Loose page, pencil', 'SOMEBODY IS READING? &middot; Somebody had sharpened&hellip;']];
+  var CH = [
+    ['k1', 'The exercise-book page says &ldquo;START with this!&rdquo; beside the pencils, and the typed page starts with them.'],
+    ['k2', 'The exercise-book page says &ldquo;Cut the weather&rdquo;, and the typed page has no weather in it.'],
+    ['k7', 'The exercise-book page says &ldquo;Names!!&rdquo;, and the typed page has changed Martin and Phoebe into Stuart and Polly.'],
+    ['k3', 'The typed page says &ldquo;Roles only&rdquo;, and the loose page has no names at all: &ldquo;my son&rdquo;, &ldquo;the girl&rdquo;.'],
+    ['k4', 'The typed page is the neatest, and a writer types the finished copy, so the typed page came last.'],
+    ['k5', 'The loose page says &ldquo;I am eighty-one&rdquo;. Gran is seventy-eight, so that page was written three years ago.'],
+    ['k6', 'The loose page says &ldquo;suddenly&rdquo; again, and Gran hates &ldquo;suddenly&rdquo;, so it must be older than the typed page.']
+  ];
+  var WHY = {
+    k4: 'Neat is not new. The label on the typewriter says the ribbon ran out on 28 August: anything Gran wrote after that is in pencil.',
+    k5: 'The I in the story is eighty-one; Gran is seventy-eight. A narrator is not always the writer, and her age tells you nothing about when the page was written.',
+    k6: 'A word that creeps back proves nothing about order: writers slip. Look for a margin note, an order, that the next page obeys.'
+  };
+  function openLock() {
+    var put = ER.flag('a-put') || {}, held = null, done = false;
+    lock = ER.el('div', 'ord');
+    lock.innerHTML = '<h5>Gran&rsquo;s desk &middot; which draft came first, and how do you know?</h5><div class="lane">' +
+      '<div class="slot" data-s="p1"><b>FIRST</b></div><div class="pin" data-s="a1"><b>BECAUSE</b></div><div class="slot" data-s="p2"><b>SECOND</b></div>' +
+      '<div class="pin" data-s="a2"><b>BECAUSE</b></div><div class="slot" data-s="p3"><b>LAST</b></div></div><div class="tray"></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="pinup">Pin them up</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), tray = lock.querySelector('.tray'), nodes = {};
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    PG.forEach(function (p) { var b = ER.el('button', 'pg', '<i>' + p[1] + '</i>' + p[2]); b.type = 'button'; b.setAttribute('data-p', p[0]); b.setAttribute('data-k', p[0]); nodes[p[0]] = b; });
+    HT.mix(CH, 17).forEach(function (c) { var b = ER.el('button', 'ch', c[1]); b.type = 'button'; b.setAttribute('data-k', c[0]); nodes[c[0]] = b; });
+    function isPage(k) { return k === 'xb' || k === 'cc' || k === 'fs'; }
+    function where(k) { for (var s in put) if (put[s] === k) return s; return null; }
+    function draw() {
+      Object.keys(nodes).forEach(function (k) {
+        var s = where(k), at = s ? lock.querySelector('[data-s="' + s + '"]') : tray;
+        if (nodes[k].parentNode !== at) at.appendChild(nodes[k]);
+        nodes[k].classList.toggle('held', held === k);
+      });
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    function place(k, s) {
+      var slotPage = s.charAt(0) === 'p';
+      if (slotPage !== isPage(k)) { msg(isPage(k) ? 'Pages go in the three places: FIRST, SECOND, LAST.' : 'A reason goes on a pin, between two pages.'); return; }
+      var old = put[s], from = where(k);
+      if (from) delete put[from];
+      if (old && from) put[from] = old;
+      put[s] = k; held = null; HT.sfx.pencil(); ER.flag('a-put', put); clearBad(); draw();
+    }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var it = e.target.closest('[data-k]'), s = e.target.closest('[data-s]');
+      if (it && held && s && it.getAttribute('data-k') !== held) { place(held, s.getAttribute('data-s')); return; }
+      if (it) { var k = it.getAttribute('data-k'); held = held === k ? null : k; ER.sfx.paper(); clearBad(); draw(); return; }
+      if (s && held) { place(held, s.getAttribute('data-s')); return; }
+      if (e.target.closest('.tray') && held) { var w = where(held); if (w) delete put[w]; held = null; ER.flag('a-put', put); draw(); return; }
+      if (s) msg('First click a page or a reason, then click where it goes.');
+    });
+    foot.querySelector('#pinup').addEventListener('click', function () {
+      if (done) return;
+      clearBad();
+      var need = ['p1', 'p2', 'p3', 'a1', 'a2'], miss = need.filter(function (s) { return !put[s]; });
+      if (miss.length === need.length) { ER.sfx.no(); msg('The desk is bare. Click a page, then FIRST, SECOND or LAST; click a reason, then a pin.'); return; }
+      if (miss.some(function (s) { return s.charAt(0) === 'p'; })) { ER.sfx.no(); msg('&ldquo;All three pages,&rdquo; says Phoebe. &ldquo;Gran never leaves a draft lying about.&rdquo;'); return; }
+      if (miss.length) { ER.sfx.no(); msg('&ldquo;And why?&rdquo; says Phoebe. &ldquo;Both pins need a reason. Gran says an order without a reason is a guess.&rdquo;'); return; }
+      var i;
+      for (i = 1; i <= 3; i++) {
+        if (!ER.check('p' + i, put['p' + i])) {
+          ER.sfx.no(); nodes[put['p' + i]].classList.add('bad');
+          if (put.p3 === 'cc') msg('Phoebe taps the typed page. &ldquo;It looks finished, because it&rsquo;s typed. But it says &lsquo;Roles only&rsquo; in its margin. If it came last, who obeyed that order?&rdquo;');
+          else if (put.p1 === 'fs') msg('&ldquo;Then the loose page&rsquo;s &lsquo;my son&rsquo; and &lsquo;the girl&rsquo; were turned into real names later?&rdquo; says Phoebe. &ldquo;Gran&rsquo;s notes go the other way. Look at the exercise book&rsquo;s first note.&rdquo;');
+          else msg('&ldquo;Read the margins again,&rdquo; says Phoebe. &ldquo;A note is an order to the next draft. Which page is already doing what another page&rsquo;s notes ask for?&rdquo; (Phoebe only ever points at the first page that is wrong.)');
+          return;
+        }
+      }
+      var c1 = put.a1, c2 = put.a2;
+      if (!ER.check('a1', c1)) {
+        ER.sfx.no(); nodes[c1].classList.add('bad');
+        msg(WHY[c1] || 'That reason explains the second step, from the typed page to the loose one. This pin is between the first page and the second.');
+        return;
+      }
+      if (!ER.check('a2', c2)) {
+        ER.sfx.no(); nodes[c2].classList.add('bad');
+        msg(WHY[c2] || 'That reason is about the first step, from the exercise book to the typed page. This pin is between the typed page and the loose one.');
+        return;
+      }
+      var file = ER.exit([put.p1 + '-' + put.p2 + '-' + put.p3 + '/' + c1 + '/' + c2], { wait: true });
+      if (!file) { msg('The drawing pins will not go in. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('a-file', file);
+      HT.sfx.pencil();
+      msg('Phoebe pushes three drawing pins into the wall above the desk, one through each page, in a row.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2200);
+    });
+    draw();
+    msg('Click a page, then where it goes. Click a reason, then a pin. Click anything already placed to pick it up again, and the tray to put it back.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    HT.mine('order', 'The three drafts, in order', '<p>FIRST: the exercise book (THE INTRUDER), February, in pencil, with real names. SECOND: the typed carbon (NIGHT VISITOR), May. LAST: the loose page in pencil (SOMEBODY IS READING?), September, after the ribbon ran out.</p>' +
+      '<p>How we know: every note in a margin is an order to the next draft. The exercise book says START with the pencils, cut the weather, change the names, and the typed page does all three. The typed page says Roles only, and the loose page has no names.</p>' +
+      '<p>What changed: CUT the weather and &ldquo;suddenly&rdquo;; MOVED the pencils from the last line to the first; SHARPENED the names into roles; and the green fingers were CUT and then wanted back (STET).</p>');
+    HT.terms(['draft', 'revise', 'cut', 'sharpen', 'margin note', 'carbon copy']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;Exercise book, carbon, loose page,&rdquo; says Phoebe. &ldquo;February, May, September. The neatest one is the middle one: she went back to pencil when the ribbon ran out.&rdquo;',
+      '&ldquo;And look what she did between them. Cut the weather. Moved the pencils from the last line to the first, where you can&rsquo;t miss them. Changed the names, then took the names out altogether. And she cut the green fingers, and then she wanted them back.&rdquo; Phoebe stops, and starts again. &ldquo;Somebody wrote STET by them, anyway.&rdquo;',
+      '&ldquo;The loose page isn&rsquo;t finished, though. Look at the notes in its margin. And Gran wants it gone over before Monday.&rdquo; She pulls its pin out and hands it to you. &ldquo;Dad&rsquo;s got the spare copy in his shed, but this is the one with the notes on. Bring it. Dad says revision is joinery. Don&rsquo;t tell him I told you that.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

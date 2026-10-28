@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Garden Path · The Fourth Draft</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="hut.css">
+<style>
+  body{--bg:#e8d8a0;--accent:#a8641a;--font-display:'Gochi Hand',cursive;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(250,242,218,.97);--tc-ink:#2a2010;--cap-bg:rgba(252,246,228,.95);--cap-ink:#2a2010;--panel:#fcf6e4;--panel-ink:#2a2010;--face-bg:#cfe2d4;--q-ink:#a8641a;--fade:#f6ecd0;--hud-bg:rgba(252,246,228,.9);--hud-ink:#2a2010;--hud-line:rgba(42,32,16,.3)}
+  .tc-room{font-family:'Gochi Hand',cursive;font-size:clamp(56px,8vw,120px);color:#a8641a}
+  .gobtn{background:rgba(252,246,228,.94)}
+  #washing g{animation:sway 3.4s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 0}
+  #washing g:nth-child(2n){animation-duration:4.1s}
+  @keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+  #bee{animation:bz 7s steps(28,end) infinite}
+  @keyframes bz{0%{transform:translate(0,0)}25%{transform:translate(60px,-20px)}50%{transform:translate(120px,10px)}75%{transform:translate(50px,30px)}100%{transform:translate(0,0)}}
+
+  /* the lock: sentences pegged on the line, and Gran's coloured pegs */
+  .line{position:relative;padding:22px 14px 10px;background:#cfe0ec;background-image:linear-gradient(180deg,#bcd4e8,#e8f0e0);border:6px solid #8a6a3a;box-shadow:0 26px 70px rgba(0,0,0,.5);color:#2a2010}
+  .line:before{content:'';position:absolute;left:0;right:0;top:14px;height:3px;background:#f4f4f0;box-shadow:0 1px 0 #8a8a80}
+  .line h5{margin:0 0 6px;font-family:'Gochi Hand',cursive;font-weight:normal;font-size:23px;text-align:center}
+  .row{display:grid;gap:8px;margin-bottom:8px}
+  .row.t{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .row.h{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .row>small{grid-column:1/-1;font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#4a5a6a}
+  .sh{position:relative;padding:22px 8px 8px;background:#fffdf6;border:1px solid #c8c0a8;box-shadow:0 3px 6px rgba(0,0,0,.25);cursor:pointer;font-family:'Alegreya',serif;font-size:15.5px;line-height:1.22;color:#2a2010;min-height:110px}
+  .row.h .sh{min-height:96px;font-size:15.5px}
+  .sh i{display:block;font-style:italic;font-size:14px;color:#6a5a40;margin-top:4px}
+  .sh .pg2{position:absolute;left:50%;top:-12px;width:16px;height:30px;margin-left:-8px;border-radius:3px;background:#d8d0c0;border:1px solid #8a8070}
+  .sh .vd{display:block;margin-top:6px;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6a6a6a}
+  .sh.bad{background:#f6d0c0}
+  .sh.want{outline:3px dashed #a8641a}
+  .pegs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+  .pegb{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fffdf6;border:2px solid #8a6a3a;border-radius:3px;font-family:'Outfit',sans-serif;font-size:12.5px;letter-spacing:.12em;color:#2a2010;cursor:pointer}
+  .pegb i{display:inline-block;width:10px;height:22px;border-radius:2px;border:1px solid rgba(0,0,0,.4)}
+  .pegb.on{outline:3px solid #a8641a;background:#fff3d0}
+  .pegb small{display:block;font-family:'Alegreya',serif;font-size:12px;letter-spacing:0;color:#6a5a40;text-transform:none}
+  .ov-lock .pmsg{color:#2a2010;background:rgba(252,246,228,.94);padding:6px 10px;border-radius:3px}
+  .ov-lock .pz-foot .btn{color:#2a2010;background:rgba(252,246,228,.94);border-color:#a8641a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab8e0"/><stop offset=".6" stop-color="#d8e8ec"/><stop offset="1" stop-color="#f4e8c0"/></linearGradient>
+  <pattern id="brick" width="48" height="24" patternUnits="userSpaceOnUse"><rect width="48" height="24" fill="#b8644a"/><path d="M0 0h48M0 12h48M24 0v12M0 12v12M48 12v12" stroke="#8a4a34" stroke-width="2"/></pattern>
+  <radialGradient id="sun" cx="78%" cy="8%" r="60%"><stop offset="0" stop-color="#fff4c8" stop-opacity=".6"/><stop offset="1" stop-color="#fff4c8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#sky)"/>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#sun)" pointer-events="none"/>
+<!-- the Downs -->
+<path d="M-1000 360q300 -140 700 -110t700 -60t800 40t1400 30V600H-1000z" fill="#9ab87a"/><path d="M-1000 400q500 -90 1000 -60t1200 -20t1400 40V600H-1000z" fill="#86a86a"/>
+<!-- the house at the top of the garden -->
+<g id="house" class="hot"><rect x="60" y="130" width="200" height="400" fill="#e8dcc8" stroke="#8a7a6a" stroke-width="3"/><path d="M48 136l112 -80l112 80z" fill="#6a5a5a" stroke="#3a2a2a" stroke-width="3"/>
+  <g fill="#5a6a7a" stroke="#e8dcc8" stroke-width="6"><rect x="90" y="170" width="50" height="70"/><rect x="180" y="170" width="50" height="70"/><rect x="90" y="290" width="50" height="70"/><rect x="180" y="290" width="50" height="70"/><rect x="90" y="410" width="50" height="70"/></g><rect x="180" y="410" width="50" height="120" fill="#3a5a4a"/></g>
+<!-- the lawn -->
+<path d="M-1000 500q900 -40 3600 0V1300H-1000z" fill="#8aaa5a"/><g stroke="#7a9a4a" stroke-width="2"><path d="M100 600l4 -10M300 640l4 -10M520 580l4 -10M1180 610l4 -10M1400 560l4 -10M900 520l4 -10"/></g>
+<!-- the hut at the bottom of the garden -->
+<g id="hutfar" class="hot"><rect x="1360" y="400" width="200" height="200" fill="#3a6a4a" stroke="#1e3a28" stroke-width="4"/><path d="M1344 404l116 -60l116 60z" fill="#4a4a4a" stroke="#2a2a2a" stroke-width="3"/><rect x="1380" y="440" width="70" height="60" fill="#c8d8d0" stroke="#1e3a28" stroke-width="4"/><rect x="1480" y="460" width="56" height="140" fill="#2e5a3e" stroke="#1e3a28" stroke-width="3"/><path d="M1520 340v-40h14v52" fill="#2a2a2e"/>
+  <g fill="#c8743a" stroke="#6a3a1a" stroke-width="2"><path d="M1460 600l4 -22h22l4 22z"/><path d="M1494 600l4 -18h18l4 18z"/><path d="M1524 600l4 -22h22l4 22z"/></g>
+  <path d="M1420 300q-40 -80 20 -140q60 -40 120 10q50 70 -20 140z" fill="#5a8a3a" stroke="#2a4a1a" stroke-width="3" opacity=".9"/><g fill="#d84a2a"><circle cx="1470" cy="220" r="8"/><circle cx="1520" cy="260" r="7"/></g></g>
+<!-- the washing line, with Gran's pages pegged on it -->
+<g stroke="#5a4a2a" stroke-width="10"><path d="M500 560V200M1300 560V200"/></g><path d="M490 206h20M1290 206h20" stroke="#5a4a2a" stroke-width="8"/>
+<g id="line" class="hot"><path d="M500 210q400 50 800 0" fill="none" stroke="#f4f4f0" stroke-width="3"/><rect x="500" y="196" width="800" height="50" fill="transparent"/></g>
+<g id="washing"><g><path d="M560 222h70v80h-70z" fill="#e8b8b8" stroke="#8a5a5a" stroke-width="2"/><path d="M560 240h70M560 284h70" stroke="#c84a4a" stroke-width="4"/></g>
+  <g><path d="M660 230l20 -4h50l20 4l14 30l-16 6v66h-86v-66l-16 -6z" fill="#e8ecf4" stroke="#6a7a9a" stroke-width="2"/></g>
+  <g><path d="M1020 232h70v84h-70z" fill="#f4f0e4" stroke="#8a8478" stroke-width="2"/><g stroke="#5a5a62" stroke-width="1.6"><path d="M1028 246h54M1028 256h50M1028 266h54M1028 276h40M1028 286h50"/></g></g>
+  <g><path d="M1110 228h70v84h-70z" fill="#f4f0e4" stroke="#8a8478" stroke-width="2"/><g stroke="#5a5a62" stroke-width="1.6"><path d="M1118 242h54M1118 252h40M1118 262h54M1118 272h50"/></g></g></g>
+<g id="ho7" class="hot"><path d="M860 240h96v120h-96z" fill="#f2f2ee" stroke="#9a9aa2" stroke-width="2"/><path d="M870 256h60" stroke="#1c1c20" stroke-width="4"/><g stroke="#3a3a42" stroke-width="1.6"><path d="M870 270h76M870 280h70M870 290h76M870 300h60M870 310h76M870 320h50M870 330h70M870 342h60"/></g><rect x="880" y="232" width="8" height="18" fill="#3a8a3a"/><rect x="928" y="232" width="8" height="18" fill="#3a8a3a"/></g>
+<!-- the vegetable bed, the strawberry net, the row of title labels -->
+<g><path d="M280 560h760l20 150H260z" fill="#6a4a30" stroke="#4a3020" stroke-width="3"/><g stroke="#4a3020" stroke-width="2" opacity=".6"><path d="M290 600h740M286 640h748M282 680h756"/></g>
+  <g stroke="#b89a5a" stroke-width="4"><path d="M330 690L360 420M380 690L360 420M430 690L460 430M480 690L460 430"/></g><g fill="#5a8a3a"><circle cx="350" cy="470" r="16"/><circle cx="370" cy="520" r="18"/><circle cx="452" cy="480" r="16"/><circle cx="466" cy="540" r="18"/><circle cx="356" cy="600" r="16"/></g><g fill="#c84a3a"><circle cx="364" cy="490" r="4"/><circle cx="458" cy="510" r="4"/></g>
+  <g stroke="#6a9a4a" stroke-width="6" stroke-linecap="round"><path d="M560 660v-60M580 660v-70M600 660v-56M620 660v-66M640 660v-60M660 660v-70"/></g></g>
+<g id="net" class="hot"><path d="M760 690q10 -90 100 -90q90 0 100 90z" fill="#5a8a3a" opacity=".6"/><path d="M760 690q10 -90 100 -90q90 0 100 90" fill="none" stroke="#2a2a2a" stroke-width="2"/><g stroke="#2a2a2a" stroke-width="1" opacity=".7"><path d="M780 690l40 -84M820 690l30 -90M860 690v-90M900 690l-30 -90M940 690l-40 -84M770 660h180M780 630h160"/></g><path d="M886 690q4 -30 30 -36q10 20 4 36z" fill="#6a4a30" stroke="#2a2a2a" stroke-width="1.5"/><g fill="#d83a2a"><circle cx="830" cy="676" r="5"/></g></g>
+<g id="labels" class="hot"><g fill="#fbfbf6" stroke="#9a9a92" stroke-width="1.4"><path d="M300 712v-34l16 -6l16 6v34z"/><path d="M350 712v-34l16 -6l16 6v34z"/><path d="M400 712v-34l16 -6l16 6v34z"/><path d="M450 712v-34l16 -6l16 6v34z"/><path d="M500 712v-34l16 -6l16 6v34z"/><path d="M550 712v-34l16 -6l16 6v34z"/><path d="M600 712v-34l16 -6l16 6v34z"/><path d="M650 712v-34l16 -6l16 6v34z"/></g>
+  <g stroke="#5a5a62" stroke-width="1.6"><path d="M304 690h24M354 690h24M404 690h24M454 690h24M504 690h24M554 690h24M604 690h24M654 690h24"/><path d="M302 690h28M352 690h28M402 690h28M452 690h28M502 690h28M552 690h28M602 690h28" stroke="#7a5a4a"/></g><path d="M700 712v-34" stroke="#b8a888" stroke-width="2" stroke-dasharray="4 3"/></g>
+<!-- the compost bins -->
+<g id="compost" class="hot"><g fill="#6a5034" stroke="#3a2818" stroke-width="3"><rect x="1100" y="560" width="80" height="130"/><rect x="1184" y="560" width="80" height="130"/></g><g stroke="#3a2818" stroke-width="2"><path d="M1100 590h164M1100 620h164M1100 650h164"/></g><path d="M1108 560q30 -30 64 0M1192 560q30 -24 64 0" fill="#4a3a20"/></g>
+<!-- the brick path -->
+<path d="M-1000 730H2600V830H-1000z" fill="url(#brick)"/><path d="M-1000 730H2600" stroke="#6a3a28" stroke-width="3"/>
+<g id="bee"><circle cx="980" cy="560" r="5" fill="#e8b830" stroke="#2a2a2a" stroke-width="1.5"/><path d="M976 556l-6 -6M984 556l6 -6" stroke="#cfe0f0" stroke-width="3"/></g>
+<g id="ph" class="hot" transform="translate(1030 852)"></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Round the back of the hut</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="hut.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  HT.put('#ph', 'phoebe', { h: 310, armL: 'front', armR: 'front' });
+
+  ER.init({
+    theme: 'lit', story: 'hut', storyTitle: 'The Fourth Draft', id: 'path', no: 'V', title: 'The Garden Path',
+    go: 'Out into the sun',
+    intro: [
+      'You put five endings on trial against draft one. Elliot&rsquo;s dream had nothing on the page pointing to it: a cheat. The burglar met &ldquo;Nothing was ever taken&rdquo;. The son met his own boot prints, stopping at the step (and his spelling, and his white torch). The fox cannot sharpen a pencil. Only the girl had clues planted before the turn and not one that said no: the green corrections, the Guide camp mug, the red camp torch, the star on the trainer. And the twist grows from situational irony: the narrator laid a trap for a thief, and caught a reader.',
+      'Three o&rsquo;clock, and the sun is out properly. The long brick path runs down the garden from the back door to the hut, past the washing line, the compost bins and the vegetable bed.'
+    ],
+    exit: {"next":"bench","w":{"ed0d9806":"75b738af"}}, tags: {"t1":["1a831403"],"t2":["d27c585e"],"t3":["de3287c8"],"t4":["7a5f768a"],"t5":["50a3c0ab"],"t6":["b1147be5"],"h1":["535095b4"],"h2":["4911e264"],"h3":["756648ac"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = HT.told('e-told'); nextFile = ER.flag('e-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ph') && told.has('labels') && told.has('ho7'); }
+  function paint() {
+    $('#ph').classList.toggle('ready', !told.has('ph'));
+    $('#labels').classList.toggle('ready', told.has('ph') && !told.has('labels'));
+    $('#ho7').classList.toggle('ready', told.has('ph') && !told.has('ho7'));
+    $('#line').classList.toggle('ready', ready() && !nextFile);
+    ER.pips(['ph', 'labels', 'ho7'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The theme is pegged out. The button at the bottom of the screen takes you round the back of the hut, to the bench.', 'If you cannot see the button, close whatever is open (the Escape key) and look at the bottom of the screen.']];
+    if (lock && document.body.contains(lock)) return ['line', [
+      'Gran&rsquo;s handout: plot is what happens; a topic is a word or two; a theme is a whole sentence about people, true outside the story, with no names in it; an order is a moral. Give each sentence the peg for the test it fails. Only one sentence gets THEME.',
+      'Which sentence would still be true about people outside this story? Look for what survives every draft: the pencils, the biscuits counted, the girl saying nothing, a narrator who notices everything. And the titles go from crimes to reading.',
+      'The theme is the sentence about being noticed. Now the endings: in which one are both of them seen? An ending where the secret is kept for ever, or the door is locked, fights it.'
+    ]];
+    if (!ready()) return ['look', [
+      'Talk to Phoebe, on the brick path.',
+      'Read the row of white plant labels at the front of the vegetable bed (Gran&rsquo;s titles), and the handout pegged on the washing line. Then click the washing line itself.'
+    ]];
+    return ['line', ['Everything is read. Click the washing line, between the two posts.', 'The line runs across the top of the garden; click anywhere along it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The washing line: six sentences and three endings, pegged in a row.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The garden path, in the afternoon sun. A bee is working the last of the beans.'); return; }
+    told.set('in');
+    ER.narrate([
+      'Down one side of the path is the vegetable bed: leeks, the last runner beans, a strawberry patch under a net with a fox-sized hole in it. Along the front of the bed, in a neat row, stand eight white plant labels, the kind you write on in pencil. They do not name any vegetables.',
+      '&ldquo;Gran&rsquo;s titles,&rdquo; says Phoebe. &ldquo;She plants every title she tries, with the date. When it dies, she crosses it out. She says you can tell a lot about a story from what it refuses to be called.&rdquo;',
+      'On the washing line, between two tea towels and one of Martin&rsquo;s shirts, Gran has pegged up some pages to look at from a distance. She says a page reads differently when the wind has had it.'
+    ], function () { busy = false; paint(); });
+  }
+
+  var LABELS = '<h4>The title bed</h4><div class="row">' +
+    '<div class="lb"><s>THE INTRUDER</s><small>3 Feb</small></div>' +
+    '<div class="lb"><s>A THIEF IN THE HUT</s><small>11 Feb</small></div>' +
+    '<div class="lb"><s>WHO SHARPENS MY PENCILS?</s><small>2 Mar</small></div>' +
+    '<div class="lb"><s>NIGHT VISITOR</s><small>20 May</small></div>' +
+    '<div class="lb"><s>THE GHOST OF THE BLUE HUT</s><small>14 Jun &middot; Elliot&rsquo;s idea</small></div>' +
+    '<div class="lb"><s>FOURTEEN BISCUITS</s><small>30 Jul &middot; Martin&rsquo;s idea</small></div>' +
+    '<div class="lb"><s>LOCKS</s><small>2 Aug &middot; Alison&rsquo;s idea</small></div>' +
+    '<div class="lb">SOMEBODY IS READING?<small>9 Sep &middot; not crossed out</small></div></div>' +
+    '<p>Beside the last label, a space in the soil, raked smooth, with nothing in it yet.</p>';
+  var HO7 = '<p class="hh">Thursday writing group &middot; handout 7 &middot; M. J. Gosling</p><h4>THEME IS NOT PLOT</h4>' +
+    '<p><b>Plot</b> is what happens. A <b>topic</b> is what a story is about in a word or two: love, foxes, writing. A <b>theme</b> is what the story says about its topic: a whole sentence about people, true outside the story too, with no names in it.</p>' +
+    '<p>&ldquo;The Gift of the Magi&rdquo;. Plot: a poor couple each sell a treasure to buy the other a present. Topic: presents. Theme, one way to say it: the best gift is what you give up for somebody, not what you buy.</p>' +
+    '<p>A theme is not an order, either. &ldquo;Always lock your door&rdquo; is a <b>moral</b>, and stories are bad at morals.</p>' +
+    '<p>To find a theme, look for what keeps coming back. Between drafts a writer cuts nearly everything. What survives every cut is the theme.</p>' +
+    '<p class="rule">And the ending must agree with the theme. An ending that fights it feels wrong, even when the reader cannot say why.</p>';
+  $('#labels').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'plant label');
+    ER.read({ html: LABELS, cls: 'beds', clue: { id: 'titles', title: 'The title bed', kind: 'Plant labels' }, done: function () {
+      if (told.set('labels')) { paint(); ER.say('&ldquo;A crime, a crime, a question, a visitor,&rdquo; says Phoebe, counting along the row. &ldquo;Then everybody&rsquo;s silly ideas. Then reading.&rdquo;'); }
+    } });
+  });
+  $('#ho7').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HO7, cls: 'ho', clue: { id: 'theme', title: 'Theme is not plot', kind: 'Handout' }, done: function () {
+      HT.terms(['plot', 'topic', 'theme', 'moral']);
+      if (told.set('ho7')) { paint(); ER.say('&ldquo;What survives every cut,&rdquo; says Phoebe, very quietly. &ldquo;She would put it like that.&rdquo;'); }
+    } });
+  });
+  $('#ph').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;D, A, Y,&rdquo; says Phoebe, to herself.'); return; }
+    ER.talk({
+      who: 'Phoebe Gosling', role: 'Gran&rsquo;s granddaughter · twelve', face: window.FACE('phoebe'),
+      lines: [
+        { note: 'Phoebe has not looked at you since the attic. She is picking at a plant label with her thumbnail.', a: '&ldquo;It&rsquo;s only a story,&rdquo; she says. &ldquo;Everybody keeps looking at me.&rdquo;' },
+        { q: 'What survives every draft?', a: '&ldquo;The pencils,&rdquo; she says. &ldquo;She moves them, but she never cuts them. The biscuits, counted. She notices everything: that&rsquo;s the narrator.&rdquo; She stops. &ldquo;And the girl saying nothing. It&rsquo;s in all three drafts. She cut the weather and the names and the husband, and she never once cut the girl saying nothing.&rdquo;' },
+        { q: 'How do you think it should end?', a: '&ldquo;If she caught the girl, I think she should say nothing at all. Let her go on reading, and pretend not to know. Then nobody gets embarrassed. That&rsquo;s kind.&rdquo; She pulls up a weed. &ldquo;I mean, in the story.&rdquo;' },
+        { q: 'Why does Gran plant her titles?', a: '&ldquo;She says a title is a promise. Look at the order: they start as crimes and turn into something else. The last one isn&rsquo;t crossed out yet. It&rsquo;s got a question mark.&rdquo;' }
+      ],
+      clue: { id: 'ph3', title: 'Phoebe, on the path', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('ph')) paint(); }
+    });
+  });
+  $('#net').addEventListener('click', function () {
+    if (busy) return;
+    HT.seed('net', 'The strawberry net', '<p>A net over the strawberry patch, with a fox-sized hole in one side. There is a real fox; he really does eat the strawberries. He has never once been in the hut.</p>');
+    ER.say('The strawberry net, with a fox-sized hole. &ldquo;He&rsquo;s real,&rdquo; says Phoebe. &ldquo;He just doesn&rsquo;t read.&rdquo;');
+  });
+  HT.thing('#compost', 'compost', '&ldquo;Gran&rsquo;s compost,&rdquo; says Phoebe. &ldquo;She says it&rsquo;s where bad sentences go to become good soil.&rdquo;', isBusy);
+  HT.thing('#house', null, 'The tall thin house at the top of the garden. Phoebe&rsquo;s window is the top one on the left. You can see the hut from it.', isBusy);
+  HT.thing('#hutfar', null, 'The green hut, at the bottom of the garden, with its row of flowerpots by the step and an apple tree leaning over its roof.', isBusy);
+  HT.thing('#washing', null, 'Two tea towels, one of Martin&rsquo;s shirts and two of Gran&rsquo;s pages, drying in the sun.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#line').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six sentences and three endings, pegged in a row.'); return; }
+    if (!ready()) { ER.say('&ldquo;Read the labels and the handout first,&rdquo; says Phoebe. &ldquo;And talk to me, I suppose.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: the washing line ---------- */
+  var TS = [
+    ['t1', 'An old writer finds out who has been coming into her hut at night.'],
+    ['t2', 'Reading and writing.'],
+    ['t3', 'Phoebe wants to be a writer, and Gran is glad.'],
+    ['t4', 'Always lock your door at night.'],
+    ['t5', 'Everybody wants to be noticed, even the one who does all the noticing.'],
+    ['t6', 'Foxes, burglars and biscuits.']
+  ];
+  var HS = [
+    ['h1', 'She says nothing, and leaves the door unlocked, so that the girl can go on reading in secret for ever.', 'Last line: Some secrets are better kept.'],
+    ['h2', 'She fits a lock to the hut and writes only by day, and the visits stop.', 'Last line: And that was the end of that.'],
+    ['h3', 'She puts a second chair at her desk, sharpens two pencils, and at the bottom of the page she writes:', 'Last line: Come in by day.']
+  ];
+  var PEG = [['p', 'PLOT', 'says what happens', '#c84a3a'], ['t', 'TOPIC', 'only a word or two', '#e8b830'], ['n', 'NAMES', 'only about these people', '#3a6aa8'], ['m', 'MORAL', 'an order', '#2a2a2a'], ['h', 'THEME', 'passes every test', '#3a9a4a'], ['x', 'FIGHTS IT', 'the ending fights the theme', '#8a3a8a'], ['f', 'FITS', 'the ending agrees', '#2a8a8a']];
+  var WHYT = {
+    p: 'That one says what happens. Gran&rsquo;s handout calls that plot.',
+    t: 'That is only a word or two, a list of things: a topic. A theme is a whole sentence that says something about people.',
+    n: 'That one has names in it. It is only about these people; a theme is true outside the story too.',
+    m: 'That is an order. Gran&rsquo;s handout calls an order a moral, and says stories are bad at them. And every draft says no to it: nothing bad ever came in through the unlocked door.',
+    h: 'That is the one sentence that is about people, true outside the story, with no names in it, and not an order. And it is what every draft keeps coming back to.'
+  };
+  function openLock() {
+    var put = ER.flag('e-put') || {}, peg = null, done = false;
+    lock = ER.el('div', 'line');
+    var h = '<h5>Gran&rsquo;s washing line &middot; what is the story about, underneath? And which ending agrees?</h5><div class="row t"><small>Six sentences that want to be the theme</small>';
+    TS.forEach(function (t) { h += '<div class="sh" data-k="' + t[0] + '"><span class="pg2"></span>' + t[1] + '<span class="vd"></span></div>'; });
+    h += '</div><div class="row h"><small>Three ways the story could end</small>';
+    HS.forEach(function (t) { h += '<div class="sh" data-k="' + t[0] + '"><span class="pg2"></span>' + t[1] + '<i>' + t[2] + '</i><span class="vd"></span></div>'; });
+    h += '</div><div class="pegs">';
+    PEG.forEach(function (p) { h += '<button type="button" class="pegb" data-p="' + p[0] + '"><i style="background:' + p[3] + '"></i><span>' + p[1] + '<small>' + p[2] + '</small></span></button>'; });
+    h += '</div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="peg">Ask Phoebe</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function name(k) { for (var i = 0; i < PEG.length; i++) if (PEG[i][0] === k) return PEG[i]; return null; }
+    function draw() {
+      ER.$$('.sh', lock).forEach(function (s) {
+        var k = s.getAttribute('data-k'), p = put[k] ? name(put[k]) : null;
+        s.querySelector('.pg2').style.background = p ? p[3] : '#d8d0c0';
+        s.querySelector('.vd').textContent = p ? p[1] : '';
+        s.classList.toggle('want', !!peg);
+      });
+      ER.$$('.pegb', lock).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === peg); });
+    }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var b = e.target.closest('.pegb'), s = e.target.closest('.sh');
+      ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); });
+      if (b) { var p = b.getAttribute('data-p'); peg = peg === p ? null : p; HT.sfx.peg(); draw(); return; }
+      if (s && peg) {
+        var k = s.getAttribute('data-k'), isEnd = k.charAt(0) === 'h', forEnd = peg === 'x' || peg === 'f';
+        if (isEnd !== forEnd) { msg(isEnd ? 'The endings take FITS or FIGHTS IT: does the ending agree with the theme?' : 'FITS and FIGHTS IT are for the three endings. The six sentences take PLOT, TOPIC, NAMES, MORAL or THEME.'); return; }
+        put[k] = peg; HT.sfx.peg(); ER.flag('e-put', put); draw(); return;
+      }
+      if (s) msg('First click a peg at the bottom, then the page you want to peg it to.');
+    });
+    foot.querySelector('#peg').addEventListener('click', function () {
+      if (done) return;
+      var all = TS.concat(HS), i, k;
+      var left = all.filter(function (t) { return !put[t[0]]; }).length;
+      if (left === all.length) { ER.sfx.no(); msg('Nothing is pegged yet. Click a peg, then a page.'); return; }
+      if (left) { ER.sfx.no(); msg('&ldquo;Every page gets a peg,&rdquo; says Phoebe. &ldquo;Gran says a page without a peg ends up in next door&rsquo;s garden. You&rsquo;d know.&rdquo;' + left + ' still ' + (left === 1 ? 'has' : 'have') + ' none.'); return; }
+      var themes = TS.filter(function (t) { return put[t[0]] === 'h'; }).length;
+      if (themes > 1) { ER.sfx.no(); msg('&ldquo;A story only has room for one theme,&rdquo; says Phoebe. &ldquo;That&rsquo;s ' + themes + '.&rdquo; Test each THEME again: is it a whole sentence, about people, true outside the story, with no names and no order in it?'); return; }
+      for (i = 0; i < TS.length; i++) {
+        k = TS[i][0];
+        if (!ER.check(k, put[k])) {
+          ER.sfx.no(); lock.querySelector('.sh[data-k="' + k + '"]').classList.add('bad');
+          msg((put[k] === 'h' ? 'Phoebe shakes her head. &ldquo;Does it pass every test?&rdquo; ' : '&ldquo;Is that the test it fails?&rdquo; says Phoebe. ') + 'Read it again against Gran&rsquo;s handout: plot, topic, names, an order. (Phoebe only ever points at the first page that is wrong.)');
+          return;
+        }
+      }
+      for (i = 0; i < HS.length; i++) {
+        k = HS[i][0];
+        if (!ER.check(k, put[k])) {
+          ER.sfx.no(); lock.querySelector('.sh[data-k="' + k + '"]').classList.add('bad');
+          if (k === 'h1') msg('&ldquo;But it&rsquo;s kind,&rdquo; says Phoebe. &ldquo;Nobody gets embarrassed.&rdquo; She hears herself, and stops. In that ending nobody is noticed: the girl stays a secret, and the narrator pretends not to see her. Does that agree with the theme, or fight it?');
+          else if (k === 'h2') msg('A lock shuts the reader out. Who is noticed in that ending? Does it agree with the theme, or fight it?');
+          else msg('In this ending both of them are seen: the girl is asked in, and finds out the narrator knew all along. Does that fight the theme?');
+          return;
+        }
+      }
+      var cand = all.map(function (t) { return t[0] + put[t[0]]; }).join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The pegs will not close. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('e-file', file);
+      HT.sfx.peg();
+      msg('Phoebe reads the last ending twice. The second time, she reads it to herself.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2400);
+    });
+    draw();
+    msg('Click a peg at the bottom, then a page on the line. Every page gets the peg for the test it fails. One sentence passes them all.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    HT.mine('themeline', 'The washing line', '<p>PLOT: an old writer finds out who has been coming into her hut. TOPIC: reading and writing; foxes, burglars and biscuits. NAMES: Phoebe wants to be a writer. MORAL: always lock your door (and every draft says no to it).</p>' +
+      '<p>THEME: Everybody wants to be noticed, even the one who does all the noticing. It is what survives every draft: the pencils, the biscuits counted, the girl saying nothing. And the titles go from crimes to reading.</p>' +
+      '<p>The ending that agrees: a second chair, two pencils, and at the bottom of the page, Come in by day. A secret kept for ever and a lock on the door both fight it: in them, nobody is seen.</p><p>Gran&rsquo;s note: the tin opens to the last word of the story.</p>');
+    HT.terms(['plot', 'topic', 'theme', 'moral']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;Come in by day,&rdquo; says Phoebe. She says it twice. The second time it is not to you.',
+      '&ldquo;Four words. And the last one has three letters,&rdquo; she says. &ldquo;D, A, Y. That&rsquo;s the tin.&rdquo; She does not move towards the hut.',
+      'The sun has gone behind the house, and the garden turns blue at the edges. &ldquo;I&rsquo;ll be at the bench,&rdquo; says Phoebe. &ldquo;Behind the hut. Nobody ever sits there.&rdquo; She walks off down the path, past the hut, and round the back of it.'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>
