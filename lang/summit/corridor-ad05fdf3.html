@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Meeting Room 3 · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#c8ccc4;--accent:#2a7a5a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(236,238,232,.97);--tc-ink:#1c2420;--cap-bg:rgba(236,238,232,.96);--cap-ink:#1c2420;--panel:#f8f9f6;--panel-ink:#1c2420;--face-bg:#1f2f55;--q-ink:#2a7a5a;
+    --fade:#e8eae4;--hud-bg:rgba(236,238,232,.9);--hud-ink:#1c2420;--hud-line:rgba(28,36,32,.3);--ov-bg:rgba(20,26,22,.62)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#2a7a5a}
+  .tc-theme{color:#5a6a8a}
+  .hbtn b{color:#fff}
+  #tube1{animation:tube 4.2s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:1}91%{opacity:1}92%{opacity:.3}94%{opacity:1}96%{opacity:.4}97%{opacity:1}}
+  #exitg{animation:exitg 3s steps(2,end) infinite}
+  @keyframes exitg{50%{opacity:.85}}
+  .pmsg{color:#f4f6f2}
+  .ck .btn{--accent:#d8f4e2}
+  /* the cork board */
+  .ck{width:min(1140px,97vw);background:#b8865a;background-image:radial-gradient(#a87650 1px,transparent 1.5px);background-size:9px 9px;border:12px solid #6a4a2c;padding:12px 14px 8px;box-shadow:0 26px 70px rgba(0,0,0,.55)}
+  .ck-in{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+  .ck h5{margin:0 0 5px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff8ec;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .said,.mean{display:block;width:100%;text-align:left;border:0;cursor:pointer;margin:0 0 6px;box-shadow:0 3px 7px rgba(0,0,0,.35)}
+  .said{background:#fdfcf6;color:#1c2420;padding:6px 10px 6px 34px;font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.28;position:relative}
+  .said small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;color:#6a6a5a;margin-bottom:1px}
+  .said .no{position:absolute;left:7px;top:7px;width:20px;height:20px;line-height:20px;border-radius:50%;background:#c0392b;color:#fff;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;text-align:center}
+  .said .got{display:block;margin-top:3px;font-family:'Kalam',cursive;font-size:15px;color:#2a7a5a}
+  .said.on{outline:3px solid #f2c94c}
+  .said.bad{outline:3px solid #e8574a;background:#fbe8e4}
+  .mean{background:#fff2a8;color:#2a2410;padding:7px 10px;font-family:'Kalam',cursive;font-size:16.5px;line-height:1.25;transform:rotate(-.5deg)}
+  .mean:nth-child(odd){transform:rotate(.6deg);background:#ffe9a0}
+  .mean.used{opacity:.55}
+  .mean .pin{float:right;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#c0392b}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="corr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a6a64"/><stop offset="1" stop-color="#8a9a92"/></linearGradient>
+  <pattern id="tiles" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#9a9a8a"/><path d="M0 0h80v80" fill="none" stroke="#8a8a7a" stroke-width="2"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a100c" stop-opacity=".1"/><stop offset="1" stop-color="#0a100c" stop-opacity=".45"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="#dfe2da"/>
+<!-- the glass wall, and the corridor beyond it -->
+<g><rect x="-1000" y="60" width="1530" height="560" fill="url(#corr)"/>
+  <path d="M-200 620L260 330L400 330L530 620z" fill="#6a6a5c"/><path d="M-200 60L260 260L400 260L530 60" fill="#7a8a84"/>
+  <rect x="260" y="260" width="140" height="70" fill="#2a3430"/><g id="exitg"><rect x="300" y="236" width="60" height="18" fill="#1a8a4a"/><text x="330" y="250" class="cX" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">EXIT</text></g>
+  <path d="M-60 140L250 270M-60 150L250 276" stroke="#f4f8f0" stroke-width="4"/><path id="tube1" d="M120 210L210 248" stroke="#fff" stroke-width="7"/>
+  <g fill="#4a5a54"><path d="M-40 250L120 300L120 520L-40 590z"/><path d="M150 310L220 330L220 470L150 500z"/></g>
+  <g fill="#f4f2ea"><rect x="0" y="290" width="70" height="20" transform="skewY(17)"/></g>
+  <text x="34" y="306" class="cX" font-size="11" font-weight="700" fill="#1c2420" transform="skewY(17)" text-anchor="middle">ROOM 2</text>
+  <g stroke="#c8d0cc" stroke-width="10" fill="none"><path d="M-1000 60H530V620H-1000"/><path d="M100 60v560M330 60v560"/></g>
+  <path d="M150 90l90 0M150 110l40 0" stroke="#fff" stroke-width="4" opacity=".3"/></g>
+<!-- the back wall of Meeting Room 3: the whiteboard and the cork board -->
+<g id="wb"><rect x="600" y="140" width="460" height="250" fill="#fbfcfa" stroke="#a8aca4" stroke-width="8"/>
+  <text x="620" y="180" class="cK" font-size="24" fill="#1d3a7a">Agenda &middot; Room 3 &middot; 14.00</text>
+  <text x="630" y="230" class="cK" font-size="22" fill="#1d3a7a">1. Sluices in a dry season</text><text x="630" y="280" class="cK" font-size="22" fill="#1d3a7a">2. The Old Bridge</text><text x="630" y="330" class="cK" font-size="22" fill="#1d3a7a">3. Tolls on the bridge</text>
+  <g id="verdicts" class="cK" font-size="20" font-weight="700" fill="#2a7a5a"></g>
+  <rect x="660" y="390" width="340" height="12" fill="#a8aca4"/></g>
+<g id="cork" class="hot"><rect x="1100" y="150" width="300" height="250" fill="#b8865a" stroke="#6a4a2c" stroke-width="10"/>
+  <rect x="1122" y="170" width="80" height="54" fill="#fdfcf6" transform="rotate(-3 1162 197)"/><rect x="1220" y="176" width="80" height="50" fill="#fff2a8" transform="rotate(4 1260 201)"/><rect x="1310" y="168" width="70" height="56" fill="#fdfcf6" transform="rotate(2 1345 196)"/>
+  <rect x="1140" y="250" width="90" height="50" fill="#fff2a8" transform="rotate(3 1185 275)"/><rect x="1250" y="256" width="100" height="50" fill="#fdfcf6" transform="rotate(-4 1300 281)"/>
+  <g fill="#c0392b"><circle cx="1162" cy="174" r="5"/><circle cx="1260" cy="180" r="5"/><circle cx="1345" cy="172" r="5"/><circle cx="1185" cy="254" r="5"/><circle cx="1300" cy="260" r="5"/></g>
+  <path d="M1162 174L1185 254M1345 172L1300 260" stroke="#c0392b" stroke-width="2"/></g>
+<rect x="530" y="600" width="2600" height="900" fill="url(#tiles)"/><rect x="-1000" y="620" width="1530" height="900" fill="url(#tiles)"/>
+<!-- the table -->
+<g><path d="M560 580h720l60 70H500z" fill="#e8e4d8"/><path d="M500 650h840v18H500z" fill="#b8b4a8"/><path d="M540 668v120M1300 668v120" stroke="#8a8a80" stroke-width="10"/>
+  <path d="M1170 600q0 -26 14 -34h22q14 8 14 34z" fill="#c8e0e8" opacity=".8"/></g>
+<g id="rec" class="hot"><rect x="720" y="590" width="80" height="34" rx="5" fill="#2a2c34"/><circle cx="740" cy="607" r="8" fill="#e8574a"/><rect x="756" y="600" width="34" height="14" fill="#5ad08a"/></g>
+<g id="card" class="hot"><rect x="930" y="592" width="100" height="40" fill="#fdfdfb" stroke="#1f2f55" stroke-width="3" transform="rotate(-2 980 612)"/><rect x="930" y="592" width="100" height="10" fill="#1f2f55" transform="rotate(-2 980 612)"/></g>
+<!-- the chair with Noémie's notepad -->
+<g><path d="M1380 690v-160h90v160" fill="none" stroke="#3a3a40" stroke-width="10"/><rect x="1370" y="640" width="110" height="20" fill="#3a3a40"/><path d="M1385 660v120M1465 660v120" stroke="#3a3a40" stroke-width="8"/></g>
+<g id="pad" class="hot"><rect x="1390" y="610" width="60" height="80" fill="#fdfcf6" stroke="#8a8a80" stroke-width="2" transform="rotate(-10 1420 650)"/><path d="M1396 616h50" stroke="#c0392b" stroke-width="3" transform="rotate(-10 1420 650)"/><g stroke="#1d3a7a" stroke-width="2" transform="rotate(-10 1420 650)"><path d="M1400 630h20l6 -6M1402 646h30M1400 662l14 -6 14 6M1402 678h24"/></g></g>
+<g id="udo" class="hot" transform="translate(380 908) scale(1.06)"></g>
+<g id="morag" class="hot" transform="translate(1540 904) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out to the terrace</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, ck = null, K;
+
+  $('#udo').innerHTML = SM.who('udo');
+  $('#morag').innerHTML = SM.who('morag', { cup: '#e8e4dc' });
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'corridor', no: 'IV', title: 'Meeting Room 3',
+    go: 'Along the corridor',
+    intro: [
+      'In the lounge you put the Ambassador&rsquo;s three notes right: &ldquo;Dear Minister&rdquo; and &ldquo;would be most grateful&rdquo; for Madame Rouvier, &ldquo;Could you &hellip; please?&rdquo; for the Ostrel office, &ldquo;Can you lot pop up&rdquo; for the interpreters. The treaty sentence, the order and the text message stayed in the tray. Both sides said yes. Madame Rouvier&rsquo;s yes had a condition.',
+      'She wants to know exactly what was agreed about the sluices at two o&rsquo;clock this afternoon in Meeting Room 3, half way along the corridor of meeting rooms. It is a quarter to one.'
+    ],
+    exit: {"next":"terrace","w":{"0f9e9399":"11932f21"}}, tags: {"s1":["5e132e85"],"s2":["f5161e97"],"s3":["a7402488"],"s4":["a75ad9a2"],"s5":["922b9d36"],"s6":["d1061339"],"s7":["1b4d76fe"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('d-told'); nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  var ORDER = ['udo', 'card', 'rec', 'pad'];
+  function paint() {
+    var next = null;
+    ORDER.forEach(function (k) { if (!next && !K.has(k)) next = k; });
+    ORDER.forEach(function (k) { $('#' + k).classList.toggle('ready', k === next); });
+    $('#cork').classList.toggle('ready', !next && !nextFile);
+    ER.pips(ORDER.filter(function (k) { return K.has(k); }).length + (nextFile ? 1 : 0), ORDER.length + 1);
+    if (nextFile) verdicts();
+  }
+  function verdicts() {
+    $('#verdicts').innerHTML = '<text x="930" y="230">AGREED: 2 days</text><text x="900" y="280">AGREED: 1 March</text><text x="900" y="330" fill="#c0392b">NOT agreed</text>';
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you out to the terrace, where Noémie is.']];
+    if (ck && ck.isOpen()) return ['cork', [
+      'Click a thing that was said, on the left, and then what it meant, on the right. The Ambassador&rsquo;s card is in your notebook: it explains note, welcome, agree, understatement and polite indirectness. Two meanings are left over.',
+      'Numbers 4 and 6 use the same words. Who says each one, and to whom? A minister speaking to the other side is not a chair speaking to her own chief of staff.',
+      'Number 1 is a plain promise. &ldquo;We note&rdquo; is only &ldquo;we have heard you&rdquo;. &ldquo;Not entirely without difficulty&rdquo; means it would hurt. &ldquo;A frank exchange of views&rdquo; is an argument. And the Chair&rsquo;s &ldquo;I wonder if it might be possible&rdquo; to Udo means: do it.'
+    ]];
+    if (!K.has('udo')) return ['udo', ['Mr Weismann is on the left, by the glass. Talk to him.']];
+    if (!K.has('card')) return ['card', ['The Ambassador&rsquo;s card is on the table, on the right. Read it.']];
+    if (!K.has('rec')) return ['rec', ['The little recorder on the table kept everything said in this room. Click it.']];
+    if (!K.has('pad')) return ['pad', ['Noémie left her notepad on the chair on the right. Have a look at it.']];
+    return ['cork', ['Now the cork board on the right-hand wall. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The sluices were agreed at two. Two days. Now the terrace.'); return; }
+    if (K.has('in')) { busy = false; ER.say('Meeting Room 3: the table, the whiteboard, the cork board.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'The corridor of meeting rooms is lit by one long tube that flickers every few seconds, as if it is thinking about something. Rooms 1 to 5, all glass, all empty.',
+      'Meeting Room 3 still has the afternoon in it: six chairs, a jug of water, an agenda on the whiteboard in blue pen, and a cork board that somebody started to use and gave up on.',
+      'Mr Weismann holds out three typed sheets, as if he would rather not. &ldquo;My minutes,&rdquo; he says.'
+    ], function () { busy = false; });
+  }
+
+  var MIN = '<h4>Minutes &middot; Meeting Room 3 &middot; Thursday 19 November &middot; 14.00&ndash;14.50</h4><h3>U. Weismann, for the Chair</h3>' +
+    '<p><b>1. Sluices.</b> Ostrel agrees to open the sluices when the river is below the red mark for two days. Sauvenne agrees.</p>' +
+    '<p><b>2. Old Bridge.</b> Ostrel offers to reopen the Old Bridge on 1 March 2027. Sauvenne welcomes the offer.</p>' +
+    '<p><b>3. Tolls.</b> The ministers had a frank exchange of views on the tolls. Ostrel notes Sauvenne&rsquo;s concerns. To be looked at again in the spring.</p>' +
+    '<p class="red">Sent to the drafting committee at 15.40, by four as asked. U.W.</p>';
+  $('#udo').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Weismann is reading his own first sentence again, very slowly, the way you look at a step you have just fallen down.'); return; }
+    ER.talk({
+      who: 'Udo Weismann', role: 'Chief of staff to the Chair', face: SM.face('udo'),
+      lines: [
+        { a: '&ldquo;I took the minutes in this room at two o&rsquo;clock. The Ambassador asked me for them by four, and the drafting committee wrote the agreement&rsquo;s articles from them. If anything was agreed here, it is in my minutes.&rdquo;' },
+        { q: 'Then what is the problem?', a: '&ldquo;Ostrel&rsquo;s people say the sluices were agreed. Sauvenne&rsquo;s people say the same. But each side says the other has gone back on it, and the minutes of a meeting are only one man&rsquo;s English.&rdquo; He hands them over. &ldquo;Diplomats never say what they mean. The Ambassador has a card about it. She leaves it on every table.&rdquo;' },
+        { a: '&ldquo;The room&rsquo;s recorder was on: the interpreter&rsquo;s microphone records everything. And Ms Vasseur interpreted here, consecutive, so her notes are somewhere. She leaves nothing behind. Except, today, apparently, her notepad.&rdquo;' }
+      ],
+      clue: { id: 'udo4', title: 'Mr Weismann: my minutes', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addClue('minutes', 'The Chair&rsquo;s minutes, Meeting Room 3', MIN, 'sheet', 'Minutes');
+        SM.terms(['minutes']);
+        if (K.tell('udo')) { paint(); ER.say('The Ambassador&rsquo;s card is on the table.'); }
+      }
+    });
+  });
+
+  var CARD = '<h4>Ambassador Ortúzar&rsquo;s desk card &middot; since 1987</h4><h3>What we say, and what we mean</h3>' +
+    '<p>Diplomats rarely say no, and rarely shout. They use <b>understatement</b>, saying less than they mean, so that nobody has to lose face. &ldquo;That would not be without difficulty&rdquo; means &ldquo;That is very hard, and probably impossible.&rdquo; &ldquo;A frank exchange of views&rdquo; means an argument.</p>' +
+    '<p>Watch the verbs. To <b>note</b> something, or take note of it, is only to say that you have heard it. To <b>welcome</b> it is to say that you like it. Only to agree, or to undertake to do something, is to promise.</p>' +
+    '<p>Watch who is speaking, and to whom. &ldquo;I wonder if it might be possible to &hellip;&rdquo; is polite <b>indirectness</b>. From a chair to her own staff, it is an order. From a minister to the other side of the table, it is often a way of saying not now, or not ever.</p>' +
+    '<p>And when a diplomat speaks plainly, listen hardest of all.</p>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('udo')) { ER.say('A card on the table. Mr Weismann wants a word first.'); return; }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'diplo', title: 'Card: what we say, and what we mean', kind: 'The Ambassador' }, done: function () {
+      SM.terms(['understatement', 'indirectness']);
+      if (K.tell('card')) { paint(); ER.say('The recorder on the table, next.'); }
+    } });
+  });
+
+  var TR = '<h4>Meeting Room 3 &middot; 14.00&ndash;14.50 &middot; the interpreter&rsquo;s microphone</h4><p class="sub">Present: Mr Otterburn and an adviser (Ostrel); Mme Rouvier and Me Taillefer (Sauvenne); the Chair, who spoke English in this small meeting; Mr Weismann (minutes). Consecutive interpreting, English and French: N. Vasseur. Madame Rouvier&rsquo;s French is given here as Ms Vasseur gave it in English.</p>' +
+    '<p><span class="t">14.06</span> <b>THE CHAIR</b>: Shall we begin with the sluices?</p>' +
+    '<p><span class="t">14.07</span> <b>MR OTTERBURN</b>: Fine. Here it is. When the river at the Old Bridge falls below the red mark, we open the sluices. Give us two days to warn the farms below the dam. Two days, no more. You have my word.</p>' +
+    '<p class="ch"><span class="t">14.09</span> <b>MME ROUVIER</b>: Forty-eight hours. Sauvenne agrees. Thank you, Minister.</p>' +
+    '<p><span class="t">14.15</span> <b>MR OTTERBURN</b>: And the Old Bridge. Ostrel offers to reopen it on the first of March.</p>' +
+    '<p class="ch"><span class="t">14.16</span> <b>MME ROUVIER</b>: Sauvenne welcomes the offer to reopen the Old Bridge on the first of March.</p>' +
+    '<p class="ch"><span class="t">14.24</span> <b>MME ROUVIER</b>: Sauvenne would like the bridge to be free of tolls.</p>' +
+    '<p><span class="t">14.25</span> <b>MR OTTERBURN</b>: We note Sauvenne&rsquo;s concerns about the tolls.</p>' +
+    '<p class="ch"><span class="t">14.31</span> <b>MME ROUVIER</b>: A toll on every lorry would not be entirely without difficulty for our farmers.</p>' +
+    '<p><span class="t">14.38</span> <b>MR OTTERBURN</b>: I wonder if it might be possible to look at the tolls again in the spring.</p>' +
+    '<p><span class="t">14.49</span> <b>THE CHAIR</b>, to Mr Weismann: Udo, I wonder if it might be possible to have the minutes by four.</p>';
+  $('#rec').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('udo')) { ER.say('A small recorder, still switched on. Mr Weismann first.'); return; }
+    ER.read({ html: TR, cls: 'log', clue: { id: 'room3', title: 'Meeting Room 3, 14.00: the recording', kind: 'Transcript' }, done: function () {
+      if (K.tell('rec')) { paint(); ER.say('Noémie&rsquo;s notepad is on the chair on the right.'); }
+    } });
+  });
+
+  var PADSVG = '<svg viewBox="0 0 520 330"><rect width="520" height="330" fill="#fdfcf6"/><path d="M0 0h520" stroke="#c0392b" stroke-width="6"/>' +
+    '<g font-family="Kalam,cursive" font-size="21" fill="#1d3a7a">' +
+    '<text x="20" y="40">OST &#8594; open &#9636;&#9636;</text><text x="250" y="40">when river &lt; red</text>' +
+    '<text x="40" y="76">2 d = 48 h !!</text><text x="230" y="76">warn farms &#8595; dam</text>' +
+    '<text x="40" y="112">&#8220;my word&#8221;</text><text x="200" y="112">&#10003;&#10003;</text>' +
+    '<text x="20" y="150">SAUV: 48 h &#10003;</text>' +
+    '<path d="M20 166h480" stroke="#9aa4c4" stroke-width="2"/>' +
+    '<text x="20" y="200">Bridge: OST offer &#8594; 1/3</text><text x="330" y="200">SAUV &#9786; welc.</text>' +
+    '<path d="M20 216h480" stroke="#9aa4c4" stroke-width="2"/>' +
+    '<text x="20" y="250">Tolls: SAUV want 0</text><text x="260" y="250">OST &#8220;note&#8221;</text>' +
+    '<text x="40" y="286">farmers: &#8220;not w/o diff.&#8221;</text><text x="40" y="318">OST: spring??</text></g></svg>';
+  var PAD = '<h4>Left on a chair in Meeting Room 3</h4><h3>Noémie&rsquo;s notepad</h3>' + PADSVG +
+    '<p class="red">Morag: &ldquo;Consecutive notes. Every interpreter has their own symbols: an arrow for gives or goes to, a tick for agreed, &lt; for below, a smile for pleased. You write ideas, not words, and you speak from them a minute later. These are Noémie&rsquo;s, from two o&rsquo;clock. Look how clear they are.&rdquo;</p>';
+  $('#pad').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('udo')) { ER.say('A notepad on a chair. Mr Weismann first.'); return; }
+    ER.read({ html: PAD, cls: 'sheet', clue: { id: 'pad', title: 'Noémie&rsquo;s consecutive notes, 14.00', kind: 'Notepad' }, done: function () {
+      if (K.tell('pad')) { paint(); ER.say('Now the cork board on the wall.'); }
+    } });
+  });
+
+  $('#morag').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Two days,&rdquo; says Morag. &ldquo;Plainly said. And nobody listened to the plain bit.&rdquo;' : '&ldquo;Read everything first,&rdquo; says Morag, warming her hands on her tea. &ldquo;Then the cork board. Diplomats are like idioms: you translate what they mean, not what they say.&rdquo;');
+  });
+  SM.thing('#wb', null, 'The afternoon&rsquo;s agenda, in blue pen: sluices, the Old Bridge, tolls.', isBusy);
+
+  /* ---------- the cork board ---------- */
+  var SAID = [
+    ['s1', 'Mr Otterburn, 14.07', '&ldquo;When the river at the Old Bridge falls below the red mark, we open the sluices. Give us two days to warn the farms below the dam. Two days, no more. You have my word.&rdquo;'],
+    ['s2', 'Mme Rouvier, 14.16', '&ldquo;Sauvenne welcomes the offer to reopen the Old Bridge on the first of March.&rdquo;'],
+    ['s3', 'Mr Otterburn, 14.25', '&ldquo;We note Sauvenne&rsquo;s concerns about the tolls.&rdquo;'],
+    ['s4', 'Mr Otterburn, 14.38', '&ldquo;I wonder if it might be possible to look at the tolls again in the spring.&rdquo;'],
+    ['s5', 'Mme Rouvier, 14.31', '&ldquo;A toll on every lorry would not be entirely without difficulty for our farmers.&rdquo;'],
+    ['s6', 'The Chair to Mr Weismann, 14.49', '&ldquo;Udo, I wonder if it might be possible to have the minutes by four.&rdquo;'],
+    ['s7', 'The minutes, item 3', '&ldquo;The ministers had a frank exchange of views on the tolls.&rdquo;']];
+  var MEAN = [['th', 'We will think about it, and the answer is probably yes.'], ['hd', 'We have heard what you said. That is all.'], ['di', 'Have them on my desk by four.'],
+    ['pr', 'We promise: within two days, every time.'], ['ag', 'They argued about the tolls.'], ['ya', 'We agree: no tolls.'], ['nn', 'Not now, and perhaps not ever.'],
+    ['ht', 'That would hurt our farmers badly.'], ['lk', 'We are glad of it, and we want it.']];
+  var WHY = {
+    s1: 'Read it plainly. Is anything in it hedged, or is it a promise?',
+    s2: '&ldquo;Welcome&rdquo; is warmer than &ldquo;note&rdquo;. Here it is how Sauvenne feels about Ostrel&rsquo;s offer.',
+    s3: 'Look at the Ambassador&rsquo;s card: what is it to note something?',
+    s4: 'Who is speaking, to whom? A minister, to the other side, about something he does not want to give.',
+    s5: 'Understatement. What does &ldquo;not entirely without difficulty&rdquo; really mean, on the card?',
+    s6: 'The same words as number 4, from a different person to a different person: the Chair, to her own chief of staff.',
+    s7: 'A &ldquo;frank exchange of views&rdquo;: the card says what that means.'
+  };
+  $('#cork').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The cork board, full of red string. Two days, agreed. Tolls, not.'); return; }
+    var miss = ORDER.filter(function (k) { return !K.has(k); });
+    if (miss.length) { ER.say('&ldquo;Not yet,&rdquo; says Morag. &ldquo;The card, the recording and the notepad first. Then pin it up.&rdquo;'); return; }
+    if (!ck) ck = makeCork();
+    ck.open();
+  });
+  function makeCork() {
+    var box = ER.el('div', 'pz ck'), st = ER.flag('d-ck') || {}, pick = null, done = false;
+    box.innerHTML = '<div class="ck-in"><div><h5>What was said</h5>' + SAID.map(function (s, i) {
+      return '<button type="button" class="said" data-s="' + s[0] + '"><span class="no">' + (i + 1) + '</span><small>' + s[1] + '</small>' + s[2] + '<span class="got"></span></button>';
+    }).join('') + '</div><div><h5>What it meant</h5>' + MEAN.map(function (m) { return '<button type="button" class="mean" data-m="' + m[0] + '"><span class="pin"></span>' + m[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go">Answer Madame Rouvier</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function textOf(m) { for (var i = 0; i < MEAN.length; i++) if (MEAN[i][0] === m) return MEAN[i][1]; return ''; }
+    function draw() {
+      ER.$$('.said', box).forEach(function (b) { var s = b.getAttribute('data-s'); b.classList.toggle('on', s === pick); b.querySelector('.got').textContent = st[s] ? '→ ' + textOf(st[s]) : ''; });
+      ER.$$('.mean', box).forEach(function (b) {
+        var m = b.getAttribute('data-m'), who = [];
+        SAID.forEach(function (s, i) { if (st[s[0]] === m) who.push(i + 1); });
+        b.classList.toggle('used', who.length > 0); b.querySelector('.pin').textContent = who.join(', ');
+      });
+    }
+    ER.$$('.said', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; var s = b.getAttribute('data-s'); pick = pick === s ? null : s; ER.sfx.click(); ER.$$('.said', box).forEach(function (n) { n.classList.remove('bad'); }); draw(); if (pick) msg('Now click what it meant, on the right.'); });
+    });
+    ER.$$('.mean', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (!pick) { msg('Click something that was said, on the left, first.'); return; }
+        var m = b.getAttribute('data-m');
+        Object.keys(st).forEach(function (s) { if (st[s] === m) delete st[s]; });
+        st[pick] = m; pick = null; ER.flag('d-ck', st); SM.sfx.string(); draw(); msg('Pinned. Red string from one card to the other.');
+      });
+    });
+    box.querySelector('#k-go').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.said', box).forEach(function (n) { n.classList.remove('bad'); });
+      var empty = SAID.filter(function (s) { return !st[s[0]]; });
+      if (empty.length) { ER.sfx.no(); msg('Mr Weismann: &ldquo;Seven things were said. Each needs its meaning before we answer a minister.&rdquo;'); return; }
+      for (var i = 0; i < SAID.length; i++) {
+        var s = SAID[i][0];
+        if (!ER.check(s, st[s])) { ER.sfx.no(); var n = box.querySelector('.said[data-s="' + s + '"]'); n.classList.add('bad'); ER.shake(n); msg('Morag taps card ' + (i + 1) + '. &ldquo;' + WHY[s] + '&rdquo;'); return; }
+      }
+      var cand = SAID.map(function (x) { return st[x[0]]; }).join('.');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('d-file', nextFile); paint();
+      SM.mine('agreed', 'What was agreed at two', '<p>SLUICES: AGREED. &ldquo;Two days, no more. You have my word.&rdquo; Plainly said: within 48 hours. Sauvenne agreed.</p><p>OLD BRIDGE: AGREED. Ostrel offered 1 March; Sauvenne welcomed it.</p><p>TOLLS: NOT AGREED. &ldquo;We note&rdquo; = we have heard you. &ldquo;I wonder if it might be possible &hellip; in the spring&rdquo; = not now. &ldquo;Not entirely without difficulty&rdquo; = it would hurt. &ldquo;A frank exchange of views&rdquo; = an argument.</p><p>The same words from the Chair to Udo = an order.</p><p>Nobody lied.</p>');
+      msg('<b>That is what they meant.</b> The sluices were agreed, plainly: two days. The bridge was agreed. The tolls were not: noted, put off, argued about. Nobody lied.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; ER.mood('tense');
+        ER.narrate([
+          'Mr Weismann writes a note to Madame Rouvier in his best formal English: the sluices were agreed at two o&rsquo;clock, to open within two days of the river falling below the red mark. He sends it by hand. Then he picks up his own minutes and reads the first item aloud.',
+          '&ldquo;&lsquo;Ostrel agrees to open the sluices when the river is below the red mark for two days.&rsquo;&rdquo; Morag puts her tea down. &ldquo;Udo. Open them for two days? Or open them after the river has been low for two days?&rdquo;',
+          'Mr Weismann opens his mouth and shuts it again. &ldquo;I meant within two days. That is what he said.&rdquo; &ldquo;It is not what you wrote,&rdquo; says Morag, quite gently. &ldquo;And at twenty to four it went to the drafting committee.&rdquo;',
+          '&ldquo;Then I will tell the Ambassador that myself,&rdquo; says Mr Weismann. He is pale, but he says it. &ldquo;But that is a sentence in my minutes, and the walk-out was about a word in the hall. The sluices were agreed at two, the hall broke up at ten to eleven, and in between, the only new voice in the room was the French booth.&rdquo;',
+          '&ldquo;Then let&rsquo;s go and ask the French booth,&rdquo; says Morag, and picks up a second cup of tea, which is not for her.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3200);
+    });
+    draw();
+    msg(Object.keys(st).length ? 'Your string is where you left it.' : 'Click a thing that was said, then what it meant. The Ambassador&rsquo;s card is in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

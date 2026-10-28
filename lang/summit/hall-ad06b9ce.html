@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Hall · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#2a2e3a;--accent:#e8b84a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(34,38,50,.97);--tc-ink:#f2f0ea;--cap-bg:rgba(30,34,46,.95);--cap-ink:#f2f0ea;--panel:#f8f7f2;--panel-ink:#1e2230;--face-bg:#6a5a48;--q-ink:#8a2a2a;
+    --fade:#0e1018;--hud-bg:rgba(30,34,46,.86);--hud-ink:#f2f0ea;--hud-line:rgba(242,240,234,.3);--ov-bg:rgba(10,12,18,.72)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#e8b84a}
+  .tc-theme{color:#c8b8e8}
+  .hbtn b{color:#1e2230}
+  #flagsO path.wave,#flagsS path.wave{animation:wave 5s ease-in-out infinite alternate}
+  @keyframes wave{to{transform:translate(0,3px)}}
+  #polisher{animation:polish 9s ease-in-out infinite alternate}
+  @keyframes polish{to{transform:translate(-120px,0)}}
+  #b1lit{animation:b1lit 5s steps(2,end) infinite}
+  @keyframes b1lit{50%{opacity:.8}}
+  /* the Minister's apology, booth-proofed */
+  .ap{width:min(1120px,97vw)}
+  .ap-in{display:grid;grid-template-columns:1.05fr 1fr;gap:14px;align-items:start}
+  .ap-letter{background:#fbf8ee;color:#1d2a4a;padding:18px 24px 14px;font-family:'Kalam',cursive;font-size:18.5px;line-height:1.5;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:rotate(-.4deg);border-top:10px solid #6a5a48}
+  .ap-letter p{margin:0 0 7px}
+  .ap-letter .idm{border-bottom:2px solid #c0392b;white-space:nowrap}
+  .ap-letter .idm b{display:inline-block;width:20px;height:20px;line-height:20px;margin-right:3px;border-radius:50%;background:#c0392b;color:#fff;font-family:'Outfit',sans-serif;font-size:12px;text-align:center;vertical-align:2px}
+  .ap-letter .sig{font-family:'Homemade Apple',cursive;font-size:17px;margin-top:6px}
+  .ap-slots{display:flex;flex-direction:column;gap:7px}
+  .ap-slots h5,.ap-tray h5{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#f2f0ea}
+  .slot{display:grid;grid-template-columns:200px 1fr;gap:8px;align-items:center;background:rgba(255,255,255,.07);padding:5px 7px;border-radius:3px;min-height:46px}
+  .slot .lab{font-family:'Gentium Book Plus',serif;font-size:15px;color:#e8e4da;line-height:1.2}
+  .slot .lab b{display:inline-block;width:20px;height:20px;line-height:20px;margin-right:4px;border-radius:50%;background:#c0392b;color:#fff;font-family:'Outfit',sans-serif;font-size:12px;text-align:center}
+  .slot .well{min-height:36px;border:2px dashed rgba(242,240,234,.4);border-radius:3px;display:flex;align-items:center}
+  .slot.bad .well{border-color:#e8574a;background:rgba(232,87,74,.15)}
+  .ap-tray{margin-top:10px;display:flex;flex-wrap:wrap;gap:7px;min-height:44px;padding:8px;background:rgba(0,0,0,.25);border-radius:4px}
+  .ap-tray h5{width:100%}
+  .stk{display:inline-block;padding:6px 11px 5px;background:#fff6c8;color:#3a2a6a;font-family:'Gentium Book Plus',serif;font-style:italic;font-size:15.5px;line-height:1.2;border-radius:2px;box-shadow:0 3px 8px rgba(0,0,0,.35);transform:rotate(-.6deg)}
+  .well .stk{transform:none;width:100%;box-shadow:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panels" width="120" height="400" patternUnits="userSpaceOnUse"><rect width="120" height="400" fill="#5a4636"/><rect x="6" y="0" width="108" height="400" fill="#644e3c"/><path d="M60 0v400" stroke="#4e3c2e" stroke-width="2"/></pattern>
+  <pattern id="carpet" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#2c3a5a"/><path d="M0 30h60M30 0v60" stroke="#26334f" stroke-width="2"/><circle cx="30" cy="30" r="3" fill="#3a4a6e"/></pattern>
+  <radialGradient id="spot" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#fff0c8" stop-opacity=".12"/><stop offset="1" stop-color="#fff0c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#05060a" stop-opacity=".2"/><stop offset="1" stop-color="#05060a" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="840" fill="url(#panels)"/>
+<rect x="-1000" y="-400" width="3600" height="150" fill="#3a2e24"/>
+<!-- the booths, high on the back wall -->
+<g><rect x="520" y="70" width="560" height="120" fill="#2a2018"/>
+  <rect id="b1lit" x="540" y="86" width="160" height="88" fill="#e8c890"/><rect x="720" y="86" width="160" height="88" fill="#141820"/><rect x="900" y="86" width="160" height="88" fill="#141820"/>
+  <g class="cM" font-size="13" fill="#c8b89a" text-anchor="middle"><text x="620" y="208">1 &middot; EN</text><text x="800" y="208">2 &middot; FR</text><text x="980" y="208">3 &middot; ES</text></g>
+  <path d="M590 174v-40q30 -14 60 0v40" fill="#5e4a78" opacity=".6"/></g>
+<!-- the flags -->
+<g id="flagsO"><g stroke="#c8b88a" stroke-width="5"><path d="M330 470V250M390 470V250M450 470V250"/></g>
+  <g><path class="wave" d="M333 254h48v46h-48z" fill="#2a5a9a"/><path d="M333 270h48v12h-48z" fill="#e8c24a"/><path class="wave" d="M393 254h48v46h-48z" fill="#2a5a9a"/><path d="M393 270h48v12h-48z" fill="#e8c24a"/><path class="wave" d="M453 254h48v46h-48z" fill="#2a5a9a"/><path d="M453 270h48v12h-48z" fill="#e8c24a"/></g></g>
+<g id="flagsS"><g stroke="#c8b88a" stroke-width="5"><path d="M1150 470V250M1210 470V250M1270 470V250"/></g>
+  <g><path class="wave" d="M1153 254h48v46h-48z" fill="#f4f2ec"/><path d="M1153 254h16v46h-16z" fill="#c8382e"/><path class="wave" d="M1213 254h48v46h-48z" fill="#f4f2ec"/><path d="M1213 254h16v46h-16z" fill="#c8382e"/><path class="wave" d="M1273 254h48v46h-48z" fill="#f4f2ec"/><path d="M1273 254h16v46h-16z" fill="#c8382e"/></g></g>
+<rect x="-1000" y="440" width="3600" height="1000" fill="url(#carpet)"/>
+<ellipse cx="800" cy="460" rx="700" ry="300" fill="url(#spot)" pointer-events="none"/>
+<!-- the cleaner with her polisher -->
+<g id="polisher"><path d="M1300 470v-60" stroke="#3a3a40" stroke-width="5"/><ellipse cx="1300" cy="474" rx="26" ry="7" fill="#5a5a62"/><g transform="translate(1340 478) scale(.42)"><path d="M-20 0v-100h17v100zM3 0v-100h17v100z" fill="#2a3550"/><path d="M-38 -94q-7 -138 38 -146t38 146z" fill="#5aa0a0"/><circle cx="0" cy="-274" r="24" fill="#8a5a40"/><path d="M-24 -276q2 -29 24 -29t24 29z" fill="#1a1410"/></g></g>
+<!-- the interpreters' table at the back, with the shared glossaries -->
+<g id="gloss" class="hot"><rect x="110" y="430" width="230" height="16" fill="#4a3a2c"/><path d="M130 446v50M320 446v50" stroke="#3a2c20" stroke-width="7"/>
+  <rect x="150" y="408" width="66" height="22" fill="#2a5a9a" transform="rotate(-4 183 419)"/><rect x="226" y="410" width="60" height="20" fill="#e8e4dc"/><text x="225" y="470" class="cM" font-size="11" fill="#e8dcc8" text-anchor="middle">INTERPRETERS</text></g>
+<!-- the horseshoe -->
+<g><path d="M260 720Q260 470 800 470Q1340 470 1340 720" fill="none" stroke="#3a2c20" stroke-width="64"/><path d="M260 720Q260 470 800 470Q1340 470 1340 720" fill="none" stroke="#6a523c" stroke-width="54"/>
+  <path d="M260 720Q260 470 800 470Q1340 470 1340 720" fill="none" stroke="#8a6c50" stroke-width="2" transform="translate(0 -22)"/>
+  <g fill="#14161c"><path d="M380 560q-4 -24 12 -38"/><circle cx="392" cy="522" r="4"/></g>
+  <g fill="#f4f2ec"><rect x="330" y="600" width="80" height="22" transform="rotate(-50 370 611)"/><rect x="1190" y="600" width="80" height="22" transform="rotate(50 1230 611)"/><rect x="760" y="452" width="80" height="22"/></g>
+  <g class="cM" font-size="10.5" font-weight="600" fill="#1e2230" text-anchor="middle"><text x="370" y="615" transform="rotate(-50 370 611)">OSTREL</text><text x="1230" y="615" transform="rotate(50 1230 611)">SAUVENNE</text><text x="800" y="467">CHAIR</text></g>
+  <g stroke="#14161c" stroke-width="3" fill="none"><path d="M300 640q-8 -20 6 -30M1300 640q8 -20 -6 -30M700 470q0 -20 14 -26M900 470q0 -20 -14 -26"/></g>
+  <g fill="#14161c"><path d="M436 520q0 -14 14 -14t14 14" stroke="#14161c" stroke-width="4" fill="none"/><path d="M1136 520q0 -14 14 -14t14 14" stroke="#14161c" stroke-width="4" fill="none"/><path d="M620 478q0 -14 14 -14t14 14" stroke="#14161c" stroke-width="4" fill="none"/></g></g>
+<g id="draft" class="hot"><rect x="470" y="548" width="60" height="44" fill="#fdfcf6" transform="rotate(-16 500 570)"/><path d="M480 560l40 -10M482 570l36 -9M484 580l30 -8" stroke="#3a3a6a" stroke-width="2" transform="rotate(-6 500 570)"/></g>
+<g id="sdesk" class="hot"><rect x="1062" y="548" width="58" height="44" fill="#fff6c8" transform="rotate(14 1091 570)"/><path d="M1072 560l36 9M1072 570l30 8" stroke="#3a3a6a" stroke-width="2" transform="rotate(14 1091 570)"/><path d="M1124 584l26 6" stroke="#c0392b" stroke-width="4"/></g>
+<!-- the recording desk -->
+<g id="desk" class="hot"><rect x="30" y="600" width="290" height="140" fill="#2a2c34"/><rect x="40" y="560" width="270" height="44" fill="#1a1c22"/>
+  <rect x="52" y="568" width="120" height="30" fill="#0e2a1e"/><path d="M58 584q10 -10 20 0t20 0t20 0t20 0t20 0" stroke="#5ad08a" stroke-width="2" fill="none"/>
+  <rect x="182" y="568" width="120" height="30" fill="#2a0e14"/><path d="M188 584q10 -6 20 0t20 0t20 0t20 0t20 0" stroke="#e8574a" stroke-width="2" fill="none"/>
+  <g fill="#5a5e6a"><rect x="60" y="626" width="14" height="60"/><rect x="90" y="626" width="14" height="60"/><rect x="120" y="626" width="14" height="60"/><rect x="150" y="626" width="14" height="60"/></g>
+  <g fill="#c8ccd6"><rect x="57" y="650" width="20" height="8"/><rect x="87" y="640" width="20" height="8"/><rect x="117" y="664" width="20" height="8"/><rect x="147" y="636" width="20" height="8"/></g>
+  <text x="240" y="660" class="cM" font-size="12" fill="#9aa0ac" text-anchor="middle">REC</text><circle cx="240" cy="680" r="8" fill="#e8574a"/></g>
+<!-- the lectern and its card -->
+<g id="lectern" class="hot"><path d="M1380 740l20 -230h80l20 230z" fill="#4a3a2c"/><path d="M1370 520l130 -26 10 30 -130 26z" fill="#6a523c"/><rect x="1400" y="498" width="60" height="40" fill="#fdfdfb" transform="rotate(-11 1430 518)"/><rect x="1400" y="498" width="60" height="8" fill="#2a5a9a" transform="rotate(-11 1430 518)"/></g>
+<g id="morag" class="hot" transform="translate(660 902) scale(1.0)"></g>
+<g id="otter" class="hot" transform="translate(1250 906) scale(1.04)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the delegates&rsquo; lounge</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, ap = null, fl = SM.fl, K;
+
+  $('#morag').innerHTML = SM.who('morag');
+  $('#otter').innerHTML = SM.who('otterburn');
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'hall', no: 'II', title: 'The Hall',
+    go: 'Down the back stairs',
+    intro: [
+      'In Booth One you set the relay board for the half hour after ten. Noémie has no Spanish, so while the Ambassador spoke Spanish, Booth Two listened to Booth One; and in Booth One, Mischa Ottaway had just turned the Ambassador&rsquo;s Spanish idiom into a cat with three feet. The cat was English before it was French.',
+      'That clears one complaint of five. The worst one is still the dog. It is twenty-five past eleven, and Morag takes you down the back stairs into the hall.'
+    ],
+    exit: {"next":"lounge","w":{"79aa8cf9":"f78dccbf"}}, tags: {"i1":["977bcf19"],"i2":["b50be6c9"],"i3":["7a57a14f"],"i4":["34749472"],"i5":["8a4fc43a"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('b-told'); nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  var ORDER = ['desk', 'lectern', 'otter', 'gloss', 'sdesk'];
+  function paint() {
+    var next = null;
+    ORDER.forEach(function (k) { if (!next && !K.has(k)) next = k; });
+    ORDER.forEach(function (k) { $('#' + k).classList.toggle('ready', k === next && K.has('morag')); });
+    $('#morag').classList.toggle('ready', !K.has('morag'));
+    $('#draft').classList.toggle('ready', !next && !nextFile);
+    var n = ORDER.filter(function (k) { return K.has(k); }).length;
+    ER.pips(n + (nextFile ? 1 : 0), ORDER.length + 1);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you to the delegates&rsquo; lounge.']];
+    if (ap && ap.isOpen()) return ['apology', [
+      'Each numbered idiom needs a French sticker that means the same thing, not one that uses the same words. What the French idioms mean is on Noémie&rsquo;s glossary, in your notebook.',
+      'A sticker that is not on Noémie&rsquo;s list is probably not a French idiom at all: it is the English words put into French one by one. And one French idiom on her list looks exactly like number 4 and means something else.',
+      'Number 1 is about saying something clumsy that upsets people: the feet in the dish. Number 2 is about counting on something before you have it: the bear&rsquo;s skin. Number 4 means &ldquo;it is in the past and no longer matters&rdquo;, which is not what the French bridges mean.'
+    ]];
+    if (!K.has('morag')) return ['morag', ['Morag is in the middle of the hall. Talk to her.']];
+    if (!K.has('desk')) return ['desk', ['The recording desk, on the left, has every channel to the second. Click it.']];
+    if (!K.has('lectern')) return ['lectern', ['There is a card on the lectern on the right: notes for speakers. Read it.']];
+    if (!K.has('otter')) return ['otter', ['Mr Otterburn, Ostrel&rsquo;s minister, is on the right, near the Sauvenne seats. Talk to him.']];
+    if (!K.has('gloss')) return ['gloss', ['The interpreters&rsquo; table at the back has the booths&rsquo; shared glossaries. Click it.']];
+    if (!K.has('sdesk')) return ['sdesk', ['Two notes were left on the Sauvenne side of the horseshoe, on the right. Read them.']];
+    return ['apology', ['Mr Otterburn&rsquo;s apology is on the Ostrel desk, on the left arm of the horseshoe. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The apology has gone to Madame Rouvier, in French. The lounge next.'); return; }
+    if (K.has('in')) { busy = false; ER.say('The hall: the recording desk, the lectern, the horseshoe of tables.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'From the floor, the hall is bigger and colder than it looks from the booth. The horseshoe of tables has forty chairs pushed back at forty angles. A cleaner is polishing the far end of the room, very slowly, round a flag.',
+      'High on the back wall are the three booth windows. Only Booth One is lit.',
+      'On the right, a big man in a crumpled suit is on his hands and knees under the Ostrel end of the table. He is saying a word under his breath that you will not find in the dictionary in this story.'
+    ], function () { busy = false; });
+  }
+
+  $('#morag').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Morag Sutherland', role: 'Chief interpreter', face: SM.face('morag'),
+      lines: [
+        { a: '&ldquo;The recording desk, on the left. Every channel is recorded: the floor, and each booth. If you want to know what went out on channel 2 at 22.46, it&rsquo;s in there, to the second.&rdquo;' },
+        { q: 'And the lectern?', a: '&ldquo;Notes for speakers. We put one on every lectern at every conference, and every speaker ignores it. Read it. It is about idioms, and tonight it matters.&rdquo;' },
+        { a: '&ldquo;Noémie&rsquo;s glossary is in the shared folder on our table at the back. Every booth shares its glossary: it&rsquo;s a habit. Good interpreters do their homework the night before. Noémie does hers twice.&rdquo;' }
+      ],
+      clue: { id: 'morag2', title: 'Morag: the recording desk', kind: 'What she said' },
+      done: function (seen) { if (seen && K.tell('morag')) paint(); }
+    });
+  });
+
+  var REC = '<h4>Recording desk &middot; floor, channel 1 and channel 2 &middot; 22.40&ndash;22.52</h4><p class="sub">FLOOR = the speaker, in the speaker&rsquo;s own language. CH 1 = Booth One (English). CH 2 = Booth Two (French). Red pencil: M. Sutherland.</p>' +
+    '<p><span class="t">22.40.12</span> <b>FLOOR</b> Mme Rouvier, reading from the French text of Article 7: ' + fl('&laquo;&nbsp;&hellip; la Partie d&rsquo;amont ouvre <span class="ev">éventuellement</span> les vannes du barrage.&nbsp;&raquo; Éventuellement&nbsp;? Donc peut-être. Donc jamais.') + '</p>' +
+    '<span class="bt">&ldquo;&hellip; the Upstream Party possibly opens the sluices of the dam.&rdquo; Possibly? So, maybe. So, never.</span>' +
+    '<p><span class="t">22.40.15</span> <b>CH 1</b> M. Sutherland: &ldquo;&hellip; the Upstream Party shall <span class="ev">eventually</span> open the sluices of the dam.&rdquo; Eventually? So, maybe. So, never.</p>' +
+    '<span class="bt">When a speaker reads out the agreement, we read the same article from our own language&rsquo;s text. I read the English text. I did not stop to compare. M.S.</span>' +
+    '<p><span class="t">22.46.31</span> <b>FLOOR</b> Mr Otterburn: &ldquo;With respect, Minister, you&rsquo;re barking up the wrong tree. We gave our word.&rdquo;</p>' +
+    '<p class="ch"><span class="t">22.46.38</span> <b>CH 2</b> N. Vasseur: ' + fl('&laquo;&nbsp;Avec tout le respect que je vous dois, Madame la Ministre, vous aboyez au pied du mauvais arbre. Nous avons donné notre parole.&nbsp;&raquo;') + '</p>' +
+    '<span class="bt">Word for word: &ldquo;you are barking at the foot of the wrong tree&rdquo;. In French that can only mean one thing: you are a dog. Seven seconds behind.</span>' +
+    '<p><span class="t">22.47.02</span> <b>FLOOR</b> Mme Rouvier: ' + fl('&laquo;&nbsp;Je ne suis pas un chien, Monsieur le Ministre.&nbsp;&raquo;') + '</p>' +
+    '<p><span class="t">22.47.04</span> <b>CH 1</b> M. Sutherland: &ldquo;I am not a dog, Minister.&rdquo;</p>' +
+    '<p><span class="t">22.50.30</span> <b>FLOOR</b> the Chair: ' + fl('&laquo;&nbsp;Se suspende la sesión.&nbsp;&raquo;') + ' (The session is suspended.)</p>' +
+    '<p><span class="t">22.52.10</span> <b>FLOOR</b> Mme Rouvier: ' + fl('&laquo;&nbsp;Sauvenne ne signera pas une promesse éventuelle.&nbsp;&raquo;') + '</p>' +
+    '<p><span class="t">22.52.12</span> <b>CH 1</b> M. Sutherland: &ldquo;Sauvenne will not sign a promise that is only possible.&rdquo;</p>';
+  $('#desk').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('morag')) { ER.say('The recording desk. Talk to Morag first.'); return; }
+    ER.read({ html: REC, cls: 'log', clue: { id: 'rec', title: 'The recording, 22.40 to 22.52', kind: 'Transcript' }, done: function () {
+      if (K.tell('desk')) { paint(); ER.say('&ldquo;Barking,&rdquo; says Morag quietly. &ldquo;Seven seconds behind. Now the card on the lectern.&rdquo;'); }
+    } });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 230"><g font-family="Gentium Book Plus,serif" font-size="14">' +
+    '<rect x="70" y="10" width="150" height="40" rx="4" fill="#fff6c8" stroke="#1c2333" stroke-width="2"/><text x="145" y="36" text-anchor="middle" fill="#1c2333">an idiom</text>' +
+    '<path d="M100 50L40 110M145 50v60M190 50l60 60" stroke="#1c2333" stroke-width="2"/>' +
+    '<g font-family="IBM Plex Mono,monospace" font-size="11"><text x="40" y="128" text-anchor="middle" fill="#c0392b">word for</text><text x="40" y="142" text-anchor="middle" fill="#c0392b">word</text>' +
+    '<text x="145" y="128" text-anchor="middle" fill="#2f7a4a">same meaning,</text><text x="145" y="142" text-anchor="middle" fill="#2f7a4a">other picture</text>' +
+    '<text x="250" y="128" text-anchor="middle" fill="#2f7a4a">plain</text><text x="250" y="142" text-anchor="middle" fill="#2f7a4a">words</text></g>' +
+    '<text x="40" y="176" text-anchor="middle" font-size="30" fill="#c0392b">&#10007;</text><text x="145" y="176" text-anchor="middle" font-size="30" fill="#2f7a4a">&#10003;</text><text x="250" y="176" text-anchor="middle" font-size="30" fill="#2f7a4a">&#10003;</text>' +
+    '<text x="40" y="206" text-anchor="middle" font-size="12" fill="#5a6070">nonsense,</text><text x="40" y="221" text-anchor="middle" font-size="12" fill="#5a6070">or an insult</text>' +
+    '<text x="145" y="206" text-anchor="middle" font-size="12" fill="#5a6070">chickens and</text><text x="145" y="221" text-anchor="middle" font-size="12" fill="#5a6070">a bear&rsquo;s skin</text></g></svg>';
+  var CARD = '<h4>Language Service &middot; notes for speakers</h4><h3>Idioms</h3><div class="two"><div>' +
+    '<p>An <b>idiom</b> is a group of words whose meaning is not the meaning of its parts. &ldquo;She kicked the bucket&rdquo; is not about a bucket. Translated <b>word for word</b>, an idiom turns into nonsense, or worse, into an insult that nobody meant.</p>' +
+    '<p>So the booth translates the meaning, in one of two ways. It finds an idiom in the other language that means the same, even if the picture is different: English counts its chickens before they hatch, French sells the skin of a bear before it has killed it. Or, if there is no such idiom, it says the meaning in plain words.</p>' +
+    '<p>Take care with idioms that look the same in two languages and mean different things. And remember that the interpreter has two or three seconds to choose. If you can say it plainly, please do.</p></div>' +
+    '<div class="dia">' + DIA + '</div></div>';
+  $('#lectern').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('morag')) { ER.say('A lectern with a card on it. Talk to Morag first.'); return; }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'idioms', title: 'Card: idioms', kind: 'Notes for speakers' }, done: function () {
+      SM.terms(['idiom', 'word for word']);
+      if (K.tell('lectern')) { paint(); ER.say('Mr Otterburn has found his glasses. He is waving them at you.'); }
+    } });
+  });
+
+  $('#otter').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The feet in the dish,&rdquo; says Mr Otterburn, trying it out. &ldquo;I like that. I may use it at home.&rdquo;'); return; }
+    ER.talk({
+      who: 'Selwyn Otterburn', role: 'Minister for Water · Ostrel', face: SM.face('otterburn'),
+      lines: [
+        { note: 'He gets up off his knees, holding a pair of reading glasses.', a: '&ldquo;Found them. On my head. That is the story of my evening.&rdquo; He looks at you. &ldquo;You&rsquo;re the interpreters&rsquo; runner? Good. I need a runner.&rdquo;' },
+        { q: 'What happened, Minister?', a: '&ldquo;I lost my temper, that&rsquo;s what happened. Madame Rouvier read out that word, &lsquo;eventually&rsquo;, as if it meant we were lying. We are not lying. We said at two o&rsquo;clock this afternoon that we would open the sluices, and we will. So I told her she was barking up the wrong tree.&rdquo;' },
+        { q: 'Why did she say she was not a dog?', a: '&ldquo;Ms Sutherland tells me that in French it came out as barking. Actual barking. I called a minister a dog in front of forty people and four cameras.&rdquo; He rubs his face with both hands.' },
+        { a: '&ldquo;I want to apologise tonight, in writing, in French. I&rsquo;ve written it, on the desk there. Ms Sutherland says it is full of idioms and she will not send it until somebody has been through it.&rdquo;' },
+        { a: '&ldquo;I like idioms. My father liked idioms. They are how people talk.&rdquo; Morag, from across the table: &ldquo;They are how people talk to people who already understand them, Minister.&rdquo;' }
+      ],
+      clue: { id: 'otter', title: 'Mr Otterburn: we will', kind: 'What he said' },
+      done: function (seen) { if (seen && K.tell('otter')) { paint(); ER.say('Before anybody touches the apology: Noémie&rsquo;s glossary, on the interpreters&rsquo; table at the back.'); } }
+    });
+  });
+
+  function row(fr, w, m) { return '<tr><td>' + fl(fr) + '</td><td>' + w + '</td><td>' + m + '</td></tr>'; }
+  var GLOSS = '<h4>Shared folder &middot; Booth Two &middot; prepared on Wednesday night</h4><h3>Pontmirelle: my glossary &mdash; N. Vasseur</h3>' +
+    '<p>dam = ' + fl('le barrage') + ' &middot; upstream / downstream = ' + fl('amont / aval') + ' &middot; water level = ' + fl('le niveau') + ' &middot; the red mark = ' + fl('le repère rouge') + ' &middot; toll = ' + fl('le péage') + '</p>' +
+    '<p class="red">sluice (gate) = ' + fl('la vanne') + ', NOT &laquo;&nbsp;écluse&nbsp;&raquo;! An écluse is a lock on a canal. Added 20.10</p>' +
+    '<table><tr><th>French idiom</th><th>word for word</th><th>what it means</th></tr>' +
+    row('la balle est dans votre camp', 'the ball is in your camp', 'it is your turn to act') +
+    row('mettre les pieds dans le plat', 'to put your feet in the dish', 'to say something clumsy that upsets people') +
+    row('vendre la peau de l&rsquo;ours avant de l&rsquo;avoir tué', 'to sell the bear&rsquo;s skin before you have killed it', 'to count on something before you have it') +
+    row('c&rsquo;est de l&rsquo;histoire ancienne', 'it is ancient history', 'it is in the past and no longer matters') +
+    row('être dans le même bateau', 'to be in the same boat', 'to be in the same difficult situation') +
+    row('il a coulé de l&rsquo;eau sous les ponts', 'water has flowed under the bridges', 'a lot of time has passed since then') +
+    row('avoir d&rsquo;autres chats à fouetter', 'to have other cats to whip', 'to have more important things to do') +
+    row('c&rsquo;est du gâteau', 'it is cake', 'it is very easy') +
+    row('ce n&rsquo;est pas la mer à boire', 'it is not the sea to drink', 'it is not that difficult') +
+    row('faire fausse route', 'to take the wrong road', 'to be mistaken') + '</table>' +
+    '<p class="red">Otterburn says &ldquo;barking up the wrong tree&rdquo; a lot: faire fausse route! &nbsp;Yves: if he says an idiom that is not on this list, give the meaning. N.</p>';
+  $('#gloss').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('morag')) { ER.say('The interpreters&rsquo; table. Talk to Morag first.'); return; }
+    ER.read({ html: GLOSS, cls: 'sheet', clue: { id: 'gloss', title: 'Noémie&rsquo;s glossary', kind: 'Shared folder' }, done: function () {
+      if (K.tell('gloss')) { paint(); ER.say('Morag reads over your shoulder and goes very quiet at the bottom line.'); }
+    } });
+  });
+
+  var NOTES = '<h4>Left on the Sauvenne side of the horseshoe</h4>' +
+    '<p>On Madame Rouvier&rsquo;s pad, at 22.47:</p><p class="hand">' + fl('&laquo;&nbsp;vous aboyez&nbsp;&raquo;&nbsp;?!? Il me traite de chien.') + '</p><p class="tr">Morag: &ldquo;&lsquo;You are barking&rsquo;?! He is calling me a dog.&rdquo;</p>' +
+    '<p>On a Sauvenne engineer&rsquo;s agenda, at 20.08:</p><p class="hand">' + fl('&laquo;&nbsp;les écluses du barrage&nbsp;&raquo;&nbsp;?! (une écluse, c&rsquo;est pour les bateaux&nbsp;!) &rarr; 20h09&nbsp;: elle se corrige, &laquo;&nbsp;les vannes&nbsp;&raquo;. Bien.') + '</p><p class="tr">Morag: &ldquo;&lsquo;The locks of the dam&rsquo;?! (a lock is for boats!) Then, 20.09: she corrects herself, &lsquo;the sluice gates&rsquo;. Good.&rdquo;</p>';
+  $('#sdesk').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('morag')) { ER.say('Papers on the Sauvenne desks. Talk to Morag first.'); return; }
+    ER.read({ html: NOTES, cls: 'note', clue: { id: 'snotes', title: 'Two notes from the Sauvenne desks', kind: 'Notes' }, done: function () {
+      if (K.tell('sdesk')) { paint(); ER.say('Now Mr Otterburn&rsquo;s apology, on the Ostrel desk.'); }
+    } });
+  });
+
+  /* ---------- the apology ---------- */
+  var IDS = [['i1', 'put my foot in it'], ['i2', 'count our chickens before they hatch'], ['i3', 'the ball is in our court'], ['i4', 'water under the bridge'], ['i5', 'in the same boat']];
+  var STK = [['G', 'il a coulé de l&rsquo;eau sous les ponts'], ['A', 'j&rsquo;ai mis les pieds dans le plat'], ['J', 'c&rsquo;est du gâteau'], ['E', 'la balle est dans notre camp'],
+    ['D', 'ne comptons pas nos poussins avant qu&rsquo;ils soient éclos'], ['H', 'nous sommes tous dans le même bateau'], ['B', 'j&rsquo;ai mis mon pied dedans'], ['I', 'nous avons d&rsquo;autres chats à fouetter'],
+    ['F', 'c&rsquo;est de l&rsquo;histoire ancienne'], ['C', 'ne vendons pas la peau de l&rsquo;ours avant de l&rsquo;avoir tué']];
+  var WHY = {
+    i1: '&ldquo;Put my foot in it&rdquo;: he said something clumsy that upset somebody. Which French idiom on Noémie&rsquo;s list means that? A sticker that is not on her list is probably not French at all.',
+    i2: '&ldquo;Count our chickens before they hatch&rdquo;: count on something before you have it. The French idiom need not have chickens in it.',
+    i3: '&ldquo;The ball is in our court&rdquo;: it is our turn to act. Sometimes the same picture really does exist in both languages. Check her list.',
+    i4: '&ldquo;Water under the bridge&rdquo; means it is in the past and no longer matters. Read what the French bridges mean before you trust them.',
+    i5: '&ldquo;In the same boat&rdquo;: in the same difficult situation. Check her list.'
+  };
+  $('#draft').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The draft, with your stickers on it. Morag has kept it, &ldquo;for the museum&rdquo;.'); return; }
+    var miss = ORDER.filter(function (k) { return !K.has(k); });
+    if (!K.has('otter')) { ER.say('A page of handwriting on the Ostrel desk. Mr Otterburn&rsquo;s. Ask him about it first.'); return; }
+    if (miss.length) { ER.say('&ldquo;Not yet,&rdquo; says Morag. &ldquo;Glossary first, and the Sauvenne desks. I want you to see everything before you put a sticker on a minister.&rdquo;'); return; }
+    if (!ap) ap = makeAp();
+    ap.open();
+  });
+  function makeAp() {
+    var box = ER.el('div', 'pz ap'), st = ER.flag('b-ap') || {}, done = false;
+    function idm(n, t) { return '<span class="idm"><b>' + n + '</b>' + t + '</span>'; }
+    box.innerHTML = '<div class="ap-in"><div class="ap-letter">' +
+      '<p>Madame Rouvier,</p><p>I&rsquo;m afraid I ' + idm(1, 'put my foot in it') + ' tonight. When I said you were barking up the wrong tree, I meant only that you were mistaken, and I am truly sorry for the way my words reached you.</p>' +
+      '<p>Let&rsquo;s not ' + idm(2, 'count our chickens before they hatch') + ': nothing is signed yet. But ' + idm(3, 'the ball is in our court') + ' now, and Ostrel will put this right.</p>' +
+      '<p>The flood of 2019 is ' + idm(4, 'water under the bridge') + '. We are all ' + idm(5, 'in the same boat') + ', and the boat is the river.</p><p class="sig">Selwyn Otterburn</p></div>' +
+      '<div class="ap-slots"><h5>For the French: one sticker for each idiom</h5>' +
+      IDS.map(function (d, i) { return '<div class="slot" data-s="' + d[0] + '"><span class="lab"><b>' + (i + 1) + '</b>' + d[1] + '</span><span class="well"></span></div>'; }).join('') + '</div></div>' +
+      '<div class="ap-tray"><h5>Morag&rsquo;s stickers</h5>' + STK.map(function (s) { return '<span class="stk dnd-item" data-k="' + s[0] + '">' + SM.fl(s[1]) + '</span>'; }).join('') + '</div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="p-go">Give it to Morag</button></div>';
+    var tray = box.querySelector('.ap-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function wellOf(s) { return box.querySelector('.slot[data-s="' + s + '"] .well'); }
+    Object.keys(st).forEach(function (s) { var it = tray.querySelector('.stk[data-k="' + st[s] + '"]'); if (it && wellOf(s)) wellOf(s).appendChild(it); });
+    ER.dnd(box, { item: '.stk', slot: '.well', home: tray, lock: function () { return done; }, change: function () {
+      st = {}; IDS.forEach(function (d) { var it = wellOf(d[0]).querySelector('.stk'); if (it) st[d[0]] = it.getAttribute('data-k'); });
+      ER.$$('.slot', box).forEach(function (n) { n.classList.remove('bad'); });
+      ER.flag('b-ap', st);
+    } });
+    box.querySelector('#p-go').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.slot', box).forEach(function (n) { n.classList.remove('bad'); });
+      var empty = IDS.filter(function (d) { return !st[d[0]]; });
+      if (empty.length) { ER.sfx.no(); msg('Morag: &ldquo;Five idioms, five stickers. I am not sending a minister&rsquo;s apology with holes in it.&rdquo;'); return; }
+      for (var i = 0; i < IDS.length; i++) {
+        var s = IDS[i][0];
+        if (!ER.check(s, st[s])) {
+          ER.sfx.no(); var n = box.querySelector('.slot[data-s="' + s + '"]'); n.classList.add('bad'); ER.shake(n);
+          msg('Morag stops at number ' + (i + 1) + '. &ldquo;Not that. ' + WHY[s] + '&rdquo;'); return;
+        }
+      }
+      var cand = IDS.map(function (d) { return st[d[0]]; }).join('.');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('b-file', nextFile); paint();
+      SM.mine('apology', 'The apology, booth-proofed', '<p>1 put my foot in it = ' + fl('mettre les pieds dans le plat') + ' (same meaning, other picture)</p><p>2 count our chickens = ' + fl('vendre la peau de l&rsquo;ours&hellip;') + ' (other picture)</p><p>3 the ball is in our court = ' + fl('la balle est dans notre camp') + ' (the same picture really exists)</p><p>4 water under the bridge = ' + fl('c&rsquo;est de l&rsquo;histoire ancienne') + '. NOT the French bridges: they mean a lot of time has passed.</p><p>5 in the same boat = ' + fl('dans le même bateau') + '</p><p>Word for word, an idiom is nonsense or an insult: the dog at 22.46.</p>');
+      msg('<b>Booth-proof.</b> Not one word for word, and not the bridges that only look the same. Morag reads it through twice, nods, and starts to write it out in French.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'Mr Otterburn reads the French over Morag&rsquo;s shoulder, slowly, moving his lips. &ldquo;Feet in the dish. A bear. Ancient history.&rdquo; He looks up. &ldquo;It sounds more sorry in French.&rdquo; &ldquo;Most things do,&rdquo; says Morag.',
+          'At two minutes to midnight a security guard takes the apology, in an envelope, to Madame Rouvier&rsquo;s room in the hotel across the square.',
+          'Mr Otterburn stops at the door. &ldquo;For the record, runner. We agreed at two o&rsquo;clock. Two days, I said. &lsquo;Eventually&rsquo; in our text means we will. I don&rsquo;t know what it means in theirs.&rdquo; Morag writes that down.',
+          'Then her phone buzzes: the Ambassador. &ldquo;She wants both delegations back in a room at four,&rdquo; says Morag. &ldquo;Her messages are in the lounge. Mr Weismann wrote them. At midnight. In his third language.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    msg(Object.keys(st).length ? 'Your stickers are where you left them.' : 'Drag a sticker on to each idiom, or click a sticker and then a space. Noémie&rsquo;s glossary is in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

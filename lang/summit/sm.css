@@ -1,0 +1,168 @@
+/* Eventually - what every room shares: lettering, the summit's papers (cards, transcripts, notes, glossaries), the frame
+   round a piece of work, a conference-folder skin for the notebook, hints and word tags, and the card at the end.
+   Each room sets its own palette on <body>. Foreign words (French, Spanish) are always set in .fl and never glossed. */
+
+.tc-theme{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.tc-room{font-family:'Old Standard TT',Georgia,serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.tc-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17px,1.4vw,20.5px);line-height:1.55}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(17px,1.36vw,20.5px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:2px solid #14213a;
+  color:#14213a;background:#eef1f6;font-family:'Old Standard TT',serif;font-weight:700;font-size:19px;letter-spacing:.04em;border-radius:3px;box-shadow:0 6px 0 #14213a,0 14px 30px rgba(0,0,0,.4)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff}
+.tk-name{font-family:'Old Standard TT',serif;font-weight:700;font-size:26px;letter-spacing:.01em}
+.tk-role{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;color:var(--role,#2a5a9a)}
+.tk .btn{--accent:var(--role-btn,#14213a)}
+.tk .btn:hover:not([disabled]){color:#fffdf2}
+.tk-text{font-family:'Gentium Book Plus',Georgia,serif;font-size:clamp(16.5px,1.3vw,19.5px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.3) drop-shadow(0 0 6px #fff)}}
+
+/* French, Spanish and German words: their own colour, never underlined by the dictionary */
+.fl{font-family:'Gentium Book Plus',Georgia,serif;font-style:italic;color:var(--fl,#6a2a7a)}
+
+/* lettering inside drawings */
+.cG{font-family:'Gentium Book Plus',serif}
+.cO{font-family:'Old Standard TT',serif}
+.cK{font-family:'Kalam',cursive}
+.cM{font-family:'IBM Plex Mono',monospace}
+.cC{font-family:'Caveat',cursive}
+.cS{font-family:'Stardos Stencil',sans-serif}
+.cW{font-family:'Oswald',sans-serif}
+.cX{font-family:'Outfit',sans-serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1120px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:48px;margin:0;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.42;color:#f4f6fa}
+.pmsg b{color:var(--accent,#f2c21b)}
+.pmsg .fl{color:#e8c8f0}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+.dnd-item{cursor:grab}
+.dnd-item.held{outline:3px solid #f2c94c;outline-offset:1px}
+.dnd-item.fly{position:fixed;z-index:120;pointer-events:none;opacity:.92;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* a card: the Language Service's own handouts, white with a coloured band */
+.doc.card{width:min(860px,95vw);background:#fdfdfb;color:#1c2333;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.5;padding:20px 30px 16px;border-top:16px solid var(--band,#2a5a9a);box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.card h4{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--band,#2a5a9a)}
+.doc.card h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:27px;line-height:1.1}
+.doc.card p{margin:0 0 8px}
+.doc.card b{color:#a8322a}
+.doc.card .two{display:grid;grid-template-columns:1fr 290px;gap:20px;align-items:start}
+.doc.card .dia{background:#fff;border:1px solid #d6d8de;padding:6px}
+.doc.card .fact{margin:8px 0 2px;padding:7px 13px 6px;background:#fff3c4;border-left:5px solid #c8902a;font-size:16px}
+.doc.card table{border-collapse:collapse;width:100%;margin:4px 0 8px;font-size:15.5px}
+.doc.card td,.doc.card th{padding:3px 8px;border-bottom:1px solid #e2e2e6;text-align:left;vertical-align:top}
+.doc.card th{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a6070}
+/* a transcript: the recording desk's typed log */
+.doc.log{width:min(920px,96vw);background:#f8fafc repeating-linear-gradient(transparent 0 31px,#e2e8f0 31px 32px);color:#1c2333;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:32px;padding:22px 30px 16px 34px;box-shadow:0 26px 70px rgba(0,0,0,.6);border-left:6px solid #2a5a9a}
+.doc.log h4{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:20px;letter-spacing:.06em;color:#1c2333;line-height:30px}
+.doc.log .sub{margin:0 0 6px;font-size:12px;line-height:20px;color:#5a6474}
+.doc.log p{margin:0}
+.doc.log .t{color:#8a94a4}
+.doc.log b{font-weight:600;color:#2a5a9a}
+.doc.log .ch{color:#7a3a8a}
+.doc.log .ch b{color:#7a3a8a}
+.doc.log .bt{display:block;margin:-4px 0 4px 26px;font-family:'Caveat',cursive;font-size:19px;line-height:24px;color:#c0392b}
+.doc.log .ev{color:#c0392b;font-weight:600}
+.doc.log .fl{font-family:'IBM Plex Mono',monospace;font-style:normal;color:#7a3a8a}
+/* a note: a strip torn from a notepad, or a slip from the booth */
+.doc.note{width:min(560px,92vw);background:#fff9d8;color:#1d2a5a;font-family:'Kalam',cursive;font-size:20px;line-height:1.45;padding:24px 28px 16px;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-.8deg)}
+.doc.note h4{margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a6a2a}
+.doc.note p{margin:0 0 8px}
+.doc.note .hand{font-family:'Kalam',cursive;font-size:26px;line-height:1.25;color:#1d2a5a;font-weight:700;font-style:normal}
+.doc.note .tr{font-family:'Gentium Book Plus',serif;font-size:16.5px;color:#4a4a52}
+/* a glossary or minutes: ruled paper */
+.doc.sheet{width:min(820px,95vw);background:#fffef9;color:#1c2333;font-family:'Gentium Book Plus',Georgia,serif;font-size:16.5px;line-height:1.45;padding:20px 30px 14px 46px;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  background-image:linear-gradient(90deg,transparent 30px,#e8a0a0 30px,#e8a0a0 32px,transparent 32px)}
+.doc.sheet h4{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a5a2a}
+.doc.sheet h3{margin:0 0 8px;font-family:'Kalam',cursive;font-weight:700;font-size:25px;line-height:1.1;color:#1d2a5a}
+.doc.sheet p{margin:0 0 6px}
+.doc.sheet table{border-collapse:collapse;width:100%;margin:2px 0 8px;font-size:15.5px}
+.doc.sheet td,.doc.sheet th{padding:2px 7px;border-bottom:1px solid #e6e2d6;text-align:left;vertical-align:top}
+.doc.sheet th{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#7a7060}
+.doc.sheet .red{font-family:'Kalam',cursive;color:#c0392b;font-size:17px}
+.doc.sheet .fl{color:#4a2a8a}
+/* what you worked out for yourself */
+.doc.mine{width:min(640px,92vw);background:#fffdf4 repeating-linear-gradient(transparent 0 29px,#cfd8e6 29px 30px);color:#1d2a5a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:34px 30px 20px 34px;border-top:18px solid #2a5a9a}
+.doc.mine h4{margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.08em;color:#a8322a;text-transform:uppercase}
+.doc.mine p{margin:0}
+.doc.mine .fl{color:#6a2a7a}
+.doc.statement{background:#f4f5f8;font-family:'Gentium Book Plus',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #2a5a9a}
+.doc.statement h4{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#2a5a9a}
+.doc .w:hover{color:#a8322a}
+
+/* ---- the notebook: a navy conference folder with the summit's logo ---- */
+.nb{background:#1c2a44 linear-gradient(140deg,#24365a,#141e33);border:1px solid #4a5a7a;color:#eef1f6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0f1626}
+.nb-tabs{border-bottom-color:#4a5a7a}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.16em;color:#c4cede}
+.nb-tabs button.on{background:#f8fafc;color:#1c2a44;border-color:#4a5a7a}
+.nb-list{border-right-color:#4a5a7a}
+.nb-list button{font-family:'Gentium Book Plus',serif;font-size:16px;color:#eef1f6}
+.nb-list button small{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em}
+.nb-list button.on{background:#e8b84a;color:#141e33}
+.nb-view{background:#0f1626}
+.nb-empty{font-family:'Gentium Book Plus',serif}
+.nb-words{background:#f8fafc;color:#141e33}
+.nb-words b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.nb-words span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4f5a}
+.nb-ko{border-color:#8a96a8;color:#4a4f5a}
+.nb-ko.on{background:#1c2a44;color:#e8b84a;border-color:#1c2a44}
+.wtip,.wtag{background:#f8fafc;color:#141e33;border-radius:3px;box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 5px 0 #2a5a9a}
+.wtag{transform:rotate(-1deg);padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:13px}
+.wtip b,.wtag b{font-family:'Old Standard TT',serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'Gentium Book Plus',serif;font-size:16px;line-height:1.35;color:#4a4f5a}
+.hintbox{background:#f8fafc;color:#141e33;border-top:6px solid #2a5a9a;border-radius:3px}
+.hintbox h6{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:.14em;color:#2a5a9a}
+.hintbox p{font-family:'Gentium Book Plus',serif;font-size:17px;line-height:1.42}
+.hintbox p i{background:#141e33;color:#e8b84a;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a5e6a;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(14,22,38,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(570px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#f8fafc;color:#141e33;
+  border-left:12px solid #2a5a9a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #2f7a4a;color:#2f7a4a;font-family:'Stardos Stencil',sans-serif;font-size:22px;letter-spacing:.08em;transform:rotate(-3deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#2a5a9a}
+.done p{margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#141e33;font-size:12.5px;padding:7px 13px}
+.done .btn:hover:not([disabled]){color:#e8b84a}
+.done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#f8fafc;color:#141e33;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:20px solid #2a5a9a}
+.rp h4{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#a8322a}
+.rp h3{margin:0 0 8px;font-family:'Old Standard TT',serif;font-weight:700;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Gentium Book Plus',serif;font-size:16.5px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18px;line-height:30px;color:#1d2a5a;background:#fff repeating-linear-gradient(transparent 0 29px,#cfd8e6 29px 30px);
+  border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#141e33}.rp .btn:hover:not([disabled]){color:#e8b84a}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

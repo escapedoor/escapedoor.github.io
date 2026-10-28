@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Booth One · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#141c2c;--accent:#f0a83a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(16,22,36,.97);--tc-ink:#eef1f6;--cap-bg:rgba(16,22,36,.95);--cap-ink:#eef1f6;--panel:#f6f7fa;--panel-ink:#141c2c;--face-bg:#2a5a9a;--q-ink:#2a5a9a;
+    --fade:#0a0f1a;--hud-bg:rgba(16,22,36,.86);--hud-ink:#eef1f6;--hud-line:rgba(238,241,246,.3);--ov-bg:rgba(6,10,18,.72)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#f0a83a}
+  .tc-theme{color:#8ab4e8}
+  .hbtn b{color:#141c2c}
+  #onair{animation:onair 2.4s steps(1,end) infinite}
+  @keyframes onair{50%{opacity:.25}}
+  #hallglow{animation:hallglow 7s steps(3,end) infinite}
+  @keyframes hallglow{50%{opacity:.75}}
+  /* the relay board */
+  .rb{width:min(1060px,96vw);background:#1e2636;border:10px solid #3a4456;border-radius:6px;padding:16px 20px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#e8ecf2}
+  .rb h5{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:22px;letter-spacing:.08em;color:#f0a83a}
+  .rb .sub{margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#9aa6ba;letter-spacing:.04em}
+  .rb-grid{display:grid;grid-template-columns:210px repeat(3,1fr);gap:8px;align-items:stretch}
+  .rb-h{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#c8d2e2;text-align:center;padding:6px 4px;background:#141a26;border-radius:3px;line-height:1.35}
+  .rb-h.row{text-align:left;padding:8px 10px}
+  .rb-h.row b{display:block;font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;letter-spacing:.06em;color:#fff;text-transform:none}
+  .dial{display:flex;align-items:center;gap:10px;justify-content:center;background:#141a26;border:2px solid #2c3546;border-radius:4px;padding:8px 6px;cursor:pointer;color:#e8ecf2;font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:600;letter-spacing:.06em}
+  .dial:hover{border-color:#f0a83a}
+  .dial .knob{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#6a7488,#2a3242);border:2px solid #0c1018;position:relative}
+  .dial .knob:after{content:'';position:absolute;left:17px;top:3px;width:4px;height:14px;background:#f0a83a;border-radius:2px;transform-origin:2px 16px;transform:rotate(var(--r,0deg))}
+  .dial .val{min-width:76px;text-align:left}
+  .dial.bad{border-color:#e8574a;background:#3a1a1e}
+  .dial.route{border-color:#5ad08a;background:#163024}
+  .rb-legend{margin-top:9px;font-family:'Gentium Book Plus',serif;font-size:14.5px;color:#b8c2d2;line-height:1.35}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="foam" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#1c2538"/><path d="M0 40L20 20L40 40M0 20L20 0L40 20" fill="none" stroke="#161e2e" stroke-width="3"/></pattern>
+  <linearGradient id="hallair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1220"/><stop offset="1" stop-color="#1e2a40"/></linearGradient>
+  <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3a2c"/><stop offset="1" stop-color="#2e241c"/></linearGradient>
+  <radialGradient id="lamp" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffd890" stop-opacity=".16"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#05080e" stop-opacity=".2"/><stop offset="1" stop-color="#05080e" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#foam)"/>
+<!-- the big window over the hall -->
+<g id="window" class="hot">
+  <rect x="150" y="110" width="920" height="420" fill="url(#hallair)"/>
+  <g id="hallglow"><ellipse cx="610" cy="560" rx="460" ry="140" fill="#3a5a8a" opacity=".35"/></g>
+  <!-- the hall far below: horseshoe, flags, headsets -->
+  <path d="M330 470q280 -150 560 0" fill="none" stroke="#6a7a98" stroke-width="16"/><path d="M330 470q280 -150 560 0" fill="none" stroke="#8a9ab8" stroke-width="3"/>
+  <g stroke="#8a9ab8" stroke-width="2"><path d="M420 330v-60M460 322v-60M500 316v-60M540 312v-60M680 312v-60M720 316v-60M760 322v-60M800 330v-60"/></g>
+  <g><rect x="420" y="270" width="26" height="16" fill="#2a5a9a"/><rect x="460" y="262" width="26" height="16" fill="#2a5a9a"/><rect x="500" y="256" width="26" height="16" fill="#2a5a9a"/><rect x="540" y="252" width="26" height="16" fill="#2a5a9a"/>
+    <rect x="680" y="252" width="26" height="16" fill="#c8382e"/><rect x="720" y="256" width="26" height="16" fill="#c8382e"/><rect x="760" y="262" width="26" height="16" fill="#c8382e"/><rect x="800" y="270" width="26" height="16" fill="#c8382e"/>
+    <path d="M420 278h26M460 270h26M500 264h26M540 260h26" stroke="#f2e6b8" stroke-width="3"/><path d="M693 252v16M733 256v16M773 262v16M813 270v16" stroke="#f2f0ea" stroke-width="4"/></g>
+  <rect x="580" y="230" width="60" height="36" fill="#3a4a6a"/><text x="610" y="254" class="cM" font-size="11" fill="#c8d2e2" text-anchor="middle">CHAIR</text>
+  <g fill="#c8d2e2" opacity=".7"><circle cx="370" cy="452" r="4"/><circle cx="410" cy="430" r="4"/><circle cx="460" cy="412" r="4"/><circle cx="760" cy="412" r="4"/><circle cx="810" cy="430" r="4"/><circle cx="850" cy="452" r="4"/></g>
+  <rect x="150" y="110" width="920" height="420" fill="none" stroke="#9aa4b4" stroke-width="14"/>
+  <path d="M610 110v420" stroke="#9aa4b4" stroke-width="8"/>
+  <path d="M170 130l120 0M170 150l60 0" stroke="#fff" stroke-width="3" opacity=".12"/>
+</g>
+<!-- the side window into Booth Two, with the rota taped on it -->
+<g><rect x="1100" y="130" width="190" height="400" fill="#0e1420"/><rect x="1120" y="380" width="150" height="20" fill="#3a3024"/><path d="M1150 400v80M1240 400v80" stroke="#2a2420" stroke-width="6"/>
+  <rect x="1150" y="340" width="40" height="40" rx="6" fill="#2a3242"/><text x="1195" y="170" class="cW" font-size="20" fill="#5a6a88" text-anchor="middle">BOOTH 2 · FR</text>
+  <rect x="1100" y="130" width="190" height="400" fill="none" stroke="#9aa4b4" stroke-width="12"/>
+  <rect x="1100" y="524" width="190" height="8" fill="#05080e"/></g>
+<g id="rota" class="hot"><rect x="1124" y="190" width="140" height="150" fill="#fdfcf6" transform="rotate(2 1194 265)"/><g transform="rotate(2 1194 265)"><rect x="1170" y="182" width="48" height="16" fill="#e8d890" opacity=".85"/><text x="1194" y="216" class="cK" font-size="17" fill="#1d2a5a" text-anchor="middle">ROTA</text>
+  <path d="M1136 232h116M1136 250h116M1136 268h116M1136 286h116M1136 304h116M1136 322h116" stroke="#9aa4c4" stroke-width="2"/><path d="M1150 290l80 20" stroke="#c0392b" stroke-width="3"/></g></g>
+<!-- the card on the wall -->
+<g id="card" class="hot"><rect x="1330" y="160" width="190" height="250" fill="#fdfdfb"/><rect x="1330" y="160" width="190" height="20" fill="#2a5a9a"/>
+  <text x="1425" y="214" class="cO" font-size="19" font-weight="700" fill="#1c2333" text-anchor="middle">How the</text><text x="1425" y="238" class="cO" font-size="19" font-weight="700" fill="#1c2333" text-anchor="middle">booths work</text>
+  <path d="M1352 262h146M1352 278h146M1352 294h120M1352 310h146M1352 326h100" stroke="#9aa0ac" stroke-width="3"/>
+  <circle cx="1380" cy="370" r="14" fill="none" stroke="#2a5a9a" stroke-width="3"/><path d="M1394 370h60" stroke="#2a5a9a" stroke-width="3" stroke-dasharray="6 5"/><rect x="1458" y="358" width="30" height="24" fill="none" stroke="#2a5a9a" stroke-width="3"/>
+  <circle cx="1345" cy="168" r="4" fill="#c8382e"/><circle cx="1505" cy="168" r="4" fill="#c8382e"/></g>
+<!-- ON AIR -->
+<g><rect x="700" y="40" width="110" height="34" rx="4" fill="#2a1414"/><text id="onair" x="755" y="64" class="cW" font-size="19" fill="#ff5a4a" text-anchor="middle" letter-spacing="2">ON AIR</text></g>
+<rect x="-1000" y="520" width="3600" height="60" fill="#232d42"/>
+<!-- the desk and the consoles -->
+<rect x="-1000" y="560" width="3600" height="400" fill="url(#desk)"/>
+<path d="M-1000 560H2600" stroke="#6a5440" stroke-width="6"/>
+<ellipse cx="800" cy="560" rx="600" ry="160" fill="url(#lamp)" pointer-events="none"/>
+<g><rect x="200" y="590" width="300" height="80" rx="6" fill="#2a3040"/><g fill="#3a4456"><rect x="220" y="610" width="40" height="24" rx="3"/><rect x="270" y="610" width="40" height="24" rx="3"/><rect x="320" y="610" width="40" height="24" rx="3"/></g>
+  <path d="M440 600q-6 -70 50 -110" stroke="#1a1a1a" stroke-width="6" fill="none"/><ellipse cx="494" cy="486" rx="12" ry="8" fill="#1a1a1a"/></g>
+<g id="cough" class="hot"><rect x="380" y="608" width="56" height="30" rx="4" fill="#5a6274"/><text x="408" y="628" class="cX" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">COUGH</text></g>
+<g id="headset" class="hot"><path d="M228 590q0 -40 40 -40t40 40" stroke="#14161c" stroke-width="7" fill="none"/><rect x="218" y="584" width="18" height="26" rx="6" fill="#14161c"/><rect x="300" y="584" width="18" height="26" rx="6" fill="#14161c"/></g>
+<g id="board" class="hot"><rect x="600" y="582" width="400" height="104" rx="8" fill="#1e2636" stroke="#3a4456" stroke-width="5"/>
+  <text x="800" y="606" class="cW" font-size="15" fill="#f0a83a" text-anchor="middle" letter-spacing="2">RELAY</text>
+  <g fill="#2c3546" stroke="#0c1018" stroke-width="2"><circle cx="680" cy="636" r="13"/><circle cx="740" cy="636" r="13"/><circle cx="800" cy="636" r="13"/><circle cx="860" cy="636" r="13"/><circle cx="920" cy="636" r="13"/>
+    <circle cx="680" cy="668" r="9"/><circle cx="740" cy="668" r="9"/><circle cx="800" cy="668" r="9"/><circle cx="860" cy="668" r="9"/></g>
+  <g fill="#5ad08a"><circle cx="652" cy="636" r="4"/><circle cx="952" cy="636" r="4"/></g></g>
+<g id="cup" class="hot"><path d="M1030 580h34l-4 40h-26z" fill="#e8e4dc"/><path d="M1064 590q14 0 14 12t-14 12" stroke="#e8e4dc" stroke-width="4" fill="none"/><ellipse cx="1047" cy="582" rx="17" ry="4" fill="#4a2a1a"/></g>
+<g><rect x="1100" y="590" width="300" height="80" rx="6" fill="#2a3040"/><g fill="#3a4456"><rect x="1240" y="610" width="40" height="24" rx="3"/><rect x="1290" y="610" width="40" height="24" rx="3"/><rect x="1340" y="610" width="40" height="24" rx="3"/></g><circle cx="1130" cy="622" r="7" fill="#ff5a4a" opacity=".4"/></g>
+<g id="morag" class="hot" transform="translate(300 902) scale(1.02)"></g>
+<g id="udo" class="hot" transform="translate(1300 906) scale(1.06)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the hall</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, rb = null, fl = SM.fl, K;
+
+  $('#morag').innerHTML = SM.who('morag', { phones: 1 });
+  $('#udo').innerHTML = SM.who('udo');
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'booth', no: 'I', title: 'Booth One',
+    go: 'Into the booth',
+    intro: [
+      'Thursday 19 November, two minutes to eleven at night. The Pontmirelle Conference Centre stands on the River Mirelle, where it runs between Sauvenne and Ostrel, and at nine tomorrow morning the two countries are to sign the Mirelle Agreement: who gets the river&rsquo;s water in a dry summer, and when the Old Bridge opens again.',
+      'You are on a week&rsquo;s work experience with the summit&rsquo;s interpreters. You carry papers between the booths and the documents office. Forty minutes ago, in the hall below the booths, the agreement fell apart.'
+    ],
+    exit: {"next":"hall","w":{"5ba59b04":"d492da9b"}}, tags: {"b1e":["9ef30400"],"b1f":["6116cd9e"],"b1s":["094cda39"],"b2e":["361ae063"],"b2f":["8edecae5"],"b2s":["ccad9f4d"],"b3e":["b3626847"],"b3f":["f5ab92d4"],"b3s":["e25ffc92"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  function paint() {
+    $('#morag').classList.toggle('ready', !K.has('morag'));
+    $('#card').classList.toggle('ready', K.has('morag') && !K.has('card'));
+    $('#udo').classList.toggle('ready', K.has('card') && !K.has('udo'));
+    $('#rota').classList.toggle('ready', K.has('udo') && !K.has('rota'));
+    $('#board').classList.toggle('ready', K.has('rota') && !nextFile);
+    ER.pips((K.has('morag') ? 1 : 0) + (K.has('card') ? 1 : 0) + (K.has('udo') ? 1 : 0) + (K.has('rota') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you down to the hall.']];
+    if (rb && rb.isOpen()) return ['board', [
+      'Set every dial for the half hour from 22.00 to 22.30. Start with the easy three: what does a booth do while the floor speaks the booth&rsquo;s own language?',
+      'The rota says who was in each booth at 22.05 and which languages they have: A and B they speak, C they only understand. A booth takes the floor if the person on duty understands the speaker. If not, it takes relay from a booth that is talking at that moment, in a language they know.',
+      'At 22.05 Booth One had Mischa (English, with Spanish and French), Booth Two had Noémie (French, with English only), and Booth Three had Paz (Spanish, with English and French). Noémie cannot take Spanish from the floor, and Booth Three is silent while the floor speaks Spanish.'
+    ]];
+    if (!K.has('morag')) return ['morag', ['Morag Sutherland, the chief interpreter, is on the left by the console. Talk to her first.']];
+    if (!K.has('card')) return ['card', ['The white card on the right-hand wall says how the booths work. Read it before you touch anything.']];
+    if (!K.has('udo')) return ['udo', ['Udo Weismann, on the right, has a list of complaints. Talk to him.']];
+    if (!K.has('rota')) return ['rota', ['The rota is taped to the glass between this booth and the French booth. Read it.']];
+    return ['board', ['Now the relay board in the middle of the console. Click it.', 'The complaint at 22.05, the cat, was made while the Ambassador was speaking Spanish. To know whose mouth it came out of first, you need to know how each booth was listening at that moment.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The route of the cat is on the board, in green. The hall is waiting.'); return; }
+    if (K.has('in')) { busy = false; ER.say('Booth One: the console, the window over the hall, Morag and Udo.'); return; }
+    K.tell('in'); ER.mood('tense');
+    ER.narrate([
+      'Booth One is a glass box above the hall, about the size of a lift: two chairs, two microphones and a smell of cold coffee. Through the window the hall is empty. A horseshoe of tables, two rows of flags, sixty headsets left where they were dropped.',
+      'At 22.52 the Sauvenne delegation walked out. Their minister said, in French, that Sauvenne would not sign a promise that only says <i>possibly</i>. Ostrel&rsquo;s minister said his country had been called a liar. Somewhere in the middle of it, somebody heard the word <i>dog</i>.',
+      'Morag Sutherland, the chief interpreter, has her phone to her ear. She says &ldquo;Yes, Ambassador&rdquo; three times, and then: &ldquo;By four. Understood.&rdquo; She puts the phone down very gently, the way people do when they would like to throw it.'
+    ], function () { busy = false; });
+  }
+
+  $('#morag').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Morag Sutherland', role: 'Chief interpreter · Booth One, English', face: SM.face('morag'),
+      lines: [
+        { note: 'She looks at you over her glasses as if deciding whether you are old enough. Then she decides that you are.', a: '&ldquo;The Ambassador thinks somebody in a booth changed what people said tonight. She wants to know who, and how, by four in the morning, when she has to ring both ministers. If the answer is a booth, there is no signing at nine.&rdquo;' },
+        { q: 'Who does she think it was?', a: '&ldquo;Noémie Vasseur. The French booth, next door. Every complaint tonight was about the French channel, and Noémie has gone out on the terrace and won&rsquo;t come in.&rdquo; A pause. &ldquo;I have worked with Noémie for six years. That is exactly why I am not going to decide anything until we have checked.&rdquo;' },
+        { q: 'How do we check?', a: '&ldquo;The console keeps a log, the rota is on the glass, and Mr Weismann has a list. But before you touch anything, read the card on the wall. You need to know how these booths work, and nobody else in this building does.&rdquo;' },
+        { a: '&ldquo;One thing to start you off. Every booth works into its own language. This is the English booth: everything that comes out of my microphone is English. Next door, French. Beyond that, Spanish, for the Ambassador, who chairs the talks in Spanish because she is entitled to, and because, she says, it keeps the interpreters honest.&rdquo;' }
+      ],
+      clue: { id: 'morag', title: 'Morag: by four in the morning', kind: 'What she said' },
+      done: function (seen) { if (seen && K.tell('morag')) { paint(); ER.say('The card on the right-hand wall: &ldquo;How the booths work&rdquo;.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 290 250"><g font-family="IBM Plex Mono,monospace" font-size="11">' +
+    '<circle cx="145" cy="30" r="20" fill="#f4d8b8" stroke="#1c2333" stroke-width="2"/><text x="145" y="66" text-anchor="middle" fill="#1c2333">FLOOR (the speaker)</text>' +
+    '<path d="M145 72L50 128M145 72v56M145 72L240 128" stroke="#1c2333" stroke-width="2"/>' +
+    '<g fill="#e8eef8" stroke="#2a5a9a" stroke-width="2"><rect x="18" y="130" width="64" height="40"/><rect x="113" y="130" width="64" height="40"/><rect x="208" y="130" width="64" height="40"/></g>' +
+    '<g text-anchor="middle" fill="#1c2333"><text x="50" y="148">Booth 1</text><text x="50" y="163">into EN</text><text x="145" y="148">Booth 2</text><text x="145" y="163">into FR</text><text x="240" y="148">Booth 3</text><text x="240" y="163">into ES</text></g>' +
+    '<path d="M82 140q32 -16 31 0" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><text x="98" y="122" text-anchor="middle" fill="#c0392b">relay</text>' +
+    '<path d="M50 170v30M145 170v30M240 170v30" stroke="#2a5a9a" stroke-width="2"/>' +
+    '<g text-anchor="middle" fill="#2a5a9a"><text x="50" y="216">channel 1</text><text x="145" y="216">channel 2</text><text x="240" y="216">channel 3</text></g>' +
+    '<text x="145" y="242" text-anchor="middle" fill="#5a6070">channel 0: the floor itself</text></g></svg>';
+  var CARD = '<h4>Language Service &middot; Booth One &middot; read me first</h4><h3>How the booths work</h3><div class="two"><div>' +
+    '<p>In <b>simultaneous interpreting</b> the interpreter sits in a soundproof <b>booth</b>, hears the speaker through headphones and gives the same message in another language at almost the same time: usually two or three seconds behind, more when a sentence is hard. That delay is the <b>lag</b>. Delegates choose a <b>channel</b> on their headsets.</p>' +
+    '<p>Each booth works into one language only, so when the speaker uses that language, the booth is silent. Interpreters work in pairs and change over about every half hour: after about thirty minutes, mistakes of meaning increase, and the tired interpreter often does not notice them.</p>' +
+    '<p>If nobody on duty in a booth understands the speaker, the booth takes <b>relay</b>: it listens to another booth instead of the floor. Relay adds a few seconds, and it passes on every mistake. In <b>consecutive interpreting</b>, used in small meetings, there is no booth: the interpreter takes notes and speaks after the speaker.</p></div>' +
+    '<div class="dia">' + DIA + '</div></div>' +
+    '<p class="fact"><b>A real fact.</b> Simultaneous interpreting became famous at the Nuremberg trials of 1945 and 1946, where interpreters worked from booths in English, French, Russian and German.</p>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('morag')) { ER.say('A card on the wall: &ldquo;How the booths work&rdquo;. Morag is waiting to talk to you first.'); return; }
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Card: how the booths work', kind: 'Booth One' }, done: function () {
+      SM.terms(['simultaneous interpreting', 'booth', 'lag', 'channel', 'relay', 'consecutive interpreting']);
+      if (K.tell('card')) { paint(); ER.say('Mr Weismann, on the right, has been holding his folder very tightly.'); }
+    } });
+  });
+
+  var COMPLAINTS = '<h4>Complaints about channel 2 (French), tonight</h4><p class="sub">Listed by U. Weismann, Chief of Staff to the Chair. Times are when the delegates heard the words on their headsets.</p>' +
+    '<p><span class="t">20.08</span> &nbsp;&ldquo;' + fl('les écluses du barrage') + '&rdquo; for the sluices of the dam. The Sauvenne engineers smiled. <span class="t">(from the Sauvenne seats)</span></p>' +
+    '<p><span class="t">22.05.41</span> &nbsp;A cat with three feet. Laughter in the Sauvenne seats. <span class="t">(Sauvenne)</span></p>' +
+    '<p><span class="t">22.16</span> &nbsp;&ldquo;Our minister said something much harsher than that.&rdquo; <span class="t">(an Ostrel adviser who speaks French)</span></p>' +
+    '<p><span class="t">22.31</span> &nbsp;&ldquo;The French left something out.&rdquo; <span class="t">(an Ostrel engineer)</span></p>' +
+    '<p><span class="t">22.46.38</span> &nbsp;&ldquo;The French channel called our minister a dog.&rdquo; <span class="t">(Sauvenne)</span></p>';
+  var NOTE1 = '<h4>Found under Ms Sutherland&rsquo;s papers in Booth One at 22.58</h4><p class="hand">' + fl('NE LES LAISSE PAS SIGNER') + '</p><p class="tr">A narrow strip torn from a notepad, in Noémie Vasseur&rsquo;s writing. Morag&rsquo;s translation: &ldquo;Don&rsquo;t let them sign.&rdquo; The bottom edge is torn.</p>';
+  $('#udo').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('card')) { ER.say('&ldquo;When you have read the card,&rdquo; says Mr Weismann. &ldquo;Ms Sutherland insists.&rdquo;'); return; }
+    ER.talk({
+      who: 'Udo Weismann', role: 'Chief of staff to the Chair', face: SM.face('udo'),
+      lines: [
+        { note: 'A tall man in a dark suit, holding a red folder against his chest like a shield.', a: '&ldquo;Five complaints tonight, every one about the French channel. I have listed them with the times the delegates heard them.&rdquo; He gives you a typed sheet.' },
+        { a: '&ldquo;And this was under Ms Sutherland&rsquo;s papers when I came up at 22.58. A note from the French booth, in Ms Vasseur&rsquo;s writing.&rdquo; It is a narrow strip of paper. In capitals: ' + fl('NE LES LAISSE PAS SIGNER') + '.' },
+        { q: 'What does it say?', a: 'Morag reads it without wanting to. &ldquo;Don&rsquo;t let them sign.&rdquo; Mr Weismann nods slowly. &ldquo;Written before the walk-out. She wanted it to fail. I am sorry, but that is what it says.&rdquo;' },
+        { q: 'Is there any more?', a: '&ldquo;The bottom edge is torn,&rdquo; says Morag. &ldquo;Somebody wrote more, or meant to.&rdquo; Mr Weismann: &ldquo;Then she can show us the rest. She will not come in.&rdquo;' },
+        { a: '&ldquo;I am not a linguist,&rdquo; says Mr Weismann. &ldquo;I am a man with minutes and a folder. But I know that five out of five is not bad luck.&rdquo;' }
+      ],
+      clue: { id: 'udo', title: 'Mr Weismann: five out of five', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addClue('complaints', 'Complaints about channel 2', COMPLAINTS, 'log', 'List');
+        ER.addClue('note1', 'The torn strip: Don&rsquo;t let them sign', NOTE1, 'note', 'Note');
+        if (K.tell('udo')) { paint(); ER.say('The rota is taped to the glass between the booths.'); }
+      }
+    });
+  });
+
+  var ROTA = '<h4>Thursday 19 November &middot; evening session 19.00&ndash;23.00</h4><h3>Tonight&rsquo;s booths</h3>' +
+    '<p>A = your own language &middot; B = a language you also speak into &middot; C = a language you understand and work from. Pairs change over on the hour and the half hour.</p>' +
+    '<table><tr><th>Booth</th><th>Interpreters</th><th>19.00</th><th>19.30</th><th>20.00</th><th>20.30</th><th>21.00</th><th>21.30</th><th>22.00</th><th>22.30</th></tr>' +
+    '<tr><td><b>1</b> into English</td><td>MS Morag Sutherland: A English, B French, C Spanish<br>MO Mischa Ottaway: A English, C Spanish, C French</td><td>MO</td><td>MS</td><td>MO</td><td>MS</td><td>MO</td><td>MS</td><td>MO</td><td>MS</td></tr>' +
+    '<tr><td><b>2</b> into French</td><td>NV Noémie Vasseur: A French, B English<br>YM Yves Montreuil: A French, B English</td><td>NV</td><td>YM</td><td>NV</td><td>YM</td><td>NV</td><td><s>YM</s> NV</td><td>NV</td><td>NV</td></tr>' +
+    '<tr><td><b>3</b> into Spanish</td><td>PU Paz Ugarte: A Spanish, B English, C French<br>RN Rocío Navarro: A Spanish, B English</td><td>PU</td><td>RN</td><td>PU</td><td>RN</td><td>PU</td><td>RN</td><td>PU</td><td>RN</td></tr></table>' +
+    '<p class="red">21.28 Yves unwell, sent home. 21.32 relief asked for (N.V.). 22.30 asked again. None came. N.V. alone from 21.30 &mdash; M.S.</p>';
+  $('#rota').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ROTA, cls: 'sheet', clue: { id: 'rota', title: 'Tonight&rsquo;s rota', kind: 'Booth One' }, done: function () {
+      SM.terms(['interpreter']);
+      if (K.tell('rota')) { paint(); ER.say(K.has('udo') ? 'Now the relay board, in the middle of the console.' : 'Mr Weismann has something for you too.'); }
+    } });
+  });
+
+  SM.thing('#window', null, 'The hall below, empty. The flags of Ostrel on the left, blue and gold; the flags of Sauvenne on the right, red and white. In the middle, the Chair&rsquo;s desk, and a glass of water nobody finished.', isBusy);
+  SM.thing('#cup', null, 'Morag&rsquo;s coffee, cold since nine. She drinks some anyway, without looking at it.', isBusy);
+  SM.thing('#headset', 'headset', 'Morag&rsquo;s headset. In it, very faintly, the hum of an empty hall.', isBusy);
+  SM.thing('#cough', 'cough button', 'Hold it down and your microphone goes dead: for coughing, or for whispering to your partner without the whole hall hearing.', isBusy);
+
+  /* ---------- the relay board ---------- */
+  var OPTS = ['F', '1', '2', '3', 'S'], NAME = { F: 'FLOOR', '1': 'BOOTH 1', '2': 'BOOTH 2', '3': 'BOOTH 3', S: 'SILENT', '': '&mdash;' };
+  var ROT = { F: 0, '1': 60, '2': 120, '3': 180, S: 270, '': 300 };
+  var CELLS = ['b1e', 'b1f', 'b1s', 'b2e', 'b2f', 'b2s', 'b3e', 'b3f', 'b3s'];
+  var WHY = {
+    b1e: 'Booth One works into English. What does it do while the floor is speaking English?',
+    b2f: 'Booth Two works into French. What does it do while the floor is speaking French?',
+    b3s: 'Booth Three works into Spanish. What does it do while the floor is speaking Spanish?',
+    b1f: 'Who is on in Booth One between 22.00 and 22.30? Look at the rota: is French one of his languages?',
+    b1s: 'Who is on in Booth One at 22.05, and can he take Spanish from the floor himself? His languages are on the rota.',
+    b2e: 'Noémie&rsquo;s B language is English. Can she take an English speaker from the floor herself?',
+    b2s: 'Neither Noémie nor Yves has any Spanish, so Booth Two cannot take the floor. Which booths are talking while the floor speaks Spanish, and in what language?',
+    b3e: 'Paz and Rocío both have English. Floor or relay?',
+    b3f: 'Who is in Booth Three between 22.00 and 22.30? Check her C language before you send her to relay.'
+  };
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The board still shows the route at 22.05, in green: floor, Booth One, Booth Two, channel 2.'); return; }
+    if (!K.has('card')) { ER.say('&ldquo;Read the card first,&rdquo; says Morag, without turning round.'); return; }
+    if (!K.has('rota')) { ER.say('&ldquo;You can&rsquo;t set that board without the rota,&rdquo; says Morag. &ldquo;It&rsquo;s on the glass.&rdquo;'); return; }
+    if (!rb) rb = makeBoard();
+    rb.open();
+  });
+  function makeBoard() {
+    var box = ER.el('div', 'pz rb'), st = ER.flag('a-rb') || {}, done = false;
+    var langs = [['e', 'English'], ['f', 'French'], ['s', 'Spanish']];
+    var h = '<h5>Booth One &middot; relay board</h5><p class="sub">Setting for 22.00&ndash;22.30. For each booth: where does it listen while the floor speaks this language?</p><div class="rb-grid"><div></div>' +
+      langs.map(function (l) { return '<div class="rb-h">Floor speaks<br>' + l[1] + '</div>'; }).join('');
+    [['1', 'Booth 1', 'into English &middot; channel 1'], ['2', 'Booth 2', 'into French &middot; channel 2'], ['3', 'Booth 3', 'into Spanish &middot; channel 3']].forEach(function (b) {
+      h += '<div class="rb-h row"><b>' + b[1] + '</b>' + b[2] + '</div>';
+      langs.forEach(function (l) { h += '<button type="button" class="dial" data-c="b' + b[0] + l[0] + '"><span class="knob"></span><span class="val"></span></button>'; });
+    });
+    h += '</div><p class="rb-legend">Click a dial to turn it: FLOOR (listen to the speaker), BOOTH 1, 2 or 3 (take relay from that booth), SILENT (say nothing: the channel carries the speaker).</p>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="r-go">Test the board</button></div>';
+    box.innerHTML = h;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function draw() {
+      ER.$$('.dial', box).forEach(function (d) {
+        var v = st[d.getAttribute('data-c')] || '';
+        d.querySelector('.val').innerHTML = NAME[v];
+        d.querySelector('.knob').style.setProperty('--r', ROT[v] + 'deg');
+      });
+    }
+    ER.$$('.dial', box).forEach(function (d) {
+      d.addEventListener('click', function () {
+        if (done) return;
+        var c = d.getAttribute('data-c'), v = st[c] || '', i = OPTS.indexOf(v);
+        st[c] = OPTS[(i + 1) % OPTS.length]; ER.flag('a-rb', st); SM.sfx.knob();
+        ER.$$('.dial', box).forEach(function (n) { n.classList.remove('bad'); });
+        draw();
+      });
+    });
+    box.querySelector('#r-go').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.dial', box).forEach(function (n) { n.classList.remove('bad'); });
+      var miss = CELLS.filter(function (c) { return !st[c]; });
+      if (miss.length) { ER.sfx.no(); msg('Morag: &ldquo;Every dial, please. A board with gaps in it is how cats get through.&rdquo;'); return; }
+      for (var i = 0; i < CELLS.length; i++) {
+        var c = CELLS[i], v = st[c];
+        if (v === c.charAt(1)) { bad(c); msg('Morag: &ldquo;A booth cannot listen to itself. Booth ' + v + ' would be taking relay from its own mouth.&rdquo;'); return; }
+      }
+      for (i = 0; i < CELLS.length; i++) {
+        if (!ER.check(CELLS[i], st[CELLS[i]])) { bad(CELLS[i]); msg('Morag taps one dial. &ldquo;Not that one. ' + WHY[CELLS[i]] + '&rdquo;'); return; }
+      }
+      var cand = CELLS.map(function (c) { return st[c]; }).join('.');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('a-file', nextFile); paint();
+      ['b1s', 'b2s'].forEach(function (c) { box.querySelector('[data-c="' + c + '"]').classList.add('route'); });
+      SM.mine('route', 'The route of the cat, 22.05', '<p>The Ambassador spoke Spanish. Booth One (Mischa, who has Spanish) took her from the floor and spoke English. Booth Two (Noémie, no Spanish) took <b>relay</b> from Booth One and spoke French. Booth Three was silent.</p><p>So the cat went into English first, in Mischa&rsquo;s mouth, and Noémie passed it on.</p><p>Paz has French, so Booth Three took French from the floor until 22.30.</p>');
+      msg('<b>That is the board.</b> The two green dials are the route at 22.05: the Ambassador&rsquo;s Spanish went into Booth One, out in English, into Booth Two, and out in French on channel 2.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; ER.mood('calm');
+        ER.narrate([
+          'Morag looks at the board for a long moment. Then she says, &ldquo;Mischa.&rdquo; Not crossly. The way you say the name of a dog that has eaten a sock.',
+          '&ldquo;The Ambassador said a Spanish idiom at five past ten, and Mischa was on the microphone in this booth. Whatever he said, Noémie heard it in her headphones and put it into French. If there was a cat in it, the cat was English before it was French.&rdquo;',
+          'Mr Weismann writes in his folder. &ldquo;One complaint of five. The cat came by relay. I will put that in the report.&rdquo; He underlines something twice. &ldquo;Four remain. And the note.&rdquo;',
+          '&ldquo;The worst of the four is the dog,&rdquo; says Morag, taking her cardigan from the back of the chair. &ldquo;The recording desk is in the hall. Come on, runner. Back stairs.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    function bad(c) { ER.sfx.no(); var d = box.querySelector('[data-c="' + c + '"]'); d.classList.add('bad'); ER.shake(d); }
+    draw();
+    msg(Object.keys(st).length ? 'The dials are where you left them.' : 'Click each dial to turn it. The rota and the card are in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

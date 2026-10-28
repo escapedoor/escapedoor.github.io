@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Nine O'Clock · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#f2e2c4;--accent:#c8902a;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(252,246,234,.97);--tc-ink:#2a2018;--cap-bg:rgba(252,246,234,.96);--cap-ink:#2a2018;--panel:#fdf9f0;--panel-ink:#2a2018;--face-bg:#1f2f55;--q-ink:#9a5a1a;
+    --fade:#fbf2e0;--hud-bg:rgba(252,246,234,.9);--hud-ink:#2a2018;--hud-line:rgba(42,32,24,.3);--ov-bg:rgba(40,28,18,.55)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#c8902a}
+  .tc-theme{color:#2a5a9a}
+  .hbtn b{color:#fff}
+  #beams{animation:beams 9s ease-in-out infinite alternate}
+  @keyframes beams{to{opacity:.6}}
+  #flash{opacity:0}
+  #flash.on{animation:flash .5s steps(2,end) 3}
+  @keyframes flash{50%{opacity:.9}}
+  #flagsO2 path.wave,#flagsS2 path.wave{animation:wave 5s ease-in-out infinite alternate}
+  @keyframes wave{to{transform:translate(0,3px)}}
+  .done{left:2.2vw;right:auto}
+  .doc.card .art{font-family:'Old Standard TT',serif;font-size:17px;line-height:1.45;padding:8px 12px;background:#f6f2e6;border-left:5px solid #2a5a9a;margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panels" width="120" height="400" patternUnits="userSpaceOnUse"><rect width="120" height="400" fill="#8a6a4c"/><rect x="6" y="0" width="108" height="400" fill="#96765a"/><path d="M60 0v400" stroke="#7a5c40" stroke-width="2"/></pattern>
+  <pattern id="carpet" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#3a4a72"/><path d="M0 30h60M30 0v60" stroke="#34436a" stroke-width="2"/><circle cx="30" cy="30" r="3" fill="#4a5a86"/></pattern>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c8" stop-opacity=".55"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8c8e8"/><stop offset="1" stop-color="#f8e0b0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#3a2410" stop-opacity=".06"/><stop offset="1" stop-color="#3a2410" stop-opacity=".32"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="840" fill="url(#panels)"/>
+<rect x="-1000" y="-400" width="3600" height="150" fill="#6a4e36"/>
+<!-- tall windows on the river, with the morning in them -->
+<g><rect x="-60" y="40" width="200" height="380" fill="url(#sky)"/><rect x="1460" y="40" width="200" height="380" fill="url(#sky)"/>
+  <path d="M-60 330q60 -20 100 -6t100 -10v106H-60zM1460 320q80 -16 200 4v96h-200z" fill="#7a9a7a"/>
+  <path d="M1460 360h200M1500 360q20 -20 40 0t40 0" stroke="#7a7262" stroke-width="5" fill="none"/>
+  <g stroke="#f4ead4" stroke-width="10" fill="none"><rect x="-60" y="40" width="200" height="380"/><rect x="1460" y="40" width="200" height="380"/></g><path d="M40 40v380M1560 40v380" stroke="#f4ead4" stroke-width="6"/></g>
+<g id="beams" pointer-events="none"><path d="M140 60L700 900H360L140 420z" fill="url(#beam)"/><path d="M1460 60L900 900H1240L1460 420z" fill="url(#beam)"/></g>
+<!-- the booths, all lit now -->
+<g id="booths" class="hot"><rect x="520" y="70" width="560" height="120" fill="#4a3624"/>
+  <rect x="540" y="86" width="160" height="88" fill="#f0d8a8"/><rect x="720" y="86" width="160" height="88" fill="#f0d8a8"/><rect x="900" y="86" width="160" height="88" fill="#f0d8a8"/>
+  <path d="M590 174v-40q30 -14 60 0v40" fill="#5e4a78" opacity=".7"/><path d="M760 174v-40q30 -14 60 0v40" fill="#b8864a" opacity=".8"/><circle cx="790" cy="122" r="12" fill="#f0d4c0"/><path d="M780 116q10 -10 20 0" stroke="#1a1410" stroke-width="6" fill="none"/>
+  <path d="M830 174v-36q24 -12 48 0v36" fill="#4a5a7a" opacity=".7"/>
+  <g class="cM" font-size="13" fill="#e8d8b8" text-anchor="middle"><text x="620" y="208">1 &middot; EN</text><text x="800" y="208">2 &middot; FR</text><text x="980" y="208">3 &middot; ES</text></g></g>
+<!-- flags -->
+<g id="flagsO2"><g stroke="#d8c89a" stroke-width="5"><path d="M330 470V250M390 470V250"/></g><path class="wave" d="M333 254h48v46h-48z" fill="#2a5a9a"/><path d="M333 270h48v12h-48z" fill="#e8c24a"/><path class="wave" d="M393 254h48v46h-48z" fill="#2a5a9a"/><path d="M393 270h48v12h-48z" fill="#e8c24a"/></g>
+<g id="flagsS2"><g stroke="#d8c89a" stroke-width="5"><path d="M1210 470V250M1270 470V250"/></g><path class="wave" d="M1213 254h48v46h-48z" fill="#f4f2ec"/><path d="M1213 254h16v46h-16z" fill="#c8382e"/><path class="wave" d="M1273 254h48v46h-48z" fill="#f4f2ec"/><path d="M1273 254h16v46h-16z" fill="#c8382e"/></g>
+<rect x="-1000" y="440" width="3600" height="1000" fill="url(#carpet)"/>
+<!-- cameras -->
+<g><path d="M200 700l30 -160 30 160M230 540v170" stroke="#2a2a30" stroke-width="5" fill="none"/><rect x="196" y="500" width="70" height="44" rx="4" fill="#2a2a30"/><circle cx="270" cy="522" r="14" fill="#4a5a6a"/>
+  <path d="M1340 700l30 -160 30 160M1370 540v170" stroke="#2a2a30" stroke-width="5" fill="none"/><rect x="1334" y="500" width="70" height="44" rx="4" fill="#2a2a30"/><circle cx="1330" cy="522" r="14" fill="#4a5a6a"/></g>
+<!-- the signing table -->
+<g id="table" class="hot"><rect x="520" y="560" width="560" height="30" fill="#5a3e28"/><rect x="530" y="590" width="540" height="120" fill="#2a5a3a"/><path d="M530 590h540" stroke="#e8c24a" stroke-width="4"/>
+  <rect x="600" y="532" width="150" height="30" fill="#7a2a2a" transform="rotate(-3 675 547)"/><rect x="850" y="532" width="150" height="30" fill="#2a3a6a" transform="rotate(3 925 547)"/>
+  <rect x="616" y="526" width="118" height="24" fill="#fdfcf6" transform="rotate(-3 675 538)"/><rect x="866" y="526" width="118" height="24" fill="#fdfcf6" transform="rotate(3 925 538)"/>
+  <path d="M760 552l40 -14" stroke="#1a1a1a" stroke-width="4"/><path d="M820 556l30 -18" stroke="#1a1a1a" stroke-width="4"/>
+  <g fill="#f4f2ec"><rect x="740" y="610" width="120" height="26"/></g><text x="800" y="628" class="cM" font-size="11" font-weight="600" fill="#2a2018" text-anchor="middle">THE MIRELLE AGREEMENT</text></g>
+<g id="ximena" class="hot" transform="translate(800 902) scale(1.0)"></g>
+<g id="otter" class="hot" transform="translate(470 906) scale(1.04)"></g>
+<g id="rouvier" class="hot" transform="translate(1130 902) scale(1.0)"></g>
+<rect id="flash" x="-1000" y="-400" width="3600" height="1720" fill="#fff" pointer-events="none"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">SIGNED</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Simultaneous interpreters work in soundproof booths, each booth into its own language, a few seconds behind the speaker. They work in pairs and change about every half hour, because after that their mistakes grow. In consecutive interpreting, the interpreter speaks after the speaker, from notes.</li>
+    <li>When nobody in a booth knows the speaker&rsquo;s language, the booth takes relay from another booth, and any mistake travels with it.</li>
+    <li>An idiom means more than its words. Put word for word into another language, it becomes nonsense or an insult. Translate the meaning, with another idiom or in plain words, and watch out for idioms that look the same and mean something else.</li>
+    <li>Register is how formal your words are. The same request can be casual, neutral or formal, and a treaty is the stiffest of all: shall for a duty, may for a choice, numbers instead of &ldquo;soon&rdquo;, no idioms.</li>
+    <li>What is said is not always what is meant. Understatement and polite indirectness can say no without saying it, and in diplomatic English &ldquo;we note&rdquo; is not &ldquo;we agree&rdquo;.</li>
+    <li>A sentence is ambiguous when it can be read in two ways, because of one word or because of its structure. Mend it by moving or changing words until only one reading is left.</li>
+    <li>False friends can hide in treaties: French <i>éventuellement</i> means possibly, English <i>eventually</i> means in the end. In 1889 one article of the Treaty of Wuchale gave a choice in Amharic and a duty in Italian, and it ended in war.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-art">Article 7, signed</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Eventually &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, fl = SM.fl, K;
+
+  $('#ximena').innerHTML = SM.who('ximena');
+  $('#otter').innerHTML = SM.who('otterburn', { smile: 7, papers: 0 });
+  $('#rouvier').innerHTML = SM.who('rouvier', { smile: 4 });
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'signing', no: 'VII', title: 'Nine O’Clock',
+    go: 'Into the hall',
+    intro: [
+      'In the documents office you found the one pair of words that did not agree, <i>éventuellement</i> and <i>eventually</i>, and built Article 7 again so that it could mean one thing only: &ldquo;Within 48 hours of the water level at the Old Bridge falling below the red mark, the Upstream Party shall open the sluices of the Upper Mirelle Dam.&rdquo; Noémie put it into French, and the printer ran it at ten to four.',
+      'At four, in Meeting Room 3, both ministers read the new Article 7 in both languages. At nine, the hall.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('g-told');
+  function isBusy() { return busy; }
+  function paint() {
+    $('#ximena').classList.toggle('ready', !K.has('ximena'));
+    $('#table').classList.toggle('ready', K.has('ximena') && !K.has('signed'));
+  }
+  function hints() {
+    if (!K.has('ximena')) return ['ximena', ['The Ambassador, in the middle, is about to speak. Click her.']];
+    if (!K.has('signed')) return ['table', ['The two ministers are waiting at the signing table. Click it.']];
+    return null;
+  }
+  function begin() {
+    paint();
+    if (K.has('signed')) { busy = false; finish(true); return; }
+    if (K.has('in')) { busy = false; ER.say('Nine o&rsquo;clock in the hall. The Ambassador is about to speak.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'At nine o&rsquo;clock the hall is full of sun. The windows face east over the river, and the morning comes in sideways across the horseshoe of tables, the flags and four television cameras.',
+      'High on the back wall, all three booths are lit. In Booth Two, Noémie is at the microphone, and beside her, at last, is a second interpreter: a relief from the agency, who arrived at seven with a bag of croissants and an apology.',
+      'You have a headset on, set to channel 1. Morag&rsquo;s voice is in it, two seconds behind everything.'
+    ], function () { busy = false; });
+  }
+
+  $('#ximena').addEventListener('click', function () {
+    if (busy) return;
+    if (K.has('ximena')) { ER.say(K.has('signed') ? '&ldquo;' + fl('Bien hecho') + ',&rdquo; says the Ambassador, as she passes you. Well done. Then, in English: &ldquo;I shall be writing to your school.&rdquo;' : 'The Ambassador is waiting for the ministers to sit down.'); return; }
+    ER.talk({
+      who: 'Ambassador Ximena Ortúzar', role: 'Chair of the talks · in Spanish, on channel 1', face: SM.face('ximena'),
+      lines: [
+        { note: 'She speaks Spanish. In your headset, two seconds behind, Morag speaks English.', a: '&ldquo;Last night this agreement nearly failed over one word. It did not fail in either language. It failed between them.&rdquo;' },
+        { a: '&ldquo;I want it on the record that the interpreting was not the cause. One interpreter worked for nearly two hours without a break, most of it alone, because no relief came. That was our failure, not hers. She changed one sentence on purpose, told us so at once, and has reported it herself, as she should.&rdquo;' },
+        { a: '&ldquo;And at half past ten she was the first person in this building to see what was wrong with Article 7. She could not leave her microphone, so she warned us with the only thing she had, which was a pen.&rdquo;' },
+        { note: 'In Booth Two, Noémie keeps interpreting, steadily, into French, a speech about herself. Her voice does not shake once.', a: '&ldquo;From today, no interpreter at a meeting of this Commission works alone, and every article of every agreement is read in both languages, side by side, by both sides, before anybody signs.&rdquo;' },
+        { a: '&ldquo;' + fl('Y ahora') + ', ministers. Article 7 is on page three.&rdquo; Morag: &ldquo;And now, ministers. Article 7 is on page three.&rdquo;' }
+      ],
+      clue: { id: 'ximena', title: 'The Ambassador: between the languages', kind: 'In the hall' },
+      done: function (seen) { if (seen && K.tell('ximena')) { paint(); ER.say('The ministers are sitting down at the signing table.'); } }
+    });
+  });
+
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('ximena')) { ER.say('The signing table, with two leather folders. The Ambassador speaks first.'); return; }
+    if (K.has('signed')) { ER.say('Two signatures on page seven. The pens are in a glass case already, as if they were famous.'); return; }
+    busy = true; K.tell('signed'); paint();
+    ER.narrate([
+      'Mr Otterburn reads Article 7 aloud in English. Madame Rouvier reads it aloud in French. Then, because the Ambassador asked them to at four o&rsquo;clock and they have decided they like it, each reads it in the other&rsquo;s language, badly, and the hall laughs, kindly, both times.',
+      'They sign. Ostrel&rsquo;s copy first, then Sauvenne&rsquo;s. The cameras flash.',
+      'Mr Otterburn stands up to speak. &ldquo;The flood of 2019,&rdquo; he says, &ldquo;is water under the bridge.&rdquo; On channel 2, a second later, in Noémie&rsquo;s voice: ' + fl('&laquo;&nbsp;La crue de 2019, c&rsquo;est de l&rsquo;histoire ancienne.&nbsp;&raquo;') + ' Madame Rouvier smiles for the first time in two days.',
+      'At the back of the hall, Mr Weismann shakes Noémie&rsquo;s hand when she comes down from the booth. He says something you cannot hear. She says something back that makes him laugh, which nobody in the building has seen before.',
+      'And on 1 March, says Article 9, the barriers come off the Old Bridge.'
+    ], function () {
+      var f = $('#flash'); f.classList.remove('on'); void f.getBoundingClientRect(); f.classList.add('on');
+      busy = false; finish(false);
+    });
+  });
+  $('#otter').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(K.has('signed') ? '&ldquo;Ancient history,&rdquo; says Mr Otterburn, very pleased with himself. &ldquo;Ms Sutherland made me practise.&rdquo;' : '&ldquo;I have been told,&rdquo; says Mr Otterburn, &ldquo;one idiom. One. And only the one on the card.&rdquo;');
+  });
+  $('#rouvier').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(K.has('signed') ? 'Madame Rouvier stops beside you and speaks in English, quietly. &ldquo;You found a word that was hiding in two languages at once. Thank you. And tell Mr Otterburn that his feet in the dish were accepted.&rdquo;' : 'Madame Rouvier is reading page three, in French, and then in English, with her finger under every word.');
+  });
+  SM.thing('#booths', null, 'Booth One: Morag, with her headset on and her eyes shut, listening. Booth Two: Noémie and the relief, two chairs, two microphones. Booth Three: Paz and Rocío.', isBusy);
+
+  var ART = '<h4>The Mirelle Agreement &middot; signed at Pontmirelle, 20 November 2026</h4><h3>Article 7</h3>' +
+    '<p class="art">Within 48 hours of the water level at the Old Bridge falling below the red mark, the Upstream Party shall open the sluices of the Upper Mirelle Dam.</p>' +
+    '<p class="art">' + fl('Dans un délai de quarante-huit heures à compter du moment où le niveau de la Mirelle au Vieux Pont passe sous le repère rouge, la Partie d&rsquo;amont ouvre les vannes du barrage de la Haute-Mirelle.') + '</p>' +
+    '<p>Done at Pontmirelle, in the English and French languages, both texts being equally authentic.</p>' +
+    '<p>Why it can be signed: the time comes first and is counted from one moment that anybody can see; <b>shall</b> makes it a duty; a number replaces <i>eventually</i> and <i>éventuellement</i>, which looked like twins and meant &ldquo;in the end&rdquo; and &ldquo;possibly&rdquo;; and it says what both ministers agreed at two o&rsquo;clock on Thursday.</p>';
+  function finish(quick) {
+    var st = ER.state(), mins = SM.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From Booth One to the signing: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The Mirelle Agreement is signed.');
+  }
+  $('#b-art').addEventListener('click', function () { ER.read({ html: ART, cls: 'card' }); });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Eventually &middot; in your own words</h4><h3>Tell a friend</h3>' +
+      '<p>Choose ONE and explain it, aloud or in writing, in 70 to 100 words. Use: because, so, but, although.</p>' +
+      '<p><b>A</b> Why the Mirelle Agreement nearly failed, and how Article 7 was put right. Give at least three causes, in order, and say why Noémie was not to blame for most of them.<br>' +
+      '<b>B</b> Choose an idiom from Korean or from English and explain why it cannot be translated word for word. Give its meaning in plain English and, if you can, an English idiom that means the same.<br>' +
+      '<b>C</b> &ldquo;An interpreter should always say exactly what was said, even if it starts a war.&rdquo; Do you agree? Give a reason, and answer one argument on the other side.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

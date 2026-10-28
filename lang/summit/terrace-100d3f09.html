@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Terrace · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#0e1626;--accent:#8ac8f0;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(12,20,36,.97);--tc-ink:#e8f0f8;--cap-bg:rgba(12,20,36,.95);--cap-ink:#e8f0f8;--panel:#f4f7fa;--panel-ink:#0e1626;--face-bg:#2a3a5a;--q-ink:#2a6a9a;
+    --fade:#060a12;--hud-bg:rgba(12,20,36,.86);--hud-ink:#e8f0f8;--hud-line:rgba(232,240,248,.3);--ov-bg:rgba(4,8,16,.72)}
+  .tc-room{font-size:clamp(40px,6vw,84px);color:#8ac8f0}
+  .tc-theme{color:#c8b8e8}
+  .hbtn b{color:#0e1626}
+  #shimmer path{animation:shim 3.5s ease-in-out infinite alternate}
+  #shimmer path:nth-child(2n){animation-delay:-1.7s}
+  @keyframes shim{to{transform:translate(14px,0);opacity:.4}}
+  #heat{animation:heat 2s steps(2,end) infinite}
+  @keyframes heat{50%{opacity:.75}}
+  #breath{animation:breath 4s ease-out infinite}
+  @keyframes breath{0%{opacity:0;transform:translate(0,0)}30%{opacity:.6}100%{opacity:0;transform:translate(16px,-26px)}}
+  #stars circle{animation:tw 5s steps(2,end) infinite}
+  #stars circle:nth-child(3n){animation-delay:-2s}
+  @keyframes tw{50%{opacity:.35}}
+  /* the evidence sheet */
+  .ev{width:min(1150px,97vw);background:#f4f7fa;color:#0e1626;padding:12px 16px 10px;box-shadow:0 26px 70px rgba(0,0,0,.6);border-top:12px solid #2a6a9a}
+  .ev h5{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:20px;letter-spacing:.05em}
+  .rack{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 8px}
+  .stamp{padding:6px 11px 4px;border:3px solid currentColor;border-radius:3px;background:#fff;font-family:'Stardos Stencil',sans-serif;font-size:15px;letter-spacing:.06em;cursor:pointer;transform:rotate(-2deg)}
+  .stamp.on{background:#fff6c8;outline:3px solid #f2c94c}
+  .k-F{color:#2f7a4a}.k-M{color:#2a5a9a}.k-T{color:#8a5a1a}.k-C{color:#7a3a8a}.k-N{color:#4a5a6a}.k-X{color:#c0392b}
+  .rows{display:flex;flex-direction:column;gap:5px}
+  .ev .pmsg{color:#0e1626}
+  .ev .pmsg b{color:#2a6a9a}
+  .ev .pmsg .fl{color:#6a2a7a}
+  .ev .pz-foot .btn{background:#1c3a5a;--accent:#e8f0f8}
+  .ev .pz-foot .btn:hover:not([disabled]){background:#e8f0f8;color:#0e1626;border-color:#1c3a5a}
+  .rw{display:grid;grid-template-columns:112px 1fr 168px;gap:10px;align-items:center;background:#fff;border:1px solid #d4dce6;padding:6px 8px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+  .rw:hover{border-color:#2a6a9a}
+  .rw .tm{font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.35;color:#4a5a6a}
+  .rw .tm b{display:block;font-size:15px;color:#0e1626}
+  .rw .tx{font-family:'Gentium Book Plus',serif;font-size:14.5px;line-height:1.3}
+  .rw .tx .fl{color:#6a2a7a}
+  .rw .tx em{font-style:normal;font-family:'Caveat',cursive;font-size:17px;color:#c0392b}
+  .rw .mark{min-height:34px;border:2px dashed #b8c4d2;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Stardos Stencil',sans-serif;font-size:15px;letter-spacing:.05em}
+  .rw.bad{outline:3px solid #e8574a}
+  .rw .mark span{border:3px solid currentColor;padding:3px 8px 1px;transform:rotate(-3deg)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050a16"/><stop offset=".7" stop-color="#14223a"/><stop offset="1" stop-color="#22324e"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a44"/><stop offset="1" stop-color="#0a1222"/></linearGradient>
+  <radialGradient id="heatg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff8a3a" stop-opacity=".45"/><stop offset="1" stop-color="#ff8a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#02040a" stop-opacity=".25"/><stop offset="1" stop-color="#02040a" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#sky)"/>
+<g id="stars" fill="#e8f0ff"><circle cx="120" cy="60" r="1.6"/><circle cx="300" cy="120" r="1.2"/><circle cx="520" cy="40" r="1.8"/><circle cx="760" cy="90" r="1.3"/><circle cx="980" cy="50" r="1.6"/><circle cx="1180" cy="130" r="1.2"/><circle cx="1400" cy="70" r="1.8"/><circle cx="1560" cy="150" r="1.3"/><circle cx="660" cy="170" r="1"/><circle cx="1300" cy="30" r="1.1"/></g>
+<!-- the hills of Ostrel across the river -->
+<path d="M-1000 400L-200 340L200 370L560 320L900 360L1200 310L1600 350L2600 330V500H-1000z" fill="#0c1424"/>
+<g fill="#f0d090" opacity=".7"><circle cx="300" cy="388" r="2"/><circle cx="380" cy="380" r="2"/><circle cx="1260" cy="352" r="2"/><circle cx="1330" cy="360" r="2"/></g>
+<rect x="-1000" y="420" width="3600" height="200" fill="url(#water)"/>
+<g id="shimmer" stroke="#f0d090" stroke-width="3" opacity=".6"><path d="M800 470h40"/><path d="M960 490h30"/><path d="M1120 476h46"/><path d="M1300 500h36"/><path d="M1460 482h30"/></g>
+<!-- the Old Bridge, closed since 2019 -->
+<g id="bridge" class="hot"><path d="M640 440h1000v-40H640z" fill="#5a5448"/><g fill="#0a1222"><path d="M700 440q60 -70 120 0z"/><path d="M880 440q70 -80 140 0z"/><path d="M1080 440q70 -80 140 0z"/><path d="M1280 440q60 -70 120 0z"/></g>
+  <path d="M640 400h1000" stroke="#7a7262" stroke-width="5"/><g stroke="#3a3630" stroke-width="5"><path d="M760 400v-36M960 400v-36M1160 400v-36M1360 400v-36"/></g>
+  <g><circle cx="760" cy="362" r="16" fill="url(#lampg)"/><circle cx="960" cy="362" r="16" fill="url(#lampg)"/><circle cx="1160" cy="362" r="16" fill="url(#lampg)"/><circle cx="1360" cy="362" r="16" fill="url(#lampg)"/></g>
+  <g><rect x="700" y="384" width="40" height="14" fill="#f4f2ea"/><path d="M704 384l8 14M716 384l8 14M728 384l8 14" stroke="#c8382e" stroke-width="4"/></g>
+  <path d="M960 400v60M960 440h20" stroke="#c8382e" stroke-width="6"/><path d="M960 448h16" stroke="#f4f2ea" stroke-width="3"/></g>
+<!-- the wall of the centre, the door and the notice -->
+<g><rect x="-1000" y="120" width="1160" height="500" fill="#2a3242"/><rect x="-40" y="240" width="130" height="380" fill="#e8c890" opacity=".9"/><rect x="-40" y="240" width="130" height="380" fill="none" stroke="#14181f" stroke-width="10"/></g>
+<g id="code" class="hot"><rect x="40" y="200" width="104" height="140" fill="#f4f7fa" transform="rotate(2 92 270)"/><rect x="40" y="200" width="104" height="14" fill="#2a6a9a" transform="rotate(2 92 270)"/><g stroke="#8a96a8" stroke-width="3" transform="rotate(2 92 270)"><path d="M52 236h80M52 252h80M52 268h60M52 284h80M52 300h70M52 316h50"/></g></g>
+<!-- the terrace floor and railing -->
+<rect x="-1000" y="600" width="3600" height="900" fill="#3a3e48"/><g stroke="#2e323a" stroke-width="3"><path d="M-1000 680H2600M-1000 780H2600M200 600l-100 300M600 600l-40 300M1000 600l40 300M1400 600l100 300"/></g>
+<g stroke="#9aa4b4" stroke-width="7"><path d="M160 560H2600M160 600H2600"/></g><g stroke="#9aa4b4" stroke-width="5"><path d="M200 560v40M300 560v40M400 560v40M500 560v40M600 560v40M700 560v40M800 560v40M900 560v40M1000 560v40M1100 560v40M1200 560v40M1300 560v40M1400 560v40M1500 560v40"/></g>
+<!-- the heater -->
+<g id="heater" class="hot"><circle id="heat" cx="650" cy="470" r="130" fill="url(#heatg)"/><path d="M650 730V480" stroke="#4a4e58" stroke-width="10"/><path d="M610 470h80l-10 -24h-60z" fill="#5a5e68"/><rect x="624" y="476" width="52" height="10" fill="#ff8a3a"/><ellipse cx="650" cy="736" rx="40" ry="8" fill="#2a2e36"/></g>
+<!-- the garden table with the papers -->
+<g id="table" class="hot"><ellipse cx="880" cy="690" rx="120" ry="26" fill="#5a5e68"/><path d="M880 716v90" stroke="#4a4e58" stroke-width="10"/><ellipse cx="880" cy="810" rx="50" ry="10" fill="#2a2e36"/>
+  <rect x="820" y="668" width="70" height="24" fill="#f4f7fa" transform="rotate(-6 855 680)"/><rect x="880" y="664" width="60" height="26" fill="#fdfcf6" transform="rotate(8 910 677)"/><rect x="906" y="684" width="22" height="22" rx="3" fill="#c0392b" transform="rotate(12 917 695)"/></g>
+<g id="morag" class="hot" transform="translate(250 902) scale(1.0)"></g>
+<g id="udo" class="hot" transform="translate(470 908) scale(1.06)"></g>
+<g id="noemie" class="hot" transform="translate(1210 900) scale(1.0)"></g>
+<path id="breath" d="M1216 616q10 -8 20 0q10 -8 18 2" stroke="#e8f0f8" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the documents office</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, ev = null, fl = SM.fl, K;
+
+  $('#morag').innerHTML = SM.who('morag', { cup: '#e8e4dc' });
+  $('#udo').innerHTML = SM.who('udo');
+  $('#noemie').innerHTML = SM.who('noemie');
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'terrace', no: 'V', title: 'The Terrace',
+    go: 'Out into the cold',
+    intro: [
+      'In Meeting Room 3 you matched what was said to what it meant. &ldquo;Two days, no more. You have my word&rdquo; was a promise. &ldquo;We note your concerns&rdquo; and &ldquo;I wonder if it might be possible to look at it again in the spring&rdquo; were not. So the sluices were agreed at two o&rsquo;clock, the tolls were not, and nobody lied. Mr Weismann&rsquo;s minutes, though, said &ldquo;for two days&rdquo;, and nobody can tell what that means.',
+      'It is twenty past one. Noémie Vasseur has been out on the terrace, in the cold, for two and a half hours.'
+    ],
+    exit: {"next":"office","w":{"c75f1ce9":"392365eb"}}, tags: {"r1":["20e5af88"],"r2":["43f2f284"],"r3":["34f318d7"],"r4":["c9a4ea6a"],"r5":["76a0ad0f"],"r6":["4d08743a"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('e-told'); nextFile = ER.flag('e-file') || null;
+  function isBusy() { return busy; }
+  var ORDER = ['noemie', 'code', 'udo', 'morag'];
+  function paint() {
+    var next = null;
+    ORDER.forEach(function (k) { if (!next && !K.has(k)) next = k; });
+    ORDER.forEach(function (k) { $('#' + k).classList.toggle('ready', k === next); });
+    $('#table').classList.toggle('ready', !next && !nextFile);
+    ER.pips(ORDER.filter(function (k) { return K.has(k); }).length + (nextFile ? 1 : 0), ORDER.length + 1);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you down to the documents office.']];
+    if (ev && ev.isOpen()) return ['stamps', [
+      'Stamp each rendering with what kind of thing it was. The booth code in your notebook says how to tell a mistake from tiredness from a choice. Use the evidence, not her face.',
+      'For each one, ask: was she fresh, or had she been at the microphone without a break for an hour or more? Did she know the right French already (her glossary)? Did she say she did it on purpose (her note)? Did it reach her by relay? And one rendering is simply right.',
+      '20.08: the sluice word was not in her glossary until 20.10, and she corrected herself within a minute. 22.05: the cat came from Booth One. 22.16: her own note says she softened it on purpose. 22.31 and 22.46: she knew how to do both, but she had been at the microphone for an hour and a half without a break, alone since half past nine.'
+    ]];
+    if (!K.has('noemie')) return ['noemie', ['Noémie is at the railing on the right. Talk to her.']];
+    if (!K.has('code')) return ['code', ['There is a notice by the door on the left: the booth code. Read it.']];
+    if (!K.has('udo')) return ['udo', ['Mr Weismann has brought the log of channel 2. Talk to him.']];
+    if (!K.has('morag')) return ['morag', ['Morag has something in her cardigan pocket. Talk to her.']];
+    return ['stamps', ['The papers are on the garden table, with Mr Weismann&rsquo;s stamps. Click the table.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('&ldquo;Éventuellement is not eventually.&rdquo; The documents office, two floors down.'); return; }
+    if (K.has('in')) { busy = false; ER.say('The terrace: Noémie at the railing, the papers on the table, the notice by the door.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'The terrace hangs over the river. It is cold enough to see your breath. Below, the Mirelle runs black and quick, and the Old Bridge crosses it with its lamps lit and a red-and-white barrier at each end, as it has since the flood.',
+      'Noémie Vasseur is standing at the railing in a long coat and a red scarf, with a paper cup of tea that stopped steaming a long time ago. She does not turn round.',
+      'Morag holds out the second cup. Noémie takes it without a word, and holds it with both hands.'
+    ], function () { busy = false; });
+  }
+
+  $('#noemie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Go,&rdquo; says Noémie. &ldquo;I will come. I want to see her face when she reads it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Noémie Vasseur', role: 'Interpreter · Booth Two, French', face: SM.face('noemie', 'worried'),
+      lines: [
+        { note: 'She speaks English the way some people play the piano: exactly, and a little too fast when she is upset.', a: '&ldquo;If you have come to ask whether I wanted the agreement to fail: no. My family has an orchard on that bank, below the bridge. Without the agreement, in a dry August, my father watches his trees die. I wanted it more than anybody in that hall.&rdquo;' },
+        { q: 'Then what happened tonight?', a: '&ldquo;Ask me about each thing and I will tell you. But I would prefer that you read the log first, and decide from that. People decide from my face. My face at one in the morning is not evidence.&rdquo;' },
+        { q: 'What did you say on the phone, out here?', a: '&ldquo;I rang the agency for the third time. I said ' + fl('c&rsquo;est ma faute') + ', it is my fault, because it is: I should have stopped the session at half past nine and said, I am alone. I did not want to be the one who stopped the talks. So I stayed. That was my choice too.&rdquo;' },
+        { q: 'Did you change anything on purpose?', a: '&ldquo;One sentence, at 22.16. Mr Otterburn said a word that would have ended the evening, and I made it smaller. That was not my job. It was not my sentence to change. I wrote a note to Booth One at once, so that somebody would know, and I will put it in my report.&rdquo;' },
+        { q: 'And the dog?', a: '&ldquo;The dog was not a choice. The dog was minute one hundred and six.&rdquo;' }
+      ],
+      clue: { id: 'noemie', title: 'Noémie: read the log first', kind: 'What she said' },
+      done: function (seen) { if (seen && K.tell('noemie')) { paint(); ER.say('By the door: a notice from the Language Service.'); } }
+    });
+  });
+
+  var CODE = '<h4>Language Service &middot; the booth code</h4><h3>Say what was said</h3>' +
+    '<p>An interpreter gives the speaker&rsquo;s meaning and the speaker&rsquo;s tone: not kinder, not harsher, not shorter. If a speaker is rude, the booth is rude. To soften a sentence, to sharpen it or to leave part of it out is a decision that belongs to the speaker, not to the booth.</p>' +
+    '<p>When a rendering goes wrong, the chief interpreter asks what kind of wrong it was. A <b>mistake</b> is an error of knowledge: the interpreter did not know the word, and would have got it wrong at any hour. <b>Tiredness</b> shows in errors the interpreter would not make fresh, after too long at the microphone: words dropped, the lag growing, a phrase put into the other language word for word. A <b>choice</b> is a change made on purpose.</p>' +
+    '<p>An error that arrived by relay belongs to the booth it came from. Correct a mistake on air at once: &ldquo;Correction: &hellip;&rdquo;. Never work alone for longer than a turn; if you must, say so.</p>';
+  $('#code').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CODE, cls: 'card', clue: { id: 'code', title: 'The booth code', kind: 'Notice' }, done: function () {
+      SM.terms(['faithful']);
+      if (K.tell('code')) { paint(); ER.say(K.has('noemie') ? 'Mr Weismann has the log of channel 2 in his folder.' : 'Noémie is at the railing.'); }
+    } });
+  });
+
+  function lg(t, who, alone, lag, floor, ch, bt) {
+    return '<p><span class="t">' + t + '</span> &nbsp;<b>' + who + '</b> &middot; ' + alone + ' &middot; ' + lag + '</p><p>FLOOR: ' + floor + '</p><p class="ch"><b>CH 2</b>: ' + ch + '</p>' + (bt ? '<span class="bt">' + bt + '</span>' : '');
+  }
+  var LOG = '<h4>Channel 2 log &middot; six renderings &middot; 19 November</h4><p class="sub">From the console&rsquo;s microphone log and the recordings. &ldquo;At the microphone&rdquo; = minutes without a break. Lag = seconds behind the words she was interpreting. Red pencil: M. Sutherland.</p>' +
+    lg('20.08.14', 'N. Vasseur, Yves beside her', '8 minutes at the microphone', 'lag 2 s', 'Mr Otterburn: &ldquo;&hellip; the sluices of the dam &hellip;&rdquo;', fl('&laquo;&nbsp;&hellip; les écluses du barrage &hellip;&nbsp;&raquo;') + ' &nbsp;and at 20.09.02: ' + fl('&laquo;&nbsp;pardon&nbsp;: les vannes du barrage&nbsp;&raquo;'), 'First &ldquo;the locks of the dam&rdquo;; then, 48 seconds later: &ldquo;correction: the sluice gates of the dam&rdquo;. The word first came up at 20.08.') +
+    lg('21.12.40', 'N. Vasseur, Yves beside her', '12 minutes at the microphone', 'lag 2 s', 'Mr Otterburn: &ldquo;The ball is in your court, Minister.&rdquo;', fl('&laquo;&nbsp;La balle est dans votre camp, Madame la Ministre.&nbsp;&raquo;'), '') +
+    lg('22.05.41', 'N. Vasseur, alone', '65 minutes at the microphone', '5 s behind channel 1, 8 s behind the floor', 'the Chair: ' + fl('&laquo;&nbsp;No hay que buscarle tres pies al gato.&nbsp;&raquo;') + ' &nbsp;CH 1 at 22.05.36 (Mischa): &ldquo;There&rsquo;s no need to look for three feet on the cat.&rdquo;', fl('&laquo;&nbsp;Il ne faut pas chercher trois pattes au chat.&nbsp;&raquo;'), '&ldquo;We must not look for three feet on the cat.&rdquo;') +
+    lg('22.16.24', 'N. Vasseur, alone', '76 minutes at the microphone', 'lag 4 s', 'Mr Otterburn: &ldquo;Frankly, Minister, that&rsquo;s a non-starter.&rdquo;', fl('&laquo;&nbsp;Franchement, Madame la Ministre, cela nous pose de grandes difficultés.&nbsp;&raquo;'), '&ldquo;Frankly, Minister, that causes us great difficulties.&rdquo;') +
+    lg('22.31.59', 'N. Vasseur, alone', '91 minutes at the microphone', 'lag 7 s', 'Mr Otterburn: &ldquo;Our engineers need forty-eight hours, Minister, not seventy-two. Forty-eight.&rdquo;', fl('&laquo;&nbsp;Nos ingénieurs ont besoin de quarante-huit heures, Madame la Ministre.&nbsp;&raquo;'), '&ldquo;Our engineers need forty-eight hours, Minister.&rdquo; &ldquo;Not seventy-two&rdquo; is gone.') +
+    lg('22.46.38', 'N. Vasseur, alone', '106 minutes at the microphone', 'lag 7 s', 'Mr Otterburn: &ldquo;With respect, Minister, you&rsquo;re barking up the wrong tree.&rdquo;', fl('&laquo;&nbsp;Avec tout le respect que je vous dois, Madame la Ministre, vous aboyez au pied du mauvais arbre.&nbsp;&raquo;'), '&ldquo;You are barking at the foot of the wrong tree.&rdquo; Word for word.');
+  $('#udo').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Weismann has put his own stamp back in his pocket, face down.'); return; }
+    ER.talk({
+      who: 'Udo Weismann', role: 'Chief of staff to the Chair', face: SM.face('udo'),
+      lines: [
+        { a: '&ldquo;The log of channel 2. Six renderings: the five complaints, and one that nobody complained about, so that you can compare. Times, the minutes she had been at the microphone, how far behind she was, and what went out.&rdquo;' },
+        { a: '&ldquo;I have brought stamps. The Ambassador likes her conclusions on paper. One for each kind of thing the booth code describes, one for a rendering that was right, one for an error that came from another booth, and one more.&rdquo; He holds up a red one: ON PURPOSE, TO SINK THE TALKS.' },
+        { q: 'Do you really think she did it on purpose?', a: '&ldquo;I think &lsquo;don&rsquo;t let them sign&rsquo; is a strange thing to write eight minutes before the talks collapse. I think &lsquo;it is my fault&rsquo; is a strange thing to say on a terrace.&rdquo; He pauses. &ldquo;But if the evidence says something else, I will tell the Ambassador myself. I do not like being wrong. I like it less than I like being unfair.&rdquo;' }
+      ],
+      clue: { id: 'udo5', title: 'Mr Weismann: stamps', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addClue('log', 'Channel 2 log: six renderings', LOG, 'log', 'Log');
+        if (K.tell('udo')) { paint(); ER.say('Morag is feeling in her cardigan pocket.'); }
+      }
+    });
+  });
+
+  var NOTE2 = '<h4>Passed under the glass from Booth Two at 22.17</h4><p class="hand">' + fl('J&rsquo;ai adouci &laquo;&nbsp;non-starter&nbsp;&raquo;. Exprès. Je le dirai. &mdash; N.') + '</p><p class="tr">Morag&rsquo;s translation: &ldquo;I softened &lsquo;non-starter&rsquo;. On purpose. I will say so. N.&rdquo; Mischa gave it to Morag at the changeover at 22.30. She put it in her pocket without reading it, because she had to go straight on to the microphone.</p>';
+  $('#morag').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Morag has her arm round Noémie&rsquo;s shoulders, and is pretending she has not.'); return; }
+    if (!K.has('udo')) { ER.say('&ldquo;Read the log first,&rdquo; says Morag. &ldquo;Then I have something for you.&rdquo;'); return; }
+    ER.talk({
+      who: 'Morag Sutherland', role: 'Chief interpreter', face: SM.face('morag', 'worried'),
+      lines: [
+        { note: 'She takes a folded slip of paper out of her cardigan pocket and looks at it as if it has bitten her.', a: '&ldquo;Mischa gave me this at the changeover, half past ten. I put it in my pocket without reading it, because I had to go straight on to the microphone, and ten minutes later Madame Rouvier was reading out Article 7. I&rsquo;ve just found it.&rdquo;' },
+        { a: '&ldquo;I have known Noémie for six years, so I do not trust my own judgement tonight either. Use the code. Use the log. Stamp what the evidence says, and nothing else.&rdquo;' }
+      ],
+      clue: { id: 'morag5', title: 'Morag: the note in my pocket', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        ER.addClue('note2', 'Note from Booth Two, 22.17', NOTE2, 'note', 'Note');
+        if (K.tell('morag')) { paint(); ER.say('The log and the stamps are on the garden table.'); }
+      }
+    });
+  });
+  SM.thing('#bridge', null, 'The Old Bridge. Closed since the flood of 2019. If the agreement is signed, it opens again on 1 March, and Noémie&rsquo;s father can drive his apples across it.', isBusy);
+  SM.thing('#heater', 'patio heater', 'A patio heater, roaring. It warms about one square metre, and Noémie is not standing in it.', isBusy);
+
+  /* ---------- the evidence sheet ---------- */
+  var STAMPS = [['F', 'FAITHFUL'], ['M', 'MISTAKE'], ['T', 'TIREDNESS'], ['C', 'CHOICE'], ['N', 'NOT HERS'], ['X', 'ON PURPOSE, TO SINK THE TALKS']];
+  var ROWS = [
+    ['r1', '20.08', '8 min &middot; 2 s', 'the sluices of the dam &rarr; ' + fl('les écluses') + ' <em>(canal locks)</em>, then at 20.09 ' + fl('pardon&nbsp;: les vannes') + ' <em>(correction: sluice gates)</em>'],
+    ['r2', '21.12', '12 min &middot; 2 s', 'the ball is in your court &rarr; ' + fl('la balle est dans votre camp')],
+    ['r3', '22.05', '65 min &middot; 8 s', 'the Chair&rsquo;s Spanish idiom &rarr; ' + fl('trois pattes au chat') + ' <em>(three feet on the cat)</em>'],
+    ['r4', '22.16', '76 min &middot; 4 s', 'that&rsquo;s a non-starter &rarr; ' + fl('cela nous pose de grandes difficultés') + ' <em>(that causes us great difficulties)</em>'],
+    ['r5', '22.31', '91 min &middot; 7 s', 'forty-eight hours, not seventy-two &rarr; ' + fl('quarante-huit heures') + ' <em>(forty-eight hours)</em>'],
+    ['r6', '22.46', '106 min &middot; 7 s', 'barking up the wrong tree &rarr; ' + fl('vous aboyez au pied du mauvais arbre') + ' <em>(word for word)</em>']];
+  var WHY = {
+    r1: 'At 20.08 she had been at the microphone for eight minutes, with Yves beside her. Was the word in her glossary when the session began? Look at the red pen on it, and the time. And what did she do at 20.09?',
+    r2: 'Read what she said against what was said. Look up the French on her glossary.',
+    r3: 'Whose mouth did the cat come out of first? Remember the relay board.',
+    r4: 'Read her note from 22.17. And what does &ldquo;great difficulties&rdquo; mean in a diplomat&rsquo;s mouth?',
+    r5: 'How long had she been at the microphone without a break at 22.31, and how far behind was she? Would she drop a number like that when she was fresh?',
+    r6: 'Did she know the right French for this idiom before the session? Look at the bottom of her glossary. Then look at the clock, and the lag.'
+  };
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six stamps on the sheet. Not one of them red.'); return; }
+    var miss = ORDER.filter(function (k) { return !K.has(k); });
+    if (miss.length) { ER.say('&ldquo;Everything first,&rdquo; says Morag. &ldquo;Noémie, the code by the door, the log, and my pocket. Then the stamps.&rdquo;'); return; }
+    if (!ev) ev = makeSheet();
+    ev.open();
+  });
+  function makeSheet() {
+    var box = ER.el('div', 'pz ev'), st = ER.flag('e-ev') || {}, pick = null, done = false;
+    box.innerHTML = '<h5>Six renderings by Noémie Vasseur: what kind of thing was each?</h5><div class="rack">' + STAMPS.map(function (s) { return '<button type="button" class="stamp k-' + s[0] + '" data-k="' + s[0] + '">' + s[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="rows">' + ROWS.map(function (r) { return '<button type="button" class="rw" data-r="' + r[0] + '"><span class="tm"><b>' + r[1] + '</b>' + r[2] + '</span><span class="tx">' + r[3] + '</span><span class="mark"></span></button>'; }).join('') + '</div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="e-go">Give it to Mr Weismann</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function label(k) { for (var i = 0; i < STAMPS.length; i++) if (STAMPS[i][0] === k) return STAMPS[i][1]; return ''; }
+    function draw() {
+      ER.$$('.stamp', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-k') === pick); });
+      ER.$$('.rw', box).forEach(function (b) { var v = st[b.getAttribute('data-r')]; b.querySelector('.mark').innerHTML = v ? '<span class="k-' + v + '">' + label(v) + '</span>' : ''; });
+    }
+    ER.$$('.stamp', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; var k = b.getAttribute('data-k'); pick = pick === k ? null : k; ER.sfx.click(); draw(); if (pick) msg('Now click a rendering to stamp it.'); }); });
+    ER.$$('.rw', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (!pick) { msg('Pick up a stamp from the top first.'); return; }
+        st[b.getAttribute('data-r')] = pick; ER.flag('e-ev', st); SM.sfx.stamp();
+        ER.$$('.rw', box).forEach(function (n) { n.classList.remove('bad'); }); draw();
+      });
+    });
+    box.querySelector('#e-go').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.rw', box).forEach(function (n) { n.classList.remove('bad'); });
+      var empty = ROWS.filter(function (r) { return !st[r[0]]; });
+      if (empty.length) { ER.sfx.no(); msg('Mr Weismann: &ldquo;Six renderings, six stamps. The Ambassador does not read half a sheet.&rdquo;'); return; }
+      var red = ROWS.filter(function (r) { return st[r[0]] === 'X'; });
+      if (red.length) {
+        ER.sfx.no(); bad(red[0][0]);
+        msg('Mr Weismann nods. Morag does not. &ldquo;Show me. Not her face, not her phone call, not a torn strip of paper: the line in the log that says she wanted the talks to fail. If it&rsquo;s there, I will stamp it myself.&rdquo;'); return;
+      }
+      for (var i = 0; i < ROWS.length; i++) {
+        var r = ROWS[i][0];
+        if (!ER.check(r, st[r])) { bad(r); msg('Morag puts her finger on ' + ROWS[i][1] + '. &ldquo;' + WHY[r] + '&rdquo;'); return; }
+      }
+      var cand = ROWS.map(function (x) { return st[x[0]]; }).join('.');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('e-file', nextFile); paint();
+      SM.mine('stamps', 'Noémie&rsquo;s six renderings', '<p>20.08 MISTAKE: she did not know the word for a sluice gate (not in her glossary till 20.10) and corrected herself on air within a minute.</p><p>21.12 FAITHFUL: an idiom for an idiom.</p><p>22.05 NOT HERS: the cat came by relay from Booth One.</p><p>22.16 CHOICE: she softened &ldquo;non-starter&rdquo; on purpose, and said so in a note at once.</p><p>22.31 and 22.46 TIREDNESS: 91 and 106 minutes at the microphone without a break, alone since 21.30, seven seconds behind. She knew &ldquo;faire fausse route&rdquo;: it was in her own glossary.</p><p>Not one of them was sabotage. No relief came.</p>');
+      msg('<b>That is what the evidence says.</b> One mistake, owned and corrected. One right. One not hers. One choice, owned at once. Two that belong to a hundred minutes without a break. No red stamp.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; ER.mood('calm');
+        ER.narrate([
+          'Mr Weismann looks at the sheet for a long time. Then he takes the red stamp out of his folder and puts it in his pocket. &ldquo;Ms Vasseur,&rdquo; he says, &ldquo;I owe you an apology, and I will make it in front of the Ambassador, not out here where it is easy.&rdquo;',
+          'Noémie nods once. Then she puts her hand in her coat pocket and takes out a strip of paper, torn along the top. &ldquo;You have the first half, Mr Weismann. This is the second. I started it at 22.44 and never pushed it through, because at 22.46 a minister barked.&rdquo;',
+          'Mr Weismann takes his half out of the folder. The two edges fit. Morag reads it aloud, in both languages: ' + fl('&laquo;&nbsp;Ne les laisse pas signer l&rsquo;article 7 comme ça&nbsp;: éventuellement &ne; eventually&nbsp;!!&nbsp;&raquo;') + ' Don&rsquo;t let them sign Article 7 like that: <i>éventuellement</i> is not <i>eventually</i>.',
+          '&ldquo;I read ahead,&rdquo; says Noémie. &ldquo;I always read the next article before it comes. At half past ten I read Article 7 in French, and then in English, and they do not say the same thing. I could not leave the microphone, and I cannot write while I am speaking. At 22.40 Madame Rouvier began to speak French, my booth went silent, and I wrote.&rdquo;',
+          '&ldquo;The agreement is kept in the documents office,&rdquo; says Morag. &ldquo;Two floors down. Whoever wrote Article 7 is still down there, because the signing copies go to the printer at five.&rdquo;'
+        ], function () {
+          busy = false; $('#go').classList.add('on');
+          ER.addClue('note1b', 'The whole note, both halves', '<h4>The strip from 22.44, both halves together</h4><p class="hand">' + fl('NE LES LAISSE PAS SIGNER<br>l&rsquo;article 7 comme ça&nbsp;: &laquo;&nbsp;éventuellement&nbsp;&raquo; &ne; eventually&nbsp;!!') + '</p><p class="tr">&ldquo;Don&rsquo;t let them sign Article 7 like that: &lsquo;éventuellement&rsquo; is not &lsquo;eventually&rsquo;!!&rdquo; A warning, not a wish.</p>', 'note', 'Note');
+        });
+      }, 3200);
+    });
+    function bad(r) { ER.sfx.no(); var n = box.querySelector('.rw[data-r="' + r + '"]'); n.classList.add('bad'); ER.shake(n); }
+    draw();
+    msg(Object.keys(st).length ? 'Your stamps are where you left them.' : 'Pick up a stamp, then click a rendering. The log, the code and her glossary are in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

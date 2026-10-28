@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Delegates' Lounge · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#3a2a22;--accent:#f0b060;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(44,30,24,.97);--tc-ink:#f6eee4;--cap-bg:rgba(44,30,24,.95);--cap-ink:#f6eee4;--panel:#fbf6ee;--panel-ink:#2a1e18;--face-bg:#c8962a;--q-ink:#9a4a1a;
+    --fade:#140c08;--hud-bg:rgba(44,30,24,.86);--hud-ink:#f6eee4;--hud-line:rgba(246,238,228,.3);--ov-bg:rgba(20,12,8,.7)}
+  .tc-room{font-size:clamp(38px,5.6vw,80px);color:#f0b060}
+  .tc-theme{color:#e8c8a0}
+  .hbtn b{color:#2a1e18}
+  #rain path{animation:rain .7s linear infinite}
+  @keyframes rain{from{transform:translate(0,-40px)}to{transform:translate(-5px,40px)}}
+  #ticker{animation:ticker 14s linear infinite}
+  @keyframes ticker{from{transform:translate(0,0)}to{transform:translate(-560px,0)}}
+  #vglow{animation:vglow 3s steps(2,end) infinite}
+  @keyframes vglow{50%{opacity:.8}}
+  /* the three notes */
+  .nt{width:min(1140px,97vw)}
+  .nt-in{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .env{background:#fbf8f0;color:#2a1e18;padding:10px 12px 10px;box-shadow:0 14px 34px rgba(0,0,0,.45);border-top:8px solid #9a4a1a}
+  .env h5{margin:0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9a4a1a}
+  .env h6{margin:0 0 7px;font-family:'Old Standard TT',serif;font-weight:700;font-size:17px;line-height:1.15;color:#2a1e18}
+  .env .sl{display:block;min-height:38px;margin:0 0 5px;padding:3px;border:2px dashed #c8b8a4;border-radius:3px;position:relative}
+  .env .sl:before{content:attr(data-l);position:absolute;right:5px;top:-8px;padding:0 4px;background:#fbf8f0;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:#a89884}
+  .env .sl.bad{border-color:#d0392b;background:#fbe8e4}
+  .strip{display:inline-block;padding:5px 9px 4px;background:#fff;color:#2a1e18;font-family:'Gentium Book Plus',serif;font-size:15px;line-height:1.25;border:1px solid #d8ccbc;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+  .sl .strip{display:block;box-shadow:none;border-color:transparent}
+  .nt-tray{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:8px;background:rgba(0,0,0,.28);border-radius:4px}
+  .nt-tray h5{width:100%;margin:0 0 2px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#f6eee4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#8a6448"/><path d="M40 0v80" stroke="#7e5a40" stroke-width="10"/><circle cx="20" cy="40" r="3" fill="#9a7458"/><circle cx="60" cy="10" r="3" fill="#9a7458"/></pattern>
+  <pattern id="rug" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#5a2a22"/><path d="M0 25L25 0L50 25L25 50z" fill="none" stroke="#6a362c" stroke-width="3"/></pattern>
+  <radialGradient id="lampL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".5"/><stop offset="1" stop-color="#ffd8a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1220"/><stop offset="1" stop-color="#1c2638"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0604" stop-opacity=".2"/><stop offset="1" stop-color="#0a0604" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#paper)"/>
+<!-- the windows, with rain and the lights of Ostrel across the river -->
+<g id="window" class="hot"><rect x="500" y="110" width="440" height="330" fill="url(#night)"/>
+  <path d="M500 360q120 -30 220 -10t220 -14v104H500z" fill="#141c2a"/><g fill="#f0d090" opacity=".7"><circle cx="560" cy="350" r="2.5"/><circle cx="640" cy="342" r="2"/><circle cx="790" cy="346" r="2.5"/><circle cx="880" cy="340" r="2"/></g>
+  <path d="M520 390h400" stroke="#3a4a6a" stroke-width="3"/><g stroke="#e8c87a" stroke-width="3"><path d="M600 390v-12M680 390v-12M760 390v-12M840 390v-12"/></g>
+  <g id="rain" stroke="#a8c4e0" stroke-width="2" opacity=".45"><path d="M530 140l-5 24M600 210l-5 24M680 160l-5 24M760 240l-5 24M840 150l-5 24M900 220l-5 24M560 300l-5 24M720 320l-5 24M880 300l-5 24"/></g>
+  <rect x="500" y="110" width="440" height="330" fill="none" stroke="#e8dcc8" stroke-width="12"/><path d="M720 110v330" stroke="#e8dcc8" stroke-width="7"/></g>
+<!-- the register card on the wall -->
+<g id="card" class="hot"><rect x="120" y="160" width="180" height="240" fill="#fdfdfb"/><rect x="120" y="160" width="180" height="20" fill="#9a4a1a"/>
+  <text x="210" y="214" class="cO" font-size="22" font-weight="700" fill="#2a1e18" text-anchor="middle">Register</text>
+  <g stroke="#2a1e18" stroke-width="3"><path d="M160 236v150M260 236v150"/><path d="M160 256h100M160 286h100M160 316h100M160 346h100M160 376h100"/></g>
+  <circle cx="135" cy="168" r="4" fill="#e8c24a"/><circle cx="285" cy="168" r="4" fill="#e8c24a"/></g>
+<!-- the television -->
+<g id="tv" class="hot"><rect x="1090" y="170" width="250" height="150" rx="6" fill="#121418"/><rect x="1100" y="180" width="230" height="110" fill="#1e3a5a"/>
+  <rect x="1150" y="196" width="70" height="60" fill="#c8a07a"/><circle cx="1185" cy="210" r="12" fill="#e8c4a2"/><rect x="1100" y="268" width="230" height="22" fill="#c8382e"/>
+  <svg x="1100" y="268" width="230" height="22"><g id="ticker"><text x="10" y="16" class="cX" font-size="13" font-weight="700" fill="#fff">PONTMIRELLE TALKS SUSPENDED &#183; SIGNING AT NINE IN DOUBT &#183; PONTMIRELLE TALKS SUSPENDED &#183; SIGNING AT NINE IN DOUBT</text></g></svg>
+  <path d="M1215 320v24M1180 344h70" stroke="#121418" stroke-width="6"/></g>
+<!-- the vending machine -->
+<g id="vend" class="hot"><rect x="1390" y="250" width="150" height="460" rx="6" fill="#2a2e36"/><rect id="vglow" x="1404" y="266" width="96" height="300" fill="#d8e8f0" opacity=".9"/>
+  <g fill="#c8382e"><rect x="1414" y="280" width="20" height="30"/><rect x="1442" y="280" width="20" height="30"/><rect x="1470" y="280" width="20" height="30"/></g>
+  <g fill="#2a5a9a"><rect x="1414" y="330" width="20" height="30" opacity=".25"/><rect x="1442" y="330" width="20" height="30" opacity=".25"/><rect x="1470" y="330" width="20" height="30" opacity=".25"/></g>
+  <g fill="#e8b84a"><rect x="1414" y="380" width="20" height="30"/><rect x="1442" y="380" width="20" height="30"/></g>
+  <rect x="1508" y="300" width="22" height="80" fill="#4a4e58"/><rect x="1410" y="600" width="110" height="40" fill="#14161c"/></g>
+<rect x="-1000" y="600" width="3600" height="900" fill="#3a261c"/>
+<rect x="-1000" y="680" width="3600" height="800" fill="url(#rug)"/>
+<!-- lamps and sofas -->
+<g><circle cx="80" cy="420" r="200" fill="url(#lampL)" pointer-events="none"/><path d="M80 700V430" stroke="#2a1e18" stroke-width="6"/><path d="M40 430l20 -60h40l20 60z" fill="#e8c890"/></g>
+<g pointer-events="none"><circle cx="1000" cy="460" r="170" fill="url(#lampL)"/></g>
+<g><path d="M200 700v-120q0 -30 30 -30h300q30 0 30 30v120z" fill="#6a3a2a"/><rect x="190" y="630" width="380" height="70" rx="20" fill="#7a4632"/></g>
+<g><path d="M1000 700v-120q0 -30 30 -30h300q30 0 30 30v120z" fill="#2f4a5a"/><rect x="990" y="630" width="380" height="70" rx="20" fill="#3a5a6a"/><rect x="1260" y="604" width="40" height="40" rx="8" fill="#c8962a" transform="rotate(12 1280 624)"/></g>
+<!-- the coffee table and the folder -->
+<g><path d="M610 720v60M950 720v60" stroke="#2a1e18" stroke-width="8"/><rect x="580" y="690" width="400" height="34" rx="4" fill="#5a3a26"/></g>
+<g id="folder" class="hot"><rect x="690" y="664" width="160" height="34" fill="#c8382e" transform="rotate(-3 770 681)"/><rect x="700" y="656" width="140" height="22" fill="#fbf8f0" transform="rotate(-6 770 667)"/><path d="M712 664h110M712 670h80" stroke="#9a8a7a" stroke-width="2" transform="rotate(-6 770 667)"/>
+  <path d="M880 690q20 -14 34 0" fill="#e8e4dc"/><rect x="880" y="676" width="30" height="20" fill="#e8e4dc"/></g>
+<g id="udo" class="hot" transform="translate(420 908) scale(1.06)"></g>
+<g id="mischa" class="hot" transform="translate(1140 902) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To Meeting Room 3</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, nt = null, fl = SM.fl, K;
+
+  $('#udo').innerHTML = SM.who('udo');
+  $('#mischa').innerHTML = SM.who('mischa', { extra: '<g transform="translate(-44 -128) rotate(-20)"><rect x="-10" y="-14" width="20" height="28" rx="3" fill="#2a5a9a"/><rect x="-10" y="-14" width="20" height="8" fill="#e8c24a"/></g>' });
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'lounge', no: 'III', title: 'The Delegates’ Lounge',
+    go: 'Into the lounge',
+    intro: [
+      'In the hall you booth-proofed Mr Otterburn&rsquo;s apology with French idioms that mean what his English ones mean: the feet in the dish for his foot in it, the bear&rsquo;s skin for the chickens, the same ball and the same boat, and &ldquo;ancient history&rdquo; for 2019, not the French bridges, which only mean that a lot of time has passed.',
+      'At two minutes to midnight the apology went to Madame Rouvier. Now the Ambassador wants both delegations back in a room at four, and her messages are in the delegates&rsquo; lounge, waiting to go.'
+    ],
+    exit: {"next":"corridor","w":{"2afd61fa":"f1336aa7"}}, tags: {"1g":["20c1ba90"],"1r":["d2391eec"],"1t":["d33f176a"],"1s":["42cc52a8"],"2g":["7ddcaa07"],"2r":["470fcee2"],"2t":["95580194"],"2s":["67b84223"],"3g":["c80bd83c"],"3r":["e9771377"],"3t":["48f36d0c"],"3s":["5ef83c21"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('c-told'); nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function paint() {
+    $('#udo').classList.toggle('ready', !K.has('udo'));
+    $('#card').classList.toggle('ready', K.has('udo') && !K.has('card'));
+    $('#mischa').classList.toggle('ready', K.has('card') && !K.has('mischa'));
+    $('#folder').classList.toggle('ready', K.has('mischa') && !nextFile);
+    ER.pips((K.has('udo') ? 1 : 0) + (K.has('card') ? 1 : 0) + (K.has('mischa') ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you to the corridor of meeting rooms.']];
+    if (nt && nt.isOpen()) return ['notes', [
+      'Each envelope says who the note is for. Every strip in one note must be in the same register, the right one for that reader. Three strips in the tray belong in no note at all.',
+      'The card in your notebook lists the signs. Formal: titles, &ldquo;would be grateful&rdquo;, Latin verbs like attend, the 24-hour clock, &ldquo;Yours sincerely&rdquo;. Neutral: &ldquo;Could you &hellip; please?&rdquo;, plain verbs, &ldquo;Many thanks&rdquo;. Casual: short verbs with up or in, first names, jokes. And the pieces must make a sentence: look at where each one stops and what punctuation it ends with.',
+      'Madame Rouvier gets &ldquo;Dear Minister&rdquo;, the Chair&rsquo;s &ldquo;would be most grateful&rdquo;, &ldquo;04.00&rdquo; and the Ambassador&rsquo;s own name. Leave out the treaty sentence (a treaty never asks), the order (&ldquo;Your presence is required&rdquo; is formal but not polite) and the text message.'
+    ]];
+    if (!K.has('udo')) return ['udo', ['Mr Weismann is on the left, by the coffee table. Talk to him.']];
+    if (!K.has('card')) return ['card', ['The card on the left-hand wall is about register. Read it.']];
+    if (!K.has('mischa')) return ['mischa', ['Mischa Ottaway, Morag&rsquo;s partner in Booth One, is on the sofa on the right. Talk to him.']];
+    return ['notes', ['The red folder on the coffee table has the three notes in it. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The notes have gone. Madame Rouvier wants to know what was agreed at two.'); return; }
+    if (K.has('in')) { busy = false; ER.say('The lounge: the folder on the table, Mr Weismann, Mischa, the card on the wall.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'The delegates&rsquo; lounge is the only warm room in the building. Brown sofas, low lamps, rain on the windows, and across the river the lights of Ostrel, small and yellow.',
+      'On the television a newsreader is mouthing silently over a red line of words that never stops: PONTMIRELLE TALKS SUSPENDED.',
+      'Mr Weismann is standing over the coffee table with his folder open. On the far sofa, a young man in a mustard cardigan is lying flat with a packet of biscuits on his chest. Morag has gone to find a kettle.'
+    ], function () { busy = false; });
+  }
+
+  $('#udo').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Moustache-proof,&rdquo; says Mr Weismann, almost smiling. &ldquo;Good.&rdquo;'); return; }
+    ER.talk({
+      who: 'Udo Weismann', role: 'Chief of staff to the Chair', face: SM.face('udo'),
+      lines: [
+        { note: 'He has the look of a man who has been typing since eleven.', a: '&ldquo;The Ambassador wants both delegations in Meeting Room 3 at four o&rsquo;clock: a short technical meeting, before she rings the ministers. I have written three notes. One to Madame Rouvier, one to the Ostrel office, one to the interpreters.&rdquo;' },
+        { q: 'Can I see them?', a: '&ldquo;Ms Sutherland has seen them. She said, and I quote: &lsquo;Udo, you have cut three notes into strips and glued them back together in the dark.&rsquo; She is not wrong. I wrote them at speed and moved things about. My English is good, but at midnight it becomes a museum.&rdquo;' },
+        { q: 'Is there any news of Noémie?', a: '&ldquo;Security heard her on the terrace, on her phone, in French. She said ' + fl('&laquo;&nbsp;c&rsquo;est ma faute&nbsp;&raquo;') + '. It is my fault. I do not need a dictionary for that.&rdquo;' },
+        { a: '&ldquo;Please put the notes right. And nothing on the interpreters&rsquo; board that sounds like an order, please. The last time I wrote to the interpreters, somebody drew a moustache on it.&rdquo;' }
+      ],
+      clue: { id: 'udo3', title: 'Mr Weismann: three notes, and a phone call', kind: 'What he said' },
+      done: function (seen) { if (seen && K.tell('udo')) { paint(); ER.say('The card on the wall: &ldquo;Register&rdquo;.'); } }
+    });
+  });
+
+  var DIA = '<svg viewBox="0 0 300 250"><g font-family="Gentium Book Plus,serif" font-size="13">' +
+    '<path d="M30 14v226M58 14v226" stroke="#2a1e18" stroke-width="3"/><g stroke="#2a1e18" stroke-width="3"><path d="M30 40h28M30 88h28M30 136h28M30 184h28M30 228h28"/></g>' +
+    '<g font-family="IBM Plex Mono,monospace" font-size="10.5" fill="#9a4a1a"><text x="68" y="32">TREATY</text><text x="68" y="80">FORMAL</text><text x="68" y="128">NEUTRAL</text><text x="68" y="176">CASUAL</text><text x="68" y="220">CHAT</text></g>' +
+    '<g fill="#1c2333"><text x="68" y="48">The Parties shall meet at 04.00.</text><text x="68" y="96">The Chair would be grateful if</text><text x="68" y="110">the Minister would attend &hellip;</text>' +
+    '<text x="68" y="144">Could you come to a meeting</text><text x="68" y="158">at four, please?</text><text x="68" y="192">Can you pop in at four?</text><text x="68" y="236">4am??</text></g>' +
+    '<path d="M14 230V30" stroke="#9a4a1a" stroke-width="2"/><path d="M8 40l6 -12 6 12" fill="#9a4a1a"/><text x="10" y="150" font-family="IBM Plex Mono,monospace" font-size="9" fill="#9a4a1a" transform="rotate(-90 10 150)">more distance</text></g></svg>';
+  var CARD = '<h4>Language Service &middot; the writing desk</h4><h3>Register</h3><div class="two"><div>' +
+    '<p><b>Register</b> is how formal your words are. The same request can be made in many registers, and you choose by who will read it and why.</p>' +
+    '<p>The more <b>formal</b> the words, the more distance they keep: Latin verbs (attend, rejoin, require) instead of short verbs with up, in or back (pop in, come back); would and could instead of can; titles instead of first names; no shortened forms like can&rsquo;t; the 24-hour clock. <b>Neutral</b> English is polite and plain. <b>Casual</b> English is for friends. Formal is not the same as polite: &ldquo;Your presence is required&rdquo; is formal, and it is an order.</p>' +
+    '<p>A <b>treaty</b> sits at the very top, because it is written for a judge who may read it years later and must find one meaning only. It never asks. It says <b>shall</b> for a duty and <b>may</b> for a choice, gives every time as a number, and uses no idioms at all.</p></div>' +
+    '<div class="dia">' + DIA + '</div></div>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'register', title: 'Card: register', kind: 'Writing desk' }, done: function () {
+      SM.terms(['register', 'formal', 'neutral', 'casual', 'treaty']);
+      if (K.tell('card')) { paint(); ER.say(K.has('udo') ? 'On the far sofa, the young man with the biscuits has lifted one hand in greeting.' : 'Mr Weismann is waiting by the coffee table.'); }
+    } });
+  });
+
+  $('#mischa').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ta, by the way,&rdquo; says Mischa. &ldquo;Means thanks. Casual. Very casual. Biscuit?&rdquo;'); return; }
+    ER.talk({
+      who: 'Mischa Ottaway', role: 'Interpreter · Booth One, English', face: SM.face('mischa'),
+      lines: [
+        { note: 'He sits up, scattering crumbs.', a: '&ldquo;Hello, runner. Don&rsquo;t look at me like that. I know. The cat.&rdquo;' },
+        { q: 'Why three feet on a cat?', a: '&ldquo;Because the Ambassador said ' + fl('&laquo;&nbsp;no hay que buscarle tres pies al gato&nbsp;&raquo;') + ', and my Spanish is a C, and at five past ten my brain went: feet, cat, go. It means &lsquo;let&rsquo;s not go looking for problems where there aren&rsquo;t any&rsquo;. I should have said that. Instead I gave forty people a cat with a leg missing, and Noémie had to pass it on.&rdquo;' },
+        { q: 'Did Noémie ask for help?', a: '&ldquo;Twice. At half past nine, when Yves went home, she rang the agency in a gap when the floor was speaking French and her booth was silent. And again at half past ten. Nobody came. She did nearly an hour and a half alone.&rdquo; He shakes his head. &ldquo;Thirty minutes is a turn. Ninety is a marathon in a cupboard.&rdquo;' },
+        { a: '&ldquo;If you write anything to the booths, by the way, write it like a human. We are humans. Mostly. And put biscuits in it.&rdquo;' }
+      ],
+      clue: { id: 'mischa', title: 'Mischa: the cat was mine', kind: 'What he said' },
+      done: function (seen) { if (seen && K.tell('mischa')) { paint(); ER.say('The notes are in the red folder on the coffee table.'); } }
+    });
+  });
+
+  SM.thing('#tv', null, 'PONTMIRELLE TALKS SUSPENDED. SIGNING AT NINE IN DOUBT. The newsreader looks as if she would like to go to bed too.', isBusy);
+  SM.thing('#vend', 'vending machine', 'It sells crisps from both countries. The Ostrel crisps are sold out. Make of that what you like.', isBusy);
+  SM.thing('#window', null, 'Rain on the glass. Across the river, the lights of Ostrel, and the dark line of the Old Bridge, closed since the flood of 2019.', isBusy);
+
+  /* ---------- the three notes ---------- */
+  var ENV = [
+    ['1', 'To', 'H.E. Madame Sidonie Rouvier, Minister of Agriculture and Water, Sauvenne'],
+    ['2', 'To', 'The Ostrel delegation office (staff)'],
+    ['3', 'To', 'The interpreters&rsquo; kitchen board']];
+  var SLOTS = [['g', 'GREETING'], ['r', 'REQUEST'], ['t', 'TIME AND PLACE'], ['s', 'SIGNED']];
+  var STR = [['cr', 'Can you lot pop up to the booths'], ['ft', 'at 04.00 in Meeting Room 3.'], ['x2', 'Your presence is required'], ['ng', 'Hello all,'], ['cs', 'Ta! Morag x'],
+    ['fr', 'The Chair would be most grateful if you would attend a short technical meeting'], ['x3', '4am?? pls'], ['nt', 'at 4 a.m. in Meeting Room 3, please?'], ['fg', 'Dear Minister,'],
+    ['ns', 'Many thanks, Udo Weismann'], ['x1', 'The Parties shall reconvene at 04.00 hours.'], ['cg', 'Hi, team!'], ['ct', 'at four? Kettle&rsquo;s on.'], ['nr', 'Could you and your team come to a short meeting'],
+    ['fs', 'Yours sincerely, Ximena Ortúzar, Chair of the Talks']];
+  var WHO = {
+    '1': 'Madame Rouvier is a minister, and tonight she has already been called a dog once. Every strip in her note must be formal: the signs are on the card in your notebook.',
+    '2': 'The Ostrel office staff work with the Chair&rsquo;s office every day: polite and plain. Neutral. Not stiff, not chummy.',
+    '3': 'The interpreters are colleagues who have been at work for fifteen hours. Casual is right here: anything formal would sound like a telling-off.'
+  };
+  var DECOY = {
+    x1: 'Mr Weismann: &ldquo;That is what I would write.&rdquo; Mischa, from the sofa: &ldquo;That&rsquo;s a treaty, Udo. A treaty doesn&rsquo;t ask anybody anything. It tells them.&rdquo;',
+    x2: '&ldquo;Your presence is required&rdquo; is formal, but it is an order. Formal is not the same as polite.',
+    x3: 'Mischa laughs. &ldquo;That&rsquo;s a text to your mum. Not even we get that.&rdquo;'
+  };
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The folder is empty. The notes have gone.'); return; }
+    if (!K.has('udo')) { ER.say('A red folder. Mr Weismann&rsquo;s. Ask him first.'); return; }
+    if (!K.has('card')) { ER.say('&ldquo;Read the card on the wall before you touch those,&rdquo; says Mischa, without opening his eyes. &ldquo;Morag will ask.&rdquo;'); return; }
+    if (!K.has('mischa')) { ER.say('Mischa is waving a biscuit at you. He has something to say first.'); return; }
+    if (!nt) nt = makeNotes();
+    nt.open();
+  });
+  function makeNotes() {
+    var box = ER.el('div', 'pz nt'), st = ER.flag('c-nt') || {}, done = false;
+    box.innerHTML = '<div class="nt-in">' + ENV.map(function (e) {
+      return '<div class="env" data-n="' + e[0] + '"><h5>Note ' + e[0] + ' &middot; ' + e[1] + '</h5><h6>' + e[2] + '</h6>' +
+        SLOTS.map(function (s) { return '<span class="sl" data-s="' + e[0] + s[0] + '" data-l="' + s[1] + '"></span>'; }).join('') + '</div>';
+    }).join('') + '</div><div class="nt-tray"><h5>Mr Weismann&rsquo;s strips</h5>' + STR.map(function (s) { return '<span class="strip dnd-item" data-k="' + s[0] + '">' + s[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="n-go">Send the notes</button></div>';
+    var tray = box.querySelector('.nt-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function slot(k) { return box.querySelector('.sl[data-s="' + k + '"]'); }
+    var KEYS = [];
+    ENV.forEach(function (e) { SLOTS.forEach(function (s) { KEYS.push(e[0] + s[0]); }); });
+    Object.keys(st).forEach(function (k) { var it = tray.querySelector('.strip[data-k="' + st[k] + '"]'); if (it && slot(k)) slot(k).appendChild(it); });
+    ER.dnd(box, { item: '.strip', slot: '.sl', home: tray, lock: function () { return done; }, change: function () {
+      st = {}; KEYS.forEach(function (k) { var it = slot(k).querySelector('.strip'); if (it) st[k] = it.getAttribute('data-k'); });
+      ER.$$('.sl', box).forEach(function (n) { n.classList.remove('bad'); });
+      ER.flag('c-nt', st);
+    } });
+    box.querySelector('#n-go').addEventListener('click', function () {
+      if (done) return;
+      ER.$$('.sl', box).forEach(function (n) { n.classList.remove('bad'); });
+      var empty = KEYS.filter(function (k) { return !st[k]; });
+      if (empty.length) { ER.sfx.no(); msg('Mr Weismann: &ldquo;Every note needs a greeting, a request, a time and a name. There are gaps.&rdquo;'); return; }
+      for (var i = 0; i < KEYS.length; i++) {
+        var k = KEYS[i];
+        if (DECOY[st[k]]) { bad(k); msg(DECOY[st[k]]); return; }
+      }
+      for (i = 0; i < KEYS.length; i++) {
+        k = KEYS[i];
+        if (!ER.check(k, st[k])) { bad(k); msg('Note ' + k.charAt(0) + ' does not sound like one voice yet. ' + WHO[k.charAt(0)]); return; }
+      }
+      var cand = ['1', '2', '3'].map(function (n) { return SLOTS.map(function (s) { return st[n + s[0]]; }).join('.'); }).join('|');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('c-file', nextFile); paint();
+      SM.mine('notes', 'Three notes, three registers', '<p>FORMAL, to a minister: Dear Minister, &middot; The Chair would be most grateful if you would attend &hellip; &middot; at 04.00 &middot; Yours sincerely.</p><p>NEUTRAL, to an office: Hello all, &middot; Could you &hellip; please? &middot; at 4 a.m. &middot; Many thanks.</p><p>CASUAL, to colleagues: Hi, team! &middot; Can you lot pop up &hellip; &middot; Kettle&rsquo;s on &middot; Ta!</p><p>Left out: a treaty sentence (a treaty never asks: it says shall), an order (formal is not polite), a text message.</p>');
+      msg('<b>Three notes, three voices.</b> Mr Weismann reads them, nods, and sends the first two by hand. Mischa pins the third to the kitchen board himself and adds a drawing of a biscuit.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'The answers come back at twenty to one, both in writing. From the Ostrel office: &ldquo;We would not be entirely opposed.&rdquo; Mischa translates without being asked: &ldquo;That means yes, and they&rsquo;re coming in their slippers.&rdquo;',
+          'From Madame Rouvier, on hotel paper, in English: &ldquo;The Minister thanks the Chair for her note, and Mr Otterburn for his letter, which she found courteous. She wonders whether it might be possible, before four, for somebody to tell her exactly what was agreed about the sluices at two o&rsquo;clock this afternoon in Meeting Room 3.&rdquo;',
+          'Morag comes back with a tray of tea and reads it over your shoulder. &ldquo;&lsquo;She wonders whether it might be possible.&rsquo; That is not a question, runner. That is a condition. No answer, no meeting.&rdquo;',
+          '&ldquo;Three people took notes in Meeting Room 3 this afternoon,&rdquo; says Mr Weismann. &ldquo;I was one of them.&rdquo; He looks, for the first time tonight, less than sure. &ldquo;The notes are still in the room.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    function bad(k) { ER.sfx.no(); var n = slot(k); n.classList.add('bad'); ER.shake(n); }
+    msg(Object.keys(st).length ? 'The strips are where you left them.' : 'Drag the strips into the notes, or click a strip and then a space. The card on register is in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

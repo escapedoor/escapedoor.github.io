@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Documents Office · Eventually</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lang.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sm.css">
+<style>
+  body{--bg:#dfe6ee;--accent:#c0392b;--font-display:'Old Standard TT',serif;--font-ui:'Outfit',sans-serif;--font-body:'Gentium Book Plus',serif;
+    --tc-bg:rgba(240,244,248,.97);--tc-ink:#141c28;--cap-bg:rgba(240,244,248,.96);--cap-ink:#141c28;--panel:#fbfcfd;--panel-ink:#141c28;--face-bg:#666a74;--q-ink:#c0392b;
+    --fade:#eef2f6;--hud-bg:rgba(240,244,248,.9);--hud-ink:#141c28;--hud-line:rgba(20,28,40,.3);--ov-bg:rgba(14,20,30,.66)}
+  .tc-room{font-size:clamp(38px,5.6vw,80px);color:#c0392b}
+  .tc-theme{color:#4a6a9a}
+  .hbtn b{color:#fff}
+  #prlight{animation:prl 1.4s steps(1,end) infinite}
+  @keyframes prl{50%{opacity:.2}}
+  #panel2{animation:panel2 6s steps(1,end) infinite}
+  @keyframes panel2{0%{opacity:1}88%{opacity:1}89%{opacity:.5}91%{opacity:1}}
+  .pmsg{color:#f4f6fa}
+  /* the draft page */
+  .dp{width:min(1140px,97vw)}
+  .dp-page{background:#fdfdfb;color:#141c28;padding:14px 22px 10px;box-shadow:0 22px 60px rgba(0,0,0,.5)}
+  .dp-page h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#4a5a6a}
+  .dp-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .dp-cols h6{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.08em;color:#2a5a9a}
+  .dp-cols p{margin:0 0 7px;font-family:'Old Standard TT',serif;font-size:15.5px;line-height:1.42}
+  .dp-cols p b{font-weight:700}
+  .dp-cols .fr p{font-family:'Old Standard TT',serif;font-style:italic;color:#3a1a4a}
+  .wd{cursor:pointer;border-bottom:2px dotted #8a96a8;padding:0 1px}
+  .wd:hover{background:#fff3c4}
+  .wd.on{background:#f2c94c;border-bottom-color:#c0392b}
+  .wd.found{background:#f8d0c8;border-bottom:3px solid #c0392b}
+  .dp-art7{outline:2px dashed #c0392b;outline-offset:3px}
+  /* rebuilding Article 7 */
+  .rb7{margin-top:10px;background:#141c28;padding:10px 12px;border-radius:4px;display:none}
+  .rb7.on{display:block}
+  .rb7 h5{margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#f4f6fa}
+  .rb7-line{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .ps{min-height:52px;border:2px dashed #6a7a8e;border-radius:3px;padding:3px;position:relative;background:rgba(255,255,255,.05)}
+  .ps:before{content:attr(data-n);position:absolute;left:4px;top:-9px;padding:0 4px;background:#141c28;color:#9aa8ba;font-family:'IBM Plex Mono',monospace;font-size:10px}
+  .ps.bad{border-color:#e8574a;background:rgba(232,87,74,.15)}
+  .pc{display:inline-block;padding:6px 9px 5px;background:#fdfdfb;color:#141c28;font-family:'Old Standard TT',serif;font-size:14.5px;line-height:1.25;border-radius:2px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+  .ps .pc{display:block;box-shadow:none}
+  .rb7-tray{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="carpet" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="#7a828e"/><circle cx="15" cy="15" r="2" fill="#6e7682"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#0a0e14" stop-opacity=".08"/><stop offset="1" stop-color="#0a0e14" stop-opacity=".4"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="#e8eef4"/>
+<!-- ceiling panels -->
+<g fill="#ffffff"><rect x="200" y="-20" width="300" height="40"/><rect id="panel2" x="650" y="-20" width="300" height="40"/><rect x="1100" y="-20" width="300" height="40"/></g>
+<!-- the clock and the whiteboard -->
+<g id="clock" class="hot"><circle cx="900" cy="110" r="44" fill="#fff" stroke="#141c28" stroke-width="5"/><path d="M900 110L900 80M900 110L922 120" stroke="#141c28" stroke-width="5" stroke-linecap="round"/><circle cx="900" cy="110" r="4" fill="#c0392b"/></g>
+<g><rect x="1000" y="70" width="330" height="110" fill="#fbfcfd" stroke="#a8b0bc" stroke-width="6"/><text x="1020" y="108" class="cK" font-size="21" fill="#c0392b">SIGNING COPIES</text><text x="1020" y="138" class="cK" font-size="21" fill="#1d3a7a">to the printer by 05.00</text><text x="1020" y="166" class="cK" font-size="18" fill="#1d3a7a">signing 09.00, the hall</text></g>
+<!-- the false friends wall -->
+<g id="ff" class="hot"><rect x="60" y="150" width="270" height="260" fill="#f4f0e2" stroke="#a89878" stroke-width="4"/><text x="195" y="186" class="cO" font-size="21" font-weight="700" fill="#141c28" text-anchor="middle">False friends</text>
+  <g><rect x="78" y="204" width="76" height="46" fill="#fff6c8" transform="rotate(-4 116 227)"/><rect x="164" y="208" width="72" height="44" fill="#fff" transform="rotate(3 200 230)"/><rect x="246" y="202" width="70" height="48" fill="#e8f0ff" transform="rotate(-2 281 226)"/>
+    <rect x="82" y="270" width="72" height="46" fill="#fff" transform="rotate(2 118 293)"/><rect x="166" y="274" width="76" height="44" fill="#fff6c8" transform="rotate(-3 204 296)"/><rect x="250" y="270" width="66" height="48" fill="#fff" transform="rotate(4 283 294)"/>
+    <rect x="90" y="336" width="80" height="46" fill="#e8f0ff" transform="rotate(-2 130 359)"/><rect x="186" y="338" width="72" height="44" fill="#fff" transform="rotate(3 222 360)"/></g>
+  <g class="cK" font-size="13" fill="#1d3a7a"><text x="84" y="232" transform="rotate(-4 116 227)">éventuel-</text><text x="172" y="234">Gift</text><text x="252" y="230">sensible</text><text x="88" y="298">librairie</text><text x="172" y="300">bekommen</text><text x="256" y="298">actuel-</text></g></g>
+<!-- the partition with rule 1 pinned to it -->
+<g><rect x="380" y="260" width="380" height="330" fill="#a8b4c4"/><rect x="380" y="260" width="380" height="10" fill="#8a96a8"/></g>
+<g id="rule" class="hot"><rect x="520" y="290" width="120" height="150" fill="#fdfdfb" transform="rotate(-2 580 365)"/><rect x="520" y="290" width="120" height="14" fill="#2a5a9a" transform="rotate(-2 580 365)"/><text x="580" y="330" class="cO" font-size="15" font-weight="700" fill="#141c28" text-anchor="middle" transform="rotate(-2 580 365)">Rule 1</text>
+  <g stroke="#8a96a8" stroke-width="3" transform="rotate(-2 580 365)"><path d="M536 350h88M536 366h88M536 382h60M536 398h88M536 414h70"/></g><circle cx="580" cy="296" r="5" fill="#c0392b"/></g>
+<!-- the framed card -->
+<g id="wuchale" class="hot"><rect x="1100" y="200" width="160" height="200" fill="#5a3a22"/><rect x="1114" y="214" width="132" height="172" fill="#f8f2e0"/><text x="1180" y="250" class="cO" font-size="14" font-weight="700" fill="#141c28" text-anchor="middle">Why we read</text><text x="1180" y="268" class="cO" font-size="14" font-weight="700" fill="#141c28" text-anchor="middle">both texts</text>
+  <text x="1180" y="296" class="cM" font-size="12" fill="#5a3a22" text-anchor="middle">Wuchale, 1889</text><g stroke="#9a8a6a" stroke-width="2"><path d="M1128 316h104M1128 330h104M1128 344h80M1128 358h104"/></g></g>
+<!-- the printer -->
+<g id="printer" class="hot"><rect x="1380" y="330" width="220" height="360" fill="#d8d4c8"/><rect x="1380" y="330" width="220" height="60" fill="#c8c4b8"/><rect x="1400" y="410" width="180" height="20" fill="#2a2e36"/><rect x="1400" y="440" width="180" height="100" fill="#bcb8ac"/>
+  <rect x="1410" y="350" width="60" height="24" fill="#1c3a2a"/><circle id="prlight" cx="1500" cy="362" r="7" fill="#5ad08a"/><path d="M1420 600h140M1420 620h140" stroke="#a8a49a" stroke-width="5"/>
+  <g fill="#fdfdfb"><rect x="1420" y="392" width="140" height="14"/></g></g>
+<g><rect x="1240" y="590" width="80" height="100" fill="#fdfdfb"/><path d="M1240 600h80M1240 612h80M1240 624h80" stroke="#d8dce2" stroke-width="2"/><rect x="1250" y="560" width="70" height="30" fill="#fdfdfb" transform="rotate(-5 1285 575)"/></g>
+<rect x="-1000" y="600" width="3600" height="900" fill="url(#carpet)"/>
+<!-- the desk, the screen and the draft page -->
+<g><rect x="500" y="610" width="660" height="26" fill="#c8b490"/><path d="M520 636v160M1140 636v160" stroke="#8a7a5a" stroke-width="12"/></g>
+<g id="screen" class="hot"><rect x="900" y="470" width="200" height="130" rx="5" fill="#1c222c"/><rect x="910" y="480" width="180" height="104" fill="#e8f0f8"/><g stroke="#2a5a9a" stroke-width="3"><path d="M920 494h120M920 508h90M920 522h140M920 536h100"/></g><path d="M920 552h150" stroke="#c0392b" stroke-width="4"/><path d="M990 600v10M960 612h80" stroke="#1c222c" stroke-width="7"/></g>
+<g id="page" class="hot"><rect x="640" y="588" width="150" height="34" fill="#fdfdfb" transform="rotate(-3 715 605)"/><rect x="660" y="580" width="150" height="34" fill="#fdfdfb" transform="rotate(4 735 597)"/><path d="M676 590l60 4M676 598l90 6" stroke="#8a96a8" stroke-width="2"/><path d="M700 604l50 3" stroke="#c0392b" stroke-width="3"/></g>
+<g><path d="M560 610l20 -90" stroke="#2a2e36" stroke-width="5"/><path d="M560 520l50 -10 -6 -24 -50 10z" fill="#2a5a9a"/></g>
+<g id="rosine" class="hot" transform="translate(400 904) scale(1.02)"></g>
+<g id="noemie" class="hot" transform="translate(1290 902) scale(1.0)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the hall at nine</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sm.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, dp = null, fl = SM.fl, K;
+
+  $('#rosine').innerHTML = SM.who('rosine', { papers: 1 });
+  $('#noemie').innerHTML = SM.who('noemie', { cup: null });
+
+  ER.init({
+    theme: 'lang', story: 'summit', storyTitle: 'Eventually', id: 'office', no: 'VI', title: 'The Documents Office',
+    go: 'Down two floors',
+    intro: [
+      'On the terrace you sorted Noémie&rsquo;s six renderings by the evidence, not by her face: &ldquo;écluses&rdquo; was a mistake she corrected herself; the ball was faithful; the cat was not hers; &ldquo;great difficulties&rdquo; was her one choice, owned at once; the dropped number and the dog came from a hundred minutes without a break. Not one was sabotage.',
+      'And the other half of her note said: &ldquo;Don&rsquo;t let them sign Article 7 like that: <i>éventuellement</i> is not <i>eventually</i>.&rdquo; It is twenty past two. The agreement lives in the documents office, where the printers never sleep.'
+    ],
+    exit: {"next":"signing","w":{"bfea41d4":"92aea6c9"}}, tags: {"ff":["b54c39e5"],"p1":["ab5eafd6"],"p2":["13e04d84"],"p3":["0f7769a1"],"p4":["fe155868"]},
+    hints: hints, onBegin: begin
+  });
+
+  K = SM.told('f-told'); nextFile = ER.flag('f-file') || null;
+  function isBusy() { return busy; }
+  var ORDER = ['rosine', 'screen', 'ff', 'rule', 'wuchale'];
+  function paint() {
+    var next = null;
+    ORDER.forEach(function (k) { if (!next && !K.has(k)) next = k; });
+    ORDER.forEach(function (k) { $('#' + k).classList.toggle('ready', k === next); });
+    $('#page').classList.toggle('ready', !next && !nextFile);
+    ER.pips(ORDER.filter(function (k) { return K.has(k); }).length + (ER.flag('f-found') ? 1 : 0) + (nextFile ? 1 : 0), ORDER.length + 2);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The button at the bottom takes you to the hall, at nine in the morning.']];
+    if (dp && dp.isOpen() && !ER.flag('f-found')) return ['pair', [
+      'Find a French word, and the English word in the same place, that do not mean the same thing. Click one in each column. The false friends wall is in your notebook.',
+      'A word that looks like an English word is not always a false friend. Check every look-alike on the page against the wall: some of them were translated correctly.',
+      'Actuellement really does mean currently, and a librairie really is a bookshop: those pairs agree. Look at Article 7.'
+    ]];
+    if (dp && dp.isOpen()) return ['rebuild', [
+      'Build Article 7 again from four pieces, so that it can mean only one thing, in treaty English, and says what the ministers agreed at two o&rsquo;clock.',
+      'Rule 1: put the time first, and say what it is counted from. The register card: shall for a duty, may for a choice. And the grammar: after &ldquo;of&rdquo; comes falling; after &ldquo;When&rdquo; comes falls.',
+      'Within 48 hours of + the water level &hellip; falling below the red mark, + the Upstream Party shall + open the sluices of the Upper Mirelle Dam.'
+    ]];
+    if (!K.has('rosine')) return ['rosine', ['Maître Rosine Taillefer is at the desk on the left. Talk to her.']];
+    if (!K.has('screen')) return ['screen', ['The screen on the desk shows the history of Article 7. Click it.']];
+    if (!K.has('ff')) return ['ff', ['The wall on the left is covered in false friends. Read it.']];
+    if (!K.has('rule')) return ['rule', ['Rule 1 is pinned to the partition behind the desk. Read it.']];
+    if (!K.has('wuchale')) return ['wuchale', ['The framed card on the right-hand wall: why we read both texts. Read it.']];
+    return ['pair', ['Now the draft page on the desk. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The signing copies are printed. Nine o&rsquo;clock, the hall.'); return; }
+    if (K.has('in')) { busy = false; ER.say('The documents office: Rosine, the screen, the walls, the draft page.'); return; }
+    K.tell('in');
+    ER.narrate([
+      'The documents office is the brightest room in the building and the least beautiful: white light, grey carpet, a printer the size of a small car that hums to itself and every few minutes, for no reason, prints one blank page.',
+      'At the desk on the left, a woman in a grey suit has her shoes off and three copies of the same page in front of her. She looks up as Noémie comes in behind you, and something in her face falls.',
+      '&ldquo;You have read it too,&rdquo; she says to Noémie. It is not a question.'
+    ], function () { busy = false; });
+  }
+
+  $('#rosine').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Within forty-eight hours of,&rdquo; says Rosine, to herself, like a prayer. &ldquo;Not one word that looks like another.&rdquo;'); return; }
+    ER.talk({
+      who: 'Maître Rosine Taillefer', role: 'Legal adviser, Sauvenne · rapporteur of the drafting committee', face: SM.face('rosine', 'worried'),
+      lines: [
+        { a: '&ldquo;I know why you are here. I have been reading Article 7 for twenty minutes, and it gets worse every time I read it.&rdquo;' },
+        { q: 'Who wrote Article 7?', a: '&ldquo;I did. At a quarter to five, from the Chair&rsquo;s minutes. The minutes said the sluices would open &lsquo;when the river is below the red mark for two days&rsquo;. I could not tell whether that meant open them for two days, or after two days, and nobody was free to ask: the ministers were on the bridge for the photographs. So I left the time out, wrote a question in the margin, and wrote the rest.&rdquo;' },
+        { q: 'Why éventuellement?', a: '&ldquo;In my head it meant: if it happens. When the river is low, if that happens, Ostrel opens. A lawyer&rsquo;s ' + fl('éventuellement') + '. Then I put my own French into English, and the English word that looked right was <i>eventually</i>.&rdquo; She shuts her eyes. &ldquo;I teach a course in legal English. Eventually.&rdquo;' },
+        { q: 'What happened to your question?', a: '&ldquo;The office prints the signing copies without the comments. Always. My question went into the shredder at half past five, and my sentence went into the hall.&rdquo;' },
+        { a: '&ldquo;I am from Sauvenne. If anybody thinks I weakened my own country&rsquo;s text on purpose, they may watch my face while I read it.&rdquo;' }
+      ],
+      clue: { id: 'rosine', title: 'Rosine: I wrote it', kind: 'What she said' },
+      done: function (seen) { if (seen && K.tell('rosine')) { paint(); ER.say('The screen on the desk keeps every version of every article.'); } }
+    });
+  });
+  $('#noemie').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Noémie Vasseur', role: 'Interpreter · Booth Two, French', face: SM.face('noemie'),
+      lines: [
+        { a: '&ldquo;' + fl('Éventuellement') + ', in French, means possibly, or if need be. A lawyer can use it to mean &lsquo;should the case arise&rsquo;. A minister reading it at eleven at night reads &lsquo;perhaps&rsquo;. And somebody English reading <i>eventually</i> reads &lsquo;in the end, but it will happen&rsquo;.&rdquo;' },
+        { a: '&ldquo;Three readings. Two words that look like twins. One article. And everybody in the hall was right about their own language.&rdquo;' }
+      ],
+      clue: { id: 'noemie6', title: 'Noémie: three readings', kind: 'What she said' }
+    });
+  });
+
+  var HIST = '<h4>Documents office &middot; the Mirelle Agreement &middot; Article 7 &middot; version history</h4><p class="sub">Every saved version, with who wrote it and when.</p>' +
+    '<p><span class="t">v1 &middot; Tue 17 Nov 10.10</span> <b>Ostrel draft</b>: &ldquo;The Upstream Party may open the sluices in a dry season.&rdquo;</p>' +
+    '<p class="ch">&nbsp;&nbsp; French, 12.30, N. Vasseur: ' + fl('&laquo;&nbsp;La Partie d&rsquo;amont peut ouvrir les vannes en période de sécheresse.&nbsp;&raquo;') + '</p>' +
+    '<p><span class="t">v2 &middot; Wed 18 Nov 16.00</span> <b>after the talks</b>: &ldquo;The Upstream Party shall open the sluices as soon as possible in a dry season.&rdquo;</p>' +
+    '<p class="ch">&nbsp;&nbsp; French, 17.15, N. Vasseur: ' + fl('&laquo;&nbsp;La Partie d&rsquo;amont ouvre les vannes dès que possible en période de sécheresse.&nbsp;&raquo;') + '</p>' +
+    '<p><span class="t">Thu 19 Nov 14.00</span> Meeting Room 3: the ministers agree a time. The Chair&rsquo;s minutes go to the drafting committee at 15.40.</p>' +
+    '<p><span class="t">v3 &middot; Thu 19 Nov 16.45</span> <b>rewritten from the Chair&rsquo;s minutes, drafted in French and English by R. Taillefer, rapporteur</b>:</p>' +
+    '<p>&nbsp;&nbsp; &ldquo;When the water level at the Old Bridge falls below the red mark, the Upstream Party shall <span class="ev">eventually</span> open the sluices of the Upper Mirelle Dam.&rdquo;</p>' +
+    '<p class="ch">&nbsp;&nbsp; ' + fl('&laquo;&nbsp;Lorsque le niveau de la Mirelle au Vieux Pont passe sous le repère rouge, la Partie d&rsquo;amont ouvre <span class="ev">éventuellement</span> les vannes du barrage de la Haute-Mirelle.&nbsp;&raquo;') + '</p>' +
+    '<span class="bt">Comment, R.T., 16.47: &ldquo;for two days&rdquo; = ? Ask U.W. before printing!</span>' +
+    '<p><span class="t">Thu 19 Nov 17.30</span> Signing copies printed. Comments removed, as always.</p>';
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('rosine')) { ER.say('A screen full of versions. Rosine is waiting to speak first.'); return; }
+    ER.read({ html: HIST, cls: 'log', clue: { id: 'hist', title: 'Article 7: version history', kind: 'Screen' }, done: function () {
+      SM.terms(['draft', 'clause']);
+      if (K.tell('screen')) { paint(); ER.say('&ldquo;Both of mine were right,&rdquo; says Noémie quietly, reading over your shoulder. &ldquo;And then there was a third.&rdquo;'); }
+    } });
+  });
+
+  function frow(lang, w, m, n) { return '<tr><td>' + lang + '</td><td>' + fl(w) + '</td><td>' + m + '</td><td>' + n + '</td></tr>'; }
+  var FF = '<h4>Documents office &middot; the translators&rsquo; wall</h4><h3>False friends that have caught us</h3>' +
+    '<p>A <b>false friend</b> looks like a word in your own language and means something else. Every translator has been caught at least once. All of these have caught somebody in this building.</p>' +
+    '<table><tr><th>Language</th><th>Word</th><th>Means</th><th>Not</th></tr>' +
+    frow('French', 'actuellement', 'currently, at the moment', 'actually (that is ' + fl('en fait') + ')') +
+    frow('French', 'éventuellement', 'possibly, if need be', 'eventually (that is ' + fl('finalement') + ' or ' + fl('à terme') + ')') +
+    frow('French', 'une librairie', 'a bookshop', 'a library (that is ' + fl('une bibliothèque') + ')') +
+    frow('German', 'eventuell', 'possibly, perhaps', 'eventually') +
+    frow('German', 'das Gift', 'poison', 'a present (that is ' + fl('das Geschenk') + ')') +
+    frow('German', 'bekommen', 'to get, to receive', 'to become (that is ' + fl('werden') + ')') +
+    frow('Spanish', 'embarazada', 'pregnant', 'embarrassed (that is ' + fl('avergonzada') + ')') +
+    frow('Spanish', 'constipado', 'having a cold', 'constipated (that is ' + fl('estreñido') + ')') +
+    frow('Spanish', 'sensible', 'sensitive', 'sensible (that is ' + fl('sensato') + ')') + '</table>' +
+    '<p>English <b>eventually</b> means in the end, after a long time. The hardest false friends to see are the ones you use every day: in your own language, the word is not a stranger.</p>';
+  $('#ff').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('rosine')) { ER.say('A wall of cards. Rosine first.'); return; }
+    ER.read({ html: FF, cls: 'card', clue: { id: 'ff', title: 'Wall: false friends', kind: 'Documents office' }, done: function () {
+      SM.terms(['false friend']);
+      if (K.tell('ff')) { paint(); ER.say('Rule 1 is pinned to the partition behind the desk.'); }
+    } });
+  });
+
+  var RDIA = '<svg viewBox="0 0 300 200"><g font-family="Old Standard TT,serif" font-size="14" fill="#141c28">' +
+    '<text x="8" y="26">The minister saw the delegate with the papers.</text>' +
+    '<path d="M100 36h196" stroke="#2f7a4a" stroke-width="3"/><path d="M100 30v12M296 30v12" stroke="#2f7a4a" stroke-width="3"/>' +
+    '<text x="8" y="64" font-family="IBM Plex Mono,monospace" font-size="11" fill="#2f7a4a">1: [the delegate with the papers]</text><text x="8" y="80" font-size="13" fill="#2f7a4a">the delegate had the papers</text>' +
+    '<text x="8" y="116">The minister saw the delegate with the papers.</text>' +
+    '<path d="M60 126h106M216 126h80" stroke="#c0392b" stroke-width="3"/><path d="M60 120v12M166 120v12M216 120v12M296 120v12" stroke="#c0392b" stroke-width="3"/>' +
+    '<text x="8" y="154" font-family="IBM Plex Mono,monospace" font-size="11" fill="#c0392b">2: [saw the delegate] [with the papers]</text><text x="8" y="170" font-size="13" fill="#c0392b">the minister had the papers, and looked</text><text x="8" y="186" font-size="13" fill="#c0392b">at the delegate with their help</text></g></svg>';
+  var RULE = '<h4>Drafting committee &middot; rule 1</h4><h3>One sentence, one meaning</h3><div class="two"><div>' +
+    '<p>A sentence is <b>ambiguous</b> when it can be read in two ways. Sometimes one word has two senses: &ldquo;The talks are over&rdquo; (finished, or happening above us?). More often the trouble is in the structure, in which words belong together.</p>' +
+    '<p>A phrase at the end of a sentence can hang on more than one thing. &ldquo;Ostrel will open the sluices when the river is below the mark for two days&rdquo;: open them for two days? Or open them once the river has been low for two days?</p>' +
+    '<p>To mend it, move the phrase to where it can hang on one thing only, or change it so that it can mean one thing only: &ldquo;The minister, who had the papers, saw the delegate.&rdquo; In a treaty, put the time first and say what it is counted from: &ldquo;Within 48 hours of &hellip;&rdquo;</p></div>' +
+    '<div class="dia">' + RDIA + '</div></div>';
+  $('#rule').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('rosine')) { ER.say('A card pinned to the partition. Rosine first.'); return; }
+    ER.read({ html: RULE, cls: 'card', clue: { id: 'rule', title: 'Rule 1: one sentence, one meaning', kind: 'Drafting committee' }, done: function () {
+      SM.terms(['ambiguous']);
+      if (K.tell('rule')) { paint(); ER.say('The framed card on the right-hand wall.'); }
+    } });
+  });
+
+  var WU = '<h4>Framed on the office wall &middot; hung there by the Chair</h4><h3>Why we read both texts</h3>' +
+    '<p>Many treaties are signed in two languages, and the last line says that both texts are equally <b>authentic</b>: each one is the treaty. So each must say exactly what the other says.</p>' +
+    '<p>In 1889 Italy and Ethiopia signed the Treaty of Wuchale, in Italian and in Amharic. Article 17 did not say the same thing in both. In the Amharic text, the Emperor, Menelik II, could use the Italian government for his dealings with other countries if he wished. In the Italian text, he agreed to use it for all of them. Italy told the governments of Europe that Ethiopia was now under its protection. Menelik refused to accept it.</p>' +
+    '<p>Italy said the trouble was one mistranslated verb; many historians think the difference was deliberate, and nobody can now be sure. It ended in war, and on 1 March 1896 Ethiopia defeated Italy at the Battle of Adwa. The treaty was cancelled that year.</p>' +
+    '<p>One verb. May, or must.</p>';
+  $('#wuchale').addEventListener('click', function () {
+    if (busy) return;
+    if (!K.has('rosine')) { ER.say('A framed card. Rosine first.'); return; }
+    ER.read({ html: WU, cls: 'card', clue: { id: 'wuchale', title: 'Card: why we read both texts', kind: 'Framed' }, done: function () {
+      SM.terms(['authentic']);
+      if (K.tell('wuchale')) { paint(); ER.say('Now the draft page on the desk: Articles 6 to 8, in both languages.'); }
+    } });
+  });
+  SM.thing('#printer', 'printer', 'The printer hums. Every few minutes it prints one blank page, as if to show it is awake.', isBusy);
+  SM.thing('#clock', null, function () { return nextFile ? 'Ten to four. The signing copies are printed.' : 'Twenty past two. The signing copies go to the printer by five.'; }, isBusy);
+
+  /* ---------- the draft page ---------- */
+  var AGREE = { 'ac-cu': 'actuellement means currently, and the English says currently', 'pa-pa': 'Partie is Party', 'va-sl': 'vannes are sluice gates, and the English says sluices',
+    'ba-da': 'barrage is dam', 'bi-lb': 'une bibliothèque is a library', 'li-bo': 'une librairie is a bookshop, and the English says bookshop', 're-ma': 'repère is mark' };
+  function w(id, t) { return '<span class="wd" data-w="' + id + '">' + t + '</span>'; }
+  var PIECES = [['h', 'When'], ['g', 'the water level at the Old Bridge falling below the red mark,'], ['m', 'the Upstream Party may'], ['v', 'eventually open the sluices of the Upper Mirelle Dam.'],
+    ['w', 'Within 48 hours of'], ['t', 'the Upstream Party will try to'], ['d', 'open the sluices of the Upper Mirelle Dam for two days.'], ['f', 'For two days after'],
+    ['l', 'the water level at the Old Bridge falls below the red mark,'], ['s', 'the Upstream Party shall'], ['o', 'open the sluices of the Upper Mirelle Dam.'], ['e', 'Eventually, after']];
+  var WHY7 = {
+    p1: 'The opening must say when Ostrel has to act, as a number, and what that time is counted from. The ministers agreed two days.',
+    p2: 'Read pieces 1 and 2 aloud together. Does the grammar fit? After &ldquo;of&rdquo; comes falling; after &ldquo;When&rdquo; comes falls.',
+    p3: 'A duty or a choice? The register card says: shall for a duty, may for a choice. And a promise is not a try.',
+    p4: 'No time words at the end, and no eventually: a phrase at the end of the sentence can hang on two things. The time is already at the front.'
+  };
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The old page, with a red line through Article 7. Rosine is keeping it, she says, to frighten her students.'); return; }
+    var miss = ORDER.filter(function (k) { return !K.has(k); });
+    if (miss.length) { ER.say('&ldquo;Not yet,&rdquo; says Noémie. &ldquo;The history, the wall, the rule, and the card in the frame. I want you to see the whole thing before you touch the page.&rdquo;'); return; }
+    if (!dp) dp = makePage();
+    dp.open();
+  });
+  function makePage() {
+    var box = ER.el('div', 'pz dp'), st = ER.flag('f-dp') || {}, fr = null, en = null, done = false, found = !!ER.flag('f-found');
+    box.innerHTML = '<div class="dp-page"><h5>The Mirelle Agreement &middot; signing copy &middot; page 3 of 7</h5><div class="dp-cols"><div><h6>ENGLISH</h6>' +
+      '<p><b>Article 6.</b> The Upstream ' + w('pa', 'Party') + ' shall keep the red ' + w('ma', 'mark') + ' on the Old Bridge clearly painted. The mark is ' + w('cu', 'currently') + ' 1.20 metres above the riverbed.</p>' +
+      '<p class="a7"><b>Article 7.</b> When the water level at the Old Bridge falls below the red mark, the Upstream Party shall ' + w('ev', 'eventually') + ' open the ' + w('sl', 'sluices') + ' of the Upper Mirelle ' + w('da', 'Dam') + '.</p>' +
+      '<p><b>Article 8.</b> Each opening of the sluices shall be announced in both languages in the Pontmirelle town ' + w('lb', 'library') + ' and in the ' + w('bo', 'bookshop') + ' on the bridge.</p></div>' +
+      '<div class="fr"><h6>FRANÇAIS</h6><!--nogloss-->' +
+      '<p><b>Article 6.</b> La Partie d&rsquo;amont maintient bien visible le ' + w('re', 'repère') + ' rouge du Vieux Pont. Le repère se trouve ' + w('ac', 'actuellement') + ' à 1,20 mètre au-dessus du lit de la rivière.</p>' +
+      '<p class="a7"><b>Article 7.</b> Lorsque le niveau de la Mirelle au Vieux Pont passe sous le repère rouge, la ' + w('pa', 'Partie') + ' d&rsquo;amont ouvre ' + w('ev', 'éventuellement') + ' les ' + w('va', 'vannes') + ' du ' + w('ba', 'barrage') + ' de la Haute-Mirelle.</p>' +
+      '<p><b>Article 8.</b> Chaque ouverture des vannes est annoncée dans les deux langues à la ' + w('bi', 'bibliothèque') + ' municipale de Pontmirelle et à la ' + w('li', 'librairie') + ' du pont.</p><!--/nogloss--></div></div></div>' +
+      '<div class="rb7"><h5>Article 7, rebuilt: one sentence, one meaning, in treaty English</h5><div class="rb7-line">' +
+      ['p1', 'p2', 'p3', 'p4'].map(function (p, i) { return '<div class="ps" data-p="' + p + '" data-n="' + (i + 1) + '"></div>'; }).join('') + '</div>' +
+      '<div class="rb7-tray">' + PIECES.map(function (q) { return '<span class="pc dnd-item" data-k="' + q[0] + '">' + q[1] + '</span>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">Mark the pair that disagrees</button></div>';
+    var msgEl = box.querySelector('.pmsg'), go = box.querySelector('#d-go'), rb7 = box.querySelector('.rb7'), tray = box.querySelector('.rb7-tray');
+    var enCol = box.querySelector('.dp-cols > div:first-child'), frCol = box.querySelector('.dp-cols .fr');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function drawSel() {
+      ER.$$('.wd', enCol).forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-w') === en && !found); });
+      ER.$$('.wd', frCol).forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-w') === fr && !found); });
+    }
+    ER.$$('.wd', enCol).forEach(function (n) { n.addEventListener('click', function () { if (found) return; en = n.getAttribute('data-w'); ER.sfx.click(); drawSel(); }); });
+    ER.$$('.wd', frCol).forEach(function (n) { n.addEventListener('click', function () { if (found) return; fr = n.getAttribute('data-w'); ER.sfx.click(); drawSel(); }); });
+    function showFound() {
+      ER.$$('.wd[data-w="ev"]', box).forEach(function (n) { n.classList.add('found'); });
+      ER.$$('.a7', box).forEach(function (n) { n.classList.add('dp-art7'); });
+      rb7.classList.add('on'); go.textContent = 'Print the new Article 7';
+    }
+    function slot(p) { return box.querySelector('.ps[data-p="' + p + '"]'); }
+    Object.keys(st).forEach(function (p) { var it = tray.querySelector('.pc[data-k="' + st[p] + '"]'); if (it && slot(p)) slot(p).appendChild(it); });
+    ER.dnd(rb7, { item: '.pc', slot: '.ps', home: tray, lock: function () { return done; }, change: function () {
+      st = {}; ['p1', 'p2', 'p3', 'p4'].forEach(function (p) { var it = slot(p).querySelector('.pc'); if (it) st[p] = it.getAttribute('data-k'); });
+      ER.$$('.ps', box).forEach(function (n) { n.classList.remove('bad'); }); ER.flag('f-dp', st);
+    } });
+    go.addEventListener('click', function () {
+      if (done) return;
+      if (!found) {
+        if (!fr || !en) { ER.sfx.no(); msg('Click one word in the French column and one in the English column: the pair that does not say the same thing.'); return; }
+        var pair = fr + '-' + en;
+        if (ER.check('ff', pair)) {
+          found = true; ER.flag('f-found', 1); drawSel(); showFound(); SM.solved(true); paint();
+          SM.mine('pair', 'The pair that disagrees', '<p>French ' + fl('éventuellement') + ' = possibly, if need be. English <b>eventually</b> = in the end.</p><p>So the French Article 7 said Ostrel might open the sluices; the English said it would, some day. Neither said when. Each side read its own text and was right about it.</p><p>The look-alikes that agree: ' + fl('actuellement') + ' = currently, ' + fl('librairie') + ' = bookshop.</p>');
+          msg('<b>There.</b> ' + fl('Éventuellement') + ': possibly. Eventually: in the end. The French says Ostrel may; the English says it shall, some day; and neither says when. Now build Article 7 again so that it can mean one thing only.');
+          return;
+        }
+        ER.sfx.no();
+        if (AGREE[pair]) msg('Rosine: &ldquo;Those two agree: ' + AGREE[pair] + '. A look-alike is not always a false friend. Check it on the wall.&rdquo;');
+        else msg('Rosine: &ldquo;Those two words are not in each other&rsquo;s place. Take a French word, and the English word that stands where it stands, and ask if they mean the same.&rdquo;');
+        return;
+      }
+      ER.$$('.ps', box).forEach(function (n) { n.classList.remove('bad'); });
+      var P = ['p1', 'p2', 'p3', 'p4'];
+      if (P.some(function (p) { return !st[p]; })) { ER.sfx.no(); msg('Noémie: &ldquo;Four pieces, one sentence. Fill every space.&rdquo;'); return; }
+      for (var i = 0; i < P.length; i++) {
+        if (!ER.check(P[i], st[P[i]])) { ER.sfx.no(); var n = slot(P[i]); n.classList.add('bad'); ER.shake(n); msg('Rosine reads it aloud and stops at piece ' + (i + 1) + '. &ldquo;' + WHY7[P[i]] + '&rdquo;'); return; }
+      }
+      var cand = 'ev-ev|' + P.map(function (p) { return st[p]; }).join('.');
+      nextFile = ER.exit([cand], { wait: true });
+      if (!nextFile) { msg('The way on will not open. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; ER.flag('f-file', nextFile); paint(); SM.sfx.print();
+      SM.mine('article7', 'Article 7, put right', '<p>&ldquo;Within 48 hours of the water level at the Old Bridge falling below the red mark, the Upstream Party shall open the sluices of the Upper Mirelle Dam.&rdquo;</p><p>' + fl('&laquo;&nbsp;Dans un délai de quarante-huit heures à compter du moment où le niveau de la Mirelle au Vieux Pont passe sous le repère rouge, la Partie d&rsquo;amont ouvre les vannes du barrage de la Haute-Mirelle.&nbsp;&raquo;') + '</p><p>Time first, counted from the moment the river falls below the mark: one reading only. Shall: a duty. A number, not eventually. And what both ministers agreed at two o&rsquo;clock.</p>');
+      msg('<b>One sentence, one meaning.</b> The time first, counted from a moment anybody can see; shall, a duty; a number, not &ldquo;eventually&rdquo;. And it says what both ministers said at two o&rsquo;clock.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; ER.mood('calm');
+        ER.narrate([
+          'Noémie takes a pencil and writes the French under it without stopping: ' + fl('&laquo;&nbsp;Dans un délai de quarante-huit heures à compter du moment où le niveau de la Mirelle au Vieux Pont passe sous le repère rouge, la Partie d&rsquo;amont ouvre les vannes du barrage de la Haute-Mirelle.&nbsp;&raquo;'),
+          'Rosine reads it, then reads the English, then the French again, out loud, both times, like somebody checking a lock on a door. &ldquo;' + fl('Ouvre') + ',&rdquo; she says. &ldquo;In French law the plain present tense is already a duty. And there is no word in it that looks like any other word.&rdquo;',
+          'The printer, which has been printing one blank page every few minutes all night, prints thirty-two pages that are not blank. At ten to four Mr Weismann carries them up the stairs to Meeting Room 3, still warm.',
+          'At four o&rsquo;clock both ministers read the new Article 7 in their own language, and then, at the Ambassador&rsquo;s request, each in the other&rsquo;s. Madame Rouvier says, &ldquo;' + fl('Bien') + '.&rdquo; Mr Otterburn says, &ldquo;That&rsquo;s what I said.&rdquo; It is the first thing they have agreed on since lunch.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    if (found) showFound();
+    drawSel();
+    msg(found ? 'You found the pair. Now build Article 7 again from the pieces.' : 'Click one word in each column: the pair that does not mean the same thing. The false friends wall is in your notebook.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
