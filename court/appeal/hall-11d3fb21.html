@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Main Hall · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#8a8478;--accent:#7fc0d0;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(30,34,38,.97);--tc-ink:#eef0f2;--cap-bg:rgba(30,34,38,.93);--panel:#22262a;--face-bg:#2a2e3a;--q-ink:#d8ecf2;--fade:#0a0c0e;--hud-bg:rgba(30,34,38,.86)}
+  .walk{animation:walk 34s linear infinite}
+  .walk.w2{animation-duration:47s;animation-delay:-20s;animation-direction:reverse}
+  @keyframes walk{0%{transform:translateX(-300px)}100%{transform:translateX(1900px)}}
+  .shaft{animation:shaft 10s ease-in-out infinite alternate}
+  @keyframes shaft{0%{opacity:.35}100%{opacity:.6}}
+
+  /* our skeleton argument, with a red pencil */
+  .sk{width:min(1180px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+  .sk-page{padding:14px 26px 10px 30px;background:#fdfcf7;border-left:8px solid #7a2a3a;box-shadow:0 22px 60px rgba(0,0,0,.6);font-family:'Tinos',serif;color:#1c1d22}
+  .sk-page h5{margin:0 0 2px;text-align:center;font-family:'Cormorant SC',serif;font-weight:700;font-size:19px;letter-spacing:.08em}
+  .sk-page h6{margin:0 0 8px;text-align:center;font-family:'Oswald',sans-serif;font-weight:400;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#6b5a5a}
+  .sk-p{position:relative;padding:4px 10px 4px 30px;margin:0 0 2px;font-size:14.6px;line-height:1.36;border:2px solid transparent;border-radius:3px;cursor:pointer}
+  .sk-p .n{position:absolute;left:6px;top:4px;font-family:'Oswald',sans-serif;color:#7a2a3a}
+  .sk-p:hover{background:#f6f2e6}
+  .sk-p.br{border-color:#c0282a;border-left-width:6px;border-right-width:6px;background:#fff2f0}
+  .sk-p.br:after{content:'too much';position:absolute;right:6px;bottom:-2px;font-family:'Caveat',cursive;font-weight:700;font-size:18px;color:#c0282a;transform:rotate(-4deg)}
+  .sk .opts button{font-size:14px;padding-top:5px;padding-bottom:5px}
+  .sk .pmsg{min-height:84px;font-size:16px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8b0a0"/><stop offset="1" stop-color="#9a9282"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f0f2"/><stop offset="1" stop-color="#b8c8d0"/></linearGradient>
+  <linearGradient id="shaftG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe8" stop-opacity=".55"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="benchG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#3a2414"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0c0e10" stop-opacity=".15"/><stop offset="1" stop-color="#050607" stop-opacity=".66"/></radialGradient>
+  <pattern id="mosaic" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#cfc6b4"/><path d="M30 2L58 30L30 58L2 30z" fill="#b08c74"/><path d="M30 12L48 30L30 48L12 30z" fill="#d8cfbe"/><circle cx="30" cy="30" r="5" fill="#7a8290"/><path d="M0 0h5v5H0zM55 0h5v5h-5zM0 55h5v5H0zM55 55h5v5h-5z" fill="#8a8272"/></pattern>
+</defs>
+
+<!-- the Main Hall of the Royal Courts of Justice: stone arches, high windows, a mosaic floor, and people in black walking fast -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#stoneG)"/>
+<g id="arches"></g>
+<g id="hwin"></g>
+<path class="shaft" d="M560 120h100l300 580h-260zM960 120h100l300 580h-260z" fill="url(#shaftG)" pointer-events="none"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#mosaic)"/><rect x="-1000" y="700" width="3600" height="10" fill="#6a6252"/>
+<g id="arch" class="hot"><path d="M720 700V520q80-90 160 0v180z" fill="#4a4840"/><path d="M736 700V528q64-72 128 0v172z" fill="#2a2a28"/><rect x="770" y="560" width="60" height="120" fill="none" stroke="#9aa0a8" stroke-width="6"/><text x="800" y="548" class="sT" font-size="11" fill="#e8e0d0">SECURITY</text></g>
+<g class="walk"><g fill="#141418"><path d="M100 700l10-120h40l10 120z"/><circle cx="130" cy="566" r="14" fill="#e8e4d6"/></g></g>
+<g class="walk w2"><g fill="#141418"><path d="M300 700l10-110h36l10 110z"/><circle cx="328" cy="578" r="13" fill="#e8e4d6"/><rect x="340" y="620" width="34" height="24" fill="#7a2a3a"/></g></g>
+
+<!-- the cause list -->
+<g id="list" class="hot"><path d="M140 700l20-180M300 700l-20-180" stroke="#2a2420" stroke-width="8"/><rect x="110" y="300" width="220" height="250" fill="#2a2420"/><rect x="122" y="312" width="196" height="226" fill="#fbfbf6"/>
+  <text x="220" y="336" class="cT" font-size="13" fill="#1c1d22">DAILY CAUSE LIST</text><text x="220" y="352" class="sT" font-size="9" fill="#55606a">COURT OF APPEAL &#183; CRIMINAL DIVISION</text>
+  <g stroke="#8d9097" stroke-width="2"><path d="M136 372h168M136 386h140M136 410h168M136 424h120M136 448h168M136 462h150M136 494h168M136 508h130"/></g><rect x="134" y="434" width="172" height="34" fill="none" stroke="#c0282a" stroke-width="2"/></g>
+
+<!-- the bench along the wall: Ms Lorimer, the two skeleton arguments, and Nathan -->
+<rect x="360" y="636" width="720" height="20" fill="#6a4428"/><path d="M380 656h680v44h-680z" fill="url(#benchG)"/>
+<g id="lor" class="hot"><rect x="410" y="380" width="210" height="256" fill="#000" opacity="0"/><use href="#ch-lorimerw" x="400" y="360" width="230" height="300"/></g>
+<g id="skel" class="hot"><rect x="636" y="600" width="94" height="46" fill="#000" opacity="0"/><rect x="644" y="610" width="78" height="30" fill="#fdfcf7" transform="rotate(-5 683 625)"/><rect x="644" y="610" width="6" height="30" fill="#7a2a3a" transform="rotate(-5 683 625)"/><text x="688" y="630" class="sT" font-size="9" fill="#7a2a3a" transform="rotate(-5 683 625)">OURS</text></g>
+<g id="csk" class="hot"><rect x="736" y="600" width="94" height="46" fill="#000" opacity="0"/><rect x="744" y="612" width="78" height="28" fill="#f4f6fa" transform="rotate(4 783 626)"/><rect x="744" y="612" width="6" height="28" fill="#2a4a7a" transform="rotate(4 783 626)"/><text x="788" y="631" class="sT" font-size="9" fill="#2a4a7a" transform="rotate(4 783 626)">CROWN</text></g>
+<g id="nat" class="hot"><rect x="850" y="390" width="210" height="246" fill="#000" opacity="0"/><use href="#ch-nathans" x="840" y="372" width="230" height="300"/><path d="M1040 690h40v-50h-40z" fill="#f4f4ee"/><path d="M1044 640q16-14 32 0" stroke="#e8742a" stroke-width="6" fill="none"/></g>
+<!-- Mr Ormsby, across the hall -->
+<g id="orm" class="hot"><rect x="1240" y="360" width="210" height="300" fill="#000" opacity="0"/><use href="#ch-ormsby" x="1230" y="350" width="230" height="300"/><rect x="1240" y="650" width="210" height="50" fill="#141418"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1800" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Court 8</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, skBox = null;
+
+  (function () {
+    var s = '', i, w = '';
+    for (i = -2; i < 9; i++) {
+      var x = i * 220;
+      s += '<path d="M' + x + ' 700V300q110-200 220 0v400" fill="none" stroke="#8a8272" stroke-width="22"/><rect x="' + (x - 14) + '" y="300" width="28" height="400" fill="#a8a090"/><rect x="' + (x - 20) + '" y="290" width="40" height="18" fill="#8a8272"/>';
+      w += '<path d="M' + (x + 70) + ' 250V150q40-56 80 0v100z" fill="url(#winG)" stroke="#7a7262" stroke-width="5"/><path d="M' + (x + 110) + ' 110v140" stroke="#7a7262" stroke-width="3"/>';
+    }
+    $('#arches').innerHTML = s; $('#hwin').innerHTML = w;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'hall', no: 'V', title: 'The Main Hall',
+    go: 'Go in',
+    intro: [
+      'At the café you checked the camera&rsquo;s clock against the last number 7 bus. The camera was exactly an hour behind, because nobody had put it on to summer time. So the man walked out of the shop at 21:51, with a helmet in his hand: Mrs Kilner&rsquo;s first telling. And the film passed all four tests in section 23.',
+      'The Main Hall of the Royal Courts of Justice is as long and as high as a church, with a floor of small marble tiles and a great many people in black crossing it quickly. Twenty to ten. Ms Lorimer, robed now, has found a bench.'
+    ],
+    exit: {"next":"court","w":{"73e19352":"1f011ee9"}}, tags: {"p1":["be186040"],"p2":["3cc74416"],"p3":["5baac6fd"],"p4":["90e751aa"],"p5":["95d24546"],"p6":["cd73feaa"],"p7":["1eef6eaf"],"p8":["142010b8"],"p9":["5731cc60"],"dq":["e9c78e88"],"dr":["f3ecc8aa"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('h-file') || null;
+
+  var CSK = '<h4>R v Nathan Kershaw</h4><h5>Respondent&rsquo;s skeleton argument &middot; for the Crown &middot; Mr Magnus Ormsby</h5>' +
+    '<p><span class="n">1</span>The Crown opposes the appeal. Mrs Kilner was an honest and careful witness, and the jury saw and heard her give evidence.</p>' +
+    '<p><span class="n">2</span>Either Mrs Kilner is lying, or she saw the appellant at ten past ten. Nobody suggests that she is lying.</p>' +
+    '<p><span class="n">3</span>The jury heard the 999 call, and the differences between her accounts were put to her. They were entitled to prefer her evidence at trial.</p>' +
+    '<p><span class="n">4</span>The film is said to show the appellant leaving at 20:51. The appellant himself has always said that he left at about 21:50. The film cannot be relied upon.</p>' +
+    '<p><span class="n">5</span>The appellant had a key, and was the last to leave.</p>';
+  var PARAS = [
+    ['p1', 'Mr Kershaw was convicted of arson at Norbeck Crown Court on 5 December 2019, and sentenced to three years&rsquo; imprisonment.'],
+    ['p2', 'The Crown&rsquo;s case rested on Mrs Kilner&rsquo;s evidence that at ten past ten she saw him run from the shop with a red petrol can.'],
+    ['p3', 'Her first account, in her 999 call at 22:33, was of a man walking out at &ldquo;half nine, ten&rdquo;, with &ldquo;a helmet, maybe&rdquo;.'],
+    ['p4', 'The camera&rsquo;s clock was one hour behind: it was never put forward to summer time. The number 7 bus and the 999 call both show this.'],
+    ['p5', 'The fresh film shows Mr Kershaw walking out of the shop at 21:51 with his helmet in his hand. We do not say that Mrs Kilner lied: the details she added later came from what she was asked and shown.'],
+    ['p6', 'The film shows that nobody went near the shop between 21:51 and the start of the fire.'],
+    ['p7', 'Mr Ludlow tested neither charger. His opinion that the fire was set rested on his experience alone.'],
+    ['p8', 'Had the jury seen the film, they would certainly have acquitted him.'],
+    ['p9', 'The conviction is therefore unsafe, and should be quashed.']];
+  var OVER = {
+    p1: 'Paragraph 1 is the record of the trial. Nothing in it goes beyond the papers.',
+    p2: 'Paragraph 2 is exactly what she said at the trial: read Day 2 again.',
+    p3: 'Paragraph 3 is the 999 call, word for word.',
+    p4: 'Paragraph 4 is what you proved at the café, with the bus and the 999 call.',
+    p5: 'Paragraph 5: is there anything in it you could not show from the film and the chart?',
+    p7: 'Paragraph 7: did Mr Ludlow test the chargers? Line 2 of the transcript.',
+    p9: 'Paragraph 9 is what we ask for, and the Act lets the court give it.'
+  };
+  var DQ = [['a', 'Leave it. Mr Ormsby hasn&rsquo;t noticed, and it is not our job to make his case.'], ['b', 'Withdraw the film. It has a hole in it.'], ['c', 'Tell the court at once, before Mr Ormsby speaks, and put it right.']];
+  var DR = [['x', '&ldquo;Apart from a short gap, the film shows that nobody went near the shop.&rdquo;'],
+    ['y', '&ldquo;Six files, from 22:07 to 22:25, are damaged. The film cannot show what happened in those eighteen minutes. It does show that the man Mrs Kilner saw was walking, with a helmet, at 21:51.&rdquo;'],
+    ['z', '&ldquo;The gap means that Mr Kershaw may well have come back.&rdquo;']];
+
+  function hints() {
+    if (nextFile) return ['go', ['The case has been called. The button at the bottom of the screen takes you into Court 8.']];
+    if (skBox) return ['sk', [
+      'Read each paragraph of our skeleton as Mr Ormsby would, with your notes from the café beside you (the Notebook button). Put a red bracket round any paragraph that says more than the papers can show. Then decide what to do about it, and choose the honest new paragraph.',
+      'Two paragraphs claim too much. One says the film shows something during a time the film never saw: look at the damaged files, in real time. The other says what the jury would certainly have done: Mr Mendes&rsquo;s note on Pendleton says what the court really has to find.',
+      'Bracket paragraphs 6 and 8. Then: tell the court at once and put it right. A barrister must never mislead the court. The new paragraph 6 is the one that says exactly what the film can and cannot show: six damaged files, 22:07 to 22:25, and the man walking with a helmet at 21:51.'
+    ]];
+    if (!ER.flag('h-lor')) return ['lor', ['Ms Lorimer is on the bench, robed, with two papers beside her. Talk to her.']];
+    if (!ER.flag('h-csk')) return ['csk', ['The Crown&rsquo;s skeleton argument is on the bench, the paper with the blue edge. Read it.']];
+    return ['skel', ['Our own skeleton argument, the paper with the red edge, is on the bench beside Ms Lorimer. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#lor').classList.toggle('ready', !nextFile && !ER.flag('h-lor') && !busy);
+    $('#skel').classList.toggle('ready', !nextFile && !!ER.flag('h-csk'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The Main Hall. An usher in a black gown is holding the door of the corridor to the courts.'); return; }
+    if (ER.flag('h-in')) { ER.say('The Main Hall: stone arches, a mosaic floor, and the sound of a hundred people being quiet at once.'); return; }
+    busy = true; ER.flag('h-in', 1);
+    ER.narrate([
+      'You come in through security, with your bag on a moving belt and your pencils in a plastic tray, and the Main Hall opens over you: arches on arches, high windows, and the light coming down in long dusty bars.',
+      'Barristers in wigs and gowns cross the floor with files under their arms. Ms Lorimer is on a bench along the wall, robed, with two skeleton arguments beside her: ours, and the Crown&rsquo;s. Nathan sits at the other end of the bench, in a suit, with his helmet in a carrier bag.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#lor').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Ms Lorimer straightens her bands, twice, which is the only sign she ever gives.'); return; }
+    if (ER.flag('h-lor')) { ER.say('&ldquo;His skeleton,&rdquo; says Ms Lorimer, &ldquo;then ours. With the red pencil.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ms Lorimer', role: 'Counsel for Mr Kershaw · robed for court', face: window.FACE('lorimerw'),
+      lines: [
+        { note: 'Ms Lorimer is robed now: wig, gown and white bands. She looks taller and less patient.', a: 'Mr Ormsby&rsquo;s skeleton argument came in at eight. Read it: you&rsquo;ll enjoy paragraph 4. He thinks the camera proves Nathan wrong about the time, because he hasn&rsquo;t checked the clock.' },
+        { a: 'Then read ours. I wrote it in October, from the examiner&rsquo;s first report. Read it as Magnus Ormsby would, with your notes from the café beside you, and put a red bracket round anything that says more than the papers show.' },
+        { q: 'Why look for holes in our own case?', a: 'Because he will, and it is far better to find them first. And then we have to decide what to do about them. That part is not tactics.' }
+      ],
+      clue: { id: 'lor5', title: 'Ms Lorimer, in the Main Hall', kind: 'What she said' }, last: 'Read the Crown&rsquo;s skeleton',
+      done: function (seen) { if (seen) { ER.flag('h-lor', 1); paint(); AP.learn(['skeleton argument']); } }
+    });
+  });
+  $('#csk').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('h-lor')) { ER.say('Two skeleton arguments on the bench beside Ms Lorimer. Ask her first.'); return; }
+    ER.read({ html: CSK, cls: 'skel', clue: { id: 'csk', title: 'The Crown&rsquo;s skeleton argument', kind: 'Mr Ormsby' },
+      done: function () { ER.flag('h-csk', 1); paint(); AP.learn(['respondent']); } });
+  });
+  $('#skel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Our skeleton, with your red brackets and a new paragraph 6 in Ms Lorimer&rsquo;s green ink.'); return; }
+    if (!ER.flag('h-lor')) { ER.say('Our skeleton argument. Ask Ms Lorimer what she wants done with it.'); return; }
+    if (!ER.flag('h-csk')) { ER.say('&ldquo;His first,&rdquo; says Ms Lorimer. &ldquo;Know what he&rsquo;s looking for.&rdquo;'); return; }
+    openSk();
+  });
+  $('#nat').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('h-nat')) { ER.say(nextFile ? 'Nathan is holding the carrier bag with the helmet in it on his knees, very straight.' : 'Nathan is reading the cause list from across the hall, as if his name might change.'); return; }
+    ER.talk({
+      who: 'Nathan Kershaw', role: 'The appellant · in a suit', face: window.FACE('nathans'),
+      lines: [
+        { note: 'Nathan is in a suit that was bought for a funeral, with his helmet in a carrier bag at his feet, because he could not leave it at home.', a: 'Mr Mendes showed me the film this morning. Me, walking out. Helmet. Just like I said.' },
+        { q: 'How do you feel?', a: 'Like it&rsquo;s over. The film proves it, doesn&rsquo;t it? Proves I never went back. Everybody will have to say I didn&rsquo;t do it.' },
+        { note: 'Beside him Ms Lorimer says nothing, and goes on reading.', a: 'Doesn&rsquo;t it?' }
+      ],
+      clue: { id: 'nat5', title: 'Nathan, in the Main Hall', kind: 'What he said' }, last: 'Close',
+      done: function (seen) { if (seen) ER.flag('h-nat', 1); }
+    });
+  });
+  $('#orm').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('h-orm')) { ER.say('Mr Ormsby is reading his own skeleton, and looking pleased with paragraph 4.'); return; }
+    ER.talk({
+      who: 'Mr Ormsby', role: 'Counsel for the Crown', face: window.FACE('ormsby'),
+      lines: [
+        { note: 'Mr Magnus Ormsby is tall, robed, long-faced and amused. He and Ms Lorimer were pupils together, a long time ago.', a: 'Good morning. You must be Niamh&rsquo;s pupil. I&rsquo;ve read her skeleton. It&rsquo;s very persuasive. I shall try hard not to be persuaded.' },
+        { q: 'What is the Crown&rsquo;s case?', a: 'Simple. Mrs Kilner was honest, she was sure, and the jury saw her. And a film whose clock doesn&rsquo;t even agree with the appellant. Twelve people convicted him. I don&rsquo;t mean to apologise for them.' },
+        { a: 'Nothing personal, you understand. In this building it never is. That&rsquo;s what lunch is for.' }
+      ],
+      clue: { id: 'orm1', title: 'Mr Ormsby, across the hall', kind: 'What he said' }, last: 'Good morning',
+      done: function (seen) { if (seen) ER.flag('h-orm', 1); }
+    });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  AP.thing('#list', null, 'The daily cause list. Court 8, at half past ten, before Lady Justice Lanyon, Mr Justice Muncaster and Mrs Justice Kendal: appeal against conviction, a reference by the Criminal Cases Review Commission, R v Nathan Kershaw.', isBusy);
+  AP.thing('#arch', null, 'Security at the far end: a moving belt, a frame to walk through, and a guard who has seen every kind of pen there is.', isBusy);
+
+  /* ---------- our skeleton ---------- */
+  function openSk() {
+    var box = ER.el('div', 'sk'), saved = ER.flag('h-sk') || {}, br = saved.br || {}, dq = saved.dq || '', dr = saved.dr || '', done = false;
+    var s = '<div class="sk-page"><h5>R v Nathan Kershaw</h5><h6>Appellant&rsquo;s skeleton argument &middot; Ms N. Lorimer &middot; October 2026</h6>';
+    PARAS.forEach(function (p) { s += '<div class="sk-p" data-p="' + p[0] + '"><span class="n">' + p[0].slice(1) + '</span>' + p[1] + '</div>'; });
+    s += '</div><div class="side"><h6>What do we do about it?</h6><div class="opts" id="sk-dq"></div><h6>The new paragraph 6</h6><div class="opts" id="sk-dr"></div><button type="button" class="btn" id="sk-go">Show Ms Lorimer</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.sk-p', box).forEach(function (p) {
+      p.addEventListener('click', function () { if (done) return; var k = p.getAttribute('data-p'); br[k] = !br[k]; AP.sfx.pencil(); keep(); });
+    });
+    function opt(list, id, get, set) {
+      list.forEach(function (o) {
+        var b = ER.el('button', '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+        b.addEventListener('click', function () { if (done) return; set(o[0]); AP.sfx.card(); keep(); });
+        box.querySelector(id).appendChild(b);
+      });
+    }
+    opt(DQ, '#sk-dq', function () { return dq; }, function (v) { dq = v; });
+    opt(DR, '#sk-dr', function () { return dr; }, function (v) { dr = v; });
+    function keep() {
+      ER.flag('h-sk', { br: br, dq: dq, dr: dr });
+      var n = '';
+      ER.$$('.sk-p', box).forEach(function (p) { var k = p.getAttribute('data-p'); p.classList.toggle('br', !!br[k]); if (br[k]) n += k.slice(1); });
+      ER.$$('#sk-dq button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-k') === dq); });
+      ER.$$('#sk-dr button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-k') === dr); });
+      box.setAttribute('data-br', n);
+    }
+    box.querySelector('#sk-go').addEventListener('click', function () {
+      var i, k, miss = [], over = [], file, cand = '';
+      if (done) return;
+      for (i = 0; i < PARAS.length; i++) { k = PARAS[i][0]; if (!ER.check(k, br[k] ? 'Y' : 'N')) (br[k] ? over : miss).push(k); if (br[k]) cand += k.slice(1); }
+      if (miss.length || over.length) {
+        AP.bump('h-tries'); AP.sfx.hm();
+        if (over.length) msg('&ldquo;' + OVER[over[0]] + '&rdquo;' + (miss.length ? ' <em>&ldquo;And something that does claim too much is still unbracketed.&rdquo;</em>' : ''));
+        else if (miss.indexOf('p6') >= 0) msg('&ldquo;Read paragraph 6 with the examiner&rsquo;s list beside you, in real time. Is there anything the film never saw?&rdquo;' + (miss.length > 1 ? ' <em>&ldquo;And one more.&rdquo;</em>' : ''));
+        else msg('&ldquo;Read paragraph 8 with Mr Mendes&rsquo;s note on Pendleton. What does the court have to find: that the jury would certainly have acquitted, or something less?&rdquo;');
+        return;
+      }
+      if (!dq) { msg('&ldquo;Two red brackets, and both right. So what do we do about paragraph 6? Choose.&rdquo;'); return; }
+      if (!ER.check('dq', dq)) {
+        AP.bump('h-tries'); AP.sfx.hm();
+        msg(dq === 'a' ? '&ldquo;I needn&rsquo;t make his case for him. But paragraph 6 now says something I know is not true, and it has my name on it. A barrister must never mislead the court.&rdquo;' : '&ldquo;A gap in the middle doesn&rsquo;t wipe out what is on either side of it. 21:51 is still 21:51.&rdquo;');
+        return;
+      }
+      if (!dr) { msg('&ldquo;Yes. Now: what exactly do I tell them? Choose the new paragraph 6.&rdquo;'); return; }
+      if (!ER.check('dr', dr)) {
+        AP.bump('h-tries'); AP.sfx.hm();
+        msg(dr === 'x' ? '&ldquo;Short? It is eighteen minutes, and they are the eighteen minutes that matter. That still claims too much.&rdquo;' : '&ldquo;That&rsquo;s Mr Ormsby&rsquo;s speech, and a worse one than he would make. The gap shows nothing either way.&rdquo;');
+        return;
+      }
+      cand += '|' + dq + '|' + dr;
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('h-file', file); AP.done('hall'); AP.sfx.pencil();
+      msg('Ms Lorimer reads your brackets, then the new paragraph, then the examiner&rsquo;s list, slowly. <b>&ldquo;Eighteen minutes. And ten past ten is in the middle of them.&rdquo;</b>');
+      AP.mine('hole', 'The hole in our own case', '<p>Para 6 said: nobody went near the shop. WRONG: six damaged files, real time 22:07 to 22:25. Ten past ten is inside the gap.</p><p>Para 8 said: they would certainly have acquitted. TOO MUCH: the test is whether the film might reasonably have affected their decision (Pendleton).</p><p>What we do: tell the court at once and put it right. Never mislead the court.</p><p>New para 6: the film cannot show 22:07 to 22:25. It does show him walking, with a helmet, at 21:51.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); AP.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;The examiner sent that list last Wednesday,&rdquo; says Ms Lorimer, &ldquo;and I wrote this in October. That is not an excuse. It is only how it happened.&rdquo; She writes your new paragraph 6 in green ink across the old one.',
+          '&ldquo;And paragraph 8. Might reasonably have affected their decision: that is the test, and it is enough. Certainly is a word for people who have never met a jury.&rdquo;',
+          'Nathan has heard. &ldquo;So it doesn&rsquo;t prove it,&rdquo; he says. &ldquo;It proves what it shows,&rdquo; says Ms Lorimer. &ldquo;That is all anything proves.&rdquo;',
+          'She crosses the mosaic floor to Mr Ormsby. You hear only some of it. &ldquo;Magnus. Paragraph 6 of my skeleton is wrong. There is a gap in the film, 22:07 to 22:25. I shall tell the court first thing.&rdquo; Mr Ormsby looks at her for a long moment. &ldquo;Thank you,&rdquo; he says. &ldquo;I hadn&rsquo;t seen it.&rdquo;',
+          'An usher in a black gown comes down the hall with a list. &ldquo;Kershaw? Court 8, please. The court will sit in five minutes.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('Click a paragraph to put a <b>red bracket</b> round it if it says more than the papers can show; click again to take it off. Then choose what we do, and the new paragraph 6.');
+    skBox = box; keep();
+    ER.open('ov-lock', box, function () { skBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Café on the Strand · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#3a2a22;--accent:#f0905a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(44,30,24,.97);--tc-ink:#fbf0e4;--cap-bg:rgba(44,30,24,.93);--panel:#2e201a;--face-bg:#3a3024;--q-ink:#f8d8b8;--fade:#100a06;--hud-bg:rgba(44,30,24,.86)}
+  .bus{animation:bus 22s linear infinite}
+  @keyframes bus{0%{transform:translateX(-700px)}45%{transform:translateX(1500px)}100%{transform:translateX(1500px)}}
+  .steam{animation:steam 4s ease-in-out infinite}
+  @keyframes steam{0%{transform:translateY(0);opacity:0}40%{opacity:.6}100%{transform:translateY(-40px);opacity:0}}
+
+  /* the footage, on Mr Mendes's laptop */
+  .fv{width:min(1190px,97vw);display:grid;grid-template-columns:540px minmax(0,1fr);gap:14px;align-items:start}
+  .fv-l{padding:10px;background:#1c1e22;border-radius:8px;box-shadow:0 22px 60px rgba(0,0,0,.6)}
+  .fv-scr{display:block;width:520px;height:250px;background:#000}
+  .fv-clips{display:flex;gap:6px;margin:8px 0 6px}
+  .fv-clips button{flex:1;padding:5px 4px;background:#2c2f36;border:1px solid #4a4e58;color:#d8dce4;font-family:'Courier Prime',monospace;font-size:13px;border-radius:3px}
+  .fv-clips button.on{background:#f0905a;color:#1c1e22;border-color:#f0905a}
+  .fv-off{display:flex;align-items:center;gap:5px;padding:6px 8px;background:#26292f;border-radius:3px;font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.06em;color:#c9ccd4}
+  .fv-off button{padding:3px 7px;background:#3a3e48;border:1px solid #5a5e68;color:#fff;font-family:'Courier Prime',monospace;font-size:13px;border-radius:3px}
+  .fv-off b{min-width:92px;text-align:center;font-family:'Courier Prime',monospace;font-size:16px;color:#f0c890}
+  .fv-files{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px 8px;margin-top:6px;font-family:'Courier Prime',monospace;font-size:11.5px;color:#9aa0aa}
+  .fv-files span.bad{color:#e06a5a;text-decoration:line-through}
+  .fv-files i{font-style:normal;color:#d8dce4}
+  .fv-r{padding:10px 14px 8px;background:#f8f2e8;color:#2a1e16;box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:8px solid #2a7a4a}
+  .fv-r h6{margin:6px 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#2a5a3a}
+  .fv-tl{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+  .fv-tl button{padding:5px 6px;background:#fff;border:1px solid #b9b09a;font-family:'EB Garamond',serif;font-size:14px;line-height:1.1;color:#2a1e16;border-radius:2px}
+  .fv-tl button.on{background:#2a5a3a;color:#fff;border-color:#2a5a3a}
+  .fv-t{display:grid;grid-template-columns:170px minmax(0,1fr);gap:5px 8px;align-items:center}
+  .fv-t>span{font-family:'Tinos',serif;font-size:13.5px;line-height:1.15}
+  .fv-slot{min-height:44px;border:2px dashed #b9b09a;border-radius:3px;display:flex;align-items:center;padding:2px}
+  .fv-tray{display:flex;flex-wrap:wrap;gap:5px;min-height:46px;margin-top:6px;padding:5px;background:#ece4d4;border:1px dashed #b9b09a}
+  .fv-chip{position:relative;padding:4px 8px;background:#fffdf4;border:1px solid #8a7a5a;box-shadow:0 2px 4px rgba(0,0,0,.2);font-family:'EB Garamond',serif;font-size:13.5px;line-height:1.12;color:#2a1e16;max-width:100%;cursor:pointer}
+  .fv-tray .fv-chip{flex:1 1 46%}
+  .fv-chip.held{outline:3px solid #f0905a}
+  .fv-r .btn{--accent:#2a5a3a;margin-top:6px;width:100%}.fv-r .btn:hover:not([disabled]){color:#fff}
+  .fv-r .pmsg{color:#2a1e16;min-height:62px;font-size:15.5px;margin-top:4px}
+  .fv-r .pmsg b{color:#8a3a1a}.fv-r .pmsg em{color:#5a4a3a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8d8c0"/><stop offset="1" stop-color="#d4c0a0"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aaab8"/><stop offset="1" stop-color="#d8dce0"/></linearGradient>
+  <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8c0b0"/><stop offset="1" stop-color="#a8a090"/></linearGradient>
+  <linearGradient id="steamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".55"/></linearGradient>
+  <linearGradient id="tabG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8302a"/><stop offset="1" stop-color="#8a2420"/></linearGradient>
+  <clipPath id="winclip"><rect x="100" y="60" width="1100" height="380"/></clipPath>
+  <radialGradient id="vig" cx="50%" cy="46%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#1a0e08" stop-opacity=".12"/><stop offset="1" stop-color="#0a0604" stop-opacity=".6"/></radialGradient>
+  <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#d8cfbe"/><rect width="20" height="20" fill="#6a625a"/><rect x="20" y="20" width="20" height="20" fill="#6a625a"/></pattern>
+</defs>
+
+<!-- Lupo's, on the Strand: cream walls, a black-and-white floor, and a big window on to the Royal Courts of Justice -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="url(#tiles)"/>
+<g id="rcj" class="hot"><rect x="100" y="60" width="1100" height="380" fill="url(#skyG)"/>
+  <path d="M100 440V250h120V170l30-50 30 50v80h80V200h200v-40l50-70 50 70v40h200v50h80V150l30-60 30 60v100h120V440z" fill="url(#stoneG)"/>
+  <g fill="#7a8088"><path d="M560 440V330q90-90 180 0v110z"/><path d="M590 440V340q60-60 120 0v100z" fill="#5a5e66"/></g>
+  <g fill="#6a7078"><path d="M150 300v-30q15-20 30 0v30zM400 300v-34q15-20 30 0v34zM470 300v-34q15-20 30 0v34zM800 300v-34q15-20 30 0v34zM870 300v-34q15-20 30 0v34zM1100 300v-30q15-20 30 0v30zM250 380v-30q15-20 30 0v30zM1050 380v-30q15-20 30 0v30z"/></g>
+  <g stroke="#9a9488" stroke-width="2"><path d="M100 320h460M740 320h460"/></g>
+  <rect x="100" y="410" width="1100" height="30" fill="#5a5e66"/>
+  <g clip-path="url(#winclip)"><g class="bus"><rect x="-200" y="330" width="260" height="96" rx="10" fill="#c8302a"/><g fill="#2a3a4a"><rect x="-188" y="342" width="44" height="26"/><rect x="-136" y="342" width="44" height="26"/><rect x="-84" y="342" width="44" height="26"/><rect x="-32" y="342" width="44" height="26"/><rect x="-188" y="378" width="44" height="22"/><rect x="-136" y="378" width="44" height="22"/><rect x="-84" y="378" width="44" height="22"/></g><circle cx="-150" cy="428" r="12" fill="#1c1c1c"/><circle cx="20" cy="428" r="12" fill="#1c1c1c"/></g></g>
+  <rect x="100" y="320" width="1100" height="120" fill="url(#steamG)" pointer-events="none"/>
+  <text x="650" y="120" class="cT" font-size="34" fill="#8a2420" opacity=".55" transform="translate(1300 0) scale(-1 1)">LUPO&#8217;S &#183; SINCE 1961</text>
+  <path d="M100 60h1100v380H100z" fill="none" stroke="#3a2a22" stroke-width="16"/><path d="M650 60v380" stroke="#3a2a22" stroke-width="10"/></g>
+
+<!-- the counter, the coffee machine and the menu -->
+<rect x="1240" y="520" width="400" height="190" fill="#7a2420"/><rect x="1230" y="508" width="420" height="16" fill="#2a1a12"/>
+<g id="mach" class="hot"><rect x="1290" y="380" width="160" height="128" rx="8" fill="#c9ccd0"/><rect x="1300" y="390" width="140" height="40" fill="#8a2420"/><text x="1370" y="416" class="sT" font-size="14" fill="#f8e8d0">ESPRESSO</text><g fill="#2a2a2a"><rect x="1320" y="450" width="20" height="24"/><rect x="1400" y="450" width="20" height="24"/></g>
+  <path class="steam" d="M1330 440q-8-14 0-26q8-14 0-26" stroke="#fff" stroke-width="4" fill="none"/></g>
+<g id="menu" class="hot"><rect x="1270" y="90" width="250" height="250" fill="#2a2e2a" stroke="#6a4a2a" stroke-width="10"/>
+  <g font-family="Caveat,cursive" font-weight="700" fill="#f4f0e4"><text x="1395" y="134" text-anchor="middle" font-size="28">TODAY</text><text x="1290" y="172" font-size="22">Bacon roll</text><text x="1290" y="204" font-size="22">Porridge</text><text x="1290" y="236" font-size="22">Beans on toast</text><text x="1290" y="268" font-size="22">Judge&#8217;s breakfast</text><text x="1290" y="304" font-size="17" fill="#f0c890">(no appeal)</text></g></g>
+<g><path d="M1500 508q0-50 50-50q50 0 50 50z" fill="#e8f0f4" opacity=".7"/><g fill="#c97a4a"><rect x="1516" y="480" width="26" height="22"/><rect x="1554" y="484" width="26" height="18"/></g></g>
+
+<!-- Mr Mendes and Mr O'Kane at the table -->
+<g id="men" class="hot"><rect x="340" y="350" width="210" height="260" fill="#000" opacity="0"/><use href="#ch-mendes" x="330" y="340" width="230" height="300"/></g>
+<g id="oka" class="hot"><rect x="870" y="350" width="210" height="260" fill="#000" opacity="0"/><use href="#ch-okane" x="860" y="340" width="230" height="300"/></g>
+<rect x="240" y="612" width="980" height="24" fill="url(#tabG)"/><rect x="250" y="634" width="960" height="26" fill="#7a2420"/><path d="M640 636h100v80h-100z" fill="#2a1a12"/><rect x="600" y="706" width="180" height="12" fill="#2a1a12"/>
+<g id="lap" class="hot"><rect x="560" y="520" width="220" height="96" fill="#000" opacity="0"/><path d="M590 610l20-84h160l20 84z" fill="#3a3e48"/><rect x="616" y="534" width="148" height="68" fill="#101418"/>
+  <path d="M616 602l50-40h48l50 40z" fill="#3a4048"/><circle cx="740" cy="548" r="6" fill="#ffe9a0"/><rect x="694" y="556" width="40" height="22" fill="#e07a2a" opacity=".7"/><text x="624" y="546" font-family="Courier Prime,monospace" font-size="8" fill="#fff">20:51:10</text>
+  <rect x="570" y="608" width="240" height="8" rx="3" fill="#2a2e36"/></g>
+<g id="rep" class="hot"><rect x="280" y="586" width="110" height="34" fill="#000" opacity="0"/><rect x="290" y="592" width="90" height="22" fill="#f7f8fa" transform="rotate(-4 335 603)"/><rect x="290" y="592" width="90" height="5" fill="#3a4a6a" transform="rotate(-4 335 603)"/><text x="335" y="610" class="sT" font-size="9" fill="#3a4a6a" transform="rotate(-4 335 603)">EXAMINER</text></g>
+<g id="bus7" class="hot"><rect x="400" y="586" width="100" height="34" fill="#000" opacity="0"/><rect x="408" y="594" width="84" height="20" fill="#fffef6" transform="rotate(3 450 604)"/><rect x="408" y="594" width="84" height="7" fill="#2a7a4a" transform="rotate(3 450 604)"/><text x="450" y="611" class="sT" font-size="9" fill="#2a7a4a" transform="rotate(3 450 604)">ROUTE 7</text></g>
+<g id="law" class="hot"><rect x="800" y="586" width="100" height="34" fill="#000" opacity="0"/><rect x="808" y="592" width="84" height="22" fill="#f1efe2" transform="rotate(-2 850 603)"/><rect x="808" y="592" width="84" height="5" fill="#2f5a3a" transform="rotate(-2 850 603)"/><text x="850" y="610" class="sT" font-size="9" fill="#2f5a3a" transform="rotate(-2 850 603)">SECTION 23</text></g>
+<g id="ost" class="hot"><rect x="910" y="586" width="100" height="34" fill="#000" opacity="0"/><rect x="918" y="594" width="84" height="20" fill="#fdfdf8" transform="rotate(4 960 604)"/><rect x="918" y="594" width="84" height="5" fill="#2f4a3e" transform="rotate(4 960 604)"/><text x="960" y="611" class="sT" font-size="9" fill="#2f4a3e" transform="rotate(4 960 604)">O&#8217;KANE</text></g>
+<g id="roll"><ellipse cx="1110" cy="606" rx="46" ry="10" fill="#f4f0e8"/><path d="M1080 604q30-26 60 0z" fill="#d8a060"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1800" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across the road</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, fvBox = null;
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'strand', no: 'IV', title: 'A Café on the Strand',
+    go: 'Go in',
+    intro: [
+      'In Conference Room 2 you tied every change in Mrs Kilner&rsquo;s memory to what caused it: DC Marr&rsquo;s three questions, the photo on Lettie&rsquo;s phone, the red can in the paper, &ldquo;Well done, that&rsquo;s our man&rdquo;, and seven months of going over it. She never lied. Her first telling, in the 999 call, came before anybody suggested anything.',
+      'Tuesday 24 November, ten to eight in the morning. A café on the Strand, opposite the Royal Courts of Justice. Mr Mendes, Nathan&rsquo;s solicitor, has a laptop, a croissant and Mr O&rsquo;Kane.'
+    ],
+    exit: {"next":"hall","w":{"59b306ad":"44145c18"}}, tags: {"off":["c5b5b241"],"tl":["ead5f288"],"sa":["d5e66536"],"sb":["8f7c05c9"],"sc":["a6380dd3"],"sd":["0c40a9bb"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('f-file') || null;
+
+  var FILES = ['2040', '2043', '2046', '2049', '2052', '2055', '2058', '2101', '2104', '2107', '2110', '2113', '2116', '2119', '2122', '2125', '2128', '2131', '2134', '2137', '2140', '2143'];
+  var BADF = { '2107': 1, '2110': 1, '2113': 1, '2116': 1, '2119': 1, '2122': 1 };
+  var REP = '<h4>Examination of a dashboard camera memory card</h4><h5>for the Criminal Cases Review Commission &middot; first report 6 February 2025 &middot; addendum 18 November 2026</h5>' +
+    '<p><b class="t">How this camera records.</b> While the van&rsquo;s power is on, it records without stopping, in files of three minutes. Each file is named by the camera&rsquo;s own clock at the moment the file begins. That clock shows whatever the owner set. This model has no satellite time and does not change for summer time by itself.</p>' +
+    '<p><b class="t">The card.</b> 22 files from Saturday 13 April 2019: by the camera&rsquo;s clock, 20:40 to 21:46. Nothing has been edited or deleted.</p>' +
+    '<p><b class="t">Addendum.</b> The first report listed the files by name. When every file was opened for this addendum, six could not be read: the card has been damaged by heat (six summers in a glovebox). They are struck through below.</p><div class="files">' +
+    FILES.map(function (f) { return '<span' + (BADF[f] ? ' class="bad"' : '') + '>' + f.slice(0, 2) + ':' + f.slice(2) + '</span>'; }).join('') + '</div>' +
+    '<p><b class="t">To check a camera&rsquo;s clock,</b> find something in the picture whose real time is known.</p>';
+  var BUS = '<h4>Norbeck Buses &middot; Route 7</h4><p>Station &middot; Market Place &middot; <b>Lammas Street (Launderette)</b> &middot; Northgate &middot; Hospital</p>' +
+    '<p>Evening times at Lammas Street (Launderette). From 6 January 2019 until further notice.</p>' +
+    '<table><tr><th>Monday to Friday</th><th>Saturday</th><th>Sunday</th></tr><tr><td>18:13</td><td>18:28</td><td>17:58 (last)</td></tr><tr><td>19:13</td><td>19:28</td><td></td></tr><tr><td>20:13</td><td>20:28</td><td></td></tr><tr><td>21:43 (last)</td><td>21:58 (last)</td><td></td></tr></table>' +
+    '<p>Buses run to time. Please hold on while the bus is moving.</p>';
+  var LAW = '<h4>Fresh evidence: what the court looks at</h4><h5>Mr Mendes&rsquo;s note for counsel &middot; Criminal Appeal Act 1968, section 23(2), and one case</h5>' +
+    '<p class="s"><b>23 (2)</b> The Court of Appeal shall, in considering whether to receive any evidence, have regard in particular to&mdash; (a) whether the evidence appears to the Court to be capable of belief; (b) whether it appears to the Court that the evidence may afford any ground for allowing the appeal; (c) whether the evidence would have been admissible in the proceedings from which the appeal lies on an issue which is the subject of the appeal; and (d) whether there is a reasonable explanation for the failure to adduce the evidence in those proceedings.</p>' +
+    '<p class="pn">(a) can it be believed? (b) could it help the appeal? (c) could the jury have been shown it? (d) why did they never see it?</p>' +
+    '<p class="s"><b>R v Pendleton</b> (House of Lords, 2001): when the court receives fresh evidence, it asks whether that evidence, if the jury had heard it, might reasonably have affected their decision to convict. If it might, the conviction is unsafe.</p>' +
+    '<p class="pn">Not &ldquo;would certainly have acquitted&rdquo;. Might reasonably have affected.</p>';
+  var OST = '<h4>Witness statement</h4><h5>Liam O&rsquo;Kane &middot; 52 &middot; once a delivery driver &middot; made to the Criminal Cases Review Commission, 22 October 2024</h5>' +
+    '<p><span class="n">1</span>On Saturday 13 April 2019, after my last delivery in Norbeck, I parked my van in Lammas Street, opposite Lowther&rsquo;s Cycles, at about twenty to ten at night. I ate my tea, and fell asleep in the cab.</p>' +
+    '<p><span class="n">2</span>I woke to sirens at about a quarter to eleven, and drove away to the depot. I did not see the fire start, and nobody asked me anything.</p>' +
+    '<p><span class="n">3</span>I bought the dashboard camera in the January sales in 2019. I set its clock from my phone the day I fitted it, and never touched it again.</p>' +
+    '<p><span class="n">4</span>On 19 October 2024 I was clearing out the van to sell it and found the memory card in the glovebox. I watched it, and contacted the Commission.</p>' +
+    '<p>I believe that the facts stated in this witness statement are true.</p>';
+
+  var CLIPS = [['2049', 51 * 60 + 10, 'man'], ['2058', 58 * 60 + 20, 'bus'], ['2128', 90 * 60 + 5, 'glow']];     /* seconds after 20:00 by the camera */
+  var TL = [['A', 'On the night: the 999 call'], ['B', 'Two days later: DC Marr'], ['C', 'Seven months later: the trial']];
+  var TESTS = [['sa', '(a) capable of belief'], ['sb', '(b) may afford a ground for allowing the appeal'], ['sc', '(c) would have been admissible at the trial'], ['sd', '(d) a reasonable explanation for not using it at the trial']];
+  var CHIPS = [['e1', 'The clock has been checked against something whose real time is known, and it is wrong in one way only.'],
+    ['e2', 'It shows the man at the door walking, with a helmet in his hand: not what the jury were told.'],
+    ['e3', 'It is a film of a public street, made on the night by a camera that nobody had touched.'],
+    ['e4', 'Mr O&rsquo;Kane slept through it, drove off before the police came round, and found the card in October 2024.'],
+    ['e5', 'Mr O&rsquo;Kane has come all the way from Norbeck, and he is a very nice man.']];
+  var SWHY = { sa: '(a) asks whether the film can be believed. Which chip shows it is what it seems, clock and all?', sb: '(b) asks whether it could help the appeal. Which chip says what it shows that matters to the conviction?',
+    sc: '(c) asks whether the jury could have been shown it. Which chip says what kind of evidence it is?', sd: '(d) asks why the jury never saw it. Which chip says who had it, and when he found it?' };
+  var NEED = ['men', 'rep', 'bus7', 'law', 'ost'];
+  var NAMES = { men: 'Mr Mendes', rep: 'the examiner&rsquo;s report', bus7: 'the bus timetable', law: 'Mr Mendes&rsquo;s note on section 23', ost: 'Mr O&rsquo;Kane&rsquo;s statement' };
+  function unread() { return NEED.filter(function (k) { return !ER.flag('f-' + k); }); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Ms Lorimer is waiting in the Main Hall of the Royal Courts of Justice. The button at the bottom of the screen takes you across the road.']];
+    if (fvBox) return ['fv', [
+      'Three jobs. First the clock: find the bus on the film, find when that bus really came, and turn the dial until the real time fits. Then look at the man at the door again: which of Mrs Kilner&rsquo;s tellings does he fit? Then put one chip against each of the four tests in section 23.',
+      'The bus is on the film at 20:58 by the camera. 13 April 2019 was a Saturday, and the Saturday bus came at 21:58. Mr O&rsquo;Kane set the clock in January and never changed it, and the clocks went forward on 31 March. The glow in the window and the 999 call at 22:33 should agree too.',
+      'Real time = camera time + 1 hour 00 minutes. The man walks out at 21:51 with a helmet in his hand: the first telling, the 999 call. Then (a) the clock that has been checked, (b) the man walking with a helmet, (c) a film of a public street, (d) Mr O&rsquo;Kane slept through it and found the card in 2024. Nobody&rsquo;s niceness is a test.'
+    ]];
+    if (!ER.flag('f-men')) return ['men', ['Mr Mendes, Nathan&rsquo;s solicitor, is at the table on the left with his laptop. Talk to him.']];
+    var u = unread();
+    if (u.length) return ['read', ['Read the papers on the table before you open the laptop. Still to read: ' + u.map(function (k) { return NAMES[k]; }).join(', ') + '. Mr O&rsquo;Kane, on the right, will talk to you too.']];
+    return ['lap', ['The laptop in the middle of the table has the footage on it. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#men').classList.toggle('ready', !nextFile && !ER.flag('f-men') && !busy);
+    $('#lap').classList.toggle('ready', !nextFile && !unread().length);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Lupo&rsquo;s. Mr O&rsquo;Kane is asking whether the Royal Courts of Justice have a canteen, and whether evidence gets a discount.'); return; }
+    if (ER.flag('f-in')) { ER.say('Lupo&rsquo;s on the Strand: coffee, steam on the window, and the courts across the road.'); return; }
+    busy = true; ER.flag('f-in', 1);
+    ER.narrate([
+      'The Strand at ten to eight: buses nose to tail, people in dark coats walking fast, and across the road the Royal Courts of Justice, grey stone and pointed arches and little towers, as if a cathedral had decided to become a court.',
+      'Inside Lupo&rsquo;s the window is steamed up to shoulder height. Mr Mendes has the laptop open. Mr O&rsquo;Kane, who came down from the north last night, is on his second bacon roll.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#men').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-men')) { ER.say('&ldquo;What time was it really?&rdquo; says Mr Mendes. &ldquo;Everything else follows from that.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Mendes', role: 'Solicitor for Mr Kershaw', face: window.FACE('mendes'),
+      lines: [
+        { note: 'Mr Laurie Mendes has a laptop, a croissant and the look of a man who has checked everything twice and is about to check it a third time.', a: 'Good morning. This morning the court will decide whether to receive the footage at all. Section 23: the court may receive fresh evidence, and it shall have regard to four things. I have written them out for you, with the test the judges will use.' },
+        { q: 'Is the footage good?', a: 'The footage is very good. The clock is not. By the camera, the man comes out of the shop at 20:51. Nathan has always said ten to ten. Mr Ormsby will notice that before he has finished his coffee.' },
+        { a: 'The examiner&rsquo;s report is on the table, and the bus timetable, and Mr O&rsquo;Kane&rsquo;s statement. Find out what time it really was. Then take the film through the four tests. Ms Lorimer wants it on one page by nine.' }
+      ],
+      clue: { id: 'men1', title: 'Mr Mendes, at Lupo&rsquo;s', kind: 'What he said' }, last: 'Read the papers',
+      done: function (seen) { if (seen) { ER.flag('f-men', 1); paint(); AP.learn(['fresh evidence', 'dashcam']); } }
+    });
+  });
+  $('#oka').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-oka')) { ER.say('Mr O&rsquo;Kane salutes you with half a bacon roll.'); return; }
+    ER.talk({
+      who: 'Mr O&rsquo;Kane', role: 'He found the memory card', face: window.FACE('okane'),
+      lines: [
+        { note: 'Mr Liam O&rsquo;Kane is fifty-four, wears a fleece zipped up to his chin, and is on his second bacon roll.', a: 'I drove parcels for nine years. That Saturday I had my last drop in Norbeck and an hour to kill before the depot, so I parked on Lammas Street and had my tea in the cab. Then I had a sleep. I&rsquo;m very good at sleeping.' },
+        { q: 'And the camera?', a: 'Bought it in the January sales that year. Stuck it on the windscreen, set the clock off my phone, and never touched it again. It just records, over and over, in little bits.' },
+        { q: 'What woke you?', a: 'Sirens. Fire engines, the whole street blue. I hadn&rsquo;t seen anything, so I didn&rsquo;t think I was anybody. Drove off to the depot. Five years later I&rsquo;m selling the van, and there&rsquo;s the card in the glovebox. I watched it for a laugh. Then I stopped laughing.' },
+        { a: 'I rang the Commission the next morning. I&rsquo;d read in the Messenger that the lad had asked them to look at his case. And now look at me. In London, in a café, being evidence.' }
+      ],
+      clue: { id: 'oka1', title: 'Mr O&rsquo;Kane, over a bacon roll', kind: 'What he said' }, last: 'Close',
+      done: function (seen) { if (seen) ER.flag('f-oka', 1); }
+    });
+  });
+  function paper(id, html, cls, title, kind, words) {
+    $('#' + id).addEventListener('click', function () {
+      if (busy) return;
+      if (!ER.flag('f-men')) { ER.say('Mr Mendes&rsquo;s papers. Say good morning to him first.'); return; }
+      ER.read({ html: html, cls: cls, clue: { id: id, title: title, kind: kind }, done: function () { ER.flag('f-' + id, 1); paint(); if (words) AP.learn(words); } });
+    });
+  }
+  paper('rep', REP, 'rep', 'The examiner&rsquo;s report on the memory card', 'For the Commission', ['summer time']);
+  paper('bus7', BUS, 'timet', 'Norbeck Buses: Route 7 timetable (2019)', 'A timetable', null);
+  paper('law', LAW, 'act', 'Fresh evidence: section 23(2), and Pendleton', 'Law', ['admissible']);
+  paper('ost', OST, 'ostmt', 'Mr O&rsquo;Kane&rsquo;s witness statement', 'Statement', null);
+  $('#lap').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The laptop is shut. On its lid, a sticker: KEEP CALM AND CHECK THE CLOCK.'); return; }
+    if (!ER.flag('f-men')) { ER.say('Mr Mendes&rsquo;s laptop. Ask him first.'); return; }
+    var u = unread();
+    if (u.length) { ER.say('&ldquo;Read the papers first,&rdquo; says Mr Mendes. Still to read: ' + u.map(function (k) { return NAMES[k]; }).join(', ') + '.'); return; }
+    openFv();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  AP.thing('#rcj', null, 'Across the Strand, the Royal Courts of Justice: grey stone, pointed arches and little towers. Queen Victoria opened them in 1882. The Court of Appeal sits inside.', isBusy);
+  AP.thing('#menu', null, 'TODAY: bacon roll, porridge, beans on toast, judge&rsquo;s breakfast (no appeal). It has said this every day since 1961.', isBusy);
+  AP.thing('#mach', null, 'An espresso machine that sighs like a barrister reading a long brief.', isBusy);
+  AP.thing('#roll', null, 'Mr O&rsquo;Kane&rsquo;s second bacon roll. There will be a third.', isBusy);
+
+  /* ---------- the footage ---------- */
+  function hm(sec) { var h = 20 + Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; }
+  function hmm(min) { var t = (20 * 60 + min) % 1440, h = Math.floor(t / 60), m = t % 60; return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m; }
+  function frame(kind) {
+    var s = '<rect width="520" height="250" fill="#0a0d14"/><path d="M0 250L210 130h100L520 250z" fill="#1e2026"/><path d="M260 130v120" stroke="#6a6a50" stroke-width="2" stroke-dasharray="10 12"/>' +
+      '<path d="M0 60h150v120L0 230z" fill="#22262e"/><rect x="20" y="96" width="110" height="46" fill="' + (kind === 'glow' ? '#c8d8e0' : '#b8c8d0') + '" opacity=".75"/><text x="75" y="88" font-family="Oswald,sans-serif" font-size="11" fill="#d8e0e8" text-anchor="middle">LAUNDERETTE</text>' +
+      '<path d="M150 150v50" stroke="#c9ccd0" stroke-width="3"/><rect x="140" y="132" width="20" height="18" fill="#2a7a4a"/><text x="150" y="146" font-family="Oswald,sans-serif" font-size="11" fill="#fff" text-anchor="middle">7</text>' +
+      '<path d="M520 40H360v170l160 40z" fill="#262a32"/><rect x="368" y="60" width="140" height="18" fill="#3a2a22"/><text x="438" y="73" font-family="Oswald,sans-serif" font-size="10" fill="#e8c890" text-anchor="middle">LOWTHER&#8217;S CYCLES</text>' +
+      '<rect x="374" y="88" width="64" height="80" fill="' + (kind === 'glow' ? '#3a2014' : '#14161c') + '"/><rect x="450" y="88" width="34" height="112" fill="#1a1c22"/>' +
+      (kind === 'glow' ? '<rect x="380" y="110" width="52" height="56" fill="#e07a2a" opacity=".85"/><rect x="390" y="120" width="30" height="40" fill="#f8c060" opacity=".7"/>' : '') +
+      '<path d="M344 210V70" stroke="#3a3a40" stroke-width="4"/><circle cx="344" cy="66" r="6" fill="#ffe9a0"/><path d="M344 70L300 210h90z" fill="#ffe9a0" opacity=".12"/>';
+    if (kind === 'man') s += '<g fill="#3a3a3a"><circle cx="420" cy="140" r="7" fill="#c8906c"/><path d="M412 148h16l3 34h-22z" fill="#3a4a3a"/><path d="M413 182l-6 22M427 182l8 20" stroke="#2a2a2a" stroke-width="5"/><path d="M428 154l12 12" stroke="#3a4a3a" stroke-width="5"/><path d="M436 166q0-12 12-12q12 0 12 12z" fill="#e8742a"/></g><path d="M470 200l20 0M466 190l28 10" stroke="#6a6a70" stroke-width="2"/><circle cx="472" cy="204" r="9" fill="none" stroke="#6a6a70" stroke-width="2"/><circle cx="496" cy="204" r="9" fill="none" stroke="#6a6a70" stroke-width="2"/>';
+    if (kind === 'bus') s += '<rect x="10" y="118" width="190" height="86" rx="8" fill="#2a7a4a"/><g fill="#8ab0c0"><rect x="22" y="134" width="34" height="26"/><rect x="62" y="134" width="34" height="26"/><rect x="102" y="134" width="34" height="26"/><rect x="142" y="134" width="34" height="26"/></g><rect x="150" y="122" width="44" height="10" fill="#101010"/><text x="172" y="130" font-family="Oswald,sans-serif" font-size="8" fill="#f0c040" text-anchor="middle">7 HOSPITAL</text><circle cx="44" cy="206" r="10" fill="#101010"/><circle cx="166" cy="206" r="10" fill="#101010"/>';
+    s += '<rect x="0" y="232" width="520" height="18" fill="#000" opacity=".5"/>';
+    return s;
+  }
+  function openFv() {
+    var box = ER.el('div', 'fv'), saved = ER.flag('f-fv') || {}, off = saved.off || 0, tl = saved.tl || '', clip = saved.clip || 0, done = false;
+    var s = '<div class="fv-l"><svg class="fv-scr" viewBox="0 0 520 250"><g id="fv-f"></g><text id="fv-ts" x="12" y="22" font-family="Courier Prime,monospace" font-size="15" fill="#fff"></text><text id="fv-rt" x="12" y="245" font-family="Courier Prime,monospace" font-size="13" fill="#f0c890"></text></svg>' +
+      '<div class="fv-clips"></div><div class="fv-off">Real time = camera +<button type="button" data-d="-60">&minus;1 h</button><button type="button" data-d="-1">&minus;1 m</button><b id="fv-ov"></b><button type="button" data-d="1">+1 m</button><button type="button" data-d="60">+1 h</button></div>' +
+      '<div class="fv-files"></div></div>' +
+      '<div class="fv-r"><h6>The man at the door fits which telling?</h6><div class="fv-tl"></div><h6>Section 23(2): one chip for each test</h6><div class="fv-t"></div><div class="fv-tray"></div>' +
+      '<button type="button" class="btn" id="fv-go">Show Mr Mendes</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg'), tray = box.querySelector('.fv-tray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CLIPS.forEach(function (c, i) {
+      var b = ER.el('button', '', c[0].slice(0, 2) + ':' + c[0].slice(2) + ' file'); b.type = 'button'; b.setAttribute('data-c', i);
+      b.addEventListener('click', function () { clip = i; AP.sfx.dial(); draw(); });
+      box.querySelector('.fv-clips').appendChild(b);
+    });
+    ER.$$('.fv-off button', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; off = Math.max(-180, Math.min(180, off + parseInt(b.getAttribute('data-d'), 10))); AP.sfx.dial(); draw(); });
+    });
+    TL.forEach(function (t) {
+      var b = ER.el('button', '', t[1]); b.type = 'button'; b.setAttribute('data-t', t[0]);
+      b.addEventListener('click', function () { if (done) return; tl = t[0]; AP.sfx.card(); draw(); });
+      box.querySelector('.fv-tl').appendChild(b);
+    });
+    TESTS.forEach(function (t) { box.querySelector('.fv-t').insertAdjacentHTML('beforeend', '<span>' + t[1] + '</span><div class="fv-slot" data-s="' + t[0] + '"></div>'); });
+    CHIPS.forEach(function (c) {
+      var d = ER.el('div', 'fv-chip dnd-item', ER.gloss(c[1])); d.setAttribute('data-e', c[0]);
+      var at = (saved.at || {})[c[0]]; (at ? box.querySelector('.fv-slot[data-s="' + at + '"]') : tray).appendChild(d);
+    });
+    ER.dnd(box, { item: '.fv-chip', slot: '.fv-slot', home: tray, lock: function () { return done; }, change: function () { AP.sfx.card(); draw(); } });
+    function slots() { var o = {}; TESTS.forEach(function (t) { var c = box.querySelector('.fv-slot[data-s="' + t[0] + '"] .fv-chip'); o[t[0]] = c ? c.getAttribute('data-e') : ''; }); return o; }
+    function draw() {
+      var c = CLIPS[clip], sl = slots(), at = {};
+      box.querySelector('#fv-f').innerHTML = frame(c[2]);
+      box.querySelector('#fv-ts').textContent = '2019/04/13  ' + hm(c[1]);
+      box.querySelector('#fv-rt').textContent = 'REAL TIME, IF THE DIAL IS RIGHT: ' + hm(((c[1] + off * 60) % 86400 + 86400) % 86400);
+      box.querySelector('#fv-ov').textContent = (off < 0 ? '−' : '+') + Math.floor(Math.abs(off) / 60) + ' h ' + ('0' + Math.abs(off) % 60).slice(-2) + ' m';
+      ER.$$('.fv-clips button', box).forEach(function (b, i) { b.classList.toggle('on', i === clip); });
+      ER.$$('.fv-tl button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-t') === tl); });
+      box.querySelector('.fv-files').innerHTML = FILES.map(function (f) { var m = (parseInt(f.slice(0, 2), 10) - 20) * 60 + parseInt(f.slice(2), 10); return '<span' + (BADF[f] ? ' class="bad"' : '') + '>' + hmm(m) + ' <i>&rarr; ' + hmm(m + off) + '</i></span>'; }).join('');
+      Object.keys(sl).forEach(function (k) { if (sl[k]) at[sl[k]] = k; });
+      ER.flag('f-fv', { off: off, tl: tl, clip: clip, at: at }); box.setAttribute('data-off', off); box.setAttribute('data-in', Object.keys(at).length);
+    }
+    box.querySelector('#fv-go').addEventListener('click', function () {
+      var sl = slots(), i, k, bad = null, more = 0, file, cand, real;
+      if (done) return;
+      if (!ER.check('off', String(off))) {
+        AP.bump('f-tries'); AP.sfx.hm(); real = hm(58 * 60 + 20 + off * 60);
+        if (off === 0) msg('&ldquo;Then the 7 came at 20:58,&rdquo; says Mr Mendes. &ldquo;Look at the timetable. Did any bus stop there at 20:58 on that day?&rdquo;');
+        else if (off === 45) msg('&ldquo;21:43 is the Monday-to-Friday bus. What day of the week was 13 April 2019? Look at the top of the 999 call.&rdquo;');
+        else if (off === -30) msg('&ldquo;Then the glow in the window was at 21:00, and Mrs Kilner waited an hour and a half before she rang 999. She rang at 22:33.&rdquo;');
+        else msg('&ldquo;With the dial where it is, the bus came at ' + real + '. Is there a bus at that time on that day? And does the glow fit the 999 call at 22:33?&rdquo;');
+        return;
+      }
+      if (!tl) { msg('&ldquo;The clock is right. Now look at the man at the door again. Which of Mrs Kilner&rsquo;s three tellings does he fit?&rdquo;'); return; }
+      if (!ER.check('tl', tl)) {
+        AP.bump('f-tries'); AP.sfx.hm();
+        msg(tl === 'B' ? '&ldquo;Hurrying, with something like a can? Look at him again: how is he moving, and what is in his hand?&rdquo;' : '&ldquo;Running, with a red petrol can, at ten past ten? Look at the frame, and at the real time.&rdquo;');
+        return;
+      }
+      for (i = 0; i < TESTS.length; i++) if (!sl[TESTS[i][0]]) { msg('&ldquo;Test ' + TESTS[i][1].slice(0, 3) + ' has no chip yet.&rdquo;'); return; }
+      for (i = 0; i < TESTS.length; i++) { k = TESTS[i][0]; if (!ER.check(k, sl[k])) { if (!bad) bad = k; else more++; } }
+      if (bad) {
+        AP.bump('f-tries'); AP.sfx.hm();
+        msg(sl[bad] === 'e5' ? '&ldquo;Nice,&rdquo; says Mr Mendes, &ldquo;is not one of the four tests. Though I agree with it.&rdquo;' + AP.more(more, 'test') : '&ldquo;' + SWHY[bad] + '&rdquo;' + AP.more(more, 'test'));
+        return;
+      }
+      cand = off + '|' + tl + '|' + TESTS.map(function (t) { return sl[t[0]]; }).join(',');
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('f-file', file); AP.done('strand'); AP.sfx.card();
+      msg('Mr Mendes reads your page twice, which for him is once. <b>&ldquo;An hour behind, because nobody put it forward for summer time. And at 21:51, a young man walking out of that shop with a helmet in his hand.&rdquo;</b>');
+      AP.mine('clock', 'The footage, checked', '<p>Camera clock = real time MINUS 1 hour. Set in January (GMT), never put forward when summer time began on 31 March 2019.</p><p>Proof: the 7 bus is on the film at 20:58 = the Saturday bus at 21:58. The glow at 21:30 = 22:30, three minutes before the 999 call at 22:33.</p><p>21:51: Nathan walks out, helmet in hand = Mrs Kilner&rsquo;s FIRST telling.</p><p>Damaged files: camera 21:07 to 21:25 = REAL 22:07 to 22:25.</p><p>Section 23(2): (a) clock checked, (b) walking with a helmet, (c) film of a street, (d) asleep, found in 2024.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); AP.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Then the Saturday bus is on the film at 21:58, the glow begins at 22:30, and Mrs Kilner rings at 22:33,&rdquo; says Mr Mendes. &ldquo;Everything fits. And at 21:51 a young man walks out with a helmet in his hand. Not running. No can.&rdquo; He shuts the laptop very gently. &ldquo;The first telling.&rdquo;',
+          'Mr O&rsquo;Kane finishes his bacon roll. &ldquo;So I&rsquo;m evidence,&rdquo; he says. &ldquo;My mother will be thrilled.&rdquo;',
+          'Mr Mendes&rsquo;s phone buzzes. Ms Lorimer: MAIN HALL 9.40. BRING THE ADDENDUM. ORMSBY&rsquo;S SKELETON HAS ARRIVED. &ldquo;Across the road,&rdquo; says Mr Mendes. &ldquo;Look both ways. Buses on the Strand run to time, and they do not stop for barristers.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('Watch the three files. <b>Turn the dial</b> until the real time fits what you know. Then say which telling the man fits, and <b>drag a chip</b> (or click it, then a test) to each test.');
+    fvBox = box; draw();
+    ER.open('ov-lock', box, function () { fvBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

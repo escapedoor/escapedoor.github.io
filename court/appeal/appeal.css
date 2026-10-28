@@ -1,0 +1,154 @@
+/* Under the Lamp - what every room of the story shares: the papers of a criminal appeal, the pupil's notebook, the hints and
+   the word tags, and a few small parts. Each room sets its own palette on <body>. */
+
+/* ---- shared bits ---- */
+.tc-theme{font-family:'Oswald',sans-serif}
+.tc-room{font-family:'Cormorant SC',serif;font-weight:700;letter-spacing:.05em}
+.tc-text{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.08em}
+.cap{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600}
+.tk-name{font-family:'Cormorant SC',serif;font-weight:700;font-size:26px;letter-spacing:.03em}
+.tk-text{font-family:'EB Garamond',Georgia,serif}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px;border:1px solid var(--accent,#c9a45a);
+  color:var(--accent,#c9a45a);background:var(--hud-bg,rgba(20,16,12,.92));font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.18em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#c9a45a);color:#14110b}
+.pmsg{min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.32;color:#f1ecdf}
+.pmsg b{color:#f0cf7a;font-weight:600}
+.pmsg em{color:#d6d2c6}
+.sT{font-family:'Oswald',sans-serif;font-weight:600;text-anchor:middle}
+.cT{font-family:'Cormorant SC',serif;font-weight:700;text-anchor:middle}
+.kT{font-family:'Stardos Stencil',serif;font-weight:700;text-anchor:middle}
+.hT{font-family:'Caveat',cursive;font-weight:700;text-anchor:middle}
+.mT{font-family:'Courier Prime',monospace;text-anchor:middle}
+.ready{animation:nudge 1.7s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(-6px)}}
+.side .btn{width:100%;margin-bottom:8px}
+.side h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#e6d3a6}
+.opts{display:grid;gap:5px;margin-bottom:8px}
+.opts button{text-align:left;padding:6px 10px 6px 30px;position:relative;background:rgba(8,10,12,.6);border:1px solid rgba(226,194,122,.35);color:#f2eee2;font-family:'EB Garamond',serif;font-size:15px;line-height:1.2;border-radius:2px}
+.opts button:before{content:'';position:absolute;left:10px;top:9px;width:11px;height:11px;border-radius:50%;border:2px solid var(--accent,#e2c27a)}
+.opts button.on{background:rgba(70,60,34,.9);border-color:var(--accent,#e2c27a)}.opts button.on:before{background:var(--accent,#e2c27a)}
+
+/* ---- the papers ---- */
+.doc b.t{font-weight:700;letter-spacing:.04em}
+.doc .fine{font-family:'Oswald',sans-serif;font-weight:400;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.doc .hw{font-family:'Caveat',cursive;font-weight:700;font-size:1.2em;color:#1d3a6a}
+/* the Act, Ms Lorimer's copy, with her pencil */
+.doc.act{width:min(720px,95vw);padding:22px 34px 18px;background:#f1efe2;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#1d1f22;border-top:14px solid #2f5a3a}
+.doc.act h4{margin:0;font-family:'Cormorant SC',serif;font-weight:700;font-size:24px;letter-spacing:.06em;color:#2f5a3a}
+.doc.act h5{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6b6453}
+.doc.act .s{margin:0 0 7px;padding-left:10px;border-left:3px solid #c9c4b4}
+.doc.act .s b{font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.06em;color:#2f5a3a;margin-right:4px}
+.doc.act .pn{margin:2px 0 6px 18px;font-family:'Caveat',cursive;font-weight:700;font-size:20px;line-height:1.1;color:#5a5a62;transform:rotate(-.6deg)}
+/* a page of a small old book */
+.doc.logic{width:min(720px,95vw);padding:22px 34px 16px;background:#f6efdc;font-family:'EB Garamond',Georgia,serif;font-size:16.5px;line-height:1.36;color:#24201a;border:1px solid #c9b88e;box-shadow:inset 18px 0 22px -16px rgba(90,60,20,.35)}
+.doc.logic h4{margin:0 0 2px;text-align:center;font-family:'Cormorant SC',serif;font-weight:700;font-size:23px;letter-spacing:.08em}
+.doc.logic h5{margin:0 0 10px;text-align:center;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:14px;color:#6b5a3a}
+.doc.logic .six{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.doc.logic .six div{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:start}
+.doc.logic .six svg{width:44px;height:36px}
+.doc.logic .six b{font-family:'Cormorant SC',serif;font-size:17px;letter-spacing:.03em}
+.doc.logic .six small{font-style:italic;color:#6b5a3a}
+.doc.logic p{margin:8px 0 0}
+/* a transcript */
+.doc.trans{width:min(720px,95vw);padding:22px 34px 16px;background:#fbfbf6;font-family:'Courier Prime',monospace;font-size:14.5px;line-height:1.5;color:#22242a;border-left:28px solid #e4e2d6}
+.doc.trans h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.2em;text-transform:uppercase}
+.doc.trans h5{margin:0 0 10px;font-family:'Courier Prime',monospace;font-weight:400;font-size:12.5px;color:#6b6453}
+.doc.trans p{margin:0 0 6px}
+.doc.trans p b{font-weight:700}
+/* the 999 call log */
+.doc.call{width:min(640px,94vw);padding:18px 28px 14px;background:#eef3f2;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.45;color:#1c2226;border-top:8px solid #b3262c}
+.doc.call h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase;color:#b3262c}
+.doc.call h5{margin:0 0 10px;font-family:'Courier Prime',monospace;font-weight:400;font-size:12.5px;color:#55606a}
+.doc.call p{margin:0 0 6px}
+.doc.call p b{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#55606a;margin-right:6px}
+/* the body-worn video transcript */
+.doc.bwv{width:min(660px,94vw);padding:18px 28px 14px;background:#f2f2f4;font-family:'Courier Prime',monospace;font-size:14.5px;line-height:1.46;color:#1c1d22;border-top:8px solid #1d2a52}
+.doc.bwv h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:#1d2a52}
+.doc.bwv h5{margin:0 0 10px;font-family:'Courier Prime',monospace;font-weight:400;font-size:12.5px;color:#55606a}
+.doc.bwv p{margin:0 0 5px}
+.doc.bwv p b{font-weight:700;margin-right:6px}
+/* a newspaper cutting */
+.doc.cut{width:min(560px,92vw);padding:18px 26px 14px;background:#ece5d2;font-family:'Tinos',serif;font-size:15.5px;line-height:1.38;color:#1f1d1a;transform:rotate(-.6deg);box-shadow:0 22px 60px rgba(0,0,0,.6)}
+.doc.cut .mast{font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.2em;border-bottom:2px solid #1f1d1a;padding-bottom:4px;margin-bottom:8px;display:flex;justify-content:space-between}
+.doc.cut h4{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:700;font-size:25px;line-height:1.05;text-transform:uppercase}
+.doc.cut p{margin:0 0 6px}
+.doc.cut svg{float:right;margin:2px 0 6px 12px}
+/* the identification record */
+.doc.idrec{width:min(660px,94vw);padding:18px 28px 14px;background:#fdfdf8;font-family:'Outfit',Arial,sans-serif;font-size:14.5px;line-height:1.42;color:#1c1d22;border:2px solid #1c1d22}
+.doc.idrec h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+.doc.idrec h5{margin:0 0 8px;font-weight:400;font-size:12.5px;color:#55606a}
+.doc.idrec table{width:100%;border-collapse:collapse;margin-bottom:6px}
+.doc.idrec td{padding:4px 6px;border:1px solid #b9bcc4;vertical-align:top}
+.doc.idrec td:first-child{width:130px;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#55606a}
+.doc.idrec .hw{font-size:1.25em}
+/* a page of the memory book */
+.doc.mem{width:min(720px,95vw);padding:22px 34px 16px;background:#fbf9f2;font-family:'EB Garamond',Georgia,serif;font-size:16.5px;line-height:1.38;color:#20222a;border-left:10px solid #3a6a8a}
+.doc.mem h4{margin:0 0 2px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px}
+.doc.mem h5{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#3a6a8a}
+.doc.mem p{margin:0 0 7px}
+.doc.mem .dg{float:right;width:230px;height:auto;margin:0 0 6px 14px}
+/* the examiner's report and the timetable */
+.doc.rep{width:min(720px,95vw);padding:18px 30px 14px;background:#f7f8fa;font-family:'Outfit',Arial,sans-serif;font-size:14.5px;line-height:1.42;color:#1c2028;border-top:8px solid #3a4a6a}
+.doc.rep h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:#3a4a6a}
+.doc.rep h5{margin:0 0 8px;font-weight:400;font-size:12.5px;color:#55606a}
+.doc.rep p{margin:0 0 6px}
+.doc.rep .files{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px 10px;margin:4px 0 8px;font-family:'Courier Prime',monospace;font-size:13px}
+.doc.rep .files span.bad{color:#b3262c;text-decoration:line-through}
+.doc.timet{width:min(560px,92vw);padding:0 0 12px;background:#fffef6;font-family:'Outfit',Arial,sans-serif;font-size:15px;line-height:1.4;color:#1c1d22}
+.doc.timet h4{margin:0 0 10px;padding:12px 22px;background:#2a7a4a;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;letter-spacing:.06em}
+.doc.timet p{margin:0 22px 8px}
+.doc.timet table{margin:0 22px 8px;border-collapse:collapse;width:calc(100% - 44px)}
+.doc.timet td,.doc.timet th{padding:4px 8px;border-bottom:1px solid #c9ccd0;text-align:left;font-size:14.5px}
+.doc.timet th{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2a7a4a}
+/* a witness statement */
+.doc.ostmt{width:min(700px,95vw);padding:20px 32px 14px;background:#fdfdf8;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#1c1d22;border-top:5px solid #2f4a3e}
+.doc.ostmt h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase}
+.doc.ostmt h5{margin:0 0 10px;font-family:'Tinos',serif;font-style:italic;font-weight:400;font-size:13.5px;color:#55503f}
+.doc.ostmt p{margin:0 0 6px}
+.doc.ostmt p .n{display:inline-block;width:24px;font-family:'Oswald',sans-serif;color:#2f4a3e}
+/* skeleton arguments and the court list */
+.doc.skel{width:min(720px,95vw);padding:22px 34px 16px;background:#fdfcf7;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#1c1d22;border-left:8px solid #7a2a3a}
+.doc.skel h4{margin:0 0 2px;text-align:center;font-family:'Cormorant SC',serif;font-weight:700;font-size:22px;letter-spacing:.08em}
+.doc.skel h5{margin:0 0 10px;text-align:center;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6b5a5a}
+.doc.skel p{margin:0 0 6px}
+.doc.skel p .n{display:inline-block;width:24px;font-family:'Oswald',sans-serif;color:#7a2a3a}
+.doc.clist{width:min(600px,92vw);padding:18px 28px 14px;background:#fbfbf6;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#1c1d22;border:10px solid #2a2a30}
+.doc.clist h4{margin:0 0 4px;text-align:center;font-family:'Cinzel',serif;font-weight:700;font-size:17px;letter-spacing:.12em}
+.doc.clist h5{margin:0 0 10px;text-align:center;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.doc.clist p{margin:0 0 6px;text-align:center}
+/* what was said, and the judgment */
+.doc.said{width:min(660px,94vw);padding:24px 34px 22px;background:#fbf8ec;font-family:'Tinos',serif;font-size:17px;line-height:1.42;color:#1c1d1f;border-left:8px solid #6a4a2a}
+.doc.said h4{margin:0 0 12px;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#6a4a2a}
+.doc.said p{margin:0 0 9px}
+.doc.statement{background:#fbf8ec;font-family:'EB Garamond',Georgia,serif;font-size:19px;border-left:8px solid #2f4a5e}
+.doc.statement h4{color:#2f4a5e}
+/* what you worked out, on a yellow pad */
+.doc.mine{width:min(600px,94vw);padding:34px 30px 24px 34px;background:#fbf3b8 repeating-linear-gradient(transparent 0 30px,rgba(90,120,170,.28) 30px 31px);font-family:'Caveat',cursive;font-weight:700;
+  font-size:23px;line-height:31px;color:#22305a;border-top:18px solid #c9b24a;transform:rotate(-.4deg)}
+.doc.mine h4{margin:0;font-size:27px;font-weight:700;line-height:31px;text-decoration:underline}
+.doc.mine p{margin:0}
+
+/* ---- the notebook: a pupil's red counsel's notebook ---- */
+.nb{background:#3a1c22 linear-gradient(150deg,#4a242c,#2a1418);border:1px solid #180a0e;border-radius:5px;color:#efe6e2;
+  box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #24100f,inset 0 0 0 6px rgba(214,178,94,.35)}
+.nb-tabs{border-bottom-color:rgba(214,178,94,.4)}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.2em;color:#f0dcb0}
+.nb-tabs button.on{background:#fbf8ec;color:#3a1c22;border-color:rgba(214,178,94,.6)}
+.nb-list{border-right-color:rgba(214,178,94,.4)}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#efe6e2}
+.nb-list button.on{background:#fbf8ec;color:#3a1c22}
+.nb-view{background:#1c0e10}
+.nb-words{background:#fbf8ec;color:#22211c}
+.nb-words b{font-family:'Tinos',serif;font-weight:700;font-size:18px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;color:#55503f}
+.nb-ko{border-color:#8f8873;color:#55503f}
+.nb-ko.on{background:#3a1c22;color:#fbf8ec;border-color:#3a1c22}
+.wtip,.wtag{background:#fbf8ec;color:#22211c;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #7a2a3a}
+.wtag{padding-left:20px}.wtag:before{display:none}.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Tinos',serif;font-weight:700;font-size:18px}
+.hintbox{background:#fbf8ec;color:#22211c;border-top:6px solid #7a2a3a;border-radius:2px}
+.hintbox h6{color:#7a2a3a}
+.hintbox p i{background:#7a2a3a;color:#fbf8ec}
+.toast{font-family:'Oswald',sans-serif;background:rgba(22,14,16,.95)}

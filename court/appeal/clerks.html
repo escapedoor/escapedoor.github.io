@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Clerks' Room · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#2a2016;--accent:#e2bf6e;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(36,28,20,.97);--tc-ink:#f4ecdc;--cap-bg:rgba(36,28,20,.93);--panel:#2a2016;--face-bg:#3a3428;--q-ink:#f0d9a6;--fade:#0e0a06;--hud-bg:rgba(36,28,20,.85)}
+  .rain{animation:rain .7s linear infinite}
+  @keyframes rain{0%{transform:translateY(-40px)}100%{transform:translateY(40px)}}
+  .lampglow{animation:glow 5s steps(4) infinite alternate}
+  @keyframes glow{0%{opacity:.5}100%{opacity:.75}}
+
+  /* the spikes */
+  .sp{width:min(1160px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+  .sp-desk{padding:14px 16px 12px;background:#5a3a22 linear-gradient(180deg,#6a4628,#4a2e1a);box-shadow:0 22px 60px rgba(0,0,0,.6);border-radius:3px}
+  .sp-tray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;min-height:60px;padding:8px;background:rgba(20,12,6,.35);border:1px dashed rgba(240,210,150,.35)}
+  .sp-card{position:relative;padding:5px 9px 5px 26px;background:#fffdf3 repeating-linear-gradient(transparent 0 19px,rgba(90,140,200,.25) 19px 20px);border-top:3px solid #d96a6a;
+    font-family:'Caveat',cursive;font-weight:700;font-size:17.5px;line-height:20px;color:#1f2f5a;box-shadow:0 2px 5px rgba(0,0,0,.35);cursor:pointer;min-height:48px}
+  .sp-card b{position:absolute;left:7px;top:5px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;color:#a33a3a}
+  .sp-card.held{outline:3px solid #f2c94c;transform:translateY(-3px)}
+  .sp-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+  .sp-spike{position:relative;min-height:250px;padding:40px 8px 8px;background:rgba(20,12,6,.25);border-radius:3px;cursor:pointer}
+  .sp-spike:before{content:'';position:absolute;left:50%;top:42px;width:4px;margin-left:-2px;bottom:30px;background:linear-gradient(90deg,#8a7a4a,#f0dca0,#8a7a4a)}
+  .sp-spike:after{content:'';position:absolute;left:50%;bottom:8px;width:120px;margin-left:-60px;height:20px;border-radius:50%;background:radial-gradient(ellipse,#e8c870,#8a6a2a)}
+  .sp-spike h6{position:absolute;left:0;right:0;top:-2px;margin:0;text-align:center;font-family:'Stardos Stencil',serif;font-size:15px;letter-spacing:.08em;color:#f6e6b8}
+  .sp-spike h6 small{display:block;font-family:'EB Garamond',serif;font-size:12.5px;letter-spacing:0;color:#e8d4a8;font-style:italic}
+  .sp-spike .sp-card{position:relative;z-index:1;margin:0 0 -16px;font-size:15.5px;line-height:17px;min-height:0;padding-top:4px;padding-bottom:20px;transform:rotate(-1.5deg)}
+  .sp-spike .sp-card:nth-child(even){transform:rotate(1.5deg)}
+  .sp-spike.hot{background:rgba(242,201,76,.16)}
+  .sp .pmsg{min-height:150px;font-size:16.5px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a878"/><stop offset="1" stop-color="#a9875a"/></linearGradient>
+  <linearGradient id="panG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4a32"/><stop offset="1" stop-color="#2a3624"/></linearGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4426"/><stop offset="1" stop-color="#422a16"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2230"/><stop offset="1" stop-color="#2e3a4a"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#fff2b0" stop-opacity=".7"/><stop offset="1" stop-color="#fff2b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#140c06" stop-opacity=".18"/><stop offset="1" stop-color="#0a0604" stop-opacity=".78"/></radialGradient>
+  <pattern id="carpet" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#5a2a24"/><path d="M0 22h44M22 0v44" stroke="#4a221c" stroke-width="2"/><circle cx="22" cy="22" r="4" fill="#6a3a2a"/></pattern>
+</defs>
+
+<!-- the clerks' room at 2 Medlar Court: ochre walls, green panelling, rain on the sash window -->
+<rect x="-1000" y="-400" width="3600" height="900" fill="url(#wallG)"/>
+<rect x="-1000" y="470" width="3600" height="240" fill="url(#panG)"/><rect x="-1000" y="462" width="3600" height="12" fill="#22301c"/>
+<g stroke="#22301c" stroke-width="3" fill="none"><path d="M-200 500h300v180h-300zM160 500h300v180h-300zM1140 500h300v180h-300zM1500 500h300v180h-300z"/></g>
+<rect x="-1000" y="708" width="3600" height="800" fill="url(#carpet)"/>
+
+<g id="win" class="hot"><rect x="70" y="80" width="270" height="360" fill="#e6d8b8"/><rect x="86" y="96" width="238" height="328" fill="url(#nightG)"/>
+  <path d="M110 424v-180h70v180zM210 424v-140h90v140z" fill="#141a24"/><rect x="226" y="300" width="18" height="22" fill="#f2d27a"/><rect x="260" y="300" width="18" height="22" fill="#2a3240"/><rect x="124" y="270" width="14" height="18" fill="#2a3240"/>
+  <path d="M160 424v-110" stroke="#0e1218" stroke-width="5"/><circle cx="160" cy="306" r="9" fill="#ffe9a0"/><circle cx="160" cy="306" r="26" fill="#ffe9a0" opacity=".18"/>
+  <g class="rain" stroke="#9ab0c8" stroke-width="1.6" opacity=".55"><path d="M100 110l-6 26M140 150l-6 26M190 120l-6 26M240 170l-6 26M290 130l-6 26M120 230l-6 26M220 240l-6 26M300 260l-6 26M150 330l-6 26M260 360l-6 26M110 380l-6 26"/></g>
+  <path d="M86 260h238M205 96v328" stroke="#e6d8b8" stroke-width="10"/></g>
+
+<!-- the pigeonholes -->
+<g id="pig" class="hot"><rect x="380" y="100" width="390" height="330" fill="#4a2e1a"/><g id="pigs"></g></g>
+<!-- Ms Lorimer at the pigeonholes, in her coat -->
+<g id="lor" class="hot"><rect x="480" y="330" width="210" height="300" fill="#000" opacity="0"/><use href="#ch-lorimer" x="470" y="330" width="230" height="300"/></g>
+
+<!-- the post table in front of her, with wire trays -->
+<rect x="420" y="598" width="300" height="16" fill="#7a5232"/><path d="M436 614h268v94h-268z" fill="url(#deskG)"/>
+<g stroke="#9a9a9a" stroke-width="2" fill="none"><path d="M450 598v-22h90v22M560 598v-16h90v16"/></g><rect x="456" y="582" width="78" height="10" fill="#f1ead8"/>
+
+<!-- the diary board -->
+<g id="board" class="hot"><rect x="800" y="96" width="330" height="236" fill="#3a2a1a"/><rect x="810" y="106" width="310" height="216" fill="#f6f4ea"/>
+  <text x="965" y="132" class="sT" font-size="15" fill="#7a2a3a" letter-spacing="3">TUESDAY 24 NOVEMBER</text>
+  <g font-family="Caveat,cursive" font-weight="700" font-size="17" fill="#1d3a6a"><text x="822" y="162">NL · R v KERSHAW · CACD · 10.30</text><text x="822" y="184">   Lanyon LJ, Muncaster J, Kendal J</text>
+  <text x="822" y="214" fill="#2a2a2a">TB · Luton · lawnmower (again)</text><text x="822" y="240" fill="#2a2a2a">KO · Kingston · sentence</text><text x="822" y="266" fill="#2a2a2a">MN · in Leeds, back Thurs</text><text x="822" y="300" fill="#a33a3a">BISCUITS: ON ORDER</text></g></g>
+
+<!-- a filing cabinet with the kettle -->
+<rect x="800" y="420" width="150" height="290" fill="#6a6e72"/><g stroke="#4a4e52" stroke-width="3"><path d="M806 490h138M806 560h138M806 630h138"/></g><g fill="#c9ccd0"><rect x="860" y="450" width="30" height="8"/><rect x="860" y="520" width="30" height="8"/><rect x="860" y="590" width="30" height="8"/><rect x="860" y="660" width="30" height="8"/></g>
+<g id="kettle" class="hot"><path d="M830 420q0-50 30-56h40q30 6 30 56z" fill="#b9bcc0"/><path d="M930 380q22 0 22 18" stroke="#b9bcc0" stroke-width="7" fill="none"/><rect x="900" y="396" width="34" height="24" fill="#f4f0e2"/><text x="917" y="412" class="sT" font-size="7" fill="#2a2a2a">OKAYEST</text></g>
+
+<!-- Mr Mott behind his desk -->
+<g id="mott" class="hot"><rect x="1220" y="330" width="210" height="270" fill="#000" opacity="0"/><use href="#ch-mott" x="1210" y="330" width="230" height="300"/></g>
+<rect x="1090" y="596" width="490" height="22" fill="#7a5232"/><path d="M1110 618h450v100h-450z" fill="url(#deskG)"/>
+<g id="lamp"><path d="M1460 596v-60" stroke="#c9a45a" stroke-width="5"/><path d="M1420 540q40-40 80 0z" fill="#2f6a3a"/><path d="M1380 596l40-56h80l40 56z" fill="url(#lampG)" class="lampglow" pointer-events="none"/></g>
+<g id="phone"><rect x="1110" y="572" width="60" height="26" rx="5" fill="#1c1c22"/><path d="M1104 574q36-22 72 0" stroke="#1c1c22" stroke-width="9" fill="none"/></g>
+<!-- the brass spikes and the envelope -->
+<g id="spk" class="hot"><rect x="1180" y="540" width="190" height="60" fill="#000" opacity="0"/>
+  <g fill="#c9a45a"><ellipse cx="1210" cy="594" rx="22" ry="6"/><ellipse cx="1275" cy="594" rx="22" ry="6"/><ellipse cx="1340" cy="594" rx="22" ry="6"/></g>
+  <g stroke="#d9b870" stroke-width="3"><path d="M1210 594v-50M1275 594v-50M1340 594v-50"/></g>
+  <g fill="#fbf8ec"><rect x="1196" y="560" width="28" height="9"/><rect x="1326" y="574" width="28" height="9"/></g></g>
+<g id="env" class="hot"><rect x="1386" y="560" width="120" height="38" fill="#000" opacity="0"/><rect x="1396" y="566" width="104" height="30" fill="#e8d6a8" transform="rotate(-4 1448 581)"/><path d="M1396 566l52 16 52-16" stroke="#b9a070" stroke-width="2" fill="none" transform="rotate(-4 1448 581)"/><text x="1448" y="592" class="hT" font-size="13" fill="#1d3a6a" transform="rotate(-4 1448 581)">Ms Lorimer</text></g>
+
+<!-- a table in front, with the green book -->
+<rect x="150" y="640" width="380" height="18" fill="#7a5232"/><path d="M170 658h340v60h-340z" fill="url(#deskG)"/>
+<g id="act" class="hot"><rect x="220" y="604" width="150" height="46" fill="#000" opacity="0"/><rect x="230" y="620" width="120" height="22" fill="#2f5a3a"/><rect x="236" y="612" width="120" height="10" fill="#f1efe2"/><path d="M230 630h120" stroke="#c9c4b4" stroke-width="2"/><rect x="290" y="616" width="8" height="30" fill="#e8e4d4"/></g>
+<g id="bat" class="hot"><path d="M1530 708l20-260 18 2-14 260z" fill="#d9c08a"/><rect x="1546" y="420" width="12" height="40" fill="#3a2a1a" transform="rotate(4 1552 440)"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the library</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, spBox = null;
+
+  (function () {
+    var s = '', r, c, names = ['KO', 'TB', 'NL', 'MN', 'OL', 'LK', 'NM', 'KL', 'ON', 'MK', 'LO', 'NK', 'OM', 'KN', 'LM'];
+    for (r = 0; r < 5; r++) for (c = 0; c < 6; c++) {
+      var x = 392 + c * 62, y = 112 + r * 62, n = names[(r * 6 + c) % names.length];
+      s += '<rect x="' + x + '" y="' + y + '" width="56" height="56" fill="#2a180c"/>';
+      if ((r + c) % 3) s += '<rect x="' + (x + 6) + '" y="' + (y + 26) + '" width="44" height="26" fill="#f1ead8" transform="rotate(' + ((r * 7 + c * 3) % 9 - 4) + ' ' + (x + 28) + ' ' + (y + 39) + ')"/>';
+      s += '<rect x="' + (x + 14) + '" y="' + (y + 2) + '" width="28" height="12" fill="#e8d6a8"/><text x="' + (x + 28) + '" y="' + (y + 12) + '" class="sT" font-size="9" fill="#3a2a1a">' + n + '</text>';
+    }
+    $('#pigs').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'clerks', no: 'I', title: 'The Clerks&rsquo; Room',
+    go: 'Go in',
+    intro: [
+      'Seven years ago last spring, a bicycle shop in Norbeck burned down in the night. Nobody was hurt. Its mechanic, Nathan Kershaw, then twenty-three, was found guilty of setting the fire, and went to prison.',
+      'Two years ago a delivery driver, selling his old van, found a memory card in the glovebox. Now the Criminal Cases Review Commission has sent the case to the Court of Appeal, and tomorrow at half past ten three judges at the Royal Courts of Justice will hear it.',
+      'You are a pupil barrister at 2 Medlar Court, in the Temple, ten minutes&rsquo; walk from that court. Your pupil supervisor, Ms Niamh Lorimer, acts for Mr Kershaw. Monday 23 November, a quarter past six. The clerks are still here. So is the rain.'
+    ],
+    exit: {"next":"library","w":{"fd78551c":"12ed782b"}}, tags: {"k1":["9ea06556"],"k2":["e253df6a"],"k3":["9937b293"],"k4":["2f611ddd"],"k5":["ec5fdb68"],"k6":["c43aec2f"],"k7":["703785be"],"k8":["f713da51"],"k9":["49f44f4d"],"kq":["14db4df5"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('c-file') || null;
+
+  var ACT = '<h4>Criminal Appeal Act 1968</h4><h5>Ms Lorimer&rsquo;s copy &middot; the parts that matter tomorrow</h5>' +
+    '<p class="s"><b>2 (1)</b> &hellip; the Court of Appeal&mdash; (a) shall allow an appeal against conviction if they think that the conviction is unsafe; and (b) shall dismiss such an appeal in any other case.</p>' +
+    '<p class="pn">shall = must. No choice.  &ldquo;Unsafe&rdquo;: not &ldquo;innocent&rdquo;!</p>' +
+    '<p class="s"><b>2 (2)</b> In the case of an appeal against conviction the Court shall, if they allow the appeal, quash the conviction.</p>' +
+    '<p class="pn">quash = cancel. Gone.</p>' +
+    '<p class="s"><b>7 (1)</b> Where the Court of Appeal allow an appeal against conviction and it appears to the Court that the interests of justice so require, they may order the appellant to be retried.</p>' +
+    '<p class="pn">may = can, if they choose. Retried = a new trial, new jury, in the Crown Court. Never in this court.</p>' +
+    '<p class="s"><b>23 (1)</b> The Court of Appeal may, if they think it necessary or expedient in the interests of justice&mdash; &hellip; (c) receive any evidence which was not adduced in the proceedings from which the appeal lies.</p>' +
+    '<p class="pn">= the footage. The tests for it: s.23(2). Tomorrow.</p>' +
+    '<p class="pn">They can only do what this lets them do. If it isn&rsquo;t on this page, they can&rsquo;t do it.</p>';
+
+  var CARDS = [
+    ['k1', 'If they think the conviction is unsafe, do they have to let me off?'],
+    ['k2', 'If they think it&rsquo;s safe, can they still let me off, because I&rsquo;ve done my time?'],
+    ['k3', 'If they let me off, does the conviction actually go away?'],
+    ['k4', 'Can they tell everyone I&rsquo;m innocent?'],
+    ['k5', 'Can they send it back for a new trial?'],
+    ['k6', 'Will they have the whole trial again themselves, with a jury?'],
+    ['k7', 'Can they make Mrs Kilner say sorry?'],
+    ['k8', 'Can they give me compensation for the time I did?'],
+    ['k9', 'Will they watch Liam&rsquo;s film?']];
+  var SPIKES = [['S', 'THEY SHALL', 'must: no choice'], ['M', 'THEY MAY', 'can, if they choose'], ['N', 'THEY CANNOT', 'not theirs to do']];
+  var WHY = {
+    k1: 'Card 1. If they think it is unsafe, read 2(1)(a). Is there a choice in &ldquo;shall&rdquo;?',
+    k2: 'Card 2. If they think it is safe, that is &ldquo;any other case&rdquo;. Read 2(1)(b): what shall they do then?',
+    k3: 'Card 3. Read 2(2). When they allow an appeal, is quashing the conviction up to them?',
+    k4: 'Card 4. Is there anything on that page about saying who is innocent? They can only do what the Act lets them do.',
+    k5: 'Card 5. Read 7(1). A new trial: must they order one, or may they?',
+    k6: 'Card 6. The whole trial again, with a jury? There is no jury in the Court of Appeal. A new trial would be in the Crown Court, and only if they order one.',
+    k7: 'Card 7. Punishing a witness for being wrong? Is that anywhere on the page?',
+    k8: 'Card 8. Compensation? Look for it on the page. It is not there, so it is not theirs to give.',
+    k9: 'Card 9. Read 23(1). Receiving evidence the jury never saw: must they, or may they?'
+  };
+  var Q = [['a', 'to find that Nathan did not set the fire.'], ['b', 'to find that the conviction is unsafe, and to quash it.'], ['c', 'to hear the whole case again, and find him not guilty.']];
+
+  function hints() {
+    if (nextFile) return ['go', ['Ms Lorimer has sent you to the library. The button at the bottom of the screen takes you there.']];
+    if (spBox) return ['spike', [
+      'Each question goes on one spike. SHALL means the court must do it. MAY means it can, if it chooses. CANNOT means the Act gives the court no such power. Keep Ms Lorimer&rsquo;s copy of the Act open: the Notebook button above has it.',
+      '2(1)(a) and 2(2) both say shall: if the conviction is unsafe they must allow the appeal, and then they must quash the conviction. 7(1) and 23(1) both say may: a new trial, and the footage. If a thing is not on the page at all, it is CANNOT. And if they think the conviction is safe, 2(1)(b) says they shall dismiss the appeal.',
+      'SHALL: cards 1 and 3. MAY: cards 5 and 9. CANNOT: cards 2, 4, 6, 7 and 8. Then the sentence that asks for exactly what the Act can give: unsafe, and quashed.'
+    ]];
+    if (!ER.flag('c-lor')) return ['lor', ['Ms Lorimer is at the pigeonholes, in her wet coat. Talk to her.']];
+    if (!ER.flag('c-act')) return ['act', ['Ms Lorimer&rsquo;s green copy of the Act is on the table at the front. Read it.']];
+    if (!ER.flag('c-mott')) return ['mott', ['Mr Mott, the senior clerk, is behind his desk on the right, between telephones. He has something for you.']];
+    return ['env', ['The envelope from Mr Mendes and the three brass spikes are on Mr Mott&rsquo;s desk. Click them.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#lor').classList.toggle('ready', !nextFile && !ER.flag('c-lor') && !busy);
+    $('#env').classList.toggle('ready', !nextFile && !!ER.flag('c-mott') && !!ER.flag('c-act'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The clerks&rsquo; room. Mr Mott is telling a solicitor on the telephone that Ms Lorimer is &ldquo;in the library, and not to be disturbed by anyone, including me&rdquo;.'); return; }
+    if (ER.flag('c-in')) { ER.say('The clerks&rsquo; room. Rain on the window, three telephones and one kettle.'); return; }
+    busy = true; ER.flag('c-in', 1);
+    ER.narrate([
+      'Barristers in England work alone, but share a building, the clerks and the biscuits. That building is called chambers. The clerks run it: they take in the cases, fix the fees, and know where everybody is.',
+      'The clerks&rsquo; room at 2 Medlar Court has a sash window full of rain, a wall of pigeonholes, a kettle, a cricket bat, and Mr Mott, the senior clerk, who has been here longer than the kettle.',
+      'Ms Lorimer is at the pigeonholes, reading tomorrow&rsquo;s papers standing up, with her coat still on.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#lor').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Ms Lorimer has gone to the library ahead of you. Her umbrella has stayed, dripping into somebody else&rsquo;s pigeonhole.'); return; }
+    if (ER.flag('c-lor')) { ER.say('&ldquo;The Act,&rdquo; says Ms Lorimer, without looking up. &ldquo;Then Mr Mott. Then the spikes.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ms Lorimer', role: 'Counsel for Mr Kershaw · your pupil supervisor', face: window.FACE('lorimer'),
+      lines: [
+        { note: 'Ms Lorimer is reading a brief standing up, with her umbrella dripping into somebody else&rsquo;s pigeonhole.', a: 'You&rsquo;ve read the papers? Good. Now forget most of them. Tomorrow is not a trial. Nobody in that court will ask whether Nathan Kershaw set fire to that shop.' },
+        { q: 'Then what will they ask?', a: 'One question: is the conviction safe? At his trial the Crown had to prove its case beyond reasonable doubt. The jury had to be sure. Nathan had to prove nothing. Tomorrow it is his appeal, so it is for us to persuade three judges that the conviction is unsafe.' },
+        { a: 'Not that he is innocent. Unsafe. If you remember one word tonight, make it that one.' },
+        { note: 'She takes a small green book out of her bag. Its spine is held together with tape.', a: 'Here is the whole court on one page. Read what they shall do and what they may do. Then Mr Mott has something for you.' }
+      ],
+      clue: { id: 'lor1', title: 'Ms Lorimer, at the pigeonholes', kind: 'What she said' }, last: 'Read the Act',
+      done: function (seen) { if (seen) { ER.flag('c-lor', 1); paint(); AP.learn(['appellant', 'conviction', 'unsafe', 'beyond reasonable doubt']); } }
+    });
+  });
+  $('#act').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('c-lor')) { ER.say('A small green book with a taped spine: Ms Lorimer&rsquo;s. Better ask her first.'); return; }
+    ER.read({ html: ACT, cls: 'act', clue: { id: 'act', title: 'The Criminal Appeal Act 1968 (Ms Lorimer&rsquo;s copy)', kind: 'Law' },
+      done: function () { ER.flag('c-act', 1); paint(); AP.learn(['shall', 'may', 'quash', 'retrial', 'Court of Appeal']); } });
+  });
+  $('#mott').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('c-mott')) { ER.say('&ldquo;Middle spike,&rdquo; says Mr Mott, with a telephone under his chin. &ldquo;Mind your cuffs.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Mott', role: 'Senior clerk · 2 Medlar Court', face: window.FACE('mott'),
+      lines: [
+        { note: 'Mr Kelvin Mott has been senior clerk at 2 Medlar Court for thirty-one years. He has a telephone on each ear and a third one ringing.', a: 'Evening. You&rsquo;re Ms Lorimer&rsquo;s pupil? Then that envelope is yours. Mr Mendes sent it round on a bicycle at five. The client wrote out his questions himself, one to a card, the way she likes.' },
+        { q: 'Why one to a card?', a: 'So they can go on the spikes. She&rsquo;s the last barrister in London who uses my spikes. Three of them, brass, older than me. Shall, may, and cannot. Each question goes on the one it belongs to, and she reads them in the morning.' },
+        { a: 'Mind the middle one. A silk tore his cuff on it in 1987. We still send him a Christmas card, by way of apology.' }
+      ],
+      clue: { id: 'mott1', title: 'Mr Mott, between telephones', kind: 'What he said' }, last: 'Take the envelope',
+      done: function (seen) { if (seen) { ER.flag('c-mott', 1); paint(); } }
+    });
+  });
+  function openIt() {
+    if (busy) return;
+    if (nextFile) { ER.say('Nine cards on three spikes, in Nathan&rsquo;s careful capitals and joined-up hand.'); return; }
+    if (!ER.flag('c-lor')) { ER.say('An envelope addressed to Ms Lorimer, and three brass spikes. Ask Ms Lorimer what tonight is for.'); return; }
+    if (!ER.flag('c-act')) { ER.say('&ldquo;The Act first,&rdquo; says Ms Lorimer. &ldquo;Then you&rsquo;ll know which spike is which.&rdquo;'); return; }
+    if (!ER.flag('c-mott')) { ER.say('&ldquo;Oi,&rdquo; says Mr Mott, kindly. &ldquo;That&rsquo;s my desk. Come and ask.&rdquo;'); return; }
+    openSpikes();
+  }
+  $('#env').addEventListener('click', openIt);
+  $('#spk').addEventListener('click', openIt);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  AP.thing('#win', null, 'Rain on the Temple. Across the court, one lit window: somebody else&rsquo;s brief, somebody else&rsquo;s long night.', isBusy);
+  AP.thing('#pig', 'pigeonhole', 'A pigeonhole for every barrister in chambers, each with two letters on it. NL is full to the top.', isBusy);
+  AP.thing('#board', null, 'The diary board. Tomorrow: NL, R v Kershaw, Court of Appeal (Criminal Division), half past ten, before Lady Justice Lanyon, Mr Justice Muncaster and Mrs Justice Kendal.', isBusy);
+  AP.thing('#kettle', null, 'A kettle, a tin labelled CLERKS ONLY, and a mug that says WORLD&rsquo;S OKAYEST BARRISTER. Nobody will say whose it is.', isBusy);
+  AP.thing('#bat', null, 'A cricket bat signed by the chambers team of 1994, who lost every match that summer and are still proud of it.', isBusy);
+  AP.thing('#phone', null, 'The telephone rings. Mr Mott looks at it as if it owes him money, and lets it.', isBusy);
+
+  /* ---------- the spikes ---------- */
+  function openSpikes() {
+    var box = ER.el('div', 'sp'), saved = ER.flag('c-sp') || {}, at = saved.at || {}, q = saved.q || '', done = false, held = null;
+    var s = '<div class="sp-desk"><div class="sp-tray"></div><div class="sp-row">';
+    SPIKES.forEach(function (k) { s += '<div class="sp-spike" data-s="' + k[0] + '"><h6>' + k[1] + '<small>' + k[2] + '</small></h6></div>'; });
+    s += '</div></div><div class="side"><h6>Tomorrow we ask the court</h6><div class="opts"></div><button type="button" class="btn" id="sp-go">Show Ms Lorimer</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.sp-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var d = ER.el('div', 'sp-card', '<b>' + c[0].slice(1) + '</b>' + c[1]); d.setAttribute('data-k', c[0]);
+      (at[c[0]] ? box.querySelector('.sp-spike[data-s="' + at[c[0]] + '"]') : tray).appendChild(d);
+    });
+    Q.forEach(function (o) {
+      var b = ER.el('button', q === o[0] ? 'on' : '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+      b.addEventListener('click', function () { if (done) return; q = o[0]; ER.$$('.opts button', box).forEach(function (x) { x.classList.toggle('on', x === b); }); AP.sfx.card(); keep(); });
+      box.querySelector('.opts').appendChild(b);
+    });
+    function keep() {
+      at = {};
+      ER.$$('.sp-spike .sp-card', box).forEach(function (c) { at[c.getAttribute('data-k')] = c.parentNode.getAttribute('data-s'); });
+      ER.flag('c-sp', { at: at, q: q }); box.setAttribute('data-on', Object.keys(at).length);
+    }
+    function hold(c) { if (held) held.classList.remove('held'); held = c; if (c) c.classList.add('held'); }
+    box.addEventListener('click', function (e) {
+      if (done) return;
+      var card = e.target.closest('.sp-card'), spike = e.target.closest('.sp-spike');
+      if (card && !(held && spike && card.parentNode === spike && held !== card)) { hold(held === card ? null : card); AP.sfx.card(); return; }
+      if (held && spike) { spike.appendChild(held); hold(null); AP.sfx.spike(); keep(); return; }
+      if (held && e.target.closest('.sp-tray')) { tray.appendChild(held); hold(null); AP.sfx.card(); keep(); }
+    });
+    box.querySelector('#sp-go').addEventListener('click', function () {
+      var i, k, bad = null, more = 0, cand, file, left = tray.querySelectorAll('.sp-card').length;
+      if (done) return;
+      if (left) { msg('&ldquo;' + (left === 1 ? 'One card is' : left + ' cards are') + ' still in the tray,&rdquo; says Ms Lorimer. &ldquo;Every question gets a spike. Even the ones that hurt.&rdquo;'); return; }
+      for (i = 0; i < CARDS.length; i++) { k = CARDS[i][0]; if (!ER.check(k, at[k])) { if (!bad) bad = k; else more++; } }
+      if (bad) { AP.bump('c-tries'); AP.sfx.hm(); msg('&ldquo;' + WHY[bad] + '&rdquo;' + AP.more(more, 'card')); return; }
+      if (!q) { msg('&ldquo;Every card is on the right spike. So: what exactly do we ask the court for tomorrow? Choose a sentence above.&rdquo;'); return; }
+      if (!ER.check('kq', q)) {
+        AP.bump('c-tries'); AP.sfx.hm();
+        msg(q === 'a' ? '&ldquo;Look at card 4, on its spike. Nobody in that court can find that he didn&rsquo;t do it, and we don&rsquo;t need them to.&rdquo;' : '&ldquo;Look at card 6. They don&rsquo;t hear the case again, and there&rsquo;s no jury to say not guilty. What does section 2 let them do?&rdquo;');
+        return;
+      }
+      cand = CARDS.map(function (c) { return at[c[0]]; }).join('') + '+' + q;
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('c-file', file); AP.done('clerks'); AP.sfx.spike();
+      msg('Ms Lorimer reads the spikes from the top down, the way a clerk checks the post. <b>&ldquo;Shall, shall. May, may. And five things nobody in that building can give him.&rdquo;</b>');
+      AP.mine('spikes', 'What the court can do', '<p>SHALL (no choice): allow the appeal if the conviction is unsafe, and then quash it. If it is safe: dismiss it.</p><p>MAY (if they choose): receive the footage (s.23); order a new trial in the Crown Court (s.7).</p><p>CANNOT: hold the trial again itself; say he is innocent; punish Mrs Kilner; give compensation.</p><p>We ask for one thing: UNSAFE, and quashed.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); AP.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;He&rsquo;ll ask me every one of those again tomorrow,&rdquo; says Ms Lorimer, &ldquo;and I&rsquo;ll answer every one again. That isn&rsquo;t him being slow. That&rsquo;s seven years.&rdquo;',
+          '&ldquo;Now. The court will read his trial looking for one thing: did the jury convict him for good reasons, or for bad ones? Go to the library, find the transcript, and read it with a pencil. Mrs Kemp will lend you a book. Don&rsquo;t let her see you eat.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('Click a card, then click the <b>spike</b> it belongs on. Click a card on a spike to pick it up again. Then choose the sentence that says what we ask for tomorrow.');
+    spBox = box; keep();
+    ER.open('ov-lock', box, function () { spBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conference Room 2 · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#141a22;--accent:#a9cce0;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(20,26,34,.97);--tc-ink:#eef2f4;--cap-bg:rgba(20,26,34,.93);--panel:#1a222c;--face-bg:#30382e;--q-ink:#cfe4f0;--fade:#06080a;--hud-bg:rgba(20,26,34,.86)}
+  .rain{animation:rain .8s linear infinite}
+  @keyframes rain{0%{transform:translateY(-36px)}100%{transform:translateY(36px)}}
+  .sway{animation:sway 7s ease-in-out infinite alternate;transform-origin:760px 0}
+  @keyframes sway{0%{transform:rotate(-.6deg)}100%{transform:rotate(.6deg)}}
+
+  /* the flip chart */
+  .mc{width:min(1190px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:14px;align-items:start}
+  .mc-sheet{padding:12px 14px 10px;background:#fdfdfb;box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:16px solid #3a4250;font-family:'Caveat',cursive;color:#1d2a4a}
+  .mc-sheet h5{margin:0 0 6px;font-family:'Caveat',cursive;font-weight:700;font-size:25px;color:#1d2a4a;text-align:center}
+  .mc-g{display:grid;grid-template-columns:96px minmax(0,1fr) 112px minmax(0,1fr) 112px minmax(0,1fr);gap:5px 4px;align-items:stretch}
+  .mc-g .hd{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#55606a;text-align:center;align-self:end;padding-bottom:3px}
+  .mc-g .rw{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#3a4250;display:flex;align-items:center}
+  .mc-g .ph{padding:6px 8px;background:#f2f6fa;border-left:4px solid #8aa8c0;font-weight:700;font-size:19px;line-height:1.05;display:flex;align-items:center}
+  .mc-s{position:relative;border:2px dashed #9aa6b4;border-radius:12px;min-height:56px;display:flex;align-items:center;justify-content:center;padding:3px 6px;cursor:pointer;
+    font-family:'Oswald',sans-serif;font-size:11.5px;line-height:1.15;text-align:center;color:#8a94a0}
+  .mc-s:after{content:'';position:absolute;right:-8px;top:50%;margin-top:-6px;border:6px solid transparent;border-left:8px solid #9aa6b4}
+  .mc-s.on{border-style:solid;border-color:#a33a3a;color:#a33a3a;background:#fff4f2;font-family:'Caveat',cursive;font-weight:700;font-size:16.5px;line-height:1}
+  .mc-c{display:grid;gap:4px;margin-bottom:8px}
+  .mc-c button{text-align:left;padding:4px 8px;background:rgba(10,14,20,.6);border:1px solid rgba(169,204,224,.35);color:#eef2f4;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.15;border-radius:2px}
+  .mc-c button.held{background:#3a2a20;border-color:#f2c94c;color:#fff}
+  .mc-q{margin-top:10px;padding:8px 10px;background:rgba(10,14,20,.7)}
+  .mc-q h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#cfe4f0}
+  .mc .opts{grid-template-columns:repeat(3,minmax(0,1fr));margin:0}
+  .mc .opts button{font-size:14px}
+  .mc .pmsg{min-height:96px;font-size:16px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a96a0"/><stop offset="1" stop-color="#6a7680"/></linearGradient>
+  <linearGradient id="roofG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a646e"/><stop offset="1" stop-color="#7a8690"/></linearGradient>
+  <linearGradient id="tabG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3028"/><stop offset="1" stop-color="#241e18"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101622"/><stop offset="1" stop-color="#26303e"/></linearGradient>
+  <radialGradient id="poolG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#fff6d8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="48%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#06080a" stop-opacity=".22"/><stop offset="1" stop-color="#030405" stop-opacity=".82"/></radialGradient>
+</defs>
+
+<!-- Conference Room 2, under the roof: grey-blue walls, a sloping ceiling, a dormer window full of rain -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<path d="M-1000 -400H2600V40L1600 40L-1000 300z" fill="url(#roofG)"/><path d="M-1000 300L1600 40" stroke="#4a545e" stroke-width="8"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="#3a3430"/><g stroke="#2e2824" stroke-width="2"><path d="M-1000 760h3600M-1000 830h3600"/></g>
+
+<g id="win" class="hot"><path d="M960 380V150l140-90 140 90v230z" fill="#d8dce0"/><path d="M978 366V160l122-78 122 78v206z" fill="url(#nightG)"/>
+  <path d="M1000 366v-60h30v60zM1050 366v-90h40v90zM1150 366v-46h60v46z" fill="#0c1018"/><path d="M1100 276q24-40 0-80q-24 40 0 80z" fill="#0c1018"/><rect x="1086" y="276" width="28" height="90" fill="#0c1018"/>
+  <rect x="1060" y="300" width="8" height="10" fill="#f2d27a"/><rect x="1162" y="330" width="10" height="10" fill="#f2d27a"/>
+  <g class="rain" stroke="#9ab0c8" stroke-width="1.5" opacity=".55"><path d="M996 180l-5 22M1030 140l-5 22M1080 200l-5 22M1140 160l-5 22M1190 210l-5 22M1010 260l-5 22M1120 270l-5 22M1200 300l-5 22"/></g>
+  <path d="M1100 82v284M978 250h244" stroke="#d8dce0" stroke-width="9"/></g>
+
+<!-- the coat stand, with Nathan's jacket -->
+<g id="coat" class="hot"><path d="M100 700V250" stroke="#2a201a" stroke-width="10"/><path d="M60 700h80" stroke="#2a201a" stroke-width="12"/><path d="M80 260l20-14 20 14" stroke="#2a201a" stroke-width="6" fill="none"/>
+  <path d="M70 270q30-20 60 0l14 200h-88z" fill="#e8d84a"/><g stroke="#c9ccd0" stroke-width="8"><path d="M64 380h72M60 420h80"/></g></g>
+<!-- the bookshelf, with Dr Okello's book -->
+<rect x="180" y="260" width="200" height="440" fill="#2e2620"/><g id="shelf"></g>
+<g id="mem" class="hot"><rect x="250" y="388" width="40" height="64" fill="#000" opacity="0"/><rect x="258" y="394" width="22" height="58" fill="#3a6a8a"/><path d="M262 404h14M262 410h14" stroke="#e8f0f4" stroke-width="2"/></g>
+
+<!-- the flip chart on its easel -->
+<g id="chart" class="hot"><path d="M1330 720l40-470M1530 720l-40-470M1430 720v-420" stroke="#3a3028" stroke-width="8"/><rect x="1316" y="240" width="228" height="290" fill="#fdfdfb"/><rect x="1316" y="232" width="228" height="16" fill="#3a4250"/>
+  <text x="1430" y="282" class="hT" font-size="26" fill="#1d2a4a">What changed,</text><text x="1430" y="312" class="hT" font-size="26" fill="#1d2a4a">and why?</text>
+  <g stroke="#9aa6b4" stroke-width="2"><path d="M1336 340h188M1336 380h188M1336 420h188M1336 460h188M1336 500h188M1396 330v180M1460 330v180"/></g></g>
+
+<!-- the pendant lamp -->
+<g class="sway"><path d="M760 0v190" stroke="#2a2a2a" stroke-width="3"/><path d="M720 230q40-60 80 0z" fill="#2a3a3a"/><path d="M640 700L720 230h80l80 470z" fill="url(#poolG)" pointer-events="none"/></g>
+
+<!-- Nathan at the table, and Ms Lorimer at the window -->
+<g id="nat" class="hot"><rect x="530" y="340" width="210" height="270" fill="#000" opacity="0"/><use href="#ch-nathan" x="520" y="330" width="230" height="300"/></g>
+<g id="lor" class="hot"><rect x="990" y="370" width="210" height="250" fill="#000" opacity="0"/><use href="#ch-lorimer" x="985" y="360" width="220" height="286"/></g>
+<rect x="240" y="604" width="1060" height="22" fill="#4a3c30"/><path d="M260 626h1020v80h-1020z" fill="url(#tabG)"/>
+<g id="tea"><rect x="760" y="572" width="34" height="32" rx="4" fill="#f4f0e8"/><path d="M794 580q14 2 0 18" stroke="#f4f0e8" stroke-width="4" fill="none"/></g>
+<g id="helmet" class="hot"><path d="M640 604q0-46 52-46q52 0 52 46z" fill="#e8742a"/><path d="M650 594q42-24 84 0" stroke="#2a2a2a" stroke-width="5" fill="none"/></g>
+<!-- the papers, fanned along the front of the table -->
+<g id="t7" class="hot"><rect x="300" y="590" width="110" height="40" fill="#000" opacity="0"/><rect x="306" y="596" width="96" height="30" fill="#eef3f2" transform="rotate(-3 354 611)"/><rect x="306" y="596" width="96" height="7" fill="#b3262c" transform="rotate(-3 354 611)"/><text x="354" y="620" class="sT" font-size="12" fill="#b3262c" transform="rotate(-3 354 611)">999 CALL</text></g>
+<g id="t8" class="hot"><rect x="420" y="590" width="110" height="40" fill="#000" opacity="0"/><rect x="426" y="598" width="96" height="30" fill="#f2f2f4" transform="rotate(2 474 613)"/><rect x="426" y="598" width="96" height="7" fill="#1d2a52" transform="rotate(2 474 613)"/><text x="474" y="622" class="sT" font-size="12" fill="#1d2a52" transform="rotate(2 474 613)">DC MARR</text></g>
+<g id="t12" class="hot"><rect x="850" y="590" width="110" height="40" fill="#000" opacity="0"/><rect x="856" y="596" width="96" height="30" fill="#fbfbf6" transform="rotate(-2 904 611)"/><rect x="856" y="596" width="7" height="30" fill="#c9c4b4" transform="rotate(-2 904 611)"/><text x="908" y="620" class="sT" font-size="12" fill="#22242a" transform="rotate(-2 904 611)">TRIAL DAY 2</text></g>
+<g id="idr" class="hot"><rect x="970" y="590" width="110" height="40" fill="#000" opacity="0"/><rect x="976" y="598" width="96" height="30" fill="#fdfdf8" stroke="#1c1d22" stroke-width="2" transform="rotate(3 1024 613)"/><text x="1024" y="621" class="sT" font-size="12" fill="#1c1d22" transform="rotate(3 1024 613)">ID PARADE</text></g>
+<g id="cut" class="hot"><rect x="1090" y="590" width="110" height="40" fill="#000" opacity="0"/><rect x="1096" y="596" width="96" height="30" fill="#ece5d2" transform="rotate(-4 1144 611)"/><text x="1144" y="618" class="cT" font-size="11" fill="#1f1d1a" transform="rotate(-4 1144 611)">MESSENGER</text></g>
+
+<rect x="-1000" y="-400" width="3600" height="1800" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Tomorrow: the Strand</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, mcBox = null;
+
+  (function () {
+    var s = '', i, j, cols = ['#5a3a2a', '#3a4a5a', '#6a5a3a', '#2a4a3a', '#7a3a3a'];
+    for (i = 0; i < 4; i++) {
+      s += '<rect x="186" y="' + (360 + i * 96) + '" width="188" height="8" fill="#4a3c30"/>';
+      for (j = 0; j < 8; j++) if (!(i === 0 && (j === 3 || j === 4))) s += '<rect x="' + (192 + j * 22) + '" y="' + (300 + i * 96) + '" width="18" height="' + (58 + (j * 7) % 8) + '" fill="' + cols[(i + j) % 5] + '"/>';
+    }
+    $('#shelf').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'conference', no: 'III', title: 'Conference Room 2',
+    go: 'Go in',
+    intro: [
+      'In the library you pencilled three names into the old trial. An appeal to authority: four hundred fires, but no test of the chargers. After it, so because of it: the fire came forty minutes after Nathan left. And an attack on the person: a tattoo and computer games. The other four lines were fair. Three names you did not need yet.',
+      'Conference Room 2 is at the top of 2 Medlar Court, under the roof. Five past nine. Nathan Kershaw has come straight from work, and has been given a cup of tea he has not touched.'
+    ],
+    exit: {"next":"strand","w":{"abad8d9c":"9e715e25"}}, tags: {"t1":["426c2e5a"],"t2":["88b11995"],"m1":["c84c6846"],"m2":["fd710b13"],"h1":["bb4d075e"],"h2":["f4cafeb9"],"s1":["52ac72ad"],"s2":["3715d6fd"],"kq":["8e6f7e13"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('m-file') || null;
+
+  var MEM = '<svg class="dg" viewBox="0 0 230 150"><rect width="230" height="150" fill="#f2f6fa"/><g font-family="Oswald,sans-serif" font-size="9" fill="#3a4a5a" text-anchor="middle"><text x="34" y="142">999 call</text><text x="88" y="142">statement</text><text x="142" y="142">line-up</text><text x="198" y="142">trial</text></g>' +
+    '<path d="M16 128h204M16 128V12" stroke="#3a4a5a" stroke-width="1.5"/><path d="M34 96L88 70L142 40L198 22" stroke="#a33a3a" stroke-width="3" fill="none"/><g fill="#a33a3a"><circle cx="34" cy="96" r="4"/><circle cx="88" cy="70" r="4"/><circle cx="142" cy="40" r="4"/><circle cx="198" cy="22" r="4"/></g>' +
+    '<path d="M34 50L88 64L142 72L198 82" stroke="#3a6a8a" stroke-width="3" fill="none" stroke-dasharray="6 4"/><g font-family="Caveat,cursive" font-weight="700" font-size="15"><text x="150" y="18" fill="#a33a3a">how sure</text><text x="20" y="44" fill="#3a6a8a">how right</text></g></svg>' +
+    '<h4>Memory is not a recording</h4><h5>Dr Nita Okello &middot; The Remembering Mind &middot; page 41</h5>' +
+    '<p>We do not play a memory back like a film. Each time we remember, we build it again from pieces, and new pieces can get in: what we are asked, what we are shown, what we hear afterwards.</p>' +
+    '<p>In a famous study (Loftus and Palmer, 1974) students watched films of car crashes. Asked how fast the cars were going when they &ldquo;smashed&rdquo; into each other, they guessed higher speeds (about 41 miles an hour) than students asked about &ldquo;hit&rdquo; (about 34). In a second test, a week later, 16 of 50 who had heard &ldquo;smashed&rdquo; remembered broken glass, against 7 of 50 who had heard &ldquo;hit&rdquo;. There was no broken glass.</p>' +
+    '<p>A question can carry its answer inside it. Confidence moves too: witnesses told &ldquo;Good, you picked the suspect&rdquo; later felt surer, and remembered a better view (Wells and Bradfield, 1998).</p>' +
+    '<p>So the <b>first account</b>, given before anybody suggested anything, is usually the one to test. Confidence in court is not proof.</p>';
+  var CALL = '<h4>999 call &middot; Fire and rescue control</h4><h5>Saturday 13 April 2019 &middot; 22:33:10 &middot; caller: Mrs Maureen Kilner, 21 Lammas Street, Norbeck &middot; transcript of the recording</h5>' +
+    '<p><b>Operator</b> Fire and rescue. What&rsquo;s the address of the emergency?</p>' +
+    '<p><b>Caller</b> It&rsquo;s the bike shop on Lammas Street, number 14, Lowther&rsquo;s. There&rsquo;s smoke coming out, and a glow at the back. I can see it from my window.</p>' +
+    '<p><b>Operator</b> Is anybody inside, do you know?</p>' +
+    '<p><b>Caller</b> I don&rsquo;t think so. It&rsquo;s been shut for ages. I saw a lad come out a while ago. Half nine, ten? He was just walking. He had something in his hand. A helmet, maybe. I didn&rsquo;t really look, I was waiting for my daughter to ring.</p>' +
+    '<p><b>Operator</b> All right. Stay inside and keep your window shut. They&rsquo;re on their way.</p>';
+  var BWV = '<h4>Body-worn video: transcript</h4><h5>DC Leon Marr &middot; Monday 15 April 2019, 11.12 am &middot; at Mrs Kilner&rsquo;s flat, taking her witness statement &middot; extract</h5>' +
+    '<p><b>DC Marr</b> Just tell me in your own words what you saw on Saturday night.</p>' +
+    '<p><b>Mrs K</b> A lad came out of the bike shop. Then, later, the smoke.</p>' +
+    '<p><b>DC Marr</b> So this was shortly before the fire started?</p>' +
+    '<p><b>Mrs K</b> Yes, I suppose it was. About ten. Maybe just after.</p>' +
+    '<p><b>DC Marr</b> How fast was he running when he came out?</p>' +
+    '<p><b>Mrs K</b> Well. He was hurrying, I&rsquo;d say.</p>' +
+    '<p><b>DC Marr</b> And did you see the can he had with him?</p>' +
+    '<p><b>Mrs K</b> There was something in his hand. It could have been a can. Something like a can.</p>' +
+    '<p><b>DC Marr</b> Would you know him again?</p>' +
+    '<p><b>Mrs K</b> Oh, yes. I&rsquo;d know him again. I&rsquo;ve seen him since: Lettie next door showed me on her phone yesterday, the shop&rsquo;s own page, &ldquo;Meet Nathan, our mechanic&rdquo;. It&rsquo;s him. I&rsquo;m fairly sure.</p>';
+  var TRIAL = '<h4>R v Kershaw &middot; Norbeck Crown Court</h4><h5>Day 2 &middot; Tuesday 3 December 2019 &middot; the evidence of Mrs Maureen Kilner &middot; extracts</h5>' +
+    '<p><b>Mr Nolan</b> What did you see, Mrs Kilner?</p>' +
+    '<p><b>Mrs K</b> It was ten past ten. I&rsquo;m certain of that. He came running out of the shop with a red petrol can, looking up and down the street. I&rsquo;ll never forget his face. It was him: that man there.</p>' +
+    '<p><b>Defence counsel</b> In your 999 call you said &ldquo;half nine, ten&rdquo;, &ldquo;just walking&rdquo;, and &ldquo;a helmet, maybe&rdquo;.</p>' +
+    '<p><b>Mrs K</b> I was in a panic then. I&rsquo;ve had time to think since. I&rsquo;ve gone over it and over it, every night.</p>' +
+    '<p><b>Defence counsel</b> Had you seen his photograph before you picked him out?</p>' +
+    '<p><b>Mrs K</b> Lettie showed me, the Sunday. But I&rsquo;d have known him anywhere.</p>';
+  var IDREC = '<h4>Video identification record</h4><h5>Norbeck Police Station &middot; Thursday 2 May 2019 &middot; identification officer: PS Leah Ness &middot; witness: Mrs M. Kilner</h5><table>' +
+    '<tr><td>Procedure</td><td>Nine faces on a screen, shown one at a time, twice. The suspect is number 6.</td></tr>' +
+    '<tr><td>The rule (Code D)</td><td>The witness must be told that the person she saw may or may not be among the faces.</td></tr>' +
+    '<tr><td>Said before</td><td><span class="hw">Told witness: &ldquo;The man we&rsquo;ve arrested is in there. Take your time.&rdquo;</span></td></tr>' +
+    '<tr><td>Result</td><td>Witness chose number 6 after four seconds: &ldquo;That&rsquo;s him.&rdquo;</td></tr>' +
+    '<tr><td>Said after</td><td><span class="hw">&ldquo;Well done. That&rsquo;s our man.&rdquo; Witness: &ldquo;I knew it.&rdquo;</span></td></tr>' +
+    '<tr><td>How sure</td><td>&ldquo;Completely sure.&rdquo;</td></tr></table>';
+  var CUT = '<div class="mast"><span>THE NORBECK MESSENGER</span><span>Tuesday 16 April 2019</span></div>' +
+    '<svg width="120" height="110" viewBox="0 0 120 110"><rect width="120" height="110" fill="#6a6a62"/><rect x="0" y="80" width="120" height="30" fill="#4a4a44"/><path d="M34 90V40l10-10h30l12 12v48z" fill="#c8302a"/><rect x="70" y="22" width="12" height="14" fill="#c8302a"/><path d="M40 50h38" stroke="#8a1a16" stroke-width="3"/></svg>' +
+    '<h4>Petrol can found at fire shop</h4>' +
+    '<p>Police investigating Saturday night&rsquo;s fire at Lowther&rsquo;s Cycles in Lammas Street have found a red petrol can in the shop&rsquo;s back yard (pictured).</p>' +
+    '<p>A 23-year-old local man was arrested on Monday evening.</p>' +
+    '<p>The owner, Kenneth Lowther, 66, said: &ldquo;Thirty years I&rsquo;ve had that shop. I keep a can out there for my scooter. I can&rsquo;t believe it.&rdquo;</p>' +
+    '<p>Police would like to hear from anyone who was in Lammas Street between 9 and 11 pm on Saturday.</p>';
+  var DOCS = { t7: ['call', CALL, '999 call: Mrs Kilner, 13 April 2019', 'On the night'], t8: ['bwv', BWV, 'DC Marr&rsquo;s body-worn video, 15 April 2019', 'Two days later'],
+    t12: ['trans', TRIAL, 'The trial: Mrs Kilner&rsquo;s evidence, 3 December 2019', 'Seven months later'], idr: ['idrec', IDREC, 'The video identification, 2 May 2019', 'In between'],
+    cut: ['cut', CUT, 'The Norbeck Messenger, 16 April 2019', 'In between'] };
+
+  var ROWS = [['t', 'When', 'half nine, ten?', 'about ten, maybe just after', 'ten past ten. I&rsquo;m certain of that.'],
+    ['m', 'How he moved', 'just walking', 'hurrying, I&rsquo;d say', 'came running out'],
+    ['h', 'What he had', 'something in his hand. A helmet, maybe.', 'it could have been a can. Something like a can.', 'a red petrol can'],
+    ['s', 'How sure', 'I didn&rsquo;t really look', 'I&rsquo;d know him again. I&rsquo;m fairly sure.', 'I&rsquo;ll never forget his face.']];
+  var CAUSES = [['q1', 'DC Marr: &ldquo;So this was shortly before the fire started?&rdquo;', '&ldquo;shortly before the fire?&rdquo;'],
+    ['q2', 'DC Marr: &ldquo;How fast was he running when he came out?&rdquo;', '&ldquo;how fast was he running?&rdquo;'],
+    ['q3', 'DC Marr: &ldquo;And did you see the can he had with him?&rdquo;', '&ldquo;the can he had?&rdquo;'],
+    ['ph', 'Sunday 14 April: Lettie shows her the shop&rsquo;s photo of Nathan on a phone', 'the photo on Lettie&rsquo;s phone'],
+    ['nw', 'Tuesday 16 April: the Messenger prints a photo of a red petrol can', 'the red can in the paper'],
+    ['id', 'Thursday 2 May: &ldquo;The man we&rsquo;ve arrested is in there.&rdquo; Then: &ldquo;Well done. That&rsquo;s our man.&rdquo;', '&ldquo;well done, that&rsquo;s our man&rdquo;'],
+    ['rt', 'Seven months of going over it: &ldquo;over it and over it, every night&rdquo;', 'going over it, every night'],
+    ['ly', 'She wants to see him punished, and is making it up', 'she is making it up'],
+    ['ey', 'Her eyesight is poor in the dark', 'her eyesight']];
+  var SHORT = {}; CAUSES.forEach(function (c) { SHORT[c[0]] = c[2]; });
+  var SLOTS = ['t1', 't2', 'm1', 'm2', 'h1', 'h2', 's1', 's2'];
+  var WHY = {
+    t1: 'When, first change: &ldquo;half nine, ten?&rdquo; became &ldquo;about ten, maybe just after&rdquo;. What was she asked just before she said it? Read DC Marr&rsquo;s questions.',
+    t2: 'When, second change: &ldquo;about ten&rdquo; became &ldquo;ten past ten. I&rsquo;m certain&rdquo;. Nobody gave her that time. What does she say she did, every night?',
+    m1: 'How he moved, first change: walking became hurrying. Which of DC Marr&rsquo;s questions had running folded up inside it?',
+    m2: 'How he moved, second change: hurrying became running. No new question and no new paper. What happened to the story between May and December?',
+    h1: 'What he had, first change: a helmet became something like a can. Who said &ldquo;can&rdquo; first, Mrs Kilner or DC Marr?',
+    h2: 'What he had, second change: something like a can became a red petrol can. Where could she have seen a red petrol can? Read the Messenger.',
+    s1: 'How sure, first change: &ldquo;I didn&rsquo;t really look&rdquo; became &ldquo;I&rsquo;d know him again&rdquo;. What had she been shown on the Sunday?',
+    s2: 'How sure, second change: &ldquo;fairly sure&rdquo; became &ldquo;I&rsquo;ll never forget his face&rdquo;. What was she told at the identification, before and after she chose?'
+  };
+  var Q = [['a', 'Mrs Kilner lied, and her evidence should be thrown out.'], ['b', 'Mrs Kilner was honest. Her first telling came before anybody suggested anything, so it is the one to test.'], ['c', 'Mrs Kilner was honest, so the jury were right to believe what she told them at the trial.']];
+  var NEED = ['mem', 't7', 't8', 't12', 'idr', 'cut'];
+  var NAMES = { mem: 'Dr Okello&rsquo;s book, on the shelf', t7: 'the 999 call', t8: 'DC Marr&rsquo;s body-worn video', t12: 'the trial transcript', idr: 'the identification record', cut: 'the Messenger cutting' };
+
+  function unread() { return NEED.filter(function (k) { return !ER.flag('m-' + k); }); }
+  function hints() {
+    if (nextFile) return ['go', ['Tomorrow morning: the café on the Strand. The button at the bottom of the screen takes you there.']];
+    if (mcBox) return ['chart', [
+      'Each row is one detail of what she saw. Between one telling and the next, the detail changed: click a cause on the right, then click the dashed circle where it fits. Every cause comes from one of the papers in your notebook.',
+      'The first changes came on Monday 15 April, in DC Marr&rsquo;s questions, and from the photo on Lettie&rsquo;s phone the day before. The second changes came from the Messenger&rsquo;s red can, from what PS Ness said at the identification, and from seven months of going over it. Two of the causes are wrong about her altogether.',
+      'When: &ldquo;shortly before the fire?&rdquo;, then going over it every night. How he moved: &ldquo;how fast was he running?&rdquo;, then going over it. What he had: &ldquo;the can he had?&rdquo;, then the red can in the paper. How sure: the photo on Lettie&rsquo;s phone, then &ldquo;well done, that&rsquo;s our man&rdquo;. And she was honest: her first telling is the one to test.'
+    ]];
+    if (!ER.flag('m-nat')) return ['nat', ['Nathan Kershaw is at the table, beside his helmet and a cold cup of tea. Talk to him.']];
+    if (!ER.flag('m-lor')) return ['lor', ['Ms Lorimer is standing at the dormer window. Talk to her.']];
+    var u = unread();
+    if (u.length) return ['read', ['Read everything before you go to the flip chart. Still to read: ' + u.map(function (k) { return NAMES[k]; }).join(', ') + '.']];
+    return ['chartgo', ['The flip chart on its easel, on the right: What changed, and why? Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#nat').classList.toggle('ready', !nextFile && !ER.flag('m-nat') && !busy);
+    $('#lor').classList.toggle('ready', !nextFile && !!ER.flag('m-nat') && !ER.flag('m-lor') && !busy);
+    $('#chart').classList.toggle('ready', !nextFile && !!ER.flag('m-lor') && !unread().length);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Conference Room 2, after midnight. The flip chart is covered in red arrows. Nathan has taken his helmet home.'); return; }
+    if (ER.flag('m-in')) { ER.say('Conference Room 2. Rain on the dormer window, one lamp, and the papers fanned out along the table.'); return; }
+    busy = true; ER.flag('m-in', 1);
+    ER.narrate([
+      'Conference Room 2 is where clients sit and wait to be told things. It has a long table, a lamp on a chain that moves a little when the wind finds the roof, and a dormer window full of rain and wet slates.',
+      'Ms Lorimer has fanned five papers along the table, three of them with Mrs Kilner&rsquo;s words in them. Nathan sits behind them, with his cycle helmet beside the tea, as if somebody might ask to see it.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#nat').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('m-nat')) { ER.say(nextFile ? 'Nathan has gone home on his bicycle, in the rain, with his helmet on.' : 'Nathan turns his tea round and round by the handle and does not drink it.'); return; }
+    ER.talk({
+      who: 'Nathan Kershaw', role: 'The appellant', face: window.FACE('nathan'),
+      lines: [
+        { note: 'Nathan Kershaw is thirty-one, broad in the shoulders, with oil in the creases of his knuckles that soap has given up on. He works in a bicycle repair shop in east London now.', a: 'I locked up at ten to ten. Put my helmet on outside, under the lamp, and rode home. That&rsquo;s it. That&rsquo;s what I said in 2019, and it&rsquo;s what I&rsquo;ll say tomorrow, if anybody asks me.' },
+        { q: 'What do you think of Mrs Kilner?', a: 'People think I must hate her. I don&rsquo;t. She saw me. I was there. She just remembers it wrong, and everybody kept telling her she remembered it right.' },
+        { q: 'And the petrol can?', a: 'Mr Lowther&rsquo;s, for his scooter. Lived in the yard. Empty for months. My fingerprints weren&rsquo;t on it. The jury heard all that.' },
+        { a: 'Ms Lorimer says not to hope. So I&rsquo;m not. I&rsquo;ve just brought the helmet, in case.' }
+      ],
+      clue: { id: 'nat1', title: 'Nathan Kershaw, in conference', kind: 'What he said' }, last: 'Close',
+      done: function (seen) { if (seen) { ER.flag('m-nat', 1); paint(); } }
+    });
+  });
+  $('#lor').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Ms Lorimer is writing a note to herself on the back of an envelope: FIRST TELLING.'); return; }
+    if (ER.flag('m-lor')) { ER.say('&ldquo;Read everything,&rdquo; says Ms Lorimer, &ldquo;then the chart.&rdquo;'); return; }
+    if (!ER.flag('m-nat')) { ER.say('Ms Lorimer nods towards Nathan. Say good evening to the client first.'); return; }
+    ER.talk({
+      who: 'Ms Lorimer', role: 'Counsel for Mr Kershaw · in conference', face: window.FACE('lorimer'),
+      lines: [
+        { note: 'Ms Lorimer stands at the dormer window with her back to the rain.', a: 'Three times Mrs Kilner told what she saw. On the night, to the 999 operator. Two days later, to a detective, with his camera running. And seven months later, to the jury. They are not the same story.' },
+        { q: 'Was she lying?', a: 'That is what the Crown would love us to say, so that they can be shocked. No. Read Dr Okello first: page 41, the blue book on the shelf. Then all three tellings, and the two papers that came in between them.' },
+        { a: 'Then the flip chart. For every change from one telling to the next, put up what caused it. Everything she added came from somewhere. Find where.' }
+      ],
+      clue: { id: 'lor3', title: 'Ms Lorimer, at the window', kind: 'What she said' }, last: 'Start reading',
+      done: function (seen) { if (seen) { ER.flag('m-lor', 1); paint(); AP.learn(['eyewitness']); } }
+    });
+  });
+  $('#mem').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MEM, cls: 'mem', clue: { id: 'okello', title: 'Dr Okello: Memory is not a recording', kind: 'A book' },
+      done: function () { ER.flag('m-mem', 1); paint(); AP.learn(['leading question', 'first account']); } });
+  });
+  Object.keys(DOCS).forEach(function (k) {
+    $('#' + k).addEventListener('click', function () {
+      if (busy) return;
+      var d = DOCS[k];
+      ER.read({ html: d[1], cls: d[0], clue: { id: k, title: d[2], kind: d[3] },
+        done: function () { ER.flag('m-' + k, 1); paint(); if (k === 'idr') AP.learn(['line-up']); if (k === 't8') AP.learn(['body-worn video']); } });
+    });
+  });
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The flip chart: four rows, eight red arrows, and underneath, in Ms Lorimer&rsquo;s writing: SHE NEVER LIED.'); return; }
+    if (!ER.flag('m-lor')) { ER.say('A flip chart: What changed, and why? Talk to Nathan and Ms Lorimer first.'); return; }
+    var u = unread();
+    if (u.length) { ER.say('&ldquo;Read everything first,&rdquo; says Ms Lorimer. Still to read: ' + u.map(function (k) { return NAMES[k]; }).join(', ') + '.'); return; }
+    openChart();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  AP.thing('#win', null, 'Rain on the dormer window, wet slates, and the roof of the round church in the Temple, eight hundred years old, black against a grey sky.', isBusy);
+  AP.thing('#coat', null, 'Nathan&rsquo;s work jacket on the coat stand: yellow, with silver stripes that light up in headlights.', isBusy);
+  AP.thing('#helmet', null, 'An orange cycle helmet, scuffed on one side. Not the one from 2019: the police kept that one for a year, and then gave it back cracked.', isBusy);
+  AP.thing('#tea', null, 'A cup of tea, gone cold, with a skin on it.', isBusy);
+
+  /* ---------- the flip chart ---------- */
+  function openChart() {
+    var box = ER.el('div', 'mc'), saved = ER.flag('m-mc') || {}, at = saved.at || {}, q = saved.q || '', held = null, done = false;
+    var s = '<div><div class="mc-sheet"><h5>What changed, and why?</h5><div class="mc-g"><div></div><div class="hd">On the night: the 999 call</div><div class="hd">what caused it?</div><div class="hd">Two days later: DC Marr</div><div class="hd">what caused it?</div><div class="hd">Seven months later: the trial</div>';
+    ROWS.forEach(function (r) {
+      s += '<div class="rw">' + r[1] + '</div><div class="ph">' + r[2] + '</div><div class="mc-s" data-s="' + r[0] + '1"></div><div class="ph">' + r[3] + '</div><div class="mc-s" data-s="' + r[0] + '2"></div><div class="ph">' + r[4] + '</div>';
+    });
+    s += '</div></div><div class="mc-q"><h6>So, Mrs Kilner</h6><div class="opts"></div></div></div><div class="side"><h6>Causes</h6><div class="mc-c"></div><button type="button" class="btn" id="mc-go">Show Ms Lorimer</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CAUSES.forEach(function (c) {
+      var b = ER.el('button', '', c[1]); b.type = 'button'; b.setAttribute('data-c', c[0]);
+      b.addEventListener('click', function () { if (done) return; held = held === c[0] ? null : c[0]; ER.$$('.mc-c button', box).forEach(function (x) { x.classList.toggle('held', x.getAttribute('data-c') === held); }); AP.sfx.card(); });
+      box.querySelector('.mc-c').appendChild(b);
+    });
+    ER.$$('.mc-s', box).forEach(function (sl) {
+      sl.addEventListener('click', function () {
+        if (done) return;
+        var k = sl.getAttribute('data-s');
+        if (held) { at[k] = held; AP.sfx.pencil(); } else if (at[k]) { delete at[k]; AP.sfx.card(); } else { msg('Click a cause on the right first, then the circle it belongs in. A cause can be used more than once.'); return; }
+        keep();
+      });
+    });
+    Q.forEach(function (o) {
+      var b = ER.el('button', q === o[0] ? 'on' : '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+      b.addEventListener('click', function () { if (done) return; q = o[0]; ER.$$('.opts button', box).forEach(function (x) { x.classList.toggle('on', x === b); }); AP.sfx.card(); keep(); });
+      box.querySelector('.opts').appendChild(b);
+    });
+    function keep() {
+      ER.flag('m-mc', { at: at, q: q });
+      ER.$$('.mc-s', box).forEach(function (sl) { var c = at[sl.getAttribute('data-s')]; sl.classList.toggle('on', !!c); sl.innerHTML = c ? SHORT[c] : 'cause?'; });
+      box.setAttribute('data-in', Object.keys(at).length);
+    }
+    box.querySelector('#mc-go').addEventListener('click', function () {
+      var i, k, bad = null, more = 0, file, cand;
+      if (done) return;
+      for (i = 0; i < SLOTS.length; i++) if (!at[SLOTS[i]]) { msg('&ldquo;There&rsquo;s still an empty circle,&rdquo; says Ms Lorimer. &ldquo;Every change came from somewhere.&rdquo;'); return; }
+      for (i = 0; i < SLOTS.length; i++) { k = SLOTS[i]; if (!ER.check(k, at[k])) { if (!bad) bad = k; else more++; } }
+      if (bad) {
+        AP.bump('m-tries'); AP.sfx.hm();
+        if (at[bad] === 'ly') msg('&ldquo;Making it up? She didn&rsquo;t know him and gained nothing. And look: every change comes just after something from outside her.&rdquo;' + AP.more(more, 'circle'));
+        else if (at[bad] === 'ey') msg('&ldquo;Her eyesight? Her eyes did not change between April and December. Her story did, and every change came just after something from outside her.&rdquo;' + AP.more(more, 'circle'));
+        else msg('&ldquo;' + WHY[bad] + '&rdquo;' + AP.more(more, 'circle'));
+        return;
+      }
+      if (!q) { msg('&ldquo;Every arrow is right. So: what do we say about Mrs Kilner tomorrow? Choose a sentence.&rdquo;'); return; }
+      if (!ER.check('kq', q)) {
+        AP.bump('m-tries'); AP.sfx.hm();
+        msg(q === 'a' ? '&ldquo;Lied? Every change came from outside her. A liar invents things. She was given them.&rdquo;' : '&ldquo;Honest, yes. But read Dr Okello again: confidence in court is not proof. An honest witness can be honestly wrong.&rdquo;');
+        return;
+      }
+      cand = SLOTS.map(function (k) { return at[k]; }).join(',') + '+' + q;
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('m-file', file); AP.done('conference'); AP.sfx.pencil();
+      msg('Ms Lorimer looks at the chart for a long time. <b>&ldquo;Every change came from outside her. She never told one lie.&rdquo;</b>');
+      AP.mine('chart', 'Your chart: what changed, and why', '<p>WHEN: half nine, ten &rarr; (DC Marr: &ldquo;shortly before the fire?&rdquo;) about ten &rarr; (going over it, every night) ten past ten, certain.</p><p>MOVED: walking &rarr; (&ldquo;how fast was he running?&rdquo;) hurrying &rarr; (going over it) running.</p><p>HAD: a helmet, maybe &rarr; (&ldquo;the can he had?&rdquo;) something like a can &rarr; (the red can in the Messenger) a red petrol can.</p><p>SURE: didn&rsquo;t really look &rarr; (Lettie&rsquo;s phone) I&rsquo;d know him &rarr; (&ldquo;well done, that&rsquo;s our man&rdquo;) never forget his face.</p><p>Honest, and mistaken. Her FIRST telling is the one to test.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); AP.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;A question with the answer folded up inside it,&rdquo; says Ms Lorimer. &ldquo;A photograph on a phone. A red can in the paper. A sergeant saying well done. And seven months of going over it in the dark.&rdquo;',
+          '&ldquo;She never told one lie. She was just given things, one after another, and she kept them, the way anybody would.&rdquo;',
+          'Nathan has picked up his helmet and is turning it over in his hands. &ldquo;A helmet, maybe,&rdquo; he says quietly. &ldquo;That&rsquo;s what she said. The first time.&rdquo;',
+          '&ldquo;The first time is closest. If only there were a way of seeing what she saw that night,&rdquo; says Ms Lorimer, and her phone buzzes. Mr Mendes: O&rsquo;KANE ARRIVED EUSTON. CAFE ON THE STRAND, 7.45 TOMORROW. BRING THE PUPIL.'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('Click a <b>cause</b>, then the <b>circle</b> between two tellings where it fits. Click a filled circle to empty it. Then say what this means about Mrs Kilner.');
+    mcBox = box; keep();
+    ER.open('ov-lock', box, function () { mcBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

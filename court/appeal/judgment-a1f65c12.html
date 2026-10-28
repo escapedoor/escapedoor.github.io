@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Judgment · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#4a4a5a;--accent:#f2c86a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(40,36,46,.97);--tc-ink:#f6efe0;--cap-bg:rgba(40,36,46,.93);--panel:#2e2a36;--face-bg:#2a2420;--q-ink:#f0d9a6;--fade:#100c14;--hud-bg:rgba(40,36,46,.84)}
+  #inside{transition:opacity 1.6s}
+  #scene.out #inside{opacity:0;pointer-events:none}
+  .bus{animation:bus 26s linear infinite}
+  @keyframes bus{0%{transform:translateX(-600px)}40%{transform:translateX(2300px)}100%{transform:translateX(2300px)}}
+  .pig{animation:pig 3s steps(2) infinite}
+  @keyframes pig{50%{transform:translateY(-3px)}}
+  #rays{animation:rays 8s ease-in-out infinite alternate}
+  @keyframes rays{0%{opacity:.3}100%{opacity:.55}}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(520px,94vw);max-height:calc(100vh - 74px);overflow:auto;padding:16px 26px 12px;display:none;background:#fbf8ec;color:#1c1d22;border-top:10px solid #7a2a3a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:3px 12px 0;border:4px solid #2f6a3a;color:#2f6a3a;font-family:'Stardos Stencil',serif;font-weight:700;font-size:20px;letter-spacing:.1em;transform:rotate(-3deg);margin-bottom:8px;line-height:1.2}
+  .done h6{margin:8px 0 4px;font-family:'Cormorant SC',serif;font-weight:700;font-size:17px;letter-spacing:.1em;color:#7a2a3a}
+  .done p{margin:0 0 2px;font-family:'Courier Prime',monospace;font-size:13.5px;line-height:1.36}
+  .done ol{margin:0;padding-left:20px;font-family:'Tinos',serif;font-size:14.3px;line-height:1.28}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#7a2a3a;font-size:13px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf8ec}
+  .done small{display:block;margin-top:8px;font-family:'Courier Prime',monospace;font-size:12px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbf8ec;color:#1c1d22;padding:24px 36px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text;border-left:8px solid #7a2a3a}
+  .rp h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#7a2a3a}
+  .rp h3{margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:29px;line-height:1.1}
+  .rp label{display:block;font-family:'Tinos',serif;font-size:18px;line-height:1.4;margin:8px 0 6px}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#1f3a8a;background:#eef3f6 repeating-linear-gradient(transparent 0 33px,rgba(60,110,170,.25) 33px 34px);border:1px solid #b9b09a;
+    padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:206px}
+  .rp input[type=text]{height:36px}
+  .rp .count{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;text-align:right;margin-top:4px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Courier Prime',monospace;font-size:13.5px;opacity:.7}
+  .rp .btn{--accent:#7a2a3a}.rp .btn:hover:not([disabled]){color:#fbf8ec}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7a9a"/><stop offset=".6" stop-color="#d8b8a0"/><stop offset="1" stop-color="#f4d29a"/></linearGradient>
+  <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8cdb8"/><stop offset="1" stop-color="#b0a48c"/></linearGradient>
+  <linearGradient id="roadG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5a62"/><stop offset="1" stop-color="#3a3a42"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a20"/><stop offset="1" stop-color="#3a2412"/></linearGradient>
+  <linearGradient id="rayG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4d0" stop-opacity=".7"/><stop offset="1" stop-color="#fff4d0" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#140c1c" stop-opacity=".1"/><stop offset="1" stop-color="#0a0610" stop-opacity=".58"/></radialGradient>
+</defs>
+
+<!-- outside: the Strand in late afternoon sun, after the rain, with the Royal Courts of Justice behind -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/>
+<path id="rays" d="M1400 -100l-600 800h300zM1400 -100l-300 800h220zM1400 -100l0 800h160z" fill="url(#rayG)" pointer-events="none"/>
+<g id="rcj" class="hot"><path d="M-200 600V300h180V200l40-70 40 70v100h200V250h260v-60l60-90 60 90v60h260v50h200V180l40-80 40 80v120h300V600z" fill="url(#stoneG)"/>
+  <g fill="#6a6250"><path d="M640 600V430q120-120 240 0v170z"/><path d="M680 600V440q80-80 160 0v160z" fill="#4a4436"/></g>
+  <g fill="#7a7262"><path d="M60 400v-40q20-26 40 0v40zM300 400v-44q20-26 40 0v44zM420 400v-44q20-26 40 0v44zM1060 400v-44q20-26 40 0v44zM1180 400v-44q20-26 40 0v44zM1420 400v-40q20-26 40 0v40zM180 500v-40q20-26 40 0v40zM1300 500v-40q20-26 40 0v40z"/></g>
+  <path d="M-200 420h860M860 420h900" stroke="#9a9078" stroke-width="3"/></g>
+<rect x="-1000" y="600" width="3600" height="60" fill="#c8bca4"/><rect x="-1000" y="660" width="3600" height="800" fill="url(#roadG)"/>
+<g fill="#e8e0d0" opacity=".25"><ellipse cx="300" cy="760" rx="160" ry="12"/><ellipse cx="1100" cy="790" rx="200" ry="14"/></g>
+<g class="bus"><rect x="-400" y="640" width="320" height="120" rx="12" fill="#c8302a"/><g fill="#2a3a4a"><rect x="-384" y="656" width="54" height="34"/><rect x="-322" y="656" width="54" height="34"/><rect x="-260" y="656" width="54" height="34"/><rect x="-198" y="656" width="54" height="34"/><rect x="-136" y="656" width="40" height="34"/><rect x="-384" y="700" width="54" height="28"/><rect x="-322" y="700" width="54" height="28"/><rect x="-260" y="700" width="54" height="28"/></g><circle cx="-340" cy="762" r="15" fill="#1c1c1c"/><circle cx="-130" cy="762" r="15" fill="#1c1c1c"/></g>
+<g class="pig"><path d="M520 650q14-14 28 0l-4 8h-20z" fill="#7a7a84"/><circle cx="548" cy="644" r="5" fill="#7a7a84"/></g>
+
+<!-- the people on the pavement -->
+<g id="pair" class="hot"><rect x="140" y="420" width="430" height="300" fill="#000" opacity="0"/><use href="#ch-kilner" x="150" y="430" width="210" height="273"/><use href="#ch-nathans" x="340" y="410" width="230" height="300"/>
+  <path d="M520 690q0-36 30-36q30 0 30 36z" fill="#e8742a"/></g>
+<g id="lor" class="hot"><rect x="1000" y="420" width="460" height="300" fill="#000" opacity="0"/><use href="#ch-lorimer" x="1010" y="410" width="230" height="300"/><use href="#ch-mendes" x="1220" y="430" width="210" height="273"/>
+  <g transform="translate(1180 660)"><rect width="70" height="44" rx="5" fill="#2a2a30"/><text x="35" y="28" class="sT" font-size="11" fill="#c9a45a">N.L.</text></g></g>
+<g id="oka"><use href="#ch-okane" x="760" y="470" width="170" height="221"/></g>
+<rect x="-1000" y="700" width="3600" height="10" fill="#d6c8a6" pointer-events="none"/>
+
+<!-- inside: Court 8, for judgment (it fades when the court rises) -->
+<g id="inside">
+  <rect x="-1000" y="-400" width="3600" height="1800" fill="#3a2414"/>
+  <path d="M280 160h1040l-40-110H320z" fill="#2a1a0c"/>
+  <use href="#ch-judge2" x="470" y="170" width="200" height="260"/><use href="#ch-lanyon" x="690" y="150" width="220" height="286"/><use href="#ch-judge3" x="930" y="170" width="200" height="260"/>
+  <rect x="260" y="350" width="1080" height="24" fill="#6a4428"/><path d="M280 374h1040v100H280z" fill="url(#oakG)"/>
+  <use href="#ch-lorimerw" x="220" y="520" width="230" height="300"/><use href="#ch-ormsby" x="1120" y="510" width="230" height="300"/>
+  <rect x="-1000" y="790" width="3600" height="400" fill="#4a3018"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">CONVICTION QUASHED</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-notes"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>The Court of Appeal does not try a case again. It asks one question: is the conviction safe? If it is unsafe, the court shall allow the appeal and quash the conviction.</li>
+    <li>At a trial the prosecution must prove its case beyond reasonable doubt, and the defendant proves nothing. So &ldquo;not guilty&rdquo;, or a quashed conviction, means guilt was not proved. It does not mean innocence was proved.</li>
+    <li>In legal English, shall and must leave no choice; may means the court can choose. The court may receive fresh evidence if it can be believed, could help the appeal, could have been used at the trial, and there is a good reason it was not.</li>
+    <li>Memory is built again every time it is told. A leading question, a photograph seen later, or &ldquo;Well done, that&rsquo;s our man&rdquo; can change it. The first account, given before anybody suggested anything, is usually the one to test, and confidence is not proof.</li>
+    <li>Six bad arguments: attacking the person, the straw man, the false choice, after it so because of it, the appeal to authority, and arguing in a circle. Name it, then say exactly why it fails.</li>
+    <li>Check every clock against something whose real time is known: a camera that was never put forward for summer time is an hour behind.</li>
+    <li>Find the hole in your own case before the other side does, and tell the truth about it. A barrister must never mislead the court.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the list</button></div>
+  <small>Under the Lamp &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'judgment', no: 'VII', title: 'Judgment',
+    go: 'Go in',
+    intro: [
+      'In Court 8 you passed Ms Lorimer three yellow notes. A false choice: lying or right, when your chart shows a third possibility, honest and wrong. A straw man: we never said she invented anything, and paragraph 5 of our skeleton says so. Arguing in a circle: the film was tested by the bus and the 999 call, not by the verdict. The other three points were fair, and she let them go.',
+      'Five past two. Court 8 again. Lady Justice Lanyon has a few pages of handwriting in front of her.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  var RULING = [
+    { note: 'Lady Justice Lanyon reads aloud, slowly, from her handwritten pages.', a: 'On 5 December 2019, at Norbeck Crown Court, Nathan Kershaw was convicted of arson. The Criminal Cases Review Commission has referred his conviction to this court, because of a film that nobody at his trial knew existed.' },
+    { a: 'This court does not try cases again. Our only question is whether the conviction is safe. Under section 23 of the Criminal Appeal Act 1968 we may receive fresh evidence, and we have regard to four things. The film is capable of belief: its clock was an hour behind, as the last number 7 bus shows, and in no other way wrong. It may afford a ground of appeal. It would have been admissible at the trial. And there is a reasonable explanation why it was not used: Mr O&rsquo;Kane slept through what happened, and found the card five years later. We have received it.' },
+    { a: 'The film shows the appellant leaving the shop at 21:51, walking, with a cycle helmet in his hand. That is what Mrs Kilner said in her 999 call, before anybody had asked her anything. By the trial her account had become ten past ten, running, a red petrol can, and certainty. We have no doubt that Mrs Kilner was an honest witness. Each change came from outside her: from questions put to her, from things she was shown, and from telling it many times. Nothing in this judgment is a criticism of her.' },
+    { a: 'Ms Lorimer very properly told us that six files of the film are damaged, so that it cannot show what happened between 22:07 and 22:25. That is right, and we are grateful to her. But the question is not whether the film proves that the appellant did not come back. It is whether, if the jury had seen it, it might reasonably have affected their decision to convict. In my judgment it plainly might. The case against him stood on Mrs Kilner&rsquo;s account at trial, and the film shows that account to have been rebuilt.' },
+    { a: 'In my judgment this conviction is unsafe. We allow the appeal, and the conviction is quashed. Mr Ormsby does not ask for a retrial, and we would not have ordered one: more than seven years have passed since the fire, and the sentence has been served.' },
+    { a: 'It is important to say what this decision does not mean. We do not find that the appellant is innocent. That is not a question this court is asked. We do not find that anybody set the fire, or that nobody did. We find that his guilt was not proved in a way on which anybody can now safely rely. In law he stands where he stood before his trial: a man whom no court has found guilty.' },
+    { note: 'Mr Justice Muncaster: &ldquo;I agree.&rdquo; Mrs Justice Kendal: &ldquo;I agree.&rdquo;', a: '&ldquo;Thank you all,&rdquo; says Lady Justice Lanyon. &ldquo;We will rise.&rdquo;' }];
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('j-ruling') && !ER.flag('j-pair')) return ['pair', ['Mrs Kilner and Nathan are on the pavement, on the left. Click them.']];
+    if (ER.flag('j-pair') && !ER.flag('j-done')) return ['lor', ['Ms Lorimer and Mr Mendes are on the right, with her wig tin. Click them.']];
+    return null;
+  }
+  function begin() {
+    if (ER.flag('j-ruling')) $('#scene').classList.add('out');
+    if (ER.flag('j-done')) { busy = false; finish(); return; }
+    if (ER.flag('j-ruling')) { busy = false; ready(); return; }
+    ER.narrate([
+      'Court 8 is fuller than this morning. Mr Mendes sits behind Ms Lorimer, with Mr O&rsquo;Kane beside him, who has never been in a court before and is sitting very upright to make up for it. Mrs Kilner is in the gallery, in the same seat, in the same hat.',
+      '&ldquo;All rise.&rdquo; The three judges come back in. Lady Justice Lanyon puts on her reading glasses, takes them off, and then, because she is about to read, puts them on again.'
+    ], ruling);
+  }
+  function ruling() {
+    ER.talk({
+      who: 'Lady Justice Lanyon', role: 'Judgment of the court · Court 8 · 2.05 pm', face: window.FACE('lanyon'), lines: RULING,
+      clue: { id: 'ruling', title: 'The judgment', kind: 'Court 8, 2.05 pm' }, last: 'Go outside',
+      done: function (seen) {
+        if (!seen) { ruling(); return; }
+        ER.flag('j-ruling', 1); AP.learn(['in my judgment', 'acquit']);
+        $('#scene').classList.add('out');
+        setTimeout(function () {
+          ER.narrate([
+            'Half past three. Outside on the Strand the rain has stopped. The pavements shine, the stone of the courts has gone the colour of honey, and a red bus goes by, exactly on time, which you find you have checked without meaning to.',
+            'Nobody who had anything to do with R v Kershaw goes home straight away. They stand about on the pavement, the way people do after something that has taken seven years.'
+          ], function () { busy = false; ready(); });
+        }, 1600);
+      }
+    });
+  }
+  function ready() {
+    $('#pair').classList.toggle('ready', !ER.flag('j-pair'));
+    $('#lor').classList.toggle('ready', !!ER.flag('j-pair') && !ER.flag('j-done'));
+  }
+  $('#pair').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('j-pair')) { ER.say('Mrs Kilner is telling Nathan which bus goes to King&rsquo;s Cross. Nathan is letting her, though he knows.'); return; }
+    busy = true; $('#pair').classList.remove('ready');
+    ER.narrate([
+      'Mrs Kilner has waited at the bottom of the steps, with her handbag held in front of her in both hands. When Nathan comes out, she does not move away.',
+      '&ldquo;I was so sure,&rdquo; she says. &ldquo;I&rsquo;d have sworn to it on anything.&rdquo; &ldquo;You did,&rdquo; says Nathan, and then, because that came out wrong: &ldquo;I know. It&rsquo;s all right. Everybody kept telling you that you were right.&rdquo;',
+      'She looks at the helmet in his hand for a long moment. &ldquo;You were carrying that,&rdquo; she says slowly. &ldquo;Weren&rsquo;t you? Under the lamp.&rdquo; &ldquo;I was.&rdquo;',
+      '&ldquo;Well,&rdquo; says Mrs Kilner, and her chin comes up a little. &ldquo;I said so. The first time.&rdquo;'
+    ], function () { busy = false; ER.flag('j-pair', 1); ready(); ER.say('On the right, Ms Lorimer is standing with Mr Mendes and her wig tin, looking at nothing in particular.', 6000); });
+  });
+  $('#lor').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('j-pair')) { ER.say('Ms Lorimer and Mr Mendes, with the wig tin. She is watching Mrs Kilner and Nathan, and waiting.'); return; }
+    if (ER.flag('j-done')) { ER.say('Ms Lorimer is reading tomorrow&rsquo;s brief on the pavement, standing up, with her wig tin under her arm.'); return; }
+    busy = true; $('#lor').classList.remove('ready');
+    ER.narrate([
+      'Nathan comes over. &ldquo;So,&rdquo; he says. &ldquo;Am I innocent now?&rdquo; Ms Lorimer takes her time, which she almost never does.',
+      '&ldquo;In law you are what you were the day before your trial: a man nobody has proved guilty. That is all a court can give you, and it is a great deal.&rdquo; &ldquo;It&rsquo;s not the same as innocent.&rdquo; &ldquo;No. You never had to prove that. And the film can&rsquo;t: there are eighteen minutes it never saw.&rdquo;',
+      '&ldquo;That will matter if you ask for compensation,&rdquo; says Mr Mendes gently. &ldquo;For that, the law asks for a new fact that shows beyond reasonable doubt that you did not do it. We will try. I won&rsquo;t pretend it is easy.&rdquo;',
+      '&ldquo;But nobody,&rdquo; says Ms Lorimer, &ldquo;can ever again stand up in a court and say that you did.&rdquo; Nathan looks at the helmet, and puts it on, and does up the strap, very carefully, as if it were part of the judgment.',
+      'Ms Lorimer turns to you. &ldquo;Write it down. Name the bad argument, then say why it fails. Find the hole in your own case first. Be fair to the witness. Then go home.&rdquo; She picks up the wig tin. &ldquo;Tomorrow is a stolen lawnmower in Luton. Again.&rdquo;'
+    ], function () { busy = false; ER.flag('j-done', 1); ready(); finish(); AP.solved(true); });
+  });
+
+  /* ---------- the end ---------- */
+  function finish() {
+    var st = ER.state(), mins = AP.minutes(), hn = ER.hintsUsed(), nt = ER.flag('v-tries') || 0;
+    $('#d-time').textContent = 'The appeal took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-notes').textContent = nt ? 'In Court 8, Ms Lorimer turned ' + nt + (nt === 1 ? ' of your notes' : ' of your notes') + ' face down.' : 'In Court 8, Ms Lorimer never once turned one of your notes face down.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('j-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Under the Lamp &middot; tell a friend</h4><h3>&ldquo;So he&rsquo;s innocent, and she lied.&rdquo;</h3>' +
+      '<label for="r1">Your friend says: &ldquo;The Court of Appeal let him off, so that means he&rsquo;s innocent. And the old lady must have lied.&rdquo; Explain why both halves are wrong. Say it aloud first, then write 60 to 100 words. Try to use: <b>unsafe, beyond reasonable doubt, honest but mistaken, first account, leading question</b>.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('j-task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+
+  AP.thing('#rcj', null, 'The Royal Courts of Justice, gone gold in the low sun. Queen Victoria opened them in December 1882. Most of what has been decided inside since then, nobody outside remembers.', isBusy);
+  AP.thing('#oka', null, 'Mr O&rsquo;Kane is telling a pigeon that he was evidence today. The pigeon is not impressed.', isBusy);
+})();
+</script>
+</body>
+</html>

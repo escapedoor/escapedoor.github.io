@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Court 8 · Under the Lamp</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="appeal.css">
+<style>
+  body{--bg:#1c1610;--accent:#d6b25e;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(28,22,16,.97);--tc-ink:#f4ecda;--cap-bg:rgba(28,22,16,.93);--panel:#261e16;--face-bg:#2a2420;--q-ink:#f0d9a6;--fade:#0a0806;--hud-bg:rgba(28,22,16,.86)}
+  .glint{animation:glint 7s steps(6) infinite alternate}
+  @keyframes glint{0%{opacity:.4}100%{opacity:.75}}
+
+  /* the yellow notes */
+  .hn{width:min(1180px,97vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .hn-l{padding:12px 16px 10px;background:#f4efe2;box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:10px solid #2a2420}
+  .hn-l h5{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#5a4a3a}
+  .hn-o{display:grid;grid-template-columns:minmax(0,1fr) 196px;gap:10px;align-items:center;padding:5px 6px;border-bottom:1px solid #d8d0bc;cursor:pointer}
+  .hn-o.sel{background:#fff6cc}
+  .hn-o p{margin:0;font-family:'Tinos',serif;font-size:14.6px;line-height:1.32;color:#1c1d22}
+  .hn-o p b{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;color:#7a6a4a;margin-right:6px}
+  .hn-y{min-height:46px;padding:4px 8px;background:#fbf3a8;box-shadow:0 2px 4px rgba(0,0,0,.2);font-family:'Caveat',cursive;font-weight:700;font-size:16.5px;line-height:1.02;color:#22305a;transform:rotate(-1deg)}
+  .hn-y:empty{background:transparent;box-shadow:none;border:2px dashed #c9c0a4}
+  .hn-y b{display:block;color:#a32a2a}
+  .hn-y.fair b{color:#2a5a3a}
+  .hn-pad{padding:10px 12px;background:#fbf3a8 repeating-linear-gradient(transparent 0 23px,rgba(90,120,170,.25) 23px 24px);box-shadow:0 22px 60px rgba(0,0,0,.6);border-top:14px solid #c9b24a}
+  .hn-pad h6{margin:2px 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5a4a1a}
+  .hn-nm,.hn-ex{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px}
+  .hn-nm button,.hn-ex button{text-align:left;padding:4px 7px;background:#fffbe0;border:1px solid #b9a050;color:#2a2410;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.04em;line-height:1.15;border-radius:2px}
+  .hn-nm button[data-n="f"]{grid-column:1/3;background:#e8f2e0}
+  .hn-ex button{font-family:'EB Garamond',serif;font-size:13.5px;letter-spacing:0}
+  .hn-pad .btn{--accent:#5a4a1a;width:100%}.hn-pad .btn:hover:not([disabled]){color:#fbf3a8}
+  .hn-pad .pmsg{color:#22305a;min-height:96px;font-size:15.5px;margin-top:6px}
+  .hn-pad .pmsg b{color:#a32a2a}.hn-pad .pmsg em{color:#3a3a50}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a20"/><stop offset="1" stop-color="#3a2412"/></linearGradient>
+  <linearGradient id="panG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3018"/><stop offset="1" stop-color="#2e1c0e"/></linearGradient>
+  <linearGradient id="greenG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5a3a"/><stop offset="1" stop-color="#1e3a26"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e0e4"/><stop offset="1" stop-color="#a8b4bc"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="40%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a0604" stop-opacity=".2"/><stop offset="1" stop-color="#050302" stop-opacity=".8"/></radialGradient>
+</defs>
+
+<!-- Court 8: dark oak panelling, a carved canopy over a high bench, the royal arms, green leather below -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#panG)"/>
+<g stroke="#2a1a0c" stroke-width="4" fill="none" id="panels"></g>
+<g><path d="M80 300V80q60-60 120 0v220z" fill="url(#winG)"/><path d="M1400 300V80q60-60 120 0v220z" fill="url(#winG)" opacity=".0"/><path d="M140 40v260M80 170h120" stroke="#4a3018" stroke-width="5"/></g>
+<!-- the canopy and the arms -->
+<path d="M280 160h1040l-40-110H320z" fill="#3a2410"/><g fill="#5a3a20"><path d="M320 50h960v14H320z"/></g><g id="crest"></g>
+<g id="arms" class="hot"><path d="M770 60h60v52q0 26-30 38q-30-12-30-38z" fill="#c9a45a"/><path d="M770 60h30v45h-30zM800 105h30q0 26-30 45z" fill="#a3262c"/><path d="M800 60h30v45h-30zM770 105h30v45q-30-12-30-45z" fill="#2a3a7a"/>
+  <path d="M760 60q-30 10-30 60q10 20 30 10z" fill="#d9b25a"/><path d="M840 60q30 10 30 60q-10 20-30 10z" fill="#e8e4d8"/><circle cx="800" cy="52" r="10" fill="#d9b25a" class="glint"/></g>
+<!-- the three judges behind the high bench -->
+<use href="#ch-judge2" x="470" y="170" width="200" height="260"/>
+<g id="lan" class="hot"><rect x="700" y="170" width="200" height="200" fill="#000" opacity="0"/><use href="#ch-lanyon" x="690" y="150" width="220" height="286"/></g>
+<use href="#ch-judge3" x="930" y="170" width="200" height="260"/>
+<rect x="260" y="350" width="1080" height="24" fill="#6a4428"/><path d="M280 374h1040v100H280z" fill="url(#oakG)"/><g stroke="#2a1a0c" stroke-width="3" fill="none"><path d="M320 390h220v70H320zM590 390h420v70H590zM1060 390h220v70h-220z"/></g>
+<!-- the associate's desk below the bench -->
+<rect x="600" y="474" width="400" height="18" fill="#6a4428"/><path d="M620 492h360v60H620z" fill="url(#oakG)"/>
+<!-- the screen -->
+<g id="screen" class="hot"><path d="M1425 470v-30" stroke="#2a2a2a" stroke-width="8"/><rect x="1330" y="330" width="190" height="112" rx="4" fill="#1c1e22"/><rect x="1340" y="340" width="170" height="92" fill="#141820"/><circle cx="1470" cy="360" r="5" fill="#ffe9a0"/><path d="M1452 430q0-14 10-14q10 0 10 14z" fill="#e8742a"/><text x="1350" y="354" font-family="Courier Prime,monospace" font-size="10" fill="#fff">21:51</text></g>
+<!-- the public gallery, and Mrs Kilner in it -->
+<rect x="1330" y="250" width="400" height="22" fill="#5a3a20"/><g stroke="#5a3a20" stroke-width="6"><path d="M1350 250v-20M1390 250v-20M1430 250v-20M1470 250v-20M1510 250v-20M1550 250v-20M1590 250v-20"/></g><path d="M1330 228h400" stroke="#6a4428" stroke-width="6"/>
+<g id="kil" class="hot"><rect x="1400" y="140" width="120" height="110" fill="#000" opacity="0"/><use href="#ch-kilner" x="1400" y="120" width="120" height="156"/></g>
+<rect x="1330" y="252" width="400" height="30" fill="#4a3018"/>
+<!-- counsel's row: green leather, Ms Lorimer and Mr Ormsby -->
+<rect x="-1000" y="700" width="3600" height="800" fill="#3a2414"/>
+<path d="M-200 640h2000v70h-2000z" fill="url(#greenG)"/>
+<g id="nat" class="hot"><rect x="40" y="420" width="150" height="200" fill="#000" opacity="0"/><use href="#ch-nathans" x="30" y="400" width="170" height="221"/></g>
+<g id="lor" class="hot"><rect x="230" y="530" width="210" height="270" fill="#000" opacity="0"/><use href="#ch-lorimerw" x="220" y="520" width="230" height="300"/></g>
+<g id="orm" class="hot"><rect x="1130" y="520" width="210" height="280" fill="#000" opacity="0"/><use href="#ch-ormsby" x="1120" y="510" width="230" height="300"/></g>
+<rect x="-1000" y="790" width="3600" height="30" fill="#6a4428"/><path d="M-1000 820h3600v400h-3600z" fill="url(#oakG)"/>
+<!-- your yellow pad on the bench in front of you -->
+<g id="pad" class="hot"><rect x="700" y="740" width="200" height="110" fill="#000" opacity="0"/><rect x="720" y="752" width="150" height="96" fill="#fbf3a8" transform="rotate(-3 795 800)"/><rect x="720" y="752" width="150" height="12" fill="#c9b24a" transform="rotate(-3 795 800)"/>
+  <g stroke="#9ab0d0" stroke-width="1.5" transform="rotate(-3 795 800)"><path d="M728 780h134M728 796h134M728 812h134M728 828h134"/></g><path d="M880 760l-40 80" stroke="#e8c84a" stroke-width="6"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1800" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Judgment, at five past two</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="appeal.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, hnBox = null;
+
+  (function () {
+    var s = '', i;
+    for (i = -4; i < 12; i++) s += '<path d="M' + (i * 160 + 20) + ' 480h120v150h-120zM' + (i * 160 + 20) + ' 160h120v150h-120z"/>';
+    $('#panels').innerHTML = s;
+    var c = '';
+    for (i = 0; i < 13; i++) c += '<path d="M' + (330 + i * 75) + ' 160l20-30 20 30z" fill="#4a3018"/>';
+    $('#crest').innerHTML = c;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'appeal', storyTitle: 'Under the Lamp', id: 'court', no: 'VI', title: 'Court 8',
+    go: 'Go in',
+    intro: [
+      'In the Main Hall you read our own skeleton argument with the Crown&rsquo;s eyes, and found two places where it claimed too much. The film does not show that nobody went near the shop: six damaged files leave eighteen minutes, 22:07 to 22:25, that it never saw. And nobody can say the jury would certainly have acquitted. So Ms Lorimer went to tell the court herself, first.',
+      'Court 8, half past ten. A pupil may not speak in this court. But a pupil may write on yellow paper.'
+    ],
+    exit: {"next":"judgment","w":{"6439ba90":"3d3f7d99","da4131e8":"813d334d"}}, tags: {"n-o1":["dd27f1c8"],"n-o2":["5e9f2612"],"n-o3":["7aa2fb0a"],"n-o4":["2c98bd6a"],"n-o5":["aa72424a"],"n-o6":["e8773a8f"],"e-o2":["4692d140","490a339f"],"e-o3":["b879fee2"],"e-o5":["14be39c0"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('v-file') || null;
+
+  var POINTS = [
+    ['o1', 'The film has eighteen minutes missing, at the very time Mrs Kilner says she saw him.'],
+    ['o2', 'Either Mrs Kilner is lying, or she saw the appellant at ten past ten. Nobody suggests she is lying. So she saw him.'],
+    ['o3', 'My learned friend&rsquo;s case is that Mrs Kilner invented the petrol can to please the police. That is a cruel thing to say about an honest woman.'],
+    ['o4', 'The jury heard the 999 call. They still preferred what she told them in court. That was their right.'],
+    ['o5', 'We cannot trust this film, because it does not fit the jury&rsquo;s verdict; and we know the verdict is right, because nothing we can trust contradicts it.'],
+    ['o6', 'The appellant had a key, and he was the last to leave.']];
+  var NAMES = [['f', 'FAIR POINT: LET IT GO'], ['ah', 'ATTACKING THE PERSON'], ['sm', 'STRAW MAN'], ['fd', 'FALSE CHOICE'], ['ph', 'AFTER IT, SO BECAUSE OF IT'], ['aa', 'APPEAL TO AUTHORITY'], ['cr', 'ARGUING IN A CIRCLE']];
+  var NNAME = {}; NAMES.forEach(function (n) { NNAME[n[0]] = n[1]; }); NNAME.f = 'FAIR POINT';
+  var EXH = [['chart', 'Your chart: what changed, and why'], ['book', 'Dr Okello, page 41'], ['skel', 'Our skeleton, paragraph 5'], ['bus', 'The clock, checked against the 7 bus'], ['call', 'The 999 call'], ['gap', 'The six damaged files']];
+  var ENAME = {}; EXH.forEach(function (e) { ENAME[e[0]] = e[1]; });
+  var NWHY = {
+    o1: 'Point 1 is true, and we told the court so ourselves. A true point is not a bad argument, even when it is against us.',
+    o2: 'Point 2: how many choices does he give the court? How many are there really?',
+    o3: 'Point 3: is that what we said? Compare it with what our skeleton says about Mrs Kilner.',
+    o4: 'Point 4 is fair: it was the jury&rsquo;s right. Our answer is not that the point is bad, but that the jury never saw the film.',
+    o5: 'Point 5: look at the reasons. Is the conclusion hiding inside them?',
+    o6: 'Point 6 is true, and Nathan agrees with it. True and not enough is still fair.'
+  };
+  var EWHY = {
+    o2: 'Point 2: the right name. Now, which paper shows the third possibility, that she was honest and wrong?',
+    o3: 'Point 3: the right name. Where did we say, in writing, what we really argue about her?',
+    o5: 'Point 5: the right name. How did we test the film without using the verdict at all?'
+  };
+  var BAD = { ah: 1, sm: 1, fd: 1, ph: 1, aa: 1, cr: 1 };
+
+  function hints() {
+    if (nextFile) return ['go', ['The court will give judgment after lunch. The button at the bottom of the screen takes you there.']];
+    if (hnBox) return ['hn', [
+      'Mr Ormsby makes six points. For each one, click it, then decide: a fair point that Ms Lorimer should let go, or one of Lusby&rsquo;s bad arguments. For a bad one, add the paper that answers it. Lusby&rsquo;s page is in your notebook.',
+      'Three of his points are true: the gap, the jury&rsquo;s right, the key. The other three are the three names you did not need in the library: the false choice, the straw man and the circle.',
+      'Points 1, 4 and 6: FAIR POINT. Point 2: FALSE CHOICE, answered by your chart (or Dr Okello): honest and wrong. Point 3: STRAW MAN, answered by our skeleton, paragraph 5. Point 5: ARGUING IN A CIRCLE, answered by the clock checked against the 7 bus.'
+    ]];
+    if (!ER.flag('v-in')) return null;
+    return ['pad', ['Mr Ormsby is on his feet. Your yellow pad is on the bench in front of you, at the bottom of the screen. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#pad').classList.toggle('ready', !nextFile && !!ER.flag('v-in') && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Court 8, empty for lunch. Somebody has left a pencil on the bench, and a yellow note that says CIRCLE.'); return; }
+    if (ER.flag('v-in')) { ER.say('Court 8. Mr Ormsby is on his feet. Your pad is in front of you.'); return; }
+    busy = true;
+    ER.narrate([
+      'Court 8 is panelled in dark oak, with a carved canopy over the bench and the royal arms above it, the lion and the unicorn looking as if they too have read the papers. &ldquo;All rise.&rdquo;',
+      'Three judges come in and sit, high up: Lady Justice Lanyon in the middle, Mr Justice Muncaster and Mrs Justice Kendal on either side. In the public gallery, in a camel coat and a small felt hat, sits Mrs Kilner.',
+      '&ldquo;Yes, Ms Lorimer.&rdquo; Ms Lorimer stands. &ldquo;My Lady, before anything else: paragraph 6 of my skeleton argument is wrong, and I must correct it.&rdquo; She reads your new paragraph aloud, word for word: the six damaged files, the eighteen minutes, the man walking with a helmet at 21:51.',
+      'Lady Justice Lanyon writes something down. &ldquo;Thank you, Ms Lorimer. That is very properly done.&rdquo; Across the court Mr Ormsby nods once, the way you nod to somebody who has just played a card you did not know they had.',
+      'The court watches the film on the screen. Then, after half an hour about section 23, Lady Justice Lanyon says: &ldquo;We will receive it.&rdquo; Ms Lorimer makes her argument, and sits down.',
+      '&ldquo;Mr Ormsby.&rdquo; Mr Ormsby rises, and begins. Ms Lorimer will answer him when he has finished, and she will answer only what you send her. Your yellow pad is on the bench in front of you.'
+    ], function () { busy = false; ER.flag('v-in', 1); paint(); AP.learn(['my learned friend', 'counsel']); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#pad').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Your yellow pad: three notes torn off, three left. The top one says, in your writing, CIRCLE: THE BUS.'); return; }
+    if (!ER.flag('v-in')) return;
+    openHn();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  AP.thing('#lan', null, function () { return nextFile ? 'Lady Justice Lanyon has gone out with the other two judges. Her reading glasses are still on the bench, on their cord.' : 'Lady Justice Lanyon, presiding: reading glasses on a cord, and a pen that moves only when something matters.'; }, isBusy);
+  AP.thing('#lor', null, 'Ms Lorimer, robed, with her hand flat on the bench beside her, waiting for a yellow note.', isBusy);
+  AP.thing('#orm', null, 'Mr Ormsby, on his feet, one hand on his gown, speaking slowly to three judges who are writing everything down.', isBusy);
+  AP.thing('#kil', null, 'Mrs Kilner in the public gallery, in her good coat and a small felt hat, holding her handbag on her knees as if it might be called to give evidence.', isBusy);
+  AP.thing('#nat', null, 'Nathan, behind counsel, very still, with the carrier bag at his feet.', isBusy);
+  AP.thing('#arms', null, 'The royal arms over the bench: a lion on one side, a unicorn on the other, and a motto in French that nobody in the room has ever read aloud.', isBusy);
+  AP.thing('#screen', null, 'The screen, frozen at 21:51: a young man under a street lamp, with a helmet in his hand.', isBusy);
+
+  /* ---------- the yellow notes ---------- */
+  function openHn() {
+    var box = ER.el('div', 'hn'), saved = ER.flag('v-hn') || {}, nm = saved.n || {}, ex = saved.e || {}, sel = null, done = false;
+    var s = '<div class="hn-l"><h5>Mr Ormsby, for the Crown: his six points, as you wrote them down</h5>';
+    POINTS.forEach(function (p, i) { s += '<div class="hn-o" data-o="' + p[0] + '"><p><b>' + (i + 1) + '</b>' + p[1] + '</p><div class="hn-y"></div></div>'; });
+    s += '</div><div class="hn-pad"><h6>Name it</h6><div class="hn-nm"></div><h6>Answer it with</h6><div class="hn-ex"></div><button type="button" class="btn" id="hn-go">Pass the notes to Ms Lorimer</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.hn-o', box).forEach(function (o) {
+      o.addEventListener('click', function () { if (done) return; sel = o; ER.$$('.hn-o', box).forEach(function (x) { x.classList.toggle('sel', x === o); }); AP.sfx.card(); });
+    });
+    NAMES.forEach(function (n) {
+      var b = ER.el('button', '', n[1]); b.type = 'button'; b.setAttribute('data-n', n[0]);
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (!sel) { msg('Click one of Mr Ormsby&rsquo;s points first.'); return; }
+        var k = sel.getAttribute('data-o'); nm[k] = n[0]; if (!BAD[n[0]]) delete ex[k]; AP.sfx.pencil(); keep();
+      });
+      box.querySelector('.hn-nm').appendChild(b);
+    });
+    EXH.forEach(function (e) {
+      var b = ER.el('button', '', e[1]); b.type = 'button'; b.setAttribute('data-e', e[0]);
+      b.addEventListener('click', function () {
+        if (done) return;
+        if (!sel) { msg('Click one of Mr Ormsby&rsquo;s points first.'); return; }
+        var k = sel.getAttribute('data-o');
+        if (!BAD[nm[k]]) { msg('Name it first. A fair point needs no answer: Ms Lorimer will let it go.'); return; }
+        ex[k] = e[0]; AP.sfx.pencil(); keep();
+      });
+      box.querySelector('.hn-ex').appendChild(b);
+    });
+    function keep() {
+      ER.flag('v-hn', { n: nm, e: ex });
+      var c = 0;
+      ER.$$('.hn-o', box).forEach(function (o) {
+        var k = o.getAttribute('data-o'), y = o.querySelector('.hn-y');
+        if (nm[k]) c++;
+        y.className = 'hn-y' + (nm[k] === 'f' ? ' fair' : '');
+        y.innerHTML = nm[k] ? '<b>' + NNAME[nm[k]] + '</b>' + (BAD[nm[k]] ? (ex[k] ? ENAME[ex[k]] : 'answer?') : 'let it go') : '';
+      });
+      box.setAttribute('data-named', c);
+    }
+    box.querySelector('#hn-go').addEventListener('click', function () {
+      var i, k, bad = null, more = 0, kind = '', file, cand;
+      if (done) return;
+      for (i = 0; i < POINTS.length; i++) if (!nm[POINTS[i][0]]) { msg('&ldquo;Point ' + (i + 1) + ' has no note yet. Fair or not, decide.&rdquo;'); return; }
+      for (i = 0; i < POINTS.length; i++) { k = POINTS[i][0]; if (!ER.check('n-' + k, nm[k])) { if (!bad) { bad = k; kind = 'n'; } else more++; } }
+      if (!bad) for (i = 0; i < POINTS.length; i++) { k = POINTS[i][0]; if (BAD[nm[k]] && !ex[k]) { msg('&ldquo;Point ' + (i + 1) + ': you have named it. Now give me the paper that answers it.&rdquo;'); return; } }
+      if (!bad) for (i = 0; i < POINTS.length; i++) { k = POINTS[i][0]; if (BAD[nm[k]] && !ER.check('e-' + k, ex[k])) { if (!bad) { bad = k; kind = 'e'; } else more++; } }
+      if (bad) {
+        var n = AP.bump('v-tries'); AP.sfx.hm();
+        msg('Ms Lorimer reads your note and turns it face down. ' + (kind === 'n' ? NWHY[bad] : EWHY[bad]) + AP.more(more, 'note'));
+        return;
+      }
+      cand = POINTS.map(function (p) { return BAD[nm[p[0]]] ? nm[p[0]] + ':' + ex[p[0]] : nm[p[0]]; }).join('|');
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('v-file', file); AP.done('court'); AP.sfx.fold();
+      msg('Ms Lorimer takes three of your notes and leaves three on the bench. <b>She does not look round. She does not need to.</b>');
+      AP.mine('notes', 'Three yellow notes', '<p>FALSE CHOICE: &ldquo;lying or right&rdquo;. There is a third: honest and wrong. (Your chart, Dr Okello.)</p><p>STRAW MAN: &ldquo;she invented the can&rdquo;. We never said so: our skeleton, paragraph 5.</p><p>ARGUING IN A CIRCLE: &ldquo;the film doesn&rsquo;t fit the verdict, and the verdict is right&rdquo;. The film was tested on its own: the 7 bus and the 999 call.</p><p>Let go (fair): the gap, the jury&rsquo;s right, the key.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); AP.solved(); paint(); busy = true;
+        ER.narrate([
+          'Mr Ormsby sits. Ms Lorimer stands, with three of your yellow notes in her hand. &ldquo;My Lady, my learned friend offers the court two choices: that Mrs Kilner lied, or that she was right. There is a third, and it is the one the evidence shows. She was honest, and her memory was rebuilt, change by change, by things that happened to her.&rdquo;',
+          '&ldquo;We have never said she invented anything. Paragraph 5 of our skeleton says the opposite. And my learned friend says the film cannot be trusted because it does not fit the verdict. With respect, that is a circle. The film was tested on its own: by the last number 7 bus, and by the 999 call. It passed.&rdquo;',
+          'Lady Justice Lanyon looks at her over her glasses. &ldquo;Ms Lorimer, are you asking us to find that your client did not set this fire?&rdquo;',
+          '&ldquo;No, my Lady. I am asking the court to find that his conviction is unsafe. Whether anybody set that fire has never been proved.&rdquo;',
+          'The three judges lean together for a moment, like people sharing an umbrella. &ldquo;We will rise,&rdquo; says Lady Justice Lanyon. &ldquo;We will give judgment at five past two.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('<b>Click a point</b>, then name it: a <b>fair point</b> to let go, or a bad argument. For a bad one, choose the paper that <b>answers</b> it. Then pass the notes.');
+    hnBox = box; keep();
+    ER.open('ov-lock', box, function () { hnBox = null; });
+  }
+})();
+</script>
+</body>
+</html>
