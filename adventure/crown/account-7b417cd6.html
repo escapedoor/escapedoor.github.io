@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Records Room · Before the Doors Open</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="crown.css">
+<style>
+  body{--bg:#241c16;--accent:#d9a86a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(28,20,14,.95);--tc-ink:#f2e8d8;--cap-bg:rgba(28,20,14,.93);--panel:#2a2018;--face-bg:#352a1f;--q-ink:#e6c48a;--fade:#0c0804;--hud-bg:rgba(28,20,14,.82)}
+  .lamp{animation:lm 5s steps(3,end) infinite alternate}
+  @keyframes lm{to{opacity:.95}}
+  .dust{animation:du 11s linear infinite}
+  @keyframes du{to{transform:translateY(-40px)}}
+  /* the worktable lock */
+  .bx.acc{width:min(1020px,97vw)}
+  .bx.acc .board{background:#2a2018 linear-gradient(170deg,rgba(255,255,255,.05),rgba(0,0,0,.25));border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.7);padding:16px 18px 14px}
+  .accgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .stmt{background:#f3ead6;color:#2a2116;border-left:6px solid #7a5a2a;padding:10px 12px 10px;transform:rotate(-.6deg);box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .stmt:nth-child(2){transform:rotate(.7deg)}
+  .stmt h5{margin:0 0 2px;font-family:'Limelight',serif;font-weight:normal;font-size:17px;color:#4a2a1a}
+  .stmt .role{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7a5a2a;margin-bottom:6px}
+  .stmt p{margin:0 0 6px;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.34}
+  .verdict{width:100%;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;padding:7px 4px 5px;border:2px solid #7a5a2a;background:#fffdf3;color:#7a5a2a;cursor:pointer;text-transform:uppercase}
+  .verdict.saw{background:#2f6a4a;border-color:#2f6a4a;color:#fff}
+  .verdict.mistaken{background:#b08a2a;border-color:#8a6a1a;color:#fff}
+  .verdict.covering{background:#9a4a2a;border-color:#7a3a1a;color:#fff}
+  .panelstrip{margin:12px 0 10px;padding:9px 14px;background:#0c130f;color:#7bd88a;font-family:'Special Elite',monospace;font-size:14px;line-height:1.4;border-left:5px solid #2a3a2e}
+  .concl{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:10px 14px;background:rgba(243,234,214,.95);color:#2a2116;border-left:6px solid #7a5a2a}
+  .concl label{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-right:4px}
+  .rooms4{display:inline-flex;gap:6px}
+  .rm{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;padding:6px 10px 4px;border:2px solid #7a5a2a;background:#fffdf3;color:#2a2116;cursor:pointer}
+  .rm.on{background:#2f6a4a;border-color:#2f6a4a;color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e241a"/><stop offset="1" stop-color="#17110a"/></linearGradient>
+  <radialGradient id="lampR" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffdf9a" stop-opacity=".55"/><stop offset="1" stop-color="#ffdf9a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigR" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".72"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallR)"/>
+<rect x="-1000" y="700" width="3600" height="620" fill="#1a130c"/>
+<!-- shelves of boxes, floor to ceiling -->
+<g id="shelf" class="hot"><g fill="#3a2c1c" stroke="#15100a" stroke-width="3">
+  <rect x="60" y="120" width="360" height="560"/></g>
+  <g fill="#6a5636" stroke="#2a2014" stroke-width="2">
+  <rect x="76" y="140" width="150" height="90"/><rect x="240" y="140" width="164" height="90"/><rect x="76" y="250" width="110" height="90"/><rect x="200" y="250" width="204" height="90"/><rect x="76" y="360" width="200" height="90"/><rect x="290" y="360" width="114" height="90"/><rect x="76" y="470" width="150" height="90"/><rect x="240" y="470" width="164" height="90"/><rect x="76" y="580" width="330" height="90"/></g>
+  <g font-family="Special Elite" font-size="12" fill="#1c140c"><text x="150" y="196">1902</text><text x="322" y="196">1911</text><text x="130" y="306">1920</text><text x="300" y="306">1931</text><text x="176" y="416">1948</text><text x="347" y="416">1955</text><text x="150" y="526">1963</text><text x="322" y="526">1971</text></g></g>
+<!-- the table and lamp -->
+<g id="table"><rect x="520" y="620" width="760" height="40" rx="6" fill="#4a3826"/><rect x="560" y="660" width="40" height="150" fill="#33261a"/><rect x="1200" y="660" width="40" height="150" fill="#33261a"/></g>
+<g id="lamp" class="hot"><path d="M900 420v200" stroke="#2a2014" stroke-width="6"/><path d="M856 420h88l-20 -40h-48z" fill="#3a2a1a"/><ellipse class="lamp" cx="900" cy="440" rx="150" ry="120" fill="url(#lampR)"/></g>
+<!-- the three statements on the table -->
+<g id="papers" class="hot"><g transform="rotate(-4 680 600)"><rect x="620" y="540" width="130" height="80" fill="#f3ead6" stroke="#15100a" stroke-width="2"/><g stroke="#9a8a6a" stroke-width="1.5"><path d="M632 556h106M632 568h90M632 580h106M632 592h70"/></g></g>
+  <g transform="rotate(3 900 596)"><rect x="840" y="540" width="130" height="80" fill="#f3ead6" stroke="#15100a" stroke-width="2"/><g stroke="#9a8a6a" stroke-width="1.5"><path d="M852 556h106M852 568h86M852 580h106M852 592h94"/></g></g>
+  <g transform="rotate(-2 1120 598)"><rect x="1060" y="540" width="130" height="80" fill="#f3ead6" stroke="#15100a" stroke-width="2"/><g stroke="#9a8a6a" stroke-width="1.5"><path d="M1072 556h106M1072 568h80M1072 580h106M1072 592h88"/></g></g></g>
+<!-- the panel printout, curling -->
+<g id="log" class="hot"><rect x="1300" y="470" width="150" height="150" fill="#eef2e8" stroke="#15100a" stroke-width="2"/><path d="M1300 470q75 -16 150 0" fill="none" stroke="#15100a" stroke-width="2"/><g stroke="#3a5a44" stroke-width="2"><path d="M1314 500h120M1314 516h120M1314 532h96M1314 556h120M1314 572h70"/></g></g>
+<!-- the curator -->
+<g id="crozier" class="hot"><ellipse cx="1340" cy="878" rx="66" ry="13" fill="#000" opacity=".3"/><g id="pcroz"></g></g>
+<g class="dust" opacity=".3"><circle cx="700" cy="300" r="2" fill="#d9c9a0"/><circle cx="1000" cy="250" r="1.6" fill="#d9c9a0"/><circle cx="1200" cy="340" r="2.2" fill="#d9c9a0"/><circle cx="520" cy="400" r="1.6" fill="#d9c9a0"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigR)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Line up the three accounts</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="crown.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, acc = null, nextFile = null;
+
+  $('#pcroz').innerHTML = CR.person(1340, 870, 1.04, { coat: '#4a3a52', skin: '#e4c2a2', hair: '#cfcac0', hat: 'bun', specs: 1, legs: '#2e2838' });
+
+  ER.init({
+    theme: 'adventure', story: 'crown', storyTitle: 'Before the Doors Open', id: 'account', no: 'III', title: 'The Records Room',
+    go: 'Where did it go?',
+    intro: [
+      'Camera 3 looks away for three minutes in every four. At twenty-one minutes past one, with Amory gone and the camera turned, you crossed the corridor unseen and reached the records room.',
+      'Three sheets lie under the lamp: three people who were in the building the night the crown left its case, a week ago last Tuesday. Each saw a little. None of them saw it all, and no two of them agree.',
+      'Dr Crozier says, &ldquo;Read all three, and the panel log. One of them is honestly wrong, and one of them is covering for somebody, and one of them is telling it straight. When you can say which is which, you will know where the crown is tonight &mdash; and that it never left this building at all.&rdquo;'
+    ],
+    exit: {"next":"studio","w":{"805fc62e":"df7dff3e"}}, tags: {"j1":["5b2e1e31"],"j2":["81879acc"],"j3":["43d7bf9d"],"corr":["6119c6be"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a-told') || {}; nextFile = ER.flag('a-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.read3 || nextFile));
+    b.textContent = nextFile ? 'Up to the studio' : 'Line up the three accounts';
+    ER.pips((told.croz ? 1 : 0) + (told.read3 ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The crown is in the studio, where Dominic worked. Up the service stair.']];
+    if (!told.croz) return ['croz', ['Hear Dr Crozier out, then read the three statements and the panel printout on the table.']];
+    if (!told.read3) return ['read', ['Read all four papers into your notebook: Ebden, Carmody and Amory, and the Dovecourt panel log. Watch the times.']];
+    return ['acc', [
+      'The panel stamped Ebden&rsquo;s round at 21:53, but he wrote 22:05 by his own watch. His watch runs twelve minutes fast, so he is honestly wrong &mdash; mistaken, not lying.',
+      'Carmody says she locked the east door at ten and saw nobody, but Amory saw that door open at a quarter past ten. She did not forget; she is covering for the boy. Amory&rsquo;s account fits every fact.',
+      'So nothing left by the east door but Delia&rsquo;s trolley. The studio light burned until twenty past ten, and Dominic rode off at half past. The crown is in the studio; he left, empty-handed, at 22:20.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The records room. The crown is upstairs in the studio; Dominic left at twenty past ten.'); return; }
+    if (told.intro) { busy = false; ER.say('Three statements and a panel log. Read them, then say who is wrong and who is covering.'); return; }
+    ER.narrate([
+      'The records room is all shelves: brown boxes by the year, back to the beginning of the museum. In the middle, a table, a green-shaded lamp, and three statements the curator took this week.',
+      'She has not shown them to the guards, or the trustees, or the police. &ldquo;I wanted to understand it,&rdquo; she says, &ldquo;before anybody else could get it wrong.&rdquo;',
+      'A long curl of panel printout hangs off the edge of the table, like a till receipt that will not end.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the curator ---------- */
+  $('#crozier').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Up you go,&rdquo; says Dr Crozier. &ldquo;Ebden is upstairs until twenty-five to two. After that the studio is ours for a while.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Adela Crozier', role: 'Curator · in the records room', face: window.FACE('crozier'),
+      lines: [
+        { note: 'She lays a hand flat on the three sheets.', a: '&ldquo;Three people were here that Tuesday night. Cecil Ebden, in his first week. Delia Carmody, who cleans the evenings. And Dermot Amory, who has walked this building longer than you have been alive.&rdquo;' },
+        { q: 'And the panel log?', a: 'The intruder panel stamps the time whenever an officer keys in to start a round. It cannot be fooled by a wristwatch. Read it against what Ebden wrote, and you will see why a keen young man can be certain and still be wrong. Certainty is a dangerous habit. I have it myself.' },
+        { q: 'Why does it matter where it went?', a: 'Because the obvious story &mdash; a figure in a dark coat, out of the east door at five past ten, crown and all &mdash; is the wrong story, and the wrong story would send the police looking off down the road while the crown sat quietly upstairs. Get the three accounts straight, and you will see it never left the building. Then we go and fetch it.' }
+      ],
+      clue: { id: 'croz3', title: 'Dr Crozier, on the three accounts', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        CR.words(['statement', 'witness', 'account', 'cover for']);
+        if (tell('croz')) { paint(); ER.say('Read Ebden, Carmody, Amory, and the panel log.'); }
+      }
+    });
+  });
+
+  /* ---------- the four papers ---------- */
+  var EB = '<div class="who">Statement of C. Ebden, night officer</div><h4>&ldquo;A figure in a dark coat&rdquo;</h4>' +
+    '<p>I came on at ten. At five past ten by my watch I keyed in at the panel on the landing above the long gallery to start my first round, and as I did I saw a figure in a dark coat go out through the east door below me. I did not see a face.</p>' +
+    '<p>By the time I had got down the stair the door was shut. I wrote it in the log at once: <b>22:05, east door, one person out</b>. I am certain of the time. I always write the time.</p>';
+  var CA = '<div class="who">Statement of D. Carmody, cleaner</div><h4>&ldquo;I saw nobody&rdquo;</h4>' +
+    '<p>I finish at ten. I locked the east door at ten o&rsquo;clock, as I always do, and I saw nobody at all while I was here.</p>' +
+    '<p>The boy &mdash; Dominic &mdash; was not in that night. He never comes of an evening. I put my things away and went straight home.</p>';
+  var AM = '<div class="who">Statement of D. Amory, night officer</div><h4>&ldquo;The light was still on&rdquo;</h4>' +
+    '<p>I had the ground floor. As I came down from the gallery at a quarter past ten, the east door was open &mdash; not locked, open.</p>' +
+    '<p>The studio light was still on. It stayed on until twenty past. Young Dominic&rsquo;s bicycle was in the yard until half past; I heard him ride off while I was locking up. A nice lad. He helps in the studio on a Saturday.</p>';
+  var LOG = '<h4>DOVECOURT &middot; INTRUDER PANEL &middot; AUTO-LOG</h4>' +
+    '<p>TUE. C. EBDEN &mdash; ROUND 1 &mdash; commenced <b>21:53</b>.</p>' +
+    '<p>TUE. D. AMORY &mdash; ROUND 1 &mdash; commenced 22:00.</p>' +
+    '<p class="pen">The panel stamps each round when the officer keys in. Ebden keyed in at 21:53 but wrote 22:05 in his own log: his watch runs about twelve minutes fast. &mdash; A. C.</p>';
+  function readAll() {
+    ER.read({ html: EB, cls: 'statement', clue: { id: 'st-ebden', title: 'Ebden&rsquo;s statement', kind: 'A week ago' }, done: function () {
+      ER.read({ html: CA, cls: 'statement', clue: { id: 'st-carmody', title: 'Carmody&rsquo;s statement', kind: 'A week ago' }, done: function () {
+        ER.read({ html: AM, cls: 'statement', clue: { id: 'st-amory', title: 'Amory&rsquo;s statement', kind: 'A week ago' }, done: function () {
+          ER.read({ html: LOG, cls: 'rota', clue: { id: 'st-log', title: 'The panel auto-log', kind: 'The machine&rsquo;s own time' }, done: function () {
+            CR.words(['mistaken', 'reliable', 'figure', 'overhear']);
+            if (tell('read3')) { paint(); ER.say('Ebden by his watch: 22:05. The panel: 21:53. Twelve minutes fast.'); }
+          } });
+        } });
+      } });
+    } });
+  }
+  $('#papers').addEventListener('click', function () { if (!busy) readAll(); });
+  $('#log').addEventListener('click', function () { if (busy) return; ER.read({ html: LOG, cls: 'rota', clue: { id: 'st-log', title: 'The panel auto-log', kind: 'The machine&rsquo;s own time' }, done: function () { CR.words(['mistaken']); } }); });
+  CR.thing('#shelf', null, 'Boxes by the year, back to 1902. The crown has no box: it has a case, in the hall, and it has been empty for a week.', isBusy);
+  CR.thing('#lamp', null, 'A green-shaded lamp, the only light that is allowed to be on in here. It makes a small warm island on the table.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!told.read3) { ER.say('Read the three statements and the panel log first.'); return; }
+    if (!acc) acc = makeAcc();
+    acc.open();
+  });
+
+  /* ---------- line up the accounts ---------- */
+  function makeAcc() {
+    var box = ER.el('div', 'bx acc'), msgEl, wait = false, verd = { ebden: '—', carmody: '—', amory: '—' }, place = null, etime, ltime;
+    var CY = ['—', 'saw', 'mistaken', 'covering'];
+    var SUM = {
+      ebden: ['C. Ebden', 'night officer', 'Saw a dark-coated figure leave by the east door &mdash; at 22:05 by his watch. The panel says he keyed in at 21:53.'],
+      carmody: ['D. Carmody', 'cleaner', '&ldquo;Locked the east door at ten; saw nobody; the boy was not here.&rdquo; But Amory found that door open at a quarter past ten.'],
+      amory: ['D. Amory', 'night officer', 'East door open at 22:15. Studio light on until 22:20. Dominic&rsquo;s bicycle in the yard until 22:30.']
+    };
+    var g = '<div class="board"><div class="accgrid">';
+    ['ebden', 'carmody', 'amory'].forEach(function (id) {
+      g += '<div class="stmt"><h5>' + SUM[id][0] + '</h5><div class="role">' + SUM[id][1] + '</div><p>' + SUM[id][2] + '</p><button type="button" class="verdict" data-p="' + id + '">who is this?</button></div>';
+    });
+    g += '</div><div class="panelstrip">AUTO-LOG &middot; TUE &middot; C. EBDEN ROUND 1 commenced <b>21:53</b> &nbsp; (his log says 22:05)</div>' +
+      '<div class="concl"><label>Ebden&rsquo;s true time</label><span id="et"></span>' +
+      '<label>Where is the crown now?</label><span class="rooms4"><button type="button" class="rm" data-r="hall">Great Hall</button><button type="button" class="rm" data-r="gallery">Long Gallery</button><button type="button" class="rm" data-r="studio">Studio</button><button type="button" class="rm" data-r="stores">Stores</button></span>' +
+      '<label>Dominic left at</label><span id="lt"></span></div></div>';
+    box.innerHTML = g + '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="tell">Tell Dr Crozier</button></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    box.querySelectorAll('.verdict').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var p = b.getAttribute('data-p'), i = (CY.indexOf(verd[p]) + 1) % CY.length; verd[p] = CY[i];
+        b.className = 'verdict ' + (verd[p] === '—' ? '' : verd[p]); b.textContent = verd[p] === '—' ? 'who is this?' : verd[p];
+        CR.sfx.pen();
+      });
+    });
+    box.querySelectorAll('.rm').forEach(function (b) {
+      b.addEventListener('click', function () { place = b.getAttribute('data-r'); box.querySelectorAll('.rm').forEach(function (o) { o.classList.toggle('on', o === b); }); CR.tick(); });
+    });
+    var ETL = ['21:45', '21:48', '21:50', '21:53', '21:56', '22:00', '22:05', '22:08'];
+    var LTL = ['22:10', '22:15', '22:20', '22:25', '22:30'];
+    etime = CR.count(box.querySelector('#et'), { list: ETL, start: 6, show: function (v) { return v; } });
+    ltime = CR.count(box.querySelector('#lt'), { list: LTL, start: 0, show: function (v) { return v; } });
+    function noColon(v) { return v.replace(':', ''); }
+    box.querySelector('#tell').addEventListener('click', function () {
+      if (wait) return;
+      if (verd.ebden === '—' || verd.carmody === '—' || verd.amory === '—') { ER.sfx.no(); msg('Say who each of the three is: the one who saw, the one who is mistaken, the one who is covering.'); return; }
+      if (!ER.check('j1', verd.ebden)) { ER.sfx.no(); msg(verd.ebden === 'covering' ? '&ldquo;Ebden has nothing to hide,&rdquo; says Dr Crozier. &ldquo;He is simply wrong about the time.&rdquo;' : '&ldquo;Ebden is honest &mdash; but his watch is twelve minutes fast. That is <b>mistaken</b>, not telling it straight.&rdquo;'); return; }
+      if (!ER.check('j2', verd.carmody)) { ER.sfx.no(); msg(verd.carmody === 'mistaken' ? 'She did not misremember. Amory saw the door she &ldquo;locked&rdquo; standing open. She changed the story on purpose: she is <b>covering</b>.' : 'Her locked door cannot be true. She is <b>covering</b> for the boy.'); return; }
+      if (!ER.check('j3', verd.amory)) { ER.sfx.no(); msg('Amory&rsquo;s account fits every other fact &mdash; the open door, the light, the bicycle. He simply <b>saw</b>.'); return; }
+      if (!ER.check('corr', noColon(etime.get()))) { ER.sfx.no(); msg('The panel keyed Ebden in at 21:53. His watch is twelve minutes fast, so his &ldquo;22:05&rdquo; was really <b>21:53</b>. Set it there.'); return; }
+      if (!place) { ER.sfx.no(); msg('And where is the crown now? Nothing left the building.'); return; }
+      var file = ER.exit([place + '|' + noColon(ltime.get())], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg(place === 'gallery' || place === 'hall' ? 'The crown is not downstairs. The studio light burned until twenty past ten: Dominic was working up there, not down here.' :
+          place === 'stores' ? 'Close &mdash; but the light that burned was the <b>studio</b> light, and the studio is where the boy had a key.' :
+          'The only thing that went out the east door was Delia&rsquo;s trolley, at 21:53. Dominic&rsquo;s studio light was on until <b>22:20</b>; that is when he left, empty-handed.');
+        return;
+      }
+      wait = true; CR.sfx.stamp();
+      nextFile = file; ER.flag('a-file', file);
+      CR.mine('aacc', 'The night it moved, worked out', '<p>Ebden: <i>mistaken</i> (watch 12 min fast; his 22:05 = 21:53). Carmody: <i>covering</i> for Dominic (the &ldquo;locked&rdquo; east door was open at 22:15). Amory: <i>saw</i>, and fits every fact.</p><p>The dark-coated figure at 21:53 was Delia&rsquo;s trolley going to the bins. The crown never left: it is in the <b>studio</b>, where Dominic worked until <b>22:20</b> before riding home.</p>');
+      msg('&ldquo;There,&rdquo; says Dr Crozier. &ldquo;Not a thief down the road. A boy upstairs, and a crown that never left the building.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Dr Crozier folds the three statements together, the true one on top.',
+          '&ldquo;The figure at the door was Delia,&rdquo; she says, &ldquo;with a dust-sheet over her trolley, taking the rubbish out, exactly as she does every night. Cecil saw a coat and a shut door and wrote down a crime.&rdquo;',
+          'She looks at the ceiling, towards the studio. &ldquo;And Dominic&rsquo;s light was on until twenty past ten, because Dominic was hiding something. Come. Ebden comes off the upper floor at twenty-five to two.&rdquo;'
+        ], function () { busy = false; });
+      }, 2600);
+    });
+    msg('Name each of the three (click the buttons until the word fits). Set Ebden&rsquo;s true time from the panel. Then say where the crown is, and when Dominic left.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Security Office · Before the Doors Open</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="crown.css">
+<style>
+  body{--bg:#101822;--accent:#6fd0e0;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,16,24,.95);--tc-ink:#e6f2f6;--cap-bg:rgba(10,16,24,.93);--panel:#132030;--face-bg:#1b2a3a;--q-ink:#9fe6f2;--fade:#05090f;--hud-bg:rgba(10,16,24,.82)}
+  .scan line{animation:sc 3.5s linear infinite}
+  @keyframes sc{from{transform:translateY(-60px)}to{transform:translateY(120px)}}
+  .flick{animation:fl 7s steps(2,end) infinite}
+  @keyframes fl{0%,94%{opacity:.5}95%{opacity:.2}96%{opacity:.5}}
+  /* the timeline window */
+  .bx.win{width:min(1020px,97vw)}
+  .bx.win .frame{background:#0e1a24}
+  .cell{cursor:pointer}
+  .cell rect{fill:#13303a}
+  .cell:hover rect{fill:#1d4a56}
+  .cell.on rect{fill:#2f7d4a;stroke:#9fe6a2;stroke-width:2}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallO" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2838"/><stop offset="1" stop-color="#0d151f"/></linearGradient>
+  <radialGradient id="scrO" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#1e4a3a"/><stop offset="1" stop-color="#0a1c18"/></radialGradient>
+  <radialGradient id="vigO" cx="50%" cy="48%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallO)"/>
+<rect x="-1000" y="720" width="3600" height="600" fill="#182230"/>
+<path d="M-1000 720H2600" stroke="#2a3a4a" stroke-width="4"/>
+<!-- the bank of four monitors -->
+<g id="screens" class="hot">
+  <rect x="470" y="120" width="680" height="430" rx="10" fill="#0a1016" stroke="#2a3a4a" stroke-width="6"/>
+  <g font-family="Josefin Sans" font-weight="700" font-size="13" fill="#5fd0a0" text-anchor="middle">
+  <g><rect x="495" y="146" width="300" height="180" fill="url(#scrO)" stroke="#123" stroke-width="2"/><text x="645" y="166">CAM 1 &middot; GREAT HALL</text>
+    <rect x="600" y="210" width="90" height="70" fill="none" stroke="#2f7d5a" stroke-width="2"/><path d="M645 210v70M600 245h90" stroke="#1e5a40" stroke-width="1.5"/></g>
+  <g><rect x="825" y="146" width="300" height="180" fill="url(#scrO)" stroke="#123" stroke-width="2"/><text x="975" y="166">CAM 2 &middot; FRONT ENTRANCE</text>
+    <path d="M900 300h150M930 300v-70h90v70" stroke="#2f7d5a" stroke-width="2" fill="none"/></g>
+  <g><rect x="495" y="350" width="300" height="180" fill="url(#scrO)" stroke="#123" stroke-width="2"/><text x="645" y="370">CAM 3 &middot; LONG GALLERY</text>
+    <path d="M520 500h250M540 500l40 -120h120l40 120" stroke="#2f7d5a" stroke-width="2" fill="none"/><rect x="740" y="420" width="26" height="80" fill="none" stroke="#9fe6a2" stroke-width="2"/></g>
+  <g><rect x="825" y="350" width="300" height="180" fill="url(#scrO)" stroke="#123" stroke-width="2"/><text x="975" y="370">CAM 4 &middot; BAY (NO SIGNAL)</text>
+    <path d="M850 500h250M870 500v-90h210v90M900 410v90" stroke="#2f7d5a" stroke-width="2" fill="none"/></g>
+  </g>
+  <g class="scan" opacity=".16"><line x1="470" y1="120" x2="1150" y2="120" stroke="#8fffcf" stroke-width="40"/></g>
+</g>
+<!-- the Dovecourt rota, pinned -->
+<g id="rota" class="hot"><rect x="1230" y="150" width="160" height="210" fill="#eef2e8" stroke="#0d151f" stroke-width="4" transform="rotate(2 1310 255)"/>
+  <g transform="rotate(2 1310 255)"><rect x="1230" y="150" width="160" height="20" fill="#3a5a44"/><g stroke="#8a94a0" stroke-width="2"><path d="M1246 200h128M1246 220h128M1246 240h110M1246 260h128M1246 280h100M1246 300h128M1246 320h90"/></g></g>
+  <circle cx="1310" cy="158" r="6" fill="#c23"/></g>
+<!-- the camera card, laminated -->
+<g id="card" class="hot"><rect x="250" y="250" width="180" height="120" rx="10" fill="#dfeaf0" stroke="#1d3a52" stroke-width="7"/><g stroke="#5a7a8a" stroke-width="2.5"><path d="M272 286h140M272 308h120M272 330h140M272 352h86"/></g><text x="340" y="278" class="sj" font-size="12" fill="#1d3a52">CAMERAS</text></g>
+<!-- the building plan, framed -->
+<g id="plan" class="hot"><rect x="230" y="430" width="220" height="200" fill="#15314a" stroke="#0d151f" stroke-width="6"/><g stroke="#7aa0c0" stroke-width="2" fill="none"><rect x="250" y="452" width="80" height="60"/><rect x="330" y="452" width="100" height="60"/><rect x="250" y="512" width="180" height="40"/><rect x="250" y="552" width="90" height="60"/><rect x="340" y="552" width="90" height="60"/></g>
+  <text x="340" y="446" class="sj" font-size="11" fill="#bcd8f0">PLAN</text></g>
+<!-- desk, keys, mug, chair -->
+<g id="desk"><rect x="470" y="640" width="900" height="30" fill="#2a3644"/><rect x="520" y="670" width="40" height="120" fill="#202a36"/><rect x="1280" y="670" width="40" height="120" fill="#202a36"/></g>
+<g id="keys" class="hot"><rect x="1430" y="430" width="120" height="150" fill="#16222e" stroke="#2a3a4a" stroke-width="3"/><g stroke="#8a94a0" stroke-width="2"><path d="M1450 460v30M1480 460v26M1510 460v32M1450 510v28M1490 510v24M1525 510v30"/></g><g fill="#c9a24a"><circle cx="1450" cy="494" r="6"/><circle cx="1480" cy="490" r="6"/><circle cx="1510" cy="496" r="6"/><circle cx="1450" cy="542" r="6"/><circle cx="1490" cy="538" r="6"/><circle cx="1525" cy="544" r="6"/></g></g>
+<g id="mug" class="hot"><ellipse cx="1180" cy="648" rx="26" ry="8" fill="#20303a"/><path d="M1156 644q6 36 48 0z" fill="#3a4a58"/><path d="M1204 640q22 4 14 26" stroke="#3a4a58" stroke-width="5" fill="none"/></g>
+<!-- the curator -->
+<g id="crozier" class="hot"><ellipse cx="760" cy="878" rx="68" ry="13" fill="#000" opacity=".3"/><g id="pcroz"></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigO)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">When is the corridor clear?</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="crown.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, win = null, nextFile = null;
+
+  $('#pcroz').innerHTML = CR.person(760, 870, 1.06, { coat: '#4a3a52', skin: '#e4c2a2', hair: '#cfcac0', hat: 'bun', specs: 1, legs: '#2e2838' });
+
+  ER.init({
+    theme: 'adventure', story: 'crown', storyTitle: 'Before the Doors Open', id: 'office', no: 'II', title: 'The Security Office',
+    go: 'Cross to the records room',
+    intro: [
+      'The wicket code was the number of years the crown lay in the mere: 1840 less 1503, three hundred and thirty-seven. The bolt drew back, and you were in.',
+      'The security office is the one bright room in a dark museum: four green screens, a wall of keys, the warm electric hum of machines that never sleep. The night guards are not here. They are out walking the building, on a schedule, and the schedule is on these walls.',
+      'Dr Crozier wants to reach the records room, where she has laid out what she learned this week. It is up the back stairs, at the end of the Long Gallery, beside the service-stair door &mdash; and that door is under Camera 3, and a guard is walking the ground floor and the gallery right now. &ldquo;Before we move a step,&rdquo; she says, &ldquo;we work out when a step is safe.&rdquo;'
+    ],
+    exit: {"next":"account","w":{"e6b70d5e":"cdd075d4"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('o-told') || {}; nextFile = ER.flag('o-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('o-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.croz || nextFile));
+    b.textContent = nextFile ? 'Cross to the records room' : 'When is the corridor clear?';
+    ER.pips((told.croz ? 1 : 0) + (told.rota && told.card ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Twenty-one minutes past one. Go now, before the camera comes back to the door.']];
+    if (!told.croz) return ['croz', ['Dr Crozier is at the desk. She will show you what the screens and the papers are for.']];
+    if (!(told.rota && told.card)) return ['read', ['Two papers hold the answer: the Dovecourt rota (pinned on the right) and the camera card (laminated, on the left). Read both into your notebook. The plan is worth a look too.']];
+    return ['win', [
+      'Amory walks the ground floor from one o&rsquo;clock. His round takes twenty minutes, so the corridor is his until 01:20. Until then, no.',
+      'Camera 3 rests on the service-stair door for one minute in every four: at 01:02, 01:06, 01:10, 01:14, 01:18, 01:22, 01:26. Those minutes are no good either.',
+      'So you want the first minute after 01:20 that is not two-past-a-four. 01:21 is clear, and it is the earliest. Every minute you wait, the night changes.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The office. The corridor to the records room is clear at twenty-one minutes past one.'); return; }
+    if (told.intro) { busy = false; ER.say('The security office. Read the rota and the camera card, then find the clear minute.'); return; }
+    ER.narrate([
+      'On the screens: the great hall, grey and huge; the front doors; the long gallery, with a white box drawn round one door; and a fourth screen that has shown nothing but snow since the spring. Nobody on any of them, for the moment.',
+      'Dr Crozier taps the screen with the white box. &ldquo;Camera 3. It sweeps the long gallery, and it will not stop staring at that one door &mdash; the service stair &mdash; for exactly one minute in every four. The rest of the time it is looking the other way.&rdquo;',
+      'She pulls a chair round. &ldquo;The guards are on a clock. The camera is on a clock. We are going to put ourselves in the gap between them.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the curator ---------- */
+  $('#crozier').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Quietly, now,&rdquo; says Dr Crozier. &ldquo;Twenty-one past, and not a sound on the stair.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Adela Crozier', role: 'Curator · at the desk', face: window.FACE('crozier'),
+      lines: [
+        { note: 'She pours cold tea from the guard&rsquo;s mug and does not drink it.', a: '&ldquo;Two guards tonight, both Dovecourt&rsquo;s. Dermot Amory has the ground floor &mdash; the bay, this hall, the long gallery. Cecil Ebden has upstairs &mdash; the studio, the stores, the reading room. Each starts a round every three-quarters of an hour, a quarter of an hour apart, and a round takes twenty minutes. Between rounds they sit at the front desk and watch the panel.&rdquo;' },
+        { q: 'Which of them took it?', a: 'Neither. But one of them saw something a week ago, and got it wrong, and I will show you that in the next room. Tonight they are simply the clock we have to beat. Dermot is an old friend of this museum. Cecil is two weeks in and keen as mustard, and keen is dangerous.' },
+        { q: 'So what do I work out?', a: 'When the way to the records room is empty of both a guard and a camera. Amory&rsquo;s round from one o&rsquo;clock takes in the gallery; the way is his until twenty past. Camera 3 rests on the stair door at the minutes the card gives you. Find the first minute that is clear of both. The earliest one. We do not waste the night.' }
+      ],
+      clue: { id: 'croz2', title: 'Dr Crozier, in the office', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        CR.words(['rota', 'round', 'patrol', 'sweep']);
+        if (tell('croz')) { paint(); ER.say('Read the rota and the camera card, then set the clock to the clear minute.'); }
+      }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var ROTA = '<h4>DOVECOURT SECURITY &middot; NIGHT ROTA</h4>' +
+    '<p>Caldmere Museum. Two officers. Rounds of 20 minutes; panel watch between.</p>' +
+    '<table><tr><th>Round begins</th><th>D. Amory &mdash; GROUND</th><th>C. Ebden &mdash; UPPER</th></tr>' +
+    '<tr><td>00:15 / 00:30</td><td>Bay, Hall, Gallery</td><td>Studio, Stores, Reading Room</td></tr>' +
+    '<tr><td>01:00 / 01:15</td><td>Bay, Hall, Gallery</td><td>Studio, Stores, Reading Room</td></tr>' +
+    '<tr><td>01:45 / 02:00</td><td>Bay, Hall, Gallery</td><td>Studio, Stores, Reading Room</td></tr>' +
+    '<tr><td>02:30 / 02:45</td><td>Bay, Hall, Gallery</td><td>Studio, Stores, Reading Room</td></tr>' +
+    '<tr><td>03:15 / 03:30</td><td>Bay, Hall, Gallery</td><td>Studio, Stores, Reading Room</td></tr></table>' +
+    '<p class="pen">Amory on ground (left column); Ebden on upper (right). Each round 20 min long. A. C.</p>';
+  var CARD = '<h4>CAMERAS &middot; CALDMERE</h4>' +
+    '<table><tr><td>Cam 1</td><td>Great Hall &mdash; fixed, wide. Watched live from the front desk; does not record.</td></tr>' +
+    '<tr><td>Cam 2</td><td>Front Entrance &mdash; fixed.</td></tr>' +
+    '<tr><td>Cam 3</td><td>Long Gallery &mdash; <b>sweeps</b>. Holds on the service-stair door for one minute in every four: the minute that begins at every time whose minute is <b>02, 06, 10, 14, 18, 22, 26</b>&hellip; (two past each four). The rest of each cycle the door is in its <b>blind arc</b>.</td></tr>' +
+    '<tr><td>Cam 4</td><td>Loading Bay &mdash; fixed. Broken since the spring: not recording.</td></tr></table>' +
+    '<p class="sm">In short: Camera 3 can see the stair door only at :02 :06 :10 :14 :18 :22 :26 of any hour. Every other minute, it cannot.</p>';
+  var PLAN = '<h4>THE CALDMERE MUSEUM &middot; PLAN</h4>' +
+    '<p><b>Ground floor.</b> Loading Bay (back) &rarr; Security Office &rarr; the back stairs. The Great Hall is the centre, under the skylight, with the crown&rsquo;s empty case on its plinth.</p><p><b>First floor.</b> The Long Gallery and the Egyptian Room, joined to the hall below by the grand staircase. At the west end, beside the service-stair door, the Records Room.</p>' +
+    '<p><b>Top floor.</b> The Conservation Studio, the Stores and the Reading Room. The <b>service stair</b> joins the studio to the Long Gallery below.</p>' +
+    '<p class="pen">Keep off Camera 3&rsquo;s door, and out of a guard&rsquo;s round, and you may walk anywhere.</p>';
+  $('#rota').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ROTA, cls: 'rota', clue: { id: 'rota', title: 'Dovecourt night rota', kind: 'Pinned in the office' }, done: function () {
+      CR.words(['patrol']);
+      if (tell('rota')) { paint(); ER.say('Amory: ground, from one o&rsquo;clock, twenty minutes. Ebden: upstairs, from a quarter past.'); }
+    } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'The camera card', kind: 'Laminated, on the wall' }, done: function () {
+      CR.words(['sweep', 'blind arc']);
+      if (tell('card')) { paint(); ER.say('Camera 3 sees the door only at two-past-every-four. Keep off those minutes.'); }
+    } });
+  });
+  $('#plan').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PLAN, cls: 'plan', clue: { id: 'plan', title: 'The building plan', kind: 'Framed on the wall' }, done: function () {
+      CR.words(['gallery', 'corridor', 'service stair']);
+      if (tell('plan')) ER.say('The service stair joins the studio above to the long gallery below. Camera 3 watches its door.');
+    } });
+  });
+
+  CR.thing('#screens', null, 'Four green screens: the hall, the front doors, the long gallery with a white box drawn round the service-stair door, and the dead loading-bay camera, all snow. Nobody on any of them, for now.', isBusy);
+  CR.thing('#keys', null, 'A board of labelled keys on brass hooks. The curator&rsquo;s own master key is not among them; it is on the chain round her neck.', isBusy);
+  CR.thing('#mug', null, 'A guard&rsquo;s mug of cold tea, a folded newspaper, and a half-eaten sandwich. Somebody will be back at the half-hour.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!told.croz) { ER.say('Dr Crozier: &ldquo;First the papers, then the clock.&rdquo;'); return; }
+    if (!win) win = makeWin();
+    win.open();
+  });
+
+  /* ---------- the timeline: when is the corridor clear? ---------- */
+  function makeWin() {
+    var box = ER.el('div', 'bx win'), svg, msgEl, pick = null, wait = false;
+    function X(rel) { return 70 + rel * 31; }
+    var s = '<rect width="1020" height="300" fill="#0e1a24"/><text x="510" y="30" class="sz" font-size="16" letter-spacing="3" fill="#6fd0e0">THE CLEAR MINUTE &middot; ONE O&rsquo;CLOCK</text>';
+    /* the axis */
+    for (var r = 0; r <= 27; r++) {
+      s += '<path d="M' + X(r) + ' 150v' + (r % 5 ? 6 : 12) + '" stroke="#3a5a6a" stroke-width="1.5"/>';
+      if (r % 5 === 0) s += '<text x="' + X(r) + '" y="176" class="sj" font-size="11" fill="#6a8a9a">1:' + (r < 10 ? '0' : '') + r + '</text>';
+    }
+    s += '<path d="M' + X(0) + ' 150h' + (X(27) - X(0)) + '" stroke="#3a5a6a" stroke-width="2"/>';
+    /* Amory bar 01:00-01:20 */
+    s += '<text x="40" y="104" class="sj" font-size="11" fill="#e2a26a" text-anchor="end">AMORY</text>' +
+      '<rect x="' + (X(0) - 14) + '" y="86" width="' + (X(20) - X(0) + 28) + '" height="26" rx="4" fill="#7a4a2a" opacity=".85"/>' +
+      '<text x="' + ((X(0) + X(20)) / 2) + '" y="104" class="sj" font-size="11" fill="#ffd9b0">GROUND ROUND</text>';
+    /* camera watch ticks */
+    s += '<text x="40" y="136" class="sj" font-size="11" fill="#9fe6a2" text-anchor="end">CAM 3</text>';
+    for (r = 0; r <= 27; r++) if (CR.camWatches(r)) s += '<rect x="' + (X(r) - 13) + '" y="120" width="26" height="22" rx="3" fill="#2f7d5a"/><text x="' + X(r) + '" y="136" class="sj" font-size="10" fill="#d6ffe6">eye</text>';
+    /* you-cells */
+    s += '<text x="40" y="208" class="sj" font-size="11" fill="#cfe8f2" text-anchor="end">YOU</text>';
+    for (r = 0; r <= 27; r++) s += '<g class="cell" data-r="' + r + '"><rect x="' + (X(r) - 14) + '" y="190" width="28" height="30" rx="4" stroke="#2a4a56" stroke-width="1"/></g>';
+    s += '<text x="510" y="262" class="sc" font-size="20" fill="#6fd0e0">Click the minute to cross &mdash; clear of a guard and of Camera 3.</text>';
+    box.innerHTML = '<div class="frame"><svg viewBox="0 0 1020 300">' + s + '</svg></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="goc">Go now</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintPick() { ER.$$('.cell', svg).forEach(function (n) { n.classList.toggle('on', +n.getAttribute('data-r') === pick); }); }
+    svg.addEventListener('click', function (e) {
+      if (wait) return; var n = e.target.closest ? e.target.closest('.cell') : null; if (!n) return;
+      pick = +n.getAttribute('data-r'); CR.tick(); paintPick();
+      msg('You would cross at <b>1:' + (pick < 10 ? '0' : '') + pick + '</b>. Press Go when you are sure.');
+    });
+    box.querySelector('#goc').addEventListener('click', function () {
+      if (wait) return;
+      if (pick === null) { ER.sfx.no(); msg('Choose a minute first.'); return; }
+      if (pick <= 20) { ER.sfx.no(); msg('&ldquo;Amory is still down here,&rdquo; says Dr Crozier. &ldquo;His round runs until twenty past one. Wait.&rdquo;'); return; }
+      if (CR.camWatches(pick)) { ER.sfx.no(); msg('&ldquo;Camera 3 is resting on the door at 1:' + (pick < 10 ? '0' : '') + pick + '. It would see us. Try a minute that is not two-past-a-four.&rdquo;'); return; }
+      if (pick !== 21) { ER.sfx.no(); msg('&ldquo;Clear &mdash; but why lose the time?&rdquo; says Dr Crozier. &ldquo;There is an earlier window than that. Find the first one after twenty past.&rdquo;'); return; }
+      wait = true; CR.sfx.servo();
+      var file = ER.exit(['0121'], { wait: true });
+      if (!file) { msg('The way is not open.'); wait = false; return; }
+      nextFile = file; ER.flag('o-file', file);
+      CR.mine('owin', 'The clear minute, worked out', '<p>Amory on the ground floor 1:00 to 1:20. Camera 3 on the stair door at :02 :06 :10 :14 :18 :22 :26.</p><p>First minute clear of both: <b>1:21</b>. Cross then.</p>');
+      msg('&ldquo;Twenty-one past,&rdquo; says Dr Crozier. &ldquo;Amory gone, camera looking away. Now, and softly.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You slip out of the lit office, up the back stairs and into the dark end of the gallery. On the ceiling, Camera 3 hums round towards the far end, away from you.',
+          'Dr Crozier moves without a sound, a woman who has walked these floors for twenty-two years and knows which boards speak.',
+          'Beside the service-stair door a plain door says RECORDS. She unlocks it, and the two of you step into a room full of the week she has spent finding out the truth.'
+        ], function () { busy = false; });
+      }, 2400);
+    });
+    paintPick(); msg('Amory&rsquo;s round is the brown bar. Camera 3&rsquo;s staring minutes are the green boxes. Your clear minute is neither.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

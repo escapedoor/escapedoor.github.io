@@ -1,0 +1,146 @@
+/* Before the Doors Open - shared look for the story: the lettering, the frame round a piece of work, the papers that
+   can be read again in the notebook from any room, and a skin for the notebook, the hints and the word tags
+   (a brass-cornered museum wallet). Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:.34em;padding-left:.34em}
+.tc-room{font-family:'Limelight',serif;letter-spacing:.02em;font-size:clamp(32px,4.6vw,62px)}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.5vw,22.5px);line-height:1.46}
+.chip,.hbtn,.ov-x{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:3px}
+.btn{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:11px;padding-bottom:7px}
+.tc .btn{padding-top:14px;padding-bottom:10px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:14px 30px 10px;border:1px solid var(--accent,#c9a24a);
+  color:var(--accent,#c9a24a);background:var(--hud-bg,rgba(8,10,14,.9));font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:.24em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#c9a24a);color:#14110b}
+.tk-name{font-family:'Limelight',serif;letter-spacing:.02em;font-size:25px}
+.tk-role{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.2em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.hot:hover{filter:brightness(1.14)}
+.sg{font-family:'Limelight',serif;text-anchor:middle}
+.sj{font-family:'Josefin Sans',sans-serif;font-weight:700;text-anchor:middle}
+.sc{font-family:'Caveat',cursive;font-weight:700;text-anchor:middle}
+.se{font-family:'Special Elite',monospace;text-anchor:middle}
+.sz{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+
+/* ---- the frame round a piece of work ---- */
+.bx{width:min(1050px,95vw);-webkit-user-select:none;user-select:none}
+.bx .frame{position:relative;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.7);overflow:hidden}
+.bx svg{display:block;width:100%;height:auto;touch-action:none}
+.bx svg text{pointer-events:none}
+.bx-foot{display:flex;align-items:center;gap:14px;margin-top:9px;min-height:58px}
+.pmsg{flex:1;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.32;color:#eef1f6}
+.pmsg b{color:var(--accent,#c9a24a);font-weight:600}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+/* a number or a word set with two arrows */
+.cnt{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:#23303e;border-radius:3px;box-shadow:inset 0 0 0 2px #5c7490}
+.cnt button{width:26px;height:30px;font-size:13px;color:#bcd0e6}
+.cnt button:hover{color:#fff}
+.cnt b{font-family:'Caveat',cursive;font-weight:700;font-size:28px;line-height:30px;color:#f3ecd9;min-width:86px;text-align:center}
+.cnt i{font-style:normal;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#bcd0e6;padding:3px 4px 0 2px}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc p{margin:0 0 8px}
+/* the curator's memo, typed on an old machine */
+.doc.memo{width:min(620px,92vw);background:#f6f2e6;color:#20262e;font-family:'Special Elite','Courier New',monospace;font-size:16.5px;line-height:1.5;padding:22px 34px 20px;border-top:10px solid #26303c;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.memo h4{margin:0 0 12px;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.18em;text-align:center;color:#26303c;border-bottom:1px solid #26303c;padding-bottom:8px}
+.doc.memo h4 small{display:block;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.3em;margin-top:3px}
+.doc.memo .sig{font-family:'Caveat',cursive;font-size:25px;color:#2a3a6a}
+/* a note in a hand: Dominic, and other handwriting */
+.doc.hand{width:min(600px,92vw);background:#eef0ea radial-gradient(ellipse at 28% 8%,rgba(255,255,255,.6),rgba(120,130,120,.14));color:#222a3a;font-family:'Caveat',cursive;font-size:24px;line-height:1.2;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 1px #c6c6b4}
+.doc.hand h4{margin:0 0 10px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#5a6a7a}
+.doc.hand .ad{text-align:right;margin-bottom:8px}
+.doc.hand .ps{margin-top:12px;border-top:1px dashed rgba(34,42,58,.35);padding-top:7px}
+/* the guard firm's rota and logs: a tractor-feed printout */
+.doc.rota{width:min(660px,94vw);background:#eef2e8;background-image:repeating-linear-gradient(transparent 0 25px,rgba(60,110,80,.10) 25px 50px);color:#1c2a20;font-family:'Special Elite','Courier New',monospace;font-size:15.5px;line-height:25px;padding:16px 26px 14px;border-left:14px solid #3a5a44;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.rota h4{margin:0 0 6px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:17px;letter-spacing:.1em;color:#3a5a44}
+.doc.rota table{width:100%;border-collapse:collapse}
+.doc.rota td,.doc.rota th{padding:0 8px;text-align:left;vertical-align:top}
+.doc.rota th{font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #3a5a44}
+.doc.rota td:first-child,.doc.rota th:first-child{white-space:nowrap}
+.doc.rota .pen{font-family:'Caveat',cursive;font-size:20px;color:#2a3a6a}
+/* a laminated card screwed to the office wall: the camera schedule */
+.doc.card{width:min(650px,94vw);background:#e7eef2;color:#13222e;font-family:'Josefin Sans',sans-serif;font-size:16.5px;line-height:1.4;padding:18px 26px 14px;border:9px solid #1d3a52;border-radius:10px}
+.doc.card h4{margin:0 0 10px;font-family:'Limelight',serif;font-size:22px;text-align:center;color:#1d3a52}
+.doc.card table{width:100%;border-collapse:collapse}
+.doc.card td{padding:4px 6px;border-bottom:1px solid rgba(29,58,82,.2);vertical-align:top}
+.doc.card td:first-child{white-space:nowrap;font-weight:700;color:#1d3a52;letter-spacing:.04em}
+.doc.card .sm{font-size:14.5px;margin-top:8px;opacity:.85}
+/* the building plan's margin, and other blueprints */
+.doc.plan{width:min(640px,94vw);background:#15314a;color:#dce8f0;font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.4;padding:18px 30px 14px;border:3px double #7aa0c0}
+.doc.plan h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.16em;color:#bcd8f0;text-align:center}
+.doc.plan .pen{font-family:'Caveat',cursive;font-size:21px;color:#ffd98a}
+/* a witness statement, taken down in the curator's book */
+.doc.statement{width:min(620px,92vw);background:#f3ecd8;color:#25201a;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.48;border-left:6px solid #7a5a2a;padding:18px 30px 16px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.statement h4{margin:0 0 8px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:#7a5a2a}
+.doc.statement .who{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;color:#7a5a2a;text-transform:uppercase;margin-bottom:6px}
+/* a museum label, and the accession register */
+.doc.label{width:min(560px,92vw);background:#fbf6ea;color:#241d14;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.4;padding:16px 26px 14px;border:2px solid #241d14;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.label h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:14.5px;letter-spacing:.18em;text-align:center;border-bottom:1px solid #241d14;padding-bottom:6px}
+.doc.label .hand{font-family:'Homemade Apple',cursive;font-size:15px;line-height:1.7;color:#3a2a6a}
+.doc.label i{color:#5a2a1a}
+/* things in your own hand */
+.doc.mine{width:min(620px,92vw);background:#eef1f6;color:#1c2a44;font-family:'Caveat',cursive;font-size:22.5px;line-height:1.18;padding:18px 28px 18px;border-top:14px solid #26303c}
+.doc.mine h4{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#26303c;margin-bottom:8px}
+.doc .w:hover{color:#b9802a}
+.doc.plan .w:hover{color:#ffd98a}
+
+/* ---- the notebook: a conservator's wallet, grey board and brass corners ---- */
+.nb{background:#2c3642 repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 3px,rgba(0,0,0,.06) 3px 6px);border:1px solid #11161c;border-radius:7px;color:#e8edf4;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #1d242d}
+.nb-tabs{border-bottom-color:#11161c}
+.nb-tabs button{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:.2em;color:#cdd9e8;padding-top:11px;padding-bottom:6px}
+.nb-tabs button.on{background:#f3ecd9;color:#1d242d;border-color:#11161c}
+.nb-list{border-right-color:#11161c}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17px;color:#e8edf4}
+.nb-list button small{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;opacity:.7}
+.nb-list button.on{background:#f3ecd9;color:#1d242d}
+.nb-view{background:#20272f}
+.nb-words{background:#f3ecd9;color:#201d17}
+.nb-words b{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16px}
+.nb-ko{font-family:'Josefin Sans',sans-serif;border-color:#11161c;color:#1d242d;padding-top:2px}
+.nb-ko.on{background:#1d242d;color:#f3ecd9;border-color:#11161c}
+.wtip,.wtag{background:#f3ecd9;color:#201d17;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #c9a24a}
+.wtag{padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:16.5px;padding-top:2px}
+.hintbox{background:#f3ecd9;border-top:6px solid #c9a24a;border-radius:2px}
+.hintbox h6{font-family:'Josefin Sans',sans-serif;font-weight:700;color:#8a6a1a}
+.hintbox .btn{font-family:'Josefin Sans',sans-serif;padding-top:11px;padding-bottom:7px}
+.toast{font-family:'Josefin Sans',sans-serif;font-weight:600;padding-top:11px}
+
+/* ---- the card at the end, and the last task ---- */
+.done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(500px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 24px 14px;display:none;background:#f3ecd9;color:#201d17;border-top:10px solid #c9a24a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.done h5{margin:0 0 6px;font-family:'Limelight',serif;font-weight:normal;font-size:22px;color:#8a6a1a}
+.done p{margin:0 0 3px;font-family:'Special Elite','Courier New',monospace;font-size:14.5px;line-height:1.4}
+.done ul{margin:6px 0 4px;padding-left:18px;font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.24}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.done .btn{--accent:#8a6a1a;font-size:13px;padding:10px 12px 6px}
+.done .btn:hover:not([disabled]){color:#f3ecd9}
+.done small{display:block;margin-top:9px;font-family:'Special Elite','Courier New',monospace;font-size:12.5px;opacity:.8;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbf6ea;color:#1b2136;padding:20px 32px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:14px solid #c9a24a}
+.rp h4{margin:0 0 3px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#8a6a1a}
+.rp h3{margin:0 0 8px;font-family:'Limelight',serif;font-weight:normal;font-size:27px;line-height:1.1}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 7px;color:#231f18}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:30px;color:#1c2a44;background:#fffdf3 repeating-linear-gradient(transparent 0 29px,rgba(60,70,110,.3) 29px 30px);border:1px solid #9a927a;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Special Elite',monospace;font-size:12.5px;opacity:.75}
+.rp .btn{--accent:#8a6a1a}.rp .btn:hover:not([disabled]){color:#fbf6ea}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

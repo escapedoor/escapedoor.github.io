@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Grand Staircase · Before the Doors Open</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="crown.css">
+<style>
+  body{--bg:#141a22;--accent:#e2a24a;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,16,22,.95);--tc-ink:#f0e8dc;--cap-bg:rgba(12,16,22,.93);--panel:#17202a;--face-bg:#202a36;--q-ink:#edc48a;--fade:#070a0e;--hud-bg:rgba(12,16,22,.82)}
+  #cam6 .eye{animation:sw6 8s ease-in-out infinite alternate;transform-origin:1310px 120px}
+  @keyframes sw6{from{transform:rotate(-18deg)}to{transform:rotate(20deg)}}
+  .rled{animation:rl 1.4s steps(2,end) infinite}
+  @keyframes rl{50%{opacity:.25}}
+  /* the re-plan lock */
+  .bx.plan2{width:min(1000px,96vw)}
+  .plancards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+  .pcard{flex:1 1 230px;text-align:left;font-family:'EB Garamond',serif;font-size:15px;line-height:1.3;padding:11px 13px;border:2px solid #5a6a76;background:#1a2330;color:#e6edf4;cursor:pointer;border-radius:4px}
+  .pcard b{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#e2a24a;display:block;margin-bottom:4px}
+  .pcard.on{border-color:#e2a24a;background:#2a241a;box-shadow:0 0 0 2px #e2a24a inset}
+  .bx.plan2 .frame{background:#0e141c}
+  .cell{cursor:pointer}.cell rect{fill:#182a36}.cell:hover rect{fill:#24414e}
+  .cell.on rect{fill:#2f7d4a;stroke:#9fe6a2;stroke-width:2}
+  .bx.plan2 .btn{--accent:#e2a24a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#202a36"/><stop offset="1" stop-color="#101822"/></linearGradient>
+  <radialGradient id="caseP" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffe6a0" stop-opacity=".22"/><stop offset="1" stop-color="#ffe6a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigP" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#000" stop-opacity=".24"/><stop offset="1" stop-color="#000" stop-opacity=".76"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallP)"/>
+<!-- the stair well dropping into the dark hall below -->
+<path d="M-1000 520H2600V1320H-1000Z" fill="#0c1218"/>
+<!-- the grand staircase, seen from the half-landing -->
+<g id="stairs"><path d="M200 520H1400L1160 900H440Z" fill="#2a3542"/>
+  <g stroke="#17202a" stroke-width="4">
+  <path d="M256 580H1344M312 640H1288M372 704H1228M436 772H1164M504 844H1096"/></g>
+  <path d="M200 520H1400" stroke="#3a4856" stroke-width="6"/></g>
+<!-- balustrade -->
+<!-- a worn red runner down the middle, held by brass stair-rods -->
+<path d="M640 520H960L900 900H700Z" fill="#5a1f26" opacity=".85"/>
+<g stroke="#c9a24a" stroke-width="3" opacity=".7"><path d="M636 580H964M632 640H968M628 704H972M622 772H978M616 844H984"/></g>
+<g id="rail" stroke="#3a4856" stroke-width="6" fill="none"><path d="M200 520L440 900M1400 520L1160 900"/><path d="M230 560L470 900M1370 560L1130 900" opacity=".5"/></g>
+<!-- balusters on both sides, and the handrails above them -->
+<g id="balusters" stroke="#4a5866" stroke-width="5"></g>
+<path d="M180 440L420 820M1420 440L1180 820" stroke="#6a4a30" stroke-width="12" stroke-linecap="round" fill="none"/>
+<g fill="#4a3424"><rect x="164" y="420" width="34" height="110" rx="4"/><rect x="1402" y="420" width="34" height="110" rx="4"/><circle cx="181" cy="414" r="20"/><circle cx="1419" cy="414" r="20"/></g>
+<!-- a portrait of the founder, in gilt -->
+<g id="founder" class="hot"><rect x="1000" y="140" width="190" height="250" fill="#c9a24a"/><rect x="1014" y="154" width="162" height="222" fill="#2a2a24"/>
+  <ellipse cx="1095" cy="240" rx="40" ry="52" fill="#6a5a44"/><path d="M1035 376q60 -90 120 0z" fill="#3a3024"/><rect x="1050" y="392" width="90" height="16" fill="#1a2028"/></g>
+<!-- the chandelier, unlit -->
+<g id="chand"><path d="M800 -400V170" stroke="#2a3340" stroke-width="4"/><path d="M700 200q100 40 200 0" stroke="#5a6470" stroke-width="5" fill="none"/>
+  <g fill="#3a4450"><circle cx="700" cy="196" r="8"/><circle cx="750" cy="214" r="8"/><circle cx="800" cy="220" r="9"/><circle cx="850" cy="214" r="8"/><circle cx="900" cy="196" r="8"/></g>
+  <g fill="#8a94a0" opacity=".35"><path d="M700 196l-4 20h8z"/><path d="M800 220l-4 22h8z"/><path d="M900 196l-4 20h8z"/></g></g>
+<!-- the empty case far below, a faint glow -->
+<g id="case" class="hot"><circle cx="800" cy="820" r="130" fill="url(#caseP)"/><rect x="740" y="770" width="120" height="90" fill="none" stroke="#5a6a4a" stroke-width="3"/><rect x="760" y="840" width="80" height="20" fill="#2a3426"/></g>
+<!-- Camera 6 on the stairhead wall (part of Camera 3's gallery sweep) -->
+<g id="cam6" class="hot"><rect x="1302" y="60" width="16" height="44" fill="#2a3340"/><g class="eye"><rect x="1280" y="100" width="60" height="26" rx="8" fill="#1a222c" stroke="#0e141c" stroke-width="3"/><circle cx="1286" cy="113" r="7" fill="#070a0e"/><circle class="rled" cx="1284" cy="111" r="2" fill="#c23"/></g></g>
+<!-- a window with street light -->
+<g id="win6"><rect x="260" y="150" width="160" height="300" fill="#141c26" stroke="#2a3340" stroke-width="6"/><path d="M340 150v300M260 300h160" stroke="#2a3340" stroke-width="4"/><rect x="266" y="156" width="68" height="138" fill="#2a3a4a" opacity=".5"/></g>
+<!-- the curator with the box, on the half-landing -->
+<g id="crozier" class="hot"><ellipse cx="620" cy="548" rx="60" ry="12" fill="#000" opacity=".35"/><g id="pcroz"></g>
+  <rect x="588" y="400" width="64" height="42" rx="4" fill="#3a2e22" stroke="#e2a24a" stroke-width="2"/></g>
+<!-- the radio on the step -->
+<g id="radio" class="hot"><rect x="840" y="470" width="60" height="96" rx="8" fill="#20262c" stroke="#0e141c" stroke-width="3"/><rect x="852" y="482" width="36" height="22" rx="3" fill="#1e3a2a"/><circle cx="858" cy="520" r="5" fill="#5a6a76"/><circle cx="882" cy="520" r="5" fill="#5a6a76"/><path d="M870 470v-26" stroke="#0e141c" stroke-width="4"/><circle class="rled" cx="870" cy="440" r="4" fill="#5fd0a0"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigP)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Make the new plan</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="crown.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, pl = null, nextFile = null;
+
+  $('#pcroz').innerHTML = CR.person(620, 540, 1.0, { coat: '#4a3a52', skin: '#e4c2a2', hair: '#cfcac0', hat: 'bun', specs: 1, legs: '#2e2838' });
+  (function () {                                       /* balusters: under each handrail, every so often down the stair */
+    var s = '', i, t, x, y;
+    for (i = 1; i < 12; i++) { t = i / 12;
+      x = 180 + 240 * t; y = 440 + 380 * t; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'v' + (80 - 10 * t).toFixed(0) + '"/>';
+      x = 1420 - 240 * t; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'v' + (80 - 10 * t).toFixed(0) + '"/>'; }
+    $('#balusters').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'adventure', story: 'crown', storyTitle: 'Before the Doors Open', id: 'stair', no: 'VI', title: 'The Grand Staircase',
+    go: 'Make the new plan',
+    intro: [
+      'You gave the route and you both knew it: along the west side, past the Egyptian Room, through the double doors, the first arch on your right. It brought you to the head of the grand staircase.',
+      'Below you is the Great Hall, a well of dark, and at the bottom of it the glass case with nothing in it. The plan was simple: down the stairs at about five past two, while Ebden was safely up on the top floor, and the crown would be home.',
+      'Then the curator&rsquo;s little radio woke up with Dermot Amory&rsquo;s voice in it, and the simple plan died where it stood.'
+    ],
+    exit: {"next":"hall","w":{"4ffd26f2":"9aea1d1e"}}, tags: {"p":["31e7dade"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('x-told') || {}; nextFile = ER.flag('x-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('x-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.amory || nextFile));
+    b.textContent = nextFile ? 'Down to the hall' : 'Make the new plan';
+    ER.pips((told.amory ? 1 : 0) + (told.fault ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Eight minutes past two: 02:08. Ebden gone from the hall, the camera looking away. Down you go.']];
+    if (!told.amory) return ['amory', ['The radio on the step is Dermot Amory, warning you. Hear him out; he is on your side, in his quiet way.']];
+    if (!told.fault) return ['fault', ['Read Amory&rsquo;s word on the fault (it files itself), and remember Camera 3&rsquo;s rule from the office card in your notebook. The camera watches the stairhead too.']];
+    return ['pl', [
+      'Going straight down means walking into Ebden, who now sweeps the hall. Going round the front is worse: Camera 2, and Amory stuck at the desk there. So WAIT on the stair.',
+      'Ebden is in the hall from 02:04 to 02:07. Wait until his sweep has passed &mdash; so not before 02:08.',
+      'And Camera 3 rests on the stairhead at :02 :06 :10&hellip; (two past each four). The first minute after 02:07 that is not one of those is 02:08. Choose the WAIT plan, and go at 02:08.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The half-landing. The new plan: wait, then go at 02:08.'); return; }
+    if (told.intro) { busy = false; ER.say('The plan has changed. Hear Amory, read the fault, then make the new plan.'); return; }
+    ER.narrate([
+      'A thin voice, bent by the little speaker: &ldquo;Dr C. It&rsquo;s Dermot. Don&rsquo;t come down yet. We&rsquo;ve a fault on the panel and I&rsquo;m stuck at the desk minding it.&rdquo;',
+      '&ldquo;That means young Ebden is covering both floors now, and he&rsquo;s due to sweep the hall at four minutes past two. If you come down into that, he&rsquo;ll see you, and then it&rsquo;s names in a book and a bad morning for everybody.&rdquo;',
+      'Dr Crozier holds the box a little tighter. &ldquo;Well,&rdquo; she says, &ldquo;the plan was good until it wasn&rsquo;t. Let us make a better one.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- Amory on the radio ---------- */
+  $('#radio').addEventListener('click', function () { if (!busy) hearAmory(); });
+  $('#crozier').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Patience,&rdquo; says Dr Crozier. &ldquo;We go at eight minutes past, and not a step before.&rdquo;'); return; }
+    hearAmory();
+  });
+  function hearAmory() {
+    ER.talk({
+      who: 'Dermot Amory', role: 'Night officer · on the radio', face: window.FACE('darrow'),
+      lines: [
+        { note: 'The radio hisses between his words.', a: '&ldquo;Thirty years I&rsquo;ve walked this place, and I know what that crown means to the town, and I know a good boy from a bad one. So I&rsquo;m going to mind this faulty panel very carefully, and not look at the hall cameras at all, and you&rsquo;re going to be quick.&rdquo;' },
+        { q: 'Where is Ebden?', a: 'Covering both floors since the fault. He sweeps the hall on his two o&rsquo;clock round &mdash; four minutes past to seven minutes past, by the panel clock, which is right even if his watch isn&rsquo;t. Don&rsquo;t be on those stairs while he&rsquo;s down there.' },
+        { q: 'What about the camera?', a: 'Camera 3 takes in the stairhead as well as the gallery &mdash; same sweep, same rule as the card in the office. It rests on the stairhead two minutes past every four. After Ebden&rsquo;s gone, go on the first minute the camera isn&rsquo;t looking. You worked the trick once already tonight. Work it again.</p><p class="note">He pauses.</p><p>And Dr C &mdash; tell the lad it&rsquo;s all right. When it&rsquo;s back, it never happened.' }
+      ],
+      clue: { id: 'amory', title: 'Amory on the radio', kind: 'The guard who looks away' },
+      done: function (seen) {
+        if (!seen) return;
+        CR.words(['fault', 'the small hours', 'spare']);
+        if (tell('amory')) { paint(); ER.say('Ebden sweeps the hall 02:04&ndash;02:07. Then the first camera-blind minute. Make the new plan.'); }
+        readFault();
+      }
+    });
+  }
+  var FAULT = '<h4>Amory&rsquo;s word, scribbled on the back of a round-sheet</h4>' +
+    '<p><b>01:45</b> &mdash; PANEL FAULT. Amory held at the front desk.</p>' +
+    '<p><b>From 02:00</b> &mdash; Ebden covers BOTH floors.</p>' +
+    '<p><b>Ebden sweeps the HALL 02:04 &rarr; 02:07.</b> Do not be on the stairs then.</p>' +
+    '<p>Camera 3 (stairhead): rests on the stair two minutes past every four &mdash; 02:02, 02:06, 02:10&hellip; Go on the first clear minute after Ebden has passed.</p>';
+  function readFault() {
+    ER.read({ html: FAULT, cls: 'rota', clue: { id: 'fault', title: 'The fault, and Ebden&rsquo;s new round', kind: 'From Amory' }, done: function () {
+      if (tell('fault')) { paint(); ER.say('Ebden in the hall to 02:07; camera on the stairhead at two-past-every-four.'); }
+    } });
+  }
+
+  CR.thing('#case', null, 'Far below, the empty case catches a little light. In a few minutes, if all goes well, it will not be empty.', isBusy);
+  CR.thing('#cam6', null, 'A camera on the stairhead &mdash; the same Camera 3 that sweeps the gallery, resting on this stair two minutes past every four.', isBusy);
+  CR.thing('#founder', null, 'The museum&rsquo;s first curator, in oils, looking down the stair as if counting the steps. The brass plate says he bought the crown from the peat-cutter&rsquo;s family for one pound and a new spade.', isBusy);
+  CR.thing('#win6', null, 'A tall window. A street lamp throws a long pale bar across the half-landing. Keep the crown out of it.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!told.amory) { ER.say('Hear Amory on the radio first.'); return; }
+    if (!pl) pl = makePlan();
+    pl.open();
+  });
+
+  /* ---------- the new plan: which plan, and when ---------- */
+  function makePlan() {
+    var box = ER.el('div', 'bx plan2'), svg, msgEl, plan = null, pick = null, wait = false;
+    var PC = [
+      ['straight', 'Straight down', 'If the hall is empty, go down now. (It is not: Ebden is sweeping it.)'],
+      ['front', 'Round by the front', 'Go the long way by the front foyer and up the far side.'],
+      ['service', 'Wait, then the blind minute', 'If a guard is in the hall, WAIT on the stair until his sweep has passed; and in case the camera is on the stairhead, go only in its blind minute; otherwise go down.']
+    ];
+    var cards = PC.map(function (c) { return '<button type="button" class="pcard" data-p="' + c[0] + '"><b>' + c[1] + '</b>' + c[2] + '</button>'; }).join('');
+    /* the timeline 02:00 - 02:14 */
+    function X(r) { return 60 + r * 46; }
+    var s = '<rect width="760" height="210" fill="#0e141c"/><text x="380" y="26" class="sz" font-size="14" letter-spacing="3" fill="#e2a24a">THE NEW MINUTE &middot; TWO O&rsquo;CLOCK</text>';
+    for (var r = 0; r <= 14; r++) { s += '<path d="M' + X(r) + ' 120v' + (r % 5 ? 5 : 10) + '" stroke="#3a5a6a" stroke-width="1.5"/>'; if (r % 2 === 0) s += '<text x="' + X(r) + '" y="146" class="sj" font-size="10" fill="#6a8a9a">2:' + (r < 10 ? '0' : '') + r + '</text>'; }
+    s += '<path d="M' + X(0) + ' 120h' + (X(14) - X(0)) + '" stroke="#3a5a6a" stroke-width="2"/>';
+    s += '<text x="40" y="82" class="sj" font-size="10" fill="#e2a26a" text-anchor="end">EBDEN</text><rect x="' + (X(4) - 11) + '" y="64" width="' + (X(7) - X(4) + 22) + '" height="22" rx="4" fill="#7a4a2a"/><text x="' + ((X(4) + X(7)) / 2) + '" y="80" class="sj" font-size="10" fill="#ffd9b0">HALL</text>';
+    s += '<text x="40" y="112" class="sj" font-size="10" fill="#9fe6a2" text-anchor="end">CAM 3</text>';
+    for (r = 0; r <= 14; r++) if (CR.camWatches(r)) s += '<rect x="' + (X(r) - 11) + '" y="96" width="22" height="20" rx="3" fill="#2f7d5a"/>';
+    s += '<text x="40" y="180" class="sj" font-size="10" fill="#cfe8f2" text-anchor="end">YOU</text>';
+    for (r = 0; r <= 14; r++) s += '<g class="cell" data-r="' + r + '"><rect x="' + (X(r) - 11) + '" y="162" width="22" height="26" rx="4" stroke="#2a4a56" stroke-width="1"/></g>';
+    box.innerHTML = '<div class="plancards">' + cards + '</div>' +
+      '<div class="frame"><svg viewBox="0 0 760 210">' + s + '</svg></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="gop">Go</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    box.querySelectorAll('.pcard').forEach(function (b) {
+      b.addEventListener('click', function () { plan = b.getAttribute('data-p'); box.querySelectorAll('.pcard').forEach(function (o) { o.classList.toggle('on', o === b); }); CR.tick(); });
+    });
+    svg.addEventListener('click', function (e) {
+      if (wait) return; var n = e.target.closest ? e.target.closest('.cell') : null; if (!n) return;
+      pick = +n.getAttribute('data-r'); CR.tick(); ER.$$('.cell', svg).forEach(function (o) { o.classList.toggle('on', o === n); });
+      msg('You would go down at <b>2:' + (pick < 10 ? '0' : '') + pick + '</b>.');
+    });
+    box.querySelector('#gop').addEventListener('click', function () {
+      if (wait) return;
+      if (!plan) { ER.sfx.no(); msg('Choose a plan first.'); return; }
+      if (!ER.check('p', plan)) {
+        ER.sfx.no();
+        msg(plan === 'straight' ? '&ldquo;Straight down? Ebden is in the hall, sweeping. You would walk into him.&rdquo;' :
+          'The front foyer is under Camera 2, and Amory is stuck at the desk there. That is the one place we must not go.');
+        return;
+      }
+      if (pick === null) { ER.sfx.no(); msg('Good plan. Now the minute: when do you go?'); return; }
+      if (pick <= 7) { ER.sfx.no(); msg('Ebden sweeps the hall until 02:07. Wait until he has passed.'); return; }
+      if (CR.camWatches(pick)) { ER.sfx.no(); msg('Camera 3 rests on the stairhead at 2:' + (pick < 10 ? '0' : '') + pick + '. Not then.'); return; }
+      if (pick !== 8) { ER.sfx.no(); msg('Clear &mdash; but later than you need. The first clear minute after Ebden has gone is earlier.'); return; }
+      wait = true; CR.sfx.servo();
+      var file = ER.exit(['service|0208'], { wait: true });
+      if (!file) { msg('Not quite.'); wait = false; return; }
+      nextFile = file; ER.flag('x-file', file);
+      CR.mine('xplan', 'The second plan, worked out', '<p>The gallery route still runs &mdash; but the timing changed. Ebden now covers both floors and sweeps the hall 02:04&ndash;02:07, so we WAIT on the stair; and Camera 3 rests on the stairhead at :02 :06 :10&hellip;</p><p>First clear minute after 02:07: <b>02:08</b>. Down then.</p>');
+      msg('&ldquo;Wait for Ebden, then the blind minute: 02:08,&rdquo; says Dr Crozier. &ldquo;A worse plan than the first, and a better one, because it is true.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You wait on the half-landing while, below, a torch beam crosses the hall and goes out: Ebden, sweeping, humming to himself, none the wiser.',
+          'At seven minutes past two his feet go away up the far corridor. At eight minutes past, Camera 3 swings its slow eye off the stairhead and towards the gallery.',
+          'Dr Crozier touches your arm. &ldquo;Now.&rdquo; And the two of you go down the grand staircase, into the hall, towards the empty case and the last thing left to do.'
+        ], function () { busy = false; });
+      }, 2400);
+    });
+    msg('Pick the plan that still works now Ebden is in the hall; then choose the minute to go down.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

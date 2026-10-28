@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Long Gallery · Before the Doors Open</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="crown.css">
+<style>
+  body{--bg:#201a28;--accent:#c79bd8;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,14,28,.95);--tc-ink:#efe6f4;--cap-bg:rgba(20,14,28,.93);--panel:#1e1628;--face-bg:#2a2038;--q-ink:#d9b8ea;--fade:#0a060f;--hud-bg:rgba(20,14,28,.82)}
+  #cam3 .eye{animation:sw 8s ease-in-out infinite alternate;transform-origin:800px 120px}
+  @keyframes sw{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
+  .glow{animation:gl 6s steps(3,end) infinite alternate}
+  @keyframes gl{to{opacity:.85}}
+  /* the route lock */
+  .bx.route{width:min(1000px,96vw)}
+  .bx.route .frame{background:#160f1e}
+  .rtray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:56px;padding:10px;background:#241a30;border-radius:3px;margin-top:10px}
+  .rslots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 2px}
+  .rslot{min-width:190px;min-height:46px;border:1.5px dashed #a07ab0;border-radius:4px;display:flex;align-items:center;justify-content:center;background:#1e1628;position:relative}
+  .rslot:before{content:attr(data-n);position:absolute;top:-10px;left:8px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:11px;color:#a07ab0;background:#160f1e;padding:0 4px}
+  .rtile{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;padding:9px 13px 7px;background:#f3ecf6;border:1px solid #7a5a8a;border-radius:4px;cursor:grab;color:#2a1d3a}
+  .rtile.held{outline:3px solid #c79bd8}
+  .rtile.fly{position:fixed;z-index:80;pointer-events:none}
+  .bx.route .btn{--accent:#c79bd8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2038"/><stop offset=".6" stop-color="#1e1628"/><stop offset="1" stop-color="#140d1c"/></linearGradient>
+  <radialGradient id="spotG" cx="50%" cy="30%" r="60%"><stop offset="0" stop-color="#ffe9c0" stop-opacity=".4"/><stop offset="1" stop-color="#ffe9c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigG" cx="50%" cy="48%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".72"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<rect x="-1000" y="640" width="3600" height="680" fill="#171020"/>
+<path d="M-1000 640H2600" stroke="#2e2440" stroke-width="4"/>
+<!-- a long red runner down the gallery -->
+<path d="M300 900L640 640H980L760 900Z" fill="#5a1f2a" opacity=".8"/>
+<!-- paintings in gilt frames -->
+<g id="art" class="hot"><g>
+  <rect x="150" y="200" width="150" height="190" fill="#c9a24a"/><rect x="164" y="214" width="122" height="162" fill="#2a3524"/><ellipse cx="225" cy="280" rx="36" ry="46" fill="#5a4a3a"/>
+  <rect x="360" y="220" width="130" height="160" fill="#c9a24a"/><rect x="372" y="232" width="106" height="136" fill="#3a2a2a"/><path d="M392 348l40 -70 36 70z" fill="#6a5a4a"/>
+  <circle cx="460" cy="140" r="90" fill="url(#spotG)"/></g></g>
+<!-- the service-stair door, where you came down -->
+<g id="svc" class="hot"><rect x="60" y="340" width="150" height="300" fill="#241a2e" stroke="#120b1a" stroke-width="5"/><circle cx="188" cy="500" r="8" fill="#a07ab0"/><text x="135" y="330" class="sj" font-size="12" fill="#a07ab0">SERVICE STAIR</text></g>
+<!-- the Egyptian Room doorway -->
+<g id="egypt" class="hot"><rect x="620" y="300" width="160" height="340" fill="#120b1a"/><path d="M620 300h160l-18 -40h-124z" fill="#8a7a4a"/><g fill="#6a5a3a"><rect x="648" y="360" width="24" height="60"/><rect x="700" y="360" width="24" height="60"/><rect x="728" y="360" width="24" height="60"/></g><text x="700" y="288" class="sj" font-size="13" fill="#c9b47a">EGYPTIAN ROOM</text></g>
+<!-- the double doors to the stairhead -->
+<g id="doors" class="hot"><rect x="1120" y="320" width="220" height="320" fill="#2e1f1a" stroke="#120b0a" stroke-width="6"/><path d="M1230 320v320" stroke="#120b0a" stroke-width="4"/><circle cx="1210" cy="480" r="8" fill="#c9a24a"/><circle cx="1250" cy="480" r="8" fill="#c9a24a"/><text x="1230" y="308" class="sj" font-size="12" fill="#c9a24a">DOUBLE DOORS</text></g>
+<!-- Camera 3, sweeping -->
+<g id="cam3" class="hot"><rect x="792" y="60" width="16" height="44" fill="#2a2438"/><g class="eye"><rect x="770" y="100" width="60" height="26" rx="8" fill="#201a2e" stroke="#120b1a" stroke-width="3"/><circle cx="776" cy="113" r="7" fill="#0a0610"/><circle cx="774" cy="111" r="2" fill="#c23"/></g></g>
+<!-- a plinth, empty -->
+<g id="plinth" class="hot"><rect x="940" y="520" width="90" height="120" fill="#2a2434"/><rect x="930" y="506" width="110" height="18" fill="#3a3448"/><rect x="950" y="440" width="70" height="80" fill="none" stroke="#5a4a6a" stroke-width="3" stroke-dasharray="6 4"/></g>
+<!-- the curator with the padded box -->
+<g id="crozier" class="hot"><ellipse cx="1000" cy="868" rx="66" ry="13" fill="#000" opacity=".3"/><g id="pcroz"></g>
+  <rect x="965" y="690" width="70" height="46" rx="4" fill="#3a2e22" stroke="#c9a24a" stroke-width="2"/><path d="M965 710h70" stroke="#c9a24a" stroke-width="1.5"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigG)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Give the route</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="crown.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, rt = null, nextFile = null;
+
+  $('#pcroz').innerHTML = CR.person(1000, 860, 1.05, { coat: '#4a3a52', skin: '#e4c2a2', hair: '#cfcac0', hat: 'bun', specs: 1, legs: '#2e2838' });
+
+  ER.init({
+    theme: 'adventure', story: 'crown', storyTitle: 'Before the Doors Open', id: 'gallery', no: 'V', title: 'The Long Gallery',
+    go: 'Give the route',
+    intro: [
+      'The crown was in the crate on the second shelf, opposite the window &mdash; along the bench and past the kiln, exactly as Dominic&rsquo;s note said. The note said the rest: a frightened boy, a whisper of a sale, a grant he never heard of.',
+      'You carried it down the service stair into the Long Gallery, where the portraits watch from gilt frames and one empty plinth waits for the Roman coins that never went up. The crown is in its padded box in Dr Crozier&rsquo;s hands.',
+      'Across the gallery lies the way to the Great Hall: past the Egyptian Room, through the double doors, to the head of the grand staircase. Camera 3 sweeps the whole gallery. &ldquo;Tell me the way,&rdquo; says Dr Crozier, &ldquo;in words, so that we both agree before we move.&rdquo;'
+    ],
+    exit: {"next":"stair","w":{"11f5418e":"4f3bf813"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('g-told') || {}; nextFile = ER.flag('g-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('g-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var b = $('#go');
+    b.classList.toggle('on', !!(told.croz || nextFile));
+    b.textContent = nextFile ? 'Set off for the hall' : 'Give the route';
+    ER.pips((told.croz ? 1 : 0) + (told.wing ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The route is agreed. Set off along the west side, keeping off the camera&rsquo;s eye.']];
+    if (!told.croz) return ['croz', ['Dr Crozier is holding the padded box. Talk to her: she wants the way told in plain words before you move.']];
+    if (!told.wing) return ['wing', ['Read the wing plan: click the double doors at the west end. It shows the way to the grand staircase &mdash; past the Egyptian Room, through the doors, first on the right.']];
+    return ['rt', [
+      'The east side runs past the front doors, under Camera 2, where the lights are brightest. Go along the WEST side.',
+      'Along the west side you pass the Egyptian Room, then reach the double doors; go THROUGH them.',
+      'Through the doors, the stairhead is the FIRST arch on your RIGHT. (The second on the left is only the lavatory.) So: west side, past the Egyptian Room, through the double doors, first on the right.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The gallery. The route is given: west side, past the Egyptian Room, through the doors, first on the right.'); return; }
+    if (told.intro) { busy = false; ER.say('Give Dr Crozier the route to the stairhead, in order.'); return; }
+    ER.narrate([
+      'The gallery is long and cold and full of painted faces that have watched worse nights than this. Somewhere above, Camera 3 swings slowly from end to end.',
+      'Dr Crozier holds the padded box against her like a cat. &ldquo;I could carry this across in the dark with my eyes shut,&rdquo; she says, &ldquo;but you cannot, and you may have to do it alone before the night is out. So tell me the way, in order, and we will both know it.&rdquo;',
+      'She hands you the wing plan. &ldquo;West side. We keep off the camera and off the front.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the curator ---------- */
+  $('#crozier').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;West side,&rdquo; says Dr Crozier, already moving, &ldquo;and quietly.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Adela Crozier', role: 'Curator · with the crown', face: window.FACE('crozier'),
+      lines: [
+        { note: 'She shifts the box so that its weight is on her hip.', a: '&ldquo;Giving a route is harder than following one. When Dominic first helped here I sent him for a brush and he came back from the boiler room, because I said &lsquo;down, then left&rsquo; and meant my left, not his. So: exact words, in order.&rdquo;' },
+        { q: 'Why the west side?', a: 'Because the east side runs along the front of the building, past the main doors, under Camera 2, where the street lamps come through the glass. The west side is dark, and the paintings do not mind us. We go west, past the Egyptian Room, through the double doors.' },
+        { q: 'And then?', a: 'Through the double doors, the grand staircase is the first arch on your right. The second on your left is the lavatory, which has caught out better burglars than you. First on the right, and we are at the top of the stairs down to the hall. Tell it to me in that order.' }
+      ],
+      clue: { id: 'croz5', title: 'Dr Crozier, on giving directions', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        CR.words(['gallery', 'opposite', 'clockwise']);
+        if (tell('croz')) { paint(); ER.say('West side, past the Egyptian Room, through the double doors, first on the right.'); }
+      }
+    });
+  });
+
+  /* ---------- the wing plan ---------- */
+  var WING = '<h4>THE GALLERY WING</h4>' +
+    '<p>You are at the foot of the <b>service stair</b>, on the west side of the Long Gallery.</p>' +
+    '<p><b>West side</b> (dark): runs past the <b>Egyptian Room</b> to the <b>double doors</b>. <b>East side</b> (bright): runs past the front, under Camera 2.</p>' +
+    '<p>Through the double doors: the <b>grand staircase</b> down to the Great Hall is the <b>first arch on the right</b>. The first on the left is a store; the second on the left is the lavatory.</p>' +
+    '<p class="pen">Say it as you would say it to someone who cannot see: a turn, a thing you pass, a door you go through, a door you take. A. C.</p>';
+  function readWing() {
+    ER.read({ html: WING, cls: 'plan', clue: { id: 'wing', title: 'The gallery wing plan', kind: 'The way to the hall' }, done: function () {
+      CR.words(['along', 'past', 'through']);
+      if (tell('wing')) { paint(); ER.say('West side, past the Egyptian Room, through the double doors, first on the right.'); }
+    } });
+  }
+  CR.thing('#egypt', null, 'The dark doorway of the Egyptian Room, with its painted pillars. You pass it, going west; you do not go in.', isBusy);
+  $('#doors').addEventListener('click', function () { if (!busy) readWing(); });
+  CR.thing('#svc', 'service stair', 'The plain door of the service stair, where you came down from the studio. Camera 3 watches it from the ceiling.', isBusy);
+  CR.thing('#cam3', null, 'Camera 3, sweeping the gallery end to end. It rests on the service-stair door one minute in every four, as the office card said.', isBusy);
+  CR.thing('#art', null, 'Portraits of mayors and benefactors in heavy gilt. None of them looks surprised to see you.', isBusy);
+  CR.thing('#plinth', null, 'An empty plinth, its glass dome lifted off. The Roman coins were meant to go here this week, and did not. A dotted square marks where the dome stood.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (nextFile) { ER.leave(nextFile); return; }
+    if (busy) return;
+    if (!told.croz) { ER.say('Talk to Dr Crozier first; she wants the way told aloud.'); return; }
+    if (!rt) rt = makeRt();
+    rt.open();
+  });
+
+  /* ---------- give the route ---------- */
+  function makeRt() {
+    var box = ER.el('div', 'bx route'), msgEl, wait = false;
+    var TILES = [
+      ['west', 'along the WEST side'], ['east', 'along the EAST side'],
+      ['egypt', 'past the EGYPTIAN ROOM'], ['coins', 'past the COIN ROOM'],
+      ['doors', 'through the DOUBLE DOORS'], ['mainstair', 'up the MAIN STAIR'],
+      ['right', 'first arch on your RIGHT'], ['left', 'second door on your LEFT']
+    ];
+    /* shuffle a little so the order is not given away */
+    var order = [3, 0, 6, 1, 4, 7, 2, 5];
+    var tray = order.map(function (i) { var t = TILES[i]; return '<span class="rtile dnd-item" data-v="' + t[0] + '">' + t[1] + '</span>'; }).join('');
+    box.innerHTML = '<div class="frame" style="padding:16px 18px 14px">' +
+      '<div style="text-align:center;font-family:\'Limelight\',serif;font-size:17px;color:#c79bd8;letter-spacing:2px;margin-bottom:8px">TELL THE WAY TO THE STAIRHEAD</div>' +
+      '<div class="rslots"><div class="rslot" data-n="first"></div><div class="rslot" data-n="next"></div><div class="rslot" data-n="then"></div><div class="rslot" data-n="last"></div></div>' +
+      '<div class="rtray" id="rtray">' + tray + '</div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="send">Send it</button></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.dnd(box, { item: '.rtile', slot: '.rslot', home: box.querySelector('#rtray'), lock: function () { return wait; }, change: function () { CR.sfx.pen(); } });
+    function seq() { return ER.$$('.rslot', box).map(function (s) { var t = s.querySelector('.rtile'); return t ? t.getAttribute('data-v') : null; }); }
+    box.querySelector('#send').addEventListener('click', function () {
+      if (wait) return;
+      var q = seq();
+      if (q.some(function (x) { return !x; })) { ER.sfx.no(); msg('Fill all four steps: a side, a thing you pass, a door you go through, a door you take.'); return; }
+      var want = ['west', 'egypt', 'doors', 'right'], i;
+      for (i = 0; i < 4; i++) if (q[i] !== want[i]) {
+        ER.sfx.no();
+        msg(q[i] === 'east' ? 'The east side runs past the front doors, under Camera 2, in the light. Keep to the dark &mdash; the WEST side.' :
+          q[i] === 'coins' ? 'There is no coin room this way; the coins never went up. You would double back. Past the EGYPTIAN ROOM.' :
+          q[i] === 'mainstair' ? 'The main stair goes the wrong way, up towards the reading room. You want to go THROUGH the double doors.' :
+          q[i] === 'left' ? 'The second door on the left is the lavatory. The stairhead is the FIRST arch on your RIGHT.' :
+          (i === 0 ? 'Begin with the side you take: along the WEST side.' :
+           i === 1 ? 'After the west side you PASS the Egyptian Room &mdash; before you reach the doors.' :
+           i === 2 ? 'You go THROUGH the double doors before you choose a turning beyond them.' :
+           'Last, the turning: the FIRST arch on your RIGHT.'));
+        return;
+      }
+      wait = true; CR.sfx.servo();
+      var file = ER.exit(['west|egypt|doors|right'], { wait: true });
+      if (!file) { msg('Dr Crozier shakes her head. Not quite.'); wait = false; return; }
+      nextFile = file; ER.flag('g-file', file);
+      CR.mine('groute', 'The route to the hall, agreed', '<p>Along the <b>west</b> side &rarr; past the <b>Egyptian Room</b> &rarr; through the <b>double doors</b> &rarr; the <b>first arch on the right</b>, to the head of the grand staircase down to the Great Hall.</p><p>(The plan as first made. It will have to change.)</p>');
+      msg('&ldquo;Good,&rdquo; says Dr Crozier. &ldquo;West side, past the Egyptian Room, through the doors, first on the right. We both know it now.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You set off along the west side, keeping under the paintings, out of the camera&rsquo;s slow eye. Dr Crozier walks ahead with the box, placing each foot like a cat.',
+          'Past the Egyptian Room. Through the double doors. The grand staircase opens below you, down into the dark well of the Great Hall, where a single glass case waits with nothing in it.',
+          'And then, from the curator&rsquo;s coat, a little radio she had not told you about crackles into life.'
+        ], function () { busy = false; });
+      }, 2400);
+    });
+    msg('Drag the four steps into order (or click a step, then a box). A side, a thing you pass, a door you go through, a door you take.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Great Hall · Before the Doors Open</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-adventure.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="crown.css">
+<style>
+  body{--bg:#101620;--accent:#e6c266;--font-display:'Limelight',serif;--font-ui:'Josefin Sans',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,16,24,.95);--tc-ink:#f3ecda;--cap-bg:rgba(12,16,24,.93);--panel:#18202c;--face-bg:#222c38;--q-ink:#edd08a;--fade:#070a0f;--hud-bg:rgba(12,16,24,.82)}
+  #sky{transition:opacity 3s}
+  body.dawn #night2{opacity:0}
+  body.dawn #dawnsky{opacity:1}
+  #dawnsky{opacity:0;transition:opacity 3s}
+  .shine{animation:sh 5s steps(3,end) infinite alternate}
+  @keyframes sh{to{opacity:.9}}
+  .crownglow{animation:cg 4s steps(3,end) infinite alternate}
+  @keyframes cg{to{opacity:.8}}
+  /* the set lock */
+  .bx.set{width:min(820px,95vw)}
+  .bx.set .frame{background:#12181f}
+  .bx.set .btn{--accent:#e6c266}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nightH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1626"/><stop offset="1" stop-color="#1a2636"/></linearGradient>
+  <linearGradient id="dawnH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa6c8"/><stop offset=".55" stop-color="#f1c79a"/><stop offset="1" stop-color="#fbe8c6"/></linearGradient>
+  <linearGradient id="floorH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3240"/><stop offset="1" stop-color="#161c26"/></linearGradient>
+  <radialGradient id="domeH" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe6a0" stop-opacity=".4"/><stop offset="1" stop-color="#ffe6a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigH" cx="50%" cy="46%" r="82%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="#0a0f16"/>
+<!-- the skylight -->
+<g id="skyframe"><rect x="520" y="-200" width="560" height="360" fill="#0a0f16"/>
+  <rect id="dawnsky" x="540" y="-180" width="520" height="320" fill="url(#dawnH)"/>
+  <rect id="night2" x="540" y="-180" width="520" height="320" fill="url(#nightH)"/>
+  <g stroke="#1a2230" stroke-width="8" fill="none"><path d="M540 -180h520v320h-520z"/><path d="M670 -180v320M800 -180v320M930 -180v320M540 -20h520"/></g></g>
+<!-- the hall walls and columns -->
+<rect x="-1000" y="160" width="3600" height="560" fill="url(#floorH)" opacity=".2"/>
+<g fill="#1c2430"><rect x="120" y="150" width="90" height="620"/><rect x="1390" y="150" width="90" height="620"/></g>
+<g fill="#222c3a"><rect x="110" y="150" width="110" height="40"/><rect x="1380" y="150" width="110" height="40"/></g>
+<rect x="-1000" y="720" width="3600" height="600" fill="url(#floorH)"/>
+<path d="M-1000 720H2600" stroke="#36404e" stroke-width="4"/>
+<!-- a marble floor pattern -->
+<g stroke="#2e3a48" stroke-width="2" opacity=".5"><path d="M400 900L700 720M800 900L800 720M1200 900L900 720M100 900L560 720M1500 900L1040 720"/></g>
+<!-- the plinth and the glass case, centre -->
+<g id="case" class="hot"><circle class="crownglow" cx="800" cy="470" r="150" fill="url(#domeH)"/>
+  <rect x="690" y="560" width="220" height="150" fill="#2a3240"/><rect x="674" y="542" width="252" height="22" fill="#36404e"/>
+  <rect x="700" y="360" width="200" height="200" fill="none" stroke="#5a6a82" stroke-width="3"/><rect x="700" y="360" width="200" height="200" fill="#8fb0d0" opacity=".06"/>
+  <path d="M700 360h200" stroke="#7a90ac" stroke-width="4"/>
+  <g id="crownslot"></g>
+  <rect x="712" y="690" width="176" height="16" fill="#1c2430"/><text x="800" y="702" class="sj" font-size="10" fill="#cdbb82">THE CALDMERE CROWN</text></g>
+<!-- hanging banners between the columns -->
+<g id="banners"><path d="M270 200h90v230l-45 -26l-45 26z" fill="#5a1f26"/><path d="M1240 200h90v230l-45 -26l-45 26z" fill="#5a1f26"/><g fill="#c9a24a"><circle cx="315" cy="280" r="18"/><circle cx="1285" cy="280" r="18"/></g><path d="M300 288l15 -24 15 24z M1270 288l15 -24 15 24z" fill="#5a1f26"/></g>
+<!-- a rope barrier round the plinth -->
+<g id="rope"><g fill="#c9a24a"><rect x="586" y="730" width="8" height="70"/><rect x="1006" y="730" width="8" height="70"/><circle cx="590" cy="728" r="9"/><circle cx="1010" cy="728" r="9"/><ellipse cx="590" cy="802" rx="20" ry="6"/><ellipse cx="1010" cy="802" rx="20" ry="6"/></g><path d="M590 734q210 60 420 0" stroke="#8a1f2a" stroke-width="7" fill="none"/></g>
+<!-- the curator -->
+<g id="crozier" class="hot"><ellipse cx="520" cy="852" rx="66" ry="13" fill="#000" opacity=".3"/><g id="pcroz"></g></g>
+<!-- Dominic, appearing later -->
+<g id="dom" class="hot" style="display:none"><ellipse cx="290" cy="858" rx="60" ry="12" fill="#000" opacity=".3"/><g id="pdom"></g></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vigH)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Set it in its case</button>
+<div class="done" id="done">
+  <h5>The Caldmere Crown &middot; in good order</h5>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <div class="row"><button type="button" class="btn" id="b-task">The night, told straight</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <p style="margin-top:10px;font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em">WHAT YOU NOW KNOW</p>
+  <ul>
+    <li>Read a rota exactly: the time a round begins, how long it lasts, and the gap before the next one &mdash; and do the arithmetic on a 24-hour clock.</li>
+    <li>A sweeping camera is blind for most of its cycle; work out the minutes it rests on a spot, and cross only when it is looking away.</li>
+    <li>A route works both ways: you can follow one from exact words (along, past, through, opposite, the first door on your right) and you can give one.</li>
+    <li>Three accounts of one night seldom agree; lay them on one timeline, and sort what each person saw, was mistaken about, or was covering for &mdash; checking every claim against a fixed fact.</li>
+    <li>The first, obvious story can be the wrong one; throw it out when plainer facts (a fast watch, a cleaner&rsquo;s trolley, a light left on) explain the night better.</li>
+    <li>When a plan breaks half way, say the new one in conditionals &mdash; if, unless, in case, otherwise &mdash; built from what has just gone wrong.</li>
+    <li>Some locks need two earlier rooms at once: the camera&rsquo;s rule and the guards&rsquo; rota together gave you the one safe minute.</li>
+  </ul>
+  <small>Before the Doors Open &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="crown.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, setter = null;
+
+  $('#pcroz').innerHTML = CR.person(520, 844, 1.06, { coat: '#4a3a52', skin: '#e4c2a2', hair: '#cfcac0', hat: 'bun', specs: 1, legs: '#2e2838' });
+  $('#pdom').innerHTML = CR.person(290, 850, 1.04, { coat: '#273040', skin: '#d8ad84', hair: '#2a2420', hat: 'none', legs: '#2a2a30' });
+
+  function crownSVG(cx, cy, s, rot) {
+    var g = '<g transform="translate(' + cx + ' ' + cy + ') scale(' + s + ') rotate(' + (rot || 0) + ')">';
+    g += '<path d="M-70 24h140v14h-140z" fill="#c9a24a"/>';                                   /* band base */
+    g += '<path d="M-70 24l16 -54 22 30 32 -50 32 50 22 -30 16 54z" fill="#e6c266" stroke="#b8902a" stroke-width="2"/>';   /* points */
+    g += '<circle cx="-54" cy="-30" r="6" fill="#fff4d0"/><circle cx="0" cy="-50" r="8" fill="#bfe0ff"/><circle cx="54" cy="-30" r="6" fill="#fff4d0"/>';
+    g += '<path d="M0 -62l5 10 11 1 -8 8 2 11 -10 -6 -10 6 2 -11 -8 -8 11 -1z" fill="#fbf0c8"/>';   /* star at front */
+    g += '<path d="M-70 31h140" stroke="#b8902a" stroke-width="2"/></g>';
+    return g;
+  }
+  $('#crownslot').innerHTML = '';
+
+  ER.init({
+    theme: 'adventure', story: 'crown', storyTitle: 'Before the Doors Open', id: 'hall', no: 'VII', title: 'The Great Hall',
+    go: 'Set it in its case',
+    intro: [
+      'The second plan held: you waited while Ebden swept the hall, and went down at eight minutes past two, in the one minute Camera 3 was looking away. A worse plan than the first, and a truer one.',
+      'Now you stand in the Great Hall, under the black skylight, beside the plinth and its empty glass case. The crown is in your hands. All that is left is to put it back exactly as it was, so that the record shows a crown that never moved.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {"set":["7b815fed"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('h-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('h-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    var set = !!ER.flag('h-set'), end = !!ER.flag('h-done');
+    if (set) $('#crownslot').innerHTML = crownSVG(800, 500, 0.9, 0);
+    $('#go').classList.toggle('on', told.croz && !set);
+    ER.pips((told.croz ? 1 : 0) + (set ? 1 : 0), 2);
+  }
+  function hints() {
+    if (ER.flag('h-done')) return null;
+    if (!told.croz) return ['croz', ['Dr Crozier is by the case, with the old photograph. Talk to her before you set the crown down.']];
+    if (!ER.flag('h-set')) return ['set', [
+      'The case has a reference photograph taped inside it, as every case does, so that a thing goes back exactly as it was.',
+      'Turn the crown until it matches the photograph: the star to the front, and the right way up.'
+    ]];
+    return null;
+  }
+  function begin() {
+    paint();
+    if (ER.flag('h-done')) { busy = false; finish(true); return; }
+    if (told.intro) { busy = false; ER.say(ER.flag('h-set') ? 'The crown is home. Dr Crozier is on the telephone to a boy who cannot sleep.' : 'The Great Hall. Set the crown back in its case, exactly as it was.'); return; }
+    ER.narrate([
+      'The Great Hall is huge and black and quiet, and your own footsteps sound like somebody else&rsquo;s. High above, the skylight is a square of starless dark.',
+      'The glass case stands open on its plinth, lifted off a week ago and never lowered. Inside, taped to the back, is a small photograph &mdash; the crown as it has always stood, the way the inspector will expect to find it at nine.',
+      'Dr Crozier sets down the padded box. &ldquo;Gently,&rdquo; she says. &ldquo;Exactly as it was. We are not hiding a crime. We are undoing a week of fright.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the curator ---------- */
+  $('#crozier').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('h-done')) { ER.say('&ldquo;Thank you,&rdquo; says Dr Crozier, &ldquo;for a steady hand and a quiet mouth. Go home and sleep. The doors open at nine, and nothing has happened at all.&rdquo;'); return; }
+    if (ER.flag('h-set')) { ER.say('Dr Crozier is telephoning Dominic. &ldquo;It is back,&rdquo; she says. &ldquo;Come in the morning, as a visitor, and stand in front of it like everybody else.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dr Adela Crozier', role: 'Curator · at the case', face: window.FACE('crozier'),
+      lines: [
+        { note: 'She holds the old photograph where you can both see it.', a: '&ldquo;Every case has a photograph taped inside, so that a thing cleaned or mended goes back exactly as it stood. The crown faces the door, star to the front, upright. The inspector carries the same photograph in his file. It must match.&rdquo;' },
+        { q: 'And then it is over?', a: 'Then it is over. The grant pays for the roof; the trustees never knew it was gone; Mr Ellory buys his crowns elsewhere. Dominic will come in the morning as an ordinary boy and stand in front of an ordinary case, and only a handful of us will ever know what a near thing it was &mdash; a handful, and the camera over the loading bay, which has been broken since the spring and so saw nothing at all.' },
+        { q: 'Why did you let me work it all out?', a: 'Because I am seventy next year, and somebody steadier than I am will have to keep this crown safe after me, and I wanted to see whether it might be you.</p><p class="note">She almost smiles.</p><p>Set it down. Star to the front. Upright. The way it was found, the way it will be found.' }
+      ],
+      clue: { id: 'croz7', title: 'Dr Crozier, at the case', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        CR.words(['upright', 'orient', 'in good order']);
+        if (tell('croz')) { paint(); ER.say('Match the photograph: star to the front, and upright.'); }
+      }
+    });
+  });
+
+  CR.thing('#case', null, 'The open glass case. A small photograph is taped to the back of it: the crown as it has always stood, upright, its star to the front.', isBusy);
+
+  $('#go').addEventListener('click', function () {
+    if (busy || ER.flag('h-set')) return;
+    if (!told.croz) { ER.say('Talk to Dr Crozier first; she has the photograph.'); return; }
+    if (!setter) setter = makeSet();
+    setter.open();
+  });
+
+  /* ---------- the last, easy lock: set it upright ---------- */
+  function makeSet() {
+    var box = ER.el('div', 'bx set'), svg, msgEl, wait = false, orient;
+    var OPTS = ['upside down', 'on its side', 'back to front', 'upright'];
+    var ROT = { 'upside down': 180, 'on its side': 90, 'back to front': 0, 'upright': 0 };
+    var FLIP = { 'back to front': -1 };
+    var s = '<rect width="760" height="360" fill="#12181f"/>' +
+      '<text x="190" y="40" class="sj" font-size="13" letter-spacing="2" fill="#8a94a0">THE PHOTOGRAPH</text>' +
+      '<rect x="60" y="56" width="260" height="240" fill="#f3ecda" stroke="#8a94a0" stroke-width="4"/>' + crownSVG(190, 210, 1.1, 0) +
+      '<text x="190" y="286" class="sj" font-size="12" fill="#5a5040">upright &middot; star to the front</text>' +
+      '<text x="560" y="40" class="sj" font-size="13" letter-spacing="2" fill="#e6c266">IN YOUR HANDS</text>' +
+      '<rect x="430" y="56" width="260" height="240" fill="none" stroke="#5a6a82" stroke-width="3"/>' +
+      '<g id="held"></g>';
+    box.innerHTML = '<div class="frame"><svg viewBox="0 0 760 360">' + s + '</svg></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><span id="odial"></span><button type="button" class="btn" id="lower">Lower the glass</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function drawHeld() {
+      var v = orient.get(), rot = ROT[v], f = FLIP[v] || 1;
+      svg.querySelector('#held').innerHTML = '<g transform="translate(560 190) scale(' + f + ' 1)">' + crownSVG(0, 20, 1.1, rot) + '</g>';
+    }
+    orient = CR.count(box.querySelector('#odial'), { list: OPTS, start: 0, show: function (v) { return v; }, change: drawHeld });
+    drawHeld();
+    box.querySelector('#lower').addEventListener('click', function () {
+      if (wait) return;
+      var v = orient.get();
+      if (!ER.check('set', v === 'upright' ? 'upright' : v)) {
+        ER.sfx.no();
+        msg(v === 'upside down' ? 'The points go up, not down. Turn it the right way up.' :
+          v === 'on its side' ? 'It must stand, not lie. Upright.' :
+          'The star goes to the front, facing the door. Turn it round.');
+        return;
+      }
+      wait = true; CR.sfx.clink(); ER.flag('h-set', 1); paint();
+      msg('It settles on its stand with a small chime, star to the front, exactly as the photograph. You lower the glass.');
+      setTimeout(function () { ER.closeAll(); ending(); }, 2200);
+    });
+    msg('Turn the crown with the arrows until it matches the photograph, then lower the glass.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- the morning ---------- */
+  function ending() {
+    busy = true; paint();
+    ER.narrate([
+      'The glass comes down over the crown with a sound like a held breath let go. On the plinth it looks as if it has never been anywhere else, and never will.',
+      'Dr Crozier takes out a telephone older than you are and dials a number she knows by heart. &ldquo;It is back,&rdquo; she says, very quietly. &ldquo;No. Nobody knows. You will come in the morning as a visitor, and you will stand in front of it with everybody else, and you will say nothing, and neither shall I. Yes. Go to sleep.&rdquo;'
+    ], function () {
+      $('#dom').style.display = '';
+      ER.narrate([
+        'By the skylight the black square has turned the colour of weak tea. Somewhere outside, the first bird. Over the loading bay the broken camera goes on seeing nothing, as it has since the spring, and keeps the secret better than any of you.',
+        'At nine o&rsquo;clock the inspector will carry in his file and his photograph, and count the Caldmere Crown present and in good order, exactly as it has stood for nearly two hundred years, since a boy pulled it out of the mere.',
+        'And a boy will come in at ten, in an ordinary coat, and stand in front of it among the other visitors, and his grandmother will catch his eye across the hall, once, and look away.'
+      ], function () {
+        document.body.classList.add('dawn');
+        busy = false; ER.flag('h-done', 1); paint(); finish(false);
+      });
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = CR.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'The loading bay to the case: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on'); document.body.classList.add('dawn'); $('#dom').style.display = '';
+    if (quick) { $('#crownslot').innerHTML = crownSVG(800, 500, 0.9, 0); ER.say('The Great Hall at dawn. The crown is home, and nobody is any the wiser.'); }
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the curator&rsquo;s own file, which no one else will read</h4><h3>The night, told straight</h3>' +
+      '<p><b>A</b> Write the night&rsquo;s record, in order, in 80 to 120 words: how you got in, how you found where the crown was, how you knew the one safe minute to cross, and how the plan had to change. Use at least two time clauses (<i>while, as soon as, by the time, until</i>) and at least two conditionals (<i>if, unless, in case, otherwise</i>).<br>' +
+      '<b>B</b> Or say it out loud, in two minutes, to a friend who was not there: how can you cross a corridor that a camera sweeps and a guard patrols, and be seen by neither? Explain the method, not just the answer.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
