@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Last Show · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#06041a;--accent:#ffd27a;--font-display:'Alegreya',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(8,6,28,.97);--tc-ink:#f2eefc;--cap-bg:rgba(10,8,32,.94);--panel:#141030;--face-bg:#3a1e2c;--q-ink:#ffd27a;--fade:#030210;--hud-bg:rgba(10,8,32,.85)}
+  .tc-room{font-family:'Alegreya',serif;font-style:italic;font-weight:700;font-size:clamp(48px,6.4vw,90px);color:#ffd27a}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  #stars circle{animation:tw 3.6s steps(1,end) infinite}
+  #stars circle:nth-child(3n){animation-delay:-1.2s}#stars circle:nth-child(5n){animation-delay:-2.5s}
+  @keyframes tw{50%{opacity:.45}}
+  #pbd{opacity:0;transition:opacity 2s}
+  #scene.dot #pbd{opacity:1}
+  #scene.dot #stars,#scene.dot #band{opacity:.15}
+  #stars,#band{transition:opacity 2s}
+  #house{opacity:0;transition:opacity 3s}
+  #scene.lights #house{opacity:1}
+  #scene.lights #pbd{opacity:.35}
+
+  .why{width:min(760px,94vw);padding:18px 24px 14px;background:#f6f1e6;color:#20201e;border-top:10px solid #b8322a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .why h5{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#b8322a;text-align:center}
+  .why .q{margin:4px 0 12px;font-family:'Alegreya',serif;font-size:21px;line-height:1.35;text-align:center}
+  .why .opt{display:block;width:100%;margin:0 0 7px;padding:9px 12px;border:2px solid #c8bca0;border-radius:4px;background:#fff;text-align:left;font-family:'Alegreya',serif;font-size:17.5px;line-height:1.3;color:#20201e}
+  .why .opt:hover{border-color:#b8322a}
+  .why .opt.bad{background:#f3c4b4}
+  .why .pmsg{color:#5a4a3e;font-size:17px;min-height:28px}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fbf8f0;color:#1c1c26;border-top:10px solid #2a4a8a;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #2a4a8a;color:#2a4a8a;font-family:'Outfit',sans-serif;font-weight:700;font-size:17px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2a4a8a}
+  .done p{margin:0 0 3px;font-family:'Outfit',sans-serif;font-size:14.5px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'Alegreya',serif;font-size:15px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#2a4a8a;font-size:13px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf8f0}
+  .done small{display:block;margin-top:8px;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf8f0;color:#1c1c26;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #2a4a8a}
+  .rp h4{margin:0 0 3px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2a4a8a}
+  .rp h3{margin:0 0 8px;font-family:'Alegreya',serif;font-weight:700;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'Alegreya',serif;font-size:17.5px;line-height:1.4;margin:0 0 6px;color:#1c1c26}
+  .rp textarea{width:100%;min-height:184px;font-family:'Caveat',cursive;font-size:24px;line-height:30px;color:#1f3a7a;background:#fff repeating-linear-gradient(transparent 0 29px,#d6dcea 29px 30px);border:1px solid #a8b0c8;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp .count{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75}
+  .rp .btn{--accent:#2a4a8a}.rp .btn:hover:not([disabled]){color:#fbf8f0}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="domeG" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#1a1440"/><stop offset=".6" stop-color="#0a0824"/><stop offset="1" stop-color="#040312"/></radialGradient>
+  <linearGradient id="coveG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a8a" stop-opacity="0"/><stop offset=".6" stop-color="#5a3a9a" stop-opacity=".6"/><stop offset="1" stop-color="#e88a5a" stop-opacity=".7"/></linearGradient>
+  <linearGradient id="bandG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8c0ff" stop-opacity="0"/><stop offset=".5" stop-color="#c8c0ff" stop-opacity=".22"/><stop offset="1" stop-color="#c8c0ff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="houseG" cx="50%" cy="100%" r="90%"><stop offset="0" stop-color="#ffe2b0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe2b0" stop-opacity=".1"/></radialGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#030210"/>
+<ellipse cx="800" cy="660" rx="1260" ry="1060" fill="url(#domeG)"/>
+<path id="band" d="M-300 600Q500 -100 1900 -200" stroke="url(#bandG)" stroke-width="160" fill="none"/>
+<g id="stars" fill="#fff"></g>
+<!-- the Pale Blue Dot, projected high in the dome: Sabine's own drawing of it -->
+<g id="pbd" class="hot"><rect x="640" y="70" width="320" height="190" fill="#020205" stroke="#2a2a3a" stroke-width="2"/>
+  <g opacity=".5"><path d="M680 70L752 260" stroke="#7a6a8a" stroke-width="24" opacity=".4"/><path d="M790 70L846 260" stroke="#8a7a6a" stroke-width="28" opacity=".4"/><path d="M880 70L924 260" stroke="#6a7a8a" stroke-width="20" opacity=".4"/></g>
+  <circle cx="903" cy="190" r="1.8" fill="#a8d8ff"/></g>
+<g><rect x="-1000" y="520" width="3600" height="90" fill="url(#coveG)"/>
+<path d="M-1000 610V572h160v-20h60v20h120v-36h40v-30l20 -14l20 14v30h40v56h200v-24h80v-40l40 -60l40 60v40h40v24h160v-14h60v14h120v-50l30 -10l30 10v50h160v-30h40l10 -40l10 40h40v30h220v-18l40 -40l40 40v18h120v-28h70v28h200v-40l24 -6v-24h6v24l24 6v40h200V610z" fill="#020108"/></g>
+<rect id="house" x="-1000" y="-400" width="3600" height="1700" fill="url(#houseG)" pointer-events="none"/>
+<!-- the projector -->
+<g id="proj" class="hot"><path d="M780 690l8 -150h24l8 150z" fill="#0c0c14"/>
+  <g transform="rotate(-20 800 520)"><path d="M700 512h200v14H700z" fill="#12121c"/><circle cx="680" cy="520" r="54" fill="#12121c"/><circle cx="920" cy="520" r="54" fill="#12121c"/><g fill="#ffe8b0" opacity=".8"><circle cx="660" cy="500" r="3"/><circle cx="696" cy="494" r="3"/><circle cx="944" cy="500" r="3"/><circle cx="908" cy="492" r="3"/></g></g></g>
+<!-- the audience: rows of heads against the glow -->
+<g id="crowd" fill="#0a0814"></g>
+<!-- Zainab at the lectern, with its little lamp -->
+<g id="zainab" class="hot"><circle cx="230" cy="660" r="80" fill="url(#lampG)"/><g id="zfig" transform="translate(230 820)"></g><path d="M190 820l14 -110h56l14 110z" fill="#1a1a26" stroke="#000" stroke-width="2"/><path d="M196 714h70" stroke="#ffe2a0" stroke-width="5"/></g>
+<!-- Sabine, in the aisle seat F1 -->
+<g id="sabine" class="hot"><g id="sfig" transform="translate(1290 900)"></g></g>
+<!-- Terry at the desk at the back, a small silhouette with a glowing dial -->
+<g id="terry" class="hot"><circle cx="1480" cy="640" r="14" fill="#ffb43a" opacity=".85"/><circle cx="1480" cy="640" r="40" fill="#ffb43a" opacity=".18"/><path d="M1430 700h110l-10 -40h-90z" fill="#0a0a12"/><circle cx="1520" cy="600" r="14" fill="#0a0a12"/><path d="M1504 660q16 -40 32 0z" fill="#0a0a12"/></g>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">The last show went on</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A scale model shrinks every size and every distance by the same number. If the Sun were a ball 14 cm across, the Earth would be a pinhead 15 metres away, and the nearest star another ball 4,000 km away.</li>
+    <li>An analogy explains something new with something the listener already knows. Choose it for your audience, and say where it breaks down: a misleading analogy is worse than none.</li>
+    <li>If the 13.8 billion years of the universe were one year, the Sun and the Earth would form in early September, the first life would appear in late September, the first dinosaurs at Christmas, and all of written history would fit into the last 11 seconds of 31 December.</li>
+    <li>A figure of speech can carry a true fact. &ldquo;We are made of stardust&rdquo; is a metaphor; the fact inside it is that, apart from hydrogen, nearly every atom in us was made in stars. Cut a figure that leaves a false picture: the Sun is not on fire.</li>
+    <li>Some true facts sound like boasting: for a few weeks, one exploding star can shine as brightly as a whole galaxy. Check before you call a thing hyperbole.</li>
+    <li>A good explanation begins with what the audience has seen, goes from small to large, asks its question before its answer, uses nothing before it has been given, and ends by coming home. True is not enough: a fact must move the explanation along.</li>
+    <li>On 14 February 1990 Voyager 1 looked back from about 6 billion kilometres and photographed the Earth as a dot smaller than one pixel: the Pale Blue Dot.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>Carl Sagan, <i>Cosmos</i> (1980), and <i>Pale Blue Dot</i> (1994): the real science writer who made the calendar of the universe famous, and asked for the photograph to be taken.</li>
+    <li>Bill Bryson, <i>A Really Short History of Nearly Everything</i> (2008): the young readers&rsquo; version of his big book, full of scale and wonder.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain something huge</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Stardust at Half Past Seven &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, lk = null;
+  (function () {
+    var s = '', i, x, y, r;
+    for (i = 0; i < 170; i++) { x = (i * 197.3) % 1700 - 50; y = (i * 83.7) % 520 - 20; r = (i % 7 === 0) ? 2.2 : (i % 3 === 0 ? 1.5 : 1); s += '<circle cx="' + x.toFixed(0) + '" cy="' + y.toFixed(0) + '" r="' + r + '"/>'; }
+    $('#stars').innerHTML = s;
+    var c = '';
+    [[640, 34, 64], [700, 30, 72], [770, 26, 80], [850, 22, 90]].forEach(function (row, j) {
+      for (x = -40; x < 1640; x += row[2]) { if (x > 700 && x < 900 && j < 2) continue; y = row[0] + Math.sin(x / 140) * 6; c += '<circle cx="' + (x + (j % 2) * 30) + '" cy="' + y.toFixed(0) + '" r="' + row[1] + '"/><path d="M' + (x + (j % 2) * 30 - row[1] - 10) + ' ' + (y + row[1] + 40).toFixed(0) + 'q' + (row[1] + 10) + ' ' + (-row[1] - 40) + ' ' + (2 * row[1] + 20) + ' 0z"/>'; }
+    });
+    $('#crowd').innerHTML = c;
+    $('#zfig').innerHTML = SD.fig({ h: 300, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', specs: true, armR: 'front' });
+    $('#sfig').innerHTML = SD.fig({ h: 300, coat: '#5a6a4a', legs: '#3a3a44', skin: '#f0d6c0', hair: '#efeeea', hairStyle: 'bob', scarf: '#b8322a', specs: true, armL: 'front',
+      extra: '<path d="M40 0l-10 -150" stroke="#5a3a1a" stroke-width="6" stroke-linecap="round"/><path d="M30 -150q6 -12 18 -6" fill="none" stroke="#5a3a1a" stroke-width="6" stroke-linecap="round"/>' });
+  })();
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'show', no: 'VI', title: 'The Last Show',
+    go: 'Find your seat',
+    intro: [
+      'You worked out where Voyager 1 was when it took its picture, on the foyer&rsquo;s own scale: 6 billion kilometres at 100,000 kilometres to the centimetre is 60,000 centimetres, 600 metres from the front door: the railway bridge. You needed the foyer for that, and the roof. And you laid the eight scenes along the parapet in Sabine&rsquo;s order: the foyer they had just walked through, then the next grapefruit, then the galaxies, small to large; the question about the beginning, then the year that answers it; the Iron question, which needs the calendar, then Stardust; and last, the dot, which comes home. Zainab&rsquo;s page, true in every word, went on the spike.',
+      'At half past seven the dome is full: eighty-eight people, most of them under twelve, and in seat F1, on the aisle, with a cushion and a pencil, Sabine Quennell. You stand at the back by the door with your torch, where volunteers stand.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"why":["9a6b7991"],"late":["df3a3e23"]},
+    hints: hints, onBegin: begin
+  });
+  told = SD.told('f-told');
+  function hints() {
+    if (told.has('end')) return null;
+    if (lk && document.body.contains(lk)) return ['why', ['Read rule five on Sabine&rsquo;s last sheet again (it is in your notebook).', 'The show went out from the foyer, further and further, to the edge of everything. Where does the dot bring everybody back to?']];
+    if (told.has('show')) return ['sabine', ['The show is over. Sabine has come up the aisle to find you: click her, on the right.']];
+    return null;
+  }
+  function paint() {
+    $('#scene').classList.toggle('dot', told.has('show'));
+    $('#scene').classList.toggle('lights', told.has('show'));
+    $('#sabine').classList.toggle('ready', told.has('show') && !told.has('why'));
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('why')) { busy = false; ending(); return; }
+    if (told.has('show')) { busy = false; ER.say('The house lights are up. Sabine is coming up the aisle on her stick, towards you.'); return; }
+    ER.narrate([
+      'The house lights go down. Terry&rsquo;s cove lights make a sunset all the way round the dome, and fade. In the dark, Zainab&rsquo;s voice: &ldquo;On your way in tonight, you walked past the Sun.&rdquo; Eighty-eight heads turn to look back at the door.',
+      'A pinhead, fifteen metres from a grapefruit. The next grapefruit, four thousand kilometres away. The seaside, two hours away, and the sentence after it: <i>But a car can go faster or slower.</i> Raisins in rising dough, and then: <i>But a loaf has a middle and an edge.</i> A small boy in row C says &ldquo;raisins&rdquo; out loud, delighted.',
+      'Then the Year Dial turns. The stars wheel. The Sun is born in September, and the whole dome goes gold. The dinosaurs arrive on Christmas Day. People like us, at twelve minutes to midnight. &ldquo;You were born less than a second ago,&rdquo; says Zainab, and a girl near the front laughs out loud.',
+      'One red star swells and flares and is gone. &ldquo;You are made of stardust.&rdquo; And then, warmly, the fact inside it. In seat F1, Sabine&rsquo;s pencil does not move once.',
+      'Then everything goes dark, and one small picture appears high in the dome: black, with faint stripes of light. &ldquo;If the Sun were our grapefruit in the foyer, Voyager took this picture from the railway bridge.&rdquo; Somewhere in one of those stripes there is a dot, smaller than one dot of the picture.',
+      '&ldquo;Look after it,&rdquo; says Zainab. &ldquo;And look after each other.&rdquo; The house lights come up, very slowly. For a long moment nobody claps. Then everybody does.'
+    ], function () { told.set('show'); paint(); SD.sfx.clap(); busy = false; ER.say('Sabine is getting up out of seat F1, on her stick, and coming up the aisle towards you.'); });
+  }
+
+  $('#sabine').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('show')) return;
+    if (told.has('why')) { ER.say('&ldquo;Say that to anybody who asks you what an explanation is for,&rdquo; says Sabine.'); return; }
+    ER.talk({
+      who: 'Sabine Quennell', role: 'science writer · seat F1', face: window.FACE('sabine'),
+      lines: [
+        { note: 'Sabine Quennell is small and very upright, with a long red scarf and a pencil behind her ear. Zainab has given her the folder, and she has it under her arm.', a: '&ldquo;Ten sheets,&rdquo; she says. &ldquo;Every one in its place. Zainab tells me you did most of it.&rdquo;' },
+        { q: 'Did you mean the pages to put themselves in order?', a: '&ldquo;I meant a good explanation to. Pages are only paper. I will admit I never expected a chimney.&rdquo;' },
+        { q: 'Was everything right?', a: '&ldquo;Every number. I checked.&rdquo; She taps the pencil behind her ear. &ldquo;I didn&rsquo;t need this once. Do you know how rare that is?&rdquo;' },
+        { q: 'Why did you throw the firework away?', a: '&ldquo;Because it was wrong, and it was lovely, and the lovely wrong ones are the dangerous ones. A child would have gone home believing that everything has a middle, and that we are near it. I wrote it on a Tuesday in 1991, and I was ashamed of it by Wednesday.&rdquo;' },
+        { q: 'And Zainab&rsquo;s Voyager page?', a: '&ldquo;True, and beautifully checked. And it would have ended my show on a machine, when the show is about a dot.&rdquo; She looks at you over her glasses. &ldquo;Go on, then. Tell me why I end it there.&rdquo;' }
+      ],
+      last: 'Tell her',
+      clue: { id: 'sabine', title: 'Sabine, after the show', kind: 'What she said' },
+      done: function (seen) { if (seen) setTimeout(openWhy, 300); }
+    });
+  });
+  var OPTS = [['w1', 'Because the photograph was the newest thing in the show: it was taken last, in 1990.'],
+    ['w2', 'Because a good explanation ends by coming home. The show goes out from the foyer to the edge of everything, and the dot brings us back to where we live.'],
+    ['w3', 'Because Voyager 1 is further away from us than anything people have ever made.']];
+  function openWhy() {
+    if (told.has('why')) return;
+    lk = ER.el('div', 'why');
+    lk.innerHTML = '<h5>Sabine Quennell asks</h5><p class="q">&ldquo;Why does my show end with the dot?&rdquo;</p><div class="opts"></div><p class="pmsg"></p>';
+    var o = lk.querySelector('.opts'), m = lk.querySelector('.pmsg');
+    OPTS.forEach(function (x) { var b = ER.el('button', 'opt', ER.gloss(x[1])); b.type = 'button'; b.setAttribute('data-w', x[0]); o.appendChild(b); });
+    o.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b) return;
+      var w = b.getAttribute('data-w');
+      if (!ER.check('why', w)) {
+        b.classList.add('bad'); ER.sfx.no();
+        m.innerHTML = ER.gloss(ER.check('late', w) ? '&ldquo;True. But my show isn&rsquo;t told in the order things happened: the Big Bang is in the middle. Look at rule five.&rdquo;' : '&ldquo;That is Zainab&rsquo;s page, and it is true. But is it why the show ends there?&rdquo;');
+        return;
+      }
+      told.set('why'); SD.solved();
+      SD.mine('why', 'Why the show ends with the dot', '<p>' + OPTS[1][1] + '</p>');
+      m.innerHTML = ER.gloss('&ldquo;Yes,&rdquo; says Sabine. &ldquo;Exactly that.&rdquo;');
+      setTimeout(function () { ER.closeAll(); ending(); }, 1600);
+    });
+    ER.open('ov-lock', lk);
+  }
+
+  function ending() {
+    if (told.has('end')) { finish(true); return; }
+    busy = true;
+    ER.narrate([
+      '&ldquo;Say that to anybody who asks you what an explanation is for,&rdquo; says Sabine. &ldquo;You start where people are, you take them as far as they can bear, and you bring them home again a bit bigger than they were.&rdquo;',
+      'At the back of the dome Terry switches off the Year Dial, and sits for a moment with his hand on it. On Monday the painters will start, and on the very top of the dome, under the hatch, Nuala Rawle will paint over the names last of all.',
+      'Zainab gives you the blue folder to hold while she shakes eighty-eight hands. Ten sheets, unnumbered, every one in its place. Outside, the town is lit up, and the sky over it is full of stars that nobody switched on.'
+    ], function () { told.set('end'); busy = false; finish(false); });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = SD.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the empty folder to the last show: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The dome after the last show. The house lights are up, and the picture of the dot is still there, very faint.');
+  }
+  SD.thing('#pbd', null, function () { return told.has('show') ? 'The Pale Blue Dot, still faintly on the dome: Sabine&rsquo;s own drawing of the photograph. One stripe, one dot.' : 'The dome, full of stars.'; }, function () { return busy; });
+  SD.thing('#proj', 'star projector', 'The old star projector, still warm. It has a museum to go to.', function () { return busy; });
+  SD.thing('#zainab', null, function () { return told.has('show') ? 'Zainab is shaking hands with a queue of very small astronomers.' : 'Zainab, at the lectern.'; }, function () { return busy; });
+  SD.thing('#terry', null, 'Terry, at the desk, with the Year Dial glowing under his hand.', function () { return busy; });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Stardust at Half Past Seven &middot; in your own words</h4><h3>Explain something huge</h3>' +
+      '<p>Sabine made the whole universe fit into one evening for a room of nine-year-olds. Now you. Choose something very big, very old or very far away (the age of the Earth, the distance to the Moon, the number of people in your country, a million seconds) and explain it to somebody younger, in 60 to 100 words, aloud or on paper.</p>' +
+      '<p><b>1</b> Start with a question. <b>2</b> Use a scale: shrink it, or squeeze it into one day or one year. <b>3</b> Use an analogy your listener knows, and then one sentence that begins &ldquo;But&rdquo; and says where it breaks. <b>4</b> Leave out any fact that does not help, however true it is.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, n = (o.r1.match(/[A-Za-z0-9’',.]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

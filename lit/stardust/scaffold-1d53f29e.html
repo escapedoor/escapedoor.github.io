@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Scaffolding · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#1a1814;--accent:#f0e070;--font-display:'Caveat',cursive;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(236,230,214,.97);--tc-ink:#22201a;--cap-bg:rgba(240,236,224,.96);--cap-ink:#22201a;--panel:#f2eee2;--panel-ink:#22201a;--face-bg:#d8d2c2;--q-ink:#6a5a10;--fade:#f4f2ea;
+    --hud-bg:rgba(244,240,228,.86);--hud-ink:#22201a;--hud-line:rgba(34,32,26,.3);--ov-bg:rgba(30,28,22,.62)}
+  .tc-room{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(54px,7vw,96px);color:#3a3a46}
+  .tc-theme{color:#6a6450}
+  .tk-role{color:#7a6a10}
+  .hbtn.hnt{border-color:#7a6a10;color:#7a6a10}
+  .ov-x{background:rgba(244,240,228,.92);color:#22201a;border-color:rgba(34,32,26,.4)}
+  .cap{border-top-color:#9a8a20}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sC{font-family:'Caveat',cursive;text-anchor:middle}
+  #lampcone{animation:lc 4s steps(1,end) infinite}
+  @keyframes lc{0%{opacity:.6}70%{opacity:.52}72%{opacity:.64}}
+  #hstars circle{animation:tw 2.6s steps(1,end) infinite}
+  #hstars circle:nth-child(2n){animation-delay:-1.1s}
+  @keyframes tw{50%{opacity:.3}}
+  #flap{transform-box:fill-box;transform-origin:50% 0;animation:flap 2.2s ease-in-out infinite}
+  @keyframes flap{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(7deg)}}
+  .pmsg{color:#f4f2ea}
+
+  /* the lock: the margin of the stardust page, and Sabine's pencil marks */
+  .mg{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;padding:12px 14px;background:#e8e4d6 linear-gradient(170deg,#efebdf,#dcd6c4);border:1px solid #8a826a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .mg .pg{position:relative;background:#f7f2e4;padding:10px 16px 10px 10px;font-family:'Special Elite',monospace;font-size:14.6px;line-height:1.36;color:#20201e;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+  .mg .pg:before{content:'';position:absolute;left:0;top:0;bottom:0;width:58px;background:linear-gradient(90deg,#fbfbf6,#f2f0e6);border-right:2px solid rgba(200,60,60,.35)}
+  .mg .pg h6{position:relative;margin:0 0 6px 66px;font-family:'Special Elite',monospace;font-weight:normal;font-size:15px;letter-spacing:.1em;text-decoration:underline}
+  .mg .ln{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;align-items:center;margin:0 0 5px}
+  .mg .bx{position:relative;width:44px;height:34px;border:2px dashed #9a9a8a;border-radius:50%;background:transparent;font-family:'Caveat',cursive;font-size:26px;line-height:28px;color:#1f4a3a;text-align:center}
+  .mg .bx:hover{border-color:#1f4a3a}
+  .mg .bx.on{border-style:solid;border-color:#1f4a3a}
+  .mg .bx.bad{border-color:#d83a2a;background:rgba(216,58,42,.15)}
+  .mg .ln.bad span{background:rgba(216,58,42,.12)}
+  .mg .tools{display:flex;flex-direction:column;gap:6px}
+  .mg .tools h6{margin:0 0 2px;font-family:'Outfit',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#4a4636}
+  .mg .tl{display:grid;grid-template-columns:38px minmax(0,1fr);align-items:center;gap:8px;padding:4px 8px;border:2px solid #b8b29a;border-radius:4px;background:#fbf9f2;text-align:left;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.15;color:#22201a}
+  .mg .tl b{font-family:'Caveat',cursive;font-size:26px;line-height:26px;color:#1f4a3a;text-align:center}
+  .mg .tl.held{border-color:#1f4a3a;background:#e2efe6}
+  .mg .tl:hover{border-color:#6a8a7a}
+  .mg .fact{display:none;margin:8px 0 0;padding:8px 10px;border:2px dashed #b04a3a;background:#fffaf0}
+  .mg.two .fact{display:block}
+  .mg .fact p{margin:0 0 6px;font-family:'Alegreya',serif;font-size:15px;color:#7a1e14}
+  .mg .fq{display:block;width:100%;margin:0 0 4px;padding:5px 8px;border:2px solid #c8c0a8;border-radius:3px;background:#fff;text-align:left;font-family:'Special Elite',monospace;font-size:13.4px;line-height:1.3;color:#20201e}
+  .mg .fq:hover{border-color:#1f4a3a}
+  .mg .fq.bad{background:#f3c4b4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="domeG" cx="50%" cy="20%" r="90%"><stop offset="0" stop-color="#e8e0c8"/><stop offset=".6" stop-color="#cfc3a2"/><stop offset="1" stop-color="#8a7e62"/></radialGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060a1e"/><stop offset="1" stop-color="#1a2450"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff4c8" stop-opacity=".75"/><stop offset="1" stop-color="#fff4c8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="voidG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0b10"/><stop offset="1" stop-color="#1c1a22"/></linearGradient>
+  <pattern id="plank" width="240" height="60" patternUnits="userSpaceOnUse"><rect width="240" height="60" fill="#b08a52"/><path d="M0 .5h240M0 30h240M120 0v30M60 30v30" stroke="#7a5a2e" stroke-width="2"/><path d="M20 12h50M150 44h40" stroke="#c49a62" stroke-width="2"/></pattern>
+</defs>
+<!-- the void under the boards, and the floor of the dome far below -->
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#voidG)"/>
+<g opacity=".8"><ellipse cx="800" cy="860" rx="420" ry="60" fill="#d88a3a" opacity=".25"/><ellipse cx="800" cy="860" rx="300" ry="40" fill="none" stroke="#e8a85a" stroke-width="3" opacity=".6"/>
+  <g fill="#4a1a24"><rect x="620" y="850" width="12" height="8"/><rect x="650" y="846" width="12" height="8"/><rect x="940" y="846" width="12" height="8"/><rect x="970" y="850" width="12" height="8"/></g>
+  <path d="M790 870l4 -24h12l4 24z" fill="#14161e"/><circle cx="790" cy="842" r="8" fill="#22252f"/><circle cx="810" cy="840" r="8" fill="#22252f"/></g>
+<!-- the dome, very close above you, with fresh primer patches -->
+<path d="M-1000 -400H2600V470Q1800 300 800 250Q-200 300 -1000 470z" fill="url(#domeG)"/>
+<g fill="#f6f6f0" opacity=".95"><path d="M180 300q60 -40 140 -10q40 30 -10 50q-90 20 -130 -40z"/><path d="M1260 220q80 -30 160 10q30 40 -40 50q-110 0 -120 -60z"/><path d="M880 150q60 -20 120 0q20 30 -30 40q-80 6 -90 -40z"/></g>
+<g fill="none" stroke="#b8ac8c" stroke-width="2" opacity=".6"><path d="M-1000 300Q800 40 2600 300"/><path d="M400 -400Q560 100 700 300"/><path d="M1200 -400Q1040 100 900 300"/></g>
+<!-- the hatch at the top, open to the night -->
+<g id="hatch" class="hot"><path d="M940 -10h200l-20 120h-160z" fill="url(#nightG)" stroke="#5a5444" stroke-width="8"/>
+  <g id="hstars" fill="#fff"><circle cx="990" cy="20" r="2"/><circle cx="1040" cy="60" r="1.6"/><circle cx="1090" cy="30" r="2.2"/><circle cx="1010" cy="86" r="1.3"/><circle cx="1100" cy="88" r="1.4"/></g>
+  <path d="M940 -10l-60 -70h200l60 70" fill="#9a907a" stroke="#5a5444" stroke-width="4"/></g>
+<!-- the names in pencil -->
+<g id="names" class="hot" transform="rotate(-4 640 220)"><g font-family="Caveat,cursive" fill="#4a4a52" opacity=".85">
+  <text x="520" y="200" font-size="34">S. Quennell</text><text x="534" y="224" font-size="20">opening night 1992</text>
+  <text x="700" y="190" font-size="26">T. Stobbs &#8217;92</text><text x="660" y="246" font-size="22">the whole crew, with love</text><text x="760" y="226" font-size="18">&#9733; &#9733; &#9733;</text></g></g>
+<!-- the scaffold: poles, ledgers, the guard rail, and the boards you are standing on -->
+<g stroke="#8a909a" stroke-width="16" stroke-linecap="round"><path d="M120 330V1300M440 310V1300M1180 300V1300M1500 320V1300"/></g>
+<g stroke="#6a707a" stroke-width="5"><path d="M120 330V1300M440 310V1300M1180 300V1300M1500 320V1300" stroke="#b8bec8" stroke-width="4" opacity=".5"/></g>
+<g stroke="#7a808a" stroke-width="12" stroke-linecap="round"><path d="M-200 560H1800"/><path d="M-200 470H1800" opacity=".7"/></g>
+<g fill="#5a5f68"><rect x="106" y="548" width="28" height="24" rx="4"/><rect x="426" y="548" width="28" height="24" rx="4"/><rect x="1166" y="548" width="28" height="24" rx="4"/><rect x="1486" y="548" width="28" height="24" rx="4"/></g>
+<rect x="-1000" y="680" width="3600" height="70" fill="url(#plank)" stroke="#5a3a1a" stroke-width="3"/><rect x="-1000" y="650" width="3600" height="34" fill="#c49a62" stroke="#5a3a1a" stroke-width="3"/>
+<!-- the ladder coming up from below, with its third rung -->
+<g id="ladder" class="hot"><path d="M30 1000L70 520M120 1000L150 520" stroke="#9a9a9a" stroke-width="10"/><g stroke="#9a9a9a" stroke-width="7"><path d="M64 600h82M58 680h86M51 760h90M44 840h90"/></g><path d="M50 760l92 6" stroke="#d8a03a" stroke-width="7"/></g>
+<!-- the work lamp clamped to a pole -->
+<g id="lamp"><path d="M440 430l40 -10" stroke="#2a2a2a" stroke-width="6"/><path d="M470 400l40 -6l10 50l-46 6z" fill="#e8b82a" stroke="#3a2a06" stroke-width="3"/></g>
+<path id="lampcone" d="M490 444L300 690H760z" fill="url(#lampG)" pointer-events="none"/>
+<!-- paint tins, a roller tray, dust sheets -->
+<g id="tins" class="hot"><path d="M560 680v-56h56v56z" fill="#e6e8ee" stroke="#3a3a44" stroke-width="2.5"/><ellipse cx="588" cy="624" rx="28" ry="7" fill="#c8ccd4" stroke="#3a3a44" stroke-width="2"/><text x="588" y="660" class="sO" font-size="11" font-weight="700" fill="#3a3a44">PRIMER</text>
+  <path d="M630 680l10 -24h80l10 24z" fill="#8a8a96" stroke="#3a3a44" stroke-width="2"/><path d="M646 668h68" stroke="#f6f6f0" stroke-width="8"/>
+  <path d="M760 680q60 -30 140 -4q50 10 60 4" fill="#e8e4d8" stroke="#a8a294" stroke-width="2"/></g>
+<!-- the style sheet, clipped to the guard rail -->
+<g id="sheet" class="hot" transform="rotate(3 920 610)"><rect x="880" y="566" width="84" height="104" fill="#fff" stroke="#8a826e" stroke-width="1.5"/><rect x="880" y="566" width="84" height="6" fill="#7a1e14"/>
+  <path d="M890 586h64M890 596h58M890 606h64M890 616h50M890 626h64M890 636h58M890 646h40" stroke="#5a5a62" stroke-width="1.3"/><rect x="908" y="552" width="28" height="18" fill="#2a2a2a"/><path d="M912 552q10 -14 20 0" fill="none" stroke="#8a8a8a" stroke-width="2"/></g>
+<!-- the two pages caught on a pole, one with a white edge -->
+<g id="pages" class="hot"><g id="flap"><rect x="1196" y="380" width="80" height="58" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M1206 394h60M1206 404h54M1206 414h60M1206 424h40" stroke="#6a6a72" stroke-width="1.3"/></g>
+  <g transform="rotate(-10 1230 470)"><rect x="1192" y="440" width="84" height="62" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><rect x="1192" y="440" width="18" height="62" fill="#fbfbf6"/><path d="M1216 454h54M1216 464h48M1216 474h54M1216 484h36" stroke="#6a6a72" stroke-width="1.3"/></g>
+  <rect x="1172" y="420" width="16" height="22" rx="3" fill="#5a5f68"/><rect x="1186" y="370" width="104" height="140" fill="transparent"/></g>
+<!-- Nuala and Zainab -->
+<g id="nuala" class="hot" transform="translate(1340 700)"></g>
+<g id="zainab" class="hot" transform="translate(250 700)"></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out through the hatch, onto the roof</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#zainab').innerHTML = SD.fig({ h: 300, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', lanyard: '#e8802a', armR: 'out', specs: true, smile: false });
+  $('#nuala').innerHTML = SD.fig({ h: 300, coat: '#f2f0ea', legs: '#e8e6de', skin: '#f2cfb0', hair: '#c0562a', hairStyle: 'tied', band: '#3a8a5a', spots: true, armL: 'up',
+    extra: '<path d="M-56 -274l-40 -170" stroke="#9a9a9a" stroke-width="5"/><rect x="-118" y="-470" width="46" height="18" rx="8" fill="#f6f6f0" stroke="#5a5a5a" stroke-width="2" transform="rotate(-20 -95 -461)"/>' });
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'scaffold', no: 'IV', title: 'The Scaffolding',
+    go: 'Climb up',
+    intro: [
+      'You set the Year Dial. With 13.8 billion years in one year, a day is about 38 million years and a second about 440. The Sun and the Earth went in early September (4.6 billion years ago is a third of the way back) and the oldest fossils in late September; the shells on 17 December, the first dinosaurs at Christmas, the end of the great dinosaurs on 30 December; people like us at about twelve minutes to midnight on 31 December, and all of written history in its last eleven seconds.',
+      'And Terry was never wrecking the show. He was saving it: the cove lights had burnt out at ten past four, and the fuse in his pocket was the dead one. He held the ladder on Sabine&rsquo;s opening night.',
+      'Now the ladder is yours. The scaffolding climbs up the back of the dome, lift after lift, to the very top, where the painters have propped open the hatch.'
+    ],
+    exit: {"next":"roof","w":{"cf5d345f":"624b4dc2"}}, tags: {"s1":["45e4ac92"],"s2":["e0cc8b38"],"s3":["ecb44dd7"],"s4":["95298ac6"],"s5":["4c0602ef"],"s6":["37a4d9ea"],"s7":["f130cc66"],"s8":["16831a5e"],"cut":["fa6b70ff","c2121c89"],"loud":["d27966fa"],"q":["4911323b"],"hyd":["3502c74d"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SD.told('d-told'); nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('sheet') && told.has('pages') && told.has('zainab'); }
+  function paint() {
+    $('#sheet').classList.toggle('ready', !told.has('sheet'));
+    $('#pages').classList.toggle('ready', !nextFile && (!told.has('pages') || ready()));
+    $('#zainab').classList.toggle('ready', !told.has('zainab'));
+    var n = ['sheet', 'pages', 'zainab', 'nuala'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The stardust page is whole. The last page went out through the hatch: the button at the bottom of the screen climbs out after it.']];
+    if (lock && document.body.contains(lock) && lock.classList.contains('two')) return ['fact', [
+      'The fact inside the metaphor has to be true word for word. The Iron page, in your notebook, says where the hydrogen came from.',
+      'The hydrogen was made in the first few minutes, before there were any stars. So choose the sentence that leaves the hydrogen out.'
+    ]];
+    if (lock && document.body.contains(lock)) return ['marks', [
+      'Sabine&rsquo;s front sheet gives the marks: F for a plain fact; S, M, P or H for the figure of speech that carries it; a cross for a figure that would leave a false idea. Read each sentence literally first: could it be true exactly as the words stand?',
+      'Two sentences must be cut: one about the Sun (the Iron page says how a star really shines) and one about black holes (Zainab told you). One sentence sounds like boasting and is a plain fact. The one with &ldquo;like&rdquo; is a simile; the one that says you ARE something is a metaphor.',
+      'A star that is born, lives and dies: personification. Numbers that make your head spin: hyperbole. An exploding star really can shine as brightly as a whole galaxy for a few weeks, and the iron in your blood really was made in stars: both plain facts.'
+    ]];
+    if (!ready()) return ['read', [
+      'Three things up here: the sheet clipped to the guard rail in front of you, the pages caught on the pole on the right, and Zainab, who has just come up the ladder on the left.',
+      'Read the sheet and the pages, and ask Zainab about black holes. Nuala, the painter, can tell you what happened to the pages.'
+    ]];
+    return ['pages', ['Everything is read. Click the pages on the pole again: the one with the white edge needs its margin marks back.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The margins are pencilled back. The hatch is a square of stars.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The top lift of the scaffolding, right under the dome.'); return; }
+    told.set('in'); SD.sfx.gust();
+    ER.narrate([
+      'Six lifts up, the dome is so close that you could touch it. From the seats it looks like the sky. From up here it is a ceiling: a huge, curved, slightly dusty ceiling, with fresh white patches of primer where the painters have started.',
+      'At the very top, the hatch stands open: a square of real night, with real stars in it. The draught pours up past you and out through it, cold and steady.',
+      'A painter in white overalls is working on the patches round the hatch with a roller on a long pole. She has caught two of the pages and clipped them to a pole, and a sheet of notes to the guard rail.',
+      'And on the dome itself, just above the boards, there are names in pencil. Somebody signed the ceiling, a long time ago.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var SHEET = '<h4>NOTES FOR WHOEVER READS THIS</h4><h5>the front sheet of the script &middot; 1992</h5>' +
+    '<p>Read the facts plainly. Read the figures of speech warmly, and then give the fact inside them.</p>' +
+    '<p>A <b>simile</b> says one thing is LIKE another, or AS big AS another. A <b>metaphor</b> says one thing IS another. <b>Personification</b> talks about a thing as if it were alive, or a person. <b>Hyperbole</b> exaggerates on purpose, so far that nobody takes it literally.</p>' +
+    '<p>Beside every sentence I have pencilled one mark: <span class="mk">F</span> for a plain fact; <span class="mk">S</span> <span class="mk">M</span> <span class="mk">P</span> or <span class="mk">H</span> for the figure of speech that carries it; and a cross <span class="mk">&#10007;</span> for a figure to CUT, because a listener would go home believing something false. (&ldquo;Atoms are tiny solar systems&rdquo; was cut in 1991.)</p>' +
+    '<p>A figure is welcome when the listener can find the true fact inside it.</p>' +
+    '<p class="pen">Beware: some true facts are so big that they sound like boasting. Check before you call a thing hyperbole. &mdash; S.Q.</p>';
+  var SG = SD.page('IRON',
+    '<p class="dir">(House lights stay down. A single red star brightens in the dome.)</p>' +
+    '<p>On our calendar, the Sun and the Earth are not born until September. But there is iron in your blood (hold your hand up to the light of that star), and that iron is older than the Sun. Where did it come from?</p>' +
+    '<p>Not from the Big Bang. In its first few minutes the universe made almost all of its hydrogen, some helium, and hardly anything else. Nearly everything heavier was made later, by stars.</p>' +
+    '<p>A star does not burn like a fire: nothing up there is burning, the way wood or gas burns. In its core, atoms are squeezed together so hard that they join, and that gives out light and heat. Hydrogen joins to make helium. In big stars, helium makes carbon and oxygen, and so on, step by step, all the way to iron.</p>' +
+    '<p>And then&hellip;</p>');
+  var LINES = [
+    ['s1', 'A star is born, lives for millions or billions of years, and dies.'],
+    ['s2', 'Our Sun is a great ball of fire.'],
+    ['s3', 'Every atom of iron in your blood was made inside stars that blew themselves apart long before the Sun was born.'],
+    ['s4', 'For a few weeks, one exploding star can shine as brightly as a whole galaxy.'],
+    ['s5', 'The iron, carbon and oxygen they had made drifted out into space like seeds blown from a dandelion clock.'],
+    ['s6', 'What is left behind can be a black hole: a cosmic vacuum cleaner that will one day swallow the whole universe.'],
+    ['s7', 'The numbers in this part of the show are big enough to make your head spin.'],
+    ['s8', 'So here is the simplest way to say it: you are made of stardust.']
+  ];
+  var SH = SD.page('STARDUST', '<p class="dir">(The red star swells, flares and is gone.)</p>' +
+    LINES.map(function (l) { return '<p>' + l[1] + '</p>'; }).join('') + '<p><span class="gap">[the fact inside it]</span></p><p class="dir">(Darkness. Then, slowly, the stars come back.)</p>',
+    'a stripe of white primer down the margin: every pencil mark under it is gone');
+
+  $('#sheet').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SHEET, cls: 'sheet', clue: { id: 'sheet', title: 'Notes for whoever reads this', kind: 'Front sheet' }, done: function () {
+      SD.terms(['fact', 'figure of speech', 'simile', 'metaphor', 'personification', 'hyperbole']);
+      if (told.set('sheet')) { paint(); ER.say('&ldquo;Read the figures warmly, and then give the fact inside them.&rdquo;'); }
+    } });
+  });
+  function readPages(after) {
+    ER.read({ html: SG, cls: 'script', clue: { id: 'scG', title: 'Iron', kind: 'Script page' }, done: function () {
+      ER.read({ html: SH, cls: 'script', clue: { id: 'scH0', title: 'Stardust (margin painted over)', kind: 'Script page' }, done: function () {
+        SD.terms(['element']);
+        if (told.set('pages')) { paint(); ER.say('&ldquo;Iron&rdquo;, and &ldquo;Stardust&rdquo;. The second page has a white stripe of primer straight down its margin.'); }
+        if (after) after();
+      } });
+    } });
+  }
+  $('#pages').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Both pages are in the folder now, the margin pencilled back.'); return; }
+    if (!told.has('pages')) { readPages(); return; }
+    if (!ready()) { ER.say(!told.has('sheet') ? 'Before you pencil anything back, read Sabine&rsquo;s notes on the sheet clipped to the guard rail: they say what the marks mean.' : 'Before you start, Zainab has something to say about one of these sentences. She is at the top of the ladder.'); return; }
+    openLock();
+  });
+  $('#zainab').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ten to seven,&rdquo; says Zainab. &ldquo;Doors at seven. Go.&rdquo;'); return; }
+    ER.talk({
+      who: 'Zainab Roper', role: 'presenter, not fond of heights', face: window.FACE('zainab'),
+      lines: [
+        { note: 'Zainab arrives at the top of the ladder a little out of breath and a little pale. She does not look down.', a: '&ldquo;I knew there was a reason I became a presenter and not a painter.&rdquo;' },
+        { q: 'What is wrong with the page?', a: '&ldquo;The margin. Sabine pencilled a mark beside every sentence, so whoever read it knew how to say it: plainly, or warmly, or not at all. Primer has gone right down the side. Every mark is gone.&rdquo;' },
+        { q: 'Do black holes really suck things in?', a: '&ldquo;No, and that&rsquo;s the thing everybody gets wrong. From far away, a black hole pulls exactly as hard as anything else with the same mass. If you swapped the Sun for a black hole of the same mass, the Earth would go round it just as it does now. It would get very cold, but it would not be swallowed. Black holes don&rsquo;t hoover.&rdquo;' },
+        { q: 'And the stardust line?', a: '&ldquo;The most famous line in the show. People had it on T-shirts. Sabine always said the line was the easy part. The hard part was the sentence after it: the fact inside the picture.&rdquo;' }
+      ],
+      clue: { id: 'zainab4', title: 'Zainab, on the scaffolding', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('zainab')) { paint(); SD.terms(['black hole']); } }
+    });
+  });
+  $('#nuala').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Go on,&rdquo; says Nuala, and steadies the ladder to the hatch. &ldquo;Mind the gutter.&rdquo;'); return; }
+    ER.talk({
+      who: 'Nuala Rawle', role: 'painter, on the top lift', face: window.FACE('nuala'),
+      lines: [
+        { note: 'Nuala Rawle has a roller on a long pole and primer in her eyebrows.', a: '&ldquo;Evening. Sorry about the draught. Primer stinks, so I propped the hatch at half past three. Nobody told me your whole show was going to take off up the stairs.&rdquo;' },
+        { q: 'Did you see the pages?', a: '&ldquo;Three came up past me like pigeons. I caught two and that sheet of notes, and clipped them where they couldn&rsquo;t go anywhere. The third went straight out of the hatch. Onto the roof, if you&rsquo;re lucky.&rdquo;' },
+        { q: 'What happened to the margin?', a: '&ldquo;That was me. I was doing the patches round the hatch when it went past, and I caught it with the roller. Only the edge, mind. The words are fine.&rdquo;' },
+        { q: 'What are the names on the dome?', a: '&ldquo;Everybody who worked on the first show signed up here, in pencil, in 1992. On Monday I&rsquo;m meant to paint over them.&rdquo; She looks at them for a while. &ldquo;I&rsquo;ll do this bit last.&rdquo;' }
+      ],
+      clue: { id: 'nuala1', title: 'Nuala, on the top lift', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('nuala')) paint(); }
+    });
+  });
+  SD.thing('#names', null, 'S. Quennell, opening night 1992. T. Stobbs &rsquo;92. And under them: <i>the whole crew, with love</i>, and three pencilled stars.', isBusy);
+  SD.thing('#hatch', 'hatch', 'The hatch: a square of real sky. The draught goes out through it, and so did one of the pages.', isBusy);
+  SD.thing('#ladder', null, 'The ladder you came up. Terry was right about the third rung.', isBusy);
+  SD.thing('#tins', 'primer', 'Primer, a roller tray, and a dust sheet. On Monday this whole dome goes white.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: pencil the marks back into the margin ---------- */
+  var MARKS = [['F', 'a plain fact'], ['S', 'simile'], ['M', 'metaphor'], ['P', 'personification'], ['H', 'hyperbole'], ['X', 'CUT: it misleads']];
+  var FACTS = [['q1', 'Your body is made of tiny bits of dust that fell to Earth from the stars.'], ['q2', 'Every atom in your body, the hydrogen as well, was made inside a star.'],
+    ['q3', 'Apart from the hydrogen, which is older than any star, nearly every atom in your body was made inside stars.'], ['q4', 'Stars and people are made of the same things, in the same amounts.']];
+  var WHY = {
+    F: 'Is that really a plain fact, word for word? Could it be true exactly as the words stand?',
+    S: 'Is anything in it said to be LIKE something else, or AS &hellip; AS something?',
+    M: 'Does it say that one thing IS another thing?',
+    P: 'Is a thing being talked about as if it were alive, or a person?',
+    H: 'Is it an exaggeration that nobody would take literally?',
+    X: 'Would a listener really go home believing something false? If the fact inside is true, keep the figure and say it warmly.'
+  };
+  function sym(k) { return k === 'X' ? '&#10007;' : k; }
+  function openLock() {
+    var busyL = false, put = ER.flag('d-put') || {}, held = null, two = !!ER.flag('d-two');
+    lock = ER.el('div', 'mg' + (two ? ' two' : ''));
+    lock.innerHTML = '<div class="pg"><h6>STARDUST</h6>' + LINES.map(function (l) {
+      return '<div class="ln" data-l="' + l[0] + '"><button type="button" class="bx" data-l="' + l[0] + '"></button><span>' + ER.gloss(l[1]) + '</span></div>';
+    }).join('') + '<div class="fact"><p>And under &ldquo;stardust&rdquo;, the sentence that gives the fact inside it:</p>' +
+      FACTS.map(function (f) { return '<button type="button" class="fq" data-q="' + f[0] + '">' + ER.gloss(f[1]) + '</button>'; }).join('') + '</div></div>' +
+      '<div class="tools"><h6>Sabine&rsquo;s pencil marks</h6>' + MARKS.map(function (k) { return '<button type="button" class="tl" data-k="' + k[0] + '"><b>' + sym(k[0]) + '</b>' + k[1] + '</button>'; }).join('') +
+      '<h6 style="margin-top:6px">Click a mark, then click the margin beside each sentence it belongs to.</h6></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="pencil">Read it through</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-put', put); }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    function draw() {
+      ER.$$('.bx', lock).forEach(function (b) { var k = put[b.getAttribute('data-l')]; b.innerHTML = k ? sym(k) : ''; b.classList.toggle('on', !!k); });
+      ER.$$('.tl', lock).forEach(function (b) { b.classList.toggle('held', b.getAttribute('data-k') === held); });
+    }
+    lock.addEventListener('click', function (e) {
+      if (busyL || nextFile) return;
+      var t = e.target.closest('.tl');
+      if (t) { held = t.getAttribute('data-k'); SD.sfx.tick(); draw(); return; }
+      var b = e.target.closest('.bx');
+      if (b) {
+        if (!held) { msg('First click one of Sabine&rsquo;s marks on the right, then the margin.'); return; }
+        put[b.getAttribute('data-l')] = held; SD.sfx.pencil(); clearBad(); keep(); draw(); return;
+      }
+      var q = e.target.closest('.fq');
+      if (q && lock.classList.contains('two')) {
+        var id = q.getAttribute('data-q'); clearBad();
+        if (!ER.check('q', id)) {
+          ER.sfx.no(); q.classList.add('bad');
+          msg(ER.check('hyd', id) ? '&ldquo;Not the hydrogen,&rdquo; says Zainab at once. &ldquo;Read the Iron page again: where was the hydrogen made?&rdquo;' : 'Is that true, word for word? The fact inside a metaphor has to be true exactly as it stands.');
+          return;
+        }
+        finish(id);
+      }
+    });
+    foot.querySelector('#pencil').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      if (lock.classList.contains('two')) { msg('The marks are right. Now choose the sentence that goes under &ldquo;stardust&rdquo;: the fact inside it.'); return; }
+      var i, l, k;
+      for (i = 0; i < LINES.length; i++) {
+        l = LINES[i][0]; k = put[l];
+        if (!k) { ER.sfx.no(); lock.querySelector('.bx[data-l="' + l + '"]').classList.add('bad'); msg('Sentence ' + (i + 1) + ' has no mark yet. Every sentence gets one.'); return; }
+        if (!ER.check(l, k)) {
+          ER.sfx.no(); lock.querySelector('.bx[data-l="' + l + '"]').classList.add('bad'); lock.querySelector('.ln[data-l="' + l + '"]').classList.add('bad');
+          var t = ER.check('cut', l) && k !== 'X' ? 'Zainab reads sentence ' + (i + 1) + ' aloud and frowns. &ldquo;A figure of speech, yes. But what would a listener believe afterwards? Is it true?&rdquo; (the Iron page says how a star shines; Zainab told you about black holes.)' :
+            ER.check('loud', l) && k === 'H' ? 'Sentence ' + (i + 1) + ' sounds like boasting. But is it really an exaggeration? Read the last line of Sabine&rsquo;s notes again.' : 'Sentence ' + (i + 1) + ': ' + WHY[k];
+          msg(t + ' <i>(Only the first mark that is wrong is ever shown.)</i>');
+          return;
+        }
+      }
+      ER.flag('d-two', true); lock.classList.add('two'); SD.sfx.pencil();
+      msg('Every mark is right. Under &ldquo;you are made of stardust&rdquo; there is one more gap: the fact inside it. Choose the sentence.');
+    });
+    function finish(q) {
+      var cand = LINES.map(function (l) { return put[l[0]]; }).join('-') + '/' + q;
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The pencil breaks. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('d-file', file); busyL = true; SD.sfx.pencil();
+      var fact = FACTS.filter(function (f) { return f[0] === q; })[0][1];
+      msg('Zainab reads the page through under her breath: plainly, warmly, plainly. Then the last line, the way Sabine always said it, slowly.');
+      setTimeout(function () { ER.closeAll(); solved(fact); }, 2600);
+    }
+    draw();
+    msg(two ? 'The marks are right. Now choose the fact inside &ldquo;stardust&rdquo;.' : 'Click one of Sabine&rsquo;s marks, then the margin beside each sentence it belongs to. When every sentence has its mark, read it through.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved(fact) {
+    var put = ER.flag('d-put') || {};
+    ER.addClue('scH', 'Stardust', SD.page('STARDUST', '<p class="dir">(The red star swells, flares and is gone.)</p>' +
+      LINES.map(function (l) { return '<p><span class="filled" style="border:0">' + sym(put[l[0]]) + '</span>&nbsp; ' + l[1] + '</p>'; }).join('') +
+      '<p><span class="filled" style="border:0">F</span>&nbsp; ' + fact + '</p><p class="dir">(Darkness. Then, slowly, the stars come back.)</p>', 'the margin marks pencilled back over the primer'), 'script', 'Script page');
+    SD.mine('figures', 'Fact and figure', '<p>F, plain facts: the iron in your blood was made in stars; one exploding star can shine as brightly as a galaxy (it sounds like boasting, but it is true).</p>' +
+      '<p>S: like seeds from a dandelion clock. P: a star is born, lives and dies. H: numbers to make your head spin. M: you are made of stardust.</p>' +
+      '<p>Cut: &ldquo;a great ball of fire&rdquo; (nothing on the Sun is burning; its core joins atoms together) and &ldquo;a cosmic vacuum cleaner&rdquo; (from far away a black hole pulls no harder than a star of the same mass).</p>' +
+      '<p>The fact inside &ldquo;stardust&rdquo;: apart from the hydrogen, which is older than any star, nearly every atom in your body was made inside stars.</p>');
+    SD.terms(['fact', 'figure of speech', 'simile', 'metaphor', 'personification', 'hyperbole']);
+    paint(); busy = true;
+    ER.narrate([
+      'Nuala has stopped painting to listen. &ldquo;Made of stardust,&rdquo; she says. &ldquo;I&rsquo;ve heard that. I always thought it was just a nice thing to say.&rdquo;',
+      '&ldquo;It is a nice thing to say,&rdquo; says Zainab. &ldquo;It also happens to be true. That&rsquo;s the whole trick.&rdquo; She tucks the two pages into the folder with the others. Seven scenes out of eight, and the front sheet.',
+      'Far below, a door bangs, and somebody laughs in the foyer: the first of the audience, early, being told politely to wait. Zainab looks at her stopwatch. &ldquo;Ten to seven.&rdquo;',
+      'Nuala points her roller at the hatch. &ldquo;The last one went out there. I heard it go along the roof. There&rsquo;s a walkway round the outside of the dome, and a rail. Hold the rail.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

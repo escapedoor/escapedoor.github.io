@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Control Desk · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#05070d;--accent:#ffb43a;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(6,8,16,.97);--tc-ink:#e8ecf6;--cap-bg:rgba(8,10,20,.94);--panel:#121828;--face-bg:#1d2b48;--q-ink:#ffcf7a;--fade:#000;--hud-bg:rgba(8,10,20,.85)}
+  .tc-room{font-family:'Stardos Stencil',sans-serif;font-size:clamp(44px,6vw,82px);letter-spacing:.06em;color:#ffb43a}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sT{font-family:'Stardos Stencil',sans-serif;text-anchor:middle}
+  #coveglow{opacity:0;transition:opacity 2.5s}
+  #scene.lit #coveglow{opacity:1}
+  #scene.lit #dark{opacity:0}
+  #dark{transition:opacity 2.5s}
+  .blink{animation:blink 1.1s steps(1,end) infinite}
+  .blink.b2{animation-duration:1.7s}.blink.b3{animation-duration:.8s}
+  @keyframes blink{50%{opacity:.25}}
+  #spark{animation:spark 4.2s steps(1,end) infinite;opacity:0}
+  @keyframes spark{0%,88%{opacity:0}90%{opacity:1}93%{opacity:0}95%{opacity:.9}97%{opacity:0}}
+  #scene.lit #spark{display:none}
+  #dialglow{animation:dg 3s ease-in-out infinite alternate}
+  @keyframes dg{from{opacity:.45}to{opacity:.8}}
+
+  /* the lock: the Year Dial and its three little brothers */
+  .dials{padding:10px 14px 10px;background:#0e1220 linear-gradient(180deg,#151b2e,#0a0d18);border:1px solid #4a3a1a;box-shadow:0 26px 70px rgba(0,0,0,.8),inset 0 0 0 4px #05070d;color:#e8ecf6}
+  .dials h5{margin:0 0 2px;font-family:'Stardos Stencil',sans-serif;font-weight:normal;font-size:18px;letter-spacing:.2em;text-align:center;color:#ffb43a}
+  .dials svg{display:block;width:100%;height:auto;max-height:52vh}
+  .dials .sec{cursor:pointer}
+  .dials .sec:hover{fill:#5a4a1e}
+  .dials .mk{cursor:pointer}
+  .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:6px}
+  .cd{position:relative;padding:6px 8px 6px 34px;border:2px solid #3a3a4a;border-radius:3px;background:#1a2032;color:#e8ecf6;text-align:left;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.22}
+  .cd b{position:absolute;left:7px;top:7px;width:20px;height:20px;border-radius:50%;color:#10121a;font-family:'Outfit',sans-serif;font-size:12px;line-height:20px;text-align:center}
+  .cd small{display:block;margin-top:3px;font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.06em;color:#ffcf7a}
+  .cd:hover{border-color:#8a7a4a}
+  .cd.held{border-color:#ffb43a;background:#2a2a1e}
+  .cd.bad{border-color:#ff5a3a;background:#3a1a14}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="domeG" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#2a3044"/><stop offset=".55" stop-color="#151a2a"/><stop offset="1" stop-color="#090b14"/></radialGradient>
+  <linearGradient id="coveG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2a6a" stop-opacity="0"/><stop offset=".45" stop-color="#3a5ab8"/><stop offset=".75" stop-color="#e88a3a"/><stop offset="1" stop-color="#ffd27a"/></linearGradient>
+  <radialGradient id="ambG"><stop offset="0" stop-color="#ffb43a" stop-opacity=".55"/><stop offset="1" stop-color="#ffb43a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2e3a"/><stop offset="1" stop-color="#14161e"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="60%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#05070d"/>
+<!-- the dome -->
+<ellipse cx="800" cy="640" rx="1260" ry="1040" fill="url(#domeG)"/>
+<g fill="none" stroke="#2a3248" stroke-width="2" opacity=".6"><path d="M800 -400V560M800 560Q300 -100 -460 640M800 560Q1300 -100 2060 640M800 560Q520 -200 -100 -100M800 560Q1080 -200 1700 -100"/><ellipse cx="800" cy="640" rx="1000" ry="700"/><ellipse cx="800" cy="640" rx="700" ry="420"/></g>
+<!-- the cove, dead tonight, and the town's skyline cut out against it -->
+<g id="coveglow"><rect x="-1000" y="430" width="3600" height="150" fill="url(#coveG)"/></g>
+<rect id="dark" x="-1000" y="500" width="3600" height="80" fill="#0a0d18" opacity=".55"/>
+<path d="M-1000 600V560h160v-20h60v20h120v-36h40v-30l20 -14l20 14v30h40v56h200v-24h80v-40l40 -60l40 60v40h40v24h160v-14h60v14h120v-50l30 -10l30 10v50h160v-30h40l10 -40l10 40h40v30h220v-18l40 -40l40 40v18h120v-28h70v28h200v-40l24 -6v-24h6v24l24 6v40h200V600z" fill="#03040a"/>
+<!-- rows of seats -->
+<g fill="#3a1a24" stroke="#1a0a10" stroke-width="2">
+  <g transform="translate(0 0)"><rect x="180" y="610" width="60" height="44" rx="10"/><rect x="260" y="612" width="60" height="44" rx="10"/><rect x="340" y="614" width="60" height="44" rx="10"/><rect x="420" y="616" width="60" height="44" rx="10"/><rect x="1120" y="616" width="60" height="44" rx="10"/><rect x="1200" y="614" width="60" height="44" rx="10"/><rect x="1280" y="612" width="60" height="44" rx="10"/></g>
+  <g><rect x="120" y="660" width="66" height="48" rx="11"/><rect x="200" y="664" width="66" height="48" rx="11"/><rect x="1080" y="668" width="66" height="48" rx="11"/><rect x="1160" y="666" width="66" height="48" rx="11"/><rect x="1240" y="664" width="66" height="48" rx="11"/><rect x="1320" y="660" width="66" height="48" rx="11"/></g>
+</g>
+<!-- the star projector -->
+<g id="proj" class="hot">
+  <path d="M780 640l8 -150h24l8 150z" fill="#1a1c26" stroke="#000" stroke-width="2"/><ellipse cx="800" cy="642" rx="80" ry="14" fill="#14161e"/>
+  <g transform="rotate(-14 800 470)">
+    <path d="M700 462h200v16H700z" fill="#22252f" stroke="#000" stroke-width="2"/><path d="M740 450l20 40M760 450l-20 40M840 450l20 40M860 450l-20 40" stroke="#3a3e4c" stroke-width="3"/>
+    <circle cx="680" cy="470" r="56" fill="#22252f" stroke="#000" stroke-width="3"/><circle cx="920" cy="470" r="56" fill="#22252f" stroke="#000" stroke-width="3"/>
+    <g fill="#4a5a7a"><circle cx="664" cy="446" r="6"/><circle cx="690" cy="436" r="5"/><circle cx="702" cy="462" r="6"/><circle cx="666" cy="480" r="5"/><circle cx="688" cy="500" r="6"/><circle cx="650" cy="466" r="4"/>
+      <circle cx="904" cy="446" r="6"/><circle cx="930" cy="436" r="5"/><circle cx="942" cy="462" r="6"/><circle cx="906" cy="480" r="5"/><circle cx="928" cy="500" r="6"/><circle cx="890" cy="466" r="4"/></g>
+  </g>
+</g>
+<!-- the painters' scaffolding, climbing into the dark -->
+<g id="scaf" class="hot">
+  <g stroke="#7a808c" stroke-width="7"><path d="M1330 640V60M1450 640V40"/></g><g stroke="#6a707c" stroke-width="5"><path d="M1330 560h120M1330 440h120M1330 320h120M1330 200h120M1330 80h120"/><path d="M1330 560l120 -120M1330 440l120 -120M1330 320l120 -120M1330 200l120 -120"/></g>
+  <g fill="#8a6a3a"><rect x="1320" y="430" width="140" height="10"/><rect x="1320" y="190" width="140" height="10"/></g>
+  <rect x="1384" y="140" width="22" height="28" fill="#f7f2e4" transform="rotate(14 1395 154)"/>
+  <rect x="1310" y="30" width="160" height="620" fill="transparent"/>
+</g>
+<!-- the dimmer rack, with its door open -->
+<g id="rack" class="hot">
+  <rect x="1010" y="480" width="140" height="380" fill="#4a505c" stroke="#14161e" stroke-width="4"/><rect x="1022" y="494" width="116" height="352" fill="#14161e"/>
+  <path d="M1010 480l-60 30v370l60 -20z" fill="#5a606c" stroke="#14161e" stroke-width="4"/>
+  <g stroke-width="4" fill="none"><path d="M1034 520q30 40 0 80q-20 40 30 70" stroke="#d83a2a"/><path d="M1060 520q20 60 40 90q10 50 -20 100" stroke="#2a6ad8"/><path d="M1090 520q-20 50 10 100q30 60 0 120" stroke="#e8c82a"/><path d="M1120 520v320" stroke="#3a3a3a"/></g>
+  <g fill="#ffb43a"><rect x="1030" y="770" width="12" height="8" class="blink"/><rect x="1050" y="770" width="12" height="8" class="blink b2"/><rect x="1070" y="770" width="12" height="8" fill="#3a3a3a"/><rect x="1090" y="770" width="12" height="8" class="blink b3"/></g>
+  <g id="spark"><path d="M1086 610l14 -18l-4 14l14 -6l-14 18l4 -14z" fill="#bfe0ff"/><circle cx="1094" cy="606" r="22" fill="#9ac8ff" opacity=".3"/></g>
+  <text x="1080" y="472" class="sT" font-size="14" fill="#8a909c" letter-spacing="2">DIMMERS</text>
+</g>
+<!-- the toolbox, with a yellow card in it -->
+<g id="toolbox" class="hot"><path d="M1170 880v-50h130v50z" fill="#b8322a" stroke="#3a0e0a" stroke-width="3"/><path d="M1200 830v-14h70v14" fill="none" stroke="#3a0e0a" stroke-width="5"/>
+  <rect x="1240" y="796" width="40" height="34" fill="#f0d464" stroke="#6a5a1a" transform="rotate(10 1260 812)"/><path d="M1246 806h26M1246 814h20" stroke="#3a2a06" stroke-width="1.5" transform="rotate(10 1260 812)"/></g>
+<!-- Terry, at the rack -->
+<g id="terry" class="hot" transform="translate(1210 880) scale(-1 1)"></g>
+
+<!-- the control desk -->
+<g id="deskbody"><path d="M200 900L250 700H1000L1050 900z" fill="url(#deskG)" stroke="#000" stroke-width="3"/><path d="M250 700H1000" stroke="#3a3e4c" stroke-width="4"/>
+  <g fill="#3a3e4c"><circle cx="300" cy="730" r="7"/><circle cx="330" cy="730" r="7"/><circle cx="360" cy="730" r="7"/><circle cx="290" cy="760" r="7"/><circle cx="320" cy="760" r="7"/><circle cx="350" cy="760" r="7"/><circle cx="870" cy="730" r="7"/><circle cx="900" cy="730" r="7"/><circle cx="930" cy="730" r="7"/><circle cx="880" cy="760" r="7"/><circle cx="910" cy="760" r="7"/><circle cx="940" cy="760" r="7"/></g>
+  <g fill="#ffb43a"><circle cx="300" cy="730" r="3" class="blink"/><circle cx="360" cy="760" r="3" class="blink b2"/><circle cx="900" cy="730" r="3" class="blink b3"/></g>
+  <g stroke="#9aa0b0" stroke-width="4" stroke-linecap="round"><path d="M290 820v-20M320 820v-14M350 820v-24M380 820v-18M860 820v-22M890 820v-14M920 820v-20M950 820v-16"/></g>
+  <rect x="440" y="840" width="120" height="30" fill="#0a0c14" stroke="#3a3e4c" stroke-width="2"/><path d="M450 860q20 -14 40 -2q20 10 40 -6q10 -6 20 0" fill="none" stroke="#5ae07a" stroke-width="2"/></g>
+<g id="dial" class="hot"><circle id="dialglow" cx="620" cy="772" r="96" fill="url(#ambG)"/><circle cx="620" cy="772" r="66" fill="#1a1406" stroke="#ffb43a" stroke-width="4"/>
+  <g stroke="#ffb43a" stroke-width="2"><path d="M620 712v10M620 822v10M560 772h10M670 772h10M578 730l7 7M662 730l-7 7M578 814l7 -7M662 814l-7 -7"/></g>
+  <path d="M620 772l0 -50" stroke="#ffd27a" stroke-width="4" stroke-linecap="round"/><circle cx="620" cy="772" r="7" fill="#ffd27a"/>
+  <text x="620" y="806" class="sT" font-size="11" fill="#ffb43a" letter-spacing="2">YEAR</text></g>
+<g id="page" class="hot" transform="rotate(-6 420 760)"><rect x="372" y="728" width="96" height="66" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M382 742h60M382 752h56M382 762h60M382 772h46M382 782h60" stroke="#6a6a72" stroke-width="1.3"/><path d="M448 742v44" stroke="#b04a3a" stroke-width="1.4" stroke-dasharray="3 3"/></g>
+<g id="cue" class="hot" transform="rotate(4 760 760)"><rect x="716" y="726" width="88" height="62" fill="#efe2bf" stroke="#9a8452" stroke-width="1.5"/><rect x="752" y="720" width="16" height="12" fill="#8a8a92"/><path d="M726 746h66M726 756h58M726 766h66M726 776h40" stroke="#5a4a2a" stroke-width="1.3"/></g>
+<g id="fuse" class="hot"><rect x="850" y="790" width="46" height="16" rx="4" fill="#d8d4c8" stroke="#3a3a3a" stroke-width="2"/><rect x="858" y="793" width="30" height="10" fill="#1a1a1a"/><text x="873" y="828" class="sT" font-size="12" fill="#9aa0b0">F7</text></g>
+<!-- Zainab -->
+<g id="zainab" class="hot" transform="translate(130 890)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Climb the scaffolding</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#zainab').innerHTML = SD.fig({ h: 320, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', lanyard: '#e8802a', specs: true });
+  $('#terry').innerHTML = SD.fig({ h: 330, coat: '#26324a', legs: '#1c2436', skin: '#e6bf9c', hair: '#b8b4ae', hairStyle: 'bald', armL: 'out', specs: true, smile: false, w: 1.08 });
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'desk', no: 'III', title: 'The Control Desk',
+    go: 'Into the dome',
+    intro: [
+      'You chose Sabine&rsquo;s pictures for the people who will really be in the seats: children from six to twelve, and their families. A light-year is a distance given as a time, like the seaside &ldquo;two hours away&rdquo;; but a car changes speed, and light never does. The galaxies move apart like raisins in rising dough; but a loaf has a middle and an edge, and the universe has neither. The firework in her own hand went back in Zainab&rsquo;s pocket: it was written on the back of a 1991 programme, a year before the show existed, and thrown away.',
+      'The dome&rsquo;s back door is heavy, and it closes behind you with a sigh. Somebody in here is cutting wires.'
+    ],
+    exit: {"next":"scaffold","w":{"2dddc1ac":"91e1ef90","28f3e427":"87c743d8","7f468344":"c78c784c","ce891d98":"920fd48e","151e4625":"037b3c50","8449b9a2":"7be5b458","25e87d51":"c4189b55","6681abdd":"72afadf2","9ecb49c5":"bd979e8f","e76f42a0":"4a2eea1c","175162cc":"62a35ffa","c7cb0ac6":"b79ed19b","e2b46e06":"083b693f","7588e85b":"67e6c6a2","a1cc055a":"780be455","40a4cfc3":"69f3888a","ce5d7856":"3774ca50","32fd0ec3":"c6edf5f7"}}, tags: {"e1":["35407bdc"],"e2":["4b17f7a9"],"e3":["ac2f6d3e","e969a42b","0994937c"],"e4":["7ec6b829"],"e5":["d39a6f75"],"e6":["566fed74","1d2f1b16"],"e7":["b4e3b242","92468548","a31f7a42"],"e1d":["449cc94a"],"e2d":["e6da892c"],"e3d":["6a5edba8"],"e4d":["ddf87a81"],"e5d":["696810e1"],"e6d":["1be04dcc"],"e7d":["2b55378c"],"e2m":["78af7e3f"],"e5m":["621b78a0"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SD.told('c-told'); nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('page') && told.has('cue'); }
+  function paint() {
+    $('#scene').classList.toggle('lit', !!nextFile);
+    $('#page').classList.toggle('ready', !told.has('page'));
+    $('#cue').classList.toggle('ready', !told.has('cue'));
+    $('#toolbox').classList.toggle('ready', told.has('zainab') && !told.has('job') && !nextFile);
+    $('#dial').classList.toggle('ready', ready() && !nextFile);
+    var n = ['page', 'cue', 'zainab', 'terry', 'job'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The cues are set and the cove lights are back. The button at the bottom of the screen climbs the scaffolding after the next page.']];
+    if (lock && document.body.contains(lock)) return ['dial', [
+      'Read the cue card again (it is in your notebook). First decide which dial each card goes on: the year, December, the last hour of 31 December, or its last minute. Then work out where on that dial.',
+      'For the big dial: 4.6 billion years is one third of 13.8 billion, so it goes one third of the year back from midnight on 31 December, which is four months back. For December, divide by 38 million to get the number of days before the end of the year. For the last hour, divide by 26,000 to get minutes before midnight; for the last minute, divide by 440 to get seconds.',
+      'Both September cards are in September: one early, one late. The shells: 540 &divide; 38 is about 14 days before the end of the year. The first dinosaurs: about 6 days. The end of the great dinosaurs: less than 2 days. People like us: about 11 or 12 minutes before midnight. Writing: about 11 seconds.'
+    ]];
+    if (!ready()) return ['look', [
+      'Two things on the control desk matter most: the script page lying on the desk to the left of the big amber dial, and the cue card clipped to the right of the dial.',
+      'Click the page and the card. Zainab, the man at the cabinet, and the yellow card in his toolbox have something to tell you as well.'
+    ]];
+    return ['dial', ['Everything you need is read. Click the big amber Year Dial in the middle of the desk to set the cues.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The cove glows all round the dome, sunset-coloured. Terry is putting his tools away.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The dome, at a quarter to six. The cove lights are still dead.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The dome at a quarter to six is the darkest place in the building. Your eyes take a while. Then, slowly: rows of tilted red seats, the star projector in the middle like a black dumbbell studded with lenses, and the dome itself, curving up and over everything.',
+      'At the back, a tower of scaffolding climbs into the dark. All the way round the bottom of the dome runs the cove: the hidden lights that make the sunset at the start of every show. Tonight they are dead.',
+      'At the control desk, a page of the script lies beside the big amber dial, as if it had come in here on purpose.',
+      'And somebody is half inside a grey metal cabinet next to the desk, cutting wires. When the third one parts, there is a small blue flash.',
+      '&ldquo;That,&rdquo; Zainab whispers, &ldquo;is Terry.&rdquo; In a dome, a whisper comes back to you from the other side, so Terry hears it too.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var CUE = '<h4>THE YEAR DIAL</h4>' +
+    '<p>Squeeze the whole history of the universe, <b>13.8 billion years</b>, into one year. The Big Bang is the first moment of 1 January. Now, tonight, is the last stroke of midnight on 31 December.</p>' +
+    '<p>On this calendar:</p><table><tr><td>one month</td><td>&asymp; 1.15 billion years</td></tr><tr><td>one day</td><td>&asymp; 38 million years</td></tr><tr><td>one hour</td><td>&asymp; 1.6 million years</td></tr><tr><td>one minute</td><td>&asymp; 26,000 years</td></tr><tr><td>one second</td><td>&asymp; 440 years</td></tr></table>' +
+    '<p>To place an event, ask what part of 13.8 billion years ago it is, and count back from midnight on 31 December. Example: 6.9 billion years ago is half of 13.8, so it goes at the turn of June and July.</p>' +
+    '<p>Less than 1.15 billion years ago: use the DECEMBER dial. Less than 1.6 million years ago: the LAST HOUR of 31 December. Less than 26,000 years ago: its LAST MINUTE.</p>' +
+    '<p><span class="stamp">SAGAN&rsquo;S COSMIC CALENDAR</span> &nbsp;The idea comes from Carl Sagan&rsquo;s book <i>The Dragons of Eden</i> (1977).</p>';
+  var CUEROW = function (t) { return '<p><span class="gap">DIAL: ?</span> &nbsp;' + t + '</p>'; };
+  var PAGE = SD.page('A YEAR IN THE DARK',
+    '<p class="dir">(The dome goes black. The Year Dial lights 1 January.)</p>' +
+    '<p>Let us squeeze all of it, 13.8 billion years, into one single year. At the first moment of 1 January, everything begins. For eight months there is no Sun at all: only gas, and stars, and galaxies being born.</p>' +
+    CUEROW('The Sun and the Earth form.') + CUEROW('Life: the oldest fossils we have.') + CUEROW('Shells and skeletons in the sea.') + CUEROW('The first dinosaurs. Merry Christmas.') +
+    CUEROW('The great dinosaurs die out.') + CUEROW('People like us.') + CUEROW('Writing: every king, every war, every poem you have ever heard of.') +
+    '<p>And now: midnight. Happy New Year. You were born less than a second ago.</p>',
+    'the cue column is empty: the cues were set on the night, by hand');
+  var JOB = '<h4>JOB CARD &middot; CONTROL DESK</h4>' +
+    '<p>4.10 pm. Cove lights dead, all four colours. Smell of hot plastic from the rack.</p>' +
+    '<p>Dimmer channel 3 burnt out. Fuse F7 blown (black inside). Old fuse in my POCKET so nobody puts it back by mistake.</p>' +
+    '<p>PLAN: cut channel 3 out. Run the cove on spare channel 9. New fuse. 40 minutes, and NOBODY touches the desk.</p>' +
+    '<p>Then test every cue on the Year Dial before the doors open.</p><p>&mdash; T.S. (on this desk since 1988)</p>';
+
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PAGE, cls: 'script', clue: { id: 'scF0', title: 'A Year in the Dark (no cues)', kind: 'Script page' }, done: function () {
+      if (told.set('page')) { paint(); ER.say('Seven events, and seven empty cues. The page does not say where on the dial each one goes: that was always done here, by hand.'); }
+    } });
+  });
+  $('#cue').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUE, cls: 'cue', clue: { id: 'cue', title: 'The Year Dial', kind: 'Cue card' }, done: function () {
+      SD.terms(['cosmic calendar', 'billion', 'Big Bang']);
+      if (told.set('cue')) { paint(); ER.say('Thirteen point eight billion years in one year. One day is thirty-eight million of them.'); }
+    } });
+  });
+  $('#toolbox').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: JOB, cls: 'job', clue: { id: 'job', title: 'Terry&rsquo;s job card', kind: 'In the toolbox' }, done: function () {
+      if (told.set('job')) { paint(); ER.say(nextFile ? 'Job done.' : 'Zainab reads it over your shoulder, and goes rather quiet.'); }
+    } });
+  });
+  $('#zainab').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;I owe him an apology,&rdquo; says Zainab. &ldquo;And probably a biscuit.&rdquo;'); return; }
+    ER.talk({
+      who: 'Zainab Roper', role: 'presenter', face: window.FACE('zainab'),
+      lines: [
+        { note: 'Zainab keeps her voice down, which in a dome does no good at all.', a: '&ldquo;He&rsquo;s had the panels off since four. He pulled a fuse out of the desk and put it in his pocket: I watched him do it. And now the cove lights are dead.&rdquo;' },
+        { q: 'Why would he wreck the show?', a: '&ldquo;At the staff meeting in March, when they asked about tonight, Terry said, and I quote: &lsquo;That projector belongs in a museum.&rsquo; He wants the new digital one. If tonight goes wrong, he gets it.&rdquo; She stops. &ldquo;I&rsquo;m not saying he would. I&rsquo;m saying he could.&rdquo;' },
+        { q: 'What is the big amber dial?', a: '&ldquo;The Year Dial. On a normal night it moves the sky through the seasons: winter stars, summer stars. In Sabine&rsquo;s show it becomes a calendar of the whole universe. Every event in that scene has a cue: the dial lights one spot, and the dome changes. The cue column on the page is empty, because she always set the cues here, by hand, on the night.&rdquo;' },
+        { q: 'Can we set the cues?', a: '&ldquo;The cue card clipped by the dial tells you how. It&rsquo;s only arithmetic. Very big arithmetic.&rdquo;' }
+      ],
+      clue: { id: 'zainab3', title: 'Zainab, in the dome', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('zainab')) paint(); }
+    });
+  });
+  $('#terry').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Mind the third rung,&rdquo; says Terry, without looking up.'); return; }
+    ER.talk({
+      who: 'Terry Stobbs', role: 'he runs the control desk', face: window.FACE('terry'),
+      lines: [
+        { note: 'Terry Stobbs is half inside the grey cabinet, with a torch in his teeth and a pair of cutters in his hand. He takes the torch out to speak.', a: '&ldquo;Don&rsquo;t touch anything on the right-hand side of that desk. Don&rsquo;t touch anything on the left-hand side either.&rdquo;' },
+        { q: 'What are you doing?', a: '&ldquo;What does it look like?&rdquo; He goes back into the cabinet. Snip. A small blue flash, and a word you are not supposed to know.' },
+        { q: 'Can we use the Year Dial?', a: '&ldquo;The dial&rsquo;s on its own circuit. Set your cues if you must. Just the dial. Nothing else.&rdquo;' }
+      ],
+      clue: { id: 'terry1', title: 'Terry, at the cabinet', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('terry')) paint(); }
+    });
+  });
+  SD.thing('#fuse', 'fuse', 'A fuse in a little tray, burnt black inside. Somebody has written F7 on the tray beside it.', isBusy);
+  SD.thing('#rack', 'dimmer', function () { return nextFile ? 'The cabinet door is shut. Inside it, channel nine is doing channel three&rsquo;s job.' : 'The dimmer rack: the cabinet that feeds the lights. Its door is open, and three wires have been cut.'; }, isBusy);
+  SD.thing('#proj', 'star projector', 'The star projector: two black globes full of lenses on one long arm. Switched on, it throws thousands of stars onto the dome.', isBusy);
+  SD.thing('#scaf', 'scaffolding', 'The painters&rsquo; scaffolding climbs right up into the dark. High up on it, something white is caught on a pole.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  function openOrSay() {
+    if (busy) return;
+    if (nextFile) { ER.say('Seven cues, set. The dial glows.'); return; }
+    if (!ready()) { ER.say('The Year Dial. Before you touch it, read what is beside it: the script page on the left, and the cue card on the right.'); return; }
+    openLock();
+  }
+  $('#dial').addEventListener('click', openOrSay);
+
+  /* ---------- the lock: seven cues on four dials ---------- */
+  var MON = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  var MONL = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  var MONF = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var EVS = [
+    ['e1', 'The first writing: all of written history begins.', 'About 5,000 years ago', '#e86a5a'],
+    ['e2', 'The Sun and the Earth form.', '4.6 billion years ago', '#ffd23a'],
+    ['e3', 'The first dinosaurs.', 'About 230 million years ago', '#6ad86a'],
+    ['e4', 'The first modern humans: people like us.', 'About 300,000 years ago', '#5ac8f0'],
+    ['e5', 'The oldest fossils of living things.', '3.5 billion years ago', '#c88af0'],
+    ['e6', 'The great dinosaurs die out.', '66 million years ago', '#f0a05a'],
+    ['e7', 'Animals with shells and hard skeletons appear in the seas.', 'About 540 million years ago', '#f07ac0']
+  ];
+  var D = { y: { cx: 230, cy: 285, R: 200, r: 122 }, d: { cx: 612, cy: 285, R: 140, r: 92 }, h: { cx: 902, cy: 152, R: 100, r: 60 }, m: { cx: 902, cy: 422, R: 88, r: 50 } };
+  function P(d, rad, a) { var t = a * Math.PI / 180; return [(d.cx + rad * Math.sin(t)).toFixed(1), (d.cy - rad * Math.cos(t)).toFixed(1)]; }
+  function arc(d, a0, a1) {
+    var o0 = P(d, d.R, a0), o1 = P(d, d.R, a1), i1 = P(d, d.r, a1), i0 = P(d, d.r, a0), lg = a1 - a0 > 180 ? 1 : 0;
+    return 'M' + o0 + 'A' + d.R + ' ' + d.R + ' 0 ' + lg + ' 1 ' + o1 + 'L' + i1 + 'A' + d.r + ' ' + d.r + ' 0 ' + lg + ' 0 ' + i0 + 'z';
+  }
+  function sectors() {
+    var list = [], i, k;
+    for (i = 0; i < 12; i++) for (k = 0; k < 3; k++) list.push({ id: 'y-' + MON[i] + '-' + 'eml'.charAt(k), d: 'y', a0: i * 30 + k * 10, a1: i * 30 + k * 10 + 10, name: ['early', 'the middle of', 'late'][k] + ' ' + MONF[i] });
+    for (i = 0; i < 31; i++) list.push({ id: 'd' + (i + 1), d: 'd', a0: i * 360 / 31, a1: (i + 1) * 360 / 31, name: (i + 1) + ' December' });
+    for (i = 0; i < 12; i++) list.push({ id: 'h' + i, d: 'h', a0: i * 30, a1: i * 30 + 30, name: '31 December, 11.' + ('0' + i * 5).slice(-2) + ' to ' + (i === 11 ? 'midnight' : '11.' + ('0' + (i * 5 + 5)).slice(-2) + ' pm') });
+    for (i = 0; i < 4; i++) list.push({ id: 'm' + i, d: 'm', a0: i * 90, a1: i * 90 + 90, name: '31 December, the last minute: ' + (i * 15) + ' to ' + (i * 15 + 15) + ' seconds' });
+    return list;
+  }
+  var SEC = sectors(), SECBY = {};
+  SEC.forEach(function (s) { SECBY[s.id] = s; });
+  function openLock() {
+    var busyL = false, put = ER.flag('c-put') || {}, held = null;
+    lock = ER.el('div', 'dials');
+    var s = '<svg viewBox="0 0 1080 560">';
+    /* the zoom lines: December opens into its own dial, 31 December into the last hour, the last five minutes into the last minute */
+    s += '<g stroke="#ffb43a" stroke-width="1.5" stroke-dasharray="4 5" opacity=".55" fill="none"><path d="M' + P(D.y, D.y.R, 345) + 'L' + P(D.d, D.d.R, 330) + '"/><path d="M' + P(D.d, D.d.R, 354) + 'L' + P(D.h, D.h.R, 300) + '"/><path d="M' + P(D.h, D.h.R, 345) + 'L' + P(D.m, D.m.R, 15) + '"/></g>';
+    ['y', 'd', 'h', 'm'].forEach(function (k) { var d = D[k]; s += '<circle cx="' + d.cx + '" cy="' + d.cy + '" r="' + (d.R + 4) + '" fill="#1a1406" stroke="#4a3a1a" stroke-width="3"/>'; });
+    SEC.forEach(function (x) { s += '<path class="sec" data-s="' + x.id + '" d="' + arc(D[x.d], x.a0, x.a1) + '" fill="#2a2210" stroke="#6a5420" stroke-width="' + (x.d === 'y' && x.a0 % 30 ? 0.6 : 1.6) + '"/>'; });
+    ['y', 'd', 'h', 'm'].forEach(function (k) { var d = D[k]; s += '<circle cx="' + d.cx + '" cy="' + d.cy + '" r="' + d.r + '" fill="#0e0c06" stroke="#6a5420" stroke-width="2"/>'; });
+    var F = 'font-family="Outfit,sans-serif" text-anchor="middle"';
+    MONL.forEach(function (m, i) { var p = P(D.y, D.y.R + 16, i * 30 + 15); s += '<text x="' + p[0] + '" y="' + (+p[1] + 5) + '" ' + F + ' font-size="14" font-weight="600" fill="#ffcf7a">' + m + '</text>'; });
+    for (var i = 1; i <= 31; i++) { var p = P(D.d, D.d.R + 11, (i - 0.5) * 360 / 31); s += '<text x="' + p[0] + '" y="' + (+p[1] + 4) + '" ' + F + ' font-size="10" fill="#ffcf7a">' + i + '</text>'; }
+    for (i = 0; i < 12; i += 3) { p = P(D.h, D.h.R + 13, i * 30); s += '<text x="' + p[0] + '" y="' + (+p[1] + 4) + '" ' + F + ' font-size="11" fill="#ffcf7a">11.' + ('0' + i * 5).slice(-2) + '</text>'; }
+    for (i = 0; i < 4; i++) { p = P(D.m, D.m.R + 13, i * 90); s += '<text x="' + p[0] + '" y="' + (+p[1] + 4) + '" ' + F + ' font-size="11" fill="#ffcf7a">' + (i ? i * 15 + ' s' : '11.59') + '</text>'; }
+    ['h', 'm'].forEach(function (k) { var q = P(D[k], D[k].R + 16, 326); s += '<text x="' + q[0] + '" y="' + q[1] + '" ' + F + ' font-size="10" fill="#fff6d0">midnight &#8635;</text>'; });
+    s += '<text x="' + D.y.cx + '" y="' + (D.y.cy - 6) + '" ' + F + ' font-size="20" font-weight="700" letter-spacing="3" fill="#ffb43a">THE YEAR</text><text x="' + D.y.cx + '" y="' + (D.y.cy + 16) + '" ' + F + ' font-size="12" fill="#c8b07a">13.8 billion years</text>';
+    s += '<text x="' + D.d.cx + '" y="' + (D.d.cy + 5) + '" ' + F + ' font-size="15" font-weight="700" letter-spacing="2" fill="#ffb43a">DECEMBER</text>';
+    s += '<text x="' + D.h.cx + '" y="' + (D.h.cy - 2) + '" ' + F + ' font-size="11" font-weight="700" fill="#ffb43a">31 DEC</text><text x="' + D.h.cx + '" y="' + (D.h.cy + 12) + '" ' + F + ' font-size="10" fill="#c8b07a">the last hour</text>';
+    s += '<text x="' + D.m.cx + '" y="' + (D.m.cy - 2) + '" ' + F + ' font-size="11" font-weight="700" fill="#ffb43a">THE LAST</text><text x="' + D.m.cx + '" y="' + (D.m.cy + 12) + '" ' + F + ' font-size="11" font-weight="700" fill="#ffb43a">MINUTE</text>';
+    p = P(D.y, (D.y.R + D.y.r) / 2, 5); s += '<g><circle cx="' + p[0] + '" cy="' + p[1] + '" r="12" fill="#fff6d0" stroke="#ffb43a" stroke-width="2"/><text x="' + p[0] + '" y="' + (+p[1] + 5) + '" ' + F + ' font-size="14" fill="#5a3a06">&#9733;</text></g>';
+    p = P(D.y, D.y.R + 40, 8); s += '<text x="' + (+p[0] + 30) + '" y="' + (+p[1] - 4) + '" ' + F + ' font-size="11" fill="#fff6d0">1 Jan: everything begins</text>';
+    s += '<g class="mks"></g></svg>';
+    lock.innerHTML = '<h5>The Year Dial &middot; set a cue for every event in the scene</h5>' + s + '<div class="cards"></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="setc">Test the cues</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), cards = lock.querySelector('.cards'), mks = lock.querySelector('.mks');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    EVS.forEach(function (e, i) {
+      var b = ER.el('button', 'cd', '<b style="background:' + e[3] + '">' + (i + 1) + '</b>' + e[1] + ' <i>' + e[2] + '.</i><small></small>'); b.type = 'button'; b.setAttribute('data-e', e[0]); cards.appendChild(b);
+    });
+    function keep() { ER.flag('c-put', put); }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    function draw() {
+      var h = '';
+      EVS.forEach(function (e, i) {
+        var sid = put[e[0]], b = cards.querySelector('.cd[data-e="' + e[0] + '"]');
+        b.classList.toggle('held', held === e[0]);
+        b.querySelector('small').textContent = sid ? 'cue: ' + SECBY[sid].name : (held === e[0] ? 'now click its place on a dial' : 'not set');
+        if (!sid) return;
+        var x = SECBY[sid], d = D[x.d], q = P(d, (d.R + d.r) / 2, (x.a0 + x.a1) / 2), r = x.d === 'd' ? 9 : 12;
+        h += '<g class="mk" data-e="' + e[0] + '"><circle cx="' + q[0] + '" cy="' + q[1] + '" r="' + r + '" fill="' + e[3] + '" stroke="' + (held === e[0] ? '#fff' : '#10121a') + '" stroke-width="2.5"/>' +
+          '<text x="' + q[0] + '" y="' + (+q[1] + 4.5) + '" font-family="Outfit,sans-serif" text-anchor="middle" font-size="' + (r + 1) + '" font-weight="700" fill="#10121a">' + (i + 1) + '</text></g>';
+      });
+      mks.innerHTML = h;
+    }
+    lock.addEventListener('click', function (e) {
+      if (busyL || nextFile) return;
+      var b = e.target.closest('.cd');
+      if (b) { var id = b.getAttribute('data-e'); held = held === id ? null : id; SD.sfx.tick(); clearBad(); draw(); return; }
+      var mk = e.target.closest('.mk');
+      if (mk) { held = mk.getAttribute('data-e'); SD.sfx.tick(); draw(); return; }
+      var sec = e.target.closest('.sec');
+      if (sec && held) {
+        var sid = sec.getAttribute('data-s');
+        Object.keys(put).forEach(function (k) { if (put[k] === sid) delete put[k]; });
+        put[held] = sid; held = null; SD.sfx.slide(); clearBad(); keep(); draw();
+      } else if (sec) msg('First click one of the cards below, then click its place on a dial.');
+    });
+    foot.querySelector('#setc').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      var i, e, sid, x, n;
+      if (!Object.keys(put).length) { ER.sfx.no(); msg('No cue is set yet. Click a card, then click its place on one of the dials.'); return; }
+      for (i = 0; i < EVS.length; i++) {
+        e = EVS[i]; sid = put[e[0]]; n = 'Card ' + (i + 1) + ' (' + e[1].replace(/[.:].*$/, '') + ')';
+        if (!sid) { ER.sfx.no(); cards.querySelector('.cd[data-e="' + e[0] + '"]').classList.add('bad'); msg(n + ' has no cue yet. Every event in the scene needs one.'); return; }
+        if (ER.check(e[0], sid)) continue;
+        x = SECBY[sid]; ER.sfx.no(); cards.querySelector('.cd[data-e="' + e[0] + '"]').classList.add('bad');
+        var t;
+        if (!ER.check(e[0] + 'd', x.d)) t = 'Terry looks up from the cabinet. &ldquo;' + n + ' is on the wrong dial.&rdquo; The cue card says: less than 1.15 billion years ago, December; less than 1.6 million, the last hour; less than 26,000, the last minute.';
+        else if (x.d === 'y') t = ER.check(e[0] + 'm', sid.split('-')[1]) ? n + ': the right month, but not the right part of it. Early (1 to 10), the middle (11 to 20), or late (21 to the end)?' : n + ': not that month. What part of 13.8 billion years is it? Count back that part of the year from midnight on 31 December.';
+        else if (x.d === 'd') t = n + ': not that day. One day of the calendar is about 38 million years. How many days before midnight on 31 December is that?';
+        else if (x.d === 'h') t = n + ': not those five minutes. One minute of the calendar is about 26,000 years. How many minutes before midnight?';
+        else t = n + ': not those fifteen seconds. One second of the calendar is about 440 years.';
+        msg(t + ' <i>(Only the first cue that is wrong is ever shown.)</i>');
+        return;
+      }
+      var cand = EVS.map(function (q) { return put[q[0]]; }).join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The dial will not take the cues. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('c-file', file); busyL = true; held = null; draw(); SD.sfx.whirr();
+      msg('One by one the cues light round the dial: two in September, three in December, and two crammed into the last hour of the last day.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2600);
+    });
+    draw();
+    msg('Click a card, then click its place on a dial. Click a cue on a dial to pick it up again. When all seven are set, test the cues.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    var put = ER.flag('c-put') || {}, row = function (e, t) { return '<p><span class="filled">' + SECBY[put[e]].name + '</span> &nbsp;' + t + '</p>'; };
+    ER.addClue('scF', 'A Year in the Dark', SD.page('A YEAR IN THE DARK',
+      '<p class="dir">(The dome goes black. The Year Dial lights 1 January.)</p>' +
+      '<p>Let us squeeze all of it, 13.8 billion years, into one single year. At the first moment of 1 January, everything begins. For eight months there is no Sun at all: only gas, and stars, and galaxies being born.</p>' +
+      row('e2', 'The Sun and the Earth form.') + row('e5', 'Life: the oldest fossils we have.') + row('e7', 'Shells and skeletons in the sea.') + row('e3', 'The first dinosaurs. Merry Christmas.') +
+      row('e6', 'The great dinosaurs die out.') + row('e4', 'People like us.') + row('e1', 'Writing: every king, every war, every poem you have ever heard of.') +
+      '<p>And now: midnight. Happy New Year. You were born less than a second ago.</p>', 'the cues pencilled in by hand'), 'script', 'Script page');
+    SD.mine('calendar', 'The universe in one year', '<p>13.8 billion years = 1 year. 1 day &asymp; 38 million years, 1 minute &asymp; 26,000 years, 1 second &asymp; 440 years.</p>' +
+      '<p>Sun and Earth, 4.6 billion: a third of the year back &rarr; early September. Oldest fossils, 3.5 billion: about a quarter back &rarr; late September.</p>' +
+      '<p>Shells, 540 million &divide; 38 million &asymp; 14 days back &rarr; 17 December. First dinosaurs, 230 &divide; 38 &asymp; 6 days &rarr; 25 December. The end of the great dinosaurs, 66 &divide; 38 &asymp; 1.7 days &rarr; 30 December.</p>' +
+      '<p>People like us, 300,000 &divide; 26,000 &asymp; 11.5 minutes &rarr; 11.48 pm on 31 December. Writing, 5,000 &divide; 440 &asymp; 11 seconds before midnight.</p>');
+    SD.terms(['cosmic calendar', 'billion', 'Big Bang']);
+    paint(); busy = true;
+    setTimeout(function () { ER.sfx.clunk(); }, 900);
+    ER.narrate([
+      'Then, from the cabinet: a clunk. All the way round the bottom of the dome the cove lights come up, deep blue, then orange, then the pale gold of a sunset, and the town&rsquo;s skyline stands out black against it.',
+      'Terry backs out of the cabinet and stands up, slowly, one hand on the small of his back. &ldquo;Channel three&rsquo;s dead as a doornail,&rdquo; he says. &ldquo;The cove&rsquo;s on nine now. I&rsquo;ve had the panels off since four o&rsquo;clock.&rdquo; He holds up a fuse, burnt black inside. &ldquo;This has been in my pocket so nobody puts it back by mistake.&rdquo;',
+      '&ldquo;You said the projector belonged in a museum,&rdquo; says Zainab.',
+      '&ldquo;It does. Doesn&rsquo;t mean I want her show to go wrong.&rdquo; He looks at the dial, at the seven little lights, and something in his face changes. &ldquo;I held the ladder on her opening night. Nineteen ninety-two. There&rsquo;s a photo.&rdquo;',
+      'He nods up at the scaffolding. &ldquo;One of your pages went up there. I watched it go. Nuala&rsquo;s on the top lift, painting. Mind the third rung: it&rsquo;s loose.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

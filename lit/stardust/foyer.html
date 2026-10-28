@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Foyer · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#2a1e12;--accent:#f0a648;--font-display:'Outfit',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(42,30,18,.97);--tc-ink:#f6ead2;--cap-bg:rgba(44,32,20,.95);--panel:#3a2a1a;--face-bg:#1d2b48;--q-ink:#f6c070;--fade:#140e08;--hud-bg:rgba(42,30,18,.84)}
+  .tc-room{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(46px,6vw,84px);letter-spacing:.08em;color:#f0a648}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sS{font-family:'Special Elite',monospace;text-anchor:middle}
+  #flut rect{animation:flut 5.5s linear infinite;transform-box:fill-box;transform-origin:center}
+  #flut rect:nth-child(2){animation-duration:6.8s;animation-delay:-2.4s}
+  #flut rect:nth-child(3){animation-duration:7.6s;animation-delay:-4.6s}
+  @keyframes flut{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(-60px,-220px) rotate(200deg)}100%{transform:translate(30px,-460px) rotate(420deg);opacity:0}}
+  .lamp{animation:lamp 3.4s steps(1,end) infinite}
+  @keyframes lamp{0%{opacity:.85}47%{opacity:.6}50%{opacity:.9}}
+  #sunglow{animation:sun 4s ease-in-out infinite alternate}
+  @keyframes sun{from{opacity:.55}to{opacity:.85}}
+  #scene.done #heap{display:none}
+  #placed{display:none}#scene.done #placed{display:inline}
+
+  /* the lock: the brass rail of the walk */
+  .walk{padding:12px 18px 12px;background:#2c2014 linear-gradient(180deg,#3a2a1a,#241a10);border:1px solid #8a6a3a;box-shadow:0 26px 70px rgba(0,0,0,.7);color:#f6ead2}
+  .walk h5{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#f0a648;text-align:center}
+  .walk .track{display:block;width:100%;height:auto;touch-action:none}
+  .walk .pin{cursor:grab}
+  .walk .pin.sel line{stroke:#ffd27a}
+  .walk .pin.sel text{fill:#ffd27a}
+  .walk .ctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:center;margin:6px 0 8px}
+  .walk .pk{padding:6px 12px;border:2px solid #7a5a32;border-radius:3px;font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.12em;color:#f6ead2;background:#3a2a1a}
+  .walk .pk.on{border-color:#ffd27a;color:#ffd27a;background:#4a3420}
+  .walk .ng{padding:6px 11px;border:1px solid #c8a060;border-radius:3px;font-family:'Outfit',sans-serif;font-size:14px;color:#f0c070;background:#2a1e12}
+  .walk .ng:hover,.walk .pk:hover{border-color:#ffd27a}
+  .walk .read{display:inline-block;min-width:170px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600;font-size:18px;letter-spacing:.06em;color:#ffd27a}
+  .walk .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+  .walk .box{padding:8px 10px 10px;background:rgba(0,0,0,.22);border:1px dashed #8a6a3a}
+  .walk .box>i{display:block;margin:0 0 6px;font-style:normal;font-family:'Alegreya',serif;font-size:16.5px;line-height:1.3;color:#f0dcb8}
+  .walk .opts{display:flex;flex-wrap:wrap;gap:6px}
+  .walk .op{padding:5px 9px;border:2px solid #6a5030;border-radius:14px;font-family:'Outfit',sans-serif;font-size:13.5px;color:#f6ead2;background:#3a2a1a}
+  .walk .op:hover{border-color:#c8a060}
+  .walk .op.on{border-color:#ffd27a;background:#5a3e20;color:#fff3d6}
+  .walk .op.bad,.walk .pk.bad{border-color:#ff7a5a;background:#6a2a1a}
+  .walk .sign .op{border-radius:2px;background:#e8e0c8;color:#2a2418;border-color:#8a8070;font-family:'Special Elite',monospace}
+  .walk .sign .op.on{background:#ffe2a0;border-color:#c86a10;color:#2a1a08}
+  .walk .sign .op.bad{background:#f3b4a4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ead8b2"/><stop offset="1" stop-color="#d6bf8e"/></linearGradient>
+  <pattern id="terr" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#c9b99c"/><g fill="#a8977a"><circle cx="8" cy="12" r="2"/><circle cx="40" cy="8" r="1.5"/><circle cx="26" cy="38" r="2.4"/><circle cx="50" cy="48" r="1.6"/></g><g fill="#efe4cc"><circle cx="18" cy="52" r="1.6"/><circle cx="46" cy="26" r="2"/></g><circle cx="32" cy="20" r="1.2" fill="#7a6a5a"/></pattern>
+  <pattern id="slat" width="26" height="120" patternUnits="userSpaceOnUse"><rect width="26" height="120" fill="#8a5a2e"/><rect x="22" width="4" height="120" fill="#6e4422"/><rect x="4" width="3" height="120" fill="#9a6a3a"/></pattern>
+  <linearGradient id="duskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18234a"/><stop offset=".6" stop-color="#3a4678"/><stop offset="1" stop-color="#b8746a"/></linearGradient>
+  <radialGradient id="sunG" cx="40%" cy="35%"><stop offset="0" stop-color="#fff6c8"/><stop offset=".45" stop-color="#e8b850"/><stop offset="1" stop-color="#7a4e14"/></radialGradient>
+  <radialGradient id="glowG"><stop offset="0" stop-color="#ffd890" stop-opacity=".6"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#1a1006" stop-opacity=".22"/><stop offset="1" stop-color="#0a0602" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<!-- walls, the wooden band, the ceiling with its lights -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="520" width="3600" height="122" fill="url(#slat)"/><rect x="-1000" y="516" width="3600" height="6" fill="#5a3a1a"/>
+<path d="M-1000 -400H2600V96Q800 136 -1000 96z" fill="#c4ab7e"/><path d="M-1000 96Q800 136 2600 96" fill="none" stroke="#9a8256" stroke-width="5"/>
+<g class="lamp"><circle cx="300" cy="112" r="70" fill="url(#glowG)"/><circle cx="800" cy="122" r="80" fill="url(#glowG)"/><circle cx="1300" cy="112" r="70" fill="url(#glowG)"/></g>
+<g fill="#fff4cc" stroke="#8a7044" stroke-width="2"><ellipse cx="300" cy="110" rx="26" ry="7"/><ellipse cx="800" cy="120" rx="26" ry="7"/><ellipse cx="1300" cy="110" rx="26" ry="7"/></g>
+<rect x="-1000" y="640" width="3600" height="700" fill="url(#terr)"/><rect x="-1000" y="638" width="3600" height="6" fill="#4a3018"/>
+
+<!-- the front doors, propped open, and the painters' van outside -->
+<g id="doors" class="hot">
+  <rect x="34" y="222" width="292" height="420" fill="#3a2614"/>
+  <rect x="48" y="236" width="126" height="406" fill="url(#duskG)"/><rect x="186" y="236" width="126" height="406" fill="url(#duskG)"/>
+  <g opacity=".9"><path d="M60 600v-70q0 -20 20 -24h70l40 34h76v60z" fill="#e6e4dc"/><circle cx="96" cy="604" r="15" fill="#1a1a1e"/><circle cx="226" cy="604" r="15" fill="#1a1a1e"/>
+    <text x="150" y="566" class="sO" font-size="15" font-weight="700" fill="#2a4a8a" letter-spacing="2">RAWLE</text><text x="150" y="582" class="sO" font-size="8" fill="#2a4a8a" letter-spacing="1">PAINTERS · DECORATORS</text></g>
+  <circle cx="270" cy="300" r="40" fill="#ffb050" opacity=".25"/><circle cx="270" cy="300" r="7" fill="#ffd08a"/><path d="M270 306v330" stroke="#1a1a24" stroke-width="5"/>
+  <path d="M174 236v406M186 236v406" stroke="#2a1a0c" stroke-width="5"/><rect x="160" y="420" width="10" height="60" rx="3" fill="#c8a040"/><rect x="190" y="420" width="10" height="60" rx="3" fill="#c8a040"/>
+  <text x="180" y="214" class="sO" font-size="15" letter-spacing="5" fill="#5a3a1a">WAY IN</text>
+</g>
+<g id="tin" class="hot"><path d="M300 640v-46h48v46z" fill="#e6e8ee" stroke="#3a3a44" stroke-width="2.5"/><ellipse cx="324" cy="594" rx="24" ry="6" fill="#c8ccd4" stroke="#3a3a44" stroke-width="2"/>
+  <text x="324" y="626" class="sO" font-size="10" font-weight="700" fill="#3a3a44">PRIMER</text><path d="M306 640q-6 10 -2 18" stroke="#f4f4f0" stroke-width="5" fill="none"/></g>
+
+<!-- the Sun: a brass ball on a pillar, and its plaque -->
+<g id="sun" class="hot">
+  <circle id="sunglow" cx="420" cy="440" r="90" fill="url(#glowG)"/>
+  <rect x="402" y="474" width="36" height="170" fill="#5a3a1e" stroke="#2a1a0c" stroke-width="2"/><rect x="392" y="630" width="56" height="14" fill="#3a2410"/>
+  <rect x="396" y="466" width="48" height="10" fill="#3a2410"/>
+  <circle cx="420" cy="434" r="34" fill="url(#sunG)" stroke="#5a3a10" stroke-width="2.5"/><path d="M398 420q8 -12 22 -14" stroke="#fffbe0" stroke-width="4" fill="none" opacity=".8"/>
+  <rect id="plq" x="404" y="508" width="32" height="44" fill="#d8b860" stroke="#5a3a10" stroke-width="1.6"/><path d="M410 518h20M410 526h20M410 534h14M410 542h20" stroke="#5a3a10" stroke-width="1.4"/>
+</g>
+
+<!-- the brass rail of the walk, and its worn studs -->
+<path d="M420 704H2600" stroke="#6a4a14" stroke-width="9"/><path d="M420 702H2600" stroke="#d8b050" stroke-width="4"/>
+<g fill="#b89040" stroke="#6a4a14" stroke-width="1.4"><circle cx="484" cy="703" r="4"/><circle cx="548" cy="703" r="4"/><circle cx="612" cy="703" r="4"/><circle cx="676" cy="703" r="4"/><circle cx="740" cy="703" r="4"/><circle cx="804" cy="703" r="4"/><circle cx="868" cy="703" r="4"/><circle cx="932" cy="703" r="4"/><circle cx="996" cy="703" r="4"/><circle cx="1060" cy="703" r="4"/><circle cx="1124" cy="703" r="4"/><circle cx="1188" cy="703" r="4"/><circle cx="1252" cy="703" r="4"/><circle cx="1316" cy="703" r="4"/><circle cx="1380" cy="703" r="4"/><circle cx="1444" cy="703" r="4"/><circle cx="1508" cy="703" r="4"/><circle cx="1572" cy="703" r="4"/></g>
+
+<!-- the ticket desk, the empty folder, the bell -->
+<g id="desk">
+  <path d="M556 496H904V650H556z" fill="#7a4a22"/><path d="M556 496H904" stroke="#3a2210" stroke-width="10"/><path d="M570 512H890V640H570z" fill="url(#slat)" opacity=".7"/>
+  <rect x="600" y="300" width="270" height="190" fill="#22304e" stroke="#3a2210" stroke-width="8"/><path d="M735 300v190" stroke="#3a2210" stroke-width="5"/>
+  <text x="735" y="288" class="sO" font-size="18" font-weight="600" letter-spacing="6" fill="#5a3a1a">TICKETS</text>
+  <g fill="#c8b890" opacity=".5"><rect x="620" y="330" width="90" height="20"/><rect x="760" y="330" width="90" height="20"/></g>
+  <circle cx="860" cy="484" r="10" fill="#c8a040" stroke="#5a3a10" stroke-width="2"/>
+</g>
+<g id="folder" class="hot"><path d="M640 494l70 -10l40 8l-70 10z" fill="#2a5a9a" stroke="#14284a" stroke-width="2"/><path d="M690 486l26 -4l2 6l-26 4z" fill="#fffbe8"/></g>
+
+<!-- the queue posts and their rope, and a bench -->
+<g><path d="M520 820q90 34 180 0" fill="none" stroke="#8a1e1e" stroke-width="7"/><path d="M880 820q80 30 160 0" fill="none" stroke="#8a1e1e" stroke-width="7"/>
+  <g fill="#c8a040" stroke="#5a3a10" stroke-width="2"><rect x="514" y="770" width="12" height="92"/><rect x="694" y="770" width="12" height="92"/><rect x="874" y="770" width="12" height="92"/><rect x="1034" y="770" width="12" height="92"/>
+  <circle cx="520" cy="766" r="9"/><circle cx="700" cy="766" r="9"/><circle cx="880" cy="766" r="9"/><circle cx="1040" cy="766" r="9"/><ellipse cx="520" cy="864" rx="22" ry="6"/><ellipse cx="700" cy="864" rx="22" ry="6"/><ellipse cx="880" cy="864" rx="22" ry="6"/><ellipse cx="1040" cy="864" rx="22" ry="6"/></g></g>
+<g><rect x="1110" y="560" width="160" height="18" fill="#5a3a1a"/><path d="M1124 578v62M1256 578v62" stroke="#3a2210" stroke-width="8"/><rect x="1100" y="552" width="180" height="10" fill="#7a4a22"/></g>
+<!-- the page with a boot print on it -->
+<g id="page" class="hot" transform="rotate(-9 760 790)"><rect x="712" y="760" width="96" height="66" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.6"/><path d="M722 774h76M722 784h70M722 794h76M722 804h50M722 814h70" stroke="#6a6a72" stroke-width="1.3"/>
+  <path d="M738 772q14 -6 22 6q6 14 -2 30q-8 12 -18 4q-8 -16 -2 -40z" fill="#f4f4f0" stroke="#d8d8d0" stroke-width="1.5"/><path d="M742 812q10 4 12 12" stroke="#f4f4f0" stroke-width="9" fill="none"/></g>
+
+<!-- the poster from 1992, and the walk map -->
+<g id="poster" class="hot">
+  <rect x="958" y="186" width="168" height="250" fill="#141a30" stroke="#3a2a14" stroke-width="5"/>
+  <circle cx="1042" cy="276" r="52" fill="none" stroke="#e8b850" stroke-width="2"/><g fill="#fff"><circle cx="1010" cy="250" r="1.6"/><circle cx="1066" cy="236" r="2"/><circle cx="1080" cy="300" r="1.4"/><circle cx="1030" cy="310" r="1.8"/><circle cx="1050" cy="262" r="1.2"/></g>
+  <path d="M1042 224v104M990 276h104" stroke="#e8b850" stroke-width="1" opacity=".5"/>
+  <text x="1042" y="358" class="sO" font-size="15" font-weight="700" letter-spacing="2" fill="#e8b850">A YEAR IN</text><text x="1042" y="378" class="sO" font-size="15" font-weight="700" letter-spacing="2" fill="#e8b850">THE DARK</text>
+  <text x="1042" y="400" class="sO" font-size="9" letter-spacing="1.5" fill="#c8c8d8">BY SABINE QUENNELL · 1992</text>
+  <g transform="rotate(-18 1042 230)"><rect x="972" y="216" width="140" height="22" fill="#d83a2a"/><text x="1042" y="232" class="sO" font-size="11" font-weight="700" letter-spacing="1.5" fill="#fff">LAST SHOW TONIGHT</text></g>
+</g>
+<g id="map" class="hot">
+  <rect x="1152" y="226" width="180" height="176" fill="#fffdf6" stroke="#3a2a14" stroke-width="4"/><rect x="1152" y="226" width="180" height="22" fill="#e07a2a"/>
+  <text x="1242" y="242" class="sO" font-size="11" font-weight="700" letter-spacing="2" fill="#fff">THE WALK GOES ON</text>
+  <path d="M1166 380l40 -50l60 -20l50 -50M1180 300h120M1230 260v120" stroke="#b8b0a0" stroke-width="5" fill="none"/>
+  <g fill="#e07a2a"><circle cx="1170" cy="376" r="5"/><circle cx="1210" cy="330" r="4"/><circle cx="1262" cy="312" r="4"/><circle cx="1300" cy="282" r="4"/><circle cx="1318" cy="262" r="4"/></g>
+  <path d="M1290 360l18 0" stroke="#3a2a14" stroke-width="2"/><text x="1300" y="376" class="sO" font-size="8" fill="#3a2a14">600 m?</text>
+</g>
+
+<!-- the planets, pushed to the end of the rail -->
+<g id="heap" class="hot">
+  <g stroke="#5a3a10" stroke-width="3"><path d="M1292 702v-40M1306 702v-48M1320 702v-44M1334 702v-52"/></g>
+  <circle cx="1292" cy="660" r="5" fill="#a8a8a8" stroke="#3a3a3a" stroke-width="1.5"/><circle cx="1306" cy="652" r="7" fill="#efe0a8" stroke="#6a5a2a" stroke-width="1.5"/>
+  <circle cx="1320" cy="656" r="3" fill="none" stroke="#5a3a10" stroke-width="1.5"/><circle cx="1334" cy="650" r="6" fill="#c8583a" stroke="#5a2010" stroke-width="1.5"/>
+  <rect x="1278" y="700" width="70" height="8" fill="#3a2a14" opacity=".4"/>
+  <rect x="1266" y="626" width="96" height="88" fill="transparent"/>
+</g>
+<g id="placed">
+  <g stroke="#5a3a10" stroke-width="3"><path d="M508 702v-34M562 702v-40M614 702v-40M681 702v-36"/></g>
+  <circle cx="508" cy="666" r="4" fill="#a8a8a8"/><circle cx="562" cy="660" r="6" fill="#efe0a8"/><circle cx="614" cy="661" r="2.5" fill="#3a7ac8"/><circle cx="681" cy="664" r="5" fill="#c8583a"/>
+</g>
+
+<!-- the stairs, and two pages still riding the draught -->
+<g id="stairs" class="hot">
+  <path d="M1360 642L1700 300V642z" fill="#b8a07a"/><path d="M1360 642L1700 300" stroke="#5a3a1a" stroke-width="6"/>
+  <g stroke="#8a7050" stroke-width="3"><path d="M1394 608h40M1428 574h40M1462 540h40M1496 506h40M1530 472h40M1564 438h40M1598 404h40"/></g>
+  <path d="M1350 560L1690 218" stroke="#3a2210" stroke-width="7"/><path d="M1370 560v80M1440 490v80M1510 420v80M1580 350v80" stroke="#3a2210" stroke-width="4"/>
+  <rect x="1440" y="170" width="130" height="34" fill="#22304e"/><text x="1505" y="193" class="sO" font-size="13" font-weight="600" letter-spacing="3" fill="#e8b850">TO THE DOME ↑</text>
+  <g id="flut"><rect x="1500" y="560" width="22" height="28" fill="#f7f2e4" stroke="#8a826e"/><rect x="1440" y="600" width="20" height="26" fill="#f7f2e4" stroke="#8a826e"/><rect x="1560" y="520" width="18" height="24" fill="#f7f2e4" stroke="#8a826e"/></g>
+</g>
+
+<!-- the foyer clock -->
+<g id="clock" class="hot"><circle cx="460" cy="190" r="36" fill="#f7f0de" stroke="#5a3a1a" stroke-width="5"/><g stroke="#3a2a14" stroke-width="2"><path d="M460 160v6M460 214v6M430 190h6M484 190h6"/></g>
+  <path d="M460 190l-16 -10" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/><path d="M460 190l-14 -24" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/><circle cx="460" cy="190" r="3" fill="#1a1a1a"/></g>
+
+<!-- Zainab -->
+<g id="zainab" class="hot" transform="translate(1010 872)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow the pages up the stairs</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#zainab').innerHTML = SD.fig({ h: 330, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', lanyard: '#e8802a', armR: 'front', specs: true });
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'foyer', no: 'I', title: 'The Foyer',
+    go: 'Into the foyer',
+    intro: [
+      'The Rosewarne Planetarium has shown this town the sky since 1976, under a white dome that has slowly turned the colour of weak tea. On Monday the painters move in, and the dome closes for six weeks.',
+      'So tonight, for one night only, the Rosewarne is putting on its most famous show: <i>A Year in the Dark</i>, written in 1992 by the science writer Sabine Quennell. It ran for seventeen years. Half the town saw it at school. Sabine is eighty-one now, and she is coming to watch.',
+      'You are the youngest volunteer. You give out the programmes and show people to their seats with a torch. And at ten to five on a cold Saturday in November, you are the only other person in the foyer when Zainab Roper opens the script folder and finds it empty.'
+    ],
+    exit: {"next":"office","w":{"8fa752a5":"474e7758"}}, tags: {"mer":["15ba431e"],"ven":["5bd9152b"],"ear":["d37dc567"],"mar":["12a07ae7"],"eb":["6cf49068"],"ns":["160b39ef"],"tenth":["4b9d0166","e4ad4509","89775542","3d4416d7"],"km":["1a9ec5f5","688b41da","f80e5962"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SD.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  var READS = ['plaque', 'page', 'map'];
+  function allRead() { return READS.every(function (k) { return told.has(k); }); }
+  function paint() {
+    $('#scene').classList.toggle('done', !!nextFile);
+    $('#zainab').classList.toggle('ready', !told.has('zainab') && !nextFile);
+    $('#sun').classList.toggle('ready', told.has('zainab') && !told.has('plaque'));
+    $('#page').classList.toggle('ready', told.has('zainab') && !told.has('page'));
+    $('#map').classList.toggle('ready', told.has('zainab') && !told.has('map'));
+    $('#heap').classList.toggle('ready', told.has('zainab') && allRead() && !nextFile);
+    var n = (told.has('zainab') ? 1 : 0) + READS.filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The walk is set. The pages went up the stairs with the draught: the button at the bottom of the screen follows them.']];
+    if (lock && document.body.contains(lock)) return ['walk', [
+      'Start with the Sun. The plaque says the brass ball is 14 cm across, and the real Sun is 1.4 million km across. So how many real kilometres does one centimetre of the model stand for?',
+      'One centimetre of the model is 100,000 real kilometres. Divide each real distance by 100,000 to get centimetres, then by 100 to get metres. Do the same with the Earth&rsquo;s size (12,700 km), and with the nearest star (count the noughts: 1,000 metres make a kilometre).',
+      'Mercury: 58,000,000 &divide; 100,000 = 580 cm, so Mercury goes 5.8 m from the Sun. Do Venus, the Earth and Mars the same way. The Earth&rsquo;s ball is 12,700 &divide; 100,000 = 0.127 cm across: how many millimetres is that? And 40,000,000,000,000 &divide; 100,000 = 400,000,000 cm: turn that into kilometres.'
+    ]];
+    if (!told.has('zainab')) return ['zainab', ['Zainab Roper, by the ticket desk, is going to read the script tonight. Click her.']];
+    if (!allRead()) return ['read', [
+      'Three things here matter: the brass plaque on the Sun&rsquo;s pillar by the doors, the page with a boot print on it on the floor by the ticket desk, and the map of the walk on the wall by the stairs.',
+      'Click each of them. Everything you read goes into your notebook, so you can look at it again later.'
+    ]];
+    return ['heap', ['Everything is read. Click the planets heaped at the far end of the brass rail, near the stairs, and put the walk back.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The walk is set. Upstairs, a door bangs in the draught.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The foyer, at ten to five. The planets are still heaped at the end of the rail.'); return; }
+    told.set('in'); SD.sfx.gust();
+    ER.narrate([
+      'The script was in a blue folder on the ticket desk, where Sabine left it at lunchtime with a note clipped to the front: <i>For Zainab. Read it twice. S.Q.</i> The note is still there. The pages are not.',
+      'There is a wind in the foyer. The front doors are propped open with a tin of paint for the painters, who have been carrying in scaffolding all afternoon; and somewhere at the very top of the building, somebody has opened the roof hatch.',
+      'Zainab says it aloud, slowly, like a sum: &ldquo;Warm air rises. Doors open at the bottom. A hatch open at the top. We have turned the whole building into a chimney.&rdquo;',
+      'A page goes past your ear, tilts, and sails up the stairwell. Two more follow it. They are going up through the building, the way the warm air goes.',
+      '&ldquo;She never numbered her pages,&rdquo; says Zainab. &ldquo;She always said a good explanation puts itself back in order. She never said what to do if it went up a chimney.&rdquo;',
+      'One page did not get away. It is lying on the floor by the ticket desk, with a white boot print across the middle of it. And the model planets that should stand along the brass rail have all been pushed to the far end, out of the painters&rsquo; way.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var PLAQUE = '<h4>WALK TO THE STARS</h4><h5>a scale model of the Solar System</h5>' +
+    '<svg viewBox="0 0 600 120"><circle cx="70" cy="60" r="46" fill="#7a5214" opacity=".35"/><circle cx="70" cy="60" r="40" fill="none" stroke="#2a1c06" stroke-width="3"/>' +
+    '<path d="M30 112h80M30 106v12M110 106v12" stroke="#2a1c06" stroke-width="2.5"/><text x="70" y="66" text-anchor="middle" font-family="Outfit,sans-serif" font-size="16" font-weight="700" fill="#2a1c06">SUN</text>' +
+    '<text x="140" y="44" font-family="Outfit,sans-serif" font-size="17" fill="#2a1c06">this ball: 14 cm across</text><text x="140" y="70" font-family="Outfit,sans-serif" font-size="17" fill="#2a1c06">the real Sun: 1,400,000 km across</text>' +
+    '<text x="140" y="98" font-family="Outfit,sans-serif" font-size="17" font-weight="700" fill="#2a1c06">so 1 cm of this model = ? km</text></svg>' +
+    '<p>This brass ball is the Sun, shrunk to <b>14 centimetres</b> across. The real Sun is about <b>1.4 million kilometres</b> across.</p>' +
+    '<p>A <b>scale model</b> shrinks everything by the same amount: every size and every distance. Work out how many real kilometres one centimetre of this model stands for, and you can put every planet in its place.</p>' +
+    '<table><tr><td>Mercury</td><td>58 million km from the Sun</td></tr><tr><td>Venus</td><td>108 million km</td></tr><tr><td>Earth</td><td>150 million km</td></tr><tr><td>Mars</td><td>228 million km</td></tr></table>' +
+    '<p>The Earth is about <b>12,700 km</b> across.</p>' +
+    '<p>The nearest star to the Sun, Proxima Centauri, is about 40 million million km away: <b>40,000,000,000,000 km</b>.</p>' +
+    '<p class="sm">The walk goes on outside the building: see the map by the stairs.</p>';
+  var PAGE = SD.page('A GRAPEFRUIT IN THE FOYER',
+    '<p class="dir">(The presenter stands by the dome door. House lights half up.)</p>' +
+    '<p>On your way in tonight, you walked past the Sun. It is the brass ball by the front door, fourteen centimetres across: about the size of a grapefruit.</p>' +
+    '<p>And you walked past the Earth. Did you see it? It is <span class="boot"></span>, <span class="boot"></span> metres from the grapefruit, at the foot of the stairs. Mercury is <span class="boot"></span> metres from the Sun, Venus <span class="boot"></span>, and Mars is out in the corridor, <span class="boot"></span> away. Jupiter, a marble, is at the bus shelter.</p>' +
+    '<p>So if the Sun is a grapefruit, where is the next grapefruit: the nearest star? <span class="boot"></span> <span class="boot"></span></p>' +
+    '<p>Between here and there: nothing. Almost nothing at all.</p>',
+    'a white boot print of primer across the middle of the page');
+  var MAP = '<h4>The walk goes on outside</h4><h5>Walk to the Stars &middot; the town map</h5>' +
+    '<svg viewBox="0 0 640 230"><rect width="640" height="230" fill="#f4efe2"/>' +
+    '<g stroke="#d8cfbc" stroke-width="14" fill="none" stroke-linecap="round"><path d="M40 190H600M200 190V30M200 110H520M380 110V30M520 110l60 -70"/></g>' +
+    '<path d="M60 216L630 216" stroke="#6a6a6a" stroke-width="5" stroke-dasharray="14 8"/>' +
+    '<g font-family="Outfit,sans-serif" font-size="13" fill="#1e2430">' +
+    '<rect x="26" y="172" width="34" height="34" fill="#22304e"/><text x="43" y="168" text-anchor="middle" font-weight="700">US</text>' +
+    '<circle cx="96" cy="172" r="6" fill="#999"/><text x="96" y="160" text-anchor="middle">car park gate</text>' +
+    '<circle cx="150" cy="200" r="7" fill="#e07a2a"/><text x="150" y="226" text-anchor="middle" font-size="12">bus shelter</text>' +
+    '<circle cx="214" cy="140" r="7" fill="#e07a2a"/><text x="232" y="144">post office</text>' +
+    '<circle cx="300" cy="96" r="7" fill="#e07a2a"/><text x="300" y="84" text-anchor="middle">church gate</text>' +
+    '<circle cx="392" cy="50" r="7" fill="#e07a2a"/><text x="404" y="46">swimming baths</text>' +
+    '<circle cx="560" cy="204" r="6" fill="#999"/><text x="560" y="196" text-anchor="middle">railway bridge</text>' +
+    '<path d="M590 36l14 -18l14 18z" fill="#999"/><text x="604" y="62" text-anchor="middle" font-size="12">to Owl Hill &rarr;</text></g></svg>' +
+    '<table><tr><th>Place</th><th>From our front door</th><th>On the walk</th></tr>' +
+    '<tr><td>the car park gate</td><td>60 m</td><td>&mdash;</td></tr>' +
+    '<tr><td>the bus shelter</td><td>78 m</td><td>Jupiter (a marble)</td></tr>' +
+    '<tr><td>the post office</td><td>143 m</td><td>Saturn (a smaller marble)</td></tr>' +
+    '<tr><td>the church gate</td><td>287 m</td><td>Uranus (a peppercorn)</td></tr>' +
+    '<tr><td>the swimming baths</td><td>451 m</td><td>Neptune (a peppercorn)</td></tr>' +
+    '<tr><td>the railway bridge</td><td>600 m</td><td>&mdash;</td></tr>' +
+    '<tr><td>the windmill on Owl Hill</td><td>6 km</td><td>&mdash;</td></tr>' +
+    '<tr><td>the hills on the skyline</td><td>about 60 km</td><td>&mdash;</td></tr></table>' +
+    '<p>All the planets on this walk are on the same scale as the Sun by our front door. Please do not climb on Saturn.</p>';
+
+  $('#sun').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PLAQUE, cls: 'plaque', clue: { id: 'plaque', title: 'Walk to the Stars', kind: 'Brass plaque' }, done: function () {
+      SD.terms(['scale model', 'scale']);
+      if (told.set('plaque')) { paint(); ER.say(nextFile ? 'Fourteen centimetres of polished brass. Generations of children have tried to unscrew it.' : 'Fourteen centimetres of polished brass. Generations of children have tried to unscrew it. Every number on the walk comes from this ball.'); }
+    } });
+  });
+  $('#page').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The page is back in the folder, with the numbers written over the boot print in pencil.'); return; }
+    ER.read({ html: PAGE, cls: 'script', clue: { id: 'scB0', title: 'A Grapefruit in the Foyer (trodden on)', kind: 'Script page' }, done: function () {
+      if (told.set('page')) { paint(); ER.say('&ldquo;Every number on that page is under the boot,&rdquo; says Zainab. &ldquo;Of course it is.&rdquo; But the numbers on the page are the numbers of the walk: set the walk, and you have them back.'); }
+    } });
+  });
+  $('#map').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAP, cls: 'leaflet', clue: { id: 'map', title: 'The walk goes on outside', kind: 'Town map' }, done: function () {
+      if (told.set('map')) { paint(); ER.say('The outside half of the walk. Somebody has pencilled a question mark next to the railway bridge.'); }
+    } });
+  });
+  $('#zainab').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Fifteen metres and a pinhead,&rdquo; says Zainab. &ldquo;Right. Up.&rdquo;'); return; }
+    ER.talk({
+      who: 'Zainab Roper', role: 'presenter · she reads the script tonight', face: window.FACE('zainab'),
+      lines: [
+        { note: 'Zainab has a physics degree, a stopwatch round her neck and a pencil behind her ear. Just now she is very calm, in the way people are calm when they would quite like to scream.', a: '&ldquo;Right. Doors open at seven, show at half past. That gives us two hours and ten minutes to get back a script we had at lunchtime.&rdquo;' },
+        { q: 'Can&rsquo;t you do the show without it?', a: '&ldquo;I could talk about the universe for an hour without a script. Sabine would know by the second sentence. She wrote every word to go with the projector, and she checked every number twice. She&rsquo;ll be in seat F1 with a pencil.&rdquo;' },
+        { q: 'Why does the model matter?', a: '&ldquo;The show starts out here. The audience walks the model on the way in: the Sun by the door, the planets along the rail. Then the first scene talks about what they&rsquo;ve just walked past. If the planets are in the wrong places, the first thing Sabine hears tonight is a wrong number.&rdquo;' },
+        { q: 'Where do the planets go?', a: '&ldquo;The painters pushed them up the rail to get their poles through. The brass numbers on the floor wore off years ago: thirty-four years of school shoes. So we work it out. The plaque on the Sun tells you all you need, if you do the sums. And the map by the stairs shows the rest of the walk, outside.&rdquo;' },
+        { q: 'And the pages?', a: '&ldquo;Up. Everything goes up today. We put this floor right, then we follow them.&rdquo;' }
+      ],
+      clue: { id: 'zainab1', title: 'Zainab, in the foyer', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('zainab')) { paint(); ER.say('The plaque on the Sun&rsquo;s pillar, the trodden page, and the map by the stairs.'); } }
+    });
+  });
+
+  SD.thing('#doors', 'draught', 'The front doors, propped open for the painters. Cold air comes in at the bottom, warm air goes out at the top of the building, and the pages go with it.', isBusy);
+  SD.thing('#tin', 'primer', 'A tin of primer, holding the door open. Primer is the first coat of paint, the one nobody ever sees.', isBusy);
+  SD.thing('#folder', null, 'The blue folder, empty. The note on the front says: <i>For Zainab. Read it twice. S.Q.</i>', isBusy);
+  SD.thing('#poster', null, '<i>A Year in the Dark. A new show for 1992 by Sabine Quennell.</i> Somebody has stuck a red strip across the corner: LAST SHOW TONIGHT.', isBusy);
+  SD.thing('#clock', null, 'The foyer clock says ten to five. The doors open at seven.', isBusy);
+  SD.thing('#stairs', null, 'Two pages are still riding the air up the stairwell, turning over and over like moths round a lamp.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  function openOrSay() {
+    if (busy) return;
+    if (nextFile) { ER.say('Mercury, Venus, the Earth and Mars, back on the rail.'); return; }
+    if (!told.has('zainab')) { ER.say('Four planets on brass pins, pushed to the end of the rail. Zainab is waiting to talk to you first.'); return; }
+    if (!allRead()) { ER.say('Before you move them, read what this room can tell you: the plaque on the Sun, the trodden page, and the map by the stairs.'); return; }
+    openLock();
+  }
+  $('#heap').addEventListener('click', openOrSay);
+
+  /* ---------- the lock: put the walk back ---------- */
+  var PL = [['mer', 'Mercury', '#a8a8a8', 4], ['ven', 'Venus', '#efe0a8', 6], ['ear', 'Earth', '#3a7ac8', 2.5], ['mar', 'Mars', '#c8583a', 5]];
+  var BEADS = [['e1', 'a pea &middot; 9 mm'], ['e2', 'a grain of salt &middot; 0.5 mm'], ['e3', 'a peppercorn &middot; 5 mm'], ['e4', 'a pinhead &middot; 1.3 mm'], ['e5', 'a marble &middot; 1.5 cm']];
+  var SIGNS = [['s1', '4 km: the next town'], ['s2', '400,000 km: just past the Moon'], ['s3', '4,000 km: a tenth of the way round the world'], ['s4', '40 km: the coast'], ['s5', '400 m: the end of the High Street']];
+  function X(m) { return 40 + m * 40; }
+  function openLock() {
+    var st = ER.flag('a-walk') || { v: { mer: 24.1, ven: 24.4, ear: 24.7, mar: 25 }, b: null, s: null }, sel = 'mer', busyL = false;
+    lock = ER.el('div', 'walk');
+    var svg = '<svg class="track" viewBox="0 0 1080 230">' +
+      '<rect x="0" y="150" width="1080" height="80" fill="#c9b99c"/><rect x="0" y="146" width="1080" height="5" fill="#4a3018"/>' +
+      '<rect x="0" y="0" width="1080" height="146" fill="#3a2a1a"/>' +
+      '<g font-family="Outfit,sans-serif" font-size="12" fill="#c8b48a" text-anchor="middle">' +
+      '<text x="' + X(1.9) + '" y="138">front door</text><text x="' + X(8) + '" y="138">ticket desk</text><text x="' + X(15) + '" y="138">foot of the stairs</text><text x="' + X(21.5) + '" y="138">corridor</text></g>' +
+      '<path d="M' + X(6) + ' 146v-14h' + (X(10) - X(6)) + 'v14" fill="none" stroke="#8a6a3a" stroke-width="3"/>' +
+      '<path d="M' + X(14.3) + ' 146l60 -60" stroke="#8a6a3a" stroke-width="3"/>' +
+      '<path d="M40 176H1060" stroke="#6a4a14" stroke-width="8"/><path d="M40 175H1060" stroke="#d8b050" stroke-width="3"/>';
+    for (var m = 0; m <= 25; m++) svg += '<path d="M' + X(m) + ' 182v' + (m % 5 ? 8 : 16) + '" stroke="#5a4020" stroke-width="2"/>' + (m % 5 ? '' : '<text x="' + X(m) + '" y="218" font-family="Outfit,sans-serif" font-size="14" text-anchor="middle" fill="#3a2a14">' + m + ' m</text>');
+    svg += '<circle cx="40" cy="128" r="16" fill="#e8b850" stroke="#5a3a10" stroke-width="2"/><path d="M40 144v32" stroke="#5a3a1e" stroke-width="6"/><text x="40" y="104" font-family="Outfit,sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#ffd27a">SUN</text>';
+    PL.forEach(function (p, i) {
+      svg += '<g class="pin" data-p="' + p[0] + '"><line x1="0" y1="176" x2="0" y2="' + (112 - i * 22) + '" stroke="#c8a050" stroke-width="3"/>' +
+        '<circle cx="0" cy="' + (108 - i * 22) + '" r="' + p[3] + '" fill="' + p[2] + '" stroke="#1a1a1a" stroke-width="1"/>' +
+        '<text x="6" y="' + (104 - i * 22) + '" font-family="Outfit,sans-serif" font-size="13" font-weight="600" fill="#f6ead2"></text>' +
+        '<rect x="-12" y="' + (96 - i * 22) + '" width="24" height="84" fill="transparent"/></g>';
+    });
+    svg += '</svg>';
+    lock.innerHTML = '<h5>Walk to the Stars &middot; put the planets back on the rail</h5>' + svg +
+      '<div class="ctl"><span class="pks"></span><button type="button" class="ng" data-d="-1">&minus;1 m</button><button type="button" class="ng" data-d="-0.1">&minus;0.1</button>' +
+      '<span class="read"></span><button type="button" class="ng" data-d="0.1">+0.1</button><button type="button" class="ng" data-d="1">+1 m</button></div>' +
+      '<div class="row2"><div class="box beads"><i>The Earth&rsquo;s ball has come off its pin. Which bead from the spares tin is the Earth, on this scale?</i><div class="opts"></div></div>' +
+      '<div class="box sign"><i>The little signpost at the foot of the stairs: THE NEXT GRAPEFRUIT (the nearest star) IS &hellip;</i><div class="opts"></div></div></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="setw">Set the walk</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m_ = foot.querySelector('.pmsg'), tsvg = lock.querySelector('svg');
+    function msg(t) { m_.innerHTML = ER.gloss(t); }
+    var pks = lock.querySelector('.pks');
+    PL.forEach(function (p) { var b = ER.el('button', 'pk', p[1]); b.type = 'button'; b.setAttribute('data-p', p[0]); pks.appendChild(b); });
+    BEADS.forEach(function (b) { var e = ER.el('button', 'op', b[1]); e.type = 'button'; e.setAttribute('data-b', b[0]); lock.querySelector('.beads .opts').appendChild(e); });
+    SIGNS.forEach(function (b) { var e = ER.el('button', 'op', b[1]); e.type = 'button'; e.setAttribute('data-s', b[0]); lock.querySelector('.sign .opts').appendChild(e); });
+    function keep() { ER.flag('a-walk', st); }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    function draw() {
+      PL.forEach(function (p) {
+        var g = lock.querySelector('.pin[data-p="' + p[0] + '"]'), v = st.v[p[0]];
+        g.setAttribute('transform', 'translate(' + X(v) + ' 0)'); g.classList.toggle('sel', sel === p[0]);
+        g.querySelector('text').textContent = p[1] + ' ' + v.toFixed(1);
+      });
+      ER.$$('.pk', lock).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === sel); });
+      var p = PL.filter(function (q) { return q[0] === sel; })[0];
+      lock.querySelector('.read').textContent = p[1].toUpperCase() + '  ' + st.v[sel].toFixed(1) + ' m';
+      ER.$$('.beads .op', lock).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-b') === st.b); });
+      ER.$$('.sign .op', lock).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-s') === st.s); });
+    }
+    function setV(p, v) { st.v[p] = Math.max(0, Math.min(25, Math.round(v * 10) / 10)); clearBad(); draw(); keep(); }
+    lock.addEventListener('click', function (e) {
+      if (busyL) return;
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.classList.contains('pk')) { sel = b.getAttribute('data-p'); SD.sfx.tick(); draw(); return; }
+      if (b.classList.contains('ng')) { setV(sel, st.v[sel] + parseFloat(b.getAttribute('data-d'))); SD.sfx.slide(); return; }
+      if (b.getAttribute('data-b')) { st.b = b.getAttribute('data-b'); clearBad(); SD.sfx.tick(); draw(); keep(); return; }
+      if (b.getAttribute('data-s')) { st.s = b.getAttribute('data-s'); clearBad(); SD.sfx.tick(); draw(); keep(); return; }
+    });
+    ER.$$('.pin', lock).forEach(function (g) {
+      ER.drag(g, {
+        start: function () { if (busyL) return false; sel = g.getAttribute('data-p'); draw(); },
+        move: function (ev, moved) { if (!moved) return; var x = ER.pt(tsvg, ev).x; st.v[sel] = Math.max(0, Math.min(25, Math.round((x - 40) / 4) / 10)); clearBad(); draw(); },
+        end: function () { keep(); SD.sfx.slide(); }
+      });
+    });
+    foot.querySelector('#setw').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      var i, p, v;
+      if (PL.every(function (q) { return st.v[q[0]] >= 24; })) { ER.sfx.no(); msg('All four planets are still heaped at the far end of the rail. Click a planet&rsquo;s name (or drag its pin) and move it to its place.'); return; }
+      for (i = 0; i < PL.length; i++) {
+        p = PL[i]; v = st.v[p[0]].toFixed(1);
+        if (!ER.check(p[0], v)) {
+          ER.sfx.no(); sel = p[0]; draw(); lock.querySelector('.pk[data-p="' + p[0] + '"]').classList.add('bad');
+          msg(ER.check('tenth', p[0] + v) ? 'Zainab looks along the rail. &ldquo;' + p[1] + ' is ten times too close to the Sun. Check your centimetres and your metres.&rdquo;' :
+            'Zainab looks along the rail. &ldquo;' + p[1] + ' is not where it should be. How many real kilometres does one centimetre of this model stand for? Then divide.&rdquo; <i>(Only the first thing that is wrong is ever shown.)</i>');
+          return;
+        }
+      }
+      if (!st.b) { ER.sfx.no(); msg('The planets are right. Now the Earth&rsquo;s own ball: which bead from the spares tin is the Earth?'); return; }
+      if (!ER.check('eb', st.b)) {
+        ER.sfx.no(); lock.querySelector('.op[data-b="' + st.b + '"]').classList.add('bad');
+        msg('&ldquo;Not that one,&rdquo; says Zainab. &ldquo;Put the Earth on the same scale as the Sun: 12,700 kilometres across. How many millimetres is that, here?&rdquo;'); return;
+      }
+      if (!st.s) { ER.sfx.no(); msg('One thing left: the signpost to the next grapefruit, the nearest star.'); return; }
+      if (!ER.check('ns', st.s)) {
+        ER.sfx.no(); lock.querySelector('.op[data-s="' + st.s + '"]').classList.add('bad');
+        msg(ER.check('km', st.s) ? '&ldquo;Much further than that,&rdquo; says Zainab. &ldquo;Forty million million kilometres, on the same scale. Count the noughts again, and remember that a kilometre is 100,000 centimetres.&rdquo;' :
+          '&ldquo;Too far,&rdquo; says Zainab. &ldquo;That is the real distance to the Moon, near enough, not a model one. Divide by the same number as everything else.&rdquo;');
+        return;
+      }
+      var cand = PL.map(function (q) { return st.v[q[0]].toFixed(1); }).join('/') + '/' + st.b + '/' + st.s;
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The walk will not set. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('a-file', file); busyL = true; SD.sfx.ting();
+      msg('Four brass pins click into the rail. Zainab walks it, Sun to Mars, counting her steps under her breath, and nods.');
+      setTimeout(function () { ER.closeAll(); solved(st); }, 2400);
+    });
+    draw();
+    msg('Click a planet&rsquo;s name and move it with the buttons, or drag its pin along the rail. Then choose the Earth&rsquo;s bead and the signpost, and set the walk.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved(st) {
+    var bead = BEADS.filter(function (b) { return b[0] === st.b; })[0][1].split(' &middot; ')[0], sign = SIGNS.filter(function (b) { return b[0] === st.s; })[0][1];
+    var v = st.v;
+    ER.addClue('scB', 'A Grapefruit in the Foyer', SD.page('A GRAPEFRUIT IN THE FOYER',
+      '<p class="dir">(The presenter stands by the dome door. House lights half up.)</p>' +
+      '<p>On your way in tonight, you walked past the Sun. It is the brass ball by the front door, fourteen centimetres across: about the size of a grapefruit.</p>' +
+      '<p>And you walked past the Earth. Did you see it? It is <span class="filled">' + bead + '</span>, <span class="filled">' + v.ear.toFixed(0) + '</span> metres from the grapefruit, at the foot of the stairs. Mercury is <span class="filled">' + v.mer.toFixed(1) + '</span> metres from the Sun, Venus <span class="filled">' + v.ven.toFixed(1) + '</span>, and Mars is out in the corridor, <span class="filled">' + v.mar.toFixed(1) + ' metres</span> away. Jupiter, a marble, is at the bus shelter.</p>' +
+      '<p>So if the Sun is a grapefruit, where is the next grapefruit: the nearest star? <span class="filled">' + sign.split(':')[0] + ' away</span>.</p>' +
+      '<p>Between here and there: nothing. Almost nothing at all.</p>', 'the numbers pencilled back over the boot print'), 'script', 'Script page');
+    SD.mine('scale', 'The scale of the walk', '<p>Sun: 14 cm for 1,400,000 km, so 1 cm = 100,000 km (and 1 m = 10 million km).</p>' +
+      '<p>Mercury 58 million km &rarr; 580 cm = 5.8 m. Venus 108 &rarr; 10.8 m. Earth 150 &rarr; 15 m. Mars 228 &rarr; 22.8 m.</p>' +
+      '<p>The Earth: 12,700 km &rarr; 0.127 cm = about 1.3 mm, a pinhead.</p>' +
+      '<p>The nearest star: 40,000,000,000,000 km &rarr; 400,000,000 cm = 4,000,000 m = 4,000 km. A tenth of the way round the world.</p>');
+    SD.terms(['scale model', 'scale']);
+    paint(); busy = true;
+    ER.narrate([
+      'A pinhead, fifteen metres from a grapefruit. Zainab stands at the foot of the stairs and looks back at the brass Sun by the door, and for a moment neither of you says anything. That is the whole trick of the first scene: the audience has walked it before anybody explains it.',
+      '&ldquo;And the next grapefruit is four thousand kilometres away,&rdquo; she says. &ldquo;With nothing in between. Every time I read that line, I want to sit down.&rdquo;',
+      'She pencils the numbers back over the boot print, small and neat, and puts the page in the blue folder. One scene back. At lunchtime there were ten sheets in that folder, and she counted them: a front sheet of notes, eight scenes, and one more sheet at the back.',
+      'Up the stairwell, a door bangs in the draught. On the first floor there is only one door that is never locked: Sabine&rsquo;s old office, which nobody has used since she retired, and which the painters asked to have emptied today.'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

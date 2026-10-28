@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Writer's Office · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#16241e;--accent:#9ad8a8;--font-display:'Special Elite',monospace;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(20,34,28,.97);--tc-ink:#eef4ea;--cap-bg:rgba(22,36,30,.95);--panel:#1e3028;--face-bg:#1d2b48;--q-ink:#bfe8c4;--fade:#08100c;--hud-bg:rgba(20,34,28,.85)}
+  .tc-room{font-family:'Special Elite',monospace;font-size:clamp(42px,5.6vw,78px);color:#bfe8c4}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sS{font-family:'Special Elite',monospace;text-anchor:middle}
+  .sC{font-family:'Caveat',cursive;text-anchor:middle}
+  #cone{animation:cone 5s steps(1,end) infinite}
+  @keyframes cone{0%{opacity:.55}62%{opacity:.48}64%{opacity:.58}}
+  #twinkle circle{animation:tw 3s steps(1,end) infinite}
+  #twinkle circle:nth-child(2n){animation-delay:-1.3s}#twinkle circle:nth-child(3n){animation-delay:-2.1s}
+  @keyframes tw{0%{opacity:1}50%{opacity:.35}}
+  #doorleaf{transform-box:fill-box;transform-origin:0 50%;animation:door 6s ease-in-out infinite}
+  @keyframes door{0%,100%{transform:skewY(0)}50%{transform:skewY(-2deg)}}
+  #scene.done #pages{display:none}
+
+  /* the lock: two pages on the blotter, and the cards from the box */
+  .blot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:12px;background:#1e3a2e linear-gradient(160deg,#25443a,#17302a);border:6px solid #5a3a22;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .blot h5{grid-column:1/3;margin:0;font-family:'Special Elite',monospace;font-weight:normal;font-size:17px;letter-spacing:.12em;text-align:center;color:#d8eedc}
+  .sheetp{background:#f7f2e4;color:#20201e;padding:9px 12px 10px;font-family:'Special Elite',monospace;font-size:13.5px;line-height:1.4;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+  .sheetp b{display:block;font-weight:normal;text-decoration:underline;letter-spacing:.08em;margin-bottom:4px;font-size:14.5px}
+  .sheetp p{margin:0 0 5px}
+  .gp{min-height:46px;margin:4px 0 6px;border:2px dashed #b04a3a;background:rgba(176,74,58,.06);position:relative}
+  .gp>i{z-index:1;position:absolute;right:6px;top:-11px;padding:0 5px;background:#f7f2e4;font-style:normal;font-family:'Caveat',cursive;font-size:17px;color:#b04a3a}
+  .gp.bad{border-color:#ff5a3a;background:rgba(255,90,58,.18)}
+  .gp .slip{box-shadow:none}
+  .tray{grid-column:1/3;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:7px;min-height:60px;background:rgba(0,0,0,.2);border:1px solid #4a6a5a}
+  .tray .slip,.gp .slip{font-size:12.3px;line-height:1.22;padding:4px 7px;background:#fffdf4 repeating-linear-gradient(transparent 0 15px,rgba(80,120,170,.25) 15px 16px);border-top:5px solid #e06a5a}
+  .slip.hand{font-family:'Caveat',cursive;font-size:17px;line-height:1.05;background:#fbf2dc;border-top-color:#8a6a3a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a4237"/><stop offset="1" stop-color="#355a48"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1230"/><stop offset="1" stop-color="#2a3a6a"/></linearGradient>
+  <pattern id="boards" width="220" height="40" patternUnits="userSpaceOnUse"><rect width="220" height="40" fill="#5a3a22"/><path d="M0 .5h220M90 0v20M180 20v20" stroke="#3a2412" stroke-width="2"/><path d="M14 10h50M120 30h40" stroke="#6a4630" stroke-width="2"/></pattern>
+  <pattern id="spines" width="120" height="110" patternUnits="userSpaceOnUse"><rect width="120" height="110" fill="#2a1a10"/>
+    <g stroke="#1a0e08" stroke-width="1"><rect x="2" y="14" width="14" height="96" fill="#7a2a22"/><rect x="16" y="22" width="12" height="88" fill="#2a4a6a"/><rect x="28" y="10" width="18" height="100" fill="#c8a868"/><rect x="46" y="30" width="10" height="80" fill="#3a6a4a"/><rect x="56" y="18" width="16" height="92" fill="#8a5a8a"/><path d="M74 108l26 -84l12 4l-26 82z" fill="#d86a3a"/><rect x="100" y="40" width="16" height="70" fill="#4a4a5a"/></g></pattern>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".7"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="55%" cy="55%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#060c08" stop-opacity=".3"/><stop offset="1" stop-color="#020604" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<!-- the sloping ceiling and the skylight -->
+<path d="M-1000 -400H2600V40L1600 150H0L-1000 40z" fill="#22362c"/><path d="M0 150H1600" stroke="#16241e" stroke-width="6"/>
+<g id="sky" class="hot"><path d="M560 -20H1040L1010 128H590z" fill="url(#skyG)" stroke="#16241e" stroke-width="10"/>
+  <g id="twinkle" fill="#fff"><circle cx="640" cy="20" r="2"/><circle cx="720" cy="70" r="1.4"/><circle cx="800" cy="30" r="2.4"/><circle cx="880" cy="90" r="1.5"/><circle cx="950" cy="40" r="1.8"/><circle cx="690" cy="104" r="1.2"/><circle cx="905" cy="12" r="1.3"/></g>
+  <path d="M800 -20v148M575 54h450" stroke="#16241e" stroke-width="6"/></g>
+<rect x="-1000" y="680" width="3600" height="700" fill="url(#boards)"/><rect x="-1000" y="676" width="3600" height="8" fill="#1a120a"/>
+
+<!-- the door to the landing, banging gently in the draught -->
+<g id="door"><rect x="60" y="250" width="200" height="432" fill="#d8c8a0"/><rect x="72" y="262" width="176" height="420" fill="#efe2bc"/>
+  <path id="doorleaf" d="M72 262L196 292V682L72 682z" fill="#6a4426" stroke="#3a2412" stroke-width="3"/><circle cx="182" cy="480" r="7" fill="#c8a040"/></g>
+
+<!-- the photograph on the wall -->
+<g id="photo" class="hot"><rect x="398" y="268" width="128" height="100" fill="#2a1a10"/><rect x="408" y="278" width="108" height="80" fill="#c8c0b0"/>
+  <path d="M430 358v-30q0 -16 14 -16t14 16v30z" fill="#4a4a5a"/><circle cx="444" cy="302" r="10" fill="#e8d0b8"/><path d="M468 358v-60M484 358v-60M468 312h16M468 330h16M468 348h16" stroke="#5a5a5a" stroke-width="3"/>
+  <circle cx="494" cy="318" r="8" fill="#e8d0b8"/><path d="M486 358v-30h16v30z" fill="#6a6a8a"/><ellipse cx="420" cy="340" rx="10" ry="14" fill="#3a3a44"/>
+  <text x="462" y="390" class="sC" font-size="17" fill="#d8eedc">OPENING NIGHT</text></g>
+
+<!-- a box to go home -->
+<g id="cbox" class="hot"><path d="M370 690v-100h150v100z" fill="#b88a5a" stroke="#5a3a1a" stroke-width="3"/><path d="M370 590l-20 -24h150l20 24" fill="#c89a6a" stroke="#5a3a1a" stroke-width="3"/>
+  <g><rect x="386" y="560" width="20" height="40" fill="#2a4a6a" transform="rotate(-8 396 580)"/><rect x="410" y="552" width="16" height="44" fill="#7a2a22"/></g>
+  <text x="445" y="650" class="sC" font-size="24" fill="#3a2410">S.Q. &#8212; HOME</text></g>
+
+<!-- the pages that blew in under the door -->
+<g id="pages" class="hot"><g transform="rotate(-12 280 790)"><rect x="230" y="764" width="96" height="66" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M240 778h76M240 788h70M240 798h76M240 808h40" stroke="#6a6a72" stroke-width="1.3"/></g>
+  <g transform="rotate(8 360 820)"><rect x="312" y="792" width="94" height="64" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M322 806h74M322 816h68M322 826h74" stroke="#6a6a72" stroke-width="1.3"/></g>
+  <g transform="rotate(-3 300 850)"><rect x="252" y="832" width="92" height="60" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M262 846h72M262 856h66M262 866h72" stroke="#6a6a72" stroke-width="1.3"/></g>
+  <rect x="220" y="756" width="200" height="140" fill="transparent"/></g>
+
+<!-- the desk, the typewriter, the lamp, the notebook, the card box, the mugs -->
+<g id="cone" pointer-events="none"><path d="M990 440L800 690H1180z" fill="url(#lampG)"/></g>
+<g id="desk"><rect x="540" y="512" width="560" height="22" fill="#7a4e2a" stroke="#3a2412" stroke-width="3"/><path d="M560 534v150M1080 534v150" stroke="#4a2e16" stroke-width="16"/>
+  <rect x="900" y="534" width="170" height="120" fill="#6a4426" stroke="#3a2412" stroke-width="3"/><path d="M910 574h150M910 614h150" stroke="#3a2412" stroke-width="2"/><circle cx="985" cy="554" r="4" fill="#c8a040"/><circle cx="985" cy="594" r="4" fill="#c8a040"/></g>
+<g id="type" class="hot"><path d="M640 512l10 -50h120l10 50z" fill="#2a3a34" stroke="#101814" stroke-width="3"/><rect x="636" y="440" width="150" height="16" rx="8" fill="#1a2420"/>
+  <rect x="660" y="406" width="102" height="40" fill="#f7f2e4" stroke="#8a826e"/><text x="711" y="430" class="sS" font-size="9" fill="#2a2a2a">True is not</text>
+  <g fill="#d8d0b8"><circle cx="668" cy="486" r="4"/><circle cx="684" cy="486" r="4"/><circle cx="700" cy="486" r="4"/><circle cx="716" cy="486" r="4"/><circle cx="732" cy="486" r="4"/><circle cx="748" cy="486" r="4"/><circle cx="676" cy="500" r="4"/><circle cx="692" cy="500" r="4"/><circle cx="708" cy="500" r="4"/><circle cx="724" cy="500" r="4"/><circle cx="740" cy="500" r="4"/></g></g>
+<g id="box" class="hot"><path d="M560 512v-46h70v46z" fill="#8a5a30" stroke="#3a2412" stroke-width="3"/><path d="M556 466l8 -14h70l-4 14z" fill="#a86a3a" stroke="#3a2412" stroke-width="2"/>
+  <g fill="#fffdf4" stroke="#8a826e"><rect x="568" y="440" width="54" height="26"/><rect x="574" y="446" width="46" height="20" transform="rotate(-6 597 456)"/></g>
+  <rect x="572" y="482" width="46" height="14" fill="#f7f2e4"/><text x="595" y="493" class="sS" font-size="8" fill="#2a2a2a">ANALOGIES</text></g>
+<g id="nbk" class="hot"><path d="M808 512l6 -20h84l4 20z" fill="#9a2a22" stroke="#3a0e0a" stroke-width="2"/><path d="M816 494l38 -6l38 6v14h-76z" fill="#fbfaf2" stroke="#8a8a7a"/><path d="M854 488v20" stroke="#8a8a7a"/>
+  <path d="M822 498h26M822 503h22M860 496h26M860 501h22" stroke="#1d3d32" stroke-width="1.4"/></g>
+<g id="lamp"><path d="M990 512v-60" stroke="#2a3a2a" stroke-width="6"/><ellipse cx="990" cy="512" rx="26" ry="6" fill="#2a3a2a"/><path d="M948 450q42 -40 84 0z" fill="#2a6a42" stroke="#0e2a18" stroke-width="3"/><ellipse cx="990" cy="450" rx="42" ry="6" fill="#fff2c0"/></g>
+<g id="mugs" class="hot"><path d="M1032 512v-30h26v30z" fill="#f4f1e6" stroke="#3a3a3a" stroke-width="2"/><path d="M1058 490q10 0 10 8t-10 8" fill="none" stroke="#3a3a3a" stroke-width="2"/><text x="1045" y="502" class="sO" font-size="6" fill="#2a4a8a">I NEED</text><text x="1045" y="509" class="sO" font-size="6" fill="#2a4a8a">SPACE</text></g>
+<g><path d="M720 690l14 -110h120l14 110" fill="none" stroke="#2a1a10" stroke-width="10"/><rect x="726" y="560" width="136" height="24" fill="#4a2e18"/></g>
+
+<!-- the wastepaper bin, overflowing -->
+<g id="bin" class="hot"><path d="M1060 690l-12 -100h96l-12 100z" fill="#4a5a52" stroke="#1a2420" stroke-width="3"/><path d="M1052 620h88M1056 650h80" stroke="#3a4a42" stroke-width="2"/>
+  <g fill="#fbfaf2" stroke="#9a9a8a"><circle cx="1076" cy="584" r="14"/><circle cx="1104" cy="578" r="16"/><circle cx="1128" cy="588" r="12"/><path d="M1086 570l40 -26l10 14l-38 24z"/></g>
+  <path d="M1094 556l26 -16" stroke="#1d3d32" stroke-width="1.4"/></g>
+
+<!-- the cork board and the booking sheet -->
+<g id="board" class="hot"><rect x="1150" y="250" width="210" height="200" fill="#b8865a" stroke="#4a2e16" stroke-width="6"/>
+  <rect x="1172" y="268" width="96" height="128" fill="#fffdf6" transform="rotate(-2 1220 330)"/><rect x="1172" y="268" width="96" height="10" fill="#e07a2a" transform="rotate(-2 1220 330)"/>
+  <g stroke="#6a6a6a" stroke-width="1.4" transform="rotate(-2 1220 330)"><path d="M1180 292h80M1180 302h70M1180 312h80M1180 322h60M1180 332h80M1180 342h74M1180 352h80M1180 362h50"/></g>
+  <rect x="1282" y="280" width="62" height="44" fill="#d8e8f0" transform="rotate(6 1312 300)"/><rect x="1290" y="340" width="56" height="70" fill="#f0e0a8" transform="rotate(-4 1318 376)"/>
+  <circle cx="1220" cy="272" r="5" fill="#d83a2a"/><circle cx="1312" cy="282" r="4" fill="#2a6ad8"/></g>
+
+<!-- bookshelves and the globe -->
+<g><rect x="1390" y="150" width="240" height="540" fill="#3a2414"/><rect x="1400" y="164" width="220" height="510" fill="url(#spines)"/>
+  <g fill="#5a3a20"><rect x="1390" y="270" width="240" height="10"/><rect x="1390" y="380" width="240" height="10"/><rect x="1390" y="490" width="240" height="10"/><rect x="1390" y="600" width="240" height="10"/></g></g>
+<g id="globe" class="hot"><circle cx="1490" cy="104" r="38" fill="#5a8aa8" stroke="#1a2a3a" stroke-width="3"/><path d="M1462 90q14 -10 26 4q10 14 -6 22q-14 6 -20 -10zM1500 74q20 4 18 22q-6 10 -16 2z" fill="#a8b878" opacity=".85"/>
+  <path d="M1490 66v76M1452 104q38 14 76 0" fill="none" stroke="#1a2a3a" stroke-width="1.5"/><path d="M1448 150h84" stroke="#3a2414" stroke-width="8"/><path d="M1452 104a38 38 0 0 1 76 0" fill="none" stroke="#b8902e" stroke-width="3"/>
+  <circle cx="1484" cy="96" r="2.4" fill="#ffe27a"/></g>
+
+<!-- Zainab -->
+<g id="zainab" class="hot" transform="translate(1250 880)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Through the back door into the dome</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#zainab').innerHTML = SD.fig({ h: 320, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', lanyard: '#e8802a', armL: 'front', specs: true });
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'office', no: 'II', title: 'The Writer&rsquo;s Office',
+    go: 'Go in',
+    intro: [
+      'You found the scale of the walk on the plaque: a brass Sun 14 centimetres across for a real one 1.4 million kilometres across, so one centimetre stands for 100,000 kilometres. Divide by the same number every time, and Mercury goes back at 5.8 metres, Venus at 10.8, the Earth at 15 and Mars at 22.8, out in the corridor. The Earth itself is a pinhead, and the next grapefruit, the nearest star, would be 4,000 kilometres away. The first scene is back in the folder, with its numbers pencilled over the boot print.',
+      'On the first floor the draught has found a door that is never locked. Sabine&rsquo;s old office has not been used since she retired, and the painters asked for it to be emptied today. At lunchtime, before she went home to change, Sabine came up and emptied it herself.'
+    ],
+    exit: {"next":"desk","w":{"54eba76d":"db331e85"}}, tags: {"cp":["4053e8f9"],"cb":["b4f23f9b"],"dp":["a2e0b173"],"db":["d32377c3"],"mis":["ea4d2b11","6e332d07"],"tech":["c86a74a3","956841b3"],"mixed":["ac632390"],"works":["426a8234"],"triv":["63bd898e","bff1a1fa","29f012b7"],"lyr":["552f9fda","b4965ebc","cf8f0ba4","162dd60f","312e530a","70c5526a"],"brk":["11424441","e02a1ed8","8eb77463","cede790b","eff3d858","1753ba9d"],"draft":["f70c84a6"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SD.told('b-told'); nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('pages') && told.has('nbk') && told.has('board'); }
+  function paint() {
+    $('#scene').classList.toggle('done', !!nextFile);
+    $('#pages').classList.toggle('ready', !told.has('pages'));
+    $('#nbk').classList.toggle('ready', told.has('pages') && !told.has('nbk'));
+    $('#board').classList.toggle('ready', told.has('pages') && !told.has('board'));
+    $('#bin').classList.toggle('ready', told.has('zainab') && !told.has('bin') && !nextFile);
+    $('#box').classList.toggle('ready', ready() && !nextFile);
+    var n = ['pages', 'nbk', 'board', 'zainab', 'bin'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The two pages are whole again. The button at the bottom of the screen goes through the back door, into the dome.']];
+    if (lock && document.body.contains(lock)) return ['cards', [
+      'Two pages, two gaps on each: first a picture, then one sentence that begins &ldquo;But&rdquo; and says where that picture breaks. Before you choose, look at the booking sheet again: who will be in the seats tonight?',
+      'Leave out three kinds of card: a picture that would leave a false idea behind; a sentence that is true but is not a picture at all (it is for professors); and two pictures squashed into one sentence. For each &ldquo;But&rdquo;, choose the place where a child could really be misled, not a difference nobody would ever believe anyway.',
+      'A light-year is a distance, not a time: the right picture gives a distance as a time, the way people talk about a journey. For the galaxies, rising dough suits a room of children, and a firework does not: a firework bursts out from one place, into a hall. And one &ldquo;But&rdquo; card says where the dough picture WORKS, not where it breaks.'
+    ]];
+    if (!told.has('pages')) return ['pages', ['The pages blew in under the door: they are lying on the floor just inside it, on the left. Click them.']];
+    if (!ready()) return ['read', [
+      'Two more things to read: Sabine&rsquo;s notebook, open on the desk under the green lamp, and the booking sheet pinned to the cork board.',
+      'The notebook says how she chose a picture; the booking sheet says who is coming tonight. You need both. Zainab, and the bin, have something to say too.'
+    ]];
+    return ['box', ['Everything is read. The little wooden box on the desk marked ANALOGIES holds Sabine&rsquo;s cards: click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Two pages whole again. Through the back door, somebody is swearing at a fuse.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Sabine&rsquo;s office. The skylight is full of stars now.'); return; }
+    told.set('in'); SD.sfx.gust();
+    ER.narrate([
+      'The office door is banging gently in the draught, open, shut, open, like somebody who cannot make up their mind. You go in, and Zainab comes up the stairs behind you.',
+      'It is a small green room under the roof, with a skylight full of evening. A desk, a typewriter, a lamp with a green shade, a cork board, a wall of books, and a cardboard box with S.Q. &mdash; HOME written on it in thick pen.',
+      'The wastepaper bin is full to the top. Sabine cleared out her desk drawer this afternoon, and most of it went in there.',
+      'Three pages from the script have blown in under the door and fanned out across the floorboards, as if somebody had dealt them.',
+      'And on the desk, beside her notebook, there is a small wooden box of index cards. On its lid, in her square typewriter letters: ANALOGIES.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var GAP = '<span class="gap">[picture]</span>', BRK = '<span class="gap">[where the picture breaks]</span>';
+  var SC = SD.page('THE NEXT GRAPEFRUIT',
+    '<p class="dir">(The house lights go down. The dome fills with stars.)</p>' +
+    '<p>So the Earth is a pinhead, fifteen metres from a grapefruit. Now take a bigger step. The nearest star, Proxima Centauri, is another grapefruit, four thousand kilometres away.</p>' +
+    '<p>Its light takes more than four years to reach us. Astronomers say it is 4.2 light-years away.</p><p>' + GAP + '</p><p>' + BRK + '</p>' +
+    '<p>Every star you can see in the dome tonight is further away than that.</p>');
+  var SDp = SD.page('EVERYTHING IS MOVING APART',
+    '<p class="dir">(The stars fade. Faint smudges of light appear all over the dome: galaxies.)</p>' +
+    '<p>Our Sun is one star among hundreds of billions in our galaxy, the Milky Way. And beyond the Milky Way there are other galaxies: billions of them.</p>' +
+    '<p>In the 1920s astronomers found something strange. Nearly all the other galaxies are moving away from us, and the further away a galaxy is, the faster it is going. That does not mean we are in the middle: from any galaxy, you would see the same thing.</p><p>' + GAP + '</p><p>' + BRK + '</p>' +
+    '<p>The galaxies are not flying out through space. Space itself is stretching between them.</p>');
+  var SE = SD.page('WHERE DID IT BEGIN?',
+    '<p class="dir">(Very slowly, the smudges begin to slide back towards the top of the dome.)</p>' +
+    '<p>If everything is moving apart today, then yesterday it was all a little closer together. Last year, closer still. Run the film backwards, a thousand million years at a time&hellip;</p>' +
+    '<p>&hellip;and you come to a moment when everything we can see was packed into one tiny, unbelievably hot place.</p>' +
+    '<p>When was that? And what has happened since?</p>');
+  var NOTE = '<span class="date">March 1992</span><h4>Analogies</h4>' +
+    '<svg viewBox="0 0 420 120"><g fill="none" stroke="#1d3d32" stroke-width="2.5"><circle cx="150" cy="60" r="52"/><circle cx="250" cy="60" r="52"/></g>' +
+    '<g font-family="Caveat,cursive" font-size="19" fill="#1d3d32" text-anchor="middle"><text x="120" y="64">what they</text><text x="120" y="82">know</text><text x="280" y="64">what is</text><text x="280" y="82">new</text><text x="200" y="66" fill="#7a1e14">alike</text>' +
+    '<text x="390" y="34" fill="#7a1e14">breaks!</text></g><path d="M300 30q40 -16 62 0" fill="none" stroke="#7a1e14" stroke-width="2"/></svg>' +
+    '<p>An <b>analogy</b> explains something new by comparing it with something the listener already knows. It borrows the shape of the thing they know.</p>' +
+    '<p>1. Choose it for the people in front of you. A picture that works for a room of professors will lose a room of nine-year-olds, and the other way round. Use things they have touched, eaten or done.</p>' +
+    '<p>2. Every analogy <b>breaks down</b> somewhere: the real thing is like the picture in some ways, and not in others. Find the place where a listener would be MISLED, and say it out loud: &ldquo;But here the picture breaks&hellip;&rdquo; Don&rsquo;t waste that sentence on a difference nobody would believe anyway.</p>' +
+    '<p>3. Never mix two pictures in one sentence.</p>' +
+    '<p>4. A misleading analogy is worse than none. It leaves a false picture, and false pictures last for life.</p>' +
+    '<p>I choose the picture on the night, when I know who is sitting under the dome.</p>';
+  var BOOK = '<h4>LAST SHOW &middot; Saturday 7.30 pm</h4><h5>A Year in the Dark &middot; bookings &middot; doors 7.00</h5>' +
+    '<table><tr><th>Who</th><th>Seats</th></tr>' +
+    '<tr><td>Rosewarne Young Astronomers (ages 8 to 12), with two leaders</td><td>24</td></tr>' +
+    '<tr><td>Family tickets (children from age 6)</td><td>62</td></tr>' +
+    '<tr><td>Seat F1: Ms S. Quennell (the aisle, please, and a cushion)</td><td>1</td></tr>' +
+    '<tr><td>Seat F2: guest of Ms Quennell</td><td>1</td></tr>' +
+    '<tr><td><b>Total: SOLD OUT</b></td><td><b>88</b></td></tr></table>' +
+    '<p>Staff tonight: Z. Roper (presenter), T. Stobbs (control desk), and our youngest volunteer (programmes and torch).</p>' +
+    '<p class="hand">Last show, so expect tears. Tissues are behind the ticket desk. &mdash; box office</p>';
+  var DRAFT = '<span class="date">(no date)</span><h4>Everything moving apart</h4>' +
+    '<p>Try: think of a <b>firework</b> bursting in a dark, empty hall. Every spark flies away from the bang, and the fastest sparks get furthest.</p>' +
+    '<p style="font-size:30px;color:#7a1e14">USE THIS ONE! &nbsp;S.</p>' +
+    '<div style="margin-top:12px;padding:8px 12px;background:#efe6d0;font-family:Outfit,sans-serif;font-size:15px;line-height:1.35;color:#3a3020;transform:rotate(.6deg)">' +
+    '<b style="color:#3a3020">On the back of the sheet, printed:</b><br>ROSEWARNE PLANETARIUM &middot; SPRING PROGRAMME 1991<br>The Sky This Spring (daily, 2 pm) &middot; Comet! (weekends) &middot; The Planets (school groups)</div>';
+
+  $('#pages').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SC, cls: 'script', clue: { id: 'scC0', title: 'The Next Grapefruit (with gaps)', kind: 'Script page' }, done: function () {
+      ER.read({ html: SDp, cls: 'script', clue: { id: 'scD0', title: 'Everything Is Moving Apart (with gaps)', kind: 'Script page' }, done: function () {
+        ER.read({ html: SE, cls: 'script', clue: { id: 'scE', title: 'Where Did It Begin?', kind: 'Script page' }, done: function () {
+          SD.terms(['light-year', 'galaxy']);
+          if (told.set('pages')) { paint(); ER.say('Three pages. Two of them have gaps typed into them on purpose: [picture], and under it, [where the picture breaks].'); }
+        } });
+      } });
+    } });
+  });
+  $('#nbk').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTE, cls: 'note', clue: { id: 'analogies', title: 'Analogies', kind: 'Sabine&rsquo;s notebook' }, done: function () {
+      SD.terms(['analogy', 'break down', 'misleading', 'mixed metaphor', 'audience']);
+      if (told.set('nbk')) { paint(); ER.say('&ldquo;I choose the picture on the night, when I know who is sitting under the dome.&rdquo; So who is?'); }
+    } });
+  });
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'leaflet', clue: { id: 'booking', title: 'Bookings for the last show', kind: 'Cork board' }, done: function () {
+      if (told.set('board')) { paint(); ER.say('Eighty-eight seats, sold out. You count the ages in your head.'); }
+    } });
+  });
+  $('#bin').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DRAFT, cls: 'note', clue: { id: 'draft', title: 'A page from the bin', kind: 'In Sabine&rsquo;s hand' }, done: function () {
+      if (told.set('bin')) { paint(); ER.say('&ldquo;Her own hand,&rdquo; says Zainab, over your shoulder. &ldquo;USE THIS ONE, in capitals. I&rsquo;d call that a clue.&rdquo;'); }
+    } });
+  });
+  $('#zainab').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Raisins,&rdquo; says Zainab. &ldquo;Twelve years of physics, and I&rsquo;m going to say raisins. She was right, though.&rdquo;'); return; }
+    ER.talk({
+      who: 'Zainab Roper', role: 'presenter', face: window.FACE('zainab'),
+      lines: [
+        { note: 'Zainab looks round the office as if she has been in it before, which she has: she was nine, on a school trip, and Sabine let her type her name on the typewriter.', a: '&ldquo;Three pages. Light-years, everything moving apart, and where it all began. Two of them have holes in them.&rdquo;' },
+        { q: 'Why are there gaps in the script?', a: '&ldquo;That was her way. She never typed the analogy into the script. She kept a box of them on cards and chose on the night, when she knew who was in. Then, under the picture, one more line: where the picture goes wrong. Every single time.&rdquo;' },
+        { q: 'Which would you choose?', a: '&ldquo;Honestly? I&rsquo;d say it straight: the scale factor of the universe increases with time. No pictures, no lies. But I&rsquo;m not the one in the seats. Check who is.&rdquo;' },
+        { q: 'What is in the bin?', a: '&ldquo;Her desk drawer, mostly. Thirty years of it. There&rsquo;s a page on the top in her own handwriting that says USE THIS ONE, in capitals. If she says use it, I&rsquo;m inclined to use it.&rdquo;' }
+      ],
+      clue: { id: 'zainab2', title: 'Zainab, in the office', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('zainab')) paint(); }
+    });
+  });
+  SD.thing('#type', 'typescript', 'Her typewriter. There is still a sheet on the roller, with one line typed on it years ago: <i>True is not enough.</i>', isBusy);
+  SD.thing('#photo', null, 'A photograph labelled OPENING NIGHT: Sabine in 1992, laughing, beside the star projector, and a lanky young man in overalls holding a ladder as if it might escape.', isBusy);
+  SD.thing('#cbox', null, 'S.Q. &mdash; HOME. Books, a scarf, a jar of pencils, and a tin of travel sweets with one sweet left in it.', isBusy);
+  SD.thing('#globe', null, 'An old globe, faded by the skylight. Somebody has stuck a tiny gold paper star on this town.', isBusy);
+  SD.thing('#mugs', null, 'Two mugs. One says I NEED SPACE. The other has a ring of very old tea in it.', isBusy);
+  SD.thing('#sky', null, 'The skylight is full of evening. The first stars are out, and the draught whistles round the frame.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  function openOrSay() {
+    if (busy) return;
+    if (nextFile) { ER.say('The cards are back in the box, all but two.'); return; }
+    if (!ready()) { ER.say(told.has('pages') ? 'A box of picture cards. Before you choose from it: how did Sabine choose (her notebook, on the desk), and who is coming tonight (the booking sheet, on the cork board)?' : 'A box of index cards. First pick up the pages that blew in under the door.'); return; }
+    openLock();
+  }
+  $('#box').addEventListener('click', openOrSay);
+
+  /* ---------- the lock: a picture and a "but" for each page ---------- */
+  var CARDS = [
+    ['a1', 'But the raisins do not get any bigger as the dough rises.'],
+    ['a2', 'You know how people say the seaside is &lsquo;two hours away&rsquo;? That is a distance, given as a time. A light-year is the same kind of thing: the distance light travels in one year.'],
+    ['a3', 'The galaxies are raisins in a rising cake, racing away from each other like runners at the sound of the starting gun.'],
+    ['a4', 'But a car can go faster or slower. Light in empty space always goes at exactly the same speed, so a light-year is always exactly the same distance.'],
+    ['a5', 'Think of a firework bursting in a dark, empty hall: every spark flies away from the bang. USE THIS ONE! S.', 'hand'],
+    ['a6', 'But a loaf has a middle and an edge, and an oven round it. As far as anybody knows, the universe has no middle, no edge, and nothing outside it.'],
+    ['a7', 'One light-year is 9.46 &times; 10<sup>12</sup> km: the speed of light multiplied by one Julian year of 365.25 days.'],
+    ['a8', 'Think of dough with raisins in it, rising in a warm oven. As it swells, every raisin moves away from every other raisin, and the ones furthest apart move apart fastest.'],
+    ['a9', 'But the seaside is a much nicer place to go than outer space.'],
+    ['a10', 'The scale factor of the universe increases with cosmic time, so the proper distances between galaxies grow.'],
+    ['a11', 'A light-year is like a very, very long year: the kind of year that light has.'],
+    ['a12', 'But the seaside is not nearly as far away as a star.'],
+    ['a13', 'But you can eat a cake, and you cannot eat a galaxy.']
+  ];
+  var SLOTS = [['cp', 'the light-year: picture'], ['cb', 'the light-year: where it breaks'], ['dp', 'moving apart: picture'], ['db', 'moving apart: where it breaks']];
+  function openLock() {
+    var busyL = false, put = ER.flag('b-put') || {};
+    lock = ER.el('div', 'blot');
+    lock.innerHTML = '<h5>Choose the picture for tonight&rsquo;s audience, and say where it breaks</h5>' +
+      '<div class="sheetp"><b>THE NEXT GRAPEFRUIT</b><p>&hellip; The nearest star, Proxima Centauri, is another grapefruit, four thousand kilometres away. Its light takes more than four years to reach us. Astronomers say it is 4.2 light-years away.</p>' +
+      '<div class="gp" data-s="cp"><i>picture</i></div><div class="gp" data-s="cb"><i>where it breaks</i></div><p>Every star you can see in the dome tonight is further away than that.</p></div>' +
+      '<div class="sheetp"><b>EVERYTHING IS MOVING APART</b><p>&hellip; Nearly all the other galaxies are moving away from us, and the further away a galaxy is, the faster it is going. From any galaxy, you would see the same thing.</p>' +
+      '<div class="gp" data-s="dp"><i>picture</i></div><div class="gp" data-s="db"><i>where it breaks</i></div><p>The galaxies are not flying out through space. Space itself is stretching between them.</p></div>' +
+      '<div class="tray"></div>';
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="typein">Type them in</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var tray = lock.querySelector('.tray'), m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var d = ER.el('div', 'slip dnd-item' + (c[2] ? ' ' + c[2] : ''), ER.gloss(c[1])); d.setAttribute('data-c', c[0]);
+      var at = put[c[0]], s = at ? lock.querySelector('.gp[data-s="' + at + '"]') : null;
+      (s && !s.querySelector('.slip') ? s : tray).appendChild(d);
+    });
+    function keep() {
+      put = {}; ER.$$('.gp', lock).forEach(function (g) { var s = g.querySelector('.slip'); if (s) put[s.getAttribute('data-c')] = g.getAttribute('data-s'); });
+      ER.flag('b-put', put);
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    ER.dnd(lock, { item: '.slip', slot: '.gp', home: tray, lock: function () { return busyL || !!nextFile; }, change: function () { keep(); clearBad(); SD.sfx.pencil(); } });
+    function why(slot, c) {
+      var pic = slot === 'cp' || slot === 'dp', ly = slot === 'cp' || slot === 'cb';
+      if (pic && ER.check('brk', c)) return 'That card says where a picture breaks. This gap wants the picture itself.';
+      if (!pic && !ER.check('brk', c)) return 'This gap wants the sentence that comes after the picture: the place where it breaks. Sabine always began that sentence with &ldquo;But&rdquo;.';
+      if (ly !== ER.check('lyr', c)) return 'That card is about the other idea: ' + (ly ? 'everything moving apart, not the light-year.' : 'the light-year, not everything moving apart.');
+      if (ER.check('draft', c)) return 'Zainab picks up the card from the bin and turns it over. On the back, printed: SPRING PROGRAMME 1991. &ldquo;The show opened in 1992,&rdquo; she says slowly. &ldquo;She wrote this a year before it, and today she finished throwing it away.&rdquo; And a firework bursts out from one place into a hall round it. What would the children go home believing?';
+      if (ER.check('mis', c)) return 'Would a listener go home believing something false? Read her notebook again: a misleading analogy is worse than none.';
+      if (ER.check('tech', c)) return 'True, every word of it. But it is not a picture at all, and who is in the seats tonight? Look at the booking sheet.';
+      if (ER.check('mixed', c)) return 'Two pictures in one sentence. What does the notebook say about that?';
+      if (ER.check('works', c)) return 'Look again: that is a place where the picture WORKS. Galaxies do not get bigger as space stretches, either. Where could a listener really be misled?';
+      if (ER.check('triv', c)) return 'True, but would anybody ever have believed otherwise? Spend that sentence where a listener could really go wrong.';
+      return 'That card does not belong in this gap.';
+    }
+    foot.querySelector('#typein').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      var i, g, s, c;
+      for (i = 0; i < SLOTS.length; i++) {
+        g = lock.querySelector('.gp[data-s="' + SLOTS[i][0] + '"]'); s = g.querySelector('.slip');
+        if (!s) { ER.sfx.no(); g.classList.add('bad'); msg('There is still an empty gap: ' + SLOTS[i][1] + '. Drag a card into it, or click a card and then the gap.'); return; }
+        c = s.getAttribute('data-c');
+        if (!ER.check(SLOTS[i][0], c)) {
+          ER.sfx.no(); g.classList.add('bad'); s.classList.add('bad');
+          msg(why(SLOTS[i][0], c) + ' <i>(Only the first gap that is wrong is ever shown.)</i>'); return;
+        }
+      }
+      var cand = SLOTS.map(function (sl) { return lock.querySelector('.gp[data-s="' + sl[0] + '"] .slip').getAttribute('data-c'); }).join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The typewriter jams. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('b-file', file); busyL = true; SD.sfx.pencil();
+      var txt = {}; SLOTS.forEach(function (sl) { txt[sl[0]] = lock.querySelector('.gp[data-s="' + sl[0] + '"] .slip').innerHTML; });
+      msg('Zainab feeds the two pages into the typewriter one after the other and types the cards in, hitting the keys hard, as if they might argue.');
+      setTimeout(function () { ER.closeAll(); solved(txt); }, 2400);
+    });
+    msg('Drag a card from the box into each gap, or click a card and then a gap. Every card is one of Sabine&rsquo;s, and most of them are true. Not all of them belong here tonight.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved(t) {
+    ER.addClue('scC', 'The Next Grapefruit', SD.page('THE NEXT GRAPEFRUIT',
+      '<p class="dir">(The house lights go down. The dome fills with stars.)</p>' +
+      '<p>So the Earth is a pinhead, fifteen metres from a grapefruit. Now take a bigger step. The nearest star, Proxima Centauri, is another grapefruit, four thousand kilometres away.</p>' +
+      '<p>Its light takes more than four years to reach us. Astronomers say it is 4.2 light-years away.</p><p>' + t.cp + '</p><p>' + t.cb + '</p>' +
+      '<p>Every star you can see in the dome tonight is further away than that.</p>'), 'script', 'Script page');
+    ER.addClue('scD', 'Everything Is Moving Apart', SD.page('EVERYTHING IS MOVING APART',
+      '<p class="dir">(The stars fade. Faint smudges of light appear all over the dome: galaxies.)</p>' +
+      '<p>Our Sun is one star among hundreds of billions in our galaxy, the Milky Way. And beyond the Milky Way there are other galaxies: billions of them.</p>' +
+      '<p>In the 1920s astronomers found something strange. Nearly all the other galaxies are moving away from us, and the further away a galaxy is, the faster it is going. That does not mean we are in the middle: from any galaxy, you would see the same thing.</p><p>' + t.dp + '</p><p>' + t.db + '</p>' +
+      '<p>The galaxies are not flying out through space. Space itself is stretching between them.</p>'), 'script', 'Script page');
+    SD.mine('pictures', 'Choosing a picture', '<p>Tonight&rsquo;s audience: mostly children from 6 to 12, and their families.</p>' +
+      '<p>Light-year: &ldquo;two hours away&rdquo; gives a distance as a time. But it breaks: cars change speed, light never does.</p>' +
+      '<p>Moving apart: raisins in rising dough. It works (the raisins do not grow, and neither do galaxies), but it breaks: dough has a middle and an edge; the universe has neither.</p>' +
+      '<p>Out: the firework (a draft she threw away in 1991: it has a centre and a hall round it), the &ldquo;very long year&rdquo; (it makes a light-year a time), two pictures in one sentence, and the professors&rsquo; sentences.</p>');
+    SD.terms(['analogy', 'break down', 'misleading', 'mixed metaphor', 'audience']);
+    paint(); busy = true;
+    ER.narrate([
+      'Zainab reads the two pages aloud to the empty office, the way she will read them to eighty-eight people in two hours. The seaside. The dough. And after each one, the sentence that says where it stops being true.',
+      '&ldquo;That&rsquo;s what I always loved about her shows,&rdquo; she says. &ldquo;She told you the lie and then took it back, and you trusted her more for it.&rdquo;',
+      'She looks at the firework page from the bin for a while, then folds it carefully and puts it in her pocket instead of back in the bin.',
+      'From the back of the office a short corridor leads to the dome&rsquo;s back door. Behind it there is a clang, a flash of blue light, and a voice saying something about fuses that is not in any script.'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

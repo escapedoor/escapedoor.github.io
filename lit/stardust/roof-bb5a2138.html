@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Roof · Stardust at Half Past Seven</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stardust.css">
+<style>
+  body{--bg:#04061a;--accent:#8ac8ff;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(4,6,24,.97);--tc-ink:#e8eefc;--cap-bg:rgba(6,10,32,.94);--panel:#0e1430;--face-bg:#1d2b48;--q-ink:#a8d4ff;--fade:#02030c;--hud-bg:rgba(6,10,32,.85)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(46px,6vw,84px);letter-spacing:.1em;color:#a8d4ff}
+  .sO{font-family:'Outfit',sans-serif;text-anchor:middle}
+  .sCi{font-family:'Cinzel',serif;text-anchor:middle}
+  #stars circle{animation:tw 3.2s steps(1,end) infinite}
+  #stars circle:nth-child(3n){animation-delay:-1.4s}#stars circle:nth-child(4n){animation-delay:-2.2s}
+  @keyframes tw{50%{opacity:.4}}
+  #train{animation:train 14s linear infinite}
+  @keyframes train{from{transform:translateX(-260px)}to{transform:translateX(520px)}}
+  #pageI g{transform-box:fill-box;transform-origin:0 50%;animation:flap 1.8s ease-in-out infinite}
+  @keyframes flap{0%,100%{transform:skewY(0)}50%{transform:skewY(-5deg)}}
+  #scene.order #pageI,#scene.order #rules{display:none}
+  #car{display:none}#scene.taxi #car{display:inline}
+
+  /* lock one: the view through the brass tube */
+  .view{padding:10px 14px;background:#070b22;border:1px solid #3a4a7a;box-shadow:0 26px 70px rgba(0,0,0,.8)}
+  .view h5{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:17px;letter-spacing:.14em;text-align:center;color:#a8d4ff}
+  .view svg{display:block;width:100%;height:auto}
+  .view .lm{cursor:pointer}
+  .view .lm:hover .ring{stroke:#ffe27a;stroke-width:4}
+  .view .lm.bad .ring{stroke:#ff6a4a;stroke-width:4}
+  /* lock two: the pages along the parapet */
+  .ledge{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) 150px;gap:7px;padding:10px 12px;background:#2a2a32 linear-gradient(180deg,#3a3a44,#22222a);border:1px solid #6a6a7a;box-shadow:0 26px 70px rgba(0,0,0,.8)}
+  .ledge h5{grid-column:1/6;margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-align:center;color:#d8e2f6}
+  .ledge .sl{position:relative;min-height:84px;padding:16px 4px 4px;border:2px dashed #7a7a8a;background:rgba(255,255,255,.04)}
+  .ledge .sl>i{position:absolute;left:6px;top:0;font-style:normal;font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.14em;color:#a8b0c8}
+  .ledge .sl.bad{border-color:#ff6a4a;background:rgba(255,106,74,.15)}
+  .ledge .spike{grid-row:2/4;grid-column:5;position:relative;padding:22px 4px 4px;border:2px solid #8a6a3a;background:#3a2a1a repeating-linear-gradient(90deg,#3a2a1a 0 20px,#32241a 20px 22px)}
+  .ledge .spike>i{position:absolute;left:6px;top:3px;font-style:normal;font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.12em;color:#f0d8b0}
+  .ledge .spike.bad{outline:3px solid #ff6a4a}
+  .ledge .tray{grid-column:1/6;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;min-height:60px;padding:6px;background:rgba(0,0,0,.25);border:1px solid #4a4a5a}
+  .ledge .slip{font-size:12px;line-height:1.24;padding:4px 6px}
+  .ledge .slip b{display:block;font-weight:normal;text-decoration:underline;letter-spacing:.04em;font-size:12.5px;margin-bottom:2px}
+  .ledge .slip.z{background:#eef4ff;border-top:4px solid #2a6ad8;font-family:'Outfit',sans-serif}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03051a"/><stop offset=".6" stop-color="#0e1a46"/><stop offset="1" stop-color="#2a3a6a"/></linearGradient>
+  <radialGradient id="domeG" cx="35%" cy="25%" r="80%"><stop offset="0" stop-color="#6aa898"/><stop offset=".7" stop-color="#3a7468"/><stop offset="1" stop-color="#1e443c"/></radialGradient>
+  <radialGradient id="warmG"><stop offset="0" stop-color="#ffd890" stop-opacity=".8"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="poolG"><stop offset="0" stop-color="#5ad8ff" stop-opacity=".6"/><stop offset="1" stop-color="#5ad8ff" stop-opacity="0"/></radialGradient>
+  <pattern id="brk" width="44" height="22" patternUnits="userSpaceOnUse"><rect width="44" height="22" fill="#5a3a32"/><path d="M0 .5h44M0 11.5h44M22 0v11M0 11v11" stroke="#3a2420" stroke-width="2"/></pattern>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/>
+<g id="stars" fill="#fff"><circle cx="120" cy="60" r="1.6"/><circle cx="300" cy="30" r="1.2"/><circle cx="520" cy="80" r="2"/><circle cx="700" cy="40" r="1.4"/><circle cx="880" cy="110" r="1.8"/><circle cx="1040" cy="50" r="1.3"/><circle cx="1200" cy="130" r="2.2"/><circle cx="1380" cy="60" r="1.5"/><circle cx="1520" cy="160" r="1.8"/><circle cx="960" cy="230" r="1.2"/><circle cx="1300" cy="250" r="1.4"/><circle cx="640" cy="200" r="1.1"/><circle cx="780" cy="300" r="1.6"/><circle cx="1460" cy="320" r="1.2"/><circle cx="1100" cy="330" r="1"/><circle cx="-200" cy="90" r="1.6"/><circle cx="1800" cy="100" r="1.6"/><circle cx="-300" cy="300" r="1.2"/><circle cx="1900" cy="280" r="1.4"/></g>
+<!-- the Plough, low over the hills -->
+<g id="plough" class="hot"><g fill="#fff"><circle cx="760" cy="390" r="2.8"/><circle cx="800" cy="420" r="2.6"/><circle cx="866" cy="414" r="2.4"/><circle cx="880" cy="384" r="2.2"/><circle cx="944" cy="372" r="2.8"/><circle cx="1000" cy="366" r="2.8"/><circle cx="1060" cy="388" r="2.6"/></g>
+  <path d="M760 390L800 420L866 414L880 384L760 390M880 384L944 372L1000 366L1060 388" fill="none" stroke="#8ac8ff" stroke-width="1" opacity=".3"/><rect x="740" y="350" width="340" height="90" fill="transparent"/></g>
+<!-- the hills, Owl Hill and its windmill, the town -->
+<path d="M-1000 560L-400 520L100 540L500 510L900 530L1200 500L1600 520L2600 540V700H-1000z" fill="#0a1028"/>
+<path d="M1180 600Q1330 440 1480 600z" fill="#0c1430"/><g transform="translate(1330 470)"><path d="M-8 30l4 -40h8l4 40z" fill="#060a1a"/><g stroke="#060a1a" stroke-width="5"><path d="M0 -10l-30 -26M0 -10l30 -26M0 -10l-28 22M0 -10l28 22"/></g></g>
+<rect x="-1000" y="590" width="3600" height="300" fill="#080c1e"/>
+<g fill="#ffcf7a" opacity=".8"><circle cx="640" cy="640" r="2"/><circle cx="700" cy="630" r="2"/><circle cx="820" cy="660" r="2"/><circle cx="980" cy="620" r="2"/><circle cx="1060" cy="660" r="2"/><circle cx="1150" cy="640" r="2"/><circle cx="1260" cy="660" r="2"/><circle cx="1380" cy="650" r="2"/><circle cx="1500" cy="640" r="2"/><circle cx="900" cy="700" r="2"/><circle cx="1000" cy="720" r="2"/></g>
+<!-- the church spire, the post office, the baths, the bridge and its train -->
+<g fill="#10162e" stroke="#2a3460" stroke-width="2"><path d="M760 650v-110l14 -70l14 70v110z"/><rect x="860" y="626" width="80" height="40"/><rect x="1180" y="620" width="110" height="34"/></g>
+<ellipse cx="1235" cy="630" rx="80" ry="22" fill="url(#poolG)"/><text x="900" y="650" class="sO" font-size="11" fill="#e8564a">POST OFFICE</text>
+<g fill="#10162e" stroke="#3a4470" stroke-width="2"><path d="M1340 640h220v-30h-220z"/><path d="M1360 640v30M1420 640v30M1480 640v30M1540 640v30"/></g>
+<g clip-path="none"><g id="train"><rect x="1300" y="594" width="90" height="16" rx="4" fill="#1a2040"/><g fill="#ffe2a0"><rect x="1308" y="598" width="10" height="6"/><rect x="1326" y="598" width="10" height="6"/><rect x="1344" y="598" width="10" height="6"/><rect x="1362" y="598" width="10" height="6"/></g></g></g>
+<!-- the dome, from outside, with the hatch open at the top and the ladder down its side -->
+<ellipse cx="200" cy="900" rx="560" ry="760" fill="url(#domeG)" stroke="#12302a" stroke-width="5"/>
+<g fill="none" stroke="#2a5a50" stroke-width="3" opacity=".7"><path d="M200 140V900M-120 260Q200 600 520 260M-300 460Q200 760 700 460"/></g>
+<g id="hatch" class="hot"><path d="M230 150h80l-6 46h-68z" fill="#ffcf7a"/><circle cx="270" cy="170" r="70" fill="url(#warmG)"/><path d="M230 150l-20 -50h80l20 50" fill="#5a8a7e" stroke="#12302a" stroke-width="3"/></g>
+<g stroke="#b8bec8" stroke-width="5"><path d="M300 200Q470 400 520 760M330 200Q500 400 552 760"/></g><g stroke="#b8bec8" stroke-width="4"><path d="M340 280h34M396 360h36M440 450h36M472 540h36M496 630h36M512 720h36"/></g>
+<!-- the chimney stack -->
+<g><rect x="600" y="560" width="120" height="240" fill="url(#brk)" stroke="#2a1a14" stroke-width="3"/><rect x="590" y="550" width="140" height="16" fill="#3a2420"/><g fill="#8a4a32" stroke="#2a1410" stroke-width="2"><path d="M612 550l4 -40h20l4 40z"/><path d="M650 550l4 -46h20l4 46z"/><path d="M688 550l4 -38h20l4 38z"/></g></g>
+<!-- the roof, the walkway rail, the gutter, the parapet -->
+<rect x="-1000" y="790" width="3600" height="500" fill="#2a2c34"/><path d="M-1000 792H2600" stroke="#4a4c56" stroke-width="5"/>
+<g stroke="#8a909c" stroke-width="7" stroke-linecap="round"><path d="M-200 700H1150M-200 750H1150"/><path d="M380 690v110M640 690v110M900 690v110M1140 690v110"/></g>
+<g id="ledge" class="hot"><rect x="1170" y="730" width="560" height="70" fill="url(#brk)" stroke="#2a1a14" stroke-width="3"/><rect x="1160" y="718" width="580" height="16" fill="#7a7a82" stroke="#2a2a30" stroke-width="2"/></g>
+<g id="rules" class="hot"><path d="M560 812h170" stroke="#5a5c66" stroke-width="16" stroke-linecap="round"/><g transform="rotate(-8 640 806)"><rect x="606" y="786" width="70" height="44" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M614 798h52M614 806h46M614 814h52" stroke="#6a6a72" stroke-width="1.3"/></g><rect x="590" y="776" width="110" height="64" fill="transparent"/></g>
+<g id="pageI" class="hot"><g><rect x="860" y="716" width="84" height="60" fill="#f7f2e4" stroke="#8a826e" stroke-width="1.5"/><path d="M868 730h66M868 740h60M868 750h66M868 760h40" stroke="#6a6a72" stroke-width="1.3"/><rect x="930" y="710" width="22" height="28" fill="#fbfaf2" stroke="#9a9a8a" transform="rotate(10 940 724)"/></g><rect x="850" y="700" width="110" height="90" fill="transparent"/></g>
+<!-- the brass sighting tube on its post -->
+<g id="tube" class="hot"><path d="M1060 800v-104" stroke="#3a3a42" stroke-width="10"/><ellipse cx="1060" cy="800" rx="30" ry="7" fill="#1a1a20"/>
+  <g transform="rotate(-12 1060 690)"><rect x="1010" y="678" width="110" height="24" rx="6" fill="#c8a040" stroke="#5a3a10" stroke-width="2.5"/><rect x="1112" y="674" width="18" height="32" rx="4" fill="#a8822e" stroke="#5a3a10" stroke-width="2"/><circle cx="1060" cy="690" r="6" fill="#5a3a10"/></g>
+  <rect x="1000" y="660" width="140" height="150" fill="transparent"/></g>
+<!-- a taxi in the street below, later -->
+<g id="car"><rect x="1000" y="760" width="0" height="0"/><g transform="translate(980 868)"><path d="M0 0v-26q4 -16 24 -18h70q16 2 22 18v26z" fill="#1a1a1a"/><circle cx="24" cy="2" r="9" fill="#0a0a0a"/><circle cx="96" cy="2" r="9" fill="#0a0a0a"/><path d="M116 -18l60 -10v30z" fill="#ffe8a0" opacity=".35"/><rect x="48" y="-54" width="22" height="10" fill="#ffd23a"/></g></g>
+<!-- Zainab -->
+<g id="zainab" class="hot" transform="translate(470 890)"></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the dome for the last show</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stardust.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#zainab').innerHTML = SD.fig({ h: 320, coat: '#1c1c26', legs: '#24243a', skin: '#a8724e', hair: '#2a7a78', hairStyle: 'scarf', lanyard: '#e8802a', armR: 'front', specs: true,
+    extra: '<rect x="14" y="-160" width="34" height="44" fill="#eef4ff" stroke="#2a6ad8" stroke-width="2" transform="rotate(-8 30 -138)"/>' });
+
+  ER.init({
+    theme: 'lit', story: 'stardust', storyTitle: 'Stardust at Half Past Seven', id: 'roof', no: 'V', title: 'The Roof',
+    go: 'Out into the night',
+    intro: [
+      'You pencilled Sabine&rsquo;s marks back into the margin of the stardust page. The iron in your blood was made in stars: a plain fact. An exploding star outshining a whole galaxy sounds like boasting and is a plain fact too. Seeds from a dandelion clock: a simile. A star born, living and dying: personification. Numbers to make your head spin: hyperbole. &ldquo;You are made of stardust&rdquo;: a metaphor with a true fact inside it, because apart from the hydrogen, which is older than any star, nearly every atom in you was made in stars. The ball of fire and the cosmic vacuum cleaner were cut: they would send people home believing something false.',
+      'Seven scenes are back in the folder. The eighth went out through the hatch, and so did the last sheet from the back of the folder. It is ten to seven, and the doors open at seven.'
+    ],
+    exit: {"next":"show","w":{"3f92ef92":"ddaffbe2"}}, tags: {"vy":["8841d95a"],"near10":["4029ed17"],"far10":["29257b49"],"far100":["c55be84f"],"planet":["8f8355ed","f8e34010","d75072b3","344410b3"],"o1":["db872544"],"o2":["b210d724"],"o3":["b6bed9ec"],"o4":["90755595"],"o5":["b41ced73"],"o6":["b1e75bd0"],"o7":["f1279651"],"o8":["fd0bbc4c"],"dec":["35f87da4"],"qs":["c972618f","6bacf72b"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = SD.told('e-told'); nextFile = ER.flag('e-file') || null;
+  function isBusy() { return busy; }
+  function readAll() { return told.has('pageI') && told.has('rules') && told.has('zainab'); }
+  function vy() { return !!ER.flag('e-vy'); }
+  function paint() {
+    $('#scene').classList.toggle('order', !!nextFile);
+    $('#scene').classList.toggle('taxi', !!nextFile);
+    $('#pageI').classList.toggle('ready', !told.has('pageI'));
+    $('#rules').classList.toggle('ready', told.has('pageI') && !told.has('rules'));
+    $('#zainab').classList.toggle('ready', told.has('pageI') && !told.has('zainab'));
+    $('#tube').classList.toggle('ready', readAll() && !vy());
+    $('#ledge').classList.toggle('ready', readAll() && vy() && !nextFile);
+    var n = ['pageI', 'rules', 'zainab'].filter(function (k) { return told.has(k); }).length + (vy() ? 1 : 0) + (nextFile ? 1 : 0);
+    ER.pips(n, 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Every page is in order. The button at the bottom of the screen goes down to the dome for the last show.']];
+    if (lock && document.body.contains(lock) && lock.classList.contains('view')) return ['tube', [
+      'You need two things: how far away Voyager was when it took the picture (the card clipped to the last page), and the scale of the foyer&rsquo;s walk (your notes from the foyer).',
+      'On the walk, 1 cm stands for 100,000 km. Divide Voyager&rsquo;s 6 billion km by 100,000 to get centimetres, and then turn the centimetres into metres.',
+      '6,000,000,000 &divide; 100,000 = 60,000 cm. How many metres is that? Then look on the town map in your notebook for a place that far from the front door.'
+    ]];
+    if (lock && document.body.contains(lock)) return ['order', [
+      'Sabine&rsquo;s last sheet has five rules. Start with rules 1 and 5: which scene begins with what the audience has just seen, and which one comes home at the end?',
+      'Rule 2: small to large, one step at a time: the Earth and the Sun, then the nearest star, then all the galaxies. Rule 3: each question just before its answer. Rule 4: a scene cannot use a picture before it has been given (the Iron page talks about September on the calendar).',
+      'Zainab&rsquo;s page is true, but it does not move the explanation along: it goes on the spike, out of the show. The foyer comes first and the dot comes last. The galaxies come after the nearest star; the question about the beginning comes straight after the galaxies; and the Iron page needs the calendar.'
+    ]];
+    if (!readAll()) return ['look', [
+      'Three things up here: the page pinned against the rail by the wind, the sheet caught in the gutter below the chimney, and Zainab, who has just climbed down the ladder from the hatch.',
+      'Read the page (there is a card clipped to it), pick the sheet out of the gutter, and talk to Zainab: she has brought a page of her own.'
+    ]];
+    if (!vy()) return ['tube', ['The last scene has a gap: where, on the foyer&rsquo;s walk, would Voyager have been? Click the brass sighting tube on its post by the rail, and point it at the place.']];
+    return ['ledge', ['Now put all the scenes in Sabine&rsquo;s order. Click the brick parapet on the right, where there is room to lay the pages out.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Every page in order. Below, a taxi door opens.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The roof, and the whole sky over it.'); return; }
+    told.set('in'); SD.sfx.gust();
+    ER.narrate([
+      'The hatch at the top of the dome opens onto a little railed platform, and a ladder goes down the outside of the dome to the flat roof. The cold hits you first. Then the sky.',
+      'Inside the dome the stars are a show. Out here they are just there, thousands of them, and nobody switched them on. Low in the north, over the hills, seven of them make the shape of the Plough.',
+      'Below the roof the whole town is lit up: the post office, the church spire, the blue glow of the swimming baths, a train crossing the railway bridge, and far away on Owl Hill, the black sails of the old windmill.',
+      'And the draught has left two things up here. A page is pinned against the rail by the wind, flapping. Another sheet is lying in the gutter under the chimney.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var SI = SD.page('A PALE BLUE DOT',
+    '<p class="dir">(The dome goes dark. High up, one small picture appears: black, with faint stripes of light across it.)</p>' +
+    '<p>On Valentine&rsquo;s Day, 1990, a space probe called Voyager 1 was on its way out of the Solar System. It turned its camera round and looked back at home, one last time.</p>' +
+    '<p>If the Sun were our grapefruit in the foyer, Voyager took this picture from <span class="gap">[where?]</span>: and from there, the Earth was a pinhead fifteen metres from the grapefruit. You could not have seen it. The camera only just did.</p>' +
+    '<p>Look at the stripes of light. In one of them there is a dot, smaller than one dot of the picture. That is the Earth: this town, this dome, the seat you are sitting in.</p>' +
+    '<p>Every map ever drawn is a map of part of that dot, and every border on those maps is far too small to see from where Voyager was.</p>' +
+    '<p>As far as we know, it is the only place with anybody on it. Look after it. And look after each other.</p>' +
+    '<p class="dir">(The house lights come up, very slowly.)</p>');
+  var DOT = '<svg viewBox="0 0 360 200"><rect width="360" height="200" fill="#050608"/><g opacity=".5"><path d="M40 0L120 200" stroke="#7a6a8a" stroke-width="26" opacity=".35"/><path d="M150 0L210 200" stroke="#8a7a6a" stroke-width="30" opacity=".35"/><path d="M250 0L300 200" stroke="#6a7a8a" stroke-width="22" opacity=".35"/></g>' +
+    '<circle cx="268" cy="126" r="1.6" fill="#a8d8ff"/><path d="M276 120q30 -20 50 -10" fill="none" stroke="#ffe27a" stroke-width="1.5"/><text x="330" y="112" font-family="Caveat,cursive" font-size="20" fill="#ffe27a" text-anchor="middle">us</text></svg>';
+  var CARD = '<span class="date">today, lunchtime</span><h4>The photograph</h4>' +
+    '<p>For Zainab: the facts behind the last scene. Check them. I did.</p>' +
+    '<p>On <b>14 February 1990</b> the space probe Voyager 1, launched in 1977, was about <b>6 billion kilometres</b> from the Sun: further out than Neptune, and heading out of the Solar System.</p>' +
+    '<p>The astronomer and writer Carl Sagan had asked for it to turn its camera round and photograph the planets from out there, one last time.</p>' + DOT +
+    '<p>In one picture the Earth is a single pale blue dot, smaller than one pixel (one dot of the picture), sitting in a stripe of sunlight scattered inside the camera. People call it the <b>Pale Blue Dot</b>. (My drawing, not the photograph.)</p>' +
+    '<p>Soon afterwards, Voyager&rsquo;s cameras were switched off for good, to save power for its other instruments. &mdash; S.</p>';
+  var RULES = '<h4>IF THE PAGES EVER FALL ON THE FLOOR</h4><h5>the last sheet of the script</h5>' +
+    '<p>I have never numbered the pages of a script, because a good explanation puts itself back in order. It goes by these rules:</p>' +
+    '<p><b>1.</b> Begin with something the audience has just seen with their own eyes.</p>' +
+    '<p><b>2.</b> Go from small to large, one step at a time.</p>' +
+    '<p><b>3.</b> Ask the question before you give the answer. An answer nobody has asked for is only a fact.</p>' +
+    '<p><b>4.</b> Never use a picture or a word before you have given it to them.</p>' +
+    '<p><b>5.</b> End by coming home: the last scene looks back at where we live.</p>' +
+    '<p>And cut anything that does not move the explanation along, however true it is.</p><p class="pen">True is not enough. &mdash; S.Q.</p>';
+
+  $('#pageI').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SI, cls: 'script', clue: { id: 'scI0', title: 'A Pale Blue Dot (with a gap)', kind: 'Script page' }, done: function () {
+      ER.read({ html: CARD, cls: 'note', clue: { id: 'photo', title: 'The photograph', kind: 'Sabine&rsquo;s card' }, done: function () {
+        SD.terms(['space probe', 'pixel', 'Pale Blue Dot', 'Voyager 1']);
+        if (told.set('pageI')) { paint(); ER.say('The last scene, with a gap in it, and a card clipped to it in Sabine&rsquo;s hand, dated today.'); }
+      } });
+    } });
+  });
+  $('#rules').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: RULES, cls: 'sheet', clue: { id: 'rules', title: 'If the pages ever fall on the floor', kind: 'The last sheet' }, done: function () {
+      SD.terms(['order of explanation', 'known to unknown', 'question before answer', 'true is not enough']);
+      if (told.set('rules')) { paint(); ER.say('&ldquo;A good explanation puts itself back in order.&rdquo; Five rules, and a sixth that is not numbered.'); }
+    } });
+  });
+  $('#zainab').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Seven o&rsquo;clock,&rdquo; says Zainab. &ldquo;They&rsquo;re in. Come on.&rdquo;'); return; }
+    ER.talk({
+      who: 'Zainab Roper', role: 'presenter, on the roof', face: window.FACE('zainab'),
+      lines: [
+        { note: 'Zainab climbs down after you, holds the rail with both hands, and then forgets to be frightened, because of the sky.', a: '&ldquo;Oh. Look at that. You never really see it from inside.&rdquo;' },
+        { q: 'Is that the last page?', a: '&ldquo;The Pale Blue Dot. The end of the show. And she has clipped a card to it, for me: the facts behind it. &lsquo;Check them. I did.&rsquo; Of course she did.&rdquo;' },
+        { q: 'What is that in your hand?', a: '&ldquo;Mine. I printed it this morning. I wanted to add one modern line after the dot: Voyager is still going, further from home than anything people have ever made. Every word of it is true. I checked it twice, the way she would.&rdquo; She holds it out. &ldquo;Put it wherever it goes.&rdquo;' },
+        { q: 'How do we put the scenes in order?', a: '&ldquo;She always said the pages would put themselves in order. The last sheet in the folder was her rules. If that came out here too, it&rsquo;s somewhere on this roof.&rdquo;' }
+      ],
+      clue: { id: 'zainab5', title: 'Zainab, on the roof', kind: 'What she said' },
+      done: function (seen) {
+        if (seen && told.set('zainab')) {
+          ER.addClue('zpage', 'Voyager Today (Zainab&rsquo;s page)', '<h4>VOYAGER TODAY</h4><h5>a new page, printed this morning &middot; Z.R.</h5><p>To go after the dot? Voyager 1 is still going. It is now more than 25 billion kilometres from the Earth, further from home than anything people have ever made, and its radio messages take nearly a whole day to reach us.</p>', 'sheet', 'Zainab&rsquo;s page');
+          paint();
+        }
+      }
+    });
+  });
+  SD.thing('#plough', null, 'The Plough: seven stars in the shape of a saucepan, low in the north. Half the children in this town learnt to find it under the dome.', isBusy);
+  SD.thing('#hatch', 'hatch', 'The hatch you came out of. Warm air is still pouring out of it into the night.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#tube').addEventListener('click', function () {
+    if (busy) return;
+    if (vy()) { ER.say('The tube still points where Voyager would have been, on the foyer&rsquo;s walk.'); return; }
+    if (!readAll()) { ER.say('A brass sighting tube on a post, for the Saturday astronomy club. First read what the wind has left up here, and talk to Zainab.'); return; }
+    openView();
+  });
+  $('#ledge').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Every page in order, back in the folder.'); return; }
+    if (!readAll()) { ER.say('A flat brick parapet, good for laying out pages. First read what the wind has left up here, and talk to Zainab.'); return; }
+    if (!vy()) { ER.say('First finish the last scene: the gap in the Pale Blue Dot page. The brass tube by the rail points at the town.'); return; }
+    openOrder();
+  });
+
+  /* ---------- lock one: where Voyager was, on the foyer's walk ---------- */
+  var LMS = [['lm1', 'the car park gate', 150, 340], ['lm2', 'the bus shelter', 300, 320], ['lm3', 'the post office', 420, 270], ['lm4', 'the church gate', 560, 250],
+    ['lm6', 'the swimming baths', 700, 260], ['lm5', 'the railway bridge', 860, 240], ['lm7', 'the windmill on Owl Hill', 960, 150], ['lm8', 'the hills on the skyline', 300, 118]];
+  function openView() {
+    lock = ER.el('div', 'view');
+    var s = '<svg viewBox="0 0 1080 400"><rect width="1080" height="400" fill="#0a1030"/><path d="M0 140L200 112L420 130L700 100L1080 126V400H0z" fill="#0c1430"/>' +
+      '<path d="M880 180Q960 90 1040 180z" fill="#0e1838"/><g transform="translate(960 106)"><path d="M-6 26l3 -32h6l3 32z" fill="#04081a"/><g stroke="#04081a" stroke-width="4"><path d="M0 -8l-22 -20M0 -8l22 -20M0 -8l-20 16M0 -8l20 16"/></g></g>' +
+      '<rect y="190" width="1080" height="210" fill="#080c22"/>' +
+      '<g fill="#ffcf7a" opacity=".7"><circle cx="80" cy="300" r="2"/><circle cx="240" cy="280" r="2"/><circle cx="380" cy="300" r="2"/><circle cx="500" cy="220" r="2"/><circle cx="640" cy="300" r="2"/><circle cx="760" cy="220" r="2"/><circle cx="980" cy="260" r="2"/></g>' +
+      '<g fill="#141c40" stroke="#3a4a80" stroke-width="2"><path d="M140 360h24v-26h-24z"/><path d="M280 330h44v-22h-44z"/><path d="M394 290h56v-34h-56z"/><path d="M552 270v-80l10 -50l10 50v80z"/><path d="M660 270h84v-26h-84z"/><path d="M800 250h130v-20h-130zM815 250v16M860 250v16M905 250v16"/></g>' +
+      '<ellipse cx="702" cy="258" rx="60" ry="14" fill="#5ad8ff" opacity=".25"/>';
+    LMS.forEach(function (l) {
+      s += '<g class="lm" data-l="' + l[0] + '"><circle class="ring" cx="' + l[2] + '" cy="' + l[3] + '" r="26" fill="rgba(255,255,255,.04)" stroke="#8ac8ff" stroke-width="2" stroke-dasharray="5 4"/>' +
+        '<text x="' + l[2] + '" y="' + (l[3] + 44) + '" font-family="Outfit,sans-serif" font-size="14" text-anchor="middle" fill="#d8e6ff">' + l[1] + '</text></g>';
+    });
+    s += '</svg>';
+    lock.innerHTML = '<h5>Through the brass tube &middot; where was Voyager, on the foyer&rsquo;s walk?</h5>' + s;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    lock.addEventListener('click', function (e) {
+      var g = e.target.closest('.lm'); if (!g || vy()) return;
+      var id = g.getAttribute('data-l'), name = LMS.filter(function (l) { return l[0] === id; })[0][1];
+      ER.$$('.lm.bad', lock).forEach(function (n) { n.classList.remove('bad'); });
+      if (!ER.check('vy', id)) {
+        ER.sfx.no(); g.classList.add('bad');
+        msg(ER.check('near10', id) ? 'You point the tube at ' + name + '. &ldquo;Too near,&rdquo; says Zainab. &ldquo;Much too near. Count the noughts again.&rdquo;' :
+          ER.check('planet', id) ? 'You point the tube at ' + name + '. &ldquo;That&rsquo;s where a planet stands on the walk,&rdquo; says Zainab. &ldquo;Voyager was well out beyond Neptune when it took the picture.&rdquo;' :
+          ER.check('far10', id) ? 'You point the tube at ' + name + '. &ldquo;Too far,&rdquo; says Zainab. &ldquo;Ten times too far, I think. Check your metres.&rdquo;' :
+          'You point the tube at ' + name + '. &ldquo;Far, far too far,&rdquo; says Zainab. &ldquo;Work it out on the foyer&rsquo;s scale.&rdquo;');
+        return;
+      }
+      ER.flag('e-vy', id); SD.sfx.ting();
+      msg('You point the tube at ' + name + '. Zainab looks along it for a long time. &ldquo;From there,&rdquo; she says quietly, &ldquo;a pinhead, fifteen metres from a grapefruit. You&rsquo;d never see it.&rdquo;');
+      ER.addClue('scI', 'A Pale Blue Dot', SI.replace('<span class="gap">[where?]</span>', '<span class="filled">' + name + '</span>'), 'script', 'Script page');
+      SD.mine('voyager', 'Voyager on the walk', '<p>Voyager 1, 14 February 1990: about 6 billion km out.</p><p>On the foyer&rsquo;s scale (1 cm = 100,000 km), that puts it at ' + name + ' (see the town map). From there the Earth would be a pinhead 15 m from the grapefruit.</p>');
+      setTimeout(function () { ER.closeAll(); paint(); ER.say('The last scene is whole. Now all eight scenes need to go back in order: the parapet on the right has room to lay them out.'); }, 2800);
+    });
+    msg('Click the place in the town where the tube should point.');
+    ER.open('ov-lock', wrap);
+  }
+
+  /* ---------- lock two: every scene in Sabine's order ---------- */
+  var SC = [
+    ['p1', 'WHERE DID IT BEGIN?', 'If everything is moving apart today, then yesterday it was closer together&hellip; When was that? And what has happened since?'],
+    ['p2', 'STARDUST', 'Every atom of iron in your blood was made inside stars&hellip; you are made of stardust.'],
+    ['p3', 'A GRAPEFRUIT IN THE FOYER', 'On your way in tonight, you walked past the Sun&hellip; the Earth is a pinhead, fifteen metres from the grapefruit.'],
+    ['p4', 'VOYAGER TODAY', 'Voyager 1 is still going: more than 25 billion km from the Earth, further from home than anything people have ever made.', 'z'],
+    ['p5', 'IRON', 'On our calendar, the Sun and the Earth are not born until September. But there is iron in your blood&hellip; Where did it come from?'],
+    ['p6', 'EVERYTHING IS MOVING APART', 'Beyond the Milky Way there are billions of galaxies, moving apart: think of raisins in rising dough&hellip;'],
+    ['p7', 'A PALE BLUE DOT', 'Voyager 1 turned round and looked back at home&hellip; That is the Earth: this town, this dome, the seat you are sitting in.'],
+    ['p8', 'THE NEXT GRAPEFRUIT', 'Now take a bigger step: the nearest star is another grapefruit, 4,000 km away. A light-year is a distance&hellip;'],
+    ['p9', 'A YEAR IN THE DARK', 'Squeeze all 13.8 billion years into one year&hellip; Writing, eleven seconds before midnight. You were born less than a second ago.']
+  ];
+  function openOrder() {
+    var busyL = false, put = ER.flag('e-put') || {};
+    lock = ER.el('div', 'ledge');
+    var h = '<h5>Lay the pages along the parapet, in the order the show goes</h5>';
+    for (var i = 1; i <= 8; i++) h += '<div class="sl" data-o="' + i + '"><i>' + (i === 1 ? 'FIRST' : i === 8 ? 'LAST' : i) + '</i></div>';
+    h += '<div class="spike sl" data-o="x"><i>ON THE SPIKE: not in the show</i></div><div class="tray"></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="fold">Into the folder</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var tray = lock.querySelector('.tray'), m = foot.querySelector('.pmsg');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    SC.forEach(function (c) {
+      var d = ER.el('div', 'slip dnd-item' + (c[3] ? ' ' + c[3] : ''), '<b>' + c[1] + '</b>' + ER.gloss(c[2])); d.setAttribute('data-p', c[0]);
+      var at = put[c[0]], s = at ? lock.querySelector('.sl[data-o="' + at + '"]') : null;
+      (s && !s.querySelector('.slip') ? s : tray).appendChild(d);
+    });
+    function keep() {
+      put = {}; ER.$$('.sl', lock).forEach(function (g) { var s = g.querySelector('.slip'); if (s) put[s.getAttribute('data-p')] = g.getAttribute('data-o'); });
+      ER.flag('e-put', put);
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    ER.dnd(lock, { item: '.slip', slot: '.sl', home: tray, lock: function () { return busyL || !!nextFile; }, change: function () { keep(); clearBad(); SD.sfx.flutter(); } });
+    foot.querySelector('#fold').addEventListener('click', function () {
+      if (busyL || nextFile) return;
+      clearBad();
+      var i, g, s, p, empty = 0;
+      for (i = 1; i <= 8; i++) if (!lock.querySelector('.sl[data-o="' + i + '"] .slip')) empty++;
+      if (empty) { ER.sfx.no(); msg(empty === 8 ? 'The parapet is empty. Drag the pages onto it, or click a page and then a place.' : (empty === 1 ? 'One place' : empty + ' places') + ' on the parapet ' + (empty === 1 ? 'is' : 'are') + ' still empty. The show has eight scenes.'); return; }
+      for (i = 1; i <= 8; i++) {
+        g = lock.querySelector('.sl[data-o="' + i + '"]'); s = g.querySelector('.slip'); p = s.getAttribute('data-p');
+        if (ER.check('o' + i, p)) continue;
+        ER.sfx.no(); g.classList.add('bad'); s.classList.add('bad');
+        var t = ER.check('dec', p) ? 'Zainab sees her own page in place ' + i + ' and winces. &ldquo;It&rsquo;s true. Every word. But does it move the explanation along? Read the bottom of Sabine&rsquo;s last sheet.&rdquo;' :
+          i === 1 ? 'Rule 1: begin with something the audience has just seen with their own eyes. What did they see on their way in?' :
+          i === 8 ? 'Rule 5: end by coming home. Which scene looks back at where we live?' :
+          ER.check('qs', p) ? 'A question, in place ' + i + '. Rules 3 and 4: a question comes just before its answer, and it can only use what the audience has already been given. What does this question need them to know first?' :
+          'Place ' + i + ' is wrong. Check rules 2 and 4: is this the next step up in size? Does it use a picture or a word (the grapefruit, the dough, the calendar) that has not been given yet?';
+        msg(t + ' <i>(Only the first page that is wrong is ever shown.)</i>');
+        return;
+      }
+      var cand = ER.flag('e-vy') + '/' + [1, 2, 3, 4, 5, 6, 7, 8].map(function (k) { return lock.querySelector('.sl[data-o="' + k + '"] .slip').getAttribute('data-p'); }).join('-');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('The folder will not close. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('e-file', file); busyL = true; SD.sfx.flutter();
+      var order = [1, 2, 3, 4, 5, 6, 7, 8].map(function (k) { return lock.querySelector('.sl[data-o="' + k + '"] .slip b').textContent; }), sp = lock.querySelector('.spike .slip b');
+      msg('Zainab gathers the pages up in order and snaps the folder shut.');
+      setTimeout(function () { ER.closeAll(); solved(order, sp ? sp.textContent : ''); }, 2400);
+    });
+    msg('Eight scenes and one page that may not belong. Drag each page to its place on the parapet, or click a page and then a place.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved(order, spiked) {
+    SD.mine('order', 'The order of the show', '<p>' + order.map(function (t, i) { return (i + 1) + ' ' + t.charAt(0) + t.slice(1).toLowerCase(); }).join(' &rarr; ') + '</p>' +
+      '<p>Begin with what they have just seen; small to large, one step at a time; each question just before its answer; nothing used before it is given; end by coming home.</p>' +
+      '<p>On the spike: ' + spiked.charAt(0) + spiked.slice(1).toLowerCase() + '. True, but it does not move the explanation along. True is not enough.</p>');
+    SD.terms(['order of explanation', 'known to unknown', 'question before answer', 'true is not enough']);
+    paint(); busy = true;
+    setTimeout(function () { SD.sfx.strike(7); }, 400);
+    ER.narrate([
+      'Across the town, the clock on the church tower strikes seven. (Seven slow strokes. You count them.) Down below, the planetarium doors open, and the queue starts to move.',
+      'Zainab looks at her own page on the spike, folds it in half and puts it in her pocket with the firework. &ldquo;I&rsquo;ll put it in the programme next time,&rdquo; she says. &ldquo;She was right. It&rsquo;s true. It just isn&rsquo;t the point.&rdquo;',
+      'A taxi pulls up in the street below. The back door opens, and a stick comes out first, and then a small woman in a long red scarf, who stands on the pavement and looks straight up at the dome, as if she could see through it.',
+      '&ldquo;That&rsquo;s her,&rdquo; says Zainab. &ldquo;Ten sheets. Every one in its place.&rdquo; She tucks the folder under her arm and starts down the ladder, faster than she came up.'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>
