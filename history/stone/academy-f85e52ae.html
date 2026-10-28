@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Académie · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#3a3a30;--accent:#f0d070;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,32,26,.95);--tc-ink:#f4efe0;--cap-bg:rgba(30,32,26,.93);--panel:#2a2c24;--face-bg:#4a4a3a;--q-ink:#f6dc8a;--fade:#0e0e0a;--hud-bg:rgba(30,32,26,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #sun{animation:sun 8s steps(1,end) infinite}
+  @keyframes sun{0%{opacity:1}55%{opacity:.88}58%{opacity:1}}
+  #heads circle{transition:transform .6s}
+  body.talk #heads circle:nth-child(3n){animation:nod 1.4s steps(2,end) infinite}
+  body.talk #heads circle:nth-child(3n+1){animation:nod 1.8s steps(2,end) infinite;animation-delay:-.6s}
+  @keyframes nod{50%{transform:translateY(-4px)}}
+  .done{position:fixed;right:2.4vw;top:60px;z-index:34;width:min(640px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:18px 26px 16px;display:none;background:#f6f1e2 linear-gradient(176deg,rgba(255,255,255,.5),rgba(120,110,70,.12));
+    color:#22231e;border-top:9px solid #6a3a24;box-shadow:0 20px 60px rgba(0,0,0,.65)}
+  .done.on{display:block}
+  .seal{float:right;margin:2px 0 6px 14px;padding:6px 12px 3px;border:3px double #6a3a24;color:#6a3a24;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.12em;transform:rotate(4deg);text-align:center;line-height:1.1}
+  .done h6{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.16em;color:#6b6552}
+  .done p{margin:0 0 4px;font-family:'EB Garamond',serif;font-size:17px;line-height:1.3}
+  .done h5{clear:both;margin:11px 0 5px;font-family:'Cinzel',serif;font-weight:700;font-size:17px;border-top:1px solid #c9b48a;padding-top:9px}
+  .done ol{margin:0;padding:0 0 0 20px;font-family:'EB Garamond',serif;font-size:15.6px;line-height:1.34}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+  .done .btn{--accent:#22231e;font-size:13px;padding:8px 14px}
+  .done .btn:hover:not([disabled]){color:#f6f1e2}
+  .done small{display:block;margin-top:10px;font-family:'EB Garamond',serif;font-size:13.6px;opacity:.85;line-height:1.42}
+  .done small button{text-decoration:underline;font:inherit}
+  .why{position:fixed;left:50%;bottom:6vh;transform:translateX(-50%);z-index:36;width:min(760px,94vw);display:none;padding:14px 18px;background:rgba(30,32,26,.95);border:1px solid #8a7a4a;color:#f4efe0}
+  .why.on{display:block}
+  .why p{margin:0 0 8px;font-family:'EB Garamond',serif;font-size:18px;line-height:1.35}
+  .why button{display:block;width:100%;margin:5px 0 0;padding:8px 12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);color:#f4efe0;font-family:'EB Garamond',serif;font-size:16.5px;text-align:left;cursor:pointer;border-radius:3px}
+  .why button:hover{border-color:var(--accent);color:var(--accent)}
+  .why .ans{min-height:24px;color:#f6dc8a}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9d0b4"/><stop offset=".7" stop-color="#b9ae8e"/><stop offset="1" stop-color="#8a8068"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f4e6"/><stop offset="1" stop-color="#e2e6dc"/></linearGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffbe0" stop-opacity=".45"/><stop offset="1" stop-color="#fffbe0" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0a08" stop-opacity=".2"/><stop offset="1" stop-color="#0a0a08" stop-opacity=".7"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<!-- pilasters and tall windows -->
+<g fill="#cfc4a4"><rect x="-120" y="40" width="60" height="640"/><rect x="380" y="40" width="60" height="640"/><rect x="1160" y="40" width="60" height="640"/><rect x="1660" y="40" width="60" height="640"/></g>
+<g fill="#b9ae8e"><rect x="-130" y="30" width="80" height="20"/><rect x="370" y="30" width="80" height="20"/><rect x="1150" y="30" width="80" height="20"/><rect x="1650" y="30" width="80" height="20"/></g>
+<g id="sun"><rect x="40" y="80" width="300" height="440" fill="url(#winG)"/><rect x="1260" y="80" width="300" height="440" fill="url(#winG)"/>
+  <path d="M190 80v440M40 300h300M1410 80v440M1260 300h300" stroke="#a89c7a" stroke-width="8"/>
+  <polygon points="340,80 740,420 740,900 340,520" fill="url(#beamG)" pointer-events="none"/></g>
+<!-- busts on pedestals -->
+<g fill="#ece6d6"><rect x="470" y="300" width="70" height="200"/><ellipse cx="505" cy="270" rx="26" ry="32"/><path d="M470 300q35-24 70 0z"/><rect x="1060" y="300" width="70" height="200"/><ellipse cx="1095" cy="270" rx="26" ry="32"/><path d="M1060 300q35-24 70 0z"/></g>
+<!-- the easel with the plate -->
+<g id="plate" class="hot"><path d="M760 700l40-300M940 700l-40-300M850 400v300" stroke="#5a3a20" stroke-width="8"/>
+  <rect x="770" y="250" width="160" height="220" fill="#f8f4ea" stroke="#8a857a" stroke-width="2"/><text x="850" y="272" class="lb" font-size="11" fill="#22201b">SOUND SIGNS</text>
+  <g id="miniplate" color="#22201b"></g></g>
+<!-- the long table and the members -->
+<g id="members" class="hot">
+  <rect x="200" y="600" width="1200" height="40" fill="#2f5a3a"/><rect x="200" y="640" width="1200" height="20" fill="#24482e"/>
+  <g id="heads" fill="#2a2a2a"><circle cx="260" cy="560" r="24"/><circle cx="340" cy="566" r="24"/><circle cx="420" cy="560" r="24"/><circle cx="500" cy="568" r="24"/><circle cx="580" cy="560" r="24"/><circle cx="1020" cy="566" r="24"/><circle cx="1100" cy="560" r="24"/><circle cx="1180" cy="568" r="24"/><circle cx="1260" cy="560" r="24"/><circle cx="1340" cy="566" r="24"/></g>
+  <g fill="#1e1e22"><path d="M220 640q0-60 40-60t40 60z"/><path d="M300 640q0-60 40-60t40 60z"/><path d="M380 640q0-60 40-60t40 60z"/><path d="M460 640q0-60 40-60t40 60z"/><path d="M540 640q0-60 40-60t40 60z"/><path d="M980 640q0-60 40-60t40 60z"/><path d="M1060 640q0-60 40-60t40 60z"/><path d="M1140 640q0-60 40-60t40 60z"/><path d="M1220 640q0-60 40-60t40 60z"/><path d="M1300 640q0-60 40-60t40 60z"/></g>
+  <g fill="#f4efe0"><rect x="300" y="596" width="40" height="8"/><rect x="460" y="596" width="40" height="8"/><rect x="1060" y="596" width="40" height="8"/><rect x="1220" y="596" width="40" height="8"/></g>
+</g>
+<!-- M. Dacier at the head of the table -->
+<g id="dacier" class="hot"><path d="M1440 660V520q0-44 44-50q44 6 44 50v140z" fill="#2a2a30"/><path d="M1462 488l22 22 22-22 4 16-26 12-26-12z" fill="#f4f0e6"/>
+  <rect x="1472" y="452" width="24" height="30" fill="#efcfb6"/><ellipse cx="1484" cy="426" rx="28" ry="34" fill="#efcfb6"/><path d="M1456 430q-2-24 8-32M1512 430q2-24-8-32" stroke="#eeeae2" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="1474" cy="428" r="2.6" fill="#1b1512"/><circle cx="1494" cy="428" r="2.6" fill="#1b1512"/></g>
+<!-- M. Champollion at the lectern -->
+<g id="jf" class="hot"><path d="M640 700l20-120h80l20 120z" fill="#5a3a20"/><path d="M630 580h140l-10 20H640z" fill="#6a4a2e"/>
+  <path d="M660 580V470q0-46 40-52q40 6 40 52v110z" fill="#22252c"/><path d="M680 432l20 20 20-20 4 14-24 12-24-12z" fill="#f4f0e6"/>
+  <rect x="688" y="398" width="24" height="30" fill="#e6b68e"/><ellipse cx="700" cy="372" rx="28" ry="34" fill="#e6b68e"/>
+  <g fill="#1e1612"><circle cx="676" cy="352" r="10"/><circle cx="690" cy="340" r="11"/><circle cx="708" cy="338" r="11"/><circle cx="724" cy="348" r="10"/></g>
+  <circle cx="690" cy="374" r="2.6" fill="#1b1512"/><circle cx="710" cy="374" r="2.6" fill="#1b1512"/>
+  <rect x="664" y="556" width="72" height="22" fill="#f8f4ea" transform="rotate(-4 700 567)"/></g>
+<!-- the listeners at the side: Dr Young, M. Sautel, and the two of you -->
+<g id="young" class="hot"><path d="M1240 860V740q0-44 40-50q40 6 40 50v120z" fill="#3a3a44"/><rect x="1268" y="672" width="22" height="26" fill="#eac3a0"/><ellipse cx="1280" cy="648" rx="26" ry="31" fill="#eac3a0"/><path d="M1254 646q0-34 26-34t26 34q-6-18-26-20q-20 2-26 20z" fill="#7a5a3a"/><rect x="1314" y="740" width="36" height="46" fill="#f4efe0"/></g>
+<g id="sautel" class="hot"><path d="M1400 870V760q0-44 40-50q40 6 40 50v110z" fill="#2a3a6a"/><path d="M1414 712l26 22 26-22" stroke="#b3262a" stroke-width="9" fill="none"/><rect x="1428" y="676" width="24" height="28" fill="#dba886"/><ellipse cx="1440" cy="652" rx="27" ry="31" fill="#dba886"/><path d="M1424 670q16-8 32 0q-16 5-32 0z" fill="#cfc8bc"/></g>
+<g id="zelie" class="hot"><path d="M80 870q-6-120 26-150q24-14 46 0q32 30 24 150z" fill="#5a6e8a"/><rect x="120" y="680" width="20" height="26" fill="#f0cfb2"/><ellipse cx="130" cy="656" rx="27" ry="31" fill="#f0cfb2"/><path d="M102 658q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="130" cy="618" r="13" fill="#6a3a1e"/></g>
+<g id="jj" class="hot"><path d="M200 880V740q0-50 50-56q50 6 50 56v140z" fill="#1f2229"/><rect x="238" y="660" width="24" height="30" fill="#eac3a0"/><ellipse cx="250" cy="632" rx="30" ry="36" fill="#eac3a0"/><path d="M220 626q0-40 30-40t30 40q-6-22-30-24q-24 2-30 24z" fill="#4a3324"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="why" id="why"><p>M. Champollion-Figeac leans over and whispers: &ldquo;If a member asks you afterwards why he should believe it, what will you say?&rdquo;</p>
+  <button type="button" data-v="faint">&ldquo;Because M. Champollion was so sure of it that he fainted.&rdquo;</button>
+  <button type="button" data-v="sign">&ldquo;Because the same sign has the same sound in every name, in the order of the Greek: Ptolemy, Cleopatra and Alexander all agree. And an old Egyptian king&rsquo;s name reads the same way, with the help of Coptic.&rdquo;</button>
+  <button type="button" data-v="greek">&ldquo;Because the Greek on the Rosetta Stone says what each sign means.&rdquo;</button>
+  <p class="ans"></p></div>
+<div class="done" id="done">
+  <div class="seal">READ TO THE<br>ACADÉMIE</div>
+  <h6>Paris &middot; 14 to 27 September 1822</h6>
+  <p id="d-time"></p><p id="d-slips"></p><p id="d-words"></p><p id="d-hints"></p>
+  <h5>What you now know</h5>
+  <ol>
+    <li>The Rosetta Stone carries one decree of 196 BC three times: in hieroglyphs, in Demotic and in Greek. The Greek could be read, and its last line says the three are one text.</li>
+    <li>To match words across scripts, count and keep the order: a word that comes three times in the Greek comes three times in the others. The commonest group is not always the name you expect.</li>
+    <li>A ring (a cartouche) holds a royal name. Laid side by side, the rings of Ptolemy and Cleopatra share the signs for P, O and L, each where the Greek spellings need it: so the signs stand for sounds.</li>
+    <li>One sound may have two signs (the half-loaf and the hand for T, as French writes K with C, K or QU), and short vowels are often left out.</li>
+    <li>Some signs have no sound. The egg after a queen&rsquo;s name says &ldquo;a woman&rdquo;, and the half-loaf before it is the T that Egyptian puts on words for women.</li>
+    <li>Once the sound signs are known, a new name can be read (Alexander), and Coptic, the last form of Egyptian, unlocks words: R&Emacr;, the sun, and MISE, to give birth, in the name of Ramesses. Hieroglyphs mix sound signs and word signs: each picture is not a word, and each sign is not a letter.</li>
+    <li>A source is worth what its writer could know on the day it was written. Read its date in its own calendar first.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-tell">Tell it to a friend</button><button type="button" class="btn" id="b-book">Open the notebook</button><button type="button" class="btn" id="b-lobby">Back to the Archive</button></div>
+  <small>Jean-François Champollion read his &ldquo;Letter to M. Dacier&rdquo; on the sound signs to the Académie des Inscriptions on 27 September 1822; by tradition, on 14 September he ran to his brother&rsquo;s office crying &ldquo;Je tiens l&rsquo;affaire!&rdquo; and fainted. Thomas Young had read the name of Ptolemy first; William Bankes&rsquo;s obelisk gave Cleopatra. Champollion set out the whole system, sound signs and meaning signs together, in a book of 1824. Vigneau, Zélie and Madame Solange Thorel, Madame Séraphine Usson and M. Xavier Sautel are invented, and so is their part: in 1822 Champollion did this work himself. &middot; <button type="button" id="b-reset">open the portfolio again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'academy', no: 'VI', title: 'The Académie',
+    go: 'Go in quietly', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'At the café two rings were read. The ring from Karnak had seven signs from the plate and two new ones: A, L, ?, S, a vowel, ?, T, R, S could only be ALEXANDROS, so the basket was K and the water N, and the hand stood for the Greek D. The ring from Abu Simbel was an old Egyptian king: the sun, R&Emacr; in Coptic, the god Ra; the three skins, the birthday sign, MS, to give birth; then S and S. Ramesses: &ldquo;Ra is the one who bore him&rdquo;. Sound signs and word signs, in one name.',
+      'At the bottom of the portfolio is the thin printed letter. On its first page: <i>Lettre &agrave; M. Dacier</i>, Paris, 1822.',
+      'Then it is Friday 27 September 1822, and you are standing at the side door of a long, tall room in the Institut, holding forty copies of a plate you drew backwards.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+  function hints() { return ER.flag('e-done') ? null : ['look', ['Click through the captions. When M. Champollion-Figeac asks you a question, choose the reason a careful member would accept.']]; }
+  function isBusy() { return busy; }
+
+  (function () {
+    var s = '', rows = [['a', 'A'], ['i', 'E'], ['ii', 'I'], ['q', 'K'], ['l', 'L'], ['m', 'M'], ['o', 'O'], ['p', 'P'], ['r', 'R'], ['s', 'S'], ['t', 'T'], ['egg', '']];
+    rows.forEach(function (r, i) {
+      var x = 780 + (i % 2) * 76, y = 282 + Math.floor(i / 2) * 30, w = ST.gw(r[0]), sc = 0.42;
+      s += '<text x="' + (x + 4) + '" y="' + (y + 18) + '" font-family="Cinzel,serif" font-weight="700" font-size="12" fill="#22201b">' + r[1] + '</text>';
+      s += '<g transform="translate(' + (x + 18) + ' ' + y + ') scale(' + sc + ')" fill="#22201b">' + ST.glyph(r[0]) + '</g>';
+    });
+    $('#miniplate').innerHTML = s;
+  })();
+
+  function begin() {
+    if (ER.flag('e-done')) { document.body.classList.add('talk'); busy = false; finish(true); return; }
+    ER.narrate([
+      'The meeting room of the Académie des Inscriptions is long and tall and smells of floor polish. The members sit along a table covered in green cloth, in black coats. At the end of it sits M. Dacier, the secretary, who is eighty years old and has heard a great many young men with theories.',
+      'Your plate stands on an easel beside the lectern, and a copy of it lies in front of every member. Among the listeners at the side is an English gentleman with a notebook: Dr Thomas Young, who is in Paris this month. M. Sautel is at the back, by the door, with his pamphlet in his pocket.',
+      'M. Champollion stands up. He is pale, and thinner than the young man who ran up the stairs a fortnight ago, and he reads in a clear voice: a letter to M. Dacier, on the alphabet of the sound signs.',
+      'He reads Ptolemy, sign by sign, and Cleopatra, and points to your plate for every sign. He reads Alexander, and Berenice, and the names and titles of Roman emperors, written in the same signs on the temples of Egypt. Nobody coughs.'
+    ], function () { busy = false; ask(); });
+  }
+  function ask() {
+    var w = $('#why'); w.classList.add('on');
+    ER.$$('button', w).forEach(function (bt) {
+      bt.addEventListener('click', function () {
+        var v = bt.getAttribute('data-v'), a = w.querySelector('.ans');
+        if (v === 'faint') { ER.sfx.no(); a.innerHTML = '&ldquo;A good story,&rdquo; he whispers. &ldquo;But learned men do not believe in fainting. Try again.&rdquo;'; return; }
+        if (v === 'greek') { ER.sfx.no(); a.innerHTML = '&ldquo;The Greek says the three texts are one. It does not say which sign is which. That had to be found. Try again.&rdquo;'; return; }
+        w.classList.remove('on'); ST.sfx.pencil();
+        ER.narrate([
+          '&ldquo;Yes,&rdquo; he whispers. &ldquo;Sign by sign. Say exactly that.&rdquo;',
+          'When M. Champollion finishes there is a silence, the kind that is not yet applause. Then M. Dacier thanks him, and the members all begin to talk at once, and three of them get up to look at your plate from close to.',
+          'Afterwards Dr Young and M. Champollion meet and talk, politely, in French. In the years to come they will argue about who did what. Both of them did a great deal: Dr Young was the first to read a royal name in the sacred signs, and M. Champollion was the first to read the writing.',
+          'M. Sautel stops beside you on his way out. &ldquo;The lion is an L,&rdquo; he says. &ldquo;I heard it with my own ears.&rdquo; He looks at your plate for a long moment. &ldquo;All the same, it looks strong.&rdquo;',
+          'The Archive keeps one box for each day that mattered. In this one there are a proof with five pins in it, two strips of paper with a thread, a page of an old almanac, a plate of signs with one sign that is not a sound, a café bill, and a thin printed letter. The letter is about the sound signs in royal names. The rest of the system, sound signs and meaning signs together, took him two more years and a book.'
+        ], function () { ER.flag('e-done', 1); document.body.classList.add('talk'); finish(false); });
+      });
+    });
+  }
+  ST.thing('#members', null, 'The members of the Académie, in black coats. One is asleep. The others are very much awake.', isBusy);
+  ST.thing('#dacier', null, 'M. Dacier, the secretary of the Académie. The letter is addressed to him.', isBusy);
+  ST.thing('#jf', null, 'M. Champollion, reading his letter. His hands shake a little; his voice does not.', isBusy);
+  ST.thing('#young', null, 'Dr Thomas Young, of London, taking notes in a small book.', isBusy);
+  ST.thing('#sautel', null, 'M. Sautel, at the back, listening harder than anybody.', isBusy);
+  ST.thing('#zelie', null, 'Zélie is mouthing the signs as he reads them: P, T, O, L.', isBusy);
+  ST.thing('#jj', null, 'M. Champollion-Figeac, standing at the side door with you, as nervous as if he were reading it himself.', isBusy);
+  ST.thing('#plate', null, 'Your plate: twelve rows, eleven sounds, and the egg.', isBusy);
+
+  function finish(quiet) {
+    var st = ER.state(), secs = (st.fin && st.fin.secs) || st.secs || 0, mins = Math.max(1, Math.round(secs / 60)), hn = ER.hintsUsed(), sl = ST.slips();
+    $('#d-time').textContent = 'The fortnight took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-slips').textContent = sl ? 'Somebody had to put you right ' + sl + (sl === 1 ? ' time.' : ' times.') : 'Nobody had to put you right, not once.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#done').classList.add('on');
+    if (!quiet) ST.solved();
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties the notebook. click again to do it';
+  });
+  $('#b-tell').addEventListener('click', function () {
+    var saved = ER.flag('tell') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Paris &middot; September 1822</h4><h3>Tell it to a friend</h3>' +
+      '<label for="r1">A friend says: &ldquo;Nobody could read hieroglyphs for fourteen hundred years. How did Champollion do it, and why did he faint?&rdquo; Explain it. Say it aloud first. Then write it, in 60 to 90 words. Use all three of these: <b>cartouche</b>, <b>sound sign</b>, <b>Coptic</b>.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’'-]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('tell', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

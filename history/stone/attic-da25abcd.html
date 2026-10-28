@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Attic · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#1c140e;--accent:#f0b85a;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,17,11,.96);--tc-ink:#f3e7d0;--cap-bg:rgba(26,18,12,.94);--panel:#2a1e14;--face-bg:#3a2a1c;--q-ink:#f6c77a;--fade:#080503;--hud-bg:rgba(26,18,12,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #rain path{animation:rn .7s linear infinite}
+  @keyframes rn{from{transform:translate(4px,-30px)}to{transform:translate(-4px,30px)}}
+  #flame{animation:fl 1.3s steps(3,end) infinite;transform-origin:1012px 470px}
+  @keyframes fl{50%{transform:scaleY(.86)}}
+  #curtainL{animation:cur 8s steps(1,end) infinite;transform-origin:1400px 120px}
+  @keyframes cur{0%{transform:skewX(0)}48%{transform:skewX(-1deg)}52%{transform:skewX(0)}}
+  #strips.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the two rings, side by side */
+  .cp{display:grid;grid-template-columns:minmax(0,780px) 220px;gap:18px;width:min(1030px,97vw);align-items:start}
+  .cp-desk{padding:12px 14px 12px;background:#efe4c8 linear-gradient(176deg,rgba(255,255,255,.35),rgba(120,90,40,.14));box-shadow:0 18px 44px rgba(0,0,0,.6);border:1px solid #b9a27a;color:#2a2116}
+  .cp-desk h6{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#6a4a2a}
+  .cp-desk svg{display:block;width:100%;height:auto;color:#2a2116}
+  .cp .sg{cursor:pointer}
+  .cp .sg:hover .sg-hit{fill:rgba(240,184,90,.28)}
+  .cp .sg.sel .sg-hit{fill:rgba(240,184,90,.55)}
+  .cp .sg.bad .sg-hit{fill:rgba(179,38,28,.3)}
+  .th{stroke:#a8261c;stroke-width:3;fill:none;stroke-linecap:round}
+  .th.ok{stroke:#2d6a34}
+  .th.no{stroke:#b3261c;stroke-dasharray:6 5}
+  .slot rect{fill:#fbf7ea;stroke:#8a6a3a;stroke-width:1.5}
+  .slot text{font-family:'Cinzel',serif;font-weight:700;font-size:19px;fill:#2a2116;text-anchor:middle}
+  .slot{cursor:pointer}
+  .slot.on rect{stroke:#f0b85a;stroke-width:3}
+  .slot.ok rect{fill:#dcecd2;stroke:#3d6b34}
+  .slot.no rect{fill:#f6d6cf;stroke:#b3261c}
+  .slot.fixed{cursor:default}
+  .slot.fixed rect{fill:#ece4cf;stroke-dasharray:3 3}
+  .slot.off{display:none}
+  .cp-note{font-family:'Caveat',cursive;font-size:19px;fill:#6a5638}
+  .cp-btns{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  @media (max-width:900px){.cp{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5038"/><stop offset=".6" stop-color="#4e3a28"/><stop offset="1" stop-color="#2e2218"/></linearGradient>
+  <linearGradient id="roofG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a2a1c"/><stop offset="1" stop-color="#5a4430"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8288"/><stop offset="1" stop-color="#a9adaa"/></linearGradient>
+  <radialGradient id="candleG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset=".4" stop-color="#ffc870" stop-opacity=".18"/><stop offset="1" stop-color="#ffc870" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#080503" stop-opacity=".25"/><stop offset="1" stop-color="#040201" stop-opacity=".88"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<!-- the sloping roof -->
+<polygon points="-1000,-400 2600,-400 2600,60 1180,60 -1000,520" fill="url(#roofG)"/>
+<g stroke="#2a1c12" stroke-width="16"><path d="M-1000 470L1180 40M-300 330L-300 -400M200 230V-400M700 130V-400"/></g>
+<path d="M1180 40H2600" stroke="#2a1c12" stroke-width="18"/>
+<g stroke="#2a1c12" stroke-width="5" opacity=".6"><path d="M-1000 360L1100 -60M-1000 250L900 -130"/></g>
+<!-- the skylight, with rain on it -->
+<g id="sky" class="hot">
+  <polygon points="560,190 860,130 860,250 560,310" fill="url(#skyG)"/>
+  <g fill="#5a6066" opacity=".8"><path d="M560 300l40-20 30 10 40-24 40 14 40-18 30 8 40-14 40 4V250L560 310z"/></g>
+  <g id="rain" stroke="#dfe6ea" stroke-width="2" opacity=".55"><path d="M600 210l-6 24M650 200l-6 24M700 192l-6 24M760 180l-6 24M820 168l-6 24M620 260l-6 24M690 250l-6 24M750 236l-6 24M810 226l-6 24"/></g>
+  <polygon points="560,190 860,130 860,250 560,310" fill="none" stroke="#2a1c12" stroke-width="8"/><path d="M710 160V280" stroke="#2a1c12" stroke-width="6"/>
+</g>
+<!-- the stove -->
+<g id="stove" class="hot"><rect x="120" y="560" width="150" height="180" rx="12" fill="#2a2420"/><rect x="140" y="640" width="110" height="60" rx="6" fill="#1a1612"/><rect x="152" y="652" width="86" height="36" fill="#a8401c" opacity=".7"/>
+  <rect x="180" y="300" width="28" height="260" fill="#2a2420"/><path d="M180 300q-2-200 140-330" stroke="#2a2420" stroke-width="26" fill="none"/>
+  <rect x="130" y="540" width="130" height="24" rx="4" fill="#3a322c"/><rect x="200" y="510" width="40" height="34" rx="6" fill="#6a5a4a"/></g>
+<!-- shelves of books against the low wall -->
+<g><rect x="300" y="420" width="250" height="300" fill="#3a2818"/><g fill="#6a2a1e"><rect x="312" y="436" width="16" height="80"/><rect x="330" y="444" width="14" height="72"/></g><g fill="#2a3a5a"><rect x="346" y="432" width="18" height="84"/><rect x="366" y="440" width="12" height="76"/></g><g fill="#7a6a3a"><rect x="380" y="436" width="22" height="80"/><rect x="404" y="446" width="14" height="70"/></g><g fill="#3a4a2a"><rect x="420" y="434" width="16" height="82"/><rect x="438" y="440" width="20" height="76"/></g><g fill="#6a2a1e"><rect x="460" y="436" width="14" height="80"/><rect x="476" y="430" width="22" height="86"/><rect x="500" y="442" width="16" height="74"/><rect x="518" y="436" width="20" height="80"/></g>
+  <rect x="300" y="516" width="250" height="8" fill="#2a1c10"/><g fill="#efe4c8"><rect x="312" y="560" width="220" height="10" transform="rotate(-2 420 565)"/><rect x="316" y="574" width="210" height="10"/><rect x="310" y="588" width="226" height="12" transform="rotate(1 420 594)"/><rect x="318" y="604" width="214" height="10"/></g><rect x="300" y="620" width="250" height="8" fill="#2a1c10"/></g>
+
+<!-- the lithograph of the obelisk, pinned to the sloping wall -->
+<g id="litho" class="hot">
+  <rect x="1180" y="190" width="170" height="300" fill="#e3e6e4" transform="rotate(3 1265 340)"/>
+  <g transform="rotate(3 1265 340)"><path d="M1246 460L1254 240 1264 224 1274 240 1282 460z" fill="#c9c6bc" stroke="#55606a" stroke-width="2"/><rect x="1238" y="460" width="52" height="14" fill="#bdb8aa" stroke="#55606a" stroke-width="2"/>
+  <rect x="1257" y="300" width="14" height="40" rx="6" fill="none" stroke="#8c2f24" stroke-width="2"/><rect x="1257" y="350" width="14" height="46" rx="6" fill="none" stroke="#8c2f24" stroke-width="2"/>
+  <text x="1310" y="380" font-family="Caveat,cursive" font-size="16" fill="#5a5f66">Cleopatra</text>
+  <circle cx="1265" cy="198" r="5" fill="#3a3a3a"/></g>
+</g>
+
+<!-- the curtain to the alcove where he sleeps -->
+<g id="curtain" class="hot">
+  <rect x="1380" y="100" width="400" height="660" fill="#1a120c"/>
+  <path d="M1460 640h320v80h-320z" fill="#efe4c8" opacity=".75"/><path d="M1460 620h40v100h-40z" fill="#4a3424"/>
+  <g fill="#2a2018"><path d="M1600 700q10-30 30-30h20v40h-50z"/><path d="M1660 700q10-30 30-30h20v40h-50z"/></g>
+  <path id="curtainL" d="M1380 100h120q-30 300 10 660h-130z" fill="#6a2a24"/>
+  <path d="M1380 100h120q-30 300 10 660" fill="none" stroke="#4a1a16" stroke-width="4"/>
+  <g stroke="#4a1a16" stroke-width="3" opacity=".6"><path d="M1410 120q-10 300 6 620M1450 120q-20 300 4 620"/></g>
+  <path d="M1360 96h440" stroke="#2a1c12" stroke-width="10"/>
+</g>
+
+<!-- the desk -->
+<g id="desk">
+  <rect x="420" y="560" width="760" height="24" fill="#6a4a2e"/><rect x="440" y="584" width="40" height="230" fill="#4a3220"/><rect x="1120" y="584" width="40" height="230" fill="#4a3220"/>
+  <g fill="#efe4c8"><rect x="450" y="534" width="120" height="26" transform="rotate(-4 510 547)"/><rect x="1040" y="530" width="110" height="30" transform="rotate(5 1095 545)"/><rect x="1060" y="520" width="90" height="20" transform="rotate(-3 1105 530)"/></g>
+  <g id="folder" class="hot"><rect x="900" y="528" width="120" height="32" fill="#7a3a24"/><rect x="906" y="520" width="108" height="10" fill="#efe4c8"/><circle cx="960" cy="520" r="9" fill="#5a5a5a"/></g>
+</g>
+<g id="strips" class="hot">
+  <rect x="580" y="500" width="300" height="26" fill="#f4ecd6" transform="rotate(-2 730 513)"/>
+  <rect x="590" y="530" width="300" height="26" fill="#f4ecd6" transform="rotate(1 740 543)"/>
+  <g transform="rotate(-2 730 513)" fill="#2a2116"><rect x="600" y="504" width="240" height="18" rx="9" fill="none" stroke="#2a2116" stroke-width="2"/><rect x="612" y="508" width="9" height="9"/><path d="M628 518q0-7 7-7t7 7z"/><path d="M660 518h24v-6h-24z"/></g>
+  <g transform="rotate(1 740 543)" fill="#2a2116"><rect x="606" y="534" width="270" height="18" rx="9" fill="none" stroke="#2a2116" stroke-width="2"/><path d="M618 548q2-8 10-10v10z"/><path d="M640 548h20v-6h-20z"/><ellipse cx="860" cy="543" rx="3" ry="5" fill="none" stroke="#2a2116" stroke-width="1.5"/></g>
+</g>
+<g id="card" class="hot"><rect x="900" y="476" width="84" height="44" fill="#f4ecd8" transform="rotate(-8 942 498)"/><g stroke="#6a5638" stroke-width="1.5" transform="rotate(-8 942 498)"><path d="M908 488h60M908 497h66M908 506h52"/></g></g>
+<!-- the candle -->
+<circle cx="1012" cy="470" r="200" fill="url(#candleG)" pointer-events="none"/>
+<g><rect x="1004" y="476" width="16" height="50" fill="#f4ecd6"/><rect x="994" y="524" width="36" height="8" rx="3" fill="#8a6a3a"/><path id="flame" d="M1012 476q-8-12 0-26q8 14 0 26z" fill="#ffd27a"/></g>
+
+<!-- Zélie at the desk -->
+<g id="zelie" class="hot">
+  <path d="M600 820q-6-120 26-150q24-14 46 0q32 32 24 150z" fill="#5a6e8a"/>
+  <rect x="640" y="640" width="20" height="26" fill="#f0cfb2"/><ellipse cx="650" cy="616" rx="27" ry="31" fill="#f0cfb2"/>
+  <path d="M622 618q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="650" cy="578" r="13" fill="#6a3a1e"/>
+  <circle cx="640" cy="620" r="2.6" fill="#1b1512"/><circle cx="660" cy="620" r="2.6" fill="#1b1512"/>
+</g>
+<!-- M. Champollion-Figeac, by the curtain -->
+<g id="jj" class="hot">
+  <path d="M1250 860V700q0-50 50-56q50 6 50 56v160z" fill="#1f2229"/>
+  <path d="M1276 656l24 24 24-24 4 18-28 14-28-14z" fill="#f4f0e6"/>
+  <rect x="1288" y="620" width="24" height="30" fill="#eac3a0"/><ellipse cx="1300" cy="592" rx="30" ry="36" fill="#eac3a0"/>
+  <path d="M1270 586q0-40 30-40t30 40q-6-22-30-24q-24 2-30 24z" fill="#4a3324"/><path d="M1272 584q-2 26 6 36M1328 584q2 26-6 36" stroke="#4a3324" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="1289" cy="594" r="2.6" fill="#1b1512"/><circle cx="1311" cy="594" r="2.6" fill="#1b1512"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Walk down to the quai</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false, phase = 0;
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'attic', no: 'II', title: 'The Attic',
+    go: 'Climb the last stairs', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'On the proof, the pins went in by counting and by order. In the middle script the group that came four times was KING, not PTOLEMY as M. Sautel&rsquo;s pamphlet said. PTOLEMY came three times, each time just after KING, and TEMPLE twice, in the places the slip gave it. Among the sacred signs the king&rsquo;s name stood in a ring: the long ring where the Greek had his full title, the short rings where it had only PTOLEMY.',
+      'You turn the proof over. Underneath it in the portfolio is the drawing of a small obelisk, and two strips of paper with rings drawn on them, and a thread still tied round one of them.',
+      'Then it is Sunday 15 September 1822, and it is raining on the roofs of Paris, and you are climbing the last and narrowest flight of stairs at number 28, rue Mazarine.'
+    ],
+    exit: {"next":"quai","w":{"260b8996":"898a768f"}}, tags: {"th":["58c7d5d3","8571098d","860bdeb7","afe8a9c9"],"pl":["52fee3af","ce143d7e","5dea973b","eb423ed4","8cc1558f","c0cb7b6c","d5a2b874"],"cl":["92e8de3c","b2ac168c","3f2cead9","55146f87","dcf1e9de","4c78cf56","befe40c7","7cf64293","ce8c8d44","db74636e","e95b0a34"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('a-file') || null;
+
+  function isBusy() { return busy; }
+  function paint() {
+    $('#strips').classList.toggle('ready', !!ER.flag('a-lit') && !!ER.flag('a-card') && !nextFile);
+    ER.pips(nextFile ? 2 : ER.flag('a-th') ? 1 : 0, 2);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Both rings are read. Use the button at the bottom of the screen.']];
+    if (inLock && phase === 0) return ['threads', [
+      'A thread joins two signs that are drawn alike, one in each ring. Take each sign of the top ring in turn and hunt for its twin below.',
+      'Look closely at the reeds: one leaf is not the same sign as two leaves.',
+      'There are more twins than the three you find first. Look along the whole of the lower ring, right to the end.'
+    ]];
+    if (inLock) return ['letters', [
+      'Give each sign of the lower ring the letter that stands in its place in K-L-E-O-P-A-T-R-A. Count from the left: the faces look that way.',
+      'Twins have the same letter. The square is P in Ptolemy; so is its twin in Cleopatra. The same bird twice is the same letter twice.',
+      'The Greek name has nine letters and the ring eleven signs: what is left over at the end gets no letter (the long dash). In Ptolemy, the short sounds E, A and O between L, M, I and S have no sign of their own.'
+    ]];
+    if (!ER.flag('a-lit') || !ER.flag('a-card')) return ['read', [
+      'Read what is on the wall and on the desk first: the drawing of the obelisk pinned to the sloping wall, and M. Champollion-Figeac&rsquo;s card on the desk.',
+      'The drawing of the obelisk is on the right, near the curtain. The card is the small cream one beside the candle.'
+    ]];
+    return ['strips', ['Click the two paper strips with rings on them, side by side in the middle of the desk.']];
+  }
+
+  function begin() {
+    paint();
+    ST.need('stone', 'How to read the copy of the stone', ST.STONE, 'card', 'Pinned to the easel');
+    if (ER.flag('a-in')) { busy = false; ER.say(nextFile ? 'The attic. Both rings are read, and the rain has stopped.' : 'The attic in the rue Mazarine. The rain is still drumming on the skylight.'); return; }
+    ST.learn('attic', 'obelisk');
+    ER.narrate([
+      'The attic at the top of number 28: a sloping ceiling, a skylight running with rain, a stove that smokes, and paper everywhere: on the desk, on the shelves, on the floor in neat piles that nobody may move.',
+      'Behind a red curtain, M. Champollion is asleep. His brother says he woke once in the night, asked whether his drawings were safe, and went to sleep again before the answer.',
+      'M. Champollion-Figeac lights a candle, although it is morning. &ldquo;The Académie meets on Friday week, the 27th. My brother wants to read them a letter, and the letter needs a plate: a table of the sound signs, drawn clearly, so that every member can follow. You will draw it. Mademoiselle Zélie reads Greek. And neither of you will draw a single sign until you understand why it is there.&rdquo;',
+      '&ldquo;He began here, in January,&rdquo; he says, and lays two strips of paper side by side on the desk. &ldquo;With two names.&rdquo;'
+    ], function () { busy = false; ER.flag('a-in', 1); paint(); });
+  }
+
+  $('#litho').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.PHILAE, cls: 'litho', clue: { id: 'philae', title: 'The obelisk from Philae', kind: 'Lithograph, on the wall' }, done: function () { ST.learn('lithograph', 'obelisk'); ER.flag('a-lit', 1); paint(); } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.METHOD, cls: 'card', clue: { id: 'method', title: 'Two names, sign by sign', kind: 'A card on the desk' }, done: function () { ST.learn('vowel', 'sound sign'); ER.flag('a-card', 1); paint(); } });
+  });
+  $('#strips').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The two rings, every sign with its letter, and four red threads between them.'); return; }
+    if (!ER.flag('a-lit') || !ER.flag('a-card')) { ER.say('&ldquo;Not yet,&rdquo; says M. Champollion-Figeac. &ldquo;First the drawing on the wall, and my card. Then the strips.&rdquo;'); return; }
+    openLock();
+  });
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('M. Champollion&rsquo;s folder of copies. The drawings from yesterday are on top, under a paperweight: &ldquo;Later,&rdquo; says his brother.');
+  });
+  $('#zelie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Two signs for T, and two for nothing at all,&rdquo; says Zélie. &ldquo;I do not like loose ends. I like them even less on a plate.&rdquo;'); return; }
+    ER.talk({ who: 'Zélie Thorel', role: 'Madame Thorel’s niece, fifteen', face: ST.FACE('zelie'), lines: [
+      '&ldquo;M. Sautel says each picture is a word. If he is right, then the lion in Ptolemy&rsquo;s ring means strength. Fine: a king is strong. But if the same lion turns up in a queen&rsquo;s name too, in a different place, he will need a very strong queen.&rdquo;',
+      { q: 'What does the Greek on the obelisk say?', a: '&ldquo;It is a request from the priests of the island, to a King Ptolemy and a Queen Cleopatra. Read the note on the drawing: the Greek on the block is not a translation of the signs above it. So Mr Bankes was guessing. A good guess, but a guess.&rdquo;' },
+      { q: 'What do you think the rings are?', a: '&ldquo;If they are sounds, the two names should share some. PTOLEMAIOS and KLEOPATRA both have a P, a T, an O and an L. So look for four signs that the two rings share. If they are there, in the right places, M. Sautel can keep his strong queen.&rdquo;' }
+    ], clue: { id: 'zelie2', title: 'Zélie, about the two names', kind: 'What she said' } });
+  });
+  $('#jj').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'M. Champollion-Figeac', role: 'Jacques-Joseph, the elder brother', face: ST.FACE('jj'), lines: [
+      '&ldquo;The ring from the Rosetta Stone is the short one, Ptolemy alone. Dr Young of London showed that it was Ptolemy&rsquo;s, in 1819, and gave the square as P and the half-loaf as T. Fair is fair: I have pencilled his two letters in.&rdquo;',
+      { q: 'And the other ring?', a: '&ldquo;From the obelisk at Philae: the one Mr Bankes marked Cleopatra. Mr Bankes could not read it. Nobody could. That is the point.&rdquo;' },
+      { q: 'Why can you not draw the plate yourself?', a: '&ldquo;Because I have M. Dacier&rsquo;s letters to write, and a brother to nurse, and a doctor who comes twice a day and disapproves of everything. And because your hand is steadier than mine.&rdquo;' }
+    ], clue: { id: 'jj2', title: 'M. Champollion-Figeac, about the two rings', kind: 'What he said' } });
+  });
+  ST.thing('#sky', null, 'Rain on the skylight, and above it the grey sky over the roofs of the left bank. A pigeon is sheltering under the edge of the frame.', isBusy);
+  ST.thing('#stove', null, 'The stove smokes when the wind is in the west. Today the wind is in the west.', isBusy);
+  ST.thing('#curtain', null, 'Behind the curtain M. Champollion is asleep. His boots stand at the end of the bed, side by side, as if they were waiting for him.', isBusy);
+
+  /* ---------- the lock: threads, then letters ---------- */
+  var LET = ['A', 'E', 'I', 'K', 'L', 'M', 'O', 'P', 'R', 'S', 'T', '-'];
+  function build() {
+    var b = ER.el('div', 'cp'), lock = false, sel = null, threads = {}, val = { p: { 1: 'P', 2: 'T' }, c: {} }, pick = null;
+    var SC = 1.18, PX = 20, PY = 70, CX = 20, CY = 252;
+    var rp = ST.ringG(ST.PTOL, { gap: 8 }), rc = ST.ringG(ST.CLEO, { gap: 8 });
+    var s = '<svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">';
+    s += '<text x="20" y="22" class="cp-note">The short ring of Ptolemy, from the Rosetta Stone</text>';
+    s += '<g transform="translate(' + PX + ' ' + PY + ') scale(' + SC + ')" class="rP">' + rp.svg + '</g>';
+    s += '<text x="20" y="' + (CY - 20) + '" class="cp-note">The ring Mr Bankes marked Cleopatra, from the obelisk at Philae</text>';
+    s += '<g transform="translate(' + CX + ' ' + CY + ') scale(' + SC + ')" class="rC">' + rc.svg + '</g>';
+    s += '<g id="ths"></g><g id="slotsP"></g><g id="slotsC"></g>';
+    s += '<text x="880" y="22" text-anchor="end" class="cp-note">P and T: Dr Young, 1819</text></svg>';
+    b.innerHTML = '<div class="cp-desk"><h6 id="cp-h">Join each pair of twin signs with a thread: click a sign in one ring, then its twin in the other.</h6>' + s +
+      '<div class="lp" id="lp"></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + ST.FACE('zelie') + '</div><h6 class="lk-h">Zélie</h6><p class="pmsg"></p>' +
+      '<div class="cp-btns"><button type="button" class="btn" id="cp-clear">Cut all the threads</button><button type="button" class="btn" id="cp-go">Check the threads</button></div></div>';
+    var msgEl = b.querySelector('.pmsg'), go = b.querySelector('#cp-go'), clear = b.querySelector('#cp-clear'), lp = b.querySelector('#lp');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    var px = rp.at.map(function (x) { return PX + x * SC; }), cx = rc.at.map(function (x) { return CX + x * SC; });
+    var pBot = PY + 62 * SC, cTop = CY - 4;
+    function drawThreads(marks) {
+      var t = '';
+      Object.keys(threads).forEach(function (i) {
+        var j = threads[i], cls = marks && marks[i] ? ' ' + marks[i] : '';
+        t += '<path class="th' + cls + '" d="M' + px[i - 1] + ' ' + pBot + 'C' + px[i - 1] + ' ' + (pBot + 60) + ' ' + cx[j - 1] + ' ' + (cTop - 60) + ' ' + cx[j - 1] + ' ' + cTop + '"/>';
+      });
+      b.querySelector('#ths').innerHTML = t;
+    }
+    function slot(row, i, x, y) {
+      var v = val[row][i] || '', fixed = row === 'p' && i <= 2;
+      return '<g class="slot' + (fixed ? ' fixed' : '') + (phase ? '' : ' off') + '" data-r="' + row + '" data-i="' + i + '" transform="translate(' + (x - 15) + ' ' + y + ')"><rect width="30" height="30" rx="3"/><text x="15" y="22">' + (v === '-' ? '—' : v) + '</text></g>';
+    }
+    function drawSlots() {
+      b.querySelector('#slotsP').innerHTML = px.map(function (x, k) { return slot('p', k + 1, x, PY - 36); }).join('');
+      b.querySelector('#slotsC').innerHTML = cx.map(function (x, k) { return slot('c', k + 1, x, CY + 62 * SC + 6); }).join('');
+      ER.$$('.slot', b).forEach(function (n) {
+        n.addEventListener('click', function () {
+          if (lock || !phase || n.classList.contains('fixed')) return;
+          ER.$$('.slot', b).forEach(function (o) { o.classList.remove('on'); }); n.classList.add('on');
+          pick = { r: n.getAttribute('data-r'), i: +n.getAttribute('data-i') };
+          lp.innerHTML = '<span class="lp-l">' + (pick.r === 'p' ? 'Ptolemy' : 'Cleopatra') + ', sign ' + pick.i + ':</span>' + LET.map(function (l) { return '<button type="button" data-l="' + l + '">' + (l === '-' ? '—' : l) + '</button>'; }).join('');
+          ER.$$('button', lp).forEach(function (bt) {
+            bt.addEventListener('click', function () {
+              if (!pick || lock) return;
+              val[pick.r][pick.i] = bt.getAttribute('data-l'); ST.sfx.pencil();
+              var keep = pick; drawSlots();
+              var nn = b.querySelector('.slot[data-r="' + keep.r + '"][data-i="' + keep.i + '"]'); if (nn) nn.classList.add('on');
+            });
+          });
+        });
+      });
+    }
+    function marks(row) { ER.$$('.slot[data-r="' + row + '"]', b).forEach(function (n) { n.classList.remove('ok', 'no'); }); }
+    ER.$$('.rP .sg, .rC .sg', b).forEach(function (g) {
+      g.addEventListener('click', function () {
+        if (lock || phase) return;
+        var row = g.closest('.rP') ? 'p' : 'c', i = +g.getAttribute('data-i');
+        if (!sel || sel.r === row) {
+          ER.$$('.sg', b).forEach(function (o) { o.classList.remove('sel', 'bad'); });
+          sel = { r: row, i: i }; g.classList.add('sel'); ST.sfx.pencil(); return;
+        }
+        var pi = row === 'p' ? i : sel.i, ci = row === 'c' ? i : sel.i;
+        ER.$$('.sg', b).forEach(function (o) { o.classList.remove('sel', 'bad'); });
+        sel = null;
+        if (threads[pi] === ci) { delete threads[pi]; ST.sfx.snip(); drawThreads(); msg('Cut. That thread is gone.'); return; }
+        Object.keys(threads).forEach(function (k) { if (threads[k] === ci) delete threads[k]; });
+        threads[pi] = ci; ST.sfx.thread(); drawThreads(); msg('');
+      });
+    });
+    clear.addEventListener('click', function () {
+      if (lock) return;
+      if (!phase) { threads = {}; drawThreads(); msg('All the threads are cut.'); }
+      else { val = { p: { 1: 'P', 2: 'T' }, c: {} }; drawSlots(); lp.innerHTML = ''; msg('All the letters are rubbed out, except Dr Young&rsquo;s.'); }
+    });
+    function threadWhy(pi, ci) {
+      var a = ST.PTOL[pi - 1], c = ST.CLEO[ci - 1];
+      if (a === 'ii' && c === 'i') return '&ldquo;Look closely: two reeds in Ptolemy, one reed in Cleopatra. Not quite twins.&rdquo;';
+      return '&ldquo;Those two are not drawn alike: ' + ST.NAME[a] + ' and ' + ST.NAME[c] + '. Twins must be the same sign.&rdquo;';
+    }
+    go.addEventListener('click', function () {
+      if (lock) return;
+      if (!phase) {
+        var keys = Object.keys(threads), bad = null, mk = {};
+        if (!keys.length) { msg('&ldquo;No threads yet. Click a sign in one ring, then its twin in the other.&rdquo;'); return; }
+        keys.forEach(function (k) { var ok = ER.check('th', k + '-' + threads[k]); mk[k] = ok ? 'ok' : 'no'; if (!ok && !bad) bad = [+k, threads[k]]; });
+        drawThreads(mk);
+        if (bad) { ST.slip(); ER.sfx.no(); msg(threadWhy(bad[0], bad[1])); return; }
+        if (keys.length < 4) { ST.slip(); ER.sfx.no(); msg('&ldquo;Every thread you have joins true twins. But not every pair of twins has its thread yet. Go along both rings to the very end.&rdquo;'); return; }
+        phase = 1; ER.flag('a-th', 1); ER.sfx.ok(); paint();
+        b.querySelector('#cp-h').textContent = 'Now give every sign its letter: click a box, then a letter. The long dash means: no letter here.';
+        go.textContent = 'Check the letters'; clear.textContent = 'Rub out the letters';
+        drawSlots();
+        msg('&ldquo;Four pairs of twins: the square, the lasso, the lion, and the half-loaf. And look where they stand. Now the letters. Count along the Greek names: K-L-E-O-P-A-T-R-A.&rdquo;');
+        return;
+      }
+      var need = [];
+      for (var i = 3; i <= 7; i++) if (!val.p[i]) need.push(i);
+      for (i = 1; i <= 11; i++) if (!val.c[i]) need.push(i);
+      if (need.length) { msg('&ldquo;Every box needs something, even if it is only the long dash.&rdquo;'); return; }
+      marks('p'); marks('c');
+      var first = '', nbad = 0;
+      function mark(row, i, ok) { var n = b.querySelector('.slot[data-r="' + row + '"][data-i="' + i + '"]'); if (n) n.classList.add(ok ? 'ok' : 'no'); if (!ok) nbad++; }
+      for (i = 3; i <= 7; i++) { var okp = ER.check('pl', i + ':' + val.p[i]); mark('p', i, okp); if (!okp && !first) first = whyP(i); }
+      for (i = 1; i <= 11; i++) { var okc = ER.check('cl', i + ':' + val.c[i]); mark('c', i, okc); if (!okc && !first) first = whyC(i); }
+      if (nbad) { ST.slip(); ER.sfx.no(); msg(first + (nbad > 1 ? ' (' + nbad + ' boxes are wrong.)' : '')); return; }
+      var cand = Object.keys(threads).sort().map(function (k) { return k + '-' + threads[k]; }).join('.') + '|' +
+        [1, 2, 3, 4, 5, 6, 7].map(function (k) { return val.p[k]; }).join('') + '|' + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (k) { return val.c[k]; }).join('');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Something is wrong with the rings: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('a-file', file); ER.flag('a-val', val); go.disabled = true; lp.innerHTML = '';
+      msg('Zélie reads both rings aloud, sign by sign. Then she reads them again, more slowly.');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    function whyP(i) {
+      var v = val.p[i];
+      if (i === 5 && v === 'E') return '&ldquo;The ring has seven signs, and PTOLEMAIOS ten letters. The scribe left out the short sounds. After the lion, which sound has a sign?&rdquo;';
+      if (i === 3 || i === 4) return '&ldquo;Use the threads. This sign has a twin in Cleopatra. What letter must the twin have there? Twins have one letter between them.&rdquo;';
+      return '&ldquo;Ptolemy, sign ' + i + '. Take the sounds of P-T-O-L-E-M-A-I-O-S in order, leave out the short ones, and see which is left for this sign.&rdquo;';
+    }
+    function whyC(i) {
+      var v = val.c[i];
+      if (i === 11 && v === 'O') return '&ldquo;I thought it was an O too: it looks like one. But KLEOPATRA has nine letters, and the ring has eleven signs. If the egg is an O, where is that O in the Greek?&rdquo;';
+      if (i === 10 && v === 'T') return '&ldquo;Then which sign is the T of KLEOPATRA, the one between A and R? KLEOPATRA has only one T.&rdquo;';
+      if (i >= 10) return '&ldquo;KLEOPATRA has nine letters, and the ring eleven signs. The last two have no letter of the Greek left to give them.&rdquo;';
+      if ((i === 6 || i === 9) && val.c[6] !== val.c[9]) return '&ldquo;The same bird twice, and two different letters? The same sign has the same sound.&rdquo;';
+      if ([2, 4, 5].indexOf(i) >= 0) return '&ldquo;Use the threads. This sign is twin to a sign of Ptolemy, and twins share their letter.&rdquo;';
+      return '&ldquo;Cleopatra, sign ' + i + '. Count along K-L-E-O-P-A-T-R-A from the left, the way the faces look.&rdquo;';
+    }
+    b.first = function () {
+      drawThreads();
+      msg(phase ? '&ldquo;Now the letters.&rdquo;' : '&ldquo;If these are sounds, the two names must share some signs. Find the twins: a sign in Ptolemy drawn exactly like a sign in Cleopatra. A thread for each pair.&rdquo;');
+    };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false;
+    ST.mine('rings', 'Two rings, sign by sign', '<p class="sgrow">' + ST.ring(ST.PTOL, 46) + '</p><p>P &middot; T &middot; O &middot; L &middot; M &middot; I &middot; S (no signs for the short E, A, O)</p>' +
+      '<p class="sgrow">' + ST.ring(ST.CLEO, 46) + '</p><p>K &middot; L &middot; E &middot; O &middot; P &middot; A &middot; T &middot; R &middot; A &middot; ? &middot; ?</p>' +
+      '<p>Twins in both: the <b>square P</b>, the <b>lasso O</b>, the <b>lion L</b>, and the <b>half-loaf</b>. The half-loaf is T in Ptolemy, but in Cleopatra the T is the <b>hand</b>, and the half-loaf stands near the end, with the egg, where the Greek has no letters left.</p>', true);
+    ER.narrate([
+      '&ldquo;P, T, O, L, M, I, S,&rdquo; reads Zélie. &ldquo;K, L, E, O, P, A, T, R, A.&rdquo; She stops, because she has never said anything so surprising in her life. &ldquo;They spell,&rdquo; she says. &ldquo;They really spell.&rdquo;',
+      'M. Champollion-Figeac nods slowly. &ldquo;That is what my brother saw in January. The same sign for the same sound, in the places where the Greek needs it. Signs that stand for sounds. M. Sautel&rsquo;s lion does not mean strength. It means L.&rdquo;',
+      '&ldquo;But,&rdquo; says Zélie, who is never quiet for long, &ldquo;Ptolemy&rsquo;s T is the half-loaf, and Cleopatra&rsquo;s T is the hand. And the half-loaf turns up again at the end of Cleopatra, with the egg, where there are no letters left. Two signs for one sound, and two signs for no sound at all. You cannot put that on a plate for the Académie and hope that nobody notices.&rdquo;',
+      '&ldquo;My brother has an answer,&rdquo; says his brother. &ldquo;He says it is in Coptic. His Coptic grammar is at the binder&rsquo;s, at Madame Usson&rsquo;s bookshop on the quai. Fetch it for me tomorrow. And mind M. Sautel: he is there every afternoon, telling anybody who will listen that he saw it all first.&rdquo;'
+    ], function () { busy = false; ST.learn('homophone'); paint(); });
+    paint();
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; ER.leave(nextFile);
+  });
+})();
+</script>
+</body>
+</html>

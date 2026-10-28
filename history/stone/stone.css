@@ -1,0 +1,139 @@
+/* Sign by Sign - what every room shares: the papers of 1822 (a card in ink, printed pages, a pamphlet, a cutting, a
+   lithograph, your own pencil notes), the signs, and a skin for the notebook and the hints (a portfolio of marbled
+   boards outside, laid paper inside). Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Cinzel',serif;letter-spacing:.16em}
+.tc-room{font-family:'Cinzel',serif}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.45vw,22px);line-height:1.5}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.42vw,22px);line-height:1.45}
+.tk-name{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.04em}
+.tk-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.36vw,21px)}
+.fr{font-style:italic}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px;border:1px solid var(--accent,#e2b04a);
+  color:var(--accent,#e2b04a);background:var(--hud-bg,rgba(10,12,10,.92));font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.14em;
+  border-radius:3px;white-space:nowrap}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e2b04a);color:#111}
+.pmsg{min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.38;color:#f1ecdf}
+.pmsg b{color:var(--accent,#e2b04a);font-weight:normal}
+.lk-h{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.16em;color:#d9cfb6}
+.lk-face{width:110px;border:1px solid rgba(255,255,255,.2);margin-bottom:8px;background:var(--face-bg,#2a2620)}
+.lk-face svg{display:block;width:100%;height:auto}
+.lk-side{min-width:0}
+.lk-btn{--accent:#2a241a}
+.lk-btn:hover:not([disabled]){color:#f6efdc}
+
+/* a sign, wherever it is drawn */
+.sgn{display:inline-block;vertical-align:middle;fill:currentColor;color:inherit;overflow:visible}
+.ringsv{display:inline-block;vertical-align:middle;fill:currentColor;overflow:visible}
+.sgrow{display:flex;align-items:flex-end;gap:6px;flex-wrap:wrap;margin:6px 0 10px!important;color:#2a2a30}
+.sgrow.torn{padding:6px 12px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 2px,transparent 2px 7px)}
+
+/* ---- the papers ---- */
+.doc svg{display:block;max-width:100%;height:auto;margin:4px 0 10px}
+.doc .sgn,.doc .ringsv{display:inline-block;margin:0}
+/* a card in ink, pinned */
+.doc.card{width:min(660px,94vw);padding:26px 34px 22px;background:#f4ecd8 linear-gradient(172deg,rgba(255,255,255,.5),rgba(140,110,60,.14));color:#2a2116;
+  font-family:'EB Garamond',Georgia,serif;font-size:17.6px;line-height:1.45;box-shadow:0 26px 70px rgba(0,0,0,.6);border-top:3px solid #b8a272}
+.doc.card h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:19px;letter-spacing:.06em;color:#3a2a18}
+.doc.card h5{margin:0 0 12px;font-family:'Caveat',cursive;font-weight:400;font-size:20px;color:#6a5638;border-bottom:1px solid #c9b48a;padding-bottom:6px}
+.doc.card p{margin:0 0 9px}
+.doc.card ol{margin:0 0 9px;padding-left:22px}
+.doc.card b{font-weight:700;color:#5a2a14}
+/* a printed page */
+.doc.print{width:min(660px,94vw);padding:26px 36px 22px;background:#f2ead6;color:#1f1b14;font-family:'Libre Caslon Text',Georgia,serif;font-size:15.8px;line-height:1.5;
+  box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 1px #d8c9a4}
+.doc.print h4{margin:0 0 2px;font-family:'Libre Caslon Text',serif;font-weight:700;font-size:20px;text-align:center;letter-spacing:.02em}
+.doc.print h5{margin:0 0 12px;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:15px;text-align:center;color:#5a5040;border-bottom:1px double #8a7a5a;padding-bottom:8px}
+.doc.print p{margin:0 0 9px;text-indent:1.2em}
+.doc.print p.kl{text-indent:0;text-align:center;font-variant:small-caps;letter-spacing:.06em;font-size:17px}
+.doc.print b{font-variant:small-caps;letter-spacing:.04em}
+.doc.print table{border-collapse:collapse;margin:4px 0 10px;width:100%}
+.doc.print td,.doc.print th{padding:3px 8px;border-bottom:1px dotted #a89878;text-align:left;vertical-align:top;font-size:15px}
+.doc.print th{font-family:'EB Garamond',serif;font-style:italic;font-weight:400;color:#5a5040;width:42%}
+.doc.print table.cop td:first-child{font-style:italic;font-weight:700;width:30%}
+/* M. Sautel's pamphlet */
+.doc.pamph{width:min(640px,94vw);padding:24px 34px 20px;background:#efe3c6 linear-gradient(180deg,rgba(255,255,255,.3),rgba(120,90,40,.16));color:#22190e;
+  font-family:'Libre Caslon Text',Georgia,serif;font-size:15.8px;line-height:1.48;box-shadow:0 26px 70px rgba(0,0,0,.6);border:1px solid #b9a172}
+.doc.pamph h4{margin:0 0 4px;font-family:'Abril Fatface',serif;font-weight:normal;font-size:30px;text-align:center;letter-spacing:.02em;color:#3a1a10}
+.doc.pamph h5{margin:0 0 12px;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:15px;text-align:center;color:#5a4630;border-bottom:3px double #6a4a2a;padding-bottom:8px}
+.doc.pamph p{margin:0 0 8px}
+.doc.pamph b{font-family:'Abril Fatface',serif;font-weight:normal;letter-spacing:.04em}
+/* a newspaper cutting */
+.doc.cutting{width:min(520px,92vw);padding:20px 26px 18px;background:#ece3cc;color:#201c14;font-family:'Libre Caslon Text',Georgia,serif;font-size:15.4px;line-height:1.46;
+  box-shadow:0 20px 50px rgba(0,0,0,.6),inset 0 0 0 10px #ece3cc,inset 0 0 0 12px #3a2a1a}
+.doc.cutting h4{margin:0;font-family:'Abril Fatface',serif;font-weight:normal;font-size:26px;text-align:center}
+.doc.cutting h5{margin:2px 0 10px;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:14.5px;text-align:center;border-bottom:1px solid #6a5a40;padding-bottom:6px}
+.doc.cutting p{margin:0 0 8px;text-align:justify}
+/* a lithograph on bluish paper */
+.doc.litho{width:min(700px,95vw);padding:22px 30px 18px;background:#e3e6e4;color:#1f262c;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.42;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);border:1px solid #9aa4aa}
+.doc.litho h4{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:19px;letter-spacing:.08em}
+.doc.litho h5{margin:0 0 8px;font-family:'Caveat',cursive;font-weight:400;font-size:19px;color:#4a5866}
+.doc.litho p{margin:0 0 8px}
+/* a pocket book in faded pencil */
+.doc.hand{width:min(560px,92vw);padding:24px 30px 20px;background:#efe6cf repeating-linear-gradient(transparent 0 30px,rgba(120,100,70,.22) 30px 31px);color:#4a4438;
+  font-family:'Caveat',cursive;font-size:24px;line-height:31px;border-left:12px solid #4a3a28;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.doc.hand h4{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:17px;line-height:31px}
+.doc.hand h5{margin:0;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:15px;line-height:31px;color:#6a5a48}
+.doc.hand p{margin:0}
+/* your own notes, in pencil on laid paper */
+.doc.mine{width:min(620px,92vw);padding:24px 30px 20px;background:#f3eedf repeating-linear-gradient(90deg,transparent 0 5px,rgba(120,110,80,.05) 5px 6px);color:#33384a;
+  font-family:'Caveat',cursive;font-size:23px;line-height:30px;border-left:8px solid #6a4a2a}
+.doc.mine h4{margin:0 0 4px;font-family:'Caveat',cursive;font-weight:700;font-size:26px;text-decoration:underline}
+.doc.mine p{margin:0 0 4px}
+.doc.mine b{color:#8c2f24;font-weight:700}
+.doc.mine .sgn,.doc.mine .ringsv{color:#33384a}
+.doc.statement{background:#f1e9d6;font-family:'EB Garamond',Georgia,serif;font-size:18px;border-left:6px solid #7a6a4a}
+
+/* in the notebook every paper lies flat and takes the width there is */
+.nb .nb-view .doc{width:100%;max-height:none;transform:none}
+
+/* ---- the notebook: marbled boards outside, laid paper inside ---- */
+.nb{background:#4a3a5a;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.08) 0 14%,transparent 15%),radial-gradient(circle at 70% 60%,rgba(0,0,0,.12) 0 18%,transparent 19%),
+  radial-gradient(circle at 40% 80%,rgba(255,220,180,.08) 0 10%,transparent 11%),linear-gradient(150deg,#5a4870,#2e2438);
+  border:1px solid #1e1826;border-radius:4px;color:#f1e9d6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 6px #6a3a24}
+.nb-tabs{border-bottom-color:#1e1826}
+.nb-tabs button{font-family:'Cinzel',serif;color:#efe3c6}
+.nb-tabs button.on{background:#f3eedf;color:#22201b;border-color:#a8935a}
+.nb-list{border-right-color:#1e1826}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17px;color:#f1e9d6}
+.nb-list button.on{background:#f3eedf;color:#22201b}
+.nb-view{background:#3a2e44}
+.nb-empty{font-family:'EB Garamond',serif}
+.nb-words{background:#f3eedf;color:#22201b}
+.nb-words b{font-family:'Cinzel',serif;font-weight:700}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.32;color:#4a473e}
+.nb-ko{border-color:#a8935a;color:#6b6552}
+.nb-ko.on{background:#22231e;color:#f3eedf;border-color:#22231e}
+.wtip,.wtag{background:#f3eedf;color:#22201b;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #6a3a24}
+.wtag{padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Cinzel',serif;font-weight:700;font-size:17px}
+.wtip span,.wtag span{font-family:'EB Garamond',serif;font-size:17px;line-height:1.3;color:#4a473e}
+.hintbox{background:#f8f3e6;color:#22201b;border-top:5px solid #6a3a24;border-radius:2px}
+.hintbox h6{font-family:'Cinzel',serif;color:#6a3a24}
+.hintbox p{font-family:'EB Garamond',Georgia,serif;font-size:17.5px;line-height:1.38}
+.hintbox p.hint-none{font-size:16px}
+.toast{font-family:'Cinzel',serif;background:rgba(20,16,12,.94)}
+
+/* ---- the letter-picker shared by the rings (rooms II and V) ---- */
+.lp{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;min-height:34px}
+.lp button{min-width:32px;height:32px;padding:0 6px;border:1px solid #6a5638;background:#f6efdc;color:#2a2116;font-family:'Cinzel',serif;font-weight:700;font-size:15px;cursor:pointer;border-radius:2px}
+.lp button:hover{background:#2a2116;color:#f6efdc}
+.lp .lp-l{align-self:center;margin-right:6px;font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:#5a4a30}
+
+/* ---- the last page's report ---- */
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#f8f3e6;color:#22231e;padding:24px 36px 20px;border-top:4px solid #6a3a24;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text}
+.rp h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.18em;color:#6b6552}
+.rp h3{margin:0 0 10px;font-family:'EB Garamond',serif;font-weight:700;font-size:25px;border-bottom:1px solid #c9b48a;padding-bottom:8px}
+.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.42;margin:8px 0 8px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#1d2a52;background:#fbf9f0 repeating-linear-gradient(transparent 0 33px,#c9c2ae 33px 34px);border:1px solid #b9b09a;
+  padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:204px}
+.rp input[type=text]{height:36px}
+.rp .count{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;opacity:.6;text-align:right;margin-top:4px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:12px}
+.rp .foot span{flex:1;font-family:'EB Garamond',serif;font-size:15px;opacity:.7}
+.rp .btn{--accent:#22231e}.rp .btn:hover:not([disabled]){color:#f8f3e6}

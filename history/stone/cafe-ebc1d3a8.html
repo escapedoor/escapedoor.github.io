@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Café by the Bridge · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#2a1a1a;--accent:#ffb070;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(34,20,20,.96);--tc-ink:#f6eadc;--cap-bg:rgba(36,22,22,.94);--panel:#2e1e1e;--face-bg:#4a2e2a;--q-ink:#ffc890;--fade:#0a0606;--hud-bg:rgba(36,22,22,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #steam path{animation:st 3s steps(6,end) infinite}
+  #steam path+path{animation-delay:-1.5s}
+  @keyframes st{0%{opacity:0;transform:translateY(0)}30%{opacity:.6}100%{opacity:0;transform:translateY(-34px)}}
+  #glowL,#glowR{animation:lamp 5s steps(1,end) infinite}
+  #glowR{animation-delay:-2s}
+  @keyframes lamp{0%{opacity:1}60%{opacity:.85}62%{opacity:1}}
+  #sunset{animation:sink 60s linear forwards}
+  @keyframes sink{to{transform:translateY(60px)}}
+  #table.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* reading two rings */
+  .rd{display:grid;grid-template-columns:minmax(0,800px) 210px;gap:18px;width:min(1030px,97vw);align-items:start}
+  .rd-p{padding:10px 14px 10px;background:#f6efe0;color:#2a2116;box-shadow:0 18px 44px rgba(0,0,0,.6);border:1px solid #c9b48a;margin-bottom:10px}
+  .rd-p.off{opacity:.38;pointer-events:none}
+  .rd-p.done{opacity:.8;pointer-events:none}
+  .rd-p h6{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#7a3a24}
+  .rd-p > svg{display:block;width:100%;height:auto;color:#2a2116}
+  .rd .slot rect{fill:#fbf7ea;stroke:#8a6a3a;stroke-width:1.5}
+  .rd .slot text{font-family:'Cinzel',serif;font-weight:700;font-size:19px;fill:#2a2116;text-anchor:middle}
+  .rd .slot{cursor:pointer}
+  .rd .slot.on rect{stroke:#ff8a3a;stroke-width:3}
+  .rd .slot.ok rect{fill:#dcecd2;stroke:#3d6b34}
+  .rd .slot.no rect{fill:#f6d6cf;stroke:#b3261c}
+  .rd-n{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:6px;font-family:'EB Garamond',serif;font-size:15px}
+  .rd-n > span{font-style:italic;color:#5a4a30;margin-right:4px}
+  .rd-n button,.rd-c button{padding:4px 9px;border:1px solid #8a7a5a;background:#fbf7ea;font-family:'EB Garamond',serif;font-size:14.6px;color:#22201b;cursor:pointer;border-radius:2px;text-align:left}
+  .rd-n button.on,.rd-c button.on{background:#22201b;color:#fbf7ea}
+  .rd-n button.ok,.rd-c button.ok{background:#2d6a34;color:#fff;border-color:#2d6a34}
+  .rd-n button.no,.rd-c button.no{background:#9a2a1c;color:#fff;border-color:#9a2a1c}
+  .rd-n .gk{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.06em}
+  .rd-cs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:4px}
+  .rd-c{display:flex;flex-direction:column;gap:3px;align-items:stretch}
+  .rd-c > div{display:flex;justify-content:center;height:48px;align-items:center;color:#2a2116}
+  .rd-c button{font-size:13.6px;line-height:1.15;padding:4px 6px}
+  .rd-btns{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  @media (max-width:900px){.rd{grid-template-columns:1fr}.rd-cs{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a30"/><stop offset="1" stop-color="#2e1c18"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5a86"/><stop offset=".45" stop-color="#d98a7a"/><stop offset=".8" stop-color="#f6c08a"/><stop offset="1" stop-color="#ffd9a0"/></linearGradient>
+  <linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8a88a"/><stop offset="1" stop-color="#6a5a70"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".6"/><stop offset=".4" stop-color="#ffc070" stop-opacity=".18"/><stop offset="1" stop-color="#ffc070" stop-opacity="0"/></radialGradient>
+  <linearGradient id="marbleG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2ece4"/><stop offset=".5" stop-color="#dcd2c6"/><stop offset="1" stop-color="#ece6dc"/></linearGradient>
+  <radialGradient id="vig" cx="48%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0606" stop-opacity=".25"/><stop offset="1" stop-color="#050303" stop-opacity=".86"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<rect x="-1000" y="560" width="3600" height="760" fill="#3a2418"/>
+<g fill="#4a2e20" stroke="#2a1810" stroke-width="3"><rect x="-200" y="600" width="300" height="200"/><rect x="1440" y="600" width="400" height="200"/></g>
+<g stroke="#2a1810" stroke-width="2" opacity=".5"><path d="M-1000 840H2600"/></g>
+<!-- the big window: the Seine at sunset, the iron bridge, the Louvre -->
+<g id="window" class="hot">
+  <rect x="100" y="90" width="680" height="520" fill="#2a1810"/>
+  <rect x="116" y="106" width="648" height="488" fill="url(#skyG)"/>
+  <circle id="sunset" cx="560" cy="300" r="34" fill="#ffe2a0" opacity=".9"/>
+  <g fill="#6a4a5a"><path d="M116 360h648v-26l-50-10-80 8-90-12-120 10-90-6-110 12-58-4z"/><rect x="116" y="360" width="648" height="40"/></g>
+  <g fill="#5a3e4e"><rect x="130" y="368" width="10" height="16"/><rect x="164" y="368" width="10" height="16"/><rect x="198" y="368" width="10" height="16"/><rect x="232" y="368" width="10" height="16"/><rect x="266" y="368" width="10" height="16"/><rect x="300" y="368" width="10" height="16"/><rect x="334" y="368" width="10" height="16"/><rect x="368" y="368" width="10" height="16"/><rect x="402" y="368" width="10" height="16"/><rect x="436" y="368" width="10" height="16"/><rect x="470" y="368" width="10" height="16"/><rect x="504" y="368" width="10" height="16"/><rect x="538" y="368" width="10" height="16"/><rect x="572" y="368" width="10" height="16"/><rect x="606" y="368" width="10" height="16"/><rect x="640" y="368" width="10" height="16"/><rect x="674" y="368" width="10" height="16"/><rect x="708" y="368" width="10" height="16"/></g>
+  <rect x="116" y="400" width="648" height="194" fill="url(#riverG)"/>
+  <g stroke="#ffe2b8" stroke-width="2" opacity=".55"><path d="M500 430h80M520 460h50M490 500h100M530 540h40"/></g>
+  <g stroke="#2a1c22" stroke-width="4" fill="none"><path d="M116 420H764"/><path d="M130 420q40-40 80 0q40-40 80 0q40-40 80 0q40-40 80 0q40-40 80 0q40-40 80 0q40-40 80 0q40-40 80 0"/></g>
+  <g stroke="#2a1c22" stroke-width="2"><path d="M170 402v18M250 402v18M330 402v18M410 402v18M490 402v18M570 402v18M650 402v18M730 402v18"/></g>
+  <g fill="#2a1c22"><circle cx="300" cy="412" r="5"/><rect x="296" y="412" width="8" height="12"/><circle cx="520" cy="412" r="5"/><rect x="516" y="412" width="8" height="12"/></g>
+  <path d="M116 300q20-90 80-90t80 90z" fill="#4a3446" opacity=".85"/><rect x="116" y="300" width="160" height="64" fill="#4a3446" opacity=".85"/><path d="M196 210v-26" stroke="#4a3446" stroke-width="6"/>
+  <path d="M440 106v488M116 330h648" stroke="#2a1810" stroke-width="12"/>
+  <path d="M100 90h680v520H100z" fill="none" stroke="#1a0e08" stroke-width="6"/>
+</g>
+<!-- the mirror -->
+<g id="mirror" class="hot"><rect x="1000" y="100" width="420" height="330" fill="#c9a24a"/><rect x="1016" y="116" width="388" height="298" fill="#6a5a5a"/>
+  <rect x="1016" y="116" width="388" height="298" fill="url(#skyG)" opacity=".3"/><g fill="#ffe2a8" opacity=".6"><circle cx="1080" cy="200" r="8"/><circle cx="1340" cy="200" r="8"/></g>
+  <path d="M1030 400l70-120 40 60 60-90 60 100 60-50 50 100z" fill="#3a2a2a" opacity=".5"/></g>
+<!-- a newspaper on its stick -->
+<g id="paper" class="hot"><path d="M880 210v150" stroke="#5a3a20" stroke-width="6"/><rect x="884" y="220" width="90" height="120" fill="#efe6cf"/><g stroke="#6a5a40" stroke-width="1.5"><path d="M892 236h74M892 248h70M892 260h74M892 272h60M892 284h72M892 296h66M892 308h74"/></g></g>
+<!-- the lamps -->
+<g><circle id="glowL" cx="880" cy="160" r="150" fill="url(#lampG)" pointer-events="none"/><circle id="glowR" cx="1500" cy="160" r="150" fill="url(#lampG)" pointer-events="none"/>
+  <path d="M860 170h40l-6 30h-28z" fill="#c9a24a"/><rect x="872" y="140" width="16" height="30" rx="6" fill="#fff4d0"/><path d="M1480 170h40l-6 30h-28z" fill="#c9a24a"/><rect x="1492" y="140" width="16" height="30" rx="6" fill="#fff4d0"/></g>
+<!-- the counter, and the lady at the till -->
+<g id="till" class="hot"><rect x="1180" y="520" width="420" height="34" fill="#c9b8a8"/><rect x="1190" y="554" width="400" height="230" fill="#5a3a28"/>
+  <path d="M1360 520V430q0-40 40-44q40 4 40 44v90z" fill="#2a3a5a"/><rect x="1388" y="372" width="22" height="24" fill="#efcfb2"/><ellipse cx="1400" cy="352" rx="24" ry="28" fill="#efcfb2"/><path d="M1376 346q0-34 24-34t24 34q-10-14-24-14t-24 14z" fill="#3a2a1a"/><circle cx="1400" cy="314" r="10" fill="#3a2a1a"/>
+  <g fill="#f2ece4"><rect x="1220" y="498" width="40" height="22" rx="4"/><rect x="1270" y="500" width="30" height="20" rx="4"/></g><rect x="1470" y="490" width="80" height="30" fill="#7a5a3a"/></g>
+
+<!-- the table, with the drawings, the book and the coffee -->
+<g id="table" class="hot">
+  <ellipse cx="760" cy="640" rx="290" ry="56" fill="url(#marbleG)"/><path d="M470 640q290 80 580 0v14q-290 80-580 0z" fill="#b9ae9e"/>
+  <path d="M760 700v120M700 830h120" stroke="#2a1810" stroke-width="14"/>
+  <g id="karnak" class="hot"><rect x="560" y="606" width="130" height="50" fill="#f6efe0" transform="rotate(-6 625 631)"/><g transform="rotate(-6 625 631)"><rect x="572" y="618" width="106" height="24" rx="12" fill="none" stroke="#2a2116" stroke-width="2"/><path d="M582 636h12v-8h-12zM600 636h14q0-8-7-8t-7 8zM622 636v-12M640 630l4-4 4 4 4-4 4 4" fill="none" stroke="#2a2116" stroke-width="2"/></g></g>
+  <g id="huyot" class="hot"><rect x="720" y="600" width="120" height="56" fill="#f2e9d6" transform="rotate(5 780 628)"/><g transform="rotate(5 780 628)"><rect x="732" y="614" width="94" height="26" rx="13" fill="none" stroke="#2a2116" stroke-width="2"/><circle cx="750" cy="627" r="8" fill="none" stroke="#2a2116" stroke-width="2"/><circle cx="750" cy="627" r="2" fill="#2a2116"/><path d="M766 620v14M772 620v14M778 620v14M790 620v14M800 620v14" stroke="#2a2116" stroke-width="2"/></g></g>
+  <g id="kings" class="hot"><rect x="870" y="606" width="90" height="34" fill="#3a4a6a" transform="rotate(-3 915 623)"/><rect x="874" y="602" width="82" height="6" fill="#efe6cf" transform="rotate(-3 915 623)"/></g>
+  <g><ellipse cx="520" cy="630" rx="22" ry="8" fill="#f2ece4"/><path d="M506 610h28l-4 20h-20z" fill="#f2ece4"/><ellipse cx="520" cy="610" rx="14" ry="4" fill="#3a2010"/>
+    <ellipse cx="990" cy="640" rx="22" ry="8" fill="#f2ece4"/><path d="M976 620h28l-4 20h-20z" fill="#f2ece4"/><ellipse cx="990" cy="620" rx="14" ry="4" fill="#3a2010"/>
+    <g id="steam" fill="none" stroke="#fff" stroke-width="2.5" opacity=".5"><path d="M516 600q-6-10 0-20t0-20"/><path d="M988 610q6-10 0-20t0-20"/></g></g>
+</g>
+
+<!-- Zélie, on the left of the table -->
+<g id="zelie" class="hot">
+  <path d="M380 830q-6-140 28-170q24-14 46 0q32 30 24 170z" fill="#5a6e8a"/>
+  <rect x="420" y="626" width="20" height="26" fill="#f0cfb2"/><ellipse cx="430" cy="602" rx="27" ry="31" fill="#f0cfb2"/>
+  <path d="M402 604q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="430" cy="564" r="13" fill="#6a3a1e"/>
+  <circle cx="420" cy="606" r="2.6" fill="#1b1512"/><circle cx="440" cy="606" r="2.6" fill="#1b1512"/>
+  <path d="M470 700q30-30 50-70" stroke="#5a6e8a" stroke-width="16" stroke-linecap="round" fill="none"/>
+</g>
+<!-- M. Champollion-Figeac, on the right -->
+<g id="jj" class="hot">
+  <path d="M1050 840V680q0-50 50-56q50 6 50 56v160z" fill="#1f2229"/>
+  <path d="M1076 636l24 24 24-24 4 18-28 14-28-14z" fill="#f4f0e6"/>
+  <rect x="1088" y="600" width="24" height="30" fill="#eac3a0"/><ellipse cx="1100" cy="572" rx="30" ry="36" fill="#eac3a0"/>
+  <path d="M1070 566q0-40 30-40t30 40q-6-22-30-24q-24 2-30 24z" fill="#4a3324"/><path d="M1072 564q-2 26 6 36M1128 564q2 26-6 36" stroke="#4a3324" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="1089" cy="574" r="2.6" fill="#1b1512"/><circle cx="1111" cy="574" r="2.6" fill="#1b1512"/>
+  <path d="M1050 700q-30 0-50-40" stroke="#1f2229" stroke-width="18" stroke-linecap="round" fill="none"/>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the Académie on the 27th</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false, stage = 0;
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'cafe', no: 'V', title: 'The Café by the Bridge',
+    go: 'Sit down', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'At the press every sign went into the row of its sound. The half-loaf and the hand both went under T: one sound can have two signs, as French writes K with C, K or QU. The egg went to the bottom row. It is not a sound but a sign of meaning, and it says that the name is a woman&rsquo;s; the half-loaf before it is the T that Egyptian puts on words for women, as Coptic still says <i>t-shime</i>, the woman.',
+      'Under the printed table in the portfolio there is a café bill for three coffees, with a ring of signs drawn on the back of it in pencil.',
+      'Then it is Friday 20 September 1822, five o&rsquo;clock in the afternoon, and the sun is low over the river.'
+    ],
+    exit: {"next":"academy","w":{"8cf1548d":"2c29da16"}}, tags: {"al":["03cd31ec","13776602","b9445a38","37ec9c04","5c3b5a1a","1b950f27","feea5420","9d10f4b7","488a9c05","f85a40a6","7faea5af","90a20965"],"an":["589cff94"],"rs":["37742af0","12d1da68","6c9fdf89","f7ded8b2"],"rn":["ff8c81eb"],"rm":["7219f21c"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('c-file') || null;
+  stage = ER.flag('c-st') || 0;
+
+  function isBusy() { return busy; }
+  function ready() { return ER.flag('c-kar') && ER.flag('c-huy') && ER.flag('c-kin'); }
+  function paint() {
+    $('#table').classList.toggle('ready', !!ready() && !nextFile);
+    ER.pips(nextFile ? 2 : stage, 2);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Both rings are read. Use the button at the bottom of the screen.']];
+    if (inLock && stage === 0) return ['karnak', [
+      'Read the ring from Karnak with your plate (it is in your notebook): give each sign you know its letter. Two signs are new: leave them for now.',
+      'You will have A, L, ?, S, a vowel, ?, T, R, S. Which of the Greek names on the Rosetta Stone fits that? The card about the stone lists them.',
+      'ALEXANDROS: A-L-E-X-A-N-D-R-O-S, and X is K and S together. Let the name give the two new signs their letters. And the hand stands for the Greek D here: it is a sound between our T and D.'
+    ]];
+    if (inLock) return ['huyot', [
+      'This ring is not a Greek name. Read each sign in the way it works: some signs are sounds, some are words. Your notebook has the birthday sign and the Coptic grammar.',
+      'The sun is a picture, and in Coptic the sun is RĒ: the name of the sun god, Ra. The three skins stand where the Greek of the stone says BIRTHDAY, and Coptic MISE means to give birth.',
+      'Ra, mes, s, s. Which of the old kings in Madame Usson&rsquo;s little history has a name like that?'
+    ]];
+    if (!ready()) return ['read', [
+      'Three things on the table to read first: the ring from Karnak, the drawing from Abu Simbel, and the little history of Egypt from Madame Usson.',
+      'The drawings are the two papers on the marble table; the history is the small blue book on the right of it. Then click the table.'
+    ]];
+    return ['table', ['Click the marble table to read the two rings.']];
+  }
+
+  function begin() {
+    paint();
+    ST.need('stone', 'How to read the copy of the stone', ST.STONE, 'card', 'Pinned to the easel');
+    ST.need('birth', 'The birthday sign', '<h4>The birthday sign</h4>' + ST.BIRTH, 'card', 'Pencilled on the proof');
+    ST.need('coptic', 'A grammar of the Coptic tongue', ST.COPTIC, 'print', 'From Madame Usson');
+    if (!ST.has('plate')) ST.mine('plate', 'The plate of sound signs', '<p>A ' + ST.sign('a', 24) + ' &middot; E ' + ST.sign('i', 24) + ' &middot; I ' + ST.sign('ii', 24) + ' &middot; K ' + ST.sign('q', 24) + ' &middot; L ' + ST.sign('l', 24) + ' &middot; M ' + ST.sign('m', 24) + ' &middot; O ' + ST.sign('o', 24) + ' &middot; P ' + ST.sign('p', 24) + ' &middot; R ' + ST.sign('r', 24) + ' &middot; S ' + ST.sign('s', 24) + ' &middot; T ' + ST.sign('t', 24) + ST.sign('d', 24) + '</p><p>no sound: ' + ST.sign('egg', 24) + ' (a woman)</p>', true);
+    if (ER.flag('c-in')) { busy = false; ER.say(nextFile ? 'The café. The light is going, and the lamps are lit.' : 'The café by the bridge. M. Champollion-Figeac is stirring his coffee and not drinking it.'); return; }
+    ST.learn('café');
+    ER.narrate([
+      'The café at the end of the bridge is full of the five o&rsquo;clock noise: cups, newspapers, men arguing about the price of bread and the government. Behind the counter a lady in a blue dress takes the money and misses nothing.',
+      'M. Champollion-Figeac has a table by the window. He looks as if he has slept for the first time in a week. &ldquo;My brother is better,&rdquo; he says. &ldquo;Better enough to be impossible. He has sent you these.&rdquo;',
+      'He lays two drawings on the marble. One is a ring copied from a temple wall at Karnak, with a question mark under it. The other is the drawing you picked up off the office floor on Saturday: the ring that begins with a circle with a dot in the middle.',
+      '&ldquo;He says: if you can read both, you will know why he fell down.&rdquo;'
+    ], function () { busy = false; ER.flag('c-in', 1); paint(); });
+  }
+
+  $('#karnak').addEventListener('click', function (e) {
+    e.stopPropagation(); if (busy) return;
+    ER.read({ html: ST.KARNAK, cls: 'card', clue: { id: 'karnak', title: 'A ring from Karnak', kind: 'Drawing, on the table' }, done: function () { ER.flag('c-kar', 1); paint(); } });
+  });
+  $('#huyot').addEventListener('click', function (e) {
+    e.stopPropagation(); if (busy) return;
+    ER.read({ html: ST.HUYOT, cls: 'card', clue: { id: 'huyot', title: 'From a temple far up the Nile', kind: 'Drawing, on the table' }, done: function () { ST.learn('temple'); ER.flag('c-huy', 1); paint(); } });
+  });
+  $('#kings').addEventListener('click', function (e) {
+    e.stopPropagation(); if (busy) return;
+    ER.read({ html: ST.KINGS, cls: 'print', clue: { id: 'kings', title: 'The old kings, as the Greeks wrote them', kind: 'From Madame Usson' }, done: function () { ER.flag('c-kin', 1); paint(); } });
+  });
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Two rings, both read. The coffee has gone cold, and nobody minds.'); return; }
+    if (!ready()) { ER.say('First read what is on the table: the ring from Karnak, the drawing from Abu Simbel, and the little blue history.'); return; }
+    openLock();
+  });
+  $('#zelie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ra,&rdquo; says Zélie, very quietly, to the window. &ldquo;Mes. Ses.&rdquo;'); return; }
+    ER.talk({ who: 'Zélie Thorel', role: 'Madame Thorel’s niece, fifteen', face: ST.FACE('zelie'), lines: [
+      '&ldquo;The Karnak ring has two signs we have never seen: a bowl with a handle, and a zigzag like water. But we know the rest. Seven signs out of nine. That is more than I usually know of a Latin lesson.&rdquo;',
+      { q: 'And the other ring?', a: '&ldquo;Only four signs, and only one of them is on our plate: the folded cloth, twice. The circle with the dot is not a sound we have. Nor are the three skins. Unless they are not sounds.&rdquo;' },
+      { q: 'What do you mean?', a: '&ldquo;M. Sautel says each picture is a word. On Sunday that was nonsense: the lion was an L. But a picture of the sun has to mean something. Perhaps some pictures are pictures after all.&rdquo;' }
+    ], clue: { id: 'zelie5', title: 'Zélie, about the two rings', kind: 'What she said' } });
+  });
+  $('#jj').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({ who: 'M. Champollion-Figeac', role: 'Jacques-Joseph, the elder brother', face: ST.FACE('jj'), lines: [
+      '&ldquo;The drawing with the circle came on Saturday morning. M. Huyot, an architect, made it at a temple in Nubia, at Abu Simbel, far up the Nile. My brother read it, and then he ran.&rdquo;',
+      { q: 'Why does it matter so much?', a: '&ldquo;Because that temple is far older than any Greek in Egypt. Ptolemy, Cleopatra, Alexander: those are Greek names, written by Egyptians for their foreign rulers. Dr Young believes that is the only time the sound signs were used. If an old Egyptian king&rsquo;s name can be read the same way, Dr Young is wrong about that, and the whole of the writing can be read.&rdquo;' },
+      { q: 'How can a sign be a word?', a: '&ldquo;Ask your grammar. My brother has been reading Coptic since he was sixteen: he says the old words are still in it, like coins in a wall.&rdquo;' }
+    ], clue: { id: 'jj5', title: 'M. Champollion-Figeac, about the old king', kind: 'What he said' } });
+  });
+  ST.thing('#window', null, 'The sun is low over the river, downstream, and the river has turned the colour of the inside of a shell.', isBusy);
+  ST.thing('#mirror', null, 'The big mirror doubles the lamps, the cups and the arguments.', isBusy);
+  ST.thing('#paper', null, 'Today&rsquo;s paper on its stick. Nothing in it about Egypt. Nothing in it about anything, says the man at the next table.', isBusy);
+  ST.thing('#till', null, 'The lady at the till. She has heard every argument in Paris twice, and charges for the second hearing.', isBusy);
+
+  /* ---------- the lock: a new name, then an old king ---------- */
+  var LET = ['A', 'D', 'E', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T'];
+  var NAMES = [['ars', 'ARSINOE'], ['alex', 'ALEXANDROS'], ['ber', 'BERENIKE'], ['ptol', 'PTOLEMAIOS']];
+  var COLS = [
+    [['r', 'R, a sound'], ['re', 'R&Emacr;: the sun, and the sun god&rsquo;s name, Ra'], ['ring', 'a picture of a ring: &ldquo;king&rdquo;']],
+    [['m', 'M, a sound'], ['ms', 'MS: to give birth (the birthday sign)'], ['tails', 'a picture of three tails: &ldquo;an animal&rdquo;']],
+    [['s', 'S, a sound'], ['t', 'T, a sound'], ['x', 'no sound: a sign of meaning']],
+    [['s', 'S, a sound'], ['t', 'T, a sound'], ['x', 'no sound: a sign of meaning']]
+  ];
+  var KN = [['amen', 'Amenophis'], ['thout', 'Thoutmosis'], ['ram', 'Ramesses'], ['ses', 'Sesostris'], ['psam', 'Psammetichus']];
+  var MEAN = [['bore', 'Ra is the one who bore him: a child of the sun.'], ['sunk', 'The sun is king.'], ['anim', 'The animals of the sun.']];
+  function build() {
+    var b = ER.el('div', 'rd'), lock = false, val = {}, pick = null, nm = '', rs = {}, rn = '', rm = '';
+    var SC = 1.22, X0 = 16, Y0 = 8, r = ST.ringG(ST.ALEX, { gap: 8 });
+    var xs = r.at.map(function (x) { return X0 + x * SC; });
+    var svg = '<svg viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg"><g transform="translate(' + X0 + ' ' + Y0 + ') scale(' + SC + ')">' + r.svg + '</g><g id="slA"></g></svg>';
+    b.innerHTML = '<div><div class="rd-p" id="pA"><h6>I. The ring from Karnak. Click a box, then a letter. Then choose the name.</h6>' + svg +
+      '<div class="lp" id="lp"></div><div class="rd-n" id="nA"><span>It is the name of:</span>' + NAMES.map(function (n) { return '<button type="button" class="gk" data-v="' + n[0] + '">' + n[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="rd-p off" id="pB"><h6>II. The ring from Abu Simbel. How does each sign work?</h6><div class="rd-cs">' +
+      ST.RAMS.map(function (k, i) { return '<div class="rd-c" data-i="' + (i + 1) + '"><div>' + ST.sign(k, 44) + '</div>' + COLS[i].map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>'; }).join('') + '</div>' +
+      '<div class="rd-n" id="nB"><span>The king is:</span>' + KN.map(function (n) { return '<button type="button" data-v="' + n[0] + '">' + n[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="rd-n" id="mB"><span>His name means:</span>' + MEAN.map(function (n) { return '<button type="button" data-v="' + n[0] + '">' + n[1] + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + ST.FACE('jj') + '</div><h6 class="lk-h">M. Champollion-Figeac</h6><p class="pmsg"></p>' +
+      '<div class="rd-btns"><button type="button" class="btn" id="rd-go">Read it to him</button></div></div>';
+    var msgEl = b.querySelector('.pmsg'), go = b.querySelector('#rd-go'), lp = b.querySelector('#lp'), pA = b.querySelector('#pA'), pB = b.querySelector('#pB');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function drawSlots(on) {
+      b.querySelector('#slA').innerHTML = xs.map(function (x, k) {
+        var v = val[k + 1] || '';
+        return '<g class="slot' + (on === k + 1 ? ' on' : '') + '" data-i="' + (k + 1) + '" transform="translate(' + (x - 15) + ' ' + (Y0 + 62 * SC + 6) + ')"><rect width="30" height="30" rx="3"/><text x="15" y="22">' + v + '</text></g>';
+      }).join('');
+      ER.$$('#slA .slot', b).forEach(function (n) {
+        n.addEventListener('click', function () {
+          if (lock || stage) return;
+          pick = +n.getAttribute('data-i'); drawSlots(pick);
+          lp.innerHTML = '<span class="lp-l">Karnak, sign ' + pick + ':</span>' + LET.map(function (l) { return '<button type="button" data-l="' + l + '">' + l + '</button>'; }).join('');
+          ER.$$('button', lp).forEach(function (bt) { bt.addEventListener('click', function () { if (!pick || lock) return; val[pick] = bt.getAttribute('data-l'); ST.sfx.pencil(); drawSlots(pick); }); });
+        });
+      });
+    }
+    function group(sel, set) {
+      ER.$$(sel + ' button', b).forEach(function (bt) {
+        bt.addEventListener('click', function () {
+          if (lock) return;
+          set(bt.getAttribute('data-v'));
+          ER.$$(sel + ' button', b).forEach(function (o) { o.classList.remove('on', 'ok', 'no'); }); bt.classList.add('on'); ST.sfx.pencil();
+        });
+      });
+    }
+    group('#nA', function (v) { nm = v; });
+    group('#nB', function (v) { rn = v; });
+    group('#mB', function (v) { rm = v; });
+    ER.$$('.rd-c', b).forEach(function (c) { var i = c.getAttribute('data-i'); group('.rd-c[data-i="' + i + '"]', function (v) { rs[i] = v; }); });
+    function slotMark(i, ok) { var n = b.querySelector('#slA .slot[data-i="' + i + '"]'); if (n) { n.classList.remove('on'); n.classList.add(ok ? 'ok' : 'no'); } }
+    function markBtn(sel, v, ok) { var bt = b.querySelector(sel + ' button[data-v="' + v + '"]'); if (bt) { bt.classList.remove('on'); bt.classList.add(ok ? 'ok' : 'no'); } }
+    go.addEventListener('click', function () {
+      if (lock) return;
+      if (!stage) {
+        var miss = 0, i; for (i = 1; i <= 9; i++) if (!val[i]) miss++;
+        if (miss) { msg('&ldquo;Every box needs a letter. If a sign is new to you, find the name first. The name will tell you.&rdquo;'); return; }
+        if (!nm) { msg('&ldquo;And whose name is it? Choose one of the four.&rdquo;'); return; }
+        drawSlots(0);
+        var first = '', nb = 0;
+        for (i = 1; i <= 9; i++) { var ok = ER.check('al', i + ':' + val[i]); slotMark(i, ok); if (!ok) { nb++; if (!first) first = whyA(i); } }
+        var okn = ER.check('an', nm); markBtn('#nA', nm, okn);
+        if (!okn) { nb++; first = whyName(nm); }
+        if (nb) { ST.slip(); ER.sfx.no(); msg(first + (nb > 1 ? ' (' + nb + ' things are wrong.)' : '')); return; }
+        stage = 1; ER.flag('c-st', 1); ER.flag('c-a', [val[3], val[6]].join('-') + '|' + nm); pA.classList.add('done'); pB.classList.remove('off'); lp.innerHTML = ''; ER.sfx.ok(); paint();
+        msg('&ldquo;Alexander. A name you had never seen in signs, read with the signs of two other names, and two new signs found besides: the basket is a K, the water an N. That is how my brother read a whole list of them. Now the other ring.&rdquo;');
+        return;
+      }
+      if ([1, 2, 3, 4].some(function (k) { return !rs[k]; }) || !rn || !rm) { msg('&ldquo;Every sign, the king, and what his name means. All of it.&rdquo;'); return; }
+      var bad = '', n2 = 0;
+      [1, 2, 3, 4].forEach(function (k) { var ok = ER.check('rs', k + ':' + rs[k]); markBtn('.rd-c[data-i="' + k + '"]', rs[k], ok); if (!ok) { n2++; if (!bad) bad = whyR(k, rs[k]); } });
+      var okk = ER.check('rn', rn); markBtn('#nB', rn, okk); if (!okk) { n2++; if (!bad) bad = '&ldquo;Read what the signs give you, in order, and say it aloud. Which of the old kings in the little history sounds like that?&rdquo;'; }
+      var okm = ER.check('rm', rm); markBtn('#mB', rm, okm); if (!okm) { n2++; if (!bad) bad = '&ldquo;Put the two words together: the sun god Ra, and to give birth. What does a name like that say about the king?&rdquo;'; }
+      if (n2) { ST.slip(); ER.sfx.no(); msg(bad + (n2 > 1 ? ' (' + n2 + ' things are wrong.)' : '')); return; }
+      var cand = ER.flag('c-a') + '|' + [1, 2, 3, 4].map(function (k) { return rs[k]; }).join('-') + '|' + rn + '|' + rm;
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Something is wrong with the rings: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('c-file', file); go.disabled = true;
+      msg('He reads your answers, and then he reads the ring himself, under his breath. His hand is not quite steady on the cup.');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    function whyA(i) {
+      var k = ST.ALEX[i - 1];
+      if (k === 'k' || k === 'n') return nm === 'alex' ? '&ldquo;The name is right. Now let the Greek fill the gaps: which letter of ALEXANDROS stands where ' + ST.NAME[k] + ' is? Remember that X is K and S together.&rdquo;' : '&ldquo;' + ST.NAME[k].charAt(0).toUpperCase() + ST.NAME[k].slice(1) + ' is new. Find the name first, and let it tell you.&rdquo;';
+      if (k === 'd') return '&ldquo;The hand. On your plate it is a T. Here the Greek has a D in that place: the hand stands for a sound between the two.&rdquo;';
+      return '&ldquo;' + ST.NAME[k].charAt(0).toUpperCase() + ST.NAME[k].slice(1) + ' is on your plate. What sound did it have there?&rdquo;';
+    }
+    function whyName(v) {
+      if (v === 'ptol') return '&ldquo;Ptolemy&rsquo;s ring begins with the square, and this one with the vulture. Read your letters again.&rdquo;';
+      if (v === 'ber') return '&ldquo;BERENIKE begins with B, and has no L. And no queen&rsquo;s ring ends without the half-loaf and the egg.&rdquo;';
+      return '&ldquo;ARSINOE has no L, and no K and S together. And a queen&rsquo;s ring would end with the half-loaf and the egg.&rdquo;';
+    }
+    function whyR(k, v) {
+      if (k === 1) return v === 'r' ? '&ldquo;An R, and then? A circle with a dot is a picture of the sun. What is the sun in Coptic? Look in the grammar.&rdquo;' : '&ldquo;A ring is drawn round the whole name, not inside it. The circle with the dot is the sun.&rdquo;';
+      if (k === 2) return v === 'm' ? '&ldquo;Only M? You have seen this sign before: on the proof, where the Greek of the stone says BIRTHDAY. What is to give birth in Coptic?&rdquo;' : '&ldquo;M. Sautel would say so: each picture is a word. But you have seen this sign on the proof, where the Greek of the stone says BIRTHDAY.&rdquo;';
+      return '&ldquo;The folded cloth is on your plate. What sound did it have in Ptolemy?&rdquo;';
+    }
+    b.first = function () {
+      drawSlots(0);
+      if (stage) { pB.classList.remove('off'); msg('&ldquo;Alexander is read. Now the other ring.&rdquo;'); }
+      else msg('&ldquo;Read the ring from Karnak with your plate. Two of its signs you have never seen. My brother says that does not matter, if you know whose name it is.&rdquo;');
+    };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false;
+    ST.mine('names', 'From names to words', '<p class="sgrow">' + ST.ring(ST.ALEX, 40) + '</p><p>A &middot; L &middot; <b>K</b> &middot; S &middot; (a vowel) &middot; <b>N</b> &middot; D &middot; R &middot; S: <b>ALEXANDROS</b>. Two new signs: the basket K, the water N.</p>' +
+      '<p class="sgrow">' + ST.ring(ST.RAMS, 40) + '</p><p>the sun, <b>R&Emacr;</b> (a word: the god Ra) &middot; <b>MS</b>, to give birth (the birthday sign; Coptic <i>mise</i>) &middot; S &middot; S: <b>RAMESSES</b>, &ldquo;Ra is the one who bore him&rdquo;.</p>' +
+      '<p>An old Egyptian king, long before the Greeks, written with <b>sound signs and word signs together</b>.</p>', true);
+    ER.narrate([
+      '&ldquo;Ra,&rdquo; says Zélie. &ldquo;Mes. S, S. Ramesses.&rdquo; She says it again, as if it might go away if she stopped. &ldquo;That is not a Greek. That is one of the old kings, from long before Alexander.&rdquo;',
+      'M. Champollion-Figeac sits very still. &ldquo;Yes. That is what my brother read on Saturday morning, before he ran to my office. The sun is a picture and a word: Ra. The skins are the sound of a word, mes, to give birth: the Rosetta Stone has the sign where the Greek says birthday, and Coptic still says <i>mise</i>. And the S is the same folded cloth as in Ptolemy. Pictures and sounds, in one name.&rdquo;',
+      '&ldquo;Then Dr Young was wrong,&rdquo; says Zélie. &ldquo;The sound signs are not only for foreigners.&rdquo; &ldquo;Dr Young was right about Ptolemy,&rdquo; says M. Champollion-Figeac, &ldquo;and nobody before him got so far. M. Sautel was wrong about the lion, and right that some pictures mean what they show: the sun means the sun. Everybody had a piece. My brother has put the pieces together.&rdquo;',
+      'He pays for the coffee. &ldquo;The letter is nearly finished. It is about the sound signs in the names of the Greek and Roman rulers: that much he can prove to the Académie, sign by sign, with your plate. The old kings and the rest of it, he says, will take him a book.&rdquo; He stands up. &ldquo;Friday next, at the Institut. Bring the plates.&rdquo;'
+    ], function () { ST.learn('sign of meaning', 'word sign'); busy = false; paint(); });
+    paint();
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; ER.leave(nextFile);
+  });
+})();
+</script>
+</body>
+</html>

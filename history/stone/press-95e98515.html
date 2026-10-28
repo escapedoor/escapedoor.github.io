@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Press · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#2a2826;--accent:#e2574a;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,28,26,.96);--tc-ink:#f2eee6;--cap-bg:rgba(32,30,28,.94);--panel:#2e2b28;--face-bg:#4a4642;--q-ink:#ff9a8a;--fade:#0a0908;--hud-bg:rgba(32,30,28,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #drip circle{animation:drip 2.4s steps(6,end) infinite}
+  #drip circle+circle{animation-delay:-1.2s}
+  @keyframes drip{0%{transform:translateY(0);opacity:1}80%{transform:translateY(46px);opacity:1}100%{transform:translateY(50px);opacity:0}}
+  #prints g{animation:sway 6s ease-in-out infinite}
+  #prints g:nth-child(2n){animation-delay:-3s}
+  @keyframes sway{50%{transform:rotate(1.2deg)}}
+  #wheel{animation:none;transform-origin:1200px 470px}
+  body.run #wheel{animation:spin 2s steps(8,end) 2}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #stone.ready{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the plate */
+  .pl{display:grid;grid-template-columns:minmax(0,790px) 210px;gap:18px;width:min(1020px,97vw);align-items:start}
+  .pl-main{padding:12px 14px;background:#bdb8ae linear-gradient(160deg,rgba(255,255,255,.25),rgba(0,0,0,.12));border:1px solid #8a857a;box-shadow:0 18px 44px rgba(0,0,0,.6);color:#22201b}
+  .pl-main h6{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#3a3630}
+  .pl-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;padding:8px 10px;background:#f3efe4;border:1px solid #8a857a}
+  .pl-row{display:flex;align-items:center;gap:6px;min-height:46px;border-bottom:1px dotted #a8a090}
+  .pl-row > b{flex:0 0 34px;font-family:'Cinzel',serif;font-weight:700;font-size:22px;text-align:center}
+  .pl-row.x > b{flex:0 0 118px;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:14px;line-height:1.1;text-align:left}
+  .pslot{width:48px;height:44px;border:2px dashed #a8a090;border-radius:3px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.4)}
+  .pslot.ok{border-color:#3d6b34;background:#dcecd2}
+  .pslot.no{border-color:#b3261c;background:#f6d6cf}
+  .pl-tray{margin-top:6px;padding:5px 8px;min-height:52px;display:flex;flex-wrap:wrap;gap:6px;background:#3a3632;border:1px solid #22201b;box-shadow:inset 0 3px 10px rgba(0,0,0,.6)}
+  .blk{width:44px;height:40px;display:flex;align-items:center;justify-content:center;background:#fbf8f0;color:#1a1814;box-shadow:0 2px 0 #b9b2a2,0 4px 8px rgba(0,0,0,.35);cursor:grab;-webkit-user-select:none;user-select:none;touch-action:none}
+  .blk .sgn{pointer-events:none}
+  .blk.held{outline:3px solid var(--accent)}
+  .blk.fly{position:fixed;z-index:200;pointer-events:none;opacity:.92}
+  .pslot .blk{box-shadow:none}
+  .pl-q{margin-top:8px;display:grid;gap:5px}
+  .pl-q > div{padding:4px 8px;background:#f3efe4;font-family:'EB Garamond',serif;font-size:15px;line-height:1.2}
+  .pl-q > div > span{display:block;font-weight:700;margin-bottom:3px}
+  .pl-o{display:grid;gap:3px}
+  .pl-o button{padding:2px 8px;border:1px solid #8a857a;background:#fbf8f0;font-family:'EB Garamond',serif;font-size:14px;color:#22201b;text-align:left;cursor:pointer;border-radius:2px}
+  .pl-o button.on{background:#22201b;color:#fbf8f0}
+  .pl-o button.ok{background:#2d6a34;color:#fff;border-color:#2d6a34}
+  .pl-o button.no{background:#9a2a1c;color:#fff;border-color:#9a2a1c}
+  .pl-btns{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  @media (max-width:900px){.pl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9d4c8"/><stop offset=".7" stop-color="#b9b3a6"/><stop offset="1" stop-color="#8a857a"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f2ea"/><stop offset="1" stop-color="#cfd2cc"/></linearGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffbe8" stop-opacity=".4"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#0a0908" stop-opacity=".2"/><stop offset="1" stop-color="#050404" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<g stroke="#6a5a48" stroke-width="22"><path d="M-1000 60H2600"/></g><g stroke="#6a5a48" stroke-width="14"><path d="M300 60V780M1500 60V780"/></g>
+<rect x="-1000" y="780" width="3600" height="540" fill="#5a544c"/><g stroke="#4a443c" stroke-width="3"><path d="M-1000 820H2600M-1000 880H2600"/></g>
+<!-- the window onto the courtyard -->
+<g id="window" class="hot"><rect x="40" y="120" width="230" height="440" fill="#5a4a38"/><rect x="54" y="134" width="202" height="412" fill="url(#winG)"/>
+  <g fill="#b9b6aa"><rect x="54" y="330" width="202" height="216"/></g><g fill="#a09c90"><rect x="70" y="350" width="40" height="60"/><rect x="130" y="350" width="40" height="60"/><rect x="190" y="350" width="40" height="60"/></g>
+  <path d="M155 134v412M54 300h202" stroke="#5a4a38" stroke-width="8"/></g>
+<polygon points="256,134 640,330 640,780 256,546" fill="url(#beamG)" pointer-events="none"/>
+<!-- prints drying on lines -->
+<g id="prints"><path d="M320 140Q800 170 1480 136" stroke="#8a7a62" stroke-width="2" fill="none"/>
+  <g><rect x="420" y="146" width="70" height="90" fill="#f8f4ea"/><path d="M436 166h40M436 180h36M436 194h40" stroke="#22201b" stroke-width="2"/><rect x="450" y="140" width="8" height="14" fill="#8a6a3a"/></g>
+  <g><rect x="560" y="152" width="80" height="60" fill="#f8f4ea"/><path d="M572 166q20-14 40 0q-20 14-40 0z" fill="#22201b"/><rect x="596" y="146" width="8" height="14" fill="#8a6a3a"/></g>
+  <g><rect x="720" y="154" width="70" height="90" fill="#f8f4ea"/><circle cx="755" cy="190" r="20" fill="none" stroke="#22201b" stroke-width="3"/><rect x="750" y="148" width="8" height="14" fill="#8a6a3a"/></g>
+  <g><rect x="1000" y="150" width="90" height="64" fill="#f8f4ea"/><path d="M1012 200l20-30 16 16 14-20 18 34z" fill="#22201b"/><rect x="1040" y="144" width="8" height="14" fill="#8a6a3a"/></g>
+  <g><rect x="1180" y="146" width="70" height="90" fill="#f8f4ea"/><path d="M1196 166h40M1196 180h40M1196 194h30M1196 208h40" stroke="#22201b" stroke-width="2"/><rect x="1210" y="140" width="8" height="14" fill="#8a6a3a"/></g>
+</g>
+<!-- the chalked rule above the bench -->
+<g id="rule" class="hot"><rect x="420" y="270" width="320" height="150" fill="#2e3230"/><rect x="420" y="270" width="320" height="150" fill="none" stroke="#6a5a48" stroke-width="8"/>
+  <text x="580" y="300" class="lb" font-size="15" fill="#efeee6">READ WHAT IS WRITTEN</text>
+  <g stroke="#e6e4dc" stroke-width="2" opacity=".75"><path d="M440 320h200M440 336h260M440 352h180M440 372h240M440 388h200M440 404h140"/></g>
+  <text x="650" y="404" font-family="Cinzel,serif" font-weight="700" font-size="18" fill="#efeee6">C K QU</text></g>
+<!-- the copy of a queen's ring, pinned to the post -->
+<g id="queen" class="hot"><rect x="1450" y="260" width="110" height="80" fill="#efe6cf" transform="rotate(4 1505 300)"/><circle cx="1505" cy="262" r="4" fill="#a8261c"/>
+  <g transform="rotate(4 1505 300)" color="#22201b"><rect x="1462" y="286" width="86" height="34" rx="16" fill="none" stroke="#22201b" stroke-width="2"/><path d="M1508 314q0-10 10-10t10 10z" fill="#22201b"/><ellipse cx="1536" cy="306" rx="4" ry="6" fill="none" stroke="#22201b" stroke-width="1.6"/><path d="M1470 290l8 26M1478 290l8 26" stroke="#22201b" stroke-width="1.2" opacity=".4"/></g></g>
+<!-- the bench, the stone being drawn, and a mirror -->
+<g id="bench"><rect x="380" y="590" width="420" height="22" fill="#6a4a2e"/><rect x="396" y="612" width="30" height="170" fill="#4a3220"/><rect x="754" y="612" width="30" height="170" fill="#4a3220"/></g>
+<g id="stone" class="hot"><path d="M430 590l20-40h300l20 40z" fill="#c9c3b4"/><path d="M450 550h300" stroke="#e6e0d2" stroke-width="3"/>
+  <g fill="#3a3632" opacity=".7"><rect x="480" y="560" width="16" height="16"/><path d="M510 576q0-12 12-12t12 12z"/><path d="M548 576h28v-6h-28z"/><ellipse cx="600" cy="568" rx="5" ry="8" fill="none" stroke="#3a3632" stroke-width="2"/></g>
+  <g><rect x="690" y="470" width="50" height="70" rx="6" fill="#8a9aa4" stroke="#5a4a38" stroke-width="5"/><path d="M715 540v40" stroke="#5a4a38" stroke-width="5"/></g></g>
+<!-- the basin and the sponge -->
+<g id="basin" class="hot"><path d="M300 690h120l-14 40h-92z" fill="#8a8478"/><ellipse cx="360" cy="690" rx="60" ry="10" fill="#a9b4b0"/><path d="M340 650q20-16 40 0q4 14-20 16q-24-2-20-16z" fill="#d9b860"/>
+  <g id="drip" fill="#a9b4b0"><circle cx="360" cy="668" r="3"/><circle cx="352" cy="668" r="2.4"/></g><path d="M300 730v50M420 730v50" stroke="#4a3220" stroke-width="10"/></g>
+<!-- the press -->
+<g id="press" class="hot">
+  <rect x="840" y="360" width="30" height="420" fill="#3a2a1c"/><rect x="1110" y="360" width="30" height="420" fill="#3a2a1c"/>
+  <rect x="820" y="340" width="340" height="40" fill="#4a3424"/><rect x="820" y="560" width="400" height="34" fill="#5a4030"/>
+  <rect x="860" y="530" width="300" height="30" fill="#c9c3b4"/><rect x="900" y="380" width="180" height="60" fill="#2a2420"/><path d="M990 440v80" stroke="#2a2420" stroke-width="16"/><rect x="930" y="512" width="120" height="18" fill="#6a5a48"/>
+  <g id="wheel"><circle cx="1200" cy="470" r="70" fill="none" stroke="#2a2420" stroke-width="10"/><g stroke="#2a2420" stroke-width="8"><path d="M1200 400v140M1130 470h140M1150 420l100 100M1250 420l-100 100"/></g><circle cx="1200" cy="470" r="14" fill="#2a2420"/></g>
+  <path d="M1140 470h46" stroke="#2a2420" stroke-width="10"/>
+</g>
+<!-- the ink slab and roller -->
+<g><rect x="1260" y="640" width="200" height="16" fill="#3a3632"/><rect x="1270" y="626" width="170" height="14" fill="#141210"/><rect x="1300" y="604" width="90" height="22" rx="11" fill="#2a2826"/><path d="M1390 615h40" stroke="#6a4a2e" stroke-width="6"/><rect x="1280" y="656" width="20" height="120" fill="#4a3220"/><rect x="1420" y="656" width="20" height="120" fill="#4a3220"/></g>
+
+<!-- Madame Thorel, by the press -->
+<g id="thorel" class="hot">
+  <ellipse cx="1340" cy="830" rx="80" ry="12" fill="#000" opacity=".3"/>
+  <path d="M1290 820q-6-150 28-180q24-14 50 0q30 30 24 180z" fill="#3c3a36"/><path d="M1306 690h70v130h-70z" fill="#e9e4d6"/>
+  <path d="M1310 650q32 22 64 0l6 16q-38 22-76 0z" fill="#efe8da"/>
+  <rect x="1330" y="606" width="22" height="28" fill="#e2b894"/><ellipse cx="1341" cy="582" rx="28" ry="33" fill="#e2b894"/>
+  <path d="M1311 572q2-40 30-40t30 40q-16-12-30-12t-30 12z" fill="#f4efe4"/>
+  <circle cx="1331" cy="584" r="2.6" fill="#1b1512"/><circle cx="1351" cy="584" r="2.6" fill="#1b1512"/>
+  <path d="M1384 680q30 20 40 60" stroke="#3c3a36" stroke-width="18" stroke-linecap="round" fill="none"/><circle cx="1424" cy="742" r="9" fill="#141210"/>
+</g>
+<!-- Zélie on a stool with the grammar -->
+<g id="zelie" class="hot">
+  <path d="M150 820v-50M220 820v-50" stroke="#4a3220" stroke-width="8"/><rect x="136" y="762" width="100" height="12" fill="#6a4a2e"/>
+  <path d="M140 770q-6-120 28-150q24-14 46 0q32 30 24 150z" fill="#5a6e8a"/>
+  <rect x="180" y="586" width="20" height="26" fill="#f0cfb2"/><ellipse cx="190" cy="562" rx="27" ry="31" fill="#f0cfb2"/>
+  <path d="M162 564q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="190" cy="524" r="13" fill="#6a3a1e"/>
+  <circle cx="180" cy="568" r="2.6" fill="#1b1512"/><circle cx="200" cy="568" r="2.6" fill="#1b1512"/>
+  <g id="grammar" class="hot"><path d="M196 660l50-14 50 14v40l-50-14-50 14z" fill="#7a4a2a"/><path d="M200 662l46-12 46 12v32l-46-12-46 12z" fill="#efe6cf"/><path d="M246 650v34" stroke="#7a4a2a" stroke-width="2"/></g>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the café on Friday</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false;
+  var KRULE = '<h4>Read what is written</h4><h5>Chalked on the board above the bench, in Madame Thorel&rsquo;s capitals</h5>' +
+    '<p>One sound may have more than one letter. In French, the K of <i>caf&eacute;</i>, of <i>kilo</i> and of <i>quai</i> is one sound, written C, K and QU. Nobody who reads French is puzzled by it.</p>' +
+    '<p>And not every mark is a sound. A capital letter, a full stop, the little sign &sect; in a book of laws: each tells the reader something about the words, and nobody reads it aloud.</p>' +
+    '<p>On the stone, everything is drawn backwards. Check it in the mirror before you ink it.</p>';
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'press', no: 'IV', title: 'The Press',
+    go: 'Roll up your sleeves', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'On Madame Usson&rsquo;s line the papers found their years. Year VII began in September 1798, so its Fructidor was September 1799. Year VIII began in September 1799, so M. Sautel&rsquo;s pocket book was written in October 1799, months after the stone was found, and the Greek itself says that the three bands are one text: he could read it. His pamphlet, in the spring of 1802, claimed a Cleopatra who is not on the stone at all: he could not know it. Dr Young, in 1819, could read Ptolemy, P and T. Mr Bankes, in 1821, could only guess at Cleopatra, from Greek that is not a translation.',
+      'Under the almanac page in the portfolio is a sheet of thick paper printed in black: a table of signs, with an inky thumbprint in one corner.',
+      'Then it is Wednesday 18 September 1822, and you are back at Madame Thorel&rsquo;s press, with your sleeves rolled up and ink on your hands already.'
+    ],
+    exit: {"next":"cafe","w":{"15ba8dcf":"1fc3e40d"}}, tags: {"row":["8a2e99dd","d2e43ed9","db3bf56d","28c3f35e","e1b403cc","b411d2a1","8cebe4e5","b407d107","bded49f8","ff272ca9","cf4f12f0","35efbc47","5af09912"],"w1":["a9a2aaad"],"w2":["6cb0af57"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('p-file') || null;
+
+  function isBusy() { return busy; }
+  function ready() { return ER.flag('p-cop') && ER.flag('p-que') && ER.flag('p-rul'); }
+  function paint() {
+    $('#stone').classList.toggle('ready', !!ready() && !nextFile);
+    ER.pips(nextFile ? 1 : 0, 1);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The plate is printed. Use the button at the bottom of the screen.']];
+    if (inLock) return ['plate', [
+      'Each sign goes in the row of the sound it had in the two rings: your notes from the attic list them. A row can take two signs.',
+      'The half-loaf and the hand both stood where the Greek has T. One sound may have two letters: Madame Thorel&rsquo;s board says so, and gives three for the French K.',
+      'The egg comes after queens&rsquo; names and never after kings&rsquo;. It is not read aloud: it tells the reader something about the name. And the half-loaf before it: what does T do in Coptic?'
+    ]];
+    if (!ready()) return ['read', [
+      'Three things to read first: the grammar (Zélie has it on her knee), the copy of a queen&rsquo;s ring pinned to the post on the right, and what Madame Thorel has chalked on the board.',
+      'The chalk board is above the bench in the middle. The queen&rsquo;s ring is the small paper on the post, far right. Then click the stone on the bench.'
+    ]];
+    return ['stone', ['Click the grey stone on the bench, with the mirror beside it.']];
+  }
+
+  function begin() {
+    paint();
+    ST.need('coptic', 'A grammar of the Coptic tongue', ST.COPTIC, 'print', 'From Madame Usson');
+    if (ER.flag('p-in')) { busy = false; ER.say(nextFile ? 'The press room. The plates are drying on the line.' : 'Madame Thorel&rsquo;s press. The stone on the bench is waiting to be drawn.'); return; }
+    ST.learn('press', 'plate');
+    ER.narrate([
+      'Madame Thorel&rsquo;s press room is whitewashed and cold and always damp, because a lithographic stone must be kept wet. The press stands in the middle like a great wooden animal, with an iron wheel for a tail.',
+      'You draw on a slab of fine limestone with a greasy crayon. Then you wet the stone: the water stays where there is no grease. Then you roll on the ink: the ink stays only where there is grease. Then paper, and the press, and the drawing comes off on the paper, the wrong way round. So everything on the stone is drawn backwards.',
+      '&ldquo;M. Champollion-Figeac wants the table of sound signs by Thursday,&rdquo; says Madame Thorel. &ldquo;A row for each sound, and the signs in it, so that a man at the back of the Académie can see which sign is which. Lay it out on paper first. I will not waste a good stone on a guess.&rdquo;',
+      'Zélie is on her stool with the Coptic grammar on her knee. She has not looked up for an hour.'
+    ], function () { busy = false; ER.flag('p-in', 1); paint(); });
+  }
+
+  function readGrammar() {
+    ER.read({ html: ST.COPTIC, cls: 'print', clue: { id: 'coptic', title: 'A grammar of the Coptic tongue', kind: 'From Madame Usson' }, done: function () { ST.learn('feminine', 'article'); ER.flag('p-cop', 1); paint(); } });
+  }
+  $('#grammar').addEventListener('click', function (e) { e.stopPropagation(); if (busy) return; readGrammar(); });
+  $('#zelie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;A T for women,&rdquo; says Zélie. &ldquo;Thousands of years ago. And they still say it in church.&rdquo;'); return; }
+    ER.talk({ who: 'Zélie Thorel', role: 'Madame Thorel’s niece, fifteen', face: ST.FACE('zelie'), last: 'Read the grammar', lines: [
+      '&ldquo;Coptic is Egyptian written in Greek letters, at the very end, when the old signs were forgotten. So if the old signs spell sounds, they spell something like this.&rdquo; She taps the page.',
+      { q: 'What have you found?', a: '&ldquo;The little word for &lsquo;the&rsquo;. P before a man, T before a woman: <i>p-r&omacr;me</i>, the man, <i>t-shime</i>, the woman. A T that means &lsquo;she&rsquo;. Now think of the half-loaf at the end of Cleopatra.&rdquo;' },
+      { q: 'And the egg?', a: '&ldquo;On Sunday I said it was an O. I was wrong, and I do not enjoy saying so. There is no O left in KLEOPATRA. Whatever the egg is, it is not a sound.&rdquo;' }
+    ], done: function (seen) { if (seen && !ER.flag('p-cop')) readGrammar(); } });
+  });
+  $('#queen').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.QUEEN, cls: 'card', clue: { id: 'queen', title: 'The end of a queen’s ring', kind: 'Pinned to the post' }, done: function () { ST.learn('sign of meaning'); ER.flag('p-que', 1); paint(); } });
+  });
+  $('#rule').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: KRULE, cls: 'card', clue: { id: 'krule', title: 'Read what is written', kind: 'Chalked on the board' }, done: function () { ER.flag('p-rul', 1); paint(); } });
+  });
+  $('#thorel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Good clean prints,&rdquo; says Madame Thorel. &ldquo;Forty of them. If the Académie wants more, the Académie can pay for more.&rdquo;'); return; }
+    ER.talk({ who: 'Madame Solange Thorel', role: 'lithographic printer', face: ST.FACE('thorel'), lines: [
+      '&ldquo;Twenty years ago hardly anybody in Paris had heard of lithography. Now everybody wants it: maps, music, portraits of actresses. It is the only trade I know where you are paid to draw backwards.&rdquo;',
+      { q: 'What does the plate need?', a: '&ldquo;Every sign you met in the two rings, each in the row of its sound. And if a sign has no sound, it has a row of its own at the bottom, and a footnote to say why. Learned men love a footnote.&rdquo;' },
+      { q: 'Two signs for one sound: is that allowed?', a: '&ldquo;Read my board. If French can do it three times over, I do not see why Egyptian should not do it twice.&rdquo;' }
+    ], clue: { id: 'thorel1', title: 'Madame Thorel, about the plate', kind: 'What she said' } });
+  });
+  $('#stone').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The stone, washed clean again, ready for the next job.'); return; }
+    if (!ready()) { ER.say('&ldquo;Not yet,&rdquo; says Madame Thorel. &ldquo;Read the grammar, and the queen&rsquo;s ring, and my board. Then the plate.&rdquo;'); return; }
+    openLock();
+  });
+  ST.thing('#press', null, 'The press. You lay the paper on the inked stone, pull the bar down, and turn the wheel; the bed slides under the scraper, and the drawing comes off on the paper.', isBusy);
+  ST.thing('#basin', null, 'The sponge and the basin. A lithographic stone must never dry out while it is being inked.', isBusy);
+  ST.thing('#window', null, 'The courtyard, and a square of white sky. Somebody upstairs is practising the flute, badly.', isBusy);
+
+  /* ---------- the lock: the plate of sound signs ---------- */
+  var ROWS = [['A', 'A'], ['E', 'E'], ['I', 'I'], ['K', 'K'], ['L', 'L'], ['M', 'M'], ['O', 'O'], ['P', 'P'], ['R', 'R'], ['S', 'S'], ['T', 'T'], ['X', 'no sound: a sign of meaning']];
+  var KEYS = ['p', 't', 'o', 'l', 'm', 'i', 'ii', 's', 'q', 'a', 'r', 'd', 'egg'];
+  var MIX = ['egg', 'l', 'd', 'q', 's', 'o', 'a', 'ii', 'r', 't', 'm', 'p', 'i'];
+  var W1 = [['h1', 'One of them is a mistake by the stone-cutter.'], ['h2', 'Two signs can stand for one sound, as French writes K with C, K or QU.'], ['h3', 'The hand is a picture-word: Cleopatra gave something.']];
+  var W2 = [['e1', 'They are a T and an O that the Greek spelling has lost.'], ['e2', 'The half-loaf is the T that Egyptian puts on words for women; the egg is a sign of meaning, not of sound: it says the name is a woman&rsquo;s.'], ['e3', 'They are the word for &ldquo;queen&rdquo;, in sound signs.']];
+  function build() {
+    var b = ER.el('div', 'pl'), lock = false, w = {};
+    var col = function (from, to) { return ROWS.slice(from, to).map(function (r) { return '<div class="pl-row' + (r[0] === 'X' ? ' x' : '') + '" data-r="' + r[0] + '"><b>' + r[1] + '</b><div class="pslot"></div><div class="pslot"></div></div>'; }).join(''); };
+    b.innerHTML = '<div class="pl-main"><h6>The table of sound signs, laid out on paper. Drag each sign to its row, or click it and then a box.</h6>' +
+      '<div class="pl-grid"><div>' + col(0, 6) + '</div><div>' + col(6, 12) + '</div></div>' +
+      '<div class="pl-tray">' + MIX.map(function (k) { return '<span class="blk dnd-item" data-k="' + k + '">' + ST.sign(k, 28) + '</span>'; }).join('') + '</div>' +
+      '<div class="pl-q"><div data-w="w1"><span>Footnote 1. Why are both the hand and the half-loaf in the row for T?</span><div class="pl-o">' + W1.map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div data-w="w2"><span>Footnote 2. Why do the half-loaf and the egg end the ring of Cleopatra?</span><div class="pl-o">' + W2.map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + ST.FACE('thorel') + '</div><h6 class="lk-h">Madame Thorel</h6><p class="pmsg"></p>' +
+      '<div class="pl-btns"><button type="button" class="btn" id="pl-clear">Take them all off</button><button type="button" class="btn" id="pl-go">Show Madame Thorel</button></div></div>';
+    var tray = b.querySelector('.pl-tray'), msgEl = b.querySelector('.pmsg'), go = b.querySelector('#pl-go');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.dnd(b, { item: '.blk', slot: '.pslot', home: tray, lock: function () { return lock; },
+      change: function () { ER.$$('.pslot', b).forEach(function (x) { x.classList.remove('ok', 'no'); }); ST.sfx.pencil(); } });
+    ER.$$('.pl-q > div', b).forEach(function (q) {
+      var k = q.getAttribute('data-w');
+      ER.$$('button', q).forEach(function (bt) {
+        bt.addEventListener('click', function () {
+          if (lock) return;
+          w[k] = bt.getAttribute('data-v');
+          ER.$$('button', q).forEach(function (o) { o.classList.remove('on', 'ok', 'no'); }); bt.classList.add('on'); ST.sfx.pencil();
+        });
+      });
+    });
+    b.querySelector('#pl-clear').addEventListener('click', function () {
+      if (lock) return;
+      ER.$$('.pslot .blk', b).forEach(function (x) { tray.appendChild(x); });
+      ER.$$('.pslot', b).forEach(function (x) { x.classList.remove('ok', 'no'); });
+    });
+    function rowOf(k) { var n = b.querySelector('.blk[data-k="' + k + '"]'), r = n && n.closest('.pl-row'); return r ? r.getAttribute('data-r') : ''; }
+    function why(k, r) {
+      if (k === 'egg') return r === 'O' ? 'Zélie looks up. &ldquo;I said O too, on Sunday. But KLEOPATRA has no O left over at the end. Is the egg a sound at all?&rdquo;' : '&ldquo;The egg comes after the names of queens, and never after kings. Is that a sound, or something the reader is told?&rdquo;';
+      if (k === 't') return r === 'X' ? '&ldquo;The half-loaf is a sound: it was the T of Ptolemy. At the end of Cleopatra it is still a T. It is the egg after it that is not read aloud.&rdquo;' : '&ldquo;The half-loaf: in Ptolemy it stood where the Greek has T.&rdquo;';
+      if (k === 'd') return '&ldquo;The hand. In Cleopatra it stands just where the Greek has T, between the A and the R.&rdquo;';
+      if (k === 'i' && r === 'I') return '&ldquo;One reed, in Cleopatra, stood where the Greek has E. It is the two reeds of Ptolemy that stood for I.&rdquo;';
+      if (k === 'ii' && r === 'E') return '&ldquo;Two reeds, in Ptolemy, where the Greek has I. One reed was the E of Cleopatra.&rdquo;';
+      return '&ldquo;' + ST.NAME[k].charAt(0).toUpperCase() + ST.NAME[k].slice(1) + ': which letter did it take in the rings? Your notes from the attic have it.&rdquo;';
+    }
+    go.addEventListener('click', function () {
+      if (lock) return;
+      if (ER.$$('.pslot .blk', b).length < KEYS.length) { msg('&ldquo;Every sign on the plate, please. A table with a sign missing is a table nobody trusts.&rdquo;'); return; }
+      ER.$$('.pslot', b).forEach(function (x) { x.classList.remove('ok', 'no'); });
+      var first = '', nb = 0;
+      KEYS.forEach(function (k) {
+        var r = rowOf(k), ok = ER.check('row', k + ':' + r), sl = b.querySelector('.blk[data-k="' + k + '"]').parentNode;
+        sl.classList.add(ok ? 'ok' : 'no'); if (!ok) { nb++; if (!first) first = why(k, r); }
+      });
+      if (nb) { ST.slip(); ER.sfx.no(); msg(first + (nb > 1 ? ' (' + nb + ' signs are in the wrong row.)' : '')); return; }
+      if (!w.w1 || !w.w2) { msg('&ldquo;The signs are right. Now the two footnotes: learned men will ask.&rdquo;'); return; }
+      var o1 = ER.check('w1', w.w1), o2 = ER.check('w2', w.w2);
+      [['w1', o1], ['w2', o2]].forEach(function (p) { var bt = b.querySelector('.pl-q > div[data-w="' + p[0] + '"] button[data-v="' + w[p[0]] + '"]'); bt.classList.remove('on'); bt.classList.add(p[1] ? 'ok' : 'no'); });
+      if (!o1) { ST.slip(); ER.sfx.no(); msg(w.w1 === 'h3' ? '&ldquo;That is M. Sautel&rsquo;s rule: each picture is a word. Then Cleopatra is K-L-E-O-P-A-give-R-A. Read my board again.&rdquo;' : '&ldquo;A mistake? The rest of the ring is perfect, and the hand stands just where the T should be. Read my board: one sound, more than one letter.&rdquo;'); return; }
+      if (!o2) { ST.slip(); ER.sfx.no(); msg(w.w2 === 'e1' ? '&ldquo;The Greek has lost nothing: KLEOPATRA has nine letters, all accounted for. And the queens&rsquo; rings all end so, and the kings&rsquo; never.&rdquo;' : '&ldquo;A word needs sounds, and the egg has none: it is in no name as a letter. And what does T do in Coptic? Ask Zélie.&rdquo;'); return; }
+      var cand = KEYS.map(rowOf).join('-') + '|' + w.w1 + '|' + w.w2;
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Something is wrong with the plate: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('p-file', file); go.disabled = true;
+      msg('Madame Thorel looks at the plate for a long time, and then at you. &ldquo;Good,&rdquo; she says, which from her is a speech.');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;A row for each sound, two boxes in each row, and a row at the bottom for any sign that is not a sound at all. Then the two footnotes. Every sign must be in.&rdquo;'); };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false;
+    var row = function (l, ks) { return '<p><b>' + l + '</b> ' + ks.map(function (k) { return ST.sign(k, 26); }).join(' ') + '</p>'; };
+    ST.mine('plate', 'The plate of sound signs', row('A', ['a']) + row('E', ['i']) + row('I', ['ii']) + row('K', ['q']) + row('L', ['l']) + row('M', ['m']) + row('O', ['o']) + row('P', ['p']) + row('R', ['r']) + row('S', ['s']) + row('T', ['t', 'd']) +
+      '<p><b>no sound</b> ' + ST.sign('egg', 26) + ' a sign of meaning: &ldquo;a woman&rdquo;.</p><p>Footnote 1: two signs, one sound, like C and K. Footnote 2: the half-loaf is the T that Egyptian puts on words for women; the egg is read by the eye, not the mouth.</p>', true);
+    document.body.classList.add('run'); ST.sfx.press();
+    ER.narrate([
+      'You draw the table on the stone, backwards, with the mirror beside you, and Madame Thorel checks every sign in the mirror before she lets you ink it. Then the press: wet, ink, paper, pull, turn. The first print comes off black and clean, the right way round.',
+      'Zélie holds it up to the window. &ldquo;Twelve rows,&rdquo; she says. &ldquo;Eleven sounds, and one sign that is not a sound at all. M. Sautel will hate it.&rdquo;',
+      'In the afternoon a boy comes from the rue Mazarine with a note from M. Champollion-Figeac. <i>My brother is awake, and asking for his drawings, which the doctor forbids. He talks of nothing but his letter to M. Dacier. Meet me at the café by the bridge on Friday at five. I shall bring the last two drawings from his folder. He says that if you can read them, you will know why he fell down.</i>'
+    ], function () { busy = false; paint(); });
+    paint();
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; ER.leave(nextFile);
+  });
+})();
+</script>
+</body>
+</html>

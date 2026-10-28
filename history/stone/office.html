@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Secretary's Office · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#2a3036;--accent:#e9c77a;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,26,30,.96);--tc-ink:#efe9da;--cap-bg:rgba(24,28,32,.94);--panel:#232a30;--face-bg:#3a4248;--q-ink:#f0d48e;--fade:#0c0e10;--hud-bg:rgba(24,28,32,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #barge{animation:barge 40s linear infinite}
+  @keyframes barge{from{transform:translateX(0)}to{transform:translateX(220px)}}
+  #easel.ready #sheetface{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+  #dust circle{animation:dust 9s steps(9,end) infinite}
+  #dust circle:nth-child(2n){animation-duration:13s;animation-delay:-4s}
+  @keyframes dust{0%{transform:translate(0,0);opacity:.0}30%{opacity:.6}100%{transform:translate(30px,60px);opacity:0}}
+  #jf,#papers{display:none}
+  body.fall #jf,body.fall #papers,body.down #papers{display:inline}
+  body.down #jj{display:none}
+
+  /* the proof, with its pins */
+  .pf{display:grid;grid-template-columns:minmax(0,800px) 230px;gap:18px;width:min(1060px,97vw);align-items:start}
+  .pf-sheet{background:#efe6cf;padding:10px 12px 10px;box-shadow:0 18px 44px rgba(0,0,0,.6);border:1px solid #b9a77a}
+  .pf-sheet svg{display:block;width:100%;height:auto}
+  .grp{cursor:pointer}
+  .grp .hit{fill:transparent}
+  .grp:hover .hit{fill:rgba(233,199,122,.22)}
+  .grp.bad .hit{fill:rgba(179,38,28,.28)}
+  .grp.good .hit{fill:rgba(61,107,52,.25)}
+  .pf-slip{margin-top:8px;padding:8px 12px 6px;background:#fbf7ea;border-left:5px solid #7a5a2a;font-family:'EB Garamond',serif;font-size:15.6px;line-height:1.36;color:#2a2116}
+  .pf-slip h6{margin:0 0 3px;font-family:'Cinzel',serif;font-weight:700;font-size:11.5px;letter-spacing:.16em;color:#7a5a2a}
+  .pf-slip p{margin:0}
+  .pf-slip b{font-family:'Cinzel',serif;font-weight:700;font-size:.9em;letter-spacing:.04em}
+  .pf-slip .gk{font-family:'Libre Caslon Text',serif;font-size:13px;color:#6a5a40}
+  .k-k{color:#a8261c}.k-p{color:#2a4f8c}.k-t{color:#2d6a34}.k-f{color:#8a5a00}
+  .pins{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+  .pinb{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#efe9da;font-family:'EB Garamond',serif;font-size:15px;line-height:1.15;text-align:left;cursor:pointer;border-radius:3px}
+  .pinb i{flex:0 0 14px;height:14px;border-radius:50%;box-shadow:inset -2px -2px 0 rgba(0,0,0,.3)}
+  .pinb small{display:block;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.12em;opacity:.7}
+  .pinb.held{outline:3px solid var(--accent)}
+  .pinb.set{opacity:.6}
+  .pinb.no{border-color:#d0574a}
+  .pf-btns{display:flex;flex-direction:column;gap:6px}
+  @media (max-width:900px){.pf{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d989c"/><stop offset=".6" stop-color="#6e7a80"/><stop offset="1" stop-color="#4a545a"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d6dc"/><stop offset="1" stop-color="#eef0e6"/></linearGradient>
+  <linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8c8a"/><stop offset="1" stop-color="#4f605e"/></linearGradient>
+  <linearGradient id="lightG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff8e0" stop-opacity=".32"/><stop offset="1" stop-color="#fff8e0" stop-opacity="0"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2e"/><stop offset="1" stop-color="#3a2818"/></linearGradient>
+  <radialGradient id="vig" cx="48%" cy="44%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#0a0c0e" stop-opacity=".2"/><stop offset="1" stop-color="#050607" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<!-- panelling -->
+<g fill="none" stroke="#5a666c" stroke-width="3"><rect x="430" y="90" width="150" height="380"/><rect x="1060" y="90" width="460" height="380"/><rect x="1540" y="90" width="400" height="380"/><rect x="-400" y="90" width="440" height="380"/></g>
+<rect x="-1000" y="560" width="3600" height="20" fill="#4a3826"/><rect x="-1000" y="580" width="3600" height="90" fill="#5d6a70"/>
+<g stroke="#4a565c" stroke-width="3"><path d="M-1000 600H2600M-1000 650H2600"/></g>
+<rect x="-1000" y="670" width="3600" height="650" fill="url(#floorG)"/>
+<g stroke="#2e1f12" stroke-width="2" opacity=".6"><path d="M-1000 720H2600M-1000 790H2600M-1000 880H2600"/><path d="M-200 670l-120 650M200 670l-60 650M600 670v650M1000 670l60 650M1400 670l120 650M1800 670l180 650"/></g>
+
+<!-- the window: the Seine and the Louvre -->
+<g id="window" class="hot">
+  <rect x="80" y="70" width="320" height="560" fill="#e9e3d2"/>
+  <rect x="98" y="88" width="284" height="524" fill="url(#skyG)"/>
+  <g fill="#b9b6aa"><rect x="98" y="300" width="284" height="80"/></g>
+  <g fill="#9a978c"><path d="M98 300h284v-22l-30-10-40 8-50-14-60 12-50-8-54 10z"/></g>
+  <g fill="#8a877e"><rect x="104" y="318" width="10" height="16"/><rect x="128" y="318" width="10" height="16"/><rect x="152" y="318" width="10" height="16"/><rect x="176" y="318" width="10" height="16"/><rect x="200" y="318" width="10" height="16"/><rect x="224" y="318" width="10" height="16"/><rect x="248" y="318" width="10" height="16"/><rect x="272" y="318" width="10" height="16"/><rect x="296" y="318" width="10" height="16"/><rect x="320" y="318" width="10" height="16"/><rect x="344" y="318" width="10" height="16"/>
+    <rect x="104" y="348" width="10" height="16"/><rect x="128" y="348" width="10" height="16"/><rect x="152" y="348" width="10" height="16"/><rect x="176" y="348" width="10" height="16"/><rect x="200" y="348" width="10" height="16"/><rect x="224" y="348" width="10" height="16"/><rect x="248" y="348" width="10" height="16"/><rect x="272" y="348" width="10" height="16"/><rect x="296" y="348" width="10" height="16"/><rect x="320" y="348" width="10" height="16"/><rect x="344" y="348" width="10" height="16"/></g>
+  <rect x="98" y="380" width="284" height="40" fill="#8a8a7e"/>
+  <rect x="98" y="420" width="284" height="192" fill="url(#riverG)"/>
+  <g stroke="#a9b8b4" stroke-width="2" opacity=".6"><path d="M110 450h40M200 470h60M130 500h50M260 520h70M150 560h40M300 580h50"/></g>
+  <g id="barge"><path d="M100 470h80l-10 14h-62z" fill="#3a2a1a"/><g fill="#8a6a3a"><rect x="112" y="458" width="12" height="12"/><rect x="126" y="456" width="12" height="14"/><rect x="140" y="458" width="12" height="12"/><rect x="154" y="456" width="12" height="14"/></g><path d="M170 470v-34" stroke="#3a2a1a" stroke-width="3"/></g>
+  <path d="M240 88v524M98 350h284" stroke="#e9e3d2" stroke-width="10"/>
+  <path d="M80 70h320v560H80z" fill="none" stroke="#3a3a36" stroke-width="4"/>
+  <path d="M60 640h360v18H60z" fill="#5a4630"/>
+</g>
+<polygon points="380,88 760,220 820,760 380,612" fill="url(#lightG)" pointer-events="none"/>
+<g id="dust" fill="#fff6d8" pointer-events="none"><circle cx="460" cy="260" r="2"/><circle cx="520" cy="330" r="1.6"/><circle cx="600" cy="300" r="1.8"/><circle cx="560" cy="420" r="1.4"/><circle cx="660" cy="380" r="1.6"/></g>
+
+<!-- bookcase between window and easel -->
+<g><rect x="430" y="150" width="120" height="420" fill="#4a3220"/>
+  <g fill="#6a2a1e"><rect x="440" y="166" width="14" height="80"/><rect x="456" y="172" width="12" height="74"/><rect x="470" y="160" width="16" height="86"/></g><g fill="#2a3a5a"><rect x="488" y="168" width="14" height="78"/><rect x="504" y="176" width="12" height="70"/></g><g fill="#7a6a3a"><rect x="518" y="164" width="20" height="82"/></g>
+  <rect x="430" y="246" width="120" height="8" fill="#3a2414"/>
+  <g fill="#3a4a2a"><rect x="440" y="270" width="16" height="70"/><rect x="458" y="262" width="12" height="78"/></g><g fill="#7a2a1e"><rect x="472" y="268" width="18" height="72"/><rect x="492" y="272" width="12" height="68"/><rect x="506" y="264" width="14" height="76"/><rect x="522" y="270" width="16" height="70"/></g>
+  <rect x="430" y="340" width="120" height="8" fill="#3a2414"/>
+  <g fill="#2a2a3a"><rect x="440" y="360" width="90" height="16"/><rect x="444" y="376" width="84" height="14"/><rect x="440" y="390" width="92" height="16"/></g>
+  <rect x="430" y="440" width="120" height="8" fill="#3a2414"/></g>
+
+<!-- the easel and the proof -->
+<g id="easel" class="hot">
+  <path d="M600 760L690 120M920 760L830 120M760 120V780" stroke="#5a3a20" stroke-width="12" stroke-linecap="round"/>
+  <rect x="610" y="600" width="300" height="14" fill="#5a3a20"/>
+  <g id="sheetface">
+    <rect x="590" y="130" width="340" height="470" fill="#efe6cf" stroke="#b9a77a" stroke-width="2"/>
+    <path d="M610 205L640 168 680 182 720 150 780 172 830 154 870 176 910 160V585H610z" fill="#2b2d2f"/>
+    <g fill="#d9d4c6" opacity=".85" id="mini"></g>
+    <path d="M610 330H910M610 450H910" stroke="#d9d4c6" stroke-width="1.5" opacity=".35"/>
+    <g id="pinsMini"></g>
+  </g>
+  <g id="card" class="hot"><rect x="884" y="140" width="68" height="64" fill="#f4ecd8" transform="rotate(6 918 172)"/><g stroke="#6a5638" stroke-width="1.5" transform="rotate(6 918 172)"><path d="M892 158h44M892 168h50M892 178h40M892 188h46"/></g><circle cx="914" cy="146" r="4" fill="#a8261c"/></g>
+</g>
+
+<!-- Zélie, by the easel -->
+<g id="zelie" class="hot">
+  <ellipse cx="500" cy="800" rx="70" ry="10" fill="#000" opacity=".3"/>
+  <path d="M450 800q-8-140 30-176q24-14 46 0q36 36 26 176z" fill="#5a6e8a"/>
+  <path d="M468 640q34 18 66 0" stroke="#e9dcc2" stroke-width="7" fill="none"/>
+  <rect x="490" y="592" width="20" height="26" fill="#f0cfb2"/>
+  <ellipse cx="500" cy="568" rx="27" ry="31" fill="#f0cfb2"/>
+  <path d="M472 570q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="500" cy="530" r="13" fill="#6a3a1e"/><path d="M488 538q12 6 24 0" stroke="#b33a3a" stroke-width="4" fill="none"/>
+  <circle cx="490" cy="570" r="2.6" fill="#1b1512"/><circle cx="510" cy="570" r="2.6" fill="#1b1512"/>
+  <g transform="rotate(-20 560 690)"><rect x="530" y="640" width="12" height="90" fill="#c9b48a"/><path d="M542 650q30 4 40 20" stroke="#a8261c" stroke-width="4" fill="none"/><path d="M542 670q26 6 34 22" stroke="#2a4f8c" stroke-width="4" fill="none"/></g>
+</g>
+
+<!-- the cutting on the wall -->
+<g id="cutting" class="hot"><rect x="1100" y="200" width="150" height="120" fill="#3a2a1a"/><rect x="1110" y="210" width="130" height="100" fill="#ece3cc"/>
+  <text x="1175" y="230" class="lb" font-size="11" fill="#201c14">COURIER OF EGYPT</text>
+  <g stroke="#6a5a40" stroke-width="1.5"><path d="M1120 244h110M1120 254h100M1120 264h110M1120 274h90M1120 284h106M1120 294h80"/></g></g>
+<!-- a wall clock -->
+<g><circle cx="1360" cy="190" r="46" fill="#3a2a1a"/><circle cx="1360" cy="190" r="38" fill="#f1ead6"/><path d="M1360 190V164M1360 190l18 6" stroke="#22201b" stroke-width="4" stroke-linecap="round"/><circle cx="1360" cy="190" r="4" fill="#22201b"/></g>
+
+<!-- the desk -->
+<g id="desk">
+  <rect x="1020" y="560" width="500" height="22" fill="#5a3a20"/><rect x="1030" y="552" width="480" height="10" fill="#2f5a3a"/>
+  <rect x="1040" y="582" width="70" height="190" fill="#4a3018"/><rect x="1430" y="582" width="70" height="190" fill="#4a3018"/>
+  <rect x="1110" y="582" width="320" height="50" fill="#4a3018"/><circle cx="1270" cy="607" r="5" fill="#c9a25a"/>
+  <g><rect x="1380" y="520" width="26" height="32" rx="4" fill="#1e1c1a"/><path d="M1396 520L1430 470" stroke="#efe9da" stroke-width="3"/><path d="M1430 470q8-10 4-20q-10 8-12 18" fill="#efe9da"/></g>
+  <g fill="#f4efe0"><rect x="1300" y="534" width="70" height="18" transform="rotate(-6 1335 543)"/><rect x="1250" y="538" width="60" height="14"/></g>
+</g>
+<g id="pamph" class="hot"><rect x="1080" y="520" width="110" height="34" fill="#efe3c6" transform="rotate(-4 1135 537)"/><text x="1135" y="541" class="lb" font-size="11" fill="#3a1a10" transform="rotate(-4 1135 537)">A KEY TO THE</text></g>
+
+<!-- M. Champollion-Figeac, behind the desk -->
+<g id="jj" class="hot">
+  <path d="M1220 560V420q0-50 50-56q50 6 50 56v140z" fill="#1f2229"/>
+  <path d="M1246 376l24 24 24-24 4 18-28 14-28-14z" fill="#f4f0e6"/>
+  <rect x="1258" y="340" width="24" height="30" fill="#eac3a0"/><ellipse cx="1270" cy="312" rx="30" ry="36" fill="#eac3a0"/>
+  <path d="M1240 306q0-40 30-40t30 40q-6-22-30-24q-24 2-30 24z" fill="#4a3324"/><path d="M1242 304q-2 26 6 36M1298 304q2 26-6 36" stroke="#4a3324" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="1259" cy="314" r="2.6" fill="#1b1512"/><circle cx="1281" cy="314" r="2.6" fill="#1b1512"/>
+  <path d="M1320 440q30 40 60 80" stroke="#1f2229" stroke-width="22" stroke-linecap="round" fill="none"/>
+</g>
+
+<!-- the door, where the stairs are -->
+<g id="door" class="hot"><rect x="1540" y="160" width="200" height="520" fill="#4a3220"/><rect x="1556" y="176" width="170" height="230" fill="none" stroke="#3a2414" stroke-width="4"/><rect x="1556" y="420" width="170" height="240" fill="none" stroke="#3a2414" stroke-width="4"/><circle cx="1566" cy="420" r="7" fill="#c9a25a"/></g>
+<!-- M. Champollion, on the floor (after the fall) -->
+<g id="jf"><ellipse cx="1150" cy="820" rx="150" ry="18" fill="#000" opacity=".3"/><path d="M1020 812q10-30 60-30h120q40 0 50 20l-10 20h-200z" fill="#22252c"/><ellipse cx="1290" cy="800" rx="26" ry="20" fill="#e6b68e"/><path d="M1300 784q20 4 22 18q-10 8-22 4z" fill="#1e1612"/></g>
+<g id="papers"><g fill="#efe6cf"><rect x="900" y="820" width="70" height="40" transform="rotate(-14 935 840)"/><rect x="960" y="840" width="60" height="44" transform="rotate(10 990 860)"/><rect x="1330" y="830" width="70" height="40" transform="rotate(18 1365 850)"/></g></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go home, and come back tomorrow</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false, falling = false;
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'office', no: 'I', title: 'The Secretary’s Office',
+    go: 'Carry the roll upstairs', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'The Archive keeps one box for each day that mattered. This one is a wide grey portfolio tied with tape. Inside are a proof sheet with coloured pins still in it, the drawing of an obelisk, an old almanac, the grammar of a language that nobody speaks any more, and a thin printed letter.',
+      'You lift out the proof. It is a copy of the Rosetta Stone, three times the size of a newspaper, and somebody has stuck pins in it.',
+      'Then it is Saturday 14 September 1822, and you are fourteen, and you are carrying that proof, rolled up, up the stairs of the Institut de France, in Paris.'
+    ],
+    exit: {"next":"attic","w":{"f481ac15":"338b49e7"}}, tags: {"pin":["0cf2309e","d9c53be6","8776efd2","5069e939","ea26d01b"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('o-file') || null;
+
+  function isBusy() { return busy; }
+  function paint() {
+    $('#easel').classList.toggle('ready', !!ER.flag('o-card') && !nextFile);
+    document.body.classList.toggle('down', !!nextFile && !falling); document.body.classList.toggle('fall', falling);
+    ER.pips(nextFile ? 1 : 0, 1);
+    if (nextFile) $('#go').classList.add('on');
+    drawMini();
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The proof is pinned. Use the button at the bottom of the screen.']];
+    if (inLock) return ['pins', [
+      'Count. In the slip under the sheet, how many times does each word in capitals come: KING, PTOLEMY, TEMPLE? Find the group in the middle script that comes back just as many times.',
+      'Two words, or two groups, may come the same number of times. Then use the order: the groups stand in the same order as the words of the slip. Where is TEMPLE, counted by the KINGs round it?',
+      'In the sacred signs the king is in a ring. The slip has PTOLEMY three times: once with the long title LIVING FOR EVER, BELOVED OF PTAH after it, and twice without. One ring is longer than the others.'
+    ]];
+    if (!ER.flag('o-card')) return ['card', [
+      'M. Champollion-Figeac said that his card would tell you how. It is pinned to the big sheet.',
+      'The card is the small cream square at the top right corner of the sheet on the easel.'
+    ]];
+    return ['look', [
+      'Read the pamphlet on the desk too. Its writer is very sure of himself. Then click the big sheet.',
+      'The big sheet on the easel opens the proof, with the slip of Greek words and the pins.'
+    ]];
+  }
+
+  /* ---------- the copy: sacred signs (h), the middle script (d), Greek ---------- */
+  var DEM = {
+    d1: 'M2 24q8-18 14 0t14-4M36 8v24',
+    d2: 'M2 28q10-22 20-6q6 8 16-10M28 32h14',
+    d3: 'M6 10q4 16 0 22M14 28q10-18 24 0',
+    d4: 'M2 16h20q10 0 10 9t-12 7M38 6q-8 14 4 26',
+    d5: 'M2 30q12-26 26 0M30 14h12',
+    d6: 'M4 6l6 26M16 10q14 4 6 22M28 24q8-10 16 0',
+    d7: 'M2 26q6-16 12-2t12-8q10 6 2 18M34 4v28M40 12q4 9 0 18',
+    d8: 'M4 28q6-20 16-2M24 6q-2 14 12 22',
+    d9: 'M2 20q16-16 28 2M10 32h24M38 4q4 12-2 26'
+  };
+  var DSEQ = ['d1', 'd2', 'd3', 'd4', 'd7', 'd5', 'd6', 'd9', 'd4', 'd8', 'd2', 'd4', 'd7', 'd1', 'd3', 'd5', 'd4', 'd7', 'd6'];
+  var DLINES = [7, 6, 6];
+  var HGRP = {
+    h1: ['owl', 'n', 'r'], h2: ['i', 'n', 't', 'eye'], h4: ['a', 'bar'], h5: ['ms', 's', 't'], h7: ['r', 'ankh', 'n'], h8: ['k', 't', 'egg'],
+    h3: 'long', h6: 'short'
+  };
+  var HLINES = [['h1', 'h2', 'h3', 'h4'], ['h5', 'h7', 'h2', 'h6'], ['h8', 'h1', 'h4', 'h6', 'h7']];
+  var LONG = ST.PTOL.concat(['ankh', 'p', 't']);
+  function hgroup(id, x, y, sc) {
+    var spec = HGRP[id], s = '', w;
+    if (spec === 'long' || spec === 'short') {
+      var r = ST.ringG(spec === 'long' ? LONG : ST.PTOL, { gap: 5, pad: 14 });
+      w = r.w * sc;
+      s = '<g transform="scale(' + sc + ')">' + r.svg + '</g>';
+    } else {
+      var xx = 0;
+      spec.forEach(function (k) { s += '<g transform="translate(' + (xx * sc) + ' ' + (10 * sc) + ') scale(' + sc + ')">' + ST.glyph(k) + '</g>'; xx += ST.gw(k) + 4; });
+      w = (xx - 4) * sc;
+    }
+    return { svg: '<g class="grp" data-band="h" data-g="' + id + '" transform="translate(' + x + ' ' + y + ')"><rect class="hit" x="-6" y="-2" width="' + (w + 12) + '" height="' + (60 * sc + 4) + '"/>' + s + '</g>', w: w };
+  }
+  function sheetSvg() {
+    var s = '<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg">';
+    s += '<path d="M0 34L60 8 130 26 210 0 300 22 380 4 470 20 560 2 650 18 740 6 820 22 900 10V470H0z" fill="#2b2d2f"/>';
+    s += '<text x="890" y="40" text-anchor="end" font-family="Cinzel,serif" font-size="12" fill="#bdb6a4" letter-spacing="2">SACRED SIGNS</text>';
+    var y = 40;
+    HLINES.forEach(function (line) {
+      var x = 18;
+      line.forEach(function (id) { var g = hgroup(id, x, y, 0.62); s += g.svg; x += g.w + 22; });
+      y += 46;
+    });
+    s += '<path d="M10 182H890" stroke="#6a6a66" stroke-width="1.5" stroke-dasharray="6 5"/>';
+    s += '<text x="890" y="204" text-anchor="end" font-family="Cinzel,serif" font-size="12" fill="#bdb6a4" letter-spacing="2">THE MIDDLE SCRIPT</text>';
+    var k = 0; y = 210;
+    DLINES.forEach(function (n) {
+      var x = 24;
+      for (var i = 0; i < n; i++, k++) {
+        var id = DSEQ[k];
+        s += '<g class="grp" data-band="d" data-g="' + id + '" data-n="' + k + '" transform="translate(' + x + ' ' + y + ') scale(1.35)"><rect class="hit" x="-6" y="-2" width="58" height="40"/><path d="' + DEM[id] + '" fill="none" stroke="#e9e3d2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>';
+        x += 118;
+      }
+      y += 56;
+    });
+    s += '<path d="M10 380H890" stroke="#6a6a66" stroke-width="1.5" stroke-dasharray="6 5"/>';
+    s += '<text x="890" y="398" text-anchor="end" font-family="Cinzel,serif" font-size="12" fill="#bdb6a4" letter-spacing="2">GREEK</text>';
+    s += '<g stroke="#bdb6a4" stroke-width="2" opacity=".5"><path d="M24 410h170M206 410h120M338 410h200M550 410h90M24 428h220M256 428h80M348 428h150M510 428h160"/></g>';
+    s += '<text x="24" y="456" font-family="\'Libre Caslon Text\',serif" font-size="15.5" fill="#e9e3d2" letter-spacing="1.5">&Tau;&Omicron;&Iota;&Sigma; &Tau;&Epsilon; &Iota;&Epsilon;&Rho;&Omicron;&Iota;&Sigma; &Kappa;&Alpha;&Iota; &Epsilon;&Gamma;&Chi;&Omega;&Rho;&Iota;&Omicron;&Iota;&Sigma; &Kappa;&Alpha;&Iota; &Epsilon;&Lambda;&Lambda;&Eta;&Nu;&Iota;&Kappa;&Omicron;&Iota;&Sigma; &Gamma;&Rho;&Alpha;&Mu;&Mu;&Alpha;&Sigma;&Iota;&Nu;</text>';
+    s += '<g id="pf-pins"></g></svg>';
+    return s;
+  }
+  var SLIP = '<h6>The end of the Greek, word for word, by M. Champollion-Figeac</h6>' +
+    '<p>&hellip; and in every <b class="k-t">TEMPLE</b> they shall set up a statue of <b class="k-k">KING</b> <b class="k-p">PTOLEMY</b>, <b class="k-f">LIVING FOR EVER, BELOVED OF PTAH</b>,</p>' +
+    '<p>and the priests shall serve it three times a day. Every year, on the BIRTHDAY of the <b class="k-k">KING</b>,</p>' +
+    '<p>they shall hold a feast in every <b class="k-t">TEMPLE</b> of Egypt, and carry the statue of <b class="k-k">KING</b> <b class="k-p">PTOLEMY</b> in the processions;</p>' +
+    '<p>and this decree shall be written on a stela of hard stone in sacred and native and Greek letters,</p>' +
+    '<p>and set up beside the statue of <b class="k-k">KING</b> <b class="k-p">PTOLEMY</b>. <span class="gk">(the last line of the Greek, under the sheet: &ldquo;in sacred and native and Greek letters&rdquo;)</span></p>';
+
+  /* the little copy on the easel in the scene */
+  function drawMini() {
+    var s = '', i;
+    for (i = 0; i < 5; i++) s += '<rect x="' + (622 + i * 56) + '" y="' + (214 + (i % 2) * 6) + '" width="' + (30 + (i % 3) * 8) + '" height="12" rx="6" fill="none" stroke="#d9d4c6" stroke-width="2"/>';
+    for (i = 0; i < 9; i++) s += '<path d="M' + (618 + i * 32) + ' 262q8-10 14 0t12-4" fill="none" stroke="#d9d4c6" stroke-width="2"/>';
+    for (i = 0; i < 4; i++) s += '<path d="M622 ' + (350 + i * 22) + 'h' + (240 + (i % 2) * 30) + '" stroke="#d9d4c6" stroke-width="2" opacity=".7"/>';
+    for (i = 0; i < 6; i++) s += '<path d="M622 ' + (470 + i * 18) + 'h' + (260 - (i % 3) * 20) + '" stroke="#d9d4c6" stroke-width="1.6" opacity=".55"/>';
+    $('#mini').innerHTML = s;
+    $('#pinsMini').innerHTML = nextFile ? '<g><circle cx="700" cy="214" r="6" fill="#2a4f8c"/><circle cx="640" cy="262" r="6" fill="#2d6a34"/><circle cx="740" cy="262" r="6" fill="#a8261c"/><circle cx="780" cy="214" r="6" fill="#8a5a00"/></g>' : '';
+  }
+
+  function begin() {
+    paint();
+    if (ER.flag('o-in')) { busy = false; ER.say(nextFile ? 'The office. The doctor has been, and M. Champollion has been carried home.' : 'The office at the Institut. M. Champollion-Figeac is writing letters, and the proof is on the easel.'); return; }
+    ST.learn('apprentice', 'proof');
+    ER.narrate([
+      'The Institut de France, on the left bank of the Seine, at eleven in the morning. You have carried a roll of paper as tall as yourself up the stairs, and Zélie has carried the ribbons and the pins.',
+      'Your name is Vigneau, and you are an apprentice at Madame Thorel&rsquo;s lithographic press, across the river. Zélie is fifteen and Madame Thorel&rsquo;s niece. Her father taught Greek; he left her his books and his opinions. The roll is the biggest job the press has had all year: a copy of the Rosetta Stone, for the lecture room of the Académie.',
+      'M. Champollion-Figeac, who works for M. Dacier, the secretary of the Académie, pins it to an easel by the window. He is a careful man with a quiet voice. His younger brother has been trying for years to read the sacred signs of Egypt, and has been working day and night all week.',
+      '&ldquo;Before I pay your mistress,&rdquo; he says, &ldquo;the gentlemen of the Académie must be able to see, from the back of the room, where the same words stand in the three scripts. Pin them for me. My card will tell you how.&rdquo; And he sits down to his letters.'
+    ], function () { busy = false; ER.flag('o-in', 1); paint(); });
+  }
+
+  $('#card').addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (busy) return;
+    ER.read({ html: ST.STONE, cls: 'card', clue: { id: 'stone', title: 'How to read the copy of the stone', kind: 'Pinned to the easel' }, done: function () {
+      ST.learn('decree', 'hieroglyphs', 'Demotic', 'script'); ER.flag('o-card', 1); paint();
+    } });
+  });
+  $('#cutting').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.CUTTING, cls: 'cutting', clue: { id: 'cutting', title: 'Courier of Egypt', kind: 'Framed, on the wall' }, done: function () { ST.learn('Republic'); ER.flag('o-cut', 1); } });
+  });
+  $('#pamph').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.PAMPH, cls: 'pamph', clue: { id: 'pamph', title: 'A Key to the Sacred Letters', kind: 'A pamphlet on the desk' }, done: function () { ST.learn('pamphlet'); ER.flag('o-pam', 1); } });
+  });
+  $('#easel').addEventListener('click', function (e) {
+    if (busy) return;
+    if (nextFile) { ER.say('The proof, with its pins. Even the gentlemen at the back will see them.'); return; }
+    if (!ER.flag('o-card')) { ER.say('The proof. Before you pin anything, read the card in its top right corner.'); return; }
+    openLock();
+  });
+  $('#zelie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Zélie is picking up the last of the drawings. Her hands are not quite steady.'); return; }
+    ER.talk({ who: 'Zélie Thorel', role: 'Madame Thorel’s niece, fifteen', face: ST.FACE('zelie'), lines: [
+      '&ldquo;I can read every word of the Greek. That is the trouble: so can everybody. The Greek is the only part that nobody needs to read.&rdquo;',
+      { q: 'What about the other two?', a: '&ldquo;The middle one looks like a spider that fell in the ink. The top one is pictures: birds, lions, bits of rope. And the top is broken off, so it is a third of a puzzle. We copied every mark exactly, though. My aunt made me do the lions three times.&rdquo;' },
+      { q: 'Have you read the pamphlet on the desk?', a: '&ldquo;M. Sautel&rsquo;s? Every word. He says each picture is a word: the lion means strength, the square a throne. Then the king&rsquo;s name means &ldquo;throne, strength, soul&rdquo;. I should like to see him write a shopping list.&rdquo;' },
+      { q: 'And the framed paper by the clock?', a: '&ldquo;From the army&rsquo;s newspaper in Egypt. It is dated Year VII. Do you know what year that is? Neither do I. My aunt says it was the year the bread was dear, but she says that about every year.&rdquo;' }
+    ], clue: { id: 'zelie1', title: 'Zélie, about the three scripts', kind: 'What she said' } });
+  });
+  $('#jj').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('M. Champollion-Figeac has gone with the doctor. His letters lie unfinished on the desk.'); return; }
+    ER.talk({ who: 'M. Champollion-Figeac', role: 'Jacques-Joseph, the elder brother; he works for M. Dacier at the Institut', face: ST.FACE('jj'), lines: [
+      '&ldquo;My brother has studied these signs since he was a boy. He learnt Coptic, the last form of the old Egyptian tongue, before he was twenty. If anybody in Europe can read them, it is he.&rdquo;',
+      { q: 'Why does the Académie need a big copy?', a: '&ldquo;Because a room full of learned men cannot all stand round one engraving. When somebody says &ldquo;this group is the king&rdquo;, they must all be able to see which group he means.&rdquo;' },
+      { q: 'What about M. Sautel?', a: '&ldquo;He sent his pamphlet to every member. He was with the army in Egypt as a young man, and he saw the stone. Seeing a thing is not the same as reading it. But he is not a fool, and he is very persistent.&rdquo;' }
+    ], clue: { id: 'jj1', title: 'M. Champollion-Figeac, about the copy', kind: 'What he said' } });
+  });
+  ST.thing('#window', null, 'The Seine, and across it the long grey front of the Louvre. A barge loaded with firewood is going downstream.', isBusy);
+  ST.thing('#door', null, function () { return nextFile ? 'The door to the stairs, still open.' : 'The door to the stairs. Somebody is coming up them, two at a time.'; }, isBusy);
+
+  /* ---------- the lock: five pins ---------- */
+  var PINS = [['k', 'KING', 'in the middle script', '#a8261c', 'd'], ['p', 'PTOLEMY', 'in the middle script', '#2a4f8c', 'd'], ['t', 'TEMPLE', 'in the middle script', '#2d6a34', 'd'],
+    ['s', 'PTOLEMY', 'in the sacred signs', '#2a4f8c', 'h'], ['f', 'LIVING FOR EVER, BELOVED OF PTAH', 'the full title, in the sacred signs', '#8a5a00', 'h']];
+  function build() {
+    var b = ER.el('div', 'pf'), at = {}, held = null, lock = false;
+    b.innerHTML = '<div><div class="pf-sheet">' + sheetSvg() + '<div class="pf-slip">' + SLIP + '</div></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + ST.FACE('jj') + '</div><h6 class="lk-h">M. Champollion-Figeac</h6><p class="pmsg"></p>' +
+      '<div class="pins">' + PINS.map(function (p) { return '<button type="button" class="pinb" data-p="' + p[0] + '"><i style="background:' + p[3] + '"></i><span>' + p[1] + '<small>' + p[2] + '</small></span></button>'; }).join('') + '</div>' +
+      '<div class="pf-btns"><button type="button" class="btn" id="pf-clear">Take the pins out</button><button type="button" class="btn" id="pf-go" disabled>Show him the pins</button></div></div>';
+    var msgEl = b.querySelector('.pmsg'), go = b.querySelector('#pf-go'), layer = b.querySelector('#pf-pins');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function pinOf(k) { for (var i = 0; i < PINS.length; i++) if (PINS[i][0] === k) return PINS[i]; }
+    function draw() {
+      var s = '', count = {};
+      Object.keys(at).forEach(function (k) {
+        var g = b.querySelector('.grp[data-n="' + at[k].n + '"]') || b.querySelector('.grp[data-g="' + at[k].g + '"]');
+        if (!g) return;
+        var tr = g.getAttribute('transform').match(/translate\(([-\d.]+) ([-\d.]+)\)/), x = +tr[1], y = +tr[2];
+        var key = at[k].g + at[k].n; count[key] = (count[key] || 0) + 1;
+        var ox = x + 10 + (count[key] - 1) * 14;
+        s += '<g><path d="M' + ox + ' ' + (y - 4) + 'l6 16" stroke="#3a3a36" stroke-width="2"/><circle cx="' + ox + '" cy="' + (y - 6) + '" r="7" fill="' + pinOf(k)[3] + '" stroke="#fff" stroke-width="1.5"/></g>';
+      });
+      layer.innerHTML = s;
+      ER.$$('.pinb', b).forEach(function (pb) { pb.classList.toggle('set', !!at[pb.getAttribute('data-p')]); pb.classList.toggle('held', pb.getAttribute('data-p') === held); });
+      go.disabled = Object.keys(at).length < PINS.length;
+    }
+    ER.$$('.pinb', b).forEach(function (pb) {
+      pb.addEventListener('click', function () {
+        if (lock) return;
+        var k = pb.getAttribute('data-p');
+        held = held === k ? null : k; pb.classList.remove('no'); ST.sfx.pin(); draw();
+        if (held) msg('Now click the group in ' + (pinOf(k)[4] === 'd' ? 'the middle script' : 'the sacred signs') + ' where it belongs.');
+      });
+    });
+    ER.$$('.grp', b).forEach(function (g) {
+      g.addEventListener('click', function () {
+        if (lock) return;
+        ER.$$('.grp', b).forEach(function (x) { x.classList.remove('bad', 'good'); });
+        if (!held) { msg('Pick up a pin first: click one of the coloured pins on the right.'); return; }
+        var p = pinOf(held);
+        if (g.getAttribute('data-band') !== p[4]) { msg(p[4] === 'd' ? 'That pin is for the middle script.' : 'That pin is for the sacred signs, at the top.'); ER.sfx.no(); return; }
+        at[held] = { g: g.getAttribute('data-g'), n: g.getAttribute('data-n') || '' };
+        held = null; ST.sfx.pin(); draw(); msg('');
+      });
+    });
+    b.querySelector('#pf-clear').addEventListener('click', function () { if (lock) return; at = {}; held = null; ER.$$('.grp', b).forEach(function (x) { x.classList.remove('bad', 'good'); }); draw(); });
+    function why(k, g) {
+      if (k === 'k') return g === 'd7' ? '&ldquo;That group comes three times. How many times does KING come in the slip?&rdquo;' : '&ldquo;KING comes four times in the slip. Which group in the middle script comes back four times?&rdquo;';
+      if (k === 'p') return g === 'd4' ? 'He taps the pamphlet on his desk. &ldquo;That is M. Sautel&rsquo;s reading. Count it: four times. How many times does the slip say PTOLEMY? And which word comes four times?&rdquo;' : '&ldquo;PTOLEMY comes three times in the slip, and each time straight after KING.&rdquo;';
+      if (k === 't') return ['d1', 'd3', 'd5', 'd6'].indexOf(g) >= 0 ? '&ldquo;That group does come twice. So do four others. Now look at where TEMPLE stands in the slip, counted by the KINGs round it.&rdquo;' : '&ldquo;TEMPLE comes twice in the slip. Count again.&rdquo;';
+      if (k === 's') return g === 'h3' ? '&ldquo;That ring is longer than the others: there are more signs after the name. Where does the slip have PTOLEMY with nothing after it?&rdquo;' : '&ldquo;In the sacred signs the king&rsquo;s name is drawn inside a ring. My card says so.&rdquo;';
+      if (k === 'f') return g === 'h6' ? '&ldquo;That is one of the short rings. The full title is the longest thing said of the king.&rdquo;' : '&ldquo;The full title belongs to the king&rsquo;s name, and the king&rsquo;s name is in a ring.&rdquo;';
+    }
+    go.addEventListener('click', function () {
+      if (lock || go.disabled) return;
+      var bad = [], first = '';
+      ER.$$('.grp', b).forEach(function (x) { x.classList.remove('bad', 'good'); });
+      PINS.forEach(function (p) {
+        var v = at[p[0]], ok = ER.check('pin', p[0] + ':' + v.g), pb = b.querySelector('.pinb[data-p="' + p[0] + '"]');
+        pb.classList.toggle('no', !ok);
+        if (!ok) { bad.push(p[0]); if (!first) first = why(p[0], v.g); }
+      });
+      b.setAttribute('data-bad', bad.join(' '));
+      if (bad.length) {
+        ST.slip(); ER.sfx.no();
+        msg(first + (bad.length > 1 ? ' He shakes his head at ' + (bad.length === 2 ? 'one other pin too.' : (bad.length - 1) + ' other pins too.') : ''));
+        return;
+      }
+      var cand = PINS.map(function (p) { return p[0] + ':' + at[p[0]].g; }).join('-');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Something is wrong with the pins: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('o-file', file); go.disabled = true;
+      msg('He walks to the far side of the room, and then to the door, and looks back. &ldquo;Yes,&rdquo; he says. &ldquo;Even the gentlemen at the back will see it.&rdquo;');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;Five pins. Three in the middle script, two in the sacred signs. The slip under the sheet is the end of the Greek, word for word. Count, and keep to the order.&rdquo;'); };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false; falling = true;
+    ST.mine('pins', 'The pins on the proof', '<p>In the middle script: <b>KING</b> is the group that comes four times, <b>PTOLEMY</b> the one that comes three times, always just after KING, <b>TEMPLE</b> the one that comes twice, in the places where the slip has it. M. Sautel took KING for PTOLEMY.</p><p>In the sacred signs: the <b>long ring</b> is PTOLEMY with his full title; the <b>short rings</b> are PTOLEMY alone:</p><p class="sgrow">' + ST.ring(ST.PTOL, 50) + '</p>', true);
+    ER.narrate([
+      'M. Champollion-Figeac takes a pencil and adds a small mark of his own, among the sacred signs, between the long ring and the next one. &ldquo;And one for the gentlemen who like a puzzle. Where the Greek says BIRTHDAY, a group that begins with a sign like three skins tied together. Nobody knows what sound it makes.&rdquo;',
+      'Then there are running feet on the stairs. The door flies open. A young man with black curly hair and no hat stands there, out of breath, with a roll of drawings under his arm.',
+      '&ldquo;<span class="fr">Je tiens l&rsquo;affaire!</span>&rdquo; he cries. I&rsquo;ve got it! He takes two steps towards his brother. Then his knees fold, and he goes down on the floor like a coat falling off a peg.',
+      'For a moment nobody moves. Then M. Champollion-Figeac is on his knees beside him, loosening his cravat, and Zélie is running for water. &ldquo;Day and night,&rdquo; says his brother, to nobody. &ldquo;Day and night, all week.&rdquo;',
+      'He is breathing. The doctor, when he comes, says what the brother has already said: bed, and quiet, for five days at least, and no pencils. Two porters carry him home round the corner to the rue Mazarine.',
+      'His drawings are all over the floor. You pick them up, every one. The top one is a ring of signs copied from some temple, and the first sign in it is a circle with a dot in the middle. You give them all to his brother.',
+      '&ldquo;Come to the rue Mazarine tomorrow, both of you,&rdquo; he says. &ldquo;Bring your pencils. If my brother cannot hold his, somebody must.&rdquo;'
+    ], function () {
+      ER.addClue('birth', 'The birthday sign', '<h4>The birthday sign</h4>' + ST.BIRTH, 'card', 'Pencilled on the proof');
+      ST.learn('cartouche'); busy = false; falling = false; paint();
+    });
+    paint();
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; ER.leave(nextFile);
+  });
+})();
+</script>
+</body>
+</html>

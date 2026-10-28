@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bookshop on the Quai · Sign by Sign</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-history.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="stone.css">
+<style>
+  body{--bg:#16201a;--accent:#f2c463;--font-display:'Cinzel',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,24,18,.96);--tc-ink:#f1ead6;--cap-bg:rgba(18,26,20,.94);--panel:#1f2a22;--face-bg:#2e3a30;--q-ink:#f6d27a;--fade:#060906;--hud-bg:rgba(18,26,20,.84)}
+  .lb{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle;letter-spacing:.1em}
+  #water path{animation:wv 3s steps(3,end) infinite}
+  #water path:nth-child(2n){animation-delay:-1.5s}
+  @keyframes wv{50%{transform:translateX(10px)}}
+  #catT{animation:tail 4s steps(2,end) infinite;transform-origin:880px 770px}
+  @keyframes tail{50%{transform:rotate(14deg)}}
+  #cards g{animation:sway 5s ease-in-out infinite}
+  #cards g:nth-child(2n){animation-delay:-2.5s}
+  @keyframes sway{50%{transform:rotate(1.5deg)}}
+  #line.ready #cards{animation:nudge 1.6s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translateY(-5px)}}
+
+  /* the line of pegs */
+  .ln{display:grid;grid-template-columns:minmax(0,790px) 220px;gap:18px;width:min(1040px,97vw);align-items:start}
+  .ln-main{padding:10px 14px 12px;background:#24342a;border:1px solid #4a5e4e;box-shadow:0 18px 44px rgba(0,0,0,.6)}
+  .ln-main h6{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#d9cfa6}
+  .ln-rail{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding-top:14px}
+  .ln-rail:before{content:'';position:absolute;left:-6px;right:-6px;top:6px;height:2px;background:#c9b48a}
+  .ln-c{position:relative;padding:12px 8px 8px;background:#f2ead6;color:#22201b;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.45)}
+  .ln-c:before{content:'';position:absolute;left:50%;top:-14px;width:8px;height:20px;margin-left:-4px;background:#8a6a3a;border-radius:2px}
+  .ln-c b{display:block;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.06em;line-height:1.2;min-height:30px}
+  .ln-c i{display:block;font-family:'Caveat',cursive;font-style:normal;font-size:18px;line-height:1.1;color:#5a4a30;min-height:40px;margin:2px 0 4px}
+  .ln-c .ts{justify-content:center}
+  .ts{display:inline-flex;align-items:center;gap:3px}
+  .ts button{width:24px;height:24px;border-radius:50%;border:1px solid #6b5a33;background:radial-gradient(circle at 35% 30%,#f3dc92,#b08a35 60%,#6f531a);color:#2a1d06;font-family:'Cinzel',serif;font-weight:700;font-size:14px;line-height:20px;padding:0;cursor:pointer}
+  .ts output{display:inline-block;min-width:50px;padding:2px 4px;background:#22201b;color:#f6e3a8;font-family:'Libre Caslon Text',serif;font-weight:700;font-size:16px;text-align:center;border-radius:2px}
+  .ts.ok output{background:#1d3a20;color:#cdeec6}.ts.no output{background:#4a1712;color:#ffd2c8}
+  .ts.done button{visibility:hidden}
+  .ln-q{margin-top:12px;display:grid;gap:5px}
+  .ln-r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:5px 8px;background:#f2ead6;color:#22201b;font-family:'EB Garamond',serif;font-size:15.6px;line-height:1.25}
+  .ln-r small{display:block;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;color:#6a5a40}
+  .ln-o{display:flex;gap:4px}
+  .ln-o button{padding:4px 7px;border:1px solid #8a7a5a;background:#fbf7ea;font-family:'EB Garamond',serif;font-size:14px;color:#22201b;cursor:pointer;border-radius:2px;white-space:nowrap}
+  .ln-o button.on{background:#22201b;color:#fbf7ea}
+  .ln-o button.ok{background:#2d6a34;color:#fff;border-color:#2d6a34}
+  .ln-o button.no{background:#9a2a1c;color:#fff;border-color:#9a2a1c}
+  .ln-q.off{opacity:.4;pointer-events:none}
+  .ln-btns{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  @media (max-width:900px){.ln{grid-template-columns:1fr}.ln-rail{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e3a30"/><stop offset="1" stop-color="#1a221c"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8c98a"/><stop offset=".6" stop-color="#f2dcae"/><stop offset="1" stop-color="#f6e8c6"/></linearGradient>
+  <linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9a86"/><stop offset="1" stop-color="#5a6a5a"/></linearGradient>
+  <linearGradient id="sunG" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6a8" stop-opacity=".35"/><stop offset="1" stop-color="#ffe6a8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="55%" cy="45%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#050806" stop-opacity=".25"/><stop offset="1" stop-color="#030503" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#wallG)"/>
+<!-- the window onto the quai -->
+<g id="window" class="hot">
+  <rect x="930" y="110" width="600" height="520" fill="#3a2a1a"/>
+  <rect x="946" y="126" width="568" height="488" fill="url(#skyG)"/>
+  <g fill="#c9b796"><path d="M946 330h568v-30l-40-10-60 6-80-14-100 10-80-8-90 10-60-6-58 8z"/><rect x="946" y="330" width="568" height="36"/></g>
+  <g fill="#b5a382"><rect x="960" y="338" width="10" height="14"/><rect x="990" y="338" width="10" height="14"/><rect x="1020" y="338" width="10" height="14"/><rect x="1050" y="338" width="10" height="14"/><rect x="1080" y="338" width="10" height="14"/><rect x="1110" y="338" width="10" height="14"/><rect x="1140" y="338" width="10" height="14"/><rect x="1170" y="338" width="10" height="14"/><rect x="1200" y="338" width="10" height="14"/><rect x="1230" y="338" width="10" height="14"/><rect x="1260" y="338" width="10" height="14"/><rect x="1290" y="338" width="10" height="14"/><rect x="1320" y="338" width="10" height="14"/><rect x="1350" y="338" width="10" height="14"/><rect x="1380" y="338" width="10" height="14"/><rect x="1410" y="338" width="10" height="14"/><rect x="1440" y="338" width="10" height="14"/><rect x="1470" y="338" width="10" height="14"/></g>
+  <rect x="946" y="366" width="568" height="120" fill="url(#riverG)"/>
+  <g id="water" stroke="#c9d2c4" stroke-width="2" opacity=".55"><path d="M960 400h60M1100 420h80M1240 396h50M1380 430h70M1000 456h50M1300 470h60"/></g>
+  <!-- the iron footbridge -->
+  <g stroke="#3a3a3a" stroke-width="3" fill="none"><path d="M946 384H1514"/><path d="M970 384q40-34 80 0q40-34 80 0q40-34 80 0q40-34 80 0q40-34 80 0q40-34 80 0q40-34 80 0"/></g>
+  <g stroke="#3a3a3a" stroke-width="2"><path d="M1010 368v16M1090 368v16M1170 368v16M1250 368v16M1330 368v16M1410 368v16M1490 368v16"/></g>
+  <!-- the river wall and the booksellers' boxes -->
+  <rect x="946" y="486" width="568" height="128" fill="#b9a888"/><rect x="946" y="486" width="568" height="12" fill="#a8977a"/>
+  <g fill="#3e5a3a"><rect x="980" y="456" width="90" height="32"/><rect x="1110" y="456" width="90" height="32"/><rect x="1240" y="456" width="90" height="32"/><rect x="1370" y="456" width="90" height="32"/></g>
+  <g fill="#6a2a1e"><rect x="990" y="462" width="12" height="20"/><rect x="1120" y="462" width="14" height="20"/><rect x="1250" y="462" width="12" height="20"/><rect x="1380" y="462" width="16" height="20"/></g>
+  <path d="M1230 126v488M946 300h568" stroke="#3a2a1a" stroke-width="10"/>
+  <path d="M930 110h600v520H930z" fill="none" stroke="#2a1c10" stroke-width="6"/>
+</g>
+<polygon points="930,126 1514,126 760,900 230,900" fill="url(#sunG)" pointer-events="none"/>
+
+<!-- the line of pegs across the window, with papers on it -->
+<g id="line" class="hot">
+  <path d="M940 190Q1230 214 1520 186" stroke="#d9c9a0" stroke-width="2.4" fill="none"/>
+  <g id="cards">
+    <g><rect x="990" y="196" width="70" height="90" fill="#f2ead6"/><rect x="1020" y="186" width="8" height="18" fill="#8a6a3a"/><path d="M998 214h54M998 226h44M998 238h50" stroke="#8a7a5a" stroke-width="1.5"/></g>
+    <g><rect x="1090" y="202" width="70" height="80" fill="#efe3c6"/><rect x="1120" y="192" width="8" height="18" fill="#8a6a3a"/><path d="M1098 222h54M1098 234h40" stroke="#8a7a5a" stroke-width="1.5"/></g>
+    <g><rect x="1190" y="204" width="70" height="96" fill="#e3e6e4"/><rect x="1220" y="194" width="8" height="18" fill="#8a6a3a"/><path d="M1218 220l6 60h-12z" fill="#9aa4aa"/></g>
+    <g><rect x="1290" y="202" width="70" height="80" fill="#ece3cc"/><rect x="1320" y="192" width="8" height="18" fill="#8a6a3a"/><path d="M1298 220h54M1298 232h48M1298 244h52" stroke="#8a7a5a" stroke-width="1.5"/></g>
+    <g><rect x="1390" y="196" width="70" height="86" fill="#efe6cf"/><rect x="1420" y="186" width="8" height="18" fill="#8a6a3a"/><path d="M1398 214h50M1398 226h54" stroke="#8a7a5a" stroke-width="1.5"/></g>
+  </g>
+</g>
+
+<!-- shelves from floor to ceiling -->
+<g id="shelves">
+  <rect x="-200" y="40" width="1100" height="760" fill="#3a2414"/>
+  <g fill="#2a180c"><rect x="-200" y="160" width="1100" height="10"/><rect x="-200" y="290" width="1100" height="10"/><rect x="-200" y="420" width="1100" height="10"/><rect x="-200" y="550" width="1100" height="10"/></g>
+  <g id="spines"></g>
+</g>
+<!-- the ladder -->
+<g><path d="M150 820L250 60M260 820L360 60" stroke="#6a4a2a" stroke-width="10"/><g stroke="#6a4a2a" stroke-width="7"><path d="M164 760h106M178 660h106M192 560h106M206 460h106M220 360h106M234 260h106M248 160h106"/></g></g>
+<!-- the almanac on its shelf -->
+<g id="alm" class="hot"><rect x="372" y="364" width="44" height="56" fill="#8a2a1e"/><rect x="372" y="364" width="6" height="56" fill="#5a1a12"/><text x="396" y="398" class="lb" font-size="9" fill="#f2dcae">ALM.</text><rect x="364" y="356" width="60" height="72" fill="transparent"/></g>
+
+<!-- the counter, Madame Usson, and Dr Young's article -->
+<g id="usson" class="hot">
+  <path d="M520 600V470q0-46 46-52q46 6 46 52v130z" fill="#4a2f3a"/>
+  <path d="M540 430q26 22 52 0l6 16q-32 20-64 0z" fill="#e9e1d2"/>
+  <rect x="554" y="394" width="22" height="28" fill="#ecc8aa"/><ellipse cx="566" cy="370" rx="28" ry="33" fill="#ecc8aa"/>
+  <path d="M536 360q2-40 30-40t30 40q-16-12-30-12t-30 12z" fill="#f6f1e6"/>
+  <g fill="none" stroke="#5a4a2a" stroke-width="2"><circle cx="556" cy="372" r="8"/><circle cx="576" cy="372" r="8"/><path d="M564 372h4"/></g>
+</g>
+<g id="counter"><rect x="300" y="580" width="560" height="26" fill="#5a3a20"/><rect x="314" y="606" width="532" height="210" fill="#4a3018"/><g stroke="#3a2414" stroke-width="4"><path d="M314 680h532M314 750h532"/></g></g>
+<g id="young" class="hot"><path d="M640 580l70-24 70 24-4 6-66-20-66 20z" fill="#3a2a1a"/><path d="M646 576l64-20 64 20-64 6z" fill="#f2ead6"/><g stroke="#8a7a5a" stroke-width="1.2"><path d="M660 572l40-12M664 576l40-12M720 562l40 12M716 566l40 12"/></g><rect x="630" y="540" width="160" height="50" fill="transparent"/></g>
+<g><rect x="340" y="556" width="90" height="24" fill="#2a3a5a"/><rect x="344" y="534" width="80" height="22" fill="#6a2a1e"/></g>
+
+<!-- M. Sautel, on a stool by the window -->
+<g id="sautel" class="hot">
+  <ellipse cx="1110" cy="830" rx="90" ry="12" fill="#000" opacity=".3"/>
+  <path d="M1080 820v-60M1150 820v-60" stroke="#3a2a1a" stroke-width="8"/><rect x="1066" y="752" width="100" height="14" fill="#5a3a20"/>
+  <path d="M1056 760q-6-150 30-180q30-16 60 0q34 30 26 180z" fill="#2a3a6a"/>
+  <path d="M1080 600l36 30 36-30" stroke="#b3262a" stroke-width="12" fill="none"/><g fill="#d9b24a"><circle cx="1116" cy="660" r="4"/><circle cx="1116" cy="690" r="4"/><circle cx="1116" cy="720" r="4"/></g>
+  <path d="M1066 600l-14-10M1166 600l14-10" stroke="#d9b24a" stroke-width="6"/>
+  <rect x="1104" y="548" width="24" height="30" fill="#dba886"/><ellipse cx="1116" cy="522" rx="30" ry="35" fill="#dba886"/>
+  <path d="M1088 520q-4-24 6-34M1144 520q4-24-6-34" stroke="#cfc8bc" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M1098 542q18-10 36 0q-18 6-36 0z" fill="#cfc8bc"/><circle cx="1105" cy="522" r="2.6" fill="#1b1512"/><circle cx="1127" cy="522" r="2.6" fill="#1b1512"/>
+  <g transform="rotate(-12 1040 690)"><rect x="1000" y="660" width="70" height="50" fill="#efe3c6"/><path d="M1006 674h56M1006 684h50M1006 694h56" stroke="#8a7a5a" stroke-width="1.5"/></g>
+  <path d="M1170 660q-50 20-100 30" stroke="#2a3a6a" stroke-width="20" stroke-linecap="round" fill="none"/>
+</g>
+<!-- Zélie, by the counter -->
+<g id="zelie" class="hot">
+  <path d="M820 830q-6-130 28-160q24-14 46 0q32 30 24 160z" fill="#5a6e8a"/>
+  <rect x="860" y="636" width="20" height="26" fill="#f0cfb2"/><ellipse cx="870" cy="612" rx="27" ry="31" fill="#f0cfb2"/>
+  <path d="M842 614q-2-42 28-42t28 42q-6-24-28-26q-22 2-28 26z" fill="#6a3a1e"/><circle cx="870" cy="574" r="13" fill="#6a3a1e"/>
+  <circle cx="860" cy="616" r="2.6" fill="#1b1512"/><circle cx="880" cy="616" r="2.6" fill="#1b1512"/>
+</g>
+<!-- a cat asleep on a pile of books -->
+<g id="cat" class="hot"><rect x="700" y="790" width="130" height="24" fill="#6a2a1e"/><rect x="706" y="770" width="118" height="22" fill="#2a3a5a"/>
+  <ellipse cx="770" cy="760" rx="50" ry="18" fill="#3a3632"/><circle cx="724" cy="752" r="14" fill="#3a3632"/><path d="M714 742l2-12 8 8zM728 740l6-10 4 12z" fill="#3a3632"/>
+  <path id="catT" d="M818 764q30 0 40-20" stroke="#3a3632" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Take the grammar to the press</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="stone.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, box = null, inLock = false;
+
+  ER.init({
+    theme: 'history', story: 'stone', storyTitle: 'Sign by Sign', id: 'quai', no: 'III', title: 'The Bookshop on the Quai',
+    go: 'Go in', back: '../index.html', backLabel: 'Archive',
+    intro: [
+      'In the attic the two rings were laid side by side. Four signs were twins: the square, the lasso, the lion and the half-loaf, and the first three stood exactly where PTOLEMAIOS and KLEOPATRA have P, O and L. So the signs were sounds. Each sign of Cleopatra took the letter in its place, K-L-E-O-P-A-T-R-A, and the scribe of Ptolemy had left the short sounds out. But the T of Cleopatra was a hand, not the half-loaf, and two signs were left over at the end with no letter to give them.',
+      'Under the strips in the portfolio there is a page torn from an old almanac, with the months of a calendar that nobody uses any more.',
+      'Then it is Monday 16 September 1822, a bright afternoon after the rain, and you are on the quai, where the booksellers&rsquo; boxes stand along the river wall, pushing open the door of Madame Usson&rsquo;s shop.'
+    ],
+    exit: {"next":"press","w":{"8a82d2e5":"2fe9cc56"}}, tags: {"yr":["be4b2240","2c70951d","3e0c5b4b","0b6eaf8f","7bd38085"],"cj":["ac194e30","0468a453","52f09e93","428bc206"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('q-file') || null;
+
+  function isBusy() { return busy; }
+  function ready() { return ER.flag('q-cal') && ER.flag('q-you') && ER.flag('q-poc'); }
+  function paint() {
+    $('#line').classList.toggle('ready', !!ready() && !nextFile);
+    ER.pips(nextFile ? 1 : 0, 1);
+    if (nextFile) $('#go').classList.add('on');
+  }
+  function hints() {
+    if (nextFile) return ['go', ['You have the grammar. Use the button at the bottom of the screen.']];
+    if (inLock) return ['line', [
+      'First the years. Two papers give a year of ours. Three give a date in the calendar of the Republic: change those with the almanac in your notebook. Year I began in September 1792.',
+      'A Republican year runs from one September to the next. Vendémiaire is its first month, in the autumn; Germinal is a spring month, so it falls in the second of the two years.',
+      'Then ask of each claim: on that date, did the writer have what he needed to know it? The card about the stone lists the names in its Greek. The note on the lithograph says the Greek on the obelisk&rsquo;s block is not a translation.'
+    ]];
+    if (!ready()) return ['read', [
+      'Three things to read before the line of pegs: the almanac on the shelf, Dr Young&rsquo;s article on the counter, and M. Sautel&rsquo;s pocket book (talk to him).',
+      'The almanac is the small red book on the shelf beside the ladder. The article is the big volume open on the counter. M. Sautel is the gentleman in the old blue coat by the window.'
+    ]];
+    return ['pegs', ['Click the papers on the line of pegs across the window.']];
+  }
+
+  /* spines on the shelves */
+  (function () {
+    var s = '', cols = ['#6a2a1e', '#2a3a5a', '#7a6a3a', '#3a4a2a', '#5a2a3a', '#8a5a2a', '#2a2a3a'], i, r, x, y = [60, 190, 320, 450, 580];
+    for (r = 0; r < 5; r++) { x = 420; i = r * 7; while (x < 880) { var w = 12 + (i * 7) % 12, h = 80 + (i * 13) % 26; s += '<rect x="' + x + '" y="' + (y[r] + 100 - h) + '" width="' + w + '" height="' + h + '" fill="' + cols[i % cols.length] + '"/>'; x += w + 2; i++; } }
+    for (r = 0; r < 5; r++) { x = -180; i = r * 5 + 3; while (x < 140) { var w2 = 12 + (i * 7) % 12, h2 = 80 + (i * 13) % 26; s += '<rect x="' + x + '" y="' + (y[r] + 100 - h2) + '" width="' + w2 + '" height="' + h2 + '" fill="' + cols[i % cols.length] + '"/>'; x += w2 + 2; i++; } }
+    $('#spines').innerHTML = s;
+  })();
+
+  function begin() {
+    paint();
+    ST.need('stone', 'How to read the copy of the stone', ST.STONE, 'card', 'Pinned to the easel');
+    ST.need('cutting', 'Courier of Egypt', ST.CUTTING, 'cutting', 'Framed, on the wall');
+    ST.need('pamph', 'A Key to the Sacred Letters', ST.PAMPH, 'pamph', 'A pamphlet on the desk');
+    ST.need('philae', 'The obelisk from Philae', ST.PHILAE, 'litho', 'Lithograph, on the wall');
+    if (ER.flag('q-in')) { busy = false; ER.say(nextFile ? 'Madame Usson&rsquo;s shop. The grammar is wrapped in brown paper under your arm.' : 'Madame Usson&rsquo;s shop on the quai. M. Sautel is still by the window.'); return; }
+    ST.learn('quai', 'bookseller');
+    ER.narrate([
+      'Madame Usson&rsquo;s shop is long and narrow and smells of glue and old paper. The shelves go up to the ceiling. Outside the window the river shines, and the iron bridge to the Louvre is full of people who have paid their toll to walk across it.',
+      '&ldquo;The Coptic grammar,&rdquo; says Madame Usson, before you can ask. &ldquo;Bound in calf, for M. Champollion. It is the third time I have bound it. He reads it the way other people eat bread.&rdquo;',
+      'But she does not hand it over, because the gentleman by the window has stood up. He wears an old blue army coat with a red collar, and he is holding a pamphlet that you have seen before.',
+      '&ldquo;You come from the Champollions,&rdquo; he says. &ldquo;Xavier Sautel, formerly engineer with the Army of the East. Tell your master that I saw that stone with my own eyes in Year VIII, and wrote about it in Year X, long before any Englishman, and long before any Champollion. I shall write to M. Dacier and say so.&rdquo;',
+      'Madame Usson sighs. &ldquo;Monsieur Sautel, nobody can read your years.&rdquo; She points at the line of pegs across her window, where she hangs prints for sale. &ldquo;Put the papers on the line in order, child, and then we shall all see who could know what, and when. The grammar can wait ten minutes. The Egyptians have waited a great deal longer.&rdquo;'
+    ], function () { busy = false; ER.flag('q-in', 1); paint(); });
+  }
+
+  $('#alm').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.CAL, cls: 'print', clue: { id: 'cal', title: 'The calendar of the Republic', kind: 'From an old almanac' }, done: function () { ST.learn('almanac', 'calendar'); ER.flag('q-cal', 1); paint(); } });
+  });
+  $('#young').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ST.YOUNG, cls: 'print', clue: { id: 'young', title: 'Dr Young’s article', kind: 'On the counter' }, done: function () { ST.learn('article', 'physician'); ER.flag('q-you', 1); paint(); } });
+  });
+  $('#sautel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Year VIII,&rdquo; says M. Sautel to himself, pleased. &ldquo;October 1799. I was right about that.&rdquo; Then, less pleased: &ldquo;But I could have sworn there was a Cleopatra.&rdquo;'); return; }
+    ER.talk({ who: 'M. Xavier Sautel', role: 'formerly engineer with the Army of the East', face: ST.FACE('sautel'), last: 'Read his pocket book', lines: [
+      '&ldquo;I was twenty-six, and I had never seen anything older than my grandmother. Then Egypt. Temples like mountains, covered in birds and lions and eyes, and nobody in the world able to read a word of it.&rdquo;',
+      { q: 'You saw the stone?', a: '&ldquo;In Cairo, at the Institute the general founded there, a few months after it was found. I copied the last line of the Greek with my own hand. Here: my pocket book from the war. Read it. The date is on it.&rdquo;' },
+      { q: 'And your pamphlet?', a: '&ldquo;Year X. I said that the middle script is an alphabet, and that each sacred picture is a word. The lion is strength. Nobody has ever proved me wrong.&rdquo; He looks at you sharply. &ldquo;Nobody.&rdquo;' }
+    ], done: function (seen) {
+      if (!seen) return;
+      ER.read({ html: ST.POCKET, cls: 'hand', clue: { id: 'pocket', title: 'M. Sautel’s pocket book', kind: 'From the war' }, done: function () { ER.flag('q-poc', 1); paint(); } });
+    } });
+  });
+  $('#usson').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Give M. Champollion my compliments,&rdquo; says Madame Usson, &ldquo;and tell him not to read it in the bath again.&rdquo;'); return; }
+    ER.talk({ who: 'Madame Séraphine Usson', role: 'bookseller and binder, on the quai', face: ST.FACE('usson'), lines: [
+      '&ldquo;Every paper has two dates, child: the one written on it, and the one it was really written. Usually they are the same. Sometimes the first is in a calendar nobody uses any more.&rdquo;',
+      { q: 'What calendar?', a: '&ldquo;The Republic&rsquo;s. When I was young the months were called after the weather: Fog, Frost, Snow. Year I began in 1792. The almanac on the shelf has it all. M. Sautel still dates his letters that way, out of loyalty to his youth.&rdquo;' },
+      { q: 'Is M. Sautel telling the truth?', a: '&ldquo;M. Sautel always tells the truth as he remembers it. That is the trouble with memory. Put the papers on the line, and ask of each one: on that day, could he know it?&rdquo;' }
+    ], clue: { id: 'usson1', title: 'Madame Usson, about dates', kind: 'What she said' } });
+  });
+  $('#zelie').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Zélie is reading the grammar on the counter, upside down, because Madame Usson will not let go of it.'); return; }
+    ER.talk({ who: 'Zélie Thorel', role: 'Madame Thorel’s niece, fifteen', face: ST.FACE('zelie'), lines: [
+      '&ldquo;Year VIII, he says. If that is 1808, he is inventing it: by then the stone had been in London for six years.&rdquo;',
+      { q: 'Is it 1808?', a: '&ldquo;I do not know. I was not born in Year anything. That is what the almanac is for.&rdquo;' },
+      { q: 'And Cleopatra on the stone?', a: '&ldquo;M. Champollion-Figeac&rsquo;s card says which names are in the Greek of the stone. Have a look at it before you believe a pamphlet.&rdquo;' }
+    ], clue: { id: 'zelie3', title: 'Zélie, about M. Sautel', kind: 'What she said' } });
+  });
+  $('#line').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The line of pegs: five papers in the order they were written, and a verdict under each claim.'); return; }
+    if (!ready()) { ER.say('&ldquo;Read first, child,&rdquo; says Madame Usson. &ldquo;The almanac, Dr Young, and M. Sautel&rsquo;s pocket book. Then the line.&rdquo;'); return; }
+    openLock();
+  });
+  ST.thing('#window', null, 'The quai in the sun. Below the river wall the Seine; across the iron footbridge, the Louvre. The booksellers&rsquo; boxes stand open along the parapet.', isBusy);
+  ST.thing('#cat', null, 'A black cat asleep on two volumes of sermons. It has no opinion about the calendar.', isBusy);
+
+  /* ---------- the lock: the line of pegs ---------- */
+  var CARDS = [
+    ['you', 'Dr Young&rsquo;s article', 'Supplement to the Encyclopaedia, 1819'],
+    ['poc', 'M. Sautel&rsquo;s pocket book', 'Cairo, 12 Vend&eacute;miaire, Year VIII'],
+    ['ban', 'Mr Bankes&rsquo;s lithograph', 'printed in London, 1821'],
+    ['cut', 'The army&rsquo;s newspaper', 'Cairo, 29 Fructidor, Year VII'],
+    ['pam', 'M. Sautel&rsquo;s pamphlet', 'Paris, Germinal, Year X']
+  ];
+  var CLAIMS = [
+    ['poc', 'His pocket book: &ldquo;the three bands are one text.&rdquo;', 'M. Sautel, at Cairo'],
+    ['pam', 'His pamphlet: &ldquo;I have found on the stone the name of Queen Cleopatra.&rdquo;', 'M. Sautel, in Paris'],
+    ['you', 'The article: &ldquo;the ring is Ptolemy&rsquo;s; the square is P and the half-loaf T.&rdquo;', 'Dr Young, in London'],
+    ['ban', 'In pencil, beside the second ring on the obelisk: &ldquo;Cleopatra&rdquo;.', 'Mr Bankes']
+  ];
+  var OPT = [['r', 'could read it'], ['g', 'could only guess'], ['n', 'could not know it']];
+  function setter(v) {
+    var el = ER.el('span', 'ts', '<button type="button" class="ts-dn" aria-label="earlier">&minus;</button><output></output><button type="button" class="ts-up" aria-label="later">+</button>');
+    var out = el.querySelector('output');
+    function paintS() { out.textContent = v; el.setAttribute('data-v', v); }
+    function step(d) { if (el.classList.contains('done')) return; v = Math.max(1790, Math.min(1825, v + d)); el.classList.remove('ok', 'no'); paintS(); ST.sfx.pencil(); }
+    el.querySelector('.ts-dn').addEventListener('click', function () { step(-1); });
+    el.querySelector('.ts-up').addEventListener('click', function () { step(1); });
+    paintS();
+    return { el: el, get: function () { return v; }, mark: function (s) { el.classList.remove('ok', 'no', 'done'); if (s) el.classList.add(s); if (s === 'ok') el.classList.add('done'); } };
+  }
+  function build() {
+    var b = ER.el('div', 'ln'), lock = false, S = {}, pick = {}, yearsOk = false;
+    b.innerHTML = '<div class="ln-main"><h6>Madame Usson&rsquo;s line of pegs. First give each paper its year, in our calendar.</h6><div class="ln-rail"></div>' +
+      '<h6 style="margin-top:12px">Then, for each claim: on that date, could the writer know it?</h6><div class="ln-q off"></div></div>' +
+      '<div class="lk-side"><div class="lk-face">' + ST.FACE('usson') + '</div><h6 class="lk-h">Madame Usson</h6><p class="pmsg"></p><div class="ln-btns"><button type="button" class="btn" id="ln-go">Ask Madame Usson</button></div></div>';
+    var rail = b.querySelector('.ln-rail'), qs = b.querySelector('.ln-q'), msgEl = b.querySelector('.pmsg'), go = b.querySelector('#ln-go');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    CARDS.forEach(function (c) {
+      var d = ER.el('div', 'ln-c', '<b>' + c[1] + '</b><i>' + c[2] + '</i>');
+      d.setAttribute('data-c', c[0]);
+      S[c[0]] = setter(1810); d.appendChild(S[c[0]].el); rail.appendChild(d);
+    });
+    CLAIMS.forEach(function (c) {
+      var r = ER.el('div', 'ln-r', '<div>' + c[1] + '<small>' + c[2] + '</small></div><div class="ln-o">' + OPT.map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>');
+      r.setAttribute('data-q', c[0]); qs.appendChild(r);
+      ER.$$('button', r).forEach(function (bt) {
+        bt.addEventListener('click', function () {
+          if (lock || !yearsOk) return;
+          pick[c[0]] = bt.getAttribute('data-v');
+          ER.$$('button', r).forEach(function (o) { o.classList.remove('on', 'ok', 'no'); }); bt.classList.add('on'); ST.sfx.pencil();
+        });
+      });
+    });
+    function yearWhy(k, v) {
+      if (k === 'cut') return v === 1807 ? '&ldquo;Year VII is not 1807, child. The years of the Republic were counted from 1792.&rdquo;' : '&ldquo;The army&rsquo;s paper: Fructidor of Year VII. Find the September in which Year VII began, and count on to the end of the summer.&rdquo;';
+      if (k === 'poc') return v === 1808 ? '&ldquo;Zélie thought 1808 too. But Year I was 1792, not 1801.&rdquo;' : v === 1800 ? '&ldquo;Vendémiaire is the first month of the year, from late September. In which September did Year VIII begin?&rdquo;' : '&ldquo;His pocket book: Vendémiaire, Year VIII. Year I began in September 1792. Count on.&rdquo;';
+      if (k === 'pam') return v === 1801 ? '&ldquo;Year X began in the autumn of 1801, yes. But Germinal is a spring month. Which spring comes after the autumn of 1801?&rdquo;' : v === 1810 ? '&ldquo;Year X is not 1810. Count from 1792.&rdquo;' : '&ldquo;His pamphlet: Germinal, Year X. Find the autumn Year X began, then go on to the spring.&rdquo;';
+      return '&ldquo;That one has an ordinary date printed on it. Read it again.&rdquo;';
+    }
+    function claimWhy(k, v) {
+      if (k === 'poc') return v === 'n' ? '&ldquo;In October 1799 the stone had been found two or three months before, and he was in Cairo, where it was. Could he read Greek? He says so.&rdquo;' : '&ldquo;He did not need to guess. The last line of the Greek says it, in words. Read the card about the stone again.&rdquo;';
+      if (k === 'pam') return v === 'r' ? '&ldquo;Look at the card about the stone: which names does its Greek give? Is Cleopatra one of them?&rdquo;' : '&ldquo;Even a guess needs something to guess from. Is there any Cleopatra on the Rosetta Stone at all? The card says.&rdquo;';
+      if (k === 'you') return v === 'g' ? '&ldquo;More than a guess, child. He had the copies of the Rosetta Stone; the Greek told him a Ptolemy was there; and his P and T were right. Fair is fair.&rdquo;' : '&ldquo;In 1819 the copies of the Rosetta Stone had been in print for years, in London and in Paris.&rdquo;';
+      if (k === 'ban') return v === 'r' ? '&ldquo;Could Mr Bankes read the signs? Read the note on the lithograph again. The Greek on the block is not a translation of them.&rdquo;' : '&ldquo;He had the Greek on the block, which names a Queen Cleopatra. That is something to go on, but it is not a reading.&rdquo;';
+    }
+    go.addEventListener('click', function () {
+      if (lock) return;
+      if (!yearsOk) {
+        var bad = null, n = 0;
+        CARDS.forEach(function (c) { var v = S[c[0]].get(), ok = ER.check('yr', c[0] + ':' + v); S[c[0]].mark(ok ? 'ok' : 'no'); if (!ok) { n++; if (!bad) bad = yearWhy(c[0], v); } });
+        if (bad) { ST.slip(); ER.sfx.no(); msg(bad + (n > 1 ? ' (' + n + ' years are wrong.)' : '')); return; }
+        yearsOk = true; qs.classList.remove('off'); ER.sfx.ok(); ER.flag('q-yr', 1);
+        msg('&ldquo;There. The army&rsquo;s paper, September 1799; his pocket book, October 1799; his pamphlet, spring 1802; Dr Young, 1819; Mr Bankes, 1821. Now the claims.&rdquo;');
+        return;
+      }
+      if (CLAIMS.some(function (c) { return !pick[c[0]]; })) { msg('&ldquo;Every claim, please. A verdict for each.&rdquo;'); return; }
+      var first = '', nb = 0;
+      CLAIMS.forEach(function (c) {
+        var v = pick[c[0]], ok = ER.check('cj', c[0] + ':' + v), bt = b.querySelector('.ln-r[data-q="' + c[0] + '"] button[data-v="' + v + '"]');
+        bt.classList.remove('on'); bt.classList.add(ok ? 'ok' : 'no');
+        if (!ok) { nb++; if (!first) first = claimWhy(c[0], v); }
+      });
+      if (nb) { ST.slip(); ER.sfx.no(); msg(first + (nb > 1 ? ' (' + nb + ' verdicts are wrong.)' : '')); return; }
+      var cand = CARDS.slice().sort(function (a, z) { return ['cut', 'poc', 'pam', 'you', 'ban'].indexOf(a[0]) - ['cut', 'poc', 'pam', 'you', 'ban'].indexOf(z[0]); }).map(function (c) { return S[c[0]].get(); }).join('-') + '|' +
+        ['poc', 'pam', 'you', 'ban'].map(function (k) { return pick[k]; }).join('-');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Something is wrong with the line: tell your teacher.'); return; }
+      lock = true; nextFile = file; ER.flag('q-file', file); go.disabled = true;
+      msg('Madame Usson reads the line from end to end, twice, and nods. Then she looks at M. Sautel over her spectacles.');
+      setTimeout(function () { ER.closeAll(); after(); }, 2600);
+    });
+    b.first = function () { msg('&ldquo;Years first. Two of these papers speak our calendar, and three speak the Republic&rsquo;s. The almanac is in your notebook.&rdquo;'); };
+    return b;
+  }
+  function openLock() {
+    var fresh = !box; if (!box) box = build();
+    inLock = true; ER.open('ov-lock', box, function () { inLock = false; });
+    if (fresh) box.first();
+  }
+  function after() {
+    busy = true; inLock = false;
+    ST.mine('line', 'Who could know what, and when', '<p>Army newspaper, 29 Fructidor VII = <b>September 1799</b>: the stone found in Messidor, that summer.</p>' +
+      '<p>M. Sautel&rsquo;s pocket book, 12 Vendémiaire VIII = <b>October 1799</b>: &ldquo;one text&rdquo;. <b>He could read it</b>: the Greek says so.</p>' +
+      '<p>His pamphlet, Germinal X = <b>spring 1802</b>: &ldquo;Cleopatra on the stone&rdquo;. <b>He could not know it</b>: there is no Cleopatra on the stone.</p>' +
+      '<p>Dr Young, <b>1819</b>: Ptolemy, P and T. <b>He could read it.</b></p><p>Mr Bankes, <b>1821</b>: &ldquo;Cleopatra&rdquo; in pencil. <b>He could only guess</b>, from the Greek on the block.</p>', true);
+    ER.narrate([
+      'M. Sautel stands in front of the line for a long time. &ldquo;October 1799,&rdquo; he says at last. &ldquo;Yes. That was the month. So I was right about the three bands.&rdquo; He sounds surprised and pleased, like a man who has found a coin in an old coat.',
+      '&ldquo;And the Cleopatra?&rdquo; asks Zélie, not unkindly. He is quiet. &ldquo;I was sure I had read it,&rdquo; he says. &ldquo;It was Year X. One was sure of a great many things in Year X.&rdquo; He folds up his pamphlet and puts it in his pocket. &ldquo;But the lion means strength. I shall say so until I die.&rdquo;',
+      'Madame Usson gives you the grammar, wrapped in brown paper and tied with string, and a thin book besides: a little history of Egypt. &ldquo;For M. Champollion, with my compliments. There are names of old kings in it that he will want.&rdquo;',
+      'Zélie has already untied the string and is reading the grammar on the counter. &ldquo;Coptic,&rdquo; she says, &ldquo;has a T for women. Listen to this.&rdquo; But Madame Usson takes the book back, ties it up again, and sends you both off to the press.'
+    ], function () {
+      ER.addClue('coptic', 'A grammar of the Coptic tongue', ST.COPTIC, 'print', 'From Madame Usson');
+      ST.learn('Coptic', 'source', 'claim'); busy = false; paint();
+    });
+    paint();
+  }
+  $('#go').addEventListener('click', function () {
+    if (!nextFile || busy) return;
+    busy = true; ER.leave(nextFile);
+  });
+})();
+</script>
+</body>
+</html>
