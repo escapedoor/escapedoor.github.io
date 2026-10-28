@@ -1,0 +1,222 @@
+/* Letterhead - what every room of the story shares: the lettering of a small weekly paper on press day, the frame round a
+   piece of work done with the hands, the papers (the style book, council letters, bound volumes, registers, the lawyer's
+   page), and a skin for the notebook, the hints and the word tags. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'DM Mono',monospace;font-weight:500;font-size:13px;letter-spacing:.32em}
+.tc-room{font-family:'UnifrakturCook',serif;font-weight:700;letter-spacing:.01em;line-height:1;font-size:clamp(46px,6.4vw,88px)}
+.tc-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17px,1.38vw,21px);line-height:1.52}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'Newsreader',Georgia,serif;font-size:clamp(17.5px,1.4vw,21.5px);line-height:1.5}
+.chip,.hbtn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.12em}
+.btn{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase}
+.ov-x{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 12px;border:2px solid var(--accent,#e8c86a);
+  color:#111;background:var(--accent,#e8c86a);font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff;border-color:#fff}
+.tk-name{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.tk-role{font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.1em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.5}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.15)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.35)}}
+
+/* lettering inside drawings */
+.fM{font-family:'DM Mono',monospace}
+.fK{font-family:'Kalam',cursive}
+.fC{font-family:'Caveat',cursive}
+.fT{font-family:'Special Elite',monospace}
+.fN{font-family:'Newsreader',serif}
+.fS{font-family:'Stardos Stencil',serif}
+.fL{font-family:'Libre Franklin',sans-serif}
+.fG{font-family:'EB Garamond',serif}
+.fU{font-family:'UnifrakturCook',serif}
+.fO{font-family:'Oswald',sans-serif}
+.fX{font-family:'Outfit',sans-serif}
+.fZ{font-family:'Cinzel',serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.job{width:min(1120px,95vw);-webkit-user-select:none;user-select:none}
+.job svg text{pointer-events:none}
+.job-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.jmsg{flex:1;min-height:48px;margin:0;font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.36;color:#f3efe4}
+.jmsg b{color:var(--accent,#e8c86a);font-weight:700}
+.job-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.job h5{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#e8c86a)}
+.job h5 small{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:14.5px;letter-spacing:0;text-transform:none;color:#d8d0bc;margin-left:8px}
+
+/* tiles copied into slots */
+.tray{display:flex;flex-wrap:wrap;gap:6px}
+.tl{display:inline-block;padding:5px 10px 4px;border-radius:3px;background:#fffdf3;color:#1b1b22;border:1.5px solid #8b8574;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:14.5px;cursor:pointer;white-space:nowrap;touch-action:none}
+.tl:hover{border-color:#1b1b22}
+.tl.held{background:#e8c86a;border-color:#1b1b22;box-shadow:0 0 0 3px rgba(232,200,106,.35)}
+.tl.ghost{position:fixed;z-index:200;pointer-events:none;opacity:.92;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.sl{display:inline-block;min-width:80px;min-height:28px;padding:2px 8px 1px;vertical-align:middle;border:2px dashed rgba(255,255,255,.45);border-radius:3px;cursor:pointer;text-align:center;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:14.5px;line-height:23px;color:#fff;background:rgba(255,255,255,.06)}
+.sl:hover{border-color:#e8c86a}
+.sl.full{border-style:solid;border-color:#e8c86a;background:rgba(232,200,106,.16)}
+.sl.bad{border-color:#ff6a5a;background:rgba(255,90,70,.22)}
+.sl.ok{border-color:#7fd88a;background:rgba(110,210,120,.18)}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc .two{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+.doc .dia{background:#fffdf6;border:1px solid #d6cdb2;padding:6px}
+/* a page of the Record's style book: cream, an oxblood rule, the paper's blackletter */
+.doc.style{width:min(940px,95vw);background:#fbf7ec;color:#1d1a16;font-family:'Newsreader',Georgia,serif;font-size:16.5px;line-height:1.42;padding:18px 32px 14px;border-top:10px solid #7a1f1f;box-shadow:inset 0 -3px 0 #1d1a16}
+.doc.style h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#7a6a56;display:flex;justify-content:space-between;gap:10px}
+.doc.style h3{margin:0 0 9px;font-family:'UnifrakturCook',serif;font-weight:700;font-size:34px;line-height:1.02;color:#7a1f1f}
+.doc.style p{margin:0 0 7px}
+.doc.style ol{margin:0 0 8px;padding-left:24px}
+.doc.style li{margin:0 0 4px}
+.doc.style b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.04em;color:#7a1f1f}
+.doc.style .ex{font-family:'DM Mono',monospace;font-size:13.6px;line-height:1.5;background:#f1eadb;padding:5px 10px;margin:4px 0 8px;border-left:3px solid #7a1f1f}
+.doc.style .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#1d4a8a;transform:rotate(-1deg);margin-top:4px}
+.doc.style .w:hover{color:#7a1f1f}
+/* council letters */
+.lsheet{position:relative;background:#fff;color:#1d2228;font-family:'Libre Franklin',Arial,sans-serif;font-size:14.6px;line-height:1.42;padding:18px 34px 12px;margin:0 auto}
+.lsheet p{margin:0 0 8px}
+.lsheet .lhead{display:flex;align-items:center;gap:12px;padding-bottom:8px;margin-bottom:10px;border-bottom:2px solid #1f6f78}
+.lsheet .lmark{width:62px;height:auto}
+.lsheet .lhead b{display:block;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:17px;color:#1f6f78;letter-spacing:.02em}
+.lsheet .lhead span{display:block;font-size:12px;color:#4a6a70}
+.lsheet .lref{font-size:12.5px;color:#4a5560;margin:0}
+.lsheet .ldate{text-align:right;margin:0 0 8px}
+.lsheet .lsub{font-weight:700}
+.lsheet .lsig{width:130px;height:auto;margin:-2px 0 -4px}
+.lsheet .lname{margin-top:0}
+.lsheet.leak p:not(.lref):not(.lname):not(.ldate){font-family:'EB Garamond',Georgia,serif;font-size:16.4px;line-height:1.36}
+.lsheet.leak .lname,.lsheet.leak .ldate,.lsheet.leak .lref,.lsheet.leak .laddr{font-family:'EB Garamond',Georgia,serif;font-size:16px}
+.lsheet .lband{margin:10px -34px -12px;padding:22px 34px 18px;background:repeating-linear-gradient(135deg,#f6f6f6 0 8px,#fff 8px 16px);border-top:1px dashed #c8c8c8;font-family:'Caveat',cursive;font-size:19px;color:#7a1f1f;text-align:center}
+.doc.letter{width:min(680px,94vw);background:#e9e4d8;padding:0 0 14px;color:#1d2228}
+.doc.letter h4{margin:0;padding:9px 18px 8px;background:#2e2a24;color:#e9e1cc;font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.06em;line-height:1.45;display:flex;justify-content:space-between;gap:12px}
+.doc.letter .lsheet{width:calc(100% - 36px);margin:12px auto 0;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+/* an email on a screen */
+.doc.mail{width:min(760px,94vw);background:#fff;color:#1d2228;font-family:'Outfit',Arial,sans-serif;font-size:16.5px;line-height:1.5;padding:0 0 16px}
+.doc.mail h4{margin:0;padding:10px 22px 8px;background:#e9edf0;border-bottom:1px solid #c9d2d8;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.03em;color:#3a4650;line-height:1.6}
+.doc.mail p{margin:10px 22px 0}
+/* a page from a bound volume of the Record */
+.doc.paper{width:min(860px,95vw);background:#f2e8cf linear-gradient(90deg,rgba(120,90,40,.12),rgba(255,255,255,0) 8%,rgba(255,255,255,0) 92%,rgba(120,90,40,.14));color:#221d14;font-family:'Newsreader',Georgia,serif;font-size:15.8px;line-height:1.42;padding:14px 30px 14px}
+.doc.paper h4{margin:0 0 4px;padding-bottom:4px;border-bottom:3px double #221d14;font-family:'UnifrakturCook',serif;font-size:26px;letter-spacing:0;text-align:center;color:#221d14}
+.doc.paper h4 small{display:block;font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+.doc.paper h3{margin:6px 0 4px;font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;line-height:1.02;text-transform:uppercase}
+.doc.paper p{margin:0 0 6px}
+.doc.paper .by{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5a4a32}
+.doc.paper .cols{column-count:2;column-gap:26px}
+.doc.paper .box{border:1.5px solid #221d14;padding:6px 10px;margin:6px 0;font-size:14.6px}
+/* a register or a day book: ruled, municipal */
+.doc.reg{width:min(860px,95vw);background:#f7f3e6;color:#1d2a2a;font-family:'DM Mono',monospace;font-size:13.2px;line-height:1.42;padding:0 0 14px;border-left:14px solid #1f6f78}
+.doc.reg h4{margin:0;padding:10px 20px 8px;background:#1f6f78;color:#fff;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px}
+.doc.reg table{width:calc(100% - 36px);margin:8px 18px 4px;border-collapse:collapse}
+.doc.reg td,.doc.reg th{padding:3px 7px;border-bottom:1px solid #c8d6d2;text-align:left;vertical-align:top}
+.doc.reg th{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#2a5a5a}
+.doc.reg tr.hl td{background:#fff3b0}
+.doc.reg .hide{display:inline-block;background:#3a2a20;color:#3a2a20;border-radius:6px;padding:0 6px;font-size:11px}
+.doc.reg p{margin:6px 20px 0;font-family:'Newsreader',serif;font-size:15px;line-height:1.38;color:#2a3a3a}
+/* the printer's preflight report */
+.doc.pre{width:min(760px,94vw);background:#10181a;color:#cfe8e0;font-family:'DM Mono',monospace;font-size:13.6px;line-height:1.5;padding:0 0 12px;border:1px solid #2a4a48}
+.doc.pre h4{margin:0;padding:9px 20px 8px;background:#1d3a38;color:#9fe0c8;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between}
+.doc.pre table{margin:8px 20px 4px;border-collapse:collapse;width:calc(100% - 40px)}
+.doc.pre td{padding:2px 8px;border-bottom:1px solid #22383a;vertical-align:top}
+.doc.pre td:first-child{color:#7fb0a0;width:34%}
+.doc.pre .warn{color:#ffcf6a}
+.doc.pre p{margin:6px 20px 0;font-family:'Newsreader',serif;font-size:15px;color:#cfe8e0}
+.doc.pre .w:hover{color:#ffcf6a}
+/* Queenie's card: printed, with a pen note */
+.doc.card{width:min(860px,95vw);background:#efe6cc linear-gradient(176deg,rgba(255,255,255,.4),rgba(160,120,40,.12));color:#24201a;font-family:'Special Elite','Courier New',monospace;font-size:15px;line-height:1.48;padding:20px 30px 14px;border-top:4px solid #2f6a5a}
+.doc.card h4{margin:0 0 4px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#6a5a3a}
+.doc.card h3{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;line-height:1;text-transform:uppercase}
+.doc.card p{margin:0 0 7px}
+.doc.card b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.92em;letter-spacing:.04em;color:#7a1f1f}
+.doc.card .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#1d4a8a;transform:rotate(-1deg);margin-top:6px}
+/* the lawyer's page */
+.doc.law{width:min(900px,95vw);background:#fff;color:#16161a;font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.4;padding:18px 34px 14px;border-left:8px solid #16161a}
+.doc.law h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6a6a72;display:flex;justify-content:space-between}
+.doc.law h3{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:28px;line-height:1.05}
+.doc.law p{margin:0 0 7px}
+.doc.law b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.84em;letter-spacing:.06em;text-transform:uppercase;color:#7a1f1f}
+.doc.law .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#1d4a8a;transform:rotate(-1deg)}
+/* a note in somebody's own hand, or a reply */
+.doc.note{width:min(720px,94vw);background:#fffdf4;color:#1d2a50;font-family:'Kalam',cursive;font-size:18px;line-height:1.45;padding:22px 32px 16px;border-top:6px solid #5a2a3a;box-shadow:inset 0 0 0 1px #e6dcc0}
+.doc.note h4{margin:0 0 6px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7a6a56}
+.doc.note p{margin:0 0 8px}
+.doc.note .aside{margin-top:10px;padding:6px 10px;border:1.5px dashed #9a2a2a;color:#5a1a1a;font-size:17px}
+/* what somebody said, kept */
+.doc.statement{background:#f4efe2;font-family:'Newsreader',Georgia,serif;font-size:17.5px;line-height:1.5;border-left:6px solid #7a1f1f}
+.doc.statement h4{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#7a1f1f}
+/* what you worked out for yourself: a reporter's shorthand notebook */
+.doc.mine{width:min(620px,92vw);background-color:#fbfaf2;background-image:linear-gradient(#c9d4e2 1px,transparent 1px);background-size:100% 30px;
+  color:#1d2a66;font-family:'Caveat',cursive;font-size:24px;line-height:30px;padding:30px 30px 20px 52px;border-left:3px double #b8452a}
+.doc.mine h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;line-height:30px;letter-spacing:.2em;text-transform:uppercase;color:#7a1f1f}
+.doc.mine p{margin:0}
+.nb-view .doc{width:100%}
+
+/* ---- the notebook: a reporter's notebook, spiral at the top ---- */
+.nb{background:#22201c linear-gradient(140deg,#34302a,#181612);border:1px solid #4a4438;border-radius:3px;color:#efe9dc;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #100e0c}
+.nb-tabs{border-bottom-color:#4a4438}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.16em;color:#c8bca4}
+.nb-tabs button.on{background:#fbf7ec;color:#1d1a16;border-color:#4a4438}
+.nb-list{border-right-color:#4a4438}
+.nb-list button{font-family:'Newsreader',serif;font-size:16.5px;color:#efe9dc}
+.nb-list button small{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#e8a07a;opacity:.95}
+.nb-list button.on{background:#fbf7ec;color:#111}
+.nb-list button.on small{color:#7a1f1f}
+.nb-view{background:#100e0c}
+.nb-empty{font-family:'Newsreader',serif}
+.nb-words{background:#fbf7ec;color:#111}
+.nb-words b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:16.5px;letter-spacing:.01em}
+.nb-words span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.nb-ko{border-color:#8a9094;color:#4a5054}
+.nb-ko.on{background:#1d1a16;color:#e8a07a;border-color:#1d1a16}
+.wtip,.wtag{background:#fbf7ec;color:#111;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 0 4px 0 #7a1f1f}
+.wtag{transform:rotate(-1deg);padding:12px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:17px;letter-spacing:.01em}
+.wtip span,.wtag span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.wtip i,.wtag i,.nb-words i{color:#7a1f1f}
+.hintbox{background:#fbf7ec;color:#111;border-top:6px solid #7a1f1f;border-radius:2px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.28em;color:#7a1f1f}
+.hintbox p{font-family:'Newsreader',serif;font-size:17px;line-height:1.4}
+.hintbox p i{background:#7a1f1f;color:#fff;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6064;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.hintbox .w:hover{color:#7a1f1f}
+.hint-x:hover{color:#7a1f1f}
+.toast{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;background:rgba(20,16,12,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 12px;display:none;background:#fbf7ec;color:#111;border-top:10px solid #7a1f1f;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:3px 12px 1px;border:4px solid #7a1f1f;color:#7a1f1f;font-family:'Stardos Stencil',serif;font-weight:700;font-size:19px;letter-spacing:.12em;transform:rotate(-2deg);margin:4px 0 10px}
+.done h6{margin:8px 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#7a1f1f}
+.done p{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Newsreader',serif;font-size:13.6px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.done .btn{--accent:#111;font-size:12.5px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#fff}
+.done small{display:block;margin-top:7px;font-family:'DM Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(800px,94vw);max-height:84vh;overflow:auto;background:#fbf7ec;color:#111;padding:20px 34px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:6px solid #7a1f1f}
+.rp h4{margin:0 0 3px;font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#7a1f1f}
+.rp h3{margin:0 0 8px;font-family:'UnifrakturCook',serif;font-weight:700;font-size:32px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Newsreader',serif;font-size:16.5px;line-height:1.42;margin:0 0 6px}
+.rp .notes{font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;background:#f1eadb;padding:7px 12px;margin:0 0 8px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:28px;color:#111;background:#fff repeating-linear-gradient(transparent 0 27px,#d9d2bd 27px 28px);border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:150px}
+.rp input[type=text]{height:30px}
+.rp .count{font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'DM Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#111}.rp .btn:hover:not([disabled]){color:#fbf7ec}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

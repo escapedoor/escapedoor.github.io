@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Archive · Letterhead</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="leak.css">
+<style>
+  body{--bg:#2a1e12;--accent:#f0c060;--font-display:'UnifrakturCook',serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(36,26,16,.97);--tc-ink:#f4ead6;--cap-bg:rgba(30,22,14,.95);--panel:#2e2216;--face-bg:#3a2e24;--q-ink:#f0c060;--fade:#0c0804;--hud-bg:rgba(30,22,14,.86)}
+  #motes circle{animation:mote 9s ease-in-out infinite}
+  #motes circle:nth-child(2n){animation-duration:13s;animation-delay:-4s}
+  #motes circle:nth-child(3n){animation-duration:11s;animation-delay:-7s}
+  @keyframes mote{50%{transform:translate(14px,-22px);opacity:.25}}
+  #pigeon{animation:peck 6s steps(1,end) infinite}
+  @keyframes peck{0%{transform:translate(0,0)}70%{transform:translate(0,0)}72%{transform:translate(4px,5px)}76%{transform:translate(0,0)}80%{transform:translate(4px,5px)}84%{transform:translate(0,0)}}
+
+  /* the bound volume, open on the table */
+  .vol{width:min(940px,96vw);display:grid;grid-template-columns:150px 1fr;gap:12px;background:#4a2a18;padding:12px;border-radius:4px;box-shadow:inset 0 0 0 3px #2a1608}
+  .vol .tabs{display:flex;flex-direction:column;gap:5px}
+  .vol .tabs button{text-align:left;padding:6px 9px;border:0;border-radius:2px;background:#e8d8b0;color:#2a1e12;font-family:'DM Mono',monospace;font-size:12px;line-height:1.3;cursor:pointer}
+  .vol .tabs button.on{background:#fff7dc;box-shadow:inset 4px 0 0 #7a1f1f}
+  .vol .tabs button.seen:not(.on){background:#cdbd96}
+  .vol .tabs h6{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#f0c060}
+  .vol .page .doc.paper{width:auto;max-height:620px;overflow:auto}
+
+  /* the date line and the perpetual calendar */
+  .dlj{width:min(1180px,97vw)}
+  .strip{position:relative;background:#f2e8cf;border:1px solid #b8a478;padding:10px 12px 8px;margin:0 0 8px;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+  .hs{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;position:relative}
+  .hs .hslot{min-height:66px;border:1.5px dashed #a8946a;border-radius:2px;background:rgba(255,255,255,.35);padding:3px;display:flex;align-items:flex-start;justify-content:center}
+  .hs .hslot.after{background:rgba(192,57,43,.08)}
+  .hs .lab{text-align:center;font-family:'DM Mono',monospace;font-size:10.5px;color:#5a4a32;margin-top:3px;line-height:1.2}
+  .hs .lab b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.1em;color:#2a1e12}
+  .pin{position:absolute;top:-6px;bottom:-30px;width:0;border-left:3px solid #c0392b}
+  .pin span{position:absolute;bottom:-22px;left:6px;width:auto;white-space:nowrap;text-align:center;font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:10.5px;letter-spacing:.06em;color:#c0392b;text-transform:uppercase}
+  .flags{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:6px;background:rgba(0,0,0,.25);border-radius:3px;margin-bottom:8px}
+  .flag{display:inline-block;width:auto;max-width:140px;padding:4px 7px 4px 9px;background:#fff7dc;color:#2a1e12;border-left:5px solid #7a1f1f;font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:11.5px;line-height:1.2;border-radius:1px;box-shadow:0 2px 5px rgba(0,0,0,.3)}
+  .hslot .flag{max-width:100%;font-size:10.8px;padding:3px 4px 3px 6px}
+  .flag.bad{border-left-color:#e07a1a;background:#ffe2c8}
+  .dlrow{display:grid;grid-template-columns:1fr 250px;gap:12px;align-items:start}
+  .stamps{background:#fbf7ec;color:#1d1a16;padding:8px 12px 6px;border-top:6px solid #7a1f1f}
+  .stamps h6{margin:0 0 5px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#7a1f1f}
+  .srow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:4px 0;border-bottom:1px dotted #c8bca4}
+  .srow:last-child{border-bottom:0}
+  .srow q{font-family:'EB Garamond',serif;font-size:15.5px;quotes:none}
+  .srow .sb{display:flex;gap:4px}
+  .srow .sb button{padding:3px 7px;border:1.5px solid #a8946a;border-radius:2px;background:#fff;font-family:'Stardos Stencil',serif;font-size:12.5px;letter-spacing:.06em;color:#5a4a32;cursor:pointer}
+  .srow .sb button.on[data-v="fit"]{background:#2e6b4f;border-color:#2e6b4f;color:#fff}
+  .srow .sb button.on[data-v="fut"]{background:#c0392b;border-color:#c0392b;color:#fff}
+  .srow .sb button.on[data-v="day"]{background:#c88a1a;border-color:#c88a1a;color:#fff}
+  .srow.bad{background:#ffe8d8}
+  .pcal{background:#6a4428;color:#f4ead6;border-radius:4px;padding:8px 10px 10px;box-shadow:inset 0 0 0 3px #3a2414;font-family:'DM Mono',monospace}
+  .pcal .ph{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px}
+  .pcal .ph button{width:26px;height:24px;border:0;border-radius:3px;background:#3a2414;color:#f0c060;font-size:14px;cursor:pointer}
+  .pcal .ph span{flex:1;text-align:center;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em}
+  .pcal table{width:100%;border-collapse:collapse;background:#fbf3dc;color:#2a1e12}
+  .pcal th,.pcal td{text-align:center;font-size:12px;padding:2px 0;border:1px solid #d8c8a0}
+  .pcal th{font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;background:#e8d8b0}
+  .pcal td.x{background:#f0c060;font-weight:700}
+  .pcal p{margin:5px 0 0;font-size:10.5px;color:#e8d8b0;line-height:1.35}
+  .pcal-solo{width:300px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2818"/><stop offset="1" stop-color="#5a3e24"/></linearGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c8" stop-opacity=".42"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="lampA" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffd890" stop-opacity=".5"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallA)"/>
+<rect x="-1000" y="690" width="3600" height="700" fill="#3a2614"/>
+<g stroke="#2a1a0c" stroke-width="3" opacity=".55"><path d="M-1000 740H2600M-1000 810H2600"/></g>
+<!-- the sloping roof and the skylight -->
+<path d="M-1000 -400H2600V40L1600 -60H0L-1000 40Z" fill="#2a1c10"/>
+<path d="M0 -60L-200 160H-1000V-400H0Z" fill="#24180c"/><path d="M1600 -60L1800 160H2600V-400H1600Z" fill="#24180c"/>
+<g id="skylight" class="hot"><path d="M640 -20H960L940 70H660Z" fill="#9ab0bc"/><path d="M800 -20V70M650 25H950" stroke="#2a1c10" stroke-width="6"/>
+  <g id="pigeon"><ellipse cx="900" cy="12" rx="16" ry="9" fill="#6a6a72"/><circle cx="886" cy="6" r="6" fill="#6a6a72"/><path d="M880 6l-6 2" stroke="#c88a3a" stroke-width="2"/></g></g>
+<path d="M660 70L460 690H1150L940 70Z" fill="url(#beamG)" pointer-events="none"/>
+<g id="motes" fill="#fff2c8" opacity=".6"><circle cx="720" cy="300" r="2"/><circle cx="800" cy="420" r="1.6"/><circle cx="880" cy="260" r="2.2"/><circle cx="760" cy="520" r="1.5"/><circle cx="940" cy="480" r="1.8"/><circle cx="840" cy="360" r="1.4"/></g>
+
+<!-- shelves of bound volumes, left and right -->
+<g id="shelvesL" class="hot"><rect x="20" y="150" width="440" height="540" fill="#4a2e18"/><g id="spinesL"></g></g>
+<g id="shelvesR" class="hot"><rect x="1150" y="150" width="430" height="540" fill="#4a2e18"/><g id="spinesR"></g></g>
+<g id="vol98" class="hot"><rect x="1430" y="168" width="22" height="88" fill="#1d1a16"/><text x="1441" y="244" class="fM" font-size="9" text-anchor="middle" fill="#c8a24a" transform="rotate(-90 1441 230)">1998</text></g>
+<!-- the town map on the end of the shelves -->
+<g id="map" class="hot"><rect x="476" y="160" width="190" height="150" fill="#e8dcbc"/><path d="M476 270Q540 250 590 268T666 250" fill="none" stroke="#5a8ab0" stroke-width="7"/>
+  <rect x="560" y="196" width="40" height="30" fill="#c8a878"/><text x="580" y="216" class="fM" font-size="8" text-anchor="middle" fill="#3a2a1a">SQUARE</text>
+  <path d="M490 236h60v18h-60z" fill="#9ac08a"/><text x="520" y="249" class="fM" font-size="7" text-anchor="middle" fill="#2a3a1a">MEADOWS</text><path d="M490 230h60" stroke="#7a1f1f" stroke-width="2" stroke-dasharray="3 2"/>
+  <text x="571" y="178" class="fO" font-size="11" text-anchor="middle" fill="#3a2a1a" letter-spacing="2">RADDLESTONE</text></g>
+<!-- the perpetual calendar on the wall -->
+<g id="cal" class="hot"><rect x="1000" y="170" width="120" height="150" rx="6" fill="#6a4428"/><rect x="1010" y="180" width="100" height="26" fill="#fbf3dc"/><text x="1060" y="198" class="fO" font-size="13" text-anchor="middle" fill="#2a1e12" letter-spacing="2">MARCH</text>
+  <rect x="1010" y="212" width="100" height="96" fill="#fbf3dc"/><g fill="#a8946a"><rect x="1016" y="218" width="10" height="8"/><rect x="1030" y="218" width="10" height="8"/><rect x="1044" y="218" width="10" height="8"/><rect x="1058" y="218" width="10" height="8"/><rect x="1072" y="218" width="10" height="8"/><rect x="1086" y="218" width="10" height="8"/><rect x="1100" y="218" width="6" height="8"/></g>
+  <g fill="#d8c8a0"><rect x="1016" y="234" width="88" height="6"/><rect x="1016" y="248" width="88" height="6"/><rect x="1016" y="262" width="88" height="6"/><rect x="1016" y="276" width="88" height="6"/><rect x="1016" y="290" width="88" height="6"/></g>
+  <circle cx="1014" cy="174" r="5" fill="#c8a24a"/><circle cx="1106" cy="174" r="5" fill="#c8a24a"/></g>
+
+<!-- the long table, the lamp, the open volumes -->
+<path d="M380 600H1220L1260 640H340Z" fill="#6a4426"/><path d="M340 640H1260V662H340z" fill="#4a2c16"/><path d="M380 662v150M1220 662v150" stroke="#4a2c16" stroke-width="18"/>
+<ellipse cx="800" cy="600" rx="400" ry="60" fill="url(#lampA)" pointer-events="none"/>
+<g id="lamp"><path d="M1130 600h50l-10 -10h-30z" fill="#2a3a2a"/><path d="M1155 590V520" stroke="#2a3a2a" stroke-width="5"/><path d="M1120 520h70l-15 -30h-40z" fill="#2e6b4f"/></g>
+<g id="vol26" class="hot"><path d="M560 600l20 -40h210l0 40z" fill="#f2e8cf"/><path d="M790 560h210l20 40H790z" fill="#ece0c2"/><path d="M790 560v40" stroke="#b8a478" stroke-width="2"/>
+  <g stroke="#8a7a5a" stroke-width="2"><path d="M600 570h170M596 578h174M592 586h178M588 594h182M810 570h170M810 578h174M810 586h178M810 594h182"/></g>
+  <text x="680" y="568" class="fU" font-size="10" text-anchor="middle" fill="#221d14">The Raddlestone Record</text><rect x="566" y="600" width="448" height="6" fill="#7a1f1f"/><text x="790" y="620" class="fM" font-size="10" text-anchor="middle" fill="#f0c060">2026 · JAN – JUN</text></g>
+<g id="vol25" class="hot"><rect x="420" y="578" width="120" height="22" fill="#2e4a6a"/><rect x="420" y="574" width="120" height="6" fill="#f2e8cf"/><text x="480" y="594" class="fM" font-size="10" text-anchor="middle" fill="#f0c060">2025</text></g>
+<g id="vol24" class="hot"><rect x="1040" y="582" width="110" height="18" fill="#5a3a5a"/><rect x="1040" y="578" width="110" height="6" fill="#f2e8cf"/><text x="1095" y="596" class="fM" font-size="10" text-anchor="middle" fill="#f0c060">2024</text></g>
+<g id="style" class="hot"><path d="M1040 574l10 -22h86l-8 22z" fill="#7a1f1f"/><text x="1088" y="568" class="fU" font-size="11" text-anchor="middle" fill="#f0c060">Style Book</text></g>
+<g id="strip" class="hot"><rect x="420" y="612" width="760" height="22" fill="#f2e8cf" transform="rotate(-.6 800 622)"/><g stroke="#a8946a" stroke-width="1.5"><path d="M480 614v18M540 614v18M600 614v18M660 614v18M720 614v18M780 614v18M840 614v18M900 614v18M960 614v18M1020 614v18M1080 614v18M1140 614v18"/></g>
+  <path d="M760 606v34" stroke="#c0392b" stroke-width="3"/><text x="800" y="652" class="fK" font-size="13" text-anchor="middle" fill="#f0c060">the date line</text></g>
+
+<g id="tariq" class="hot" transform="translate(1290 880) scale(1.06)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Round to Sorrell&rsquo;s</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="leak.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i, j, x, r = 11, c = ['#7a1f1f', '#2e4a6a', '#3a5a2a', '#5a3a5a', '#6a4a1a', '#1d1a16'];
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    function shelf(x0, w, id) {
+      var t = '';
+      for (j = 0; j < 5; j++) {
+        var y = 160 + j * 106; t += '<rect x="' + x0 + '" y="' + (y + 96) + '" width="' + w + '" height="10" fill="#2a1a0c"/>';
+        for (x = x0 + 6; x < x0 + w - 24;) { var bw = 18 + rnd() * 10, bh = 74 + rnd() * 20; t += '<rect x="' + x.toFixed(0) + '" y="' + (y + 96 - bh).toFixed(0) + '" width="' + bw.toFixed(0) + '" height="' + bh.toFixed(0) + '" fill="' + c[Math.floor(rnd() * 6)] + '"/><rect x="' + (x + 3).toFixed(0) + '" y="' + (y + 104 - bh).toFixed(0) + '" width="' + (bw - 6).toFixed(0) + '" height="4" fill="#c8a24a" opacity=".7"/>'; x += bw + 2; }
+      }
+      $(id).innerHTML = t;
+    }
+    shelf(20, 440, '#spinesL'); shelf(1150, 430, '#spinesR');
+    $('#tariq').innerHTML = LK.who('tariq', { lit: '#ffd890', armL: 'M-31 -222Q-58 -196 -50 -160', handL: [-48, -154] });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'leak', storyTitle: 'Letterhead', id: 'archive', no: 'II', title: 'The Archive',
+    go: 'Climb the ladder',
+    intro: [
+      'Ten rings on the leak. Two were answered at once: &ldquo;Councilor&rdquo; and &ldquo;favorably&rdquo; are American spellings, and the council and Sheila Pendry both write British English. The rest needed answers: the dates, the title and the otter up here, in the bound volumes; the reference number and the signature across the square; the paper and the lettering at the printer&rsquo;s.',
+      'Twenty to ten. The archive: two flights of stairs and a ladder above the newsroom, where every copy of the Record since 1868 is bound into books the size of gravestones.'
+    ],
+    exit: {"next":"print","w":{"5fa95cbb":"f1c3d7b9"}}, tags: {"fa":["26462ee7"],"fl":["f8ae63d2"],"fo":["a1203e5a"],"fj":["885ed0a8"],"fc":["3eaa04bd"],"fr":["0a23be2b"],"sa":["d7928c04"],"sl":["14f09e71"],"so":["9a5b8022"],"sj":["61c3cac5"],"sc":["d6064839"],"sr":["49600131"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  var seenP = ER.flag('b-pages') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  var PAGES = ['jan15', 'mar19', 'apr2', 'apr30', 'may21', 'jun11', 'jun18'];
+  function volDone() { return PAGES.every(function (p) { return seenP[p]; }); }
+  function ready() { return told.tariq && told.style && volDone() && told.v25; }
+  function paint() {
+    $('#tariq').classList.toggle('ready', !!(told.in && !told.tariq));
+    $('#style').classList.toggle('ready', !!(told.tariq && !told.style));
+    $('#vol26').classList.toggle('ready', !!(told.tariq && !volDone()));
+    $('#vol25').classList.toggle('ready', !!(told.tariq && !told.v25));
+    $('#strip').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.tariq ? 1 : 0) + (ready() ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Rowena wants the paper and the lettering looked at by the printer. The button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['dl', [
+      'Each flag is in one of the pages of the 2026 volume. Put each one in the half-month when it HAPPENED, not when the paper came out. The paper comes out on Thursdays, so &ldquo;last Friday&rdquo; and &ldquo;on Tuesday&rdquo; mean days before the date on the page.',
+      'Then stamp the six things the leak mentions. Is each one to the left of the red pin (16 March)? And does every weekday agree with the perpetual calendar on the right? Turn it to March 2026.',
+      'Only one thing in the leak fits: the application number from January. One has the wrong weekday: look at the 13th in March 2026, and then in March 2025. The other four come from after 16 March, so the letter could not have known them.'
+    ]];
+    if (!told.tariq) return ['talk', ['Tariq has come up with you. Talk to him.', 'Click Tariq, standing at the right, by the end of the table.']];
+    if (!ready()) return ['read', ['Before the date line: the style book page on dates, every page of the 2026 volume, and the 2025 volume, which is open at a column by Sheila Pendry.', 'The style book is the red book on the right of the table. The big open book in the middle is 2026: click it and read every page down its left side. The blue book on the left of the table is 2025.']];
+    return ['line', ['Everything is ready. The date line is the long strip of paper along the front of the table.', 'Click the strip of paper with the red line on it, in front of the open volume.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The date line is finished. Tariq is already on the ladder.'); return; }
+    if (told.in) { busy = false; ER.say('The archive, under the roof.'); return; }
+    ER.narrate([
+      'The archive is the top of the building, under the slates: shelves of bound volumes on both sides, a long table, a lamp, and a skylight with a pigeon on it that Rowena calls the Deputy Editor.',
+      'Tariq comes up the ladder behind you with two mugs of tea and puts one on the 1974 volume, which is the right height for it.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#tariq').addEventListener('click', function () {
+    if (busy) return;
+    if (told.tariq) { ER.say(nextFile ? '&ldquo;Thursday 13 March,&rdquo; says Tariq. &ldquo;Last year&rsquo;s calendar. Somebody looked at last year&rsquo;s calendar.&rdquo;' : '&ldquo;Style book page 32, every page of 2026, and Sheila&rsquo;s column in 2025,&rdquo; says Tariq. &ldquo;Then the date line.&rdquo;'); return; }
+    ER.talk({
+      who: 'Tariq Shah', role: 'Chief reporter · up in the archive', face: window.FACE('tariq'),
+      lines: [
+        { note: 'He blows the dust off the 2026 volume.', a: '&ldquo;Everything that happened in Raddlestone this year is in here, if it was worth a paragraph. The Meadows, the lunch, the otter, the day Sheila got the chair. If the letter says something that hadn&rsquo;t happened yet on 16 March, this book will catch it.&rdquo;' },
+        { q: 'What is the date line?', a: '&ldquo;Rowena&rsquo;s trick. A strip of paper along the table, January to June, cut into half-months. You put a flag where each thing happened, and a red pin on the letter&rsquo;s own date. Anything the letter talks about has to be on the left of the pin. If it&rsquo;s on the right, the letter knew the future, and letters don&rsquo;t.&rdquo;' },
+        { q: 'And the weekdays?', a: '&ldquo;The perpetual calendar, on the wall. Turn it to any month of any year. And Rowena has a page on it in the style book: the red one on the table.&rdquo;' },
+        { q: 'Why the 2025 volume?', a: '&ldquo;Sheila wrote a column for us last year, From the Chamber. One of them was about plain English. You ringed &lsquo;reach out&rsquo;. Read what she thinks of it.&rdquo; He smiles. &ldquo;I&rsquo;m starting to hope I&rsquo;m wrong about this letter. That&rsquo;s new.&rdquo;' }
+      ],
+      clue: { id: 'tariq2', title: 'Tariq: the date line', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tariq')) paint(); }
+    });
+  });
+
+  var STYLE = '<h4><span>The Record Style Book</span><span>page 32</span></h4><h3>Dates</h3>' +
+    '<p>Every date in a document is a promise, and you can check it.</p>' +
+    '<ol><li><b>Weekdays.</b> If a date has a day of the week with it, check the day. A date moves on one <b>weekday</b> each year (1 January 2025 was a Wednesday, so 1 January 2026 was a Thursday), and two when a 29 February comes in between. A wrong weekday often means somebody was looking at the wrong year&rsquo;s calendar.</li>' +
+    '<li><b>The future.</b> A document cannot know what had not happened yet on its own date: a title nobody had been given, a logo nobody had drawn, a meeting nobody had fixed. A thing from the wrong time is an <b>anachronism</b>.</li>' +
+    '<li><b>One date line.</b> Put everything on one line, with the document&rsquo;s own date as a pin. Everything the document mentions must be to the left of the pin.</li></ol>' +
+    '<p class="pen">Our bound volumes are the town&rsquo;s memory. A memory is only useful if you look things up in it. &mdash; R.P.</p>';
+  function mast(d) { return '<h4>The Raddlestone Record<small>' + d + '</small></h4>'; }
+  var P = {
+    jan15: ['Thursday 15 January 2026', '120 homes planned for the Meadows', '<p class="by">By Tariq Shah</p><p>Stallard Homes has asked the district council for permission to build 120 houses on Raddle Meadows, the fields between the river and Sluice Lane. The application, number 26/0042/FUL, was received last Friday, 9 January.</p><p>The Friends of Raddle Meadows say the fields flood most winters. &ldquo;They flooded my kitchen,&rdquo; said Mrs Thea Rushton, 76. Mr Patrick Stallard said the plans include a flood wall. The planning committee is expected to decide in April.</p>'],
+    mar19: ['Thursday 19 March 2026', 'Councillors walk the Meadows', '<p class="by">By Tariq Shah</p><p>Members of the planning committee walked Raddle Meadows in the rain last Friday, 13 March, with council officers and Mr Patrick Stallard of Stallard Homes. Cllr Ralph Stringer, the vice-chair, fell in a ditch, and said afterwards that he had meant to.</p><p>After the walk the party had lunch at the Plough. The committee will decide the application on Tuesday 21 April.</p>'],
+    apr2: ['Thursday 2 April 2026', 'Otter surfaces at the Corn Exchange', '<p>From yesterday, Wednesday 1 April, the district council has a new look. The woolsack crest, which has been on every council letter since 1974, has gone. In its place is an otter, floating on its back, with a new typeface, Raddle Sans.</p><p>Council letters will now be printed in the office, otter and all, instead of on paper printed by Sorrell&rsquo;s of Tanner&rsquo;s Row. The change cost &pound;14,000. &ldquo;It is not an April Fool,&rdquo; said a council spokesperson.</p>'],
+    apr30: ['Thursday 30 April 2026', 'Meadows decision put back to June', '<p>The decision on the Raddle Meadows houses, which was due on Tuesday 21 April, has been put back. The council said on Tuesday that the committee must first see a new flood report, and will now decide on Tuesday 9 June.</p><p>&ldquo;Good,&rdquo; said Mrs Thea Rushton of the Friends of Raddle Meadows. &ldquo;Let them read it properly.&rdquo;</p>'],
+    may21: ['Thursday 21 May 2026', 'Pendry takes the planning chair', '<p>Cllr Sheila Pendry, a retired midwife who has represented Riverside ward since 2019, was made chair of the planning committee at the council&rsquo;s annual meeting on Tuesday.</p><p>Cllr Ralph Stringer, who had wanted the chair, stays vice-chair. &ldquo;The best man didn&rsquo;t win,&rdquo; he said. &ldquo;No,&rdquo; said Cllr Pendry. &ldquo;A woman did.&rdquo;</p>'],
+    jun11: ['Thursday 11 June 2026', 'Meadows: yes, with a wall', '<p>The planning committee approved 120 homes on Raddle Meadows on Tuesday, by seven votes to four, after two hours. The conditions: a flood wall along Sluice Lane before any house is built, forty homes in every hundred to be affordable, and nothing at all on the lowest field.</p><p>Cllr Pendry, the chair, voted for. &ldquo;This is not the answer Sluice Lane wanted,&rdquo; she said. &ldquo;It is the safest one we were offered.&rdquo;</p>'],
+    jun18: ['Thursday 18 June 2026 · Letters', 'Your letters', '<p>Sir, the colour of last week&rsquo;s decision is grey. The committee has favoured a builder&rsquo;s spreadsheet over the people of Sluice Lane, and a wall over the river&rsquo;s own good sense. I have not stopped, and I shall not.</p><p>Yours faithfully,<br>Thea Rushton (Mrs), 3 Sluice Lane</p>']
+  };
+  var TABS = { jan15: '15 Jan · 120 homes', mar19: '19 Mar · the walk', apr2: '2 Apr · the otter', apr30: '30 Apr · put back', may21: '21 May · the chair', jun11: '11 Jun · yes, with a wall', jun18: '18 Jun · letters' };
+  function pageHtml(k) { return mast(P[k][0]) + '<h3>' + P[k][1] + '</h3>' + P[k][2]; }
+  var COL = mast('Thursday 9 October 2025 · From the Chamber') + '<h3>Say what you mean</h3><p class="by">By Cllr Sheila Pendry</p>' +
+    '<p>A council is not a business, and it should not talk like one. I will not &ldquo;reach out&rdquo; to you. I will ring you, or write to you, or knock on your door. Nobody &ldquo;going forward&rdquo; has ever got anywhere.</p>' +
+    '<p>I spent thirty years as a midwife telling people the truth at the most important moment of their lives, in words they could hold on to. Plain words, plainly meant: that is what you pay us for. If you ever get a letter from me that sounds like an advert, it isn&rsquo;t from me.</p>';
+  var FLOOD = mast('Thursday 22 February 2024') + '<h3>Sluice Lane under water</h3>' +
+    '<p>The River Raddle broke its banks at two o&rsquo;clock yesterday morning, Wednesday 21 February, and fourteen houses in Sluice Lane were flooded.</p><p>&ldquo;It came in under the back door,&rdquo; said Mrs Thea Rushton, 74, of No. 3. &ldquo;I stood in my kitchen in my nightie with the river up to my knees, and my grandson on the phone telling me to stand on a chair.&rdquo;</p>';
+
+  function openVol() {
+    var box = ER.el('div', 'vol'), cur = PAGES.filter(function (p) { return !seenP[p]; })[0] || PAGES[0];
+    box.innerHTML = '<div class="tabs"><h6>2026 · Jan&ndash;Jun</h6>' + PAGES.map(function (p) { return '<button type="button" data-p="' + p + '">' + TABS[p] + '</button>'; }).join('') + '</div><div class="page"></div>';
+    function show(p) {
+      cur = p; box.querySelector('.page').innerHTML = '<div class="doc paper">' + ER.gloss(pageHtml(p)) + '</div>';
+      ER.$$('.tabs button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === p); b.classList.toggle('seen', !!seenP[b.getAttribute('data-p')]); });
+      if (!seenP[p]) {
+        seenP[p] = 1; ER.flag('b-pages', seenP);
+        ER.addClue('rec-' + p, 'The Record, ' + P[p][0] + ': ' + P[p][1], pageHtml(p), 'paper', 'Bound volume', true);
+      }
+      ER.sfx.paper();
+    }
+    box.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('.tabs button') : null; if (b) show(b.getAttribute('data-p')); });
+    show(cur);
+    ER.open('ov-read', box, function () {
+      LK.terms(['planning application']);
+      if (volDone() && tell('vol')) { ER.toast('In your notebook: seven pages of the Record, 2026'); paint(); if (ready()) ER.say('&ldquo;Date line,&rdquo; says Tariq, and pats the strip of paper on the table.'); }
+      else if (!volDone()) ER.say('The 2026 volume. Some of its pages you have not read yet: they are the paler tabs.');
+    });
+  }
+  function needTariq() { ER.say('Tariq is holding out a mug of tea at you. Talk to him first.'); }
+  $('#vol26').addEventListener('click', function () { if (busy) return; if (!told.tariq) return needTariq(); openVol(); });
+  $('#vol25').addEventListener('click', function () {
+    if (busy) return; if (!told.tariq) return needTariq();
+    ER.read({ html: COL, cls: 'paper', clue: { id: 'col25', title: 'Pendry&rsquo;s column, 9 October 2025: Say what you mean', kind: 'Bound volume' }, done: function () { if (tell('v25')) { paint(); if (ready()) ER.say('&ldquo;Date line,&rdquo; says Tariq.'); } } });
+  });
+  $('#vol24').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FLOOD, cls: 'paper', clue: { id: 'flood24', title: 'The Record, 22 February 2024: Sluice Lane under water', kind: 'Bound volume' }, done: function () { LK.terms(['flood plain']); } });
+  });
+  $('#style').addEventListener('click', function () {
+    if (busy) return; if (!told.tariq) return needTariq();
+    ER.read({ html: STYLE, cls: 'style', clue: { id: 'style32', title: 'Style book p.32: Dates', kind: 'The style book' }, done: function () { LK.terms(['weekday', 'anachronism']); if (tell('style')) { paint(); if (ready()) ER.say('&ldquo;Date line,&rdquo; says Tariq.'); } } });
+  });
+
+  /* ---------- the perpetual calendar (a tool: here on the wall, and beside the date line) ---------- */
+  var MON = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+  function pcal(node) {
+    var c = ER.flag('b-cal') || { y: 2026, m: 10 };
+    function draw() {
+      var first = new Date(Date.UTC(c.y, c.m, 1)).getUTCDay(), days = new Date(Date.UTC(c.y, c.m + 1, 0)).getUTCDate(), off = (first + 6) % 7, s = '', d, i;
+      s += '<div class="ph"><button type="button" data-a="y-">&lsaquo;</button><span>' + c.y + '</span><button type="button" data-a="y+">&rsaquo;</button></div>';
+      s += '<div class="ph"><button type="button" data-a="m-">&lsaquo;</button><span>' + MON[c.m] + '</span><button type="button" data-a="m+">&rsaquo;</button></div>';
+      s += '<table><tr><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr><tr>';
+      for (i = 0; i < off; i++) s += '<td></td>';
+      for (d = 1; d <= days; d++) { s += '<td>' + d + '</td>'; if ((off + d) % 7 === 0 && d < days) s += '</tr><tr>'; }
+      s += '</tr></table><p>Perpetual calendar, oak, 1931. Turn the wheels for any month from 1900 to 2099.</p>';
+      node.innerHTML = s;
+    }
+    node.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-a]') : null; if (!b) return;
+      var a = b.getAttribute('data-a');
+      if (a === 'y-') c.y = Math.max(1900, c.y - 1); if (a === 'y+') c.y = Math.min(2099, c.y + 1);
+      if (a === 'm-') { c.m--; if (c.m < 0) { c.m = 11; c.y = Math.max(1900, c.y - 1); } }
+      if (a === 'm+') { c.m++; if (c.m > 11) { c.m = 0; c.y = Math.min(2099, c.y + 1); } }
+      ER.flag('b-cal', c); LK.sfx.click(); draw();
+    });
+    draw();
+  }
+  $('#cal').addEventListener('click', function () { if (busy) return; var n = ER.el('div', 'pcal pcal-solo'); pcal(n); ER.open('ov-read', n); });
+
+  /* ---------- things in the room ---------- */
+  LK.thing('#skylight', null, 'The skylight, with the Deputy Editor on it. The rain has nearly stopped. The pigeon has not.', isBusy);
+  LK.thing('#map', null, 'A map of Raddlestone: the river along the bottom, Market Square in the middle, Raddle Meadows by the river, with Sluice Lane along its edge in red dashes.', isBusy);
+  LK.thing('#shelvesL,#shelvesR', null, 'A hundred and fifty-eight years of the Record, one fat book for every six months. The spines say SHEEP, WAR, FLOOD, WAR, FLOOD, and then mostly COUNCIL.', isBusy);
+  LK.thing('#vol98', null, '1998, the black volume. Rowena never opens it. Tariq says the builder&rsquo;s story is on page one of the June issues, and the apology is on page one of 2002.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#strip').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The date line, with your six flags and the red pin. Four of the leak&rsquo;s details are on the wrong side of it.'); return; }
+    if (!told.tariq) return needTariq();
+    if (!ready()) { ER.say('&ldquo;Read first,&rdquo; says Tariq: &ldquo;page 32, every page of 2026, and Sheila&rsquo;s column in the 2025 book.&rdquo;'); return; }
+    if (!lock) lock = makeLine();
+    lock.open();
+  });
+
+  /* ---------- the date line: six flags in their half-months, then six stamps ---------- */
+  function makeLine() {
+    var SL = [['JAN', '1&ndash;15'], ['JAN', '16&ndash;31'], ['FEB', '1&ndash;14'], ['FEB', '15&ndash;28'], ['MAR', '1&ndash;15'], ['MAR', '16&ndash;31'], ['APR', '1&ndash;15'], ['APR', '16&ndash;30'], ['MAY', '1&ndash;15'], ['MAY', '16&ndash;31'], ['JUN', '1&ndash;15'], ['JUN', '16&ndash;30']];
+    var FL = [['a', 'Application 26/0042/FUL received'], ['l', 'Lunch at the Plough after the walk'], ['o', 'The otter and Raddle Sans arrive'], ['j', 'Council puts the decision back to June'], ['c', 'Pendry made chair of planning'], ['r', 'Ref MS/PL/0917: her letter to Mrs Rushton']];
+    var DET = [['a', '&ldquo;Raddle Meadows (26/0042/FUL)&rdquo;'], ['l', '&ldquo;lunch at the Plough on Thursday 13 March&rdquo;'], ['o', 'the otter letterhead'], ['j', '&ldquo;when it meets in June&rdquo;'], ['c', '&ldquo;Chair, Planning Committee&rdquo;'], ['r', '&ldquo;Our ref: MS/PL/0917&rdquo;']];
+    var st = ER.flag('b-st') || { at: {}, s: {} }, wait = false, box = ER.el('div', 'job dlj');
+    box.innerHTML = '<h5>The date line <small>Drag each flag into the half-month when it happened (or click a flag, then a space). Then stamp the six things the leak mentions.</small></h5>' +
+      '<div class="strip"><div class="hs">' + SL.map(function (s, i) { return '<div><div class="hslot' + (i >= 5 ? ' after' : '') + '" data-i="' + i + '"></div><div class="lab"><b>' + s[0] + '</b>' + s[1] + '</div></div>'; }).join('') +
+      '<div class="pin" id="pin"><span>16 March: the leak</span></div></div></div>' +
+      '<div class="flags" id="ftray">' + FL.map(function (f) { return '<span class="flag dnd-item" data-f="' + f[0] + '">' + f[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="dlrow"><div class="stamps"><h6>What the leak mentions</h6>' + DET.map(function (d) {
+        return '<div class="srow" data-d="' + d[0] + '"><q>' + d[1] + '</q><div class="sb"><button type="button" data-v="fit">FITS</button><button type="button" data-v="day">WRONG DAY</button><button type="button" data-v="fut">FROM THE FUTURE</button></div></div>';
+      }).join('') + '</div><div class="pcal" id="pc"></div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="dl-go">Check the line</button></div>';
+    var msgEl = box.querySelector('.jmsg'), tray = box.querySelector('#ftray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() {
+      st.at = {}; ER.$$('.hslot', box).forEach(function (s) { var f = s.querySelector('.flag'); if (f) st.at[f.getAttribute('data-f')] = +s.getAttribute('data-i'); });
+      ER.flag('b-st', st);
+    }
+    function stamps() { ER.$$('.srow', box).forEach(function (r) { var d = r.getAttribute('data-d'); ER.$$('button', r).forEach(function (b) { b.classList.toggle('on', st.s[d] === b.getAttribute('data-v')); }); }); }
+    ER.dnd(box, { item: '.flag', slot: '.hslot', home: tray, lock: function () { return wait; }, change: function () { ER.$$('.flag', box).forEach(function (f) { f.classList.remove('bad'); }); keep(); } });
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.sb button') : null; if (!b || wait) return;
+      var r = b.closest('.srow'); st.s[r.getAttribute('data-d')] = b.getAttribute('data-v'); r.classList.remove('bad'); LK.sfx.stamp(); keep(); stamps();
+    });
+    Object.keys(st.at).forEach(function (f) { var s = box.querySelector('.hslot[data-i="' + st.at[f] + '"]'), n = box.querySelector('.flag[data-f="' + f + '"]'); if (s && n && !s.querySelector('.flag')) s.appendChild(n); });
+    pcal(box.querySelector('#pc'));
+    function posPin() { var a = box.querySelector('.hslot[data-i="5"]'); if (a) box.querySelector('#pin').style.left = (a.parentNode.offsetLeft - 2) + 'px'; }
+    var FNO = {
+      a: 'The 15 January paper: the application was received &ldquo;last Friday&rdquo;. The paper comes out on Thursdays. Which Friday is the one before Thursday 15 January?',
+      l: 'The 19 March paper says the committee walked the Meadows &ldquo;last Friday, 13 March&rdquo;, and had lunch straight after. When did the lunch happen, not when was it printed?',
+      o: 'The 2 April paper: &ldquo;From yesterday, Wednesday 1 April&rdquo;.',
+      j: 'The 30 April paper: the council said it &ldquo;on Tuesday&rdquo;. That is the Tuesday of the week the paper came out, two days before Thursday 30 April. Not 9 June: that is the meeting it was moved to.',
+      c: 'The 21 May paper: she was made chair &ldquo;on Tuesday&rdquo;, two days before Thursday 21 May.',
+      r: 'MS/PL/0917 was first used on her real letter to Mrs Rushton. Look at the date on that letter, in the Meadows file in your notebook.'
+    };
+    var SNO = {
+      a: { day: 'There is no weekday in &ldquo;26/0042/FUL&rdquo;.', fut: 'Look where your application flag is: January, well to the left of the pin. A letter in March could know that number.' },
+      l: { fit: 'The lunch did happen before 16 March, so the letter could know about it. But does the weekday agree? Turn the calendar on the right to March 2026 and look at the 13th.', fut: 'The lunch is to the left of the pin: it happened before the letter&rsquo;s date. Something else is wrong with &ldquo;Thursday 13 March&rdquo;. Turn the calendar.' },
+      o: { fit: 'Look where your otter flag is, and where the red pin is. On 16 March the council&rsquo;s letters still had the woolsack.', day: 'There is no weekday in a logo. Look at which side of the pin the otter flag is on.' },
+      j: { fit: 'On 16 March the decision was still due on 21 April. When was it put back to June? Look at your flag.', day: 'The trouble with &ldquo;in June&rdquo; is not a weekday. When did anybody know the meeting would be in June?' },
+      c: { fit: 'Was she chair on 16 March? Look at your flag for the day she was made chair.', day: 'There is no weekday in a title. When did she get it?' },
+      r: { fit: 'An office gives each letter the next number. MS/PL/0917 was given to her letter of 4 June. Could a letter of 16 March have it?', day: 'A reference number has no weekday. But when was MS/PL/0917 first given out?' }
+    };
+    box.querySelector('#dl-go').addEventListener('click', function () {
+      var i, f, k, file;
+      if (wait || nextFile) return;
+      keep();
+      ER.$$('.flag,.srow', box).forEach(function (x) { x.classList.remove('bad'); });
+      for (i = 0; i < FL.length; i++) if (st.at[FL[i][0]] == null) { ER.sfx.no(); msg('&ldquo;Six flags,&rdquo; says Tariq. &ldquo;Every one goes on the line before we can say anything.&rdquo;'); return; }
+      for (i = 0; i < FL.length; i++) { f = FL[i][0]; if (!ER.check('f' + f, String(st.at[f]))) { var n = box.querySelector('.flag[data-f="' + f + '"]'); n.classList.add('bad'); ER.shake(n); ER.sfx.no(); msg(FNO[f]); return; } }
+      for (i = 0; i < DET.length; i++) if (!st.s[DET[i][0]]) { ER.sfx.no(); msg('The flags are right, and the red pin shows what the letter could know. Now stamp all six things the leak mentions.'); return; }
+      for (i = 0; i < DET.length; i++) { k = DET[i][0]; if (!ER.check('s' + k, st.s[k])) { var r = box.querySelector('.srow[data-d="' + k + '"]'); r.classList.add('bad'); ER.sfx.no(); msg(SNO[k][st.s[k]] || 'Look at that one again.'); return; } }
+      file = ER.exit([FL.map(function (x) { return x[0] + st.at[x[0]]; }).join(',') + '|' + DET.map(function (x) { return st.s[x[0]]; }).join(',')], { wait: true });
+      if (!file) { msg('The line will not add up. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      LK.mine('dateline', 'The date line', '<p>The leak is dated Monday 16 March 2026. Only the application number (received 9 January) fits.</p><p>&ldquo;Thursday 13 March&rdquo;: 13 March 2026 was a FRIDAY. It was a Thursday in 2025: somebody looked at last year&rsquo;s calendar.</p><p>From the future: the otter (1 April), &ldquo;in June&rdquo; (only fixed on 28 April), &ldquo;Chair&rdquo; (19 May), the ref MS/PL/0917 (4 June).</p><p>Her column, October 2025: she will never &ldquo;reach out&rdquo;.</p>', true);
+      msg('Four on the wrong side of the pin, and one weekday that belongs to last year. Tariq sits down on the 1974 volume.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Tariq turns the perpetual calendar to March 2025, and then to March 2026. &ldquo;Thirteenth of March 2025: Thursday. 2026: Friday. Fish day at the Plough. Whoever wrote this had last year&rsquo;s calendar in front of them.&rdquo;',
+          '&ldquo;And it knows four things it couldn&rsquo;t have known in March. The otter, the June meeting, the chair, and her June reference number.&rdquo; He reads Sheila&rsquo;s column again. &ldquo;&lsquo;If you ever get a letter from me that sounds like an advert, it isn&rsquo;t from me.&rsquo; She wrote that a year ago. She&rsquo;d sooner eat the letter than reach out.&rdquo;',
+          'Rowena&rsquo;s voice comes up the ladder: &ldquo;Well?&rdquo; &ldquo;It&rsquo;s wrong in time,&rdquo; Tariq calls down. &ldquo;Then find out what it is made of,&rdquo; says Rowena. &ldquo;Queenie&rsquo;s expecting you. Take the PDF.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    stamps();
+    msg(Object.keys(st.at).length ? 'The date line, as you left it.' : 'January to June, in half-months. The red pin is the leak&rsquo;s own date. The perpetual calendar is on the right.');
+    return { open: function () { ER.open('ov-lock', box); setTimeout(posPin, 30); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

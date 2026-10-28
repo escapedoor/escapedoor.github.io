@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Plough · Letterhead</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="leak.css">
+<style>
+  body{--bg:#2a120c;--accent:#ffb45a;--font-display:'UnifrakturCook',serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(36,16,10,.97);--tc-ink:#f8e8d4;--cap-bg:rgba(30,14,8,.95);--panel:#30160e;--face-bg:#40201a;--q-ink:#ffb45a;--fade:#0c0402;--hud-bg:rgba(30,14,8,.86)}
+  #flames path{animation:flame .9s ease-in-out infinite alternate;transform-origin:250px 640px}
+  #flames path:nth-child(2){animation-duration:1.3s}
+  #flames path:nth-child(3){animation-duration:.7s}
+  @keyframes flame{100%{transform:scaleY(1.12) skewX(3deg)}}
+  #glow{animation:glow 2.4s steps(4,end) infinite alternate}
+  @keyframes glow{100%{opacity:.55}}
+
+  /* the snug table: beer mats and the five lanes */
+  .sgj{width:min(1140px,97vw)}
+  .tabl{background:#5a3220 radial-gradient(ellipse at 40% 30%,#6e4028,#4a2818);border-radius:8px;padding:12px 14px 12px;box-shadow:inset 0 0 0 4px #3a1c10,0 10px 30px rgba(0,0,0,.5)}
+  .tabl h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#ffd8a0}
+  .mats{display:flex;flex-wrap:wrap;gap:8px;min-height:92px;padding:4px}
+  .mat{width:120px;height:84px;border-radius:50%;background:#f4e8cc;color:#3a1c10;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 12px;box-sizing:border-box;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:11.5px;line-height:1.2;box-shadow:inset 0 0 0 4px #c8302a,inset 0 0 0 7px #f4e8cc,inset 0 0 0 8px #c8302a,0 3px 6px rgba(0,0,0,.4)}
+  .mat.bad{box-shadow:inset 0 0 0 4px #e07a1a,0 0 0 3px #ffd08a}
+  .piles{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:6px}
+  .pile{background:rgba(0,0,0,.22);border-radius:6px;padding:6px 8px 8px}
+  .pile b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#ffd8a0;margin-bottom:4px}
+  .pile b small{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:13px;letter-spacing:0;text-transform:none;color:#e8c8a0;margin-left:6px}
+  .pile .slots{display:flex;gap:8px;flex-wrap:wrap}
+  .mslot{width:124px;height:88px;border:2px dashed rgba(255,216,160,.45);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .lanes{margin-top:10px;background:rgba(0,0,0,.25);border-radius:6px;padding:8px 10px 6px;display:none}
+  .lanes.on{display:block}
+  .gates{display:grid;grid-template-columns:150px repeat(5,1fr);gap:0;align-items:end;margin-bottom:4px}
+  .gates span{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:10.5px;line-height:1.2;color:#ffd8a0;text-align:center;padding:0 4px}
+  .lane{display:grid;grid-template-columns:150px repeat(5,1fr);align-items:center;border-top:1px solid rgba(255,216,160,.18);padding:3px 0}
+  .lane .who{display:flex;align-items:center;gap:6px;font-family:'Oswald',sans-serif;font-size:13.5px;letter-spacing:.06em;color:#f8e8d4}
+  .lane .who svg{width:28px;height:34px;border-radius:2px}
+  .lane .stop{position:relative;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lane .stop:after{content:'';position:absolute;left:0;right:0;top:50%;border-top:2px dotted rgba(255,216,160,.35)}
+  .lane .stop:not(:last-child):before{content:'';position:absolute;right:-1px;top:2px;bottom:2px;border-right:4px solid #c8302a;z-index:1}
+  .lane .stop i{position:relative;z-index:2;width:16px;height:16px;border-radius:50%;background:rgba(255,216,160,.25)}
+  .lane .stop.on i{width:26px;height:26px;background:#ffb45a;box-shadow:0 0 0 3px #3a1c10}
+  .lane.bad{background:rgba(224,122,26,.25)}
+  .lane .stop:hover i{background:rgba(255,216,160,.6)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a1c12"/><stop offset="1" stop-color="#6a2a18"/></linearGradient>
+  <radialGradient id="fireG" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#ffb45a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb45a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallR)"/>
+<rect x="-1000" y="690" width="3600" height="720" fill="#3a1a0e"/><g fill="#4a2414" opacity=".5"><path d="M-1000 700H2600V712H-1000z"/></g>
+<g fill="#2a120a"><rect x="-1000" y="40" width="3600" height="36"/><rect x="200" y="0" width="40" height="80"/><rect x="760" y="0" width="40" height="80"/><rect x="1320" y="0" width="40" height="80"/></g>
+<g fill="#c8a24a"><circle cx="420" cy="100" r="6"/><circle cx="560" cy="100" r="6"/><circle cx="1020" cy="100" r="6"/><circle cx="1180" cy="100" r="6"/></g><path d="M380 92h220M980 92h240" stroke="#2a120a" stroke-width="4"/>
+<!-- the fireplace and the snug -->
+<ellipse id="glow" cx="250" cy="560" rx="300" ry="200" fill="url(#fireG)"/>
+<g id="fire" class="hot"><rect x="120" y="440" width="260" height="250" fill="#5a4a40"/><rect x="100" y="420" width="300" height="30" fill="#6a5a50"/><path d="M160 690V520Q250 470 340 520V690Z" fill="#1a0a06"/>
+  <g id="flames"><path d="M200 650Q215 590 240 620Q250 560 270 625Q290 590 300 650Z" fill="#ff8a2a"/><path d="M220 650Q235 610 255 630Q265 600 280 650Z" fill="#ffcf5a"/><path d="M190 660h120l10 10H180z" fill="#3a1a0a"/></g></g>
+<g id="cal" class="hot"><rect x="120" y="200" width="150" height="190" fill="#f4ecd4"/><rect x="128" y="208" width="134" height="90" fill="#6a9ab0"/><path d="M128 280Q170 262 200 276T262 270V298H128Z" fill="#5a7a3a"/>
+  <path d="M190 246q14 -10 30 -4l8 -4l-6 8q-10 10 -32 0z" fill="#1f8ab0"/><path d="M212 244l18 -2" stroke="#e86a2a" stroke-width="3"/><text x="195" y="318" class="fO" font-size="13" text-anchor="middle" fill="#3a1c10" letter-spacing="2">MARCH 2025</text>
+  <g fill="#c8b890"><rect x="132" y="326" width="126" height="5"/><rect x="132" y="338" width="126" height="5"/><rect x="132" y="350" width="126" height="5"/><rect x="132" y="362" width="126" height="5"/><rect x="132" y="374" width="126" height="5"/></g><circle cx="195" cy="204" r="4" fill="#c0392b"/></g>
+<g id="thea" class="hot" transform="translate(400 720) scale(.98)"></g>
+<g id="seb" class="hot" transform="translate(580 735) scale(1)"></g>
+<g id="snugt"><path d="M300 640H640L660 664H280Z" fill="#6a3a20"/><path d="M290 664v80M650 664v80" stroke="#3a1c10" stroke-width="12"/>
+  <g id="mats" class="hot"><ellipse cx="420" cy="644" rx="24" ry="9" fill="#f4e8cc" stroke="#c8302a" stroke-width="3"/><ellipse cx="470" cy="650" rx="24" ry="9" fill="#f4e8cc" stroke="#c8302a" stroke-width="3"/><ellipse cx="520" cy="642" rx="24" ry="9" fill="#f4e8cc" stroke="#c8302a" stroke-width="3"/><text x="470" y="680" class="fK" font-size="13" text-anchor="middle" fill="#ffd8a0">beer mats</text></g>
+  <g id="style" class="hot"><path d="M560 640l10 -20h70l-6 20z" fill="#7a1f1f"/><text x="598" y="635" class="fU" font-size="10" text-anchor="middle" fill="#f0c060">Style Book</text></g>
+  <g id="tea"><rect x="340" y="618" width="34" height="24" rx="6" fill="#e8e2d0"/><path d="M374 624q12 0 10 10" stroke="#e8e2d0" stroke-width="4" fill="none"/></g></g>
+<!-- the window on Bridge Street -->
+<g id="window" class="hot"><rect x="700" y="150" width="260" height="290" fill="#3a1a0e"/><rect x="714" y="164" width="232" height="262" fill="#9aa8a8"/><g fill="#7a8a7a"><path d="M714 330Q780 300 860 320T946 300V426H714Z"/></g><path d="M714 380Q800 360 946 390" stroke="#5a7a9a" stroke-width="8" fill="none"/>
+  <path d="M830 164V426M714 295H946" stroke="#3a1a0e" stroke-width="7"/><text x="830" y="190" class="fK" font-size="13" text-anchor="middle" fill="#3a3a3a">the Meadows</text></g>
+<!-- the bar -->
+<g id="optics"><rect x="1040" y="140" width="520" height="180" fill="#3a1a0e"/><g id="bottles"></g><rect x="1040" y="320" width="520" height="10" fill="#c8a24a"/></g>
+<g id="board" class="hot"><rect x="1000" y="360" width="150" height="130" fill="#1d1a16" stroke="#6a4a2a" stroke-width="6"/><text x="1075" y="392" class="fK" font-size="18" text-anchor="middle" fill="#f4efe2">TODAY</text><text x="1075" y="420" class="fK" font-size="15" text-anchor="middle" fill="#f4efe2">pie &amp; mash</text><text x="1075" y="446" class="fK" font-size="15" text-anchor="middle" fill="#f4efe2">soup</text><text x="1075" y="474" class="fK" font-size="13" text-anchor="middle" fill="#ffb45a">FISH: FRIDAYS</text></g>
+<g id="trish" class="hot" transform="translate(1300 660) scale(.96)"></g>
+<path d="M980 560H1590V700H980Z" fill="#5a2a14"/><path d="M970 546H1600V566H970Z" fill="#8a4a24"/><path d="M970 546H1600" stroke="#c8884a" stroke-width="3"/>
+<g id="pumps" class="hot"><g fill="#2a120a"><rect x="1180" y="480" width="16" height="70"/><rect x="1230" y="480" width="16" height="70"/></g><g fill="#f4e8cc"><rect x="1174" y="470" width="28" height="18" rx="3"/><rect x="1224" y="470" width="28" height="18" rx="3"/></g></g>
+<g id="stallard" class="hot" transform="translate(1500 790) scale(1.02)"></g>
+<g id="tariq" transform="translate(850 900) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the Record</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="leak.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i, c = ['#c88a2a', '#6a8a3a', '#b84a2a', '#e8c86a', '#5a3a2a', '#2a5a6a'];
+    for (i = 0; i < 16; i++) s += '<rect x="' + (1056 + i * 31) + '" y="' + (190 + (i % 3) * 6) + '" width="20" height="' + (100 - (i % 3) * 6) + '" rx="4" fill="' + c[i % 6] + '" opacity=".85"/><rect x="' + (1060 + i * 31) + '" y="' + (176 + (i % 3) * 6) + '" width="12" height="16" fill="' + c[(i + 2) % 6] + '"/>';
+    $('#bottles').innerHTML = s;
+    $('#thea').innerHTML = LK.who('thea', { sit: 1, lit: '#ff9a4a', smile: 0 });
+    $('#seb').innerHTML = LK.who('seb', { sit: 1, armR: 'M31 -222Q50 -180 30 -150', handR: [28, -146], extra: '<rect x="18" y="-160" width="16" height="26" rx="3" fill="#1d1d1d"/>' });
+    $('#trish').innerHTML = LK.who('trish', { shadow: 0 });
+    $('#stallard').innerHTML = LK.who('stallard', { sit: 1, lit: '#ffae5a' });
+    $('#tariq').innerHTML = LK.who('tariq', { lit: '#ffae5a' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'leak', storyTitle: 'Letterhead', id: 'plough', no: 'V', title: 'The Plough',
+    go: 'Go in out of the wind',
+    intro: [
+      'Tariq&rsquo;s notebook. The register, Sheila Pendry and Ralph Stringer all agree that she had lunch at the Plough on Friday 13 March, and paid for her own. The council&rsquo;s day book gave 16 March the number MS/PL/0731, and 0917 to her letter of 4 June; Pauline Stacey, on the record, says every member signs in ink at her hatch. And Ralph Stringer&rsquo;s &ldquo;white strip&rdquo; gave him away: he had seen a printout of the same email, not a letter in March. Two copies of one email are one source. Pauline&rsquo;s tip was off the record, and stays there.',
+      'Ten past twelve. The Plough, on Bridge Street, by the river. Wednesday is pie day, and the Friends of Raddle Meadows meet in the snug.'
+    ],
+    exit: {"next":"glass","w":{"5088abd5":"77e90426"}}, tags: {"test":["2af8bf90","e3022330","2d74092a","84b04a4a"],"ps":["38749f91"],"pp":["e67de7f5"],"pt":["2b67fef9"],"pb":["86093347"],"pr":["ae689a3e"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function talked() { return told.trish && told.stallard && told.thea && told.seb; }
+  function ready() { return talked() && told.style && told.cal; }
+  function paint() {
+    $('#trish').classList.toggle('ready', !!(told.in && !told.trish));
+    $('#stallard').classList.toggle('ready', !!(told.in && !told.stallard));
+    $('#thea').classList.toggle('ready', !!(told.in && !told.thea));
+    $('#seb').classList.toggle('ready', !!(told.thea && !told.seb));
+    $('#cal').classList.toggle('ready', !!(told.thea && !told.cal));
+    $('#style').classList.toggle('ready', !!(told.in && !told.style));
+    $('#mats').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((talked() ? 1 : 0) + (told.style && told.cal ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Rowena is waiting in the glass box. The button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['mats', [
+      'First sort the six beer mats. Page 34: a test is something a person can pass or fail (access, time, habit). The others are only reasons to look harder.',
+      'Then move each person along their lane to the last gate they can pass. Everyone could have had the June letter: Thea posted it where two hundred people shared it. Only somebody in Thea&rsquo;s house could use her laptop. Who was awake at 01.47? Who writes American and says &ldquo;reach out&rdquo;?',
+      'Ralph, Mr Stallard and the Record all stop at the laptop gate. Thea stops at the 01.47 gate: she is in bed by half past nine. Only one person gets through all four.'
+    ]];
+    if (!talked()) return ['talk', ['Four people to talk to: Trish behind the bar, Mr Stallard on his stool, and Thea and Seb in the snug.', 'Trish is the woman with copper hair behind the bar on the right. Patrick Stallard is sitting at the right end of the bar. Thea (white hair) and Seb (beanie and phone) are at the table by the fire, on the left.']];
+    if (!told.style) return ['style', ['Tariq has brought the style book. Read page 34.', 'Click the red book on the snug table.']];
+    if (!told.cal) return ['cal', ['Thea said there is a copy of last year&rsquo;s Friends calendar on the snug wall.', 'Click the calendar with the kingfisher, on the wall above the fire.']];
+    return ['open', ['Everything is ready. Tariq is laying beer mats out on the snug table.', 'Click the beer mats on the snug table.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Seb has said it. Thea has not let go of his hand.'); return; }
+    if (told.in) { busy = false; ER.say('The Plough, at lunchtime.'); return; }
+    ER.narrate([
+      'The Plough is low and dark and warm, and the floor slopes towards the river as if the building were trying to get a better look at it. A fire in the snug, pies on the board, and everybody in this story within twenty feet of you.',
+      'At the end of the bar, Patrick Stallard is eating his lunch. In the snug, by the fire, Thea Rushton sits with a pot of tea and her grandson Seb, who is nineteen, wears a beanie indoors, and is looking at his phone.',
+      '&ldquo;Same rules as the Corn Exchange,&rdquo; says Tariq, quietly. &ldquo;We ask, we listen, and we don&rsquo;t accuse anybody of anything. We buy our own pies.&rdquo;'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#trish').addEventListener('click', function () {
+    if (busy) return;
+    if (told.trish) { ER.say('&ldquo;Twenty-seven pounds forty,&rdquo; says Trish. &ldquo;Exact money. I remember because nobody ever has it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Trish Parkin', role: 'Landlady · the Plough · on the record', face: window.FACE('trish'),
+      lines: [
+        { note: 'She is polishing a glass that is already clean.', a: '&ldquo;Friday the thirteenth of March. I remember because it was fish, it&rsquo;s always fish on a Friday, and because Councillor Stringer came in wet to the knees.&rdquo;' },
+        { q: 'Who paid?', a: '&ldquo;Mr Stallard said, &lsquo;This is on me.&rsquo; Mrs Pendry said, &lsquo;No, it isn&rsquo;t,&rsquo; and paid for her own: twenty-seven pounds forty, cash, counted out on the bar. Councillor Stringer let Mr Stallard pay for his. And for the sticky toffee pudding.&rdquo;' },
+        { q: 'Do you know who sent the letter?', a: '&ldquo;I know everything that&rsquo;s said in this pub, and none of it is evidence. My husband used to say that, and he was a magistrate.&rdquo; She nods at the snug. &ldquo;The Friends are in there. Thea&rsquo;s in a state.&rdquo;' },
+        { q: 'Is she all right?', a: '&ldquo;Better than she was. Her grandson&rsquo;s back from America. He&rsquo;s set her up with a computer, and now she gets emails from people she&rsquo;s never heard of and thinks she&rsquo;s won a car.&rdquo;' }
+      ],
+      clue: { id: 'trish', title: 'Trish Parkin, on the record', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('trish')) paint(); }
+    });
+  });
+  $('#stallard').addEventListener('click', function () {
+    if (busy) return;
+    if (told.stallard) { ER.say('&ldquo;Framed,&rdquo; says Mr Stallard, through a chip. &ldquo;I&rsquo;d have it framed.&rdquo;'); return; }
+    ER.talk({
+      who: 'Patrick Stallard', role: 'Stallard Homes Ltd · on the record', face: window.FACE('stallard'),
+      lines: [
+        { note: 'He is eating pie and mash with the concentration of a man who has been told the world ends at two.', a: '&ldquo;A letter? From Sheila Pendry, promising me something? I&rsquo;d have it framed. She made me put forty affordable houses in every hundred, and a flood wall that has cost me a million pounds, and nothing at all on the bottom field.&rdquo;' },
+        { q: 'Did she write to you in March?', a: '&ldquo;She has never written to me in her life. Everything goes through the planning office. And she has never called me Patrick. She calls me Mr Stallard, like a head teacher.&rdquo;' },
+        { q: 'What happens if we print it?', a: '&ldquo;Then my permission goes in front of a judge, the houses wait two years, and the flood wall that Sluice Lane wants doesn&rsquo;t get built either. So I&rsquo;d rather you didn&rsquo;t. I&rsquo;d lose more than she would.&rdquo;' }
+      ],
+      clue: { id: 'stallard', title: 'Patrick Stallard, on the record', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('stallard')) paint(); }
+    });
+  });
+  $('#thea').addEventListener('click', function () {
+    if (busy) return;
+    if (told.thea) { ER.say('&ldquo;Look at the river,&rdquo; says Thea. &ldquo;Not at Sheila. At the river.&rdquo;'); return; }
+    ER.talk({
+      who: 'Thea Rushton', role: 'Friends of Raddle Meadows · 3 Sluice Lane · on the record', face: window.FACE('thea'),
+      lines: [
+        { note: 'She has the face of a woman who has not slept.', a: '&ldquo;February 2024, the river came in under my back door at two in the morning, and I stood in my kitchen in my nightie with the water up to my knees. So yes, when Sheila wrote to me, I put her letter online. It wasn&rsquo;t good enough. I still think that.&rdquo;' },
+        { q: 'Did you send the leak?', a: '&ldquo;Me? I don&rsquo;t know anything about it. Tariq rang this morning and I nearly dropped the phone. I&rsquo;m in bed by half past nine with the radio. I&rsquo;m seventy-six. I don&rsquo;t send emails at two in the morning. I don&rsquo;t send emails at all if I can help it.&rdquo;' },
+        { q: 'Have you got a computer?', a: '&ldquo;A laptop. Seb set it up for me when he came back from Ohio in August; he&rsquo;s had a year at a college there. It does everything in American. It tells me colour is spelt wrong. It lives on the kitchen table, under the calendar.&rdquo;' },
+        { q: 'What calendar?', a: '&ldquo;Last year&rsquo;s Friends of the Meadows calendar. March has a kingfisher on the bank where they want the houses, and I can&rsquo;t bear to turn it over.&rdquo; She points at the wall above the fire. &ldquo;There&rsquo;s another one up there. Trish never takes anything down.&rdquo;' },
+        { q: 'What do you want?', a: '&ldquo;I want somebody to look properly at that river. Not at Sheila. At the river. And I want people to stop saying &lsquo;reach out&rsquo;. You reach out for the biscuit tin.&rdquo;' }
+      ],
+      clue: { id: 'thea', title: 'Thea Rushton, on the record', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('thea')) paint(); }
+    });
+  });
+  $('#seb').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.thea) { ER.say('Seb looks up from his phone and nods at his grandmother: talk to her first.'); return; }
+    if (told.seb) { ER.say(nextFile ? 'Seb is looking at the fire.' : 'Seb is looking at his phone. He has not unlocked it for some time.'); return; }
+    ER.talk({
+      who: 'Seb Rushton', role: 'Thea&rsquo;s grandson, 19', face: window.FACE('seb'),
+      lines: [
+        { note: 'He puts his phone face down on the table when you sit down.', a: '&ldquo;Hey. You&rsquo;re from the paper? Cool. If you need anything about the Friends, the videos, whatever, feel free to reach out.&rdquo;' },
+        { q: 'What do you do for the Friends?', a: '&ldquo;The videos, the website, Gran&rsquo;s computer. I edit at night. I&rsquo;m a total night owl: I do my best work about two in the morning. Everybody did, at college.&rdquo;' },
+        { q: 'Do you know who sent the letter?', a: '&ldquo;No idea. Honestly.&rdquo; He looks at the fire. &ldquo;But if it&rsquo;s real, it&rsquo;s real, right? Somebody had to make people look.&rdquo;' },
+        { q: 'Have you seen it?', a: '&ldquo;Only what Tariq said to Gran on the phone.&rdquo; He picks his phone up, and puts it down again.' }
+      ],
+      clue: { id: 'seb', title: 'Seb Rushton', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('seb')) paint(); }
+    });
+  });
+
+  var STYLE = '<h4><span>The Record Style Book</span><span>page 34</span></h4><h3>Who gains?</h3>' +
+    '<p>Before you print, ask who gains if the story runs, and who loses. Write everybody down, including us: a front page that sells is a gain too.</p>' +
+    '<p>A <b>motive</b> is a reason to check harder. It is never proof. Most people with a motive did nothing, and people with none sometimes act out of love, or anger, or fear. Catching somebody in one lie does not make them guilty of everything else.</p>' +
+    '<p>To say who made something, you need tests that a person can fail:</p>' +
+    '<ol><li><b>Access.</b> Could they have had what it was made from, and the machine it was made on?</li><li><b>Time.</b> Where were they, and were they awake, when it was made?</li><li><b>Habit.</b> Does it carry something of theirs: a spelling, a phrase, a mistake they always make?</li></ol>' +
+    '<p class="pen">In 1998 we picked the man with the best motive. He had not done it. &mdash; R.P.</p>';
+  var CAL = '<h4><span>On the wall of the snug</span><span>Friends of Raddle Meadows &middot; calendar 2025</span></h4>' +
+    '<svg viewBox="0 0 420 330"><rect width="420" height="330" fill="#f4ecd4"/><rect x="10" y="10" width="400" height="120" fill="#6a9ab0"/><path d="M10 100Q120 80 200 96T410 88V130H10Z" fill="#5a7a3a"/>' +
+    '<path d="M180 66q30 -20 62 -8l14 -8l-10 16q-20 18 -66 0z" fill="#1f8ab0"/><path d="M228 60l34 -4" stroke="#e86a2a" stroke-width="5"/><path d="M200 74q16 6 30 0" fill="#e86a2a"/>' +
+    '<text x="210" y="152" font-family="Oswald,sans-serif" font-size="20" text-anchor="middle" fill="#3a1c10" letter-spacing="3">MARCH 2025</text>' +
+    '<text x="210" y="170" font-family="Kalam,cursive" font-size="12" text-anchor="middle" fill="#5a4a32">A kingfisher on the bottom field. Photo: S. Rushton</text>' +
+    (function () {
+      var s = '', d, col, row, days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+      days.forEach(function (n, i) { s += '<text x="' + (45 + i * 55) + '" y="192" font-family="Oswald,sans-serif" font-size="12" text-anchor="middle" fill="#7a1f1f">' + n + '</text>'; });
+      for (d = 1; d <= 31; d++) { col = (d + 4) % 7; row = Math.floor((d + 4) / 7); s += '<text x="' + (45 + col * 55) + '" y="' + (214 + row * 22) + '" font-family="DM Mono,monospace" font-size="13" text-anchor="middle" fill="#2a1e12">' + d + '</text>'; }
+      return s;
+    })() + '</svg><p style="margin:6px 22px 0">The first of March 2025 falls on a Saturday. Nobody has turned the page for twenty months.</p>';
+  $('#style').addEventListener('click', function () { if (busy) return;
+    ER.read({ html: STYLE, cls: 'style', clue: { id: 'style34', title: 'Style book p.34: Who gains?', kind: 'The style book' }, done: function () { LK.terms(['motive']); if (tell('style')) { paint(); if (ready()) ER.say('Tariq is laying out beer mats on the snug table.'); } } }); });
+  $('#cal').addEventListener('click', function () { if (busy) return;
+    ER.read({ html: CAL, cls: 'mail', clue: { id: 'cal25', title: 'The Friends&rsquo; 2025 calendar, March', kind: 'On the wall of the snug' }, done: function () { if (tell('cal')) { paint(); if (ready()) ER.say('Tariq is laying out beer mats on the snug table.'); } } }); });
+
+  LK.thing('#fire', null, 'A coal fire, the only thing in Raddlestone that is warm in November. Thea has pulled her chair as close as it will go.', isBusy);
+  LK.thing('#window', null, 'Through the window, across the road: Raddle Meadows, grey-green, with the river high and brown along the bottom. A heron is standing in the bottom field, not moving.', isBusy);
+  LK.thing('#board', null, 'TODAY: pie and mash, soup. FISH: FRIDAYS. It has said FISH: FRIDAYS since 1987.', isBusy);
+  LK.thing('#pumps', null, 'Two pumps of local bitter: Raddle Gold and Sluice Gate. Tariq is having a lemonade. It is press day.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#mats').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Six beer mats and five lanes. Only one lane goes all the way through.'); return; }
+    if (!talked()) { ER.say('&ldquo;Talk to everybody first,&rdquo; says Tariq: &ldquo;Trish, Mr Stallard, Thea and Seb.&rdquo;'); return; }
+    if (!told.style || !told.cal) { ER.say('&ldquo;Page 34 of the style book,&rdquo; says Tariq, &ldquo;and that calendar on the wall.&rdquo;'); return; }
+    if (!lock) lock = makeMats();
+    lock.open();
+  });
+
+  /* ---------- the snug table: which mats are tests, and how far each person gets ---------- */
+  function makeMats() {
+    var MATS = [['letter', 'had the June letter, or the photo of it'], ['laptop', 'could use Thea&rsquo;s laptop'], ['awake', 'was awake at 01.47 on Tuesday'], ['hand', 'writes American and says &ldquo;reach out&rdquo;'], ['gain', 'gains if Sheila falls'], ['lie', 'told us something untrue']];
+    var GATE = { letter: 'had the June letter', laptop: 'could use Thea&rsquo;s laptop', awake: 'awake at 01.47', hand: 'writes American, says &ldquo;reach out&rdquo;' };
+    var ORDER = ['letter', 'laptop', 'awake', 'hand'];
+    var WHO = [['s', 'Ralph Stringer', 'stringer'], ['p', 'Patrick Stallard', 'stallard'], ['t', 'Thea Rushton', 'thea'], ['b', 'Seb Rushton', 'seb'], ['r', 'The Record', null]];
+    var st = ER.flag('e-st') || { at: {}, pos: {} }, wait = false, box = ER.el('div', 'job sgj');
+    box.innerHTML = '<h5>The snug table <small>Drag the beer mats into two piles (or click a mat, then a space). Then move each person along their lane to the last gate they get through.</small></h5>' +
+      '<div class="tabl"><div class="mats" id="mhome">' + MATS.map(function (m) { return '<span class="mat dnd-item" data-m="' + m[0] + '">' + m[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="piles"><div class="pile"><b>Tests<small>a person can pass or fail them</small></b><div class="slots">' + [1, 2, 3, 4].map(function (i) { return '<div class="mslot" data-s="t' + i + '"></div>'; }).join('') + '</div></div>' +
+      '<div class="pile"><b>Look harder<small>reasons, not proof</small></b><div class="slots">' + [1, 2].map(function (i) { return '<div class="mslot" data-s="h' + i + '"></div>'; }).join('') + '</div></div></div>' +
+      '<div class="lanes" id="lanes"><div class="gates"><span></span><span>stops at gate 1</span>' + ORDER.map(function (g, i) { return '<span>' + (i < 3 ? 'gets past gate ' + (i + 1) + ', stops at gate ' + (i + 2) : 'through all four gates') + '</span>'; }).join('') + '</div>' +
+      '<div class="gates"><span></span>' + ORDER.map(function (g, i) { return '<span style="color:#ff9a7a">gate ' + (i + 1) + ': ' + GATE[g] + ' &#9654;</span>'; }).join('') + '<span></span></div>' +
+      WHO.map(function (w) {
+        return '<div class="lane" data-w="' + w[0] + '"><div class="who">' + (w[2] ? '<svg viewBox="0 0 200 260"><use href="#lk-' + w[2] + '"/></svg>' : '<svg viewBox="0 0 28 34"><rect width="28" height="34" fill="#f2e8cf"/><text x="14" y="23" font-family="UnifrakturCook,serif" font-size="18" text-anchor="middle" fill="#221d14">R</text></svg>') + w[1] + '</div>' +
+          [0, 1, 2, 3, 4].map(function (k) { return '<div class="stop" data-k="' + k + '"><i></i></div>'; }).join('') + '</div>';
+      }).join('') + '</div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="mt-go">Show Tariq</button></div>';
+    var msgEl = box.querySelector('.jmsg'), home = box.querySelector('#mhome'), stage = st.stage || 1;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() {
+      st.at = {}; ER.$$('.mslot', box).forEach(function (s) { var m = s.querySelector('.mat'); if (m) st.at[s.getAttribute('data-s')] = m.getAttribute('data-m'); });
+      st.stage = stage; ER.flag('e-st', st);
+    }
+    function lanes() {
+      box.querySelector('#lanes').classList.toggle('on', stage === 2);
+      home.style.display = stage === 2 ? 'none' : '';
+      ER.$$('.lane', box).forEach(function (l) { var w = l.getAttribute('data-w'); ER.$$('.stop', l).forEach(function (s) { s.classList.toggle('on', String(st.pos[w]) === s.getAttribute('data-k')); }); });
+    }
+    ER.dnd(box, { item: '.mat', slot: '.mslot', home: home, lock: function () { return wait || stage === 2; }, change: function () { ER.$$('.mat', box).forEach(function (m) { m.classList.remove('bad'); }); keep(); } });
+    Object.keys(st.at).forEach(function (s) { var sl = box.querySelector('.mslot[data-s="' + s + '"]'), m = box.querySelector('.mat[data-m="' + st.at[s] + '"]'); if (sl && m) sl.appendChild(m); });
+    box.addEventListener('click', function (e) {
+      var s = e.target.closest ? e.target.closest('.stop') : null; if (!s || wait || stage !== 2) return;
+      var l = s.closest('.lane'); st.pos[l.getAttribute('data-w')] = +s.getAttribute('data-k'); l.classList.remove('bad'); LK.sfx.mat(); keep(); lanes();
+    });
+    var MNO = {
+      gain: '&ldquo;Who gains tells us where to look harder,&rdquo; says Tariq. &ldquo;It can&rsquo;t tell us who did it. Ralph gains. So do we: a front page like that sells. Page 34.&rdquo;',
+      lie: '&ldquo;Ralph told us something untrue about March,&rdquo; says Tariq. &ldquo;That makes him wrong about March. It doesn&rsquo;t make him the maker. Page 34: one lie isn&rsquo;t everything.&rdquo;',
+      letter: '&ldquo;The forger cut the top and the signature off her June letter,&rdquo; says Tariq. &ldquo;Anybody who never had it, or the photo, couldn&rsquo;t. That is a test.&rdquo;',
+      laptop: '&ldquo;The file says which program made it, and whose computer,&rdquo; says Tariq. &ldquo;Anybody who couldn&rsquo;t use that laptop couldn&rsquo;t have made that file. That is a test.&rdquo;',
+      awake: '&ldquo;The file was made at 01.47,&rdquo; says Tariq. &ldquo;Somebody asleep at 01.47 didn&rsquo;t make it. That is a test.&rdquo;',
+      hand: '&ldquo;Favorably, Councilor, reach out,&rdquo; says Tariq. &ldquo;Habits. Somebody who never writes like that probably didn&rsquo;t write that. That is a test.&rdquo;'
+    };
+    var PNO = {
+      s: { 0: 'Thea posted the June letter where two hundred people shared it. Ralph could have had it. How far does he get?', more: 'Could Ralph have used Thea&rsquo;s laptop, on her kitchen table, in Sluice Lane? The file was made on it.' },
+      p: { 0: 'The photo of the June letter was shared two hundred times. Mr Stallard could have seen it. Where does he stop?', more: 'Could Mr Stallard use a laptop on Thea&rsquo;s kitchen table? The file says it was made on hers.' },
+      r: { 0: 'We have the June letter: it&rsquo;s in our own file. We pass gate 1. And then?', more: 'We have a lot of computers. Thea&rsquo;s isn&rsquo;t one of them.' },
+      t: { 0: 'She has the June letter: it was sent to her.', 1: 'It&rsquo;s her laptop: the author in the file is her name. She passes the laptop gate.', more: 'Where was Thea at 01.47 on Tuesday? &ldquo;In bed by half past nine with the radio.&rdquo; And does she write &ldquo;colour&rdquo; or &ldquo;color&rdquo;?' },
+      b: { 0: 'He runs the Friends&rsquo; website, and he lives with the woman the letter was sent to.', 1: 'He set Thea&rsquo;s laptop up when he came back from Ohio. He can use it.', 2: '&ldquo;I do my best work about two in the morning,&rdquo; he told you.', 3: '&ldquo;Feel free to reach out,&rdquo; he said to you. The email said it too. And who has just had a year at a college in Ohio?' }
+    };
+    box.querySelector('#mt-go').addEventListener('click', function () {
+      var i, k, m, file;
+      if (wait || nextFile) return;
+      keep();
+      ER.$$('.mat,.lane', box).forEach(function (n) { n.classList.remove('bad'); });
+      if (stage === 1) {
+        if (Object.keys(st.at).length < 6) { ER.sfx.no(); msg('&ldquo;All six mats,&rdquo; says Tariq. &ldquo;Four tests, two reasons to look harder.&rdquo;'); return; }
+        for (k in st.at) {
+          m = st.at[k];
+          if ((k.charAt(0) === 't') !== ER.check('test', m)) { var n = box.querySelector('.mat[data-m="' + m + '"]'); n.classList.add('bad'); ER.shake(n); ER.sfx.no(); msg(MNO[m]); return; }
+        }
+        stage = 2; keep(); lanes(); LK.sfx.mat(); LK.solved(true);
+        msg('Four tests. Tariq lays them across the table in a row, like gates, and puts a pinch of salt at the start of each lane. &ldquo;Now walk everybody through. Where does each of them stop?&rdquo;');
+        return;
+      }
+      for (i = 0; i < WHO.length; i++) if (st.pos[WHO[i][0]] == null) { ER.sfx.no(); msg('&ldquo;Everybody walks,&rdquo; says Tariq. &ldquo;' + WHO[i][1] + ' hasn&rsquo;t moved.&rdquo;'); return; }
+      for (i = 0; i < WHO.length; i++) {
+        var w = WHO[i][0], p = st.pos[w];
+        if (!ER.check('p' + w, String(p))) {
+          var l = box.querySelector('.lane[data-w="' + w + '"]'); l.classList.add('bad'); ER.sfx.no();
+          var tbl = PNO[w], t = tbl[p] != null ? tbl[p] : null;
+          if (t == null) t = (w === 'b') ? 'He gets further than that. Read what he told you again.' : (p === 0 ? tbl[0] : tbl.more);
+          msg(t); return;
+        }
+      }
+      file = ER.exit([['t1', 't2', 't3', 't4'].map(function (s) { return st.at[s]; }).sort().join(',') + '|' + WHO.map(function (x) { return x[0] + st.pos[x[0]]; }).join(',')], { wait: true });
+      if (!file) { msg('Tariq shakes his head. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      LK.mine('gates', 'Who made it', '<p>Reasons to look harder, not proof: who gains (Ralph would get the chair; we&rsquo;d sell papers) and Ralph&rsquo;s untrue story about March.</p><p>Tests: the June letter (everybody could have it) &middot; Thea&rsquo;s laptop (only Thea and Seb) &middot; awake at 01.47 (not Thea: in bed by 9.30) &middot; American spelling and &ldquo;reach out&rdquo; (Seb).</p><p>The 2025 calendar on Thea&rsquo;s kitchen wall: Thursday 13 March.</p>', true);
+      msg('One lane goes all the way through. Tariq looks at it for a long moment, and then across the snug.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Tariq does not say anything about lanes, or gates, or laptops. He sits down opposite Seb and says, quite quietly, &ldquo;Seb. Did you make the letter?&rdquo;',
+          'Seb goes red from the neck up. He looks at his grandmother, and then at the fire, and then at nobody. &ldquo;Yes,&rdquo; he says. &ldquo;Monday night. On Gran&rsquo;s laptop. I cut the top and the signature off the photo of her letter. I checked the lunch in the register online and the day on Gran&rsquo;s calendar.&rdquo;',
+          '&ldquo;I thought you&rsquo;d look into it,&rdquo; he says. &ldquo;Find the real one. Everybody says she sold the Meadows. I thought there must be a real one.&rdquo; &ldquo;There isn&rsquo;t,&rdquo; says Tariq. &ldquo;We looked. She paid for her own lunch.&rdquo;',
+          'Thea Rushton has not said a word. She takes her grandson&rsquo;s hand, and holds it very hard, and says: &ldquo;Sebastian. We are going to ring Sheila. Now. And you are going to say sorry in proper English.&rdquo;',
+          'Tariq&rsquo;s phone buzzes. Rowena: <b>Glass box. 3pm. Sheila&rsquo;s reply is coming. Bring everything.</b>'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    lanes();
+    msg(stage === 2 ? 'The lanes, as you left them.' : Object.keys(st.at).length ? 'The beer mats, as you left them.' : 'Six beer mats. Tariq has written on each of them in biro.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

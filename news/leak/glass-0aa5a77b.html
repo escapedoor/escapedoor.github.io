@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Glass Box · Letterhead</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="leak.css">
+<style>
+  body{--bg:#3a2a1a;--accent:#ffcf6a;--font-display:'UnifrakturCook',serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(40,28,18,.97);--tc-ink:#fbf2e2;--cap-bg:rgba(34,24,14,.95);--panel:#2e2216;--face-bg:#2c3a40;--q-ink:#ffcf6a;--fade:#0c0804;--hud-bg:rgba(34,24,14,.86)}
+  #sun{animation:sun 8s ease-in-out infinite alternate}
+  @keyframes sun{100%{opacity:.75}}
+  #stetg{animation:breathe 3s ease-in-out infinite;transform-origin:1460px 520px}
+  @keyframes breathe{50%{transform:scaleY(1.05)}}
+
+  /* the proof of page one, on the stone */
+  .pfj{width:min(1180px,97vw)}
+  .proof{display:grid;grid-template-columns:1fr 280px;gap:12px;align-items:start}
+  .pg{background:#f6f0e0;color:#1d1a16;padding:10px 18px 12px;box-shadow:0 6px 20px rgba(0,0,0,.45);font-family:'Newsreader',serif;max-height:640px;overflow:auto}
+  .pg .mast{text-align:center;border-bottom:3px double #1d1a16;padding-bottom:2px;margin-bottom:6px}
+  .pg .mast b{display:block;font-family:'UnifrakturCook',serif;font-size:34px;line-height:1}
+  .pg .mast small{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.16em}
+  .sent{margin:0 0 6px;font-size:15.5px;line-height:1.36}
+  .sent .gap{display:inline-block;min-width:70px;padding:0 6px;border-bottom:2px solid #7a1f1f;color:#7a1f1f;font-weight:600}
+  .sent .gap.e{color:#b8a888}
+  .ops{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 0}
+  .ops button{padding:2px 8px;border:1.4px solid #b8a888;border-radius:12px;background:#fff;font-family:'Newsreader',serif;font-size:13.5px;color:#3a2e1e;cursor:pointer}
+  .ops button.on{background:#7a1f1f;border-color:#7a1f1f;color:#fff}
+  .ops.wide button{border-radius:3px;text-align:left}
+  .sent.bad{background:#ffe2cc}
+  .row2{border-top:1px solid #c8bca4;padding-top:6px;margin-top:6px}
+  .hd{font-family:'Oswald',sans-serif;font-weight:700;font-size:30px;line-height:1.02;text-transform:uppercase;text-align:center;margin:2px 0 4px;min-height:32px;color:#1d1a16}
+  .hd.e{color:#b8a888;font-size:18px}
+  .intro{font-weight:700;font-size:16px;line-height:1.35;min-height:22px;margin:0 0 4px}
+  .intro.e{color:#b8a888;font-weight:400}
+  .lay{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:6px}
+  .slot{border:2px dashed #b8a888;border-radius:2px;min-height:58px;padding:4px;background:rgba(255,255,255,.4)}
+  .slot b{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;color:#7a6a56;text-transform:uppercase;margin-bottom:2px}
+  .slot.foot{grid-column:1 / span 2}
+  .story{display:block;padding:5px 8px;background:#fff;border-left:5px solid #1d1a16;font-family:'Oswald',sans-serif;font-size:13.5px;line-height:1.15;color:#1d1a16;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+  .story small{display:block;font-family:'Newsreader',serif;font-size:12.5px;color:#5a4a32}
+  .story.bad{border-left-color:#e07a1a;background:#ffe2cc}
+  .spikebox{background:#2a2016;border-radius:4px;padding:8px;color:#e8d8b8}
+  .spikebox b{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#ffcf6a}
+  .spikebox .slot{border-color:#6a5a42;background:rgba(0,0,0,.25);min-height:70px;margin-top:4px}
+  .spikebox svg{display:block;margin:4px auto 0}
+  .home{display:flex;flex-direction:column;gap:6px;min-height:70px;padding:6px;background:rgba(0,0,0,.25);border-radius:4px;margin-top:8px}
+  .side h6{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#ffcf6a}
+  .side p{margin:0 0 6px;font-family:'Newsreader',serif;font-size:14px;line-height:1.35;color:#f0e4cc}
+  .stagehd{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#7a6a56;text-transform:uppercase;margin:4px 0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="nrG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#8a6a42"/></linearGradient>
+  <linearGradient id="sunG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></radialGradient>
+</defs>
+<!-- the newsroom beyond the glass -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#nrG)"/>
+<rect x="-1000" y="560" width="3600" height="840" fill="#4a3220"/>
+<g id="newsroom" class="hot"><g fill="#3a2614"><rect x="140" y="420" width="260" height="20"/><rect x="560" y="430" width="240" height="20"/><rect x="1160" y="420" width="260" height="20"/></g>
+  <g fill="#1d1d22"><rect x="200" y="350" width="90" height="66" rx="4"/><rect x="620" y="360" width="90" height="66" rx="4"/><rect x="1220" y="350" width="90" height="66" rx="4"/></g>
+  <g fill="#9ab0c0" opacity=".7"><rect x="206" y="356" width="78" height="52"/><rect x="626" y="366" width="78" height="52"/><rect x="1226" y="356" width="78" height="52"/></g>
+  <g fill="#e8dcc0"><rect x="320" y="400" width="50" height="18" transform="rotate(-8 345 409)"/><rect x="730" y="410" width="44" height="16"/><rect x="1330" y="402" width="60" height="16" transform="rotate(6 1360 410)"/></g></g>
+<g id="tariqd" transform="translate(680 560) scale(.62)"></g>
+<g id="stetg"><ellipse cx="1460" cy="520" rx="34" ry="14" fill="#3a3a3a"/><circle cx="1432" cy="512" r="12" fill="#3a3a3a"/><path d="M1424 504l2 -10 6 8zM1436 502l6 -8 2 10z" fill="#3a3a3a"/></g>
+<g id="window" class="hot"><rect x="1080" y="90" width="420" height="220" fill="#3a2614"/><rect x="1092" y="102" width="396" height="196" fill="#f2c88a"/><g fill="#c8a070"><rect x="1100" y="190" width="380" height="108"/></g><path d="M1290 102V298M1092 200H1488" stroke="#3a2614" stroke-width="7"/>
+  <text x="1290" y="250" class="fZ" font-size="13" text-anchor="middle" fill="#6a4a2a" letter-spacing="2">CORN EXCHANGE</text></g>
+<!-- the glass walls of the box, with the sun across them -->
+<g fill="none" stroke="#2a1c10" stroke-width="12"><path d="M-1000 60H2600M60 60V900M1540 60V900M60 520H1540"/></g>
+<path id="sun" d="M-200 60L700 60L300 900L-600 900Z" fill="url(#sunG)" pointer-events="none"/>
+<text x="800" y="44" class="fL" font-size="15" font-weight="700" text-anchor="middle" fill="#ffcf6a" letter-spacing="6" opacity=".8">EDITOR</text>
+<!-- inside the box: the clock, the lawyer's page on the glass, the desk, the stone -->
+<g id="clock" class="hot"><circle cx="800" cy="150" r="44" fill="#1d1a16"/><circle cx="800" cy="150" r="37" fill="#f4efe2"/><path id="hh" d="M800 150L822 156" stroke="#1d1a16" stroke-width="5" stroke-linecap="round"/><path id="mh" d="M800 150L807 116" stroke="#1d1a16" stroke-width="3.5" stroke-linecap="round"/><circle cx="800" cy="150" r="3" fill="#7a1f1f"/></g>
+<g id="law" class="hot"><rect x="120" y="110" width="170" height="220" fill="#fff" transform="rotate(-2 205 220)"/><text x="205" y="146" class="fZ" font-size="14" text-anchor="middle" fill="#16161a" transform="rotate(-2 205 220)">LIBEL</text><text x="205" y="164" class="fZ" font-size="11" text-anchor="middle" fill="#16161a" transform="rotate(-2 205 220)">ON ONE PAGE</text>
+  <g stroke="#6a6a72" stroke-width="2" transform="rotate(-2 205 220)"><path d="M136 184h138M136 196h130M136 208h138M136 220h120M136 232h134M136 244h126M136 256h138M136 268h110M136 280h130"/></g><rect x="190" y="100" width="30" height="14" fill="#e8d8a0" opacity=".8" transform="rotate(-2 205 220)"/></g>
+<g id="sign2"><rect x="330" y="120" width="250" height="44" fill="#1d1a16"/><text x="455" y="139" class="fO" font-size="11" text-anchor="middle" fill="#d8b04a" letter-spacing="1.5">IF YOUR MOTHER SAYS SHE LOVES YOU,</text><text x="455" y="155" class="fO" font-size="11" text-anchor="middle" fill="#d8b04a" letter-spacing="1.5">CHECK IT.</text></g>
+<path d="M200 640H1000L1040 680H160Z" fill="#5a3a1e"/><path d="M160 680H1040V700H160z" fill="#3a2410"/><path d="M200 700v170M1000 700v170" stroke="#3a2410" stroke-width="18"/>
+<g id="reply" class="hot"><rect x="280" y="616" width="120" height="30" fill="#fffdf4" transform="rotate(-5 340 631)"/><rect x="280" y="616" width="120" height="6" fill="#5a2a3a" transform="rotate(-5 340 631)"/><path d="M290 630h90M290 638h70" stroke="#1d2a50" stroke-width="2" transform="rotate(-5 340 631)"/>
+  <text x="340" y="664" class="fK" font-size="13" text-anchor="middle" fill="#ffcf6a">14.52</text></g>
+<g id="style" class="hot"><path d="M440 640l10 -22h92l-8 22z" fill="#7a1f1f"/><text x="488" y="634" class="fU" font-size="11" text-anchor="middle" fill="#f0c060">Style Book</text></g>
+<g id="draft" class="hot"><rect x="590" y="612" width="100" height="32" fill="#f4efe2" transform="rotate(4 640 628)"/><path d="M600 622h80M600 630h70M600 638h76" stroke="#5a5a5a" stroke-width="2" transform="rotate(4 640 628)"/><text x="640" y="666" class="fK" font-size="12" text-anchor="middle" fill="#ffcf6a">Tariq&#8217;s draft</text></g>
+<g id="stone" class="hot"><path d="M1060 760l40 -220h330l40 220z" fill="#2a3a3a"/><path d="M1110 560h310l30 180H1090z" fill="#f6f0e0"/>
+  <text x="1265" y="590" class="fU" font-size="18" text-anchor="middle" fill="#1d1a16">The Raddlestone Record</text><path d="M1120 598h290" stroke="#1d1a16" stroke-width="2"/>
+  <g fill="#c8bca4"><rect x="1124" y="610" width="282" height="18"/><rect x="1124" y="636" width="180" height="70"/><rect x="1314" y="636" width="92" height="70"/><rect x="1124" y="712" width="282" height="18"/></g>
+  <path d="M1080 760v100M1450 760v100" stroke="#1d2626" stroke-width="14"/></g>
+<g id="spike" class="hot"><rect x="900" y="604" width="60" height="10" fill="#3a3a3a"/><path d="M930 604V540" stroke="#9a9a9a" stroke-width="3"/><path d="M930 540l-2 6h4z" fill="#9a9a9a"/><rect x="912" y="580" width="36" height="16" fill="#f4efe2" transform="rotate(10 930 588)"/><rect x="914" y="566" width="34" height="14" fill="#efe8d4" transform="rotate(-8 930 572)"/></g>
+<g id="rowena" class="hot" transform="translate(700 800) scale(1.04)"></g>
+<g id="tariq" class="hot" transform="translate(240 880) scale(1)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the press</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="leak.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    $('#rowena').innerHTML = LK.who('rowena', { lit: '#ffd890', armR: 'M31 -222Q58 -200 54 -166', handR: [52, -160], extra: '<rect x="46" y="-176" width="4" height="26" fill="#7a1f1f" transform="rotate(20 48 -163)"/>' });
+    $('#tariq').innerHTML = LK.who('tariq', { lit: '#ffd890' });
+    $('#tariqd').innerHTML = '';
+  })();
+
+  ER.init({
+    theme: 'news', story: 'leak', storyTitle: 'Letterhead', id: 'glass', no: 'VI', title: 'The Glass Box',
+    go: 'Go into the box',
+    intro: [
+      'The snug table. Who gains (Ralph Stringer would get the chair; the Record would sell papers) and Ralph&rsquo;s untrue story were only reasons to look harder: a motive is not proof. The tests were things a person could fail: having the June letter (anybody could: it had been shared two hundred times), using Thea&rsquo;s laptop (only Thea and Seb), being awake at 01.47 (not Thea, who is in bed by half past nine) and writing American with &ldquo;reach out&rdquo; (Seb, back from a year in Ohio). Asked quietly, Seb Rushton said yes. He made the letter on Monday night, to make people &ldquo;look properly&rdquo;.',
+      'A quarter past three. The editor&rsquo;s glass box, in the corner of the newsroom. Pages go at six.'
+    ],
+    exit: {"next":"press","w":{"e249fd8a":"3200d994"}}, tags: {"b1":["d56c1d20"],"b2":["247ceabc"],"b3":["1a58e00b"],"b4":["08fec485"],"b5":["393555b1"],"b6":["91dda9c9"],"b7":["13794cb3"],"h":["f2cf4847"],"i":["eed6565a"],"spike":["35e1bf79"],"lead":["8b626b3a"],"second":["21fc0788"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('f-file') || null; told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function readAll() { return told.reply && told.law && told.style && told.draft; }
+  function ready() { return told.rowena && readAll(); }
+  function paint() {
+    $('#rowena').classList.toggle('ready', !!(told.in && !told.rowena));
+    $('#reply').classList.toggle('ready', !!(told.rowena && !told.reply));
+    $('#law').classList.toggle('ready', !!(told.rowena && !told.law));
+    $('#style').classList.toggle('ready', !!(told.rowena && !told.style));
+    $('#draft').classList.toggle('ready', !!(told.rowena && !told.draft));
+    $('#stone').classList.toggle('ready', !!(ready() && !nextFile));
+    $('#hh').setAttribute('d', nextFile ? 'M800 150L821 162' : 'M800 150L822 140');
+    $('#mh').setAttribute('d', nextFile ? 'M800 150L781 120' : 'M800 150L807 116');
+    ER.pips((told.rowena ? 1 : 0) + (readAll() ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The pages have gone. Sorrell&rsquo;s press is about to start. The button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return [lock.stage() === 1 ? 'pf1' : 'pf2', lock.stage() === 1 ? [
+      'For each sentence ask: can we prove it (then no hedge at all)? Did somebody say it on the record (said)? Did somebody tell us without their name (is understood)? Is it in a record (according to)? And is it true?',
+      'Page 35 and the lawyer&rsquo;s page: putting &ldquo;alleged&rdquo; or quotation marks round an accusation does not make it safe to print. Ralph&rsquo;s March story is untrue: do not repeat it in any form. The line about the police comes from the part of Sheila&rsquo;s note that was not for printing with her name.',
+      'Only one sentence needs &ldquo;is understood&rdquo;: the police. One needs &ldquo;according to&rdquo;: the register. The forgery, the admission and the copy sent to Ralph are things we know, said plainly. Sheila and Stallard Homes simply &ldquo;said&rdquo;.'
+    ] : [
+      'Most readers read the headline and the first paragraph and stop. So those two must say the most important thing that we can prove. What is the most important thing we can prove today?',
+      'Do not lead with the accusation, even to deny it, and do not ask the town to guess who made the letter. Any detail that points to the maker (his age, his street) names him without his name.',
+      'The forgery leads, and the flood wall that Sluice Lane is frightened about comes second; the bonfire goes at the foot. A story about her lunch with the builder is true, but on page one it would say something false about her: it goes on the spike.'
+    ]];
+    if (!told.rowena) return ['talk', ['Rowena is at the desk with the proof of page one.', 'Click Rowena, in the middle of the glass box.']];
+    if (!readAll()) return ['read', ['Four things to read: Sheila&rsquo;s reply, the lawyer&rsquo;s page, page 35 of the style book, and Tariq&rsquo;s draft.', 'Sheila&rsquo;s reply is the note on the left of the desk (14.52). The lawyer&rsquo;s page is the white sheet taped to the glass, top left. The style book is the red book on the desk. Tariq&rsquo;s draft is the paper at the right of the desk.']];
+    return ['stone', ['Everything is ready. The proof is on the stone, the sloping table on the right.', 'Click the big sloping table with the page of the Record on it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The pages have gone. Eight minutes to spare.'); return; }
+    if (told.in) { busy = false; ER.say('The glass box. The clock says a quarter past three.'); return; }
+    ER.narrate([
+      'The glass box is Rowena&rsquo;s office: four glass walls in the corner of the newsroom, so that she can see everybody and everybody can see her. The low sun comes straight through all four.',
+      'Sheila Pendry&rsquo;s answers came at eight minutes to three, as she promised. They are on the desk, beside the proof of tomorrow&rsquo;s page one, which is on the stone, the big sloping table where pages are put together.',
+      '&ldquo;Sit,&rdquo; says Rowena. &ldquo;We know what happened. Now we decide what we may say. That is a different job, and it is the one that sinks papers.&rdquo;'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  $('#rowena').addEventListener('click', function () {
+    if (busy) return;
+    if (told.rowena) { ER.say(nextFile ? '&ldquo;Luxury,&rdquo; says Rowena, looking at the clock.' : !readAll() ? '&ldquo;Sheila&rsquo;s answers, Simon&rsquo;s page, page 35, and Tariq&rsquo;s draft,&rdquo; says Rowena. &ldquo;Then the stone.&rdquo;' : '&ldquo;The stone,&rdquo; says Rowena. &ldquo;Red pen.&rdquo;'); return; }
+    ER.talk({
+      who: 'Rowena Prosser', role: 'Editor · the glass box, quarter past three', face: window.FACE('rowena'),
+      lines: [
+        { note: 'She has a red pen behind each ear.', a: '&ldquo;So. It&rsquo;s a forgery, a boy made it, she paid for her lunch, and Ralph Stringer is a fool, which isn&rsquo;t news. Now the hard part. What do we print?&rdquo;' },
+        { q: 'Why print anything?', a: '&ldquo;Because Ralph has told the whole town to watch the Record, and the letter is on half the phones in the Corn Exchange. If we say nothing, people will go on believing it. It&rsquo;s false, we can prove it&rsquo;s false, and a forged letter about a planning decision is the town&rsquo;s business. That&rsquo;s the public interest.&rdquo;' },
+        { q: 'Are we allowed to?', a: '&ldquo;Read Simon&rsquo;s page on the glass. Simon Rees is our lawyer; that page is what&rsquo;s left of 1998. Can we prove it? Yes. Have we asked her? Yes: her answer is on the desk. Is it fair to her? That&rsquo;s what you are going to make sure of.&rdquo;' },
+        { q: 'What about Seb?', a: '&ldquo;He&rsquo;s a private person, he&rsquo;s nineteen, he has told her he&rsquo;s sorry, and the story doesn&rsquo;t need his name. The town needs to know the letter is false. It doesn&rsquo;t need to know whose grandson made it.&rdquo; She caps her pen. &ldquo;If anybody works out who it was, it won&rsquo;t be from us.&rdquo;' },
+        { q: 'What do I do?', a: '&ldquo;Tariq&rsquo;s draft is on the proof. Seven sentences, and some of them are wrong in ways that could cost us this building. Fix them. Then the headline, the first paragraph, and what goes where on the page. Most people read the headline and the first paragraph and nothing else. Make those two true.&rdquo;' }
+      ],
+      clue: { id: 'rowena2', title: 'Rowena: what may we print?', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('rowena')) { LK.terms(['public interest']); paint(); } }
+    });
+  });
+  $('#tariq').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;I wrote that lunch story yesterday,&rdquo; says Tariq, looking at the spike. &ldquo;Before you came.&rdquo;' : '&ldquo;I wrote the draft in a hurry,&rdquo; says Tariq. &ldquo;Be cruel.&rdquo;');
+  });
+
+  var REPLY = '<h4>Email from Cllr Sheila Pendry to Rowena Prosser &middot; Wednesday 4 November, 14.52</h4>' +
+    '<p>You asked me four questions. Here are four answers, and you may print every word.</p>' +
+    '<p>1. I did not write the letter dated 16 March. In March I was not the chair of anything except the Riverside Allotment Society, and the council&rsquo;s otter did not exist. I still miss the woolsack.</p>' +
+    '<p>2. I had lunch at the Plough on Friday 13 March, after the site walk. I paid for it myself, &pound;27.40, and the offer is in the register.</p>' +
+    '<p>3. I sign every letter in ink. Ask Pauline.</p><p>4. I have never in my life reached out to anybody.</p>' +
+    '<p>I think the letter is a nasty piece of fiction. I would rather you printed something true about the flood wall.</p><p>S.P.</p>' +
+    '<div class="aside">Not for printing, and not with my name on it: Thea and the boy rang me at one. He said sorry, properly. I am not going to the police. He is nineteen and frightened, and so is she.</div>';
+  var LAW = '<h4><span>Pinned to the glass</span><span>notes for the Record by Simon Rees, solicitor</span></h4><h3>Libel on one page</h3>' +
+    '<p><b>Defamation</b> is publishing something about a person that seriously harms their reputation. In print it is <b>libel</b>. A council cannot sue for libel; a councillor can.</p>' +
+    '<p>Your main defences, in England and Wales: <b>Truth</b>: you can prove that what you said is substantially true. <b>Honest opinion</b>: it is plainly an opinion, an honest person could hold it, and you show what it is based on. <b>Public interest</b>: it is about a matter of public interest, and you reasonably believed that publishing it was in the public interest. That means doing the work: checking, and asking the person before you print (the <b>right of reply</b>).</p>' +
+    '<p>Repeating somebody else&rsquo;s accusation is publishing it yourself. Quotation marks, &ldquo;alleged&rdquo; and &ldquo;claimed&rdquo; do not make it safe. A true fact set out so that it suggests something false can be libel too.</p>' +
+    '<p>A judge asks what an ordinary reader would understand from the whole article. An ordinary reader starts with the <b>headline</b> and the first paragraph, and many stop there.</p>' +
+    '<p class="pen">Rowena: you will be fine if you only print what you can prove, and ask first. S.</p>';
+  var STYLE = '<h4><span>The Record Style Book</span><span>page 35</span></h4><h3>Saying how sure we are</h3>' +
+    '<p>Every <b>hedge</b> is a promise to the reader about how much we know. Use the one that is true.</p>' +
+    '<ol><li><b>No hedge.</b> We have proved it, or records and independent sources agree. Say it plainly. Hedging a proved fact is a kind of lie too.</li>' +
+    '<li><b>said</b>: a fair report of words on the record. Use it for anybody, including people we believe.</li>' +
+    '<li><b>claimed</b>: tells the reader we doubt it. <b>admitted</b>: owned up to something wrong. <b>denied</b>: answered an accusation.</li>' +
+    '<li><b>according to</b>: points the reader to the source, a person or a record.</li>' +
+    '<li><b>is understood to</b>: we know it from a source we trust and have agreed not to name. Only if that is exactly true.</li>' +
+    '<li><b>alleged</b>: an accusation that has not been proved. It describes; it does not protect.</li></ol>';
+  var DRAFT = '<h4><span>Tariq&rsquo;s draft, 15.00</span><span>for page one</span></h4>' +
+    '<p>The letter, dated 16 March, [is? is alleged to be?] a forgery. It carries a council logo first used on 1 April, and calls her chair of planning, which she became on 19 May.</p>' +
+    '<p>Cllr Pendry [said? claimed?] she had never written it, and called it &ldquo;a nasty piece of fiction&rdquo;.</p>' +
+    '<p>[According to?] the council&rsquo;s register of gifts, she refused Stallard Homes&rsquo; offer of lunch at the Plough on 13 March and paid for her own.</p>' +
+    '<p>Ralph Stringer: what do we say about him?</p>' +
+    '<p>The person who made the letter [has admitted?] doing so, and has apologised to Cllr Pendry. The Record is not naming them.</p>' +
+    '<p>Police: Sheila says she won&rsquo;t go to them, but not with her name.</p><p>Stallard Homes [said?] it had never received any such letter.</p>' +
+    '<p>HEADLINE?? First para?? I can&rsquo;t decide. You decide. T.</p>';
+  function after(k) { if (tell(k)) { paint(); if (ready()) ER.say('&ldquo;The stone,&rdquo; says Rowena. &ldquo;Red pen.&rdquo;'); } }
+  function needR() { ER.say('&ldquo;Sit down first,&rdquo; says Rowena.'); }
+  $('#reply').addEventListener('click', function () { if (busy) return; if (!told.rowena) return needR();
+    ER.read({ html: REPLY, cls: 'note', clue: { id: 'reply', title: 'Sheila Pendry&rsquo;s answers, 14.52', kind: 'Right of reply' }, done: function () { LK.terms(['honest opinion']); after('reply'); } }); });
+  $('#law').addEventListener('click', function () { if (busy) return; if (!told.rowena) return needR();
+    ER.read({ html: LAW, cls: 'law', clue: { id: 'law', title: 'Libel on one page (Simon Rees)', kind: 'The lawyer&rsquo;s page' }, done: function () { LK.terms(['defamation', 'libel', 'truth', 'headline']); after('law'); } }); });
+  $('#style').addEventListener('click', function () { if (busy) return; if (!told.rowena) return needR();
+    ER.read({ html: STYLE, cls: 'style', clue: { id: 'style35', title: 'Style book p.35: Saying how sure we are', kind: 'The style book' }, done: function () { LK.terms(['hedge', 'alleged']); after('style'); } }); });
+  $('#draft').addEventListener('click', function () { if (busy) return; if (!told.rowena) return needR();
+    ER.read({ html: DRAFT, cls: 'mail', clue: { id: 'draft', title: 'Tariq&rsquo;s draft for page one', kind: 'A draft' }, done: function () { after('draft'); } }); });
+
+  LK.thing('#newsroom', null, 'The newsroom through the glass: four desks, three of them buried. Tariq&rsquo;s has a plant on it that he has never watered and that has never died.', isBusy);
+  LK.thing('#window', null, 'The Corn Exchange in the low sun. A light is on in Sheila Pendry&rsquo;s room.', isBusy);
+  LK.thing('#clock', null, function () { return nextFile ? 'Eight minutes to six. The pages have gone.' : 'A quarter past three. Pages go at six, and Queenie does not wait.'; }, isBusy);
+  LK.thing('#spike', 'spike', 'The spike: a long steel nail on a stand. Stories that will not be printed go on it. Today&rsquo;s already has a report on the bowls club&rsquo;s new lawnmower.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#stone').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The proof, initialled in the corner: R.P., 17.46.'); return; }
+    if (!told.rowena) return needR();
+    if (!readAll()) { ER.say('&ldquo;Read everything first,&rdquo; says Rowena: &ldquo;Sheila&rsquo;s answers, Simon&rsquo;s page on the glass, page 35, and Tariq&rsquo;s draft.&rdquo;'); return; }
+    if (!lock) lock = makeProof();
+    lock.open();
+  });
+
+  /* ---------- the proof: seven sentences, then the headline, the first paragraph and the page ---------- */
+  function makeProof() {
+    var S = [
+      ['b1', 'The letter, dated 16 March, ', ' a forgery. It carries a council logo first used on 1 April, and calls her chair of planning, which she became on 19 May.', [['is', 'is'], ['alleged', 'is alleged to be'], ['may', 'may be'], ['und', 'is understood to be']]],
+      ['b2', 'Cllr Pendry ', ' she had never written it, and called it &ldquo;a nasty piece of fiction&rdquo;.', [['said', 'said'], ['claimed', 'claimed'], ['admitted', 'admitted'], ['alleged', 'alleged']]],
+      ['b3', '', ' the council&rsquo;s register of gifts, she refused Stallard Homes&rsquo; offer of lunch at the Plough on 13 March and paid for her own.', [['acc', 'According to'], ['und', 'It is understood that, in'], ['alleged', 'Allegedly, in']]],
+      ['b4', '', '', [['saw', 'Cllr Ralph Stringer said he had seen the letter on her desk in March.'], ['made', 'Cllr Ralph Stringer, who wanted her job, is understood to have made the letter.'], ['copy', 'A copy was also emailed to Cllr Ralph Stringer, the vice-chair.']], 1],
+      ['b5', 'The person who made the letter ', ' doing so, and has apologised to Cllr Pendry. The Record is not naming them.', [['adm', 'has admitted'], ['alleged', 'is alleged to have admitted'], ['claims', 'claims to have admitted'], ['und', 'is understood to have admitted']]],
+      ['b6', 'Cllr Pendry ', ' asked the police to act.', [['has', 'has not'], ['und', 'is understood not to have'], ['alleged', 'allegedly has not'], ['claimed', 'claimed she has not']]],
+      ['b7', 'Stallard Homes ', ' it had never received any such letter.', [['said', 'said'], ['admitted', 'admitted'], ['claimed', 'claimed'], ['alleged', 'alleged']]]
+    ];
+    var HEADS = [['h1', 'Pendry in secret Meadows deal'], ['h2', 'Councillor &lsquo;promised Meadows to builder&rsquo;'], ['h3', 'Pendry denies Meadows letter'], ['h4', 'The letter she never wrote'], ['h5', 'Who forged the Meadows letter?']];
+    var INTROS = [['i1', 'Cllr Sheila Pendry has been accused of promising a builder that 120 homes on Raddle Meadows would be approved.'], ['i2', 'A letter which appears to show Cllr Sheila Pendry promising a builder 120 homes on Raddle Meadows is a forgery, the Record can reveal.'], ['i3', 'A nineteen-year-old from Sluice Lane has admitted forging a letter about Cllr Sheila Pendry.']];
+    var STORIES = [['forgery', 'The letter she never wrote', 'the forgery, with Sheila Pendry&rsquo;s answers'], ['wall', 'The flood wall: what the Meadows plans really say', 'for Sluice Lane, and for Thea'], ['bonfire', 'Bonfire on the Rec tonight, 7pm', 'with a map of where to park'], ['lunch', 'Councillor&rsquo;s lunch with builder', 'Tariq, yesterday: true, every word']];
+    var st = ER.flag('f-st') || { b: {}, h: '', i: '', at: {}, stage: 1 }, wait = false, box = ER.el('div', 'job pfj');
+    function ops(k, list, wide) { return '<div class="ops' + (wide ? ' wide' : '') + '" data-k="' + k + '">' + list.map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>'; }
+    box.innerHTML = '<h5>The stone: page one <small>Click the words that are true. Stage 1: Tariq&rsquo;s sentences. Stage 2: the headline, the first paragraph, and the page.</small></h5>' +
+      '<div class="proof"><div class="pg"><div class="mast"><b>The Raddlestone Record</b><small>THURSDAY 5 NOVEMBER 2026 &middot; EVERY THURSDAY SINCE 1868</small></div>' +
+      '<div id="s2" style="display:none"><div class="stagehd">Headline</div><div class="hd e" id="hd">choose a headline</div>' + ops('h', HEADS, true) +
+      '<div class="stagehd" style="margin-top:6px">First paragraph</div><p class="intro e" id="in">choose the first paragraph</p>' + ops('i', INTROS, true) +
+      '<div class="stagehd" style="margin-top:6px">The page</div><div class="lay"><div class="slot" data-s="lead"><b>Lead story, under the headline</b></div><div class="slot" data-s="second"><b>Second story</b></div><div class="slot foot" data-s="foot"><b>Across the foot</b></div></div></div>' +
+      '<div id="s1">' + S.map(function (s) {
+        return '<div class="sent" data-k="' + s[0] + '">' + (s[4] ? '<span class="gap e" data-g="' + s[0] + '">what do we say about Ralph Stringer?</span>' : s[1] + '<span class="gap e" data-g="' + s[0] + '">?</span>' + s[2]) + ops(s[0], s[3], s[4]) + '</div>';
+      }).join('') + '</div></div>' +
+      '<div class="side"><div class="spikebox"><b>The spike</b><svg width="40" height="40" viewBox="0 0 40 40"><path d="M20 38V4" stroke="#9a9a9a" stroke-width="3"/><rect x="6" y="34" width="28" height="6" fill="#5a5a5a"/></svg><div class="slot" data-s="spike"><b>not printed</b></div></div>' +
+      '<div class="home" id="shome">' + STORIES.map(function (s) { return '<span class="story dnd-item" data-st="' + s[0] + '">' + s[1] + '<small>' + s[2] + '</small></span>'; }).join('') + '</div>' +
+      '<h6 style="margin-top:10px">Rowena</h6><p id="rw">&ldquo;Seven sentences first. Then the top of the page.&rdquo;</p></div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="pf-go">Show Rowena</button></div>';
+    var msgEl = box.querySelector('.jmsg'), home = box.querySelector('#shome');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { st.at = {}; ER.$$('.slot', box).forEach(function (s) { var n = s.querySelector('.story'); if (n) st.at[s.getAttribute('data-s')] = n.getAttribute('data-st'); }); ER.flag('f-st', st); }
+    function txt(list, v) { for (var i = 0; i < list.length; i++) if (list[i][0] === v) return list[i][1]; return ''; }
+    function show() {
+      box.querySelector('#s1').style.display = st.stage === 1 ? '' : 'none';
+      box.querySelector('#s2').style.display = st.stage === 2 ? '' : 'none';
+      box.querySelector('#shome').style.display = st.stage === 2 ? '' : 'none';
+      box.querySelector('.spikebox').style.display = st.stage === 2 ? '' : 'none';
+      box.querySelector('#rw').innerHTML = st.stage === 1 ? '&ldquo;Seven sentences first. Then the top of the page.&rdquo;' : '&ldquo;Now the top of the page: what most people will read, and all that some of them will.&rdquo; Drag each story to its place on the page, or onto the spike.';
+      S.forEach(function (s) {
+        var v = st.b[s[0]], g = box.querySelector('.gap[data-g="' + s[0] + '"]');
+        g.innerHTML = v ? txt(s[3], v) : (s[4] ? 'what do we say about Ralph Stringer?' : '?'); g.classList.toggle('e', !v);
+        ER.$$('.ops[data-k="' + s[0] + '"] button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
+      });
+      var hd = box.querySelector('#hd'), inn = box.querySelector('#in');
+      hd.innerHTML = st.h ? txt(HEADS, st.h) : 'choose a headline'; hd.classList.toggle('e', !st.h);
+      inn.innerHTML = st.i ? txt(INTROS, st.i) : 'choose the first paragraph'; inn.classList.toggle('e', !st.i);
+      ER.$$('.ops[data-k="h"] button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.h); });
+      ER.$$('.ops[data-k="i"] button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.i); });
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.ops button') : null; if (!b || wait) return;
+      var k = b.closest('.ops').getAttribute('data-k'), v = b.getAttribute('data-v');
+      if (k === 'h') st.h = v; else if (k === 'i') st.i = v; else st.b[k] = v;
+      ER.$$('.sent', box).forEach(function (n) { n.classList.remove('bad'); }); LK.sfx.pen(); keep(); show();
+    });
+    ER.dnd(box, { item: '.story', slot: '.slot', home: home, lock: function () { return wait || st.stage !== 2; }, change: function () { ER.$$('.story', box).forEach(function (n) { n.classList.remove('bad'); }); keep(); } });
+    Object.keys(st.at).forEach(function (s) { var sl = box.querySelector('.slot[data-s="' + s + '"]'), n = box.querySelector('.story[data-st="' + st.at[s] + '"]'); if (sl && n) sl.appendChild(n); });
+    var BNO = {
+      b1: { alleged: '&ldquo;Alleged is for an accusation we can&rsquo;t prove,&rdquo; says Rowena. &ldquo;We can prove this. Hedge a proved fact and you leave the smear alive.&rdquo;', may: '&ldquo;We have done the work,&rdquo; says Rowena. &ldquo;It isn&rsquo;t &lsquo;may be&rsquo;. It is.&rdquo;', und: '&ldquo;Is understood means a source we can&rsquo;t name told us,&rdquo; says Rowena. &ldquo;Nobody told us. We found it, in the letter itself.&rdquo;' },
+      b2: { claimed: '&ldquo;Claimed tells the reader we doubt her,&rdquo; says Rowena. &ldquo;We don&rsquo;t. Every record agrees with her.&rdquo;', admitted: '&ldquo;Admitted means owning up to something wrong,&rdquo; says Rowena. &ldquo;Saying you didn&rsquo;t write a forgery isn&rsquo;t owning up to anything.&rdquo;', alleged: '&ldquo;She isn&rsquo;t accusing anybody,&rdquo; says Rowena. &ldquo;She told us something.&rdquo;' },
+      b3: { und: '&ldquo;It&rsquo;s in a public register with the council&rsquo;s name on it,&rdquo; says Rowena. &ldquo;Point the reader to it.&rdquo;', alleged: '&ldquo;Nothing is alleged about a public record,&rdquo; says Rowena. &ldquo;Point the reader to it.&rdquo;' },
+      b4: { saw: '&ldquo;We know that isn&rsquo;t true: in March the page didn&rsquo;t exist,&rdquo; says Rowena. &ldquo;Print it, even as his words, and we&rsquo;ve repeated it. Repeating it is publishing it.&rdquo;', made: '&ldquo;That is an accusation we know is false, against a man whose only crime is wanting a job,&rdquo; says Rowena. &ldquo;That is libel, and it&rsquo;s wrong.&rdquo;' },
+      b5: { alleged: '&ldquo;Nobody is alleging anything,&rdquo; says Rowena. &ldquo;He told Tariq himself, with his grandmother sitting there, and agreed to this sentence.&rdquo;', claims: '&ldquo;Claims makes it sound as if we doubt it,&rdquo; says Rowena. &ldquo;We don&rsquo;t.&rdquo;', und: '&ldquo;He told us directly, and agreed to the sentence,&rdquo; says Rowena. &ldquo;No need to hide behind &lsquo;understood&rsquo;.&rdquo;' },
+      b6: { has: '&ldquo;She told us that in confidence: not for printing with her name,&rdquo; says Rowena. &ldquo;Say it flat and it reads as if she&rsquo;d said it on the record. Which phrase on page 35 is for exactly this?&rdquo;', alleged: '&ldquo;Nobody is alleging,&rdquo; says Rowena. &ldquo;She told us, in confidence.&rdquo;', claimed: '&ldquo;We can&rsquo;t quote her,&rdquo; says Rowena. &ldquo;It wasn&rsquo;t on the record.&rdquo;' },
+      b7: { admitted: '&ldquo;Admitted what?&rdquo; says Rowena. &ldquo;He hasn&rsquo;t done anything.&rdquo;', claimed: '&ldquo;Claimed casts doubt,&rdquo; says Rowena, &ldquo;and we have no reason to doubt him. Pauline&rsquo;s day book shows no letter to Stallard Homes all year.&rdquo;', alleged: '&ldquo;He isn&rsquo;t accusing anybody,&rdquo; says Rowena.' }
+    };
+    var HNO = {
+      h1: '&ldquo;False,&rdquo; says Rowena, &ldquo;and the most libellous thing that could go on this page. We&rsquo;ve spent all day proving the opposite.&rdquo;',
+      h2: '&ldquo;Quotation marks don&rsquo;t make it safe,&rdquo; says Rowena. &ldquo;Repeat an accusation and you&rsquo;ve published it. The headline says she promised. She didn&rsquo;t.&rdquo;',
+      h3: '&ldquo;Denies is what you write when you can&rsquo;t prove it either way,&rdquo; says Rowena. &ldquo;We can. Somebody who only reads that headline thinks the letter might be real.&rdquo;',
+      h5: '&ldquo;We know, and we aren&rsquo;t naming him,&rdquo; says Rowena. &ldquo;A headline that asks the town to guess points at every family in Sluice Lane.&rdquo;'
+    };
+    var INO = {
+      i1: '&ldquo;That leads with the accusation,&rdquo; says Rowena, &ldquo;and most readers stop after the first paragraph. They would go away believing it.&rdquo;',
+      i3: '&ldquo;Nineteen, Sluice Lane,&rdquo; says Rowena. &ldquo;Half the town would know who that is by teatime. That names him without his name. The public interest is in the letter being false, not in him.&rdquo;'
+    };
+    function bad(sel, t) { var n = box.querySelector(sel); if (n) { n.classList.add('bad'); ER.shake(n); } ER.sfx.no(); msg(t); }
+    box.querySelector('#pf-go').addEventListener('click', function () {
+      var i, s, file;
+      if (wait || nextFile) return;
+      keep(); ER.$$('.sent,.story', box).forEach(function (n) { n.classList.remove('bad'); });
+      if (st.stage === 1) {
+        for (i = 0; i < S.length; i++) if (!st.b[S[i][0]]) { bad('.sent[data-k="' + S[i][0] + '"]', '&ldquo;Every sentence,&rdquo; says Rowena. &ldquo;A gap in a proof is a gap in the paper.&rdquo;'); return; }
+        for (i = 0; i < S.length; i++) { s = S[i][0]; if (!ER.check(s, st.b[s])) { bad('.sent[data-k="' + s + '"]', (BNO[s] && BNO[s][st.b[s]]) || '&ldquo;Not that one,&rdquo; says Rowena. &ldquo;Page 35.&rdquo;'); return; } }
+        st.stage = 2; keep(); show(); LK.sfx.stamp(); LK.solved(true);
+        msg('Rowena reads the seven sentences with her lips moving, and puts a small tick by each. &ldquo;Good. Now the part people actually read.&rdquo;');
+        return;
+      }
+      if (!st.h) { ER.sfx.no(); msg('&ldquo;A headline,&rdquo; says Rowena. &ldquo;Page one has never gone out without one, and it won&rsquo;t start tonight.&rdquo;'); return; }
+      if (!ER.check('h', st.h)) { ER.sfx.no(); ER.shake(box.querySelector('#hd')); msg(HNO[st.h]); return; }
+      if (!st.i) { ER.sfx.no(); msg('&ldquo;And the first paragraph,&rdquo; says Rowena.'); return; }
+      if (!ER.check('i', st.i)) { ER.sfx.no(); ER.shake(box.querySelector('#in')); msg(INO[st.i]); return; }
+      if (Object.keys(st.at).length < 4) { ER.sfx.no(); msg('&ldquo;Four stories, four places,&rdquo; says Rowena: &ldquo;the lead, the second, the foot, and the spike.&rdquo;'); return; }
+      if (!ER.check('spike', st.at.spike)) {
+        bad('.story[data-st="' + st.at.spike + '"]', '&ldquo;The spike is for what we must not print,&rdquo; says Rowena. &ldquo;That one hurts nobody. Is there a story on this page that is true, every word, and still says something false about somebody, set out on page one today? Read Simon&rsquo;s page again.&rdquo;'); return;
+      }
+      if (!ER.check('lead', st.at.lead)) { bad('.story[data-st="' + st.at.lead + '"]', '&ldquo;The most important true thing we know goes under the headline,&rdquo; says Rowena. &ldquo;What is it today?&rdquo;'); return; }
+      if (!ER.check('second', st.at.second)) { bad('.story[data-st="' + st.at.second + '"]', '&ldquo;Thea asked us to look at the river,&rdquo; says Rowena, &ldquo;and Sheila asked us to print something true about the flood wall. That&rsquo;s what Sluice Lane is frightened of. It goes beside the lead. The bonfire goes across the foot.&rdquo;'); return; }
+      file = ER.exit([S.map(function (x) { return st.b[x[0]]; }).join(',') + '|' + st.h + '|' + st.i + '|' + ['lead', 'second', 'foot', 'spike'].map(function (k) { return st.at[k]; }).join(',')], { wait: true });
+      if (!file) { msg('Rowena frowns at the proof. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('f-file', file);
+      LK.mine('page1', 'Page one, as it goes', '<p>THE LETTER SHE NEVER WROTE</p><p>A letter which appears to show Cllr Sheila Pendry promising a builder 120 homes on Raddle Meadows is a forgery, the Record can reveal.</p><p>Plain facts, said plainly; &ldquo;said&rdquo; for Sheila and Stallard Homes; &ldquo;according to&rdquo; the register; &ldquo;is understood&rdquo; only for the police (her note, not for her name); a copy went to Ralph; the maker has admitted it, not named.</p><p>Second: the flood wall. Foot: the bonfire. Spike: the lunch story.</p>', true);
+      msg('Rowena initials the corner of the proof: R.P., 17.46.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Rowena reads the page from the masthead to the foot, twice. &ldquo;The headline says only what we can prove. The first paragraph says the most important true thing. Sheila had her say before we printed a word. Nobody is named who doesn&rsquo;t need to be. And the lunch is on the spike, where a true thing that tells a lie belongs.&rdquo;',
+          'Tariq is reading the spike. &ldquo;I wrote that lunch story yesterday,&rdquo; he says. &ldquo;Before you came.&rdquo; &ldquo;I know,&rdquo; says Rowena. &ldquo;That&rsquo;s what spikes are for.&rdquo;',
+          'At eight minutes to six Rowena presses SEND, and sixteen pages go to Sorrell&rsquo;s. Tariq looks at the clock. &ldquo;Eight minutes to spare,&rdquo; he says. &ldquo;Luxury,&rdquo; says Rowena.'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    show();
+    msg(st.stage === 2 ? 'The proof, with Tariq&rsquo;s seven sentences done.' : Object.keys(st.b).length ? 'The proof, as you left it.' : 'The proof of page one. Tariq&rsquo;s seven sentences have gaps where he could not decide.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, stage: function () { return st.stage; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Front Office · Letterhead</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="leak.css">
+<style>
+  body{--bg:#1c2428;--accent:#e8c86a;--font-display:'UnifrakturCook',serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(24,30,33,.97);--tc-ink:#f2ede2;--cap-bg:rgba(20,26,28,.95);--panel:#232c30;--face-bg:#2c3a40;--q-ink:#e8c86a;--fade:#0a0d0e;--hud-bg:rgba(20,26,28,.86)}
+  #rain line{animation:rain .8s linear infinite}
+  #rain line:nth-child(3n){animation-duration:1s}
+  #rain line:nth-child(4n+1){animation-delay:-.4s}
+  @keyframes rain{0%{transform:translateY(-80px)}100%{transform:translateY(320px)}}
+  #tail{animation:tail 4s ease-in-out infinite;transform-origin:1040px 530px}
+  @keyframes tail{50%{transform:rotate(14deg)}}
+  #lbglow{animation:lbg 5s steps(1,end) infinite}
+  @keyframes lbg{0%{opacity:.9}88%{opacity:.9}90%{opacity:.6}92%{opacity:.9}}
+
+  /* the light box: the leak on it, and Mrs Rushton's letter on clear film */
+  .lbj{width:min(1080px,96vw)}
+  .lbwrap{display:grid;grid-template-columns:470px 1fr;gap:18px;align-items:start}
+  .lbframe{position:relative;padding:14px 25px 16px;background:#3a3026;border-radius:6px;box-shadow:inset 0 0 0 3px #241c14,0 10px 30px rgba(0,0,0,.5);overflow:hidden;height:624px}
+  .lbframe:before{content:'';position:absolute;left:12px;right:12px;top:8px;bottom:8px;background:#fffbe8;box-shadow:0 0 40px #fff6c8 inset}
+  .lbx{position:relative;width:420px;height:594px}
+  .ls{position:absolute;left:0;top:0;width:420px;height:594px;padding:10px 20px 0;box-sizing:border-box;font-size:11.4px;line-height:1.32}
+  .ls p{margin:0 0 5px}
+  .ls .lhd{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:7px;border-bottom:2px solid currentColor}
+  .ls .lhd svg{width:44px;height:auto}
+  .ls .lhd b{display:block;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em}
+  .ls .lhd small{display:block;font-family:'Libre Franklin',sans-serif;font-size:9.6px}
+  .ls .ref{font-size:10px}
+  .ls .dt{text-align:right}
+  .ls .sb{font-weight:700}
+  .ls .sg{display:inline-block;width:100px;margin:-4px 0 -6px}
+  .ls .sg svg{display:block;width:100%;height:auto}
+  .ls-leak{background:#fff;color:#1d2228;font-family:'EB Garamond',Georgia,serif;font-size:12.4px;line-height:1.28;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+  .ls-leak .lhd{color:#1f6f78}
+  .ls-leak .band{position:absolute;left:0;right:0;bottom:0;height:51px;display:flex;align-items:flex-end;justify-content:flex-end;padding:0 14px 6px}
+  .ls-leak .band span{font-family:'Caveat',cursive;font-size:17px;color:#6a6a6a;transform:rotate(-2deg)}
+  .acet{position:absolute;left:0;top:0;width:420px;height:594px;pointer-events:none;mix-blend-mode:multiply}
+  .acet .ls{color:#c0392b;font-family:'Libre Franklin',sans-serif;background:rgba(255,240,236,.18);border:1px solid rgba(192,57,43,.35)}
+  .acet .ls .lhd{color:#c0392b}
+  .atab{position:absolute;left:155px;top:-12px;width:110px;height:24px;border-radius:4px 4px 0 0;background:#c0392b;color:#fff;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-align:center;line-height:24px;cursor:grab;pointer-events:auto;touch-action:none;text-transform:uppercase}
+  .acet.snap .ls{border-color:#2e8b57}
+  .mk{cursor:pointer;border-radius:3px;transition:box-shadow .15s}
+  .mk:hover{box-shadow:0 0 0 2px rgba(31,111,120,.35)}
+  .mk.ring{box-shadow:0 0 0 2.5px #c0392b;background:rgba(255,230,120,.25)}
+  .mk.bad{box-shadow:0 0 0 2.5px #e07a1a;animation:shake .4s}
+  .side{background:#fbf7ec;color:#1d1a16;padding:12px 16px 12px;border-top:8px solid #7a1f1f;font-family:'Newsreader',serif;font-size:15.5px;line-height:1.38;min-height:280px}
+  .side h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#7a1f1f}
+  .side .how{margin:0 0 8px;font-size:14.6px;color:#4a4238}
+  .side ol{margin:0 0 6px;padding-left:22px;font-size:15px;min-height:120px}
+  .side li{margin:0 0 2px}
+  .side .film{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;color:#7a6a56;margin:6px 0 0}
+  .side .film b{color:#2e8b57}
+  .lbj .job-foot{margin-top:8px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f4a42"/><stop offset="1" stop-color="#26392f"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3e2a"/><stop offset="1" stop-color="#2a1c12"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9aa4"/><stop offset="1" stop-color="#c2c8c6"/></linearGradient>
+  <linearGradient id="counterG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4e2c"/><stop offset="1" stop-color="#4a2c16"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+  <clipPath id="winC"><rect x="70" y="120" width="520" height="440"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="80" width="3600" height="8" fill="#1d2a24"/>
+<rect x="-1000" y="680" width="3600" height="720" fill="url(#floorG)"/>
+<g stroke="#2a1c12" stroke-width="2" opacity=".6"><path d="M-1000 730H2600M-1000 790H2600M-1000 860H2600"/></g>
+<rect x="-1000" y="560" width="3600" height="120" fill="#3a5a4c" opacity=".55"/><path d="M-1000 560H2600" stroke="#1d2a24" stroke-width="5"/>
+
+<!-- the window on Market Square, with the paper's name on the glass back to front -->
+<g id="window" class="hot">
+  <rect x="56" y="106" width="548" height="468" fill="#1d2a24"/>
+  <rect x="70" y="120" width="520" height="440" fill="url(#skyG)"/>
+  <g clip-path="url(#winC)">
+    <rect x="70" y="420" width="520" height="140" fill="#7a7c76"/>
+    <g id="cex"><rect x="190" y="230" width="300" height="200" fill="#c8c0a8"/><path d="M180 232L340 168L500 232Z" fill="#b8b098"/>
+      <g fill="#a8a088"><rect x="214" y="260" width="16" height="170"/><rect x="262" y="260" width="16" height="170"/><rect x="310" y="260" width="16" height="170"/><rect x="354" y="260" width="16" height="170"/><rect x="402" y="260" width="16" height="170"/><rect x="450" y="260" width="16" height="170"/></g>
+      <rect x="176" y="420" width="328" height="14" fill="#9a927a"/><path d="M340 168V130" stroke="#5a5448" stroke-width="3"/><path d="M340 132h22l-4 8h-18z" fill="#1f6f78"/>
+      <text x="340" y="252" class="fZ" font-size="12" text-anchor="middle" fill="#6a6450" letter-spacing="2">CORN EXCHANGE</text></g>
+    <g transform="translate(460 432) scale(.3)" id="manwin"></g>
+    <g id="rain" stroke="#e8eef2" stroke-width="1.3" opacity=".45"></g>
+  </g>
+  <path d="M330 120V560M70 340H590" stroke="#1d2a24" stroke-width="9"/>
+  <g transform="translate(330 0) scale(-1 1) translate(-330 0)"><text x="330" y="212" class="fU" font-size="40" text-anchor="middle" fill="#d8b04a" opacity=".9">The Raddlestone Record</text>
+    <text x="330" y="240" class="fO" font-size="15" text-anchor="middle" fill="#d8b04a" letter-spacing="5" opacity=".85">EST. 1868 · EVERY THURSDAY</text></g>
+  <rect x="48" y="572" width="564" height="14" fill="#2a3a32"/>
+</g>
+
+<!-- the light box on its table by the window -->
+<g id="lightbox" class="hot"><rect x="110" y="600" width="230" height="16" fill="#3a2a1a"/><path d="M124 616v120M326 616v120" stroke="#3a2a1a" stroke-width="10"/>
+  <path d="M130 600l14 -44h162l14 44z" fill="#4a3a2a"/><path id="lbglow" d="M150 594l10 -32h130l10 32z" fill="#fff6c8"/><rect x="186" y="566" width="62" height="24" fill="#fff" opacity=".9" transform="rotate(-6 217 578)"/>
+  <text x="225" y="634" class="fM" font-size="10" text-anchor="middle" fill="#e9dcc0">LIGHT BOX</text></g>
+
+<!-- the sign over the inner door, the clock, the first front page -->
+<g id="sign" class="hot"><rect x="1120" y="110" width="400" height="58" fill="#1d1a16"/><rect x="1126" y="116" width="388" height="46" fill="none" stroke="#d8b04a" stroke-width="1.5"/>
+  <text x="1320" y="137" class="fO" font-size="15" text-anchor="middle" fill="#d8b04a" letter-spacing="2.5">IF YOUR MOTHER SAYS SHE LOVES YOU,</text><text x="1320" y="155" class="fO" font-size="15" text-anchor="middle" fill="#d8b04a" letter-spacing="2.5">CHECK IT.</text></g>
+<g id="door"><rect x="1180" y="180" width="200" height="500" fill="#3a2a1a"/><rect x="1196" y="196" width="168" height="200" fill="#c8d0c8" opacity=".55"/><text x="1280" y="300" class="fL" font-size="15" font-weight="700" text-anchor="middle" fill="#3a2a1a" letter-spacing="3">NEWSROOM</text><circle cx="1360" cy="460" r="7" fill="#c8a24a"/></g>
+<g id="clock" class="hot"><circle cx="1000" cy="150" r="42" fill="#1d1a16"/><circle cx="1000" cy="150" r="35" fill="#f4efe2"/><path d="M1000 150L1000 124" stroke="#1d1a16" stroke-width="3.5" stroke-linecap="round"/><path d="M1000 150L976 141" stroke="#1d1a16" stroke-width="5" stroke-linecap="round"/><circle cx="1000" cy="150" r="3" fill="#7a1f1f"/></g>
+<g id="frame" class="hot"><rect x="690" y="120" width="190" height="250" fill="#5a4022"/><rect x="702" y="132" width="166" height="226" fill="#ece0c0"/>
+  <text x="785" y="160" class="fU" font-size="17" text-anchor="middle" fill="#221d14">The Raddlestone Record</text><path d="M710 168h150M710 172h150" stroke="#221d14" stroke-width="1"/>
+  <text x="785" y="194" class="fO" font-size="15" font-weight="700" text-anchor="middle" fill="#221d14">SHEEP FAIR</text><text x="785" y="212" class="fO" font-size="15" font-weight="700" text-anchor="middle" fill="#221d14">A SUCCESS</text>
+  <g stroke="#6a5a3a" stroke-width="2"><path d="M712 226h70M712 236h66M712 246h70M712 256h60M712 266h70M712 276h66M790 226h66M790 236h70M790 246h62M790 256h70M790 266h66M790 276h58"/></g>
+  <text x="785" y="320" class="fC" font-size="20" text-anchor="middle" fill="#3a3a6a" transform="rotate(-4 785 320)">CHECK THIS</text></g>
+<g id="ads" class="hot"><rect x="1430" y="210" width="150" height="230" fill="#c8a878"/><g fill="#fbf7ec"><rect x="1442" y="222" width="58" height="44"/><rect x="1508" y="222" width="62" height="60"/><rect x="1442" y="274" width="60" height="58" transform="rotate(-3 1472 303)"/><rect x="1510" y="292" width="60" height="44"/><rect x="1446" y="344" width="122" height="40"/><rect x="1450" y="392" width="56" height="38"/></g>
+  <g fill="#c0392b"><circle cx="1470" cy="224" r="3"/><circle cx="1538" cy="224" r="3"/><circle cx="1472" cy="276" r="3"/><circle cx="1540" cy="294" r="3"/><circle cx="1506" cy="346" r="3"/><circle cx="1478" cy="394" r="3"/></g>
+  <text x="1507" y="370" class="fO" font-size="11" text-anchor="middle" fill="#1d1a16">LOST: GREY PARROT</text></g>
+
+<!-- the file cabinet with the MEADOWS drawer -->
+<g id="file" class="hot"><rect x="1430" y="460" width="150" height="230" fill="#5a6a62"/><g fill="#6e7e76"><rect x="1440" y="470" width="130" height="66"/><rect x="1440" y="544" width="130" height="66"/><rect x="1440" y="618" width="130" height="66"/></g>
+  <rect x="1440" y="544" width="130" height="66" fill="#7e8e86" transform="translate(-14 4)"/><rect x="1470" y="562" width="44" height="14" fill="#f4efe2" transform="translate(-14 4)"/><text x="1478" y="576" class="fM" font-size="9" text-anchor="middle" fill="#1d1a16">MEADOWS</text>
+  <path d="M1440 548l-6 -14h40l4 10" fill="#e8dcc0"/></g>
+
+<g id="tariq" class="hot" transform="translate(1345 690) scale(1.02)"></g>
+<!-- the counter -->
+<path d="M560 620H1420V700H560Z" fill="url(#counterG)"/><path d="M546 604H1436V624H546Z" fill="#8a5a34"/><path d="M546 604H1436" stroke="#a87a4a" stroke-width="3"/>
+<g stroke="#3a2010" stroke-width="2" opacity=".6"><path d="M700 630v66M860 630v66M1020 630v66M1180 630v66M1340 630v66"/></g>
+<g id="bell" class="hot"><ellipse cx="640" cy="602" rx="22" ry="5" fill="#5a3a1a"/><path d="M622 600q0 -26 18 -26q18 0 18 26z" fill="#d8b04a"/><circle cx="640" cy="572" r="4" fill="#b88a2a"/></g>
+<g id="style" class="hot"><path d="M690 602l14 -30h108l-10 30z" fill="#7a1f1f"/><path d="M690 602l14 -30h7l-14 30z" fill="#4a1010"/><text x="752" y="594" class="fU" font-size="13" text-anchor="middle" fill="#e8c86a">Style Book</text></g>
+<g id="leakp" class="hot"><rect x="850" y="574" width="82" height="30" fill="#fff" transform="rotate(4 891 589)"/><rect x="858" y="578" width="18" height="10" fill="#1f6f78" transform="rotate(4 891 589)"/><path d="M880 584h40M860 594h60" stroke="#8a8a8a" stroke-width="2" transform="rotate(4 891 589)"/></g>
+<g id="screen" class="hot"><rect x="1130" y="486" width="170" height="112" rx="5" fill="#1d1d22"/><rect x="1140" y="496" width="150" height="88" fill="#e9edf0"/><rect x="1140" y="496" width="150" height="14" fill="#c9d2d8"/>
+  <g fill="#8a94a4"><rect x="1148" y="518" width="96" height="5"/><rect x="1148" y="530" width="130" height="5"/><rect x="1148" y="540" width="120" height="5"/><rect x="1148" y="556" width="40" height="10" fill="#7a1f1f"/></g><rect x="1204" y="598" width="22" height="8" fill="#1d1d22"/></g>
+<!-- Stet, the office cat, on the counter -->
+<g id="cat" class="hot"><path id="tail" d="M1040 596q30 -10 26 -46" fill="none" stroke="#3a3a3a" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="1010" cy="588" rx="36" ry="18" fill="#3a3a3a"/><circle cx="978" cy="572" r="15" fill="#3a3a3a"/><path d="M968 562l2 -14 8 10zM984 560l6 -12 4 14z" fill="#3a3a3a"/><circle cx="973" cy="571" r="2" fill="#e8c86a"/><circle cx="983" cy="571" r="2" fill="#e8c86a"/><path d="M976 578h4" stroke="#f0b0a0" stroke-width="2"/></g>
+
+<g id="rowena" class="hot" transform="translate(800 700) scale(1.06)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the archive</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="leak.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i, x, r = 7;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (i = 0; i < 46; i++) { x = 70 + rnd() * 520; s += '<line x1="' + x.toFixed(0) + '" y1="' + (110 + rnd() * 240).toFixed(0) + '" x2="' + (x - 5).toFixed(0) + '" y2="' + (132 + rnd() * 240).toFixed(0) + '"/>'; }
+    $('#rain').innerHTML = s;
+    $('#manwin').innerHTML = LK.who('stringer', { shadow: 0 });
+    $('#rowena').innerHTML = LK.who('rowena', { lit: '#c8dce8' });
+    $('#tariq').innerHTML = LK.who('tariq', { armR: 'M31 -222Q56 -196 46 -160', handR: [44, -154], extra: '<rect x="30" y="-170" width="30" height="40" rx="2" fill="#fff" transform="rotate(10 45 -150)"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'leak', storyTitle: 'Letterhead', id: 'front', no: 'I', title: 'The Front Office',
+    go: 'Go in out of the rain',
+    intro: [
+      'Wednesday 4 November. Twenty to nine in the morning. Press day.',
+      'The Raddlestone Record has come out every Thursday since 1868: sixteen pages, four thousand two hundred copies, one editor, one reporter, one cat and, since last Monday, one trainee. You. The pages go to the printer at six o&rsquo;clock tonight.',
+      'At eight minutes to two yesterday morning, somebody sent the paper a letter.'
+    ],
+    exit: {"next":"archive","w":{"605b27b3":"19014dc2"}}, tags: {"t":["b4b6fbec","a9d9b847","d2ffcf8e","6e8ba646","f7b55259","37c3eab7","d0f70112","a1705832","cfead147","4ad01ed2"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function readAll() { return told.leak && told.mail && told.genuine && told.style; }
+  function ready() { return told.rowena && told.tariq && readAll(); }
+  function paint() {
+    $('#rowena').classList.toggle('ready', !!(told.in && !told.rowena));
+    $('#tariq').classList.toggle('ready', !!(told.rowena && !told.tariq));
+    $('#leakp').classList.toggle('ready', !!(told.tariq && !told.leak));
+    $('#screen').classList.toggle('ready', !!(told.tariq && !told.mail));
+    $('#file').classList.toggle('ready', !!(told.tariq && !told.genuine));
+    $('#style').classList.toggle('ready', !!(told.rowena && !told.style));
+    $('#lightbox').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.rowena && told.tariq ? 1 : 0) + (readAll() ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['Rowena has sent you up to the archive. The button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lb', [
+      'First use the film. Drag it by its red tab until the tops of the two letters lie exactly together. Then slide it down until the two signatures meet. What lies exactly on top of its twin that never should?',
+      'Then ring everything page 31 of the style book says you need an answer to: what should never match, spellings and phrases that are not hers, every date with a weekday, anything the letter seems to know, every title and logo, and the paper itself.',
+      'Ten rings in all: the two things that match when they never should, two American spellings, one phrase, one weekday, one thing the letter knows about the future, one title, one logo, and the blank band at the bottom. What is simply different (the date, the address, the greeting) is not a thing to check.'
+    ]];
+    if (!told.rowena) return ['talk', ['Rowena Prosser, the editor, has just come in out of the rain.', 'Click Rowena, the woman with short white hair and a rust-red scarf, in the middle of the room.']];
+    if (!told.tariq) return ['tariq', ['Tariq brought the letter in. Ask him how it came.', 'Click Tariq, the man with the beard and the printout, behind the right end of the counter.']];
+    if (!readAll()) return ['read', ['Four things to read before the light box: the leak, the email it came in, the genuine letter in the file, and the style book.', 'The leak is the white printout on the counter. The email is on Tariq&rsquo;s screen. The genuine letter is in the open MEADOWS drawer of the grey cabinet. The style book is the red book on the counter.']];
+    return ['box', ['Everything is ready. Lay the genuine letter over the leak.', 'Click the light box: the glowing table by the window, on the left.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Ten rings on the leak. Rowena is pointing at the stairs.'); return; }
+    if (told.in) { busy = false; ER.say('The front office of the Record, press day.'); return; }
+    ER.narrate([
+      'The front office smells of rain, toner and cat. Through the big window, across Market Square, stands the Corn Exchange, where the district council sits, with its columns and a flag that has given up.',
+      'Tariq Shah, the Record&rsquo;s chief reporter (there is one other reporter, and it is you), is walking up and down behind the counter with a printout in each hand. He has been here since seven.',
+      'The bell over the street door rings. Rowena Prosser, editor and owner, comes in out of the rain, shakes her umbrella over the cat, and looks at Tariq&rsquo;s face. &ldquo;Whatever it is,&rdquo; she says, &ldquo;tell me with my coat off.&rdquo;'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#rowena').addEventListener('click', function () {
+    if (busy) return;
+    if (told.rowena) {
+      ER.say(nextFile ? '&ldquo;Archive,&rdquo; says Rowena. &ldquo;Top of the stairs. Mind the third step.&rdquo;' : !readAll() ? '&ldquo;Read it all first,&rdquo; says Rowena. &ldquo;The leak, the email, Sheila&rsquo;s real letter in the file, and page 31.&rdquo;' : '&ldquo;The light box,&rdquo; says Rowena. &ldquo;Lay one over the other.&rdquo;');
+      return;
+    }
+    ER.talk({
+      who: 'Rowena Prosser', role: 'Editor and owner · The Raddlestone Record', face: window.FACE('rowena'),
+      lines: [
+        { note: 'She hangs up her coat and does not sit down.', a: '&ldquo;Tariq has a letter that says Councillor Sheila Pendry promised a builder his houses, and he wants it on the front page tomorrow. I can read it in his face from here.&rdquo;' },
+        { q: 'Is it a big story?', a: '&ldquo;If it&rsquo;s true, it&rsquo;s the biggest story this paper has had since the flood, and it finishes her. If it&rsquo;s false and we print it, it finishes us. In 1998 my father printed something about a builder that he couldn&rsquo;t prove. It took four years and his house to settle. We are one bad Thursday away from being a parish newsletter.&rdquo;' },
+        { q: 'So what do we do?', a: '&ldquo;What it says over that door.&rdquo; She points: IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT. &ldquo;Is the letter what it says it is? Who says so, and how could they know? Who gains? And then, and only then, what may we print? Pages go at six.&rdquo;' },
+        { q: 'Where do I start?', a: '&ldquo;With a genuine one. There&rsquo;s a real letter from Sheila in the Meadows file, and the style book is on the counter: page 31. Then lay one over the other. Tariq has copied her real letter onto clear film for the light box.&rdquo;' }
+      ],
+      clue: { id: 'rowena', title: 'Rowena: the stakes', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('rowena')) { LK.terms(['leak']); paint(); } }
+    });
+  });
+  $('#tariq').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.rowena) { ER.say('Tariq looks at Rowena, then at you. &ldquo;Let her get her coat off.&rdquo;'); return; }
+    if (told.tariq) { ER.say(nextFile ? '&ldquo;The signature,&rdquo; says Tariq, to nobody. &ldquo;I didn&rsquo;t see it.&rdquo;' : '&ldquo;Printout on the counter, email on my screen, Sheila&rsquo;s real one in the cabinet,&rdquo; says Tariq.'); return; }
+    ER.talk({
+      who: 'Tariq Shah', role: 'Chief reporter · The Raddlestone Record', face: window.FACE('tariq'),
+      lines: [
+        { note: '&ldquo;Morning,&rdquo; he says, to the printout.', a: '&ldquo;Eight minutes to two yesterday morning: an email to the news inbox. No name. One attachment, a letter from Sheila Pendry to Patrick Stallard, the builder, dated March, thanking him for lunch and promising him the Meadows. On council paper. Signed.&rdquo;' },
+        { q: 'Where is it now?', a: '&ldquo;My printout is on the counter. The email is on my screen. And it isn&rsquo;t only us. Ralph Stringer, the vice-chair of planning, has been waving a copy round the Corn Exchange since yesterday, and last night he put this on Raddlestone Chat: <b>Big news about the Meadows this week. Watch the Record.</b> So the whole town is watching us.&rdquo;' },
+        { q: 'Do you think it&rsquo;s real?', a: '&ldquo;The lunch is real: I was there when the committee walked the Meadows in March, and they all went to the Plough after. The application number is real. She&rsquo;s chair of planning, and it says Chair. I want it to be real, which is exactly why I wanted you to look at it before Rowena did.&rdquo; He grins. &ldquo;Too late.&rdquo;' },
+        { q: 'What are the Meadows?', a: '&ldquo;Raddle Meadows: the water meadows by the river. Stallard Homes wants a hundred and twenty houses on them. The committee said yes in June, seven votes to four, with a flood wall. Sluice Lane, next door, went under in February 2024: Thea Rushton, who runs the Friends of Raddle Meadows, stood in her kitchen in the river. She wrote to Sheila. Sheila wrote back. Thea put a photo of the answer online, and two hundred people shared it. We printed it out for the file.&rdquo;' }
+      ],
+      clue: { id: 'tariq', title: 'Tariq: how the letter came', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tariq')) { LK.terms(['councillor']); paint(); } }
+    });
+  });
+
+  /* ---------- the papers ---------- */
+  var STYLE = '<h4><span>The Record Style Book</span><span>page 31</span></h4><h3>Is it what it says it is?</h3>' +
+    '<p>A document can be the best source a reporter ever has, or the worst. Before you believe one, find a <b>genuine</b> one from the same office and the same person, and lay them side by side. Ring everything you will need an answer to.</p>' +
+    '<ol><li><b>The same where it should never be.</b> The <b>letterhead</b> should match. The <b>reference number</b> should not: an office gives each letter its own. Nor should the <b>signature</b>: nobody signs twice exactly alike.</li>' +
+    '<li><b>Words.</b> Does it spell, and talk, like that office and that person?</li>' +
+    '<li><b>Dates.</b> Does every weekday agree with its date? Could the letter know everything it says on the day it is dated?</li>' +
+    '<li><b>Titles and logos.</b> Did they exist on that date?</li>' +
+    '<li><b>The thing itself.</b> The paper, the lettering, and the file it came in.</li></ol>' +
+    '<p class="pen">A forgery is usually good where it is copied, and bad where it is made up. &mdash; R.P.</p>';
+  function needRowena() { ER.say('Rowena is still in her wet coat. Talk to her first.'); }
+  function needTariq() { ER.say('&ldquo;Ask Tariq where it came from,&rdquo; says Rowena. &ldquo;Before you read a word of it.&rdquo;'); }
+  function afterRead(k) { if (tell(k)) { paint(); if (ready()) ER.say('&ldquo;Now the light box,&rdquo; says Rowena. &ldquo;Lay one over the other.&rdquo;'); } }
+  $('#leakp').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.rowena) return needRowena();
+    if (!told.tariq) return needTariq();
+    ER.read({ html: LK.LEAKDOC, cls: 'letter', clue: { id: 'leak', title: 'The leak: Pendry to Stallard, dated 16 March', kind: 'The leak' }, done: function () { afterRead('leak'); } });
+  });
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.rowena) return needRowena();
+    if (!told.tariq) return needTariq();
+    ER.read({ html: LK.MAIL, cls: 'mail', clue: { id: 'mail', title: 'The email that brought it', kind: 'An email' }, done: function () { afterRead('mail'); } });
+  });
+  $('#file').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.rowena) return needRowena();
+    if (!told.tariq) return needTariq();
+    ER.read({ html: LK.GENDOC, cls: 'letter', clue: { id: 'genuine', title: 'Genuine: Pendry to Mrs Rushton, 4 June', kind: 'The Meadows file' }, done: function () { afterRead('genuine'); } });
+  });
+  $('#style').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.rowena) return needRowena();
+    ER.read({ html: STYLE, cls: 'style', clue: { id: 'style31', title: 'Style book p.31: Is it what it says it is?', kind: 'The style book' }, done: function () {
+      LK.terms(['genuine', 'letterhead', 'reference number', 'signature', 'forgery']); afterRead('style');
+    } });
+  });
+
+  /* ---------- things in the room ---------- */
+  LK.thing('#window', null, 'Market Square in the rain. Opposite, the Corn Exchange. A man in a red tie is standing on its steps, talking into his phone and looking at your window.', isBusy);
+  LK.thing('#sign', null, 'IF YOUR MOTHER SAYS SHE LOVES YOU, CHECK IT. Rowena&rsquo;s grandfather painted it in 1931. Rowena repainted it in 1998.', isBusy);
+  LK.thing('#clock', null, function () { return nextFile ? 'Half past nine. Eight and a half hours till the pages go.' : 'Twenty to nine. The pages go to Sorrell&rsquo;s, the printers, at six.'; }, isBusy);
+  LK.thing('#frame', null, 'The first front page of the Record, Thursday 2 April 1868: SHEEP FAIR A SUCCESS. Under it, in pencil, somebody has written CHECK THIS.', isBusy);
+  LK.thing('#ads', null, 'Small ads: a lawnmower, nearly new; a pony, nearly tame; LOST, grey parrot, answers to &ldquo;Councillor&rdquo;. That one is real, Tariq says. Nobody knows why.', isBusy);
+  LK.thing('#bell', null, 'The brass bell on the counter. Customers ring it for small ads. Stet rings it for breakfast.', isBusy);
+  LK.thing('#cat', 'stet', 'Stet, the office cat. A proofreader writes STET beside a crossed-out word to mean &ldquo;let it stand: leave it as it was&rdquo;. He does.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#lightbox').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The light box: the leak with your ten red rings, and her real letter on its film.'); return; }
+    if (!told.rowena) return needRowena();
+    if (!told.tariq) return needTariq();
+    if (!readAll()) { ER.say('&ldquo;Read everything first,&rdquo; says Rowena: &ldquo;the leak, the email, Sheila&rsquo;s real letter in the file, and page 31 of the style book.&rdquo;'); return; }
+    if (!lock) lock = makeBox();
+    lock.open();
+  });
+
+  /* ---------- the light box: lay the film over the leak, ring what needs an answer ---------- */
+  function makeBox() {
+    var LABEL = { head: 'the letterhead with the otter', ref: 'the reference number', date: 'the date at the top', addr: 'the address', dear: '&ldquo;Dear Patrick&rdquo;', sub: 'the application number',
+      lunch: '&ldquo;Thursday 13 March&rdquo;', help: 'the offer of help', fav: '&ldquo;favorably&rdquo;', june: '&ldquo;when it meets in June&rdquo;', members: '&ldquo;no difficulty from the other members&rdquo;',
+      reach: '&ldquo;reach out&rdquo;', yours: '&ldquo;Yours sincerely&rdquo;', sig: 'the signature', name: '&ldquo;Councilor Sheila Pendry&rdquo;', chair: '&ldquo;Chair, Planning Committee&rdquo;', band: 'the blank band at the bottom' };
+    var NO = {
+      date: '&ldquo;That&rsquo;s the date we test everything else against,&rdquo; says Rowena. &ldquo;By itself it can&rsquo;t be wrong. Check the rest against it.&rdquo;',
+      addr: '&ldquo;Stallard Homes is on Station Road,&rdquo; says Tariq. &ldquo;It&rsquo;s on the side of their vans. A real address proves nothing either way: anybody can look one up.&rdquo;',
+      dear: '&ldquo;Different letter, different person, different greeting,&rdquo; says Rowena. &ldquo;Of course it doesn&rsquo;t say Dear Mrs Rushton. That&rsquo;s nothing to check.&rdquo;',
+      sub: '&ldquo;That one SHOULD be the same,&rdquo; says Rowena. &ldquo;Same application, same number, and it&rsquo;s been in our own public notices since January. Anybody can copy it.&rdquo;',
+      help: '&ldquo;That&rsquo;s the accusation itself,&rdquo; says Rowena. &ldquo;We don&rsquo;t judge a letter by how shocking it is. We judge it by what it&rsquo;s made of.&rdquo;',
+      members: '&ldquo;That&rsquo;s what the letter boasts,&rdquo; says Rowena. &ldquo;You can&rsquo;t check a boast by staring at it. Ring what you can check.&rdquo;',
+      yours: '&ldquo;She ends every letter that way,&rdquo; says Rowena. &ldquo;So does half the country. That one should match.&rdquo;'
+    };
+    var st = ER.flag('a-st') || { rings: [], s1: 0, s2: 0 }, wait = false, box = ER.el('div', 'job lbj'), dx = 0, dy = 556, sigOff = 0;
+    var SIG = '<svg viewBox="0 0 120 44">' + LK.signature(4, 2, 1, 'currentColor', 2.4) + '</svg>';
+    function head(col) { return '<svg viewBox="0 0 70 44">' + LK.otter(2, 2, 1, col) + '</svg><div><b>Raddlestone District Council</b><small>Corn Exchange &middot; Market Square &middot; Raddlestone</small></div>'; }
+    function m(r, t) { return '<span class="mk" data-r="' + r + '">' + t + '</span>'; }
+    var LEAKH = '<div class="ls ls-leak"><div class="mk lhd" data-r="head">' + head('#1f6f78') + '</div>' +
+      '<p class="ref">' + m('ref', 'Our ref: MS/PL/0917') + '</p><p class="dt">' + m('date', '16 March 2026') + '</p>' +
+      '<p>' + m('addr', 'Mr P. Stallard<br>Stallard Homes Ltd<br>Station Road<br>Raddlestone') + '</p>' +
+      '<p>' + m('dear', 'Dear Patrick,') + '</p><p class="sb">' + m('sub', 'Raddle Meadows (26/0042/FUL)') + '</p>' +
+      '<p>Thank you for a most enjoyable lunch at the Plough on ' + m('lunch', 'Thursday 13 March') + ', and for your ' + m('help', 'generous offer of help with my campaign') + ' next year.</p>' +
+      '<p>Rest assured, I will see that the Committee looks ' + m('fav', 'favorably') + ' on your application ' + m('june', 'when it meets in June') + '. ' + m('members', 'I do not expect any difficulty from the other members.') + '</p>' +
+      '<p>Please do not hesitate to ' + m('reach', 'reach out') + ' if there is anything further I can do.</p>' +
+      '<p>' + m('yours', 'Yours sincerely,') + '</p><div class="mk sg" data-r="sig" style="color:#1d2a66">' + SIG + '</div>' +
+      '<p>' + m('name', 'Councilor Sheila Pendry') + '<br>' + m('chair', 'Chair, Planning Committee') + '</p>' +
+      '<div class="mk band" data-r="band"><span>printer left all this blank??  T.</span></div></div>';
+    var REALH = '<div class="ls"><div class="lhd">' + head('#c0392b') + '</div><p class="ref">Our ref: MS/PL/0917</p><p class="dt">4 June 2026</p>' +
+      '<p>Mrs T. Rushton<br>3 Sluice Lane<br>Raddlestone</p><p>Dear Mrs Rushton,</p><p class="sb">Raddle Meadows (26/0042/FUL)</p>' +
+      '<p>Thank you for your letter of 27 May, and for the photographs of your kitchen in February 2024. I am sorry. Nobody should have to mop a river out of their house.</p>' +
+      '<p>The Committee will decide the application on Tuesday 9 June. The new flood report will be in front of every member, and so will your letter. I cannot tell you how the Committee will vote, because I do not know, and it would be wrong of me to promise you anything.</p>' +
+      '<p>If you would like to talk, ring my office and I will ring you back.</p><p>Yours sincerely,</p><div class="sg">' + SIG + '</div>' +
+      '<p>Councillor Sheila Pendry<br>Chair, Planning Committee</p></div>';
+    box.innerHTML = '<h5>The light box <small>Drag the film by its red tab. Click anything on the leak to ring it; click again to take the ring off.</small></h5>' +
+      '<div class="lbwrap"><div class="lbframe"><div class="lbx">' + LEAKH + '<div class="acet"><div class="atab">The film</div>' + REALH + '</div></div></div>' +
+      '<div class="side"><h6>Your rings</h6><p class="how">Page 31: ring everything you will need an answer to. Rowena will look at them all at once.</p><ol id="lb-list"></ol>' +
+      '<p class="film" id="lb-film"></p></div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="lb-go">Show Rowena</button></div>';
+    var msgEl = box.querySelector('.jmsg'), acet = box.querySelector('.acet');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('a-st', st); }
+    function list() {
+      box.querySelector('#lb-list').innerHTML = st.rings.map(function (r) { return '<li>' + LABEL[r] + '</li>'; }).join('');
+      ER.$$('.mk', box).forEach(function (n) { n.classList.toggle('ring', st.rings.indexOf(n.getAttribute('data-r')) >= 0); });
+      box.querySelector('#lb-film').innerHTML = 'The film: tops lined up ' + (st.s1 ? '<b>&#10003;</b>' : '&middot;') + ' &nbsp; signatures lined up ' + (st.s2 ? '<b>&#10003;</b>' : '&middot;');
+    }
+    function place() { acet.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; }
+    var sx = 0, sy = 0, ox = 0, oy = 0;
+    ER.drag(box.querySelector('.atab'), {
+      start: function (e) { if (wait) return false; sx = e.clientX; sy = e.clientY; ox = dx; oy = dy; acet.classList.remove('snap'); },
+      move: function (e) { dx = Math.max(-260, Math.min(300, ox + e.clientX - sx)); dy = Math.max(-560, Math.min(560, oy + e.clientY - sy)); place(); },
+      end: function () {
+        if (!sigOff) { var a = box.querySelector('.ls-leak .sg'), b = box.querySelector('.acet .sg'); sigOff = a.offsetTop - b.offsetTop; }
+        if (Math.abs(dx) < 14 && Math.abs(dy) < 14) {
+          dx = 0; dy = 0; place(); acet.classList.add('snap'); LK.sfx.click();
+          if (!st.s1) { st.s1 = 1; keep(); }
+          msg('The tops lie exactly together: the otter, the council&rsquo;s name, the line under it. And the reference number reads the same, MS/PL/0917, though the letters it is typed in are not quite the same shape. The words below do not match at all, of course: two different letters.');
+        } else if (Math.abs(dx) < 14 && Math.abs(dy - sigOff) < 14) {
+          dx = 0; dy = sigOff; place(); acet.classList.add('snap'); LK.sfx.click();
+          if (!st.s2) { st.s2 = 1; keep(); }
+          msg('The two signatures lie exactly on top of each other: every loop, every wobble, the line underneath. Red and blue make one black signature. Nobody signs her name twice like that.');
+        }
+        list();
+      }
+    });
+    box.addEventListener('click', function (e) {
+      var n = e.target.closest ? e.target.closest('.mk') : null;
+      if (!n || wait || nextFile) return;
+      var r = n.getAttribute('data-r'), i = st.rings.indexOf(r);
+      if (i >= 0) st.rings.splice(i, 1); else st.rings.push(r);
+      n.classList.remove('bad'); LK.sfx.pen(); keep(); list();
+    });
+    box.querySelector('#lb-go').addEventListener('click', function () {
+      var i, bad = null, n = 0;
+      if (wait || nextFile) return;
+      ER.$$('.mk', box).forEach(function (x) { x.classList.remove('bad'); });
+      if (!st.s1 || !st.s2) { ER.sfx.no(); msg('&ldquo;Use the film first,&rdquo; says Rowena. &ldquo;Lay her real letter over it: line up the tops, and then line up the signatures. Drag it by the red tab.&rdquo;'); return; }
+      if (!st.rings.length) { ER.sfx.no(); msg('&ldquo;Not one ring?&rdquo; says Rowena. &ldquo;Page 31. Ring everything you&rsquo;d need an answer to.&rdquo;'); return; }
+      for (i = 0; i < st.rings.length; i++) { if (ER.check('t', st.rings[i])) n++; else if (!bad) bad = st.rings[i]; }
+      if (bad) { var b = box.querySelector('.mk[data-r="' + bad + '"]'); b.classList.add('bad'); ER.sfx.no(); msg(NO[bad]); return; }
+      var file = ER.exit([st.rings.slice().sort().join(',')], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg('Rowena counts your rings with her pencil. &ldquo;' + n + '. I make it ten things on this page I want an answer to. Page 31 again: what should never match, words, dates, titles and logos, and the thing itself.&rdquo;');
+        return;
+      }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      LK.mine('checklist', 'Ten things to check', '<p>Wrong by itself: &ldquo;Councilor&rdquo; and &ldquo;favorably&rdquo; are American spellings. Her real letter says &ldquo;Councillor&rdquo;.</p>' +
+        '<p>The archive: the otter letterhead and &ldquo;Chair, Planning Committee&rdquo; in March? &ldquo;Thursday 13 March&rdquo;? &ldquo;in June&rdquo;? Would she ever write &ldquo;reach out&rdquo;?</p>' +
+        '<p>The council offices: the ref MS/PL/0917, the same as her June letter. The signature, exactly the same as her June one.</p>' +
+        '<p>Sorrell&rsquo;s: the blank band at the bottom, and the lettering.</p>', true);
+      msg('Rowena reads your rings one at a time, the way she reads proofs: slowly, with her lips moving. &ldquo;Ten,&rdquo; she says. &ldquo;Good.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Two we can answer now,&rdquo; says Rowena. &ldquo;Councilor with one L, and favorably without a U: American spellings. Look at her real letter: Councillor. The council writes British English, and so does she. One could be a slip. Two is a habit, and it isn&rsquo;t hers.&rdquo;',
+          '&ldquo;The rest need answers. The dates, the title and the otter: the bound volumes upstairs. The reference number and the signature: the council&rsquo;s own office across the square. The blank band, and the words not being in the same letters as hers: Queenie at Sorrell&rsquo;s, who prints us.&rdquo;',
+          'Tariq is looking at the two signatures, one red, one blue, lying on top of each other on the light box. &ldquo;They&rsquo;re exactly the same,&rdquo; he says. &ldquo;I looked at it for an hour yesterday and I didn&rsquo;t see it.&rdquo; &ldquo;You didn&rsquo;t want to,&rdquo; says Rowena, quite kindly. &ldquo;Archive. Go.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    place(); list();
+    msg(st.rings.length ? 'The light box, with your rings as you left them.' : 'The leak on the light box, and Mrs Rushton&rsquo;s real letter from Sheila on clear film beside it.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>
