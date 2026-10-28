@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The DNA Laboratory · Under Seal</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="cold.css">
+<style>
+  body{--bg:#dfe7ec;--accent:#2a8a7a;--font-display:'IBM Plex Mono',monospace;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(240,246,248,.97);--tc-ink:#1a2630;--cap-bg:rgba(18,30,38,.94);--panel:#f2f6f8;--panel-ink:#1a2630;--face-bg:#1e2c3a;--q-ink:#1f6b5a;--fade:#0a1014;--hud-bg:rgba(18,30,38,.86)}
+  .tc-room{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:-.01em;font-size:clamp(34px,4.6vw,60px)}
+  .tc .btn{--accent:#1f6b5a}
+  .tk{color:#1a2630}
+  .tk-name{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:22px}
+  .tk .btn{--accent:#1f6b5a}
+  .peaks{animation:peaks 4s steps(4,end) infinite}
+  @keyframes peaks{0%{transform:translateX(0)}100%{transform:translateX(-80px)}}
+  .led{animation:led 1.2s steps(1,end) infinite}
+  @keyframes led{50%{opacity:.2}}
+  .lt .cm rect{fill:#ffffff;stroke:#9aa8b2;stroke-width:1.4}
+  .lt .cm.on rect{fill:#ffe1dc;stroke:#a8261c;stroke-width:2.5}
+  .lt .bt rect{fill:#eef3f6;stroke:#6a7a86;stroke-width:1.4}
+  .lt .bt:hover rect{stroke:#1f6b5a;stroke-width:3}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="glassW" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe4f2" stop-opacity=".45"/><stop offset=".5" stop-color="#e8f6fb" stop-opacity=".2"/><stop offset="1" stop-color="#bfe4f2" stop-opacity=".4"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="45%" r="85%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#0a1418" stop-opacity=".12"/><stop offset="1" stop-color="#0a1418" stop-opacity=".55"/></radialGradient>
+  <clipPath id="scrC"><rect x="930" y="250" width="240" height="120"/></clipPath>
+</defs>
+<!-- white walls, a ceiling of panels -->
+<rect x="-1000" y="-400" width="3600" height="1080" fill="#e8eef2"/>
+<g id="ceil" stroke="#cfd8de" stroke-width="2"></g>
+<rect x="-1000" y="600" width="3600" height="80" fill="#d2dce2"/>
+<!-- the clean room behind its glass wall -->
+<rect x="780" y="120" width="760" height="560" fill="#d9eef4"/>
+<g><rect x="900" y="400" width="560" height="22" fill="#b8c6ce"/><rect x="900" y="422" width="560" height="160" fill="#a8b8c2"/>
+  <g id="analyser" class="hot"><rect x="910" y="230" width="280" height="170" rx="6" fill="#f4f8fa" stroke="#9aa8b2" stroke-width="3"/><rect x="930" y="250" width="240" height="120" fill="#0e1a22"/>
+    <g clip-path="url(#scrC)"><g class="peaks" id="peaks"></g></g><circle cx="1176" cy="386" r="5" fill="#2adf8a" class="led"/></g>
+  <rect x="1240" y="330" width="120" height="70" rx="4" fill="#f4f8fa" stroke="#9aa8b2" stroke-width="3"/><g fill="#5a8ad8"><rect x="1256" y="346" width="10" height="40" rx="3"/><rect x="1274" y="346" width="10" height="40" rx="3"/><rect x="1292" y="346" width="10" height="40" rx="3"/><rect x="1310" y="346" width="10" height="40" rx="3"/></g></g>
+<g id="hamza" class="hot" transform="translate(1390 760) scale(.9)"></g>
+<rect x="780" y="120" width="760" height="560" fill="url(#glassW)" pointer-events="none"/>
+<g stroke="#9aa8b2" stroke-width="10" fill="none" pointer-events="none"><rect x="780" y="120" width="760" height="560"/><path d="M1160 120v560"/></g>
+<text x="980" y="160" class="tB" font-size="20" fill="#1f6b5a" text-anchor="middle" letter-spacing="4" pointer-events="none">CLEAN ROOM · SUIT, MASK, TWO GLOVES</text>
+<!-- the whiteboard -->
+<g id="board" class="hot"><rect x="90" y="140" width="420" height="230" fill="#fbfdfe" stroke="#9aa8b2" stroke-width="6"/>
+  <text x="114" y="186" class="tK" font-size="24" fill="#1f4a8a">2006: 10 places, lots of cells</text><text x="114" y="230" class="tK" font-size="24" fill="#1f6b5a">NOW: more places, a few cells</text>
+  <text x="114" y="300" class="tK" font-size="20" fill="#a8261c">WHO HAS MY GOOD PEN?  J.G.</text><path d="M114 318h240" stroke="#a8261c" stroke-width="2"/></g>
+<!-- the bench in the outer room: the light table, the printer, the envelope -->
+<rect x="-1000" y="680" width="3600" height="800" fill="#c2ccd2"/><path d="M-1000 680H2600" stroke="#9aa8b2" stroke-width="5"/>
+<rect x="60" y="560" width="680" height="22" fill="#eef3f6"/><rect x="60" y="582" width="680" height="98" fill="#b8c4cc"/><path d="M90 680v120M710 680v120" stroke="#8a98a2" stroke-width="12"/>
+<g id="printer" class="hot"><rect x="90" y="500" width="150" height="60" rx="6" fill="#4a5660"/><rect x="104" y="476" width="122" height="30" fill="#ffffff"/><g stroke="#9aa8b2" stroke-width="2"><path d="M112 486h100M112 494h86"/></g><rect x="110" y="540" width="20" height="6" fill="#2adf8a"/></g>
+<g id="table" class="hot"><path d="M300 560l20 -60h300l20 60z" fill="#f4fbff"/><path d="M330 556l14 -48h250l12 48z" fill="#ffffff" stroke="#9aa8b2"/>
+  <g stroke="#1a2630" stroke-width="1.6"><path d="M352 520h230M350 530h236M348 540h240M346 550h244"/></g></g>
+<g id="note" class="hot"><rect x="660" y="540" width="60" height="38" fill="#fffdf2" transform="rotate(-8 690 559)"/><path d="M660 540l30 18 30 -18" stroke="#c9b48a" stroke-width="2" fill="none" transform="rotate(-8 690 559)"/></g>
+<g id="manual" class="hot"><rect x="560" y="210" width="120" height="160" fill="#f7f6f1"/><rect x="560" y="210" width="120" height="16" fill="#4a525a"/><g stroke="#8a9098" stroke-width="2"><path d="M572 244h96M572 256h80M572 268h96M572 296h70M572 308h96M572 320h88M572 332h96"/></g><circle cx="620" cy="214" r="4" fill="#a8261c"/></g>
+<!-- people in the outer room -->
+<g id="judith" class="hot" transform="translate(230 884) scale(.97)"></g>
+<g id="gillian" class="hot" transform="translate(620 888)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the records office</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="cold.js"></script>
+<script>
+(function () {
+  var $ = ER.$, R = null, lt = null;
+
+  (function () {
+    var s = '', i;
+    for (i = -10; i < 30; i++) s += '<path d="M' + (i * 160) + ' -400V40"/>';
+    s += '<path d="M-1000 40H2600"/>';
+    $('#ceil').innerHTML = s;
+    s = ''; var cols = ['#4ab8ff', '#2adf8a', '#ffd34a', '#ff6a5a'];
+    for (i = 0; i < 18; i++) { var x = 930 + i * 18, h = 20 + ((i * 37) % 70); s += '<path d="M' + x + ' 368q4 -' + h + ' 8 0" stroke="' + cols[i % 4] + '" stroke-width="2" fill="none"/>'; }
+    s += s.replace(/M(\d+)/g, function (m, x) { return 'M' + (+x + 324); });
+    $('#peaks').innerHTML = s;
+    $('#hamza').innerHTML = CO.fig('hamza'); $('#judith').innerHTML = CO.fig('judith'); $('#gillian').innerHTML = CO.fig('gillian');
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'cold', storyTitle: 'Under Seal', id: 'profiles', no: 'IV', title: 'The DNA Laboratory',
+    go: 'Into the DNA laboratory',
+    intro: [
+      'In the microscope room you compared each fibre with the known ones, side by side: wool with its scales, cotton&rsquo;s twisted ribbon, nylon&rsquo;s smooth rod, with or without specks. From the lower part of the door glass, by the latch: nylon consistent with the glove, a denim thread that proves little, and a nylon like nothing in the room. From the upper part: red wool, consistent with Joel&rsquo;s jumper, which fits his own story of knocking on the glass.',
+      'The glove and the jumper carried each other&rsquo;s fibres, and their labels said why: they were opened side by side on bench 3 at 09.30 on 10 November 2006. Fibres like that prove nothing about who wore what.',
+      'A quarter past midnight. The DNA laboratory is the newest room in the building, and the brightest.'
+    ],
+    exit: {"next":"records","w":{"1ccff9c5":"80e03c7b"}}, tags: {"a":["340e9908"],"b":["e30dc5cf"],"c":["dad051ae"],"d":["8b87e116"]},
+    hints: hints, onBegin: begin
+  });
+
+  R = CO.room({ id: 'd', need: ['hamza', 'manual', 'note', 'printout'], lock: '#table' });
+
+  var HINTS = {
+    a: ['For each column, look for one of FH/7&rsquo;s numbers in Irene&rsquo;s pair and the other one in Glyn&rsquo;s.',
+      'At D8, FH/7 has 13 twice: a 13 from each parent is fine. If every column works, there is nothing to mark.'],
+    b: ['Compare the two rows column by column. A column differs if the two pairs are not exactly the same.',
+      'The four places that were read in 2006 are the same. Look hard at the other six.'],
+    c: ['There are two traps: a number that neither parent has, and a pair whose two numbers could only come from the same parent.',
+      'Look very closely at D16 and at D18.'],
+    d: ['How many groups of 3,000 people are there in 60,000 people?', '60,000 ÷ 3,000.']
+  };
+  function hints() {
+    if (R.next) return ['go', ['The four checks are signed. Down to the records office: the button at the bottom.']];
+    if (lt && lt.isOpen()) return [lt.step(), HINTS[lt.step()]];
+    if (!R.ready()) return ['look', [
+      'A person to hear and three things to read (the pips count them).',
+      'Dr Jalloh behind the glass wall; the manual page on the wall above the bench; the envelope on the bench; the printer at the left end of the bench.'
+    ]];
+    return ['table', ['Everything is read. Click the light table on the bench.']];
+  }
+
+  function begin() {
+    R.paint();
+    if (R.next) { R.busy = false; R.go(); ER.say('Not Joel. Not his brother. And twenty people in Gatherley.'); return; }
+    if (R.told('in')) { R.busy = false; ER.say('The DNA laboratory. The analyser hums behind the glass.'); return; }
+    R.tell('in');
+    ER.narrate([
+      'The DNA laboratory is white and humming. Half of it is behind a glass wall: the clean room, where nobody goes without a suit, a mask and two pairs of gloves. On a screen in there, coloured peaks rise and fall like a city seen from far away.',
+      'In the outer room there is a light table, a printer still warm from printing, and a whiteboard covered in numbers. Dr Hamza Jalloh waves at you through the glass with a blue glove.'
+    ], function () { R.busy = false; R.paint(); });
+  }
+
+  function seen(k) { return function (ok) { if (ok) R.tell(k); }; }
+  $('#hamza').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('&ldquo;I&rsquo;d have lost my money,&rdquo; says Dr Jalloh. &ldquo;This is why I don&rsquo;t bet. Also, I have no money.&rdquo;'); return; }
+    ER.talk({ who: 'Dr Hamza Jalloh', role: 'DNA unit, the Laboratory', face: FACE('hamza'), clue: { id: 'hamza4', title: 'Dr Jalloh: one number at every place', kind: 'Statement' }, done: seen('hamza'), lines: [
+      'Come in, come in. No, don&rsquo;t come in. Stay that side of the glass; I&rsquo;ll come out.',
+      { note: 'He comes out through the double door, pulling his mask down. His suit rustles like a crisp packet.' },
+      'Last week the Commission asked me to look at the glove again. In 2006 we got four places out of ten. Last Thursday I got all ten, and more. The kits are far more sensitive now. They need far fewer cells.',
+      { q: 'Is it Joel&rsquo;s glove?', a: 'Read it yourself, column by column. I&rsquo;ll only say this: the glove shares a number with Joel at every single place. All ten.' },
+      { q: 'What does that mean?', a: 'Family, I thought. Joel has a younger brother, Gavin, who lives in Spain and does not answer emails. So I asked the parents. Irene and Glyn came in on Monday, both of them, before I&rsquo;d finished asking.' },
+      { q: 'Why the parents?', a: 'Because a child gets one number at each place from the mother and one from the father. If the glove could be their child, it could be Gavin&rsquo;s. If it couldn&rsquo;t, it is nobody&rsquo;s in that family.' },
+      'I think it&rsquo;s the brother. I&rsquo;d put money on the brother. Don&rsquo;t let me put money on anything. Check it.'
+    ] });
+  });
+  CO.thing('#gillian', null, function () { return R.next ? '&ldquo;One in three thousand,&rdquo; says Dr Hesketh quietly. &ldquo;It was true. It just wasn&rsquo;t the question.&rdquo;' : '&ldquo;In 2006 we wanted a stain the size of a thumbnail,&rdquo; says Dr Hesketh. &ldquo;Now Dr Jalloh asks for a sneeze.&rdquo;'; }, R.isBusy);
+  CO.thing('#judith', null, function () { return R.next ? '&ldquo;Twenty,&rdquo; says Mrs Grayling. &ldquo;I keep saying it to myself. Twenty.&rdquo;' : '&ldquo;Read Irene&rsquo;s note,&rdquo; says Mrs Grayling. &ldquo;She wrote it at our front desk, standing up.&rdquo;'; }, R.isBusy);
+
+  var LOCI = ['D3', 'vWA', 'D16', 'D2', 'D8', 'D21', 'D18', 'D19', 'TH01', 'FGA'];
+  var ROWS = [['Irene Garside (mother), swab of 2.11.26', [[15, 17], [16, 18], [11, 12], [19, 23], [13, 14], [29, 30], [13, 15], [13, 14], [6, 9], [21, 24]]],
+    ['Glyn Garside (father), swab of 2.11.26', [[16, 16], [17, 19], [9, 13], [17, 20], [10, 13], [28, 31], [14, 17], [14, 15], [7, 8], [20, 22]]],
+    ['FH/7 Joel Garside, swab of 2006', [[15, 16], [16, 17], [11, 13], [20, 23], [13, 13], [29, 31], [15, 17], [13, 14], [6, 7], [22, 24]]],
+    ['FH/5 glove, as read in 2006', [[15, 16], [16, 17], null, null, [13, 13], null, null, null, [6, 7], null]],
+    ['FH/5 glove, as read 29.10.26', [[15, 16], [16, 17], [11, 12], [17, 23], [13, 13], [30, 31], [17, 19], [14, 14], [6, 7], [20, 24]]]];
+  var PRINT = '<h4>DNA unit &middot; Case G06/1187 &middot; profiles &middot; printed 4.11.26</h4><table><tr><th>Sample</th>' + LOCI.map(function (l) { return '<th>' + l + '</th>'; }).join('') + '</tr>' +
+    ROWS.map(function (r) { return '<tr><td>' + r[0] + '</td>' + r[1].map(function (p) { return '<td>' + (p ? p[0] + ', ' + p[1] : '&ndash;') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>' +
+    '<p>Loci in full: D3S1358, vWA, D16S539, D2S1338, D8S1179, D21S11, D18S51, D19S433, TH01, FGA.</p>' +
+    '<p>2006: the glove gave numbers at four loci only (too little DNA for more). Reported then: about 1 in 3,000 unrelated people would have the same numbers at those four. 2026: all loci read.</p>' +
+    '<p>Note, H.J.: Gatherley in 2006 had about 60,000 people (council figures).</p>';
+  $('#printer').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: PRINT, cls: 'printout', clue: { id: 'printout', title: 'The profiles, G06/1187', kind: 'DNA printout, 4 November 2026' }, done: function () {
+      if (R.tell('printout')) ER.say('&ldquo;The light table has the same numbers, bigger,&rdquo; says Dr Jalloh. &ldquo;For people with eyes like mine.&rdquo;');
+    } });
+  });
+  var NOTE = '<h4>For Dr Jalloh, by hand</h4><p>Dear Dr Jalloh,</p><p>Here are our swabs, as you asked, and anything else you need. Gavin was fourteen that November and in bed with chickenpox, if that is what you are wondering.</p>' +
+    '<p>Joel was home by half past eleven that night, white as a sheet, and he told us the same story then that he has told ever since.</p><p>Thank you for looking.</p><p>Irene Garside</p>';
+  $('#note').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: NOTE, cls: 'note', clue: { id: 'irene', title: 'Irene Garside&rsquo;s note', kind: 'Note, 2 November 2026' }, done: function () {
+      if (R.tell('note')) ER.say('&ldquo;A mother&rsquo;s word,&rdquo; says Dr Hesketh. &ldquo;Which is worth exactly what it is worth. The numbers will tell us more.&rdquo;');
+    } });
+  });
+  var DIAG = '<svg viewBox="0 0 270 250"><rect width="270" height="250" fill="#fff"/>' +
+    '<text x="14" y="22" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#3a3a3a">ONE LOCUS, ONE FAMILY</text>' +
+    '<rect x="20" y="34" width="96" height="34" rx="4" fill="#fde2dc"/><text x="68" y="57" font-family="IBM Plex Mono,monospace" font-size="17" fill="#a8261c" text-anchor="middle">15, 17</text><text x="68" y="84" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">MOTHER</text>' +
+    '<rect x="154" y="34" width="96" height="34" rx="4" fill="#dceafd"/><text x="202" y="57" font-family="IBM Plex Mono,monospace" font-size="17" fill="#1f4a8a" text-anchor="middle">16, 16</text><text x="202" y="84" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">FATHER</text>' +
+    '<path d="M60 70l40 60M210 70l-40 60" stroke="#6a7a86" stroke-width="2"/>' +
+    '<rect x="78" y="132" width="114" height="34" rx="4" fill="#e2f2ea"/><text x="135" y="155" font-family="IBM Plex Mono,monospace" font-size="17" fill="#1f6b5a" text-anchor="middle"><tspan fill="#a8261c">15</tspan>, <tspan fill="#1f4a8a">16</tspan></text><text x="135" y="182" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">CAN BE THEIR CHILD</text>' +
+    '<rect x="78" y="196" width="114" height="34" rx="4" fill="#f2f2f2"/><text x="135" y="219" font-family="IBM Plex Mono,monospace" font-size="17" fill="#3a3a3a" text-anchor="middle"><tspan fill="#a8261c">15, 17</tspan> ✗</text><text x="135" y="245" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a" text-anchor="middle">CANNOT: NOTHING FROM THE FATHER</text></svg>';
+  var MANUAL = '<h4>Laboratory Manual &middot; Section 8: DNA</h4><h3>DNA profiles in a family</h3><div class="two"><div>' +
+    '<p>At certain places on our DNA, called <b>loci</b> (one <b>locus</b>), a short piece of code repeats again and again, like a word typed over and over. The number of repeats differs from person to person. At each locus you have two numbers, one from each parent, sometimes the same number twice. A <b>DNA profile</b> is the list of these pairs; a <b>reference sample</b> is one taken from a known person.</p>' +
+    '<p><b>Can X be the child of A and B?</b> Go column by column: one of X&rsquo;s numbers must be in A&rsquo;s pair and the other in B&rsquo;s. Watch for a number that neither parent has, and for a pair whose two numbers both come from one parent. Very rarely a number changes by one between parent and child, so one failed column means &ldquo;look again&rdquo;; two mean &ldquo;not their child&rdquo;.</p></div>' + DIAG + '</div>' +
+    '<p class="rule"><b>Match probability:</b> &ldquo;1 in 3,000&rdquo; means that about one unrelated person in 3,000 would share those numbers by chance, not the chance that somebody is innocent. Relatives match far more often.</p><p class="pg">8.3</p>';
+  $('#manual').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual83', title: 'DNA profiles in a family', kind: 'Laboratory Manual, 8.3' }, done: function () {
+      CO.terms(['DNA profile', 'locus', 'reference sample', 'match probability']);
+      if (R.tell('manual')) ER.say('&ldquo;Two traps,&rdquo; says Dr Jalloh through the door. &ldquo;Everybody falls into the second one once.&rdquo;');
+    } });
+  });
+  CO.thing('#analyser', null, 'The analyser measures how long each repeated piece of DNA is, and draws each length as a coloured peak. Every peak is a number in a profile.', R.isBusy);
+  CO.thing('#board', null, 'The whiteboard, in Dr Jalloh&rsquo;s writing: 2006: 10 places, lots of cells. NOW: more places, a few cells. Underneath, in Mrs Grayling&rsquo;s writing: WHO HAS MY GOOD PEN?', R.isBusy);
+
+  $('#table').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('Four checks, signed. Not Joel. Not a child of Irene and Glyn.'); return; }
+    if (!R.ready()) {
+      var miss = R.missing()[0];
+      ER.say(({ hamza: '&ldquo;Talk to me first,&rdquo; says Dr Jalloh through the glass. &ldquo;I&rsquo;ve got a theory.&rdquo;', manual: '&ldquo;Read the manual page above the bench,&rdquo; says Dr Hesketh. &ldquo;Before the numbers.&rdquo;', note: '&ldquo;There&rsquo;s a note from Mrs Garside on the bench,&rdquo; says Mrs Grayling. &ldquo;Read it.&rdquo;', printout: '&ldquo;Take the printout off the printer first,&rdquo; says Dr Jalloh. &ldquo;It has the notes on it.&rdquo;' })[miss]);
+      return;
+    }
+    if (!lt) lt = makeTable();
+    lt.open();
+  });
+
+  /* ---------- the light table: four checks, column by column ---------- */
+  function canChild(c, m, f) { return (m.indexOf(c[0]) >= 0 && f.indexOf(c[1]) >= 0) || (m.indexOf(c[1]) >= 0 && f.indexOf(c[0]) >= 0); }
+  function samePair(a, b) { return (a[0] === b[0] && a[1] === b[1]) || (a[0] === b[1] && a[1] === b[0]); }
+  function makeTable() {
+    var STEPS = ['a', 'b', 'c', 'd'], st = ER.flag('d-st') || { step: 0, mk: { a: [], b: [], c: [] }, n: 0 }, wait = false, X0 = 210, CW = 77;
+    var TASK = {
+      a: ['CHECK 1 OF 4', 'Can FH/7, the swab taken from Joel in 2006, be the child of Irene and Glyn? Mark every column where it cannot. If none fails, mark nothing.', [0, 1, 2]],
+      b: ['CHECK 2 OF 4', 'In 2006 the glove matched FH/7 at four places. Now compare the glove as read in 2026 with FH/7: mark every column where the two pairs are not the same.', [2, 4]],
+      c: ['CHECK 3 OF 4', 'Dr Jalloh thinks the glove could be Joel&rsquo;s brother&rsquo;s. Can the glove, as read in 2026, be the child of Irene and Glyn? Mark every column where it cannot.', [0, 1, 4]],
+      d: ['CHECK 4 OF 4', 'In 2006 the court heard that about one unrelated person in 3,000 would match at those four places. Gatherley had about 60,000 people. How many people in Gatherley would you expect to match?', [3]]
+    };
+    var box = ER.el('div', 'bn lt', '<svg viewBox="0 0 1000 600"><g id="body"></g></svg><div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="p-go">Sign this check</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-st', st); }
+    function cur() { return STEPS[st.step]; }
+    function wrapText(t, n) { var w = t.replace(/&rsquo;/g, '’').split(' '), out = [''], i; for (i = 0; i < w.length; i++) { if ((out[out.length - 1] + ' ' + w[i]).trim().length > n) out.push(''); out[out.length - 1] = (out[out.length - 1] + ' ' + w[i]).trim(); } return out; }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#eef6fa"/><rect x="12" y="12" width="976" height="336" rx="6" fill="#ffffff" stroke="#9aa8b2"/>', k = cur(), T = TASK[k];
+      s += '<text x="26" y="40" class="tB" font-size="15" fill="#1f6b5a" letter-spacing="3">LIGHT TABLE</text>';
+      LOCI.forEach(function (l, i) { s += '<text x="' + (X0 + i * CW + CW / 2) + '" y="40" class="tM" font-size="14" fill="#1a2630" text-anchor="middle">' + l + '</text>'; });
+      ROWS.forEach(function (r, j) {
+        var y = 52 + j * 46, on = T[2].indexOf(j) >= 0;
+        s += '<g opacity="' + (on ? 1 : 0.32) + '"><rect x="20" y="' + y + '" width="960" height="40" rx="3" fill="' + (on ? '#f4fbf8' : '#f6f8fa') + '"/><text x="28" y="' + (y + 25) + '" class="tB" font-size="14" fill="#1a2630">' + r[0] + '</text>';
+        r[1].forEach(function (p, i) { s += '<text x="' + (X0 + i * CW + CW / 2) + '" y="' + (y + 26) + '" class="tM" font-size="17" fill="#1a2630" text-anchor="middle">' + (p ? p[0] + ', ' + p[1] : '–') + '</text>'; });
+        s += '</g>';
+      });
+      s += '<path d="M' + X0 + ' 48V286" stroke="#cfd8de"/>';
+      LOCI.forEach(function (l, i) { s += '<path d="M' + (X0 + (i + 1) * CW) + ' 48V286" stroke="#e2e8ec"/>'; });
+      /* the pencil marks */
+      if (k !== 'd') {
+        s += '<text x="28" y="320" class="tB" font-size="14" fill="#a8261c" letter-spacing="2">YOUR MARKS</text>';
+        LOCI.forEach(function (l, i) { var on = st.mk[k].indexOf(i) >= 0; s += '<g class="cm tg' + (on ? ' on' : '') + '" data-c="' + i + '"><rect x="' + (X0 + i * CW + 8) + '" y="298" width="' + (CW - 16) + '" height="38" rx="4"/><text x="' + (X0 + i * CW + CW / 2) + '" y="325" class="tK" font-size="22" fill="#a8261c" text-anchor="middle">' + (on ? '✗' : '') + '</text></g>'; });
+      }
+      /* the task */
+      s += '<rect x="12" y="360" width="976" height="228" rx="6" fill="#1a2630"/><text x="30" y="390" class="tB" font-size="15" fill="#7fd3c0" letter-spacing="3">' + T[0] + '</text>';
+      STEPS.forEach(function (q, i) { s += '<circle cx="' + (860 + i * 30) + '" cy="384" r="9" fill="' + (i < st.step ? '#7fd3c0' : i === st.step ? '#f4fbff' : '#3a4a56') + '"/>'; });
+      wrapText(T[1], 92).forEach(function (l, i) { s += '<text x="30" y="' + (424 + i * 28) + '" class="tG" font-size="21" fill="#f4fbff">' + l + '</text>'; });
+      if (k === 'd') {
+        [['-10', 520], ['-1', 580]].forEach(function (b) { s += '<g class="bt tg" data-b="' + b[0] + '"><rect x="' + b[1] + '" y="510" width="50" height="40" rx="4"/><text x="' + (b[1] + 25) + '" y="537" class="tB" font-size="18" fill="#1a2630" text-anchor="middle">' + b[0].replace('-', '−') + '</text></g>'; });
+        s += '<rect x="640" y="506" width="90" height="48" rx="4" fill="#ffffff"/><text x="685" y="540" class="tM" font-size="26" fill="#1a2630" text-anchor="middle">' + st.n + '</text>';
+        [['+1', 740], ['+10', 800]].forEach(function (b) { s += '<g class="bt tg" data-b="' + b[0] + '"><rect x="' + b[1] + '" y="510" width="50" height="40" rx="4"/><text x="' + (b[1] + 25) + '" y="537" class="tB" font-size="18" fill="#1a2630" text-anchor="middle">' + b[0] + '</text></g>'; });
+        s += '<text x="30" y="537" class="tG" font-size="19" fill="#c9d8e0">People in Gatherley expected to match:</text>';
+      }
+      svg.querySelector('#body').innerHTML = s;
+    }
+    svg.addEventListener('click', function (e) {
+      if (wait || R.next) return;
+      var c = e.target.closest('.cm'), b = e.target.closest('.bt'), k = cur();
+      if (c && k !== 'd') { var i = +c.getAttribute('data-c'), a = st.mk[k], at = a.indexOf(i); if (at >= 0) a.splice(at, 1); else a.push(i); CO.sfx.pen(); keep(); draw(); msg(at >= 0 ? LOCI[i] + ': mark rubbed out.' : LOCI[i] + ': marked.'); return; }
+      if (b && k === 'd') { st.n = CO.clamp(st.n + parseInt(b.getAttribute('data-b'), 10), 0, 999); CO.sfx.click(); keep(); draw(); }
+    });
+    function cand(k) { var a = st.mk[k].slice().sort(function (p, q) { return p - q; }); return a.length ? a.join('') : 'none'; }
+    function why(k) {
+      var a = st.mk[k], i, M = ROWS[0][1], F = ROWS[1][1], C = ROWS[k === 'a' ? 2 : 4][1], who = k === 'a' ? 'FH/7' : 'the glove';
+      if (k === 'b') {
+        for (i = 0; i < 10; i++) if (a.indexOf(i) >= 0 && samePair(ROWS[2][1][i], ROWS[4][1][i])) return 'At ' + LOCI[i] + ' the two pairs are the same: ' + ROWS[2][1][i].join(', ') + '. Rub that mark out.';
+        return 'Some columns where the pairs are not the same are still unmarked. Compare every column, both numbers.';
+      }
+      for (i = 0; i < 10; i++) if (a.indexOf(i) >= 0 && canChild(C[i], M[i], F[i])) {
+        var c = C[i], m = M[i].indexOf(c[0]) >= 0 && F[i].indexOf(c[1]) >= 0 ? [c[0], c[1]] : [c[1], c[0]];
+        return 'At ' + LOCI[i] + ', ' + who + ' has ' + c[0] + ' and ' + c[1] + '. ' + m[0] + ' is in Irene&rsquo;s pair and ' + m[1] + ' is in Glyn&rsquo;s: one from each. That column is fine.';
+      }
+      return 'A column that fails is still unmarked. Look for a number that neither parent has, and for a pair whose two numbers could only come from the same parent.';
+    }
+    box.querySelector('#p-go').addEventListener('click', function () {
+      if (wait || R.next) return;
+      var k = cur();
+      if (k !== 'd') {
+        if (!ER.check(k, cand(k))) { ER.sfx.no(); msg(why(k)); return; }
+        st.step++; keep(); CO.sfx.stamp(); draw();
+        msg({ a: '<b>Check 1 signed.</b> FH/7 can be the child of Irene and Glyn at every locus: the 2006 swab is the Garsides&rsquo; son&rsquo;s, as its label says.', b: '<b>Check 2 signed.</b> The same at the four places read in 2006; different at six of the ten. The glove is not Joel&rsquo;s.', c: '<b>Check 3 signed.</b> Two columns fail. The glove cannot be a child of Irene and Glyn, so it cannot be Gavin&rsquo;s.' }[k]);
+        return;
+      }
+      if (!ER.check('d', String(st.n))) { ER.sfx.no(); msg(st.n === 1 ? '&ldquo;One in 3,000 doesn&rsquo;t mean one person,&rdquo; says Dr Jalloh. &ldquo;It means one in every 3,000. How many lots of 3,000 are there in Gatherley?&rdquo;' : '&ldquo;Sixty thousand people,&rdquo; says Mrs Grayling, &ldquo;and about one in every three thousand would match by chance. Count them.&rdquo;'); return; }
+      var file = ER.exitOk(['none-' + cand('b') + '-' + cand('c') + '-' + st.n]);
+      if (!file) { ER.sfx.no(); msg('Dr Jalloh reads the sheet twice and does not sign it.'); return; }
+      wait = true; R.solve(file); CO.sfx.stamp();
+      msg('<b>Not Joel. Not his brother. Twenty people.</b> Dr Jalloh signs the last check.');
+      CO.mine('dna', 'What the DNA says', '<p>FH/7 (Joel&rsquo;s swab of 2006) can be the child of Irene and Glyn at every locus.</p><p>The glove matched Joel at the four loci read in 2006, but as read in 2026 it differs from him at six of the ten: it is not his glove.</p><p>It cannot be a child of Irene and Glyn: at D16 both its numbers (11, 12) could only come from Irene; at D18 it has a 19 that neither parent has. So it is not his brother Gavin&rsquo;s.</p><p>1 in 3,000, in a town of 60,000: about 20 people would match at those four places.</p>');
+      setTimeout(function () {
+        ER.closeAll(); CO.solved(); R.busy = true;
+        ER.narrate([
+          '&ldquo;Not Joel,&rdquo; says Dr Jalloh. &ldquo;Six places out of ten say so. And not a child of Irene and Glyn. At D16 both of the glove&rsquo;s numbers could only have come from Irene, and at D18 it has a 19 that neither of them has. Two columns. Not the brother.&rdquo; He looks almost sorry. &ldquo;I&rsquo;d have lost my money.&rdquo;',
+          '&ldquo;Twenty,&rdquo; says Mrs Grayling. &ldquo;Twenty people in Gatherley in 2006 could have matched those four places. The jury heard one in three thousand and thought it meant one.&rdquo;',
+          'Dr Hesketh has been very still. &ldquo;I said one in three thousand,&rdquo; she says. &ldquo;I never said it was him.&rdquo; &ldquo;No,&rdquo; says Mrs Grayling, gently. &ldquo;And nobody stood up and said what it did mean.&rdquo;',
+          '&ldquo;With the Commission&rsquo;s agreement, the full profile can be searched against the national database,&rdquo; says Dr Jalloh. &ldquo;But a profile doesn&rsquo;t say when a glove was in a yard. Glass might.&rdquo;',
+          '&ldquo;Then we need the 2006 file,&rdquo; says Mrs Grayling, &ldquo;all of it, and Dr Hesketh&rsquo;s report. The records office. Bring your coat: the heating went off at midnight.&rdquo;'
+        ], function () { R.busy = false; R.go(); });
+      }, 2400);
+    });
+    draw();
+    msg('Five rows of numbers, ten loci. Click a column&rsquo;s box to mark it; click again to rub the mark out.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, step: cur };
+  }
+})();
+</script>
+</body>
+</html>

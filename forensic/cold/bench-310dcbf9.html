@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Glass Bench · Under Seal</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="cold.css">
+<style>
+  body{--bg:#0c1220;--accent:#9fd8ff;--font-display:'Libre Baskerville',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,18,32,.96);--tc-ink:#e6eef6;--cap-bg:rgba(12,18,32,.94);--panel:#141c2c;--face-bg:#2e2a34;--q-ink:#9fd8ff;--fade:#04060c;--hud-bg:rgba(12,18,32,.86)}
+  .tc-room{font-family:'Libre Baskerville',serif;font-style:italic;font-size:clamp(36px,5vw,64px)}
+  .tk-name{font-family:'Libre Baskerville',serif;font-style:italic}
+  .tk .btn,.tc .btn{--accent:#9fd8ff}
+  .glow{animation:glow 5s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:.9}48%{opacity:.9}50%{opacity:.82}52%{opacity:.9}}
+  .gb .opt rect{fill:#f2efe4;stroke:#8a96a6;stroke-width:1.5}
+  .gb .opt.on rect{fill:#1d3f6e;stroke:#1d3f6e}
+  .gb .opt.on text{fill:#fff}
+  .gb .opt:hover rect{stroke:#1d3f6e}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="boxL" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#e8f6ff" stop-opacity=".55"/><stop offset="1" stop-color="#e8f6ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampL" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".42"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="52%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#03050a" stop-opacity=".35"/><stop offset="1" stop-color="#010204" stop-opacity=".9"/></radialGradient>
+  <linearGradient id="paneG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".25"/><stop offset=".5" stop-color="#bfe6f0" stop-opacity=".1"/><stop offset="1" stop-color="#ffffff" stop-opacity=".2"/></linearGradient>
+</defs>
+
+<!-- a room painted dark blue all over, so that nothing reflects -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#18223a"/>
+<g stroke="#1e2a46" stroke-width="2" id="planks"></g>
+<!-- the rack of sample panes along the wall -->
+<g id="rack" class="hot"><rect x="70" y="170" width="380" height="330" fill="#121a2c"/><g id="samples"></g><rect x="70" y="490" width="380" height="14" fill="#3a4660"/>
+  <text x="260" y="196" class="tB" font-size="15" fill="#8aa0c0" text-anchor="middle" letter-spacing="4">REFERENCE GLASS</text></g>
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="1240" y="150" width="230" height="300" fill="#f2efe4"/><rect x="1240" y="150" width="230" height="56" fill="#9fd8ff"/>
+  <text x="1355" y="186" class="tX" font-size="24" fill="#18223a" text-anchor="middle">GLASS IS</text>
+  <text x="1355" y="250" class="tX" font-size="40" fill="#18223a" text-anchor="middle">NOT A</text><text x="1355" y="300" class="tX" font-size="40" fill="#18223a" text-anchor="middle">LIQUID</text>
+  <g stroke="#8a96a6" stroke-width="2"><path d="M1262 336h186M1262 352h170M1262 368h186M1262 384h150M1262 400h186M1262 416h120"/></g></g>
+<!-- the angle lamp -->
+<g><path d="M1080 660l60 -300l-80 -90" stroke="#2a3246" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M1020 236l90 30l-30 60z" fill="#3a4660"/>
+  <path d="M1060 300l-260 380h420z" fill="url(#lampL)" pointer-events="none"/></g>
+<!-- the bench and the light box -->
+<rect x="-1000" y="660" width="3600" height="800" fill="#0e1424"/><path d="M-1000 660H2600" stroke="#2a3654" stroke-width="4"/>
+<rect x="420" y="560" width="840" height="30" fill="#141414"/><rect x="420" y="590" width="840" height="80" fill="#1a1a1e"/><path d="M450 670v140M1230 670v140" stroke="#0a0a0c" stroke-width="14"/>
+<ellipse cx="840" cy="520" rx="420" ry="190" fill="url(#boxL)" class="glow" pointer-events="none"/>
+<g id="lightbox" class="hot"><path d="M560 560l40 -120h480l40 120z" fill="#eaf6fb" class="glow"/><path d="M560 560h560v12h-560z" fill="#9aa6b6"/>
+  <path d="M640 548l30 -96h300l28 96z" fill="url(#paneG)" stroke="#ffffff" stroke-width="2"/>
+  <g stroke="#2a4a5a" stroke-width="1.5" opacity=".7" fill="none"><path d="M760 520l-40 24M760 520l60 -40M760 520l-6 -64M760 520l88 6M760 520l40 26M760 520l-70 -10M760 520l-50 -50"/><circle cx="760" cy="520" r="14"/><circle cx="760" cy="520" r="26" stroke-dasharray="14 10"/></g>
+  <path d="M900 470q30 -6 62 18" stroke="#6a7a76" stroke-width="2" fill="none"/></g>
+<!-- the manual, open on a lectern -->
+<g id="manual" class="hot"><path d="M300 640l20 -120h70l-6 120z" fill="#3a4660"/><path d="M250 520l70 -16 70 16 -6 30h-128z" fill="#f7f6f1"/><path d="M320 504v46" stroke="#c9ccd0" stroke-width="2"/>
+  <rect x="256" y="514" width="60" height="8" fill="#4a525a"/><g stroke="#8a9098" stroke-width="1.5"><path d="M262 532h50M262 540h44M328 524h52M328 532h46M328 540h50"/></g></g>
+<!-- people -->
+<g id="judith" class="hot" transform="translate(170 880) scale(.97)"></g>
+<g id="gillian" class="hot" transform="translate(1420 884)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the microscope room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="cold.js"></script>
+<script>
+(function () {
+  var $ = ER.$, R = null, bench = null;
+
+  (function () {
+    var s = '', i, cols = ['#5a8a6a', '#8a6a3a', '#d8e4ea', '#4a6a9a', '#b8c8c0', '#7a5a3a', '#cfe3df', '#6a8aa0', '#e0d8c0', '#3a5a4a'];
+    for (i = -10; i < 30; i++) s += '<path d="M-1000 ' + (i * 60) + 'H2600"/>';
+    $('#planks').innerHTML = s;
+    s = ''; for (i = 0; i < 26; i++) s += '<rect x="' + (84 + i * 14) + '" y="' + (220 + (i % 4) * 10) + '" width="9" height="' + (268 - (i % 4) * 10) + '" fill="' + cols[i % cols.length] + '" opacity=".75"/><rect x="' + (84 + i * 14) + '" y="' + (220 + (i % 4) * 10) + '" width="3" height="' + (268 - (i % 4) * 10) + '" fill="#fff" opacity=".25"/>';
+    $('#samples').innerHTML = s;
+    $('#judith').innerHTML = CO.fig('judith'); $('#gillian').innerHTML = CO.fig('gillian');
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'cold', storyTitle: 'Under Seal', id: 'bench', no: 'II', title: 'The Glass Bench',
+    go: 'Turn on the light box',
+    intro: [
+      'In the store you read six continuity labels line by line, each line beginning with the person who received the bag on the line before. Five were clear: a time crossed out and initialled, twenty years on a shelf and a taped corner are all allowed. One was not. FH/4, the glass panel, came back from Photographic on 9 November 2006 with nobody&rsquo;s name in &ldquo;Handed over by&rdquo;, and its bag carries a seal, 04417, that its label never mentions.',
+      'A gap is not a crime. It is a question. The glass bench is on the ground floor, in a room that is kept dark on purpose.'
+    ],
+    exit: {"next":"fibres","w":{"6d6b583d":"56afd319"}}, tags: {"f":["7f80d2be"],"o":["38516d31"],"w":["10ce5527"],"h":["c6ad42ab"],"s":["42093423"]},
+    hints: hints, onBegin: begin
+  });
+
+  R = CO.room({ id: 'b', need: ['gillian', 'judith', 'manual'], lock: '#lightbox' });
+
+  function hints() {
+    if (R.next) return ['go', ['The bench sheet is signed. On to the microscope room: the button at the bottom.']];
+    if (bench && bench.isOpen()) return ['sheet', [
+      'Click a crack on the panel to see its broken edge under the lens. Then fill in the bench sheet one line at a time, and measure the panel on the mat.',
+      'Read a radial crack, one that runs out from the hole: its rib marks meet the rear face, the side away from the blow, at a right angle. A crack stops where it meets an earlier one, so look at where each kind of crack ends. The panel does not start at 0 on the mat.',
+      'On the radial cracks the rib marks meet the UP face at a right angle, so the blow came from the face lying DOWN (the S1 sticker reads backwards through the glass). The radial cracks stop at the corner crack, and the ring cracks stop at the radial ones. Across, the panel runs from 3 to 48 on the mat; down, from 2 to 62. PC Holroyd&rsquo;s panel was 38 × 52, with a sticker.'
+    ]];
+    if (!R.ready()) return ['look', [
+      'Two people and one page before the light box (the pips count them).',
+      'Dr Hesketh on the right, Mrs Grayling on the left, and the manual open on the lectern by the bench.'
+    ]];
+    return ['box', ['Everything is read. Click the panel on the light box.']];
+  }
+
+  function begin() {
+    R.paint();
+    if (R.next) { R.busy = false; R.go(); ER.say('A good, honest panel, broken once. Not from Iveson&rsquo;s door.'); return; }
+    if (R.told('in')) { R.busy = false; ER.say('The glass room. The light box hums.'); return; }
+    R.tell('in');
+    ER.narrate([
+      'The glass room is painted dark blue, walls and ceiling, so that nothing reflects. Along one wall a rack of sample panes catches the light: green, brown, frosted, wired. In the middle stands the light box, a table of white light, and on it, out of its bag, lies FH/4.',
+      'Dr Gillian Hesketh is taking off her gloves one finger at a time. She is seventy-four, in a camel coat and a red scarf, with a lens on a chain and a walking stick that she carries like an umbrella. &ldquo;Good evening,&rdquo; she says to you. &ldquo;I hear I was wrong about something. I should like to see it.&rdquo;'
+    ], function () { R.busy = false; R.paint(); });
+  }
+
+  function seen(k) { return function (ok) { if (ok) R.tell(k); }; }
+  $('#gillian').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('&ldquo;Forty-five by sixty,&rdquo; says Dr Hesketh, to nobody. &ldquo;I measured it myself. I measured the wrong thing very accurately.&rdquo;'); return; }
+    ER.talk({ who: 'Dr Gillian Hesketh', role: 'Glass and fibres, the Laboratory, 1979 to 2015', face: FACE('gillian'), clue: { id: 'gillian2', title: 'Dr Hesketh: glass only waits to be asked', kind: 'Statement' }, done: seen('gillian'), lines: [
+      'Judith rang at half past nine. I had my coat on at a quarter past. One gets a feeling.',
+      { q: 'Do you remember this case?', a: 'I remember every panel I ever lost sleep over. This one I did not lose sleep over. One blow, from the yard side, rib marks as clear as print. I wrote it up in a morning.' },
+      { q: 'What is a rib mark?', a: 'Glass breaks in little jumps, and every jump leaves a curved ridge on the broken edge. Run a fingernail down it and you can feel them. They curve one way, so they tell you which way the crack was running, and from that, which side was struck.' },
+      { q: 'Can glass be read wrongly?', a: 'Only if one reads the wrong crack. People read a ring crack and get it backwards. I never did. Not once in thirty-six years.' },
+      { note: 'She lifts her lens on its chain, looks at you through it, and lets it fall.' },
+      'Glass does not lie, young person. It only waits to be asked properly.'
+    ] });
+  });
+  $('#judith').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('&ldquo;Thirty-eight by fifty-two,&rdquo; says Mrs Grayling. &ldquo;Faith Holroyd measured it in the door. I&rsquo;d trust her ruler over mine.&rdquo;'); return; }
+    ER.talk({ who: 'Mrs Judith Grayling', role: 'Store Manager', face: FACE('judith'), clue: { id: 'judith2', title: 'Mrs Grayling: the way it came out of the bag', kind: 'Statement' }, done: seen('judith'), lines: [
+      'I opened the bag the proper way: a cut along the side, the old seals left alone, and a new line on the label in my own hand. Twenty-five to eleven, fourth of November, two thousand and twenty-six.',
+      { q: 'Which way up is the panel?', a: 'The way it came out of the bag. I haven&rsquo;t turned it over. You don&rsquo;t turn old broken glass over for fun.' },
+      { q: 'What is the little sticker?', a: 'The S1 sticker. Whoever takes a panel out marks one face, so nobody has to guess later which side faced out. This one is on the face lying down. You can read it through the glass, backwards.' },
+      { q: 'How big should it be?', a: 'Look at PC Holroyd&rsquo;s list in your notebook. She measured the panel in the door before it came out. She was like that.' }
+    ] });
+  });
+
+  var DIAG = '<svg viewBox="0 0 270 300"><rect width="270" height="300" fill="#fff"/>' +
+    '<rect x="20" y="16" width="150" height="150" fill="#e4f2f2" stroke="#7a9a9a" stroke-width="2"/>' +
+    '<g stroke="#1d3f6e" stroke-width="2" fill="none"><path d="M90 92L30 40M90 92L160 30M90 92L165 120M90 92L60 162M90 92L22 120"/><path d="M75 80a19 19 0 0 1 32 -4M110 84a20 20 0 0 1 0 22M98 110a20 20 0 0 1 -26 -4M74 104a19 19 0 0 1 -4 -20"/></g>' +
+    '<path d="M130 16v78" stroke="#a8261c" stroke-width="2.4"/><circle cx="130" cy="94" r="3.5" fill="#a8261c"/>' +
+    '<text x="182" y="40" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#1d3f6e">radial</text><text x="182" y="54" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#1d3f6e">cracks</text>' +
+    '<text x="182" y="96" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#1d3f6e">concentric</text><text x="182" y="110" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#1d3f6e">(ring) cracks</text>' +
+    '<text x="140" y="142" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#a8261c">stops: came later</text>' +
+    '<text x="20" y="196" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#3a3a3a">THE EDGE OF A RADIAL CRACK</text>' +
+    '<rect x="20" y="214" width="200" height="50" fill="#cfe3df"/>' +
+    [40, 70, 100, 130, 160].map(function (x) { return '<path d="M' + x + ' 214C' + x + ' 238 ' + (x + 8) + ' 252 ' + (x + 26) + ' 263" stroke="#1d3f6e" stroke-width="2" fill="none"/>'; }).join('') +
+    '<text x="226" y="220" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a">rear</text><text x="226" y="268" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a">struck</text>' +
+    '<path d="M246 296v-24" stroke="#a8261c" stroke-width="3"/><path d="M240 280l6 -9 6 9" fill="#a8261c"/><text x="20" y="292" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a">rib marks square to the rear</text></svg>';
+  var MANUAL = '<h4>Laboratory Manual &middot; Section 5: Glass</h4><h3>Broken glass: which side, and which first</h3><div class="two"><div>' +
+    '<p>When something hits a pane, the glass bends away from the blow. A break in glass is a <b>fracture</b>. The far side stretches and breaks first: <b>radial cracks</b> run out from the <b>point of impact</b> like the spokes of a wheel. Then the near side breaks in rings between them: <b>concentric cracks</b>, or ring cracks.</p>' +
+    '<p>On the broken edge of a crack, under a lens, you can see curved ridges called <b>rib marks</b>. Use the 3R rule: on Radial cracks, the Rib marks meet the Rear face, the side away from the blow, at a Right angle. On concentric cracks it is the other way round, so always read a radial crack.</p></div>' + DIAG + '</div>' +
+    '<p class="rule">A crack cannot cross a crack that is already there: it stops where it meets it. So if the cracks from one hole stop at the cracks from another, the other hole came first. The same rule puts the cracks of a single blow in order.</p><p class="pg">5.2</p>';
+  $('#manual').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual52', title: 'Broken glass: which side, and which first', kind: 'Laboratory Manual, 5.2' }, done: function () {
+      CO.terms(['fracture', 'point of impact', 'radial crack', 'concentric crack', 'rib marks']);
+      if (R.tell('manual')) ER.say('&ldquo;Three Rs,&rdquo; says Dr Hesketh. &ldquo;Radial, rib, right angle, rear. That is four, but nobody has ever complained.&rdquo;');
+    } });
+  });
+  CO.thing('#rack', null, 'Reference glass: window glass, bottle glass, car glass, wired glass from a school door. Each pane has a label and a date, like everything else in this building.', R.isBusy);
+  CO.thing('#poster', null, 'GLASS IS NOT A LIQUID. Underneath, in small print: &ldquo;Old windows are often thicker at the bottom because the glazier usually put the thick edge at the bottom, not because the glass has flowed. Glass is a solid. Please stop asking.&rdquo;', R.isBusy);
+
+  $('#lightbox').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('FH/4 is back in its bag, with a new seal and a new line on its label.'); return; }
+    if (!R.ready()) {
+      var miss = R.missing()[0];
+      ER.say(({ gillian: '&ldquo;Ask me first,&rdquo; says Dr Hesketh. &ldquo;I was the one who was wrong, apparently.&rdquo;', judith: '&ldquo;Ask me how I opened it,&rdquo; says Mrs Grayling. &ldquo;It matters.&rdquo;', manual: '&ldquo;Read the page on the lectern first,&rdquo; says Dr Hesketh. &ldquo;Then we shall have something to argue about.&rdquo;' })[miss]);
+      return;
+    }
+    if (!bench) bench = makeBench();
+    bench.open();
+  });
+
+  /* ---------- the bench: the panel on its mat, the lens, the bench sheet ---------- */
+  var H = [17, 36], OLD = [[31, 0], [36, 4.5], [41, 9.5], [45, 15]];
+  var ENDS = [[38.5, 7.0], [43, 12.25], [45, 30], [34, 60], [9, 60], [0, 41], [0, 20], [14, 0]];
+  function crackSpec() {
+    var cracks = [{ id: 'old', kind: 'old', pts: OLD }], A = ENDS.map(function (e) { return CO.ang(H, e); }), i;
+    ENDS.forEach(function (e, j) { cracks.push({ id: 'r' + j, kind: 'radial', pts: CO.radial(H, e, 5 + j * 3) }); });
+    var order = A.map(function (a, j) { return [a, j]; }).sort(function (p, q) { return p[0] - q[0]; });
+    var inner = [0, 1, 2, 4, 6, 7], outer = [1, 3, 5, 7];        /* which gaps between neighbouring radials have a ring (not every one breaks) */
+    inner.forEach(function (g) { var a = order[g], b = order[(g + 1) % order.length]; cracks.push({ id: 'g' + g, kind: 'ring', pts: CO.ring(H, 4.5, a[0], b[0]) }); });
+    outer.forEach(function (g) { var a = order[g], b = order[(g + 1) % order.length]; cracks.push({ id: 'h' + g, kind: 'ring', pts: CO.ring(H, 8.5, a[0], b[0]) }); });
+    return cracks;
+  }
+  function makeBench() {
+    var st = ER.flag('b-st') || { sel: '', f: '', o: { c: 0, r: 0, g: 0 }, w: 40, h: 55, s: '' }, wait = false, last = '';
+    var box = ER.el('div', 'bn gb', '<svg viewBox="0 0 1000 600"><defs><linearGradient id="edgeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".5"/><stop offset=".5" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#5a8a80" stop-opacity=".3"/></linearGradient></defs><g id="body"></g></svg>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="g-go">Sign the bench sheet</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('b-st', st); }
+    var sp = { w: 45, h: 60, ox: 3, oy: 2, mw: 50, mh: 64, x0: 30, y0: 44, k: 8, holes: [{ x: 17, y: 36, r: 1.3 }], cracks: crackSpec(),
+      stickers: [{ x: 1.2, y: 1.2, svg: '<rect x="0" y="0" width="44" height="22" fill="#f2efe4" opacity=".55"/><g transform="translate(44 0) scale(-1 1)"><text x="22" y="16" class="tB" font-size="15" fill="#a8261c" text-anchor="middle" opacity=".7">S1 · FH</text></g>' }] };
+    function opt(id, x, y, w, label, on) { return '<g class="opt tg' + (on ? ' on' : '') + '" data-o="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="30" rx="4"/><text x="' + (x + w / 2) + '" y="' + (y + 21) + '" class="tB" font-size="17" fill="#1d2a3a" text-anchor="middle">' + label + '</text></g>'; }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#0e1424"/>' + CO.paneSVG(sp);
+      /* the lens */
+      s += '<rect x="456" y="18" width="528" height="220" rx="6" fill="#16203a" stroke="#3a4a6a"/><text x="472" y="40" class="tB" font-size="14" fill="#9fd8ff" letter-spacing="2">UNDER THE LENS · THE BROKEN EDGE OF THE CRACK YOU CLICK</text>';
+      s += '<text x="500" y="76" class="tB" font-size="14" fill="#c9d8e8" letter-spacing="2">UP FACE (towards you)</text><text x="500" y="200" class="tB" font-size="14" fill="#c9d8e8" letter-spacing="2">DOWN FACE (on the light box)</text>';
+      var c = st.sel ? sp.cracks.filter(function (q) { return q.id === st.sel; })[0] : null;
+      if (c) {
+        s += CO.edgeSVG(500, 86, 440, 90, c.kind === 'old' ? 'old' : c.kind === 'radial' ? 'up' : 'down');
+        s += '<text x="720" y="226" class="tH" font-size="18" fill="#ffd34a" text-anchor="middle">' + (c.kind === 'old' ? 'Grey, dirty, rounded edges: an old crack. No rib marks left to read.' : 'The rib marks meet the ' + (c.kind === 'radial' ? 'UP' : 'DOWN') + ' face at a right angle.') + '</text>';
+      } else s += '<rect x="500" y="86" width="440" height="90" fill="#0e1424" stroke="#3a4a6a" stroke-dasharray="6 6"/><text x="720" y="137" class="tH" font-size="19" fill="#8aa0c0" text-anchor="middle">Click a crack on the panel.</text>';
+      /* the bench sheet */
+      s += '<rect x="456" y="250" width="528" height="340" rx="4" fill="#fbfaf6"/><text x="474" y="276" class="tB" font-size="15" fill="#6a1e22" letter-spacing="3">BENCH SHEET · FH/4 · G06/1187 · 4.11.26</text>';
+      s += '<text x="474" y="310" class="tG" font-size="18" fill="#1e1e22">1  The blow came from the face lying</text>' + opt('f-up', 800, 290, 70, 'UP', st.f === 'up') + opt('f-down', 880, 290, 86, 'DOWN', st.f === 'down');
+      s += '<text x="474" y="352" class="tG" font-size="18" fill="#1e1e22">2  The order in which the cracks formed (1, 2, 3)</text>';
+      [['c', 'old corner crack', 474], ['r', 'radial cracks', 640], ['g', 'ring cracks', 800]].forEach(function (q) {
+        s += '<text x="' + q[2] + '" y="388" class="tG" font-size="16" fill="#3a3a3a">' + q[1] + '</text>' + opt('o-' + q[0], q[2] + (q[0] === 'c' ? 116 : 96), 368, 40, st.o[q[0]] ? String(st.o[q[0]]) : '–', !!st.o[q[0]]);
+      });
+      s += '<text x="474" y="432" class="tG" font-size="18" fill="#1e1e22">3  The size of the panel, measured on the mat</text>';
+      s += '<text x="474" y="472" class="tG" font-size="16" fill="#3a3a3a">across</text>' + opt('w-', 530, 452, 30, '–') + '<text x="590" y="473" class="tM" font-size="18" fill="#1e1e22" text-anchor="middle">' + st.w + '</text>' + opt('w+', 616, 452, 30, '+') + '<text x="652" y="472" class="tG" font-size="16" fill="#3a3a3a">cm</text>';
+      s += '<text x="706" y="472" class="tG" font-size="16" fill="#3a3a3a">down</text>' + opt('h-', 754, 452, 30, '–') + '<text x="814" y="473" class="tM" font-size="18" fill="#1e1e22" text-anchor="middle">' + st.h + '</text>' + opt('h+', 840, 452, 30, '+') + '<text x="876" y="472" class="tG" font-size="16" fill="#3a3a3a">cm</text>';
+      s += '<text x="474" y="524" class="tG" font-size="18" fill="#1e1e22">4  Is this the panel on PC Holroyd&rsquo;s list as FH/4?</text>' + opt('s-yes', 616, 540, 80, 'YES', st.s === 'yes') + opt('s-no', 710, 540, 80, 'NO', st.s === 'no');
+      svg.querySelector('#body').innerHTML = s;
+      ER.$$('.ck', svg).forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-id') === st.sel); });
+    }
+    svg.addEventListener('click', function (e) {
+      if (wait || R.next) return;
+      var ck = e.target.closest('.ck'), o = e.target.closest('.opt');
+      if (ck) { st.sel = ck.getAttribute('data-id'); last = ck.getAttribute('data-kind'); keep(); CO.sfx.chink(); draw();
+        msg(last === 'old' ? 'The crack across the corner. Its edge is grey with dirt, and worn smooth: it is much older than the others.' : 'Under the lens: the broken edge of the crack, standing on its side, with its rib marks.'); return; }
+      if (!o) return;
+      var id = o.getAttribute('data-o');
+      if (id.indexOf('f-') === 0) st.f = id.slice(2);
+      else if (id.indexOf('o-') === 0) { var k = id.slice(2); st.o[k] = (st.o[k] % 3) + 1; }
+      else if (id === 'w-') st.w = Math.max(30, st.w - 1); else if (id === 'w+') st.w = Math.min(64, st.w + 1);
+      else if (id === 'h-') st.h = Math.max(30, st.h - 1); else if (id === 'h+') st.h = Math.min(64, st.h + 1);
+      else if (id.indexOf('s-') === 0) st.s = id.slice(2);
+      CO.sfx.click(); keep(); draw();
+    });
+    box.querySelector('#g-go').addEventListener('click', function () {
+      if (wait || R.next) return;
+      if (!st.f || !st.o.c || !st.o.r || !st.o.g || !st.s) { ER.sfx.no(); msg('The bench sheet is not finished: every line needs an answer.'); return; }
+      var ord = '' + st.o.c + st.o.r + st.o.g;
+      if (!ER.check('f', st.f)) { ER.sfx.no(); msg(last === 'ring' ? '&ldquo;You read a ring crack,&rdquo; says Dr Hesketh. &ldquo;On a ring crack the rule turns round. Read a radial one: a crack that runs out from the hole to the edge.&rdquo;' : '&ldquo;Three Rs,&rdquo; says Dr Hesketh. &ldquo;On a Radial crack the Rib marks are at a Right angle to the Rear, the side away from the blow. Which face is the rear? Then the blow came from the other one.&rdquo;'); return; }
+      if (!ER.check('o', ord)) { ER.sfx.no(); msg('&ldquo;Look at where each kind of crack ends,&rdquo; says Dr Hesketh. &ldquo;A crack stops where it meets one that was already there. Which cracks stop at the corner crack? And where do the ring cracks end?&rdquo;'); return; }
+      if (!ER.check('w', String(st.w)) || !ER.check('h', String(st.h))) { ER.sfx.no(); msg(st.w === 48 || st.h === 62 ? 'That is where the far edge lies on the mat. But where does the panel begin? It is not lying on the 0 line.' : 'Measure again. The mat has a thin line every centimetre and a number every five. Read where the panel begins and where it ends, across and down.'); return; }
+      if (!ER.check('s', st.s)) { ER.sfx.no(); msg('Mrs Grayling reads from PC Holroyd&rsquo;s list: &ldquo;Thirty-eight by fifty-two. Sticker on the yard side: NO CASH KEPT ON THESE PREMISES.&rdquo; Is that what is on the light box?'); return; }
+      var file = ER.exitOk([st.f + '-' + ord + '-' + st.w + '-' + st.h + '-' + st.s]);
+      if (!file) { ER.sfx.no(); msg('Dr Hesketh reads the sheet and does not initial it.'); return; }
+      wait = true; R.solve(file); CO.sfx.stamp();
+      msg('<b>One blow, from the face lying down. 45 × 60. Not the panel on the list.</b> Dr Hesketh initials the sheet, slowly.');
+      CO.mine('panel', 'FH/4 on the light box', '<p>One point of impact. The rib marks on the radial cracks meet the UP face at a right angle, so the blow came from the face lying DOWN: the S1 face.</p><p>Order: the old corner crack first (the radial cracks stop at it), then the radial cracks, then the ring cracks (they stop at the radial cracks).</p><p>Size 45 × 60 cm, no sticker. PC Holroyd&rsquo;s FH/4 was 38 × 52 cm, with a NO CASH KEPT sticker on the yard side. This is not the panel from Iveson&rsquo;s door.</p>');
+      setTimeout(function () {
+        ER.closeAll(); CO.solved(); R.busy = true;
+        ER.narrate([
+          '&ldquo;Forty-five by sixty,&rdquo; says Mrs Grayling, and reads from PC Holroyd&rsquo;s list: &ldquo;thirty-eight by fifty-two. Sticker on the yard side: NO CASH KEPT ON THESE PREMISES.&rdquo; There is no sticker on the light box but the little S1.',
+          'Dr Hesketh looks at the panel for a long time. &ldquo;One blow, struck from the face lying down, which is S1. The radial cracks stop at an old crack in the corner, so that was there first, and the rings came last. Every word of it is what I wrote in 2006.&rdquo;',
+          '&ldquo;It is a good, honest panel,&rdquo; she says. &ldquo;And it is not from Iveson&rsquo;s door. Then I examined the wrong panel.&rdquo;',
+          '&ldquo;Or the right panel came back in the wrong bag,&rdquo; says Mrs Grayling, &ldquo;on the morning nobody signed.&rdquo; &ldquo;That is the same thing, Judith, from where Joel Garside was standing.&rdquo;',
+          'Mrs Grayling closes the bag with a new seal and writes its number on the label. &ldquo;The tape lifts were taken at the scene, before the glass came out,&rdquo; she says. &ldquo;Those, at least, are what they say they are. The microscope room.&rdquo;'
+        ], function () { R.busy = false; R.go(); });
+      }, 2400);
+    });
+    draw();
+    msg('FH/4 on its cutting mat, lying the way it came out of the bag. Click a crack to see its edge under the lens; fill in the bench sheet on the right.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

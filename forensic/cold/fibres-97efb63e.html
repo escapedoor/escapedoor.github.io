@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Microscope Room · Under Seal</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="cold.css">
+<style>
+  body{--bg:#16241c;--accent:#e2b85a;--font-display:'EB Garamond',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,44,34,.96);--tc-ink:#f2ead2;--cap-bg:rgba(26,38,30,.94);--panel:#203024;--face-bg:#2e2a34;--q-ink:#e2b85a;--fade:#080c09;--hud-bg:rgba(26,38,30,.86)}
+  .tc-room{font-family:'EB Garamond',serif;font-weight:600;font-variant:small-caps;letter-spacing:.06em;font-size:clamp(38px,5.4vw,70px)}
+  .tk-name{font-family:'EB Garamond',serif;font-variant:small-caps;font-weight:600}
+  .lampbeam{animation:lampb 9s steps(1,end) infinite}
+  @keyframes lampb{0%{opacity:1}70%{opacity:1}71%{opacity:.85}72%{opacity:1}}
+  .fm .sl rect.bd{fill:#f4f2ea;stroke:#8a8a7a;stroke-width:1.5}
+  .fm .sl.on rect.bd{stroke:#e2b85a;stroke-width:4}
+  .fm .bt rect{fill:#f2ead2;stroke:#6a5a3a;stroke-width:1.5}
+  .fm .bt.on rect{fill:#3a2a12;stroke:#3a2a12}
+  .fm .bt.on text{fill:#f2ead2}
+  .fm .bt:hover rect{stroke:#e2b85a;stroke-width:3}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampL" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffd890" stop-opacity=".5"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#050805" stop-opacity=".3"/><stop offset="1" stop-color="#020302" stop-opacity=".85"/></radialGradient>
+  <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a6a2a"/><stop offset=".5" stop-color="#e2c070"/><stop offset="1" stop-color="#8a6a2a"/></linearGradient>
+</defs>
+<!-- green walls, wood below -->
+<rect x="-1000" y="-400" width="3600" height="1060" fill="#2a4a3a"/>
+<rect x="-1000" y="420" width="3600" height="240" fill="#5a3e24"/><g id="panels" stroke="#4a3220" stroke-width="3"></g><path d="M-1000 420H2600" stroke="#3a2a18" stroke-width="8"/>
+<!-- the motto in brass letters -->
+<g id="motto" class="hot"><rect x="430" y="70" width="740" height="64" fill="#223a2e"/><text x="800" y="114" class="tS" font-size="30" fill="url(#brass)" text-anchor="middle" letter-spacing="5">EVERY CONTACT LEAVES A TRACE</text></g>
+<!-- the slide cabinet -->
+<g id="cabinet" class="hot"><rect x="60" y="180" width="300" height="440" fill="#6a4a2a"/><g id="drawers"></g><rect x="60" y="180" width="300" height="440" fill="none" stroke="#3a2a18" stroke-width="6"/></g>
+<!-- the sink and the tap -->
+<g id="sink" class="hot"><rect x="1240" y="400" width="240" height="40" fill="#e9ecee"/><rect x="1260" y="440" width="200" height="120" fill="#cfd4d8"/><path d="M1350 400v-70h40v14" stroke="#9aa0a6" stroke-width="10" fill="none"/><circle cx="1390" cy="352" r="5" fill="#9fd8ff" class="drip"/></g>
+<!-- the manual page on the wall by the sink -->
+<g id="manual" class="hot"><rect x="1250" y="170" width="120" height="160" fill="#f7f6f1" transform="rotate(-2 1310 250)"/><rect x="1250" y="170" width="120" height="16" fill="#4a525a" transform="rotate(-2 1310 250)"/>
+  <g stroke="#8a9098" stroke-width="2" transform="rotate(-2 1310 250)"><path d="M1262 204h96M1262 216h80M1262 228h96M1262 240h70M1262 256h96M1262 268h88M1262 280h96M1262 292h60"/></g><circle cx="1310" cy="174" r="4" fill="#a8261c"/></g>
+<!-- the radio -->
+<g id="radio" class="hot"><rect x="1420" y="236" width="100" height="56" rx="8" fill="#8a2a22"/><circle cx="1494" cy="264" r="14" fill="#2a1a12"/><g stroke="#2a1a12" stroke-width="2"><path d="M1432 252h40M1432 262h40M1432 272h40"/></g></g>
+<!-- the bench, the lamp, the microscope and the tray of slides -->
+<rect x="-1000" y="660" width="3600" height="800" fill="#2a1e14"/>
+<rect x="380" y="560" width="900" height="26" fill="#8a6a42"/><rect x="380" y="586" width="900" height="74" fill="#6a4a2a"/><path d="M410 660v140M1250 660v140" stroke="#3a2a18" stroke-width="14"/>
+<g><path d="M1120 560l-30 -220l-90 -40" stroke="#2a2a22" stroke-width="10" fill="none"/><path d="M960 290l70 0l-20 34h-40z" fill="#2a3a2a"/><path d="M990 324l-200 236h400z" fill="url(#lampL)" class="lampbeam" pointer-events="none"/></g>
+<g id="scope" class="hot"><rect x="690" y="540" width="240" height="20" rx="4" fill="#2a2a26"/>
+  <path d="M730 540v-120M890 540v-120" stroke="#2a2a26" stroke-width="22"/><rect x="700" y="480" width="70" height="10" fill="url(#brass)"/><rect x="850" y="480" width="70" height="10" fill="url(#brass)"/>
+  <rect x="720" y="380" width="180" height="34" rx="6" fill="#2a2a26"/><path d="M810 380v-40l-24 -40" stroke="#2a2a26" stroke-width="20" stroke-linecap="round"/><rect x="780" y="290" width="22" height="14" fill="url(#brass)" transform="rotate(-30 791 297)"/>
+  <circle cx="730" cy="452" r="12" fill="url(#brass)"/><circle cx="890" cy="452" r="12" fill="url(#brass)"/></g>
+<g id="tray" class="hot"><rect x="520" y="546" width="140" height="14" fill="#3a3a32"/><g fill="#f4f2ea"><rect x="528" y="536" width="22" height="10"/><rect x="554" y="536" width="22" height="10"/><rect x="580" y="536" width="22" height="10"/><rect x="606" y="536" width="22" height="10"/><rect x="632" y="536" width="22" height="10"/></g></g>
+<!-- people -->
+<g id="judith" class="hot" transform="translate(470 880) scale(.96)"></g>
+<g id="gillian" class="hot" transform="translate(1110 884)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Upstairs, to the DNA lab</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="cold.js"></script>
+<script>
+(function () {
+  var $ = ER.$, R = null, scope = null;
+
+  (function () {
+    var s = '', i, j;
+    for (i = -10; i < 30; i++) s += '<path d="M' + (i * 140) + ' 430V650"/>';
+    $('#panels').innerHTML = s;
+    s = ''; for (i = 0; i < 10; i++) for (j = 0; j < 5; j++) s += '<rect x="' + (72 + j * 56) + '" y="' + (192 + i * 42) + '" width="50" height="36" fill="#7a5a36"/><rect x="' + (88 + j * 56) + '" y="' + (214 + i * 42) + '" width="18" height="5" rx="2" fill="#c9a54a"/><rect x="' + (80 + j * 56) + '" y="' + (198 + i * 42) + '" width="34" height="9" fill="#f2ead2"/>';
+    $('#drawers').innerHTML = s;
+    $('#judith').innerHTML = CO.fig('judith'); $('#gillian').innerHTML = CO.fig('gillian');
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'cold', storyTitle: 'Under Seal', id: 'fibres', no: 'III', title: 'The Microscope Room',
+    go: 'Sit down at the microscope',
+    intro: [
+      'At the glass bench you read FH/4 on its cutting mat. The rib marks on its radial cracks meet the face lying up at a right angle, so the blow came from the face lying down, S1. Its radial cracks stop at an old crack in the corner, and its ring cracks stop at the radial ones. One blow, just as Dr Hesketh wrote in 2006. But the panel is 45 by 60 centimetres, with no sticker, and PC Holroyd&rsquo;s panel from Iveson&rsquo;s door was 38 by 52, with NO CASH KEPT ON THESE PREMISES on its yard side.',
+      'Somewhere there is another panel. But the tape lifts were taken from the door at the scene, before the glass came out, and they are what their labels say. It is past eleven. The microscope room is warm, and smells of old wood and the radiator.'
+    ],
+    exit: {"next":"profiles","w":{"dfa13c6f":"95d2b730"}}, tags: {"q1":["09573407"],"q2":["4c7c9885"],"q3":["24aa7ac2"],"q4":["6123b474"],"q5":["14114b21"],"q6":["10b2755e"],"v":["a0b90d50"]},
+    hints: hints, onBegin: begin
+  });
+
+  R = CO.room({ id: 'c', need: ['gillian', 'manual', 'tray', 'refs'], lock: '#scope' });
+
+  function hints() {
+    if (R.next) return ['go', ['The fibre report is signed. Upstairs to the DNA lab: the button at the bottom.']];
+    if (scope && scope.isOpen()) return scope.step() === 'ask' ? ['ask', [
+      'Look in your notebook at the continuity labels of FH/5 (the glove) and FH/6 (the jumper), or at your note &ldquo;The question on FH/4&rdquo;.',
+      'At 09.30 on 10 November 2006 both went to Dr Hesketh, bench 3. Fibres pass whenever two things touch, or touch the same surface.'
+    ]] : ['stamp', [
+      'Choose a slide on the left and a known fibre on the right: they appear side by side in the circle. Compare the kind of fibre, its colour and its detail, at ×100 and then at ×400. Then stamp the slide.',
+      'Wool has scales; cotton is a flat ribbon that twists; nylon is a smooth rod. The glove&rsquo;s nylon has dark specks in it, so a black rod with no specks is not consistent with it. Blue cotton is consistent with the denim, even though that proves very little.',
+      'Of the three slides from the lower part of the door glass, one is consistent with the glove, one with denim and one with nothing here. The slide from the upper part is wool. The fibre found on the glove is consistent with the jumper, and the fibre found on the jumper with the glove.'
+    ]];
+    if (!R.ready()) return ['look', [
+      'A person to hear, two things to read and a drawer to open (the pips count them).',
+      'Dr Hesketh at the microscope; the manual page on the wall by the sink; the tray of slides on the bench; the reference drawer in the slide cabinet on the left.'
+    ]];
+    return ['scope', ['Everything is ready. Click the microscope.']];
+  }
+
+  function begin() {
+    R.paint();
+    if (R.next) { R.busy = false; R.go(); ER.say('Bench 3, at half past nine. Two exhibits side by side.'); return; }
+    if (R.told('in')) { R.busy = false; ER.say('The microscope room. The tap drips.'); return; }
+    R.tell('in');
+    ER.narrate([
+      'The microscope room is green and brown and old: green walls, wooden benches worn pale by elbows, a slide cabinet with fifty little drawers. On the wall, in brass letters, is the Laboratory&rsquo;s motto: EVERY CONTACT LEAVES A TRACE.',
+      'In the middle of the bench stands the comparison microscope: two microscopes joined at the top by a bridge, with one eyepiece. Mrs Grayling has laid out a tray of slides, made tonight from the 2006 tapes. Dr Hesketh sits down at the microscope as if she had never left.'
+    ], function () { R.busy = false; R.paint(); });
+  }
+
+  function seen(k) { return function (ok) { if (ok) R.tell(k); }; }
+  $('#gillian').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('&ldquo;It saved walking,&rdquo; says Dr Hesketh. &ldquo;That was the whole reason. It saved walking.&rdquo;'); return; }
+    ER.talk({ who: 'Dr Gillian Hesketh', role: 'Glass and fibres, retired', face: FACE('gillian'), clue: { id: 'gillian3', title: 'Dr Hesketh: matched, or consistent?', kind: 'Statement' }, done: seen('gillian'), lines: [
+      'I did the fibres myself, in this room, on this microscope. They have changed the bulb.',
+      { q: 'What did you find in 2006?', a: 'Red wool on the tapes from the upper part of the door glass, which I could not tell apart from his jumper. Red wool on the glove, too, and black nylon from the glove on his jumper. They had been together, you see. I said so in court.' },
+      { q: 'How does a comparison microscope work?', a: 'Two microscopes joined by a bridge. The questioned fibre goes on the left stage, the known one on the right, and you see them side by side in one circle, cut down the middle. If you cannot find a single difference, you say they are consistent. In those days we said they matched.' },
+      { q: 'Is that the same thing?', a: 'It is not. A match sounds like a fingerprint, and a fibre is not a fingerprint. Ten thousand jumpers were knitted from that red wool.' },
+      { note: 'She says it quickly, as if she has said it to herself before.' },
+      'Begin at ×100, for colour and shape. Go up to ×400 before you say anything at all.'
+    ] });
+  });
+  CO.thing('#judith', null, function () { return R.next ? '&ldquo;Bench 3,&rdquo; says Mrs Grayling. &ldquo;It was in my labels all along. I wrote it there myself.&rdquo;' : '&ldquo;Slides on the left are the questioned ones,&rdquo; says Mrs Grayling. &ldquo;Known fibres on the right. Don&rsquo;t muddle them. That&rsquo;s rather the point tonight.&rdquo;'; }, R.isBusy);
+
+  var DIAG = '<svg viewBox="0 0 270 290"><rect width="270" height="290" fill="#fff"/>' +
+    '<text x="14" y="22" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#3a3a3a">UNDER THE MICROSCOPE, ×400</text>' +
+    '<rect x="20" y="40" width="230" height="36" fill="#d9b0a8"/>' + [30, 50, 70, 90, 110, 130, 150, 170, 190, 210, 230].map(function (x) { return '<path d="M' + x + ' 40q8 18 0 36" stroke="#8a3a2a" stroke-width="1.6" fill="none"/>'; }).join('') +
+    '<text x="20" y="94" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#1d3f6e">wool: scales, like roof tiles</text>' +
+    '<path d="M20 124q30 -16 60 0t60 0t60 0t50 0v18q-25 16 -50 0t-60 0t-60 0t-60 0z" fill="#b8c4e0"/><path d="M80 120v26M140 120v26M200 120v26" stroke="#4a5a8a" stroke-width="1.6"/>' +
+    '<text x="20" y="168" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#1d3f6e">cotton: a flat ribbon that twists</text>' +
+    '<rect x="20" y="186" width="230" height="26" fill="#9aa0aa"/><path d="M20 196h230" stroke="#e8ecf2" stroke-width="3" opacity=".8"/>' + [44, 66, 98, 120, 150, 176, 204, 232].map(function (x, i) { return '<circle cx="' + x + '" cy="' + (192 + (i % 3) * 7) + '" r="2" fill="#1a1a1a"/>'; }).join('') +
+    '<text x="20" y="230" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#1d3f6e">nylon: a smooth rod (here with specks)</text>' +
+    '<path d="M20 258h230" stroke="#3a3a3a" stroke-width="2" stroke-dasharray="4 4"/><text x="20" y="280" font-family="Barlow Condensed,sans-serif" font-size="12" fill="#3a3a3a">a human hair is several times as wide as a cotton fibre</text></svg>';
+  var MANUAL = '<h4>Laboratory Manual &middot; Section 6: Fibres</h4><h3>Fibres: what they are, and what they can show</h3><div class="two"><div>' +
+    '<p>A <b>fibre</b> is a single thread, finer than a hair. <b>Natural</b> fibres come from animals and plants. Wool, from sheep, is covered with overlapping <b>scales</b>, like the tiles on a roof. Cotton, from a plant, is a flat ribbon that twists. <b>Synthetic</b> fibres, such as nylon, are made by pushing melted plastic through tiny holes: under the microscope they are smooth, even rods. Many have dark specks of powder, added to make them less shiny.</p>' +
+    '<p>When two things touch, fibres pass from one to the other: this is <b>transfer</b>. Most fall off clothes within hours. On a still surface, such as broken glass, or in a sealed bag, they can stay for years.</p></div>' + DIAG + '</div>' +
+    '<p class="rule">Two fibres are <b>consistent with</b> each other when no difference can be found in kind, colour and detail. That is not proof: thousands of garments are made of the same fibre. So things from a scene and things from a suspect are never opened in the same place.</p><p class="pg">6.1</p>';
+  $('#manual').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual61', title: 'Fibres: what they are, and what they can show', kind: 'Laboratory Manual, 6.1' }, done: function () {
+      CO.terms(['fibre', 'natural', 'scales', 'synthetic', 'transfer', 'consistent with']);
+      if (R.tell('manual')) ER.say('&ldquo;Never opened in the same place,&rdquo; Dr Hesketh reads aloud, and says nothing more.');
+    } });
+  });
+  var TRAY = '<h4>Slides made tonight from the 2006 tapes &middot; J.G. &middot; 4.11.26</h4><table>' +
+    '<tr><th>Slide</th><th>Where the fibre was</th></tr>' +
+    '<tr><td>FH/2 a, b, c</td><td>Three fibres from the tape lifts of the door glass, <b>lower part, by the latch</b></td></tr>' +
+    '<tr><td>FH/3 a</td><td>A fibre from the tape lifts of the door glass, <b>upper part</b></td></tr>' +
+    '<tr><td>FH/5 a</td><td>A fibre found on the surface of the glove</td></tr>' +
+    '<tr><td>FH/6 a</td><td>A fibre found on the surface of the jumper</td></tr></table>' +
+    '<p>Known fibres, for the right-hand stage: <b>FH/6 R</b>, wool taken from the jumper itself; <b>FH/5 R</b>, nylon taken from the glove itself; and one from the reference drawer.</p>';
+  $('#tray').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: TRAY, cls: 'ledger', clue: { id: 'tray', title: 'The tray of slides', kind: 'Slide list, 4 November 2026' }, done: function () {
+      if (R.tell('tray')) ER.say('&ldquo;Questioned on the left, known on the right,&rdquo; says Mrs Grayling.');
+    } });
+  });
+  var REFS = '<h4>Reference drawer 112 &middot; Cotton, dyed</h4><h3>RC 112: blue cotton denim</h3><p>Indigo-dyed cotton, from the cloth of ordinary blue jeans. A flat ribbon with twists; colour deep blue.</p>' +
+    '<p class="hw">The commonest fibre in this cabinet, and the commonest one on any doorstep. Finding it tells you that somebody in jeans was there, which is everybody. G.H. 1998</p>';
+  $('#cabinet').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: REFS, cls: 'file', clue: { id: 'refs', title: 'RC 112: blue cotton denim', kind: 'Reference drawer' }, done: function () {
+      if (R.tell('refs')) ER.say('&ldquo;My handwriting,&rdquo; says Dr Hesketh. &ldquo;I was very sure of myself in 1998.&rdquo;');
+    } });
+  });
+  CO.thing('#motto', null, 'EVERY CONTACT LEAVES A TRACE. A French scientist, Edmond Locard, taught something like it about a hundred years ago: whoever touches a thing leaves something on it, and takes something away.', R.isBusy);
+  CO.thing('#radio', null, 'The radio murmurs: the late news, then the weather. Rain by the morning.', R.isBusy);
+  CO.thing('#sink', null, 'A tap that drips every eleven seconds. Nobody has ever mended it, because everybody times things by it.', R.isBusy);
+
+  $('#scope').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('Six slides, six stamps, and a bench where two exhibits sat side by side.'); return; }
+    if (!R.ready()) {
+      var miss = R.missing()[0];
+      ER.say(({ gillian: '&ldquo;Ask me what I found,&rdquo; says Dr Hesketh. &ldquo;Then you can find it again, or not.&rdquo;', manual: '&ldquo;Read the page by the sink,&rdquo; says Mrs Grayling. &ldquo;Fibres first, then the microscope.&rdquo;', tray: '&ldquo;Read the tray list,&rdquo; says Mrs Grayling. &ldquo;Which slide came from where.&rdquo;', refs: '&ldquo;Open drawer 112 in the cabinet,&rdquo; says Dr Hesketh. &ldquo;You will need the denim.&rdquo;' })[miss]);
+      return;
+    }
+    if (!scope) scope = makeScope();
+    scope.open();
+  });
+
+  /* ---------- the comparison microscope ---------- */
+  var Q = [{ id: 'q1', ref: 'FH/2 a', kind: 'nylon', col: 'black', sp: 1 }, { id: 'q2', ref: 'FH/2 b', kind: 'cotton', col: 'blue', sp: 0 },
+    { id: 'q3', ref: 'FH/2 c', kind: 'nylon', col: 'black', sp: 0 }, { id: 'q4', ref: 'FH/3 a', kind: 'wool', col: 'red', sp: 0 },
+    { id: 'q5', ref: 'FH/5 a', kind: 'wool', col: 'red', sp: 0 }, { id: 'q6', ref: 'FH/6 a', kind: 'nylon', col: 'black', sp: 1 }];
+  var K = [{ id: 'j', ref: 'FH/6 R', name: 'the jumper', kind: 'wool', col: 'red', sp: 0 }, { id: 'g', ref: 'FH/5 R', name: 'the glove', kind: 'nylon', col: 'black', sp: 1 },
+    { id: 'd', ref: 'RC 112', name: 'the denim', kind: 'cotton', col: 'blue', sp: 0 }];
+  var COL = { red: '#b3262a', blue: '#2f4f8f', black: '#2c2e36' };
+  function desc(f) { return f.kind === 'wool' ? 'covered in scales' : f.kind === 'cotton' ? 'a flat ribbon that twists' : f.sp ? 'a smooth rod with dark specks' : 'a smooth rod with no specks'; }
+  function same(a, b) { return a.kind === b.kind && a.col === b.col && a.sp === b.sp; }
+  function fibre(f, mag, seed) {                         /* two lengths of fibre lying across the field, round 0,0 */
+    var r = CO.rnd(seed), s = '', n, i, k;
+    for (n = 0; n < 2; n++) {
+      var ang = (n ? -1 : 1) * (18 + r() * 40), off = (n ? 1 : -1) * (30 + r() * 40), w = mag === 400 ? 34 : 6, c = COL[f.col], g = '';
+      if (mag !== 400) g = '<path d="M-260 0Q-80 ' + (8 - r() * 16).toFixed(0) + ' 0 0T260 0" stroke="' + c + '" stroke-width="' + w + '" fill="none" stroke-linecap="round"/>';
+      else if (f.kind === 'wool') {
+        g = '<rect x="-260" y="' + (-w / 2) + '" width="520" height="' + w + '" rx="10" fill="' + CO.mix(c, '#ffffff', 0.18) + '"/><path d="M-260 ' + (-w / 2 + 3) + 'H260" stroke="#fff" stroke-width="2" opacity=".25"/>';
+        for (i = -250; i < 260; i += 13 + Math.round(r() * 6)) g += '<path d="M' + i + ' ' + (-w / 2) + 'q' + (6 + r() * 6).toFixed(0) + ' ' + (w / 2) + ' 0 ' + w + '" stroke="' + CO.mix(c, '#000000', 0.45) + '" stroke-width="1.6" fill="none"/>';
+      } else if (f.kind === 'cotton') {
+        var top = '', bot = '';
+        for (i = -260; i <= 260; i += 20) { k = Math.abs(Math.sin(i / 34)); top += (i === -260 ? 'M' : 'L') + i + ' ' + (-w / 2 * (0.35 + 0.65 * k)).toFixed(1); bot = 'L' + i + ' ' + (w / 2 * (0.35 + 0.65 * k)).toFixed(1) + bot; }
+        g = '<path d="' + top + bot.replace(/^L/, 'L') + 'Z" fill="' + CO.mix(c, '#ffffff', 0.2) + '"/>';
+        for (i = -260; i <= 260; i += 20) { k = Math.abs(Math.sin(i / 34)); if (k < 0.3) g += '<path d="M' + (i - 8) + ' -8L' + (i + 8) + ' 8" stroke="' + CO.mix(c, '#000000', 0.5) + '" stroke-width="2"/>'; }
+        g += '<path d="M-260 0H260" stroke="' + CO.mix(c, '#000000', 0.35) + '" stroke-width="1.4" stroke-dasharray="18 10" opacity=".7"/>';
+      } else {
+        g = '<rect x="-260" y="' + (-w / 2) + '" width="520" height="' + w + '" fill="' + CO.mix(c, '#ffffff', 0.12) + '"/><path d="M-260 -4H260" stroke="#c9ced8" stroke-width="' + (f.sp ? 3 : 5) + '" opacity="' + (f.sp ? 0.45 : 0.8) + '"/>';
+        if (f.sp) for (i = 0; i < 46; i++) g += '<circle cx="' + (-250 + r() * 500).toFixed(0) + '" cy="' + ((r() - 0.5) * (w - 8)).toFixed(0) + '" r="' + (1.2 + r() * 1.8).toFixed(1) + '" fill="#050507"/>';
+      }
+      s += '<g transform="translate(0 ' + off.toFixed(0) + ') rotate(' + ang.toFixed(0) + ')">' + g + '</g>';
+    }
+    return s;
+  }
+  function makeScope() {
+    var st = ER.flag('c-st') || { q: 'q1', k: 'j', mag: 100, s: {}, ask: 0, v: '' }, wait = false, CX = 500, CY = 255, RR = 185;
+    var box = ER.el('div', 'bn fm', '<svg viewBox="0 0 1000 600"><defs><clipPath id="hl"><path d="M' + CX + ' ' + (CY - RR) + 'A' + RR + ' ' + RR + ' 0 0 0 ' + CX + ' ' + (CY + RR) + 'Z"/></clipPath><clipPath id="hr"><path d="M' + CX + ' ' + (CY - RR) + 'A' + RR + ' ' + RR + ' 0 0 1 ' + CX + ' ' + (CY + RR) + 'Z"/></clipPath></defs><g id="body"></g></svg>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="f-go">Sign the fibre report</button></div>');
+    var svg = box.querySelector('svg'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('c-st', st); }
+    function qOf(id) { return Q.filter(function (x) { return x.id === id; })[0]; }
+    function kOf(id) { return K.filter(function (x) { return x.id === id; })[0]; }
+    function bt(id, x, y, w, label, on) { return '<g class="bt tg' + (on ? ' on' : '') + '" data-b="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="34" rx="4"/><text x="' + (x + w / 2) + '" y="' + (y + 23) + '" class="tB" font-size="16" fill="#2a2010" text-anchor="middle">' + label + '</text></g>'; }
+    function draw() {
+      var s = '<rect width="1000" height="600" fill="#1e2a22"/>', q = qOf(st.q), k = kOf(st.k);
+      /* questioned slides */
+      s += '<text x="83" y="36" class="tB" font-size="14" fill="#e2b85a" text-anchor="middle" letter-spacing="2">QUESTIONED</text>';
+      Q.forEach(function (x, i) {
+        var y = 60 + i * 80, stp = st.s[x.id];
+        s += '<g class="sl tg' + (st.q === x.id ? ' on' : '') + '" data-q="' + x.id + '"><rect class="bd" x="16" y="' + y + '" width="134" height="64" rx="3"/><rect x="22" y="' + (y + 8) + '" width="40" height="48" fill="#e4cf9a"/><text x="42" y="' + (y + 38) + '" class="tB" font-size="12" fill="#2a2010" text-anchor="middle">' + x.ref.replace(' ', '') + '</text>' +
+          '<rect x="70" y="' + (y + 18) + '" width="70" height="28" fill="#dfe8ee" opacity=".7"/><path d="M76 ' + (y + 32) + 'q14 -6 28 0t30 0" stroke="' + COL[x.col] + '" stroke-width="2" fill="none"/>' +
+          (stp ? '<text x="105" y="' + (y + 62) + '" class="tK" font-size="13" fill="#a8261c" text-anchor="middle">' + { j: 'JUMPER', g: 'GLOVE', d: 'DENIM', n: 'NONE' }[stp] + '</text>' : '') + '</g>';
+      });
+      /* known slides */
+      s += '<text x="917" y="96" class="tB" font-size="14" fill="#e2b85a" text-anchor="middle" letter-spacing="2">KNOWN</text>';
+      K.forEach(function (x, j) {
+        var y = 120 + j * 110;
+        s += '<g class="sl tg' + (st.k === x.id ? ' on' : '') + '" data-k="' + x.id + '"><rect class="bd" x="850" y="' + y + '" width="134" height="64" rx="3"/><rect x="856" y="' + (y + 8) + '" width="44" height="48" fill="#cfe0f0"/><text x="878" y="' + (y + 38) + '" class="tB" font-size="12" fill="#1d2a3a" text-anchor="middle">' + x.ref.replace(' ', '') + '</text>' +
+          '<text x="942" y="' + (y + 30) + '" class="tB" font-size="14" fill="#2a2010" text-anchor="middle">' + x.name.replace('the ', '') + '</text><path d="M912 ' + (y + 44) + 'q14 -6 28 0t30 0" stroke="' + COL[x.col] + '" stroke-width="2" fill="none"/></g>';
+      });
+      /* magnification */
+      s += bt('m100', 420, 10, 74, '×100', st.mag === 100) + bt('m400', 506, 10, 74, '×400', st.mag === 400);
+      /* the field */
+      s += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (RR + 10) + '" fill="#0a0e0b"/>';
+      s += '<g clip-path="url(#hl)"><rect x="' + (CX - RR) + '" y="' + (CY - RR) + '" width="' + RR + '" height="' + (2 * RR) + '" fill="#f6f1e2"/><g transform="translate(' + (CX - RR / 2) + ' ' + CY + ')">' + fibre(q, st.mag, Q.indexOf(q) * 17 + 3) + '</g></g>';
+      s += '<g clip-path="url(#hr)"><rect x="' + CX + '" y="' + (CY - RR) + '" width="' + RR + '" height="' + (2 * RR) + '" fill="#f6f1e2"/><g transform="translate(' + (CX + RR / 2) + ' ' + CY + ')">' + fibre(k, st.mag, K.indexOf(k) * 23 + 9) + '</g></g>';
+      s += '<path d="M' + CX + ' ' + (CY - RR) + 'V' + (CY + RR) + '" stroke="#0a0e0b" stroke-width="3"/><circle cx="' + CX + '" cy="' + CY + '" r="' + RR + '" fill="none" stroke="#3a3a32" stroke-width="6"/>';
+      s += '<text x="250" y="66" class="tB" font-size="15" fill="#f2ead2" letter-spacing="1">' + q.ref + '</text><text x="750" y="66" class="tB" font-size="15" fill="#f2ead2" text-anchor="end" letter-spacing="1">' + k.ref + ' · ' + k.name.toUpperCase() + '</text>';
+      if (!st.ask) {
+        s += '<text x="500" y="474" class="tG" font-size="18" fill="#f2ead2" text-anchor="middle">' + q.ref + ' is consistent with</text>';
+        s += bt('sj', 190, 488, 146, 'the jumper FH/6', st.s[q.id] === 'j') + bt('sg', 346, 488, 146, 'the glove FH/5', st.s[q.id] === 'g') + bt('sd', 502, 488, 146, 'denim RC 112', st.s[q.id] === 'd') + bt('sn', 658, 488, 146, 'none of these', st.s[q.id] === 'n');
+      } else {
+        s += '<rect x="160" y="446" width="680" height="148" rx="4" fill="#f2ead2"/><text x="176" y="466" class="tB" font-size="14" fill="#7a2a22" letter-spacing="2">DR HESKETH: &#8220;THEY HAD BEEN TOGETHER. WHAT DOES THAT TELL US?&#8221;</text>';
+        [['a', 'Joel wore the glove that night.'], ['b', 'They touched, or touched the same thing, at some time. Their labels show one such time.'], ['c', 'Nothing at all: fibres cannot pass from one thing to another.']].forEach(function (o, j) {
+          s += '<g class="bt tg' + (st.v === o[0] ? ' on' : '') + '" data-b="v' + o[0] + '"><rect x="176" y="' + (476 + j * 38) + '" width="648" height="32" rx="4"/><text x="190" y="' + (498 + j * 38) + '" class="tG" font-size="17" fill="#2a2010">' + o[1] + '</text></g>';
+        });
+      }
+      svg.querySelector('#body').innerHTML = s;
+    }
+    function step() { return st.ask ? 'ask' : 'stamp'; }
+    svg.addEventListener('click', function (e) {
+      if (wait || R.next) return;
+      var sl = e.target.closest('.sl'), b = e.target.closest('.bt');
+      if (sl && sl.getAttribute('data-q')) { st.q = sl.getAttribute('data-q'); CO.sfx.slide(); keep(); draw(); msg('<b>' + qOf(st.q).ref + '</b> on the left stage.'); return; }
+      if (sl && sl.getAttribute('data-k')) { st.k = sl.getAttribute('data-k'); CO.sfx.slide(); keep(); draw(); msg('<b>' + kOf(st.k).ref + '</b>, ' + kOf(st.k).name + ', on the right stage.'); return; }
+      if (!b) return;
+      var id = b.getAttribute('data-b');
+      if (id === 'm100' || id === 'm400') { st.mag = +id.slice(1); CO.sfx.click(); keep(); draw(); msg(st.mag === 400 ? '×400: the detail of each fibre.' : '×100: colour and shape.'); return; }
+      if (id.charAt(0) === 's' && !st.ask) { st.s[st.q] = id.charAt(1); CO.sfx.stamp(); keep(); draw(); msg(qOf(st.q).ref + ' stamped: ' + ({ j: 'consistent with the jumper', g: 'consistent with the glove', d: 'consistent with the denim', n: 'consistent with none of these' })[st.s[st.q]] + '.'); return; }
+      if (id.charAt(0) === 'v' && st.ask) {
+        st.v = id.charAt(1); keep(); draw();
+        if (!ER.check('v', st.v)) { ER.sfx.no(); msg(st.v === 'a' ? '&ldquo;That is what I told the jury,&rdquo; says Dr Hesketh. Mrs Grayling turns the pages of your notebook. &ldquo;Look at the labels of FH/5 and FH/6. Where were they both at half past nine on 10 November 2006?&rdquo;' : '&ldquo;Every contact leaves a trace,&rdquo; says Mrs Grayling, and points at the brass letters on the wall. &ldquo;That is the whole trade.&rdquo;'); return; }
+        finish();
+      }
+    });
+    function reason(q, v) {
+      if (v === 'n') { var k = K.filter(function (x) { return same(x, q); })[0]; return 'Look again at ' + q.ref + ' beside ' + k.name + ', at ×400. Can you find one difference in kind, colour or detail? &ldquo;Consistent with&rdquo; does not mean important; it means no difference can be seen.'; }
+      var kk = kOf(v);
+      if (q.kind !== kk.kind) return 'At ×400, ' + q.ref + ' is ' + desc(q) + '; the fibre of ' + kk.name + ' is ' + desc(kk) + '. Not the same kind of fibre.';
+      if (q.col !== kk.col) return q.ref + ' and ' + kk.name + ' are not the same colour. Look at ×100.';
+      return 'Same colour, same smooth rod. Now go up to ×400 and look for specks: ' + q.ref + ' is ' + desc(q) + ', and the fibre of ' + kk.name + ' is ' + desc(kk) + '.';
+    }
+    box.querySelector('#f-go').addEventListener('click', function () {
+      if (wait || R.next) return;
+      if (st.ask) { msg('Answer Dr Hesketh first: click one of the three cards.'); return; }
+      var left = Q.filter(function (x) { return !st.s[x.id]; }).length;
+      if (left) { ER.sfx.no(); msg(left + (left === 1 ? ' slide has' : ' slides have') + ' no stamp yet.'); return; }
+      var bad = Q.filter(function (x) { return !ER.check(x.id, st.s[x.id]); });
+      if (bad.length) { ER.sfx.no(); st.q = bad[0].id; keep(); draw(); msg((bad.length > 1 ? '<b>' + bad.length + ' slides are not right yet.</b> ' : '') + reason(bad[0], st.s[bad[0].id])); return; }
+      st.ask = 1; keep(); draw(); CO.sfx.pen();
+      msg('Dr Hesketh reads your stamps. The glove carries the jumper&rsquo;s wool, and the jumper carries the glove&rsquo;s nylon. &ldquo;There,&rdquo; she says. &ldquo;They had been together.&rdquo; Choose your answer.');
+    });
+    function finish() {
+      var file = ER.exitOk([Q.map(function (x) { return st.s[x.id]; }).join('') + '-' + st.v]);
+      if (!file) { ER.sfx.no(); msg('Dr Hesketh reads the report twice and does not sign it.'); return; }
+      wait = true; R.solve(file); CO.sfx.stamp();
+      msg('<b>Bench 3, 09.30, 10 November 2006.</b> Dr Hesketh signs the fibre report.');
+      CO.mine('fibres', 'What the fibres say', '<p>FH/2, the lower part of the door glass, by the latch: black nylon with specks, consistent with the glove; blue cotton, consistent with denim (which proves little); black nylon with no specks, consistent with nothing here.</p><p>FH/3, the upper part: red wool, consistent with Joel&rsquo;s jumper. He said he knocked on the glass.</p><p>Wool on the glove and nylon on the jumper: the two were opened side by side on bench 3 at 09.30 on 10 November 2006. Those fibres prove nothing about who wore what.</p>');
+      setTimeout(function () {
+        ER.closeAll(); CO.solved(); R.busy = true;
+        ER.narrate([
+          'Dr Hesketh is quiet for a moment. &ldquo;Bench 3,&rdquo; she says. &ldquo;I put the glove and the jumper side by side so that I could compare them. It saved walking. Our rules allowed it then. They do not allow it now, and I know exactly why.&rdquo;',
+          '&ldquo;So the wool on the glove and the nylon on the jumper may have changed places on my own bench. They prove nothing about who wore what.&rdquo;',
+          'Mrs Grayling reads out the rest. &ldquo;Lower part of the glass, by the latch: black nylon with specks, like the glove. A blue cotton thread, like millions of pairs of jeans. And a black nylon with no specks, like nothing we have. Upper part: red wool, like Joel&rsquo;s jumper.&rdquo;',
+          '&ldquo;He said he knocked on the glass,&rdquo; says Dr Hesketh. &ldquo;Red wool is what a knock in a red jumper leaves. It fits his story as well as it fitted mine.&rdquo;',
+          'The telephone on the wall rings. It is Dr Jalloh, in the DNA laboratory upstairs. &ldquo;The parents&rsquo; profiles are done,&rdquo; he says. &ldquo;And I have an idea you are all going to like. Come up.&rdquo;'
+        ], function () { R.busy = false; R.go(); });
+      }, 2400);
+    }
+    draw();
+    msg(st.ask ? 'Answer Dr Hesketh: click one of the three cards.' : 'Questioned slides on the left, known fibres on the right. Compare them side by side, then stamp each questioned slide.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, step: step };
+  }
+})();
+</script>
+</body>
+</html>

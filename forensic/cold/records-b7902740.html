@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Records Office · Under Seal</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="cold.css">
+<style>
+  body{--bg:#1e1610;--accent:#e9b860;--font-display:'Special Elite',monospace;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(40,30,20,.96);--tc-ink:#f2e6cc;--cap-bg:rgba(36,26,18,.94);--panel:#2a2018;--face-bg:#2e2a34;--q-ink:#e9b860;--fade:#0a0704;--hud-bg:rgba(36,26,18,.86)}
+  .tc-room{font-family:'Special Elite',monospace;letter-spacing:.04em;font-size:clamp(34px,4.8vw,62px)}
+  .tk-name{font-family:'Special Elite',monospace}
+  .rain{animation:rain .5s steps(2,end) infinite}
+  @keyframes rain{to{transform:translate(-14px,40px)}}
+  .lampg{animation:lampg 8s steps(1,end) infinite}
+  @keyframes lampg{0%{opacity:1}80%{opacity:1}81%{opacity:.88}83%{opacity:1}}
+
+  /* the sorting rack */
+  .so{width:min(1100px,96vw)}
+  .so-desk{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:#5a3e24 linear-gradient(160deg,#6a4a2c,#3a2816);padding:14px;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.7);max-height:calc(100vh - 220px);overflow:auto}
+  .so-tray{display:flex;flex-direction:column;gap:6px;min-height:200px;padding:8px;background:rgba(0,0,0,.2);border-radius:3px}
+  .so-tray:before{content:'THE REPORT OF 13 NOVEMBER 2006, CUT INTO ITS SEVEN CONCLUSIONS';font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.16em;color:#f2e6cc;opacity:.8}
+  .so-holes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .hole{display:flex;flex-direction:column;gap:5px;min-height:150px;padding:8px;background:#2a1c10;border:3px solid #8a6a3a;border-radius:3px;cursor:pointer;box-shadow:inset 0 10px 18px rgba(0,0,0,.5)}
+  .hole:hover{border-color:#e9b860}
+  .hole h6{margin:0 0 2px;padding:3px 8px;background:#c9a54a;color:#2a1c10;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;text-align:center;border-radius:2px}
+  .card{padding:6px 10px 6px 30px;background:#f4ecd6;color:#2a2214;font-family:'Special Elite',monospace;font-size:13.5px;line-height:1.35;border-radius:2px;cursor:pointer;position:relative;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+  .card b{position:absolute;left:9px;top:6px;font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#7a2a22}
+  .card:hover{background:#fffaf0}
+  .card.held{outline:3px solid #e9b860;transform:rotate(-1deg)}
+  .hole .card{font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampL" cx="50%" cy="10%" r="80%"><stop offset="0" stop-color="#ffe0a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="58%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#0a0704" stop-opacity=".35"/><stop offset="1" stop-color="#050302" stop-opacity=".9"/></radialGradient>
+  <clipPath id="winC"><rect x="640" y="40" width="260" height="80"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1080" fill="#4a3624"/>
+<!-- shelves of files to the ceiling -->
+<g id="shelves"></g>
+<!-- the high window, with rain -->
+<g id="window" class="hot"><rect x="640" y="40" width="260" height="80" fill="#0e1622"/><g clip-path="url(#winC)"><g class="rain" stroke="#7a9ab8" stroke-width="2" opacity=".7" id="drops"></g></g>
+  <rect x="634" y="34" width="272" height="92" fill="none" stroke="#2a1c10" stroke-width="10"/><path d="M770 40v80" stroke="#2a1c10" stroke-width="6"/></g>
+<!-- the card index -->
+<g id="cards" class="hot"><rect x="60" y="160" width="290" height="380" fill="#7a5632"/><g id="drawers"></g><rect x="60" y="160" width="290" height="380" fill="none" stroke="#3a2614" stroke-width="6"/></g>
+<!-- the review page on the wall -->
+<g id="manual" class="hot"><rect x="1090" y="200" width="130" height="170" fill="#f7f6f1" transform="rotate(1.5 1155 285)"/><rect x="1090" y="200" width="130" height="18" fill="#4a525a" transform="rotate(1.5 1155 285)"/>
+  <g stroke="#8a9098" stroke-width="2" transform="rotate(1.5 1155 285)"><path d="M1102 236h104M1102 248h90M1102 260h104M1102 278h80M1102 290h104M1102 302h96M1102 320h104M1102 332h70M1102 344h96"/></g><circle cx="1155" cy="204" r="4" fill="#a8261c"/></g>
+<!-- the pigeonhole rack -->
+<g id="rack" class="hot"><rect x="1300" y="160" width="250" height="380" fill="#6a4a2a"/><g id="holes"></g><rect x="1300" y="160" width="250" height="380" fill="none" stroke="#3a2614" stroke-width="7"/>
+  <text x="1425" y="152" class="tB" font-size="15" fill="#e9b860" text-anchor="middle" letter-spacing="3">REVIEW</text></g>
+<!-- the long table with the 2006 file on it -->
+<rect x="-1000" y="680" width="3600" height="800" fill="#2a1e14"/><path d="M-1000 680H2600" stroke="#1a120a" stroke-width="5"/>
+<rect x="300" y="560" width="1000" height="26" fill="#7a5a36"/><rect x="300" y="586" width="1000" height="94" fill="#5a3e24"/><path d="M330 680v130M1270 680v130" stroke="#2a1c10" stroke-width="14"/>
+<g><path d="M860 560v-120" stroke="#2a3a2a" stroke-width="6"/><path d="M800 444q60 -50 120 0z" fill="#1f5a3a"/><path d="M800 444h120" stroke="#c9a54a" stroke-width="3"/><path d="M820 446l-160 114h400l-160 -114z" fill="url(#lampL)" class="lampg" pointer-events="none"/><rect x="830" y="552" width="60" height="8" fill="#c9a54a"/></g>
+<g id="report" class="hot"><rect x="400" y="530" width="84" height="30" fill="#fbfaf6" transform="rotate(-4 442 545)"/><rect x="400" y="530" width="10" height="30" fill="#6a1e22" transform="rotate(-4 442 545)"/><g stroke="#8a8a8a" stroke-width="1.4" transform="rotate(-4 442 545)"><path d="M416 538h60M416 545h56M416 552h60"/></g></g>
+<g id="stmts" class="hot"><rect x="540" y="534" width="96" height="26" fill="#c9a46a" transform="rotate(3 588 547)"/><rect x="552" y="530" width="72" height="8" fill="#efe6cf" transform="rotate(3 588 547)"/></g>
+<g id="photos" class="hot"><rect x="690" y="528" width="96" height="32" fill="#b89a6a" transform="rotate(-2 738 544)"/><path d="M690 528l48 18 48 -18" stroke="#8a6a3a" stroke-width="2" fill="none" transform="rotate(-2 738 544)"/><rect x="702" y="548" width="60" height="8" fill="#a8261c" transform="rotate(-2 738 544)"/></g>
+<g id="daybook" class="hot"><rect x="940" y="528" width="104" height="32" fill="#2a3a5a"/><rect x="944" y="532" width="96" height="24" fill="#f4f0e2"/><path d="M992 532v24" stroke="#c9786a" stroke-width="2"/><g stroke="#9ab0c8" stroke-width="1.4"><path d="M948 540h40M948 548h36M996 540h40M996 548h30"/></g></g>
+<!-- people -->
+<g id="judith" class="hot" transform="translate(200 884) scale(.97)"></g>
+<g id="gillian" class="hot" transform="translate(1210 888)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To Bay Eleven, with a torch</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="cold.js"></script>
+<script>
+(function () {
+  var $ = ER.$, R = null, sorter = null;
+
+  (function () {
+    var s = '', i, j, r = CO.rnd(77);
+    for (i = 0; i < 5; i++) {
+      var y = 150 + i * 100;
+      s += '<rect x="360" y="' + y + '" width="920" height="10" fill="#2a1c10"/>';
+      for (j = 0; j < 40; j++) { var h = 60 + r() * 30, x = 366 + j * 23; s += '<rect x="' + x + '" y="' + (y - h) + '" width="20" height="' + h.toFixed(0) + '" fill="' + ['#c9a46a', '#b8945a', '#8a6a42', '#d8c49a', '#6a4a2a'][Math.floor(r() * 5)] + '"/><rect x="' + (x + 4) + '" y="' + (y - h + 8) + '" width="12" height="16" fill="#f2ead2" opacity=".8"/>'; }
+    }
+    $('#shelves').innerHTML = s;
+    s = ''; for (i = 0; i < 8; i++) for (j = 0; j < 4; j++) s += '<rect x="' + (72 + j * 68) + '" y="' + (172 + i * 45) + '" width="62" height="40" fill="#8a6a42"/><rect x="' + (92 + j * 68) + '" y="' + (196 + i * 45) + '" width="22" height="6" rx="2" fill="#c9a54a"/><rect x="' + (86 + j * 68) + '" y="' + (178 + i * 45) + '" width="34" height="10" fill="#f2ead2"/>';
+    $('#drawers').innerHTML = s;
+    s = ''; for (i = 0; i < 2; i++) for (j = 0; j < 2; j++) s += '<rect x="' + (1316 + j * 116) + '" y="' + (176 + i * 180) + '" width="104" height="166" fill="#2a1c10"/><rect x="' + (1336 + j * 116) + '" y="' + (184 + i * 180) + '" width="64" height="14" fill="#c9a54a"/>';
+    $('#holes').innerHTML = s;
+    s = ''; for (i = 0; i < 30; i++) s += '<path d="M' + (640 + (i * 53) % 300) + ' ' + (30 + (i * 37) % 100) + 'l-7 20"/>';
+    $('#drops').innerHTML = s;
+    $('#judith').innerHTML = CO.fig('judith'); $('#gillian').innerHTML = CO.fig('gillian');
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'cold', storyTitle: 'Under Seal', id: 'records', no: 'V', title: 'The Records Office',
+    go: 'Open the 2006 file',
+    intro: [
+      'In the DNA laboratory you checked the profiles column by column. FH/7, Joel&rsquo;s swab, can be the child of Irene and Glyn at every locus. The glove matched him at the four loci read in 2006, but read in full in 2026 it differs from him at six of the ten. And it cannot be their child at all: at D16 both of its numbers could only have come from Irene, and at D18 it has a number that neither parent has. Not Joel, and not his brother.',
+      '&ldquo;One in 3,000&rdquo; was true. In a town of 60,000 people it meant about twenty of them.',
+      'Ten past one. The records office is in the basement too, behind the store: the Laboratory&rsquo;s memory, in cardboard. It has started to rain.'
+    ],
+    exit: {"next":"oldend","w":{"730e4dfb":"5045e9b4"}}, tags: {"s1":["8f5f44d0"],"s2":["a4bcf1db"],"s3":["25b13f4b"],"s4":["c530cb21"],"s5":["364c28cf"],"s6":["10fd8f5a"],"s7":["4c3c78cc"]},
+    hints: hints, onBegin: begin
+  });
+
+  R = CO.room({ id: 'e', need: ['gillian', 'report', 'manual', 'photos', 'daybook', 'stmts'], lock: '#rack' });
+
+  function hints() {
+    if (R.next) return ['go', ['The review is filed. To Bay Eleven: the button at the bottom.']];
+    if (sorter && sorter.isOpen()) return ['sort', [
+      'Take each of the seven sentences in turn. Is it something Dr Hesketh saw or measured, or something she decided? Was it about the right panel? Does it say more than the evidence allows? Has a newer method changed it?',
+      'Two sentences are about the panel that was on the light box, which is not Iveson&rsquo;s. Two say more than a microscope can show. Two are things she saw that are still true tonight. One was true of the methods of 2006 and is not true now.',
+      'Look for the words &ldquo;came from&rdquo; and &ldquo;shows that&rdquo;: they say more than a microscope can see. Look for 45 by 60 and &ldquo;a single blow&rdquo;: that is the panel on the light box. And Dr Jalloh read all ten loci from the same glove last week.'
+    ]];
+    if (!R.ready()) return ['look', [
+      'A person to hear and five papers to read (the pips count them).',
+      'Dr Hesketh at the table. On the table, from left to right: her report, the folder of statements, the envelope of photographs, the photographer&rsquo;s day book. On the wall by the rack: the manual page about reviews.'
+    ]];
+    return ['rack', ['Everything is read. Click the pigeonhole rack on the right.']];
+  }
+
+  function begin() {
+    R.paint();
+    if (R.next) { R.busy = false; R.go(); ER.say('Two that stand, two about the wrong panel, two that said too much, one overtaken.'); return; }
+    if (R.told('in')) { R.busy = false; ER.say('The records office. Rain on the little window.'); return; }
+    R.tell('in');
+    ER.narrate([
+      'The records office smells of paper, dust and rain. Files stand on shelves up to the ceiling, a card index fills one wall, and a lamp with a green shade lights the long table. Rain ticks on a little window high up at street level.',
+      'Mrs Grayling lays the 2006 file out on the table, sheet by sheet. Dr Hesketh sits down opposite with her coat still on and picks up the first sheet: her own report.'
+    ], function () { R.busy = false; R.paint(); });
+  }
+
+  function seen(k) { return function (ok) { if (ok) R.tell(k); }; }
+  $('#gillian').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('&ldquo;I remember it so clearly,&rdquo; says Dr Hesketh. &ldquo;I remember it wrong. That is the worst kind of remembering.&rdquo;'); return; }
+    ER.talk({ who: 'Dr Gillian Hesketh', role: 'Glass and fibres, retired', face: FACE('gillian'), clue: { id: 'gillian5', title: 'Dr Hesketh: I always looked at the photographs first', kind: 'Statement' }, done: seen('gillian'), lines: [
+      'There it is: my report of the thirteenth of November, two thousand and six. Seven conclusions. I was proud of it.',
+      { q: 'Did you see the scene photographs before you wrote it?', a: 'Of course. I always looked at the photographs first. Always. It was the first thing I did with any case.' },
+      { q: 'And in this case?', a: 'In this case too, I should think. I remember the door perfectly well. A black door, and a yard full of bins.' },
+      { note: 'She says it firmly. Then she frowns, as if the black door she remembers might belong to some other case.' },
+      { q: 'What would you change now?', a: 'Sort it yourself, and then tell me. I am not, tonight, the best judge of my own work.' }
+    ] });
+  });
+  CO.thing('#judith', null, function () { return R.next ? '&ldquo;Bay Eleven,&rdquo; says Mrs Grayling. &ldquo;I&rsquo;ve got two torches and one set of spare batteries. Don&rsquo;t argue.&rdquo;' : '&ldquo;Read everything on the table,&rdquo; says Mrs Grayling. &ldquo;The day book too. Mr Ingham wrote everything down. Nearly everything.&rdquo;'; }, R.isBusy);
+
+  var REPORT = '<h4>The Laboratory &middot; Report of Dr G. Hesketh &middot; Glass and fibres</h4><h3>Case G06/1187 &middot; R v Joel Garside &middot; Monday 13 November 2006</h3>' +
+    '<p>Exhibits examined: FH/2 and FH/3 (tape lifts), FH/4 (glass panel), FH/5 (glove), FH/6 (jumper). DNA work by Dr J. Hirst.</p><p><b>Conclusions</b></p><ol>' +
+    '<li>Exhibit FH/4 is a panel of glass 45 cm by 60 cm. Its radial cracks stop at an older crack across one corner.</li>' +
+    '<li>The panel was broken by a single blow, struck from the side marked S1, the yard side.</li>' +
+    '<li>Red wool fibres on the tape lifts FH/3 cannot be told apart, under the microscope, from the wool of the jumper FH/6.</li>' +
+    '<li>The red wool fibres on FH/3 came from the defendant&rsquo;s jumper.</li>' +
+    '<li>Red wool on the glove FH/5 shows that the glove was worn by the wearer of the jumper FH/6.</li>' +
+    '<li>The partial DNA profile from the glove FH/5 has the same numbers as the defendant&rsquo;s at the four loci that could be read.</li>' +
+    '<li>No more DNA could be read from the glove.</li></ol><p class="sig">G. Hesketh</p>';
+  $('#report').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: REPORT, cls: 'report', clue: { id: 'report', title: 'Dr Hesketh&rsquo;s report, 13 November 2006', kind: 'From the 2006 file' }, done: function () {
+      if (R.tell('report')) ER.say('&ldquo;Seven sentences,&rdquo; says Dr Hesketh. &ldquo;A boy went to prison on them. I should like them to be sorted carefully.&rdquo;');
+    } });
+  });
+  var STMTS = '<h4>From the 2006 file &middot; two statements</h4>' +
+    '<p><b>Mrs Gwenda Jessop, 16 Fore Street, 5 November 2006.</b> &ldquo;At about eleven o&rsquo;clock I heard a bang, and something like glass, out at the back. There had been fireworks all evening and I took no notice. At about twenty past eleven there was another crack of glass, and a shout. I looked out of my back window and saw a young man in a red jumper run out of the yard behind Iveson&rsquo;s. It was the Garside boy. I rang the police.&rdquo;</p>' +
+    '<p><b>Joel Garside, interviewed, 5 November 2006.</b> &ldquo;I was walking home along the back lane at about quarter past eleven. The gate to Iveson&rsquo;s yard was open and the glass in the back door was broken, low down by the handle. There was a torch moving about inside. I banged on the glass higher up with my elbow and shouted, to scare whoever it was. The glass broke where I hit it. The torch went off. I got scared and ran home. I didn&rsquo;t go in. I never touched any glove.&rdquo;</p>';
+  $('#stmts').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: STMTS, cls: 'statement', clue: { id: 'stmts', title: 'Mrs Jessop and Joel Garside, 2006', kind: 'Statements' }, done: function () {
+      if (R.tell('stmts')) ER.say('&ldquo;Two bangs,&rdquo; says Mrs Grayling. &ldquo;Twenty minutes apart. Nobody counted the first one, because of the fireworks.&rdquo;');
+    } });
+  });
+  var PHOTO = '<svg viewBox="0 0 300 250"><rect width="300" height="250" fill="#2a2a26"/><rect x="40" y="10" width="180" height="240" fill="#3a5a3a"/><rect x="40" y="10" width="180" height="240" fill="none" stroke="#1a1a16" stroke-width="4"/>' +
+    '<rect x="72" y="34" width="116" height="152" fill="#9ab0b0" opacity=".55"/><rect x="72" y="34" width="116" height="152" fill="none" stroke="#1a1a16" stroke-width="5"/>' +
+    '<rect x="146" y="40" width="34" height="16" fill="#e8e0c8"/><path d="M150 47h26M150 51h20" stroke="#5a1a14" stroke-width="1.5"/>' +
+    '<g stroke="#f4f4ee" stroke-width="1.3" fill="none" opacity=".9"><path d="M162 148l24 -18M162 148l24 20M162 148l10 36M162 148l-22 36M162 148l-58 22M162 148l-56 -18M162 148l-6 -110M162 148l12 -110"/><circle cx="162" cy="148" r="9"/><circle cx="162" cy="148" r="18" stroke-dasharray="9 7"/>' +
+    '<path d="M108 78l-14 -40M108 78l-34 -20M108 78l-34 16M108 78l-6 56M108 78l40 4M108 78l20 46"/><circle cx="108" cy="78" r="7"/><circle cx="108" cy="78" r="13" stroke-dasharray="7 6"/></g>' +
+    '<rect x="196" y="124" width="10" height="24" rx="3" fill="#c9a54a"/><rect x="236" y="190" width="40" height="56" fill="#3a3a36"/><rect x="242" y="196" width="28" height="44" fill="#4a4a46"/></svg>';
+  var PHOTOS = '<h4>FH/1 &middot; Photographs of the scene &middot; G06/1187</h4><p class="stampb">RECEIVED AT THE LABORATORY 13 NOV 2006</p> <p class="stampb">PRINTS TO DR G. HESKETH 14 NOV 2006 &middot; J.G.</p>' + PHOTO +
+    '<p>Print 6: the rear door of Iveson&rsquo;s from the yard, with the glass panel still in it. Enlarged tonight from the 2006 negative; the print of 2006 was nine centimetres by thirteen, and dark. The door is painted green. The sticker in the top corner of the panel reads NO CASH KEPT ON THESE PREMISES.</p>';
+  $('#photos').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: PHOTOS, cls: 'file', clue: { id: 'photos', title: 'FH/1: the photographs, and their envelope', kind: 'From the 2006 file' }, done: function () {
+      if (R.tell('photos')) ER.say('&ldquo;A green door,&rdquo; says Dr Hesketh, very quietly. &ldquo;Not black.&rdquo;');
+    } });
+  });
+  var DAYBOOK = '<h4>Photographic unit &middot; day book &middot; G. Ingham</h4><p>Wed 8 Nov 06</p>' +
+    '<p>14.10 from the Store: two panes of glass, G06/1187 FH/4 and G06/1191 FH/4. (Two FH/4s in one week: PC Holroyd and PC Hanif. Ha.)</p>' +
+    '<p>Both paper bags split along the bottom under the weight. Photographed each pane on both sides, with a scale and its own label beside it.</p>' +
+    '<p>16.30 New bags, new seals. 1187 FH/4 sealed 04471. 1191 FH/4 sealed 04417. Old labels cut off and stapled on to the new bags.</p>' +
+    '<p>17.50 Both left on the trolley for the Store, with a note. In late tomorrow: dentist. G.I.</p>';
+  $('#daybook').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: DAYBOOK, cls: 'daybook', clue: { id: 'daybook', title: 'Mr Ingham&rsquo;s day book, 8 November 2006', kind: 'Photographic unit' }, done: function () {
+      if (R.tell('daybook')) ER.say('&ldquo;He wrote the seals in his own book,&rdquo; says Mrs Grayling, &ldquo;and never on our labels.&rdquo;');
+    } });
+  });
+  var DIAG = '<svg viewBox="0 0 270 200"><rect width="270" height="200" fill="#fff"/>' +
+    '<text x="12" y="22" font-family="Barlow Condensed,sans-serif" font-size="13" fill="#3a3a3a">WHAT HAS CHANGED SINCE 2006</text>' +
+    '<rect x="12" y="34" width="246" height="26" fill="#4a525a"/><text x="96" y="52" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#fff" text-anchor="middle">2006</text><text x="200" y="52" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#fff" text-anchor="middle">TODAY</text>' +
+    [['DNA', 'ten loci;', 'many cells', 'more loci;', 'a few cells'], ['fibres', '&#8220;matched&#8221;,', '&#8220;came from&#8221;', '&#8220;consistent', 'with&#8221;'], ['glass', 'the 3R rule', '', 'the 3R rule', '(unchanged)']].map(function (r, i) {
+      var y = 84 + i * 40;
+      return '<text x="14" y="' + y + '" font-family="Barlow Condensed,sans-serif" font-size="14" fill="#1d3f6e">' + r[0] + '</text><text x="96" y="' + y + '" font-family="EB Garamond,serif" font-size="14" fill="#2a2a2a" text-anchor="middle">' + r[1] + '</text><text x="96" y="' + (y + 15) + '" font-family="EB Garamond,serif" font-size="14" fill="#2a2a2a" text-anchor="middle">' + r[2] + '</text>' +
+        '<text x="200" y="' + y + '" font-family="EB Garamond,serif" font-size="14" fill="#1f6b5a" text-anchor="middle">' + r[3] + '</text><text x="200" y="' + (y + 15) + '" font-family="EB Garamond,serif" font-size="14" fill="#1f6b5a" text-anchor="middle">' + r[4] + '</text><path d="M12 ' + (y + 22) + 'h246" stroke="#e2e2e2"/>';
+    }).join('') + '</svg>';
+  var MANUAL = '<h4>Laboratory Manual &middot; Section 12: Reviews</h4><h3>Looking again at an old case</h3><div class="two"><div>' +
+    '<p>A <b>review</b> asks four questions of every finding.</p>' +
+    '<p>1. Is it an <b>observation</b> or a <b>conclusion</b>? An observation is what was seen or measured; a conclusion is what somebody decided it meant. A careful observation can still be true twenty years later.</p>' +
+    '<p>2. Was it about the right item, with the right information? Check the label, the continuity, and what the expert was given, and when.</p>' +
+    '<p>3. What could the methods of the time do? In 2006 a DNA profile needed many cells; today a few are enough, and more loci are read.</p></div>' + DIAG + '</div>' +
+    '<p>4. Was it worded as strongly as the evidence allowed? Many reports of that time said fibres &ldquo;matched&rdquo; or &ldquo;came from&rdquo; a garment. Today we write &ldquo;consistent with&rdquo;, and say how common such fibres are.</p>' +
+    '<p class="rule">Say plainly what has changed, and why. An expert can be honest and still be wrong.</p><p class="pg">12.1</p>';
+  $('#manual').addEventListener('click', function () {
+    if (R.busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual121', title: 'Looking again at an old case', kind: 'Laboratory Manual, 12.1' }, done: function () {
+      CO.terms(['review', 'observation', 'conclusion']);
+      if (R.tell('manual')) ER.say('&ldquo;Honest and still wrong,&rdquo; says Dr Hesketh. &ldquo;I asked them to put that line in. In 2015, the year I retired.&rdquo;');
+    } });
+  });
+  CO.thing('#cards', null, 'The card index: one card for every case since 1971, in Mrs Grayling&rsquo;s handwriting from 1998 onwards. G06/1191: JOWETT&rsquo;S BAKERY, 3 HATTERS LANE. GUILTY PLEA, 12.12.06. EXHIBITS NOT EXAMINED. KEEP.', R.isBusy);
+  CO.thing('#window', null, 'Rain on the little window, and the feet of somebody hurrying home under an umbrella.', R.isBusy);
+
+  $('#rack').addEventListener('click', function () {
+    if (R.busy) return;
+    if (R.next) { ER.say('The review is filed in its four pigeonholes.'); return; }
+    if (!R.ready()) {
+      var miss = R.missing()[0];
+      ER.say(({ gillian: '&ldquo;Ask me about my report,&rdquo; says Dr Hesketh. &ldquo;While I am still brave.&rdquo;', report: '&ldquo;Read the report first,&rdquo; says Mrs Grayling. &ldquo;It&rsquo;s on the left of the table.&rdquo;', manual: '&ldquo;Read the review page on the wall,&rdquo; says Mrs Grayling. &ldquo;It tells you how to sort.&rdquo;', photos: '&ldquo;Look at the photographs,&rdquo; says Mrs Grayling. &ldquo;And at the envelope they came in.&rdquo;', daybook: '&ldquo;Read Mr Ingham&rsquo;s day book,&rdquo; says Mrs Grayling. &ldquo;Eighth of November.&rdquo;', stmts: '&ldquo;Read the two statements in the folder,&rdquo; says Mrs Grayling. &ldquo;Both of them.&rdquo;' })[miss]);
+      return;
+    }
+    if (!sorter) sorter = makeSorter();
+    sorter.open();
+  });
+
+  /* ---------- the sorting rack: seven sentences, four pigeonholes ---------- */
+  var SENT = ['Exhibit FH/4 is a panel of glass 45 cm by 60 cm. Its radial cracks stop at an older crack across one corner.',
+    'The panel was broken by a single blow, struck from the side marked S1, the yard side.',
+    'Red wool fibres on the tape lifts FH/3 cannot be told apart, under the microscope, from the wool of the jumper FH/6.',
+    'The red wool fibres on FH/3 came from the defendant&rsquo;s jumper.',
+    'Red wool on the glove FH/5 shows that the glove was worn by the wearer of the jumper FH/6.',
+    'The partial DNA profile from the glove FH/5 has the same numbers as the defendant&rsquo;s at the four loci that could be read.',
+    'No more DNA could be read from the glove.'];
+  var HOLES = [['a', 'Still stands: seen, and still true'], ['b', 'About the wrong panel'], ['c', 'Says more than the evidence can'], ['d', 'Overtaken by newer methods']];
+  var WHY = [
+    'Sentence 1 describes the panel on the light box exactly: 45 by 60, the corner crack. But is that the panel from Iveson&rsquo;s door?',
+    'Sentence 2 is true of the panel on the light box. Which panel was that?',
+    'Sentence 3 only says what she saw: she could not tell the fibres apart. That is still true tonight. It does not say where they came from.',
+    '&ldquo;Came from&rdquo; is more than a microscope can see. Thousands of jumpers were knitted from that wool.',
+    'Bench 3, half past nine, 10 November 2006. Does red wool on the glove show who wore it?',
+    'Sentence 6 is still true: the four numbers are the same tonight. What changed is that the other six can now be read, and they are different.',
+    'Dr Jalloh read all ten loci from the same glove last week. What changed: the glove, or the methods?'];
+  function makeSorter() {
+    var st = ER.flag('e-st') || { at: [0, 0, 0, 0, 0, 0, 0] }, wait = false, held = -1;
+    var box = ER.el('div', 'bn so', '<div class="so-desk"><div class="so-tray" id="so-home"></div><div class="so-holes">' +
+      HOLES.map(function (h) { return '<div class="hole" data-h="' + h[0] + '"><h6>' + h[1] + '</h6></div>'; }).join('') + '</div></div>' +
+      '<div class="bn-foot"><p class="bmsg"></p><button type="button" class="btn" id="e-go">File the review</button></div>');
+    var home = box.querySelector('#so-home'), msgEl = box.querySelector('.bmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('e-st', st); }
+    function draw() {
+      ER.$$('.card', box).forEach(function (c) { c.parentNode.removeChild(c); });
+      SENT.forEach(function (t, i) {
+        var c = ER.el('div', 'card' + (held === i ? ' held' : ''), '<b>' + (i + 1) + '</b>' + ER.gloss(t)); c.setAttribute('data-s', i);
+        (st.at[i] ? box.querySelector('.hole[data-h="' + st.at[i] + '"]') : home).appendChild(c);
+      });
+    }
+    box.addEventListener('click', function (e) {
+      if (wait || R.next || (e.target.closest && e.target.closest('.w'))) return;
+      var c = e.target.closest('.card'), h = e.target.closest('.hole'), t = e.target.closest('#so-home');
+      if (c && (held < 0 || +c.getAttribute('data-s') === held || !h)) { var i = +c.getAttribute('data-s'); held = held === i ? -1 : i; CO.sfx.rustle(); draw(); msg(held >= 0 ? 'Sentence ' + (held + 1) + ' in your hand. Click a pigeonhole to put it in.' : 'Put down.'); return; }
+      if (held >= 0 && (h || t)) { st.at[held] = h ? h.getAttribute('data-h') : 0; msg(h ? 'Sentence ' + (held + 1) + ' goes in &ldquo;' + h.querySelector('h6').textContent + '&rdquo;.' : 'Sentence ' + (held + 1) + ' is back on the tray.'); held = -1; CO.sfx.rustle(); keep(); draw(); }
+    });
+    box.querySelector('#e-go').addEventListener('click', function () {
+      if (wait || R.next) return;
+      var left = st.at.filter(function (v) { return !v; }).length;
+      if (left) { ER.sfx.no(); msg(left + (left === 1 ? ' sentence is' : ' sentences are') + ' still on the tray. Every one must be filed.'); return; }
+      var bad = []; st.at.forEach(function (v, i) { if (!ER.check('s' + (i + 1), v)) bad.push(i); });
+      if (bad.length) { ER.sfx.no(); msg('<b>' + (bad.length === 1 ? 'One sentence is' : bad.length + ' sentences are') + ' in the wrong pigeonhole.</b> ' + WHY[bad[0]]); return; }
+      var file = ER.exitOk([st.at.join('')]);
+      if (!file) { ER.sfx.no(); msg('Mrs Grayling reads the four pigeonholes and shakes her head.'); return; }
+      wait = true; R.solve(file); CO.sfx.stamp();
+      msg('<b>Filed.</b> Dr Hesketh reads the four pigeonholes for a long time.');
+      CO.mine('review', 'The review of the 2006 report', '<p>Still stands: 3 (the wool could not be told apart from the jumper&rsquo;s) and 6 (the four numbers are the same).</p><p>About the wrong panel: 1 and 2.</p><p>Says more than the evidence can: 4 (&ldquo;came from&rdquo;) and 5 (&ldquo;shows that&rdquo;; and bench 3).</p><p>Overtaken by newer methods: 7. All ten loci were read in 2026.</p><p>The photographs reached Dr Hesketh on 14 November 2006, the day after her report. Mr Ingham&rsquo;s day book: 1187 FH/4 sealed 04471, 1191 FH/4 sealed 04417, old labels stapled to the new bags.</p>');
+      setTimeout(function () {
+        ER.closeAll(); CO.solved(); R.busy = true;
+        ER.narrate([
+          '&ldquo;Two that stand,&rdquo; says Dr Hesketh at last. &ldquo;Two about a panel I should never have had. Two that said more than I knew. And one that the machines have simply overtaken.&rdquo;',
+          '&ldquo;And the photographs,&rdquo; says Mrs Grayling, and holds up the envelope. &ldquo;Sent to you on the fourteenth. Your report is dated the thirteenth.&rdquo; Dr Hesketh closes her eyes. &ldquo;Then I did not look at them first. I remember it so clearly. I remember it wrong.&rdquo;',
+          'Mrs Grayling has the day book open at 8 November 2006. &ldquo;Two FH/4s in one week,&rdquo; she says. &ldquo;Faith Holroyd&rsquo;s and Farid Hanif&rsquo;s. Same initials, same afternoon in Photographic, same trolley. Jowett&rsquo;s Bakery, case 1191, was a guilty plea, so nobody ever opened its exhibits.&rdquo;',
+          '&ldquo;Then the other FH/4 is still in its box,&rdquo; says Dr Hesketh. &ldquo;Where?&rdquo; &ldquo;The old end,&rdquo; says Mrs Grayling. &ldquo;Bay Eleven, where the lights have not worked since 2019.&rdquo; Dr Hesketh stands up with her stick. &ldquo;Bring a torch.&rdquo;'
+        ], function () { R.busy = false; R.go(); });
+      }, 2400);
+    });
+    draw();
+    msg('Click a sentence to pick it up, then click a pigeonhole to file it. Click it again to pick it up again.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Seven o&rsquo;Clock · Under Seal</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-forensic.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="cold.css">
+<style>
+  body{--bg:#3a4656;--accent:#ffcf7a;--font-display:'Libre Baskerville',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(44,52,66,.95);--tc-ink:#f6efe2;--cap-bg:rgba(40,46,58,.93);--panel:#2a3240;--face-bg:#3a3644;--q-ink:#ffcf7a;--fade:#10141a;--hud-bg:rgba(40,46,58,.84)}
+  .tc-room{font-family:'Libre Baskerville',serif;font-size:clamp(38px,5.2vw,68px)}
+  .tk-name{font-family:'Libre Baskerville',serif}
+  .steam{animation:steam 3s steps(6,end) infinite}
+  @keyframes steam{0%{transform:translateY(0);opacity:.6}100%{transform:translateY(-40px);opacity:0}}
+  .lights{animation:lights 1s steps(1,end) forwards;opacity:0}
+  .lights.on{opacity:1}
+  .nl{cursor:pointer}
+  .nl.held>rect{stroke:#ffcf7a;stroke-width:4}
+  .doc.official .hw{font-family:'Caveat',cursive;font-size:24px;color:#1d2a66;line-height:1.15;margin-top:12px}
+
+  /* the card at the end */
+  .done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:16px 26px 14px;display:none;background:#fbf7ee;color:#2a2620;border-top:10px solid #7a2a22;box-shadow:0 20px 60px rgba(10,10,20,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:3px 14px 0;border:4px solid #2f6a4a;color:#2f6a4a;font-family:'Stardos Stencil',serif;font-weight:700;font-size:19px;letter-spacing:.1em;transform:rotate(-2deg);margin-bottom:8px}
+  .done h6{margin:9px 0 5px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#7a2a22}
+  .done p{margin:0 0 3px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'EB Garamond',serif;font-size:14.5px;line-height:1.25}
+  .done li{margin:0 0 3px}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#7a2a22;font-size:14px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf7ee}
+  .done small{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf7ee;color:#2a2620;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #7a2a22}
+  .rp h4{margin:0 0 3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.26em;text-transform:uppercase;color:#7a2a22}
+  .rp h3{margin:0 0 8px;font-family:'Patrick Hand',cursive;font-weight:normal;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 6px;color:#2a2620}
+  .rp textarea,.rp input[type=text]{width:100%;font-family:'Patrick Hand',cursive;font-size:22px;line-height:30px;color:#2b3a66;background:#fff repeating-linear-gradient(transparent 0 29px,#c9d3e6 29px 30px);border:1px solid #a6b0c9;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea{min-height:184px}
+  .rp input[type=text]{height:32px}
+  .rp .count{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'IBM Plex Mono',monospace;font-size:12.5px;opacity:.75}
+  .rp .btn{--accent:#7a2a22}.rp .btn:hover:not([disabled]){color:#fbf7ee}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="dawnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7ea0"/><stop offset=".7" stop-color="#d8a890"/><stop offset="1" stop-color="#f2d0a0"/></linearGradient>
+  <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe2b8" stop-opacity=".3"/><stop offset="1" stop-color="#ffe2b8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="40%" cy="40%" r="85%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#101820" stop-opacity=".15"/><stop offset="1" stop-color="#101820" stop-opacity=".6"/></radialGradient>
+</defs>
+<!-- the store again, in the first grey light -->
+<rect x="-1000" y="-400" width="3600" height="1080" fill="#8e9aa6"/>
+<g id="bricks" stroke="#808c98" stroke-width="2"></g>
+<rect x="-1000" y="470" width="3600" height="210" fill="#56626e"/><path d="M-1000 470H2600" stroke="#424e5a" stroke-width="5"/>
+<g stroke="#5a606a" stroke-width="14"><path d="M-1000 22H2600"/></g><g stroke="#7a4a3a" stroke-width="8"><path d="M-1000 44H2600"/></g>
+<!-- the grating, with dawn behind it and a rocket stick in it -->
+<g id="window" class="hot"><rect x="120" y="70" width="300" height="104" fill="url(#dawnG)"/>
+  <path d="M120 150q30 -12 60 0t60 0t60 0t60 0t60 0V174H120z" fill="#3a3a3a"/>
+  <rect class="lights" id="lights" x="120" y="120" width="300" height="54" fill="#fff6d0" opacity="0"/>
+  <path d="M232 160l70 -28" stroke="#6a3a2a" stroke-width="4"/><path d="M302 132l12 -5" stroke="#2a2a2a" stroke-width="6"/>
+  <g stroke="#2a2a2a" stroke-width="7"><path d="M150 70v104M180 70v104M210 70v104M240 70v104M270 70v104M300 70v104M330 70v104M360 70v104M390 70v104"/></g>
+  <rect x="112" y="62" width="316" height="120" fill="none" stroke="#4a504a" stroke-width="10"/></g>
+<path d="M120 174L520 680H880L420 174z" fill="url(#shaft)" pointer-events="none"/>
+<!-- racks in the morning -->
+<g id="racks" opacity=".85"></g>
+<!-- the desk, the kettle, the new labels -->
+<rect x="-1000" y="680" width="3600" height="800" fill="#525a62"/><path d="M-1000 680H2600" stroke="#323a42" stroke-width="5"/>
+<g><rect x="540" y="596" width="620" height="24" fill="#7a5a3a"/><rect x="540" y="620" width="620" height="60" fill="#5a4028"/><path d="M560 680v100M1140 680v100" stroke="#3a2a1a" stroke-width="12"/>
+  <path d="M580 596l6 -40h40l6 40z" fill="#d8dcd8"/><path d="M632 562q14 2 12 18" stroke="#d8dcd8" stroke-width="5" fill="none"/><g class="steam"><path d="M600 548q-8 -12 0 -24t0 -24" stroke="#f2f2f2" stroke-width="4" fill="none" opacity=".6"/></g></g>
+<g id="newlabels"></g>
+<!-- the trolley and the two bags -->
+<g><rect x="1170" y="560" width="220" height="12" fill="#8a9098"/><rect x="1170" y="660" width="220" height="12" fill="#8a9098"/><path d="M1176 560v140M1384 560v140" stroke="#6a7078" stroke-width="8"/><circle cx="1186" cy="708" r="10" fill="#1e1e1e"/><circle cx="1374" cy="708" r="10" fill="#1e1e1e"/></g>
+<g id="bags"></g>
+<g id="letter" class="hot"><rect x="1040" y="578" width="90" height="22" fill="#fdfdfb" transform="rotate(4 1085 589)"/><g stroke="#8a8f96" stroke-width="1.4" transform="rotate(4 1085 589)"><path d="M1048 584h60M1048 590h70M1048 596h40"/></g></g>
+<!-- people -->
+<g id="judith" class="hot" transform="translate(380 884) scale(.97)"></g>
+<g id="hamza" class="hot" transform="translate(1480 888) scale(.95)"></g>
+<g id="gillian" class="hot" transform="translate(220 888)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">SENT TO THE COMMISSION · 07.00</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Chain of custody: every hand that holds an exhibit signs for it, with the date and the time, and every seal on the bag must be on its label. A gap does not prove that anything went wrong, but it lets doubt in; other papers (a day book, seal numbers, sizes) can show what really happened.</li>
+    <li>When glass is struck, radial cracks run out from the point of impact and concentric (ring) cracks run round it. On a radial crack the rib marks meet the side away from the blow at a right angle: the 3R rule. On a ring crack it is the other way round.</li>
+    <li>A crack stops where it meets an earlier crack, so the cracks give the order of two blows, and even the order of the cracks of one blow.</li>
+    <li>Under the microscope, wool has scales, cotton is a flat twisted ribbon and nylon is a smooth rod. Fibres pass from one thing to another whenever they touch, so things from a scene and from a suspect are kept apart; a fibre that matches is only &ldquo;consistent with&rdquo; a source.</li>
+    <li>A DNA profile is a pair of numbers at each of several loci, one number from each parent. If at two loci a person has numbers that the parents could not have given, they cannot be that couple&rsquo;s child.</li>
+    <li>&ldquo;One in 3,000&rdquo; is how often a stranger would match by chance, not the chance of being innocent: in a town of 60,000 it means about 20 people. Relatives match far more often.</li>
+    <li>An expert can be honest and still be wrong. A fair review separates what was seen from what was concluded, asks whether the item and the information were the right ones, and says what the methods of the time could not do.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain it to a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>Under Seal &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="cold.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, held = '';
+
+  (function () {
+    var s = '', i, j, r = CO.rnd(41);
+    for (i = 0; i < 12; i++) s += '<path d="M-1000 ' + (60 + i * 34) + 'H2600"/>';
+    $('#bricks').innerHTML = s;
+    s = '';
+    for (i = 0; i < 4; i++) {
+      var x = 450 + i * 220;
+      for (j = 0; j < 4; j++) {
+        var y = 250 + j * 112, bx = x + 6, n = 0;
+        while (bx < x + 190 && n < 5) { var w = 30 + Math.round(r() * 22); if (bx + w > x + 194) break; var h = 64 + Math.round(r() * 30); s += '<rect x="' + bx + '" y="' + (y - h) + '" width="' + (w - 3) + '" height="' + h + '" fill="#8a7a62"/><rect x="' + (bx + 5) + '" y="' + (y - h + 12) + '" width="' + (w - 13) + '" height="12" fill="#e2dccc"/>'; bx += w; n++; }
+        s += '<rect x="' + x + '" y="' + y + '" width="200" height="8" fill="#6a727a"/>';
+      }
+      s += '<path d="M' + (x + 3) + ' 150V680M' + (x + 197) + ' 150V680" stroke="#5a626a" stroke-width="7"/>';
+    }
+    $('#racks').innerHTML = s;
+    var jc = {}, k; for (k in CAST.judith) jc[k] = CAST.judith[k]; jc.pose = 'mug';
+    $('#judith').innerHTML = CO.person(jc); $('#gillian').innerHTML = CO.fig('gillian');
+    var hc = {}; for (k in CAST.hamza) hc[k] = CAST.hamza[k]; hc.pose = 'mug'; hc.gloves = null; $('#hamza').innerHTML = CO.person(hc);
+  })();
+
+  ER.init({
+    theme: 'forensic', story: 'cold', storyTitle: 'Under Seal', id: 'dawn', no: 'VII', title: 'Seven o’Clock',
+    go: 'Finish the labels',
+    intro: [
+      'In Bay Eleven you found the Jowett&rsquo;s box by the register: shelf E, box 6. Its bag carried seal 04471, and Mr Ingham&rsquo;s day book said that 04471 was the Iveson panel. Inside lay a panel of 38 by 52 centimetres, with NO CASH KEPT ON THESE PREMISES on its yard side.',
+      'Both of its holes were struck from the yard. Hole B&rsquo;s cracks ran into hole A&rsquo;s and stopped, so hole A, by the latch, came first, and its fibres were consistent with the glove. Hole B, higher up, had the jumper&rsquo;s red wool. Just what Joel Garside said in 2006.',
+      'Twenty to seven on Thursday morning. Back at the desk in the store, the kettle is on again.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {"pair":["663a7b42","21cbe6ad"]},
+    hints: hints, onBegin: begin
+  });
+
+  var LAB = { '1187': ['G06/1187 · FH/4', 'Iveson&#8217;s · rear door panel', '38 × 52 cm'], '1191': ['G06/1191 · FH/4', 'Jowett&#8217;s · front window', '45 × 60 cm'] };
+  var BAG = { '04471': 1230, '04417': 1320 };
+  function at() { return ER.flag('g-at') || {}; }
+  function drawLabels() {
+    var a = at(), s = '';
+    ['1187', '1191'].forEach(function (k, i) {
+      var on = Object.keys(a).some(function (b) { return a[b] === k; }); if (on) return;
+      s += '<g class="nl hot' + (held === k ? ' held' : '') + '" data-l="' + k + '"><rect x="' + (700 + i * 160) + '" y="556" width="146" height="40" rx="3" fill="#ffffff" stroke="#9aa0a6"/><text x="' + (773 + i * 160) + '" y="572" class="tB" font-size="13" fill="#1a1a1a" text-anchor="middle">' + LAB[k][0] + '</text><text x="' + (773 + i * 160) + '" y="588" class="tB" font-size="12" fill="#5a1a14" text-anchor="middle">' + LAB[k][1] + '</text></g>';
+    });
+    $('#newlabels').innerHTML = s;
+    s = '';
+    Object.keys(BAG).forEach(function (b) {
+      var x = BAG[b];
+      s += '<g class="hot nb2" data-b="' + b + '"><path d="M' + (x - 40) + ' 560V478l10 -10h60l10 10v82z" fill="#c9a46a"/><rect x="' + (x - 34) + '" y="532" width="68" height="16" fill="#b3262a"/><text x="' + x + '" y="544" class="tM" font-size="11" fill="#fff" text-anchor="middle">' + b + '</text>';
+      if (a[b]) s += '<rect x="' + (x - 36) + '" y="482" width="72" height="40" fill="#ffffff" stroke="#9aa0a6"/><text x="' + x + '" y="498" class="tB" font-size="10" fill="#1a1a1a" text-anchor="middle">' + LAB[a[b]][0] + '</text><text x="' + x + '" y="512" class="tB" font-size="9" fill="#5a1a14" text-anchor="middle">' + LAB[a[b]][2] + '</text>';
+      else s += '<rect x="' + (x - 30) + '" y="486" width="60" height="30" fill="#e4cf9a" opacity=".7"/><path d="M' + (x - 24) + ' 496h48M' + (x - 24) + ' 506h40" stroke="#8a7240" stroke-width="2"/>';
+      s += '</g>';
+    });
+    $('#bags').innerHTML = s;
+  }
+
+  function hints() {
+    if (ER.flag('g-done')) return null;
+    if (!ER.flag('g-labels')) return ['labels', ['Click a new label on the desk, then click the bag it belongs on. Read the seal on each bag.', 'Mr Ingham sealed the Iveson panel with 04471, and the Jowett&rsquo;s window with 04417.']];
+    if (!ER.flag('g-letter')) return ['letter', ['The letter for the Commission is on the desk. Click it, read it, and close it.']];
+    return null;
+  }
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    drawLabels();
+    if (ER.flag('g-done')) { busy = false; finish(true); return; }
+    if (ER.flag('g-labels')) { busy = false; $('#letter').classList.add('ready'); ER.say('The labels are on. The letter is on the desk.'); return; }
+    ER.narrate([
+      'Twenty to seven. The grating has gone from black to grey, and a burnt-out rocket stick lies in it, where it landed in the night. The kettle is boiling for the fifth time.',
+      'On the trolley lie two bags with two old seals: 04471, the Iveson panel, and 04417, the Jowett&rsquo;s window. On the desk Mrs Grayling has printed two new labels. &ldquo;You found it,&rdquo; she says. &ldquo;You put them on. Read the seals.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#newlabels').addEventListener('click', function (e) {
+    var g = e.target.closest('.nl'); if (!g || busy) return;
+    held = held === g.getAttribute('data-l') ? '' : g.getAttribute('data-l'); CO.sfx.rustle(); drawLabels();
+  });
+  $('#bags').addEventListener('click', function (e) {
+    var g = e.target.closest('.nb2'); if (!g || busy) return;
+    var b = g.getAttribute('data-b'), a = at();
+    if (ER.flag('g-labels')) { ER.say('Seal ' + b + ': ' + LAB[a[b]][1].replace('&#8217;', '’') + ', ' + LAB[a[b]][2] + '.'); return; }
+    if (!held) { ER.say('Seal ' + b + '. Click a new label on the desk first.'); return; }
+    if (!ER.check('pair', b + '-' + held)) { ER.sfx.no(); ER.say('&ldquo;Seal ' + b + ',&rdquo; says Mrs Grayling. &ldquo;Look in Mr Ingham&rsquo;s day book: which panel did he seal with that number?&rdquo;'); return; }
+    a[b] = held; held = ''; ER.flag('g-at', a); CO.sfx.tape(); drawLabels();
+    if (Object.keys(a).length < 2) { ER.say('The new label goes on, beside the old seal. One more.'); return; }
+    ER.flag('g-labels', 1); busy = true; CO.sfx.stamp();
+    ER.narrate([
+      'Two new labels, two old seals, and on each label a line in Mrs Grayling&rsquo;s best handwriting: RE-LABELLED 5.11.26, 06.45, SEE STATEMENT. J.G. Then, because she is Mrs Grayling, she asks you to sign under her name.',
+      '&ldquo;The letter,&rdquo; she says, and puts it on the desk in front of you. &ldquo;Read it before Gillian does. She&rsquo;ll want to change a word.&rdquo;'
+    ], function () { busy = false; $('#letter').classList.add('ready'); });
+  });
+
+  var LETTER = '<h4>The Laboratory &middot; Exhibit store</h4><p class="addr">To Mr Gregor Inglis, Criminal Cases Review Commission &middot; Thursday 5 November 2026, 06.50 &middot; Your reference 26/0418</p>' +
+    '<p>Dear Mr Inglis,</p>' +
+    '<p>Our courier brings you exhibits FH/2 to FH/7 of case G06/1187. FH/4 among them is, at last, the glass panel from the rear door of Iveson&rsquo;s, which has been in the wrong bag, in the wrong box, since 8 November 2006. A seventh bag holds the window from case G06/1191 that was examined in its place.</p>' +
+    '<p>That day two panels, both numbered FH/4, were put into new bags in our photographic unit, and their labels were stapled to the wrong bags. Our labels did not record the new seals, and nobody signed the panels back to the store. The photographer&rsquo;s day book, the seal numbers and the sizes of the panels show what happened. The panel examined in 2006 came from Jowett&rsquo;s Bakery.</p>' +
+    '<p>The Iveson panel was broken twice from the yard: first by the latch, where the fibres are consistent with the glove FH/5, and then higher up, where they are consistent with Mr Garside&rsquo;s jumper. That is the order Mr Garside described in 2006. The glove&rsquo;s full DNA profile is not his, and cannot be his brother&rsquo;s.</p>' +
+    '<p>Dr Gillian Hesketh&rsquo;s work in 2006 was careful: every measurement in her report that we can check tonight is correct. She examined the panel she was given, under the label it carried, and the scene photographs reached her only the day after her report. &ldquo;Came from&rdquo; was the wording of many reports of its time; today we would write &ldquo;consistent with&rdquo;. The fibres on the glove and the jumper are best explained by the two being opened on one bench on one morning, which our rules then allowed and now forbid. The DNA methods of 2006 could read only four loci from that glove.</p>' +
+    '<p>None of this was dishonest. It was wrong, much of it was ours, and we are sorry for what followed from it.</p>' +
+    '<p>Yours sincerely,</p><p class="sig">J. Grayling</p><p>Judith Grayling, Store Manager &middot; Dr Hamza Jalloh, DNA unit &middot; and our trainee</p>' +
+    '<p class="hw">I agree with every word except &ldquo;careful&rdquo;, which I shall try to deserve. G. Hesketh</p>';
+  $('#letter').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('g-labels')) { ER.say('&ldquo;Labels first,&rdquo; says Mrs Grayling. &ldquo;Letters after.&rdquo;'); return; }
+    ER.read({ html: LETTER, cls: 'official', clue: { id: 'letter2', title: 'Our letter to the Commission', kind: 'Letter, 5 November 2026' }, done: function () {
+      $('#letter').classList.remove('ready');
+      if (ER.flag('g-letter')) return;
+      ER.flag('g-letter', 1); busy = true;
+      ER.narrate([
+        'At five to seven a van stops in the street, and its headlights fill the grating. The courier signs for seven bags on seven lines, with the date and the time, and is out of the door by one minute past.',
+        'Dr Hesketh watches the van go. &ldquo;I should like to write to him,&rdquo; she says. &ldquo;Joel Garside. Not to explain. Only to say that he was right, and that I am sorry.&rdquo; &ldquo;Write it,&rdquo; says Mrs Grayling. &ldquo;I&rsquo;ll ring his mother at nine. Not before. People should be allowed to sleep through the last night of a thing.&rdquo;',
+        'Dr Jalloh comes down the stairs with four mugs of tea on a tray. Outside, the sky over Gatherley goes from grey to something like blue. Tonight is Bonfire Night, the real one. Gatherley will let off its fireworks again, and for once nobody in the store will be counting the bangs.'
+      ], function () { $('#lights').classList.add('on'); CO.sfx.van(); busy = false; ER.flag('g-done', 1); finish(false); });
+    } });
+  });
+
+  function finish(quick) {
+    var st = ER.state(), mins = CO.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the store at twenty to ten to the courier at seven: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Thursday morning. The panel is on its way, under the right label.');
+  }
+
+  function line(sel, f) { $(sel).addEventListener('click', function () { if (!busy) ER.say(f()); }); }
+  line('#judith', function () { return '&ldquo;Twenty-eight years I&rsquo;ve worked in this store,&rdquo; says Mrs Grayling, &ldquo;and the most important thing in it was in the wrong box the whole time. Drink your tea.&rdquo;'; });
+  line('#gillian', function () { return '&ldquo;Glass does not lie,&rdquo; says Dr Hesketh. &ldquo;It only waits. I made it wait twenty years. I shan&rsquo;t forget that.&rdquo;'; });
+  line('#hamza', function () { return '&ldquo;The database search goes in at nine, with the Commission&rsquo;s agreement,&rdquo; says Dr Jalloh. &ldquo;Somebody out there owns a left-handed glove. Well, a left glove.&rdquo;'; });
+  line('#window', function () { return 'Grey light, a burnt-out rocket stick, and the feet of the first people going to work.'; });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Under Seal &middot; in your own words</h4><h3>Explain it to a friend</h3>' +
+      '<p>A friend of yours thinks that forensic science only ever proves things. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: first, then, because, so, which means.</p>' +
+      '<p><b>A</b> How the cracks in a panel of glass showed which side each blow came from, and which blow came first.<br><b>B</b> Why a matching fibre is only &ldquo;consistent with&rdquo; a source, and how fibres can travel.<br><b>C</b> How the DNA profiles showed that the glove was not Joel&rsquo;s, and not his brother&rsquo;s.<br><b>D</b> How a gap in the paperwork led to the right panel.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
