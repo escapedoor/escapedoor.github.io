@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Spare Room · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#2e3a48;--accent:#7ac8a8;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(30,38,50,.96);--tc-ink:#e8eef2;--cap-bg:rgba(240,244,246,.96);--cap-ink:#1c2430;--panel:#f0f4f6;--panel-ink:#1c2430;--face-bg:#55606a;--q-ink:#2a6a5a;
+    --fade:#1c2430;--hud-bg:rgba(240,244,246,.9);--hud-ink:#1c2430;--hud-line:rgba(28,36,48,.3);--ov-bg:rgba(10,14,20,.68);background:#2e3a48}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#7ac8a8}
+  .tc-theme{color:#c8d8e0}
+  .tc .btn{--accent:#e8eef2}
+  .hbtn b{color:#fff}
+  #rain path{animation:rain 1.1s linear infinite}
+  #rain path:nth-child(2n){animation-delay:-.4s}#rain path:nth-child(3n){animation-delay:-.8s}
+  @keyframes rain{from{transform:translate(0,-40px);opacity:.0}30%{opacity:.7}to{transform:translate(-14px,60px);opacity:0}}
+  #glowL{animation:scr 4s steps(2,end) infinite}
+  @keyframes scr{50%{opacity:.75}}
+  #fiver{animation:hop 5s steps(1,end) infinite}
+  @keyframes hop{0%,100%{transform:translate(0,0)}40%{transform:translate(0,-6px)}44%{transform:translate(18px,0)}80%{transform:translate(18px,-5px)}84%{transform:translate(0,0)}}
+
+  /* the corkboard */
+  .cb{width:min(1100px,97vw)}
+  .cb-in{background:#c8955a radial-gradient(circle at 20% 30%,rgba(90,50,10,.25) 0 2px,transparent 3px) 0 0/22px 22px;border:12px solid #6a4420;border-radius:4px;padding:10px 14px 10px;color:#1c2430;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .cb .sums{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;background:#fffef8;padding:8px 12px 6px;font-family:'Architects Daughter',cursive;font-size:17.5px;box-shadow:0 3px 6px rgba(0,0,0,.25);transform:rotate(-.4deg)}
+  .cb .rules{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+  .cb .rule{background:#fffef8 repeating-linear-gradient(transparent 0 23px,#c8d8ec 23px 24px);padding:8px 9px 8px;box-shadow:0 3px 6px rgba(0,0,0,.25);font-family:'Architects Daughter',cursive;font-size:16px;line-height:24px;border-top:4px solid #e2453a;position:relative}
+  .cb .rule:before{content:'';position:absolute;top:-9px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#e2453a;box-shadow:0 2px 2px rgba(0,0,0,.4)}
+  .cb .rule h6{margin:0 0 4px;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:19px;line-height:1.05;color:#1c2430}
+  .cb .yn{display:flex;gap:6px;align-items:center;font-size:14.5px;line-height:1.2;margin:2px 0 6px}
+  .cb .yn button{padding:2px 9px 1px;border:2px solid #1c2430;border-radius:12px;font-family:'Outfit',sans-serif;font-weight:700;font-size:12.5px;color:#1c2430;background:#fff}
+  .cb .yn button.on{background:#1c2430;color:#fff}
+  .cb .slot{min-height:92px;border:2px dashed rgba(28,36,48,.4);border-radius:3px;display:flex;align-items:center;justify-content:center;padding:3px;background:rgba(255,255,255,.4)}
+  .cb .slot:empty:after{content:'what went wrong?';font-family:'Architects Daughter',cursive;font-size:14px;color:rgba(28,36,48,.5)}
+  .cb .tray{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px;padding:7px;min-height:70px;background:rgba(60,34,10,.35);border-radius:3px}
+  .cb .ps{display:block;width:100%;padding:5px 8px 4px;background:#f2f2ee;border-left:4px solid #8a6ac8;font-family:'Outfit',sans-serif;font-size:12.5px;line-height:1.28;color:#1c1e24;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+  .cb .ps i{display:block;font-style:normal;font-weight:700;font-size:11.5px;color:#6a5a8a}
+  .cb .dr-w b{font-size:20px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#8a9aa8"/><path d="M20 0v80M60 0v80" stroke="#7a8a98" stroke-width="6"/></pattern>
+  <pattern id="carpet" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="#5a4a5a"/><circle cx="15" cy="15" r="3" fill="#6a5a6a"/></pattern>
+  <linearGradient id="grey" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7a8a"/><stop offset="1" stop-color="#a8b4bc"/></linearGradient>
+  <radialGradient id="laptopL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9ae0ff" stop-opacity=".35"/><stop offset="1" stop-color="#9ae0ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#0a0e14" stop-opacity=".18"/><stop offset="1" stop-color="#0a0e14" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1160" fill="url(#paper)"/>
+<!-- the sloping ceiling and the skylight -->
+<path d="M-1000 -400H2600V-400L2600 -60L-1000 220z" fill="#dcdcd4"/>
+<path d="M-1000 220L2600 -60" stroke="#b8b8b0" stroke-width="10"/>
+<g id="skylight" class="hot"><path d="M560 40L1000 6L1012 150L572 186z" fill="#4a5a6a" stroke="#f4f4ee" stroke-width="12"/><path d="M570 120L1008 86" stroke="#f4f4ee" stroke-width="6"/>
+  <path d="M840 160L850 20h40l6 136z" fill="#5a3026" opacity=".7"/>
+  <g id="rain" stroke="#cfe0ec" stroke-width="2"><path d="M620 60l-6 20"/><path d="M700 50l-6 20"/><path d="M780 70l-6 20"/><path d="M930 40l-6 20"/><path d="M660 120l-6 20"/><path d="M960 100l-6 20"/><path d="M740 130l-6 20"/></g></g>
+
+<!-- the wall of ticket stubs -->
+<g id="stubs" class="hot"><rect x="60" y="250" width="340" height="300" fill="#2a2a33"/><g id="stubG"></g><rect x="60" y="250" width="340" height="300" fill="none" stroke="#c9a24a" stroke-width="6"/></g>
+<!-- the corkboard -->
+<g id="cork" class="hot"><rect x="1090" y="230" width="380" height="270" fill="#c8955a" stroke="#6a4420" stroke-width="12"/>
+  <g><rect x="1120" y="258" width="74" height="56" fill="#fffef8" transform="rotate(-4 1157 286)"/><rect x="1208" y="262" width="74" height="56" fill="#fffef8" transform="rotate(3 1245 290)"/><rect x="1296" y="258" width="74" height="56" fill="#fffef8"/><rect x="1384" y="262" width="66" height="56" fill="#fffef8" transform="rotate(-2 1417 290)"/></g>
+  <g fill="#e2453a"><circle cx="1157" cy="262" r="5"/><circle cx="1245" cy="266" r="5"/><circle cx="1333" cy="262" r="5"/><circle cx="1417" cy="266" r="5"/></g>
+  <path d="M1130 276h50M1218 280h50M1306 276h50M1392 280h46" stroke="#2a4a8a" stroke-width="2"/><rect x="1150" y="360" width="120" height="100" fill="#f2f2ee" transform="rotate(2 1210 410)"/><rect x="1290" y="370" width="140" height="80" fill="#f2f2ee" transform="rotate(-3 1360 410)"/></g>
+<!-- the budgie -->
+<g id="cage" class="hot" transform="translate(-80 0)"><path d="M1500 620V420q60 -60 120 0v200z" fill="none" stroke="#c9c4b4" stroke-width="3"/><g stroke="#c9c4b4" stroke-width="1.5"><path d="M1515 620V420M1530 620V405M1545 620V396M1560 620V392M1575 620V396M1590 620V405M1605 620V420"/></g>
+  <path d="M1500 560h120" stroke="#8a6a3a" stroke-width="5"/><g id="fiver"><ellipse cx="1545" cy="540" rx="14" ry="18" fill="#7ac84a"/><circle cx="1545" cy="520" r="10" fill="#f2e04a"/><circle cx="1549" cy="518" r="2" fill="#14101a"/><path d="M1553 522l6 3 -6 2z" fill="#e8a040"/><path d="M1538 556l-8 22" stroke="#4a8a2a" stroke-width="5"/></g>
+  <rect x="1490" y="620" width="140" height="14" fill="#8a8a8e"/><path d="M1560 634v100" stroke="#8a8a8e" stroke-width="6"/></g>
+
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#carpet)"/><rect x="-1000" y="694" width="3600" height="10" fill="#3a3040"/>
+<!-- the radiator with socks -->
+<g id="radiator" class="hot"><rect x="1100" y="560" width="260" height="130" rx="6" fill="#e8e8e4"/><g stroke="#c8c8c4" stroke-width="5"><path d="M1130 570v110M1160 570v110M1190 570v110M1220 570v110M1250 570v110M1280 570v110M1310 570v110M1340 570v110"/></g>
+  <path d="M1150 556v40h20v-8h-10v-32zM1250 556v44h22v-8h-12v-36z" fill="#c2185b"/><path d="M1200 556v42h20v-8h-10v-34z" fill="#3a8a4a"/></g>
+<!-- the ironing board, the laptops, the printer -->
+<ellipse id="glowL" cx="700" cy="520" rx="300" ry="160" fill="url(#laptopL)" pointer-events="none"/>
+<path d="M440 580h560q30 0 40 -14H460q-20 0 -20 14z" fill="url(#grey)"/><path d="M520 590L760 880M920 590L680 880" stroke="#5a5a64" stroke-width="10"/>
+<g id="laptop" class="hot"><path d="M600 566l14 -100h180l14 100z" fill="#3a3a44"/><path d="M616 470h176l-12 90H628z" fill="#14202e"/><g fill="#7ac8a8"><rect x="632" y="482" width="140" height="8"/><rect x="632" y="498" width="110" height="6"/><rect x="632" y="510" width="120" height="6"/><rect x="632" y="522" width="90" height="6"/></g><text x="708" y="548" class="cP" font-size="12" text-anchor="middle" fill="#ffcf4a">£150 £150 £150</text></g>
+<g><path d="M480 566l8 -40h80l8 40z" fill="#4a4a54"/><path d="M856 566l8 -40h80l8 40z" fill="#4a4a54"/></g>
+<g id="printer" class="hot"><rect x="250" y="600" width="160" height="80" rx="4" fill="#d8d8d4"/><rect x="266" y="584" width="128" height="20" fill="#3a3a40"/><rect x="280" y="560" width="100" height="30" fill="#fbf7ec" stroke="#8a2a1e" stroke-width="2" transform="rotate(-4 330 575)"/>
+  <rect x="270" y="676" width="120" height="10" fill="#b8b8b4"/><path d="M276 690l10 40h90l10 -40z" fill="#f2f2ee" stroke="#c8c8cc"/><path d="M296 704h60M296 714h48" stroke="#8a6ac8" stroke-width="2"/></g>
+<g id="envelopes"><rect x="1010" y="610" width="70" height="44" fill="#f4e8c8" stroke="#c8b88a"/><rect x="1020" y="600" width="70" height="44" fill="#f8f0d8" stroke="#c8b88a"/></g>
+
+<g id="ewan" class="hot" transform="translate(900 890) scale(1.02)"></g>
+<g id="amara" class="hot" transform="translate(470 890) scale(.98)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Sunday morning: down to the rehearsal room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = TIX.told('d-told'), lock = null;
+
+  (function () {
+    var s = '', i, j, cols = ['#ffd84a', '#f29ab8', '#7ac8a8', '#fff8e6', '#9ab8f2'];
+    for (i = 0; i < 6; i++) for (j = 0; j < 5; j++) s += '<g transform="translate(' + (78 + j * 64) + ' ' + (266 + i * 46) + ') rotate(' + (((i + j) % 3) - 1) * 3 + ')"><rect width="54" height="32" fill="' + cols[(i * 2 + j) % 5] + '"/><path d="M40 0v32" stroke="#14101a" stroke-dasharray="3 3"/><text x="20" y="20" font-family="Bungee" font-size="9" text-anchor="middle" fill="#14101a">DC</text></g>';
+    $('#stubG').innerHTML = s;
+    $('#ewan').innerHTML = TIX.who('ewan', { smile: 3, extra: '<rect x="28" y="-150" width="24" height="18" rx="3" fill="#f4f1ea"/>' });
+    $('#amara').innerHTML = TIX.who('amara', { smile: 2 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'spareroom', no: 'IV', title: 'The Spare Room',
+    go: 'Up the stairs',
+    intro: [
+      'On Bram&rsquo;s board: the film lost half its audience to a price rise of a third, and took less money (£1,800 down to £1,200): elastic. The band lost one fan in twenty to the same rise, and took more (£36,000 up to £45,600): inelastic. But even a fan has a limit. With six hundred seats, the most money came at £150: £90,000. At £300, only a hundred people would come.',
+      'Coal Street, half past three. It has started to rain. Ewan Brierley lives above the launderette, and the whole staircase smells of warm washing.',
+      'He opens the door before you knock. &ldquo;Dina said you&rsquo;d come,&rdquo; he says. &ldquo;Mind the printer. It bites.&rdquo;'
+    ],
+    exit: {"next":"rehearsal","w":{"55659dac":"536c385d"}}, tags: {"now":["c91db2ae"],"cheap":["12530f71"],"now0":["d3414edb","15b4c2be","04b8d6a7"],"cheap0":["afed9063","dc06c915"],"y1":["08fcdcd0"],"y2":["63936a0a"],"y3":["675aba08"],"y4":["e59855ee"],"c1":["fd002d36"],"c2":["f2f71ca0"],"c3":["dfa96e13"],"c4":["20394901"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ewan') && told.has('amara') && told.has('hb9') && told.has('forum'); }
+  function paint() {
+    $('#cork').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['ewan', 'amara', 'hb9', 'forum'].filter(told.has).length + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Cleo wants you in the rehearsal room on Sunday morning. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['cork', [
+      'First Ewan&rsquo;s sum: what he pays for a ticket, what he gets when he sells it, and the gap. Then the same sum if tickets were £20.',
+      'He pays £40 + £4 booking fee. He sells at £150, but the site keeps 10% of that. Page 9: for each rule, ask what he would pay, what he would get, and whether the gap is still there.',
+      'Each forum post tells what went wrong somewhere after one of these rules. Two of the posts are not about any rule at all: leave them in the tray.'
+    ]];
+    if (!told.has('ewan')) return ['ewan', ['You came to hear how it works. Ewan is ready to tell you.', 'Ewan is by the ironing board, in the grey hoodie.']];
+    if (!told.has('amara')) return ['amara', ['Amara has pinned something to Ewan&rsquo;s corkboard. Ask her about it.', 'Amara is on the left, by the printer.']];
+    if (!told.has('hb9')) return ['hb9', ['Dina sent page 9 of the handbook with Amara.', 'It is lying on top of the printer, on the left.']];
+    if (!told.has('forum')) return ['forum', ['Ewan printed the whole forum thread about touts. It is in the printer&rsquo;s tray.', 'The printout is the paper hanging out of the front of the printer, at the bottom.']];
+    return ['cork', ['Now the corkboard on the right, with Amara&rsquo;s four cards.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Rain on the skylight. Fiver has gone quiet. Tomorrow, the band.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Ewan&rsquo;s spare room: three laptops, an ironing board, a budgie and the rain.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The spare room is the size of a large wardrobe. An ironing board is the desk. On it are three laptops, one of them open. A printer sits on the floor, and a budgie sits in a cage, watching the printer.',
+      'One wall is covered with small coloured cards in rows, behind glass. On the opposite wall is a corkboard, and Amara has already pinned four index cards to it, in her neatest writing.',
+      '&ldquo;That&rsquo;s Fiver,&rdquo; says Ewan, nodding at the budgie. &ldquo;He was a present. Not a bribe. Ask me anything.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#ewan').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Tell Cleo from me,&rdquo; says Ewan. &ldquo;Front row, every time, since the caf&eacute;.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ewan Brierley', role: 'Coal Street · resells tickets', face: TIX.face('ewan'),
+      lines: [
+        { note: 'About thirty, a grey hoodie, glasses that he keeps pushing up. He offers you a biscuit before you are through the door.', a: '&ldquo;I&rsquo;m not hiding. Dina&rsquo;s known me since I was twelve. I bought four online at a minute past nine: forty pounds each, and the four-pound booking fee on every one. Three are on the resale site at a hundred and fifty.&rdquo;' },
+        { q: 'How much do you make?', a: '&ldquo;The site keeps ten per cent of the price, and it takes it from me, the seller. You can do the sum. I do it every time. It&rsquo;s a good sum today.&rdquo;' },
+        { q: 'Isn&rsquo;t that wrong?', a: '&ldquo;I didn&rsquo;t make it a hundred and fifty. Two thousand four hundred people did, by wanting six hundred seats. The band said forty. Forty was a present, and somebody was always going to unwrap it.&rdquo;' },
+        { q: 'What would stop you?', a: '&ldquo;Easy. Change what it pays me. That&rsquo;s all a rule ever does to me. Your friend has some rules on cards. Ask me about each one and I&rsquo;ll tell you the truth. I&rsquo;m good at sums and bad at lying.&rdquo;' },
+        { q: 'And the fourth ticket?', a: '&ldquo;Not for sale.&rdquo; He does not explain.' }
+      ],
+      clue: { id: 'ewan', title: 'Ewan: change what it pays me', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('ewan')) { paint(); TIX.terms(['tout']); } }
+    });
+  });
+  $('#amara').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;I&rsquo;d rather be wrong on a card than on a poster,&rdquo; says Amara. &ldquo;Cards are cheaper.&rdquo;'); return; }
+    ER.talk({
+      who: 'Amara Chaudhry', role: 'Saturday helper', face: TIX.face('amara'),
+      lines: [
+        { note: 'She has pinned four index cards to Ewan&rsquo;s corkboard, and she is looking at them as if they might argue back.', a: '&ldquo;Rules people want for the second night. I wrote down the four that come up most. The first one is mine too, if I&rsquo;m honest: make the tickets cheaper. Twenty pounds. Then real fans can afford them.&rdquo;' },
+        { q: 'And the other three?', a: '&ldquo;A cap: nobody can resell for more than the face value. Names on the tickets, checked at the door. And Bram&rsquo;s idea, a price that rises with demand. Dina sent page nine of the handbook. It&rsquo;s on the printer.&rdquo;' },
+        { q: 'What do we do with them?', a: '&ldquo;For each rule: would Ewan still buy tickets to resell? And what goes wrong that nobody planned? The forum has stories from other gigs. Ewan printed the whole thread. He reads what people say about him.&rdquo;' }
+      ],
+      clue: { id: 'amara4', title: 'Amara: four rules people want', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('amara')) paint(); }
+    });
+  });
+  var HB9 = '<h4>Boilerhouse Box Office Handbook &middot; page 9</h4><h3>Touts</h3>' +
+    '<p>A <b>TOUT</b> buys tickets in order to sell them again for more. Nobody needs to be wicked for this to happen. A gap between the face value and what buyers would pay is an <b>INCENTIVE</b>, a reward for doing something, and somebody will always notice it.</p>' +
+    '<p>A rule changes incentives. To see what a rule will do, ask: after the rule, what would the tout pay, what would he get, and is the gap still there?</p>' +
+    '<p>People do not stop wanting what they wanted. Close one door and the gap looks for another. The results that nobody planned are <b>UNINTENDED CONSEQUENCES</b>. Look for them before you choose a rule, not after.</p>' +
+    '<p class="rule">A rule that sounds kind can make things worse. Do the sum first.</p>' +
+    '<p class="pen">Ireland, 2021: it is now against the law there to resell tickets for concerts and matches at the venues named in the law for more than face value. Here, a reseller must at least tell the buyer the face value. D.A.</p>';
+  $('#printer').addEventListener('click', function (e) {
+    if (busy) return;
+    var pt = ER.pt($('#scene'), e);
+    if (pt.y > 684) { openForum(); return; }
+    ER.read({ html: HB9, cls: 'hb', clue: { id: 'hb9', title: 'Handbook page 9: touts', kind: 'On the printer' }, done: function () {
+      TIX.terms(['tout', 'incentive', 'unintended consequence']);
+      if (told.set('hb9')) { paint(); ER.say('After the rule: what would the tout pay, what would he get, and is the gap still there?'); }
+    } });
+  });
+  var FORUM = '<h4>DC Fans &middot; forum &middot; thread: TOUTS!!! (page 3 of 11)</h4>' +
+    '<div class="post"><i>front_row_kid</i>At a gig I went to last year they put names on the tickets and checked ID at the door. My dad broke his leg the week before, and nobody else was allowed to use his ticket. Empty seat next to me all night.</div>' +
+    '<div class="post"><i>paperkite22</i>When one festival capped resale at face value on the proper sites, the tickets just went to the car park instead. I paid £120 cash to a man in a hat. The ticket was a fake.</div>' +
+    '<div class="post"><i>old_enough</i>Remember when a show here was only £15? The queue started on the Wednesday. Touts paid students £30 to stand in it for them.</div>' +
+    '<div class="post"><i>ffi_c</i>Tried to buy for my sister at another gig where the price went up while you were buying. £180 by the time I clicked. No touts, though, I&rsquo;ll give them that.</div>' +
+    '<div class="post"><i>DCforever</i>TOUTS SHOULD GO TO PRISON!!!!!</div>' +
+    '<div class="post"><i>north_sound</i>The Boilerhouse has the best sound in the north. Fact.</div><small>printed 15.02 &middot; 4 people are reading this thread</small>';
+  function openForum() {
+    ER.read({ html: FORUM, cls: 'forum', clue: { id: 'forum', title: 'The fan forum: TOUTS!!!', kind: 'In the printer tray' }, done: function () {
+      if (told.set('forum')) { paint(); ER.say('Six posts. Four of them tell you what went wrong after a rule. Two of them tell you how people feel.'); }
+    } });
+  }
+  var LIST = '<h4>MY LISTINGS &middot; Dandelion Clock, the Boilerhouse, Fri 4 Dec</h4><table>' +
+    '<tr><td>Bought</td><td class="r">4 at £40 + £4 booking fee</td></tr><tr><td>Listed</td><td class="r">3 at £150</td></tr>' +
+    '<tr><td>Sold</td><td class="r">1, at 10.15, to ffi_c</td></tr><tr><td>Site fee</td><td class="r">10% of the price, paid by the seller</td></tr>' +
+    '<tr><td>Other sellers</td><td class="r">137 listed: most at £150, 12 at £300 (unsold)</td></tr></table><p class="hand">Not for sale: 1. E.</p>';
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LIST, cls: 'sheet', clue: { id: 'listings', title: 'Ewan&rsquo;s listings, and the other resale prices', kind: 'On the laptop' }, done: function () {
+      TIX.terms(['resale']);
+      if (told.set('list')) ER.say('Three at £150, one sold already. And one ticket that is not for sale.');
+    } });
+  });
+  TIX.thing('#stubs', null, function () { return nextFile ? 'Every Dandelion Clock gig since the caf&eacute; in 2020, entry free. Thirty stubs. Ewan was at every one.' : 'Small coloured cards in rows, behind glass. Every one of them says DC. Ticket stubs, dozens, all the same band.'; }, isBusy);
+  $('#cage').addEventListener('click', function (e) { if (busy) return; TIX.sfx.chirp(); ER.wordAt(e.clientX, e.clientY, 'budgie'); ER.say('Fiver, a budgie, says something sharp to the printer.'); });
+  TIX.thing('#radiator', null, 'Three socks drying on the radiator. None of them match. Ewan says that is a system.', isBusy);
+  TIX.thing('#skylight', 'skylight', 'Rain on the skylight. Through it, a long way off, the top of the Boilerhouse chimney.', isBusy);
+  TIX.thing('#envelopes', null, 'Envelopes, stamped and addressed. Paper tickets go by post: Ewan uses first class.', isBusy);
+  $('#cork').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Amara&rsquo;s four cards, each with a forum post pinned under it. She has crossed out the word &ldquo;cheaper&rdquo;, neatly.'); return; }
+    if (!told.has('ewan')) { ER.say('Amara&rsquo;s cards are about Ewan. Hear what he has to say first.'); return; }
+    if (!told.has('amara')) { ER.say('Four cards in Amara&rsquo;s writing. Ask her what they are.'); return; }
+    if (!told.has('hb9')) { ER.say('Page 9 of the handbook first: it is on top of the printer.'); return; }
+    if (!told.has('forum')) { ER.say('You need the forum&rsquo;s stories: the printout in the printer tray.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the corkboard ---------- */
+  function makeLock() {
+    var RULES = [['r1', 'Make tickets cheaper: £20'], ['r2', 'Cap resale at the face value'], ['r3', 'Names on tickets, checked at the door'], ['r4', 'A price that rises with demand']];
+    var POSTS = [['a', 'front_row_kid', 'Names on the tickets, ID at the door. Dad broke his leg; nobody could use his ticket. Empty seat all night.'],
+      ['b', 'paperkite22', 'Resale capped at face value on the proper sites. Tickets went to the car park. Paid £120 cash for a fake.'],
+      ['c', 'old_enough', 'A show here was £15. The queue started on Wednesday. Touts paid students £30 to stand in it.'],
+      ['d', 'ffi_c', 'The price went up while I was buying. £180 by the time I clicked. No touts, though.'],
+      ['e', 'DCforever', 'TOUTS SHOULD GO TO PRISON!!!!!'], ['f', 'north_sound', 'The Boilerhouse has the best sound in the north. Fact.']];
+    var saved = ER.flag('d-cb') || {}, yn = saved.yn || {}, wait = false;
+    var box = ER.el('div', 'pz cb');
+    box.innerHTML = '<div class="cb-in"><div class="sums">Ewan&rsquo;s profit on one ticket: today <i id="now"></i> &nbsp;&middot;&nbsp; if tickets were £20 (booking fee still £4) <i id="cheap"></i></div><div class="rules">' +
+      RULES.map(function (r, i) { return '<div class="rule" data-r="' + r[0] + '"><h6>' + r[1] + '</h6><div class="yn">Would Ewan still buy to resell? <button type="button" data-v="y">yes</button><button type="button" data-v="n">no</button></div><div class="slot" data-s="' + (i + 1) + '"></div></div>'; }).join('') +
+      '</div><div class="tray" id="tray">' + POSTS.map(function (p) { return '<span class="dnd-item ps" data-p="' + p[0] + '"><i>' + p[1] + '</i>' + p[2] + '</span>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="d-go">Ask Ewan</button></div>';
+    var msgEl = box.querySelector('.pmsg'), tray = box.querySelector('#tray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    var d = {};
+    function keep() {
+      var o = { yn: yn, at: {}, now: d.now.get(), cheap: d.cheap.get() };
+      ER.$$('.slot', box).forEach(function (s) { var it = s.querySelector('.ps'); if (it) o.at[s.getAttribute('data-s')] = it.getAttribute('data-p'); });
+      ER.flag('d-cb', o);
+    }
+    d.now = TIX.drum(box.querySelector('#now'), { digits: 3, before: '£', val: saved.now || 0, change: keep, lock: lk });
+    d.cheap = TIX.drum(box.querySelector('#cheap'), { digits: 3, before: '£', val: saved.cheap || 0, change: keep, lock: lk });
+    ER.$$('.rule', box).forEach(function (r, i) {
+      var k = 'y' + (i + 1);
+      function show() { ER.$$('.yn button', r).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === yn[k]); }); }
+      ER.$$('.yn button', r).forEach(function (b) { b.addEventListener('click', function () { if (lk()) return; yn[k] = b.getAttribute('data-v'); show(); ER.sfx.click(); keep(); }); });
+      show();
+    });
+    Object.keys(saved.at || {}).forEach(function (s) {
+      var it = box.querySelector('.ps[data-p="' + saved.at[s] + '"]'), sl = box.querySelector('.slot[data-s="' + s + '"]');
+      if (it && sl) sl.appendChild(it);
+    });
+    ER.dnd(box, { item: '.ps', slot: '.slot', home: tray, change: keep, lock: lk });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    function no(n, t) { ER.sfx.no(); flash(n); msg(t); }
+    var YES = {
+      y1: { y: '', n: '&ldquo;Not buy?&rdquo; says Ewan. &ldquo;At twenty pounds I&rsquo;d make more than I do now. Look at your own sum.&rdquo;' },
+      y2: { y: '&ldquo;Buy at forty-four and sell for forty-four, less ten per cent?&rdquo; says Ewan. &ldquo;That&rsquo;s a loss on every ticket. Not on the proper site. I don&rsquo;t do car parks.&rdquo;', n: '' },
+      y3: { y: '&ldquo;A ticket with somebody else&rsquo;s name on it, checked at the door?&rdquo; says Ewan. &ldquo;Who would buy that from me?&rdquo;', n: '' },
+      y4: { y: '&ldquo;If the box office sells at a hundred and fifty,&rdquo; says Ewan, &ldquo;what&rsquo;s left for me? I&rsquo;d pay a hundred and fifty-four to sell at a hundred and fifty, less the fee.&rdquo;', n: '' }
+    };
+    box.querySelector('#d-go').addEventListener('click', function () {
+      if (lk()) return;
+      var nv = d.now.get(), cv = d.cheap.get(), i, k, sl, it;
+      if (!ER.check('now', nv)) return no(box.querySelector('#now'), !nv ? '&ldquo;Start with today,&rdquo; says Ewan. &ldquo;What I pay for one ticket, what I get for it, and the difference.&rdquo;' :
+        nv === 106 ? '&ldquo;You&rsquo;ve forgotten the site,&rdquo; says Ewan. &ldquo;It keeps ten per cent of the hundred and fifty.&rdquo;' :
+        nv === 135 ? '&ldquo;That&rsquo;s what I get,&rdquo; says Ewan. &ldquo;I didn&rsquo;t get the ticket for nothing.&rdquo;' :
+        nv === 95 ? '&ldquo;Every ticket online had a booking fee on it,&rdquo; says Ewan. &ldquo;I paid it too.&rdquo;' : '&ldquo;What I pay: the ticket and the booking fee,&rdquo; says Ewan. &ldquo;What I get: a hundred and fifty, less the site&rsquo;s ten per cent.&rdquo;');
+      if (!ER.check('cheap', cv)) return no(box.querySelector('#cheap'), !cv ? '&ldquo;Now Amara&rsquo;s rule,&rdquo; says Ewan. &ldquo;Twenty-pound tickets. Would anybody who wants one at a hundred and fifty want it less?&rdquo;' :
+        cv === 126 ? '&ldquo;The site still keeps its ten per cent,&rdquo; says Ewan.' : cv === 115 ? '&ldquo;The booking fee is still four pounds,&rdquo; says Ewan. &ldquo;It says so on the board.&rdquo;' :
+        '&ldquo;The ticket costs less,&rdquo; says Ewan, &ldquo;but the people who want it haven&rsquo;t changed. What would it still sell for?&rdquo;');
+      for (i = 1; i <= 4; i++) {
+        k = 'y' + i;
+        if (!yn[k]) return no(box.querySelector('.rule[data-r="r' + i + '"] .yn'), '&ldquo;' + RULES[i - 1][1] + ',&rdquo; says Amara. &ldquo;Would he still buy to resell? Yes or no.&rdquo;');
+        if (!ER.check(k, yn[k])) return no(box.querySelector('.rule[data-r="r' + i + '"] .yn'), YES[k][yn[k]] || '&ldquo;Do the sum for that rule,&rdquo; says Amara.');
+      }
+      for (i = 1; i <= 4; i++) {
+        sl = box.querySelector('.slot[data-s="' + i + '"]'); it = sl.querySelector('.ps');
+        if (!it) return no(sl, '&ldquo;What went wrong after this rule, somewhere else?&rdquo; says Amara. &ldquo;Pin one of the forum posts under it.&rdquo;');
+        var p = it.getAttribute('data-p');
+        if (p === 'e') return no(sl, '&ldquo;That&rsquo;s a feeling, not a consequence,&rdquo; says Amara. &ldquo;Loud, though.&rdquo;');
+        if (p === 'f') return no(sl, '&ldquo;True, probably,&rdquo; says Amara. &ldquo;But it isn&rsquo;t about any rule.&rdquo;');
+        if (!ER.check('c' + i, p)) return no(sl, '&ldquo;Read that post again,&rdquo; says Amara. &ldquo;Is it what happens after &lsquo;' + RULES[i - 1][1].toLowerCase() + '&rsquo;, or after a different rule?&rdquo;');
+      }
+      var at = [1, 2, 3, 4].map(function (j) { return box.querySelector('.slot[data-s="' + j + '"] .ps').getAttribute('data-p'); });
+      var file = ER.exit([[nv, cv, yn.y1, yn.y2, yn.y3, yn.y4].concat(at).join('-')], { wait: true });
+      if (!file) { msg('Ewan shakes his head at the board. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      TIX.mine('rules', 'What would stop Ewan', '<p>Today: he pays £40 + £4 = £44, and gets £150 less 10% = £135. Profit £91 a ticket.</p><p>£20 tickets: he pays £24 and still gets £135: £111. A bigger incentive, and a longer queue (paid queuers).</p><p>Resale capped at face value: he would lose money, so no. But the gap moves to the car park, with fakes.</p><p>Names on tickets: no. But a ticket nobody else may use can mean an empty seat.</p><p>A price that rises with demand: no gap left for him. But the fans pay the high price.</p>', true);
+      msg('Ewan reads the board, slowly, all the way down. <b>Today £91. At £20, £111.</b> &ldquo;That&rsquo;s exactly it,&rdquo; he says.');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Cheaper tickets,&rdquo; says Ewan. &ldquo;I&rsquo;d make more, and the queue would start on Wednesday. Sorry, Amara.&rdquo; &ldquo;Don&rsquo;t be,&rdquo; says Amara, and crosses out the word on her card. &ldquo;I&rsquo;d rather be wrong on a card than on a poster.&rdquo;',
+          '&ldquo;The other three would stop me,&rdquo; says Ewan, &ldquo;and every one of them breaks something else. That&rsquo;s the trouble with rules. They&rsquo;re all true at once.&rdquo;',
+          'He turns to the wall of coloured cards behind glass. Close up, you can read them: every one is a Dandelion Clock ticket. The caf&eacute; at the Boilerhouse, 2020, entry free. The Drill Hall in Durridge, twice. Glasgow. Bristol. Thirty of them.',
+          '&ldquo;The fourth ticket is mine,&rdquo; he says. &ldquo;Front row, every time. I sell three to pay for the fourth and the trains to all the others. I&rsquo;m not proud of it. I&rsquo;m not ashamed of it either.&rdquo;',
+          '&ldquo;Tell Cleo this,&rdquo; he says. &ldquo;If she wants the second night to go to fans, take the gap away from me without hurting the fans. A draw, maybe, with names on, and a proper way to give a ticket back. I&rsquo;d lose my Saturday money. I&rsquo;d enter like everybody else.&rdquo;',
+          'Amara&rsquo;s phone buzzes: Bram. &ldquo;Cleo&rsquo;s stopped Monday&rsquo;s sale. She&rsquo;s on the night train. Rehearsal room, half past ten tomorrow. She says bring the boy from the queue, and she&rsquo;s asked a nurse called Denise who wrote to her.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Set Ewan&rsquo;s profit on the wheels. For each card, would he still buy to resell? Drag the forum post that shows what went wrong under each card (or click the post, then the space). Then ask Ewan.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

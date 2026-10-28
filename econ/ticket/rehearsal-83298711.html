@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Rehearsal Room · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#3a1e24;--accent:#ffcf4a;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(40,20,26,.96);--tc-ink:#fbeee0;--cap-bg:rgba(252,244,232,.96);--cap-ink:#2a1418;--panel:#fcf4e8;--panel-ink:#2a1418;--face-bg:#1a1a22;--q-ink:#c2185b;
+    --fade:#24121a;--hud-bg:rgba(252,244,232,.9);--hud-ink:#2a1418;--hud-line:rgba(42,20,24,.3);--ov-bg:rgba(16,6,10,.66);background:#3a1e24}
+  .tc-room{font-size:clamp(36px,5.2vw,76px);color:#ffcf4a}
+  .tc-theme{color:#f29ab8}
+  .tc .btn{--accent:#fbeee0}
+  .hbtn b{color:#fff}
+  #fairy circle{animation:tw 3s steps(2,end) infinite}
+  #fairy circle:nth-child(3n){animation-delay:-1s}#fairy circle:nth-child(3n+1){animation-delay:-2s}
+  @keyframes tw{50%{opacity:.35}}
+  #drumT{transition:transform 1.4s ease-out;transform-origin:1500px 600px}
+  #drumT.spin{transform:rotate(720deg)}
+
+  /* the chalkboard and the tombola card */
+  .cs{width:min(980px,96vw)}
+  .cs-in{background:#22302a;border:14px solid #5a3a22;border-radius:4px;padding:12px 22px 10px;color:#f2efe4;font-family:'Architects Daughter',cursive;box-shadow:inset 0 0 40px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.6)}
+  .cs h5{margin:0 0 6px;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:30px;text-align:center}
+  .cs-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;padding:8px 4px;border-top:2px dashed rgba(242,239,228,.25);font-size:17.5px}
+  .cs-row .nm{font-family:'Cabin Sketch',cursive;font-size:23px}
+  .cs-row .eq{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+  .cs .dr-w{background:#121a16}.cs .dr-w b{font-family:'Cabin Sketch',cursive;color:#fffbe8}
+  .tb{width:min(1000px,96vw)}
+  .tb-in{background:#fff8e6;border:3px solid #2a1418;border-top:16px solid #c2185b;padding:12px 20px 10px;color:#2a1418;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .tb h5{margin:0 0 2px;font-family:'Bungee',sans-serif;font-weight:400;font-size:22px;color:#c2185b}
+  .tb .sub{margin:0 0 6px;font-family:'Lora',serif;font-size:15px}
+  .tb .q{display:grid;grid-template-columns:230px 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dashed #d8c8a8;font-family:'Lora',serif;font-size:16px}
+  .tb .q b{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em}
+  .tb .ch{display:flex;flex-wrap:wrap;gap:6px}
+  .tb .ch button{padding:4px 11px 3px;border:2px solid #2a1418;border-radius:16px;font-family:'Lora',serif;font-size:14.5px;color:#2a1418;background:#fff}
+  .tb .ch button.on{background:#2a1418;color:#ffcf4a}
+  .tb .odds{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:8px;padding:8px 12px 6px;background:#ffe8a8;font-family:'Lora',serif;font-size:16.5px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="brick" width="50" height="24" patternUnits="userSpaceOnUse"><rect width="50" height="24" fill="#5a2a2a"/><path d="M0 0H50M0 12H50M25 0V12M0 12V24" stroke="#3a1818" stroke-width="2"/></pattern>
+  <pattern id="foam" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#5a4a5a"/><path d="M0 20L20 0L40 20L20 40z" fill="#6a5a6a"/><circle cx="20" cy="20" r="6" fill="#4a3a4a"/></pattern>
+  <pattern id="rug" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#8a2a3a"/><path d="M0 15h60" stroke="#c9a24a" stroke-width="3"/><path d="M15 0l15 15 15 -15" stroke="#2a1a3a" stroke-width="3" fill="none"/></pattern>
+  <radialGradient id="warm" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".22"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#10060a" stop-opacity=".18"/><stop offset="1" stop-color="#10060a" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1160" fill="url(#brick)"/>
+<path d="M-1000 -400H2600V180Q800 -260 -1000 180z" fill="#2a1418"/>
+<path d="M-200 200Q800 -180 1800 200" stroke="#3a1818" stroke-width="30" fill="none"/>
+<rect x="260" y="200" width="1080" height="420" fill="url(#foam)"/>
+<g id="fairy" fill="#ffd890"><path d="M180 180Q500 260 800 190T1440 190" stroke="#2a1a1a" stroke-width="2" fill="none"/></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#warm)" pointer-events="none"/>
+<!-- the setlist -->
+<g id="setlist" class="hot"><rect x="930" y="236" width="120" height="160" fill="#fff8e6" transform="rotate(3 990 316)"/><rect x="960" y="230" width="60" height="14" fill="#c8c0a0" opacity=".7"/>
+  <g font-family="Bungee" font-size="11" fill="#2a1418" transform="rotate(3 990 316)"><text x="944" y="268">PAPER KITES</text><text x="944" y="290">COAL STREET</text><text x="944" y="312">LAMPLIGHT</text><text x="944" y="334">FOUR MINUTES</text><text x="944" y="356">HOME</text></g></g>
+<!-- the chalkboard -->
+<g id="chalk" class="hot"><path d="M600 640l30 -260h250l30 260" fill="none" stroke="#5a3a22" stroke-width="10"/><rect x="610" y="400" width="290" height="190" fill="#22302a" stroke="#5a3a22" stroke-width="10"/>
+  <text x="755" y="440" class="cS" font-size="22" text-anchor="middle" fill="#f2efe4">WHAT SATURDAY DID</text><path d="M650 470h210M650 500h170M650 530h190" stroke="#f2efe4" stroke-width="2" opacity=".35"/></g>
+<rect x="-1000" y="620" width="3600" height="800" fill="#2a1a1a"/>
+<path d="M200 700h1200l60 190H140z" fill="url(#rug)"/>
+<!-- the sofa -->
+<g id="sofa"><rect x="40" y="600" width="380" height="140" rx="20" fill="#3a5a6a"/><rect x="20" y="640" width="60" height="140" rx="18" fill="#2f4a58"/><rect x="380" y="640" width="60" height="140" rx="18" fill="#2f4a58"/><rect x="80" y="680" width="300" height="70" rx="10" fill="#466a7a"/><path d="M220 690q20 10 10 30" stroke="#2a1a1a" stroke-width="3" fill="none"/></g>
+<g id="card" class="hot"><rect x="30" y="622" width="64" height="40" fill="#fffef8" stroke="#c8d8ec" transform="rotate(-8 62 642)"/><path d="M36 630h52" stroke="#e2453a" stroke-width="2" transform="rotate(-8 62 642)"/></g>
+<!-- the amp, the kettle, Cleo's phone -->
+<g id="amp"><rect x="960" y="520" width="170" height="200" rx="6" fill="#1a1a1e"/><rect x="976" y="560" width="138" height="146" rx="4" fill="#2a2a30"/><circle cx="1045" cy="633" r="50" fill="#141418"/><rect x="976" y="530" width="138" height="20" fill="#c9a24a"/></g>
+<g id="kettle" class="hot"><path d="M990 520v-44h44v44z" fill="#d8d8dc"/><path d="M1034 486q18 0 14 18" stroke="#d8d8dc" stroke-width="5" fill="none"/></g>
+<g id="phone" class="hot"><rect x="1060" y="496" width="30" height="24" rx="4" fill="#14101a" transform="rotate(-10 1075 508)"/><rect x="1064" y="500" width="22" height="16" fill="#3a6a9a" transform="rotate(-10 1075 508)"/></g>
+<!-- the drum kit -->
+<g id="drums" class="hot"><ellipse cx="1260" cy="760" rx="90" ry="80" fill="#c2185b"/><ellipse cx="1260" cy="760" rx="70" ry="62" fill="#f4f1ea"/><text x="1260" y="770" class="cB" font-size="22" text-anchor="middle" fill="#c2185b">DC</text>
+  <ellipse cx="1170" cy="640" rx="44" ry="14" fill="#c2185b"/><ellipse cx="1350" cy="640" rx="44" ry="14" fill="#c2185b"/><path d="M1380 560l40 -10M1400 552V820" stroke="#c9a24a" stroke-width="4"/><ellipse cx="1400" cy="550" rx="60" ry="8" fill="#e6c873"/></g>
+<!-- Gran's tombola -->
+<g id="tombola" class="hot" transform="translate(-50 0)"><path d="M1440 860l40 -220M1560 860l-40 -220" stroke="#6a4420" stroke-width="10"/>
+  <g id="drumT"><path d="M1440 560l30 -52h60l30 52 -30 52h-60z" fill="#d8a030" stroke="#6a4420" stroke-width="6"/><path d="M1470 508v104M1530 508v104" stroke="#6a4420" stroke-width="3"/><circle cx="1500" cy="560" r="10" fill="#6a4420"/></g>
+  <path d="M1500 560h80v40" stroke="#3a3a44" stroke-width="7" fill="none"/><circle cx="1580" cy="604" r="8" fill="#c2185b"/><rect x="1460" y="630" width="80" height="40" fill="#fff8e6" stroke="#6a4420" stroke-width="2"/><text x="1500" y="656" class="cC" font-size="18" text-anchor="middle" fill="#2a1418">rules?</text></g>
+<g id="cutting" class="hot" transform="translate(-50 0)"><rect x="1430" y="686" width="64" height="44" fill="#ece6d6" transform="rotate(6 1462 708)"/><path d="M1438 698h46M1438 708h40M1438 718h44" stroke="#5a5a5a" stroke-width="2" transform="rotate(6 1462 708)"/></g>
+
+<g id="denise" class="hot" transform="translate(220 880) scale(.98)"></g>
+<g id="cosmo" class="hot" transform="translate(470 880) scale(.84)"></g>
+<g id="cleo" class="hot" transform="translate(860 890) scale(1.02)"></g>
+<g id="amara" class="hot" transform="translate(1110 896) scale(.96)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Sunday evening: up into the empty hall</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = TIX.told('e-told'), lock1 = null, lock2 = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 22; i++) { var x = 180 + i * 60, y = 180 + Math.sin(i * 0.9) * 14 + (i % 5) * 3; s += '<circle cx="' + x + '" cy="' + (y + 22) + '" r="5"/>'; }
+    $('#fairy').innerHTML += s;
+    $('#denise').innerHTML = TIX.who('denise', { smile: 2, extra: '<rect x="-60" y="-140" width="40" height="26" rx="4" fill="#c9c4b4"/>' });
+    $('#cosmo').innerHTML = TIX.who('cosmo', { smile: 3 });
+    $('#cleo').innerHTML = TIX.who('cleo', { smile: 4, extra: '<g transform="rotate(-28 0 -150)"><path d="M-70 -150q-10 -40 30 -40q20 -20 40 0q40 0 30 40q10 40 -30 40q-20 20 -40 0q-40 0 -30 -40z" fill="#a8501a"/><circle cx="-20" cy="-150" r="12" fill="#2a1418"/><rect x="10" y="-156" width="140" height="12" fill="#5a3a22"/><rect x="146" y="-162" width="24" height="24" rx="3" fill="#2a1418"/></g>' });
+    $('#amara').innerHTML = TIX.who('amara', { smile: 2 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'rehearsal', no: 'V', title: 'The Rehearsal Room',
+    go: 'Down the cellar steps',
+    intro: [
+      'On Ewan&rsquo;s corkboard: he paid £40 and the £4 fee and got £150 less the site&rsquo;s 10%, so £91 a ticket. Cheaper tickets at £20 would pay him £111, and the queue would start on Wednesday. A cap on resale, names on tickets and a rising price would each stop him, and each break something else: fakes in the car park, an empty seat, fans paying £150.',
+      'And Ewan, it turned out, has been in the front row of every Dandelion Clock gig since the caf&eacute;.',
+      'Sunday 11 October, half past ten. The band rehearses in the Boilerhouse cellar, which was the coal store. Cleo Ackroyd came on the night train.'
+    ],
+    exit: {"next":"hall","w":{"2e0c1155":"4ba52df4"}}, tags: {"a1":["3e1cb0d3"],"a2":["81c6457c"],"f1":["b8d1b261"],"f2":["146d49ff"],"s1":["e218bf9f"],"s2":["d6ea6d36"],"s3":["3d65aed1"],"s4":["5131256a"],"s5":["9083943c"],"ent":["e91702bb"],"ch":["55ce0654"],"e2700":["b097cfce"],"e600":["d355e881"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null;
+  function isBusy() { return busy; }
+  function ready1() { return told.has('cleo') && told.has('cs') && told.has('msgs'); }
+  function ready2() { return told.has('p1') && told.has('denise') && told.has('cut'); }
+  function paint() {
+    $('#chalk').classList.toggle('ready', !!(ready1() && !told.has('p1')));
+    $('#tombola').classList.toggle('ready', !!(ready2() && !nextFile));
+    ER.pips(['cleo', 'cs', 'msgs', 'p1', 'denise', 'cut'].filter(told.has).length + (nextFile ? 1 : 0), 7);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Cleo is going up to the empty hall to record it. The button at the bottom of the screen.']];
+    if (lock2 && lock2.isOpen()) return ['draw', [
+      'Each rule on the card answers something you met yesterday: page 9 and Ewan&rsquo;s incentive, the broken leg on the forum, Denise at work at nine, and what Cleo said about the price.',
+      'Ask of each choice: would Ewan still have a reason to win and resell? Does it depend on being free at a certain time? Does it leave an empty seat? Is it what Cleo asked for?',
+      'For the chance: how many people want a ticket at £40? Dina&rsquo;s whiteboard said so. Six hundred tickets among that many entries is one in how many?'
+    ]];
+    if (lock1 && lock1.isOpen()) return ['chalk', [
+      'Amara&rsquo;s card: surplus is what you would have paid minus what you paid.',
+      'Adrian said he would have paid £200, and he paid £40. Then take away what his hours in the queue cost him: it is on the A-board from yesterday, in your notebook.',
+      'Ffion says in her message what she would have paid, and she paid £150. Ewan&rsquo;s profit on one ticket is on his corkboard, in your notebook too.'
+    ]];
+    if (!told.has('cleo')) return ['cleo', ['Cleo has stopped Monday&rsquo;s sale. Ask her why.', 'Cleo is in the middle, in the black jacket, holding a guitar.']];
+    if (!told.has('cs')) return ['cs', ['Cleo said Amara has a card for it. It is on the arm of the sofa.', 'The white index card on the left arm of the blue sofa.']];
+    if (!told.has('msgs')) return ['msgs', ['You need to know what people would have paid. Cleo&rsquo;s phone has the messages fans sent the band.', 'The phone is lying on top of the amp, next to the kettle.']];
+    if (!told.has('p1')) return ['chalk1', ['Now the chalkboard: WHAT SATURDAY DID.']];
+    if (!told.has('denise')) return ['denise', ['Before you set up a draw, ask the person who could not buy on Saturday.', 'Denise is on the left by the sofa, in the blue coat.']];
+    if (!told.has('cut')) return ['cut', ['Cleo brought something to read about draws. It is tucked under the tombola.', 'The newspaper cutting at the foot of the tombola stand, on the right.']];
+    return ['tomb', ['Now Gran&rsquo;s tombola, on the right. Its card says: rules?']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('The test draw is still on the rug: Amara and Cosmo.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The rehearsal room: egg boxes on the walls, fairy lights, and Gran&rsquo;s tombola.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The old coal store has a curved brick roof, a rug, a sofa that has lost a fight, an amplifier with a kettle on it, a drum kit, and grey egg-box foam all over the back wall so that the neighbours can sleep.',
+      'In the corner stands a wooden drum with a handle, on legs: a tombola. A card is tied to it. It says <i>rules?</i> in somebody&rsquo;s handwriting.',
+      'Cosmo is here, still in the hat. So is a woman in a blue coat with a tin of flapjack. Cleo looks up from her guitar. &ldquo;Good,&rdquo; she says. &ldquo;Everybody who lost on Saturday, and the two people who did the sums.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#cleo').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Six o&rsquo;clock, in the hall,&rdquo; says Cleo. &ldquo;I&rsquo;ll say it to the camera. Who wins and who loses. All of it.&rdquo;'); return; }
+    TIX.sfx.pluck();
+    ER.talk({
+      who: 'Cleo Ackroyd', role: 'Sings in Dandelion Clock · from Ambermoor', face: TIX.face('cleo'),
+      lines: [
+        { note: 'Twenty-one, bleached hair, a black jacket, and a guitar she has not put down since you came in. She came on the night train and has not slept, and it only shows in her jokes.', a: '&ldquo;I used to sweep this floor. Dina paid me four pounds an hour and let me play the piano when nobody was booked. So I&rsquo;m not having the second night sold to whoever has the fastest thumb.&rdquo;' },
+        { q: 'Why did you stop Monday&rsquo;s sale?', a: '&ldquo;Because Bram&rsquo;s right that a hundred and fifty would make us rich, and Dina&rsquo;s right that a queue is how we&rsquo;ve always done it, and I don&rsquo;t like either. I want to know who wins and who loses, each way. With numbers.&rdquo;' },
+        { q: 'What price do you want?', a: '&ldquo;Forty. The same as the first night. People who paid forty on Saturday mustn&rsquo;t feel cheated, and people who can&rsquo;t pay a hundred and fifty mustn&rsquo;t be shut out. I know that leaves money on the table. It&rsquo;s my table.&rdquo;' },
+        { q: 'Then who gets the six hundred tickets?', a: '&ldquo;Amara says a draw. Ewan says a draw, which surprised me. My gran ran the tombola at the church fete for forty years, and that&rsquo;s her drum in the corner. But first show me what Saturday did to people. Amara has a card for it, of course. And read the messages on my phone.&rdquo;' }
+      ],
+      clue: { id: 'cleo', title: 'Cleo: forty, and fair', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('cleo')) { paint(); ER.say('Amara&rsquo;s card is on the arm of the sofa. Cleo&rsquo;s phone is on the amp.'); } }
+    });
+  });
+  $('#denise').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Denise Egan', role: 'Nurse, Durridge General · a fan since the first song', face: TIX.face('denise'),
+      lines: [
+        { note: 'She has brought a tin of flapjack, and she offers it round before she says anything.', a: '&ldquo;Saturday I was on the ward from half past seven in the morning till eight at night. Phones in the lockers. By my first break it was all over: gone online, gone at the window, and back on sale at a hundred and fifty.&rdquo;' },
+        { q: 'Would you have paid more than £40?', a: '&ldquo;A hundred and twenty. I&rsquo;ve loved them since my niece played me their first song in the car. But not a hundred and fifty. I&rsquo;ve got a boiler to fix.&rdquo;' },
+        { q: 'What would be fair?', a: '&ldquo;Something that doesn&rsquo;t depend on being free at nine o&rsquo;clock on one particular morning. Half this town works Saturdays. And Mondays.&rdquo;' }
+      ],
+      clue: { id: 'denise', title: 'Denise Egan: at work on Saturday', kind: 'In the rehearsal room' },
+      done: function (seen) { if (seen && told.set('denise')) paint(); }
+    });
+  });
+  $('#cosmo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Cosmo Duggan', role: 'Queue card No. 101', face: TIX.face('cosmo'),
+      lines: [
+        { note: 'Still in the hat.', a: '&ldquo;I&rsquo;ve still got my sixty pounds. I nearly bought the bike yesterday, out of spite.&rdquo;' },
+        { q: 'Would a draw be fair?', a: '&ldquo;If I lose a draw, I lose. That&rsquo;s fair. If I lose a race to a man with three laptops, that&rsquo;s just a race.&rdquo;' },
+        { q: 'Do you know Ewan?', a: '&ldquo;The man from Coal Street? He&rsquo;s always in the front row. I thought he was a superfan. Turns out he is.&rdquo;' }
+      ],
+      clue: { id: 'cosmo2', title: 'Cosmo: a draw, or a race', kind: 'In the rehearsal room' },
+      done: function (seen) { if (seen) told.set('cosmo'); }
+    });
+  });
+  $('#amara').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;One in four,&rdquo; says Amara. &ldquo;Not great odds. Honest ones.&rdquo;' : '&ldquo;Surplus first,&rdquo; says Amara. &ldquo;Then the draw. You can&rsquo;t design a fair thing until you&rsquo;ve counted what the unfair one did.&rdquo;');
+  });
+
+  var DIA = '<svg viewBox="0 0 280 200"><g font-family="Architects Daughter,cursive" font-size="13" fill="#1c2a4a">' +
+    '<path d="M30 14V180H270" stroke="#1c2a4a" stroke-width="2.5" fill="none"/><text x="4" y="24" font-size="12">price</text><text x="220" y="196" font-size="12">tickets</text>' +
+    '<path d="M30 130L150 130L50 40z" fill="#f29ab8" opacity=".55"/><path d="M40 30L250 170" stroke="#1a6a9a" stroke-width="3.5"/><path d="M30 130H270" stroke="#d8a030" stroke-width="3"/>' +
+    '<text x="56" y="112" font-size="13" fill="#c2185b" font-weight="700">consumer</text><text x="60" y="126" font-size="13" fill="#c2185b" font-weight="700">surplus</text><text x="196" y="124" font-size="12" fill="#a87a10">price</text><text x="200" y="150" font-size="12" fill="#1a6a9a">demand</text></g></svg>';
+  var CS = '<h4>Amara&rsquo;s revision cards &middot; Economics, unit 3</h4><h3>Consumer surplus</h3><div class="two"><div>' +
+    '<p><b>CONSUMER SURPLUS</b> = what you would have paid, minus what you paid.</p>' +
+    '<p>Would pay £120, ticket costs £40: you are £80 better off. No ticket, no surplus.</p>' +
+    '<p>On the diagram, everybody&rsquo;s surplus together is the space under demand and above the price.</p>' +
+    '<p>A price ceiling makes the lucky buyers&rsquo; surplus bigger and leaves everybody else with none. When a tout buys at £44 and sells at £150, part of the surplus moves to him. When the price itself goes up, it moves to the seller.</p>' +
+    '<p>A queue: take the cost of the hours away from the surplus.</p></div><div><div class="dia">' + DIA + '</div>' +
+    '<p class="fact">Jules Dupuit, a French engineer, used the idea in 1844 to ask what a bridge was worth to the people who crossed it. Alfred Marshall later called it &ldquo;consumer&rsquo;s surplus&rdquo;.</p></div></div>';
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CS, cls: 'card', clue: { id: 'cs', title: 'Amara&rsquo;s card: consumer surplus', kind: 'On the sofa' }, done: function () {
+      TIX.terms(['consumer surplus']);
+      if (told.set('cs')) { paint(); ER.say('What you would have paid, minus what you paid. No ticket, no surplus.'); }
+    } });
+  });
+  var MSGS = '<h4>Messages to the band</h4>' +
+    '<div class="post"><i>Denise Egan &middot; Sat 21.04</i>On the ward all day. Missed it. I&rsquo;d have paid £120, honestly, but not £150 to anybody. Please do the second night differently.</div>' +
+    '<div class="post"><i>ffi_c (Ffion Crowe) &middot; Sat 10.31</i>I was on a train at nine. Bought one from a man on Coal Street for £150. I&rsquo;d have paid £180 to see you, honestly. Don&rsquo;t tell him.</div>' +
+    '<div class="post"><i>cosmo_d &middot; Sat 10.02</i>I was number 101. I have £60. That is not a complaint, it is a fact.</div>' +
+    '<div class="post"><i>Adrian D. &middot; Sat 11.40</i>Card number one! £40 and a night on the pavement. Would have paid £200. Worth every minute. See you Friday.</div>';
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MSGS, cls: 'phone', clue: { id: 'msgs', title: 'Messages to the band, on Cleo&rsquo;s phone', kind: 'On the amp' }, done: function () {
+      if (told.set('msgs')) { paint(); ER.say('Four messages, four people, four different prices they would have paid.'); }
+    } });
+  });
+  var CUT = '<small>Sport &middot; how it works</small><h4>How the marathon picks its runners</h4>' +
+    '<p>Far more people want to run the London Marathon than there are places in it. Most places for ordinary runners are given out by a public ballot: you enter, and names are drawn at random.</p>' +
+    '<p>Running fast does not get you in, and neither does applying first. A place is for the person whose name was drawn.</p>' +
+    '<p>Every year a great many people enter, and most of them are disappointed. Hardly anybody says it is unfair.</p>';
+  $('#cutting').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUT, cls: 'cut', clue: { id: 'cut', title: 'How the marathon picks its runners', kind: 'Under the tombola' }, done: function () {
+      TIX.terms(['ballot']);
+      if (told.set('cut')) { paint(); ER.say('A ballot: names drawn at random. Not the fastest, not the first.'); }
+    } });
+  });
+  TIX.thing('#setlist', 'setlist', 'The setlist for the tour. The last song is called HOME. Somebody has added FOUR MINUTES in pencil, which is new.', isBusy);
+  TIX.thing('#drums', 'drum kit', 'The drum kit, with DC on the front. The drummer is still asleep somewhere, Cleo says. Drummers always are.', isBusy);
+  TIX.thing('#kettle', null, 'A kettle on an amplifier. Cleo says it is the most important piece of equipment the band owns.', isBusy);
+  TIX.thing('#sofa', null, 'The sofa has a hole in it the shape of a bass player.', isBusy);
+  $('#chalk').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('p1')) { ER.say('WHAT SATURDAY DID: Adrian £30 after his hours, Ffion £30, Ewan £91 from her ticket, Denise nothing.'); return; }
+    if (!told.has('cleo')) { ER.say('A chalkboard: WHAT SATURDAY DID. Ask Cleo what she wants on it.'); return; }
+    if (!told.has('cs')) { ER.say('Amara&rsquo;s card about consumer surplus first: on the arm of the sofa.'); return; }
+    if (!told.has('msgs')) { ER.say('You need to know what people would have paid: the messages on Cleo&rsquo;s phone, on the amp.'); return; }
+    if (!lock1) lock1 = makeChalk();
+    lock1.open();
+  });
+  $('#tombola').addEventListener('click', function (e) {
+    if (busy) return;
+    if (e.target.closest && e.target.closest('#cutting')) return;
+    if (nextFile) { ER.say('Gran&rsquo;s tombola, with Cleo&rsquo;s rules tied to it now, in Cleo&rsquo;s handwriting.'); return; }
+    if (!told.has('p1')) { ER.say('&ldquo;Not yet,&rdquo; says Cleo. &ldquo;The chalkboard first. Show me what Saturday did.&rdquo;'); return; }
+    if (!told.has('denise')) { ER.say('&ldquo;Ask Denise first,&rdquo; says Cleo. &ldquo;She&rsquo;s the reason we&rsquo;re doing this.&rdquo;'); return; }
+    if (!told.has('cut')) { ER.say('Cleo brought something to read about draws: the cutting at the foot of the stand.'); return; }
+    if (!lock2) lock2 = makeDraw();
+    lock2.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  function flashN(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+
+  /* ---------- the chalkboard: what Saturday did ---------- */
+  function makeChalk() {
+    var saved = ER.flag('e-cs') || {}, d = {}, wait = false;
+    var box = ER.el('div', 'pz cs');
+    box.innerHTML = '<div class="cs-in"><h5>WHAT SATURDAY DID</h5>' +
+      '<div class="cs-row"><div class="nm">Adrian</div><div class="eq">surplus on his £40 ticket <i id="a1"></i> &nbsp; and after the cost of his hours in the queue <i id="a2"></i></div></div>' +
+      '<div class="cs-row"><div class="nm">Ffion</div><div class="eq">surplus on her £150 ticket <i id="f1"></i> &nbsp; Ewan&rsquo;s profit on that same ticket <i id="f2"></i></div></div>' +
+      '<div class="cs-row"><div class="nm">Denise</div><div class="eq">no ticket &nbsp;&middot;&nbsp; surplus £0</div></div>' +
+      '<div class="cs-row"><div class="nm">Cosmo</div><div class="eq">no ticket, four hours on the pavement &nbsp;&middot;&nbsp; surplus £0</div></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="e1-go">Show Cleo</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || told.has('p1'); }
+    function keep() { var o = {}; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('e-cs', o); }
+    ['a1', 'a2', 'f1', 'f2'].forEach(function (k) { d[k] = TIX.drum(box.querySelector('#' + k), { digits: 3, before: '£', val: saved[k] || 0, change: keep, lock: lk }); });
+    function no(k, t) { ER.sfx.no(); flashN(box.querySelector('#' + k)); msg(t); }
+    box.querySelector('#e1-go').addEventListener('click', function () {
+      if (lk()) return;
+      var v = function (k) { return d[k].get(); };
+      if (!ER.check('a1', v('a1'))) return no('a1', v('a1') === 200 ? '&ldquo;That&rsquo;s what he would have paid,&rdquo; says Amara. &ldquo;Surplus is that minus what he did pay.&rdquo;' : '&ldquo;What Adrian says he would have paid,&rdquo; says Amara, &ldquo;minus what he paid at the window.&rdquo;');
+      if (!ER.check('a2', v('a2'))) return no('a2', '&ldquo;And the hours,&rdquo; says Amara. &ldquo;We worked out what his night in the queue cost him on the A-board. Take that away.&rdquo;');
+      if (!ER.check('f1', v('f1'))) return no('f1', '&ldquo;What Ffion would have paid,&rdquo; says Amara, &ldquo;minus the hundred and fifty she gave Ewan.&rdquo;');
+      if (!ER.check('f2', v('f2'))) return no('f2', '&ldquo;Ewan&rsquo;s profit on one ticket,&rdquo; says Amara. &ldquo;It&rsquo;s on his corkboard: what he got, less what he paid.&rdquo;');
+      told.set('p1'); paint(); TIX.sfx.chalk(); TIX.solved(true);
+      TIX.mine('surplus', 'What Saturday did', '<p>Adrian: would have paid £200, paid £40: surplus £160. Less his hours (£130): £30.</p><p>Ffion: would have paid £180, paid £150 to Ewan: surplus £30. Ewan made £91 on her ticket.</p><p>Denise and Cosmo: no ticket, no surplus.</p>', true);
+      msg('Cleo reads the board with her guitar across her knees. <b>Adrian £160, and £30 after his night. Ffion £30, and Ewan £91 from the same ticket.</b>');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;So forty pounds was a present,&rdquo; says Cleo, &ldquo;and most of Adrian&rsquo;s present went on a night on the pavement. Ffion&rsquo;s went to Ewan. Denise and Cosmo got nothing at all.&rdquo;',
+          '&ldquo;A queue gives the present to whoever can give up a night,&rdquo; says Amara. &ldquo;A race online gives it to whoever&rsquo;s fastest. A resale site sells it on. A hundred and fifty gives it back to you.&rdquo;',
+          '&ldquo;I don&rsquo;t want it back,&rdquo; says Cleo. &ldquo;I want it to go to fans, and not cost them a night or a fortune. Let&rsquo;s see what Gran&rsquo;s drum can do. Ask Denise how Saturday was, first.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('Work out each surplus on the wheels: what they would have paid, minus what they paid. Then show Cleo.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  /* ---------- Gran's tombola: the rules of the draw ---------- */
+  function makeDraw() {
+    var Q = [['s1', 'Who may enter', [['one', 'once each'], ['many', 'as often as you like']]],
+      ['s2', 'Names on the tickets, checked at the door', [['yes', 'yes'], ['no', 'no']]],
+      ['s3', 'Entries are open', [['hour', 'for one hour, Monday at nine'], ['week', 'for one week']]],
+      ['s4', 'Price of a ticket', [['20', '£20'], ['40', '£40'], ['150', '£150']]],
+      ['s5', 'A winner who cannot go', [['any', 'may resell it anywhere'], ['box', 'returns it to the box office for £40; it goes to the next name drawn'], ['none', 'no returns']]]];
+    var saved = ER.flag('e-draw') || {}, ch = saved.ch || {}, wait = false;
+    var box = ER.el('div', 'pz tb');
+    box.innerHTML = '<div class="tb-in"><h5>The second night: the rules of the draw</h5><p class="sub">Tied to Gran&rsquo;s tombola. Choose one answer for each line.</p>' +
+      Q.map(function (q) { return '<div class="q" data-q="' + q[0] + '"><b>' + q[1] + '</b><div class="ch">' + q[2].map(function (c) { return '<button type="button" data-v="' + c[0] + '">' + c[1] + '</button>'; }).join('') + '</div></div>'; }).join('') +
+      '<div class="odds">People who will enter at the price you chose: <i id="ent"></i> &nbsp; Each entry&rsquo;s chance of a ticket: 1 in <i id="ch"></i></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="e2-go">Turn the handle</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    var d = {};
+    function keep() { ER.flag('e-draw', { ch: ch, ent: d.ent.get(), chance: d.ch.get() }); }
+    d.ent = TIX.drum(box.querySelector('#ent'), { digits: 4, sep: true, val: saved.ent || 0, change: keep, lock: lk });
+    d.ch = TIX.drum(box.querySelector('#ch'), { digits: 1, val: saved.chance || 0, change: keep, lock: lk });
+    ER.$$('.q', box).forEach(function (row) {
+      var k = row.getAttribute('data-q');
+      function show() { ER.$$('button', row).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === ch[k]); }); }
+      ER.$$('button', row).forEach(function (b) { b.addEventListener('click', function () { if (lk()) return; ch[k] = b.getAttribute('data-v'); show(); ER.sfx.click(); keep(); }); });
+      show();
+    });
+    var WHY = {
+      s1: { many: '&ldquo;Then Ewan enters a hundred times,&rdquo; says Amara, &ldquo;and so does anybody with a spreadsheet. Page nine: what would that rule pay him?&rdquo;' },
+      s2: { no: '&ldquo;Without names, a winning ticket is still worth a hundred and fifty to somebody else,&rdquo; says Amara. &ldquo;The gap is back, and so is the spare room.&rdquo;' },
+      s3: { hour: '&ldquo;Monday at nine?&rdquo; says Denise. &ldquo;I&rsquo;m on the ward at nine on Monday too. Then it isn&rsquo;t luck that decides. It&rsquo;s who is free.&rdquo;' },
+      s4: { '20': '&ldquo;No,&rdquo; says Cleo. &ldquo;The same as the first night. Nobody who paid forty on Saturday should feel a fool.&rdquo;', '150': '&ldquo;At a hundred and fifty there&rsquo;s no shortage,&rdquo; says Amara. &ldquo;Six hundred people for six hundred seats: you wouldn&rsquo;t need a draw at all. And it&rsquo;s not what Cleo asked for.&rdquo;' },
+      s5: { any: '&ldquo;Then we&rsquo;re back in the spare room,&rdquo; says Amara. &ldquo;A name on the ticket means nothing if the ticket can be sold.&rdquo;', none: '&ldquo;Remember the broken leg on the forum,&rdquo; says Amara. &ldquo;An empty seat all night, and somebody outside who would have loved it.&rdquo;' }
+    };
+    box.querySelector('#e2-go').addEventListener('click', function () {
+      if (lk()) return;
+      var i, q;
+      for (i = 0; i < Q.length; i++) {
+        q = Q[i][0];
+        if (!ch[q]) { ER.sfx.no(); flashN(box.querySelector('.q[data-q="' + q + '"] .ch')); msg('&ldquo;' + Q[i][1] + ',&rdquo; says Cleo. &ldquo;You haven&rsquo;t chosen.&rdquo;'); return; }
+        if (!ER.check(q, ch[q])) { ER.sfx.no(); flashN(box.querySelector('.q[data-q="' + q + '"] .ch')); msg(WHY[q][ch[q]] || '&ldquo;Think about that line again,&rdquo; says Cleo.'); return; }
+      }
+      var e = d.ent.get(), c = d.ch.get();
+      if (!ER.check('ent', e)) { ER.sfx.no(); flashN(box.querySelector('#ent')); msg(ER.check('e2700', e) ? '&ldquo;Everybody who registered?&rdquo; says Amara. &ldquo;Three hundred of them wouldn&rsquo;t pay forty.&rdquo;' : ER.check('e600', e) ? '&ldquo;That&rsquo;s the seats,&rdquo; says Amara, &ldquo;not the people.&rdquo;' : '&ldquo;How many people want a ticket at forty pounds?&rdquo; says Amara. &ldquo;It was on Dina&rsquo;s whiteboard yesterday morning.&rdquo;'); return; }
+      if (!ER.check('ch', c)) { ER.sfx.no(); flashN(box.querySelector('#ch')); msg('&ldquo;Six hundred tickets among that many entries,&rdquo; says Amara. &ldquo;One in how many?&rdquo;'); return; }
+      var file = ER.exit([[ER.flag('e-cs').a1, ER.flag('e-cs').a2, ER.flag('e-cs').f1, ER.flag('e-cs').f2, ch.s1, ch.s2, ch.s3, ch.s4, ch.s5, e, c].join('-')], { wait: true });
+      if (!file) { msg('The drum sticks. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file);
+      TIX.sfx.rattle(); $('#drumT').classList.add('spin');
+      TIX.mine('draw', 'The rules of the draw', '<p>Once each. Names on the tickets, checked at the door. Open for a week. £40, the same as the first night. A winner who cannot go returns the ticket to the box office for £40, and it goes to the next name drawn.</p><p>About 2,400 people want a ticket at £40, for 600 tickets: a chance of 1 in 4 for every entry.</p>', true);
+      msg('Cleo turns the handle, and the drum goes round twice, rattling. <b>Once each, names on, a week, £40, returns to the box office. About 2,400 entries: one in four.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'For a test, Cleo writes eight names on folded papers: everybody in the room, and three from Bram&rsquo;s list. She turns the handle and draws two. One in four.',
+          'The first says AMARA. The second says COSMO. &ldquo;Does that count?&rdquo; says Cosmo. &ldquo;No,&rdquo; says Cleo. &ldquo;Worth asking,&rdquo; says Cosmo.',
+          '&ldquo;Nobody can buy their way in,&rdquo; says Denise, slowly. &ldquo;Nobody can sit up all night their way in. And I can enter on my break on Wednesday.&rdquo;',
+          '&ldquo;And three out of four people who enter won&rsquo;t get one,&rdquo; says Amara. &ldquo;Say that too. Don&rsquo;t let them find out.&rdquo;',
+          '&ldquo;I&rsquo;ll say all of it,&rdquo; says Cleo. &ldquo;Tonight, at six, in the hall, to the camera. Who wins and who loses. You can help me choose the words.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 3000);
+    });
+    msg('Choose a rule on every line. Then set how many people will enter and the chance of each entry. Then turn the handle.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

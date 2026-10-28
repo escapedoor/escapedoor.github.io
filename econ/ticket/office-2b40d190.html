@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Promoter’s Office · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#e8d8b0;--accent:#c2185b;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,248,226,.97);--tc-ink:#2a1a10;--cap-bg:rgba(255,250,236,.96);--cap-ink:#2a1a10;--panel:#fffaec;--panel-ink:#2a1a10;--face-bg:#d8a030;--q-ink:#a8501a;
+    --fade:#f4e8c8;--hud-bg:rgba(255,250,236,.9);--hud-ink:#2a1a10;--hud-line:rgba(42,26,16,.3);--ov-bg:rgba(40,24,8,.6);background:#e8d8b0}
+  .tc-room{font-size:clamp(36px,5vw,72px);color:#c2185b}
+  .tc-theme{color:#a8501a}
+  .hbtn b{color:#fff}
+  #beam{animation:beam 8s steps(2,end) infinite}
+  @keyframes beam{50%{opacity:.7}}
+  #wheel{transform-origin:1388px 760px;animation:spin 6s steps(12,end) infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Bram's pricing board */
+  .pb{width:min(1020px,96vw)}
+  .pb-in{background:#fffdf4;border:10px solid #2a2a33;border-radius:4px;padding:12px 20px 10px;color:#1c1a2a;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+  .pb h5{margin:0 0 6px;font-family:'Bungee',sans-serif;font-weight:400;font-size:24px;color:#c2185b;letter-spacing:.02em}
+  .pb table{width:100%;border-collapse:collapse;font-family:'Lora',serif;font-size:16px}
+  .pb td{padding:5px 6px;border-bottom:1px dashed #c8c0a8;vertical-align:middle}
+  .pb td.nm{font-family:'Cabin Sketch',cursive;font-size:19px;line-height:1.1;width:200px}
+  .pb td.nm small{display:block;font-family:'Lora',serif;font-size:13px;color:#6a5a4a}
+  .pb .st{display:flex;flex-direction:column;gap:5px}
+  .pb .st button{padding:4px 10px 2px;border:2px solid #2a2a33;border-radius:3px;font-family:'Stardos Stencil',sans-serif;font-size:15px;letter-spacing:.08em;color:#2a2a33;background:#fff}
+  .pb .st button.on{background:#c2185b;color:#fff;border-color:#c2185b;transform:rotate(-2deg)}
+  .pb .two{margin-top:10px;padding:10px 12px 6px;background:#fff4c8;border:2px solid #d8a030;font-family:'Lora',serif;font-size:17px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+  .pb .two > b{font-family:'Bungee',sans-serif;font-weight:400;font-size:16px;color:#2a2a33}
+  .pb .dr-w b{font-size:21px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="boards" width="200" height="40" patternUnits="userSpaceOnUse"><rect width="200" height="40" fill="#b88a5a"/><path d="M0 0H200M120 0V40" stroke="#8a5a32" stroke-width="3"/></pattern>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab8e0"/><stop offset="1" stop-color="#e8f0f4"/></linearGradient>
+  <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d0" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></linearGradient>
+  <pattern id="brick2" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#9a4a32"/><path d="M0 0H40M0 10H40M20 0V10M0 10V20" stroke="#7a3422" stroke-width="1.5"/></pattern>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#3a2000" stop-opacity=".08"/><stop offset="1" stop-color="#3a2000" stop-opacity=".42"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1160" fill="#efe2c0"/>
+<!-- the roof: timber trusses -->
+<path d="M-1000 -400H2600V40L800 -360L-1000 40z" fill="#d8c8a0"/>
+<g stroke="#6a4420" stroke-width="22" fill="none"><path d="M-200 360L800 -260L1800 360"/><path d="M300 60H1300"/><path d="M800 -260V60"/><path d="M560 60L800 -100M1040 60L800 -100"/></g>
+<!-- the round window and the chimney -->
+<g id="oculus" class="hot"><circle cx="800" cy="170" r="92" fill="#6a4420"/><circle cx="800" cy="170" r="78" fill="url(#sky)"/>
+  <path d="M780 270L790 100h36l8 170z" fill="url(#brick2)"/><rect x="784" y="94" width="48" height="10" fill="#5a2a18"/><path d="M722 170h156M800 92v156" stroke="#6a4420" stroke-width="6"/><circle cx="800" cy="170" r="78" fill="none" stroke="#4a2c12" stroke-width="5"/></g>
+<path id="beam" d="M720 220L300 760H900L880 230z" fill="url(#light)" pointer-events="none"/>
+
+<!-- posters -->
+<g id="posters" class="hot"><g transform="rotate(-3 180 300)"><rect x="90" y="190" width="180" height="250" fill="#f2c43a" stroke="#2a2a33" stroke-width="3"/><text x="180" y="236" class="cB" font-size="19" text-anchor="middle" fill="#c2185b">DANDELION</text><text x="180" y="260" class="cB" font-size="19" text-anchor="middle" fill="#c2185b">CLOCK</text>
+  <text x="180" y="300" class="cO" font-size="15" text-anchor="middle" fill="#2a2a33">DRILL HALL</text><text x="180" y="320" class="cO" font-size="15" text-anchor="middle" fill="#2a2a33">DURRIDGE</text><text x="180" y="360" class="cO" font-size="22" text-anchor="middle" fill="#2a2a33">SPRING £30</text><text x="180" y="392" class="cO" font-size="22" text-anchor="middle" fill="#2a2a33">AUTUMN £40</text></g>
+  <g transform="rotate(2 400 300)"><rect x="300" y="210" width="160" height="220" fill="#2a2a33"/><text x="380" y="262" class="cS" font-size="22" text-anchor="middle" fill="#f4f1ea">SUNDAY</text><text x="380" y="290" class="cS" font-size="22" text-anchor="middle" fill="#f4f1ea">FILM CLUB</text><rect x="330" y="310" width="100" height="70" fill="#4a6a8a"/><text x="380" y="410" class="cO" font-size="15" text-anchor="middle" fill="#ffcf4a">EVERY SUNDAY 7PM</text></g></g>
+<!-- Bram's wall chart -->
+<g id="chart" class="hot"><rect x="960" y="150" width="400" height="300" fill="#fffdf4" stroke="#2a2a33" stroke-width="3"/><text x="1160" y="182" class="cB" font-size="17" text-anchor="middle" fill="#2a2a33">PRICE &amp; HOW MANY</text>
+  <path d="M1000 410V200M1000 410H1330" stroke="#2a2a33" stroke-width="3"/><path d="M1040 230L1300 280" stroke="#c2185b" stroke-width="5"/><path d="M1040 300L1300 400" stroke="#1a6a9a" stroke-width="5"/>
+  <text x="1306" y="272" class="cH" font-size="14" fill="#c2185b">band</text><text x="1240" y="372" class="cH" font-size="14" fill="#1a6a9a">film</text></g>
+
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#boards)"/><rect x="-1000" y="694" width="3600" height="10" fill="#6a4420"/>
+<!-- the desk -->
+<rect x="420" y="560" width="760" height="24" rx="3" fill="#2a2a33"/><path d="M450 584V840M1150 584V840" stroke="#2a2a33" stroke-width="12"/>
+<g id="laptop" class="hot"><path d="M640 560l20 -110h200l20 110z" fill="#3a3a44"/><path d="M660 456h196l-18 98h-160z" fill="#1a1a22"/><text x="760" y="494" class="cB" font-size="16" text-anchor="middle" fill="#ffcf4a">2ND NIGHT!</text><text x="760" y="520" class="cO" font-size="12" text-anchor="middle" fill="#f4f1ea">PRICE TO FOLLOW</text>
+  <circle cx="700" cy="474" r="6" fill="#c2185b"/><rect x="820" y="530" width="20" height="12" fill="#3a8a4a"/><path d="M600 560h320l-10 12H610z" fill="#5a5a64"/></g>
+<g id="cards" class="hot"><rect x="960" y="530" width="90" height="30" fill="#fffef8" stroke="#c8d8ec" transform="rotate(-6 1005 545)"/><rect x="968" y="524" width="90" height="30" fill="#fffef8" stroke="#c8d8ec"/><path d="M968 530h90" stroke="#e2453a" stroke-width="2"/><path d="M976 540h60M976 548h50" stroke="#2a4a8a" stroke-width="1.5"/><path d="M1012 524v30" stroke="#d84a3a" stroke-width="3"/></g>
+<g id="coffee" class="hot"><rect x="470" y="470" width="80" height="90" rx="6" fill="#c2402a"/><rect x="486" y="520" width="48" height="30" fill="#2a2a33"/><path d="M498 556h24v-14h-24z" fill="#f4f1ea"/><circle cx="510" cy="490" r="8" fill="#ffcf4a"/></g>
+<g id="cactus" class="hot"><path d="M1110 560l-8 -34h50l-8 34z" fill="#c26a3a"/><path d="M1127 528v-60q0 -12 10 -12t10 12v60" fill="#3a8a4a"/><path d="M1127 500h-14v-20" stroke="#3a8a4a" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+<!-- the exercise bike, with a coat on it -->
+<g id="bike" class="hot" transform="translate(-80 0)"><path d="M1330 820l60 -170M1390 650l70 30M1390 650v-40" stroke="#3a3a44" stroke-width="12" stroke-linecap="round"/><rect x="1370" y="600" width="44" height="12" rx="4" fill="#2a2a33"/><g id="wheel"><circle cx="1388" cy="760" r="40" fill="none" stroke="#3a3a44" stroke-width="10"/><path d="M1388 720v80M1348 760h80" stroke="#5a5a64" stroke-width="4"/></g>
+  <path d="M1300 840h170" stroke="#3a3a44" stroke-width="14" stroke-linecap="round"/><path d="M1372 600q-30 30 -24 120l40 0q10 -80 -16 -120z" fill="#6a2a4a"/></g>
+<!-- the pricing board on its stand -->
+<g id="board" class="hot" transform="translate(-60 0)"><path d="M1440 880l40 -330M1560 880l-40 -330" stroke="#5a5a64" stroke-width="10"/><rect x="1420" y="430" width="200" height="160" fill="#fffdf4" stroke="#2a2a33" stroke-width="6"/>
+  <text x="1520" y="464" class="cB" font-size="14" text-anchor="middle" fill="#c2185b">2ND NIGHT</text><text x="1520" y="500" class="cS" font-size="22" text-anchor="middle" fill="#2a2a33">£ ? ? ?</text><text x="1520" y="534" class="cH" font-size="14" text-anchor="middle" fill="#2a2a33">dynamic!!!</text></g>
+
+<g id="bram" class="hot" transform="translate(880 870) scale(1.04)"></g>
+<g id="amara" class="hot" transform="translate(300 880) scale(.98)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Round to Coal Street</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = TIX.told('c-told'), lock = null;
+
+  $('#bram').innerHTML = TIX.who('bram', { smile: 8, extra: '<rect x="28" y="-150" width="16" height="30" rx="3" fill="#14101a"/>' });
+  $('#amara').innerHTML = TIX.who('amara', { smile: 1, extra: '<rect x="30" y="-150" width="34" height="22" fill="#fffef8" stroke="#c8d8ec" transform="rotate(-8 47 -139)"/>' });
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'office', no: 'III', title: 'The Promoter’s Office',
+    go: 'Up the iron stairs',
+    intro: [
+      'On Dina&rsquo;s whiteboard, everybody whose most was that price or more: 100 people at £300, 350 at £200, 600 at £150, 1,000 at £100, 2,400 at £40. Six hundred seats. At £40 a shortage of 1,800, and where the lines crossed, £150. By twenty to ten the resale site said £150 too.',
+      'At half past eleven, Bram Furlong announced a second night: Saturday 5 December, six hundred more tickets, on sale on Monday morning. Price to follow.',
+      'His office is at the top of the iron stairs, in the roof, with a round window that looks straight at the chimney.'
+    ],
+    exit: {"next":"spareroom","w":{"0f96c167":"1d39a8a6"}}, tags: {"f1":["a84bf9ea"],"f2":["7d610b34"],"b1":["ec4ac953"],"b2":["c0e8043b"],"fe":["0adf353c"],"be":["24696c6b"],"dem":["894590f0","1eb1fc61","14687c83","947fb812","d4625a5b","9c5b8f15"],"best":["8fb19540"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('bram') && told.has('card') && told.has('chart'); }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['bram', 'card', 'chart', 'p1'].filter(told.has).length + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Dina has found a reseller who will talk. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen() && told.has('p1')) return ['night', [
+      'Bram wants the price for the second night that brings in the most money. Six hundred seats. Your whiteboard says how many people would buy at each price.',
+      'Try the prices on Bram&rsquo;s survey one by one. At each, tickets sold is the number who would pay that much or more, but never more than 600. Takings = price × tickets sold.',
+      'Compare £100, £150, £200 and £300. Too low and the hall is full of people who would have paid more; too high and the seats are empty.'
+    ]];
+    if (lock && lock.isOpen()) return ['table', [
+      'Takings are the price times the number sold. Then compare: when the price went up by a third, did the takings go up or down?',
+      'Amara&rsquo;s card: if a higher price brings in LESS money, demand is elastic; if it brings in MORE, it is inelastic. Stamp each show.',
+      'Film: £6 × 300 and £8 × 150. Band: £30 × 1,200 and £40 × 1,140. The film loses half its audience; the band loses one person in twenty.'
+    ]];
+    if (!told.has('bram')) return ['bram', ['Bram has an idea. Let him tell you about it.', 'Bram is behind the desk in the mustard shirt.']];
+    if (!told.has('card')) return ['card', ['Bram said: Amara&rsquo;s revision cards. They are on the desk.', 'The little stack of white cards with a rubber band, on the right of the desk.']];
+    if (!told.has('chart')) return ['chart', ['You need numbers: Bram&rsquo;s wall chart.', 'The chart on the wall to the right of the round window: PRICE &amp; HOW MANY.']];
+    return ['board', ['Now Bram&rsquo;s pricing board, on its stand on the right.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Coal Street. Ewan Brierley is expecting you.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Bram&rsquo;s office, in the roof. The pricing board still says £ ? ? ?'); return; }
+    told.set('in');
+    ER.narrate([
+      'Bram&rsquo;s office has a sloping roof, timber beams, a round window, an exercise bike with a coat on it, a coffee machine, a cactus and a great many posters.',
+      'On a stand by the window is a whiteboard that says 2ND NIGHT, £ ? ? ?, and under that, in another colour, <i>dynamic!!!</i>',
+      'Bram is on the phone. He finishes the call with &ldquo;Love you, bye,&rdquo; which he says to everybody, and spins his chair round to face you.'
+    ], function () { busy = false; });
+  }
+
+  $('#bram').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;A hundred and fifty,&rdquo; says Bram, mostly to himself. &ldquo;I&rsquo;ll talk to Cleo. Go and see the man in the spare room.&rdquo;'); return; }
+    ER.talk({
+      who: 'Bram Furlong', role: 'Promoter · Furlong Live', face: TIX.face('bram'),
+      lines: [
+        { note: 'Bram bounces when he talks, even sitting down. Mustard shirt, white trainers, a ginger beard and a laptop covered in stickers.', a: '&ldquo;Second night! Saturday the fifth. I put it up at half past eleven and the website nearly fell over. On sale Monday at nine. Price to follow.&rdquo;' },
+        { q: 'What price?', a: '&ldquo;That&rsquo;s the idea. Dynamic pricing. Airlines do it, hotels do it. The price goes up while people are buying. The market decides, not some man with three laptops in a spare room.&rdquo;' },
+        { q: 'Won&rsquo;t the fans mind?', a: '&ldquo;Fans love this band. Amara says that makes their demand <i>inelastic</i>: they&rsquo;ll buy whatever it costs. So the higher the better, surely. Three hundred? Why not three hundred?&rdquo;' },
+        { q: 'Who gets the money?', a: '&ldquo;The band, mostly. The hall gets its hire, I get my share, and the rest goes to Cleo and the others. Right now a reseller makes more on one of their tickets than they do. Explain to me how that&rsquo;s fair.&rdquo;' },
+        { q: 'What do you want us to do?', a: '&ldquo;Find me the best price for the second night: the one that brings in the most. Use my chart. And Amara&rsquo;s cards, she says, though I&rsquo;ve never needed a card in my life.&rdquo;' }
+      ],
+      clue: { id: 'bram1', title: 'Bram: the best price for the second night', kind: 'What he said' },
+      done: function (seen) { if (seen && told.set('bram')) { paint(); TIX.terms(['dynamic pricing', 'promoter']); ER.say('Amara&rsquo;s cards are on the desk. Bram&rsquo;s chart is on the wall.'); } }
+    });
+  });
+  $('#amara').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;He&rsquo;s not wrong,&rdquo; says Amara quietly. &ldquo;He just hasn&rsquo;t met Cosmo.&rdquo;' : '&ldquo;Inelastic doesn&rsquo;t mean &lsquo;whatever it costs&rsquo;,&rdquo; says Amara. &ldquo;Read my card before he reads it to you.&rdquo;');
+  });
+
+  var DIA = '<svg viewBox="0 0 290 210"><g font-family="Architects Daughter,cursive" font-size="13" fill="#1c2a4a">' +
+    '<path d="M30 14V190H280" stroke="#1c2a4a" stroke-width="2.5" fill="none"/><text x="6" y="24" font-size="12">price</text><text x="236" y="206" font-size="12">how many</text>' +
+    '<path d="M120 30L150 180" stroke="#c2185b" stroke-width="4"/><text x="70" y="44" fill="#c2185b" font-weight="700">inelastic</text><text x="66" y="60" fill="#c2185b" font-size="12">(steep)</text>' +
+    '<path d="M50 110L270 150" stroke="#1a6a9a" stroke-width="4"/><text x="196" y="132" fill="#1a6a9a" font-weight="700">elastic</text><text x="200" y="168" fill="#1a6a9a" font-size="12">(flat)</text></g></svg>';
+  var CARD = '<h4>Amara&rsquo;s revision cards &middot; Economics, unit 2</h4><h3>Price elasticity of demand</h3><div class="two"><div>' +
+    '<p>When a price goes up, do people buy <b>much less</b>, or <b>nearly as much</b>?</p>' +
+    '<p><b>ELASTIC</b>: much less. The number sold falls by a bigger share than the price rose. Usually there is a good <b>SUBSTITUTE</b>: something else that would do instead.</p>' +
+    '<p><b>INELASTIC</b>: nearly as much. The number sold falls by a smaller share. Usually there is nothing quite like it.</p>' +
+    '<p><b>TOTAL REVENUE</b> = price × number sold. If demand is elastic, a higher price brings in LESS money. If inelastic, MORE.</p>' +
+    '<p>CAREFUL: the same thing can be inelastic at a low price and elastic at a high one. Even a fan has a limit.</p></div><div><div class="dia">' + DIA + '</div>' +
+    '<p class="fact">Alfred Marshall made the idea famous in his <i>Principles of Economics</i>, 1890.</p></div></div>';
+  $('#cards').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'elastic', title: 'Amara&rsquo;s card: price elasticity of demand', kind: 'On the desk' }, done: function () {
+      TIX.terms(['price elasticity of demand', 'elastic', 'inelastic', 'substitute', 'total revenue']);
+      if (told.set('card')) { paint(); ER.say('Elastic: much less. Inelastic: nearly as much. And even a fan has a limit.'); }
+    } });
+  });
+  var CHART = '<h4>PRICE &amp; HOW MANY &middot; two of my shows</h4><table>' +
+    '<tr><td colspan="2"><b>The Sunday Film Club</b>, at the Boilerhouse. (The same film was on at the Regal the next week.)</td></tr>' +
+    '<tr><td>at £6</td><td class="r">300 tickets sold</td></tr><tr><td>at £8</td><td class="r">150 tickets sold</td></tr>' +
+    '<tr><td colspan="2"><b>Dandelion Clock</b>, at the Drill Hall, Durridge (1,500 places, never full)</td></tr>' +
+    '<tr><td>spring tour, at £30</td><td class="r">1,200 tickets sold</td></tr><tr><td>autumn tour, at £40</td><td class="r">1,140 tickets sold</td></tr></table>' +
+    '<p class="hand">Same price rise for both: a third!! B.F.</p>';
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CHART, cls: 'sheet', clue: { id: 'chart', title: 'Bram&rsquo;s wall chart: price and how many', kind: 'On the wall' }, done: function () {
+      if (told.set('chart')) { paint(); ER.say('A film you could see next week, and a band you love. The same rise of a third for both.'); }
+    } });
+  });
+  var NEWS = '<h4>Furlong Live &middot; posted 11.30</h4><div class="post"><i>Furlong Live</i>DANDELION CLOCK: SECOND NIGHT! The Boilerhouse, Saturday 5 December. 600 tickets. On sale Monday 9 a.m. Price to follow. Watch this space!</div>' +
+    '<div class="post"><i>reply &middot; cosmo_d</i>please not £150</div><div class="post"><i>reply &middot; ffi_c</i>Paid £150 for night one this morning. Worth it. Ask me again in December.</div>';
+  $('#laptop').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NEWS, cls: 'phone', clue: { id: 'news', title: 'Bram&rsquo;s announcement, and two replies', kind: 'On the laptop' }, done: function () {
+      if (told.set('news')) ER.say('Two replies, out of four thousand. Bram has read all four thousand.');
+    } });
+  });
+  TIX.thing('#posters', null, 'Dandelion Clock at the Drill Hall in Durridge, spring £30 and autumn £40. Beside it, the Sunday Film Club, every Sunday at seven.', isBusy);
+  TIX.thing('#oculus', null, 'Through the round window: the chimney, close enough to touch, and the yard below, empty now, except for one red anorak on the kerb.', isBusy);
+  TIX.thing('#bike', 'exercise bike', 'Bram&rsquo;s exercise bike. The coat on it has been there since March.', isBusy);
+  TIX.thing('#coffee', null, 'The coffee machine says DESCALE ME. It has said so since the spring tour.', isBusy);
+  TIX.thing('#cactus', 'cactus', 'A cactus. Bram says it is the only thing in the office he has never had to argue with.', isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The board now says £150, and under it, in Amara&rsquo;s writing, <i>and who pays it?</i>'); return; }
+    if (!told.has('bram')) { ER.say('Bram&rsquo;s pricing board. Ask him what he wants on it.'); return; }
+    if (!told.has('card')) { ER.say('Elastic, inelastic: read Amara&rsquo;s card on the desk first.'); return; }
+    if (!told.has('chart')) { ER.say('You need Bram&rsquo;s numbers: the wall chart, to the right of the round window.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the pricing board ---------- */
+  function makeLock() {
+    var saved = ER.flag('c-pb') || {}, d = {}, stamp = { fe: saved.fe || '', be: saved.be || '' }, wait = false;
+    var box = ER.el('div', 'pz pb');
+    function st(k) { return '<td><div class="st" data-k="' + k + '"><button type="button" data-v="e">ELASTIC</button><button type="button" data-v="i">INELASTIC</button></div></td>'; }
+    box.innerHTML = '<div class="pb-in"><h5>Bram&rsquo;s pricing board</h5><table>' +
+      '<tr><td class="nm">Sunday Film Club<small>the same film at the Regal next week</small></td><td>£6 × 300 = <i id="f1"></i></td><td>£8 × 150 = <i id="f2"></i></td>' + st('fe') + '</tr>' +
+      '<tr><td class="nm">Dandelion Clock<small>the Drill Hall, Durridge</small></td><td>£30 × 1,200 = <i id="b1"></i></td><td>£40 × 1,140 = <i id="b2"></i></td>' + st('be') + '</tr></table>' +
+      '<div class="two"><b>Second night, 600 seats:</b> price <i id="pr"></i> &nbsp; tickets sold <i id="sd"></i> &nbsp; takings <i id="tk"></i></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-go">Show Bram</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    function keep() { var o = { fe: stamp.fe, be: stamp.be }; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('c-pb', o); }
+    function dr(id, n) { d[id] = TIX.drum(box.querySelector('#' + id), { digits: n, sep: n > 3, before: id === 'sd' ? '' : '£', val: saved[id] || 0, change: keep, lock: lk }); }
+    dr('f1', 4); dr('f2', 4); dr('b1', 5); dr('b2', 5); dr('pr', 3); dr('sd', 3); dr('tk', 5);
+    ER.$$('.st', box).forEach(function (g) {
+      var k = g.getAttribute('data-k');
+      function show() { ER.$$('button', g).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === stamp[k]); }); }
+      ER.$$('button', g).forEach(function (b) { b.addEventListener('click', function () { if (lk()) return; stamp[k] = b.getAttribute('data-v'); show(); TIX.sfx.stamp(); keep(); }); });
+      show();
+    });
+    function flash(sel) { var n = box.querySelector(sel); n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    function no(sel, t) { ER.sfx.no(); flash(sel); msg(t); }
+    var PRICES = [40, 100, 150, 200, 250, 300];
+    box.querySelector('#c-go').addEventListener('click', function () {
+      if (lk()) return;
+      var v = function (k) { return d[k].get(); };
+      if (!ER.check('f1', v('f1'))) return no('#f1', '&ldquo;Takings,&rdquo; says Bram. &ldquo;Six pounds a ticket, three hundred tickets. Even I can do that one.&rdquo;');
+      if (!ER.check('f2', v('f2'))) return no('#f2', '&ldquo;Price times the number sold,&rdquo; says Amara. &ldquo;Eight pounds, a hundred and fifty tickets.&rdquo;');
+      if (!ER.check('b1', v('b1'))) return no('#b1', '&ldquo;Thirty pounds, twelve hundred tickets,&rdquo; says Amara. &ldquo;Three times twelve, and then the noughts.&rdquo;');
+      if (!ER.check('b2', v('b2'))) return no('#b2', '&ldquo;Forty pounds, eleven hundred and forty tickets,&rdquo; says Amara. &ldquo;Four times a hundred and fourteen, and then the noughts.&rdquo;');
+      if (!stamp.fe || !ER.check('fe', stamp.fe)) return no('.st[data-k="fe"]', '&ldquo;The film,&rdquo; says Amara. &ldquo;The price went up a third and half the audience stayed at home. Much less, or nearly as much? And did the takings go up or down?&rdquo;');
+      if (!stamp.be || !ER.check('be', stamp.be)) return no('.st[data-k="be"]', '&ldquo;The band,&rdquo; says Amara. &ldquo;The same rise of a third, and they lost sixty people out of twelve hundred. Much less, or nearly as much?&rdquo;');
+      if (!told.has('p1')) { told.set('p1'); paint(); TIX.sfx.stamp(); }
+      var p = v('pr'), s = v('sd'), t = v('tk');
+      if (!p) return no('#pr', '&ldquo;Inelastic!&rdquo; says Bram, delighted. &ldquo;I told you. So: the second night. Price, tickets, takings. Make it the most we can take.&rdquo;');
+      if (s > 600) return no('#sd', '&ldquo;Six hundred seats,&rdquo; says Bram. &ldquo;Even I can&rsquo;t sell a seventh hundred.&rdquo;');
+      if (p * s !== t) return no('#tk', '&ldquo;Check the takings,&rdquo; says Amara. &ldquo;Price times tickets sold.&rdquo;');
+      if (PRICES.indexOf(p) < 0) return no('#pr', '&ldquo;We only know about the prices on my survey,&rdquo; says Bram. &ldquo;Forty, a hundred, a hundred and fifty, two hundred, two fifty, three hundred. Pick one of those.&rdquo;');
+      if (!ER.check('dem', p + '-' + s)) return no('#sd', '&ldquo;How many would really buy at £' + p + '?&rdquo; says Amara. &ldquo;Everybody whose most is that much or more: it&rsquo;s on Dina&rsquo;s whiteboard. And never more than the seats.&rdquo;');
+      if (!ER.check('best', p)) {
+        if (s < 600) return no('#pr', '&ldquo;' + TIX.pounds(t) + ',&rdquo; says Bram, and his face falls a little. &ldquo;With ' + (600 - s) + ' empty seats.&rdquo; &ldquo;Even a fan has a limit,&rdquo; says Amara. &ldquo;Can another price take more?&rdquo;');
+        return no('#pr', '&ldquo;A full hall and ' + TIX.pounds(t) + ',&rdquo; says Bram. &ldquo;But your whiteboard says more than six hundred people would pay that. Could we charge more and still fill it?&rdquo;');
+      }
+      var file = ER.exit([[v('f1'), v('f2'), v('b1'), v('b2'), stamp.fe, stamp.be, p, s, t].join('-')], { wait: true });
+      if (!file) { msg('The board will not take it. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file);
+      TIX.mine('takings', 'Elasticity, and the best price', '<p>Film Club: £6 × 300 = £1,800; £8 × 150 = £1,200. Up a third, half the audience lost, takings down: elastic (the Regal next week is a substitute).</p><p>Dandelion Clock: £30 × 1,200 = £36,000; £40 × 1,140 = £45,600. Up a third, one in twenty lost, takings up: inelastic.</p><p>Second night, 600 seats: £100 fills it (£60,000), £150 fills it (£90,000), £200 sells 350 (£70,000), £300 sells 100 (£30,000). Most at £150, the market-clearing price. At £40: £24,000.</p>', true);
+      msg('Bram reads the board twice, which is once more than he reads anything. <b>£150, every seat sold, £90,000.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Ninety thousand pounds,&rdquo; says Bram. &ldquo;Against twenty-four thousand at forty.&rdquo; He wipes 2ND NIGHT £ ? ? ? off the board and writes £150 in large figures. &ldquo;And not three hundred, because at three hundred only a hundred people come. Even a fan has a limit. I like that. I&rsquo;m having it on a T-shirt.&rdquo;',
+          '&ldquo;And every fan pays a hundred and fifty,&rdquo; says Amara. &ldquo;Cosmo has sixty pounds. Becky would have stayed in bed.&rdquo; She writes underneath, smaller: <i>and who pays it?</i>',
+          '&ldquo;That&rsquo;s not my fault,&rdquo; says Bram. &ldquo;That&rsquo;s demand.&rdquo; &ldquo;It isn&rsquo;t anybody&rsquo;s fault,&rdquo; says Amara. &ldquo;It&rsquo;s a choice.&rdquo;',
+          'The phone rings. It is Dina. &ldquo;One buyer took four tickets online at a minute past nine, and he has three up at a hundred and fifty. I know him. Ewan Brierley, Coal Street. He says come round and he&rsquo;ll show you how it works. He says he isn&rsquo;t hiding.&rdquo;',
+          '&ldquo;Go on,&rdquo; says Bram. &ldquo;Find out what would stop him. I&rsquo;ll ring Cleo.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg(told.has('p1') ? 'Now the second night: price, tickets sold and takings.' : 'Work out the takings with the wheels, and stamp each show ELASTIC or INELASTIC. Then the second night. Then show Bram.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

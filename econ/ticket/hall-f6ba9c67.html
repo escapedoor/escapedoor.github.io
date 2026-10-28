@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Empty Hall · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#2a1830;--accent:#ffcf4a;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(255,244,226,.97);--tc-ink:#2a1430;--cap-bg:rgba(255,248,236,.96);--cap-ink:#2a1430;--panel:#fff8ec;--panel-ink:#2a1430;--face-bg:#1a1a22;--q-ink:#c2185b;
+    --fade:#1a0e20;--hud-bg:rgba(255,248,236,.9);--hud-ink:#2a1430;--hud-line:rgba(42,20,48,.3);--ov-bg:rgba(20,8,24,.6);background:#2a1830}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#c2185b}
+  .tc-theme{color:#7a4a8a}
+  .hbtn b{color:#fff}
+  #ghost{animation:gl 5s steps(2,end) infinite}
+  @keyframes gl{50%{opacity:.82}}
+  #rec{animation:rec 1.2s steps(1,end) infinite}
+  @keyframes rec{50%{opacity:0}}
+  #scene.after #rec{display:none}
+  #dusk{transition:opacity 40s linear}
+  #scene.after #dusk{opacity:.7}
+
+  .say4{width:min(940px,95vw)}
+  .say4-in{background:#fff8ec;color:#2a1430;padding:16px 22px 14px;border-top:16px solid #c2185b;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+  .say4 h4{margin:0 0 4px;font-family:'Bungee',sans-serif;font-weight:400;font-size:22px;color:#c2185b}
+  .say4 .sub{margin:0 0 10px;font-family:'Lora',serif;font-size:15.5px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .cards button{padding:10px 12px;text-align:left;background:#fbefe0;border:2px solid #e0c8b0;border-radius:4px;font-family:'Lora',serif;font-size:15px;line-height:1.35;color:#2a1430}
+  .cards button:hover{border-color:#c2185b}
+  .cards button.no{opacity:.4;text-decoration:line-through}
+  .cards button.yes{background:#e6f2e6;border-color:#2f6a3a}
+  .say4 .pmsg{color:#fff8ec}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a7a"/><stop offset=".55" stop-color="#c86a8a"/><stop offset="1" stop-color="#f2a060"/></linearGradient>
+  <linearGradient id="skyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141438"/><stop offset="1" stop-color="#3a2a5a"/></linearGradient>
+  <pattern id="stage" width="160" height="30" patternUnits="userSpaceOnUse"><rect width="160" height="30" fill="#5a3a22"/><path d="M0 0H160M100 0V30" stroke="#3a2412" stroke-width="3"/></pattern>
+  <radialGradient id="bulb" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".7"/><stop offset=".4" stop-color="#ffd890" stop-opacity=".25"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#140a18" stop-opacity=".16"/><stop offset="1" stop-color="#140a18" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1200" fill="#1e1426"/>
+<!-- the tall windows at dusk -->
+<g id="windows" class="hot"></g>
+<!-- the balcony -->
+<path d="M-1000 330Q800 300 2600 330V390Q800 360 -1000 390z" fill="#4a2a3a"/><path d="M-1000 330Q800 300 2600 330" stroke="#c9a24a" stroke-width="5" fill="none"/>
+<g id="bseats"></g>
+<!-- the stalls: six hundred seats, all empty -->
+<g id="seats"></g>
+<g id="ewan" class="hot"></g><g id="cosmo" class="hot"></g><g id="denise" class="hot"></g>
+<!-- the stage -->
+<rect x="-1000" y="720" width="3600" height="700" fill="url(#stage)"/><rect x="-1000" y="712" width="3600" height="14" fill="#2a1a10"/>
+<g fill="#ffcf4a" opacity=".5"><circle cx="100" cy="719" r="4"/><circle cx="300" cy="719" r="4"/><circle cx="500" cy="719" r="4"/><circle cx="700" cy="719" r="4"/><circle cx="900" cy="719" r="4"/><circle cx="1100" cy="719" r="4"/><circle cx="1300" cy="719" r="4"/><circle cx="1500" cy="719" r="4"/></g>
+<!-- the ghost light -->
+<g id="ghostL" class="hot"><path d="M250 880V560M210 880h80" stroke="#2a2a30" stroke-width="8"/><g id="ghost"><circle cx="250" cy="540" r="190" fill="url(#bulb)"/></g><circle cx="250" cy="540" r="14" fill="#fff6d8"/><path d="M236 528q14 -16 28 0M236 552q14 16 28 0M250 524v32" stroke="#2a2a30" stroke-width="2" fill="none"/></g>
+<!-- the camera -->
+<g id="camera" class="hot"><path d="M1160 880l40 -200M1240 880l-40 -200M1200 880V680" stroke="#2a2a30" stroke-width="6"/><rect x="1176" y="630" width="48" height="60" rx="6" fill="#14101a"/><rect x="1182" y="638" width="36" height="44" fill="#3a6a9a"/><circle id="rec" cx="1213" cy="644" r="4" fill="#e2453a"/></g>
+<g id="amara" class="hot" transform="translate(560 892) scale(.96)"></g>
+<g id="cleo" class="hot" transform="translate(800 896) scale(1.02)"></g>
+<g id="dina" class="hot" transform="translate(1020 894) scale(.98)"></g>
+<g id="bram" class="hot" transform="translate(1390 896) scale(1.02)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">THE SECOND NIGHT</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>When a price is held below what buyers would pay (a price ceiling), more people want the thing than there is of it: a shortage. Then something else decides who gets it: time in a queue, the speed of a computer, luck, or who you know.</li>
+    <li>A queue is not free. Its real price is the money and the hours, and the hours are paid but nobody receives them.</li>
+    <li>Demand at a price counts everybody who would pay that price or more. A hall&rsquo;s seats are a straight upright supply line, and the market-clearing price is where demand meets it.</li>
+    <li>Price elasticity of demand: elastic means people buy much less when the price rises (there is a substitute); inelastic means nearly as much. A higher price brings in more money only while demand is inelastic, and even a fan has a limit.</li>
+    <li>A gap between the face value and what buyers would pay is an incentive for touts. A rule changes the incentive, and it usually has unintended consequences as well.</li>
+    <li>Consumer surplus is what you would have paid minus what you paid. A queue, a resale site, a high price and a draw each hand it to different people.</li>
+    <li>Every way of sharing out a shortage has gainers and losers. A fair rule is one that says who they are, and can be defended out loud.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain it to a friend</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>The Second Night &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, sp = null;
+
+  (function () {
+    var s = '', d = '', i, r, n, w, y, x0, k, x;
+    for (i = 0; i < 5; i++) {
+      x = -120 + i * 380;
+      s += '<path d="M' + x + ' 300V110q60 -70 120 0v190z" fill="url(#sky)"/>';
+      d += '<path d="M' + x + ' 300V110q60 -70 120 0v190z"/>';
+    }
+    s += '<g id="dusk" fill="url(#skyN)" opacity="0">' + d + '</g>';
+    for (i = 0; i < 5; i++) { x = -120 + i * 380; s += '<path d="M' + x + ' 300V110q60 -70 120 0v190zM' + (x + 60) + ' 60V300M' + x + ' 200h120" stroke="#2a1a2a" stroke-width="5" fill="none"/>'; }
+    $('#windows').innerHTML = s;
+    s = ''; for (i = 0; i < 40; i++) s += '<rect x="' + (-60 + i * 44) + '" y="' + (342 - Math.abs(i - 19) * 0.6) + '" width="34" height="18" rx="5" fill="#7a2030"/>';
+    $('#bseats').innerHTML = s;
+    s = '';
+    for (r = 0; r < 7; r++) {
+      y = 420 + r * 44 + r * r * 2; w = 26 + r * 5; n = Math.ceil(1800 / (w + 8)); x0 = 800 - n * (w + 8) / 2;
+      for (k = 0; k < n; k++) s += '<path d="M' + (x0 + k * (w + 8)) + ' ' + y + 'h' + w + 'v' + (w * 0.9).toFixed(0) + 'h-' + w + 'z" fill="' + (r % 2 ? '#8a2434' : '#7a1f2e') + '"/><rect x="' + (x0 + k * (w + 8)) + '" y="' + (y - 4) + '" width="' + w + '" height="6" rx="3" fill="#a83a4a"/>';
+    }
+    $('#seats').innerHTML = s;
+    $('#ewan').innerHTML = '<g transform="translate(760 708) scale(1.3)">' + TIX.small(0, 0, '#55606a', '#5a3a20', 1, true).replace('<g transform="translate(0 0)">', '<g>') + '</g>';
+    $('#cosmo').innerHTML = '<g transform="translate(1040 640) scale(1.1)">' + TIX.small(0, 0, '#c2402a', '#2a5a8a', -1, true).replace('<g transform="translate(0 0)">', '<g>') + '</g>';
+    $('#denise').innerHTML = '<g transform="translate(470 650) scale(1.1)">' + TIX.small(0, 0, '#1f4a6a', '#141010', 1, true).replace('<g transform="translate(0 0)">', '<g>') + '</g>';
+    $('#amara').innerHTML = TIX.who('amara', { smile: 5 });
+    $('#cleo').innerHTML = TIX.who('cleo', { smile: 6, extra: '<g transform="rotate(-28 0 -150)"><path d="M-70 -150q-10 -40 30 -40q20 -20 40 0q40 0 30 40q10 40 -30 40q-20 20 -40 0q-40 0 -30 -40z" fill="#a8501a"/><circle cx="-20" cy="-150" r="12" fill="#2a1418"/><rect x="10" y="-156" width="140" height="12" fill="#5a3a22"/><rect x="146" y="-162" width="24" height="24" rx="3" fill="#2a1418"/></g>' });
+    $('#dina').innerHTML = TIX.who('dina', { smile: 3 });
+    $('#bram').innerHTML = TIX.who('bram', { smile: 6 });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'hall', no: 'VI', title: 'The Empty Hall',
+    go: 'Up the steps on to the stage',
+    intro: [
+      'On the chalkboard: Adrian&rsquo;s surplus was £200 − £40 = £160, and £30 once his night in the queue was paid for. Ffion&rsquo;s was £180 − £150 = £30, and Ewan made £91 on the same ticket. Denise and Cosmo had none. And on Gran&rsquo;s tombola, the rules: once each, names on the tickets, open for a week, £40, and returns to the box office for the next name drawn. About 2,400 entries for 600 tickets: one in four.',
+      'Sunday, six o&rsquo;clock in the evening. The hall is empty: six hundred seats, a balcony, tall windows going pink, and one bare bulb on a stand in the middle of the stage.',
+      'Cleo has put her phone on a tripod. In ten minutes she will tell everybody how the second night will be sold.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"say":["6cca6ef9","0bacfcad","dfef3308","e6f18f2c"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('f-done')) return null;
+    if (sp && sp.isOpen()) return ['say', [
+      'Choose sentences that are true, and that say plainly who gains and who loses.',
+      'Leave out anything that promises too much, that pretends nobody loses, or that calls somebody a villain. Check the price, too: it is the same as the first night.'
+    ]];
+    return ['hall', ['Cleo is waiting for her words. Click her, in the middle of the stage.']];
+  }
+  function begin() {
+    if (ER.flag('f-done')) { busy = false; finish(true); return; }
+    if (ER.flag('f-in')) { busy = false; $('#cleo').classList.add('ready'); ER.say('Cleo is waiting for four true sentences.'); return; }
+    ER.flag('f-in', 1);
+    ER.narrate([
+      'From the stage, the hall looks bigger than it does from the seats. Six hundred red seats, every one of them empty, except three.',
+      'Ewan is in the front row, in the middle, where he always is. Denise is halfway back with her tin of flapjack. Cosmo is on the end of a row, still in the hat. Dina and Bram are standing in the wings, pretending not to listen.',
+      '&ldquo;Four things,&rdquo; says Cleo quietly, &ldquo;who gains and who loses. They have to be true, every word, or the forum will take me apart by Tuesday. You choose.&rdquo;'
+    ], function () { busy = false; $('#cleo').classList.add('ready'); openSp(); });
+  }
+  function openSp() { if (ER.flag('f-done')) return; if (!sp) sp = makeSp(); sp.open(); }
+  $('#cleo').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('f-done')) { ER.say('&ldquo;Sunday the eighteenth, six o&rsquo;clock,&rdquo; says Cleo. &ldquo;Gran&rsquo;s drum. Live.&rdquo;'); return; }
+    openSp();
+  });
+  function makeSp() {
+    var C = [
+      ['t1', 'Fans who can&rsquo;t queue all night, or sit at a computer at nine on a Saturday, get the same chance as everybody else.', ''],
+      ['f1', 'Everybody who wants a ticket will get one.', '&ldquo;Two thousand four hundred people and six hundred seats,&rdquo; says Amara. &ldquo;Three out of four won&rsquo;t. Say so.&rdquo;'],
+      ['t2', 'Resellers lose. A ticket with somebody else&rsquo;s name on it is worth nothing to them.', ''],
+      ['f2', 'Nobody loses.', '&ldquo;Ewan loses his Saturday money,&rdquo; says Cleo, &ldquo;and somebody like Adrian loses his sure seat. Somebody always loses. Say who.&rdquo;'],
+      ['t3', 'The fans who would have queued all night lose their sure ticket. Now it is one chance in four, for everybody.', ''],
+      ['f3', 'Tickets will be cheaper than last time.', '&ldquo;They&rsquo;re forty, the same,&rdquo; says Dina from the wings. &ldquo;Don&rsquo;t promise what the poster doesn&rsquo;t say.&rdquo;'],
+      ['t4', 'The band, the hall and Bram take the same as on the first night, £24,000: £66,000 less than they could have had at £150. That is the band&rsquo;s choice.', ''],
+      ['f4', 'Resellers are thieves, and we have beaten them.', '&ldquo;Ewan is sitting in the front row,&rdquo; says Cleo. &ldquo;He&rsquo;s a fan who did a sum. We changed the sum. That&rsquo;s all.&rdquo;']
+    ];
+    var got = ER.flag('f-got') || [], done = false;
+    var box = ER.el('div', 'pz say4');
+    box.innerHTML = '<div class="say4-in"><h4>Who gains, who loses</h4><p class="sub">Click four true things for Cleo to say to the camera.</p><div class="cards">' +
+      C.map(function (c) { return '<button type="button" data-id="' + c[0] + '"' + (got.indexOf(c[0]) >= 0 ? ' class="yes"' : '') + '>' + c[1] + '</button>'; }).join('') + '</div></div><div class="pz-foot"><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.cards button', box).forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-id');
+        if (done || got.indexOf(id) >= 0) return;
+        if (!ER.check('say', id)) { ER.sfx.no(); b.classList.add('no'); msg(C[i][2]); return; }
+        got.push(id); ER.flag('f-got', got); b.classList.add('yes'); TIX.sfx.stamp();
+        if (got.length < 4) { msg('&ldquo;Yes,&rdquo; says Cleo. &ldquo;True, and I can say it with a straight face. ' + ['Three', 'Two', 'One'][got.length - 1] + ' more.&rdquo;'); return; }
+        done = true; TIX.solved(true);
+        msg('&ldquo;Four,&rdquo; says Cleo. &ldquo;Right. Red light.&rdquo;');
+        setTimeout(ending, 2200);
+      });
+    });
+    msg(got.length ? 'Choose ' + (4 - got.length) + ' more.' : 'Choose four.');
+    ER.glossIn(box, '.cards button');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+
+  function ending() {
+    ER.closeAll(); busy = true; $('#cleo').classList.remove('ready');
+    ER.narrate([
+      'Cleo looks into the phone and says it plainly, the way you would read out a bus timetable. The second night will be sold by a draw. Enter once, in your own name, any time in the next week. Forty pounds, the same as the first night. Names on the tickets, checked at the door. Can&rsquo;t go? Give it back to the box office for your forty, and it goes to the next name drawn.',
+      '&ldquo;Who wins? If you couldn&rsquo;t queue all night or sit at a computer at nine on a Saturday, you get the same chance as everybody else. Who loses? Resellers: a ticket with your name on is no use to them. And if you were going to queue all night, you lose your sure ticket. It&rsquo;s one chance in four, for everybody. About three out of four of you won&rsquo;t get one. I&rsquo;m sorry. I&rsquo;d rather tell you now.&rdquo;',
+      '&ldquo;And we take twenty-four thousand pounds, the same as the first night, when we could have taken ninety. That&rsquo;s our choice. We started in the caf&eacute; downstairs. Entry was free.&rdquo; She stops the recording.',
+      '&ldquo;Twenty-four thousand,&rdquo; says Bram, from the wings. &ldquo;Well. I&rsquo;ll put in a T-shirt stall. EVEN A FAN HAS A LIMIT. At a fair price.&rdquo; &ldquo;I&rsquo;ll need a bigger box for the returns,&rdquo; says Dina.',
+      '&ldquo;I&rsquo;ll enter once,&rdquo; says Ewan from the front row. &ldquo;Under my own name. Like everybody else.&rdquo;'
+    ], function () {
+      $('#scene').classList.add('after');
+      TIX.sfx.pluck();
+      ER.say('Cleo plays one song to six hundred empty seats. It is called Home.', 5200);
+      setTimeout(function () {
+        ER.narrate([
+          'Sunday 18 October, six o&rsquo;clock. Two thousand three hundred and seventy-one people entered. Cleo turned Gran&rsquo;s handle, live, for an hour and a half.',
+          'Denise won. She had entered on her break on the Wednesday. Cosmo won too, and spent forty of his sixty pounds and kept twenty towards the bike. Ffion did not win, and said she would see them on the first night anyway. Ewan entered once, under his own name, and lost. &ldquo;Fair,&rdquo; he said, and meant it.',
+          'Three out of four people lost, and the forum, for once, mostly said the same thing. Not &ldquo;fair&rdquo;, exactly. &ldquo;Fair enough.&rdquo;',
+          '&ldquo;What will you write on Monday,&rdquo; Amara asks you, &ldquo;for the box-office log?&rdquo; She answers before you can. &ldquo;Six hundred seats. Two thousand four hundred people. Somebody always decides. This time we said who.&rdquo;'
+        ], function () { busy = false; ER.flag('f-done', 1); finish(false); });
+      }, 5600);
+    });
+  }
+
+  /* ---------- people, after it all ---------- */
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('f-done') ? after : before); }); }
+  line('#amara', '&ldquo;Four true things,&rdquo; says Amara. &ldquo;The hard one is admitting who loses.&rdquo;', '&ldquo;Next Saturday it&rsquo;s a brass band,&rdquo; says Amara. &ldquo;Thirty tickets sold. I&rsquo;m almost looking forward to it.&rdquo;');
+  line('#dina', '&ldquo;Go on,&rdquo; says Dina. &ldquo;I&rsquo;ve sold tickets for twenty-six years. Nobody has ever explained them out loud before.&rdquo;', '&ldquo;Returns so far: three,&rdquo; says Dina. &ldquo;All gone to the next name. Mr Cotton would have liked it. He&rsquo;d have hated the drum.&rdquo;');
+  line('#bram', '&ldquo;Ninety thousand,&rdquo; says Bram, to himself. &ldquo;Twenty-four thousand. Ninety thousand.&rdquo;', '&ldquo;Sold out the T-shirts,&rdquo; says Bram. &ldquo;At a fair price. I&rsquo;m a changed man. Partly.&rdquo;');
+  line('#ewan', 'Ewan is in the front row, where he always is, eating Denise&rsquo;s flapjack.', '&ldquo;Lost,&rdquo; says Ewan. &ldquo;First time in thirty gigs I won&rsquo;t be there. Still fair.&rdquo; Then: &ldquo;Night one, though. Front row.&rdquo;');
+  line('#cosmo', 'Cosmo is on the end of a row, still in the hat.', '&ldquo;Won,&rdquo; says Cosmo. &ldquo;Forty pounds. And twenty for the bike. That&rsquo;s a surplus, isn&rsquo;t it?&rdquo;');
+  line('#denise', '&ldquo;Go on, love,&rdquo; says Denise, and offers you a flapjack.', '&ldquo;Entered on my break,&rdquo; says Denise. &ldquo;Won. First thing I&rsquo;ve won since a goldfish in 1994.&rdquo;');
+  TIX.thing('#ghostL', 'ghost light', 'A ghost light: one bare bulb left burning on an empty stage, as theatres do at night, so that nobody walks off the edge in the dark.', isBusy);
+  TIX.thing('#camera', null, function () { return ER.flag('f-done') ? 'The phone on its tripod. The video has been watched forty thousand times.' : 'Cleo&rsquo;s phone on its tripod. The red light is blinking.'; }, isBusy);
+  TIX.thing('#windows', null, 'The tall windows of the old boiler house, going from pink to dark blue.', isBusy);
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = TIX.minutesPlayed(), hn = ER.hintsUsed();
+    $('#scene').classList.add('after'); $('#cleo').classList.remove('ready');
+    $('#d-time').textContent = 'From the queue at dawn to the empty hall: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The empty hall, the ghost light, and six hundred seats waiting for the second night.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>The Second Night &middot; in your own words</h4><h3>Explain it to a friend</h3>' +
+      '<p>A friend who was not in Ambermoor this weekend asks you what happened. Choose ONE of these and explain it, aloud or in writing, in 60 to 90 words. Use: because, so, but, if, whereas.</p>' +
+      '<p><b>A</b> Why a ticket with £40 printed on it really cost Adrian £170, and who received the difference.<br><b>B</b> Why making tickets cheaper would have made the touts richer and the queue longer.<br><b>C</b> The rules of the draw for the second night: who gains, who loses, and whether you think it is fair, with a reason.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

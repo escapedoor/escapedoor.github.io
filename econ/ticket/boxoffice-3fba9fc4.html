@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Box Office · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#173a3a;--accent:#d8a030;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(240,236,222,.97);--tc-ink:#16302e;--cap-bg:rgba(250,246,234,.96);--cap-ink:#16302e;--panel:#faf6ea;--panel-ink:#16302e;--face-bg:#7a1f3a;--q-ink:#7a1f3a;
+    --fade:#102624;--hud-bg:rgba(250,246,234,.9);--hud-ink:#16302e;--hud-line:rgba(22,48,46,.3);--ov-bg:rgba(6,18,18,.68);background:#173a3a}
+  .tc-room{font-size:clamp(40px,5.6vw,80px);color:#7a1f3a}
+  .tc-theme{color:#2a6a6a}
+  .hbtn b{color:#fff}
+  #screenGlow{animation:scr 5s steps(2,end) infinite}
+  @keyframes scr{50%{opacity:.8}}
+  #outside g.walk{animation:walk 14s linear infinite}
+  #outside g.walk:nth-child(2){animation-delay:-5s}#outside g.walk:nth-child(3){animation-delay:-9s}
+  @keyframes walk{from{transform:translate(0,0)}to{transform:translate(520px,0)}}
+
+  /* Dina's whiteboard */
+  .wb{width:min(1060px,96vw)}
+  .wb-in{background:#f8f8f4;border:12px solid #b8bcc0;border-radius:6px;padding:6px 10px 8px;box-shadow:inset 0 0 0 2px #8a8e92,0 26px 70px rgba(0,0,0,.6);color:#1a2a3a}
+  .wb svg{width:100%;height:auto;max-height:calc(100vh - 290px);touch-action:none}
+  .wb .mag{cursor:grab}
+  .wb .mag:hover circle{stroke:#ffcf4a;stroke-width:4}
+  .wb .locked{cursor:not-allowed;opacity:.55}
+  .wb-row{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:4px 6px 0;font-family:'Architects Daughter',cursive;font-size:18px}
+  .wb-row .dr-w{background:#1a2a3a}
+  .wb-row .dr-fix{color:#1a2a3a}
+  .wb .bad{outline-offset:-2px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="panel" width="120" height="200" patternUnits="userSpaceOnUse"><rect width="120" height="200" fill="#1f4a4a"/><rect x="10" y="12" width="100" height="176" fill="#245252" stroke="#183c3c" stroke-width="3"/></pattern>
+  <pattern id="lino" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="#8a6a4a"/><rect width="40" height="40" fill="#7a5a3a"/><rect x="40" y="40" width="40" height="40" fill="#7a5a3a"/></pattern>
+  <linearGradient id="yard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe0e8"/><stop offset=".6" stop-color="#e8e0d0"/><stop offset="1" stop-color="#a8a49c"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6a3a"/><stop offset="1" stop-color="#6a4420"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#061212" stop-opacity=".14"/><stop offset="1" stop-color="#061212" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1160" fill="url(#panel)"/>
+<rect x="-1000" y="-400" width="3600" height="60" fill="#14302e"/>
+
+<!-- the window on to the yard -->
+<g id="window" class="hot"><rect x="140" y="160" width="540" height="420" fill="url(#wood)"/><rect x="164" y="184" width="492" height="372" fill="url(#yard)"/>
+  <path d="M164 470H656V556H164z" fill="#8a8a92"/><path d="M164 452h492" stroke="#6a3026" stroke-width="30"/>
+  <g id="outside"><g class="walk"><g transform="translate(140 520) scale(.9)"></g></g><g class="walk"><g transform="translate(60 528) scale(.8)"></g></g><g class="walk"><g transform="translate(-40 522) scale(.85)"></g></g></g>
+  <g id="adrianW" transform="translate(500 600) scale(.9)"></g>
+  <rect x="164" y="184" width="492" height="372" fill="#fff" opacity=".14"/><path d="M200 200l120 340M260 200l70 200" stroke="#fff" stroke-width="10" opacity=".14"/>
+  <circle cx="410" cy="330" r="46" fill="none" stroke="#c9a24a" stroke-width="7"/><g fill="#c9a24a"><circle cx="410" cy="330" r="4"/><circle cx="394" cy="318" r="3.5"/><circle cx="426" cy="318" r="3.5"/><circle cx="394" cy="342" r="3.5"/><circle cx="426" cy="342" r="3.5"/><circle cx="410" cy="310" r="3.5"/><circle cx="410" cy="350" r="3.5"/></g>
+  <rect x="164" y="540" width="492" height="16" fill="#c9a24a" opacity=".6"/></g>
+<!-- the counter -->
+<rect x="100" y="580" width="1000" height="40" fill="#8a5a2a"/><rect x="120" y="620" width="960" height="160" fill="#5a3a1c"/><path d="M120 640h960" stroke="#4a2c12" stroke-width="3"/>
+<g id="stamp" class="hot"><rect x="190" y="556" width="60" height="26" rx="3" fill="#2a2a33"/><rect x="200" y="566" width="40" height="10" fill="#7a1f3a"/><rect x="262" y="540" width="16" height="34" rx="5" fill="#7a1f3a"/><rect x="256" y="572" width="28" height="10" fill="#2a2a33"/></g>
+<g id="survey" class="hot"><path d="M320 584l10 -30h104l-6 30z" fill="#fdfcf6" stroke="#b8b2a0"/><rect x="334" y="560" width="90" height="5" fill="#d8a030"/><path d="M338 568h76M336 573h60M335 578h70" stroke="#5a5a5a" stroke-width="1.6"/></g>
+<g id="binder" class="hot"><path d="M470 584l8 -34h130l-4 34z" fill="#fbf7ec" stroke="#b8b2a0"/><path d="M540 550v34" stroke="#8a2a1e" stroke-width="4"/><rect x="466" y="578" width="146" height="8" fill="#8a2a1e"/><path d="M486 560h44M486 566h40M552 560h44M552 566h36M486 572h30" stroke="#5a5a5a" stroke-width="1.5"/></g>
+<g id="printer"><rect x="660" y="530" width="150" height="54" rx="4" fill="#d8d8d4"/><rect x="676" y="518" width="118" height="16" fill="#3a3a40"/><rect x="690" y="500" width="90" height="22" fill="#fff8e6" stroke="#c8b88a"/><text x="735" y="516" class="cO" font-size="10" text-anchor="middle" fill="#c2185b">ADMIT ONE</text></g>
+<!-- the screen -->
+<g id="screen" class="hot"><rect x="850" y="350" width="230" height="160" rx="6" fill="#1a1a1e"/><rect id="screenGlow" x="862" y="362" width="206" height="126" fill="#1a3a5a"/>
+  <text x="965" y="408" class="cO" font-size="26" text-anchor="middle" fill="#ff5a6a">SOLD OUT</text><text x="965" y="440" class="cP" font-size="16" text-anchor="middle" fill="#cfe0f0">09.04.03</text><text x="965" y="466" class="cP" font-size="12" text-anchor="middle" fill="#cfe0f0">0 of 500 left</text>
+  <path d="M950 510l-14 70h58l-14 -70z" fill="#2a2a2e"/></g>
+<!-- the seating plan -->
+<g id="plan" class="hot"><rect x="860" y="96" width="210" height="200" fill="#f4efe0" stroke="#5a3a1c" stroke-width="4"/><text x="965" y="118" class="cO" font-size="12" text-anchor="middle" fill="#3a2a1a">SEATING PLAN</text>
+  <rect x="900" y="128" width="130" height="14" fill="#2a2a33"/><text x="965" y="139" class="cO" font-size="9" text-anchor="middle" fill="#fff">STAGE</text><g id="seats"></g>
+  <text x="965" y="288" class="cO" font-size="10" text-anchor="middle" fill="#3a2a1a">STALLS 400 · BALCONY 200</text></g>
+<!-- Dina's whiteboard -->
+<g id="board" class="hot"><rect x="1130" y="90" width="420" height="300" fill="#b8bcc0"/><rect x="1142" y="102" width="396" height="276" fill="#f8f8f4"/>
+  <g stroke="#1a2a3a" stroke-width="3" opacity=".18" fill="none"><path d="M1180 140V350H1500"/><path d="M1190 170q120 120 290 160M1350 140V350"/></g>
+  <text x="1340" y="134" class="cH" font-size="18" text-anchor="middle" fill="#7a1f3a" opacity=".45">CATS TRIBUTE NIGHT, 1998</text>
+  <rect x="1180" y="378" width="320" height="10" fill="#8a8e92"/><rect x="1230" y="370" width="30" height="8" rx="2" fill="#1a6a9a"/><rect x="1270" y="370" width="30" height="8" rx="2" fill="#c2185b"/></g>
+<!-- the shelf -->
+<g id="kettle" class="hot"><rect x="1150" y="470" width="400" height="12" fill="#5a3a1c"/><path d="M1180 470v-50h50v50z" fill="#d8d8dc"/><path d="M1230 432q22 0 18 22" stroke="#d8d8dc" stroke-width="6" fill="none"/>
+  <g><path d="M1290 470v-32h28v32z" fill="#f4f1ea"/><path d="M1340 470v-32h28v32z" fill="#ffcf4a"/><path d="M1390 470v-32h28v32z" fill="#c2185b"/></g>
+  <rect x="1450" y="428" width="80" height="42" rx="6" fill="#7a1f3a"/><circle cx="1470" cy="449" r="11" fill="#2a2a33"/><path d="M1495 440h28M1495 448h28M1495 456h28" stroke="#f4f1ea" stroke-width="2"/></g>
+
+<rect x="-1000" y="760" width="3600" height="700" fill="url(#lino)"/><rect x="-1000" y="756" width="3600" height="8" fill="#3a2a1a"/>
+<g id="amara" class="hot" transform="translate(780 890) scale(.98)"></g>
+<g id="dina" class="hot" transform="translate(1290 900) scale(1.04)"></g>
+<g id="phone"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the iron stairs to Bram&rsquo;s office</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = TIX.told('b-told'), lock = null;
+
+  (function () {
+    var s = '', i, j;
+    for (i = 0; i < 6; i++) for (j = 0; j < 10; j++) s += '<rect x="' + (902 + j * 13) + '" y="' + (152 + i * 14) + '" width="10" height="9" fill="' + (i < 4 ? '#7a1f3a' : '#2a6a6a') + '"/>';
+    $('#seats').innerHTML = s;
+    var cols = ['#5a6a8a', '#8a4a3a', '#3a5a4a'];
+    ER.$$('#outside .walk > g').forEach(function (g, k) { g.innerHTML = TIX.small(0, 0, cols[k], '#3a2a20', 1).replace('<g transform="translate(0 0)">', '<g>'); });
+    $('#adrianW').innerHTML = TIX.who('adrian', { smile: 9, extra: '<g transform="rotate(-12 50 -230)"><rect x="34" y="-262" width="56" height="26" rx="2" fill="#fff8e6" stroke="#c8b88a"/><text x="62" y="-245" font-family="Oswald" font-size="9" text-anchor="middle" fill="#c2185b">ADMIT ONE</text></g><path d="M38 -204q20 -20 26 -36" stroke="#3a4a3a" stroke-width="14" stroke-linecap="round" fill="none"/>' });
+    $('#amara').innerHTML = TIX.who('amara', { smile: 3 });
+    $('#dina').innerHTML = TIX.who('dina', { smile: 1, extra: '<rect x="32" y="-150" width="8" height="34" rx="2" fill="#1a6a9a"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'boxoffice', no: 'II', title: 'The Box Office',
+    go: 'Go in behind the glass',
+    intro: [
+      'On the A-board: Adrian, card 1, ten hours at £13 an hour and the £40 ticket, £170. Becky, card 100, four hours at £9 an hour and the ticket, £76. Cosmo, card 101, nearly four hours and no ticket. The hours were paid, and nobody received them.',
+      'At nine o&rsquo;clock the shutter went up. At four minutes past nine the computer said SOLD OUT. At nineteen minutes to ten Becky took the last ticket from the window, and Cosmo, who was next, said &ldquo;Thanks anyway&rdquo; and meant it, which was worse.',
+      'Now the box office is quiet. Dina Akande has taken the cap off a marker pen.'
+    ],
+    exit: {"next":"office","w":{"f66f383b":"2336371f"}}, tags: {"p300":["c69411d7"],"p200":["f33fe9f0"],"p150":["ac35f56c"],"p100":["8d8b5157"],"p40":["9567e756"],"b200":["8a1f24d1"],"b150":["82ff142a"],"b100":["6761a375"],"b40":["22a2b129"],"reg":["ab37d366"],"seat":["142c8128"],"short":["b6a2b59c"],"s2700":["00018e32"],"clear":["05441580"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('dina') && told.has('hb8') && told.has('survey'); }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['dina', 'hb8', 'survey', 'p1'].filter(told.has).length + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Bram wants you upstairs: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen() && told.has('p1')) return ['clear', [
+      'The ticket price line can move now. Page 8: where do the two lines cross?',
+      'Drag the blue line up. Stop where the number of people who want a ticket at that price is exactly the number of seats: where demand meets the red seat line.'
+    ]];
+    if (lock && lock.isOpen()) return ['board', [
+      'Each magnet is a price from Bram&rsquo;s survey. Slide it along to the number of people who would buy a ticket at that price.',
+      'Page 8: anybody whose most is £300 would also buy at £200. So at each price, add up everybody from the top line of the survey down to that price. Do not count the people who would pay less than £40.',
+      'Then drag the red seat line to the number of seats in the hall, and read along the £40 line: people who want a ticket at £40, minus seats, is the shortage.'
+    ]];
+    if (!told.has('dina')) return ['dina', ['Dina has a marker pen and an idea. Talk to her.', 'Dina is standing under the whiteboard on the right, in the burgundy cardigan.']];
+    if (!told.has('hb8')) return ['hb8', ['Dina said: page 8 of the handbook first.', 'The handbook lies open on the counter, between Bram&rsquo;s sheet and the ticket printer.']];
+    if (!told.has('survey')) return ['survey', ['You need the numbers to draw: Bram&rsquo;s survey.', 'The white sheet on the counter, next to the rubber stamp.']];
+    return ['board', ['Now draw today&rsquo;s sell-out: the whiteboard on the right.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Bram is waiting upstairs, with his idea.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The box office. Six hundred tickets gone, and Dina&rsquo;s marker pen still uncapped.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The box office is a narrow wooden room with a window on the yard, a brass speaking grille, a ticket printer, a computer and a kettle. It smells of toast and paper.',
+      'Outside, the queue is breaking up. Adrian holds his ticket up to the glass so that you can see it, like a winning card.',
+      'Dina puts down the phone. &ldquo;Five hundred tickets online in four minutes,&rdquo; she says, to nobody in particular. &ldquo;Twenty-six years, and I have never seen four minutes.&rdquo;'
+    ], function () { busy = false; });
+  }
+
+  $('#dina').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Upstairs,&rdquo; says Dina. &ldquo;Take your diagram with you. Bram likes pictures.&rdquo;'); return; }
+    ER.talk({
+      who: 'Dina Akande', role: 'Box-office manager · twenty-six years', face: TIX.face('dina'),
+      lines: [
+        { note: 'A rubber stamp in one hand and a marker pen in the other. She looks as if she would like to use both on somebody.', a: '&ldquo;Five hundred online in four minutes. A hundred at the window in forty-one. The computer queue had two thousand people in it at one minute to nine.&rdquo;' },
+        { q: 'Who got the online tickets?', a: '&ldquo;Whoever had the fastest broadband and the luckiest thumb at nine o&rsquo;clock. Nobody chose that. That&rsquo;s what happens when the price doesn&rsquo;t decide: something else does. Out there it was the hours. In there it was the speed.&rdquo;' },
+        { q: 'What is the whiteboard for?', a: '&ldquo;Every sell-out, I draw it. Mr Cotton taught me. It stops me shouting at the computer. Page eight, then Bram&rsquo;s survey, then draw me today. The magnets are in the tray.&rdquo;' },
+        { q: 'What is in Bram&rsquo;s survey?', a: '&ldquo;He asked everybody who registered for the most they would pay. Two thousand seven hundred names. Read what they were asked before you believe what the top line says.&rdquo;' },
+        { q: 'Was forty pounds wrong?', a: '&ldquo;Cleo asked for forty. &lsquo;The same as a good night out,&rsquo; she said. I don&rsquo;t call that wrong. I call it a decision. Decisions have consequences, and I sell the tickets for them.&rdquo;' }
+      ],
+      clue: { id: 'dina1', title: 'Dina: draw me today', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('dina')) { paint(); ER.say('Page 8 of the handbook, on the counter. Then Bram&rsquo;s survey.'); } }
+    });
+  });
+
+  var DIA8 = '<svg viewBox="0 0 300 230"><g font-family="Architects Daughter,cursive" font-size="13" fill="#221c18">' +
+    '<path d="M40 20V200H290" stroke="#221c18" stroke-width="2.5" fill="none"/><text x="12" y="30" font-size="12">price</text><text x="262" y="220" font-size="12">tickets</text>' +
+    '<path d="M60 40Q120 150 280 186" stroke="#1a6a9a" stroke-width="3.5" fill="none"/><text x="236" y="172" fill="#1a6a9a" font-weight="700">demand</text>' +
+    '<path d="M150 26V200" stroke="#c2185b" stroke-width="4"/><text x="156" y="38" fill="#c2185b" font-weight="700">seats</text>' +
+    '<path d="M40 112H150" stroke="#221c18" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="150" cy="112" r="5" fill="#221c18"/><text x="44" y="106" font-size="12">market-clearing price</text>' +
+    '<path d="M40 168H250" stroke="#d8a030" stroke-width="3"/><text x="44" y="162" font-size="12" fill="#a87a10">ticket price</text>' +
+    '<path d="M154 180H230" stroke="#221c18" stroke-width="2"/><path d="M226 175l8 5 -8 5" stroke="#221c18" stroke-width="2" fill="none"/><text x="160" y="196" font-size="12">shortage</text></g></svg>';
+  var HB8 = '<h4>Boilerhouse Box Office Handbook &middot; page 8</h4><h3>Drawing a sell-out</h3><div class="two"><div>' +
+    '<p>Price goes up the side, tickets along the bottom. <b>DEMAND</b> is how many people would buy at each price. At a higher price, fewer want one, so the line slopes down. Anybody who would pay £200 would also buy at £150: to find demand at a price, count everybody whose most is that price <i>or more</i>.</p>' +
+    '<p><b>SUPPLY</b> is how many there are to sell. A hall cannot grow seats because more people want them, so its supply is a straight line going straight up.</p>' +
+    '<p>Where the lines cross is the <b>MARKET-CLEARING PRICE</b>: there, the people who want a ticket are exactly as many as the seats. Below it, read along the ticket price: from the seat line to demand is the shortage.</p>' +
+    '<p class="fact">The same drawing works for homes. Britain&rsquo;s first rent controls came in 1915, after rent strikes in Glasgow, and held most rents at their pre-war level. A rent held below the market price is a price ceiling too.</p></div><div class="dia">' + DIA8 + '</div></div>';
+  $('#binder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HB8, cls: 'hb', clue: { id: 'hb8', title: 'Handbook page 8: drawing a sell-out', kind: 'On the counter' }, done: function () {
+      TIX.terms(['demand', 'supply', 'market-clearing price', 'rent control']);
+      if (told.set('hb8')) { paint(); ER.say('Demand at a price: everybody whose most is that price or more. The seat line goes straight up.'); }
+    } });
+  });
+  var SURVEY = '<h4>FURLONG LIVE &middot; Dandelion Clock at the Boilerhouse<br>Register your interest: RESULTS</h4>' +
+    '<p>Closed Thursday 8 October, midnight. Names registered: <b>2,700</b>.</p><p>We asked: <b>What is the MOST you would pay for one ticket?</b></p><table>' +
+    '<tr><td>£300 or more</td><td class="r">100</td></tr><tr><td>£250 to £299</td><td class="r">100</td></tr><tr><td>£200 to £249</td><td class="r">150</td></tr>' +
+    '<tr><td>£150 to £199</td><td class="r">250</td></tr><tr><td>£100 to £149</td><td class="r">400</td></tr><tr><td>£40 to £99</td><td class="r">1,400</td></tr>' +
+    '<tr><td>Less than £40</td><td class="r">300</td></tr><tr class="t"><td>Total</td><td class="r">2,700</td></tr></table>' +
+    '<p class="hand">2,700 fans for 600 seats!!! B.F.</p>';
+  $('#survey').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SURVEY, cls: 'sheet', clue: { id: 'survey', title: 'Bram&rsquo;s survey: the most people would pay', kind: 'On the counter' }, done: function () {
+      if (told.set('survey')) { paint(); ER.say('Seven lines, and Bram&rsquo;s three exclamation marks. Not everybody on it would pay forty.'); }
+    } });
+  });
+  var LOG = '<h4>ONLINE SALE &middot; Saturday 10 October</h4><table>' +
+    '<tr><td>08.59.00</td><td>Waiting in the online queue: 2,184</td></tr><tr><td>09.00.00</td><td>On sale: 500 tickets, up to 4 each</td></tr>' +
+    '<tr><td>09.01.12</td><td>250 left</td></tr><tr><td>09.02.40</td><td>100 left</td></tr><tr><td>09.04.03</td><td><b>SOLD OUT</b></td></tr></table>' +
+    '<p>Places in the online queue were given out at random at 9.00 to everybody who was waiting.</p><p class="hand">So: luck, and then speed. D.A.</p>';
+  $('#screen').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LOG, cls: 'sheet', clue: { id: 'log', title: 'The online sale, minute by minute', kind: 'On the screen' }, done: function () {
+      if (told.set('log')) ER.say('Two thousand people waiting at one minute to nine. Luck gave them their places, and speed did the rest.');
+    } });
+  });
+  TIX.thing('#plan', 'stalls', 'The seating plan: 400 seats in the stalls downstairs, 200 in the balcony. Six hundred, and the walls will not move.', isBusy);
+  TIX.thing('#stamp', 'rubber stamp', 'Dina&rsquo;s rubber stamp says PAID. It has said PAID on about a million tickets.', isBusy);
+  TIX.thing('#kettle', null, 'A kettle, three mugs and a radio. The radio is playing a Dandelion Clock song. Dina turns it off.', isBusy);
+  TIX.thing('#window', null, function () { return 'The yard is emptying. Adrian walks off holding his ticket in both hands. Cosmo is still sitting on the kerb where the queue used to end.'; }, isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Today&rsquo;s sell-out, in blue and red marker. The crossing is circled twice.'); return; }
+    if (!told.has('dina')) { ER.say('Dina&rsquo;s whiteboard. Ask her what she wants on it.'); return; }
+    if (!told.has('hb8')) { ER.say('How do you draw a sell-out? Page 8 of the handbook, open on the counter.'); return; }
+    if (!told.has('survey')) { ER.say('You need numbers to draw it: Bram&rsquo;s survey, on the counter by the stamp.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the whiteboard ---------- */
+  function makeLock() {
+    var ROWS = [300, 200, 150, 100, 40];
+    var saved = ER.flag('b-wb') || {}, st = { seat: saved.seat || 1400, price: saved.price || 40 }, wait = false, part2 = told.has('p1');
+    ROWS.forEach(function (r) { st['p' + r] = saved['p' + r] || 0; });
+    function X(q) { return 90 + q * 760 / 2800; }
+    function Y(p) { return 460 - p * 420 / 320; }
+    var box = ER.el('div', 'pz wb');
+    var s = '<div class="wb-in"><svg viewBox="0 0 900 520" id="wbs"><g font-family="Architects Daughter,cursive">';
+    var i;
+    for (i = 0; i <= 2800; i += 400) s += '<path d="M' + X(i) + ' 460V40" stroke="#c8d0d8" stroke-width="1"/><text x="' + X(i) + '" y="484" font-size="14" text-anchor="middle" fill="#1a2a3a">' + (i ? i.toLocaleString('en-GB') : '0') + '</text>';
+    s += '<path d="M90 30V460H870" stroke="#1a2a3a" stroke-width="3" fill="none"/><text x="20" y="34" font-size="16" fill="#1a2a3a">price</text><text x="868" y="510" font-size="16" text-anchor="end" fill="#1a2a3a">people who want a ticket</text>';
+    ROWS.forEach(function (r) { s += '<path d="M90 ' + Y(r) + 'H870" stroke="#e0e4e8" stroke-width="1.5" stroke-dasharray="4 5"/><text x="80" y="' + (Y(r) + 5) + '" font-size="16" text-anchor="end" fill="#1a2a3a">£' + r + '</text>'; });
+    s += '<polyline id="dline" fill="none" stroke="#1a6a9a" stroke-width="3" stroke-dasharray="7 5" opacity=".75"/>';
+    s += '<path id="gap" stroke="#7a1f3a" stroke-width="4" fill="none" opacity="0"/>';
+    s += '<g id="seatL" class="mag"><rect x="-12" y="30" width="24" height="434" fill="transparent"/><path d="M0 30V460" stroke="#c2185b" stroke-width="7"/><rect x="-46" y="8" width="92" height="22" rx="3" fill="#c2185b"/><text id="seatT" x="0" y="24" font-size="14" text-anchor="middle" fill="#fff">SEATS</text></g>';
+    s += '<g id="priceL"><rect x="90" y="-12" width="780" height="24" fill="transparent"/><path d="M90 0H870" stroke="#d8a030" stroke-width="6"/><rect x="588" y="-24" width="128" height="22" rx="3" fill="#d8a030"/><text id="priceT" x="652" y="-8" font-size="14" text-anchor="middle" fill="#1a2a3a">TICKET PRICE</text></g>';
+    ROWS.forEach(function (r) { s += '<g class="mag pin" data-r="' + r + '"><circle r="13" fill="#1a6a9a" stroke="#0e3a5a" stroke-width="2"/><circle r="4" fill="#cfe0f0"/><text y="-19" font-size="15" text-anchor="middle" fill="#0e3a5a"></text></g>'; });
+    s += '</g></svg><div class="wb-row"><span>At the ticket price, the shortage is</span><i id="short"></i><span>people.</span></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-go">Show Dina</button></div>';
+    box.innerHTML = s;
+    var svg = box.querySelector('#wbs'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function lk() { return wait || !!nextFile; }
+    var dShort = TIX.drum(box.querySelector('#short'), { digits: 4, sep: true, val: saved.short || 0, change: keep, lock: lk });
+    function keep() { var o = {}; Object.keys(st).forEach(function (k) { o[k] = st[k]; }); o.short = dShort.get(); ER.flag('b-wb', o); }
+    function fmt(n) { return n.toLocaleString('en-GB'); }
+    function draw() {
+      ER.$$('.pin', box).forEach(function (g) {
+        var r = +g.getAttribute('data-r'), q = st['p' + r];
+        g.setAttribute('transform', 'translate(' + X(q) + ' ' + Y(r) + ')');
+        g.querySelector('text').textContent = fmt(q);
+      });
+      box.querySelector('#dline').setAttribute('points', ROWS.map(function (r) { return X(st['p' + r]) + ',' + Y(r); }).join(' '));
+      box.querySelector('#seatL').setAttribute('transform', 'translate(' + X(st.seat) + ' 0)');
+      box.querySelector('#seatT').textContent = 'SEATS ' + fmt(st.seat);
+      box.querySelector('#priceL').setAttribute('transform', 'translate(0 ' + Y(st.price) + ')');
+      box.querySelector('#priceT').textContent = 'PRICE £' + st.price;
+      box.querySelector('#priceL').classList.toggle('mag', part2); box.querySelector('#priceL').classList.toggle('locked', !part2 && !nextFile);
+      var g = box.querySelector('#gap');
+      if (told.has('p1')) { g.setAttribute('d', 'M' + X(600) + ' ' + Y(40) + 'H' + X(st.p40)); g.setAttribute('opacity', part2 && st.price !== 40 ? '.3' : '.9'); }
+    }
+    function drag(node, axis, step, lo, hi, key, ok, why) {
+      ER.drag(node, {
+        start: function () { if (lk()) return false; if (!ok()) { msg(why); return false; } },
+        move: function (e) {
+          var p = ER.pt(svg, e), v;
+          if (axis === 'x') v = (p.x - 90) * 2800 / 760; else v = (460 - p.y) * 320 / 420;
+          v = Math.max(lo, Math.min(hi, Math.round(v / step) * step));
+          if (v !== st[key]) { st[key] = v; draw(); TIX.sfx.drum(); }
+        },
+        end: function () { TIX.sfx.magnet(); keep(); }
+      });
+    }
+    var DONE1 = '&ldquo;Demand and the seats are right,&rdquo; says Dina. &ldquo;Leave them. It&rsquo;s the price that moves now.&rdquo;';
+    ER.$$('.pin', box).forEach(function (g) { drag(g, 'x', 50, 0, 2800, 'p' + g.getAttribute('data-r'), function () { return !part2; }, DONE1); });
+    drag(box.querySelector('#seatL'), 'x', 50, 0, 2800, 'seat', function () { return !part2; }, DONE1);
+    drag(box.querySelector('#priceL'), 'y', 10, 0, 320, 'price', function () { return part2; }, '&ldquo;Leave the ticket price where it is for now,&rdquo; says Dina. &ldquo;Today it was forty.&rdquo;');
+    draw();
+    function flash(sel) { var n = box.querySelector(sel); if (!n) return; n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    function demandAt(p) {          /* along the player's own line, between their magnets */
+      var pts = ROWS.slice().reverse().map(function (r) { return [r, st['p' + r]]; }), k;
+      if (p <= pts[0][0]) return pts[0][1];
+      for (k = 1; k < pts.length; k++) if (p <= pts[k][0]) return pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * (p - pts[k - 1][0]) / (pts[k][0] - pts[k - 1][0]);
+      return 0;
+    }
+    var BAND = { 200: '£200 to £249', 150: '£150 to £199', 100: '£100 to £149', 40: '£40 to £99' };
+    box.querySelector('#b-go').addEventListener('click', function () {
+      if (lk()) return;
+      var k, r, v;
+      if (!told.has('p1')) {
+        for (k = 0; k < ROWS.length; k++) {
+          r = ROWS[k]; v = st['p' + r];
+          if (ER.check('p' + r, v)) continue;
+          ER.sfx.no(); flash('.pin[data-r="' + r + '"] circle');
+          if (!v) msg('&ldquo;The £' + r + ' magnet is still on the edge of the board,&rdquo; says Dina. &ldquo;How many people would buy a ticket at £' + r + '?&rdquo;');
+          else if (ER.check('b' + r, v)) msg('&ldquo;That&rsquo;s how many said ' + BAND[r] + ',&rdquo; says Dina. &ldquo;But somebody whose most is £300 would buy at £' + r + ' too. Count everybody at £' + r + ' <i>or more</i>.&rdquo;');
+          else if (r === 40 && ER.check('reg', v)) msg('&ldquo;Two thousand seven hundred registered,&rdquo; says Dina. &ldquo;Read the bottom line of Bram&rsquo;s sheet. Would all of them pay forty?&rdquo;');
+          else msg('&ldquo;At £' + r + ',&rdquo; says Dina, &ldquo;how many people would pay that much or more? Bram&rsquo;s survey, added up from the top.&rdquo;');
+          return;
+        }
+        if (!ER.check('seat', st.seat)) { ER.sfx.no(); flash('#seatL path'); msg('&ldquo;Demand is right,&rdquo; says Dina. &ldquo;Now the red line: how many seats has this hall? It&rsquo;s on the plan, and it does not change with the price.&rdquo;'); return; }
+        if (!ER.check('short', dShort.get())) {
+          ER.sfx.no(); flash('#short');
+          msg(!dShort.get() ? '&ldquo;Now read along the ticket price,&rdquo; says Dina. &ldquo;At £40, how many want a ticket, and how many seats are there? Put the shortage on the wheels.&rdquo;' :
+            ER.check('s2700', dShort.get()) ? '&ldquo;That&rsquo;s everybody who registered, minus the seats,&rdquo; says Dina. &ldquo;Use the demand on your board, at £40.&rdquo;' :
+            '&ldquo;Along the £40 line,&rdquo; says Dina, &ldquo;from the red seat line to the blue demand. That gap is the people who wanted a ticket at forty and could not have one.&rdquo;');
+          return;
+        }
+        told.set('p1'); part2 = true; paint(); TIX.sfx.magnet(); draw();
+        msg('&ldquo;Eighteen hundred people who wanted a ticket at forty and went without,&rdquo; says Dina, and underlines it. &ldquo;Now move the ticket price. Drag it up to where nobody who wants a ticket at that price is left without one, and nobody&rsquo;s seat is empty.&rdquo;');
+        return;
+      }
+      if (!ER.check('clear', st.price)) {
+        ER.sfx.no(); flash('#priceL path');
+        var want = Math.round(demandAt(st.price));
+        if (st.price > 300) msg('&ldquo;Above everything on Bram&rsquo;s survey,&rdquo; says Dina. &ldquo;Hardly anybody comes, and the hall is empty.&rdquo;');
+        else if (want > st.seat) msg('&ldquo;At £' + st.price + ',&rdquo; says Dina, &ldquo;your line says about ' + fmt(want) + ' people want a ticket. Six hundred seats. Still a shortage.&rdquo;');
+        else msg('&ldquo;At £' + st.price + ',&rdquo; says Dina, &ldquo;your line says about ' + fmt(want) + ' people want a ticket. That leaves seats empty.&rdquo;');
+        return;
+      }
+      var file = ER.exit([[st.p300, st.p200, st.p150, st.p100, st.p40, st.seat, dShort.get(), st.price].join('-')], { wait: true });
+      if (!file) { msg('Dina frowns at the board. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file); draw();
+      TIX.mine('sellout', 'Today&rsquo;s sell-out, on the whiteboard', '<p>Demand (everybody whose most is that price or more): £300: 100, £200: 350, £150: 600, £100: 1,000, £40: 2,400.</p><p>Supply: 600 seats, a straight line going up.</p><p>At £40: 2,400 want a ticket, 600 seats, a shortage of 1,800.</p><p>The market-clearing price, where demand meets the seats: £150.</p>', true);
+      ER.addClue('resale', 'Amara&rsquo;s phone: the resale site at 9.50', '<h4>The resale site &middot; 9.50 a.m.</h4><p>Dandelion Clock, the Boilerhouse, Fri 4 Dec: <b>140 tickets listed</b>.</p><p>Most at £150. Twelve at £300 (none of those sold yet). The first went up at 9.20.</p>', 'phone', 'On Amara&rsquo;s phone', true);
+      TIX.terms(['resale']);
+      msg('Dina draws the blue line through your magnets in one long stroke. <b>At £40: 2,400 people for 600 seats. Where the lines cross: £150.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Two thousand four hundred people wanted six hundred seats at forty pounds,&rdquo; says Dina. &ldquo;Eighteen hundred went without. And where your lines cross, a hundred and fifty.&rdquo;',
+          'Amara&rsquo;s phone buzzes. She looks at it, and then turns it round for both of you to see. The resale site: one hundred and forty Boilerhouse tickets, put up since twenty past nine. Most of them at £150. A few at £300, which nobody has bought.',
+          '&ldquo;Your diagram knew at nine o&rsquo;clock what the internet knew at twenty to ten,&rdquo; says Dina. &ldquo;Mr Cotton used to say the price on the ticket is a promise, and the price in the street is the truth.&rdquo;',
+          'The phone on the wall rings. Dina listens, says &ldquo;Yes, Bram,&rdquo; four times, and puts it down. &ldquo;Upstairs, both of you. He has announced a second night, and he has had an idea. He has that voice.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg(told.has('p1') ? 'Now drag the ticket price up to the market-clearing price.' : 'Slide each blue magnet along its price to the number of people who would buy at that price. Drag the red line to the number of seats. Put the shortage at £40 on the wheels. Then show Dina.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

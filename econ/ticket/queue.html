@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Queue · The Second Night</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-econ.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ticket.css">
+<style>
+  body{--bg:#141a3a;--accent:#e2457a;--font-display:'Bungee',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(20,22,48,.96);--tc-ink:#f4e8dc;--cap-bg:rgba(250,244,236,.96);--cap-ink:#1a1830;--panel:#faf4ec;--panel-ink:#1a1830;--face-bg:#2a2350;--q-ink:#2f6b5a;
+    --fade:#0e1430;--hud-bg:rgba(250,244,236,.9);--hud-ink:#1a1830;--hud-line:rgba(26,24,48,.3);--ov-bg:rgba(8,10,24,.68);background:#141a3a}
+  .tc-room{font-size:clamp(40px,6vw,86px);color:#ffcf4a}
+  .tc-theme{color:#f29ab8}
+  .tc .btn{--accent:#f4e8dc}
+  .hbtn b{color:#fff}
+  #dawn{opacity:0;transition:opacity 150s linear}
+  #scene.up #dawn{opacity:.62}
+  #stars{transition:opacity 120s linear}
+  #scene.up #stars{opacity:.15}
+  #lamp{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%,100%{opacity:1}61%{opacity:.55}63%{opacity:1}64%{opacity:.6}66%{opacity:1}}
+  .steam{animation:steam 3.2s steps(8,end) infinite}
+  .steam.b{animation-delay:-1.6s}
+  @keyframes steam{from{transform:translate(0,0);opacity:.6}to{transform:translate(6px,-40px);opacity:0}}
+  #win{animation:win 9s steps(2,end) infinite}
+  @keyframes win{50%{opacity:.78}}
+
+  /* the A-board: chalk on a black board in a wooden frame */
+  .ab{width:min(1000px,96vw)}
+  .ab-in{background:#1f2a24 radial-gradient(ellipse at 40% 30%,rgba(255,255,255,.07),transparent 60%);border:16px solid #7a5230;border-radius:4px;padding:14px 24px 12px;color:#f2efe4;
+    box-shadow:inset 0 0 40px rgba(0,0,0,.5),0 26px 70px rgba(0,0,0,.6);font-family:'Architects Daughter',cursive}
+  .ab h5{margin:0;font-family:'Cabin Sketch',cursive;font-weight:700;font-size:34px;line-height:1.05;text-align:center;letter-spacing:.02em}
+  .ab h5 s{color:#f29ab8;text-decoration-thickness:3px}
+  .ab .sub{margin:2px 0 10px;text-align:center;font-size:16px;color:#cfd8cc}
+  .ab-row{display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;padding:8px 6px;border-top:2px dashed rgba(242,239,228,.25)}
+  .ab-row .nm{font-family:'Cabin Sketch',cursive;font-size:22px;line-height:1.05}
+  .ab-row .nm small{display:block;font-family:'Architects Daughter',cursive;font-size:14px;color:#cfd8cc}
+  .ab-row .eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:18px}
+  .ab .dr-w{background:#121a16}
+  .ab .dr-w b{color:#fffbe8;font-family:'Cabin Sketch',cursive;font-size:24px}
+  .ab .dr-fix{font-family:'Cabin Sketch',cursive}
+  .ab .who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 6px 2px;border-top:2px dashed rgba(242,239,228,.25);font-size:18px}
+  .ab .who button{padding:5px 14px 3px;border:2px solid rgba(242,239,228,.6);border-radius:20px;color:#f2efe4;font-family:'Cabin Sketch',cursive;font-size:19px}
+  .ab .who button.on{background:#f2efe4;color:#1f2a24}
+  .ab .none{color:#cfd8cc;font-size:17px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1030"/><stop offset=".45" stop-color="#262250"/><stop offset=".8" stop-color="#7a4a72"/><stop offset="1" stop-color="#d07a6a"/></linearGradient>
+  <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a6aa8"/><stop offset=".6" stop-color="#c890a8"/><stop offset="1" stop-color="#f6b080"/></linearGradient>
+  <pattern id="brick" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#6a3026"/><path d="M0 0H60M0 15H60M30 0V15M0 15V30M60 15V30" stroke="#4a2018" stroke-width="2"/><rect x="34" y="2" width="22" height="11" fill="#7a3a2c" opacity=".6"/></pattern>
+  <pattern id="slab" width="120" height="60" patternUnits="userSpaceOnUse"><rect width="120" height="60" fill="#34343e"/><path d="M0 0H120M0 0V60" stroke="#26262e" stroke-width="3"/></pattern>
+  <radialGradient id="lampG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#05061a" stop-opacity=".16"/><stop offset="1" stop-color="#05061a" stop-opacity=".66"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-500" width="3600" height="1300" fill="url(#sky)"/>
+<rect id="dawn" x="-1000" y="-500" width="3600" height="1300" fill="url(#skyD)"/>
+<g id="stars" fill="#fff"><circle cx="90" cy="60" r="2"/><circle cx="380" cy="130" r="1.6"/><circle cx="720" cy="40" r="2.2"/><circle cx="990" cy="110" r="1.5"/><circle cx="1460" cy="70" r="2"/><circle cx="1700" cy="160" r="1.6"/><circle cx="-120" cy="150" r="1.8"/><circle cx="560" cy="-60" r="1.6"/></g>
+<!-- the town across the road, beyond -->
+<path d="M-1000 560V470h120v-40h90v60h140v-80h60v80h170v-30h100v30H2600v90z" fill="#161430" opacity=".9"/>
+<path d="M1500 560v-130h90v-30h120v60h90v-50h140v150z" fill="#1c1a3a"/>
+
+<!-- the chimney, 1889 -->
+<g id="chimney" class="hot"><path d="M1236 230L1250 -420h80l14 650z" fill="url(#brick)"/><rect x="1240" y="-440" width="100" height="26" fill="#4a2018"/><rect x="1232" y="-418" width="116" height="10" fill="#3a1810"/>
+  <text x="1290" y="140" class="cT" font-size="30" text-anchor="middle" fill="#e8d8b8" opacity=".75">1889</text><rect x="1250" y="-430" width="80" height="6" fill="#f29ab8" opacity=".5"/></g>
+
+<!-- the Boilerhouse -->
+<rect x="120" y="230" width="1380" height="480" fill="url(#brick)"/>
+<rect x="104" y="214" width="1412" height="24" fill="#3a1810"/>
+<text x="810" y="296" class="cB" font-size="56" text-anchor="middle" fill="#f2e6c8" opacity=".86" letter-spacing="6">THE BOILERHOUSE</text>
+<g id="win"><g fill="#f2b860" opacity=".55"><path d="M560 470v-110q50 -50 100 0v110z"/><path d="M740 470v-110q50 -50 100 0v110z"/><path d="M920 470v-110q50 -50 100 0v110z"/></g></g>
+<g stroke="#3a1810" stroke-width="6" fill="none"><path d="M560 470v-110q50 -50 100 0v110zM740 470v-110q50 -50 100 0v110zM920 470v-110q50 -50 100 0v110z"/><path d="M610 330v140M790 330v140M970 330v140M560 410h100M740 410h100M920 410h100"/></g>
+<!-- box office window, shuttered -->
+<g id="window" class="hot"><rect x="208" y="388" width="184" height="182" fill="#2a1410"/><rect x="220" y="400" width="160" height="160" fill="#8a8a8e"/>
+  <g stroke="#6a6a70" stroke-width="3"><path d="M220 412h160M220 426h160M220 440h160M220 454h160M220 468h160M220 482h160M220 496h160M220 510h160M220 524h160M220 538h160M220 552h160"/></g>
+  <rect x="236" y="352" width="128" height="28" fill="#14101a"/><text x="300" y="372" class="cO" font-size="17" text-anchor="middle" fill="#ffcf4a" letter-spacing="3">BOX OFFICE</text></g>
+<!-- the poster -->
+<g id="poster" class="hot"><rect x="414" y="404" width="104" height="146" fill="#f2c43a" stroke="#14101a" stroke-width="3"/><text x="466" y="430" class="cB" font-size="13" text-anchor="middle" fill="#c2185b">DANDELION</text><text x="466" y="446" class="cB" font-size="13" text-anchor="middle" fill="#c2185b">CLOCK</text>
+  <circle cx="466" cy="482" r="20" fill="none" stroke="#14101a" stroke-width="2"/><g stroke="#14101a" stroke-width="1.5"><path d="M466 462v40M446 482h40M452 468l28 28M480 468l-28 28"/></g><text x="466" y="524" class="cO" font-size="11" text-anchor="middle" fill="#14101a">FRI 4 DEC</text><text x="466" y="540" class="cO" font-size="11" text-anchor="middle" fill="#14101a">£40</text></g>
+
+<!-- pavement -->
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#slab)"/><rect x="-1000" y="696" width="3600" height="10" fill="#22222a"/>
+<!-- the street lamp -->
+<g id="lampP" class="hot"><path d="M1540 900V380" stroke="#22222a" stroke-width="12"/><path d="M1540 384q0 -30 -40 -36" stroke="#22222a" stroke-width="8" fill="none"/><path d="M1478 342h44l-8 22h-28z" fill="#22222a"/>
+  <g id="lamp"><ellipse cx="1500" cy="372" rx="200" ry="150" fill="url(#lampG)"/><rect x="1488" y="362" width="24" height="8" fill="#fff0c0"/></g></g>
+
+<!-- the queue, round the yard between barriers -->
+<g id="queueBack"></g>
+<g id="barriers"></g>
+<g id="queueFront"></g>
+
+<!-- the people you can talk to -->
+<g id="adrian" class="hot" transform="translate(300 790) scale(.8)"></g>
+<g id="becky" class="hot" transform="translate(640 880) scale(.9)"></g>
+<g id="cosmo" class="hot" transform="translate(800 884) scale(.84)"></g>
+<g id="amara" class="hot" transform="translate(1030 890) scale(.96)"></g>
+<!-- the crate with the handbook -->
+<g id="binder" class="hot"><rect x="1110" y="800" width="120" height="84" fill="#8a6a3a" stroke="#5a4020" stroke-width="3"/><path d="M1110 828h120M1110 856h120" stroke="#5a4020" stroke-width="3"/>
+  <rect x="1124" y="776" width="90" height="26" rx="2" fill="#8a2a1e"/><rect x="1128" y="770" width="82" height="8" fill="#fbf7ec"/><text x="1169" y="794" class="cP" font-size="10" text-anchor="middle" fill="#ffcf4a">HANDBOOK</text>
+  <g id="roll"><circle cx="1150" cy="760" r="11" fill="#f29ab8" stroke="#a03060" stroke-width="2"/><circle cx="1150" cy="760" r="4" fill="#fff"/><path d="M1150 771l26 6" stroke="#f29ab8" stroke-width="6"/></g></g>
+<!-- the A-board -->
+<g id="board" class="hot"><path d="M1290 900l40 -230h150l40 230" fill="none" stroke="#7a5230" stroke-width="10"/><rect x="1318" y="682" width="174" height="150" fill="#1f2a24" stroke="#7a5230" stroke-width="8"/>
+  <text x="1405" y="716" class="cS" font-size="20" text-anchor="middle" fill="#f2efe4">TODAY</text><text x="1405" y="752" class="cS" font-size="24" text-anchor="middle" fill="#f2efe4">TICKETS</text><text id="bprice" x="1405" y="796" class="cS" font-size="34" text-anchor="middle" fill="#ffcf4a">£40</text></g>
+
+<rect x="-1000" y="-500" width="3600" height="1820" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">In through the side door to the box office</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ticket.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = TIX.told('a-told'), lock = null;
+
+  (function () {
+    var s = '', i, cols = ['#5a6a8a', '#8a4a3a', '#3a5a4a', '#a08a5a', '#6a4a7a', '#4a5a6a', '#9a5a2a'], hairs = ['#3a2a20', '#c9c4bc', '#1a1412', '#8a5a2a', '#a3602a'];
+    for (i = 0; i < 26; i++) {
+      var x = 420 + i * 44 + (i % 3) * 5;
+      if (i % 7 === 3) s += '<path d="M' + (x - 26) + ' 704q26 -46 52 0z" fill="' + ['#2a6a5a', '#8a3a2a', '#3a4a7a'][i % 3] + '"/><path d="M' + x + ' 704v-22" stroke="#1a1a1a" stroke-width="2"/>';
+      else s += TIX.small(x, 704, cols[i % 7], hairs[i % 5], 1, i % 2);
+    }
+    $('#queueBack').innerHTML = s;
+    s = '';
+    for (i = 0; i < 9; i++) { var px = 400 + i * 140; s += '<path d="M' + px + ' 742V692" stroke="#c8c8cc" stroke-width="5"/><circle cx="' + px + '" cy="690" r="5" fill="#d8d8dc"/>'; if (i < 8) s += '<path d="M' + px + ' 698q70 10 140 0" stroke="#e2453a" stroke-width="5" fill="none"/>'; }
+    $('#barriers').innerHTML = s;
+    s = '';
+    for (i = 0; i < 18; i++) {
+      var fx = 400 + i * 66 + (i % 2) * 8;
+      if (fx > 560 && fx < 880) continue;
+      s += '<g transform="translate(' + fx + ' 776) scale(1.25)">' + TIX.small(0, 0, cols[(i + 3) % 7], hairs[(i + 2) % 5], -1, (i + 1) % 2).replace('<g transform="translate(0 0)">', '<g>') + '</g>';
+    }
+    $('#queueFront').innerHTML = s;
+    $('#adrian').innerHTML = TIX.who('adrian', { smile: 1, extra: '<rect x="30" y="-150" width="16" height="38" rx="4" fill="#3a6a8a"/><path class="steam" d="M38 -158q-6 -10 0 -20q6 -10 0 -20" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/><rect x="-46" y="-196" width="30" height="20" rx="2" fill="#f29ab8"/><text x="-31" y="-182" font-family="Courier Prime" font-size="11" text-anchor="middle" fill="#14101a">1</text>' });
+    $('#becky').innerHTML = TIX.who('becky', { smile: 2, extra: '<rect x="30" y="-140" width="16" height="26" rx="3" fill="#14101a"/><rect x="-50" y="-150" width="30" height="20" rx="2" fill="#f29ab8"/><text x="-35" y="-136" font-family="Courier Prime" font-size="11" text-anchor="middle" fill="#14101a">100</text>' });
+    $('#cosmo').innerHTML = '<path d="M-50 0q-10 -120 50 -130q60 10 50 130z" fill="#3a6a4a"/>' + TIX.who('cosmo', { smile: -1, extra: '<rect x="24" y="-190" width="30" height="20" rx="2" fill="#f29ab8"/><text x="39" y="-176" font-family="Courier Prime" font-size="11" text-anchor="middle" fill="#14101a">101</text>' });
+    $('#amara').innerHTML = TIX.who('amara', { smile: 4, extra: '<rect x="30" y="-170" width="40" height="54" rx="2" fill="#a87a4a"/><rect x="34" y="-164" width="32" height="44" fill="#fffef8"/><path d="M38 -154h24M38 -146h20M38 -138h24" stroke="#2a4a8a" stroke-width="2"/><rect x="-60" y="-140" width="18" height="34" rx="4" fill="#c2185b"/><path class="steam b" d="M-51 -146q-6 -10 0 -20q6 -10 0 -20" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>' });
+  })();
+
+  ER.init({
+    theme: 'econ', story: 'ticket', storyTitle: 'The Second Night', id: 'queue', no: 'I', title: 'The Queue',
+    go: 'Round the corner to the yard',
+    intro: [
+      'Ambermoor, Saturday 10 October, twenty to seven in the morning. It is still dark, and it is the kind of cold that gets in at the collar.',
+      'At nine o&rsquo;clock, tickets go on sale for Dandelion Clock&rsquo;s homecoming concert at the Boilerhouse: six hundred of them, at forty pounds. The band started here, in the caf&eacute;, six years ago. This summer one of their songs was on a television advert, and now everybody in the country knows it.',
+      'You help at the Boilerhouse box office on Saturdays. You were told to come early. You did not think anybody else would.'
+    ],
+    exit: {"next":"boxoffice","w":{"bf68a0e1":"be86ccb2"}}, tags: {"h1":["2f6b4898"],"w1":["f95f937c"],"r1":["2cc378ec"],"h2":["9038646d"],"w2":["bfef2770"],"r2":["5b9f5b34"],"who":["f5da9bc9"],"r1x":["fb91eef9"],"r2x":["3431ce47"],"h1x":["f34660e1"],"h2x":["c1297272"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('amara') && told.has('hb7') && told.has('adrian') && told.has('becky'); }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips(['amara', 'hb7', 'adrian', 'becky'].filter(told.has).length + (nextFile ? 1 : 0), 5);
+    if (nextFile) $('#bprice').textContent = '£170?';
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Amara is going in to the box office. The button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['board', [
+      'Start with Adrian. When did he come, and when does the window open? And what is one of his hours worth?',
+      'Page 7: a ticket at the front costs its price AND the hours spent waiting. Hours × what an hour is worth, then the £40 ticket on top.',
+      'Adrian came at eleven last night and is paid £13 an hour. Becky came at five this morning and pays her neighbour £9 an hour. Count both to nine o&rsquo;clock. The last line of page 7 says who receives the hours.'
+    ]];
+    if (!told.has('amara')) return ['amara', ['Amara, the other Saturday helper, has a clipboard and a plan. Talk to her.', 'Amara is in the green coat with the red lanyard, next to the wooden crate.']];
+    if (!told.has('hb7')) return ['hb7', ['Amara said: read page 7 of Mr Cotton&rsquo;s handbook first.', 'The red ring binder on the wooden crate, beside Amara.']];
+    if (!told.has('adrian')) return ['adrian', ['Amara wants the real price for card number 1. Who has card 1?', 'Adrian is at the very front of the queue, by the shuttered window, with a flask.']];
+    if (!told.has('becky')) return ['becky', ['Now card number 100: the last person who will get a ticket at the window.', 'Becky is in the front row of the queue, in a purple coat, looking at her phone.']];
+    return ['board', ['Now the A-board, on the right, under the street lamp. Click it.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#scene').classList.add('up'); $('#go').classList.add('on'); ER.say('Ten to nine. Amara is holding the side door open.'); return; }
+    setTimeout(function () { $('#scene').classList.add('up'); }, 400);
+    if (told.has('in')) { busy = false; ER.say('The queue, the barriers and the A-board. Still cold.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The Boilerhouse was the boiler house of Ambermoor&rsquo;s wool mill. The mill has gone. The chimney stayed, and so did the name.',
+      'The queue starts at the shuttered box-office window, runs along the wall, and goes back and forth between red barriers across the yard. Camping chairs, sleeping bags, two small tents, a great many flasks.',
+      'Amara is already here: seventeen, two coats, a clipboard and a roll of pink cards. She waves the clipboard at you like a flag.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the people ---------- */
+  $('#amara').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Ten to nine,&rdquo; says Amara. &ldquo;Inside. Dina likes the whole team at the window when it opens.&rdquo;'); return; }
+    ER.talk({
+      who: 'Amara Chaudhry', role: 'Saturday helper · two years at the box office', face: TIX.face('amara'),
+      lines: [
+        { note: 'Two coats, the red Boilerhouse lanyard, a clipboard, a flask of tea and a roll of numbered pink cards.', a: '&ldquo;You came. Good. Dina wants every person in this queue to have a card by seven, and she wants me to stop doing sums in my head and do some on the board.&rdquo;' },
+        { q: 'What are the cards for?', a: '&ldquo;A card says your place. One card, one person, standing here. You can&rsquo;t hold a card for your cousin who&rsquo;s still in bed. Dina got the idea from Wimbledon. It says so on the roll.&rdquo;' },
+        { q: 'How many tickets are there?', a: '&ldquo;Six hundred. Five hundred online at nine, up to four each. One hundred at this window, one each, forty pounds. I&rsquo;ve given out two hundred and thirty cards. You can do that sum yourself.&rdquo;' },
+        { q: 'And the board?', a: '&ldquo;The A-board says forty pounds. Dina says that is not what the front of the queue has paid. Page seven of Mr Cotton&rsquo;s handbook. Read it, then ask card number one and card number one hundred, and put the real price on the board.&rdquo;' },
+        { q: 'Who is Mr Cotton?', a: '&ldquo;He ran the Boilerhouse before Dina. He taught economics for thirty years first, so his handbook is half how to work the till and half economics. Dina says he was right about everything except the carpet.&rdquo;' }
+      ],
+      clue: { id: 'amara1', title: 'Amara: the cards and the board', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('amara')) { paint(); ER.say('Page 7 first: the red binder on the crate.'); } }
+    });
+  });
+
+  var DIA7 = '<svg viewBox="0 0 300 200"><g font-family="Architects Daughter,cursive" font-size="13" fill="#221c18">' +
+    '<rect x="16" y="60" width="64" height="80" fill="#8a8a8e" stroke="#221c18" stroke-width="2"/><text x="48" y="54" text-anchor="middle" font-weight="700" fill="#8a2a1e">WINDOW</text>' +
+    [0, 1, 2, 3, 4, 5].map(function (i) { var x = 100 + i * 32; return '<circle cx="' + x + '" cy="108" r="8" fill="#6a4a8a"/><path d="M' + (x - 9) + ' 140q0 -26 9 -26t9 26z" fill="#6a4a8a"/>'; }).join('') +
+    '<circle cx="250" cy="40" r="22" fill="#fff" stroke="#221c18" stroke-width="2"/><path d="M250 40v-14M250 40l10 6" stroke="#221c18" stroke-width="2.5"/>' +
+    '<text x="150" y="172" text-anchor="middle" font-size="16" font-weight="700">£40 + the hours</text><text x="150" y="192" text-anchor="middle" font-size="12">= what a ticket at the front really costs</text></g></svg>';
+  var HB7 = '<h4>Boilerhouse Box Office Handbook &middot; page 7</h4><h3>When there are more people than seats</h3><div class="two"><div>' +
+    '<p>A hall has a number of seats, and a ticket has a price. If the price is lower than many people would pay, more people want tickets than there are seats. That gap is a <b>SHORTAGE</b>. A price that is kept low on purpose, below what buyers would pay, is a <b>PRICE CEILING</b>.</p>' +
+    '<p>The seats still go to somebody. If the price does not decide who, something else does: who comes first and waits longest, whose computer is fastest, who is lucky, who knows somebody. Any way of sharing out what is short is called <b>RATIONING</b>.</p>' +
+    '<p>A queue is not free. A ticket at the front costs its price <i>and</i> the hours spent waiting. An hour is worth what you gave up for it: for somebody who would have been at work, an hour&rsquo;s pay. That is the <b>OPPORTUNITY COST</b> of the queue.</p>' +
+    '<p class="rule">Money paid for a ticket goes to the hall and the band. Hours paid in a queue are paid, but nobody receives them.</p></div><div class="dia">' + DIA7 + '</div></div>' +
+    '<p class="pen">Window: ONE ticket each, to the person standing at it. No cards for friends in bed! D.A.</p>';
+  $('#binder').addEventListener('click', function (e) {
+    if (busy) return;
+    if (e.target.closest && e.target.closest('#roll')) return;
+    ER.read({ html: HB7, cls: 'hb', clue: { id: 'hb7', title: 'Handbook page 7: more people than seats', kind: 'On the crate' }, done: function () {
+      TIX.terms(['shortage', 'price ceiling', 'rationing', 'opportunity cost']);
+      if (told.set('hb7')) { paint(); ER.say('A ticket at the front costs its price and the hours. Now ask card number 1 and card number 100.'); }
+    } });
+  });
+  var ROLL = '<h4>The Boilerhouse &middot; Queue card</h4><div class="stub">No. 231</div>' +
+    '<p>Keep this card. It shows your place in the queue. One card, one person, here in person. A lost card is not replaced.</p>' +
+    '<p class="hand">Idea borrowed from Wimbledon, where everybody who queues for tickets on the day is given a numbered queue card. Mine are pink. D.A.</p>';
+  $('#roll').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: ROLL, cls: 'label', clue: { id: 'roll', title: 'A queue card, from the roll', kind: 'On the crate' }, done: function () {
+      TIX.terms(['queue card']);
+      if (told.set('roll')) ER.say('Card 231 is next on the roll. A woman with a dog is walking towards the back of the queue.');
+    } });
+  });
+  $('#adrian').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Adrian Dobson', role: 'Queue card No. 1', face: TIX.face('adrian'),
+      lines: [
+        { note: 'A camping chair, a sleeping bag round his knees, a flask, and the face of a man who has stayed awake all night on purpose.', a: '&ldquo;Eleven o&rsquo;clock last night. First. I wasn&rsquo;t going to be second, not for this. I saw that band in the caf&eacute; here when the singer was fifteen and still swept the floor.&rdquo;' },
+        { q: 'Was it worth it?', a: '&ldquo;Ask me at nine. I&rsquo;m a care worker. Nights. I took tonight off, unpaid. Thirteen pounds an hour, and every hour I&rsquo;ve sat in this chair is an hour I&rsquo;d have been paid for.&rdquo;' },
+        { q: 'How much would you pay for a ticket?', a: '&ldquo;Honestly? Two hundred. Don&rsquo;t tell the band. But it says forty, so forty is what I&rsquo;ll give the window. Plus a night.&rdquo;' },
+        { q: 'Are you cold?', a: '&ldquo;Only from the feet up.&rdquo; He pours you some tea from the flask without asking. It is very sweet.' }
+      ],
+      clue: { id: 'adrian', title: 'Adrian Dobson, card No. 1', kind: 'In the queue' },
+      done: function (seen) { if (seen && told.set('adrian')) paint(); }
+    });
+  });
+  $('#becky').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Becky Ainsley', role: 'Queue card No. 100', face: TIX.face('becky'),
+      lines: [
+        { note: 'She holds card No. 100 in her glove and keeps looking at her phone. On it is a photograph of two small boys, asleep.', a: '&ldquo;Five o&rsquo;clock this morning, on the dot. My neighbour came round at quarter to, and now she&rsquo;s on my sofa, minding my two. I pay her nine pounds an hour. She&rsquo;s worth every penny.&rdquo;' },
+        { q: 'Why not buy online?', a: '&ldquo;Online is a race against two thousand phones. Here it&rsquo;s a hundred tickets and I&rsquo;m number a hundred. I can count.&rdquo;' },
+        { q: 'Is it worth it?', a: '&ldquo;It&rsquo;s forty pounds! That&rsquo;s the whole point. It&rsquo;s the only cheap thing I&rsquo;ll do all year.&rdquo;' }
+      ],
+      clue: { id: 'becky', title: 'Becky Ainsley, card No. 100', kind: 'In the queue' },
+      done: function (seen) { if (seen && told.set('becky')) paint(); }
+    });
+  });
+  $('#cosmo').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Cosmo Duggan', role: 'Queue card No. 101 · aged fifteen', face: TIX.face('cosmo'),
+      lines: [
+        { note: 'A sleeping bag, a red anorak, a woolly hat, and a maths textbook that he is not reading.', a: '&ldquo;Five past five. I ran the whole way from Coal Street, and she was just in front of me.&rdquo; He nods at Becky. &ldquo;A hundred tickets. One each. I&rsquo;m a hundred and one.&rdquo;' },
+        { q: 'Then why are you staying?', a: '&ldquo;In case somebody in front goes home. Nobody in front is going home. I know. I asked them all.&rdquo;' },
+        { q: 'What would you pay for a ticket?', a: '&ldquo;Anything. Well. Sixty pounds. That&rsquo;s everything I&rsquo;ve got. I was saving it for a bike.&rdquo;' },
+        { q: 'Does your mum know you are here?', a: '&ldquo;She said I could come if I wore the hat. I&rsquo;m wearing the hat.&rdquo;' }
+      ],
+      clue: { id: 'cosmo1', title: 'Cosmo Duggan, card No. 101', kind: 'In the queue' },
+      done: function (seen) { if (seen) told.set('cosmo'); }
+    });
+  });
+  var POSTER = '<h5>Furlong Live presents</h5><h4>DANDELION CLOCK</h4><h5>Home</h5><p>The Boilerhouse, Ambermoor &middot; Friday 4 December</p><p><b>Tickets £40</b></p>' +
+    '<p>On sale Saturday 10 October, 9 a.m.</p><p>500 online (up to four each, £4 booking fee)<br>100 at this window (one each)</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'poster', clue: { id: 'poster', title: 'The poster by the window', kind: 'On the wall' }, done: function () {
+      TIX.terms(['face value']);
+      if (told.set('poster')) ER.say('Forty pounds is the face value: the price printed on the ticket.');
+    } });
+  });
+  TIX.thing('#chimney', 'chimney', 'The mill chimney, built in 1889. The top has just caught the first light, long before anything else in Ambermoor.', isBusy);
+  TIX.thing('#window', 'shutter', 'The box-office window, shuttered until nine. Somebody has drawn a small dandelion clock on the shutter in felt pen.', isBusy);
+  TIX.thing('#lampP', null, 'The street lamp flickers now and then, as if it is trying to stay awake too.', isBusy);
+  TIX.thing('#queueFront, #queueBack', 'barrier', function () { return 'Two hundred and thirty people, give or take a dog, between the red barriers. Most of them are awake. Some of them are proud of it.'; }, isBusy);
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The A-board says what the front of the queue really paid. People keep stopping to read it.'); return; }
+    if (!told.has('amara')) { ER.say('The A-board says TICKETS £40. Ask Amara what she wants to write on it.'); return; }
+    if (!told.has('hb7')) { ER.say('Page 7 of the handbook first: the red binder on the crate.'); return; }
+    if (!told.has('adrian') || !told.has('becky')) { ER.say('You need card number 1 and card number 100: ask ' + (told.has('adrian') ? 'Becky, card 100' : 'Adrian, card 1') + '.'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the A-board ---------- */
+  function makeLock() {
+    var saved = ER.flag('a-board') || {}, d = {}, who = saved.who || '', wait = false;
+    var box = ER.el('div', 'pz ab');
+    function row(n, label, sub) {
+      return '<div class="ab-row"><div class="nm">' + label + '<small>' + sub + '</small></div><div class="eq">hours in the queue at nine: <i id="h' + n + '"></i>' +
+        '&nbsp; an hour is worth <i id="w' + n + '"></i>&nbsp; real price of the ticket <i id="r' + n + '"></i></div></div>';
+    }
+    box.innerHTML = '<div class="ab-in"><h5>TICKETS <s>£40</s> &middot; THE REAL PRICE</h5><p class="sub">what the queue has really paid by nine o&rsquo;clock, when the window opens</p>' +
+      row(1, 'Card 1', 'Adrian') + row(2, 'Card 100', 'Becky') +
+      '<div class="ab-row"><div class="nm">Card 101<small>Cosmo</small></div><div class="eq none">hours in the queue at nine: nearly four &nbsp;&middot;&nbsp; ticket: none</div></div>' +
+      '<div class="who"><span>The hours paid in the queue go to:</span>' + [['band', 'the band'], ['hall', 'the Boilerhouse'], ['bram', 'Mr Furlong'], ['nobody', 'nobody']].map(function (b) {
+        return '<button type="button" data-w="' + b[0] + '"' + (who === b[0] ? ' class="on"' : '') + '>' + b[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="a-go">Show Amara</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { var o = { who: who }; Object.keys(d).forEach(function (k) { o[k] = d[k].get(); }); ER.flag('a-board', o); }
+    function lk() { return wait || !!nextFile; }
+    function dr(id, n, before) { d[id] = TIX.drum(box.querySelector('#' + id), { digits: n, before: before, val: saved[id] || 0, change: keep, lock: lk }); }
+    dr('h1', 2); dr('w1', 2, '£'); dr('r1', 3, '£'); dr('h2', 2); dr('w2', 2, '£'); dr('r2', 3, '£');
+    ER.$$('.who button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (lk()) return;
+        who = b.getAttribute('data-w'); ER.$$('.who button', box).forEach(function (o) { o.classList.toggle('on', o === b); }); TIX.sfx.chalk(); keep();
+      });
+    });
+    function flash(n) { n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1300); }
+    function no(id, t) { ER.sfx.no(); flash(box.querySelector(id)); msg(t); }
+    box.querySelector('#a-go').addEventListener('click', function () {
+      if (lk()) return;
+      var v = function (k) { return d[k].get(); };
+      if (!ER.check('h1', v('h1'))) return no('#h1', ER.check('h1x', v('h1')) ? '&ldquo;Eleven is when Adrian came,&rdquo; says Amara. &ldquo;How many hours is it from eleven at night to nine in the morning?&rdquo;' : '&ldquo;Not Adrian&rsquo;s hours,&rdquo; says Amara. &ldquo;Count them round the clock: from when he sat down to when the window opens.&rdquo;');
+      if (!ER.check('w1', v('w1'))) return no('#w1', '&ldquo;What is one of Adrian&rsquo;s hours worth?&rdquo; says Amara. &ldquo;He told you what he would have been paid for it.&rdquo;');
+      if (!ER.check('r1', v('r1'))) return no('#r1', ER.check('r1x', v('r1')) ? '&ldquo;That is what the hours cost him,&rdquo; says Amara. &ldquo;He still has to pay the window for the ticket.&rdquo;' : '&ldquo;Hours times what an hour is worth,&rdquo; says Amara, &ldquo;and then the ticket on top.&rdquo;');
+      if (!ER.check('h2', v('h2'))) return no('#h2', ER.check('h2x', v('h2')) ? '&ldquo;Five is when Becky came,&rdquo; says Amara. &ldquo;The window opens at nine. How long is that?&rdquo;' : '&ldquo;Becky&rsquo;s hours,&rdquo; says Amara. &ldquo;From when she came to nine o&rsquo;clock.&rdquo;');
+      if (!ER.check('w2', v('w2'))) return no('#w2', '&ldquo;Becky isn&rsquo;t losing pay,&rdquo; says Amara. &ldquo;She&rsquo;s paying somebody by the hour while she is here. How much?&rdquo;');
+      if (!ER.check('r2', v('r2'))) return no('#r2', ER.check('r2x', v('r2')) ? '&ldquo;That&rsquo;s the neighbour&rsquo;s money,&rdquo; says Amara. &ldquo;Becky still pays forty for the ticket.&rdquo;' : '&ldquo;Same sum as Adrian&rsquo;s,&rdquo; says Amara. &ldquo;Hours times the hour, and the ticket on top.&rdquo;');
+      if (!who) return no('.who', '&ldquo;And the last line,&rdquo; says Amara. &ldquo;Who gets the hours?&rdquo;');
+      if (!ER.check('who', who)) return no('.who', '&ldquo;' + (who === 'band' ? 'The band gets forty pounds a ticket' : who === 'hall' ? 'The Boilerhouse gets its forty pounds a ticket' : 'Bram gets his share of forty pounds a ticket') + ', whether the queue starts at eleven at night or at eight in the morning,&rdquo; says Amara. &ldquo;Page seven, the last line. Who receives the hours?&rdquo;');
+      var file = ER.exit([[v('h1'), v('w1'), v('r1'), v('h2'), v('w2'), v('r2'), who].join('-')], { wait: true });
+      if (!file) { msg('The board will not take it. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file);
+      TIX.mine('real', 'The real price of a window ticket', '<p>Adrian, card 1: 11 p.m. to 9 a.m. is 10 hours, at £13 an hour = £130. With the £40 ticket: £170.</p><p>Becky, card 100: 5 a.m. to 9 a.m. is 4 hours, at £9 an hour = £36. With the ticket: £76.</p><p>Cosmo, card 101: nearly 4 hours, and no ticket.</p><p>The hours are paid, but nobody receives them.</p>', true);
+      TIX.sfx.chalk();
+      msg('Amara reads it twice. <b>Adrian £170, Becky £76, and the hours go to nobody.</b>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Amara copies it on to the A-board in big chalk letters: CARD 1: £40 + 10 HOURS = £170. A man halfway down the queue reads it out loud and laughs, though not as if anything were funny.',
+          '&ldquo;A hundred and seventy,&rdquo; says Adrian. &ldquo;For a forty-pound ticket.&rdquo; He thinks about it. &ldquo;I&rsquo;d still have paid two hundred. Don&rsquo;t write that on the board.&rdquo;',
+          '&ldquo;And I paid four hours for nothing,&rdquo; says Cosmo. &ldquo;Write <i>that</i> on the board.&rdquo;',
+          '&ldquo;Paid, and nobody receives it,&rdquo; says Amara. &ldquo;That&rsquo;s what Mr Cotton meant.&rdquo; She looks up at the chimney, which has gone pink at the top. &ldquo;Ten to nine. Dina wants us inside before the window opens.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2600);
+    });
+    msg('Set each figure with the wheels: click above or below a figure, or turn the mouse wheel over it. Choose who gets the hours. Then show Amara.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>
