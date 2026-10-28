@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Copying Room · A Nice Measure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="border.css">
+<style>
+  body{--bg:#16131a;--accent:#e98a6a;--font-display:'Almendra',serif;--font-ui:'Cinzel',serif;--font-body:'IM Fell English',Georgia,serif;
+    --tc-bg:rgba(22,18,26,.96);--tc-ink:#f0e8e2;--cap-bg:rgba(22,18,26,.94);--cap-ink:#f6eee8;--panel:#201a26;--face-bg:#2e2636;--q-ink:#f0c0aa;--fade:#08060a;--hud-bg:rgba(22,18,26,.82)}
+  .tc-room{font-family:'Almendra',serif;font-weight:700;font-style:italic}
+  .cn{animation:flick 2.8s steps(3) infinite}.cn:nth-of-type(2n){animation-delay:-1.2s}
+  #drops path{animation:dr 1.6s linear infinite}
+  #drops path:nth-child(3n){animation-delay:-.5s}#drops path:nth-child(3n+1){animation-delay:-1.1s}
+  @keyframes dr{0%{transform:translateY(-60px);opacity:0}20%{opacity:.7}100%{transform:translateY(300px);opacity:0}}
+  #lineG{animation:sway 6s ease-in-out infinite;transform-origin:800px 160px}
+  @keyframes sway{50%{transform:rotate(.4deg)}}
+  #quillS{animation:qs 2.4s ease-in-out infinite;transform-origin:520px 560px}
+  @keyframes qs{50%{transform:rotate(-6deg)}}
+
+  /* the margin of the Reading Copy */
+  .cp{width:min(1040px,96vw);color:#2e2112;background:#efe0bb radial-gradient(ellipse at 30% 10%,rgba(255,250,230,.8),rgba(150,105,45,.3));border:1px solid #a68650;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .cp h4{color:#5a1d12;font-family:'Uncial Antiqua',serif;font-weight:normal}
+  .cp h5{color:#4a3a22}
+  .cp-row{display:grid;grid-template-columns:118px 264px minmax(0,1fr);gap:10px;align-items:center;padding:7px 8px;border-top:1px solid rgba(110,80,40,.35)}
+  .cp-row.bad{background:rgba(190,50,30,.18)}
+  .cp-row.ok{background:rgba(47,106,74,.12)}
+  .cp-wd b{display:block;font-family:'Almendra',serif;font-size:25px;line-height:1;color:#a3271c;text-decoration:underline}
+  .cp-wd small{font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.12em;color:#6d5a3a}
+  .cp-s{display:flex;gap:5px;flex-wrap:wrap}
+  .cp-s button{padding:4px 9px;border-radius:3px;border:1px solid #a68650;background:#f8efd6;color:#3a2a14;font-family:'Caveat',cursive;font-weight:700;font-size:20px;line-height:1.05}
+  .cp-s button:hover{border-color:#a3271c}
+  .cp-s button.on{background:#a3271c;color:#fbf3e4;border-color:#a3271c}
+  .cp-p{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .cp .slot{display:block;min-height:34px;border:1px dashed #a68650;border-radius:3px;background:rgba(255,255,255,.35)}
+  .cp .slot.bad{background:rgba(190,50,30,.22);border-color:#a3271c}
+  .slipt{display:block;width:100%;text-align:left;padding:4px 8px;border-radius:2px;border:1px solid #8a7a5a;background:#fffaf0;color:#2e2112;font-family:'IM Fell English',Georgia,serif;font-size:14.5px;line-height:1.2;
+    box-shadow:0 2px 0 rgba(0,0,0,.18)}
+  .slipt b{text-transform:uppercase;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;color:#6d5a3a}
+  .cp .tray{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px;padding:8px;min-height:60px;background:rgba(110,80,40,.14);border:1px dashed #a68650;border-radius:3px}
+  .cp .foot .btn{--accent:#7a2a1c}.cp .foot .btn:hover:not([disabled]){color:#fbf3e4}
+  .cp .pmsg{color:#2e2112;min-height:66px;font-size:17px}
+  .cp .pmsg b{color:#a3271c}.cp .pmsg i{color:#6d5a3a}
+  @media (max-width:980px){.cp-row{grid-template-columns:1fr}.cp .tray{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2230"/><stop offset=".6" stop-color="#3a3040"/><stop offset="1" stop-color="#2a2230"/></linearGradient>
+  <linearGradient id="dawnC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2236"/><stop offset="1" stop-color="#4a5670"/></linearGradient>
+  <linearGradient id="deskC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#3a2614"/></linearGradient>
+  <linearGradient id="floorC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a22"/><stop offset="1" stop-color="#1a1210"/></linearGradient>
+  <radialGradient id="cG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".5"/><stop offset=".45" stop-color="#ffb050" stop-opacity=".14"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#08060a" stop-opacity=".22"/><stop offset="1" stop-color="#08060a" stop-opacity=".88"/></radialGradient>
+</defs>
+
+<!-- whitewashed plaster gone violet in the candlelight, a tall window with rain on it -->
+<rect x="-1000" y="-640" width="3600" height="1420" fill="url(#wallC)"/>
+
+<path d="M-1000 760H2600V1500H-1000Z" fill="url(#floorC)"/><path d="M-1000 760H2600" stroke="#120c0a" stroke-width="6"/>
+<g id="boards" stroke="#140d0a" stroke-width="3" fill="none" opacity=".8"></g>
+<g id="window" class="hot"><rect x="1150" y="90" width="300" height="440" fill="#1a1420"/><rect x="1164" y="104" width="272" height="412" fill="url(#dawnC)"/>
+  <g id="drops" stroke="#c9d6ee" stroke-width="1.600" opacity=".7"></g>
+  <path d="M1164 420l40-20 30 14 40-30 30 16 40-18 30 10 26-8V516H1164Z" fill="#141a28"/>
+  <path d="M1300 104V516M1164 310H1436" stroke="#1a1420" stroke-width="10"/><rect x="1140" y="526" width="320" height="18" fill="#4a3a30"/></g>
+
+<!-- the Guild's old rules, framed; the Style Book page pinned by the door -->
+<g id="rules" class="hot"><rect x="140" y="120" width="190" height="250" fill="#3a2614"/><rect x="152" y="132" width="166" height="226" fill="#efe2c0"/>
+  <text x="235" y="158" class="cz" font-size="12" fill="#5a1d12">THE RULES</text><g stroke="#5a4a32" stroke-width="2" opacity=".75"><path d="M168 176h130M168 192h120M168 208h132M168 224h110M168 240h126M168 256h118M168 272h130M168 288h100M168 304h124M168 320h112M168 336h96"/></g></g>
+<g id="style" class="hot"><path d="M400 150h130l4 172H404z" fill="#f3ecd8"/><path d="M400 150h130v12H400z" fill="#2f4a3c"/><circle cx="466" cy="146" r="5" fill="#a3271c"/>
+  <text x="466" y="180" class="cz" font-size="9.500" fill="#2f4a3c">WORDS THAT MOVE</text><g stroke="#6a5a40" stroke-width="1.600" opacity=".7"><path d="M414 196h104M414 208h96M414 220h104M414 232h90M414 244h104M414 256h80M414 268h100M414 280h92M414 292h104M414 304h70"/></g></g>
+
+<!-- the drying line, and what the Archive sent down -->
+<g id="lineG"><path d="M560 150Q850 190 1130 150" stroke="#c9bfa0" stroke-width="2.500" fill="none"/>
+  <g id="mercy" class="hot"><path d="M600 162l84 6-6 96-84-6z" fill="#f1e6c8"/><g stroke="#4a3a22" stroke-width="1.600" opacity=".7"><path d="M604 182l66 5M603 194l64 4M602 206l66 5M601 218l60 4M600 230l66 5M599 242l48 3"/></g><rect x="636" y="156" width="8" height="18" fill="#a2673a"/></g>
+  <g id="orme" class="hot"><path d="M716 172l80 2-2 92-80-2z" fill="#efe4c6"/><path d="M716 172v92" stroke="#6a4a2a" stroke-width="8"/><g stroke="#4a2c14" stroke-width="1.600" opacity=".7"><path d="M726 190h60M726 202h56M726 214h60M726 226h50M726 238h58"/></g><rect x="752" y="166" width="8" height="18" fill="#a2673a"/></g>
+  <g id="note" class="hot"><path d="M960 172l70-4 4 64-70 4z" fill="#fbfaf4"/><g stroke="#2a3a5a" stroke-width="1.600" opacity=".75"><path d="M970 188l52-3M970 200l48-3M971 212l52-3M972 224l36-2"/></g><rect x="992" y="164" width="8" height="18" fill="#a2673a"/></g>
+</g>
+<g id="inn" class="hot" transform="translate(-95 0)"><path d="M1490 760l20-250h150l20 250z" fill="#2a1c10" transform="rotate(-6 1585 640)"/><g transform="rotate(-6 1585 640)"><rect x="1500" y="520" width="170" height="210" fill="#3a2a1a"/><rect x="1508" y="528" width="154" height="194" fill="none" stroke="#e9b65a" stroke-width="2"/>
+  <text x="1585" y="570" class="cz" font-size="14" fill="#f3e2b8">THE BRIDGE</text><text x="1585" y="590" class="cz" font-size="14" fill="#f3e2b8">INN</text><text x="1585" y="630" class="cz" font-size="10.500" fill="#e9b65a">MEAT FOR</text><text x="1585" y="646" class="cz" font-size="10.500" fill="#e9b65a">MAN AND BEAST</text>
+  <path d="M1540 680q45-30 90 0" stroke="#f3e2b8" stroke-width="3" fill="none"/></g></g>
+
+<!-- the copying desks; the big one with the Reading Copy -->
+<g id="desks"><path d="M60 560l220-40 20 240H80z" fill="url(#deskC)"/><path d="M74 552l200-36" stroke="#2a1a0c" stroke-width="6"/></g>
+<g id="sefton" class="hot"><use href="#ch-sefton" x="330" y="370" width="160" height="208"/><path d="M300 760l20-200h200l20 200z" fill="url(#deskC)"/><path d="M296 566l248-16" stroke="#2a1a0c" stroke-width="6"/>
+  <g id="quillS"><path d="M500 560l60-80" stroke="#f4ecd4" stroke-width="4"/><path d="M560 480q16-40 6-60q-24 26-14 56z" fill="#f4ecd4"/></g></g>
+<g id="copy" class="hot"><path d="M640 760l30-210h420l30 210z" fill="url(#deskC)"/><path d="M660 556l440-6" stroke="#2a1a0c" stroke-width="7"/>
+  <path d="M700 548q0-16 16-16h320q16 0 16 16l-10 30H710z" fill="#efe0bb"/><g stroke="#4a3a22" stroke-width="1.800" opacity=".7"><path d="M730 548h280M732 558h270M736 568h260"/></g>
+  <g stroke="#a3271c" stroke-width="2.500"><path d="M780 551h30M900 561h30M960 551h26M820 571h26"/></g>
+  <path d="M1000 530l12-26h26l-4 26" fill="#fbf8ef" transform="rotate(8 1020 520)"/>
+  <rect x="1060" y="520" width="26" height="30" rx="4" fill="#1a1420"/><path d="M1072 520l20-60" stroke="#f4ecd4" stroke-width="3"/></g>
+
+<!-- candles -->
+<g><circle class="cn" cx="760" cy="500" r="220" fill="url(#cG)" pointer-events="none"/><rect x="754" y="500" width="12" height="44" fill="#efe6cc"/><path d="M760 500q-5-10 0-20q5 10 0 20" fill="#ffd27a"/>
+  <circle class="cn" cx="230" cy="510" r="200" fill="url(#cG)" pointer-events="none"/><rect x="224" y="510" width="12" height="34" fill="#efe6cc"/><path d="M230 510q-5-10 0-20q5 10 0 20" fill="#ffd27a"/>
+  <circle class="cn" cx="1120" cy="500" r="200" fill="url(#cG)" pointer-events="none"/><rect x="1114" y="500" width="12" height="40" fill="#efe6cc"/><path d="M1120 500q-5-10 0-20q5 10 0 20" fill="#ffd27a"/></g>
+
+<rect x="-1000" y="-640" width="3600" height="2140" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the tower, for the dawn</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="border.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', x, i, seed = 5;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (x = -900; x < 2600; x += 170) s += '<path d="M' + x + ' 760L' + (800 + (x - 800) * 2.2).toFixed(0) + ' 1500"/>';
+    $('#boards').innerHTML = s; s = '';
+    for (i = 0; i < 26; i++) { x = 1170 + rnd() * 260; s += '<path d="M' + x.toFixed(0) + ' ' + (110 + rnd() * 200).toFixed(0) + 'v14"/>'; }
+    $('#drops').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'border', storyTitle: 'A Nice Measure', id: 'copying', no: 'III', title: 'The Copying Room',
+    go: 'Go down to the Copying Room',
+    intro: [
+      'A seal-stone prints back to front: what is on its left comes out on the right, and top and bottom stay where they are. So Querne&rsquo;s seal, which looked wrong beside the drawing of the stone, was true; and Orme&rsquo;s bearing of 100 degrees from the Well took the bound past Mardle with every roof on Selvan&rsquo;s side. To the north of Mardle: outside it.',
+      'The Copying Room is where the Guild writes out what will be read aloud. It is three in the morning, and raining. The Reading Copy lies on the big desk, with four words underlined in red.',
+      'Everything the Archive had from the year of the Treaty has been pegged up on a line to dry.'
+    ],
+    exit: {"next":"tower","w":{"db195328":"68f249a8"}}, tags: {"s_let":["2105d5f6"],"s_prevent":["03198845"],"s_meat":["84f60179"],"s_nice":["7a5cf6c1"],"p_let":["57465db4","0b712cb4"],"p_prevent":["fc52f605","fd1450d2"],"p_meat":["d3392596","2414eefa"],"p_nice":["6fb7541c","73c9b6dd"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null;
+
+  var STYLE = '<span class="pg">PAGE 43</span><h4>THE GUILD STYLE BOOK</h4><h3>Words that move</h3>' +
+    '<p>A word can keep its spelling for three hundred years and change its meaning. <b>Silly</b> once meant happy and blessed; later it meant helpless, as in &ldquo;the silly sheep&rdquo;; now it means foolish.</p>' +
+    '<p>A treaty means what its words meant on the day it was sealed, not what they mean today. A reader who uses today&rsquo;s meanings is reading a different treaty, and the Map will draw it.</p>' +
+    '<p>So do not guess an old meaning. Find the word in other papers <b>of the same age</b>, in a sentence where only one meaning makes sense. Try each meaning in the sentence, and see which one the sentence can bear.</p>' +
+    '<p>One such place is a hint. Two are proof. A paper written yesterday proves nothing about three hundred years ago.</p>' +
+    '<p>In the Reading Copy the old meaning is written in the margin, and the word is read aloud with the margin in mind.</p>';
+  var SLIPNOTE = '<h4>PINNED TO THE READING COPY</h4><p>Four words underlined. Each one has moved since the Treaty was sealed.</p><p>Find what each meant THEN. Prove it twice, from papers of the same age. Write it in the margin.</p><p>The Archive has sent down all it has from that year. It is on the line.</p><p style="text-align:right">Y.B.</p>';
+  var MERCY = '<h4>A LETTER, KEPT IN THE ARCHIVE &middot; THE YEAR OF THE TREATY</h4>' +
+    '<p>To my husband, at Querne market.</p><p>Dear heart, we are come at last to Ninefold, all well. The snow let us two days at the Thrum pass, so that we came late, and the wool was all but spoilt.</p>' +
+    '<p>At the Bridge Inn we had good meat: new bread, a cheese and apples, for it was a fast day, and there was no flesh to be had.</p>' +
+    '<p>Tomorrow the Treaty is to be sealed in the Guild-house, and the whole town is in the street. They say that from now on we may cross the bridge and pay nothing. I will believe it when I have done it.</p>' +
+    '<p class="sig">Your loving wife, Mercy Tolhurst</p>';
+  var ORME = '<h4>The field book of Wystan Orme</h4>' +
+    '<p><b>The second day of September.</b> Came down from the Thrum Springs after dark. The night was black and the stream loud, and the ferryman&rsquo;s boy prevented us to the ford with a lantern; and we followed his light, and so came over dry.</p>' +
+    '<p>Gave the boy a penny. He asked for two.</p>' +
+    '<p><b>The ninth day of September.</b> (The page about Mardle, which you read in the Archive.) &hellip; Measured with a nice chain: three furlongs and two chains, Well to Bridge. The silly sheep of Mardle would not cross the line for anybody.</p>';
+  var RULES = '<h4>The Rules of the Guild of Mapmakers</h4><p style="text-align:center;font-style:italic;font-weight:400;font-family:IM Fell English,serif;font-size:16px">as made in the year of the Treaty</p>' +
+    '<p>I. The Guild shall serve both Crowns, and favour neither.</p><p>II. No map shall leave this house unsigned.</p><p>III. No apprentice shall let another at his work, nor hide his pens.</p>' +
+    '<p>V. Ink shall not be carried up the ladders.</p><p>VII. Every measure made in this house shall be nice, to the breadth of a hair.</p>' +
+    '<p>IX. At the Reading, the Mapmaster shall prevent the apprentices into the Hall, carrying the lamp; and the apprentices shall follow.</p>';
+  var INN = '<h4>THE BRIDGE INN &middot; THE OLD BOARD</h4><p>MEAT FOR MAN AND BEAST</p><p style="font-size:16px">for travellers: bread, cheese, broth and ale<br>for their horses: hay and oats</p><p style="font-size:16px">ROOMS BY THE NIGHT</p>' +
+    '<p style="font-family:IM Fell English,serif;font-weight:400;font-style:italic;font-size:15px;letter-spacing:0">(Painted in the year of the Treaty. The inn has a new board now, which says FOOD.)</p>';
+  var NOTE = '<h4>A NOTE, PEGGED UP BY MISTAKE</h4><p>For Sir T., written yesterday evening by his secretary.</p><p>Sir T. says the meat pie at the Bridge Inn was very nice, and he will not let the cook go home until she has given him the recipe.</p>';
+
+  var ROWS = [
+    ['let', 'Article VI', [['allow', 'allow'], ['hinder', 'hinder, stand in the way of'], ['rent', 'rent out']]],
+    ['prevent', 'Article VII', [['stop', 'stop'], ['warn', 'warn'], ['before', 'go before, lead the way']]],
+    ['meat', 'Article VI', [['flesh', 'the flesh of animals'], ['food', 'food of any kind'], ['main', 'the main part of a thing']]],
+    ['nice', 'Article X', [['pleasant', 'pleasant, kind'], ['foolish', 'foolish'], ['exact', 'exact, careful to a hair']]]
+  ];
+  var SLIPS = [
+    ['snow', 'Mercy', '&ldquo;the snow let us two days at the pass&rdquo;'],
+    ['fast', 'Mercy', '&ldquo;good meat &hellip; no flesh to be had&rdquo;'],
+    ['boy', 'Orme', '&ldquo;the boy prevented us to the ford with a lantern&rdquo;'],
+    ['chain', 'Orme', '&ldquo;measured with a nice chain&rdquo;'],
+    ['sheep', 'Orme', '&ldquo;the silly sheep of Mardle&rdquo;'],
+    ['rule1', 'Rule III', '&ldquo;shall let another at his work&rdquo;'],
+    ['rule2', 'Rule VII', '&ldquo;shall be nice, to the breadth of a hair&rdquo;'],
+    ['rule3', 'Rule IX', '&ldquo;shall prevent the apprentices into the Hall&rdquo;'],
+    ['inn', 'The inn board', '&ldquo;meat for man and beast&rdquo;'],
+    ['note', 'Yesterday’s note', '&ldquo;very nice &hellip; will not let the cook go&rdquo;']
+  ];
+  /* what a wrong sense sounds like when you try it in the old pages */
+  var TRY = {
+    allow: 'Try it in Mercy&rsquo;s letter: &ldquo;the snow ALLOWED us two days at the pass, so that we came late&rdquo;. Would that make anybody late?',
+    rent: '&ldquo;Let&rdquo; can mean &ldquo;rent out&rdquo; today: a house to let. Try it in Rule III: &ldquo;No apprentice shall RENT OUT another at his work&rdquo;?',
+    stop: 'Try it in Orme&rsquo;s book: &ldquo;the boy STOPPED us to the ford with a lantern, and we followed his light&rdquo;. Nobody follows the person who has stopped them.',
+    warn: 'Try it in Rule IX: &ldquo;the Mapmaster shall WARN the apprentices into the Hall, carrying the lamp; and the apprentices shall follow&rdquo;. Who goes first, with the lamp?',
+    flesh: 'The inn board says MEAT FOR MAN AND BEAST, and lists hay and oats for the horses. Do horses eat flesh? And Mercy had good meat on a day with no flesh at all.',
+    main: '&ldquo;The meat of an argument&rdquo; is its main part, today. Try it on the inn board: &ldquo;the main part of a thing for man and beast&rdquo;?',
+    pleasant: 'Try it in Rule VII: &ldquo;every measure shall be PLEASANT, to the breadth of a hair&rdquo;. What does &ldquo;to the breadth of a hair&rdquo; tell you about the measure?',
+    foolish: 'That is an older meaning still: &ldquo;nice&rdquo; did once mean foolish. But would the Guild make a rule that every measure shall be FOOLISH, to the breadth of a hair?'
+  };
+
+  function seenAll() { return ER.flag('c-slip') && ER.flag('c-style'); }
+  function hints() {
+    if (nextFile) return ['go', ['The margin is written. Sefton is waiting at the foot of the tower stair: the sun is nearly up.']];
+    if (seenAll()) return ['margin', [
+      'Read the four papers on the line and the board against the wall, and the framed Rules. Each underlined word turns up in at least two of them, in a sentence where only one meaning works.',
+      'Try each meaning inside the old sentence, as the Style Book says. A boy with a lantern whom you follow; an inn that feeds horses; a measure &ldquo;to the breadth of a hair&rdquo;; snow that makes you late. Two papers for each word, and both must be old.',
+      'Let: the snow, and Rule III. Prevent: the boy with the lantern, and Rule IX. Meat: Mercy&rsquo;s fast day, and the inn board. Nice: Orme&rsquo;s chain, and Rule VII. The silly sheep and yesterday&rsquo;s note prove nothing about these four words.'
+    ]];
+    return ['start', [
+      'Read the slip pinned to the Reading Copy on the big desk, and the Style Book page pinned by the door.',
+      'Then read what is on the drying line (a letter, a page of Orme&rsquo;s book, a note), the old inn board leaning on the right, and the framed Rules on the left.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('solved', !!nextFile);
+    $('#copy').setAttribute('class', 'hot' + (seenAll() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((seenAll() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The margin of the Reading Copy is written, and drying. The tower stair is behind the door.'); return; }
+    if (ER.flag('c-slip')) { ER.say('The Copying Room. The Reading Copy is on the big desk.'); return; }
+    busy = true;
+    ER.narrate([
+      'Three copying desks, three candles, a jug of coffee going cold, and rain on the window. Across the room runs a line with old papers pegged to it, drying from the Archive.',
+      'The Reading Copy is on the big desk: the whole Treaty, written out fair, with four words underlined in red pencil and a slip pinned beside them.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the room ---------- */
+  function readDoc(id, html, cls, title, kind, words, after) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'c-' + id, title: title, kind: kind },
+      done: function () { ER.flag('c-' + id, 1); if (words) BDR.learn(words); paint(); if (after) after(); } });
+  }
+  $('#style').addEventListener('click', function () { readDoc('style', STYLE, 'style', 'Style Book: words that move', 'The Guild Style Book', ['margin', 'meaning']); });
+  $('#mercy').addEventListener('click', function () { readDoc('mercy', MERCY, 'oldletter', 'Mercy Tolhurst’s letter', 'An old letter', ['fast day', 'wool']); });
+  $('#orme').addEventListener('click', function () { readDoc('orme', ORME, 'field', 'Orme’s field book: the ford', 'The field book', ['ford', 'lantern']); });
+  $('#note').addEventListener('click', function () { readDoc('note', NOTE, 'typed', 'A note from yesterday', 'Pegged up by mistake', ['secretary', 'recipe']); });
+  $('#rules').addEventListener('click', function () { readDoc('rules', RULES, 'treaty', 'The Rules of the Guild', 'Framed on the wall'); });
+  $('#inn').addEventListener('click', function () { readDoc('inn', INN, 'board', 'The old board of the Bridge Inn', 'A painted board', ['beast']); });
+  $('#copy').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The Reading Copy, with four words in the margin in red. It is drying. Do not breathe on it.'); return; }
+    if (!ER.flag('c-slip')) { readDoc('slip', SLIPNOTE, 'pencil', 'The Mapmaster’s slip: four words', 'Her red pencil'); return; }
+    if (!ER.flag('c-style')) { ER.say('Before you write in a margin, read the Style Book page pinned by the door: Words that move.'); return; }
+    openMargin();
+  });
+  $('#sefton').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (ER.flag('c-sef')) { ER.say(nextFile ? '&ldquo;Not foolish, then,&rdquo; says Sefton. &ldquo;Exact. I shall go and be exact somewhere else.&rdquo;' : '&ldquo;Prove me wrong,&rdquo; says Sefton, mending a quill. &ldquo;Twice.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.sefton.who, role: CAST.sefton.role, face: FACE('sefton'),
+      lines: [
+        { note: 'He is at the next desk, cutting a new point on a goose quill with a very small knife.', a: '&ldquo;Coffee&rsquo;s in the jug. Quills are in the pot. Words are on the line. That&rsquo;s the whole Copying Room.&rdquo;' },
+        { q: 'Do you know what the old words meant?', a: '&ldquo;One of them. &lsquo;Nice&rsquo; used to mean foolish: I read it in a book about words. So &lsquo;a nice measure&rsquo; is a foolish measure, and the Treaty is a joke.&rdquo; He looks at your face. &ldquo;No? Well. Prove me wrong. Twice.&rdquo;' },
+        { q: 'What is that note on the end of the line?', a: '&ldquo;Sir Tristram&rsquo;s secretary pegged it up with the others, by mistake. It&rsquo;s a perfectly good page. It&rsquo;s just three hundred years too young.&rdquo;' }
+      ],
+      clue: { id: 'sefton3', title: 'Sefton, mending a quill', kind: 'What he said' }, last: 'Thanks',
+      done: function (ok) { if (ok) { ER.flag('c-sef', 1); BDR.learn(['quill']); } }
+    });
+  });
+  BDR.thing('#window', null, 'Rain on the glass, and behind the rain the roofs of Ninefold going from black to grey. Not long until dawn.', isBusy);
+  BDR.thing('#desks', null, 'A copying desk, sloped like a roof, with a ledge to stop the page sliding off. Somebody has carved CROSS MY LINE IF YOU DARE in the corner, a long time ago.', isBusy);
+
+  /* ---------- the margin ---------- */
+  function openMargin() {
+    var box = ER.el('div', 'pz cp'), st = ER.flag('c-desk') || { s: {}, p: {} }, done = false, s = '';
+    s = '<h4>The margin of the Reading Copy</h4><h5>For each underlined word: choose what it meant when the Treaty was sealed, and pin two old papers that prove it. Drag a paper, or click it and then a space.</h5>';
+    ROWS.forEach(function (r) {
+      s += '<div class="cp-row" data-w="' + r[0] + '"><div class="cp-wd"><b>' + r[0] + '</b><small>' + r[1].toUpperCase() + '</small></div><div class="cp-s">';
+      r[2].forEach(function (c) { s += '<button type="button" data-s="' + c[0] + '">' + c[1] + '</button>'; });
+      s += '</div><div class="cp-p"><span class="slot" data-k="' + r[0] + '1"></span><span class="slot" data-k="' + r[0] + '2"></span></div></div>';
+    });
+    s += '<div class="tray" id="cp-tray"></div><div class="foot"><button type="button" class="btn" id="cp-go">Write the margin</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('#cp-tray'), msgEl = box.querySelector('.pmsg');
+    SLIPS.forEach(function (x) { var b = ER.el('button', 'slipt dnd-item', '<b>' + x[1] + '</b> ' + x[2]); b.type = 'button'; b.setAttribute('data-p', x[0]); tray.appendChild(b); });
+    Object.keys(st.p).forEach(function (k) { var t = tray.querySelector('[data-p="' + st.p[k] + '"]'), sl = box.querySelector('.slot[data-k="' + k + '"]'); if (t && sl) sl.appendChild(t); });
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintS() { ER.$$('.cp-row', box).forEach(function (row) { var w = row.getAttribute('data-w'); ER.$$('.cp-s button', row).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-s') === st.s[w]); }); }); }
+    function clear() { ER.$$('.cp-row, .slot', box).forEach(function (x) { x.classList.remove('bad'); }); }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.cp-s button') : null; if (!b || done) return;
+      st.s[b.closest('.cp-row').getAttribute('data-w')] = b.getAttribute('data-s'); BDR.sfx.quill(); clear(); paintS(); ER.flag('c-desk', st);
+    });
+    ER.dnd(box, { item: '.slipt', slot: '.slot', home: tray, lock: function () { return done; }, change: function () {
+      st.p = {}; ER.$$('.slot', box).forEach(function (sl) { var t = sl.querySelector('.slipt'); if (t) st.p[sl.getAttribute('data-k')] = t.getAttribute('data-p'); });
+      clear(); ER.flag('c-desk', st);
+    } });
+    box.querySelector('#cp-go').addEventListener('click', function () {
+      if (done) return;
+      var i, w, row, a, b, file, bad;
+      clear();
+      for (i = 0; i < ROWS.length; i++) {
+        w = ROWS[i][0]; row = box.querySelector('.cp-row[data-w="' + w + '"]');
+        if (!st.s[w]) { msg('The margin beside &ldquo;' + w + '&rdquo; is still empty.'); row.classList.add('bad'); return; }
+        a = st.p[w + '1']; b = st.p[w + '2'];
+        if (!a || !b) { msg('<b>' + w + '.</b> One paper is a hint; two are proof. The Style Book says so, and so does the Mapmaster.'); row.classList.add('bad'); return; }
+      }
+      for (i = 0; i < ROWS.length; i++) {
+        w = ROWS[i][0]; row = box.querySelector('.cp-row[data-w="' + w + '"]');
+        if (!ER.check('s_' + w, st.s[w])) { BDR.blot(); row.classList.add('bad'); msg('<b>' + w + '.</b> ' + TRY[st.s[w]] + ' <i>A blot.</i>'); return; }
+        bad = null;
+        [1, 2].forEach(function (n) { var id = st.p[w + n]; if (!bad && !ER.check('p_' + w, id)) bad = [n, id]; });
+        if (bad) {
+          BDR.blot(); row.classList.add('bad'); box.querySelector('.slot[data-k="' + w + bad[0] + '"]').classList.add('bad');
+          msg('<b>' + w + '.</b> ' + (bad[1] === 'note' ? 'Sir Tristram&rsquo;s secretary wrote that yesterday. A paper from yesterday proves what a word means now, not three hundred years ago.'
+            : bad[1] === 'sheep' ? '&ldquo;Silly&rdquo; has moved too, and that is true, but it is not one of the four words in the Treaty. That line proves nothing about &ldquo;' + w + '&rdquo;.'
+            : 'That paper does not use the word &ldquo;' + w + '&rdquo; at all. Read the line again.') + ' <i>A blot.</i>');
+          return;
+        }
+      }
+      file = ER.exit([ROWS.map(function (r) { return st.s[r[0]]; }).join('-')], { wait: true });
+      if (!file) { msg('The ink will not take. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('c-file', file); busy = true;
+      ER.$$('.cp-row', box).forEach(function (x) { x.classList.add('ok'); });
+      msg('Four words, four old meanings, eight old papers. You write each meaning small in the margin, in red, beside its word.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2600);
+    });
+    paintS();
+    msg('Ten papers in the tray. Eight of them are old.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    BDR.sfx.quill();
+    ER.narrate([
+      'LET: hinder, stand in the way of (&ldquo;the snow let us two days&rdquo;). PREVENT: go before, lead the way (&ldquo;the boy prevented us to the ford with a lantern&rdquo;). MEAT: food of any kind (&ldquo;meat for man and beast&rdquo;). NICE: exact, careful to a hair (&ldquo;a nice chain&rdquo;).',
+      'You read Article VI again with the margin in mind. &ldquo;No man of Querne shall LET any of Selvan that cross by the Bridge.&rdquo; Read today, it tells Querne to stop them. Read as it was written, it tells Querne not to stand in their way. The same words, and the opposite law.',
+      '&ldquo;Not foolish, then,&rdquo; says Sefton, reading over your shoulder. &ldquo;Exact. A nice measure is an exact one.&rdquo; He puts his quill down. &ldquo;I shall go and be exact somewhere else. Come on: the sun&rsquo;s nearly up, and from the tower you can see the whole river. She wants us to look at Wethercote.&rdquo;'
+    ], function () {
+      BDR.mine('n-copy', 'Four words that moved', '<p>LET (then) = hinder. &ldquo;without let or hindrance&rdquo;</p><p>PREVENT (then) = go before.</p><p>MEAT (then) = food of any kind.</p><p>NICE (then) = exact, careful.</p><p>Article VI: Querne shall NOT stand in the way of Selvan&rsquo;s people at the Bridge.</p>');
+      BDR.learn(['let (old meaning)', 'prevent (old meaning)', 'meat (old meaning)', 'nice (old meaning)', 'silly (old meaning)']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

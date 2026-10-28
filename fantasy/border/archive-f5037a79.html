@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Archive · A Nice Measure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="border.css">
+<style>
+  body{--bg:#0b111c;--accent:#a9c8ee;--font-display:'Uncial Antiqua',serif;--font-ui:'Cinzel',serif;--font-body:'IM Fell English',Georgia,serif;
+    --tc-bg:rgba(10,15,26,.96);--tc-ink:#e6ecf4;--cap-bg:rgba(10,15,26,.94);--cap-ink:#eef2f8;--panel:#121b2a;--face-bg:#1d2a3e;--q-ink:#bcd2ee;--fade:#04070c;--hud-bg:rgba(10,15,26,.82)}
+  .tc-room{font-family:'Uncial Antiqua',serif}
+  #beamA{animation:bm 7s steps(3) infinite}
+  @keyframes bm{50%{opacity:.75}}
+  #candleA,#candleM{animation:flick 3s steps(3) infinite}#candleM{animation-delay:-1.1s}
+  #mouse{animation:ms 9s steps(1) infinite}
+  @keyframes ms{0%,70%{transform:translateX(0)}71%,100%{transform:translateX(14px)}}
+  #motes circle{animation:tw 5s steps(2) infinite}
+
+  /* the comparing desk */
+  .ar{width:min(1000px,96vw);color:#eef2f8;background:#1a2232 linear-gradient(160deg,#243048,#121a28);border:8px solid #0a0f18;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 2px rgba(169,200,238,.3)}
+  .ar h4{color:#d8e6fa}
+  .ar-cols{display:grid;grid-template-columns:minmax(0,430px) minmax(0,520px);gap:18px}
+  .ar-box{background:rgba(0,0,0,.25);border:1px solid rgba(169,200,238,.25);border-radius:3px;padding:10px 12px}
+  .ar-box h6{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:#a9c8ee}
+  .seals{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;text-align:center}
+  .seals svg{display:block;width:100%;height:auto}
+  .seals small{display:block;font-family:'IM Fell English',serif;font-style:italic;font-size:14.5px;color:#c8d2e2;margin-top:2px}
+  .sbtns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
+  .sbtns button,.phr button{padding:6px 11px;border-radius:3px;border:1px solid #6a86b0;background:#2a3a56;color:#e6eefa;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.06em}
+  .sbtns button:hover,.phr button:hover{border-color:#fff}
+  .brg svg{display:block;width:100%;height:auto;background:#ece2c6;border:2px solid #7d6236;touch-action:none}
+  .brg .knob{cursor:grab}
+  .phr{display:flex;gap:8px;margin-top:8px;align-items:center;font-family:'Almendra',serif;font-size:17px;color:#e6eefa}
+  .phr button{font-family:'Almendra',serif;font-size:16px;letter-spacing:0;text-transform:none}
+  .phr button.on{background:#e6eefa;color:#1a2232;border-color:#fff}
+  .ar .foot .btn{--accent:#d8e6fa}
+  .ar .pmsg{min-height:70px;font-size:17.5px}
+  @media (max-width:980px){.ar-cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1420"/><stop offset=".6" stop-color="#1a2536"/><stop offset="1" stop-color="#121a28"/></linearGradient>
+  <linearGradient id="woodA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2c22"/><stop offset="1" stop-color="#1c140e"/></linearGradient>
+  <linearGradient id="moonA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe0ff" stop-opacity=".36"/><stop offset="1" stop-color="#cfe0ff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="ironA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a2a30"/><stop offset=".4" stop-color="#5a5c66"/><stop offset="1" stop-color="#1c1c22"/></linearGradient>
+  <linearGradient id="brassA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8f"/><stop offset=".5" stop-color="#c79a3c"/><stop offset="1" stop-color="#7d5c1c"/></linearGradient>
+  <radialGradient id="candleG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".6"/><stop offset=".45" stop-color="#ffb050" stop-opacity=".16"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#04070c" stop-opacity=".25"/><stop offset="1" stop-color="#04070c" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<!-- the long roof room: sloping beams, a skylight, pigeonholes -->
+<rect x="-1000" y="-640" width="3600" height="1420" fill="url(#wallA)"/>
+<path d="M-1000 -640H2600V90L1700 -40H-100L-1000 90Z" fill="#070b12"/>
+<g stroke="#1f160e" stroke-width="18"><path d="M-100 -40L-600 400M1700 -40L2200 400M400 -40L320 120M1200 -40L1280 120"/></g>
+<g id="sky" class="hot"><path d="M640 -20H960L940 150H660Z" fill="#0a1426"/><path d="M652 -14H948L930 144H670Z" fill="#1c3258"/><circle cx="880" cy="40" r="26" fill="#eef3ff"/><circle cx="868" cy="34" r="22" fill="#1c3258" opacity=".5"/>
+  <path d="M800 -14V144M660 64H940" stroke="#0a1426" stroke-width="6"/></g>
+<path id="beamA" d="M670 144L930 144L1180 760L520 760Z" fill="url(#moonA)" pointer-events="none"/>
+<g id="motes" fill="#eef3ff" opacity=".7"></g>
+
+<!-- pigeonholes full of rolled maps, left and back -->
+<g id="holes"><rect x="-1000" y="120" width="1660" height="640" fill="#2a2018"/><g id="rolls"></g></g>
+<g id="mouse" class="hot"><ellipse cx="300" cy="352" rx="9" ry="6" fill="#6a6a70"/><circle cx="308" cy="349" r="3" fill="#8a8a90"/><circle cx="310" cy="350" r="1" fill="#000"/><path d="M291 354q-10 4-14-2" stroke="#6a6a70" stroke-width="1.600" fill="none"/></g>
+<rect x="1500" y="120" width="1100" height="640" fill="#2a2018"/><g id="rolls2"></g>
+<path d="M-1000 760H2600V1500H-1000Z" fill="url(#woodA)"/><path d="M-1000 760H2600" stroke="#0e0905" stroke-width="6"/>
+<g id="boards" stroke="#140d07" stroke-width="3" fill="none" opacity=".8"></g>
+
+<!-- the ladder, and Sefton on it -->
+<g id="ladder"><path d="M430 140L380 770M560 140L610 770" stroke="#4a3420" stroke-width="12"/><g stroke="#4a3420" stroke-width="8" id="rungs"></g><path d="M424 132h142" stroke="#8a8f96" stroke-width="6"/></g>
+<g id="sefton" class="hot"><use href="#ch-sefton" x="430" y="196" width="130" height="169"/><path d="M440 360h110l-6 60h-98z" fill="#6f6a58"/></g>
+
+<!-- the Style Book, chained to its stand -->
+<g id="style" class="hot"><path d="M250 760l8-150h24l8 150z" fill="#3a2614"/><path d="M200 612l100-22 10 34-100 22z" fill="#4a3420"/><path d="M206 606l48-11 4 26-48 11z" fill="#efe6cc"/><path d="M254 595l48-10 4 26-48 10z" fill="#e4d8b8"/>
+  <path d="M300 620q30 30 10 60t20 80" stroke="#8a8f96" stroke-width="3" fill="none" stroke-dasharray="6 3"/><path d="M204 604l-4-8 50-12 4 8" fill="#2f4a3c"/></g>
+
+<!-- the long table -->
+<rect x="660" y="560" width="760" height="26" fill="#4a3420"/><rect x="680" y="586" width="22" height="174" fill="#2a1a0c"/><rect x="1378" y="586" width="22" height="174" fill="#2a1a0c"/>
+<g id="chest" class="hot"><rect x="740" y="488" width="170" height="74" rx="4" fill="url(#ironA)"/><path d="M740 512h170M790 488v74M860 488v74" stroke="#15131a" stroke-width="5"/><rect x="814" y="514" width="22" height="20" fill="url(#brassA)"/>
+  <g transform="rotate(8 880 560)"><rect x="866" y="546" width="70" height="34" fill="#f4ecd4"/><path d="M874 558h52M874 568h40" stroke="#6a3a1c" stroke-width="2"/><path d="M870 548l-10-14" stroke="#c9bfa0" stroke-width="2"/></g>
+  <text x="825" y="506" class="cz" font-size="11" fill="#e9c46a">QUERNE</text></g>
+<g id="candleA"><circle cx="985" cy="470" r="200" fill="url(#candleG)" pointer-events="none"/></g>
+<g><rect x="978" y="476" width="14" height="84" fill="#efe6cc"/><path d="M985 476q-6-12 0-24q6 12 0 24" fill="#ffd27a"/><ellipse cx="985" cy="560" rx="22" ry="5" fill="url(#brassA)"/></g>
+<g id="seals" class="hot"><path d="M1020 560l20-90h110l20 90z" fill="#3a2614"/><path d="M1034 478l60-14 4 66-60 14z" fill="#efe6cc"/><path d="M1094 464l60 6-4 66-60-6z" fill="#e4d8b8"/>
+  <circle cx="1068" cy="500" r="18" fill="none" stroke="#8a2a1a" stroke-width="2.500"/><path d="M1068 486v28M1054 500h28" stroke="#8a2a1a" stroke-width="2"/><g stroke="#6a5a40" stroke-width="1.600" opacity=".7"><path d="M1104 486l40 4M1104 496l40 4M1104 506l36 4M1104 516l40 4"/></g></g>
+<g id="moule" class="hot"><path d="M1180 562q0-14 14-14h120q14 0 14 14z" fill="#e8dcbc"/><rect x="1176" y="540" width="16" height="22" rx="6" fill="#c9b88a"/><rect x="1318" y="540" width="16" height="22" rx="6" fill="#c9b88a"/>
+  <path d="M1200 554h100" stroke="#6a5a40" stroke-width="2"/></g>
+<g id="field" class="hot"><rect x="1236" y="500" width="76" height="46" fill="#5a3a1e"/><path d="M1236 512h76" stroke="#3a2412" stroke-width="3"/><rect x="1262" y="520" width="24" height="12" fill="#efe6cc"/></g>
+<g id="rule" class="hot"><path d="M880 590a54 54 0 0 1 108 0z" fill="url(#brassA)" transform="translate(0 -26)"/><path d="M890 564a44 44 0 0 1 88 0" fill="none" stroke="#5a4010" stroke-width="1.600"/><path d="M934 564l40-30" stroke="#5a4010" stroke-width="3"/></g>
+
+<!-- Mistress Mundy, with her candle -->
+<g id="mundy" class="hot"><path d="M1350 760L1370 560q90-30 180 0l20 200z" fill="#2a2430"/><path d="M1380 580l140 160" stroke="#c98a1e" stroke-width="12"/>
+  <use href="#ch-mundy" x="1366" y="330" width="190" height="247"/>
+  <g id="candleM"><circle cx="1560" cy="560" r="150" fill="url(#candleG)" pointer-events="none"/></g>
+  <rect x="1552" y="560" width="12" height="54" fill="#efe6cc"/><path d="M1558 560q-5-10 0-20q5 10 0 20" fill="#ffd27a"/><path d="M1538 614h40l-6 10h-28z" fill="url(#brassA)"/><path d="M1532 640q18 10 34-20" stroke="#cd9c7e" stroke-width="12" fill="none" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-640" width="3600" height="2140" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the Copying Room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="border.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', x, y, i, seed = 11, c = ['#e9dcb8', '#d9c89a', '#efe6cc', '#cdbb8a', '#e4d4a8'];
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (y = 140; y < 740; y += 50) for (x = -980; x < 640; x += 50) {
+      s += '<rect x="' + x + '" y="' + y + '" width="46" height="46" fill="#1a120c"/>';
+      if (rnd() < 0.86) s += '<circle cx="' + (x + 23) + '" cy="' + (y + 23) + '" r="' + (12 + rnd() * 7).toFixed(1) + '" fill="' + c[Math.floor(rnd() * 5)] + '"/><circle cx="' + (x + 23) + '" cy="' + (y + 23) + '" r="3" fill="#7a6a4a"/>';
+    }
+    $('#rolls').innerHTML = s; s = '';
+    for (y = 140; y < 740; y += 50) for (x = 1510; x < 2600; x += 50) {
+      s += '<rect x="' + x + '" y="' + y + '" width="46" height="46" fill="#1a120c"/>';
+      if (rnd() < 0.8) s += '<circle cx="' + (x + 23) + '" cy="' + (y + 23) + '" r="' + (12 + rnd() * 7).toFixed(1) + '" fill="' + c[Math.floor(rnd() * 5)] + '"/>';
+    }
+    $('#rolls2').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<path d="M' + (424 - i * 6) + ' ' + (200 + i * 64) + 'H' + (566 + i * 6) + '"/>';
+    $('#rungs').innerHTML = s; s = '';
+    for (x = -900; x < 2600; x += 170) s += '<path d="M' + x + ' 760L' + (800 + (x - 800) * 2.2).toFixed(0) + ' 1500"/>';
+    $('#boards').innerHTML = s; s = '';
+    for (i = 0; i < 24; i++) s += '<circle cx="' + (640 + rnd() * 420).toFixed(0) + '" cy="' + (170 + rnd() * 540).toFixed(0) + '" r="' + (0.8 + rnd() * 1.2).toFixed(1) + '"/>';
+    $('#motes').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'border', storyTitle: 'A Nice Measure', id: 'archive', no: 'II', title: 'The Archive',
+    go: 'Climb up to the Archive',
+    intro: [
+      'Seven small words, each one a way of going: along the river as far as the Weir, across the water, through the wood, over the knoll, between the two stones, and past the well. The pen of the Proving Table touched all five stones on the way, and stopped at the blot.',
+      'The Archive is under the roof, where it was moved after the flood: a long room of pigeonholes, a rolled map in every one, and a skylight full of moon. Querne&rsquo;s copy of the Treaty is up here, in an iron chest, with a label on it.',
+      'Somebody is up here already, with a candle.'
+    ],
+    exit: {"next":"copying","w":{"ff370b44":"c8d9c839"}}, tags: {"seal":["50555db1"],"brg":["24da5f04"],"ph":["1d197d72"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null;
+
+  /* Orme's seal as it PRINTS: a rose of eight points, a lily at the north, a cross at the east, a wave in the south-west, and his name round the rim.
+     The Book of Seals draws the stone, which is the same thing back to front. */
+  function sealPrint() {
+    var s = '<circle r="96" fill="#b83a2a"/><circle r="96" fill="none" stroke="#7a1c12" stroke-width="5"/><circle r="74" fill="none" stroke="#f4d0b8" stroke-width="2.500"/>' +
+      '<path id="rimP" d="M0 -84A84 84 0 1 1 -0.1 -84" fill="none"/>' +
+      '<text font-family="Cinzel,serif" font-weight="700" font-size="13" letter-spacing="3" fill="#f4d0b8"><textPath href="#rimP" startOffset="2%">WYSTAN ORME · MAPMAKER · NINEFOLD ·</textPath></text>' +
+      '<g fill="#f4d0b8" stroke="#7a1c12" stroke-width="1.500"><path d="M0 -62L9 -9L0 0L-9 -9Z"/><path d="M62 0L9 9L0 0L9 -9Z"/><path d="M0 62L-9 9L0 0L9 9Z"/><path d="M-62 0L-9 -9L0 0L-9 9Z"/>' +
+      '<path d="M32 -32L6 0L0 0L0 -6Z" opacity=".8"/><path d="M32 32L0 6L0 0L6 0Z" opacity=".8"/><path d="M-32 32L-6 0L0 0L0 6Z" opacity=".8"/><path d="M-32 -32L0 -6L0 0L-6 0Z" opacity=".8"/></g>' +
+      '<path d="M0 -64q-8-6-4-14q4 4 4-2q0 6 4 2q4 8-4 14z" fill="#f4d0b8"/>' +
+      '<path d="M70 -7v14M63 0h14" stroke="#f4d0b8" stroke-width="3.500" stroke-linecap="round"/>' +
+      '<path d="M-48 36q6-6 12 0t12 0M-48 44q6-6 12 0t12 0" stroke="#f4d0b8" stroke-width="2.500" fill="none" stroke-linecap="round"/>';
+    return s;
+  }
+  var STONE = '<g transform="scale(-1,1)">' + sealPrint() + '</g>';
+
+  var STYLE = '<span class="pg">PAGE 42</span><h4>THE GUILD STYLE BOOK</h4><h3>The compass, and bearings</h3>' +
+    '<svg viewBox="0 0 600 150"><g transform="translate(80 75)"><circle r="56" fill="none" stroke="#2f4a3c" stroke-width="2"/>' +
+    '<g fill="#2f4a3c"><path d="M0 -54L6 -6L0 0L-6 -6Z"/><path d="M54 0L6 6L0 0L6 -6Z"/><path d="M0 54L-6 6L0 0L6 6Z"/><path d="M-54 0L-6 -6L0 0L-6 6Z"/></g>' +
+    '<g fill="#7a9a88"><path d="M30 -30L4 0L0 -4Z"/><path d="M30 30L0 4L4 0Z"/><path d="M-30 30L-4 0L0 4Z"/><path d="M-30 -30L0 -4L-4 0Z"/></g>' +
+    '<g font-family="Cinzel,serif" font-weight="700" font-size="12" fill="#2f4a3c" text-anchor="middle"><text y="-60">N 0&#176;</text><text x="78" y="4">E 90&#176;</text><text y="70">S 180&#176;</text><text x="-80" y="4">W 270&#176;</text>' +
+    '<text x="46" y="-40" font-size="10">NE</text><text x="46" y="48" font-size="10">SE</text><text x="-46" y="48" font-size="10">SW</text><text x="-46" y="-40" font-size="10">NW</text></g></g>' +
+    '<g transform="translate(250 30)"><rect x="20" y="40" width="90" height="60" fill="#c9b98a" opacity=".55"/><g fill="#8a5a3a"><rect x="30" y="50" width="14" height="10"/><rect x="60" y="48" width="14" height="10"/><rect x="88" y="54" width="14" height="10"/><rect x="40" y="76" width="14" height="10"/><rect x="74" y="80" width="14" height="10"/></g>' +
+    '<path d="M0 22H130" stroke="#a3271c" stroke-width="3" stroke-dasharray="7 5"/><text x="65" y="118" font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c" text-anchor="middle">TO THE NORTH OF</text></g>' +
+    '<g transform="translate(420 30)"><rect x="20" y="40" width="90" height="60" fill="#c9b98a" opacity=".55"/><g fill="#8a5a3a"><rect x="30" y="50" width="14" height="10"/><rect x="60" y="48" width="14" height="10"/><rect x="88" y="54" width="14" height="10"/><rect x="40" y="76" width="14" height="10"/><rect x="74" y="80" width="14" height="10"/></g>' +
+    '<path d="M0 68H130" stroke="#a3271c" stroke-width="3" stroke-dasharray="7 5"/><text x="65" y="118" font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c" text-anchor="middle">IN THE NORTH OF</text></g></svg>' +
+    '<p>The eight points of the compass are north, north-east, east, south-east, south, south-west, west and north-west. On every map of this Guild, north is at the top.</p>' +
+    '<p>A <b>bearing</b> gives a direction as a number of degrees, counted clockwise from north: north is 0&#176;, east 90&#176;, south 180&#176; and west 270&#176;. North-east is 45&#176;. A bearing of 100&#176; is a little south of east.</p>' +
+    '<p><b>To the north of</b> a place is outside it, beyond its northern edge: a road that runs to the north of a village leaves every house on one side. <b>In the north of</b> a place is inside it, in its northern part: a road that runs in the north of a village goes between the houses.</p>';
+  var SEALS = '<span class="pg">PAGE 1</span><h4>THE BOOK OF SEALS</h4><h3>How the seals in this book are drawn</h3>' +
+    '<p>Every seal in this book is drawn from its <b>seal-stone</b>, as the engraver cut it.</p>' +
+    '<p>A seal-stone is cut back to front, so that the seal it prints in the wax comes out the right way round. What is on the left of the stone is on the right of the seal, and what is on the right of the stone is on the left of the seal. Top and bottom do not change.</p>' +
+    '<svg viewBox="0 0 600 220"><g transform="translate(300 112) scale(1)">' + STONE + '</g><text x="300" y="216" font-family="Cinzel,serif" font-weight="700" font-size="12" fill="#2f4a3c" text-anchor="middle">No. 1 &#183; THE SEAL OF WYSTAN ORME, MAPMAKER: THE STONE</text></svg>' +
+    '<p>No. 1. The seal of Wystan Orme, used on the three copies of the Treaty of Ninefold. A lily at the north point; a cross by one of the side points; a wave between two of the others.</p>';
+  var QUERNE = '<h4>The Treaty of Ninefold</h4><h5>the copy of the Crown of Querne &middot; with its seal</h5>' +
+    '<p class="art"><b>I.</b> The bound shall begin at the Thrum Springs, where the Wimble rises, and shall run along the Wimble as far as the Weir of Ninefold. There it shall go across the water, through Mardle Wood, over Raven Knoll and between the Two Sisters; and so past the Hermit&rsquo;s Well, <u class="old">to</u> the north of Mardle, to the Bridge of Ninefold.</p>' +
+    '<svg viewBox="-100 -100 200 200" style="display:block;width:150px;height:150px;margin:6px auto">' + sealPrint() + '</svg>' +
+    '<p style="font-family:IM Fell English,serif;font-style:italic;font-size:17px">A label is tied to it with string, in brown ink: <b>&ldquo;Laid beside the Book of Seals, No. 1. The cross is on the wrong side. SEAL NOT TRUE. Not to be used. T. Moule, the spring after the Flood.&rdquo;</b></p>';
+  var MOULE = '<h4>The Treaty of Ninefold</h4><h5>the Guild&rsquo;s fair copy, written by Thaddeus Moule in the spring after the Flood</h5>' +
+    '<p class="art"><b>I.</b> &hellip; and so past the Hermit&rsquo;s Well, <u class="old">in</u> the north of Mardle, to the Bridge of Ninefold.</p>' +
+    '<p style="font-family:IM Fell English,serif;font-style:italic;font-size:17px">In the margin, in brown ink: &ldquo;The word before &lsquo;the north of Mardle&rsquo; is lost under the water. Querne&rsquo;s copy has TO, but its seal is not true: see my label. Many families of Mardle came from Querne, so I have written IN. T.M.&rdquo;</p>';
+  var FIELD = '<h4>The field book of Wystan Orme</h4>' +
+    '<p><b>The ninth day of September.</b> Walked the bound from the Two Sisters to the Bridge, with two men of each Crown.</p>' +
+    '<p>At the Hermit&rsquo;s Well I set up my compass. The west end of the Bridge bears 100 degrees from the Well, and I walked to it in a straight line, with the men of Querne on my left hand and the men of Selvan on my right.</p>' +
+    '<p>The nearest house of Mardle, the miller&rsquo;s, bears 125 degrees from the Well. Every other house lies further to the south. So the whole of Mardle lies on Selvan&rsquo;s side, and not one roof of it is cut.</p>' +
+    '<p>Measured with a nice chain: three furlongs and two chains, Well to Bridge.</p>' +
+    '<p>The silly sheep of Mardle would not cross the line for anybody.</p>';
+
+  function seen(k) { return ER.flag('a-' + k); }
+  function ready() { return seen('querne') && seen('seals') && seen('field') && seen('mundy'); }
+  function hints() {
+    if (nextFile) return ['go', ['Querne&rsquo;s seal is true, and the bound runs to the north of Mardle. The Copying Room is downstairs.']];
+    if (ready()) return ['desk', [
+      'Two things to settle at the brass rule on the table: what Orme&rsquo;s seal-stone really prints, and where the bound runs past Mardle. Read the first page of the Book of Seals again, and Orme&rsquo;s field book.',
+      'A seal-stone prints the other way round, left to right; top and bottom do not change. Which button does that, and how many times? A bearing is counted in degrees, clockwise from north, and each small mark on the brass is ten degrees.',
+      'One flip, left to right, and no turning. Set the arm a little south of east, where Orme says the Bridge lies. Then look at Mardle&rsquo;s houses: is the line among them, or are they all on one side of it?'
+    ]];
+    return ['start', [
+      'Read what is on the long table: Querne&rsquo;s copy in the iron chest, Moule&rsquo;s fair copy, the Book of Seals on its stand, and Orme&rsquo;s field book in the box at the end. The Style Book on the stand at the front has a page on the compass.',
+      'Talk to Mistress Mundy, the envoy of Querne. She is standing at the end of the table with a candle, and she has been waiting twenty years for somebody to ask.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('solved', !!nextFile);
+    $('#rule').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The label is off the iron chest. The Copying Room is downstairs.'); return; }
+    if (seen('mundy')) { ER.say('The Archive. Mistress Mundy is still at the end of the table, with her candle.'); return; }
+    busy = true;
+    ER.narrate([
+      'Pigeonholes from the floor to the beams, a rolled map in every one, like the ends of a thousand candles. Sefton is already halfway up the ladder.',
+      'At the end of the long table stands a woman in a dark dressing gown, with the ochre sash of Querne over it and a candle in her hand. She does not look surprised to see you. She looks as if she has been expecting somebody for a long time, and you are later than she would like.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the room ---------- */
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'a-' + id, title: title, kind: kind },
+      done: function () { ER.flag('a-' + id, 1); if (words) BDR.learn(words); paint(); } });
+  }
+  $('#chest').addEventListener('click', function () { readDoc('querne', QUERNE, 'treaty', 'Querne’s copy, and Moule’s label', 'In the iron chest', ['seal', 'wax']); });
+  $('#moule').addEventListener('click', function () { readDoc('moule', MOULE, 'treaty', 'Moule’s fair copy', 'The Guild’s fair copy', ['fair copy', 'margin']); });
+  $('#seals').addEventListener('click', function () { readDoc('seals', SEALS, 'style', 'The Book of Seals, page 1', 'The Book of Seals', ['seal-stone', 'engraver']); });
+  $('#field').addEventListener('click', function () { readDoc('field', FIELD, 'field', 'Orme’s field book: Mardle', 'The field book', ['bearing', 'furlong', 'chain']); });
+  $('#style').addEventListener('click', function () { readDoc('style', STYLE, 'style', 'Style Book: the compass and bearings', 'The Guild Style Book', ['compass', 'bearing', 'clockwise', 'to the north of', 'in the north of']); });
+  $('#mundy').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('&ldquo;Twenty years,&rdquo; says Mistress Mundy, to her candle. &ldquo;And one page of their own book.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.mundy.who, role: CAST.mundy.role, face: FACE('mundy'),
+      lines: [
+        { note: 'Black hair in a hard knot, a high white collar, and a candle held exactly upright. She looks at you over a round eyeglass.', a: '&ldquo;So the Guild has sent a child. Good. Children read what is written. Grown men read what they expected.&rdquo;' },
+        { q: 'Is Querne&rsquo;s copy true?', a: '&ldquo;It is the copy that my Crown has kept for three hundred years and sent here in good faith. Twenty years ago your Master Moule laid our seal beside the drawing in his Book of Seals, saw the cross on the other side, and tied that label on it. He did not read the first page of his own book.&rdquo;' },
+        { q: 'Why does it matter so much to you?', a: '&ldquo;Our copy says that the bound runs TO the north of Mardle. That leaves every house in Mardle on Selvan&rsquo;s side. Moule&rsquo;s guess would give my Crown the north half of the village. I do not want it. A border that is wrong in my favour is still wrong, and in fifty years it will be wrong in somebody else&rsquo;s.&rdquo;' },
+        { q: 'Why does the Guild dislike you?', a: '&ldquo;Because I am usually right, and I say so. It is a fault. I have tried to correct it.&rdquo; A pause. &ldquo;I was right about that, too.&rdquo;' },
+        { note: 'She taps the end of the table with one finger, beside a battered wooden box.', a: '&ldquo;Orme walked the line himself, with men of both Crowns. His field book is in that box. Read him before you believe me. Then read the first page of the Book of Seals. Then you may believe whom you like.&rdquo;' }
+      ],
+      clue: { id: 'mundy1', title: 'Mistress Mundy, in the Archive', kind: 'What she said' }, last: 'Leave her',
+      done: function (ok) {
+        if (!ok) return;
+        ER.flag('a-mundy', 1); paint();
+        ER.say(ready() ? 'There is a brass rule on the table, in front of the candle: the Guild&rsquo;s comparing desk.' : 'Orme&rsquo;s field book is in the box at the end of the table.');
+      }
+    });
+  });
+  $('#sefton').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (ER.flag('a-sef')) { ER.say('&ldquo;A true fact,&rdquo; says Sefton from the ladder, &ldquo;can have nothing to do with anything. Mardle is full of them.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.sefton.who, role: CAST.sefton.role, face: FACE('sefton'),
+      lines: [
+        { note: 'He is on the ladder with a roll of maps under each arm, looking down.', a: '&ldquo;Orme&rsquo;s field book is in the box at the end of the table. I found it on the third shelf, under a mouse.&rdquo;' },
+        { q: 'What do you make of Moule&rsquo;s label?', a: '&ldquo;Moule was careful. But careful isn&rsquo;t the same as right. Look at the drawing in the Book of Seals, and then read the page before it. One of them tells you how to read the other.&rdquo;' },
+        { q: 'Moule says many families in Mardle came from Querne.', a: '&ldquo;They did. My aunt&rsquo;s one of them. But a border doesn&rsquo;t walk round people: it goes where the words say. That&rsquo;s a true fact with nothing to do with anything.&rdquo;' }
+      ],
+      clue: { id: 'sefton2', title: 'Sefton, on the ladder', kind: 'What he said' }, last: 'Thanks',
+      done: function (ok) { if (ok) ER.flag('a-sef', 1); }
+    });
+  });
+  BDR.thing('#sky', null, 'The skylight, and the moon: nearly full, and very cold. The light comes down in a long slant and lies across the table like a ruler.', isBusy);
+  BDR.thing('#mouse', null, 'A mouse in a pigeonhole, sitting on a map of somewhere. It has eaten the corner off the sea.', isBusy);
+  BDR.thing('#holes', null, 'Pigeonholes, and a rolled map in nearly every one. Each roll has a little paper label: a county, a river, a road, a quarrel.', isBusy);
+  $('#rule').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The brass rule still points at 100 degrees. Somebody should write that down. You have.'); return; }
+    if (!ready()) {
+      ER.wordAt(e.clientX, e.clientY, 'protractor');
+      var miss = !seen('querne') ? 'Querne&rsquo;s copy, in the iron chest' : !seen('seals') ? 'the Book of Seals, on its stand' : !seen('field') ? 'Orme&rsquo;s field book, in the box at the end of the table' : 'what Mistress Mundy has to say';
+      ER.say('The Guild&rsquo;s comparing desk: a brass rule for bearings, a dish of red wax, and a little lamp to soften it. Before you compare anything, there is ' + miss + '.', 7000);
+      return;
+    }
+    openDesk();
+  });
+
+  /* ---------- the comparing desk ---------- */
+  var WELL = [300, 340];
+  function bearingMap(deg, show) {
+    var s = '<rect x="200" y="250" width="260" height="170" fill="#ece2c6"/>' +
+      '<path d="M432 250 Q436 290 424 330 T426 360 Q418 400 432 420" stroke="#5a7aa0" stroke-width="10" fill="none"/>' +
+      '<path d="M406 351h42v16h-42z" fill="#b9a98a" stroke="#4a3a2a" stroke-width="1.600"/><g stroke="#4a3a2a" stroke-width="1.200"><path d="M414 351v16M422 351v16M430 351v16M438 351v16"/></g>' +
+            '<g fill="#a2673a" stroke="#4a3a2a" stroke-width="1"><rect x="316" y="351" width="12" height="9"/><rect x="334" y="364" width="12" height="9"/><rect x="352" y="372" width="12" height="9"/><rect x="322" y="380" width="12" height="9"/><rect x="342" y="390" width="12" height="9"/><rect x="306" y="396" width="12" height="9"/></g>' +
+      '<g font-family="IM Fell English,Georgia,serif" font-style="italic" font-size="11" fill="#3b2a14" text-anchor="middle"><text x="336" y="416">Mardle</text><text x="422" y="384">the Bridge</text><text x="206" y="264" text-anchor="start">the Hermit&#8217;s Well, under the brass</text><text x="331" y="358" text-anchor="start" font-size="10">the miller&#8217;s</text></g>' +
+      '<path d="M404 352l12 12M416 352l-12 12" stroke="#a3271c" stroke-width="2.500"/>' +
+      '<g transform="translate(' + WELL[0] + ' ' + WELL[1] + ')">' +
+      '<circle r="60" fill="#e9c46a" fill-opacity=".28" stroke="#8a6a26" stroke-width="2"/>';
+    for (var a = 0; a < 360; a += 10) {
+      var r1 = a % 90 === 0 ? 46 : 53, rad = a * Math.PI / 180;
+      s += '<path d="M' + (Math.sin(rad) * r1).toFixed(1) + ' ' + (-Math.cos(rad) * r1).toFixed(1) + 'L' + (Math.sin(rad) * 60).toFixed(1) + ' ' + (-Math.cos(rad) * 60).toFixed(1) + '" stroke="#5a4010" stroke-width="' + (a % 90 === 0 ? 2.2 : 1.2) + '"/>';
+    }
+    s += '<g font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#5a4010" text-anchor="middle"><text y="-36">N</text><text x="38" y="4">E</text><text y="44">S</text><text x="-38" y="4">W</text></g>' +
+      '<circle r="6" fill="#5a7aa0" stroke="#4a3a2a" stroke-width="2"/>' +
+      '<g id="arm" transform="rotate(' + deg + ')"><path d="M0 0V-190" stroke="#a3271c" stroke-width="2.200" stroke-dasharray="6 4"/><path d="M-3 -8L0 -66L3 -8Z" fill="#7d5c1c"/><circle class="knob" cy="-60" r="9" fill="#a3271c" stroke="#fff" stroke-width="2"/></g></g>';
+    return s;
+  }
+  function openDesk() {
+    var box = ER.el('div', 'pz ar'), st = ER.flag('a-desk') || { m: 0, r: 0, deg: 0, ph: '' }, done = false;
+    box.innerHTML = '<h4>The comparing desk</h4><h5>What would Orme&rsquo;s stone print? And where does the bound run past Mardle? Settle both, then write the word into the gap.</h5>' +
+      '<div class="ar-cols"><div class="ar-box"><h6>THE SEAL</h6><div class="seals">' +
+      '<div><svg viewBox="-100 -100 200 200">' + STONE + '</svg><small>the stone, as the Book of Seals draws it</small></div>' +
+      '<div><svg viewBox="-100 -100 200 200"><g id="wax">' + STONE + '</g></svg><small>your wax, pressed from that stone</small></div></div>' +
+      '<div class="sbtns"><button type="button" data-op="lr">Flip left to right</button><button type="button" data-op="tb">Flip top to bottom</button><button type="button" data-op="q">Turn a quarter</button><button type="button" data-op="z">Start again</button></div></div>' +
+      '<div class="ar-box brg"><h6>THE BOUND PAST MARDLE &middot; drag the red knob</h6><svg viewBox="200 250 260 170" id="brg"></svg>' +
+      '<div class="phr">&hellip; past the Hermit&rsquo;s Well, <button type="button" data-ph="to">to</button><button type="button" data-ph="in">in</button> the north of Mardle.</div></div></div>' +
+      '<div class="foot"><button type="button" class="btn" id="ar-go">Write it in</button><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg'), svg = box.querySelector('#brg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function save() { ER.flag('a-desk', st); }
+    function wax() { box.querySelector('#wax').setAttribute('transform', 'rotate(' + st.r * 90 + ') scale(' + (st.m ? -1 : 1) + ',1)'); }
+    function brg() { svg.innerHTML = bearingMap(st.deg); }
+    function phr() { ER.$$('.phr button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-ph') === st.ph); }); }
+    box.querySelector('.sbtns').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b || done) return;
+      var op = b.getAttribute('data-op');
+      if (op === 'lr') { st.m ^= 1; st.r = (4 - st.r) % 4; }
+      else if (op === 'tb') { st.m ^= 1; st.r = (6 - st.r) % 4; }
+      else if (op === 'q') st.r = (st.r + 1) % 4;
+      else { st.m = 0; st.r = 0; }
+      BDR.sfx.turn(); wax(); save();
+    });
+    box.querySelector('.phr').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b || done) return;
+      st.ph = b.getAttribute('data-ph'); ER.sfx.click(); phr(); save();
+    });
+    ER.drag(svg, {
+      start: function (ev) { return !done && !!(ev.target.closest && ev.target.closest('.knob, #arm')); },
+      move: function (ev) {
+        var p = ER.pt(svg, ev), a = Math.atan2(p.x - WELL[0], -(p.y - WELL[1])) * 180 / Math.PI;
+        a = (Math.round(a / 5) * 5 + 360) % 360;
+        if (a !== st.deg) { st.deg = a; svg.querySelector('#arm').setAttribute('transform', 'rotate(' + a + ')'); }
+      },
+      end: function () { BDR.sfx.turn(); save(); }
+    });
+    box.querySelector('#ar-go').addEventListener('click', function () {
+      if (done) return;
+      var sealK = (st.m ? 'm' : 'n') + (st.r * 90), file;
+      if (!st.ph) { msg('The gap before &ldquo;the north of Mardle&rdquo; is still empty. To, or in?'); return; }
+      if (!ER.check('seal', sealK)) {
+        BDR.blot();
+        msg(st.m === 0 && st.r === 0 ? '<b>The seal.</b> You press the wax, and it comes out exactly like the drawing in the Book. That is what Moule expected; and the first page of the Book says a stone never prints like that. <i>A blot.</i>'
+          : !st.m ? '<b>The seal.</b> You have only turned the stone round, and a stone does not turn itself in the wax. Look at the lily and the cross on Querne&rsquo;s seal (it is in your notebook): your wax does not match. <i>A blot.</i>'
+          : '<b>The seal.</b> Your wax is back to front, as a print should be; but the lily is not at the top. The Book says top and bottom do not change. <i>A blot.</i>');
+        return;
+      }
+      if (!ER.check('brg', String(st.deg))) {
+        BDR.blot();
+        msg('<b>The bearing.</b> Your arm points at ' + st.deg + ' degrees. Orme set his compass at the Well and walked to the west end of the Bridge: does your line go there? A bearing is counted clockwise from north. <i>A blot.</i>');
+        return;
+      }
+      if (!ER.check('ph', st.ph)) {
+        BDR.blot();
+        msg('<b>The word.</b> IN the north of Mardle would take the bound between the houses. Look where your red line runs, and where the miller&rsquo;s roof is. Orme says not one roof is cut. <i>A blot.</i>');
+        return;
+      }
+      file = ER.exit([sealK + '-' + st.deg + '-' + st.ph], { wait: true });
+      if (!file) { msg('The ink will not take. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('a-file', file); busy = true;
+      msg('Your wax matches Querne&rsquo;s seal, lily for lily and cross for cross. And your red line runs past the Well to the Bridge with every roof of Mardle on its right.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2600);
+    });
+    wax(); brg(); phr();
+    msg('The stone is on the left. Make the wax on the right show what the stone would print.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    BDR.sfx.seal();
+    ER.narrate([
+      'You hold your wax beside the seal on Querne&rsquo;s copy. The lily is at the top of both. The cross is on the right of both: by the east point, where a cross belongs on an old compass. A seal-stone prints back to front, and Moule laid a print beside a drawing of a stone.',
+      'Then the bearing: from the Hermit&rsquo;s Well to the west end of the Bridge, 100 degrees, a little south of east; and every house of Mardle on the right hand, to the south of the line. The bound runs TO the north of Mardle, not in it. Not one roof is cut.',
+      'Sefton comes down the ladder and, without being asked, cuts the string of Moule&rsquo;s label. Mistress Mundy watches him do it. &ldquo;Thank you,&rdquo; she says. &ldquo;Now your Guild will say that I was lucky.&rdquo; &ldquo;We will say that you were right,&rdquo; says Sefton. &ldquo;Quietly. In a corner.&rdquo;',
+      'A slip in red pencil has come up the stairs with the boy who brings the coal: <span class="slip" style="display:inline-block;padding:4px 10px;background:#fbf8ef;color:#a3271c;font-family:Caveat,cursive;font-weight:700;font-size:1.15em">Good. Now the Reading Copy. Copying Room. Four words underlined. Words move. Treaties do not.</span>'
+    ], function () {
+      BDR.mine('n-arch', 'Querne’s seal, and Mardle', '<p>A seal-stone prints BACK TO FRONT, left to right. Top and bottom stay.</p><p>Querne&rsquo;s seal = Orme&rsquo;s stone, flipped. So it is TRUE. Moule compared a print with a drawing of a stone.</p><p>Bearing 100&#176; from the Well = a little south of east. All Mardle&rsquo;s houses south of the line.</p><p>So: TO the north of Mardle (outside it). IN would cut it.</p>');
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

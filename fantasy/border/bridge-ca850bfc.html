@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bridge · A Nice Measure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="border.css">
+<style>
+  body{--bg:#6a9ac8;--accent:#ffe08a;--font-display:'Cinzel Decorative',serif;--font-ui:'Cinzel',serif;--font-body:'IM Fell English',Georgia,serif;
+    --tc-bg:rgba(24,40,58,.95);--tc-ink:#f2f6fa;--cap-bg:rgba(24,40,58,.93);--cap-ink:#f6f9fc;--panel:#1c3044;--face-bg:#2a4660;--q-ink:#ffe7b0;--fade:#0a1420;--hud-bg:rgba(24,40,58,.8)}
+  .tc-room{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700}
+  #clouds{animation:cl 60s linear infinite}
+  @keyframes cl{0%{transform:translateX(0)}100%{transform:translateX(260px)}}
+  .flagS{animation:fl 2.6s ease-in-out infinite;transform-origin:250px 300px}
+  .flagQ{animation:fl 2.6s ease-in-out infinite -1.2s;transform-origin:1350px 300px}
+  @keyframes fl{50%{transform:skewY(2deg) scaleX(.97)}}
+  #barge{animation:bg 40s linear infinite}
+  @keyframes bg{0%{transform:translate(200px,0)}100%{transform:translate(196px,10px)}}
+  #ripples path{animation:tw 3s steps(2) infinite}
+  #heronH{animation:hh 6s steps(1) infinite}
+  @keyframes hh{0%,80%{opacity:1}81%,100%{opacity:.85}}
+
+  /* the Hour of Claims */
+  .cl{display:grid;grid-template-columns:minmax(0,600px) minmax(0,380px);gap:16px;width:min(1030px,96vw);color:#1f2a30;background:#f2ead6;border:8px solid #3a4a58;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .cl h4{grid-column:1/-1;color:#2a3a48}
+  .cl h5{grid-column:1/-1;margin:0;color:#4a5a66}
+  .cl-claims{display:flex;flex-direction:column;gap:4px}
+  .claim{padding:4px 9px 5px;border-left:7px solid #2c6e6a;background:#fffaf0;border-radius:2px}
+  .claim.q{border-left-color:#c98a1e}
+  .claim.bad{background:#f6d6cc}
+  .claim.ok{background:#e2efe4}
+  .claim p{margin:0 0 3px;font-family:'IM Fell English',Georgia,serif;font-size:14.5px;line-height:1.2}
+  .claim p b{text-transform:uppercase;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;color:#4a5a66}
+  .claim .ch{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.06em;color:#4a5a66}
+  .claim .ch button{padding:1px 6px;border-radius:3px;border:1px solid #8a9aa6;background:#f2f4f2;color:#2a3a48;font-family:'Cinzel',serif;font-weight:700;font-size:11.500px}
+  .claim .ch button:hover{border-color:#2a3a48}
+  .claim .ch button.on{background:#2a3a48;color:#fffaf0;border-color:#2a3a48}
+  .claim .ch button.v.on[data-v="g"]{background:#2f6a4a;border-color:#2f6a4a}
+  .claim .ch button.v.on[data-v="r"]{background:#a3271c;border-color:#a3271c}
+  .claim .ch i{width:10px}
+  .cl-text{max-height:500px;overflow:auto;padding:10px 14px;background:#efe0bb radial-gradient(ellipse at 30% 10%,rgba(255,250,230,.75),rgba(150,105,45,.25));border:1px solid #a68650;font-family:'Almendra',serif;font-size:15px;line-height:1.32;color:#2e2112}
+  .cl-text h6{margin:0 0 6px;font-family:'Uncial Antiqua',serif;font-weight:normal;font-size:17px;color:#5a1d12;text-align:center}
+  .cl-text p{margin:0 0 6px}
+  .cl-text p.art b{font-family:'Uncial Antiqua',serif;font-weight:normal;color:#7a2a1c}
+  .cl-text u.old{text-decoration:none;color:#a3271c;border-bottom:2px solid #a3271c}
+  .cl-text .gl{font-family:'Caveat',cursive;font-weight:700;font-size:18px;color:#a3271c;margin-left:3px}
+  .cl-text .gl:before{content:'('}.cl-text .gl:after{content:')'}
+  .cl .foot{grid-column:1/-1}
+  .cl .foot .btn{--accent:#2a3a48}.cl .foot .btn:hover:not([disabled]){color:#fffaf0}
+  .cl .pmsg{color:#1f2a30;min-height:44px;font-size:16.5px}
+  .cl .pmsg b{color:#a3271c}.cl .pmsg i{color:#5a6a76}
+  @media (max-width:980px){.cl{grid-template-columns:1fr}.cl-text{max-height:none}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a7ab0"/><stop offset=".7" stop-color="#9ac0e0"/><stop offset="1" stop-color="#d8e8f0"/></linearGradient>
+  <linearGradient id="landB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa66a"/><stop offset="1" stop-color="#5a7a42"/></linearGradient>
+  <linearGradient id="waterB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8dcea"/><stop offset="1" stop-color="#4a7aa0"/></linearGradient>
+  <linearGradient id="stoneB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9bba0"/><stop offset="1" stop-color="#8a7c64"/></linearGradient>
+  <linearGradient id="deckB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a89880"/><stop offset="1" stop-color="#7a6c58"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#0a1420" stop-opacity=".1"/><stop offset="1" stop-color="#0a1420" stop-opacity=".55"/></radialGradient>
+</defs>
+
+<!-- a clear morning, looking upstream (north) from the middle of the Bridge -->
+<rect x="-1000" y="-640" width="3600" height="1060" fill="url(#skyB)"/>
+<g id="clouds" fill="#fff" opacity=".85"><ellipse cx="200" cy="120" rx="120" ry="26"/><ellipse cx="260" cy="104" rx="70" ry="24"/><ellipse cx="900" cy="80" rx="140" ry="22"/><ellipse cx="960" cy="66" rx="70" ry="22"/><ellipse cx="1400" cy="150" rx="110" ry="20"/><ellipse cx="-300" cy="90" rx="120" ry="22"/></g>
+<path d="M-1000 400L-500 360L-200 384L200 350L600 376L900 360L1200 380L1600 348L2000 372L2600 356V420H-1000Z" fill="#7a8aa0"/>
+<path d="M-1000 410H2600V1500H-1000Z" fill="url(#landB)"/>
+<g id="wood" class="hot" fill="#3a5a32"><circle cx="590" cy="430" r="26"/><circle cx="620" cy="420" r="30"/><circle cx="660" cy="428" r="24"/><circle cx="560" cy="440" r="20"/><circle cx="690" cy="440" r="18"/></g>
+<g id="mill" class="hot" transform="translate(310 -12)"><rect x="1150" y="420" width="40" height="40" fill="#e8dcc8"/><path d="M1146 420l24-22 24 22z" fill="#8a3a2a"/><g stroke="#4a3a2a" stroke-width="4"><path d="M1170 400l-26-26M1170 400l26-26M1170 400l-26 26M1170 400l26 26"/></g></g>
+<!-- the Wimble coming down towards the Bridge, the Weir far off -->
+<g id="river" class="hot"><path d="M985 412L1025 412Q1050 500 1120 560L1150 660H860L890 560Q960 500 985 412Z" fill="url(#waterB)"/>
+  <path id="weir" d="M986 424H1026" stroke="#f4f8fa" stroke-width="4"/></g>
+<g id="ripples" stroke="#e8f2f8" stroke-width="2" opacity=".7"><path d="M1000 470h16M990 500h26M1030 520h24M970 530h20"/></g>
+<g id="barge" class="hot" transform="translate(200 0)"><path d="M780 470h60l-8 12h-44z" fill="#5a3a22"/><path d="M810 470v-30" stroke="#3a2a1a" stroke-width="3"/><path d="M810 442h18l-4 6 4 6h-18z" fill="#c98a1e"/><rect x="792" y="460" width="20" height="10" fill="#c9b08a"/></g>
+<g id="heron" class="hot" transform="translate(70 -90)"><path d="M1010 640v-60" stroke="#6a6a70" stroke-width="5"/><ellipse cx="1012" cy="560" rx="16" ry="22" fill="#b8bcc4"/><g id="heronH"><path d="M1018 544q12-30 0-46" stroke="#b8bcc4" stroke-width="6" fill="none"/><ellipse cx="1016" cy="496" rx="9" ry="6" fill="#d8dce2"/><path d="M1024 496l22 4-22 2z" fill="#d8a83a"/></g><path d="M1006 582l-4 30M1018 582l2 30" stroke="#6a6a70" stroke-width="2"/></g>
+
+<!-- the two ends of the Bridge, the two banners -->
+<g fill="#c9b08a" stroke="#6a5a42" stroke-width="2"><path d="M-1000 470H180V560H-1000Z"/><path d="M1420 470H2600V560H1420Z"/></g>
+<g fill="#8a3a2a"><path d="M-1000 470L-900 430L-800 470L-700 440L-600 470L-480 430L-360 470L-200 440L-60 470L80 436L180 470Z"/><path d="M1420 470L1520 432L1640 470L1780 438L1900 470L2040 434L2200 470L2600 470Z"/></g>
+<g id="flags">
+  <path d="M250 560V250" stroke="#3a2a1a" stroke-width="7"/><g class="flagS"><path d="M254 258h150l-20 50 20 50h-150z" fill="#2c6e6a"/><ellipse cx="316" cy="306" rx="20" ry="14" fill="#f4f0e4"/><circle cx="300" cy="300" r="7" fill="#2a2a2a"/></g>
+  <path d="M1350 560V250" stroke="#3a2a1a" stroke-width="7"/><g class="flagQ"><path d="M1346 258h-150l20 50-20 50h150z" fill="#c98a1e"/><circle cx="1286" cy="306" r="22" fill="none" stroke="#5a3a10" stroke-width="4"/><path d="M1286 284v44M1264 306h44M1270 290l32 32M1302 290l-32 32" stroke="#5a3a10" stroke-width="3"/></g></g>
+
+<!-- the deck and the far parapet -->
+<path d="M-1000 540H2600V640H-1000Z" fill="url(#deckB)"/><path d="M-1000 540H2600" stroke="#6a5c48" stroke-width="3"/>
+<g id="setts" stroke="#6a5c48" stroke-width="1.600" opacity=".6"></g>
+
+<!-- Sir Tristram, the Guild's table and the Mapmaster, Mistress Mundy -->
+<g id="yelv" class="hot"><path d="M296 640L316 470q86-30 172 0l20 170z" fill="#2c6e6a"/><use href="#ch-yelv" x="310" y="260" width="186" height="242"/><path d="M330 520l-10 70" stroke="#d8c38a" stroke-width="4"/></g>
+<g id="table" class="hot"><rect x="620" y="570" width="360" height="22" fill="#5a3a22"/><path d="M630 592v80M970 592v80" stroke="#3a2614" stroke-width="12"/>
+  <use href="#ch-brack" x="716" y="370" width="168" height="218"/><path d="M700 570l20-30h160l20 30z" fill="#2f4a3c"/></g>
+<g id="copy" class="hot"><path d="M640 566l90-10 6 14-90 10z" fill="#efe0bb"/><path d="M646 570q40-10 84-10" stroke="#a3271c" stroke-width="2" fill="none"/></g>
+<g id="style" class="hot"><path d="M886 566l44-8 2 12-44 8z" fill="#f3ecd8"/><path d="M930 558l44 4-2 12-44-4z" fill="#e4d8b8"/><path d="M884 566l-2-6 48-8" stroke="#2f4a3c" stroke-width="4" fill="none"/></g>
+<g id="pencil"><path d="M820 560l40-6" stroke="#b0301e" stroke-width="5" stroke-linecap="round"/></g>
+<g id="mundy" class="hot"><path d="M1110 640l20-170q84-28 168 0l20 170z" fill="#26232a"/><path d="M1130 490l150 140" stroke="#c98a1e" stroke-width="12"/><use href="#ch-mundy" x="1120" y="262" width="186" height="242"/></g>
+
+<!-- the near parapet, and Sefton leaning on it -->
+<path d="M-1000 680H2600V1500H-1000Z" fill="url(#stoneB)"/><path d="M-1000 680H2600" stroke="#6a5c48" stroke-width="5"/>
+<g id="ashlar" stroke="#8a7c64" stroke-width="2" fill="none" opacity=".7"></g>
+<g id="sefton" class="hot"><use href="#ch-sefton" x="1400" y="500" width="150" height="195"/><path d="M1394 690q76-24 160 0" stroke="#6f6a58" stroke-width="30" stroke-linecap="round"/></g>
+
+<rect x="-1000" y="-640" width="3600" height="2140" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the Map Room, for noon</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="border.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', x, y;
+    for (x = -980; x < 2600; x += 60) s += '<path d="M' + x + ' 540L' + (800 + (x - 800) * 1.18).toFixed(0) + ' 640"/>';
+    s += '<path d="M-1000 570H2600M-1000 604H2600"/>';
+    $('#setts').innerHTML = s; s = '';
+    for (y = 700; y < 900; y += 46) for (x = -1000 + ((y / 46) % 2) * 60; x < 2600; x += 120) s += '<path d="M' + x + ' ' + y + 'v46M-1000 ' + y + 'H2600"/>';
+    $('#ashlar').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'border', storyTitle: 'A Nice Measure', id: 'bridge', no: 'V', title: 'The Bridge',
+    go: 'Go out onto the Bridge',
+    intro: [
+      'Orme&rsquo;s tracing, turned a quarter so that its lily pointed north and enlarged twice to the Guild&rsquo;s scale, put his Wimble round the Dead Water. The river broke through the Neck in one night, so by the Second Article the bound stays in the old bed; and Wethercote, on its east side, is on the left bank (the left hand, looking downstream): Querne&rsquo;s.',
+      'Two hours before noon, as the custom is, the envoys bring their claims to the middle of the Bridge, and the Guild answers each one by the Treaty: granted, or refused, and by which article.',
+      'The Mapmaster still has no voice. You are going to be her voice.'
+    ],
+    exit: {"next":"reading","w":{"27cf1122":"ba6dafcf","bd849f4a":"6890b0a1"}}, tags: {"v1":["24e17e54"],"v2":["8761d945"],"v3":["11fafdff"],"v4":["284ffaba"],"v5":["6dea5053"],"v6":["ca4788d9"],"a1":["48d9d100"],"a2":["e06539b3"],"a3":["61f0b070"],"a4":["6c92926d","d188ba1c"],"a5":["65dd98b3"],"a6":["d0afc4ce"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null;
+  var GL = { let: 'hinder', prevent: 'go before', meat: 'food', nice: 'exact' };      /* the margin, as you wrote it in the Copying Room */
+
+  var STYLE = '<span class="pg">PAGE 45</span><h4>THE GUILD STYLE BOOK</h4><h3>How to read a grant</h3>' +
+    '<svg viewBox="0 0 600 84"><g font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c" text-anchor="middle">' +
+    '<g transform="translate(60 0)"><path d="M-30 30h60" stroke="#5a7aa0" stroke-width="12"/><path d="M-30 14q30-14 60 0" stroke="#7d6236" stroke-width="5" fill="none"/><text y="70">TO CROSS</text></g>' +
+    '<g transform="translate(180 0)"><path d="M-30 40h60" stroke="#5a7aa0" stroke-width="12"/><path d="M-10 10l20 26" stroke="#7d6236" stroke-width="3"/><path d="M10 36q4 6 0 8" stroke="#7d6236" stroke-width="2" fill="none"/><text y="70">TO FISH</text></g>' +
+    '<g transform="translate(300 0)"><ellipse cx="0" cy="30" rx="18" ry="11" fill="#f4f0e4" stroke="#7d6236" stroke-width="2"/><circle cx="-18" cy="26" r="6" fill="#3a3a3a"/><path d="M-34 44h68" stroke="#4a6a3a" stroke-width="4"/><text y="70">TO GRAZE</text></g>' +
+    '<g transform="translate(420 0)"><rect x="-16" y="18" width="32" height="26" fill="#c9b08a" stroke="#7d6236" stroke-width="2"/><path d="M-20 18l20-14 20 14z" fill="#8a3a2a"/><text y="70">TO BUILD</text></g>' +
+    '<g transform="translate(540 0)"><path d="M-20 44V8h28l-6 8 6 8h-28" fill="#a3271c" stroke="#7d6236" stroke-width="2"/><text y="70">TO OWN</text></g></g></svg>' +
+    '<p>A treaty grants rights and lays duties. <b>May</b> gives a right: the holder may use it, or not. <b>Shall</b> lays a duty: it must be done. <b>Shall not</b> forbids.</p>' +
+    '<p>Know exactly what is granted. A right to cross is not a right to own; nor is a right to graze, or to fish. Using a thing for three hundred years does not make it yours, if the words say otherwise.</p>' +
+    '<p><b>Until</b> ends a right at a time. <b>Unless</b> ends it if something happens.</p>' +
+    '<p>Read every clause to the end, and then read the clauses after it. A later clause may take back part of an earlier one: look for <b>but</b>, <b>save that</b> and <b>nothing in this Treaty</b>.</p>' +
+    '<p>And read each word as it was meant when the Treaty was sealed. The old meanings are in the margin of the Reading Copy.</p>';
+  function copyHtml() { return '<h4>The Reading Copy</h4><h5>Articles III to X, with the margin</h5>' + BDR.arts(3, 10, { gloss: GL }); }
+
+  var CLAIMS = [
+    ['s', 'Sir Tristram, for Selvan', 'Withy Mead belongs to Selvan. Our flocks have grazed it every summer for three hundred years, and what a people has used for three hundred years is theirs.'],
+    ['s', 'Sir Tristram, for Selvan', 'Querne&rsquo;s innkeepers sell our drovers meat at the common price, but charge them double for bread, cheese and ale. Everything must be sold to them at the common price.'],
+    ['q', 'Mistress Mundy, for Querne', 'Querne&rsquo;s fishers may fish from the right bank of the Wimble, a mile upstream of the Weir.'],
+    ['q', 'Mistress Mundy, for Querne', 'Querne may build a guard-house at the east end of the Bridge, on its own bank.'],
+    ['q', 'Mistress Mundy, for the captain of Querne&rsquo;s bridge guard', 'Querne&rsquo;s guards may stop and turn back any traveller from Selvan at the bridge-end, for the Treaty says that no man of Querne shall let them.'],
+    ['s', 'Sir Tristram, for the heralds of Selvan', 'Selvan&rsquo;s heralds may stop Querne&rsquo;s barges at the Bridge, for the Treaty says that the heralds of Selvan shall prevent them.']
+  ];
+  var TOPIC = ['Withy Mead', 'what Selvan&rsquo;s people may have at the inns of Querne', 'fishing', 'building near the Bridge', 'Selvan&rsquo;s people crossing by the Bridge', 'the barges at the Bridge'];
+  var NOTV = [
+    'Granted? Article IV gives Selvan&rsquo;s shepherds the right to GRAZE Withy Mead, between two feasts. Read the article to the end: what does it say about owning?',
+    'Refused? Read Article VI with its margin: what did MEAT mean when the Treaty was sealed? Is bread meat, in that sense?',
+    'Refused? Read Article V: upstream of the Weir, from which banks may Querne&rsquo;s fishers fish? The right bank is Selvan&rsquo;s, but that is not the question.',
+    'Granted? Article VIII lets each Crown build on its own bank. But read the article that comes after it.',
+    'Granted? Read Article VI with the margin. When the Treaty was sealed, to LET somebody was to stand in their way.',
+    'Granted? When the Treaty was sealed, PREVENT meant go before. The heralds have a duty to lead the barges through the arches, not a right to stop them.'
+  ];
+  var ROMAN = ['III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+  function seen(k) { return ER.flag('b-' + k); }
+  function ready() { return seen('style') && seen('copy') && seen('yelv') && seen('mundy'); }
+  function hints() {
+    if (nextFile) return ['go', ['Every claim is answered. It is nearly noon: back to the Map Room for the Reading.']];
+    if (ready()) return ['claims', [
+      'For each claim: find the article that is about the same thing, read it to the end with the margin, and read the article after it. Then say granted or refused.',
+      'Grazing is not owning. Fishing upstream of the Weir is allowed from either bank. Article IX takes back part of Article VIII near the Bridge. And three of the claims turn on the old meanings of LET, PREVENT and MEAT, from the Copying Room.',
+      'Two claims are granted, both by the articles about them: the one about bread and ale (VI), and the one about fishing a mile upstream (V). The other four are refused: Withy Mead (IV), the guard-house (IX), the guards (VI) and the heralds (VII).'
+    ]];
+    return ['start', [
+      'Hear both envoys: Sir Tristram on the left, by Selvan&rsquo;s banner, and Mistress Mundy on the right, by Querne&rsquo;s. Each brings three claims.',
+      'Read the Style Book page on the Guild&rsquo;s table (How to read a grant), and your Reading Copy beside it. Then the Mapmaster will want your answers.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('solved', !!nextFile);
+    $('#table').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Every claim answered, and the barge is through the arches. Noon is coming.'); return; }
+    if (seen('yelv') || seen('mundy')) { ER.say('The middle of the Bridge. The Guild&rsquo;s table is in the middle.'); return; }
+    busy = true;
+    ER.narrate([
+      'The middle of the Bridge, in the sun. Selvan&rsquo;s blue-green banner at the west end, on your left; Querne&rsquo;s ochre banner at the east end, on your right. Between them, a trestle table, and the Mapmaster behind it with her red pencil.',
+      'Upstream a barge is coming down towards the arches with Querne&rsquo;s flag on it. On the bank, a herald of Selvan stands with his arms folded. At the east end, Querne&rsquo;s guards have stopped a line of drovers. Nobody is shouting yet.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the bridge ---------- */
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'b-' + id, title: title, kind: kind },
+      done: function () { ER.flag('b-' + id, 1); if (words) BDR.learn(words); paint(); } });
+  }
+  $('#style').addEventListener('click', function () { readDoc('style', STYLE, 'style', 'Style Book: how to read a grant', 'The Guild Style Book', ['grant', 'right', 'duty', 'graze', 'own']); });
+  $('#copy').addEventListener('click', function () { readDoc('copy', copyHtml(), 'treaty', 'The Reading Copy: Articles III to X', 'Your Reading Copy', ['bowshot', 'toll', 'herald', 'barge', 'common price']); });
+  function claimsDoc(list) { return list.map(function (i) { return '<p><b>Claim ' + (i + 1) + '.</b> ' + CLAIMS[i][2] + '</p>'; }).join(''); }
+  $('#yelv').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (seen('yelv')) { ER.say(nextFile ? '&ldquo;Two out of three refused,&rdquo; says Sir Tristram, &ldquo;and the third one granted. I call that a very good morning, for a painter.&rdquo;' : '&ldquo;Three claims,&rdquo; says Sir Tristram, &ldquo;and every one of them a beauty.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.yelv.who, role: CAST.yelv.role, face: FACE('yelv'),
+      lines: [
+        { note: 'He has changed out of his painting coat into one with even more braid on it.', a: '&ldquo;Good morning again! You will forgive me the Dead Water, I hope. I have three claims for the Guild, and I warn you, they are very good ones.&rdquo;' },
+        { q: 'The first?', a: '&ldquo;Withy Mead belongs to Selvan. Our flocks have grazed it every summer for three hundred years, and what a people has used for three hundred years is theirs.&rdquo;' },
+        { q: 'The second?', a: '&ldquo;Querne&rsquo;s innkeepers sell our drovers meat at the common price, but charge them double for bread, cheese and ale. Everything must be sold to them at the common price.&rdquo;' },
+        { q: 'And the third?', a: '&ldquo;For our heralds, who asked me to bring it: Selvan&rsquo;s heralds may stop Querne&rsquo;s barges at the Bridge. The Treaty says, in so many words, that the heralds of Selvan shall prevent them.&rdquo;' },
+        { note: 'He hands you three folded claims, each tied with a blue-green ribbon, and bows to the Mapmaster, who writes something and does not show it to him.' }
+      ],
+      clue: { id: 'b-cs', title: 'Selvan’s three claims', kind: 'Blue-green ribbons' }, last: 'Take them',
+      done: function (ok) { if (ok) { ER.flag('b-yelv', 1); paint(); } }
+    });
+  });
+  $('#mundy').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (seen('mundy')) { ER.say(nextFile ? 'Mistress Mundy nods to you, once. From her, that is a speech.' : '&ldquo;Three claims,&rdquo; says Mistress Mundy, &ldquo;written as exactly as I can write them. Which is very exactly.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.mundy.who, role: CAST.mundy.role, face: FACE('mundy'),
+      lines: [
+        { note: 'She is in black today, with the ochre sash, and a short list in a very small hand.', a: '&ldquo;Three claims for Querne. I have written them as exactly as I can. One of them I bring only because I was told to bring it.&rdquo;' },
+        { q: 'The first?', a: '&ldquo;Querne&rsquo;s fishers may fish from the right bank of the Wimble, a mile upstream of the Weir.&rdquo;' },
+        { q: 'The second?', a: '&ldquo;Querne may build a guard-house at the east end of the Bridge, on its own bank.&rdquo;' },
+        { q: 'And the one you were told to bring?', a: '&ldquo;From the captain of our bridge guard: Querne&rsquo;s guards may stop and turn back any traveller from Selvan at the bridge-end, for the Treaty says that no man of Querne shall let them. He has read the word as people read it today. I think he is wrong. I may be wrong about that. You will tell me.&rdquo;' },
+        { note: 'She hands you three claims, each tied with ochre ribbon, in the same small exact hand.' }
+      ],
+      clue: { id: 'b-cq', title: 'Querne’s three claims', kind: 'Ochre ribbons' }, last: 'Take them',
+      done: function (ok) { if (ok) { ER.flag('b-mundy', 1); paint(); } }
+    });
+  });
+  $('#sefton').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (ER.flag('b-sef')) { ER.say('&ldquo;Two old words,&rdquo; says Sefton, &ldquo;and a whole bridge-end of people standing in the sun.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.sefton.who, role: CAST.sefton.role, face: FACE('sefton'),
+      lines: [
+        { note: 'He is leaning on the parapet, watching the barge.', a: '&ldquo;Every week a herald of Selvan rows out in front of Querne&rsquo;s barge and takes it through the arches by the deep water. Today he&rsquo;s standing on the bank with his arms folded, because somebody has told him what &lsquo;prevent&rsquo; means. Today&rsquo;s meaning.&rdquo;' },
+        { q: 'And the drovers at the east end?', a: '&ldquo;Querne&rsquo;s captain has read &lsquo;shall let&rsquo; the modern way, and turned them back. Two words three hundred years old, and a whole bridge-end of people standing in the sun. Answer the claims, and they&rsquo;ll all go home.&rdquo;' },
+        { q: 'Any advice?', a: '&ldquo;Read each article to the end. Then read the next one. The Treaty was written by people who changed their minds halfway through a page, like everybody else.&rdquo;' }
+      ],
+      clue: { id: 'sefton5', title: 'Sefton, on the parapet', kind: 'What he said' }, last: 'Thanks',
+      done: function (ok) { if (ok) ER.flag('b-sef', 1); }
+    });
+  });
+  BDR.thing('#barge', 'barge', function () { return nextFile ? 'The barge is through the arches, with a herald of Selvan rowing in front of it, showing it the deep water.' : 'A barge from Querne, coming down to the arches, with an ochre flag. It is slowing down. Nobody has come out to lead it through.'; }, isBusy);
+  BDR.thing('#heron', 'heron', 'A heron, standing on a post in the river, perfectly still. It has been watching the Wimble for longer than either Crown.', isBusy);
+  BDR.thing('#river', null, 'The Wimble, coming down from the Weir towards you. Looking upstream, the left bank is on your right hand: it is named for somebody facing the other way.', isBusy);
+  BDR.thing('#wood', null, 'Mardle Wood, on the far side, upstream. The bound goes through it.', isBusy);
+  BDR.thing('#mill', null, 'A windmill on the Querne side, upstream. Querne grinds the corn; Selvan keeps the sheep.', isBusy);
+  BDR.thing('#flags', null, 'Selvan&rsquo;s banner at the west end, blue-green with a white sheep. Querne&rsquo;s at the east end, ochre with a mill-wheel.', isBusy);
+  $('#table').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The Mapmaster has written six answers in red, and underlined two of them twice. She points at the sun, and then at the Guild-house. Noon.'); return; }
+    if (!ready()) {
+      var miss = !seen('yelv') ? 'Sir Tristram&rsquo;s claims' : !seen('mundy') ? 'Mistress Mundy&rsquo;s claims' : !seen('style') ? 'the Style Book page on the table' : 'the Reading Copy on the table';
+      ER.say('The Mapmaster taps the table with her red pencil, and holds up a slip: <i>Not yet.</i> You have not had ' + miss + '.');
+      return;
+    }
+    openClaims();
+  });
+
+  /* ---------- the Hour of Claims ---------- */
+  function openClaims() {
+    var box = ER.el('div', 'pz cl'), st = ER.flag('b-desk') || { v: {}, a: {} }, done = false, s = '';
+    s = '<h4>The Hour of Claims</h4><h5>The Mapmaster&rsquo;s slip: &ldquo;Each claim: GRANTED or REFUSED, and the article that decides it. Both Crowns will remember.&rdquo;</h5><div class="cl-claims">';
+    CLAIMS.forEach(function (c, i) {
+      s += '<div class="claim ' + c[0] + '" data-i="' + i + '"><p><b>CLAIM ' + (i + 1) + ' &middot; ' + c[1] + '</b> ' + c[2] + '</p><div class="ch">' +
+        '<button type="button" class="v" data-v="g">Granted</button><button type="button" class="v" data-v="r">Refused</button><i></i>BY ARTICLE';
+      ROMAN.forEach(function (r, k) { s += '<button type="button" class="a" data-a="' + (k + 3) + '">' + r + '</button>'; });
+      s += '</div></div>';
+    });
+    s += '</div><div class="cl-text"><h6>The Treaty, Articles III to X</h6>' + BDR.arts(3, 10, { gloss: GL }) + '</div>' +
+      '<div class="foot"><button type="button" class="btn" id="cl-go">Give the answers</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    ER.glossIn(box, '.claim p, .cl-text p');
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function draw() {
+      ER.$$('.claim', box).forEach(function (c) {
+        var i = c.getAttribute('data-i');
+        ER.$$('button.v', c).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-v') === st.v[i]); });
+        ER.$$('button.a', c).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-a') === st.a[i]); });
+      });
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.claim button') : null; if (!b || done) return;
+      var c = b.closest('.claim'), i = c.getAttribute('data-i');
+      if (b.classList.contains('v')) st.v[i] = b.getAttribute('data-v'); else st.a[i] = b.getAttribute('data-a');
+      ER.$$('.claim', box).forEach(function (x) { x.classList.remove('bad'); });
+      ER.sfx.click(); draw(); ER.flag('b-desk', st);
+    });
+    box.querySelector('#cl-go').addEventListener('click', function () {
+      if (done) return;
+      var i, c, file;
+      ER.$$('.claim', box).forEach(function (x) { x.classList.remove('bad'); });
+      for (i = 0; i < CLAIMS.length; i++) if (!st.v[i] || !st.a[i]) { box.querySelector('.claim[data-i="' + i + '"]').classList.add('bad'); msg('<b>Claim ' + (i + 1) + '</b> has no answer yet: granted or refused, and by which article.'); return; }
+      for (i = 0; i < CLAIMS.length; i++) {
+        c = box.querySelector('.claim[data-i="' + i + '"]');
+        if (!ER.check('v' + (i + 1), st.v[i])) { BDR.blot(); c.classList.add('bad'); msg('<b>Claim ' + (i + 1) + '.</b> ' + NOTV[i] + ' <i>A blot.</i>'); return; }
+        if (!ER.check('a' + (i + 1), st.a[i])) {
+          BDR.blot(); c.classList.add('bad');
+          msg('<b>Claim ' + (i + 1) + '.</b> ' + (st.v[i] === 'r' ? 'Refused: yes.' : 'Granted: yes.') + ' But Article ' + ROMAN[st.a[i] - 3] + ' is not what decides it. ' + (i === 3 && st.a[i] === '8' ? 'Article VIII would grant it; another article takes that back.' : 'Which article is about ' + TOPIC[i] + '?') + ' <i>A blot.</i>');
+          return;
+        }
+      }
+      file = ER.exit([CLAIMS.map(function (x, k) { return st.v[k] + st.a[k]; }).join('-')], { wait: true });
+      if (!file) { msg('The Mapmaster&rsquo;s pencil breaks. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('b-file', file); busy = true;
+      ER.$$('.claim', box).forEach(function (x) { x.classList.add('ok'); });
+      msg('Six claims, six answers, and an article for each. You say them aloud, one by one, and the red pencil follows you.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2600);
+    });
+    draw();
+    msg('Six claims. The Treaty is on the right, with your margin.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    BDR.sfx.chime();
+    ER.narrate([
+      '&ldquo;Claim one: refused, by Article Four. Selvan may graze Withy Mead, but shall own no part of it. Three hundred years of grazing is three hundred years of grazing.&rdquo; Sir Tristram opens his mouth, reads Article Four to the end, and closes it.',
+      '&ldquo;Claim two: granted, by Article Six. Meat, when the Treaty was sealed, was food of any kind. Bread, cheese and ale at the common price.&rdquo; Somewhere at the east end an innkeeper says a word that is not in the Treaty.',
+      '&ldquo;Claim three: granted, by Article Five. Upstream of the Weir, Querne may fish from either bank.&rdquo; &ldquo;Claim four: refused, by Article Nine. Nobody builds within a bowshot of the Bridge, not even on their own bank.&rdquo; Mistress Mundy nods, as if she had expected both.',
+      '&ldquo;Claim five: refused, by Article Six. To let somebody, then, was to stand in their way. Querne shall not stand in the way of Selvan&rsquo;s people on the Bridge.&rdquo; At the east end, the guards step back, and the drovers come through with their dogs.',
+      '&ldquo;Claim six: refused, by Article Seven. Prevent, then, meant go before. The heralds of Selvan shall go before Querne&rsquo;s barges, and lead them through.&rdquo; On the bank the herald unfolds his arms, gets into his boat, rows out in front of the barge and takes it through the arches by the deep water, by the right bank, as he does every week.',
+      'The Mapmaster writes the last answer, underlines two of them twice, and points at the sun. It is a quarter to twelve.'
+    ], function () {
+      BDR.mine('n-bridge', 'The Hour of Claims', '<p>1 REFUSED (IV): may graze, but shall own no part.</p><p>2 GRANTED (VI): meat = food of any kind.</p><p>3 GRANTED (V): upstream of the Weir, from either bank.</p><p>4 REFUSED (IX): nothing built within a bowshot of the Bridge.</p><p>5 REFUSED (VI): let = hinder.</p><p>6 REFUSED (VII): prevent = go before.</p>');
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

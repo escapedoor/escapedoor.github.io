@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Reading · A Nice Measure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="border.css">
+<style>
+  body{--bg:#2a4a3a;--accent:#ffd27a;--font-display:'Uncial Antiqua',serif;--font-ui:'Cinzel',serif;--font-body:'IM Fell English',Georgia,serif;
+    --tc-bg:rgba(20,36,28,.95);--tc-ink:#f4f0e2;--cap-bg:rgba(20,36,28,.93);--cap-ink:#f8f4e8;--panel:#1c3328;--face-bg:#2a4a3a;--q-ink:#ffe2a0;--fade:#08100c;--hud-bg:rgba(20,36,28,.8)}
+  .tc-room{font-family:'Uncial Antiqua',serif}
+  .shaft{animation:sh 8s steps(4) infinite}.shaft+.shaft{animation-delay:-3s}
+  @keyframes sh{50%{opacity:.6}}
+  #mapGlowR{transition:opacity 2s;opacity:.3}
+  #scene.drawn #mapGlowR{opacity:1}
+  #scene.ended #warm{opacity:.12}
+  #warm{opacity:0;transition:opacity 4s}
+
+  /* the Reading: the Great Map and the Reading Copy, side by side */
+  .rd{position:fixed;left:50%;top:58px;transform:translateX(-50%);z-index:34;display:none;grid-template-columns:minmax(0,520px) minmax(0,400px);gap:16px;width:min(980px,96vw);padding:14px 18px;
+    background:#2a2014 linear-gradient(160deg,#3b2c1a,#1f170e);border:8px solid #6a5426;box-shadow:0 26px 70px rgba(0,0,0,.7);color:#f1ead2}
+  .rd.on{display:grid}
+  .rd-map svg{display:block;width:100%;height:auto;max-height:calc(100vh - 110px);background:#efe3c2;border:3px solid #8a6a36}
+  .rd-side{display:flex;flex-direction:column;gap:10px}
+  .rd-side h4{margin:0;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:20px;color:#ffe7a8}
+  .rd-side h5{margin:0;font-family:'IM Fell English',serif;font-style:italic;font-weight:400;font-size:16px;line-height:1.3;color:#e6d6ae}
+  .rd-art{padding:12px 16px;background:#efe0bb radial-gradient(ellipse at 30% 10%,rgba(255,250,230,.75),rgba(150,105,45,.28));border:1px solid #a68650;font-family:'Almendra',serif;font-size:18.5px;line-height:1.4;color:#2e2112;min-height:200px}
+  .rd-art b{font-family:'Uncial Antiqua',serif;font-weight:normal;color:#7a2a1c}
+  .rd-art u.old{text-decoration:none;color:#a3271c;border-bottom:2px solid #a3271c}
+  .rd-art .gl{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#a3271c;margin-left:3px}
+  .rd-art .gl:before{content:'('}.rd-art .gl:after{content:')'}
+  .rd-what{font-family:'IM Fell English',serif;font-size:16.5px;line-height:1.32;color:#f1ead2;min-height:64px;margin:0}
+  .rd-what b{color:#ffe7a8;font-family:'Almendra',serif}
+  .rd .btn{--accent:#ffe7a8;align-self:flex-start}
+  .rd-count{font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.2em;color:#c9b98a}
+  .rd-map .part{opacity:0;transition:opacity 1.2s}
+  .rd-map .part.on{opacity:1}
+  .bnd{transition:stroke-dashoffset 2.4s ease-out,stroke 1.5s}
+  .bnd.gold{stroke:#d4a020}
+
+  /* the end */
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(520px,94vw);max-height:calc(100vh - 74px);overflow:auto;padding:16px 26px 12px;display:none;background:#f3ecd8;color:#24221c;
+    border-top:12px solid #2f4a3c;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .done .stampd{display:inline-block;margin:0 0 8px;padding:3px 12px 1px;border:3px solid #a3271c;color:#a3271c;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.12em;transform:rotate(-2deg)}
+  .done p{margin:0 0 2px;font-family:'IM Fell English',serif;font-size:17px;line-height:1.3}
+  .done h6{margin:10px 0 4px;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:16px;color:#2f4a3c}
+  .done ol{margin:0;padding-left:20px;font-family:'IM Fell English',Georgia,serif;font-size:15.5px;line-height:1.26;color:#24221c}
+  .done li{margin:0 0 3px}
+  .done li b{font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.04em}
+  .done .row{display:flex;flex-wrap:wrap;margin-top:10px}
+  .done .btn{--accent:#2f4a3c;font-size:12.5px;padding:7px 12px;margin:0 7px 6px 0}
+  .done .btn:hover:not([disabled]){color:#f3ecd8}
+  .done small{display:block;margin-top:4px;font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:14px;opacity:.8;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#f3ecd8;color:#24221c;padding:24px 36px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text;border-top:12px solid #2f4a3c}
+  .rp h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#2f4a3c}
+  .rp h3{margin:0 0 10px;font-family:'Uncial Antiqua',serif;font-weight:normal;font-size:26px;line-height:1.1}
+  .rp label{display:block;font-family:'IM Fell English',Georgia,serif;font-size:18px;line-height:1.36;margin:8px 0 6px}
+  .rp label b{font-family:'Cinzel',serif;font-size:13.5px}
+  .rp textarea{width:100%;min-height:220px;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#2a3a5a;background:#fffaf0 repeating-linear-gradient(transparent 0 33px,rgba(47,74,60,.25) 33px 34px);border:1px solid #b9b09a;
+    padding:0 12px;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp .count{font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;text-align:right;margin-top:4px}
+  .rp .foot{display:flex;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:15px;opacity:.75}
+  .rp .btn{--accent:#2f4a3c;margin-left:10px}.rp .btn:hover:not([disabled]){color:#f3ecd8}
+  @media print{
+    .stage,.hud,.cap,.done,.gobtn,.rd,.ov-bar,.rp .foot{display:none!important}
+    body{overflow:visible;background:#fff}
+    .ov{position:static;display:block!important;background:none;padding:0}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+  @media (max-width:980px){.rd{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a4a38"/><stop offset=".55" stop-color="#3a6048"/><stop offset="1" stop-color="#2c4c3a"/></linearGradient>
+  <linearGradient id="woodR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#3a2614"/></linearGradient>
+  <linearGradient id="dayR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ab8e0"/><stop offset="1" stop-color="#e8f0f4"/></linearGradient>
+  <linearGradient id="shaftG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".42"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="brassR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8f"/><stop offset=".5" stop-color="#c79a3c"/><stop offset="1" stop-color="#7d5c1c"/></linearGradient>
+  <radialGradient id="mapGlowRg"><stop offset="0" stop-color="#fff0b0" stop-opacity=".7"/><stop offset="1" stop-color="#fff0b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#08100c" stop-opacity=".14"/><stop offset="1" stop-color="#08100c" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<!-- the Map Room at noon: the same green walls, in daylight, and full of people -->
+<rect x="-1000" y="-640" width="3600" height="1420" fill="url(#wallR)"/>
+<g id="panelsR" stroke="#244232" stroke-width="3" fill="none" opacity=".8"></g>
+<rect x="-1000" y="560" width="3600" height="200" fill="#2e5040"/><path d="M-1000 560H2600" stroke="#e9c46a" stroke-width="3" opacity=".5"/>
+<path d="M-1000 760H2600V1500H-1000Z" fill="url(#woodR)"/><path d="M-1000 760H2600" stroke="#2a1a0c" stroke-width="6"/>
+<g id="win" class="hot"><path d="M70 560V220Q70 110 185 110Q300 110 300 220V560Z" fill="#3a2614"/><path d="M84 548V224Q84 126 185 126Q286 126 286 224V548Z" fill="url(#dayR)"/><path d="M185 126V548M84 330H286" stroke="#3a2614" stroke-width="8"/></g>
+<path class="shaft" d="M286 160L300 548L900 760L760 300Z" fill="url(#shaftG)" pointer-events="none"/>
+<path class="shaft" d="M200 140L120 548L640 760L620 300Z" fill="url(#shaftG)" pointer-events="none"/>
+
+<!-- the crowd at the back: townsfolk of both Crowns -->
+<g id="crowd" class="hot" fill="#1c3328" opacity=".75"></g>
+
+<!-- the Great Map, uncovered -->
+<g id="great" class="hot">
+  <ellipse id="mapGlowR" cx="900" cy="520" rx="340" ry="80" fill="url(#mapGlowRg)" pointer-events="none"/>
+  <path d="M600 520L1200 520L1250 610L550 610Z" fill="#efe3c2" stroke="#8a6a36" stroke-width="5"/>
+  <path d="M900 522q-12 22 6 44t-8 42" stroke="#5a7aa0" stroke-width="6" fill="none"/><path d="M896 586q-40 4-36 14q8 8 30 2" stroke="#a9bccb" stroke-width="4" fill="none"/>
+  <path id="sceneBound" d="M900 522q-12 22 6 44t-8 42" stroke="#a3271c" stroke-width="3" fill="none" stroke-dasharray="6 4" opacity="0"/>
+  <rect x="560" y="610" width="680" height="24" fill="#3a2614"/><rect x="590" y="634" width="22" height="126" fill="#2a1a0c"/><rect x="1188" y="634" width="22" height="126" fill="#2a1a0c"/>
+  <path d="M1250 640q40 40 30 120h-80q10-60 50-120z" fill="#6a2a22" opacity=".9"/>
+</g>
+
+<!-- the people round the table -->
+<g id="yelv" class="hot"><path d="M330 760L350 590q86-30 172 0l20 170z" fill="#2c6e6a"/><use href="#ch-yelv" x="344" y="380" width="186" height="242"/></g>
+<g id="brack" class="hot"><use href="#ch-brack" x="816" y="300" width="168" height="218"/></g>
+<g id="mundy" class="hot"><path d="M1280 760l20-170q84-28 168 0l20 170z" fill="#26232a"/><path d="M1300 610l150 130" stroke="#c98a1e" stroke-width="12"/><use href="#ch-mundy" x="1290" y="382" width="186" height="242"/></g>
+<g id="sefton" class="hot"><use href="#ch-sefton" x="1080" y="560" width="150" height="195"/><path d="M1060 900l20-170q75-24 150 0l20 170z" fill="#6f6a58"/></g>
+
+<rect id="warm" x="-1000" y="-640" width="3600" height="2140" fill="#ffd890" pointer-events="none"/>
+<rect x="-1000" y="-640" width="3600" height="2140" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<div class="rd" id="rd">
+  <div class="rd-map"><svg viewBox="0 0 520 560" id="rd-svg"></svg></div>
+  <div class="rd-side"><h4>The Reading</h4><h5>Read each article aloud, really aloud, as the Guild&rsquo;s reader. Then press the button, and the Great Map will draw what you have read.</h5>
+    <div class="rd-count" id="rd-count"></div><div class="rd-art" id="rd-art"></div><p class="rd-what" id="rd-what"></p><button type="button" class="btn" id="rd-go">I have read it aloud</button></div>
+</div>
+
+<div class="done" id="done">
+  <div class="stampd">READ, AND DRAWN &middot; FOR FIFTY YEARS</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-blots"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Small words of place are exact: <b>ALONG</b> follows, <b>ACROSS</b> crosses, <b>THROUGH</b> goes in and out, <b>OVER</b> goes up and down, <b>PAST</b> goes by, <b>BETWEEN</b> has a thing on each side, <b>AS FAR AS</b> stops.</li>
+    <li><b>TO THE NORTH OF</b> a place is outside it; <b>IN THE NORTH OF</b> a place is inside it.</li>
+    <li>A <b>BEARING</b> is counted in degrees, clockwise from north: east is 90&#176;, and 100&#176; is a little south of east.</li>
+    <li>A river&rsquo;s banks are named <b>LOOKING DOWNSTREAM</b>, from the source towards the mouth. On a north-up map, a river that flows south has its left bank on the right.</li>
+    <li>Every map has a <b>SCALE</b> and a <b>KEY</b>. Make the scales and the north points agree before you lay one map on another.</li>
+    <li>A right to cross, to graze or to fish is not a right to own. <b>MAY</b> grants, <b>SHALL</b> binds, and a later clause can take back part of an earlier one.</li>
+    <li>Words move. <b>LET</b> once meant hinder, <b>PREVENT</b> go before, <b>MEAT</b> food, <b>NICE</b> exact. An old text means what its words meant then: prove it from papers of the same age.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain the border</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>A Nice Measure &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="border.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, n = 0;
+  var GL = { let: 'hinder', prevent: 'go before', meat: 'food', nice: 'exact' };
+  var FIRST = 'The bound shall begin at the Thrum Springs, where the Wimble rises, and shall run <u class="old">along</u> the Wimble <u class="old">as far as</u> the Weir of Ninefold. There it shall go <u class="old">across</u> the water, <u class="old">through</u> Mardle Wood, <u class="old">over</u> Raven Knoll and <u class="old">between</u> the Two Sisters; and so <u class="old">past</u> the Hermit&rsquo;s Well, <u class="old">to</u> the north of Mardle, to the Bridge of Ninefold.';
+
+  (function () {
+    var s = '', x, i, seed = 17;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (x = -980; x < 2600; x += 180) s += '<rect x="' + x + '" y="110" width="150" height="420" rx="4"/>';
+    $('#panelsR').innerHTML = s; s = '';
+    for (i = 0; i < 22; i++) { x = 300 + i * 50 + rnd() * 20; var h = 120 + rnd() * 40; s += '<circle cx="' + x.toFixed(0) + '" cy="' + (520 - h).toFixed(0) + '" r="17"/><path d="M' + (x - 26).toFixed(0) + ' 560q26-' + (h - 20).toFixed(0) + ' 52 0z"/>'; }
+    $('#crowd').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'border', storyTitle: 'A Nice Measure', id: 'reading', no: 'VI', title: 'The Reading',
+    go: 'Take your place at the Great Map',
+    intro: [
+      'Six claims, six answers, each by its article: Withy Mead may be grazed but not owned; bread is meat, in the old sense; Querne may fish upstream of the Weir from either bank; nothing is built within a bowshot of the Bridge; Querne shall not hinder Selvan&rsquo;s people; and Selvan&rsquo;s heralds shall go before Querne&rsquo;s barges.',
+      'Noon. The Map Room is full: both envoys, half the Guild, and as many people from both ends of the Bridge as can get through the door. The cloth is off the Great Map, and the old parchment is glowing.',
+      'The reader of the Treaty stands at the head of the table. The Mapmaster cannot speak. She hands you the Reading Copy.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  n = ER.flag('r-n') || 0;
+
+  /* the Great Map, the whole valley, north at the top */
+  function bigMap() {
+    var s = '<rect width="520" height="560" fill="#efe3c2"/>' +
+      '<g fill="#d9c58f" opacity=".45"><path d="M300 0H520V560H300Q296 520 304 470Q290 430 298 380Q302 330 296 300Q290 260 300 210Q306 160 296 110Q290 60 300 0Z"/></g>' +
+      '<path d="M300 10 Q292 40 304 60 T298 100 T300 120" stroke="#5a7aa0" stroke-width="3" fill="none"/>' +
+      '<path d="M300 120 Q308 150 296 180 T302 240 T290 270" stroke="#5a7aa0" stroke-width="6" fill="none"/>' +
+      '<path d="M290 270 Q286 310 296 340" stroke="#5a7aa0" stroke-width="8" fill="none"/>' +
+      '<path d="M296 340 Q300 365 299 390" stroke="#5a7aa0" stroke-width="8" fill="none"/>' +
+      '<path d="M292 338 C260 320 180 344 196 380 C206 414 270 420 297 392" stroke="#a9bccb" stroke-width="8" fill="none"/>' +
+      '<path d="M299 390 Q306 460 300 548" stroke="#5a7aa0" stroke-width="10" fill="none"/>' +
+      '<path d="M286 116h28" stroke="#4a3a2a" stroke-width="2.500"/>' +
+      '<g fill="#4a6a3a" opacity=".75"><circle cx="230" cy="140" r="9"/><circle cx="246" cy="132" r="9"/><circle cx="258" cy="146" r="9"/><circle cx="236" cy="156" r="9"/><circle cx="250" cy="160" r="8"/></g>' +
+      '<g fill="none" stroke="#8a6a3a" stroke-width="1.400"><ellipse cx="180" cy="200" rx="30" ry="20"/><ellipse cx="180" cy="200" rx="18" ry="12"/><ellipse cx="180" cy="200" rx="6" ry="4"/></g>' +
+      '<g fill="#7d6a52"><rect x="190" y="238" width="7" height="13" rx="2"/><rect x="212" y="243" width="7" height="13" rx="2"/></g>' +
+      '<circle cx="236" cy="256" r="4.500" fill="#5a7aa0" stroke="#4a3a2a" stroke-width="1.500"/>' +
+      '<g fill="#a2673a"><rect x="244" y="268" width="8" height="6"/><rect x="256" y="274" width="8" height="6"/><rect x="246" y="282" width="8" height="6"/></g>' +
+      '<path d="M278 264h28v10h-28z" fill="#b9a98a" stroke="#4a3a2a" stroke-width="1.200"/>' +
+      '<g fill="#8a6a4a"><rect x="312" y="256" width="9" height="7"/><rect x="324" y="266" width="9" height="7"/></g>' +
+      '<g fill="#a2673a"><rect x="232" y="364" width="8" height="6"/><rect x="244" y="358" width="8" height="6"/><rect x="254" y="370" width="8" height="6"/><rect x="240" y="376" width="8" height="6"/></g>' +
+      '<g font-family="IM Fell English,Georgia,serif" font-style="italic" font-size="11" fill="#3b2a14" text-anchor="middle">' +
+      '<text x="350" y="14">Thrum Springs</text><text x="340" y="120">the Weir</text><text x="244" y="124">Mardle Wood</text><text x="180" y="232">Raven Knoll</text><text x="246" y="300">Mardle</text><text x="350" y="262">Ninefold</text>' +
+      '<text x="250" y="398">Wethercote</text><text x="180" y="336">the Dead Water</text><text x="380" y="320">Withy Mead</text><text x="340" y="550">Wimble Mouth</text></g>' +
+      '<g font-family="Cinzel,serif" font-weight="700" font-size="13" letter-spacing="3" text-anchor="middle"><text x="110" y="480" fill="#2f5a3a">SELVAN</text><text x="430" y="480" fill="#8a5a10">QUERNE</text></g>';
+    /* the parts that each article draws */
+    s += '<path class="bnd" id="rd-b1" d="M300 10 Q292 40 304 60 T298 100 T300 120 L286 120 Q260 128 244 146 Q214 172 196 186 Q184 192 180 200 Q176 220 198 236 L204 247 Q220 250 240 250 L278 268" stroke="#a3271c" stroke-width="3.400" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path class="bnd" id="rd-b2" d="M292 270 Q286 310 292 338 C260 320 180 344 196 380 C206 414 270 420 297 392 Q306 460 300 548" stroke="#a3271c" stroke-width="3.400" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<g class="part" id="p3"><circle cx="292" cy="269" r="26" fill="#c9b98a" fill-opacity=".3" stroke="#7d6236" stroke-width="1.600" stroke-dasharray="4 3"/><text x="292" y="236" font-family="Cinzel,serif" font-weight="700" font-size="9" fill="#5a4010" text-anchor="middle">THE GUILD&#8217;S</text></g>' +
+      '<g class="part" id="p4"><path d="M318 290q40-6 80 4l2 40q-40 6-80-2z" fill="#7a9a4a" fill-opacity=".35" stroke="#4a6a3a" stroke-width="1.200"/><g fill="#f4f0e4" stroke="#7d6236" stroke-width=".8"><ellipse cx="340" cy="306" rx="6" ry="4"/><ellipse cx="362" cy="312" rx="6" ry="4"/><ellipse cx="382" cy="304" rx="6" ry="4"/></g></g>' +
+      '<g class="part" id="p5" fill="#5a7aa0"><path d="M276 70l8-4v8z"/><path d="M262 70q8-6 16 0q-8 6-16 0z"/><path d="M322 84l8-4v8z"/><path d="M308 84q8-6 16 0q-8 6-16 0z"/></g>' +
+      '<g class="part" id="p6"><path d="M250 268H340" stroke="#2f6a4a" stroke-width="2" stroke-dasharray="3 3"/><path d="M336 262l8 6-8 6" fill="none" stroke="#2f6a4a" stroke-width="2"/><ellipse cx="350" cy="282" rx="8" ry="5" fill="#d8a85a" stroke="#7d5c1c" stroke-width="1"/></g>' +
+      '<g class="part" id="p7"><path d="M296 200q-6 30 0 58" stroke="#c98a1e" stroke-width="2" stroke-dasharray="4 3" fill="none"/><path d="M292 232h12l-2 4h-8z" fill="#5a3a22"/><path d="M291 256h10l-2 4h-6z" fill="#2c6e6a"/></g>' +
+      '<g class="part" id="p8"><g fill="#c9b08a" stroke="#4a3a2a" stroke-width=".8"><rect x="200" y="440" width="9" height="7"/><rect x="380" y="430" width="9" height="7"/></g><circle cx="292" cy="269" r="26" fill="none" stroke="#a3271c" stroke-width="1.600"/><path d="M274 251l36 36" stroke="#a3271c" stroke-width="1.600"/></g>';
+    return s;
+  }
+  var WHAT = [
+    'The pen goes along the Wimble from the Springs, stops at the Weir, crosses the water, goes through Mardle Wood, over Raven Knoll, between the Two Sisters, past the Well, and to the north of Mardle to the Bridge. Every house in Mardle stays in Selvan.',
+    'From the Bridge the pen follows the middle of the Wimble down to the sea; and at Wethercote it does not take the new channel. It goes round the Dead Water, in the old bed. Wethercote stays on the left bank: Querne&rsquo;s.',
+    'A ring is drawn round the Bridge: the Guild&rsquo;s ground. Both Crowns may cross at any hour.',
+    'Withy Mead is shaded green, with sheep on it: <b>may graze</b>, from First Lambs until Last Leaves, unless the river is in flood. It stays inside Querne&rsquo;s line. <b>Shall own no part of it.</b>',
+    'Little fish appear on both banks upstream of the Weir: Querne <b>may fish</b> there from either bank. Below the Weir, each from its own.',
+    'A path is drawn across the Bridge, and a loaf beside it. Querne <b>shall not hinder</b> Selvan&rsquo;s people, nor take toll; and they may have <b>food</b> and drink at the common price.',
+    'A barge comes down the river on the Map, with a little boat of Selvan going <b>before</b> it through the arches.',
+    'Each Crown may build on its own bank: two little houses appear, one on each side.',
+    'But a red ring goes round the Bridge, with a line through it: <b>nothing in this Treaty</b> gives leave to build within a bowshot.',
+    'And the whole line turns from red to gold. <b>Exact</b>, as it was written. For fifty years.'
+  ];
+  function articleHtml(i) {
+    if (i === 0) return '<p><b>I.</b> ' + FIRST + '</p>';
+    return BDR.art(i + 1, { gloss: GL }).replace(/^<p class="art">/, '<p>');
+  }
+  function hints() { return null; }
+  function paintMap(instant) {
+    var i;
+    if (!$('#rd-b1')) return;
+    [1, 2].forEach(function (k) {
+      var b = $('#rd-b' + k), L = Math.ceil(b.getTotalLength()) + 2;
+      if (instant) b.style.transition = 'none';
+      b.style.strokeDasharray = L + ' ' + L; b.style.strokeDashoffset = n >= k ? '0' : String(L);
+      b.setAttribute('class', 'bnd' + (n >= 10 ? ' gold' : ''));
+      if (instant) { b.getBoundingClientRect(); setTimeout(function () { b.style.transition = ''; }, 30); }
+    });
+    for (i = 3; i <= 8; i++) { var p = $('#p' + i); if (p) p.setAttribute('class', 'part' + (n >= i ? ' on' : '')); }
+    var p8 = $('#p8'); if (p8) p8.setAttribute('class', 'part' + (n >= 9 ? ' on' : ''));
+    $('#sceneBound').setAttribute('opacity', n ? '1' : '0');
+    sc.classList.toggle('drawn', n >= 10);
+  }
+  function showArticle() {
+    $('#rd-count').textContent = n < 10 ? 'ARTICLE ' + (n + 1) + ' OF 10' : 'ALL TEN ARTICLES READ';
+    $('#rd-art').innerHTML = n < 10 ? ER.gloss(articleHtml(n)) : '<p style="text-align:center;font-family:Uncial Antiqua,serif;font-size:24px;color:#5a1d12">The Treaty of Ninefold, read aloud, and drawn.</p>';
+    $('#rd-what').innerHTML = n ? ER.gloss(WHAT[n - 1]) : 'The Great Map waits. The room is quiet.';
+    $('#rd-go').textContent = n < 10 ? 'I have read it aloud' : 'Look up from the Map';
+  }
+  function openReading() {
+    $('#rd-svg').innerHTML = bigMap(); paintMap(true); showArticle(); $('#rd').classList.add('on');
+  }
+  $('#rd-go').addEventListener('click', function () {
+    if (busy) return;
+    if (n >= 10) { $('#rd').classList.remove('on'); ending(); return; }
+    n++; ER.flag('r-n', n); BDR.sfx.pen(); if (n === 10) BDR.sfx.chime();
+    paintMap(); showArticle();
+  });
+  function begin() {
+    if (ER.flag('r-end')) { sc.classList.add('ended', 'drawn'); finish(); return; }
+    if (n) { ER.say('The Reading. Article ' + (n + 1) + ' is next.'); openReading(); return; }
+    busy = true;
+    ER.narrate([
+      'The cloth comes off. The Great Map is the whole valley in old brown ink, from the Thrum Springs to Wimble Mouth, with nothing on it yet where the border should be: just a faint warmth in the parchment, as if it were listening.',
+      'Sir Tristram is at the west side of the table, Mistress Mundy at the east. Sefton is somewhere behind you. The Mapmaster puts the Reading Copy into your hands, open at the First Article, and taps the margin once with her pencil.'
+    ], function () { busy = false; openReading(); });
+  }
+  function ending() {
+    busy = true; sc.classList.add('drawn');
+    ER.narrate([
+      'You look up from the Map. Nobody says anything for a moment. Then everybody does.',
+      'Sir Tristram walks round to look at Wethercote from the other side, and then at Mardle, every roof of which is still Selvan&rsquo;s. &ldquo;Moule&rsquo;s copy would have cut Mardle in half,&rdquo; he says slowly, &ldquo;and given half of it to Querne. And it was Querne who would not have it.&rdquo; He bows to Mistress Mundy, properly, for the first time in twenty years.',
+      '&ldquo;Your Guild has been wrong about me for twenty years,&rdquo; says Mistress Mundy to the Mapmaster. &ldquo;You may say so in writing.&rdquo; The Mapmaster writes something on a slip, and hands it to her. Mistress Mundy reads it, and very nearly smiles.',
+      'Nobody has gained a village, and nobody has lost one. Selvan keeps all of Mardle, its free crossing, its bread at the common price and its summer grass. Querne keeps Wethercote and its fishing above the Weir. The bound is where it was three hundred years ago, because it has been read as it was written: and both Crowns can live with that, because they can both read it.',
+      '&ldquo;Well,&rdquo; says Sefton, &ldquo;my mother&rsquo;s mill-wheel can go on turning the wrong way, in Querne.&rdquo;',
+      'Then the Mapmaster clears her throat. It sounds like a door that has not been opened for some time. Everybody turns to look at her. &ldquo;A nice measure,&rdquo; she says, in a voice like gravel, and looks at you. You know what she means. She means exact.'
+    ], function () {
+      ER.flag('r-end', 1); BDR.learn(['nice (old meaning)']);
+      BDR.mine('n-end', 'Where the border runs, and why', '<p>Article I: along, as far as, across, through, over, between, past, TO the north of Mardle.</p><p>Article II: the OLD BED at Wethercote, because the river left its bed all at once, in one flood.</p><p>Wethercote: left bank (looking downstream) = Querne. Mardle: all Selvan.</p><p>Read as it was written. A nice measure = an exact one.</p>', true);
+      busy = false; sc.classList.add('ended'); finish(); BDR.solved(true);
+    });
+  }
+  function finish() {
+    var st = ER.state(), mins = BDR.minutes(), hn = ER.hintsUsed(), bl = BDR.blots();
+    try { if (ER.track) ER.track.play(['morning', { root: 50, bpm: 72, drop: ['mel'] }]); } catch (e) {}
+    $('#d-time').textContent = 'The night and the morning took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-blots').textContent = bl ? 'Blots on your copy: ' + bl + '. The Mapmaster marked each one in red, and then crossed them all out.' : 'Not one blot on your copy. The Mapmaster looked twice.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('r-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>A Nice Measure &middot; explain it</h4><h3>Where the border runs, and why</h3>' +
+      '<label for="r1">A friend from Selvan has missed the Reading. Explain to her where the border runs from the Thrum Springs to the sea, and why Wethercote is still Querne&rsquo;s. 80 to 120 words. Use at least five of these: <b>along, across, through, over, past, between, as far as, upstream of, to the north of, the left bank</b>; give one reason with <b>because</b>; and explain one word whose meaning has moved. Then say it aloud, without reading.</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, c = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = c + (c === 1 ? ' word' : ' words');
+      ER.flag('r-task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+  BDR.thing('#crowd', null, 'People from both ends of the Bridge, and from both Crowns, standing on the benches at the back to see the Map.', function () { return busy; });
+  BDR.thing('#win', null, 'Noon, and the sun straight in at the window. Not a cloud over the Wimble.', function () { return busy; });
+  $('#great').addEventListener('click', function () { if (busy) return; if (!ER.flag('r-end')) openReading(); else ER.say('The Great Map, with the bound drawn on it in gold, from the Thrum Springs to the sea. For fifty years.'); });
+  $('#brack').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('r-end') ? 'The Mapmaster has found her voice, and is not wasting it. She has said two words in an hour. Both were exact.' : 'The Mapmaster nods at the Reading Copy in your hands. Read.'); });
+  $('#yelv').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('r-end') ? '&ldquo;I shall paint it,&rdquo; says Sir Tristram. &ldquo;The Map, the gold line, the Dead Water and all. Accurately, for once.&rdquo;' : 'Sir Tristram is watching the Map with his hands behind his back, like a man at a horse race.'); });
+  $('#mundy').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('r-end') ? 'Mistress Mundy has folded the Mapmaster&rsquo;s slip very small and put it inside her glove.' : 'Mistress Mundy is reading the Map as it is drawn, a word ahead of you.'); });
+  $('#sefton').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('r-end') ? '&ldquo;Next time,&rdquo; says Sefton, &ldquo;in fifty years, you can read it again. I&rsquo;ll hold the lamp.&rdquo;' : 'Sefton gives you a small nod: go on.'); });
+})();
+</script>
+</body>
+</html>

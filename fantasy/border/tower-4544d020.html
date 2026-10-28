@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Tower · A Nice Measure</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="border.css">
+<style>
+  body{--bg:#2a2a44;--accent:#f4c27a;--font-display:'Cinzel Decorative',serif;--font-ui:'Cinzel',serif;--font-body:'IM Fell English',Georgia,serif;
+    --tc-bg:rgba(30,30,50,.95);--tc-ink:#fbeedc;--cap-bg:rgba(30,30,50,.93);--cap-ink:#fdf3e4;--panel:#2a2a44;--face-bg:#3a3a5a;--q-ink:#f8d8a8;--fade:#0a0a14;--hud-bg:rgba(30,30,50,.8)}
+  .tc-room{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700}
+  #sunG{animation:sg 6s steps(3) infinite}
+  @keyframes sg{50%{opacity:.82}}
+  #birds{animation:bd 30s linear infinite}
+  @keyframes bd{0%{transform:translate(-200px,20px)}100%{transform:translate(1900px,-60px)}}
+  #glint{animation:tw 3s steps(2) infinite}
+  #sheep circle{animation:tw 7s steps(2) infinite}
+  #brush{animation:br 1.4s ease-in-out infinite;transform-origin:396px 560px}
+  @keyframes br{50%{transform:rotate(8deg)}}
+
+  /* the tracing frame */
+  .tr{width:min(1000px,96vw);color:#2e2618;background:#e9dcc0 linear-gradient(170deg,#f3e9d2,#d9c7a0);border:10px solid #5a3c1e;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .tr h4{color:#3a2614}
+  .tr-cols{display:grid;grid-template-columns:minmax(0,520px) minmax(0,420px);gap:16px}
+  .tr-map svg{display:block;width:100%;height:auto;background:#eef0e2;border:2px solid #7d6236}
+  .tr-side{display:flex;flex-direction:column;gap:8px}
+  .tr-prev svg{display:block;width:100%;height:auto;background:rgba(250,246,226,.6);border:1px dashed #7d6236}
+  .tr-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.08em;color:#4a3a22}
+  .tr-row span{min-width:96px}
+  .tr-row button{padding:5px 10px;border-radius:3px;border:1px solid #7d6236;background:#f8f0dc;color:#3a2614;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px}
+  .tr-row button:hover{border-color:#3a2614}
+  .tr-row button.on{background:#3a2614;color:#f8f0dc}
+  .tr-step{font-family:'IM Fell English',serif;font-style:italic;font-size:15.5px;line-height:1.3;color:#4a3a22;margin:0}
+  .tr .foot .btn{--accent:#5a3c1e}.tr .foot .btn:hover:not([disabled]){color:#f8f0dc}
+  .tr .pmsg{color:#2e2618;min-height:70px;font-size:17px}
+  .tr .pmsg b{color:#8a2a1a}.tr .pmsg i{color:#6a5a3a}
+  #tw-dead,#tw-new{cursor:pointer}
+  #tw-flag{cursor:pointer}
+  @media (max-width:980px){.tr-cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a4e"/><stop offset=".45" stop-color="#6a5a8a"/><stop offset=".75" stop-color="#d88a8a"/><stop offset="1" stop-color="#f6c87a"/></linearGradient>
+  <linearGradient id="landT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7a5a"/><stop offset="1" stop-color="#3a5a32"/></linearGradient>
+  <linearGradient id="riverT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4d8b0"/><stop offset="1" stop-color="#7a9ab8"/></linearGradient>
+  <linearGradient id="stoneT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a8070"/><stop offset="1" stop-color="#5a5248"/></linearGradient>
+  <linearGradient id="brassT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc8f"/><stop offset=".5" stop-color="#c79a3c"/><stop offset="1" stop-color="#7d5c1c"/></linearGradient>
+  <radialGradient id="sunGr"><stop offset="0" stop-color="#fff2c8" stop-opacity=".95"/><stop offset=".3" stop-color="#ffd27a" stop-opacity=".45"/><stop offset="1" stop-color="#ff9a5a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#0a0a14" stop-opacity=".12"/><stop offset="1" stop-color="#0a0a14" stop-opacity=".6"/></radialGradient>
+</defs>
+
+<!-- the sky at sunrise: we are looking south, so the sun comes up on the left -->
+<rect x="-1000" y="-640" width="3600" height="1010" fill="url(#skyT)"/>
+<g id="sun" class="hot"><circle id="sunG" cx="230" cy="360" r="260" fill="url(#sunGr)"/><path d="M180 362a50 50 0 0 1 100 0z" fill="#fff4d0"/></g>
+<g id="birds" fill="#2a2a3a"><path d="M0 120q8-6 16 0q8-6 16 0" stroke="#2a2a3a" stroke-width="2" fill="none"/><path d="M40 140q6-5 12 0q6-5 12 0" stroke="#2a2a3a" stroke-width="2" fill="none"/><path d="M70 110q6-5 12 0q6-5 12 0" stroke="#2a2a3a" stroke-width="2" fill="none"/></g>
+
+<!-- far hills, the sea at the mouth, the valley -->
+<path d="M-1000 370L-600 330L-300 352L0 326L300 350L520 338L700 356V372H-1000Z" fill="#5a5a7a"/>
+<path d="M980 356L1160 330L1400 348L1700 322L2000 346L2600 330V372H980Z" fill="#5a5a7a"/>
+<g id="mouth" class="hot"><path d="M700 358H980V372H700Z" fill="#f4d8b0"/><path id="glint" d="M760 362h60M860 364h80" stroke="#fff6dc" stroke-width="3"/></g>
+<path d="M-1000 368H2600V1500H-1000Z" fill="url(#landT)"/>
+<g stroke="#4a6a3a" stroke-width="2" fill="none" opacity=".5" id="fields"></g>
+
+<!-- the Wimble, coming from under the tower and running away south to the sea; the big bend at Wethercote -->
+<g id="river" class="hot">
+  <path d="M700 900Q760 760 800 650Q820 590 840 540Q852 500 862 470Q880 420 892 380L900 368L906 368L902 382Q894 424 880 472Q872 504 862 544Q846 596 830 652Q800 760 760 900Z" fill="url(#riverT)"/>
+</g>
+<g id="dead" class="hot"><path d="M866 470Q980 452 1120 486Q1170 506 1120 532Q1000 566 872 548L874 540Q994 556 1104 526Q1140 508 1108 494Q980 464 868 480Z" fill="#b8c4cc"/>
+  <g stroke="#5a6a3a" stroke-width="2"><path d="M1120 486v-12M1126 488v-10M1150 512v-10M1110 530v-10M960 466v-10M1000 552v-10"/></g></g>
+<g id="wcote" class="hot"><g fill="#c9b08a" stroke="#4a3a2a" stroke-width="1.200"><rect x="930" y="500" width="16" height="11"/><rect x="954" y="494" width="18" height="12"/><rect x="980" y="504" width="14" height="10"/><rect x="1004" y="498" width="16" height="11"/><rect x="1030" y="508" width="14" height="10"/><rect x="960" y="516" width="16" height="10"/></g>
+  <g fill="#7a3a2a"><path d="M928 500l10-7 10 7z"/><path d="M952 494l11-8 11 8z"/><path d="M1002 498l10-7 10 7z"/></g><rect x="900" y="510" width="20" height="18" fill="#c9b08a" stroke="#4a3a2a" stroke-width="1.200"/><rect x="906" y="518" width="7" height="10" fill="#3a8a4a"/></g>
+<g id="mead" class="hot"><path d="M200 640Q400 600 700 610L760 720Q500 730 160 740Z" fill="#7a9a4a" opacity=".55"/><g id="sheep" fill="#f4f0e4"></g></g>
+
+<!-- the parapet -->
+<path d="M-1000 700H2600V1500H-1000Z" fill="url(#stoneT)"/>
+<g id="merlons" fill="url(#stoneT)"></g>
+<g stroke="#4a443a" stroke-width="2" fill="none" opacity=".6" id="joints"></g>
+<path d="M-1000 700H2600" stroke="#3a342c" stroke-width="4"/>
+<g id="plaque" class="hot"><rect x="690" y="760" width="220" height="80" rx="3" fill="url(#brassT)"/><rect x="690" y="760" width="220" height="80" rx="3" fill="none" stroke="#5a4010" stroke-width="3"/>
+  <text x="800" y="784" class="cz" font-size="11.500" fill="#33230a">THE GREAT FLOOD</text><g stroke="#5a4010" stroke-width="2" opacity=".75"><path d="M712 798h176M712 810h160M712 822h170"/></g></g>
+
+<!-- the view-plate on its pillar -->
+<g id="topo" class="hot"><rect x="96" y="640" width="70" height="260" fill="#6a6258"/><ellipse cx="131" cy="636" rx="62" ry="18" fill="url(#brassT)"/><ellipse cx="131" cy="634" rx="50" ry="13" fill="none" stroke="#5a4010" stroke-width="2"/>
+  <path d="M131 622v24M107 634h48" stroke="#5a4010" stroke-width="2"/><text x="131" y="628" class="cz" font-size="8" fill="#33230a">N</text></g>
+
+<!-- Sir Tristram at his little easel -->
+<g id="yelv" class="hot"><path d="M216 900L236 640q90-30 180 0l20 260z" fill="#2c6e6a"/><use href="#ch-yelv" x="232" y="420" width="186" height="242"/>
+  <path d="M440 900l40-300M520 900l-40-300M480 600v300" stroke="#4a3420" stroke-width="7"/><rect x="430" y="560" width="110" height="80" fill="#f8f2e0" stroke="#4a3420" stroke-width="4"/>
+  <path d="M440 620q30-40 90-30" stroke="#d88a8a" stroke-width="8" fill="none"/><circle cx="460" cy="584" r="10" fill="#f6c87a"/><path d="M490 636q8-30 20-40" stroke="#3a6a9a" stroke-width="5" fill="none"/>
+  <g id="brush"><path d="M396 560l36 30" stroke="#4a3420" stroke-width="5" stroke-linecap="round"/></g></g>
+
+<!-- the telescope -->
+<g id="scope" class="hot"><path d="M600 900l30-230M680 900l-30-230M640 900V670" stroke="#3a2a1a" stroke-width="7"/><g transform="rotate(-16 640 660)"><rect x="560" y="646" width="170" height="26" rx="6" fill="url(#brassT)"/><rect x="540" y="650" width="28" height="18" rx="4" fill="#5a4010"/><rect x="726" y="642" width="18" height="34" rx="4" fill="#5a4010"/></g></g>
+
+<!-- on the merlons: the Reading Copy, the Style Book weighted with a stone -->
+<g id="copy" class="hot"><path d="M766 640l92-6 4 10-92 6z" fill="#efe0bb"/><path d="M770 646q40-14 84-8" stroke="#a3271c" stroke-width="2" fill="none"/></g>
+<g id="style" class="hot"><path d="M1006 640l52-10 2 12-52 10z" fill="#f3ecd8"/><path d="M1058 630l52 4-2 12-52-4z" fill="#e4d8b8"/><ellipse cx="1060" cy="628" rx="16" ry="9" fill="#7a7468"/><path d="M1004 640l-2-6 54-10" stroke="#2f4a3c" stroke-width="4" fill="none"/></g>
+
+<!-- Sefton at the parapet; the Survey Book on a stool; the tracing frame -->
+<g id="sefton" class="hot"><use href="#ch-sefton" x="1170" y="500" width="166" height="216"/><path d="M1150 900l20-200h180l20 200z" fill="#6f6a58"/></g>
+<g id="survey" class="hot"><rect x="1050" y="830" width="80" height="70" fill="#3a2614"/><path d="M1040 828l100-6 4 12-100 6z" fill="#2f4a3c"/><path d="M1046 820l92-6" stroke="#f4efe2" stroke-width="5"/></g>
+<g id="frame" class="hot"><path d="M1400 900l30-420M1520 900l-30-420M1460 480v420" stroke="#4a3420" stroke-width="8"/><rect x="1380" y="500" width="160" height="200" fill="#eef0e2" stroke="#5a3c1e" stroke-width="8"/>
+  <path d="M1460 510q-6 40 4 80q-40 4-50 30q10 24 50 20q4 30-2 60" stroke="#5a7aa0" stroke-width="5" fill="none"/><path d="M1420 520l90 150" stroke="#c9b98a" stroke-width="30" opacity=".35"/>
+  <circle cx="1460" cy="510" r="5" fill="#a3271c"/></g>
+
+<rect x="-1000" y="-640" width="3600" height="2140" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the Bridge</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="border.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null, look = 0;
+
+  (function () {
+    var s = '', x, i, seed = 3;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (x = -1000; x < 2600; x += 240) s += '<rect x="' + x + '" y="640" width="140" height="62"/>';
+    $('#merlons').innerHTML = s; s = '';
+    for (x = -1000; x < 2600; x += 240) s += '<path d="M' + x + ' 640v60M' + (x + 140) + ' 640v60M' + (x + 60) + ' 700v70M' + (x + 180) + ' 770v70M' + x + ' 770h240"/>';
+    $('#joints').innerHTML = s; s = '';
+    s += '<path d="M-1000 420Q400 400 860 430M1000 430Q1400 410 2600 440M-1000 500Q300 470 800 520M1200 560Q1800 540 2600 580M-1000 600Q200 560 700 600"/>';
+    $('#fields').innerHTML = s; s = '';
+    for (i = 0; i < 14; i++) s += '<circle cx="' + (260 + rnd() * 420).toFixed(0) + '" cy="' + (640 + rnd() * 70).toFixed(0) + '" r="' + (3 + rnd() * 2).toFixed(1) + '"/>';
+    $('#sheep').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'border', storyTitle: 'A Nice Measure', id: 'tower', no: 'IV', title: 'The Tower',
+    go: 'Climb the tower',
+    intro: [
+      'Four words had moved since the Treaty was sealed, and each was proved twice from papers of its own age: LET meant hinder, PREVENT meant go before, MEAT meant food of any kind, and NICE meant exact. You wrote the old meanings in the margin of the Reading Copy, small, in red.',
+      'The Guild&rsquo;s tower is the highest thing in Ninefold. From the top you can follow the Wimble all the way to the sea, and see the place on the big bend at Wethercote where, twenty years ago, the river changed its mind.',
+      'The sun is coming up. Somebody is up there already, painting it.'
+    ],
+    exit: {"next":"bridge","w":{"14ca9a2d":"018ba135"}}, tags: {"rot":["9ff00ac0"],"sc":["bf04b23b"],"bed":["9c018eaf"],"bank":["66cf567d"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('t-file') || null;
+
+  var STYLE = '<span class="pg">PAGE 44</span><h4>THE GUILD STYLE BOOK</h4><h3>Rivers, and maps</h3>' +
+    '<svg viewBox="0 0 600 120"><path d="M60 6q-14 30 6 56t-6 52" stroke="#5a7aa0" stroke-width="8" fill="none"/><path d="M84 30v50l-6-8M84 80l6-8" stroke="#2f4a3c" stroke-width="2.500" fill="none"/>' +
+    '<g font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c"><text x="76" y="14">SOURCE</text><text x="76" y="116">MOUTH</text><text x="96" y="60">DOWNSTREAM</text></g>' +
+    '<g transform="translate(250 0)"><path d="M10 60h120" stroke="#5a7aa0" stroke-width="22"/><path d="M40 60h60l-10-8M100 60l-10 8" stroke="#fff" stroke-width="2.500" fill="none"/><circle cx="20" cy="60" r="7" fill="#7a2a1c"/>' +
+    '<g font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c" text-anchor="middle"><text x="70" y="38">LEFT BANK</text><text x="70" y="90">RIGHT BANK</text><text x="70" y="112" font-size="9.500">looking downstream &#8594;</text></g></g>' +
+    '<g transform="translate(420 10)" fill="none" stroke="#5a7aa0" stroke-width="6"><path d="M0 10q10 40 0 80"/><path d="M50 10q-6 20 -2 30q40 10 0 30q-4 10 2 20"/><path d="M110 10v80"/><path d="M114 40q40 10 0 30" stroke="#9ab0c0" stroke-width="5"/></g>' +
+    '<g font-family="Cinzel,serif" font-weight="700" font-size="9.500" fill="#2f4a3c" text-anchor="middle"><text x="420" y="116">A BEND</text><text x="470" y="116">A NARROW NECK</text><text x="540" y="116">AN OXBOW LAKE</text></g></svg>' +
+    '<p>A river runs from its <b>source</b>, where it rises, to its <b>mouth</b>, where it meets the sea. Downstream is towards the mouth; upstream is towards the source.</p>' +
+    '<p>The banks are named by somebody looking downstream: the <b>left bank</b> is on the left hand and the <b>right bank</b> on the right. On a map with north at the top, a river that flows south has its left bank on the right of the page. Take care.</p>' +
+    '<p>A river bends from side to side. The neck of a big bend can grow very narrow, and in a flood the water may break through it in one night. The old bend is cut off, and becomes a still lake shaped like a horseshoe: an <b>oxbow lake</b>.</p>' +
+    '<p>Every map has a <b>key</b>, which says what each mark means, and a <b>scale</b>: at one inch to the mile, a mile is an inch long; at two inches to the mile, it is two. Old maps often mark north with a lily and east with a cross, and do not always put north at the top. Before you lay one map over another, make their scales and their north points agree.</p>';
+  var SURVEY = '<h4>THE SURVEY BOOK OF THE GUILD &middot; WETHERCOTE NECK</h4>' +
+    '<svg viewBox="0 0 600 150"><g transform="translate(10 0)"><rect width="280" height="140" fill="#eef0e2"/><path d="M120 0q-4 40 6 60q-80-20-90 20q4 40 100 30q4 20 0 30" stroke="#5a7aa0" stroke-width="7" fill="none"/>' +
+    '<g fill="#a2673a"><rect x="80" y="70" width="8" height="6"/><rect x="96" y="66" width="8" height="6"/><rect x="104" y="80" width="8" height="6"/></g><path d="M126 62l10 46" stroke="#a3271c" stroke-width="2" stroke-dasharray="3 3"/>' +
+    '<text x="140" y="132" font-family="Cinzel,serif" font-weight="700" font-size="10" fill="#2f4a3c" text-anchor="middle">SPRING, YEAR 281: A MONTH BEFORE</text></g>' +
+    '<g transform="translate(310 0)"><rect width="280" height="140" fill="#eef0e2"/><path d="M120 0q-4 40 6 60q4 30 0 50q4 20 0 30" stroke="#5a7aa0" stroke-width="7" fill="none"/><path d="M118 64q-80-24-84 18q4 36 84 26" stroke="#9ab0c0" stroke-width="6" fill="none"/>' +
+    '<g fill="#a2673a"><rect x="80" y="70" width="8" height="6"/><rect x="96" y="66" width="8" height="6"/><rect x="104" y="80" width="8" height="6"/></g>' +
+    '<text x="140" y="132" font-family="Cinzel,serif" font-weight="700" font-size="10" fill="#2f4a3c" text-anchor="middle">SPRING, YEAR 282: AFTER</text></g></svg>' +
+    '<p><b>Surveyed in the spring of the year 281 of the Long Peace.</b> The Neck is two hundred yards of dry land between the two arms of the bend, as it has been at every survey for a hundred years. Wethercote: thirty-one houses and a mill, inside the bend.</p>' +
+    '<p><b>The Great Flood, the night of the twelfth of November, 281.</b></p>' +
+    '<p><b>Surveyed in the spring of the year 282.</b> The Wimble runs straight through where the Neck was. The old bend is cut off at both ends: a still lake, called by the village the Dead Water. Wethercote: thirty-one houses and a mill, between the Dead Water and the new channel.</p>';
+  var PLAQUE = '<h4>THE GREAT FLOOD</h4><p>From this tower, on the morning after the Great Flood, the Mapmakers of Ninefold saw that in one night the Wimble had broken through Wethercote Neck.</p><p style="font-size:15px">The thirteenth of November, in the 281st year of the Long Peace</p>';
+  var TOPO = '<h4>THE VIEW FROM THE TOWER</h4><p>You are looking SOUTH, downstream.</p><p style="font-size:16.5px">Ahead: Wimble Mouth and the sea &middot; 12 miles<br>Behind you: the Thrum Fells, where the Wimble rises &middot; 14 miles<br>On your left hand: the Crown of Querne<br>On your right hand: the Crown of Selvan</p>';
+  function copyHtml() { return '<h4>The Reading Copy</h4><h5>the Second Article, as it will be read at noon</h5>' + BDR.art(2) + '<p style="font-family:IM Fell English,serif;font-style:italic;font-size:16px">(The other articles are as you wrote them, with the margin in red.)</p>'; }
+
+  function seen(k) { return ER.flag('t-' + k); }
+  function ready() { return seen('style') && seen('survey') && seen('copy'); }
+  function hints() {
+    if (nextFile) return ['go', ['The bound at Wethercote is settled. The Bridge is next: the envoys are bringing their claims.']];
+    if (ready()) return ['frame', [
+      'At the tracing frame: Orme&rsquo;s tracing has to be turned and enlarged until it agrees with the Guild&rsquo;s map, and only then laid on it. Look at the lily and the cross on the tracing, and at the two scale bars.',
+      'The lily marks north, and on a Guild map north is at the top. Orme drew at one inch to the mile; the Guild&rsquo;s map is two inches to the mile. Once it lies right, see which water Orme&rsquo;s river follows, and read the Second Article about a river that leaves its bed all at once.',
+      'The Survey Book and the plaque both say the river broke through the Neck in one night, so the bound stays in the old bed, the Dead Water. Wethercote is on the east side of the old bed; facing downstream (south), east is on your left hand. Whose is the left bank?'
+    ]];
+    return ['start', [
+      'Read the Style Book page on the parapet (weighted with a stone), the Survey Book on the stool, and your Reading Copy, which is lying on the wall: the Second Article.',
+      'The brass view-plate on the pillar, the plaque on the wall and the telescope all tell you something too. Sir Tristram and Sefton will both talk.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('solved', !!nextFile);
+    $('#frame').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The bound at Wethercote is settled. The envoys are on the Bridge.'); return; }
+    if (seen('yelv')) { ER.say('The top of the tower. The tracing frame is on the right.'); return; }
+    busy = true;
+    ER.narrate([
+      'The whole valley, from the top of the tower: the Wimble coming out from under your feet, wide and slow, and running away south between the fields to a bright line that is the sea. The sun is coming up on your left.',
+      'Halfway to the sea the river makes a big bend; or did. Now it runs straight past a village, and beside the village lies a still grey lake the shape of a horseshoe.',
+      'At a little easel by the wall a tall fair man in the blue-green coat of Selvan is painting the sunrise with great energy and no great skill.'
+    ], function () { busy = false; });
+  }
+
+  /* ---------- the tower ---------- */
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 't-' + id, title: title, kind: kind },
+      done: function () { ER.flag('t-' + id, 1); if (words) BDR.learn(words); paint(); } });
+  }
+  $('#style').addEventListener('click', function () { readDoc('style', STYLE, 'style', 'Style Book: rivers, and maps', 'The Guild Style Book', ['source', 'mouth', 'downstream', 'left bank', 'right bank', 'oxbow lake', 'scale', 'key']); });
+  $('#survey').addEventListener('click', function () { readDoc('survey', SURVEY, 'survey', 'The Survey Book: Wethercote Neck', 'The Survey Book', ['survey', 'neck', 'channel']); });
+  $('#copy').addEventListener('click', function () { readDoc('copy', copyHtml(), 'treaty', 'The Second Article', 'Your Reading Copy', ['bed']); });
+  $('#plaque').addEventListener('click', function () { readDoc('plaque', PLAQUE, 'board', 'The plaque on the parapet', 'A brass plaque', ['plaque']); });
+  $('#topo').addEventListener('click', function () { readDoc('topo', TOPO, 'board', 'The view-plate', 'Brass, on a pillar'); });
+  $('#yelv').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (ER.flag('t-yelv')) { ER.say(nextFile ? 'Sir Tristram is painting the Dead Water out of his picture, and then, after a long look, painting it back in.' : '&ldquo;Water does not read treaties,&rdquo; says Sir Tristram, adding more pink to the sky. &ldquo;Water simply goes.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.yelv.who, role: CAST.yelv.role, face: FACE('yelv'),
+      lines: [
+        { note: 'Tall, fair, a soft moustache, and the blue-green coat of Selvan with a great deal of paint on its cuffs.', a: '&ldquo;Ah, the apprentice who reads! Come and look. Isn&rsquo;t it glorious? I paint, you know. Badly, but with feeling.&rdquo;' },
+        { q: 'Sir Tristram, about Wethercote.', a: '&ldquo;Wethercote is on the right bank of the Wimble. Look at it! The river runs on the far side of the village, and has for twenty years. The Treaty says the right bank is Selvan&rsquo;s. Water does not read treaties, my dear apprentice. Water simply goes where it likes, and the bound goes with it.&rdquo;' },
+        { q: 'But the old bed is still there.', a: '&ldquo;That pond? Rivers wander, everybody knows that: a little this way, a little that way, over the years. I have no doubt the Wimble walked over very gently, a yard a year, like a gentleman. A river that moves little by little takes the bound with it. Your own Treaty says so.&rdquo;' },
+        { q: 'And the sheep on the near bank?', a: '&ldquo;Selvan&rsquo;s. Withy Mead. Three hundred summers of Selvan&rsquo;s sheep. If anything in this valley belongs to my Crown, it is that grass. You will see at the Hour of Claims.&rdquo;' },
+        { note: 'He goes back to his painting.', a: '&ldquo;I have put Wethercote on the right bank in my picture. Pictures never lie, you know.&rdquo; He looks at it. &ldquo;Well. Mine do, a little.&rdquo;' }
+      ],
+      clue: { id: 'yelv1', title: 'Sir Tristram, painting the sunrise', kind: 'What he said' }, last: 'Leave him',
+      done: function (ok) { if (ok) { ER.flag('t-yelv', 1); paint(); } }
+    });
+  });
+  $('#sefton').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (ER.flag('t-sef')) { ER.say('&ldquo;Left and right,&rdquo; says Sefton. &ldquo;You have to be standing somewhere, and facing some way.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.sefton.who, role: CAST.sefton.role, face: FACE('sefton'),
+      lines: [
+        { note: 'He is leaning on the wall, looking at his village.', a: '&ldquo;That&rsquo;s Wethercote. The mill with the green door is my mother&rsquo;s. The still water behind it, the shape of a horseshoe, is the Dead Water: the old Wimble. Twenty years ago the river went all the way round there.&rdquo;' },
+        { q: 'Did it move little by little?', a: '&ldquo;Ask the Survey Book, not me: I wasn&rsquo;t born. My mother says she went to bed with the river behind the house and woke up with it in front. But mothers tell stories. Books tell dates.&rdquo;' },
+        { q: 'Which bank is Wethercote on?', a: '&ldquo;Depends which river you mean, doesn&rsquo;t it? The one that&rsquo;s there now, or the one in the Treaty. And it depends which way you&rsquo;re facing. That&rsquo;s the trouble with left and right: you have to be standing somewhere.&rdquo;' }
+      ],
+      clue: { id: 'sefton4', title: 'Sefton, on the tower', kind: 'What he said' }, last: 'Thanks',
+      done: function (ok) { if (ok) ER.flag('t-sef', 1); }
+    });
+  });
+  var LOOKS = [
+    'Through the telescope, straight ahead: Wimble Mouth, where the river meets the sea, twelve miles off. A ship is going out on the tide.',
+    'Through the telescope: the Dead Water. Still as glass, with reeds round its edge and ducks asleep on it. It has no current at all: nothing goes in, nothing comes out.',
+    'Through the telescope: Wethercote. Thirty-one houses and a mill with a green door, between the Dead Water and the new channel. Somebody is hanging out washing.',
+    'You swing the telescope round behind you, to the north: the Thrum Fells, blue and far off, where the Wimble rises. Then back to the south, which is the way it flows.'
+  ];
+  $('#scope').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'telescope'); ER.say(LOOKS[look % LOOKS.length], 7000); look++;
+  });
+  BDR.thing('#sun', null, 'The sun, coming up over Querne, on your left. Facing south, the east is on your left hand.', isBusy);
+  BDR.thing('#mouth', 'mouth', 'Wimble Mouth: where the river reaches the sea. The end of the Wimble, and of the bound.', isBusy);
+  BDR.thing('#river', null, 'The Wimble, coming out from under the tower and running away south to the sea.', isBusy);
+  BDR.thing('#dead', 'oxbow lake', 'The Dead Water: a still lake shaped like a horseshoe, on the far side of Wethercote. The old bend of the Wimble.', isBusy);
+  BDR.thing('#wcote', null, 'Wethercote: thirty-one houses and a mill with a green door, between the Dead Water and the new channel.', isBusy);
+  BDR.thing('#mead', null, 'Withy Mead, on the near bank of the river, on your left: green, flat, and full of sheep with blue-green marks on their backs. Selvan&rsquo;s sheep, on Querne&rsquo;s side.', isBusy);
+  $('#frame').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('Orme&rsquo;s tracing lies on the Guild&rsquo;s map, his river over the Dead Water, and Querne&rsquo;s little ochre flag on Wethercote.'); return; }
+    if (!ready()) {
+      ER.wordAt(e.clientX, e.clientY, 'tracing');
+      var miss = !seen('style') ? 'the Style Book page on the wall' : !seen('survey') ? 'the Survey Book on the stool' : 'the Second Article in your Reading Copy, on the wall';
+      ER.say('The tracing frame: the Guild&rsquo;s map of Wethercote, and Orme&rsquo;s old tracing rolled up beside it. First read ' + miss + '.');
+      return;
+    }
+    openFrame();
+  });
+
+  /* ---------- the tracing frame ---------- */
+  var PIN = [240, 20];
+  /* Orme's river, as he traced it: one inch to the mile, with east at the top (so north is on the left) */
+  var TRACE = '<path d="M0 0 Q30 2 75 -5 C60 20 75 75 100 65 C125 60 130 10 116 -7.5 Q160 -11 190 -9" stroke="#8a2a1a" stroke-width="2.200" fill="none" stroke-dasharray="1 0"/>' +
+    '<g fill="none" stroke="#8a2a1a" stroke-width="1"><rect x="90" y="24" width="5" height="4"/><rect x="98" y="20" width="5" height="4"/><rect x="96" y="30" width="5" height="4"/></g>' +
+    '<g transform="translate(150 40)"><path d="M0 0V-22M0 0H-22" stroke="#8a2a1a" stroke-width="1.400"/><path d="M-4 -26h8M0 -30v8" stroke="#8a2a1a" stroke-width="1.600"/>' +
+    '<path d="M-24 0q-4-3-6-1q2 1 0 2q-2 1 0 2q2 2 6-1" fill="#8a2a1a"/></g>' +
+    '<g transform="translate(10 52)"><path d="M0 0h60" stroke="#8a2a1a" stroke-width="1.600"/><path d="M0 -3v6M60 -3v6" stroke="#8a2a1a" stroke-width="1.200"/><text x="30" y="-4" font-family="Cinzel,serif" font-weight="700" font-size="6" fill="#8a2a1a" text-anchor="middle">ONE MILE</text></g>' +
+    '<circle r="2.500" fill="#8a2a1a"/>';
+  function landMap() {
+    return '<rect x="0" y="0" width="480" height="400" fill="#eef0e2"/>' +
+      '<g fill="#d9c58f" opacity=".3"><path d="M250 0H480V400H262Q262 320 255 252Q256 190 250 170Q236 80 244 0Z"/></g>' +
+      '<path d="M240 0 Q236 60 250 170" stroke="#5a7aa0" stroke-width="12" fill="none"/>' +
+      '<path id="tw-new" d="M250 170 Q256 210 255 252" stroke="#5a7aa0" stroke-width="12" fill="none"/>' +
+      '<path id="tw-dead" d="M244 168 C200 140 90 170 110 220 C120 270 220 280 250 256" stroke="#a9bccb" stroke-width="12" fill="none"/>' +
+      '<path d="M255 252 Q262 320 258 400" stroke="#5a7aa0" stroke-width="12" fill="none"/>' +
+      '<g stroke="#5a6a3a" stroke-width="1.400"><path d="M104 214v-8M110 228v-8M124 252v-8M170 270v-8M150 152v-8"/></g>' +
+      '<g fill="#a2673a" stroke="#4a3a2a" stroke-width="1"><rect x="170" y="200" width="9" height="7"/><rect x="184" y="194" width="9" height="7"/><rect x="196" y="206" width="9" height="7"/><rect x="178" y="216" width="9" height="7"/><rect x="204" y="222" width="9" height="7"/><rect x="226" y="210" width="10" height="9"/></g>' +
+      '<g id="tw-flag"><path d="M196 232v-34" stroke="#3a2a1a" stroke-width="2"/><path id="tw-flagc" d="M196 198h22l-5 6 5 6h-22z" fill="#fbf8ef" stroke="#3a2a1a" stroke-width="1"/><circle cx="196" cy="234" r="12" fill="#000" opacity="0"/></g>' +
+      '<path d="M226 14h30v12h-30z" fill="#b9a98a" stroke="#4a3a2a" stroke-width="1.400"/>' +
+      '<g font-family="IM Fell English,Georgia,serif" font-style="italic" font-size="12" fill="#3b2a14" text-anchor="middle"><text x="292" y="16">the Bridge</text><text x="190" y="248">Wethercote</text><text x="110" y="134">the Dead Water</text><text x="306" y="214">the new channel</text><text x="340" y="80">Withy Mead</text></g>' +
+      '<g transform="translate(420 300)"><path d="M0 18V-18" stroke="#2f4a3c" stroke-width="2"/><path d="M-6 -12L0 -22L6 -12" fill="#2f4a3c"/><text y="34" font-family="Cinzel,serif" font-weight="700" font-size="11" fill="#2f4a3c" text-anchor="middle">N</text></g>' +
+      '<g transform="translate(320 370)"><path d="M0 0h120" stroke="#2f4a3c" stroke-width="2.500"/><path d="M0 -5v10M120 -5v10M60 -3v6" stroke="#2f4a3c" stroke-width="1.600"/><text x="60" y="-8" font-family="Cinzel,serif" font-weight="700" font-size="10" fill="#2f4a3c" text-anchor="middle">ONE MILE</text></g>' +
+      '<g font-family="IM Fell English,serif" font-size="10.500" fill="#2f4a3c"><text x="12" y="330" font-family="Cinzel,serif" font-weight="700" font-size="10">KEY</text>' +
+      '<path d="M12 344h22" stroke="#5a7aa0" stroke-width="6"/><text x="40" y="347">running water</text><path d="M12 360h22" stroke="#a9bccb" stroke-width="6"/><text x="40" y="363">still water</text>' +
+      '<rect x="16" y="372" width="9" height="7" fill="#a2673a"/><text x="40" y="379">houses</text><path d="M12 392h22" stroke="#a3271c" stroke-width="2.500" stroke-dasharray="5 3"/><text x="40" y="395">the bound</text></g>' +
+      '<path id="tw-bound" d="" stroke="#a3271c" stroke-width="3" fill="none" stroke-dasharray="7 4" pointer-events="none"/>' +
+      '<g id="tw-trace" opacity="0" pointer-events="none"></g>' +
+      '<circle cx="' + PIN[0] + '" cy="' + PIN[1] + '" r="4" fill="#a3271c"/>';
+  }
+  function openFrame() {
+    var box = ER.el('div', 'pz tr'), st = ER.flag('t-desk') || { r: 0, s: 1, laid: false, bed: '', flag: '' }, done = false;
+    box.innerHTML = '<h4>The tracing frame</h4><h5>The Guild&rsquo;s map of the Wimble below the Bridge, and Orme&rsquo;s tracing of the same water, made when the Treaty was sealed. Make them agree, lay one on the other, and then set the bound.</h5>' +
+      '<div class="tr-cols"><div class="tr-map"><svg viewBox="0 0 480 400" id="tw-map">' + landMap() + '</svg></div>' +
+      '<div class="tr-side"><div class="tr-prev"><svg viewBox="-150 -104 300 208" id="tw-prev"></svg></div>' +
+      '<div class="tr-row"><span>TURN IT</span><button type="button" data-r="-1">&#8634; a quarter</button><button type="button" data-r="1">a quarter &#8635;</button></div>' +
+      '<div class="tr-row"><span>ENLARGE IT</span><button type="button" data-s="0.5">&times; &frac12;</button><button type="button" data-s="1">&times; 1</button><button type="button" data-s="2">&times; 2</button><button type="button" data-s="4">&times; 4</button></div>' +
+      '<div class="tr-row"><span>THE TRACING</span><button type="button" id="tw-lay">Lay it on the map</button></div>' +
+      '<p class="tr-step" id="tw-step"></p></div></div>' +
+      '<div class="foot"><button type="button" class="btn" id="tw-go">Set the bound</button><p class="pmsg"></p></div>';
+    var msgEl = box.querySelector('.pmsg'), map = box.querySelector('#tw-map'), prev = box.querySelector('#tw-prev');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function save() { ER.flag('t-desk', st); }
+    function rightLay() { return st.r === 1 && st.s === 2; }
+    function draw() {
+      prev.innerHTML = '<g transform="scale(' + Math.min(st.s, 2) * 0.48 + ') rotate(' + st.r * 90 + ') translate(-95 -30)">' + TRACE + '</g>' +
+        '<text x="-144" y="98" text-anchor="start" font-family="Cinzel,serif" font-weight="700" font-size="10" fill="#4a3a22">THE TRACING, SET AT &times; ' + (st.s === 0.5 ? '&frac12;' : st.s) + '</text>';
+      var tg = map.querySelector('#tw-trace');
+      tg.innerHTML = '<g transform="translate(' + PIN[0] + ' ' + PIN[1] + ') rotate(' + st.r * 90 + ') scale(' + st.s + ')">' + TRACE.replace(/stroke-width="2.200"/, 'stroke-width="' + (2.6 / st.s).toFixed(2) + '"') + '</g>';
+      tg.setAttribute('opacity', st.laid ? '0.9' : '0');
+      ER.$$('.tr-row button[data-s]', box).forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-s') === st.s); });
+      box.querySelector('#tw-lay').textContent = st.laid ? 'Lift it off' : 'Lay it on the map';
+      box.querySelector('#tw-lay').classList.toggle('on', st.laid);
+      var B = { dead: map.querySelector('#tw-dead').getAttribute('d'), 'new': 'M240 0 Q236 60 250 170 Q256 210 255 252 Q262 320 258 400' };
+      map.querySelector('#tw-bound').setAttribute('d', st.bed === 'old' ? 'M240 0 Q236 60 248 168 C200 140 90 170 110 220 C120 270 220 280 252 255 Q262 320 258 400' : st.bed === 'new' ? B['new'] : '');
+      map.querySelector('#tw-flagc').setAttribute('fill', st.flag === 'q' ? '#c98a1e' : st.flag === 's' ? '#2c6e6a' : '#fbf8ef');
+      box.querySelector('#tw-step').innerHTML = ER.gloss(!st.laid ? 'First make the tracing agree with the map, and lay it on.' :
+        'Now click the water where the bound runs below the Bridge, and click the little flag on Wethercote to give it a colour: ochre for Querne, blue-green for Selvan.');
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.tr-row button') : null; if (!b || done) return;
+      if (b.hasAttribute('data-r')) { if (st.laid) { msg('Lift the tracing off before you turn it.'); return; } st.r = (st.r + (+b.getAttribute('data-r')) + 4) % 4; BDR.sfx.page(); }
+      else if (b.hasAttribute('data-s')) { if (st.laid) { msg('Lift the tracing off before you change its size.'); return; } st.s = +b.getAttribute('data-s'); BDR.sfx.turn(); }
+      else if (b.id === 'tw-lay') {
+        if (st.laid) { st.laid = false; st.bed = ''; BDR.sfx.page(); save(); draw(); msg('You lift the tracing off.'); return; }
+        st.laid = true; BDR.sfx.page();
+        if (!rightLay()) {
+          BDR.blot();
+          var why = st.r !== 1 ? 'Look at the little lily on the tracing: it points ' + ['to the left', 'up', 'to the right', 'down'][st.r] + '. The lily marks north, and on the Guild&rsquo;s map north is at the top.'
+            : 'The lily is at the top now. But Orme&rsquo;s mile and the Guild&rsquo;s mile are not the same length on paper: compare the two scale bars.';
+          msg('<b>The tracing does not lie on the river.</b> ' + why + ' <i>A blot.</i>');
+        } else msg('Orme&rsquo;s river lies on the Guild&rsquo;s map as if it had been drawn there: from the Bridge, round the whole of the Dead Water, and on to the south.');
+      }
+      save(); draw();
+    });
+    map.addEventListener('click', function (e) {
+      if (done) return;
+      var t = e.target;
+      if (!st.laid) { if (t.closest && (t.closest('#tw-dead') || t.closest('#tw-new') || t.closest('#tw-flag'))) msg('Lay the tracing on the map first: the bound is set by what Orme drew.'); return; }
+      if (t.closest('#tw-dead')) { st.bed = 'old'; BDR.sfx.pen(); }
+      else if (t.closest('#tw-new')) { st.bed = 'new'; BDR.sfx.pen(); }
+      else if (t.closest('#tw-flag')) { st.flag = st.flag === 'q' ? 's' : 'q'; BDR.sfx.flap(); }
+      else return;
+      save(); draw();
+    });
+    box.querySelector('#tw-go').addEventListener('click', function () {
+      if (done) return;
+      var file;
+      if (!st.laid || !rightLay()) { msg('The tracing has to lie right on the map before the bound can be set from it.'); return; }
+      if (!st.bed) { msg('Click the water where the bound runs past Wethercote: the new channel, or the old bed.'); return; }
+      if (!st.flag) { msg('The flag on Wethercote has no colour yet. Click it.'); return; }
+      if (!ER.check('rot', String(st.r * 90)) || !ER.check('sc', String(st.s))) { msg('The tracing has to lie right on the map before the bound can be set from it.'); return; }
+      if (!ER.check('bed', st.bed)) {
+        BDR.blot();
+        msg('<b>The bound.</b> Sir Tristram would be delighted. But the Survey Book has two hundred yards of dry land at the Neck one spring, and the river straight through it the next; and the plaque says it happened in one night. What does the Second Article say about a river that leaves its bed all at once? <i>A blot.</i>');
+        return;
+      }
+      if (!ER.check('bank', st.flag === 'q' ? 'qeast' : 'swest')) {
+        BDR.blot();
+        msg('<b>The flag.</b> Wethercote is on the east side of the old bed. Stand on the tower and look downstream, which is south: the east is on your left hand. Which bank is that, and whose does the Treaty say it is? <i>A blot.</i>');
+        return;
+      }
+      file = ER.exit(['r' + st.r * 90 + '-x' + st.s + '-' + st.bed + '-' + (st.flag === 'q' ? 'qeast' : 'swest')], { wait: true });
+      if (!file) { msg('The frame will not hold it. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('t-file', file); busy = true;
+      msg('The bound runs in the old bed, round the Dead Water. Wethercote, inside the old bend, is on its left bank: Querne&rsquo;s.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2600);
+    });
+    draw();
+    msg(st.laid ? 'The tracing is on the map.' : 'Orme&rsquo;s tracing is on the right, pinned at the Bridge. It does not agree with the map yet.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    BDR.sfx.flap();
+    ER.narrate([
+      'Turned a quarter, so that Orme&rsquo;s lily points north, and enlarged twice, so that his mile is the Guild&rsquo;s mile, the tracing lies on the map exactly. Orme&rsquo;s Wimble runs round the Dead Water. Three hundred years ago, that was the river.',
+      'The river did not wander there a yard a year: the Survey Book has two hundred yards of dry land at the Neck one spring and the river straight through it the next, and the plaque says it happened in one night. So, by the Second Article, the bound stays in the old bed.',
+      'And Wethercote, inside the old bend, is on the east side of the old bed. Face downstream, as the banks are named, and the east is on your left hand: the left bank, which is Querne&rsquo;s. On a map with north at the top, it looks like the right. That is the trap.',
+      'Sir Tristram has come to look over your shoulder. He is quiet for some time. &ldquo;A yard a year,&rdquo; he says at last, &ldquo;was a guess. I should have looked at the Survey Book.&rdquo; He goes back to his easel and, after a long look, paints the Dead Water back into his picture.',
+      'Below, in the square, somebody is putting up two banners on the Bridge, an ochre one and a blue-green one. &ldquo;The Hour of Claims,&rdquo; says Sefton. &ldquo;Both envoys, both lists. And she still can&rsquo;t talk. You&rsquo;re going to have to answer them.&rdquo;'
+    ], function () {
+      BDR.mine('n-tower', 'The bound at Wethercote', '<p>Banks are named LOOKING DOWNSTREAM. The Wimble flows south, so the LEFT bank is the EAST bank (on a north-up map it looks like the right!).</p><p>Orme&rsquo;s tracing: turn it a quarter (lily = north at the top), enlarge it twice (1 inch to the mile, to 2 inches).</p><p>The river broke through the Neck IN ONE NIGHT, so the bound stays in the OLD BED: the Dead Water.</p><p>Wethercote is east of the old bed: left bank: Querne&rsquo;s.</p>');
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

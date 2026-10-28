@@ -1,0 +1,130 @@
+/* A Nice Measure - what the six rooms of the Guild share: the Guild's kinds of paper (the Style Book, the Treaty on
+   parchment, the Mapmaker's plat, the Mapmaster's red-pencil slips, old letters and field notes), a skin of green baize
+   and brass for the notebook, and a few small parts. Each room sets its own palette on <body>. */
+
+.hud,.btn,.ov-x{font-weight:700}
+.tc-theme{font-family:'Cinzel',serif;font-weight:700}
+.tc-text,.cap{font-family:'IM Fell English',Georgia,serif;font-size:clamp(19px,1.58vw,24px)}
+.tk-name{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:24px;letter-spacing:.02em}
+.tk-text{font-family:'IM Fell English',Georgia,serif}
+.tk-text .slip{display:inline-block;margin:2px 0 4px;padding:8px 14px 6px;background:#fbf8ef;color:#a3271c;font-family:'Caveat',cursive;font-weight:700;font-size:25px;line-height:1.15;
+  box-shadow:0 3px 10px rgba(0,0,0,.35);transform:rotate(-.8deg)}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px;border:1px solid var(--accent,#e0b354);
+  color:var(--accent,#e0b354);background:var(--hud-bg,rgba(14,14,24,.92));font-family:'Cinzel',serif;font-weight:700;font-size:16px;letter-spacing:.16em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e0b354);color:#14110b}
+.pmsg{min-height:54px;margin:0;font-family:'IM Fell English',Georgia,serif;font-size:18.5px;line-height:1.34;color:#f3ecd9}
+.pmsg b{color:var(--accent,#e0b354);font-family:'Almendra',serif;font-weight:700}
+.pmsg i{color:#d3d8c6}
+.cz{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+.cd{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;text-anchor:middle}
+.al{font-family:'Almendra',serif;font-weight:700;text-anchor:middle}
+.fe{font-family:'IM Fell English',Georgia,serif;font-style:italic;text-anchor:middle}
+.nudge{animation:nudge 1.7s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(-6px)}}
+.flick{animation:flick 3.6s steps(3) infinite}
+@keyframes flick{40%{opacity:.82}70%{opacity:.94}}
+.tw{animation:tw 4s steps(2) infinite}.tw:nth-child(3n){animation-delay:-1.3s}.tw:nth-child(5n){animation-delay:-2.6s}
+@keyframes tw{50%{opacity:.35}}
+
+/* ---- the Guild's papers ---- */
+/* a page of the Guild Style Book: printed, with a little drawing */
+.doc.style{width:min(700px,94vw);padding:28px 36px 24px;background:#f3ecd8 linear-gradient(178deg,rgba(255,255,255,.5),rgba(140,110,60,.16));color:#24221c;
+  font-family:'IM Fell English',Georgia,serif;font-size:18.5px;line-height:1.38;border-top:10px solid #2f4a3c}
+.doc.style h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.28em;color:#2f4a3c}
+.doc.style h3{margin:0 0 10px;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:23px;line-height:1.15;color:#1d2a22;border-bottom:1px solid #9b8b64;padding-bottom:8px}
+.doc.style p{margin:0 0 8px}
+.doc.style dl{margin:0 0 8px;display:grid;grid-template-columns:118px minmax(0,1fr);gap:3px 12px}
+.doc.style dt{font-family:'Almendra',serif;font-weight:700;font-size:18px;color:#7a2a1c}
+.doc.style dd{margin:0}
+.doc.style svg{display:block;width:100%;height:auto;margin:6px 0 8px}
+.doc.style .pg{float:right;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;color:#7d7158}
+/* the Treaty, on parchment */
+.doc.treaty{width:min(720px,94vw);padding:30px 42px 26px;background:#efe0bb radial-gradient(ellipse at 30% 10%,rgba(255,250,230,.75),rgba(150,105,45,.28));color:#2e2112;
+  font-family:'Almendra',serif;font-size:19.5px;line-height:1.42;border:1px solid #a68650}
+.doc.treaty h4{margin:0 0 2px;text-align:center;font-family:'Uncial Antiqua',serif;font-size:27px;line-height:1.1;color:#5a1d12}
+.doc.treaty h5{margin:0 0 12px;text-align:center;font-family:'IM Fell English',serif;font-style:italic;font-weight:400;font-size:16px;line-height:1.3;border-bottom:1px solid #a68650;padding-bottom:9px}
+.doc.treaty p{margin:0 0 9px}
+.doc.treaty p.art b{font-family:'Uncial Antiqua',serif;font-weight:normal;color:#7a2a1c}
+.doc.treaty .blot{display:inline-block;width:3.2em;height:.9em;vertical-align:-.1em;border-radius:40% 55% 45% 60%;background:radial-gradient(circle at 40% 40%,#4a3b2a,#2a2016 60%,rgba(42,32,22,.2))}
+.doc.treaty .gap{display:inline-block;width:2.6em;border-bottom:2px dotted #8a6a3a;height:.9em}
+.doc.treaty u.old{text-decoration:none;color:#a3271c;border-bottom:2px solid #a3271c}
+.doc.treaty .gl{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#a3271c;margin-left:4px}
+.doc.treaty .gl:before{content:'('}.doc.treaty .gl:after{content:')'}
+/* a slip in the Mapmaster's red pencil */
+.doc.pencil{width:min(560px,94vw);padding:28px 32px 24px;background:#fbf8ef;color:#a3271c;font-family:'Caveat',cursive;font-weight:700;font-size:26px;line-height:1.22;transform:rotate(-.6deg)}
+.doc.pencil h4{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.24em;color:#6d5a4a}
+.doc.pencil p{margin:0 0 8px}
+/* the Mapmaker's plat, and his field book */
+.doc.plat{width:min(680px,94vw);padding:24px 32px 20px;background:#ede2c4 linear-gradient(170deg,rgba(255,255,255,.4),rgba(120,90,40,.2));color:#3b2a14;
+  font-family:'IM Fell English',Georgia,serif;font-size:18px;line-height:1.34;border:3px double #7d6236}
+.doc.plat h4{margin:0 0 6px;text-align:center;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:20px;color:#4a2f12}
+.doc.plat p{margin:0 0 6px}
+.doc.plat svg{display:block;width:auto;max-width:100%;height:44vh;margin:4px auto 8px;background:#f3ead2}
+.doc.field{width:min(640px,94vw);padding:28px 36px 24px 46px;background:#efe4c6 repeating-linear-gradient(transparent 0 30px,rgba(120,80,30,.2) 30px 31px);color:#4a2c14;
+  font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:19px;line-height:31px;border-left:14px solid #6a4a2a}
+.doc.field h4{margin:0;font-family:'Cinzel',serif;font-style:normal;font-weight:700;font-size:14px;letter-spacing:.16em;line-height:31px;color:#6a4a2a}
+.doc.field p{margin:0}
+.doc.field b{font-style:normal;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.06em}
+/* an old letter */
+.doc.oldletter{width:min(620px,94vw);padding:30px 38px 26px;background:#f1e6c8 radial-gradient(ellipse at 70% 20%,rgba(255,252,236,.8),rgba(140,100,40,.3));color:#2f2416;
+  font-family:'Almendra',serif;font-style:italic;font-size:20px;line-height:1.38;transform:rotate(.5deg)}
+.doc.oldletter h4{margin:0 0 8px;font-family:'Cinzel',serif;font-style:normal;font-weight:700;font-size:13px;letter-spacing:.2em;color:#6d5a3a}
+.doc.oldletter p{margin:0 0 8px}
+.doc.oldletter .sig{text-align:right}
+/* a painted board, a brass plate, a carved stone */
+.doc.board{width:min(600px,94vw);padding:28px 34px 24px;background:#3a2a1a linear-gradient(160deg,#4f3a22,#2a1c10);color:#f3e2b8;font-family:'Cinzel',serif;font-weight:700;
+  font-size:19px;line-height:1.4;letter-spacing:.04em;text-align:center;border:6px solid #1f150b;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 2px rgba(243,226,184,.25)}
+.doc.board h4{margin:0 0 10px;font-family:'Cinzel Decorative','Cinzel',serif;font-size:15px;letter-spacing:.24em;color:#e9b65a}
+.doc.board p{margin:0 0 8px}
+.doc.board .w:hover{color:#ffe2a0}
+/* the Survey Book */
+.doc.survey{width:min(720px,94vw);padding:24px 32px 20px;background:#f4efe2;color:#232a26;font-family:'IM Fell English',Georgia,serif;font-size:18px;line-height:1.36;border-left:12px solid #2f4a3c}
+.doc.survey h4{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:.2em;color:#2f4a3c}
+.doc.survey p{margin:0 0 6px}
+.doc.survey svg{display:block;width:100%;height:auto;margin:4px 0 8px}
+/* what somebody said */
+.doc.statement{background:#efe8d4;font-family:'IM Fell English',Georgia,serif;font-size:19px;border-left:8px solid #2f4a3c}
+.doc.statement h4{font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.14em;color:#2f4a3c}
+.doc.statement .slip{display:block;margin:2px 0 6px;color:#a3271c;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.15}
+/* what you worked out */
+.doc.mine{width:min(600px,94vw);padding:30px 34px 28px;background:#fbf3d7 repeating-linear-gradient(transparent 0 31px,rgba(120,100,60,.2) 31px 32px);font-family:'Caveat',cursive;font-weight:700;
+  font-size:25px;line-height:32px;color:#33301f;transform:rotate(-.6deg)}
+.doc.mine h4{margin:0;font-size:29px;font-weight:700;line-height:32px;text-decoration:underline}
+.doc.mine p{margin:0}
+
+/* ---- the notebook: green baize and brass ---- */
+.nb{background:#1f3328 linear-gradient(150deg,#2a4536,#15241c);border:1px solid #0b140f;border-radius:4px;color:#ece4cc;
+  box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #101b15,inset 0 0 0 6px rgba(216,177,80,.45)}
+.nb-tabs{border-bottom-color:rgba(216,177,80,.4)}
+.nb-tabs button{font-family:'Cinzel',serif;font-weight:700;font-size:14.5px;color:#c4cdb9}
+.nb-tabs button.on{background:#efe6cc;color:#1f3328;border-color:rgba(216,177,80,.6)}
+.nb-list{border-right-color:rgba(216,177,80,.4)}
+.nb-list button{font-family:'IM Fell English',Georgia,serif;font-size:18px;color:#ece4cc}
+.nb-list button small{font-family:'Cinzel',serif;font-weight:700;font-size:10.5px}
+.nb-list button.on{background:#efe6cc;color:#1f3328}
+.nb-view{background:#101b15}
+.nb-words{background:#efe6cc;color:#27231d}
+.nb-words b{font-family:'Almendra',serif;font-weight:700;font-size:19px}
+.nb-words span{font-family:'IM Fell English',Georgia,serif;font-size:17.5px;color:#55503f}
+.nb-ko{border-color:#8f8873;color:#55503f;font-family:'Cinzel',serif;font-weight:700}
+.nb-ko.on{background:#1f3328;color:#efe6cc;border-color:#1f3328}
+.wtip,.wtag{background:#efe6cc;color:#27231d;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #a3271c}
+.wtag{padding-left:20px}.wtag:before{display:none}.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Almendra',serif;font-weight:700;font-size:19px}
+.wtip span,.wtag span{font-family:'IM Fell English',Georgia,serif}
+.hintbox{background:#efe6cc;color:#27231d;border-top:6px solid #2f4a3c;border-radius:2px}
+.hintbox h6{font-family:'Cinzel',serif;font-weight:700;color:#2f4a3c}
+.hintbox p{font-family:'IM Fell English',Georgia,serif}
+.hintbox p i{background:#2f4a3c;color:#efe6cc;font-family:'Cinzel',serif;font-weight:700}
+.hintbox .btn{font-family:'Cinzel',serif}
+.toast{font-family:'Cinzel',serif;font-weight:700}
+
+/* ---- a puzzle board, dressed per room ---- */
+.pz{position:relative;padding:16px 20px 14px;border-radius:5px;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.pz h4{margin:0;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:21px;line-height:1.15}
+.pz h5{margin:3px 0 10px;font-family:'IM Fell English',Georgia,serif;font-style:italic;font-weight:400;font-size:16.5px;line-height:1.28;opacity:.88}
+.pz .foot{display:flex;align-items:flex-start;gap:14px;margin-top:10px}
+.pz .foot .btn{white-space:nowrap}
+.pz .pmsg{flex:1;min-height:76px}
