@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Drawing Room · Everything Is Somewhere</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="nanny.css">
+<style>
+  body{--bg:#2a0c0e;--accent:#e0b860;--font-display:'Cinzel',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(40,10,12,.97);--tc-ink:#f6e8d8;--cap-bg:rgba(36,10,12,.95);--panel:#2a1012;--face-bg:#3a2a2a;--q-ink:#e8c070;--fade:#140406;--hud-bg:rgba(36,10,12,.88)}
+  .tc-room{font-family:'Cinzel',serif;font-size:clamp(42px,5.8vw,82px);letter-spacing:.06em;color:#e0b860}
+  #lace{animation:lc 5s ease-in-out infinite alternate;transform-origin:220px 120px}
+  @keyframes lc{from{transform:skewX(0)}to{transform:skewX(1.4deg)}}
+
+  /* the lock: three accounts of one night, laid side by side on the round table */
+  .acc{position:relative;padding:10px 14px 10px;background:#4a1418;background-image:radial-gradient(circle at 50% 40%,#6a2228,#3a0e12);border:1px solid #1a0406;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .acc h5{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:normal;font-size:19px;letter-spacing:.08em;text-align:center;color:#f2dcb0}
+  .cols{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px;z-index:2}
+  .cl h6{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#f2dcb0;text-align:center}
+  .st{display:block;width:100%;margin:0 0 4px;padding:5px 9px;text-align:left;border:1px solid rgba(0,0,0,.3);cursor:pointer;position:relative}
+  .st.d{background:#fdfbf3;color:#1d2a4a;font-family:'Caveat',cursive;font-size:18.5px;line-height:1.06}
+  .st.r{background:#f4efe0;color:#1c1a1e;font-family:'Alegreya',serif;font-style:italic;font-size:15px;line-height:1.2;border-left:5px solid #2a2226}
+  .st.c{background:#eef1f6;color:#2c2440;font-family:'Gochi Hand',cursive;font-size:16.5px;line-height:1.16}
+  .st:hover{filter:brightness(1.06)}
+  .st.held{outline:3px solid #e0b860;outline-offset:1px}
+  .st.pick{outline:3px dashed #ff6a4a;outline-offset:1px}
+  .st.out{text-decoration:line-through;text-decoration-color:#c8221a;text-decoration-thickness:2px}
+  .st em{position:absolute;right:4px;bottom:2px;padding:0 5px;font-style:normal;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.12em;color:#c8221a;border:1.5px solid #c8221a;background:rgba(255,255,255,.85);transform:rotate(-3deg)}
+  .thr{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .thr path{fill:none;stroke:#ff3a2a;stroke-width:3;opacity:.9}
+  .thr circle{fill:#ff3a2a}
+  .why{display:none;gap:8px;justify-content:center;margin-top:8px}
+  .why.on{display:flex}
+  .why .btn{background:rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="damask" width="70" height="90" patternUnits="userSpaceOnUse"><rect width="70" height="90" fill="#6a1e22"/><path d="M35 10q14 18 0 34q-14 -16 0 -34zM35 46q14 18 0 34q-14 -16 0 -34z" fill="#7a2a2e"/><circle cx="0" cy="45" r="6" fill="#7a2a2e"/><circle cx="70" cy="45" r="6" fill="#7a2a2e"/></pattern>
+  <linearGradient id="sq2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8d4dc"/><stop offset="1" stop-color="#e8e2cc"/></linearGradient>
+  <linearGradient id="gilt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6a1e"/><stop offset=".4" stop-color="#e8cf80"/><stop offset=".7" stop-color="#b8922e"/><stop offset="1" stop-color="#e8cf80"/></linearGradient>
+  <radialGradient id="vig" cx="55%" cy="55%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#0a0204" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#damask)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#f2e6d0"/><rect x="-1000" y="20" width="3600" height="26" fill="url(#gilt)"/>
+<rect x="-1000" y="730" width="3600" height="30" fill="#3a1e14"/>
+<rect x="-1000" y="760" width="3600" height="540" fill="#4a2a1e"/><rect x="-200" y="790" width="2000" height="400" fill="#8a2a2a"/><rect x="-170" y="810" width="1940" height="360" fill="none" stroke="#d8b060" stroke-width="6"/>
+<!-- the tall window to the square, with lace and velvet -->
+<g><rect x="80" y="100" width="300" height="600" fill="#f2e6d0" stroke="#7a5a3a" stroke-width="6"/><rect x="100" y="120" width="260" height="560" fill="url(#sq2)"/>
+  <g fill="#6a8a5a"><circle cx="160" cy="470" r="60"/><circle cx="270" cy="440" r="80"/><circle cx="350" cy="480" r="50"/></g><path d="M100 520h260v160H100z" fill="#3a3a3a"/><g stroke="#1a1a1a" stroke-width="3"><path d="M100 530h260M118 520v160M146 520v160M174 520v160M202 520v160M230 520v160M258 520v160M286 520v160M314 520v160M342 520v160"/></g>
+  <path d="M228 120v560M100 400h260" stroke="#f2e6d0" stroke-width="10"/>
+  <path id="lace" d="M100 120h260v560q-30 -20 -60 0q-30 20 -70 0q-30 -20 -70 0q-30 20 -60 0z" fill="#fbf8f0" opacity=".55"/>
+  <path d="M40 80q60 300 30 650h-60V80z" fill="#5a0e12" stroke="#2a0406" stroke-width="3"/><path d="M420 80q-60 300 -30 650h60V80z" fill="#5a0e12" stroke="#2a0406" stroke-width="3"/><rect x="20" y="66" width="420" height="20" fill="url(#gilt)"/></g>
+<!-- Father's telescope by the window -->
+<g id="scope" class="hot"><g stroke="#6a4a1a" stroke-width="6" stroke-linecap="round"><path d="M410 520L360 760M410 520L470 760M410 520L420 770"/></g><g fill="#1a1a1e"><circle cx="360" cy="762" r="7"/><circle cx="470" cy="762" r="7"/><circle cx="420" cy="772" r="7"/></g>
+  <g transform="rotate(-28 410 510)"><rect x="330" y="496" width="190" height="28" rx="6" fill="url(#gilt)" stroke="#5a4010" stroke-width="2"/><rect x="300" y="502" width="40" height="16" rx="3" fill="#b8922e" stroke="#5a4010" stroke-width="2"/><ellipse cx="520" cy="510" rx="8" ry="16" fill="#9ab4c4" stroke="#5a4010" stroke-width="2"/></g><rect x="340" y="420" width="150" height="360" fill="transparent"/></g>
+<!-- the aspidistra -->
+<g id="asp" class="hot"><path d="M540 760v-120M520 760l20 -100l20 100" stroke="#3a1e14" stroke-width="6"/><rect x="510" y="600" width="60" height="50" fill="url(#gilt)" stroke="#5a4010" stroke-width="2"/>
+  <g fill="#2a5a2a" stroke="#123a12" stroke-width="2"><path d="M540 600q-60 -60 -50 -140q30 60 50 140z"/><path d="M540 600q50 -80 30 -170q-20 80 -30 170z"/><path d="M540 600q-20 -100 10 -180q10 100 -10 180z"/><path d="M540 600q80 -30 110 -100q-60 40 -110 100z"/></g></g>
+<!-- the bookcase, with The Moonstone, and Father's bureau below it -->
+<g><rect x="620" y="140" width="230" height="600" fill="#3a1e10" stroke="#1a0a04" stroke-width="4"/><rect x="634" y="156" width="202" height="250" fill="#2a140a"/><g stroke="#1a0a04" stroke-width="4"><path d="M634 236h202M634 316h202"/></g>
+  <g stroke="#000" stroke-width="1"><rect x="640" y="176" width="16" height="58" fill="#2a3a5a"/><rect x="658" y="182" width="14" height="52" fill="#5a3a1a"/><rect x="674" y="172" width="18" height="62" fill="#1a4a2a"/><rect x="694" y="180" width="14" height="54" fill="#6a1a1a"/><rect x="710" y="176" width="20" height="58" fill="#3a3a3a"/><rect x="732" y="184" width="14" height="50" fill="#4a2a5a"/><rect x="748" y="176" width="18" height="58" fill="#2a3a5a"/><rect x="768" y="180" width="16" height="54" fill="#5a4a1a"/><rect x="786" y="174" width="18" height="60" fill="#1a2a1a"/><rect x="806" y="182" width="16" height="52" fill="#6a3a2a"/>
+    <rect x="640" y="256" width="20" height="58" fill="#1a3a4a"/><rect x="662" y="262" width="16" height="52" fill="#5a1a1a"/><rect x="680" y="254" width="18" height="60" fill="#3a4a2a"/><rect x="740" y="258" width="18" height="56" fill="#2a2a4a"/><rect x="760" y="262" width="14" height="52" fill="#6a5a2a"/><rect x="776" y="256" width="20" height="58" fill="#3a1a2a"/><rect x="798" y="262" width="16" height="52" fill="#2a4a3a"/><rect x="816" y="258" width="14" height="56" fill="#4a3a1a"/>
+    <rect x="640" y="336" width="18" height="58" fill="#4a2a1a"/><rect x="660" y="342" width="16" height="52" fill="#1a2a4a"/><rect x="678" y="334" width="20" height="60" fill="#5a4a3a"/><rect x="700" y="340" width="16" height="54" fill="#2a1a1a"/><rect x="718" y="336" width="18" height="58" fill="#3a5a4a"/><rect x="738" y="342" width="16" height="52" fill="#5a2a3a"/><rect x="756" y="336" width="20" height="58" fill="#2a2a2a"/><rect x="778" y="340" width="16" height="54" fill="#4a4a6a"/><rect x="796" y="336" width="18" height="58" fill="#6a2a1a"/><rect x="816" y="342" width="14" height="52" fill="#1a3a2a"/></g>
+  <path d="M634 156h202v250H634z" fill="#9ab4c4" opacity=".12"/><path d="M735 156v250" stroke="#1a0a04" stroke-width="3"/>
+  <path d="M620 430h230l20 40H600z" fill="#4a2814" stroke="#1a0a04" stroke-width="3"/><rect x="620" y="470" width="230" height="270" fill="#3a1e10" stroke="#1a0a04" stroke-width="3"/><g stroke="#1a0a04" stroke-width="3"><path d="M620 560h230M620 650h230"/></g><g fill="url(#gilt)"><circle cx="700" cy="515" r="5"/><circle cx="770" cy="515" r="5"/><circle cx="700" cy="605" r="5"/><circle cx="770" cy="605" r="5"/></g></g>
+<g id="moon" class="hot"><rect x="702" y="248" width="24" height="68" fill="#a8222a" stroke="#4a0a0e" stroke-width="2" transform="rotate(-10 714 300)"/><path d="M706 268h16M706 294h16" stroke="#e8c070" stroke-width="2" transform="rotate(-10 714 300)"/><rect x="712" y="236" width="8" height="18" fill="#f2f0e6" transform="rotate(-10 714 300)"/></g>
+<g id="scrap" class="hot"><path d="M634 436h96l10 26h-96z" fill="#b8a88a" stroke="#5a4a2a" stroke-width="2"/><path d="M740 436h90l-6 26h-94z" fill="#c8b89a" stroke="#5a4a2a" stroke-width="2"/><rect x="650" y="440" width="34" height="14" fill="#efeadc" transform="skewX(-20)"/><rect x="760" y="440" width="40" height="16" fill="#efeadc" transform="skewX(10)"/><path d="M770 452h30" stroke="#3a3a3a" stroke-width="1.5"/></g>
+<!-- the round table with the three papers -->
+<g id="table" class="hot"><ellipse cx="900" cy="660" rx="210" ry="44" fill="#5a1418" stroke="#2a0406" stroke-width="3"/><path d="M690 660q0 70 30 80h360q30 -10 30 -80" fill="#4a1014" stroke="#2a0406" stroke-width="3"/><g stroke="#d8b060" stroke-width="3"><path d="M700 690v20M730 700v22M760 706v22M790 710v22M820 712v22M850 714v22M880 714v22M910 714v22M940 714v22M970 712v22M1000 710v22M1030 706v22M1060 700v22M1090 690v20"/></g>
+  <path d="M800 740h200l-30 30h-140z" fill="#3a1e10"/>
+  <g transform="rotate(-8 800 650)"><rect x="770" y="634" width="60" height="40" fill="#fdfbf3" stroke="#9a9488" stroke-width="2"/><path d="M776 642h46M776 650h40M776 658h46" stroke="#3a4a7a" stroke-width="1.4"/></g>
+  <rect x="868" y="630" width="64" height="30" fill="#1c1a1e" stroke="#000" stroke-width="2"/><path d="M878 640h30" stroke="#f2ead8" stroke-width="3"/>
+  <g transform="rotate(7 1000 650)"><rect x="968" y="634" width="62" height="40" fill="#dfe6f0" stroke="#6a7a9a" stroke-width="2"/><path d="M974 642h48M974 650h40M974 658h46" stroke="#3a3a6a" stroke-width="1.4"/></g></g>
+<!-- the fireplace, the gilt mirror, the clock, and the speaking tube -->
+<g><rect x="1000" y="120" width="240" height="250" fill="url(#gilt)" stroke="#5a4010" stroke-width="3"/><rect x="1016" y="136" width="208" height="218" fill="#8aa0aa" opacity=".55"/><path d="M1030 340l60 -180M1080 340l40 -120" stroke="#fff" stroke-width="5" opacity=".3"/>
+  <rect x="980" y="380" width="280" height="24" fill="#e8e0d0" stroke="#7a6a5a" stroke-width="3"/><path d="M1000 404h240v330h-240z" fill="#f2ece0" stroke="#7a6a5a" stroke-width="3"/><path d="M1050 480h140v254h-140z" fill="#1c1410"/><path d="M1060 720l20 -30h80l20 30z" fill="#3a2a1a"/></g>
+<g id="dclock" class="hot"><path d="M1086 380v-56q0 -22 34 -22q34 0 34 22v56z" fill="url(#gilt)" stroke="#5a4010" stroke-width="2"/><circle cx="1120" cy="336" r="20" fill="#fbf7ea" stroke="#5a4010" stroke-width="2"/><path d="M1120 336L1119 325M1120 336L1106 328" stroke="#1c1c20" stroke-width="2.4" stroke-linecap="round"/></g>
+<g id="tube" class="hot"><path d="M1290 -400V420" stroke="#a8843a" stroke-width="14"/><path d="M1290 -400V420" stroke="#d8b45a" stroke-width="5"/><path d="M1272 420h36l-6 34h-24z" fill="#c8a040" stroke="#5a4010" stroke-width="3"/><path d="M1284 454h12v12h-12z" fill="#a8843a" stroke="#5a4010" stroke-width="2"/><rect x="1266" y="360" width="50" height="110" fill="transparent"/></g>
+<!-- the piano, with a photograph on it -->
+<g id="piano" class="hot"><rect x="1330" y="430" width="300" height="300" fill="#1a0e0a" stroke="#000" stroke-width="3"/><rect x="1330" y="560" width="300" height="30" fill="#2a1a12"/><rect x="1340" y="566" width="280" height="18" fill="#f6f2ea"/><g stroke="#1a0e0a" stroke-width="2"><path d="M1360 566v18M1380 566v18M1400 566v18M1420 566v18M1440 566v18M1460 566v18M1480 566v18M1500 566v18M1520 566v18M1540 566v18M1560 566v18M1580 566v18M1600 566v18"/></g><path d="M1350 730v30M1610 730v30" stroke="#1a0e0a" stroke-width="12"/></g>
+<g id="photo" class="hot"><rect x="1420" y="370" width="64" height="60" fill="url(#gilt)" stroke="#5a4010" stroke-width="2"/><rect x="1428" y="378" width="48" height="44" fill="#c8b89a"/><circle cx="1452" cy="394" r="8" fill="#6a5a4a"/><path d="M1440 422q12 -24 24 0z" fill="#3a3a5a"/><rect x="1460" y="410" width="14" height="8" fill="#3a2a1a"/></g>
+<g id="fel" transform="translate(1180 870)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the hall</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="nanny.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#fel').innerHTML = NY.as('felicity', { h: 330, armR: 'out' });
+
+  ER.init({
+    theme: 'lit', story: 'nanny', storyTitle: 'Everything Is Somewhere', id: 'drawing', no: 'IV', title: 'The Drawing Room',
+    go: 'Open the forbidden door',
+    intro: [
+      'In the kitchen you did four sayings word for word, for a boy who believes them: you put the storm in a teacup, stopped the ears of the wall with a tea cosy, let the cat out of the bag (he had been asleep on the tablecloths), and turned over a new leaf on the calendar. And Digby told everything: at three minutes to seven he stopped the hall clock, so that bedtime would never come. He left its door open. The glass was whole.',
+      'Father&rsquo;s drawing room is on the first floor, and children are not allowed in it. Felicity opens the door anyway. &ldquo;If we are going to be in trouble,&rdquo; she says, &ldquo;we may as well be in trouble properly.&rdquo;'
+    ],
+    exit: {"next":"hall","w":{"8272010a":"317981d4","e18c9719":"4d75b927","609e5b5a":"4855494d","6e158e61":"19126170"}}, tags: {"clash":["b5e9f8e1","12019c1d","bc582073","78a45d0a","15ff9afc"],"clock":["3a12268d"],"fancy":["41e9055a"],"guess":["e30c47ab"],"agree":["05e8ff6d","1d3bcfbd","03246613","db851704","6ed740f8","6344b1e7","54b88219","03fad1c6","d325d81f"],"wrong":["e400fbf7","e968abbb","e50027ca"],"b":["2b2c17a2","0c1d0a9b"],"m":["9426085c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = NY.told('d-told'); nextFile = ER.flag('d-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('moon') && told.has('scrap') && told.has('scope'); }
+  function paint() {
+    $('#moon').classList.toggle('ready', !told.has('moon'));
+    $('#scrap').classList.toggle('ready', told.has('moon') && !told.has('scrap'));
+    $('#scope').classList.toggle('ready', told.has('scrap') && !told.has('scope'));
+    $('#table').classList.toggle('ready', ready() && !nextFile);
+    var n = ['moon', 'scrap', 'scope', 'tube', 'dclock'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The three clashes are found. The button at the bottom of the screen goes down to the hall, where the second post has just come.']];
+    if (lock && document.body.contains(lock)) return ['clash', [
+      'Look for two sentences, on two different papers, that cannot both have happened. Begin with the crash: where was Miss Inkster when it came, by each account?',
+      'There are three clashes: where Miss Inkster was when the glass broke; what the crash was; and whether the front door was somebody going out or somebody coming in. Mrs Spink&rsquo;s &ldquo;five to eleven&rdquo; against &ldquo;10.50&rdquo; is not one of them: remember her clock.',
+      'Tie Felicity&rsquo;s &ldquo;beside me, holding my hand&rdquo; to Mrs Spink&rsquo;s &ldquo;She broke it&rdquo;; Felicity&rsquo;s &ldquo;the comet&rsquo;s tail&rdquo; to the register&rsquo;s &ldquo;one pane of glass&rdquo;; Mrs Spink&rsquo;s &ldquo;her follower, going out&rdquo; to the register&rsquo;s &ldquo;opened from outside, with a key&rdquo;. In each, click the sentence that is wrong, then say why: Felicity misunderstood, Mrs Spink saw what she wanted to see.'
+    ]];
+    if (!ready()) return ['look', [
+      'Two things here must be read: the card inside the red book in the bookcase, and what lies open on Father&rsquo;s bureau, just below the books.',
+      'Look at the telescope by the window as well. Then click the three papers on the round table.'
+    ]];
+    return ['clash', ['Everything is read. Click the papers on the round table in the middle of the room.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Three red threads still lie across the papers on the round table.'); return; }
+    if (told.has('in')) { busy = false; ER.say('Father&rsquo;s drawing room, where children are not allowed.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The drawing room is dark red and very tidy: an aspidistra in a brass pot, a piano that nobody plays, a gilt mirror over the fireplace, a bookcase with a bureau below it, and a round table with a fringed cloth.',
+      'By the tall window stands a brass telescope on three legs. Beside the fireplace, on the wall, is the top end of the speaking tube, with a whistle in its mouth.',
+      'Felicity spreads three papers on the round table: her diary, the register, and Mrs Spink&rsquo;s letters. &ldquo;Three people told one night,&rdquo; she says. &ldquo;Somewhere they cannot all be true. There is a book about exactly this in Father&rsquo;s bookcase. The red one. I am not allowed to read it, so I have only read the first chapter.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var MOON = '<h4>The Moonstone, by Wilkie Collins (1868)</h4>' +
+    '<p>A great diamond vanishes from a country house in one night. Collins does not tell the story himself. He lets several people tell it, one after another, and each of them may write only what <b>he or she saw</b>. One of them, Miss Clack, is so sure of her own goodness that the reader learns to believe nearly the opposite of what she says.</p>' +
+    '<p><b>How to read several narrators:</b></p><p>&middot; Where they <b>agree</b>, it is probably true.</p><p>&middot; Where two of them <b>cannot both be true</b>, at most one is right.</p>' +
+    '<p>&middot; Trust a narrator on what she saw and heard. Do not trust her on what she thinks it meant.</p>' +
+    '<p>&middot; A difference in words is not always a clash. &ldquo;A giant&rdquo; and &ldquo;a man&rdquo; may be the same feet on the stairs.</p><p>F. H. (I only read the first chapter.)</p>';
+  var SCRAP = '<h4>Comet, 1910. G. H.</h4>' +
+    '<span class="cut"><i>12.iv.10</i>HALLEY&rsquo;S COMET. The famous comet, last seen in 1835, is now on its way back towards the Sun.</span>' +
+    '<span class="cut"><i>3.v.10</i>THE COMET may now be seen before dawn, low in the east, by those who are willing to rise early.</span>' +
+    '<span class="cut"><i>17.v.10</i>THE EARTH AND THE TAIL. On the night of Wednesday the 18th the Earth will pass through the tail of the comet. Nothing remarkable is expected to be seen.</span>' +
+    '<p class="pencil">Thu. 19th. 2.15 a.m. Nothing whatever to be seen. G. H.</p>';
+
+  $('#moon').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MOON, cls: 'bm', clue: { id: 'moon', title: 'The Moonstone: several narrators', kind: 'In Father&rsquo;s bookcase' }, done: function () {
+      NY.terms(['account', 'clash', 'witness']);
+      if (told.set('moon')) { paint(); ER.say('&ldquo;Miss Clack,&rdquo; says Felicity darkly. &ldquo;We have one of those downstairs.&rdquo;'); }
+    } });
+  });
+  $('#scrap').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SCRAP, cls: 'scrap', clue: { id: 'scrap', title: 'Father&rsquo;s comet scrapbook', kind: 'On the bureau' }, done: function () {
+      if (told.set('scrap')) { paint(); ER.say('&ldquo;FATHER?&rdquo; says Felicity. &ldquo;Father, who said the comet could manage without us? He has been cutting it out of the paper since April.&rdquo;'); }
+    } });
+  });
+  $('#scope').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'telescope');
+    NY.seed('scope', 'Father&rsquo;s telescope', '<p>A brass telescope on three legs, by the drawing-room window. Its brass feet are black with soot, as if they had stood among chimney pots, and there is a dried ring of dew on the big lens. Father says it is for checking the church clock across the square, through the window.</p>');
+    if (told.set('scope')) paint();
+    ER.say('Father&rsquo;s brass telescope. Its three brass feet are black with soot, as if they had stood among chimney pots, and there is a dried ring of dew on the big lens. &ldquo;He says it is for checking the church clock,&rdquo; says Felicity. &ldquo;Through the window. Indoors.&rdquo;');
+  });
+  $('#tube').addEventListener('click', function () {
+    if (busy) return;
+    if (told.set('tube')) paint();
+    NY.terms(['speaking tube']);
+    ER.say('The top end of the speaking tube. Put your ear to it and you can hear, very faintly and through something woolly, the kitchen: a spoon, a kettle, Mrs Spink humming. &ldquo;So that is how Cook hears everything,&rdquo; says Felicity. &ldquo;The walls really have got ears.&rdquo;');
+  });
+  $('#dclock').addEventListener('click', function () {
+    if (busy) return;
+    if (told.set('dclock')) paint();
+    ER.say('Father&rsquo;s gilt clock on the mantelpiece: ten to twelve, exactly, by the church across the square. Father sets it every Sunday, from his watch.');
+  });
+  NY.thing('#photo', null, 'A photograph of a small, solemn boy in a sailor suit, holding a toy railway engine as if it were the crown jewels. On the back, in green ink: G. H., aged seven.', isBusy);
+  NY.thing('#asp', 'aspidistra', 'An aspidistra: the plant that will grow anywhere, even in a drawing room where nobody laughs.', isBusy);
+  NY.thing('#piano', null, '&ldquo;Mother played it,&rdquo; says Felicity, and does not say anything else.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Three threads, three crossed-out sentences.'); return; }
+    if (!ready()) { ER.say('&ldquo;Not yet,&rdquo; says Felicity. &ldquo;Look round first. The red book in the bookcase. Father&rsquo;s bureau. And the telescope.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: three accounts side by side; three clashes; who is wrong, and why ---------- */
+  var ST = {
+    d: ['Felicity&rsquo;s diary', [
+      ['d1', 'At five to seven Digby crept out, and came back saying it could never be seven o&rsquo;clock now.'],
+      ['d2', 'At twenty-five past ten Miss I. woke us, and we went up the ladder to the roof.'],
+      ['d3', 'When the great crash came, she was beside me, holding my hand.'],
+      ['d4', 'The crash was the comet&rsquo;s tail hitting the house, I am sure.'],
+      ['d5', 'She went down, and came back in four minutes exactly.'],
+      ['d6', 'Long after, a giant came up through our room to the roof.']]],
+    r: ['Miss Inkster&rsquo;s register', [
+      ['r1', '6.57 pm. The time of this house: stopped. Stopped by: &mdash;'],
+      ['r2', '8.10 pm. The roof key, borrowed from Mrs Spink.'],
+      ['r3', '10.50 pm. The front door, opened from outside, with a key.'],
+      ['r4', '10.50 pm. One temper, lost in the hall. Damage: one pane of glass.'],
+      ['r5', '10.51 pm. The nanny went down, saw, and came back up.'],
+      ['r6', '2.10 am. The hatch opened from below. Heavy feet.']]],
+    c: ['Mrs Spink&rsquo;s letter', [
+      ['c1', 'Ten past eight she comes down for the roof key, bold as brass.'],
+      ['c2', 'At five to eleven by my clock I heard the front door go.'],
+      ['c3', 'That was her follower, going out.'],
+      ['c4', 'Up I went, and there she was on the stairs with her candle, and glass all over the hall.'],
+      ['c5', 'She broke it, Lizzie, as sure as I am sitting here.'],
+      ['c6', 'At two in the morning, a man&rsquo;s tread on the stairs, going up.']]]
+  };
+  var KIND = { m: 'MISUNDERSTOOD', b: 'BIASED', l: 'LEFT OUT' };
+  function openLock() {
+    var lines = ER.flag('d-lines') || [], held = null, pend = null, done = false;
+    lock = ER.el('div', 'acc');
+    var h = '<h5>Three accounts of one night &middot; tie together two sentences that cannot both be true</h5><div class="cols">';
+    ['d', 'r', 'c'].forEach(function (k) {
+      h += '<div class="cl"><h6>' + ST[k][0] + '</h6>';
+      ST[k][1].forEach(function (s) { h += '<button type="button" class="st ' + k + '" data-s="' + s[0] + '">' + s[1] + '</button>'; });
+      h += '</div>';
+    });
+    h += '</div><svg class="thr"></svg><div class="why" id="why"><button type="button" class="btn" data-k="m">She misunderstood what she heard</button><button type="button" class="btn" data-k="b">She saw what she wanted to see</button><button type="button" class="btn" data-k="l">She left something out</button></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="clr">Take the threads off</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), thr = lock.querySelector('.thr'), why = lock.querySelector('#why');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function node(id) { return lock.querySelector('.st[data-s="' + id + '"]'); }
+    function key(a, b) { return [a, b].sort().join('-'); }
+    function keep() { ER.flag('d-lines', lines); }
+    function draw() {
+      ER.$$('.st', lock).forEach(function (n) { var id = n.getAttribute('data-s'); n.classList.toggle('held', held === id); n.classList.toggle('pick', !!(pend && !pend.w && (pend.a === id || pend.b === id))); n.classList.remove('out'); var e = n.querySelector('em'); if (e) n.removeChild(e); });
+      var R = lock.getBoundingClientRect(), s = '', all = lines.slice(); if (pend) all.push(pend);
+      all.forEach(function (L) {
+        var a = node(L.a), b = node(L.b); if (!a || !b) return;
+        var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(), left = ra.left < rb.left ? [ra, rb] : [rb, ra];
+        var x1 = left[0].right - R.left, y1 = left[0].top + left[0].height / 2 - R.top, x2 = left[1].left - R.left, y2 = left[1].top + left[1].height / 2 - R.top, mx = (x1 + x2) / 2;
+        s += '<path d="M' + x1 + ' ' + y1 + 'C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 + '"' + (L.k ? '' : ' stroke-dasharray="7 5"') + '/><circle cx="' + x1 + '" cy="' + y1 + '" r="4"/><circle cx="' + x2 + '" cy="' + y2 + '" r="4"/>';
+        if (L.k) { var w = node(L.w); w.classList.add('out'); w.appendChild(ER.el('em', '', KIND[L.k])); }
+      });
+      thr.innerHTML = s;
+      why.classList.toggle('on', !!(pend && pend.w));
+    }
+    function finish(pre) {
+      if (lines.length < 3) { msg(pre + (lines.length === 1 ? 'One clash found. Two more.' : 'Two clashes found. One more.')); return; }
+      var cand = lines.map(function (L) { return key(L.a, L.b) + ':' + L.w + L.k; }).sort().join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Felicity frowns: the threads look right, but something is wrong with this page. Tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('d-file', file);
+      msg('Three threads, three sentences crossed out. Felicity sits back on her heels and lets out a long breath.');
+      setTimeout(function () { ER.closeAll(); window.removeEventListener('resize', draw); solved(); }, 2600);
+    }
+    function propose(a, b) {
+      var k = key(a, b);
+      if (a.charAt(0) === b.charAt(0)) { ER.sfx.no(); msg('Those are both on the same paper. Set one narrator against another.'); return; }
+      if (ER.check('clash', k)) {
+        for (var i = 0; i < lines.length; i++) if (key(lines[i].a, lines[i].b) === k || lines[i].a === a || lines[i].b === a || lines[i].a === b || lines[i].b === b) { ER.sfx.no(); msg('You have tied that clash already, from another sentence. Look for a different one.'); return; }
+        pend = { a: a, b: b }; NY.sfx.thread(); draw();
+        msg('A clash: these two cannot both be true. <b>Which of them is wrong?</b> Click it.');
+        return;
+      }
+      ER.sfx.no();
+      if (ER.check('clock', k)) msg('Five to eleven and ten to eleven: is that really a clash? Remember Mrs Spink&rsquo;s kitchen clock.');
+      else if (ER.check('fancy', k)) msg('A giant, and a man&rsquo;s tread: the same heavy feet going up at about two. They agree about what was heard. They only guess differently about who, and neither of them saw.');
+      else if (ER.check('guess', k)) msg('Those two cannot both be right, true. But neither is a thing its narrator saw: both are guesses about the same crash. Set each guess against something that was really seen or heard.');
+      else if (ER.check('agree', k)) msg('These two agree. When two narrators agree, a thing becomes more likely, not less.');
+      else msg('These two can both be true at once. A clash is two things that cannot both have happened.');
+    }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var st = e.target.closest('.st'), kb = e.target.closest('#why .btn');
+      if (pend && pend.w && kb) {
+        var kk = kb.getAttribute('data-k');
+        if (ER.check(kk, pend.w)) {
+          pend.k = kk; lines.push(pend); pend = null; keep(); NY.sfx.stamp(); draw();
+          finish('Felicity crosses the sentence out and writes <b>' + KIND[kk] + '</b> beside it. '); return;
+        }
+        ER.sfx.no();
+        if (kk === 'l') msg('A thing left out cannot clash with anything: it is a gap, not a mistake. Is this narrator young and puzzled by what she heard, or does she want it to be so?');
+        else if (pend.w.charAt(0) === 'd') msg('Does Felicity dislike anybody in this house? She heard a real crash, in the dark, and did not know what it was.');
+        else msg('Mrs Spink knows perfectly well what breaking glass sounds like, and what a front door is. But she has made up her mind about Miss Inkster. Which kind of narrator does that make her?');
+        return;
+      }
+      if (!st) return;
+      var id = st.getAttribute('data-s');
+      if (pend && !pend.w) {
+        if (id !== pend.a && id !== pend.b) { msg('Click one of the two sentences on this thread: the one that cannot be true.'); return; }
+        if (!ER.check('wrong', id)) { ER.sfx.no(); msg('That one is a thing its narrator saw or heard for herself. Which of the two is a guess about what it meant?'); return; }
+        pend.w = id; NY.sfx.pencil(); draw(); msg('<b>Why is it wrong?</b> Choose below.'); return;
+      }
+      if (pend && pend.w) { msg('First say why that sentence is wrong: choose one of the three below.'); return; }
+      if (!held) { held = id; NY.sfx.pencil(); draw(); msg('Now click a sentence on another paper that cannot be true if this one is.'); return; }
+      if (held === id) { held = null; draw(); msg('Click a sentence, then one on another paper that cannot both be true with it.'); return; }
+      var a = held; held = null; draw(); propose(a, id);
+    });
+    foot.querySelector('#clr').addEventListener('click', function () { if (done) return; lines = []; pend = null; held = null; keep(); draw(); msg('All the threads are off. Click a sentence, then one on another paper that cannot both be true with it.'); });
+    window.addEventListener('resize', draw);
+    msg('Click a sentence, then one on another paper that cannot both be true with it. Three such clashes are hidden here.');
+    ER.open('ov-lock', wrap);
+    setTimeout(draw, 60); setTimeout(draw, 400);
+  }
+
+  function solved() {
+    NY.mine('clashes', 'Three accounts, three clashes', '<p>1. Mrs Spink: &ldquo;She broke it.&rdquo; Felicity: when the crash came, Miss Inkster was beside her on the roof, holding her hand; the register: she went down after. Mrs Spink is biased: she came up afterwards, saw the candle, and decided.</p>' +
+      '<p>2. Felicity: the crash was the comet&rsquo;s tail. The register: one pane of glass, in the hall. Felicity misunderstood what she heard.</p>' +
+      '<p>3. Mrs Spink: the front door was her follower going out. The register: opened from outside, with a key. Biased again. Her &ldquo;five to eleven&rdquo; is ten to eleven: her clock is five minutes fast.</p>' +
+      '<p>So: at 10.50 somebody came in at the front door, with a key, and lost a temper in the hall, and the glass broke. Not Miss Inkster.</p>');
+    NY.terms(['account', 'clash', 'witness']);
+    paint(); busy = true;
+    ER.narrate([
+      'Felicity looks at the three red threads and the three crossed-out sentences for a long time.',
+      '&ldquo;So,&rdquo; she says. &ldquo;At ten to eleven Miss Inkster was on the roof, holding my hand. Somebody came IN at the front door, from outside, with a key. That somebody lost a temper in the hall, and the glass broke. Cook never saw it happen. She came up afterwards, found Miss Inkster with the candle, and decided.&rdquo;',
+      '&ldquo;And I decided it was a comet.&rdquo; She goes pink. &ldquo;Wrong, biased, and leaving out. We have one of each.&rdquo;',
+      'Downstairs the knocker goes twice: the second post. &ldquo;The register still leaves out the names,&rdquo; says Felicity. &ldquo;Three times. And Miss Inkster gave me three tickets. Come on.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+/* Everything Is Somewhere - what every room shares: the papers of No. 9 Ilbert Square (Felicity's diary and exercise
+   book, Miss Inkster's register and sayings card, Mrs Spink's letter, Father's memorandum and House Time-Table, the
+   magazine's letter, the scrapbook), the frame round every puzzle, the notebook and the hints.
+   Each room sets its own palette and lettering on <body>. */
+
+.tc-theme{font-family:'Outfit',sans-serif;font-size:15px;letter-spacing:.34em;text-transform:uppercase}
+.tc-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.45vw,21px);line-height:1.52}
+.tc-text p{margin:0 0 11px}
+.cap{font-family:'Alegreya',Georgia,serif;font-size:clamp(19px,1.5vw,22px);line-height:1.45}
+.chip,.hbtn,.btn{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.14em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 11px;border:2px solid var(--accent);
+  color:var(--accent);background:var(--hud-bg,rgba(20,14,10,.9));font-family:'Outfit',sans-serif;font-size:19px;letter-spacing:.1em;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent);color:#1a120c}
+.tk-name{font-family:var(--font-display);font-size:28px}
+.tk-role{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.16em}
+.tk-text{font-family:'Alegreya',Georgia,serif;font-size:clamp(18px,1.4vw,21px);line-height:1.5}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.12)}
+.ready{animation:nyglow 1.5s steps(1,end) infinite}
+@keyframes nyglow{50%{filter:brightness(1.35) drop-shadow(0 0 6px rgba(255,236,190,.9))}}
+
+/* ---- Felicity's diary: lined paper, a red margin, her quick round hand ---- */
+.doc.diary{width:min(680px,94vw);background:#fdfbf3 repeating-linear-gradient(transparent 0 31px,rgba(70,110,170,.28) 31px 32px);background-position:0 14px;
+  color:#1d2a4a;font-family:'Caveat',cursive;font-size:24px;line-height:32px;padding:18px 34px 22px 76px;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  border-left:2px solid rgba(200,60,60,.5);background-clip:padding-box}
+.doc.diary h4{margin:0 0 0;font-family:'Caveat',cursive;font-weight:700;font-size:30px;line-height:32px;color:#16224a;text-decoration:underline}
+.doc.diary p{margin:0}
+.doc.diary .when{font-size:20px;color:#5a6a8a}
+.doc.diary b{color:#8a1e14}
+.doc.diary ol{margin:0;padding-left:26px}
+.doc.diary li{margin:0}
+
+/* ---- Felicity's exercise book: a school composition book, notes from the blackboard ---- */
+.doc.exb{width:min(660px,94vw);background:#fbfbf6 repeating-linear-gradient(transparent 0 29px,rgba(90,90,90,.22) 29px 30px);color:#1d2a4a;
+  font-family:'Caveat',cursive;font-size:23px;line-height:30px;padding:0 34px 20px 40px;box-shadow:0 26px 70px rgba(0,0,0,.6);border-top:46px solid #2f5a4a}
+.doc.exb .cover{display:block;margin:-40px 0 14px -6px;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.24em;color:#e8f0e8;text-transform:uppercase;line-height:34px}
+.doc.exb h4{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:29px;line-height:30px;text-decoration:underline}
+.doc.exb p{margin:0}
+.doc.exb b{color:#8a1e14}
+.doc.exb .board{display:inline-block;padding:0 6px;border:2px solid #1d2a4a}
+
+/* ---- Miss Inkster's register: a narrow black book ruled in columns ---- */
+.doc.reg{width:min(760px,95vw);background:#f4efe0;color:#1c1a1e;font-family:'Alegreya',Georgia,serif;font-size:17px;line-height:1.38;padding:16px 26px 18px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);border-left:14px solid #2a2226;border-right:4px solid #2a2226}
+.doc.reg .rg-head{display:flex;justify-content:space-between;font-family:'Goudy Bookletter 1911',serif;font-size:13px;letter-spacing:.3em;color:#8a2a1e;margin-bottom:2px}
+.doc.reg h4{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:22px;letter-spacing:.06em}
+.doc.reg table{width:100%;border-collapse:collapse}
+.doc.reg th{font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#8a2a1e;text-align:left;border-bottom:2px solid #8a2a1e;padding:2px 6px}
+.doc.reg td{vertical-align:top;padding:4px 6px;border-bottom:1px solid rgba(138,42,30,.3);font-style:italic}
+.doc.reg td:first-child,.doc.reg td:nth-child(2){white-space:nowrap;font-style:normal;font-size:15px;color:#4a4044;border-right:1px solid rgba(138,42,30,.45)}
+.doc.reg .blank{display:inline-block;width:80px;border-bottom:1px solid #1c1a1e}
+
+/* ---- Miss Inkster's card of sayings ---- */
+.doc.card{width:min(600px,92vw);background:#efe2c4 linear-gradient(170deg,#f4ead2,#e6d4ae);color:#2a2018;font-family:'Alegreya',Georgia,serif;font-style:italic;font-size:18.5px;line-height:1.42;
+  padding:20px 32px 18px;border:1px solid #a8926a;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-.6deg)}
+.doc.card h4{margin:0 0 2px;font-family:'Goudy Bookletter 1911',serif;font-style:normal;font-weight:normal;font-size:24px;letter-spacing:.08em}
+.doc.card h5{margin:0 0 10px;font-family:'Alegreya',serif;font-weight:400;font-size:15px;color:#8a2a1e}
+.doc.card p{margin:0 0 5px}
+.doc.card b{font-style:normal;font-weight:700}
+
+/* ---- Mrs Spink's letter: blue notepaper and a big round hand ---- */
+.doc.letter{width:min(640px,94vw);background:#eef1f6;color:#2c2440;font-family:'Gochi Hand',cursive;font-size:21px;line-height:1.38;padding:22px 36px 22px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(.5deg);border-top:1px solid #c8d0e0}
+.doc.letter h4{margin:0 0 6px;font-family:'Gochi Hand',cursive;font-weight:normal;font-size:19px;color:#6a6280;text-align:right}
+.doc.letter p{margin:0 0 6px}
+
+/* ---- Father's papers: the memorandum (typed) and the House Time-Table (printed, then amended in ink) ---- */
+.doc.memo{width:min(640px,94vw);background:#fff;color:#1c1c20;font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:1.48;padding:22px 38px 22px;
+  border-top:8px solid #22222a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.memo h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:500;font-size:26px;letter-spacing:.3em}
+.doc.memo .sub{margin:0 0 12px;font-size:14.5px;color:#5a5a64}
+.doc.memo p{margin:0 0 8px}
+.doc.memo .sig{font-family:'Homemade Apple',cursive;font-size:20px;color:#1a2a5a;margin-top:8px}
+.doc.tt{width:min(680px,94vw);background:#fbf7ea;color:#1c1c20;font-family:'Oswald',sans-serif;font-size:16px;line-height:1.36;padding:18px 34px 18px;
+  border:3px double #22222a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.tt h4{margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:27px;letter-spacing:.14em;text-align:center}
+.doc.tt h5{margin:0 0 8px;font-weight:400;font-size:13px;letter-spacing:.3em;text-align:center;text-transform:uppercase;color:#5a5a64}
+.doc.tt table{width:100%;border-collapse:collapse;margin:0 0 8px}
+.doc.tt td{padding:1px 6px;border-bottom:1px dotted #8a8a90}
+.doc.tt td:first-child{width:62px;font-weight:600}
+.doc.tt p{margin:0 0 4px;font-family:'Alegreya',serif;font-size:16.5px}
+.doc.tt s{color:#7a7a80}
+.doc.tt .green{font-family:'Caveat',cursive;font-size:21px;color:#1f6a3a;line-height:1.05}
+.doc.tt .red{font-family:'Caveat',cursive;font-size:22px;color:#b8221a;font-weight:700;line-height:1.05}
+
+/* ---- the magazine's letter ---- */
+.doc.ed{width:min(660px,94vw);background:#fffdf6;color:#1e1c22;font-family:'Special Elite',monospace;font-size:16.5px;line-height:1.5;padding:18px 38px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.ed .mast{margin:0 0 2px;font-family:'Cinzel',serif;font-size:27px;letter-spacing:.12em;text-align:center;color:#7a1e3a}
+.doc.ed .tag{margin:0 0 12px;font-family:'Alegreya',serif;font-style:italic;font-size:14.5px;text-align:center;color:#5a4a50;border-bottom:1px solid #c8b8a8;padding-bottom:8px}
+.doc.ed p{margin:0 0 8px}
+.doc.ed .sig{font-family:'Homemade Apple',cursive;font-size:19px;color:#3a1a2a}
+
+/* ---- Father's comet scrapbook ---- */
+.doc.scrap{width:min(680px,94vw);background:#b8a88a;color:#1c1a18;font-family:'Alegreya',serif;font-size:16px;line-height:1.38;padding:18px 28px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.scrap h4{margin:0 0 10px;font-family:'Homemade Apple',cursive;font-weight:normal;font-size:21px;color:#1a2a4a}
+.doc.scrap .cut{display:block;margin:0 0 10px;padding:8px 12px;background:#efeadc;font-family:'Goudy Bookletter 1911',serif;font-size:15.5px;line-height:1.32;box-shadow:2px 3px 0 rgba(0,0,0,.18)}
+.doc.scrap .cut i{display:block;font-family:'Alegreya',serif;font-size:13px;color:#1f6a3a;font-style:normal}
+.doc.scrap .pencil{font-family:'Caveat',cursive;font-size:24px;color:#3a3a3a}
+
+/* ---- a bookmark card (Felicity's notes on a library card) ---- */
+.doc.bm{width:min(620px,92vw);background:#f2f0e6;color:#1d2a4a;font-family:'Caveat',cursive;font-size:23px;line-height:1.24;padding:18px 30px 18px;border-top:10px solid #7a1e14;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.bm h4{margin:0 0 6px;font-family:'Goudy Bookletter 1911',serif;font-weight:normal;font-size:21px;letter-spacing:.05em;color:#1c1a1e}
+.doc.bm p{margin:0 0 6px}
+.doc.bm b{color:#7a1e14}
+
+/* ---- a lost-property ticket ---- */
+.doc.ticket{width:min(460px,90vw);background:#e8d6a8;color:#2a2018;font-family:'Goudy Bookletter 1911',serif;font-size:18px;line-height:1.4;padding:20px 28px 18px 44px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);clip-path:polygon(22px 0,100% 0,100% 100%,22px 100%,0 50%)}
+.doc.ticket h4{margin:0 0 6px;font-size:15px;letter-spacing:.3em;font-weight:normal;color:#8a2a1e}
+.doc.ticket p{margin:0 0 5px}
+.doc.ticket .hand{font-family:'Alegreya',serif;font-style:italic}
+
+/* ---- what you worked out, and what you noticed ---- */
+.doc.mine{width:min(620px,92vw);background:#f1ece0 repeating-linear-gradient(transparent 0 29px,rgba(120,60,30,.14) 29px 30px);color:#2a1e16;font-family:'Gochi Hand',cursive;font-size:21px;line-height:30px;
+  padding:22px 30px 20px;border-left:16px solid #8a3a1e}
+.doc.mine h4{font-family:'Outfit',sans-serif;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:#8a3a1e;margin:0 0 6px;line-height:30px}
+.doc.mine p{margin:0 0 4px}
+.doc.seed{width:min(560px,92vw);background:#fbf6e6;color:#2a2018;font-family:'Alegreya',serif;font-size:18px;line-height:1.42;padding:18px 26px 16px;border-left:10px solid #5a7a3a}
+.doc.seed h4{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#4a6a2a;margin:0 0 6px}
+.doc.statement{background:#f4efe4;font-family:'Alegreya',Georgia,serif;font-size:18.5px;line-height:1.5;border-left:6px solid #8a3a1e}
+.doc.statement h4{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.22em;color:#8a3a1e;text-transform:uppercase}
+
+/* ---- the frame round a puzzle ---- */
+.pz{width:min(1180px,97vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:8px}
+.pmsg{flex:1;min-height:48px;margin:0;font-family:'Alegreya',Georgia,serif;font-size:18px;line-height:1.34;color:#f4ece0}
+.pmsg b{color:var(--accent);font-weight:600}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.35)}
+
+/* ---- the notebook: a lost-property ledger in black cloth with a red spine ---- */
+.nb{background:#1e1a1c linear-gradient(90deg,#7a1e14 0 12px,#241e20 12px);border:1px solid #5a4a3e;border-radius:3px;color:#f2ebdd;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 4px #120e10}
+.nb-tabs{border-bottom-color:#5a4a3e;padding-left:14px}
+.nb-tabs button{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.1em;color:#e2d6c0}
+.nb-tabs button.on{background:#f4efe0;color:#1e1a1c;border-color:#5a4a3e}
+.nb-list{border-right-color:#5a4a3e}
+.nb-list button{font-family:'Alegreya',serif;font-size:17px;color:#f2ebdd}
+.nb-list button small{font-family:'Outfit',sans-serif;font-size:11.5px;letter-spacing:.18em}
+.nb-list button.on{background:#f4efe0;color:#1e1a1c}
+.nb-view{background:#141012}
+.nb-view .doc{transform:none}
+.nb-words{background:#f4efe0;color:#2a2018}
+.nb-words b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.nb-words span{font-family:'Alegreya',serif;font-size:17px;line-height:1.3;color:#5a4a40}
+.nb-ko{border-color:#a89a84;color:#5a4a40}
+.nb-ko.on{background:#1e1a1c;color:#f4dfa8;border-color:#1e1a1c}
+.wtip,.wtag{background:#f4efe0;color:#2a2018;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #8a2a1e}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Goudy Bookletter 1911',serif;font-size:18px}
+.wtip span,.wtag span{font-family:'Alegreya',serif;font-size:17px;line-height:1.3;color:#5a4a40}
+.hintbox{background:#ecdcb2;color:#2a2018;border-top:6px solid #8a2a1e;border-radius:2px}
+.hintbox h6{font-family:'Goudy Bookletter 1911',serif;font-size:17px;letter-spacing:.3em;color:#8a2a1e}
+.hintbox p{font-family:'Alegreya',serif;font-size:18px;line-height:1.36}
+.hintbox p i{background:#2a2018;color:#ecdcb2;font-family:'Outfit',sans-serif;font-size:12.5px}
+.hintbox p.hint-none{font-style:italic;color:#6a5a4a;font-size:17px}
+.toast{font-family:'Outfit',sans-serif;font-size:14.5px;background:rgba(30,22,18,.95)}

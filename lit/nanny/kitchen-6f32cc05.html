@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Kitchen · Everything Is Somewhere</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="nanny.css">
+<style>
+  body{--bg:#2a2a22;--accent:#d8b45a;--font-display:'Goudy Bookletter 1911',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(34,36,28,.97);--tc-ink:#f2ecd8;--cap-bg:rgba(30,32,24,.95);--panel:#26281e;--face-bg:#e8dcc0;--q-ink:#e8c870;--fade:#12140e;--hud-bg:rgba(30,32,24,.88)}
+  .tc-room{font-family:'Goudy Bookletter 1911',serif;font-size:clamp(48px,6.4vw,92px);color:#e8c870;letter-spacing:.04em}
+  #boots{animation:walk 7s linear infinite}
+  @keyframes walk{0%{transform:translate(-260px,0)}100%{transform:translate(520px,0)}}
+  #boots2{animation:walk2 11s linear infinite;animation-delay:-4s}
+  @keyframes walk2{0%{transform:translate(480px,0)}100%{transform:translate(-300px,0)}}
+  #bag.wrig{animation:wr 2.6s steps(1,end) infinite;transform-origin:1340px 330px}
+  @keyframes wr{0%,80%{transform:rotate(0)}84%{transform:rotate(4deg)}88%{transform:rotate(-3deg)}92%{transform:rotate(2deg)}}
+  #grate{animation:gr 1.6s steps(2,end) infinite alternate}
+  @keyframes gr{from{opacity:.7}to{opacity:1}}
+  #steam path{animation:st 3s steps(6,end) infinite;opacity:.0}
+  @keyframes st{0%{opacity:0;transform:translate(0,0)}30%{opacity:.6}100%{opacity:0;transform:translate(-14px,-60px)}}
+  #cat,#cosyOn{display:none}
+  #scene.catout #cat{display:inline}
+  #scene.catout #bag{opacity:.75}
+  #scene.cosy #cosyOn{display:inline}
+  #scene.cosy #cosyPot{display:none}
+
+  /* the tray: the sayings on Miss Inkster's card, to be done word for word */
+  .say{position:fixed;left:50%;top:58px;transform:translateX(-50%);z-index:30;display:none;width:min(820px,96vw);padding:8px 12px 10px;background:#efe2c4;background-image:linear-gradient(170deg,#f4ead2,#e2cfa6);
+    border:1px solid #8a6a3a;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#2a2018}
+  .say.on{display:block}
+  .say p{margin:0 0 6px;font-family:'Alegreya',serif;font-size:16px;line-height:1.25;text-align:center}
+  .say .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .sy{padding:5px 6px;border:1px solid #a8926a;background:#fbf6e8;color:#2a2018;font-family:'Alegreya',serif;font-style:italic;font-size:15.5px;line-height:1.1;border-radius:2px;cursor:pointer}
+  .sy:hover{background:#fff}
+  .sy.on{background:#2a2018;color:#f4ead2;border-color:#2a2018}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="40" height="30" patternUnits="userSpaceOnUse"><rect width="40" height="30" fill="#5a7a5a"/><path d="M0 0h40M0 15h40M20 0v15M0 15v15M40 15v15" stroke="#486448" stroke-width="2"/></pattern>
+  <pattern id="flags" width="160" height="80" patternUnits="userSpaceOnUse"><rect width="160" height="80" fill="#a89a86"/><path d="M0 0h160M0 40h160M60 0v40M130 40v40M20 40v40" stroke="#8a7c68" stroke-width="3"/></pattern>
+  <linearGradient id="day" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe6e2"/><stop offset="1" stop-color="#b8bcb0"/></linearGradient>
+  <radialGradient id="fireK" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ffb040" stop-opacity=".5"/><stop offset="1" stop-color="#ff8020" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#0a0a06" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#efe6c8"/>
+<rect x="-1000" y="-400" width="3600" height="240" fill="#d8ccac"/><g stroke="#b8ac8a" stroke-width="12"><path d="M-1000 -170H2600"/></g>
+<rect x="-1000" y="470" width="3600" height="290" fill="url(#tiles)"/><rect x="-1000" y="462" width="3600" height="12" fill="#3a4a3a"/>
+<rect x="-1000" y="760" width="3600" height="540" fill="url(#flags)"/>
+<!-- the high window: the area railings, and the boots of London going past on the pavement above -->
+<g><rect x="600" y="20" width="400" height="170" fill="#3a3a32" stroke="#6a6252" stroke-width="6"/><rect x="612" y="30" width="376" height="150" fill="url(#day)"/>
+  <rect x="612" y="132" width="376" height="48" fill="#8a8a82"/>
+  <clipPath id="winclip"><rect x="612" y="30" width="376" height="150"/></clipPath>
+  <g clip-path="url(#winclip)"><g id="boots"><path d="M700 90v42h-14l-6 12h34v-54z" fill="#1c1c20"/><path d="M738 70v62h-10l-6 12h30v-74z" fill="#1c1c20"/><path d="M696 50h56v42h-56z" fill="#3a3a48"/></g>
+    <g id="boots2"><path d="M820 100v32h18l6 12h-30v-44z" fill="#4a2a1a"/><path d="M850 96v36h16l6 12h-28v-48z" fill="#4a2a1a"/><path d="M806 40q30 -10 70 0v62h-70z" fill="#6a2a3a"/></g></g>
+  <g stroke="#1a1a1a" stroke-width="5"><path d="M630 30v150M660 30v150M690 30v150M720 30v150M750 30v150M780 30v150M810 30v150M840 30v150M870 30v150M900 30v150M930 30v150M960 30v150"/><path d="M612 64h376"/></g></g>
+<!-- the range, with the kettle -->
+<g><rect x="60" y="380" width="330" height="380" fill="#1c1c20" stroke="#000" stroke-width="4"/><rect x="40" y="370" width="370" height="20" fill="#2a2a30"/><rect x="40" y="200" width="370" height="20" fill="#2a2a30"/><path d="M120 200V0h210v200" fill="#2a2a30"/>
+  <rect x="80" y="420" width="120" height="130" fill="#2a2a32" stroke="#6a6a72" stroke-width="4"/><rect x="250" y="420" width="120" height="130" fill="#2a2a32" stroke="#6a6a72" stroke-width="4"/>
+  <rect x="160" y="580" width="130" height="80" fill="#140c08" stroke="#6a6a72" stroke-width="4"/><g id="grate"><rect x="168" y="600" width="114" height="52" fill="#e86a1a"/><path d="M168 616h114M168 632h114M168 646h114" stroke="#3a1a0a" stroke-width="5"/></g>
+  <circle cx="225" cy="620" r="140" fill="url(#fireK)" pointer-events="none"/>
+  <rect x="80" y="690" width="290" height="60" fill="#2a2a32" stroke="#6a6a72" stroke-width="3"/><g fill="#c8a040"><circle cx="140" cy="485" r="7"/><circle cx="310" cy="485" r="7"/></g>
+  <path d="M60 580h-30M60 600h-30" stroke="#c8a040" stroke-width="5"/></g>
+<g id="kettle" class="hot"><path d="M268 368q-6 -50 46 -54q52 4 46 54z" fill="#3a3a40" stroke="#000" stroke-width="3"/><path d="M362 342q24 -8 30 -26" fill="none" stroke="#3a3a40" stroke-width="9"/><path d="M286 316q28 -40 56 0" fill="none" stroke="#000" stroke-width="5"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M392 312q-8 -14 2 -26"/><path d="M398 300q-10 -16 2 -30" style="animation-delay:-1.5s"/></g></g>
+<!-- the kitchen clock, five minutes fast -->
+<g id="kclock" class="hot"><circle cx="490" cy="250" r="56" fill="#3a2614" stroke="#1a0e04" stroke-width="3"/><circle cx="490" cy="250" r="44" fill="#fbf7ea"/><g stroke="#1c1c20" stroke-width="2"><path d="M490 210v6M490 284v6M450 250h6M524 250h6"/></g>
+  <path d="M490 250L478 228" stroke="#1c1c20" stroke-width="4" stroke-linecap="round"/><path d="M490 250L523 269" stroke="#1c1c20" stroke-width="2.6" stroke-linecap="round"/><circle cx="490" cy="250" r="3.5" fill="#1c1c20"/></g>
+<!-- Miss Inkster's card of sayings, pinned above Digby's stool -->
+<g id="card" class="hot"><rect x="420" y="380" width="96" height="64" fill="#efe2c4" stroke="#8a6a3a" stroke-width="2" transform="rotate(-5 468 412)"/><g stroke="#3a2a1a" stroke-width="1.6" transform="rotate(-5 468 412)"><path d="M430 394h60M430 404h70M430 414h54M430 424h66M430 434h50"/></g><circle cx="468" cy="380" r="4" fill="#b8322a"/></g>
+<!-- Digby on his stool -->
+<g><path d="M432 860l10 -90h56l10 90M444 800h52" stroke="#6a4a2a" stroke-width="7" fill="none"/><rect x="430" y="764" width="80" height="12" rx="4" fill="#8a6a3a"/></g>
+<g id="dig" class="hot" transform="translate(470 860)"></g>
+<!-- Mrs Spink behind the table -->
+<g id="cook" class="hot" transform="translate(730 836)"></g>
+<!-- the table: flour, pastry, a kipper, the milk jug, the teapot in its cosy, and the letters -->
+<g><path d="M520 610h460l20 30H500z" fill="#e8dcbc" stroke="#8a7a5a" stroke-width="3"/><path d="M500 640h500v26H500z" fill="#c8b48a" stroke="#8a7a5a" stroke-width="3"/><path d="M530 666v130M970 666v130" stroke="#8a6a4a" stroke-width="14"/>
+  <ellipse cx="690" cy="622" rx="70" ry="10" fill="#f6f2e8"/><path d="M640 618h110" stroke="#c8a87a" stroke-width="10" stroke-linecap="round"/><g fill="#fff" opacity=".8"><circle cx="760" cy="630" r="4"/><circle cx="780" cy="626" r="3"/><circle cx="620" cy="632" r="3"/></g></g>
+<g id="kipper" class="hot"><ellipse cx="575" cy="624" rx="42" ry="9" fill="#f6f2e8" stroke="#8a8a90" stroke-width="2"/><path d="M548 622q24 -14 48 -2l12 -6v14l-12 -4q-24 10 -48 -2z" fill="#b8642a" stroke="#5a2a0a" stroke-width="2"/></g>
+<g id="milk" class="hot"><path d="M880 618l-4 -40q14 -6 30 0l-4 40z" fill="#f6f2ea" stroke="#3a5a8a" stroke-width="3"/><path d="M906 586q12 4 8 18" fill="none" stroke="#3a5a8a" stroke-width="3"/><path d="M876 584l-8 -6" stroke="#3a5a8a" stroke-width="3"/></g>
+<g id="cosyPot"><path d="M790 620q-10 -60 40 -62q50 2 40 62z" fill="#c8322a" stroke="#5a0e0a" stroke-width="3"/><path d="M800 590h60M796 604h68" stroke="#e8c070" stroke-width="3"/><circle cx="830" cy="556" r="7" fill="#c8322a" stroke="#5a0e0a" stroke-width="2"/></g>
+<g id="letter" class="hot"><path d="M920 626l50 -6l4 14l-50 6z" fill="#dfe6f0" stroke="#6a7a9a" stroke-width="1.6"/><path d="M928 626l36 -4" stroke="#3a3a6a" stroke-width="1.4"/></g>
+<!-- the dresser, with the blue teacup -->
+<g><rect x="1010" y="240" width="200" height="520" fill="#8a6a42" stroke="#4a3418" stroke-width="4"/><rect x="1000" y="230" width="220" height="16" fill="#6a4a2a"/><g stroke="#4a3418" stroke-width="5"><path d="M1010 340h200M1010 430h200M1010 530h200"/></g>
+  <g fill="#f6f2ea" stroke="#3a5a8a" stroke-width="2.5"><circle cx="1050" cy="300" r="28"/><circle cx="1110" cy="300" r="28"/><circle cx="1170" cy="300" r="28"/><circle cx="1050" cy="392" r="26"/><circle cx="1170" cy="392" r="26"/></g>
+  <g fill="none" stroke="#3a5a8a" stroke-width="2"><circle cx="1050" cy="300" r="18"/><circle cx="1110" cy="300" r="18"/><circle cx="1170" cy="300" r="18"/></g>
+  <rect x="1020" y="560" width="180" height="190" fill="#7a5a36" stroke="#4a3418" stroke-width="3"/><path d="M1110 560v190" stroke="#4a3418" stroke-width="3"/><g fill="#c8a040"><circle cx="1096" cy="650" r="5"/><circle cx="1124" cy="650" r="5"/></g>
+  <path d="M1040 520v-40h40v40zM1150 520q-10 -40 20 -50q30 10 20 50z" fill="#c8b07a" stroke="#4a3418" stroke-width="2"/></g>
+<g id="cup" class="hot"><path d="M1088 424h36l-4 26h-28z" fill="#f6f2ea" stroke="#3a5a8a" stroke-width="2.5"/><path d="M1124 430q10 2 6 10q-4 4 -8 2" fill="none" stroke="#3a5a8a" stroke-width="2.5"/><path d="M1094 436h24" stroke="#3a5a8a" stroke-width="2"/></g>
+<g id="trap" class="hot"><rect x="1130" y="742" width="56" height="14" fill="#c8a87a" stroke="#5a3a1a" stroke-width="2"/><path d="M1136 742q20 -20 40 0" fill="none" stroke="#8a8a90" stroke-width="3"/><rect x="1160" y="736" width="10" height="8" fill="#e8c860"/></g>
+<!-- the speaking tube from the drawing room, and the back door with the laundry bag -->
+<g id="tube" class="hot"><path d="M1258 -400V410" stroke="#a8843a" stroke-width="14"/><path d="M1258 -400V410" stroke="#d8b45a" stroke-width="5"/><path d="M1240 410h36l-6 34h-24z" fill="#c8a040" stroke="#5a4010" stroke-width="3"/><path d="M1252 444h12v14h-12z" fill="#a8843a" stroke="#5a4010" stroke-width="2"/>
+  <g id="cosyOn"><path d="M1232 470q-8 -66 26 -68q34 2 26 68z" fill="#c8322a" stroke="#5a0e0a" stroke-width="3"/><path d="M1238 440h40M1236 454h44" stroke="#e8c070" stroke-width="3"/></g><rect x="1232" y="380" width="54" height="96" fill="transparent"/></g>
+<g id="cal" class="hot"><rect x="1220" y="230" width="76" height="96" fill="#f6f2ea" stroke="#3a3a42" stroke-width="2"/><rect x="1220" y="230" width="76" height="22" fill="#b8322a"/><text id="calday" x="1258" y="292" text-anchor="middle" font-family="Oswald,sans-serif" font-size="34" fill="#1c1c20">18</text><text id="calwd" x="1258" y="316" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" fill="#1c1c20" letter-spacing="2">WED</text><text x="1258" y="247" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" fill="#fff" letter-spacing="2">MAY 1910</text></g>
+<g><rect x="1310" y="230" width="190" height="530" fill="#5a4a32" stroke="#2a2014" stroke-width="5"/><rect x="1330" y="260" width="150" height="200" fill="none" stroke="#3a2e1e" stroke-width="4"/><rect x="1330" y="500" width="150" height="230" fill="none" stroke="#3a2e1e" stroke-width="4"/><circle cx="1330" cy="500" r="8" fill="#c8a040"/></g>
+<g id="bag" class="hot wrig"><path d="M1340 316l-4 14" stroke="#3a2e1e" stroke-width="4"/><path d="M1300 340q40 -20 80 0q20 100 -6 170q-34 20 -70 0q-24 -70 -4 -170z" fill="#d8ccb0" stroke="#6a5a3a" stroke-width="3"/><path d="M1312 352q28 -12 56 0" fill="none" stroke="#8a6a3a" stroke-width="5"/><path d="M1316 440q24 10 52 0" stroke="#bcb090" stroke-width="3" fill="none"/></g>
+<g id="cat" class="hot"><path d="M300 860q-10 -70 30 -84q-6 -26 8 -34l8 18q14 -2 22 0l10 -16q12 10 4 34q30 18 22 82z" fill="#d88a3a" stroke="#3a1a0a" stroke-width="3"/><path d="M402 858q50 -10 40 -50" fill="none" stroke="#d88a3a" stroke-width="12" stroke-linecap="round"/><g fill="#3a1a0a"><circle cx="336" cy="776" r="3"/><circle cx="356" cy="776" r="3"/></g><path d="M320 820q30 10 60 0M330 840q20 6 40 0" stroke="#a8601a" stroke-width="4" fill="none"/></g>
+<g id="fel" transform="translate(985 890)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="say" id="say"><p id="sayp">Choose a saying, then click the thing in the kitchen you would do it with.</p><div class="row" id="sayrow"></div></div>
+<button type="button" class="gobtn" id="go">Up to the drawing room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="nanny.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, step, pick = null;
+  $('#dig').innerHTML = NY.as('digby', { h: 280, smile: 'down' });
+  $('#cook').innerHTML = NY.as('spink', { h: 330, armL: 'front', armR: 'out' });
+  $('#fel').innerHTML = NY.as('felicity', { h: 330, armL: 'front' });
+
+  ER.init({
+    theme: 'lit', story: 'nanny', storyTitle: 'Everything Is Somewhere', id: 'kitchen', no: 'III', title: 'The Kitchen',
+    go: 'Down the back stairs',
+    intro: [
+      'You tied six of Felicity&rsquo;s wonders to lines in Miss Inkster&rsquo;s register: the tooth to a boy walking as if on a pebble; the King to the newsboys under the window; seeing through walls to the creak of the fourth stair; the laugh to Digby&rsquo;s question; the rain to the falling weather-glass; Father in the drawing room to the smoke from its chimney. Felicity had every fact right, and every reason wrong. The seventh wonder, the trunk, is in no line of the book at all.',
+      'Now down: past the drawing room, past the hall and its broken clock, through the green baize door, and down the stone stairs to where the house keeps its kitchen. It is a quarter past eleven.'
+    ],
+    exit: {"next":"drawing","w":{"64c647f6":"cbcac668"}}, tags: {"k1":["9a04f9cc"],"k2":["d342701c"],"k3":["f090830c"],"k4":["a0d5a163"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = NY.told('c-told'); nextFile = ER.flag('c-file') || null; step = ER.flag('c-step') || 0;
+  function isBusy() { return busy; }
+  function ready() { return told.has('spink') && told.has('letters') && told.has('card'); }
+  function paint() {
+    var sc = $('#scene');
+    sc.classList.toggle('catout', step >= 3);
+    sc.classList.toggle('cosy', step >= 2);
+    $('#bag').classList.toggle('wrig', step < 3);
+    $('#calday').textContent = step >= 4 ? '19' : '18'; $('#calwd').textContent = step >= 4 ? 'THU' : 'WED';
+    $('#cook').classList.toggle('ready', !told.has('spink'));
+    $('#letter').style.display = told.has('spink') ? '' : 'none';
+    $('#letter').classList.toggle('ready', told.has('spink') && !told.has('letters'));
+    $('#card').classList.toggle('ready', told.has('letters') && !told.has('card'));
+    $('#dig').classList.toggle('ready', ready() && !told.has('start'));
+    $('#say').classList.toggle('on', told.has('start') && !nextFile && !busy);
+    var n = ['spink', 'letters', 'card'].filter(function (k) { return told.has(k); }).length + (step >= 1 ? 1 : 0) + (step >= 3 ? 1 : 0) + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  var HINT = [
+    ['Everybody is shouting, and Mrs Spink says it is a great fuss over a clock. Which saying on Miss Inkster&rsquo;s card means a great fuss about something small?',
+      'Digby believes that a saying means exactly what its words say. Choose the saying in the tray at the bottom, then click the thing in the kitchen you would really do it with.',
+      'A storm in a teacup: choose it, then click the blue teacup on the dresser.'],
+    ['Digby is afraid that somebody is listening. Which saying on the card is about listening?',
+      'The walls have ears. In this kitchen one wall really has an ear in it: the brass mouthpiece of the speaking tube, beside the door, which goes up to the drawing room.',
+      'Choose &ldquo;The walls have ears&rdquo;, then click the speaking tube on the wall by the door.'],
+    ['Digby says his secret is tied up tight and must never get out. Something else in this kitchen is tied up tight, and it is moving.',
+      'Which saying means telling a secret, usually by mistake?',
+      'Choose &ldquo;Let the cat out of the bag&rdquo;, then click the laundry bag on the back of the door.'],
+    ['Digby wants to stop being bad. Which saying means starting again and doing better?',
+      'A leaf can also be a page. Is there anything on the kitchen wall with pages, still showing yesterday?',
+      'Choose &ldquo;Turn over a new leaf&rdquo;, then click the calendar on the wall.']
+  ];
+  function hints() {
+    if (nextFile) return ['go', ['Digby has told everything. The button at the bottom of the screen goes up to the drawing room.']];
+    if (told.has('start')) return ['step' + step, HINT[Math.min(step, 3)]];
+    if (!ready()) return ['look', [
+      'Talk to Mrs Spink, the cook, behind the table. She has something for you to read.',
+      'Read Mrs Spink&rsquo;s letters (the blue sheets on the table, after you have talked to her) and Miss Inkster&rsquo;s card of sayings, pinned on the wall above Digby&rsquo;s stool.'
+    ]];
+    return ['start', ['Everything is read. Now click Digby, on his stool by the range.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Digby is eating a jam tart, with both hands. Mrs Spink is pretending not to watch him.'); return; }
+    if (told.has('start')) { busy = false; paint(); cue(); return; }
+    if (told.has('in')) { busy = false; ER.say('The kitchen. Digby has not said a word.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The kitchen is below the street. Through the barred window high up in the wall you can see the railings of the area, and the boots of London going past on the pavement above your head.',
+      'A great black range, copper pans, a dresser of blue plates, a scrubbed table with flour on it and a kipper on a plate. A clock on the wall. And on the back of the door a laundry bag, which every now and then moves by itself.',
+      'Mrs Spink, the cook, is rolling pastry as if it had done something wrong. On a stool in the corner sits Digby, in a sailor suit, with his lips pressed together so hard that they have gone white.',
+      '&ldquo;He hasn&rsquo;t said a word since breakfast,&rdquo; says Mrs Spink. &ldquo;Not one. Not even for jam.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var LEAF1 = '<h4>Tuesday night, 17th May</h4><p>Dear Lizzie,</p>' +
+    '<p>Well she is still here, the new one, Miss Inkster, a fortnight and a day, which is longer than any of the other five. Quiet as a cat and sees everything, which is not natural. She has moved my salt. She told the master my clock is five minutes fast. So it is, Lizzie, and always has been, so as I am never late with his breakfast, but it is not her business to notice.</p>' +
+    '<p>Since she came the poor King has died, and now there is a comet coming with poison gas in its tail, a Frenchman in the paper says so. I don&rsquo;t say it is her doing. I only say.</p>' +
+    '<p>And tonight through the master&rsquo;s speaking tube I heard her say to him, cool as a cucumber, &ldquo;Leave the comet to me.&rdquo; Now what does that mean, I should like to know?</p>';
+  var LEAF2 = '<h4>Thursday morning, 19th May</h4>' +
+    '<p>Well Lizzie, you will never credit it. Last night, Wednesday, at ten past eight, down she comes for the roof key and a candle, bold as brass. A follower, you mark my words. A man, on the roof!</p>' +
+    '<p>The master was home and in his bed by a quarter to eleven, regular as clockwork. He always is, of a Wednesday.</p>' +
+    '<p>At five to eleven by my clock I heard the front door go, soft. That was her follower, going out.</p>' +
+    '<p>Then a crash fit to wake the dead. Up the back stairs I went in my curl-papers, and there she was on the stairs with her candle, and glass all over the hall. She broke it, Lizzie, as sure as I am sitting here, and all she says is, &ldquo;Go back to bed, Mrs Spink.&rdquo;</p>' +
+    '<p>At two in the morning I heard a man&rsquo;s tread on the stairs, going up. Him again!</p><p>Your loving sister, Clara</p>';
+  var CARD = '<h4>Sayings, and what they mean</h4><h5>For Digby. (Do not DO them, Digby.) C. I.</h5>' +
+    '<p><b>A storm in a teacup:</b> a great fuss about something small.</p>' +
+    '<p><b>The walls have ears:</b> be careful, somebody may be listening.</p>' +
+    '<p><b>Let the cat out of the bag:</b> tell a secret, usually by mistake.</p>' +
+    '<p><b>Turn over a new leaf:</b> start again, and do better.</p>' +
+    '<p><b>In hot water:</b> in trouble.</p>' +
+    '<p><b>Smell a rat:</b> feel sure that something is wrong.</p>' +
+    '<p><b>No use crying over spilt milk:</b> do not be sad about what cannot be changed.</p>' +
+    '<p><b>A red herring:</b> something that leads you away from the truth.</p>';
+
+  $('#letter').addEventListener('click', function () {
+    if (busy || !told.has('spink')) return;
+    ER.read({ html: LEAF1, cls: 'letter', clue: { id: 'letter1', title: 'Mrs Spink to her sister: Tuesday', kind: 'Letter' }, done: function () {
+      setTimeout(function () {
+        ER.read({ html: LEAF2, cls: 'letter', clue: { id: 'letter2', title: 'Mrs Spink to her sister: the comet night', kind: 'Letter' }, done: function () {
+          if (told.set('letters')) { paint(); ER.say('&ldquo;Every word God&rsquo;s truth,&rdquo; says Mrs Spink, rolling. Felicity opens her mouth, and shuts it again.'); }
+        } });
+      }, 250);
+    } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'card', title: 'Miss Inkster&rsquo;s card of sayings', kind: 'Card' }, done: function () {
+      NY.terms(['idiom', 'literally', 'a storm in a teacup', 'the walls have ears', 'let the cat out of the bag', 'turn over a new leaf']);
+      if (told.set('card')) { paint(); ER.say('&ldquo;He takes sayings at their word,&rdquo; says Felicity. &ldquo;Exactly at their word. Last week somebody told him to hold his tongue, and he did, with his fingers, for an hour.&rdquo;'); }
+    } });
+  });
+  $('#cook').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('start')) { ER.say(nextFile ? '&ldquo;I may have been hasty,&rdquo; says Mrs Spink, to the pastry.' : '&ldquo;Don&rsquo;t mind me,&rdquo; says Mrs Spink. &ldquo;I&rsquo;m only the cook.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mrs Clara Spink', role: 'the cook · fourteen years in this kitchen', face: window.FACE('spink'),
+      lines: [
+        { note: 'Mrs Spink is short and wide and floury, with a cap like a cottage loaf. She does not stop rolling.', a: '&ldquo;Fourteen years I&rsquo;ve cooked in this kitchen. Six nannies. And not one of them was ever caught creeping about the house at midnight with a candle, till this one.&rdquo;' },
+        { q: 'What did you see last night?', a: '&ldquo;I&rsquo;ve written it all to my sister Lizzie, every word, and you may read it, because it&rsquo;s the truth.&rdquo; She wipes her hands and puts two blue sheets on the end of the table. &ldquo;Tuesday&rsquo;s, and this morning&rsquo;s. I haven&rsquo;t posted them yet.&rdquo;' },
+        { q: 'Why don&rsquo;t you like Miss Inkster?', a: '&ldquo;Like her? She moved my salt. She told the master my clock was fast. And since the day she came, the poor King has died and there&rsquo;s a comet in the sky with poison in its tail. I don&rsquo;t say it&rsquo;s her doing. I only say.&rdquo;' },
+        { q: 'Who has keys to the front door?', a: '&ldquo;The master, and me, and nobody else. Mine&rsquo;s on my apron string, where it&rsquo;s been since 1896.&rdquo; She pats it.' },
+        { q: 'Is there a cat?', a: '&ldquo;Kipper. He goes up the back stairs to the hall every morning at six, after the mice, and walks the coal all over the house on his paws, the wicked thing. Where he is now I should like to know.&rdquo; Behind the door, the laundry bag gives a small, cross wriggle.' }
+      ],
+      clue: { id: 'spink1', title: 'Mrs Spink, in the kitchen', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('spink')) { paint(); NY.seed('paws', 'Kipper and the coal', '<p>Mrs Spink: the kitchen cat, Kipper, goes up the back stairs to the hall every morning at six, after the mice, and walks coal dust all over the house on his paws.</p>'); } }
+    });
+  });
+  $('#kclock').addEventListener('click', function () {
+    if (busy) return;
+    NY.seed('kclock', 'The kitchen clock', '<p>The kitchen clock said twenty past eleven when the church across the square struck a quarter past. Mrs Spink keeps it five minutes fast, so that she is never late with the master&rsquo;s breakfast.</p>');
+    ER.say('The kitchen clock says twenty past eleven. As you look at it, the church across the square strikes the quarter: a quarter past. &ldquo;Five minutes fast,&rdquo; says Mrs Spink, &ldquo;and always has been. I&rsquo;m never late with the master&rsquo;s breakfast.&rdquo;');
+  });
+
+  /* ---------- the lock: four sayings, done word for word for a boy who believes them ---------- */
+  var SAYS = [['storm', 'A storm in a teacup'], ['walls', 'The walls have ears'], ['cat', 'Let the cat out of the bag'], ['leaf', 'Turn over a new leaf'],
+    ['water', 'In hot water'], ['rat', 'Smell a rat'], ['milk', 'Crying over spilt milk'], ['herring', 'A red herring']];
+  var FIT = { storm: 'cup', walls: 'tube', cat: 'bag', leaf: 'cal', water: 'kettle', rat: 'trap', milk: 'milk', herring: 'kipper' };
+  var NAME = { cup: 'the teacup', tube: 'the speaking tube', bag: 'the laundry bag', cal: 'the calendar', kettle: 'the kettle', trap: 'the mousetrap', milk: 'the milk jug', kipper: 'the kipper', cook: 'Mrs Spink', dig: 'Digby', kclock: 'the clock', card: 'the card' };
+  var CUE = [
+    'Digby is crying, Felicity is stamping, and Mrs Spink throws up her floury hands: &ldquo;What a to-do! All this fuss, over a clock!&rdquo;',
+    'Digby wipes his nose and whispers: &ldquo;I can&rsquo;t tell you here. Somebody might be listening. Even the walls.&rdquo; His eyes go to the brass mouthpiece by the door.',
+    '&ldquo;But it&rsquo;s a secret,&rdquo; says Digby, &ldquo;and I&rsquo;ve tied it up tight, and I&rsquo;ll never, never let it out.&rdquo; Behind the door, the laundry bag gives a wriggle and a small cross mew.',
+    '&ldquo;Now I&rsquo;m bad,&rdquo; says Digby. &ldquo;I&rsquo;ll be bad for ever and ever, and everybody will know.&rdquo; Mrs Spink glances at the wall. &ldquo;And that calendar still says Wednesday. I hadn&rsquo;t the heart to touch it this morning.&rdquo;'
+  ];
+  function cue() { if (step < 4) ER.say(CUE[step], 9000); }
+  (function () {
+    var row = $('#sayrow');
+    NY.mix(SAYS, 5).forEach(function (s) {
+      var b = ER.el('button', 'sy', s[1]); b.type = 'button'; b.setAttribute('data-k', s[0]); row.appendChild(b);
+      b.addEventListener('click', function () { pick = pick === s[0] ? null : s[0]; NY.sfx.pencil(); ER.$$('.sy').forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-k') === pick); }); $('#sayp').innerHTML = pick ? 'Now click the thing in the kitchen you would do it with.' : 'Choose a saying, then click the thing in the kitchen you would do it with.'; });
+    });
+  })();
+  function unpick() { pick = null; ER.$$('.sy').forEach(function (n) { n.classList.remove('on'); }); $('#sayp').innerHTML = 'Choose a saying, then click the thing in the kitchen you would do it with.'; }
+  function act(obj) {
+    if (!pick) return false;
+    var k = pick;
+    unpick();
+    if (FIT[k] !== obj) { ER.sfx.no(); ER.say('&ldquo;How would you do that with ' + NAME[obj] + '?&rdquo; says Felicity.'); return true; }
+    if (step < 4 && ER.check('k' + (step + 1), k)) { advance(k); return true; }
+    ER.sfx.no();
+    var t = {
+      storm: step > 0 ? 'Digby looks into the teacup. &ldquo;The storm&rsquo;s in there already,&rdquo; he says. &ldquo;With a saucer on.&rdquo;' : '',
+      walls: step < 1 ? 'Nobody is whispering. Everybody is shouting.' : 'The tea cosy is still on the speaking tube.',
+      cat: step < 1 ? 'Kipper the cat shoots out of the bag, looks at all the shouting, and goes straight back in. Nobody else notices.' : (step < 2 ? 'Kipper shoots out of the bag. Digby claps both hands over his mouth and looks at the speaking tube. Kipper goes back into the bag.' : 'Kipper is asleep by the range, and has no more to say.'),
+      leaf: step < 3 ? 'You tear Wednesday off the calendar. Mrs Spink snatches it back and pins it up again. &ldquo;I&rsquo;ll say when it&rsquo;s Thursday in my kitchen, thank you.&rdquo;' : 'It is Thursday already.',
+      water: 'Digby stares at the kettle in horror. &ldquo;I&rsquo;m in hot water already,&rdquo; he whispers. It does not help.',
+      rat: 'Digby sniffs at the mousetrap. &ldquo;I can&rsquo;t smell a rat,&rdquo; he says. &ldquo;Only kipper.&rdquo;',
+      milk: '&ldquo;Nobody is crying over milk,&rdquo; says Felicity. &ldquo;We are crying over Miss Inkster.&rdquo;',
+      herring: '&ldquo;That,&rdquo; says Mrs Spink, &ldquo;is my dinner, not a clue.&rdquo;'
+    }[k];
+    if (k === 'cat' && step < 2) NY.sfx.mew();
+    ER.say(t || 'Nothing happens.');
+    return true;
+  }
+  function advance(k) {
+    step++; ER.flag('c-step', step); busy = true; paint(); $('#say').classList.remove('on');
+    if (k === 'storm') {
+      ER.sfx.glass();
+      ER.narrate(['You hold out the blue teacup from the dresser. Digby stops in the middle of a sob. He knows what it is for: there is one on the nursery mantelpiece.',
+        'Solemnly he leans over the cup and puffs his storm into it. Felicity, scarlet, puffs hers in too. Mrs Spink, without a word, puts a saucer on top. The kitchen is quiet.'], function () { busy = false; paint(); cue(); });
+    } else if (k === 'walls') {
+      NY.sfx.whistle();
+      ER.narrate(['You take the red tea cosy off the brown teapot and pull it down hard over the mouthpiece of the speaking tube. Digby looks at it, and nods. &ldquo;Now they can&rsquo;t hear.&rdquo;'], function () { busy = false; paint(); cue(); });
+    } else if (k === 'cat') {
+      NY.sfx.mew();
+      ER.narrate([
+        'You untie the laundry bag. Out shoots Kipper, the kitchen cat, who has been asleep on the clean tablecloths, and stalks off to the range with his tail in the air.',
+        'Digby goes white. &ldquo;Now you&rsquo;ve done it. The cat&rsquo;s out of the bag.&rdquo; He takes a deep breath. &ldquo;So now I have to tell.&rdquo;',
+        '&ldquo;At breakfast Father said the hall clock is the time of this house. So I thought: if it stops, it can never be seven o&rsquo;clock, and it can never be bedtime, and we can stay up for the comet.&rdquo;',
+        '&ldquo;So at five to seven I went down. I jumped the creaky stair. I stood on the hall chair, and it wobbled, and I opened the little glass door and held the pendulum still until the clock stopped. It said three minutes to seven.&rdquo;',
+        '&ldquo;I couldn&rsquo;t reach to shut the little door, so I left it open. And the glass was NOT broken. I never broke anything! Then I ran up, and the nursery clock struck seven anyway.&rdquo; He looks at his shoes. &ldquo;Time doesn&rsquo;t go anywhere when the clock stops. It just goes on without you.&rdquo;',
+        '&ldquo;So the glass was whole at three minutes to seven,&rdquo; says Felicity slowly. &ldquo;Then who broke it?&rdquo;'
+      ], function () {
+        NY.mine('digby', 'Digby, in the kitchen', '<p>At breakfast Father said the hall clock is the time of this house. So at five to seven Digby went down, stood on the wobbly hall chair, and held the pendulum still until the clock stopped at 6.57, so that it could never be bedtime. He could not reach to shut the little door, so he left it open. The glass was whole when he left it. Then the nursery clock struck seven anyway.</p>');
+        busy = false; paint(); cue();
+      });
+    } else {
+      NY.sfx.tear();
+      var file = ER.exit(['storm/walls/cat/leaf'], { wait: true });
+      if (!file) { busy = false; ER.say('The calendar will not tear. Something is wrong with this page: tell your teacher.'); return; }
+      nextFile = file; ER.flag('c-file', file);
+      ER.narrate([
+        'You tear Wednesday off the calendar. Underneath: THURSDAY 19, clean and new. This time Mrs Spink lets it stay.',
+        'Digby looks at it for a long time. &ldquo;A new leaf,&rdquo; he says. &ldquo;All right. I&rsquo;ll tell Father myself. At four o&rsquo;clock.&rdquo; Then he eats a jam tart, very fast, with both hands.',
+        'Mrs Spink has stopped rolling. &ldquo;Glass whole at three minutes to seven,&rdquo; she says, to nobody. &ldquo;Well. I heard it go at five to eleven, and that&rsquo;s a fact.&rdquo;',
+        '&ldquo;Three people told last night,&rdquo; says Felicity, gathering up the diary, the register and the letters. &ldquo;Me, Miss Inkster, and Cook. Father&rsquo;s drawing room has the biggest table in the house. Come on.&rdquo;'
+      ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+    }
+  }
+  ['cup', 'tube', 'bag', 'cal', 'kettle', 'trap', 'milk', 'kipper'].forEach(function (id) {
+    $('#' + id).addEventListener('click', function (e) {
+      if (busy) return;
+      if (told.has('start') && !nextFile && act(id)) return;
+      var line = {
+        cup: 'A blue teacup on the dresser, the twin of the one in the nursery.', tube: 'The speaking tube: a brass pipe down the wall from the drawing room, with a whistle in its mouthpiece. When the master blows down it, the whistle shrieks.',
+        bag: step >= 3 ? 'An empty laundry bag. Kipper has gone.' : 'The laundry bag on the back of the door. It moves, now and then, by itself.', cal: 'A calendar with a page for every day. It still says WEDNESDAY 18.',
+        kettle: 'The kettle, singing quietly to itself on the range.', trap: 'A mousetrap under the dresser, with a crumb of cheese in it. Kipper is not much use.',
+        milk: 'A jug of milk with a blue rim.', kipper: 'A kipper on a plate: a smoked herring, red-brown and shiny. Mrs Spink&rsquo;s dinner.'
+      }[id];
+      ER.say(line);
+      if (id === 'kipper') ER.wordAt(e.clientX, e.clientY, 'kipper');
+    });
+  });
+  $('#dig').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;At four o&rsquo;clock,&rdquo; says Digby, through jam. &ldquo;I promised the calendar.&rdquo;'); return; }
+    if (told.has('start')) { cue(); return; }
+    if (!ready()) { ER.say('Digby presses his lips together and looks at the floor. Felicity shakes her head: &ldquo;Read what is here first. Cook&rsquo;s letters. And Miss Inkster&rsquo;s card, on the wall above him.&rdquo;'); return; }
+    told.set('start'); busy = true; paint();
+    NY.sfx.sob();
+    ER.narrate([
+      'Felicity kneels in front of the stool. &ldquo;Digby. Miss Inkster is going to leave without a character, and it is because of the clock. Your clock.&rdquo;',
+      'Digby bursts into tears. Felicity, who did not mean to, bursts into tears as well, and stamps. Kipper, inside the laundry bag, yowls.',
+      '&ldquo;He takes sayings at their word,&rdquo; Felicity sobs to you. &ldquo;So use them. Use Miss Inkster&rsquo;s card. Do them!&rdquo;'
+    ], function () { busy = false; paint(); cue(); });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#cat').addEventListener('click', function () { if (!busy) { NY.sfx.mew(); ER.say('Kipper, asleep by the range. His paws are black with coal dust.'); } });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Day Nursery · Everything Is Somewhere</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="nanny.css">
+<style>
+  body{--bg:#3a2414;--accent:#e8a040;--font-display:'Fredericka the Great',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(48,28,14,.97);--tc-ink:#f6ead6;--cap-bg:rgba(44,26,14,.95);--panel:#2e1e12;--face-bg:#6a6a62;--q-ink:#f0b860;--fade:#1a0e06;--hud-bg:rgba(44,26,14,.88)}
+  .tc-room{font-family:'Fredericka the Great',serif;font-size:clamp(46px,6.2vw,88px);color:#f0b860}
+  #flames path{animation:fl 1.3s steps(3,end) infinite;transform-origin:530px 690px}
+  #flames path:nth-child(2){animation-duration:.9s}#flames path:nth-child(3){animation-duration:1.7s}
+  @keyframes fl{33%{transform:scaleY(1.12)}66%{transform:scaleY(.9) skewX(3deg)}}
+  #glow{animation:gl 2.4s steps(4,end) infinite alternate}
+  @keyframes gl{from{opacity:.5}to{opacity:.8}}
+
+  /* the lock: the diary's wonders, tied with red thread to the lines of the register */
+  .tie{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:8px 60px;padding:10px 16px 10px;align-items:start;background:#8a2a1e;
+    background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 14px,transparent 14px 28px);border:1px solid #4a120a;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+  .tie h5{grid-column:1 / -1;margin:0 0 -2px;font-family:'Fredericka the Great',serif;font-weight:normal;font-size:21px;text-align:center;color:#fbe8c8}
+  .col{display:flex;flex-direction:column;gap:5px;position:relative;z-index:2}
+  .wd{display:block;width:100%;padding:5px 10px 5px 30px;position:relative;background:#fdfbf3;color:#1d2a4a;font-family:'Caveat',cursive;font-size:18.5px;line-height:1.08;text-align:left;border:1px solid #b8b0a0;cursor:pointer}
+  .wd i{position:absolute;left:8px;top:6px;font-style:normal;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:#8a1e14}
+  .ln{display:grid;grid-template-columns:118px 1fr;gap:8px;width:100%;padding:3px 8px;background:#f4efe0;color:#1c1a1e;font-family:'Alegreya',serif;font-style:italic;font-size:14.5px;line-height:1.22;text-align:left;border:1px solid #a89880;cursor:pointer}
+  .ln b{white-space:nowrap;font-style:normal;font-weight:normal;font-size:12.5px;color:#6a4a40;font-family:'Goudy Bookletter 1911',serif}
+  .ln.none{display:block;margin-top:4px;background:#e8d6a8;font-style:normal;font-family:'Goudy Bookletter 1911',serif;font-size:15px;text-align:center}
+  .wd:hover,.ln:hover{filter:brightness(1.05)}
+  .wd.held{outline:3px solid #f0b860;outline-offset:1px}
+  .wd.tied{border-left:6px solid #c8221a}
+  .wd.bad{background:#f6c8b8}
+  .thr{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .thr path{fill:none;stroke:#e8221a;stroke-width:3}
+  .thr circle{fill:#e8221a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="stripes" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#e2bc7a"/><rect width="22" height="60" fill="#d8ae6a"/><circle cx="41" cy="30" r="3" fill="#b8844a"/></pattern>
+  <pattern id="lino" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#7a3a24"/><path d="M0 20l20 -20l20 20l-20 20zM40 20l20 -20l20 20l-20 20z" fill="#8a4a2e"/></pattern>
+  <radialGradient id="fireG" cx="50%" cy="80%" r="70%"><stop offset="0" stop-color="#ffb040" stop-opacity=".55"/><stop offset="1" stop-color="#ff8020" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8d8e0"/><stop offset="1" stop-color="#e8e4d0"/></linearGradient>
+  <radialGradient id="vig" cx="45%" cy="60%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#1a0a02" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#stripes)"/>
+<rect x="-1000" y="-400" width="3600" height="150" fill="#f2e6cc"/><rect x="-1000" y="-250" width="3600" height="14" fill="#a8784a"/>
+<rect x="-1000" y="520" width="3600" height="230" fill="#4a6a4a"/><rect x="-1000" y="510" width="3600" height="16" fill="#a8784a"/>
+<g stroke="#3a5a3a" stroke-width="3"><path d="M-1000 590H2600M-1000 680H2600"/></g>
+<rect x="-1000" y="740" width="3600" height="20" fill="#5a3a20"/>
+<rect x="-1000" y="760" width="3600" height="540" fill="url(#lino)"/>
+<ellipse cx="760" cy="850" rx="420" ry="60" fill="#3a5a7a" opacity=".85"/><ellipse cx="760" cy="850" rx="360" ry="44" fill="none" stroke="#e8c070" stroke-width="5"/>
+<!-- the dolls' house: No. 9 in little -->
+<g id="dolls" class="hot"><rect x="70" y="760" width="270" height="20" fill="#5a3a20"/>
+  <path d="M90 760V330h230v430z" fill="#f2ead8" stroke="#6a4a2a" stroke-width="4"/><path d="M80 334l125 -60l125 60z" fill="#5a5a6a" stroke="#2a2a32" stroke-width="3"/>
+  <g fill="#7a8a9a"><rect x="120" y="290" width="12" height="30"/><rect x="270" y="286" width="12" height="34"/></g>
+  <g stroke="#6a4a2a" stroke-width="3"><path d="M90 420h230M90 510h230M90 600h230M90 690h230"/></g>
+  <g fill="#9ac0d8" stroke="#3a3a42" stroke-width="2"><rect x="110" y="350" width="40" height="52"/><rect x="185" y="350" width="40" height="52"/><rect x="260" y="350" width="40" height="52"/><rect x="110" y="440" width="40" height="52"/><rect x="185" y="440" width="40" height="52"/><rect x="260" y="440" width="40" height="52"/>
+    <rect x="110" y="526" width="40" height="62"/><rect x="185" y="526" width="40" height="62"/><rect x="260" y="526" width="40" height="62"/><rect x="185" y="616" width="40" height="60"/><rect x="260" y="616" width="40" height="60"/><rect x="110" y="706" width="40" height="44"/><rect x="260" y="706" width="40" height="44"/></g>
+  <rect x="112" y="612" width="44" height="72" fill="#2a3a5a" stroke="#1a1a20" stroke-width="2"/><path d="M106 612h56" stroke="#e8e0cc" stroke-width="6"/><circle cx="148" cy="650" r="3" fill="#e8c070"/>
+  <g stroke="#1c1c22" stroke-width="2"><path d="M86 700h-14M86 720h-14M86 740h-14"/></g></g>
+<!-- the fireplace, with the teacup labelled STORMS on the mantelpiece -->
+<g><rect x="400" y="412" width="290" height="22" fill="#7a5032" stroke="#3a2414" stroke-width="3"/><path d="M420 434h250v306H420z" fill="#e8dcc0" stroke="#7a5a3a" stroke-width="4"/><path d="M470 520h150v220H470z" fill="#1c1410"/>
+  <circle id="glow" cx="545" cy="700" r="160" fill="url(#fireG)"/>
+  <g id="flames"><path d="M500 712q10 -60 30 -70q-4 30 12 40q4 -40 26 -56q-6 50 18 86z" fill="#f08a20"/><path d="M520 712q8 -36 22 -42q0 22 12 26q6 -24 18 -30q-2 30 6 46z" fill="#ffd060"/><path d="M490 716h110l-8 14H498z" fill="#3a1a0a"/></g>
+  <path d="M450 742v-120q0 -40 95 -40q95 0 95 40v120" fill="none" stroke="#c8a040" stroke-width="6"/><g stroke="#c8a040" stroke-width="3"><path d="M470 742v-110M495 742v-122M520 742v-128M545 742v-130M570 742v-128M595 742v-122M620 742v-110"/></g>
+  <rect x="430" y="270" width="230" height="130" fill="#e8e0cc" stroke="#7a5a3a" stroke-width="6"/><path d="M450 370q40 -40 80 -10q40 -40 110 0v20H450z" fill="#5a7a9a"/><path d="M520 290v70M520 300l40 30h-40z" fill="#f2ead8" stroke="#3a3a42" stroke-width="2"/></g>
+<g id="cup" class="hot"><path d="M594 386h34l-4 24h-26z" fill="#f6f2ea" stroke="#3a5a8a" stroke-width="2.5"/><path d="M628 392q10 2 6 10q-4 4 -8 2" fill="none" stroke="#3a5a8a" stroke-width="2.5"/><ellipse cx="611" cy="412" rx="24" ry="5" fill="#f6f2ea" stroke="#3a5a8a" stroke-width="2"/><rect x="590" y="360" width="40" height="18" fill="#efe2c4" stroke="#8a6a3a" stroke-width="1.5" transform="rotate(-6 610 369)"/><path d="M596 370h28" stroke="#2a2018" stroke-width="2" transform="rotate(-6 610 369)"/></g>
+<!-- the table with its red oilcloth: the register, the wonders, the exercise book -->
+<g><path d="M650 640h400l40 40H610z" fill="#b8322a" stroke="#6a120a" stroke-width="3"/><path d="M610 680h480v34H610z" fill="#a02a22" stroke="#6a120a" stroke-width="3"/><g fill="#e8d0b0" opacity=".5"><circle cx="700" cy="660" r="5"/><circle cx="800" cy="664" r="5"/><circle cx="900" cy="660" r="5"/><circle cx="1000" cy="664" r="5"/></g><path d="M640 714v60M1060 714v60" stroke="#5a3a20" stroke-width="12"/></g>
+<g id="wonders" class="hot"><path d="M690 652l80 -10l4 30l-80 10z" fill="#fdfbf3" stroke="#9a9488" stroke-width="2"/><path d="M700 654l60 -8M702 662l56 -7M703 670l46 -6" stroke="#3a4a7a" stroke-width="1.5"/><path d="M770 642l6 -4l4 30l-6 4z" fill="#9a2a22"/></g>
+<g id="exb" class="hot"><path d="M960 646l66 6l-4 26l-66 -6z" fill="#2f5a4a" stroke="#123a2a" stroke-width="2"/><path d="M970 652l20 2" stroke="#e8f0e8" stroke-width="5"/></g>
+<g id="reg" class="hot"><path d="M820 650h96l10 22h-96z" fill="#1c1a1e" stroke="#000" stroke-width="2"/><path d="M820 650v-4h96l10 22v4" fill="none" stroke="#8a2a1e" stroke-width="3"/><path d="M836 658h34" stroke="#f2ead8" stroke-width="3"/></g>
+<!-- the door of the little room beyond, with the trunk inside -->
+<g><rect x="1150" y="250" width="180" height="492" fill="#2a1c12"/><rect x="1150" y="250" width="180" height="492" fill="none" stroke="#7a5032" stroke-width="10"/><path d="M1150 250l-54 30v472l54 -10z" fill="#c8a878" stroke="#7a5032" stroke-width="4"/><circle cx="1108" cy="520" r="7" fill="#c8a040"/></g>
+<g id="trunk" class="hot"><path d="M1170 742v-90h140v90z" fill="#3a4a5a" stroke="#141a20" stroke-width="3"/><path d="M1170 668h140" stroke="#141a20" stroke-width="3"/><path d="M1200 652v90M1280 652v90" stroke="#a8884a" stroke-width="7"/><path d="M1170 700h140" stroke="#c8b07a" stroke-width="5"/><rect x="1232" y="672" width="16" height="18" fill="#c8a040" stroke="#5a4010" stroke-width="2"/><rect x="1160" y="640" width="160" height="110" fill="transparent"/></g>
+<!-- the window onto the square, and Miss Inkster beside it -->
+<g id="win" class="hot"><rect x="1360" y="190" width="220" height="370" fill="#f2e6cc" stroke="#7a5032" stroke-width="6"/><rect x="1378" y="206" width="184" height="338" fill="url(#sq)"/>
+  <g fill="#6a8a5a"><circle cx="1420" cy="430" r="48"/><circle cx="1500" cy="410" r="60"/><circle cx="1560" cy="440" r="40"/></g><path d="M1378 470h184v74H1378z" fill="#2a2a2a"/><g stroke="#1a1a1a" stroke-width="3"><path d="M1378 480h184M1390 470v74M1410 470v74M1430 470v74M1450 470v74M1470 470v74M1490 470v74M1510 470v74M1530 470v74M1550 470v74"/></g>
+  <path d="M1378 206q40 120 10 338h-10z" fill="#fbf8f0" opacity=".85"/><path d="M1562 206q-40 120 -10 338h10z" fill="#fbf8f0" opacity=".85"/><path d="M1470 206v338M1378 376h184" stroke="#f2e6cc" stroke-width="10"/></g>
+<g id="ink" class="hot" transform="translate(1440 870)"></g>
+<g id="fel" transform="translate(372 872)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the back stairs to the kitchen</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="nanny.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#ink').innerHTML = NY.as('inkster', { h: 336, armL: 'front', armR: 'front' });
+  $('#fel').innerHTML = NY.as('felicity', { h: 330 });
+
+  ER.init({
+    theme: 'lit', story: 'nanny', storyTitle: 'Everything Is Somewhere', id: 'day', no: 'II', title: 'The Day Nursery',
+    go: 'Across the landing',
+    intro: [
+      'You sorted Felicity&rsquo;s twelve slips by who is telling them. Four say I or we from inside the story: first person, even the one that begins with She. Four stay with one person, like a lamp she carries: third person limited, even the one with an I inside speech marks, and the one where Felicity writes herself as she. And four go into two heads at once, or out into space: all-knowing. Felicity crossed those out. A witness can only ever be first person or limited.',
+      'The day nursery is across the landing. Its door is open, and somebody inside is standing very still.'
+    ],
+    exit: {"next":"kitchen","w":{"2d7a20fc":"662fe87d"}}, tags: {"w1":["03bda204"],"w2":["e52f88d6"],"w3":["20c31b4d"],"w4":["e0a03540"],"w5":["8db835c4"],"w6":["5759a438"],"w7":["4be500e5"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = NY.told('b-told'); nextFile = ER.flag('b-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('ink') && told.has('reg') && told.has('unrel') && told.has('wonders'); }
+  function paint() {
+    $('#ink').classList.toggle('ready', !told.has('ink') && !nextFile);
+    $('#reg').classList.toggle('ready', told.has('ink') && !told.has('reg'));
+    $('#reg').style.display = told.has('ink') ? '' : 'none';
+    $('#exb').classList.toggle('ready', told.has('reg') && !told.has('unrel'));
+    $('#wonders').classList.toggle('ready', told.has('unrel') && !told.has('wonders') || ready() && !nextFile);
+    var n = ['ink', 'reg', 'unrel', 'wonders', 'house'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The wonders are tied. The button at the bottom of the screen takes you down the back stairs to the kitchen, where Digby is.']];
+    if (lock && document.body.contains(lock)) return ['tie', [
+      'For each wonder, ask: what could Miss Inkster have noticed, with her own eyes and ears, that would let her know this? Then find the line in her book where she wrote that thing down.',
+      'The book never repeats Felicity&rsquo;s words. The tooth is &ldquo;something small and white&rdquo;; the King is in what the newsboys were calling; the rain is in a glass in the hall; Father in the drawing room is in smoke from a chimney.',
+      'The laugh is the line about something Father lost years ago. Seeing through walls is the line about the third and fourth stairs. And there is no line at all about the trunk: tie that one to the card that says so. Half the lines in the book explain no wonder at all.'
+    ]];
+    if (!ready()) return ['look', [
+      'Talk to Miss Inkster first: she is standing by the window on the right.',
+      'Then read what is on the red table: her black register (three pages), the green exercise book, and Felicity&rsquo;s list of wonders, the small diary page on the left.'
+    ]];
+    return ['tie', ['Everything is read. Click Felicity&rsquo;s list of wonders on the table to tie each one to its line in the register.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Miss Inkster is looking out at the square again.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The day nursery. Miss Inkster has not moved.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The day nursery is the warmest room in the house: a fire behind a brass guard, a table with a red oilcloth, and a dolls&rsquo; house as tall as Digby, painted to look exactly like No. 9.',
+      'Through the open door of the little room beyond you can see a tin trunk, roped and locked. And by the window, in a grey coat and a plain black hat, with her gloves on and her hands folded, stands Miss Inkster. She is not packing. She has packed. She is looking out at the square as if it were a page she was reading.',
+      '&ldquo;Good morning,&rdquo; she says, without turning round. &ldquo;You came up on the early train, in a corner seat facing the engine. There is a smut on your right cheek, and the return half of your ticket is in your left glove.&rdquo;',
+      'Felicity looks at you. You look at your glove. The ticket is there.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var REG_A = NY.register('The first days', [
+    ['Mon 2 May', '4.12 pm', 'The nanny arrived. Mr H. looked at his watch and said she was three minutes early.'],
+    ['Mon 2 May', '4.20 pm', 'Item: something small and white. Found: in the toe of the boy&rsquo;s left boot. Remarks: he had been walking as if on a pebble.'],
+    ['Mon 2 May', '5.00 pm', 'Item: a chair leg, loose, in the hall. Reported to Mr H. Mr H.: &ldquo;Nonsense.&rdquo;'],
+    ['Mon 2 May', '5.30 pm', 'Item: five minutes. Lost by: the kitchen clock, which is fast. Mrs Spink&rsquo;s opinion: the rest of London is slow.'],
+    ['Thu 5 May', '8.04 am', 'Item: one temper. Lost by: Mr H., at breakfast. Damage: the toast rack, bent. Found again: 8.06.'],
+    ['Sat 7 May', '6.05 am', 'Newsboys at the corner of the square, calling out, with black edges on the papers they carry. Heard through the open window. The nanny told the children at breakfast, gently.']
+  ]);
+  var REG_B = NY.register('The second week', [
+    ['Tue 10 May', '8.11 am', 'Item: one laugh. Lost by: Mr H., some years ago. Found: at breakfast, when the boy asked whether the comet would come by Greenwich time or by ours.'],
+    ['Wed 11 May', '9.40 pm', 'The third stair from the top creaks; the fourth creaks louder. Only one person in the house jumps the third and lands on the fourth.'],
+    ['Thu 12 May', '7.40 am', 'The weather-glass in the hall: down three tenths in the night. Mrs Spink&rsquo;s knee: also down. Coats.'],
+    ['Sun 15 May', '3.00 pm', 'Smoke from the drawing-room chimney. Only Mr H. lights that fire, and only when he wishes to be alone.'],
+    ['Mon 16 May', '9.00 am', 'Notice given. The nanny leaves on Thursday 19th, at 4.10 pm. Mr H.: &ldquo;Good.&rdquo; Then he went into his study for an hour.'],
+    ['Tue 17 May', '8.30 pm', 'Mr H., in the drawing room: &ldquo;I will not have the children up for this comet.&rdquo; The nanny: &ldquo;Leave the comet to me.&rdquo;']
+  ]);
+  var REG_C = NY.register('The comet night', [
+    ['Wed 18 May', '6.57 pm', 'Item: the time of this house. Stopped by: <span class="blank"></span> Remarks: the clock door left open, too high for that person to shut. The nanny did not start it again.'],
+    ['', '8.10 pm', 'The roof key, borrowed from Mrs Spink. Mrs Spink&rsquo;s opinion: also borrowed.'],
+    ['', '10.25 pm', 'Two children woken, wrapped up warm, and taken up to the leads.'],
+    ['', '10.40 pm', 'Item: one comet. Looked for. Not found. Remarks: the papers said that tonight it would be between us and the Sun, and not to be seen. Stars found instead, and a train on the viaduct with every window lit.'],
+    ['', '10.50 pm', 'The front door, opened from outside, with a key.'],
+    ['', '10.50 pm', 'Item: one temper. Lost: in the hall. Damage: one pane of glass. Lost by: <span class="blank"></span>'],
+    ['', '10.51 pm', 'The nanny went down, saw, and came back up. Four minutes. Fire-screen put round the glass, so that no bare foot should find it.'],
+    ['Thu 19 May', '2.10 am', 'The hatch opened from below. Heavy feet on the leads.'],
+    ['', '5.10 am', 'Item: one gold watch, with chain. Found: on the leads, by the third chimney. Lost by: a person who went up to look at a thing he said he did not care to see. To be returned to its owner when he asks for it.']
+  ]);
+  var UNREL = '<span class="cover">Composition &middot; Form II &middot; F. Harbottle</span><h4>Can we believe the narrator?</h4>' +
+    '<p>A narrator we cannot fully trust is an <b>unreliable narrator</b>. Three common kinds:</p>' +
+    '<p><b>1. Wrong.</b> She tells truly what she saw and heard, but she <b>misunderstands</b> it, often because she is young or does not know enough. Believe her facts; check her reasons.</p>' +
+    '<p><b>2. Biased.</b> She has strong feelings about somebody (dislike, jealousy, love), so she sees what she wants to see, and fills every gap against them.</p>' +
+    '<p><b>3. Leaving out.</b> Everything she says is true, but not everything true is said. She <b>leaves things out</b> on purpose. Look for the gaps.</p>' +
+    '<p>Three questions: <span class="board">What could she see? What does she want? What has she not said?</span></p>';
+  var WONDERS = [
+    ['w1', 'Mon 2nd May. Five minutes after she came, she found the tooth Digby lost on Sunday. She had never been in the house before!'],
+    ['w2', 'Sat 7th May. She knew the King was dead before anybody in the house had seen a newspaper.'],
+    ['w3', 'She can see through walls. On Wed 11th she was in the bathroom with the door shut and called out, &ldquo;Back to bed, Digby!&rdquo; And it WAS Digby, on the stairs.'],
+    ['w4', 'Tue 10th May. She made Father laugh at breakfast. He had not laughed since Mother died.'],
+    ['w5', 'Thu 12th May. She knew it would rain, out of a perfectly blue sky, and made us take our coats to the Park. It poured.'],
+    ['w6', 'Sun 15th May. Without leaving the nursery, she said, &ldquo;Your father is in the drawing room with the door shut.&rdquo; He was.'],
+    ['w7', 'She has a trunk that is never opened, and I believe it is full of everything that anybody has ever lost.']
+  ];
+  var WLIST = '<h4>The Seven Wonders of Miss Inkster</h4><p class="when">(a list, kept since 2nd May)</p><ol>' + WONDERS.map(function (w) { return '<li>' + w[1] + '</li>'; }).join('') + '</ol>';
+  var HOUSE = '<h4>The dolls&rsquo; house</h4><p>A model of No. 9, made for Felicity&rsquo;s sixth birthday, exact to the last door knob. Its front swings open, so that you can see into every room at once, which is just what an all-knowing narrator does.</p>' +
+    '<p><b>The leads</b> (the flat roof), with eleven chimney pots, reached by the ladder in the night nursery.<br><b>Top floor:</b> the night nursery, the day nursery, Miss Inkster&rsquo;s room.<br><b>Second floor:</b> Father&rsquo;s bedroom.<br><b>First floor:</b> the drawing room.<br><b>Ground floor:</b> the hall with the hall clock, the dining room, Father&rsquo;s study.<br><b>Basement:</b> the kitchen, the scullery, Mrs Spink&rsquo;s bedroom, the coal cellar.</p>' +
+    '<p>Two staircases: the main stairs, and the back stairs for the servants, from the kitchen up to the hall.</p>';
+
+  function readReg() {
+    ER.read({ html: REG_A, cls: 'reg', clue: { id: 'regA', title: 'The register: the first days', kind: 'Register' }, done: function () {
+      setTimeout(function () {
+        ER.read({ html: REG_B, cls: 'reg', clue: { id: 'regB', title: 'The register: the second week', kind: 'Register' }, done: function () {
+          setTimeout(function () {
+            ER.read({ html: REG_C, cls: 'reg', clue: { id: 'regC', title: 'The register: the comet night', kind: 'Register' }, done: function () {
+              NY.terms(['register', 'lost property', 'lose your temper']);
+              if (told.set('reg')) { paint(); ER.say('&ldquo;Stopped by: nothing. Lost by: nothing,&rdquo; says Felicity, turning the pages. &ldquo;She has left every name out. On purpose.&rdquo;'); }
+            } });
+          }, 250);
+        } });
+      }, 250);
+    } });
+  }
+  $('#reg').addEventListener('click', function () { if (!busy && told.has('ink')) readReg(); });
+  $('#exb').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: UNREL, cls: 'exb', clue: { id: 'unrel', title: 'Can we believe the narrator?', kind: 'Exercise book' }, done: function () {
+      NY.terms(['unreliable narrator', 'misunderstand', 'biased', 'leave out']);
+      if (told.set('unrel')) { paint(); ER.say('&ldquo;Wrong, biased, leaving out,&rdquo; says Felicity. &ldquo;I wonder which one I am.&rdquo;'); }
+    } });
+  });
+  $('#wonders').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('wonders') || !ready() || nextFile) {
+      ER.read({ html: WLIST, cls: 'diary', clue: { id: 'wonders', title: 'The Seven Wonders of Miss Inkster', kind: 'Diary' }, done: function () {
+        if (told.set('wonders')) { paint(); ER.say('&ldquo;Seven,&rdquo; says Felicity, a little pink. &ldquo;I was going to stop at seven. There are seven wonders of the world.&rdquo;'); }
+      } });
+      return;
+    }
+    openLock();
+  });
+  $('#dolls').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: HOUSE, cls: 'seed', clue: { id: 'house', title: 'The dolls&rsquo; house: a plan of No. 9', kind: 'Noticed' }, done: function () { if (told.set('house')) paint(); } });
+  });
+  $('#trunk').addEventListener('click', function () {
+    if (busy) return;
+    NY.seed('trunk', 'Miss Inkster&rsquo;s trunk', '<p>A tin trunk, roped twice and locked. Felicity says Miss Inkster has never once opened it. Mrs Spink says that is where she keeps the things she takes.</p>');
+    ER.say('Miss Inkster&rsquo;s tin trunk, roped twice and locked. &ldquo;She has never once opened it,&rdquo; Felicity whispers. &ldquo;Cook says that is where she keeps the things she takes.&rdquo;');
+  });
+  NY.thing('#cup', 'teacup', 'A teacup on the mantelpiece, with a paper label in Miss Inkster&rsquo;s hand: STORMS. &ldquo;When we quarrel,&rdquo; says Felicity, &ldquo;she makes us put the storm in the cup. It is a joke. It also works.&rdquo;', isBusy);
+  NY.thing('#win', null, 'The square: railings, plane trees in new leaf, and a man on a ladder hanging black cloth along the balconies opposite, for the King.', isBusy);
+  NY.thing('#flames', null, 'A good fire, though it is May. Miss Inkster says children who are going to sit still need one.', isBusy);
+  $('#ink').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Digby is in the kitchen,&rdquo; says Miss Inkster, to the window. &ldquo;He has something that belongs to him, and he will not claim it.&rdquo;'); return; }
+    ER.talk({
+      who: 'Miss Cordelia Inkster', role: 'the nanny · leaving at 4.10', face: window.FACE('inkster'),
+      lines: [
+        { note: 'Miss Inkster turns from the window at last. She has a long, calm face and grey eyes that rest on things one at a time, as if she were writing each of them down.', a: '&ldquo;You will want to know whether I broke Mr Harbottle&rsquo;s clock and took his watch. Everybody does. Have you asked anybody who was there?&rdquo;' },
+        { q: 'Did you break the clock?', a: '&ldquo;Did I?&rdquo; She takes a narrow black book from her coat pocket and lays it on the table. On the cover, in white paint: LOST &amp; FOUND. C. I. &ldquo;Read it. It is all true. It is not all there.&rdquo;' },
+        { q: 'Why is it not all there?', a: '&ldquo;For nineteen years I was a clerk in the Lost Property Office at the terminus. A clerk writes down what was found, where, and when. Who lost it is the owner&rsquo;s business. Owners come and claim their property. Or they do not.&rdquo;' },
+        { q: 'Why do you write &ldquo;the nanny&rdquo;, and not &ldquo;I&rdquo;?', a: '&ldquo;A register is not a diary. It is not about the clerk.&rdquo;' },
+        { q: 'Are you magic?', a: '&ldquo;Are you?&rdquo; A pause. &ldquo;I look at things. Most people only see them. It is not the same.&rdquo;' },
+        { q: 'Why are you leaving?', a: '&ldquo;On my first day I told Mr Harbottle that I would stay until this house had found what it had lost. It very nearly has. I go at ten past four.&rdquo;' }
+      ],
+      clue: { id: 'ink1', title: 'Miss Inkster, in the day nursery', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('ink')) { paint(); ER.say('The black book lies on the red oilcloth.'); } }
+    });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the lock: seven wonders, tied to the lines of the register ---------- */
+  var LINES = [
+    ['la', 'Mon 2 May, 4.12 pm', 'Mr H. looked at his watch and said she was three minutes early.'],
+    ['lb', 'Mon 2 May, 4.20 pm', 'Something small and white, in the toe of the boy&rsquo;s left boot. He had been walking as if on a pebble.'],
+    ['lc', 'Mon 2 May, 5.00 pm', 'A chair leg, loose, in the hall. Mr H.: &ldquo;Nonsense.&rdquo;'],
+    ['ld', 'Mon 2 May, 5.30 pm', 'Five minutes, lost by the kitchen clock, which is fast.'],
+    ['le', 'Thu 5 May, 8.04 am', 'One temper, lost by Mr H. at breakfast. The toast rack, bent.'],
+    ['lf', 'Sat 7 May, 6.05 am', 'Newsboys at the corner of the square, calling out, with black edges on their papers. Heard through the open window.'],
+    ['lg', 'Tue 10 May, 8.11 am', 'One laugh, lost by Mr H. some years ago. Found at breakfast, at the boy&rsquo;s question about the comet.'],
+    ['lh', 'Wed 11 May, 9.40 pm', 'The third stair creaks; the fourth creaks louder. Only one person jumps the third and lands on the fourth.'],
+    ['li', 'Thu 12 May, 7.40 am', 'The weather-glass in the hall: down three tenths in the night. Coats.'],
+    ['lj', 'Sun 15 May, 3.00 pm', 'Smoke from the drawing-room chimney. Only Mr H. lights that fire, when he wishes to be alone.'],
+    ['lk', 'Mon 16 May, 9.00 am', 'Notice given. Mr H.: &ldquo;Good.&rdquo; Then an hour in his study.'],
+    ['ll', 'Tue 17 May, 8.30 pm', 'Mr H.: &ldquo;I will not have the children up for this comet.&rdquo; &ldquo;Leave the comet to me.&rdquo;']
+  ];
+  var WHY = {
+    w1: 'Wonder 1, the tooth: she did not search the house. What had she noticed about the way Digby was walking?',
+    w2: 'Wonder 2, the King: nobody in the house had seen a newspaper. But somebody outside had them, very early, and was calling out.',
+    w3: 'Wonder 3, seeing through walls: she did not see Digby at all. What can be heard through a shut door, and why could it only be Digby?',
+    w4: 'Wonder 4, the laugh: which line finds something that Father lost years ago?',
+    w5: 'Wonder 5, the rain: she did not look at the sky. What hangs in the hall and tells you about the weather to come?',
+    w6: 'Wonder 6, Father in the drawing room: what can be seen from a top-floor window on a Sunday afternoon, that only Father causes?',
+    w7: 'Wonder 7, the trunk: is there any line in the book about the trunk at all? A wonder can be only a story that somebody believes.'
+  };
+  function openLock() {
+    var put = ER.flag('b-put') || {}, held = null, done = false;
+    lock = ER.el('div', 'tie');
+    var h = '<h5>Tie each wonder to the line in the register that explains it</h5><div class="col wl">';
+    WONDERS.forEach(function (w, i) { h += '<button type="button" class="wd" data-w="' + w[0] + '"><i>' + (i + 1) + '</i>' + w[1] + '</button>'; });
+    h += '</div><div class="col rl">';
+    LINES.forEach(function (l) { h += '<button type="button" class="ln" data-l="' + l[0] + '"><b>' + l[1] + '</b><span>' + l[2] + '</span></button>'; });
+    h += '<button type="button" class="ln none" data-l="lx">There is no line in the book about this</button></div><svg class="thr"></svg>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="tieup">Show Miss Inkster</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), thr = lock.querySelector('.thr');
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    function draw() {
+      ER.$$('.wd', lock).forEach(function (b) { var w = b.getAttribute('data-w'); b.classList.toggle('held', held === w); b.classList.toggle('tied', !!put[w]); });
+      var R = lock.getBoundingClientRect(), s = '';
+      Object.keys(put).forEach(function (w) {
+        var a = lock.querySelector('.wd[data-w="' + w + '"]'), b = lock.querySelector('.ln[data-l="' + put[w] + '"]'); if (!a || !b) return;
+        var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+        var x1 = ra.right - R.left, y1 = ra.top + ra.height / 2 - R.top, x2 = rb.left - R.left, y2 = rb.top + rb.height / 2 - R.top, mx = (x1 + x2) / 2;
+        s += '<path d="M' + x1 + ' ' + y1 + 'C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 + '"/><circle cx="' + x1 + '" cy="' + y1 + '" r="4"/><circle cx="' + x2 + '" cy="' + y2 + '" r="4"/>';
+      });
+      thr.innerHTML = s;
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var w = e.target.closest('.wd');
+      if (w) { var id = w.getAttribute('data-w'); held = held === id ? null : id; NY.sfx.pencil(); clearBad(); draw(); return; }
+      var l = e.target.closest('.ln');
+      if (l && held) { put[held] = l.getAttribute('data-l'); held = null; NY.sfx.thread(); ER.flag('b-put', put); clearBad(); draw(); msg('Tied. Click a wonder again to tie it somewhere else.'); return; }
+      if (l) msg('First click a wonder on the left, then the line on the right that explains it.');
+    });
+    window.addEventListener('resize', draw);
+    foot.querySelector('#tieup').addEventListener('click', function () {
+      if (done) return;
+      clearBad();
+      var i, w, left = WONDERS.filter(function (x) { return !put[x[0]]; }).length;
+      if (left === WONDERS.length) { ER.sfx.no(); msg('No thread is tied yet. Click a wonder, then the line in the register that explains it.'); return; }
+      if (left) { ER.sfx.no(); msg('&ldquo;Every one,&rdquo; says Miss Inkster. ' + left + (left === 1 ? ' wonder has' : ' wonders have') + ' no thread yet.'); return; }
+      for (i = 0; i < WONDERS.length; i++) {
+        w = WONDERS[i][0];
+        if (!ER.check(w, put[w])) { ER.sfx.no(); lock.querySelector('.wd[data-w="' + w + '"]').classList.add('bad'); msg(WHY[w] + ' (Miss Inkster only ever looks at the first thread that is wrong.)'); return; }
+      }
+      var file = ER.exit([WONDERS.map(function (x) { return x[0] + '-' + put[x[0]]; }).join('/')], { wait: true });
+      if (!file) { msg('The threads will not hold. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('b-file', file);
+      msg('Miss Inkster looks at the seven red threads for a long moment, and says nothing at all, which Felicity says afterwards is the highest praise she has.');
+      setTimeout(function () { ER.closeAll(); window.removeEventListener('resize', draw); solved(); }, 2600);
+    });
+    msg('Click a wonder, then the line in the register that explains it. Click a wonder again to tie it somewhere else.');
+    ER.open('ov-lock', wrap);
+    setTimeout(draw, 60); setTimeout(draw, 400);
+  }
+
+  function solved() {
+    NY.mine('wonders2', 'The wonders, explained', '<p>The tooth: Digby walked as if on a pebble, so it was in his boot. The King: the newsboys under the window at 6.05. Seeing through walls: only Digby jumps the third stair and lands on the creaking fourth. The laugh: Digby&rsquo;s question about Greenwich time. The rain: the weather-glass fell in the night. Father in the drawing room: smoke from the chimney of a fire only he lights.</p>' +
+      '<p>Felicity had the facts right and the reasons wrong: a narrator who misunderstands. The register gives the facts and leaves out the reasons, and the names.</p><p>The trunk: no line at all. Nobody knows what is in it.</p>');
+    NY.terms(['unreliable narrator', 'misunderstand', 'biased', 'leave out']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;So you are not magic,&rdquo; says Felicity slowly. &ldquo;You just&hellip; notice.&rdquo;',
+      '&ldquo;Everybody notices,&rdquo; says Miss Inkster. &ldquo;I write it down.&rdquo; She takes three buff cards out of her pocket and gives them to Felicity: blank lost-property tickets, from her old office. &ldquo;When you know who lost what last night, write it in. Owners may claim.&rdquo;',
+      '&ldquo;But the trunk,&rdquo; says Felicity. &ldquo;What is in the trunk?&rdquo; &ldquo;Things,&rdquo; says Miss Inkster, and turns back to the window.',
+      '&ldquo;Digby,&rdquo; says Felicity. &ldquo;He was there at five to seven, and he will not say a word. Come on: the kitchen.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

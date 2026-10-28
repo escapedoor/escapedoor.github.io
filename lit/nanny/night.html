@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Night Nursery · Everything Is Somewhere</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="nanny.css">
+<style>
+  body{--bg:#cfdde6;--accent:#2f5a8a;--font-display:'Henny Penny',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(228,236,242,.97);--tc-ink:#1c2a3a;--cap-bg:rgba(246,248,250,.95);--cap-ink:#1c2a3a;--panel:#f4f6f8;--panel-ink:#1c2a3a;--face-bg:#cfe0ea;--q-ink:#2f5a8a;--fade:#e8eef2;--hud-bg:rgba(240,244,248,.9);--hud-ink:#1c2a3a;--hud-line:rgba(28,42,58,.3)}
+  .tc-room{font-family:'Henny Penny',serif;font-size:clamp(44px,6vw,84px);color:#2f5a8a}
+  .gobtn{background:rgba(244,247,250,.94)}
+  .gobtn:hover{color:#fff}
+  #motes circle{animation:mote 7s steps(14,end) infinite}
+  #motes circle:nth-child(2n){animation-duration:9s}#motes circle:nth-child(3n){animation-duration:11s;animation-delay:-3s}
+  @keyframes mote{0%{transform:translate(0,0);opacity:0}30%{opacity:.8}100%{transform:translate(-40px,120px);opacity:0}}
+
+  /* the lock: three envelopes pinned to the scrap screen, and Felicity's slips */
+  .scr{padding:12px 14px 10px;background:#efe6d2;background-image:radial-gradient(circle at 12% 20%,rgba(200,90,90,.18) 0 22px,transparent 23px),radial-gradient(circle at 78% 12%,rgba(90,140,90,.18) 0 18px,transparent 19px),radial-gradient(circle at 40% 85%,rgba(90,110,180,.16) 0 26px,transparent 27px),radial-gradient(circle at 92% 70%,rgba(220,170,60,.2) 0 20px,transparent 21px);
+    border:6px solid #6a4a2a;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#1c2a3a}
+  .scr h5{margin:0 0 8px;font-family:'Henny Penny',serif;font-weight:normal;font-size:22px;text-align:center;color:#2f3a5a}
+  .envs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .env{position:relative;min-height:236px;padding:8px 8px 8px;background:#c9a874;background-image:linear-gradient(160deg,rgba(255,255,255,.18),rgba(0,0,0,.06));border:1px solid #8a6a3a;border-radius:2px;cursor:pointer}
+  .env:before{content:'';position:absolute;left:50%;top:-6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#b8322a;box-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .env b{display:block;font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.16em;text-align:center;color:#2a1c0a}
+  .env small{display:block;margin:0 0 6px;font-family:'Caveat',cursive;font-size:19px;line-height:1;text-align:center;color:#3a2a14}
+  .env:hover{background-color:#d4b484}
+  .env.want{outline:3px dashed #2f5a8a;outline-offset:2px}
+  .tray{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:60px;padding:6px;border:2px dashed rgba(106,74,42,.45);cursor:pointer}
+  .slp{display:block;width:calc(25% - 5px);box-sizing:border-box;padding:5px 8px;background:#fdfbf3;color:#1d2a4a;font-family:'Caveat',cursive;font-size:18.5px;line-height:1.08;text-align:left;
+    border:1px solid #b8b0a0;box-shadow:0 2px 4px rgba(0,0,0,.25);cursor:pointer}
+  .env .slp{width:100%;margin:0 0 4px;font-size:17px}
+  .slp:hover{background:#fff}
+  .slp.held{outline:3px solid #2f5a8a;outline-offset:1px;background:#eef4fa}
+  .slp.bad{background:#f6c8b8}
+  .slp.out{text-decoration:line-through;text-decoration-thickness:2px;color:#6a6a7a}
+  .ov-lock .pz-foot .btn{color:#dce8f4;border-color:#9ab8d8}
+  .ov-lock .pmsg{color:#f4f6f8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="wp" width="46" height="46" patternUnits="userSpaceOnUse"><rect width="46" height="46" fill="#cfdde6"/><g fill="#9cb6c8"><path d="M12 10q4 -6 8 0q-4 6 -8 0z"/><path d="M34 33q4 -6 8 0q-4 6 -8 0z"/></g><g fill="#e2a8a8"><circle cx="16" cy="10" r="2"/><circle cx="38" cy="33" r="2"/></g><path d="M16 12v8M38 35v8" stroke="#9cb6c8" stroke-width="1.2"/></pattern>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8d0e6"/><stop offset=".7" stop-color="#e8ecea"/><stop offset="1" stop-color="#f6e6c4"/></linearGradient>
+  <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc" stop-opacity=".45"/><stop offset="1" stop-color="#fff6dc" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#1c2a3a" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#wp)"/>
+<!-- the attic ceiling, sloping down on the left -->
+<path d="M-1000 -400H2600V136H430L-1000 610z" fill="#ece8de"/>
+<path d="M430 136L-1000 610M430 136H2600" stroke="#c8c0b0" stroke-width="4" fill="none"/>
+<g stroke="#ddd6c8" stroke-width="10"><path d="M700 -400V136M1100 -400V136M1500 -400V136"/></g>
+<!-- the floor -->
+<rect x="-1000" y="742" width="3600" height="18" fill="#f2efe6" stroke="#b8b0a0" stroke-width="2"/>
+<rect x="-1000" y="760" width="3600" height="540" fill="#8c6c4c"/>
+<g stroke="#6e5238" stroke-width="2"><path d="M-1000 800H2600M-1000 850H2600M-1000 910H2600M-1000 980H2600"/><path d="M120 760v40M520 800v50M940 760v40M1380 850v60M300 910v70M1100 910v70M760 850v60"/></g>
+<ellipse cx="800" cy="840" rx="330" ry="46" fill="#b8584a" opacity=".85"/><ellipse cx="800" cy="840" rx="280" ry="34" fill="none" stroke="#e8c88a" stroke-width="5" stroke-dasharray="14 8"/>
+<!-- the door, with the House Time-Table pinned to it -->
+<g><rect x="70" y="262" width="180" height="480" fill="#e8e2d2" stroke="#9a9080" stroke-width="4"/><rect x="92" y="290" width="136" height="180" fill="none" stroke="#b8b0a0" stroke-width="3"/><rect x="92" y="500" width="136" height="210" fill="none" stroke="#b8b0a0" stroke-width="3"/><circle cx="226" cy="500" r="9" fill="#c8a040" stroke="#7a5a1a" stroke-width="2"/></g>
+<g id="tt" class="hot"><rect x="104" y="312" width="112" height="146" fill="#fbf7ea" stroke="#22222a" stroke-width="2"/><path d="M114 330h92" stroke="#22222a" stroke-width="5"/><g stroke="#55555e" stroke-width="2"><path d="M114 346h20M140 346h66M114 358h20M140 358h56M114 370h20M140 370h66M114 382h20M140 382h50M114 394h20M140 394h62M114 406h20M140 406h40"/></g><path d="M140 418q20 -6 40 2" stroke="#1f6a3a" stroke-width="2.4" fill="none"/><path d="M118 438h80" stroke="#b8221a" stroke-width="4"/><circle cx="160" cy="312" r="4" fill="#8a8a90"/></g>
+<!-- the ladder to the roof hatch -->
+<rect x="296" y="112" width="140" height="26" fill="#2a2a30"/><path d="M296 112h140v26h-140z" fill="none" stroke="#8a8070" stroke-width="4"/>
+<g id="ladder" class="hot"><g stroke="#7a5432" stroke-width="12" stroke-linecap="round"><path d="M328 140L318 790M404 140L414 790"/></g><g stroke="#8c6440" stroke-width="9"><path d="M326 196H406M325 256H407M324 316H408M323 376H409M322 436H410M321 496H411M320 556H412M319 616H413M318 676H414M317 736H415"/></g>
+  <path d="M352 190q14 -6 34 2q-10 8 -30 4z" fill="#1a1a1e" opacity=".85"/><rect x="290" y="120" width="160" height="680" fill="transparent"/></g>
+<!-- Felicity's bed, with Father's memorandum on it and her diary on the pillow -->
+<g><path d="M470 560v190M490 600v150M760 610v140" stroke="#26262c" stroke-width="8"/><path d="M470 590q10 -40 30 0" fill="none" stroke="#26262c" stroke-width="6"/><circle cx="470" cy="556" r="8" fill="#c8a040"/>
+  <path d="M480 650h290l-10 60H480z" fill="#f6f4ee" stroke="#9a9488" stroke-width="3"/><path d="M480 690h282" stroke="#7a9ac8" stroke-width="6"/><rect x="492" y="626" width="92" height="34" rx="14" fill="#fff" stroke="#b8b0a0" stroke-width="3"/></g>
+<g id="diary" class="hot"><rect x="512" y="618" width="46" height="34" fill="#9a2a22" stroke="#4a120e" stroke-width="2" transform="rotate(-8 535 635)"/><path d="M518 628h32" stroke="#e8c070" stroke-width="2" transform="rotate(-8 535 635)"/></g>
+<g id="memo" class="hot"><rect x="618" y="640" width="64" height="44" fill="#fff" stroke="#55555e" stroke-width="2" transform="rotate(6 650 662)"/><g stroke="#3a3a44" stroke-width="1.6" transform="rotate(6 650 662)"><path d="M626 650h48M626 658h40M626 666h48M626 674h30"/></g></g>
+<!-- the washstand, with the exercise book -->
+<g><rect x="776" y="560" width="84" height="16" fill="#e8e2d6" stroke="#8a8478" stroke-width="3"/><path d="M784 576v170M852 576v170" stroke="#8a6a4a" stroke-width="8"/><rect x="782" y="680" width="76" height="12" fill="#8a6a4a"/>
+  <ellipse cx="820" cy="556" rx="30" ry="8" fill="#fff" stroke="#8aa0b8" stroke-width="3"/><path d="M808 552q-4 -40 12 -44q16 4 12 44" fill="#fff" stroke="#8aa0b8" stroke-width="3"/></g>
+<g id="exb" class="hot"><rect x="782" y="530" width="40" height="28" fill="#2f5a4a" stroke="#123a2a" stroke-width="2" transform="rotate(-14 802 544)"/><rect x="788" y="538" width="24" height="8" fill="#e8f0e8" transform="rotate(-14 802 544)"/></g>
+<!-- the window, the chimney pots outside, and the window seat with Felicity's slips -->
+<g><rect x="868" y="196" width="264" height="330" fill="#f2efe6" stroke="#b8b0a0" stroke-width="5"/><clipPath id="wclip"><rect x="886" y="212" width="228" height="298"/></clipPath><rect x="886" y="212" width="228" height="298" fill="url(#sky)"/><g clip-path="url(#wclip)">
+  <path d="M886 420h40v-40h14v-30h12v30h10v40h50v-26h10v-22h16v22h10v26h36v-50h12v-14h14v14h12v50h32v90H886z" fill="#7a8a9a"/>
+  <path d="M886 460h228v50H886z" fill="#5a6a7a"/><path d="M930 350l6 -10M988 372l4 -8M1052 344l4 -8" stroke="#e8ecea" stroke-width="2" opacity=".7"/></g>
+  <g stroke="#3a3a42" stroke-width="6"><path d="M943 212v298M1000 212v298M1057 212v298"/></g><path d="M886 362h228" stroke="#e8e2d2" stroke-width="10"/>
+  <rect x="852" y="526" width="296" height="22" fill="#e8e2d2" stroke="#9a9080" stroke-width="3"/><rect x="858" y="548" width="284" height="34" rx="10" fill="#7a9ac8" stroke="#4a6a98" stroke-width="3"/></g>
+<polygon points="886,510 1114,510 1300,900 700,900" fill="url(#shaft)" pointer-events="none"/>
+<g id="motes" fill="#fff8e0" pointer-events="none"><circle cx="930" cy="560" r="2"/><circle cx="990" cy="600" r="1.6"/><circle cx="1050" cy="580" r="2.2"/><circle cx="1010" cy="660" r="1.5"/><circle cx="1090" cy="630" r="1.8"/><circle cx="960" cy="700" r="1.4"/></g>
+<g id="slips" class="hot"><g transform="rotate(-6 1000 532)"><rect x="950" y="518" width="56" height="22" fill="#fdfbf3" stroke="#9a9488" stroke-width="1.6"/><path d="M956 526h40M956 532h30" stroke="#3a4a7a" stroke-width="1.4"/></g><g transform="rotate(9 1010 528)"><rect x="984" y="512" width="56" height="22" fill="#fdfbf3" stroke="#9a9488" stroke-width="1.6"/><path d="M990 520h40M990 526h34" stroke="#3a4a7a" stroke-width="1.4"/></g><g transform="rotate(-2 1040 526)"><rect x="1020" y="516" width="56" height="22" fill="#fdfbf3" stroke="#9a9488" stroke-width="1.6"/><path d="M1026 524h40M1026 530h26" stroke="#3a4a7a" stroke-width="1.4"/></g><rect x="1060" y="520" width="20" height="40" fill="#e8c070" transform="rotate(30 1070 540)"/><rect x="940" y="500" width="150" height="60" fill="transparent"/></g>
+<!-- the nursery clock on its shelf -->
+<g id="clock" class="hot"><rect x="1248" y="342" width="124" height="12" fill="#a8885a" stroke="#6a4a2a" stroke-width="2"/><rect x="1282" y="282" width="56" height="62" rx="8" fill="#6a4a2a" stroke="#3a2614" stroke-width="2"/><circle cx="1310" cy="308" r="20" fill="#fbf7ea" stroke="#3a2614" stroke-width="2"/><path d="M1310 308L1301 303M1310 308L1303 293" stroke="#1c1c20" stroke-width="2.4" stroke-linecap="round"/></g>
+<!-- Digby's bed, empty and tangled, with his slate -->
+<g><path d="M1160 580v170M1440 580v170M1180 620v130" stroke="#26262c" stroke-width="8"/><path d="M1420 610q10 -40 30 0" fill="none" stroke="#26262c" stroke-width="6"/><circle cx="1440" cy="576" r="8" fill="#c8a040"/>
+  <path d="M1168 660q40 -30 90 -10q40 -30 90 6q40 -10 80 8l-6 50H1170z" fill="#f6f4ee" stroke="#9a9488" stroke-width="3"/><path d="M1200 690q50 -20 100 6q60 -24 120 2" fill="none" stroke="#c87a6a" stroke-width="5"/><path d="M1340 640q30 30 10 70" fill="none" stroke="#9a9488" stroke-width="3"/></g>
+<g id="slate" class="hot"><rect x="1232" y="614" width="80" height="56" fill="#3a3e44" stroke="#8a6a3a" stroke-width="5" transform="rotate(-10 1272 642)"/><g stroke="#e8ecea" stroke-width="2" transform="rotate(-10 1272 642)"><path d="M1240 626h26M1270 626h16M1240 638h34M1278 638h12M1240 650h18M1262 650h28"/></g></g>
+<!-- the rocking horse -->
+<g id="horse" class="hot" transform="translate(-40 0)"><path d="M1460 770q90 30 180 0" fill="none" stroke="#6a3a1a" stroke-width="12"/><path d="M1490 760l10 -70M1610 760l-10 -70" stroke="#6a3a1a" stroke-width="8"/>
+  <path d="M1484 690q20 -40 70 -40h40q20 -40 20 -70l22 -10q20 30 10 70q-6 20 -20 30q0 20 -30 20h-90q-20 0 -22 0z" fill="#f2e6d0" stroke="#3a2614" stroke-width="3"/><circle cx="1620" cy="586" r="5" fill="#1c1c20"/><path d="M1600 560q-20 10 -30 40" fill="none" stroke="#8a3a1a" stroke-width="10"/><g fill="#3a2614"><circle cx="1520" cy="668" r="5"/><circle cx="1556" cy="676" r="4"/></g></g>
+<g id="fel" class="hot" transform="translate(1110 868)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Across to the day nursery</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="nanny.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, nextFile = null, lock = null;
+  $('#fel').innerHTML = NY.as('felicity', { h: 330, armR: 'front' });
+
+  ER.init({
+    theme: 'lit', story: 'nanny', storyTitle: 'Everything Is Somewhere', id: 'night', no: 'I', title: 'The Night Nursery',
+    go: 'Up five flights of stairs',
+    intro: [
+      'London, Thursday 19 May 1910. The King is to be buried tomorrow, and your mother has sent you up from the country to stay with your Harbottle cousins for the week, so that you can see the procession.',
+      'You reached No. 9 Ilbert Square at twenty to ten this morning. Your cousin Felicity was waiting on the steps. She took your bag out of your hand and said: &ldquo;Thank goodness. You are the only person in this house who was not here last night.&rdquo; Then she pulled you up five flights of stairs.'
+    ],
+    exit: {"next":"day","w":{"812f5de7":"7d7bab30"}}, tags: {"a":["b95c0168"],"b":["8c12e485"],"c":["eaa63aae"],"d":["a8ced551"],"e":["91cf807b"],"g":["2bb0f439"],"h":["cb469f19"],"j":["bd7cbdba"],"k":["c46600fb"],"m":["146eb505"],"n":["f2130cfc"],"q":["98ea5c3c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = NY.told('a-told'); nextFile = ER.flag('a-file') || null;
+  function isBusy() { return busy; }
+  function ready() { return told.has('memo') && told.has('fel') && told.has('diary') && told.has('pov'); }
+  function paint() {
+    $('#memo').classList.toggle('ready', !told.has('memo'));
+    $('#fel').classList.toggle('ready', told.has('memo') && !told.has('fel'));
+    $('#diary').classList.toggle('ready', told.has('fel') && !told.has('diary'));
+    $('#exb').classList.toggle('ready', told.has('diary') && !told.has('pov'));
+    $('#slips').classList.toggle('ready', ready() && !nextFile);
+    var n = ['memo', 'fel', 'diary', 'pov', 'tt'].filter(function (k) { return told.has(k); }).length + (nextFile ? 1 : 0);
+    ER.pips(n, 6);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The slips are sorted. The button at the bottom of the screen takes you across the landing to the day nursery.']];
+    if (lock && document.body.contains(lock)) return ['slips', [
+      'Ask of every slip: who is telling it? If somebody says I or we, and is not inside speech marks, the teller is inside the story.',
+      'If the teller says she or he, ask: does the sentence stay with one person, with only what she sees, hears and thinks? Then it is limited, like a lamp carried by one person. If it goes into two heads, or to a place where nobody from the house could be, it is all-knowing.',
+      'There are four of each. Watch the tricky ones: an I inside speech marks is a character talking; a slip can begin with She and still be a first-person diary if I comes later; and Felicity can write about herself as she.'
+    ]];
+    if (!ready()) return ['look', [
+      'Start with the typed sheet lying on the nearer bed: Father&rsquo;s memorandum. Then talk to Felicity, in front of the window.',
+      'Read three things before you sort anything: Father&rsquo;s memorandum, Felicity&rsquo;s diary (the red book on her pillow, once she has said you may) and the green exercise book on the washstand.'
+    ]];
+    return ['slips', ['Everything you need is read. The heap of paper slips on the window seat is Felicity&rsquo;s: click it.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Felicity has folded the eight true slips into her diary.'); return; }
+    if (told.has('in')) { busy = false; ER.say('The night nursery, at the top of the house. Digby&rsquo;s bed is still empty.'); return; }
+    told.set('in');
+    ER.narrate([
+      'The night nursery is at the very top of the house, under the roof. Two iron beds, a rocking horse with one eye, a barred window full of chimney pots, and in the corner a ladder that goes up to a square hatch in the ceiling.',
+      'One bed is made. The other is a tangle, and empty.',
+      '&ldquo;That is Digby&rsquo;s,&rdquo; says Felicity. &ldquo;He is seven, and he has been sent down to the kitchen in disgrace, and he will not say one single word. Father is at the railway office until four. And at ten past four Miss Inkster leaves us for ever. If nobody can explain last night by then, she leaves without a character.&rdquo;',
+      '&ldquo;A character is a letter from Father that says she is honest. Without one, nobody will ever give her work again.&rdquo; She points at a typed sheet lying on her bed. &ldquo;Read that first. Father made the whole house read it at breakfast.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  var MEMO = '<h4>MEMORANDUM</h4><p class="sub">No. 9, Ilbert Square &middot; Thursday, 19th May, 1910 &middot; 7.20 a.m. &middot; To: all members of this household.</p>' +
+    '<p>1. At 7.00 a.m. the Hall Clock was found STOPPED at 6.57, with its door open and its glass broken.</p>' +
+    '<p>2. My gold watch, which lies on the hall table every night, is MISSING.</p>' +
+    '<p>3. Miss Inkster was seen in the hall last night, with a candle, beside the broken glass. She has offered no explanation.</p>' +
+    '<p>4. Miss Inkster leaves this house at 4.10 p.m. today, as arranged. I return at 4.00 p.m. If these matters have not been explained by then, she leaves without a character.</p>' +
+    '<p class="sig">G. Harbottle</p>';
+  var DIARY = '<h4>Wednesday 18th May 1910</h4><p class="when">(written at six on Thursday morning, by the window, because I cannot sleep)</p>' +
+    '<p>At breakfast Father said the comet could manage without us. Bed at seven, as usual.</p>' +
+    '<p>At five to seven Digby crept out, and came back puffing as if he had climbed a mountain, and said it could never be seven o&rsquo;clock now. Then the nursery clock struck seven. So it WAS, and he cried.</p>' +
+    '<p>At twenty-five past ten Miss I. woke us, and we went up the ladder onto the ROOF. We never saw the comet. Miss I. said the sky is mostly waiting. When the great crash came, deep down in the house, she was beside me, holding my hand. It was the comet&rsquo;s tail hitting us, I am sure. She went down, and came back in four minutes exactly (I counted to 240), and said, &ldquo;Nothing that cannot be mended.&rdquo;</p>' +
+    '<p>Long after, when we were in bed again, a giant came up through our room to the roof, breathing like Father does on the stairs. I put my head under the blanket. I am not ashamed of it.</p>';
+  var POV = '<span class="cover">Composition &middot; Form II &middot; F. Harbottle</span><h4>Who is telling the story?</h4>' +
+    '<p>Every story has a <b>narrator</b>: the voice that tells it. Its <b>point of view</b> is the place it stands to look from.</p>' +
+    '<p><b>First person.</b> The narrator is inside the story and says I or we. She can tell only what she saw, heard and felt. &ldquo;I heard a crash.&rdquo;</p>' +
+    '<p><b>Third person limited.</b> The narrator says she or he, but stays with one character, like a lamp carried by one person: we see what that person sees and know what she thinks, and nothing more. &ldquo;She heard a crash, and knew it was glass.&rdquo;</p>' +
+    '<p><b>All-knowing</b> (omniscient). The narrator can go anywhere: into every room and every head, the past and the future. &ldquo;Downstairs, somebody was already sorry.&rdquo; Only an author can be all-knowing. A witness never can.</p>' +
+    '<p>On the board, underlined twice: <span class="board">Ask of every sentence: who could know this?</span></p>';
+  var TT = '<h4>HOUSE TIME-TABLE</h4><h5>No. 9 Ilbert Square &middot; Summer Service from 1st May 1910</h5><table>' +
+    '<tr><td>7.00</td><td>Children rise. Wash.</td></tr><tr><td>7.20</td><td>Inspection in the hall: hands, nails, boots.</td></tr>' +
+    '<tr><td>7.30</td><td>Breakfast. <s>No talking at meals.</s> <span class="green">Talking permitted, quietly. G.H. 9.v.10</span></td></tr>' +
+    '<tr><td>8.32</td><td>Mr Harbottle departs for the office.</td></tr><tr><td>2.00</td><td>Walk in the Park, <s>until 3.30.</s> <span class="green">until 4.00, if fine. G.H. 13.v.10</span></td></tr>' +
+    '<tr><td>6.30</td><td>Supper.</td></tr><tr><td>7.00</td><td>BED.</td></tr><tr><td>7.10</td><td>Lights out.</td></tr></table>' +
+    '<p>Wednesdays: Mr Harbottle dines at the Railway Club. Departs 6.40 p.m.; returns by the 10.15, at 10.32 p.m.</p>' +
+    '<p>STANDING ORDERS. 1. The Hall Clock is the time of this house. Nobody but Mr Harbottle touches it. 2. Keys to the front door are held by Mr Harbottle and Mrs Spink only. 3. No running on the stairs. 4. No child on the roof, at any time, for any reason. <span class="red">INCLUDING COMETS. G.H. 18.v.10</span></p>';
+
+  $('#memo').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MEMO, cls: 'memo', clue: { id: 'memo', title: 'Father&rsquo;s memorandum', kind: 'Typed' }, done: function () {
+      if (told.set('memo')) { paint(); ER.say('&ldquo;Seen with a candle,&rdquo; says Felicity, through her teeth. &ldquo;Ask me what I saw. I was there.&rdquo;'); }
+    } });
+  });
+  $('#diary').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.has('fel')) { ER.say('A red book on the pillow. On the cover: PRIVATE. NOT TO BE READ. THIS MEANS YOU, DIGBY. Better ask Felicity first.'); return; }
+    ER.read({ html: DIARY, cls: 'diary', clue: { id: 'diary', title: 'Felicity&rsquo;s diary: the comet night', kind: 'Diary' }, done: function () {
+      if (told.set('diary')) { paint(); ER.say('&ldquo;I wrote it before anybody started shouting,&rdquo; says Felicity. &ldquo;So it is what I saw, and nothing else.&rdquo;'); }
+    } });
+  });
+  $('#exb').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POV, cls: 'exb', clue: { id: 'pov', title: 'Who is telling the story?', kind: 'Exercise book' }, done: function () {
+      NY.terms(['narrator', 'point of view', 'first person', 'third person limited', 'all-knowing']);
+      if (told.set('pov')) { paint(); ER.say('&ldquo;We did that on Monday,&rdquo; says Felicity. &ldquo;I did not know it would be useful. Nothing at school ever is.&rdquo;'); }
+    } });
+  });
+  $('#tt').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TT, cls: 'tt', clue: { id: 'tt', title: 'The House Time-Table', kind: 'On the nursery door' }, done: function () {
+      if (told.set('tt')) { paint(); ER.say('&ldquo;The green writing is Father&rsquo;s,&rdquo; says Felicity. &ldquo;He has changed two rules since Miss Inkster came. He had never changed a rule in his life.&rdquo;'); }
+    } });
+  });
+  $('#fel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Now Miss Inkster,&rdquo; says Felicity. &ldquo;Across the landing.&rdquo;'); return; }
+    ER.talk({
+      who: 'Felicity Harbottle', role: 'your cousin · eleven', face: window.FACE('felicity'),
+      lines: [
+        { note: 'Felicity is eleven, with two long plaits and ink on her middle finger. She talks fast and low, like somebody who knows that walls have ears.', a: '&ldquo;Miss Inkster came on the second of May. She is the sixth nanny since Mother died. The others all left because of the Time-Table. She did not leave. She bent it.&rdquo;' },
+        { q: 'What happened last night?', a: '&ldquo;The comet night. The newspapers said the Earth would pass through the comet&rsquo;s tail. Father said bed at seven, as usual, and went out to his club. This morning the hall clock was stopped, and broken, and his watch was gone, and Cook says she saw Miss Inkster in the hall with a candle. I wrote down everything at six this morning, before anybody shouted. It is in my diary, on the pillow. You may read it.&rdquo;' },
+        { q: 'Is Miss Inkster a thief?', a: '&ldquo;She is the most honest person I know. She is also&hellip;&rdquo; Felicity lowers her voice. &ldquo;I think she may be magic. Don&rsquo;t laugh. She finds things. Everything. She is in the day nursery, across the landing, with her trunk.&rdquo;' },
+        { q: 'Why won&rsquo;t she explain?', a: '&ldquo;She says she does not explain herself. She says: Nothing is ever lost. Everything is somewhere.&rdquo;' },
+        { q: 'What are we going to do?', a: '&ldquo;I am writing Father the true history of last night, to give him at four.&rdquo; She points at a heap of paper slips on the window seat. &ldquo;But I have muddled up what I saw with what I made up. I want to be a novelist, you see. It is a terrible handicap. My exercise book on the washstand says how to tell them apart.&rdquo;' }
+      ],
+      clue: { id: 'fel1', title: 'Felicity, in the night nursery', kind: 'What she said' },
+      done: function (seen) { if (seen && told.set('fel')) paint(); }
+    });
+  });
+  $('#ladder').addEventListener('click', function (e) {
+    if (busy) return;
+    ER.wordAt(e.clientX, e.clientY, 'hatch');
+    NY.seed('soot', 'Soot on the ladder', '<p>On the top rung of the ladder to the roof hatch, high up where a tall person&rsquo;s hand would go, there is a black smear of soot. Felicity says it was not there on Tuesday, and that none of them touched a chimney last night.</p>');
+    ER.say('The ladder to the roof hatch. On the top rung, high up where a tall person&rsquo;s hand would go, there is a black smear of soot. &ldquo;That was not there on Tuesday,&rdquo; says Felicity. &ldquo;And none of us touched a chimney.&rdquo;');
+  });
+  $('#slate').addEventListener('click', function () {
+    if (busy) return;
+    NY.seed('slate', 'Digby&rsquo;s slate', '<p>In chalk capitals: WHERE DOES TIME GO WHEN THE CLOCK STOPS? Digby asked Father that at breakfast on Wednesday. Father said: &ldquo;Nowhere. The hall clock is the time of this house.&rdquo;</p>');
+    ER.say('Digby&rsquo;s slate, in chalk capitals: WHERE DOES TIME GO WHEN THE CLOCK STOPS? &ldquo;He asked Father at breakfast on Wednesday,&rdquo; says Felicity. &ldquo;Father said: Nowhere. The hall clock is the time of this house.&rdquo;');
+  });
+  NY.thing('#clock', null, 'The nursery clock on its shelf says four minutes to ten. &ldquo;It keeps good time,&rdquo; says Felicity. &ldquo;Father sets it from the hall clock every Sunday.&rdquo;', isBusy);
+  NY.thing('#horse', 'rocking horse', 'The rocking horse has one glass eye. The other was lost in 1907. Miss Inkster found it on her second day, inside the horse.', isBusy);
+  NY.thing('#scene path[fill="url(#sky)"], #scene rect[fill="url(#sky)"]', null, 'Over the bars of the window: wet slate roofs, chimney pots, and a pale May sky. Somewhere below, a newsboy is shouting about tomorrow&rsquo;s procession.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#slips').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Eight true slips, folded into the diary. Four crossed out.'); return; }
+    if (!ready()) { ER.say('Felicity puts her hand on the slips. &ldquo;Not yet. Read Father&rsquo;s memorandum, my diary and the exercise book first, or you will sort them the way I did, which is wrongly.&rdquo;'); return; }
+    openLock();
+  });
+
+  /* ---------- the lock: twelve slips, three envelopes ---------- */
+  var SL = [
+    ['a', 'She heard a crash far below her and knew at once that it was glass.', 'Slip &ldquo;She heard a crash&rdquo;: nobody says I. And it goes inside only one head, hers. One head is still one lamp.'],
+    ['b', 'Out in space, the comet went on its way and never once thought of the Harbottles.', 'Slip &ldquo;Out in space&rdquo;: could anybody in this house know what a comet was thinking, out in space? Who could know this?'],
+    ['c', 'She went down the ladder, and I counted to two hundred and forty.', 'Slip &ldquo;She went down the ladder, and I counted&rdquo;: read it to the end. Somebody in it is counting, and says so.'],
+    ['d', '&ldquo;I shall be four minutes,&rdquo; the nanny said, and she was.', 'Slip &ldquo;I shall be four minutes&rdquo;: that I is inside speech marks. It is a character talking. Who is telling the sentence round it?'],
+    ['e', 'I held Miss Inkster&rsquo;s hand on the roof, and it was as cold as the leads.', 'Slip &ldquo;I held Miss Inkster&rsquo;s hand&rdquo;: who says I here, and is she inside the story?'],
+    ['g', 'Far below, Cook lay awake and was sure the nanny was up to no good, while the nanny, on the roof, was not thinking about Cook at all.', 'Slip &ldquo;Far below, Cook lay awake&rdquo;: count the heads it goes into. A lamp carried by one person lights one head.'],
+    ['h', 'The nanny counted the chimney pots and found that there were eleven.', 'Slip &ldquo;The nanny counted the chimney pots&rdquo;: it says the nanny, not I, and it shows only what she did and saw.'],
+    ['j', 'Everybody in the house was asleep by midnight, and each of them dreamed of something different.', 'Slip &ldquo;Everybody in the house&rdquo;: can one person see what everybody else is dreaming?'],
+    ['k', 'We never saw the comet, though I looked until my eyes watered.', 'Slip &ldquo;We never saw the comet&rdquo;: we, and I. Who is telling it, and from where?'],
+    ['m', 'Felicity held her breath, and was more frightened than she would ever admit.', 'Slip &ldquo;Felicity held her breath&rdquo;: Felicity wrote it, but she wrote herself as she. It stays inside one head: hers.'],
+    ['n', 'The nanny went down the ladder, and two floors below her Cook was pulling on her dressing gown and muttering.', 'Slip &ldquo;The nanny went down the ladder, and two floors below&rdquo;: the nanny is on the ladder. Could her lamp light up Cook, two floors down, at the same moment?'],
+    ['q', 'Digby came back to our room puffing, and told me it could never be seven now.', 'Slip &ldquo;Digby came back to our room&rdquo;: our room, told me. Who is telling it?']
+  ];
+  var BOX = [['f', 'FIRST PERSON', 'I or we, inside the story'], ['l', 'THIRD PERSON LIMITED', 'she or he: one lamp, one head'], ['a', 'ALL-KNOWING', 'anywhere, any head: only an author']];
+  function openLock() {
+    var put = ER.flag('a-put') || {}, held = null, done = false;
+    lock = ER.el('div', 'scr');
+    var h = '<h5>Felicity&rsquo;s envelopes &middot; who is telling each slip?</h5><div class="envs">';
+    BOX.forEach(function (b) { h += '<div class="env" data-b="' + b[0] + '"><b>' + b[1] + '</b><small>' + b[2] + '</small><div class="in"></div></div>'; });
+    h += '</div><div class="tray"></div>';
+    lock.innerHTML = h;
+    var foot = ER.el('div', 'pz-foot', '<p class="pmsg"></p><button type="button" class="btn" id="seal">Give them to Felicity</button>');
+    var wrap = ER.el('div', 'pz'); wrap.appendChild(lock); wrap.appendChild(foot);
+    var m = foot.querySelector('.pmsg'), tray = lock.querySelector('.tray'), nodes = {};
+    function msg(t) { m.innerHTML = ER.gloss(t); }
+    NY.mix(SL, 31).forEach(function (s) {
+      var b = ER.el('button', 'slp', s[1]); b.type = 'button'; b.setAttribute('data-s', s[0]); nodes[s[0]] = b;
+    });
+    function draw() {
+      Object.keys(nodes).forEach(function (k) {
+        var n = nodes[k], at = put[k] ? lock.querySelector('.env[data-b="' + put[k] + '"] .in') : tray;
+        if (n.parentNode !== at) at.appendChild(n);
+        n.classList.toggle('held', held === k);
+      });
+      ER.$$('.env', lock).forEach(function (e) { e.classList.toggle('want', !!held); });
+    }
+    function clearBad() { ER.$$('.bad', lock).forEach(function (n) { n.classList.remove('bad'); }); }
+    lock.addEventListener('click', function (e) {
+      if (done) return;
+      var s = e.target.closest('.slp'), inEnv = s ? s.closest('.env') : null;
+      if (s && held && inEnv && s.getAttribute('data-s') !== held) { put[held] = inEnv.getAttribute('data-b'); held = null; ER.sfx.paper(); ER.flag('a-put', put); clearBad(); draw(); return; }
+      if (s) { var id = s.getAttribute('data-s'); held = held === id ? null : id; NY.sfx.pencil(); clearBad(); draw(); return; }
+      var env = e.target.closest('.env');
+      if (env && held) { put[held] = env.getAttribute('data-b'); held = null; ER.sfx.paper(); ER.flag('a-put', put); clearBad(); draw(); return; }
+      if (e.target.closest('.tray') && held) { delete put[held]; held = null; ER.flag('a-put', put); draw(); return; }
+      if (env) msg('First click a slip, then click the envelope it belongs in.');
+    });
+    foot.querySelector('#seal').addEventListener('click', function () {
+      if (done) return;
+      clearBad();
+      var order = SL.map(function (s) { return s[0]; }), i, k;
+      var left = order.filter(function (k) { return !put[k]; }).length;
+      if (left === SL.length) { ER.sfx.no(); msg('The envelopes are empty. Click a slip, then the envelope it belongs in.'); return; }
+      if (left) { ER.sfx.no(); msg('&ldquo;All of them, please,&rdquo; says Felicity. ' + left + (left === 1 ? ' slip is' : ' slips are') + ' still on the window seat.'); return; }
+      for (i = 0; i < SL.length; i++) {
+        k = SL[i][0];
+        if (!ER.check(k, put[k])) { ER.sfx.no(); nodes[k].classList.add('bad'); msg(SL[i][2] + ' (Felicity only ever points to the first slip that is wrong.)'); return; }
+      }
+      var cand = order.map(function (k) { return k + '-' + put[k]; }).join('/');
+      var file = ER.exit([cand], { wait: true });
+      if (!file) { msg('Felicity cannot make the envelopes close. Something is wrong with this page: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('a-file', file);
+      ER.$$('.env[data-b="a"] .slp', lock).forEach(function (n) { n.classList.add('out'); });
+      NY.sfx.pencil();
+      msg('Felicity takes a thick pencil and crosses out every slip in the third envelope, one after another.');
+      setTimeout(function () { ER.closeAll(); solved(); }, 2400);
+    });
+    draw();
+    msg('Click a slip, then the envelope it belongs in. Click a slip in an envelope to pick it up again, and the window seat to put it back.');
+    ER.open('ov-lock', wrap);
+  }
+
+  function solved() {
+    NY.mine('sorted', 'Felicity&rsquo;s slips, sorted', '<p>First person (I or we, inside the story): her hand as cold as the leads; we never saw the comet; she went down and I counted to 240; Digby came back to our room.</p>' +
+      '<p>Third person limited (one lamp): the nanny counted eleven chimney pots; she heard a crash and knew it was glass; &ldquo;I shall be four minutes,&rdquo; the nanny said; Felicity held her breath.</p>' +
+      '<p>All-knowing, so made up, so crossed out: Cook awake while the nanny thought of other things; Cook pulling on her dressing gown two floors down; the comet in space; everybody&rsquo;s dreams.</p>' +
+      '<p>Rule: a witness can only be first person or limited. Ask of every sentence: who could know this?</p>');
+    NY.terms(['narrator', 'point of view', 'first person', 'third person limited', 'all-knowing']);
+    paint(); busy = true;
+    ER.narrate([
+      '&ldquo;Four made up,&rdquo; says Felicity, looking at the crossed-out slips. &ldquo;I did not see Cook. I did not see anybody dream. And I certainly do not know what a comet thinks.&rdquo;',
+      '&ldquo;So that is the rule for Father&rsquo;s history: nothing all-knowing. Only what somebody really saw or heard, from where they really were.&rdquo; She folds the eight good slips into her diary.',
+      'She stops at the door. &ldquo;Nobody in this house is all-knowing,&rdquo; she says. &ldquo;Except possibly Miss Inkster. Come on.&rdquo;'
+    ], function () { busy = false; $('#go').classList.add('on'); paint(); });
+  }
+})();
+</script>
+</body>
+</html>

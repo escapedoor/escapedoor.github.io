@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Square · Everything Is Somewhere</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-lit.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="nanny.css">
+<style>
+  body{--bg:#d8c8a0;--accent:#2a4a6a;--font-display:'EB Garamond',serif;--font-ui:'Outfit',sans-serif;--font-body:'Alegreya',serif;
+    --tc-bg:rgba(246,238,220,.97);--tc-ink:#22201c;--cap-bg:rgba(250,246,236,.95);--cap-ink:#22201c;--panel:#faf6ec;--panel-ink:#22201c;--face-bg:#6a6a62;--q-ink:#2a4a6a;--fade:#f6eedc;--hud-bg:rgba(250,246,236,.9);--hud-ink:#22201c;--hud-line:rgba(34,32,28,.3)}
+  .tc-room{font-family:'EB Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(52px,7vw,104px);color:#2a4a6a}
+  .gobtn{background:rgba(250,246,236,.94)}
+  #leaves circle{animation:lf 4s ease-in-out infinite alternate}
+  #leaves circle:nth-child(2n){animation-duration:5.5s}
+  @keyframes lf{from{transform:translate(0,0)}to{transform:translate(3px,-2px)}}
+  #cab{transition:transform 6s ease-in,opacity 2s 4s}
+  #scene.gone #cab{transform:translate(900px,-60px) scale(.6);opacity:0}
+  #scene.gone #ink{opacity:0}
+  #ink{transition:opacity 1s}
+  #tail path{animation:tl 1.6s steps(2,end) infinite alternate;transform-origin:1078px 600px}
+  @keyframes tl{from{transform:rotate(0)}to{transform:rotate(8deg)}}
+
+  .why{width:min(760px,94vw);padding:18px 24px 14px;background:#faf6ec;color:#22201c;border-top:10px solid #2a4a6a;box-shadow:0 26px 70px rgba(0,0,0,.5)}
+  .why h5{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#2a4a6a;text-align:center}
+  .why .q{margin:4px 0 12px;font-family:'EB Garamond',serif;font-size:24px;line-height:1.3;text-align:center}
+  .why .opt{display:block;width:100%;margin:0 0 7px;padding:9px 12px;border:2px solid #c8bca0;border-radius:4px;background:#fff;text-align:left;font-family:'Alegreya',serif;font-size:17.5px;line-height:1.3;color:#22201c}
+  .why .opt:hover{border-color:#2a4a6a}
+  .why .opt.bad{background:#f3d0c0}
+  .why .pmsg{color:#4a4038;font-size:17px;min-height:28px}
+
+  .done{position:fixed;right:2vw;top:60px;z-index:34;width:min(570px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 14px;display:none;background:#fbf8f0;color:#1c1c26;border-top:10px solid #8a2a1e;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .okstamp{display:inline-block;padding:4px 14px 2px;border:3px solid #8a2a1e;color:#8a2a1e;font-family:'Goudy Bookletter 1911',serif;font-size:18px;letter-spacing:.14em;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:6px}
+  .done h6{margin:9px 0 4px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#8a2a1e}
+  .done p{margin:0 0 3px;font-family:'Outfit',sans-serif;font-size:14.5px;line-height:1.4}
+  .done ol{margin:0;padding-left:20px;font-family:'Alegreya',serif;font-size:15px;line-height:1.3}
+  .done li{margin:0 0 3px}
+  .done ul{margin:0;padding-left:18px;font-family:'Alegreya',serif;font-size:14.5px;line-height:1.3}
+  .done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .done .btn{--accent:#8a2a1e;font-size:13px;padding:7px 13px}
+  .done .btn:hover:not([disabled]){color:#fbf8f0}
+  .done small{display:block;margin-top:8px;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fbf8f0;color:#1c1c26;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:16px solid #8a2a1e}
+  .rp h4{margin:0 0 3px;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#8a2a1e}
+  .rp h3{margin:0 0 8px;font-family:'EB Garamond',serif;font-weight:700;font-size:30px;line-height:1.1}
+  .rp p,.rp label{display:block;font-family:'Alegreya',serif;font-size:17.5px;line-height:1.4;margin:0 0 6px;color:#1c1c26}
+  .rp textarea{width:100%;min-height:184px;font-family:'Caveat',cursive;font-size:24px;line-height:30px;color:#1f3a7a;background:#fff repeating-linear-gradient(transparent 0 29px,#d6dcea 29px 30px);border:1px solid #a8b0c8;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp .count{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+  .rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'Outfit',sans-serif;font-size:12.5px;opacity:.75}
+  .rp .btn{--accent:#8a2a1e}.rp .btn:hover:not([disabled]){color:#fbf8f0}
+  @media print{
+    body{overflow:visible;background:#fff}
+    body>*:not(.ov){display:none!important}
+    .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+    .ov-bar,.rp .foot{display:none!important}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ab8d4"/><stop offset=".6" stop-color="#d8dcd0"/><stop offset="1" stop-color="#f2dca8"/></linearGradient>
+  <linearGradient id="stucco" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8dcc0"/><stop offset="1" stop-color="#f4ead2"/></linearGradient>
+  <radialGradient id="vig" cx="55%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".1"/><stop offset="1" stop-color="#3a2a14" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#sky)"/>
+<!-- the far side of the square: tall houses with black cloth on their balconies, and a church spire -->
+<g fill="#c8bca0" stroke="#9a8c70" stroke-width="2"><path d="M760 520V250h160v270zM920 520V230h170v290zM1090 520V250h160v270zM1250 520V240h170v280zM1420 520V250h160v270zM1580 520V240h1020v280z"/></g>
+<path d="M1500 240l20 -170l20 170z" fill="#a8a090" stroke="#8a8070" stroke-width="2"/><rect x="1504" y="240" width="32" height="60" fill="#a8a090"/>
+<g fill="#8a8274"><rect x="790" y="290" width="30" height="44"/><rect x="850" y="290" width="30" height="44"/><rect x="950" y="270" width="30" height="44"/><rect x="1020" y="270" width="30" height="44"/><rect x="1120" y="290" width="30" height="44"/><rect x="1190" y="290" width="30" height="44"/><rect x="1280" y="280" width="30" height="44"/><rect x="1350" y="280" width="30" height="44"/><rect x="1450" y="290" width="30" height="44"/><rect x="1620" y="280" width="30" height="44"/></g>
+<g fill="#1c1a22"><path d="M780 360h120l-10 26h-100z"/><path d="M940 340h130l-10 26h-110z"/><path d="M1110 360h120l-10 26h-100z"/><path d="M1270 350h130l-10 26h-110z"/></g>
+<g fill="#4a2a5a"><path d="M800 386h20l-10 18zM860 386h20l-10 18zM960 366h20l-10 18zM1040 366h20l-10 18zM1130 386h20l-10 18zM1200 386h20l-10 18zM1290 376h20l-10 18zM1370 376h20l-10 18z"/></g>
+<!-- the garden square: railings and plane trees -->
+<g id="leaves"><g fill="#6a8a4a"><circle cx="820" cy="400" r="110"/><circle cx="1000" cy="360" r="140"/><circle cx="1200" cy="390" r="120"/><circle cx="1400" cy="370" r="140"/><circle cx="1600" cy="400" r="120"/></g><g fill="#7a9a5a"><circle cx="900" cy="330" r="70"/><circle cx="1100" cy="300" r="80"/><circle cx="1320" cy="310" r="80"/><circle cx="1520" cy="320" r="70"/></g></g>
+<g fill="#b8a888"><path d="M990 520l10 -150h20l10 150z"/><path d="M1390 520l10 -150h20l10 150z"/></g><g fill="#8a7a5a"><circle cx="1004" cy="440" r="6"/><circle cx="1018" cy="480" r="5"/><circle cx="1408" cy="450" r="6"/></g>
+<rect x="740" y="510" width="1900" height="20" fill="#7a8a5a"/>
+<g stroke="#1c1c1e" stroke-width="4"><path d="M740 530H2640M740 470H2640"/></g><g stroke="#1c1c1e" stroke-width="3"><path d="M760 530v-70M790 530v-70M820 530v-70M850 530v-70M880 530v-70M910 530v-70M940 530v-70M970 530v-70M1000 530v-70M1030 530v-70M1060 530v-70M1090 530v-70M1120 530v-70M1150 530v-70M1180 530v-70M1210 530v-70M1240 530v-70M1270 530v-70M1300 530v-70M1330 530v-70M1360 530v-70M1390 530v-70M1420 530v-70M1450 530v-70M1480 530v-70M1510 530v-70M1540 530v-70M1570 530v-70M1600 530v-70"/></g>
+<!-- the road and the pavement -->
+<rect x="-1000" y="530" width="3600" height="770" fill="#8a8478"/><g stroke="#7a7468" stroke-width="2"><path d="M-1000 600H2600M-1000 680H2600M-1000 780H2600M-1000 900H2600"/></g>
+<rect x="-1000" y="790" width="3600" height="510" fill="#b8b0a0"/><rect x="-1000" y="786" width="3600" height="10" fill="#d8d0c0"/><g stroke="#a8a090" stroke-width="2"><path d="M-1000 850H2600M-100 796v54M200 796v54M500 796v54M800 796v54M1100 796v54M1400 796v54"/></g>
+<!-- the gas lamp -->
+<g id="lamp"><path d="M760 790V470" stroke="#1c1c1e" stroke-width="10"/><path d="M736 470h48l-8 -50h-32z" fill="#e8e2c0" stroke="#1c1c1e" stroke-width="4"/><path d="M730 470h60M744 420l16 -16l16 16" stroke="#1c1c1e" stroke-width="4" fill="none"/><path d="M748 440h24" stroke="#1c1c1e" stroke-width="3"/></g>
+<!-- No. 9: the front of the house, the porch, the steps, the area railings -->
+<g><rect x="-1000" y="-400" width="1700" height="1190" fill="url(#stucco)"/><g stroke="#d8ccae" stroke-width="3"><path d="M-1000 0H700M-1000 120H700M-1000 240H700"/></g>
+  <g fill="#3a4a5a" stroke="#e8dcc0" stroke-width="10"><rect x="60" y="-120" width="120" height="200"/><rect x="560" y="-120" width="120" height="200"/><rect x="60" y="180" width="120" height="220"/></g>
+  <rect x="300" y="200" width="300" height="30" fill="#f6eed8" stroke="#c8bc9c" stroke-width="3"/>
+  <g fill="#f6eed8" stroke="#c8bc9c" stroke-width="3"><rect x="320" y="230" width="44" height="420"/><rect x="536" y="230" width="44" height="420"/></g>
+  <rect x="390" y="300" width="120" height="350" fill="#1c1c22"/><path d="M390 300a60 50 0 0 1 120 0" fill="#e8b850" stroke="#c8bc9c" stroke-width="4"/><text x="450" y="420" text-anchor="middle" font-family="Cinzel,serif" font-size="30" fill="#c8a040">9</text>
+  <g fill="#e8e2d2" stroke="#b8ac90" stroke-width="2"><rect x="300" y="650" width="300" height="24"/><rect x="290" y="674" width="320" height="24"/><rect x="280" y="698" width="340" height="24"/><rect x="270" y="722" width="360" height="24"/><rect x="260" y="746" width="380" height="44"/></g>
+  <path d="M-1000 790V640H250v150z" fill="#2a2a2a"/></g>
+<g id="spk" class="hot" transform="translate(150 900)"></g>
+<rect x="-1000" y="790" width="1260" height="510" fill="#b8b0a0"/><rect x="-1000" y="786" width="1260" height="10" fill="#d8d0c0"/>
+<g><g stroke="#141416" stroke-width="5"><path d="M-1000 700H250M-1000 760H250"/></g><g stroke="#141416" stroke-width="4"><path d="M-960 700v90M-900 700v90M-840 700v90M-780 700v90M-720 700v90M-660 700v90M-600 700v90M-540 700v90M-480 700v90M-420 700v90M-360 700v90M-300 700v90M-240 700v90M-180 700v90M-120 700v90M-60 700v90M0 700v90M60 700v90M120 700v90M180 700v90M240 700v90"/></g>
+  <g fill="#141416"><circle cx="0" cy="694" r="6"/><circle cx="120" cy="694" r="6"/><circle cx="240" cy="694" r="6"/></g><path d="M-1000 790h1250v10H-1000z" fill="#141416"/></g>
+<!-- the cab, with the trunk roped on top -->
+<g id="cab" class="hot"><g transform="translate(0 0)">
+  <path d="M1110 560h250v150h-250z" fill="#2a2a34" stroke="#0a0a10" stroke-width="3"/><rect x="1130" y="580" width="90" height="60" fill="#9ab4c4" stroke="#0a0a10" stroke-width="3"/><rect x="1240" y="580" width="100" height="110" fill="#1c1c24" stroke="#0a0a10" stroke-width="3"/><circle cx="1330" cy="640" r="5" fill="#c8a040"/>
+  <g id="trunk"><path d="M1140 560v-46h180v46z" fill="#3a4a5a" stroke="#141a20" stroke-width="3"/><path d="M1180 514v46M1280 514v46M1140 538h180" stroke="#a8884a" stroke-width="6"/></g>
+  <g fill="none" stroke="#1a1a1e" stroke-width="7"><circle cx="1150" cy="740" r="46"/><circle cx="1320" cy="740" r="46"/></g><g stroke="#1a1a1e" stroke-width="3"><path d="M1150 694v92M1104 740h92M1118 708l64 64M1182 708l-64 64M1320 694v92M1274 740h92M1288 708l64 64M1352 708l-64 64"/></g>
+  <path d="M1110 640H1000" stroke="#3a2a1a" stroke-width="6"/>
+  <g><path d="M1040 690q-10 -70 20 -90q40 -20 80 0q20 14 16 56q-6 30 -20 34z" fill="#7a4a2a" stroke="#2a1608" stroke-width="3"/><path d="M1060 600q-20 -60 -50 -70q-20 4 -24 30q10 6 30 4q14 20 22 50z" fill="#7a4a2a" stroke="#2a1608" stroke-width="3"/><circle cx="1004" cy="550" r="3" fill="#1a0a04"/>
+    <g id="tail"><path d="M1140 620q30 10 34 60" fill="none" stroke="#3a2010" stroke-width="10" stroke-linecap="round"/></g>
+    <g stroke="#7a4a2a" stroke-width="12" stroke-linecap="round"><path d="M1056 680l-6 100M1078 686l4 96M1120 680l-4 100M1140 676l6 104"/></g><path d="M1020 540l12 -20l6 22" fill="#7a4a2a" stroke="#2a1608" stroke-width="2"/></g>
+  <g transform="translate(1210 560)"><path d="M-14 0l2 -50h24l2 50z" fill="#3a2a2a"/><circle cx="0" cy="-62" r="12" fill="#e8b89a" stroke="#2a1608" stroke-width="2"/><path d="M-14 -70h28v-5h-28zM-9 -75v-14h18v14z" fill="#1c1a1e"/></g></g></g>
+<g id="ink" class="hot" transform="translate(940 860)"></g>
+<g id="har" class="hot" transform="translate(470 668)"></g>
+<g id="fel" class="hot" transform="translate(370 760)"></g>
+<g id="dig" class="hot" transform="translate(560 770)"></g>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">Claimed by its owner</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>Every story has a narrator. A first-person narrator says I and can tell only what she saw; a third-person limited narrator stays with one character, like a lamp she carries; an all-knowing narrator can go into any room and any head. Only an author can be all-knowing.</li>
+    <li>To test a sentence, ask who could know it. A witness can only ever be first person or limited.</li>
+    <li>An unreliable narrator may be wrong (she misunderstands what she saw), biased (she sees what she wants to see) or may leave things out on purpose (all she says is true, but not all that is true is said).</li>
+    <li>Set several accounts side by side. Where they agree, it is probably true; where two cannot both be true, at most one is right. Trust a narrator on what she saw, not on what she thinks it meant.</li>
+    <li>Foreshadowing is a small detail shown early, in plain sight, that matters later. A red herring looks like a seed and grows nothing. A fair story lets the reader say: I was told, and I did not see it.</li>
+    <li>An idiom means something different from its words: a storm in a teacup is a fuss about very little, to let the cat out of the bag is to tell a secret by mistake, and to turn over a new leaf is to start again and do better. Taken word for word, idioms make jokes, and sometimes trouble.</li>
+    <li>Halley&rsquo;s Comet came back in 1910, the spring that King Edward VII died, and on the night of 18 to 19 May the Earth passed through its tail. Nothing at all happened.</li>
+  </ol>
+  <h6>If you liked this, read</h6>
+  <ul>
+    <li>E. Nesbit, <i>The Railway Children</i> (1906) and <i>Five Children and It</i> (1902): children in Edwardian England, braver and more sensible than the grown-ups.</li>
+    <li>Wilkie Collins, <i>The Moonstone</i> (1868): one diamond, one night, and several narrators, one of whom you must not believe.</li>
+    <li>Frances Hodgson Burnett, <i>A Little Princess</i> (1905), and Kenneth Grahame, <i>The Wind in the Willows</i> (1908).</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Tell it from another chair</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Everything Is Somewhere &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="nanny.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told, lk = null;
+  $('#ink').innerHTML = NY.as('inkster', { h: 330, armR: 'out' });
+  $('#har').innerHTML = NY.as('harbottle', { h: 336, armL: 'front', smile: true });
+  $('#fel').innerHTML = NY.as('felicity', { h: 330, armL: 'up' });
+  $('#dig').innerHTML = NY.as('digby', { h: 280, armR: 'up' });
+  $('#spk').innerHTML = NY.as('spink', { h: 330, armL: 'up' });
+
+  ER.init({
+    theme: 'lit', story: 'nanny', storyTitle: 'Everything Is Somewhere', id: 'square', no: 'VI', title: 'The Square',
+    go: 'Four o&rsquo;clock',
+    intro: [
+      'You filled in Miss Inkster&rsquo;s three tickets. The time of the house, stopped at 6.57: lost by Digby, who took Father&rsquo;s rule at its word. One temper and one pane of glass, at ten to eleven: lost by Father, who has a key, and was outside the door; Mrs Spink&rsquo;s &ldquo;five to eleven&rdquo; was ten to eleven by every other clock. And one gold watch, on the leads: lost by Father too, at a quarter past two in the morning, with his telescope, looking for a comet he had said could manage without him. Paw prints, trunk and &ldquo;Leave the comet to me&rdquo; were red herrings.',
+      'At four o&rsquo;clock exactly, a key turns in the front door.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"why":["0a5804dd"]},
+    hints: hints, onBegin: begin
+  });
+  told = NY.told('f-told');
+  function hints() {
+    if (told.has('end')) return null;
+    if (lk && document.body.contains(lk)) return ['why', ['Look back at the seven wonders in Felicity&rsquo;s diary, and at the threads you tied in the day nursery.', 'Every wonder but one had a line in the register: something she noticed with her own eyes and ears. Which answer says that?']];
+    if (told.has('gone')) return ['fel', ['The cab has gone. Felicity, on the steps, has a question for you: click her.']];
+    if (told.has('scene')) return ['ink', ['Miss Inkster is waiting by the cab, on the right. Say goodbye to her: click her.']];
+    return null;
+  }
+  function paint() {
+    $('#scene').classList.toggle('gone', told.has('gone'));
+    $('#ink').classList.toggle('ready', told.has('scene') && !told.has('gone'));
+    $('#fel').classList.toggle('ready', told.has('gone') && !told.has('why'));
+  }
+
+  function begin() {
+    paint();
+    if (told.has('end')) { busy = false; finish(true); return; }
+    if (told.has('why')) { busy = false; ending(); return; }
+    if (told.has('scene')) { busy = false; ER.say(told.has('gone') ? 'The cab has gone round the corner. Felicity is looking at you.' : 'Miss Inkster is waiting by the cab.'); return; }
+    ER.narrate([
+      'Father comes in at four o&rsquo;clock exactly, takes off his hat, and finds the whole household waiting for him in the hall: two children, a cousin, Mrs Spink in a clean apron, and Miss Inkster in her hat and coat, beside her trunk.',
+      'Digby steps forward first. &ldquo;I stopped the clock,&rdquo; he says, very loudly. &ldquo;At three minutes to seven. So that it would never be bedtime. I have turned over a new leaf.&rdquo; Father opens his mouth, and shuts it again.',
+      'Felicity hands him three lost-property tickets. He reads the first, and nods. He reads the second, and goes slowly red from the collar up. He reads the third, and sits down on the hall chair, which wobbles.',
+      '&ldquo;I missed the 10.15,&rdquo; he says at last, to nobody in particular. &ldquo;We were on the roof of the club, looking for the comet. I came home late, and the clock had stopped, and I&hellip; lost my temper.&rdquo; He looks at the fire-screen. &ldquo;And at two in the morning I went up on our own roof with the telescope, and saw nothing whatever. And I was quite sure I had put my watch on the hall table. I always put it on the hall table.&rdquo;',
+      '&ldquo;You always do, Mr Harbottle,&rdquo; says Miss Inkster. &ldquo;Last night you did nothing that you always do.&rdquo; She waits. Father stands up, straightens his waistcoat, and says, quite humbly: &ldquo;Miss Inkster, I believe you have my watch.&rdquo; &ldquo;Describe it, please.&rdquo; He does, down to the words inside the lid: For twenty years of punctual service. She takes it out of her coat pocket and puts it into his hand.',
+      'And then Father laughs. Not much, and not for long, but Mrs Spink drops a spoon. He goes into his study and comes out with a sealed letter: her character. Outside, a four-wheeler cab has drawn up at the kerb, and the cabman is roping the tin trunk on to its roof.'
+    ], function () { told.set('scene'); busy = false; paint(); ER.say('Everybody has followed Miss Inkster out on to the steps. She is waiting by the cab.'); });
+  }
+
+  $('#ink').addEventListener('click', function () {
+    if (busy || !told.has('scene') || told.has('gone')) return;
+    ER.talk({
+      who: 'Miss Cordelia Inkster', role: 'the nanny · 4.10 pm', face: window.FACE('inkster'),
+      lines: [
+        { note: 'Miss Inkster stands at the cab door, with her gloves buttoned and the sealed letter in her hand.', a: '&ldquo;Mr Harbottle has claimed his property,&rdquo; she says. &ldquo;Owners usually do, in the end.&rdquo;' },
+        { q: 'What is in the trunk?', a: '&ldquo;Things.&rdquo; And then, because Digby looks so stricken: &ldquo;Nothing that belongs to anybody in this house.&rdquo;' },
+        { q: 'Were you ever magic?', a: '&ldquo;I have told you what I do. I look, and I write it down. If that is magic, it is the kind that anybody can learn.&rdquo;' },
+        { q: 'What had this house lost?', a: '&ldquo;Ask Mr Harbottle what he did at breakfast on the tenth of May. And what he did in the hall ten minutes ago.&rdquo;' },
+        { q: 'Goodbye, Miss Inkster.', a: 'She takes one more buff ticket from her pocket and gives it to you. In her neat hand: <b>Item: one cousin. Found: on the front steps, Thursday 19 May, 9.40 am, looking lost. Claimed by: this house.</b> &ldquo;You came up the steps with your ticket in your left glove,&rdquo; she says. &ldquo;People only keep the return half so handy when they are not sure they are wanted.&rdquo;' }
+      ],
+      last: 'Goodbye',
+      clue: { id: 'ink2', title: 'Miss Inkster, at the cab', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen) return;
+        NY.mine('cousin', 'A ticket of your own', '<p>Item: one cousin. Found: on the front steps, Thursday 19 May, 9.40 am, looking lost. Claimed by: this house. C. I.</p>', true);
+        busy = true; told.set('gone');
+        ER.narrate([
+          'She gets into the cab. The cabman clicks his tongue, the horse leans into the harness, and the cab goes slowly round the square, past the railings and the plane trees and the black cloth hung on the balconies for the King, and turns the corner, and is gone.',
+          'Nobody waves until it is too late. Then everybody does.'
+        ], function () { NY.sfx.hooves(10); paint(); busy = false; ER.say('Felicity is still looking at the corner where the cab went. Then she looks at you.'); });
+      }
+    });
+  });
+  var OPTS = [['m1', 'Yes. She knew things that nobody had told her, like your train, and the ticket in your glove.'],
+    ['m2', 'No, or not that anybody can tell. Every wonder in your diary but the trunk had a plain cause in her register: she noticed what other people only looked at, and wrote it down.'],
+    ['m3', 'Yes. The house changed when she came, and a house cannot change by itself.']];
+  function openWhy() {
+    if (told.has('why')) return;
+    lk = ER.el('div', 'why');
+    lk.innerHTML = '<h5>Felicity asks</h5><p class="q">&ldquo;So. Was she magic?&rdquo;</p><div class="opts"></div><p class="pmsg"></p>';
+    var o = lk.querySelector('.opts'), m = lk.querySelector('.pmsg');
+    OPTS.forEach(function (x) { var b = ER.el('button', 'opt', ER.gloss(x[1])); b.type = 'button'; b.setAttribute('data-w', x[0]); o.appendChild(b); });
+    o.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b) return;
+      var w = b.getAttribute('data-w');
+      if (!ER.check('why', w)) {
+        b.classList.add('bad'); ER.sfx.no();
+        m.innerHTML = ER.gloss(w === 'm1' ? 'Felicity shakes her head slowly. &ldquo;Your ticket was poking out of your glove. I saw it myself, afterwards. And the smut was on your cheek all morning.&rdquo;' : '&ldquo;Father changed it,&rdquo; says Felicity. &ldquo;In green ink, in his own hand, on the Time-Table. She only made him want to.&rdquo;');
+        return;
+      }
+      told.set('why'); NY.solved();
+      NY.mine('magic', 'Was she magic?', '<p>' + OPTS[1][1] + '</p><p>Except, perhaps, for the trunk. Nobody ever saw inside it.</p>');
+      m.innerHTML = ER.gloss('&ldquo;Yes,&rdquo; says Felicity. &ldquo;That is what I think too, now.&rdquo;');
+      setTimeout(function () { ER.closeAll(); ending(); }, 1600);
+    });
+    ER.open('ov-lock', lk);
+  }
+  $('#fel').addEventListener('click', function () {
+    if (busy) return;
+    if (told.has('why')) { ER.say('&ldquo;Something better than magic,&rdquo; says Felicity. &ldquo;I shall put her in a novel.&rdquo;'); return; }
+    if (told.has('gone')) { openWhy(); return; }
+    ER.say('Felicity is holding Digby&rsquo;s hand very tightly, and pretending she is not.');
+  });
+
+  function ending() {
+    if (told.has('end')) { finish(true); return; }
+    busy = true;
+    ER.narrate([
+      '&ldquo;Every wonder in my diary but one has a line in her book,&rdquo; says Felicity. &ldquo;She is not magic. She is something better. She noticed everything, and she wrote it all down, and she never once said who did what, because that was theirs to say.&rdquo; A pause. &ldquo;Only nobody ever saw inside the trunk.&rdquo;',
+      'That evening Father takes the House Time-Table off the nursery door. He turns it over to the clean side, a new leaf, and writes at the top, in green ink: HOUSE TIME-TABLE (REVISED). There is only one line on it so far. 7.00 BED, it says. And underneath, smaller: Except for comets.',
+      'The newspapers say that next week the comet will come into the evening sky, low in the west after sunset. Father says that he will carry the telescope up to the leads himself, and that the children may come, and the cousin, and anybody else who is not asleep. Digby asks whether the comet will come by Greenwich time or by theirs. This time everybody laughs.'
+    ], function () {
+      ER.addClue('tt2', 'The House Time-Table, revised', '<h4>HOUSE TIME-TABLE (REVISED)</h4><h5>No. 9 Ilbert Square &middot; from 19th May 1910</h5><table><tr><td>7.00</td><td>BED. <span class="green">Except for comets. G.H.</span></td></tr></table>', 'tt', 'On the nursery door', true);
+      told.set('end'); busy = false; finish(false);
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = NY.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the night nursery to the cab at the kerb: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Ilbert Square, after the cab has gone. Somewhere a blackbird has started.');
+  }
+  NY.thing('#har', null, function () { return told.has('scene') ? 'Father is holding his watch in both hands, as if it might fly away. Every few seconds he opens the lid, reads the words inside, and shuts it again.' : 'Father.'; }, function () { return busy; });
+  NY.thing('#dig', null, '&ldquo;I told him first,&rdquo; says Digby. &ldquo;Before anybody. That is the new leaf.&rdquo;', function () { return busy; });
+  NY.thing('#spk', null, 'Mrs Spink, at the area railings, with her arms folded: &ldquo;I may have been hasty. I shall write to Lizzie. Another letter.&rdquo;', function () { return busy; });
+  NY.thing('#cab', 'four-wheeler', function () { return told.has('gone') ? '' : 'A four-wheeler cab, with the tin trunk roped on top. The horse is eating something out of a bag and does not care about any of it.'; }, function () { return busy || told.has('gone'); });
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Everything Is Somewhere &middot; in your own words</h4><h3>Tell it from another chair</h3>' +
+      '<p>Three people told the night of the comet, and nobody told it from Father&rsquo;s chair. Now you. Write the moment at ten to eleven, in the hall, in 60 to 100 words, aloud or on paper.</p>' +
+      '<p><b>1</b> Choose: Father, in the first person (I came in; I saw; I felt), or an all-knowing narrator who goes into Father&rsquo;s head, then Miss Inkster&rsquo;s on the roof, then Mrs Spink&rsquo;s in her bed. <b>2</b> In the first person, tell only what Father could see and hear. <b>3</b> Plant one small seed that a reader would notice only later. <b>4</b> Use one idiom, and make sure it is used the right way, not word for word.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div>' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value }, n = (o.r1.match(/[A-Za-z0-9’',.]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
