@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lamplighters’ Street · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#0b1016;--accent:#ffcf6a;--font-display:'Almendra',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(10,14,20,.96);--tc-ink:#eae4d4;--cap-bg:rgba(10,14,20,.94);--cap-ink:#f2ecdc;--panel:#141b24;--face-bg:#2a3540;--q-ink:#ffd98a;--fade:#040608;--hud-bg:rgba(10,14,20,.82)}
+  .tc-room{font-family:'Almendra',serif;font-weight:700;font-style:italic}
+  .glow{opacity:0;transition:opacity 1.6s}
+  #scene.lit .glow.on{opacity:1}
+  #scene.lit .gl.on{fill:#ffd27a}
+  #zz text{animation:zz 3.2s linear infinite;opacity:0}#zz text:nth-child(2){animation-delay:-1.1s}#zz text:nth-child(3){animation-delay:-2.2s}
+  @keyframes zz{0%{opacity:0;transform:translate(0,0)}20%{opacity:.9}100%{opacity:0;transform:translate(26px,-60px)}}
+  #catT{animation:ct 2.6s ease-in-out infinite;transform-origin:1046px 556px}
+  @keyframes ct{50%{transform:rotate(14deg)}}
+  #win2,#win5{animation:flick 5s steps(2) infinite}#win5{animation-delay:-2s}
+
+  /* Noll's lamp slate: chalk on slate */
+  .sl{width:min(1060px,96vw);color:#eceae2;background:#2b3238 linear-gradient(160deg,#363f46,#20262b);border:10px solid #6a4a2a;box-shadow:0 26px 70px rgba(0,0,0,.75),inset 0 0 0 2px rgba(255,255,255,.08)}
+  .sl h4{color:#fff6d8;font-family:'Almendra',serif;font-size:24px}
+  .sl h5{color:#d8d4c8}
+  .sl-key{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 8px;padding:6px 10px;border:1px dashed rgba(236,234,226,.35);font-family:'Caveat',cursive;font-size:20px;line-height:1.1;color:#f4f0e2}
+  .sl-key b{font-family:'Cinzel',serif;font-size:14px;color:#ffcf6a;margin-right:4px}
+  .sl-row{display:grid;grid-template-columns:34px minmax(0,1fr) 230px;gap:8px;align-items:center;padding:4px 6px;border-top:1px solid rgba(236,234,226,.14)}
+  .sl-row.bad{background:rgba(208,80,58,.22)}
+  .sl-row.ok{background:rgba(120,190,130,.14)}
+  .sl-no{font-family:'Cinzel',serif;font-weight:700;font-size:18px;color:#ffcf6a;text-align:center}
+  .sl-name{display:flex;align-items:center;flex-wrap:nowrap}
+  .sl-name i{font-style:normal;font-family:'Cinzel',serif;font-weight:700;font-size:24px;letter-spacing:0;color:#fdfbf2;min-width:16px;text-align:center}
+  .sl-name button.cut{width:12px;height:34px;padding:0;border:0;background:transparent;position:relative;cursor:pointer}
+  .sl-name button.cut:hover:after{content:'';position:absolute;left:5px;top:3px;bottom:3px;width:2px;background:rgba(255,207,106,.45)}
+  .sl-name button.cut.on:after{content:'';position:absolute;left:4px;top:0;bottom:0;width:4px;background:#ff8a6a;border-radius:2px}
+  .sl-act{display:flex;gap:5px}
+  .sl-act button{width:38px;height:34px;border-radius:50%;border:2px solid rgba(236,234,226,.5);background:transparent;color:#eceae2;font-family:'Cinzel',serif;font-weight:700;font-size:15px}
+  .sl-act button:hover{border-color:#ffcf6a}
+  .sl-act button.on{background:#ffcf6a;color:#20262b;border-color:#ffcf6a}
+  .sl .foot .btn{--accent:#ffcf6a}
+  .sl .pmsg{color:#f2efe4;min-height:72px}
+  .sl .pmsg b{color:#ffcf6a}.sl .pmsg i{color:#c9c4b4}
+  @media (max-width:980px){.sl-row{grid-template-columns:30px 1fr}.sl-act{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080e"/><stop offset="1" stop-color="#1a2232"/></linearGradient>
+  <linearGradient id="houseR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a3530"/><stop offset="1" stop-color="#2a2622"/></linearGradient>
+  <linearGradient id="houseL" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#2a2a30"/><stop offset="1" stop-color="#18181c"/></linearGradient>
+  <linearGradient id="cobG" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3a3630"/><stop offset="1" stop-color="#1c1a18"/></linearGradient>
+  <radialGradient id="lampS"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".7"/><stop offset=".4" stop-color="#ffb050" stop-opacity=".2"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="moonS"><stop offset="0" stop-color="#cfd8ea" stop-opacity=".35"/><stop offset="1" stop-color="#cfd8ea" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#040608" stop-opacity=".24"/><stop offset="1" stop-color="#040608" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#skyS)"/>
+<g id="moonG" class="hot"><circle cx="420" cy="90" r="120" fill="url(#moonS)"/><circle cx="420" cy="90" r="22" fill="#e8ecf4"/><circle cx="432" cy="84" r="20" fill="#0a0e16"/></g>
+
+<!-- the street, climbing from bottom left to top right -->
+<path d="M-1000 1600L240 900L1340 190L2600 190V1600Z" fill="url(#cobG)"/>
+<g id="cobbles" stroke="#14120f" stroke-width="2" opacity=".5" fill="none"></g>
+<!-- steps cut across the steepest part -->
+<g stroke="#4a443a" stroke-width="3" opacity=".6"><path d="M560 690l300-60M640 640l300-62M720 590l300-62M800 540l300-62"/></g>
+
+<!-- the houses on the right, stepping up the hill, with the lamp brackets -->
+<g id="housesR"></g>
+<!-- the houses on the left, nearer and darker -->
+<path d="M-1000 1600V200L60 120L200 150V560L380 520V1600Z" fill="url(#houseL)"/>
+<g fill="#100f12"><rect x="90" y="190" width="40" height="60"/><rect x="250" y="600" width="44" height="70"/></g>
+<rect id="win2" x="96" y="196" width="28" height="48" fill="#3a3020"/>
+
+<!-- the Lamplighters' Board, painted on the left-hand wall -->
+<g id="board" class="hot"><rect x="40" y="300" width="160" height="200" fill="#22303a" stroke="#4a3a22" stroke-width="7"/>
+  <text x="120" y="330" class="cd" font-size="12" fill="#ffd27a">THE LAMP-</text><text x="120" y="346" class="cd" font-size="12" fill="#ffd27a">LIGHTERS&#8217; BOARD</text>
+  <g stroke="#e8dfc4" stroke-width="2" opacity=".65"><path d="M58 366h90M58 380h110M58 394h80M58 408h104M58 422h70M58 436h112M58 450h96M58 464h84M58 478h100"/></g></g>
+
+<!-- the seven lamps -->
+<g id="lamps"></g>
+
+<!-- a cat on the steps -->
+<g id="cat" class="hot"><path d="M1020 572q-4-26 14-30l4-10 6 10q14 2 14 18v12z" fill="#0c0c0e"/><circle cx="1032" cy="552" r="1.600" fill="#c9d870"/><circle cx="1040" cy="552" r="1.600" fill="#c9d870"/><path id="catT" d="M1056 570q20-2 18-22" stroke="#0c0c0e" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+
+<!-- the bench on the landing, and the Namewright, asleep on it -->
+<g id="bench"><rect x="120" y="700" width="280" height="14" fill="#4a3220"/><rect x="130" y="714" width="12" height="70" fill="#2e1e12"/><rect x="378" y="714" width="12" height="70" fill="#2e1e12"/><rect x="120" y="640" width="280" height="10" fill="#4a3220"/></g>
+<g id="romola" class="hot"><path d="M150 760l20-120h170l20 120z" fill="#5a2a45"/><use href="#ch-romola" x="176" y="470" width="150" height="196"/>
+  <path d="M184 650h150" stroke="#3a1a2e" stroke-width="4"/><rect x="226" y="660" width="54" height="40" rx="6" fill="#3a2418"/><path d="M234 660q19-20 38 0" stroke="#2a180e" stroke-width="4" fill="none"/>
+  <g id="zz" font-family="Almendra,serif" font-weight="700" fill="#cfd8ea"><text x="320" y="520" font-size="22">z</text><text x="330" y="500" font-size="26">z</text><text x="314" y="530" font-size="18">z</text></g></g>
+<!-- Noll's slate, leaning on the bench -->
+<g id="slate" class="hot"><path d="M408 690l70-8 12 108-72 8z" fill="#2b3238" stroke="#6a4a2a" stroke-width="6"/><g stroke="#e8e4da" stroke-width="2" opacity=".75"><path d="M420 708l46-5M421 722l40-4M423 736l46-5M424 750l36-4M425 764l44-5"/></g></g>
+
+<!-- Quintus, the clerk, with his notebook -->
+<g id="quintus" class="hot"><path d="M510 860l8-210h96l8 210z" fill="#17171c"/><use href="#ch-quintus" x="490" y="470" width="150" height="196"/><rect x="600" y="640" width="30" height="40" fill="#f2f0ea" transform="rotate(10 615 660)"/></g>
+<!-- Noll, the apprentice lamplighter, with his long pole -->
+<g id="noll" class="hot"><path d="M-30 300L66 880" stroke="#5a4028" stroke-width="7"/><path d="M-36 296l14-10 10 14" stroke="#c9a23c" stroke-width="5" fill="none"/>
+  <path d="M30 880l8-200h96l8 200z" fill="#33414d"/><use href="#ch-noll" x="10" y="500" width="150" height="196"/></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">On to the Market of Named Things</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  /* lamp n: where its bracket is, and the name Noll cut on its plate */
+  var LAMPS = [
+    [1, 640, 520, 'NOCTILUCENT'], [2, 760, 466, 'TRANSLUCENT'], [3, 880, 412, 'LUMINOUS'], [4, 990, 360, 'DORMANT'],
+    [5, 1100, 310, 'LUCRATIVE'], [6, 1200, 264, 'SOMNILUCENT'], [7, 1296, 222, 'ILLUMINANT']
+  ];
+  (function () {
+    var s = '', i, x, y;
+    for (i = 0; i < 26; i++) { x = 300 + i * 46; s += '<path d="M' + (x - 300) + ' ' + (900 - i * 14) + 'L' + (x + 400) + ' ' + (480 - i * 14) + '"/>'; }
+    $('#cobbles').innerHTML = s; s = '';
+    /* houses on the right: tall fronts stepping up */
+    for (i = 0; i < 8; i++) {
+      x = 560 + i * 115; y = 560 - i * 52;
+      s += '<path d="M' + x + ' ' + (y + 150) + 'V' + (y - 120) + 'l58-40 58 40V' + (y + 150) + 'Z" fill="url(#houseR)" stroke="#1a1714" stroke-width="2"/><rect x="' + (x + 44) + '" y="' + (y + 86) + '" width="28" height="64" fill="#1a1510"/>' +
+        '<rect x="' + (x + 30) + '" y="' + (y - 70) + '" width="22" height="34" fill="#151310"/><rect x="' + (x + 64) + '" y="' + (y - 70) + '" width="22" height="34" fill="#151310"/>' +
+        '<rect' + (i === 3 ? ' id="win5"' : '') + ' x="' + (x + 30) + '" y="' + (y - 4) + '" width="22" height="34" fill="' + (i % 3 === 1 ? '#3a3020' : '#151310') + '"/>';
+    }
+    $('#housesR').innerHTML = s; s = '';
+    LAMPS.forEach(function (L, j) {
+      var sz = 1 - j * 0.07, x0 = L[1], y0 = L[2];
+      s += '<g id="l' + L[0] + '" class="hot"><circle class="glow" cx="' + x0 + '" cy="' + (y0 + 30 * sz) + '" r="' + (150 * sz).toFixed(0) + '" fill="url(#lampS)" pointer-events="none"/>' +
+        '<path d="M' + (x0 + 40 * sz) + ' ' + y0 + 'h-40v' + (10 * sz).toFixed(0) + '" stroke="#141210" stroke-width="' + (5 * sz).toFixed(1) + '" fill="none"/>' +
+        '<path class="gl" d="M' + (x0 - 14 * sz) + ' ' + (y0 + 12 * sz) + 'h' + (28 * sz) + 'l-5 ' + (40 * sz) + 'h-' + (18 * sz) + 'z" fill="#2a2e36" stroke="#141210" stroke-width="2.500"/>' +
+        '<rect x="' + (x0 - 30 * sz) + '" y="' + (y0 + 60 * sz) + '" width="' + (60 * sz) + '" height="' + (14 * sz) + '" fill="#b08a4a" stroke="#4a3418" stroke-width="1.500"/>' +
+        '<text x="' + x0 + '" y="' + (y0 + 71 * sz) + '" class="cz" font-size="' + (8 * sz).toFixed(1) + '" fill="#2a1a08">' + L[3] + '</text>' +
+        '<text x="' + (x0 + 22 * sz) + '" y="' + (y0 + 30 * sz) + '" class="cz" font-size="' + (14 * sz).toFixed(1) + '" fill="#8a8476">' + L[0] + '</text></g>';
+    });
+    $('#lamps').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'street', no: 'II', title: 'Lamplighters’ Street',
+    go: 'Climb the street',
+    intro: [
+      'The drawbridge was called TRANS&middot;PORT&middot;ER, the one that carries across; the bar RE&middot;TRACT&middot;OR, the one that pulls back; the gate IN&middot;DUCT&middot;OR, the one that leads in. In the outside world those are a lorry, a surgeon&rsquo;s tool and a part in a wireless. In Utter each one did exactly what its parts said.',
+      'Inside the gate, Lamplighters&rsquo; Street climbs steeply between tall houses, with seven lamps on iron brackets. Not one of them is lit.',
+      'Halfway up, on a bench, a woman in a velvet coat is fast asleep. A young man with a long pole is standing guard over her, and a thin man in black is writing in a notebook.'
+    ],
+    exit: {"next":"market","w":{"d569f14f":"915e2603"}}, tags: {"c1":["8efbe338","321ccdeb"],"c2":["6461ed1b"],"c3":["86c77f00"],"c4":["713e6561"],"c5":["28e15e0d","45ea4b2a"],"c6":["4ba553c2","e3953bc2"],"c7":["caf983fa"],"a1":["7637e01d"],"a2":["5fda9521"],"a3":["5b9e23da"],"a4":["265adc0b"],"a5":["c4475d07"],"a6":["c9d2a19f"],"a7":["67cd26d8"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('s-file') || null;
+
+  var BOARD = '<h4>The Lamplighters&rsquo; Board</h4><h5>painted on the wall of the street, for apprentices</h5>' +
+    '<p><b>LUC, LUMIN</b>: light. <i>lucid, illuminate</i></p>' +
+    '<p><b>LUCR</b>: gain, money. <i>lucre</i>. Not light! Two roots begin LUC. Do not mix them.</p>' +
+    '<p><b>NOCT</b>: night. <i>nocturnal</i></p>' +
+    '<p><b>SOMN, DORM</b>: sleep. <i>insomnia, dormitory</i></p>' +
+    '<p>Between two roots the Old Tongue often puts a joining letter, usually <b>I</b>.</p>' +
+    '<p>The end of a lamp&rsquo;s name tells you what kind of thing the name is:</p>' +
+    '<p>&nbsp;&nbsp;<b>-ENT, -ANT</b>: doing it, or being it, now.<br>&nbsp;&nbsp;<b>-OUS</b>: full of it.<br>&nbsp;&nbsp;<b>-IVE, -ATIVE</b>: bringing it about, tending to it.</p>' +
+    '<p>Read the whole name before you call a lamp: what it will do, and to whom.</p>';
+  var ACTS = [['A', 'gives light: call it'], ['B', 'lets light through, but gives none'], ['C', 'brings in money, and gives no light'],
+    ['D', 'is asleep itself, and gives no light'], ['E', 'its light puts people to sleep: never call it']];
+  /* the parts of the Old Tongue that the Board and the Gate List know (a dictionary, not an answer) */
+  var KNOWN = { noct: 'night', i: 'a joining letter', luc: 'light', lumin: 'light', ent: 'doing it, being it', ant: 'doing it, being it', trans: 'across', ous: 'full of',
+    dorm: 'sleep', lucr: 'gain, money', ive: 'bringing it about', ative: 'bringing it about', at: '(part of -ATIVE)', somn: 'sleep', il: 'in, on; or not', 'in': 'in; or not' };
+
+  function said(k) { return ER.flag('s-' + k); }
+  function ready() { return said('board') && said('noll') && said('quintus'); }
+  function hints() {
+    if (nextFile) return ['go', ['The street is lit and the Namewright has been carried away. The market is at the top of the street, on the left.']];
+    if (ready()) return ['slate', [
+      'On Noll&rsquo;s slate, cut each name into its parts (click between two letters), then mark what each lamp would do if it were called. Use the Board on the wall and the Gate List from the pillar.',
+      'Three lamps give light. Of the other four: one only lets light through, one has a root that looks like light and is money, one is asleep itself, and one shines sleep on whoever stands under it. Mind the joining letter I.',
+      'Noll thinks SOMN means night, because of insomnia: but IN- there means not, so insomnia is no sleep. Mr Merridew thinks DORMANT did it: but -ANT is being it, so DORMANT is only asleep itself. And IL- before L can be in or on, as in illuminate.'
+    ]];
+    return ['start', [
+      'Talk to Noll, the young man with the pole, and to Quintus, the clerk in black. Then read the Lamplighters&rsquo; Board, painted on the wall on the left.',
+      'When you have heard both of them and read the Board, Noll&rsquo;s slate is leaning against the bench.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('lit', !!nextFile);
+    [1, 3, 7].forEach(function (n) { if (nextFile) { $('#l' + n + ' .glow').classList.add('on'); $('#l' + n + ' .gl').classList.add('on'); } });
+    $('#romola').style.display = nextFile ? 'none' : '';
+    $('#slate').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  var snoreT = setInterval(function () { if (!nextFile && !ER.isOpen()) NM.sfx.snore(); }, 9000);
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Lamplighters&rsquo; Street, with three lamps lit. The market is at the top, on the left.'); return; }
+    if (said('noll')) { ER.say('Lamplighters&rsquo; Street. The Namewright is still asleep on the bench.'); return; }
+    busy = true;
+    ER.narrate([
+      'The street is so steep that halfway up it gives up and becomes steps. Seven lamps hang on brackets from the houses on the right, each with a small brass plate under it. All of them are dark.',
+      'The woman on the bench is sitting up very straight, with her hands folded on her bag and her mouth a little open. She is asleep. Every so often she snores, in a dignified way.',
+      '&ldquo;The Namewright,&rdquo; says Mr Mottram quietly. &ldquo;Oh dear. Oh dear me.&rdquo;'
+    ], function () { busy = false; });
+  }
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 's-' + id, title: title, kind: kind },
+      done: function () { ER.flag('s-' + id, 1); if (words) NM.learn(words); paint(); } });
+  }
+  $('#board').addEventListener('click', function () { readDoc('board', BOARD, 'lboard', 'The Lamplighters’ Board', 'Painted on a wall', ['joining letter']); });
+  $('#noll').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (said('noll')) { ER.say(nextFile ? '&ldquo;In- is not,&rdquo; Noll says to himself. &ldquo;Not sleep. I knew that. I did know that.&rdquo;' : '&ldquo;It wasn&rsquo;t my lamp,&rdquo; says Noll. &ldquo;Mine means night. I built it myself.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.noll.who, role: CAST.noll.role, face: FACE('noll'),
+      lines: [
+        { note: 'He is about fifteen, with soot on one cheek and a lamplighter&rsquo;s pole twice his height.', a: '&ldquo;Noll Rickaby. I cut the names on all seven plates this afternoon, from her list. Then she came down at six to try them, the way she always does, and I was up a ladder at the top fitting the last bracket, and I heard her calling them, one after another. Then nothing. When I came down she was like that.&rdquo;' },
+        { q: 'Which lamp was she calling when it happened?', a: '&ldquo;I couldn&rsquo;t see. And a lamp you call to try it only lights for a minute, so by the time I got down they were all dark again. She can&rsquo;t have called number seven, though: the bracket wasn&rsquo;t on.&rdquo;' },
+        { q: 'Did you cut every name from her list?', a: '&ldquo;Six of them. Her list said NOCTILUCENT for number one and NOCTILUCENT again for number six, and two the same seemed a waste. So I built number six myself. Same meaning, different root. SOMN is night: you know, insomnia, when you lie awake all night.&rdquo; He looks pleased with himself.' },
+        { q: 'What about the others?', a: '&ldquo;Number five is for the money-changer who lives over the shop there. He asked for it special: LUCRATIVE. LUC is light, but what&rsquo;s a RAT doing in a lamp? And number seven, ILLUMINANT: IL- is not, isn&rsquo;t it, like illegal? So it&rsquo;s a not-light. I don&rsquo;t know why she wanted a not-light.&rdquo;' }
+      ],
+      clue: { id: 'noll1', title: 'Noll, on the seven lamps', kind: 'What he said' }, last: 'Thanks',
+      done: function (ok) { if (ok) { ER.flag('s-noll', 1); NM.learn(['lamplighter', 'bracket']); paint(); } }
+    });
+  });
+  $('#quintus').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (said('quintus')) { ER.say(nextFile ? '&ldquo;I withdraw my theory,&rdquo; says Mr Merridew, and writes that down too.' : '&ldquo;DORMANT,&rdquo; says Mr Merridew. &ldquo;I have written it down. I am seldom wrong when I have written a thing down.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.quintus.who, role: CAST.quintus.role, face: FACE('quintus'),
+      lines: [
+        { note: 'A long, thin man in black, with a pen behind his ear and ink on his fingers. He does not stop writing while he talks.', a: '&ldquo;Merridew. Clerk of the Register. You will be the apprentice. You are early, or she is late; I have not decided which.&rdquo;' },
+        { q: 'Is she ill?', a: '&ldquo;She is asleep. A lamp put her to sleep: one of these. A thing does what its name says, and one of these names says sleep. She will sleep until the sun is up, and not one minute less. I have tried a feather, a bell and a bucket. I shall not tell you about the bucket.&rdquo;' },
+        { q: 'Why not carry her up to the Hall?', a: '&ldquo;The porters are waiting at the top with a chair. They will not bring a Namewright down these steps in the dark; nor would I. So the street must be lit. And not one lamp shall be called until we know which of them did this. Then we call the others.&rdquo;' },
+        { q: 'Do you know which one it was?', a: '&ldquo;Number four. DORMANT. DORM is sleep: dormitory. Anybody can see it. I have written it down.&rdquo;' }
+      ],
+      clue: { id: 'quintus1', title: 'Mr Merridew, on the sleeping Namewright', kind: 'What he said' }, last: 'Thank you',
+      done: function (ok) { if (ok) { ER.flag('s-quintus', 1); paint(); } }
+    });
+  });
+  $('#romola').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    NM.sfx.snore();
+    ER.say(ER.flag('s-rom') ? 'Mistress Nettleship snores, very politely, and does not wake.' : 'Mistress Romola Nettleship, Namewright of Utter: silver braids pinned up like a crown, a little silver chisel on a chain. Fast asleep, and very dignified about it.');
+    ER.flag('s-rom', 1);
+  });
+  LAMPS.forEach(function (L) {
+    $('#l' + L[0]).addEventListener('click', function (e) {
+      if (busy) return;
+      e.stopPropagation();
+      ER.say('Lamp ' + L[0] + '. The plate under it says ' + L[3] + '. ' + (nextFile ? ([1, 3, 7].indexOf(L[0]) >= 0 ? 'It is lit.' : 'Nobody is going to call it tonight.') : 'You do not call it. Not yet.'));
+    });
+  });
+  NM.thing('#cat', null, 'A black cat on the steps, watching the lamps. It does not look worried. It has never been called anything in its life, and does not intend to start.', isBusy);
+  NM.thing('#moonG', null, 'The new moon, too thin to see the steps by.', isBusy);
+  $('#slate').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('Noll&rsquo;s slate, with seven names cut into their parts in chalk.'); return; }
+    if (!said('noll') || !said('quintus')) { ER.say('Noll&rsquo;s slate, with the seven names on it in chalk. Talk to Noll and to Mr Merridew first: one of them made the plates, and the other has a theory.'); return; }
+    if (!said('board')) { ER.say('Before you cut any names up, read the Lamplighters&rsquo; Board, painted on the wall on the left.'); return; }
+    openSlate();
+  });
+
+  /* ---------- the slate ---------- */
+  function partsOf(name, cuts) {
+    var out = [], last = 0;
+    cuts.slice().sort(function (a, b) { return a - b; }).forEach(function (c) { out.push(name.slice(last, c)); last = c; });
+    out.push(name.slice(last)); return out;
+  }
+  function openSlate() {
+    var box = ER.el('div', 'pz sl'), st = ER.flag('s-slate') || { c: {}, a: {} }, s;
+    s = '<h4>Noll&rsquo;s slate</h4><h5>Cut each name into its parts: click between two letters (click again to rub a cut out). Then mark what each lamp would do if it were called.</h5><div class="sl-key">';
+    ACTS.forEach(function (a) { s += '<span><b>' + a[0] + '</b>' + a[1] + '</span>'; });
+    s += '</div>';
+    LAMPS.forEach(function (L) {
+      var nm = L[3], j;
+      s += '<div class="sl-row" data-n="' + L[0] + '"><span class="sl-no">' + L[0] + '</span><span class="sl-name">';
+      for (j = 0; j < nm.length; j++) { if (j) s += '<button type="button" class="cut" data-n="' + L[0] + '" data-c="' + j + '" title="cut here"></button>'; s += '<i>' + nm.charAt(j) + '</i>'; }
+      s += '</span><span class="sl-act">';
+      ACTS.forEach(function (a) { s += '<button type="button" data-n="' + L[0] + '" data-a="' + a[0] + '">' + a[0] + '</button>'; });
+      s += '</span></div>';
+    });
+    s += '<div class="foot"><button type="button" class="btn" id="sl-go">Light the street</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function cutsOf(n) { return (st.c[n] || []).slice().sort(function (a, b) { return a - b; }); }
+    function paintS() {
+      ER.$$('.cut', box).forEach(function (b) { b.classList.toggle('on', cutsOf(b.getAttribute('data-n')).indexOf(+b.getAttribute('data-c')) >= 0); });
+      ER.$$('.sl-act button', box).forEach(function (b) { b.classList.toggle('on', st.a[b.getAttribute('data-n')] === b.getAttribute('data-a')); });
+    }
+    function clear() { ER.$$('.sl-row', box).forEach(function (r) { r.classList.remove('bad'); }); }
+    box.addEventListener('click', function (e) {
+      var c = e.target.closest ? e.target.closest('.cut') : null, a, n, i, list;
+      if (c) {
+        n = c.getAttribute('data-n'); i = +c.getAttribute('data-c'); list = st.c[n] || [];
+        if (list.indexOf(i) >= 0) list.splice(list.indexOf(i), 1); else list.push(i);
+        st.c[n] = list; NM.sfx.rub(); clear(); paintS(); ER.flag('s-slate', st); return;
+      }
+      a = e.target.closest ? e.target.closest('.sl-act button') : null;
+      if (a) { st.a[a.getAttribute('data-n')] = a.getAttribute('data-a'); NM.sfx.tile(); clear(); paintS(); ER.flag('s-slate', st); }
+    });
+    box.querySelector('#sl-go').addEventListener('click', function () {
+      var i, L, n, parts, unk, row, file;
+      clear();
+      for (i = 0; i < LAMPS.length; i++) {
+        L = LAMPS[i]; n = String(L[0]); row = box.querySelector('.sl-row[data-n="' + n + '"]');
+        if (!cutsOf(n).length) { row.classList.add('bad'); msg('<b>Lamp ' + n + ', ' + L[3] + ':</b> not cut yet. Every name on the slate is more than one part.'); return; }
+        if (!st.a[n]) { row.classList.add('bad'); msg('<b>Lamp ' + n + ':</b> you have not marked what it would do.'); return; }
+      }
+      for (i = 0; i < LAMPS.length; i++) {
+        L = LAMPS[i]; n = String(L[0]); row = box.querySelector('.sl-row[data-n="' + n + '"]');
+        parts = partsOf(L[3], cutsOf(n));
+        if (!ER.check('c' + n, cutsOf(n).join('.'))) {
+          NM.miss(); row.classList.add('bad');
+          unk = parts.filter(function (p) { return !KNOWN[p.toLowerCase()]; })[0];
+          if (n === '5' && parts[0] === 'LUC') msg('<b>Lamp 5: ' + parts.join(' &middot; ') + '.</b> &ldquo;RATIVE&rdquo; is not a part of anything, and nor is a rat. Look at the Board again: two roots begin LUC.');
+          else if (unk) msg('<b>Lamp ' + n + ': ' + parts.join(' &middot; ') + '.</b> &ldquo;' + unk + '&rdquo; is not a part that the Board or the Gate List knows. Cut it somewhere else.');
+          else msg('<b>Lamp ' + n + ': ' + parts.join(' &middot; ') + '.</b> Every piece is a word you have seen, but these are not the parts this name was built from. Read it again, part by part, from the front.');
+          return;
+        }
+      }
+      for (i = 0; i < LAMPS.length; i++) {
+        L = LAMPS[i]; n = String(L[0]); row = box.querySelector('.sl-row[data-n="' + n + '"]');
+        if (!ER.check('a' + n, st.a[n])) {
+          NM.miss(); row.classList.add('bad');
+          parts = partsOf(L[3], cutsOf(n));
+          msg('<b>Lamp ' + n + ': ' + parts.join(' &middot; ') + '</b> = ' + parts.map(function (p) { return KNOWN[p.toLowerCase()] || p; }).join(' + ') + '. ' + (WHY[n + st.a[n]] || 'Is that what you marked? Put the parts together and say what the lamp would do.'));
+          return;
+        }
+      }
+      file = ER.exit([LAMPS.map(function (L) { return st.a[L[0]]; }).join('')], { wait: true });
+      if (!file) { msg('The chalk will not take. Something is wrong with this lock: tell your teacher.'); return; }
+      nextFile = file; ER.flag('s-file', file); busy = true;
+      ER.$$('.sl-row', box).forEach(function (r) { r.classList.add('ok'); });
+      msg('Seven names read back into their parts. Three lamps to call, and one never to call again.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2400);
+    });
+    paintS();
+    msg('Seven names, and one of them put the Namewright to sleep.');
+    ER.open('ov-lock', box);
+  }
+  /* what a wrong mark sounds like, told from the parts */
+  var WHY = {
+    '1B': 'It does not let light through: it shines, at night.', '1D': 'There is no sleep in it.',
+    '2A': 'TRANS is across, or through. A thing that light goes through is glass, not a flame. Called, it would go as clear as water.',
+    '3B': 'Full of light is not the same as letting light through.',
+    '4E': 'Mr Merridew&rsquo;s theory. But -ANT is doing it or being it: DORMANT is being asleep. Called, the lamp would sleep. Would it make anybody else sleep?',
+    '4A': 'Sleep is not light.',
+    '5A': 'Is LUCR light? Read the Board again.', '5B': 'Is LUCR light at all?',
+    '6A': 'Noll says SOMN is night, because of insomnia. But IN- can mean not. What is insomnia, then: no night, or no sleep? And what does the Board say SOMN is?',
+    '6D': 'DORMANT is being asleep. SOMN&middot;I&middot;LUC&middot;ENT is shining: shining what?',
+    '7B': 'Noll reads IL- as not, like illegal. But the Gate List says IL- is also IN- before L: in, on, as in illuminate. Which makes sense for a lamp that is full of light?',
+    '7D': 'Noll reads IL- as not, like illegal. But the Gate List says IL- is also IN- before L: in, on, as in illuminate.',
+    '7E': 'There is no sleep in it.'
+  };
+  function solvedNow() {
+    NM.sfx.lamp(); paint();
+    ER.narrate([
+      '&ldquo;NOCTILUCENT,&rdquo; you say, &ldquo;please.&rdquo; Lamp one lights with a warm gold flame. &ldquo;LUMINOUS, please.&rdquo; Lamp three. &ldquo;ILLUMINANT, please.&rdquo; Lamp seven lights the top of the street like a doorway. Three lamps are enough to see the steps by.',
+      'Noll has gone pale under his soot. &ldquo;Insomnia,&rdquo; he says. &ldquo;In- is not. Not sleep. So SOMN is sleep, and I built a lamp that shines sleep on anybody standing under it, and she stood under it.&rdquo; Mr Merridew writes something down, crosses it out, and says, &ldquo;I withdraw my theory.&rdquo;',
+      'Two porters come down the steps with a carrying-chair, lift the Namewright into it, still asleep and still dignified, and carry her up the street towards the Name-Hall.',
+      '&ldquo;It is the Year-Night,&rdquo; says Mr Merridew. &ldquo;At midnight the Year-Name must be said at the Spring, by the Namewright or by her apprentice.&rdquo; He looks at you. He looks at you for some time. &ldquo;She went to the market this afternoon and ordered something for tonight. Go by stall nine. Then over the Asking Bridge to the Hall. Mr Mottram knows the way.&rdquo;',
+      'Noll gives you the Namewright&rsquo;s bag. Inside it: a purse, an order ticket from stall nine, and a page torn out of a book.'
+    ], function () {
+      NM.mine('n-street', 'Seven lamps, read back', '<p>1 NOCT&middot;I&middot;LUC&middot;ENT: night + light + doing = shines at night. CALL.</p><p>2 TRANS&middot;LUC&middot;ENT: light goes through it. No light of its own.</p><p>3 LUMIN&middot;OUS: full of light. CALL.</p><p>4 DORM&middot;ANT: being asleep. Sleeps itself (Mr M. was wrong).</p><p>5 LUCR&middot;ATIVE: brings in money. LUCR is NOT LUC.</p><p>6 SOMN&middot;I&middot;LUC&middot;ENT: shining sleep. It did it. (insomnia = IN- not + SOMN sleep)</p><p>7 IL&middot;LUMIN&middot;ANT: putting light on. IL- = in, on (not &ldquo;not&rdquo;). CALL.</p>');
+      NM.learn(['noctilucent', 'translucent', 'luminous', 'dormant', 'lucrative', 'illuminant', 'insomnia']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) { clearInterval(snoreT); ER.leave(nextFile); } });
+})();
+</script>
+</body>
+</html>

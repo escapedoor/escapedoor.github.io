@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Name-Hall · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#140e1c;--accent:#d9b8f0;--font-display:'IM Fell English',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(20,14,28,.96);--tc-ink:#ece4f0;--cap-bg:rgba(20,14,28,.94);--cap-ink:#f4eef6;--panel:#1c1426;--face-bg:#3a2030;--q-ink:#e6cdf6;--fade:#07040a;--hud-bg:rgba(20,14,28,.82)}
+  .tc-room{font-family:'IM Fell English',serif;font-style:italic}
+  #fireF{animation:ff .9s steps(3) infinite;transform-origin:1250px 720px}
+  @keyframes ff{33%{transform:scaleY(1.06)}66%{transform:scaleY(.95) translateX(2px)}}
+  #fireGlow{animation:flick 2.4s steps(3) infinite}
+  .cnd{animation:flick 3s steps(3) infinite}.cnd+.cnd{animation-delay:-1.3s}
+  #zzH text{animation:zz 3.2s linear infinite;opacity:0}#zzH text:nth-child(2){animation-delay:-1.1s}
+  @keyframes zz{0%{opacity:0;transform:translate(0,0)}20%{opacity:.9}100%{opacity:0;transform:translate(26px,-60px)}}
+
+  /* the case of the first name: iron, glass, five shutters */
+  .cs{width:min(1040px,97vw);color:#eee6f2;background:#241a2c linear-gradient(160deg,#2e2238,#16101c);border:6px solid #4a3a52;box-shadow:0 26px 70px rgba(0,0,0,.75),inset 0 0 0 2px rgba(217,184,240,.25)}
+  .cs h4{color:#f0dcff;font-family:'IM Fell English',serif;font-weight:400;font-style:italic;font-size:25px}
+  .cs h5{color:#cdbcd8}
+  .cs-wins{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:6px}
+  .win{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .win button.sh{width:100%;height:78px;border:4px solid #1a1220;border-radius:6px 6px 2px 2px;background:#3a2c44 repeating-linear-gradient(0deg,#3a2c44 0 9px,#2c2036 9px 12px);color:#c9b8d4;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.12em}
+  .win button.sh.open{background:#efe6cf;color:#2b2216;font-family:'Uncial Antiqua',serif;font-size:31px;letter-spacing:.06em;border-color:#8a7a58}
+  .win .nm{font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.16em;color:#a898b4}
+  .win .mean{min-height:20px;font-family:'EB Garamond',serif;font-style:italic;font-size:16.5px;color:#f0dcff}
+  .win.bad button.sh{border-color:#d0503a}
+  .cs-chips{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px;padding:6px 8px;border:1px dashed rgba(217,184,240,.35);border-radius:3px}
+  .cs-chips span{font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.16em;color:#a898b4;align-self:center;margin-right:4px}
+  .cs-chips button{padding:3px 10px;border:1px solid rgba(217,184,240,.55);border-radius:12px;background:transparent;color:#eee6f2;font-family:'EB Garamond',serif;font-size:15.5px}
+  .cs-chips button:hover{border-color:#f0dcff;background:rgba(217,184,240,.12)}
+  .cs-q{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 10px;align-items:center;padding:4px 0;border-top:1px solid rgba(217,184,240,.15)}
+  .cs-q.bad{background:rgba(208,80,58,.18)}
+  .cs-q b{font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:16.5px;color:#e6d6f0}
+  .cs-q div{display:flex;flex-wrap:wrap;gap:5px}
+  .cs-q button{padding:3px 10px;border:1px solid rgba(217,184,240,.55);border-radius:3px;background:transparent;color:#eee6f2;font-family:'EB Garamond',serif;font-size:15.5px}
+  .cs-q button.on{background:#d9b8f0;color:#1c1426;border-color:#d9b8f0}
+  .cs .foot{align-items:center}
+  .cs .foot .btn{--accent:#d9b8f0}
+  .cs .lay{padding:7px 12px;border:1px solid #8a7a58;border-radius:3px;background:linear-gradient(#c9a86a,#8a6a30);color:#2a1a08;font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.06em}
+  .cs .pmsg{color:#f4eef6;min-height:64px;font-size:17.5px}
+  .cs .pmsg b{color:#f0dcff}.cs .pmsg i{color:#b8a8c4}
+  @media (max-width:980px){.cs-wins{grid-template-columns:repeat(3,1fr)}.cs-q{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1426"/><stop offset=".6" stop-color="#2a1e36"/><stop offset="1" stop-color="#1c1426"/></linearGradient>
+  <linearGradient id="floorH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1c1a"/><stop offset="1" stop-color="#120c0c"/></linearGradient>
+  <linearGradient id="nightH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05081a"/><stop offset="1" stop-color="#1a2244"/></linearGradient>
+  <linearGradient id="woodH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3022"/><stop offset="1" stop-color="#24160e"/></linearGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffcf6a" stop-opacity=".7"/><stop offset=".5" stop-color="#ff7a2a" stop-opacity=".2"/><stop offset="1" stop-color="#ff5a1a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="cndG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".5"/><stop offset=".45" stop-color="#ffb050" stop-opacity=".12"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#07040a" stop-opacity=".22"/><stop offset="1" stop-color="#07040a" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#wallH)"/>
+<path d="M-1000 790H2600V1600H-1000Z" fill="url(#floorH)"/><path d="M-1000 790H2600" stroke="#0e0a0c" stroke-width="6"/>
+<!-- shelves of ledgers on the left -->
+<g id="shelves" class="hot"><rect x="-400" y="60" width="500" height="730" fill="#2a1a14"/><g id="spines"></g></g>
+<!-- the tall window: the night city, and the Water-Stair climbing to the Spring -->
+<g id="window" class="hot"><path d="M130 520V200a90 90 0 0 1 180 0V520Z" fill="url(#nightH)"/>
+  <g fill="#ffcf6a"><circle cx="160" cy="470" r="2"/><circle cx="190" cy="480" r="2"/><circle cx="222" cy="462" r="2"/><circle cx="270" cy="474" r="2"/><circle cx="150" cy="440" r="1.600"/></g>
+  <path d="M160 430l20-30 24-14 20-30 22-22 20-30" stroke="#6a78b8" stroke-width="3" fill="none"/><g fill="#9aa8e0"><circle cx="180" cy="400" r="2.500"/><circle cx="204" cy="386" r="2.500"/><circle cx="224" cy="356" r="2.500"/><circle cx="246" cy="334" r="2.500"/></g>
+  <path d="M258 300q10-16 20 0" stroke="#9aa8e0" stroke-width="3" fill="none"/>
+  <path d="M130 520V200a90 90 0 0 1 180 0V520Z M220 110V520M130 330H310" fill="none" stroke="#3a2a22" stroke-width="10"/></g>
+<!-- the founders, in a dark painting over the fire -->
+<g id="portrait" class="hot"><rect x="1120" y="110" width="260" height="200" fill="#3a2a1a" stroke="#c9a23c" stroke-width="6"/><rect x="1134" y="124" width="232" height="172" fill="#2a2018"/>
+  <g fill="#4a3a2a"><circle cx="1180" cy="190" r="16"/><circle cx="1230" cy="184" r="16"/><circle cx="1280" cy="186" r="16"/><circle cx="1328" cy="190" r="16"/><path d="M1158 296q22-80 44 0zM1208 296q22-84 44 0zM1258 296q22-82 44 0zM1306 296q22-80 44 0z"/></g>
+  <path d="M1196 236l10-28M1246 232l10-28M1296 234l10-28M1344 236l10-28" stroke="#c9c4cc" stroke-width="3"/></g>
+<!-- the fireplace, and the Namewright asleep in her chair -->
+<g><rect x="1100" y="380" width="300" height="410" fill="#4a3a36"/><rect x="1140" y="440" width="220" height="350" fill="#120a08"/><rect x="1086" y="366" width="328" height="22" fill="#5a4a44"/>
+  <circle id="fireGlow" cx="1250" cy="720" r="260" fill="url(#fireG)" pointer-events="none"/>
+  <g id="fireF"><path d="M1190 780q20-60 40-30q10-50 30-10q20-40 30 10q20-20 20 30z" fill="#ff8a2a"/><path d="M1214 780q14-34 28-14q10-30 22 0q12-14 14 14z" fill="#ffd27a"/></g></g>
+<g id="romola" class="hot"><path d="M1110 800V520q0-70 100-80h80q100 10 100 80v280z" fill="#5a2a3a"/><path d="M1140 800V560h220v240z" fill="#4a2030"/>
+  <use href="#ch-romola" x="1176" y="470" width="150" height="196"/><path d="M1140 700h220v100h-220z" fill="#7a5a3a"/><g stroke="#5a3a22" stroke-width="3" opacity=".6"><path d="M1150 720h200M1150 744h200M1150 768h200"/></g>
+  <g id="zzH" font-family="IM Fell English,serif" font-style="italic" fill="#d9b8f0"><text x="1330" y="500" font-size="24">z</text><text x="1342" y="480" font-size="28">z</text></g></g>
+<!-- Mr Mottram, warming his hands -->
+<g id="peregrine" class="hot"><path d="M1430 880l10-180h120l10 180z" fill="#2f5a3e"/><use href="#ch-peregrine" x="1412" y="500" width="164" height="214"/></g>
+
+<!-- the great lectern with the Register, and Quintus behind it -->
+<g id="quintus" class="hot"><path d="M410 800l8-300h104l8 300z" fill="#17171c"/><use href="#ch-quintus" x="396" y="300" width="150" height="196"/></g>
+<g id="register" class="hot"><path d="M430 800l20-260h60l20 260z" fill="url(#woodH)"/><path d="M360 470h240l-20 60H380z" fill="#3a2418"/>
+  <path d="M372 466q54-18 108 0q54-18 108 0v-10q-54-16-108 0q-54-16-108 0z" fill="#efe6cf"/><g stroke="#4a3a22" stroke-width="1.500" opacity=".7"><path d="M388 460h80M388 452h76M492 460h80M492 452h70"/></g></g>
+<g class="cnd"><circle cx="600" cy="420" r="120" fill="url(#cndG)" pointer-events="none"/><rect x="594" y="420" width="12" height="40" fill="#efe6cc"/><path d="M600 420q-5-10 0-20q5 10 0 20" fill="#ffd27a"/></g>
+<!-- the Ledger of Year-Names, on its own stand -->
+<g id="ledger" class="hot"><rect x="636" y="600" width="16" height="190" fill="#3a2418"/><path d="M590 600h108l-10 26h-88z" fill="#3a2a46"/><path d="M600 594q22-10 44 0q22-10 44 0v-8q-22-8-44 0q-22-8-44 0z" fill="#efe6cf"/></g>
+
+<!-- the case of the first name, on its plinth -->
+<g id="case" class="hot"><rect x="770" y="610" width="180" height="190" fill="#3a3040"/><rect x="756" y="600" width="208" height="18" fill="#4a3e52"/>
+  <rect x="730" y="470" width="260" height="130" rx="6" fill="#1e1626" stroke="#6a5a72" stroke-width="5"/>
+  <g fill="#3a2c44" stroke="#1a1220" stroke-width="3"><rect x="748" y="500" width="38" height="56"/><rect x="796" y="500" width="38" height="56"/><rect x="844" y="500" width="38" height="56"/><rect x="892" y="500" width="38" height="56"/><rect x="940" y="500" width="38" height="56"/></g>
+  <g class="cz" font-size="11" fill="#a898b4"><text x="767" y="574">I</text><text x="815" y="574">II</text><text x="863" y="574">III</text><text x="911" y="574">IV</text><text x="959" y="574">V</text></g>
+  <path d="M740 470q120-40 240 0" stroke="#6a5a72" stroke-width="4" fill="none"/></g>
+<g class="cnd"><circle cx="860" cy="430" r="110" fill="url(#cndG)" pointer-events="none"/></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the Water-Stair to the Spring</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', r, x, seed = 31;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (r = 0; r < 6; r++) {
+      s += '<rect x="-400" y="' + (170 + r * 118) + '" width="500" height="8" fill="#1a100c"/>';
+      for (x = -390; x < 92; x += 16 + Math.floor(rnd() * 8)) s += '<rect x="' + x + '" y="' + (84 + r * 118 + Math.floor(rnd() * 14)) + '" width="' + (12 + Math.floor(rnd() * 6)) + '" height="' + (86 - Math.floor(rnd() * 14)) + '" fill="' + ['#4a2a3a', '#2a3a4a', '#4a3a22', '#3a2a46', '#2e4232'][Math.floor(rnd() * 5)] + '"/>';
+    }
+    $('#spines').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'hall', no: 'V', title: 'The Name-Hall',
+    go: 'Go into the Hall',
+    intro: [
+      'Three of Mr Mottram&rsquo;s words were true: COM&middot;PANION shares your bread, PER&middot;EGRINE goes through the fields, DIS&middot;ASTER is a bad star. The fourth was not. SINE is never fixed to the front of a word (without, at the front, is SE-, as in secure), and sincerus is one old word, clean and whole, whose parts nobody knows. There was never any wax. He unsaid it, and the end-gate opened.',
+      'The Name-Hall is where every name in Utter is written down. The Namewright is asleep in her own chair by the fire, under a rug, snoring in a dignified way.',
+      'It is a quarter past eleven. At midnight the Year-Name must be said at the Spring.'
+    ],
+    exit: {"next":"stair","w":{"5e2f3c12":"d00e4b6f"}}, tags: {"m1":["a83262ab"],"m2":["2d4fd0f9"],"m3":["ff9f8407"],"m4":["3e3ede54"],"m5":["2c919d96"],"q1":["d26d8627"],"q2":["93db2c41"],"q3":["f0fa83f6"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('h-file') || null;
+
+  var REGISTER = '<h4>The Register: the first name</h4>' +
+    '<p>The first thing named in Utter was the Spring, and its name was the first name ever cut. The founders built it to say everything the Spring can do, so that the Spring should never want for a name. Then they saw what they had made: called by that name, the Spring would do all of it, at once.</p>' +
+    '<p>So it was cut on five tiles, and the tiles were shut in the case in this Hall, out of their order, each behind its own shutter; and only one shutter can be open at a time. No one has seen the name whole since, and no one says it.</p>' +
+    '<p>Every Namewright must know what it asks, so that she never asks it again. A Year-Name may never use a root of the first name, nor any part that asks for all.</p>' +
+    '<p><b>OMNI-</b>: all, every. <i>omnibus</i> (a carriage for all), <i>omnivore</i> (an animal that eats every kind of food).</p>' +
+    '<p>Never lay the tiles out in order.</p>';
+  var LEDGER = '<h4>The Ledger of Year-Names</h4>' +
+    '<p>On every Year-Night the Namewright cuts a new name on a tile of baked earth, and says it at the Spring at midnight. Every one is written here. The last six:</p><table>' +
+    '<tr><td>Year 411</td><td><b>RE&middot;CURR&middot;ENT</b> running again <span class="note">R.N.</span></td></tr>' +
+    '<tr><td>Year 410</td><td><b>RE&middot;FUND&middot;ENT</b> pouring again <span class="note">R.N.</span></td></tr>' +
+    '<tr><td>Year 409</td><td><b>RE&middot;VEN&middot;ENT</b> coming again <span class="note">R.N.</span></td></tr>' +
+    '<tr><td>Year 408</td><td><b>RE&middot;NASC&middot;ENT</b> being born again <span class="note">A spring is born again every year, if you think about it. I did. R.N.</span></td></tr>' +
+    '<tr><td>Year 407</td><td><b>RE&middot;SALI&middot;ENT</b> leaping again <span class="note">R.N.</span></td></tr>' +
+    '<tr><td>Year 406</td><td><b>RE&middot;PLE&middot;ENT</b> filling again <span class="note">R.N.</span></td></tr></table>' +
+    '<p>Every Year-Name has begun RE-, again, and ended -ENT, doing it. The Spring will not answer to a root that it has heard in the last six years.</p>';
+  var TILES = [['FLU', 'flu'], ['OMNI', 'omni'], ['ENT', 'ent'], ['AQU', 'aqu'], ['EF', 'ef']];
+  var WHERE = { flu: 'The Gate List has it, with fluid and fluent to prove it.', omni: 'The Register gives OMNI-, with omnibus and omnivore to prove it.',
+    ent: 'It is an end, not a root: the Gate List and the Lamplighters&rsquo; Board both give it.', aqu: 'The Gate List has it, with aquatic to prove it.', ef: 'The Gate List has it: EX- is written EF- before F.' };
+  var MEANS = [['flow', 'flow'], ['all', 'all, every'], ['doing', 'doing it, now'], ['water', 'water'], ['out', 'out'], ['earth', 'earth'], ['sea', 'the sea'],
+    ['light', 'light'], ['sleep', 'sleep'], ['under', 'under'], ['rise', 'rise'], ['carry', 'carry']];
+  var Q = [
+    ['q1', 'It is the name of', [['spring', 'the Spring'], ['sea', 'the sea'], ['stair', 'the Water-Stair'], ['bridge', 'the Asking Bridge']]],
+    ['q2', 'Called by it, the Spring would', [['year', 'give one more year of water, and no more'], ['every', 'give every drop of water under the hill, all at once'], ['sleep', 'go to sleep for a year'], ['carry', 'carry the city down into the sea']]]
+  ];
+  var QSAY = {
+    'q1.sea': 'Read the parts again: OUT, and FLOW. Does water flow out of the sea, or into it?',
+    'q1.stair': 'The Stair leads the water down. Is there a part for leading behind any shutter?',
+    'q1.bridge': 'There is no carrying, and no asking, behind any shutter.',
+    'q2.year': 'One more year, and no more? Look behind shutter II again.',
+    'q2.sleep': 'There is no sleep in it. You have seen what a name with SOMN in it can do.',
+    'q2.carry': 'There is no carrying in it. The city would go down the hill all right, but not because anything carried it.'
+  };
+
+  function said(k) { return ER.flag('h-' + k); }
+  function ready() { return said('quintus') && said('register') && said('ledger'); }
+  function hints() {
+    if (nextFile) return ['go', ['Up the Water-Stair to the Spring. It is twenty minutes to midnight.']];
+    if (ready()) return ['case', [
+      'Open one shutter at a time and give each tile its meaning. The Gate List has four of them; the Register has the one that is new.',
+      'EF is EX- before F. ENT is doing it. When you have all five meanings, ask: what does water flow OUT of? And what would ALL ask for?',
+      'The Register forbids two things in a Year-Name: a root of the first name, and a part that asks for all. A front or an end is not a root. And look at the Ledger: how does every Year-Name end?'
+    ]];
+    return ['start', [
+      'Talk to Mr Merridew behind the lectern, and read the Register open on it.',
+      'Read the Ledger of Year-Names on the stand beside the lectern. Then go to the case on the plinth in the middle of the Hall.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#case').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  var snoreT = setInterval(function () { if (!ER.isOpen()) NM.sfx.snore(); }, 10000);
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The Name-Hall. The case of the first name is shut, and all its shutters are down.'); return; }
+    if (said('quintus')) { ER.say('The Name-Hall. The case of the first name stands on its plinth.'); return; }
+    busy = true;
+    ER.narrate([
+      'A tall room lined with ledgers, a fire, a painting of four people in old robes holding chisels, and a window that looks up the hill to where the Water-Stair climbs into the dark.',
+      'In the middle of the floor, on a stone plinth, is a case of iron and old glass, with five little shuttered windows along its front.',
+      'Mr Merridew is already at the great lectern, with the Register open in front of him and a candle at his elbow. He does not look up.'
+    ], function () { busy = false; });
+  }
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'h-' + id, title: title, kind: kind },
+      done: function () { ER.flag('h-' + id, 1); if (words) NM.learn(words); paint(); } });
+  }
+  $('#register').addEventListener('click', function (e) { e.stopPropagation(); readDoc('register', REGISTER, 'register', 'The Register: the first name', 'The Register', ['first name', 'omnibus', 'omnivore']); });
+  $('#ledger').addEventListener('click', function (e) { e.stopPropagation(); readDoc('ledger', LEDGER, 'register', 'The Ledger of Year-Names', 'The Ledger', ['Year-Name', 'ledger']); });
+  $('#quintus').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (said('quintus')) { ER.say(nextFile ? '&ldquo;Twenty minutes,&rdquo; says Mr Merridew. &ldquo;I have written down that you will be in time.&rdquo;' : '&ldquo;The Register, the Ledger, the case,&rdquo; says Mr Merridew. &ldquo;In that order. I shall hold the candle and not look.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.quintus.who, role: CAST.quintus.role, face: FACE('quintus'),
+      lines: [
+        { note: 'He puts his pen down. It is the first time you have seen him do it.', a: '&ldquo;She will sleep until sunrise. The Year-Name must be said at the Spring at midnight, by the Namewright or by her apprentice. I am a clerk. A clerk copies names; he does not build them, and the Spring would not answer me if I did.&rdquo;' },
+        { q: 'So it has to be me.', a: '&ldquo;It has to be you. And before you build anything, you must know what the first name asks, so that you never ask it again. That is why the case is here. Read the Register first. I shall hold the candle, and not look. I am very good at not looking.&rdquo;' },
+        { q: 'What happens if no Year-Name is said?', a: '&ldquo;The Spring sleeps for a year. The fountains stop at dawn, the Stair runs dry, and Utter drinks rain until the next Year-Night. It has never happened. It will not happen tonight. I have written that down.&rdquo;' },
+        { q: 'Is there anything else I should read?', a: '&ldquo;The Ledger, on the stand beside me. Every Year-Name she has cut, and the rule about roots. You will need both before the night is out.&rdquo;' }
+      ],
+      clue: { id: 'quintus2', title: 'Mr Merridew, in the Name-Hall', kind: 'What he said' }, last: 'Thank you',
+      done: function (ok) { if (ok) { ER.flag('h-quintus', 1); paint(); } }
+    });
+  });
+  $('#romola').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    var n = NM.bump('h-rom');
+    NM.sfx.snore();
+    ER.say(n === 1 ? 'The Namewright stirs in her sleep and murmurs something. You lean closer. &ldquo;&hellip;it rises,&rdquo; she says. &ldquo;&hellip;always rises&hellip;&rdquo; Then she snores again.' : 'Mistress Nettleship is fast asleep, with the rug up to her chin. &ldquo;&hellip;rises&hellip;&rdquo; she murmurs.');
+  });
+  $('#peregrine').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    ER.say('&ldquo;I shall not tell you a single word tonight,&rdquo; says Mr Mottram, holding his hands to the fire. &ldquo;Well. Perhaps a true one, if you ask. They are harder to find than you would think.&rdquo;');
+  });
+  NM.thing('#window', null, 'Through the window: the roofs of Utter, a few lights, and the Water-Stair climbing the top of the hill to a small dark arch. The basins catch a little starlight, but not much. There is not much water in them.', isBusy);
+  NM.thing('#portrait', null, 'The founders of Utter, four of them, each holding a chisel and looking pleased with themselves. They have no names on the frame. Perhaps they thought that was safer.', isBusy);
+  NM.thing('#shelves', null, 'Ledgers from floor to ceiling: every name ever cut in Utter, with its parts. Four hundred and eleven years of it.', isBusy);
+  $('#case').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The case of the first name, with all five shutters down. Mr Merridew has locked it, twice.'); return; }
+    if (!said('quintus') || !said('register')) { ER.say('A case of iron and old glass with five shuttered windows. Talk to Mr Merridew, and read the Register, before you touch it.'); return; }
+    if (!said('ledger')) { ER.say('Read the Ledger of Year-Names on the stand first. Mr Merridew says you will need it.'); return; }
+    openCase();
+  });
+
+  /* ---------- the case ---------- */
+  function openCase() {
+    var box = ER.el('div', 'pz cs'), st = ER.flag('h-case') || { m: {}, q: {}, n: {} }, open = 0, s = '', done = false;
+    s = '<h4>The case of the first name</h4><h5>Open one shutter at a time, and give the tile behind it its meaning. Then say what the name is, and what it would do. Never lay the tiles out in order.</h5><div class="cs-wins">';
+    TILES.forEach(function (t, i) {
+      s += '<div class="win" data-w="' + (i + 1) + '"><span class="nm">SHUTTER ' + ['I', 'II', 'III', 'IV', 'V'][i] + '</span><button type="button" class="sh" data-w="' + (i + 1) + '">SHUT</button><span class="mean"></span></div>';
+    });
+    s += '</div><div class="cs-chips"><span>THE OPEN TILE MEANS</span>';
+    MEANS.forEach(function (m) { s += '<button type="button" data-m="' + m[0] + '">' + m[1] + '</button>'; });
+    s += '</div>';
+    Q.forEach(function (q) {
+      s += '<div class="cs-q" data-q="' + q[0] + '"><b>' + q[1] + '</b><div>';
+      q[2].forEach(function (o) { s += '<button type="button" data-q="' + q[0] + '" data-o="' + o[0] + '">' + o[1] + '</button>'; });
+      s += '</div></div>';
+    });
+    s += '<div class="cs-q" data-q="q3"><b>A Year-Name must never use the part behind shutter</b><div>';
+    ['I', 'II', 'III', 'IV', 'V'].forEach(function (r, i) { s += '<button type="button" data-n="' + (i + 1) + '">' + r + '</button>'; });
+    s += '</div></div><div class="foot"><button type="button" class="lay" id="cs-lay">Lay the tiles out in order</button><button type="button" class="btn" id="cs-go">Seal the case</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function label(id) { var m = MEANS.filter(function (x) { return x[0] === id; })[0]; return m ? m[1] : ''; }
+    function paintC() {
+      ER.$$('.win', box).forEach(function (w) {
+        var i = +w.getAttribute('data-w'), b = w.querySelector('.sh');
+        b.classList.toggle('open', open === i); b.textContent = open === i ? TILES[i - 1][0] : 'SHUT';
+        w.querySelector('.mean').textContent = st.m[i] ? label(st.m[i]) : '';
+      });
+      ER.$$('.cs-q button[data-o]', box).forEach(function (b) { b.classList.toggle('on', st.q[b.getAttribute('data-q')] === b.getAttribute('data-o')); });
+      ER.$$('.cs-q button[data-n]', box).forEach(function (b) { b.classList.toggle('on', !!st.n[b.getAttribute('data-n')]); });
+    }
+    function clear() { ER.$$('.win, .cs-q', box).forEach(function (x) { x.classList.remove('bad'); }); }
+    box.addEventListener('click', function (e) {
+      if (done) return;
+      var t = e.target.closest ? e.target : null; if (!t) return;
+      var sh = t.closest('.sh'), mc = t.closest('.cs-chips button'), qb = t.closest('.cs-q button[data-o]'), nb = t.closest('.cs-q button[data-n]');
+      if (sh) { var w = +sh.getAttribute('data-w'); open = open === w ? 0 : w; NM.sfx.tile(); clear(); paintC(); if (open) msg('Shutter ' + ['I', 'II', 'III', 'IV', 'V'][open - 1] + ' is open, and the others have dropped shut by themselves.'); return; }
+      if (mc) { if (!open) { msg('Open a shutter first. The meaning goes to the tile behind the open shutter.'); return; } st.m[open] = mc.getAttribute('data-m'); NM.sfx.rub(); clear(); paintC(); ER.flag('h-case', st); return; }
+      if (qb) { st.q[qb.getAttribute('data-q')] = qb.getAttribute('data-o'); NM.sfx.tile(); clear(); paintC(); ER.flag('h-case', st); return; }
+      if (nb) { var n = nb.getAttribute('data-n'); if (st.n[n]) delete st.n[n]; else st.n[n] = 1; NM.sfx.tile(); clear(); paintC(); ER.flag('h-case', st); }
+    });
+    box.querySelector('#cs-lay').addEventListener('click', function () {
+      if (done) return;
+      NM.miss(); open = 0; paintC();
+      msg('Mr Merridew&rsquo;s hand comes down flat on the lid, very fast for a clerk. &ldquo;No. Not in order. Not ever. You need what it <b>means</b>, not what it <b>says</b>.&rdquo; <i>He takes his hand away, slowly.</i>');
+    });
+    box.querySelector('#cs-go').addEventListener('click', function () {
+      if (done) return;
+      var i, w, never, file, bad;
+      clear();
+      for (i = 1; i <= 5; i++) if (!st.m[i]) { box.querySelector('.win[data-w="' + i + '"]').classList.add('bad'); msg('<b>Shutter ' + ['I', 'II', 'III', 'IV', 'V'][i - 1] + '</b> has no meaning given yet.'); return; }
+      if (!st.q.q1 || !st.q.q2) { box.querySelector('.cs-q[data-q="' + (!st.q.q1 ? 'q1' : 'q2') + '"]').classList.add('bad'); msg('You have not said ' + (!st.q.q1 ? 'what it is the name of.' : 'what it would do.')); return; }
+      never = Object.keys(st.n).sort().join('.');
+      if (!never) { box.querySelector('.cs-q[data-q="q3"]').classList.add('bad'); msg('Which parts may a Year-Name never use? The Register says.'); return; }
+      for (i = 1; i <= 5; i++) {
+        if (!ER.check('m' + i, st.m[i])) {
+          NM.miss(); w = TILES[i - 1]; box.querySelector('.win[data-w="' + i + '"]').classList.add('bad');
+          msg('<b>Shutter ' + ['I', 'II', 'III', 'IV', 'V'][i - 1] + ':</b> the tile behind it does not mean &ldquo;' + label(st.m[i]) + '&rdquo;. ' + WHERE[w[1]] + ' <i>Open it again and look.</i>');
+          return;
+        }
+      }
+      for (i = 0; i < 2; i++) {
+        if (!ER.check(Q[i][0], st.q[Q[i][0]])) { NM.miss(); box.querySelector('.cs-q[data-q="' + Q[i][0] + '"]').classList.add('bad'); msg(QSAY[Q[i][0] + '.' + st.q[Q[i][0]]] || 'Read the five meanings together, in your head.'); return; }
+      }
+      if (!ER.check('q3', never)) {
+        NM.miss(); box.querySelector('.cs-q[data-q="q3"]').classList.add('bad');
+        if (st.n[3]) bad = 'Behind shutter III is an end, not a root, and every Year-Name in the Ledger ends with it. The Spring answered every one.';
+        else if (st.n[5]) bad = 'Behind shutter V is a front, not a root, and it does not ask for all. The Register forbids the roots of the first name, and any part that asks for all.';
+        else if (!st.n[2]) bad = 'One of the five asks for all. The Register forbids it in so many words.';
+        else bad = 'The Register forbids every root of the first name. Which of the five tiles are roots?';
+        msg(bad); return;
+      }
+      file = ER.exit([[1, 2, 3, 4, 5].map(function (i) { return st.m[i]; }).join('.') + '-' + st.q.q1 + '-' + st.q.q2 + '-' + never], { wait: true });
+      if (!file) { msg('The case does not seal. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('h-file', file); busy = true; open = 0; paintC();
+      msg('All the water, flowing out, now: and you never once saw it whole.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2400);
+    });
+    paintC();
+    msg('Five shutters. Only one opens at a time.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    NM.sfx.stone(); paint();
+    ER.narrate([
+      'You give Mr Merridew the meanings, one at a time, out of their order, as the case gives them: flow; all; doing it, now; water; out. He writes each one down without looking at the case.',
+      '&ldquo;Every drop of water under the hill,&rdquo; he says, &ldquo;out of it, all at once. Utter would go down to the harbour in one piece. Roughly.&rdquo; He locks the case, and then, after a moment, locks it again.',
+      '&ldquo;So the Year-Name may not use FLU, nor AQU, nor OMNI. It may use a front or an end that the first name has: every Year-Name in the Ledger ends -ENT, and the Spring has answered every one.&rdquo;',
+      'He takes a small book from the shelf behind the lectern and gives it to Mr Mottram to carry. &ldquo;Her own book of the Year-Night. Her rules. She would want you to have it.&rdquo; By the fire, the Namewright murmurs in her sleep, &ldquo;&hellip;rises&hellip;&rdquo;',
+      '&ldquo;Twenty minutes to midnight,&rdquo; says Mr Merridew. &ldquo;The Water-Stair is behind the Hall. Go.&rdquo;'
+    ], function () {
+      NM.mine('n-hall', 'What the first name asks (never say it)', '<p>Behind the shutters, out of order: FLU (flow), OMNI (all), ENT (doing it), AQU (water), EF (out).</p><p>It is the name of the SPRING: water flows OUT of it.</p><p>Called, it would give every drop of water under the hill, all at once.</p><p>A Year-Name may NEVER use: FLU, OMNI, AQU. It may use a front or an end (all Year-Names end -ENT).</p><p>Not in the last six years: CURR, FUND, VEN, NASC, SALI, PLE.</p>');
+      NM.learn(['shutter', 'omni-']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) { clearInterval(snoreT); ER.leave(nextFile); } });
+})();
+</script>
+</body>
+</html>

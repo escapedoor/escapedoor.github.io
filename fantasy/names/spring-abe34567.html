@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Spring · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#06101a;--accent:#ffe2a0;--font-display:'Cinzel Decorative',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(6,16,26,.95);--tc-ink:#eef2ea;--cap-bg:rgba(6,16,26,.93);--cap-ink:#f6f8f2;--panel:#0e2030;--face-bg:#3a2030;--q-ink:#ffe7b0;--fade:#02060a;--hud-bg:rgba(6,16,26,.8)}
+  .tc-room{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700}
+  #dawn{opacity:0;transition:opacity 5s}
+  #scene.morning #dawn{opacity:1}
+  #scene.morning #starsP{opacity:0;transition:opacity 4s}
+  #water{transition:transform 5s ease-out}
+  #scene.risen #water{transform:translateY(-120px)}
+  #spill,#stream{opacity:0;transition:opacity 2s 3.5s}
+  #scene.risen #spill,#scene.risen #stream{opacity:1}
+  .spk{animation:spk 2.2s steps(3) infinite}.spk:nth-child(2n){animation-delay:-1s}
+  @keyframes spk{50%{opacity:.2}}
+  #romolaG,#quintusG{opacity:0;transition:opacity 2s}
+  #scene.morning #romolaG,#scene.risen #quintusG{opacity:1}
+
+  /* saying it */
+  .sp{position:fixed;left:50%;bottom:6vh;transform:translateX(-50%);z-index:34;display:none;width:min(760px,94vw);padding:16px 22px;background:#2a1408 linear-gradient(160deg,#4a2414,#1e0e06);border:6px solid #8a4a26;
+    box-shadow:0 26px 70px rgba(0,0,0,.7);color:#fff0e0;text-align:center}
+  .sp.on{display:block}
+  .sp .tl{display:inline-block;padding:10px 26px;margin:0 0 10px;background:#c4643e;border:3px solid #5a2410;font-family:'Cinzel',serif;font-weight:700;font-size:30px;letter-spacing:.14em;color:#3a1408;box-shadow:inset 0 0 20px rgba(60,20,8,.45)}
+  .sp h5{margin:0 0 8px;font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:17.5px;color:#ffe4cc}
+  .sp .ways{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+  .sp .ways button{padding:8px 14px;border:1px solid #ffd8bc;border-radius:3px;background:rgba(255,240,224,.06);color:#fff0e0;font-family:'EB Garamond',serif;font-size:18.5px;text-align:left}
+  .sp .ways button:hover{background:rgba(255,240,224,.16)}
+  .sp .pmsg{margin-top:8px;color:#fff6ec;min-height:26px;font-size:17px;text-align:left}
+
+  /* the end */
+  .done{position:fixed;right:2vw;top:58px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 70px);overflow:auto;padding:16px 26px 12px;display:none;background:#f4eedf;color:#24221c;
+    border-top:12px solid #5b2a45;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .done.on{display:block}
+  .done .stampd{display:inline-block;margin:0 0 8px;padding:3px 12px 1px;border:3px solid #b85a36;color:#b85a36;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.12em;transform:rotate(-2deg)}
+  .done p{margin:0 0 2px;font-family:'EB Garamond',serif;font-size:17px;line-height:1.3}
+  .done h6{margin:10px 0 4px;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:16px;color:#5b2a45}
+  .done ol{margin:0;padding-left:20px;font-family:'EB Garamond',Georgia,serif;font-size:15.5px;line-height:1.26;color:#24221c}
+  .done li{margin:0 0 3px}
+  .done li b{font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.04em}
+  .done .row{display:flex;flex-wrap:wrap;margin-top:10px}
+  .done .btn{--accent:#5b2a45;font-size:12.5px;padding:7px 12px;margin:0 7px 6px 0}
+  .done .btn:hover:not([disabled]){color:#f4eedf}
+  .done small{display:block;margin-top:4px;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:14px;opacity:.8;line-height:1.5}
+  .done small button{text-decoration:underline;font:inherit}
+  .rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#f4eedf;color:#24221c;padding:24px 36px 20px;box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text;border-top:12px solid #5b2a45}
+  .rp h4{margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#5b2a45}
+  .rp h3{margin:0 0 10px;font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:24px;line-height:1.1}
+  .rp label{display:block;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.36;margin:8px 0 6px}
+  .rp label b{font-family:'Cinzel',serif;font-size:13.5px}
+  .rp textarea{width:100%;min-height:200px;font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:#2a3a5a;background:#fffaf0 repeating-linear-gradient(transparent 0 33px,rgba(91,42,69,.22) 33px 34px);border:1px solid #b9b09a;
+    padding:0 12px;resize:vertical;-webkit-user-select:text;user-select:text}
+  .rp textarea#r2{min-height:102px}
+  .rp .count{font-family:'Cinzel',serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;text-align:right;margin-top:4px}
+  .rp .foot{display:flex;align-items:center;margin-top:10px}
+  .rp .foot span{flex:1;font-family:'EB Garamond',Georgia,serif;font-style:italic;font-size:15px;opacity:.75}
+  .rp .btn{--accent:#5b2a45;margin-left:10px}.rp .btn:hover:not([disabled]){color:#f4eedf}
+  @media print{
+    .stage,.hud,.cap,.done,.gobtn,.sp,.ov-bar,.rp .foot{display:none!important}
+    body{overflow:visible;background:#fff}
+    .ov{position:static;display:block!important;background:none;padding:0}
+    .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a14"/><stop offset="1" stop-color="#12283a"/></linearGradient>
+  <linearGradient id="dawnP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a5a8a"/><stop offset=".55" stop-color="#e8a088"/><stop offset="1" stop-color="#ffd8a0"/></linearGradient>
+  <linearGradient id="stoneP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9088"/><stop offset="1" stop-color="#4a524a"/></linearGradient>
+  <linearGradient id="waterP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a7a8a"/><stop offset="1" stop-color="#0e2a36"/></linearGradient>
+  <clipPath id="poolClip"><path d="M600 640V420a200 180 0 0 1 400 0V640Z"/></clipPath>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#02060a" stop-opacity=".2"/><stop offset="1" stop-color="#02060a" stop-opacity=".85"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#skyP)"/>
+<rect id="dawn" x="-1000" y="-700" width="3600" height="1500" fill="url(#dawnP)"/>
+<g id="starsP" fill="#eef2ea"></g>
+<!-- the hill top, moss and fern -->
+<path d="M-1000 1600V560Q-200 470 400 520Q800 330 1200 520Q1800 470 2600 540V1600Z" fill="#14241e"/>
+<!-- the arch of the Spring, and the face-down stone above it -->
+<g id="arch"><path d="M560 660V420a240 210 0 0 1 480 0V660" fill="none" stroke="url(#stoneP)" stroke-width="56"/><path d="M600 660V420a200 180 0 0 1 400 0V660Z" fill="#04080c"/>
+  <g clip-path="url(#poolClip)"><g id="water"><rect x="560" y="610" width="480" height="300" fill="url(#waterP)"/><path d="M600 612q50-8 100 0t100 0t100 0t100 0" stroke="#9fd8e0" stroke-width="3" fill="none"/>
+    <g fill="#e0f4f8"><circle class="spk" cx="660" cy="630" r="2.500"/><circle class="spk" cx="760" cy="640" r="2"/><circle class="spk" cx="880" cy="628" r="2.500"/><circle class="spk" cx="950" cy="644" r="2"/></g></g></g>
+  <path d="M600 210l400-10 10 50-420 12z" fill="#5a625c" stroke="#2a302c" stroke-width="4"/><g fill="#2e4a34"><circle cx="640" cy="212" r="14"/><circle cx="760" cy="204" r="18"/><circle cx="900" cy="206" r="12"/><circle cx="980" cy="210" r="16"/></g></g>
+<!-- the first basin of the Stair, and (once the Spring rises) the water spilling down -->
+<path d="M560 700q240 60 480 0v-40H560z" fill="url(#stoneP)" stroke="#2a302c" stroke-width="3"/><ellipse cx="800" cy="666" rx="230" ry="16" fill="#0e2230"/>
+<g id="spill"><path d="M640 660q160 20 320 0" stroke="#9fd8e0" stroke-width="10" fill="none" opacity=".8"/><ellipse cx="800" cy="666" rx="226" ry="14" fill="#3a7a8a"/></g>
+<g id="stream"><path d="M1040 690q60 40 80 120t40 200" stroke="#9fd8e0" stroke-width="8" fill="none" opacity=".75"/><path d="M1060 700q50 50 70 140" stroke="#e0f4f8" stroke-width="2" fill="none" opacity=".7"/></g>
+<g fill="#1e3a2c"><path d="M520 700q-20-60 10-90q10 40-10 90zM540 700q30-50 0-90q-14 40 0 90zM1060 700q-20-60 10-90q10 40-10 90zM1080 700q30-50 0-90q-14 40 0 90z"/></g>
+
+<!-- the people at the Spring -->
+<g id="peregrine" class="hot"><path d="M240 900l10-180h120l10 180z" fill="#2f5a3e"/><use href="#ch-peregrine" x="222" y="520" width="164" height="214"/></g>
+<g id="noll" class="hot"><path d="M1280 330L1380 900" stroke="#5a4028" stroke-width="7"/><path d="M1240 900l8-200h96l8 200z" fill="#33414d"/><use href="#ch-noll" x="1220" y="520" width="150" height="196"/></g>
+<g id="quintusG" class="hot"><path d="M1440 900l8-220h96l8 220z" fill="#17171c"/><use href="#ch-quintus" x="1420" y="500" width="150" height="196"/><circle cx="1560" cy="640" r="40" fill="#ffd27a" opacity=".15"/><rect x="1554" y="640" width="10" height="30" fill="#efe6cc"/></g>
+<g id="romolaG" class="hot"><path d="M40 900l20-200h150l20 200z" fill="#5a2a45"/><use href="#ch-romola-awake" x="56" y="500" width="160" height="208"/></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+
+<div class="sp" id="sp">
+  <div class="tl">RESURGENT</div>
+  <h5>Midnight. Hold up the tile, and say it to the Spring. How?</h5>
+  <div class="ways">
+    <button type="button" data-w="1">&ldquo;RESURGENT! Rise!&rdquo;</button>
+    <button type="button" data-w="2">&ldquo;Please, would you rise again, for another year?&rdquo;</button>
+    <button type="button" data-w="3">&ldquo;Resurgent, please: rise again, for one more year.&rdquo;</button>
+  </div>
+  <p class="pmsg" id="sp-msg"></p>
+</div>
+
+<div class="done" id="done">
+  <div class="stampd">YEAR 412 &middot; RE&middot;SURG&middot;ENT</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-miss"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A true name is built from parts: a <b>PREFIX</b> at the front says which way or how, a <b>ROOT</b> says what it has to do with, and a <b>SUFFIX</b> at the end says what kind of name it is.</li>
+    <li>The suffix decides the kind: <b>-OR, -ER</b> the one that does it; <b>-ION</b> the doing of it; <b>-ABLE</b> can be done; <b>-ENT, -ANT</b> doing it or being it; <b>-OUS</b> full of; <b>-ARIUM</b> a place for.</li>
+    <li>Read a name back into its parts to know what it will do, and to whom: <b>SOMN&middot;I&middot;LUC&middot;ENT</b> shines sleep on you; <b>DORM&middot;ANT</b> is only asleep itself.</li>
+    <li>A whole word can mean more than its parts (an <b>EQUINOX</b> is a day, <b>INFLUENZA</b> is an illness), and two words can share a root and be unrelated things (a <b>TERRIER</b> and a <b>TERRACOTTA</b> tile).</li>
+    <li>Some words only look as if they hold a root: <b>LUCRATIVE</b> is gain, not light; <b>TERRIFIC</b> is terror, not earth; <b>SOLITAIRE</b> is alone, not sun. One prefix can have two meanings: <b>IL-</b> is &ldquo;not&rdquo; in illegal and &ldquo;on&rdquo; in illuminate.</li>
+    <li>A confident story about a word is not evidence. <b>SINCERE</b> does not come from &ldquo;without wax&rdquo;: check every claim against the oldest sources, and remember that a true part can sit in an untrue story.</li>
+    <li>You can understand a dangerous name from its parts without ever saying it, and then do what is needed with other roots: rising (<b>SURG</b>) instead of flowing (<b>FLU</b>).</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Explain the Year-Name</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the shelf</button></div>
+  <small>A Name That Is True &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false;
+
+  (function () {
+    var s = '', i, seed = 53;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 80; i++) s += '<circle class="tw" cx="' + (-600 + rnd() * 2800).toFixed(0) + '" cy="' + (-500 + rnd() * 800).toFixed(0) + '" r="' + (0.7 + rnd() * 1.6).toFixed(1) + '"/>';
+    $('#starsP').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'spring', no: 'VII', title: 'The Spring',
+    go: 'Up the last steps',
+    intro: [
+      'RE&middot;SURG&middot;ENT: rising again. RE-, because the Spring is asked for again, and no more; SURG, because a spring rises (it is where the word source comes from); -ENT, because it is asked to be doing it. It uses no root of the first name and no root from the Ledger, and every part of it is a true part.',
+      'Midnight. The bells of Utter are ringing the old year out, one tower after another, all the way down the hill to the harbour.',
+      'The Spring is a dark pool under a low arch, with a stone above it that has been face down for four hundred years. You hold the tile in both hands.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() { return null; }
+  function begin() {
+    if (ER.flag('p-end')) { sc.classList.add('risen', 'morning'); finish(); return; }
+    if (ER.flag('p-said')) { sc.classList.add('risen'); ending(); return; }
+    busy = true;
+    NM.sfx.bells();
+    ER.narrate([
+      'The last flight of steps, and the arch. The pool under it is so low and so still that you can see the stars in it, and a good deal of moss.',
+      'Mr Mottram has taken his hat off. Noll is holding his pole very straight, the way lamplighters do at a funeral or a wedding. The bells are still ringing.'
+    ], function () { busy = false; $('#sp').classList.add('on'); });
+  }
+  ER.$$('#sp .ways button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (busy) return;
+      var w = b.getAttribute('data-w'), m = $('#sp-msg');
+      if (w === '1') { m.innerHTML = ER.gloss('Mr Mottram winces. &ldquo;Politely,&rdquo; he whispers. &ldquo;Rule three, on the pillar at the gate. It is the oldest thing in the city. It is not used to being shouted at.&rdquo;'); NM.sfx.wrong(); return; }
+      if (w === '2') { m.innerHTML = ER.gloss('Very polite, and the Spring does not stir. A thing in Utter answers to its name, and you have not said one.'); NM.sfx.wrong(); return; }
+      $('#sp').classList.remove('on'); ER.flag('p-said', 1); sc.classList.add('risen'); NM.sfx.splash(); ending();
+    });
+  });
+  function ending() {
+    busy = true;
+    ER.narrate([
+      'You say it politely, as if you meant it. You do. For a moment nothing happens. Then the dark pool under the arch shivers, and rises: not all at once, but the way a tide comes in, steadily, until it reaches the lip and spills over into the first basin of the Stair.',
+      'Basin after basin fills and spills, down the hill, the water talking to itself all the way. Far below, in the market square, the fountain coughs, gurgles, and throws up a jet of water as high as the lantern strings. You can hear Mrs Nockles cheering, and then sneezing.',
+      '&ldquo;RE&middot;SURG&middot;ENT,&rdquo; says Mr Merridew, who has come up the Stair behind you with a candle. &ldquo;Rising again. It is not in the last six years of the Ledger. I have looked.&rdquo; He writes it in, in his best hand: <em>Year 412. RE&middot;SURG&middot;ENT, rising again.</em> Then, after a moment, he writes your name beside it.',
+      'At sunrise the Namewright wakes in her chair, sits up very straight, and says, &ldquo;Is it midnight?&rdquo; It is morning. They bring her up the Stair to the Spring, where the water is running clear and loud, and she reads the tile in your hands.',
+      '&ldquo;SURG,&rdquo; she says. &ldquo;Nobody has used SURG since I was a girl. I was saving it.&rdquo; She looks at you over the tile. &ldquo;Why rising?&rdquo; And you tell her: because a spring rises, and source comes from the same root; because RE- asks for again and no more; because it shares no root with the first name and none with the Ledger; and because every part of it is a true part.',
+      'She nods, slowly. &ldquo;Good,&rdquo; she says. &ldquo;Now come down and have some breakfast. Tomorrow I shall teach you something.&rdquo; Mr Mottram clears his throat. &ldquo;Breakfast,&rdquo; he says. &ldquo;From break and fast. That one is true.&rdquo; He thinks. &ldquo;I shall go and find a stone for it, all the same.&rdquo;'
+    ], function () {
+      ER.flag('p-end', 1);
+      NM.mine('n-end', 'The Year-Night, set right', '<p>The first name (never said) would have given ALL the water at once: FLU + AQU + OMNI.</p><p>RE&middot;SURG&middot;ENT asked for the same water, again, for one year: different roots, true parts.</p><p>A name is true when every part is true of the thing, and does exactly what you need.</p>', true);
+      NM.learn(['resurgent', 'source']);
+      sc.classList.add('morning'); busy = false; finish(); NM.solved(true);
+    });
+  }
+  function finish() {
+    var st = ER.state(), mins = NM.minutes(), hn = ER.hintsUsed(), ms = NM.misses();
+    try { if (ER.track) ER.track.play(['morning', { root: 50, bpm: 70, beds: [['birds', 0.5]] }]); } catch (e) {}
+    $('#d-time').textContent = 'The Year-Night took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-miss').textContent = ms ? 'Names you called that did not answer: ' + ms + '. Mr Merridew wrote every one of them down, and then crossed them all out.' : 'Every name you called answered. Mr Merridew could not find anything to write down.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('p-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>A Name That Is True &middot; explain it</h4><h3>How you built the Year-Name</h3>' +
+      '<label for="r1">A friend has never heard of Utter. Explain to them how you built the Year-Name, and why it was safe. 80 to 120 words. Use the words <b>prefix</b>, <b>root</b> and <b>suffix</b>; give a real English word that proves each part; say what the first name would have done, without saying the first name; and give at least one reason with <b>because</b>. Then say it aloud, without reading.</label><textarea id="r1"></textarea>' +
+      '<label for="r2">If there is time: build a true name for something in your own room from the Gate List, and say what each part means.</label><textarea id="r2"></textarea>' +
+      '<div class="count"></div><div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, c = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = c + (c === 1 ? ' word' : ' words');
+      ER.flag('p-task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+  $('#peregrine').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('p-end') ? '&ldquo;I have been thinking,&rdquo; says Mr Mottram, &ldquo;of a new tour. True words only. It will be very short at first.&rdquo;' : 'Mr Mottram nods at the tile. Say it.'); });
+  $('#noll').addEventListener('click', function () { if (busy) return; ER.say(ER.flag('p-end') ? '&ldquo;I am going to cut lamp six again,&rdquo; says Noll. &ldquo;NOCT&middot;I&middot;LUC&middot;ENT. Like it said on her list.&rdquo;' : 'Noll holds his pole very straight.'); });
+  $('#quintusG').addEventListener('click', function () { if (busy) return; ER.say('Mr Merridew is writing in the Ledger by candlelight, in his best hand.'); });
+  $('#romolaG').addEventListener('click', function () { if (busy) return; ER.say('The Namewright, wide awake, with the tile in her hands. She is reading it again, and looking pleased.'); });
+})();
+</script>
+</body>
+</html>

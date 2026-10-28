@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Asking Bridge · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#0a1418;--accent:#9fd8d0;--font-display:'Uncial Antiqua',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(8,18,22,.96);--tc-ink:#e4ece8;--cap-bg:rgba(8,18,22,.94);--cap-ink:#eef4f0;--panel:#10202a;--face-bg:#24402e;--q-ink:#bfe8e0;--fade:#03080a;--hud-bg:rgba(8,18,22,.82)}
+  .tc-room{font-family:'Uncial Antiqua',serif}
+  .mist{animation:mist 14s ease-in-out infinite}.mist+.mist{animation-delay:-6s;animation-duration:18s}
+  @keyframes mist{50%{transform:translateX(70px);opacity:.55}}
+  #bats path{animation:bat 6s linear infinite}#bats path+path{animation-delay:-2.5s}
+  @keyframes bat{0%{transform:translate(0,0)}25%{transform:translate(30px,-10px)}50%{transform:translate(60px,4px)}75%{transform:translate(30px,12px)}100%{transform:translate(0,0)}}
+  .blan{animation:flick 3.4s steps(3) infinite}.blan+.blan{animation-delay:-1.6s}
+  #gateL,#gateR{transition:transform 1.6s}
+  #scene.open #gateL{transform:translateX(-70px)}
+  #scene.open #gateR{transform:translateX(70px)}
+  .stone.seen .ink{fill:#9fd8d0}
+
+  /* unsaying it: four claims, a verdict and a rubbing each */
+  .us{width:min(1080px,97vw);color:#e8eeea;background:#1c2a30 linear-gradient(160deg,#25363c,#121c20);border:2px solid #6a8a88;box-shadow:0 26px 70px rgba(0,0,0,.75),inset 0 0 0 6px rgba(159,216,208,.08)}
+  .us h4{color:#cfeee8;font-family:'Uncial Antiqua',serif;font-weight:normal;font-size:25px}
+  .us h5{color:#bcd0cc}
+  .us-claims{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .claim{padding:8px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(159,216,208,.3);border-radius:3px}
+  .claim.bad{background:rgba(208,80,58,.2);border-color:#d0503a}
+  .claim.ok{background:rgba(120,190,130,.14)}
+  .claim q{display:block;font-family:'EB Garamond',serif;font-style:italic;font-size:16px;line-height:1.25;color:#f1f4ee;quotes:'\201C' '\201D'}
+  .claim .row{display:flex;align-items:center;gap:6px;margin-top:6px}
+  .claim .v{padding:4px 10px;border:1px solid #9fd8d0;border-radius:3px;background:transparent;color:#cfeee8;font-family:'Cinzel',serif;font-weight:700;font-size:12.5px;letter-spacing:.08em}
+  .claim .v.on{background:#9fd8d0;color:#10202a}
+  .claim .rslot{flex:1;display:flex;align-items:center;min-height:38px;border:2px dashed rgba(159,216,208,.45);border-radius:3px;padding:0 4px}
+  .claim .rslot:before{content:'pin a rubbing here';font-family:'EB Garamond',serif;font-style:italic;font-size:13px;opacity:.55;margin-left:4px}
+  .claim .rslot.full:before{content:none}
+  .rub{display:inline-block;padding:4px 10px;border-radius:2px;background:#d8dcd6 repeating-linear-gradient(170deg,rgba(40,40,40,.0) 0 3px,rgba(40,40,40,.12) 3px 4px);color:#14181a;font-family:'Uncial Antiqua',serif;font-size:15px;
+    box-shadow:0 2px 0 rgba(0,0,0,.35);border:1px solid #8a948e}
+  .rub.held{outline:3px solid #ffcf6a}
+  .us-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;margin-top:8px;padding:8px;border:1px dashed rgba(159,216,208,.4);border-radius:3px;background:rgba(0,0,0,.2)}
+  .us .foot .btn{--accent:#9fd8d0}
+  .us .pmsg{color:#eef4f0;min-height:66px}
+  .us .pmsg b{color:#cfeee8}.us .pmsg i{color:#b4c6c2}
+  @media (max-width:980px){.us-claims{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#030a10"/><stop offset=".6" stop-color="#0e2028"/><stop offset="1" stop-color="#18323a"/></linearGradient>
+  <linearGradient id="cliffB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a2e"/><stop offset="1" stop-color="#080e10"/></linearGradient>
+  <linearGradient id="parB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a9290"/><stop offset="1" stop-color="#4e5654"/></linearGradient>
+  <radialGradient id="lanB"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset=".45" stop-color="#ffb050" stop-opacity=".14"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#03080a" stop-opacity=".22"/><stop offset="1" stop-color="#03080a" stop-opacity=".88"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#skyB)"/>
+<g id="starsB" fill="#e4ece8"></g>
+<!-- the far side of the Gorge, and the crag of the Name-Hall over the end-gate -->
+<path d="M-1000 420Q-200 300 300 340Q700 380 900 300Q1100 230 1300 260L1700 220L2600 260V1600H-1000Z" fill="url(#cliffB)"/>
+<g id="hallB" class="hot"><path d="M1290 270l40-120h140l40 120z" fill="#16242a"/><rect x="1320" y="120" width="150" height="120" fill="#1e3036"/><path d="M1310 124l85-56 85 56z" fill="#16242a"/>
+  <g fill="#ffd27a"><rect x="1340" y="150" width="18" height="34" rx="9"/><rect x="1386" y="150" width="18" height="34" rx="9"/><rect x="1432" y="150" width="18" height="34" rx="9"/></g>
+  <path d="M1400 270l-20 120M1420 270l20 120" stroke="#2a3e44" stroke-width="6"/></g>
+<!-- the two walls of the Gorge, falling away below the Bridge -->
+<path d="M-1000 330Q-300 330 120 380Q330 420 470 600H-1000Z" fill="#0c1619"/><path d="M1340 300Q1100 330 980 400Q880 470 820 600H1340Z" fill="#0c1619"/>
+<!-- deep in the Gorge: mist, and a glint of river -->
+<g id="gorge" class="hot"><path d="M-1000 600Q0 560 800 600Q1400 630 2600 580V700H-1000Z" fill="#0a1418"/>
+  <path d="M100 640q300-14 600 2t600-6" stroke="#5a8a92" stroke-width="2" fill="none" opacity=".5"/>
+  <g class="mist"><ellipse cx="300" cy="560" rx="420" ry="40" fill="#cfe0e0" opacity=".12"/><ellipse cx="1100" cy="590" rx="500" ry="36" fill="#cfe0e0" opacity=".1"/></g>
+  <g class="mist"><ellipse cx="700" cy="520" rx="380" ry="30" fill="#cfe0e0" opacity=".08"/></g></g>
+<g id="bats" stroke="#04080a" stroke-width="3" fill="none" stroke-linecap="round"><path d="M500 260q8-8 16 0q8-8 16 0"/><path d="M820 210q6-6 12 0q6-6 12 0"/></g>
+
+<!-- the deck of the Bridge, and its lantern posts -->
+<path d="M-1000 640H1320V900H-1000Z" fill="#3a403e"/>
+<g class="blan"><rect x="196" y="420" width="16" height="230" fill="#4a524f"/><circle cx="204" cy="410" r="110" fill="url(#lanB)" pointer-events="none"/><rect x="194" y="396" width="20" height="26" fill="#ffd27a"/></g>
+<g class="blan"><rect x="1036" y="420" width="16" height="230" fill="#4a524f"/><circle cx="1044" cy="410" r="110" fill="url(#lanB)" pointer-events="none"/><rect x="1034" y="396" width="20" height="26" fill="#ffd27a"/></g>
+
+<!-- Mr Mottram, leaning on the parapet -->
+<g id="peregrine" class="hot"><path d="M560 660l8-110h120l8 110z" fill="#2f5a3e"/><use href="#ch-peregrine" x="540" y="420" width="164" height="214"/></g>
+
+<!-- the parapet: eight Builders' Stones, each with a word cut in it -->
+<g id="parapet"></g>
+
+<!-- the end-gate of the Bridge, and the plaque on its post -->
+<g id="endgate" class="hot"><rect x="1360" y="380" width="180" height="440" fill="#000" fill-opacity="0"/><rect x="1320" y="360" width="40" height="460" fill="#6a7270"/><rect x="1540" y="360" width="40" height="460" fill="#6a7270"/><path d="M1310 360h60v-20h-60zM1530 360h60v-20h-60z" fill="#7d8583"/>
+  <g id="gateL" stroke="#1a2022" stroke-width="5" fill="none"><path d="M1362 420h88M1362 520h88M1362 620h88M1362 720h88M1380 400v360M1410 400v360M1440 400v360"/></g>
+  <g id="gateR" stroke="#1a2022" stroke-width="5" fill="none"><path d="M1450 420h88M1450 520h88M1450 620h88M1450 720h88M1460 400v360M1490 400v360M1520 400v360"/></g></g>
+<g id="plaque" class="hot"><rect x="1250" y="460" width="64" height="96" fill="#9aa2a0" stroke="#4e5654" stroke-width="3"/><g stroke="#2a3032" stroke-width="2" opacity=".7"><path d="M1260 478h44M1260 490h40M1260 502h44M1260 514h36M1260 526h44M1260 538h30"/></g></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the steps to the Name-Hall</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  var STONES = [
+    ['pantry', 'PANTRY', '<p><b>PANTRY.</b> From PAN, bread. The room where the bread was kept; and then any room for food.</p>'],
+    ['agri', 'AGRICULTURE', '<p><b>AGRICULTURE.</b> AGR (AGER), a field, the land; and CULTURE, tending, growing. The tending of the fields.</p>'],
+    ['astro', 'ASTRONOMY', '<p><b>ASTRONOMY.</b> ASTR, a star; and NOMY, law, order. The laws of the stars.</p>'],
+    ['secure', 'SECURE', '<p><b>SECURE.</b> SE-, apart, without; and CURA, care. Without care: safe, so that you need not worry.</p>'],
+    ['sine', 'SINE', '<p><b>SINE.</b> A word that stands on its own: without. SINE CURA, without care: two words, never one. The Old Tongue never fixes SINE to the front of a name. When it wants WITHOUT at the front, it uses SE-.</p>'],
+    ['cera', 'CERA', '<p><b>CERA.</b> Wax. CERUMEN: the wax in your ear. (The Builders thought this was funny, and so it is.)</p>'],
+    ['sincere', 'SINCERE', '<p><b>SINCERE.</b> From SINCERUS: clean, pure, whole. Said of a jar with nothing sour in it, and of a friend who is what he seems. One word, all of a piece. The Builders did not know its parts, and they did not guess.</p>'],
+    ['candid', 'CANDID', '<p><b>CANDID.</b> From CANDIDUS, shining white. A CANDIDATE wore a white robe when he asked for votes.</p>']
+  ];
+  (function () {
+    var s = '', i, seed = 23;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 60; i++) s += '<circle class="tw" cx="' + (-600 + rnd() * 2800).toFixed(0) + '" cy="' + (-500 + rnd() * 760).toFixed(0) + '" r="' + (0.7 + rnd() * 1.5).toFixed(1) + '"/>';
+    $('#starsB').innerHTML = s; s = '<rect x="-1000" y="650" width="2320" height="250" fill="url(#parB)"/><rect x="-1000" y="640" width="2320" height="16" fill="#9aa2a0"/>';
+    STONES.forEach(function (st, j) {
+      var x = 20 + j * 158;
+      s += '<g id="s-' + st[0] + '" class="hot stone"><rect x="' + x + '" y="664" width="150" height="120" fill="#7d8583" stroke="#3a403e" stroke-width="3"/>' +
+        '<text class="un ink" x="' + (x + 75) + '" y="722" font-size="' + Math.min(21, 125 / (st[1].length * 0.75)).toFixed(1) + '" fill="#2a3032">' + st[1] + '</text>' +
+        '<g stroke="#3a403e" stroke-width="1.600" opacity=".6"><path d="M' + (x + 22) + ' 746h106M' + (x + 30) + ' 758h90"/></g></g>';
+    });
+    $('#parapet').innerHTML = s + '<rect x="-1000" y="784" width="2320" height="120" fill="#4e5654"/>';
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'bridge', no: 'IV', title: 'The Asking Bridge',
+    go: 'Ask the Bridge to carry you',
+    intro: [
+      'Nine tags, nine crates. TERR&middot;IER is the earth-dog that goes into burrows; TERRA&middot;COTTA is baked earth; TERR&middot;IFIC holds the other TERR, the TERR of terror. PARA&middot;SOL keeps off the sun, and SOLITAIRE holds SOLUS, alone. IN&middot;FLU&middot;ENZA, flowing in, is a cold; PORT&middot;MANTEAU carries a cloak; CURR&middot;ENCY runs from hand to hand. Crate two was the Namewright&rsquo;s: a tile of baked earth, to cut the Year-Name on.',
+      'The Name-Hall stands on a crag across the Gorge, and the only way over is the Asking Bridge: a long stone bridge that carries anybody who asks it politely.',
+      'Mr Mottram asks. Then he talks, the whole way across.'
+    ],
+    exit: {"next":"hall","w":{"d7d7a9bf":"7f81376b"}}, tags: {"v1":["2991b7d2"],"v2":["1d7c9679"],"v3":["d5375494"],"v4":["a6068bd4"],"r1":["3e05f39f"],"r2":["ae86b8da"],"r3":["9317e2ee"],"r4":["5914f04d","2330d985","5fddab00"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null;
+
+  var PLAQUE = '<h4>The Asking Bridge</h4><h5>cut on the post of the end-gate</h5>' +
+    '<p>Ask me politely, and I will carry you. Say nothing untrue upon me. If anything untrue is said upon me, my end-gate stays shut until it is unsaid.</p>' +
+    '<h5>The Builders&rsquo; Stones</h5>' +
+    '<p>The Builders cut one word into each stone of this parapet, with its parts, as the Old Tongue made it. They are the oldest record of the Old Tongue in Utter: older than the Register, older than any guide.</p>' +
+    '<p>Each stone tells you what a word is made of. It does not tell you what anybody says about it. When a story about a word and a stone disagree, believe the stone.</p>';
+  var CLAIMS = [
+    ['companion', '&ldquo;COMPANION. COM, with, and PANIS, bread. Your companion is the one you share your bread with. I have a sandwich in my pocket, so I qualify.&rdquo;', 'COMPANION: with + bread'],
+    ['peregrine', '&ldquo;PEREGRINE: that&rsquo;s me. PER, through, and AGER, a field. One who goes through the fields: a traveller from far away. My mother had high hopes. I have been as far as the harbour.&rdquo;', 'PEREGRINE: through + field'],
+    ['disaster', '&ldquo;DISASTER. DIS, badly, and ASTER, a star. A disaster is what happens when your star is against you. Sailors believed it, and so do I, on Tuesdays.&rdquo;', 'DISASTER: badly + star'],
+    ['sincere', '&ldquo;SINCERE. Now this is my favourite. SINE CERA: without wax. The old sculptors of Utter hid the cracks in a bad statue with wax, and nobody could tell until the sun came out and the wax ran. So an honest statue was &lsquo;without wax&rsquo;: sincere. Isn&rsquo;t that lovely? I tell it to every visitor.&rdquo;', 'SINCERE: without + wax']
+  ];
+  function said(k) { return ER.flag('b-' + k); }
+  function seenAll() { return STONES.every(function (s) { return said('s-' + s[0]); }); }
+  function ready() { return said('plaque') && said('claims') && seenAll(); }
+  function hints() {
+    if (nextFile) return ['go', ['The end-gate is open. The Name-Hall is up the steps on the crag.']];
+    if (ready()) return ['unsay', [
+      'Four things were said on the Bridge. For each one, mark it true or untrue, and pin the rubbing of a stone that shows it. The Gate List gives you COM-, PER- and DIS-; the stones must give you the rest.',
+      'COMPANION needs a stone with bread in it, PEREGRINE one with a field, DISASTER one with a star. For SINCERE, ask: does the Old Tongue ever fix SINE to the front of a word? And what does the stone for SINCERE itself say?',
+      'The stone for CERA is true, but it proves only the true half of a story. A stone that shows SINE is never put at the front of a word, or that SINCERUS is one old word whose parts nobody knows, is the one that unsays it.'
+    ]];
+    return ['start', [
+      'Read the plaque on the post of the end-gate, and listen to Mr Mottram again: what did he say on the Bridge?',
+      'Then read every one of the Builders&rsquo; Stones along the parapet. Each one you read gives you a charcoal rubbing of it.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('open', !!nextFile);
+    STONES.forEach(function (s) { $('#s-' + s[0]).setAttribute('class', 'hot stone' + (said('s-' + s[0]) ? ' seen' : '')); });
+    $('#endgate').setAttribute('class', 'hot' + (ready() && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((ready() ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The end-gate of the Asking Bridge stands open.'); return; }
+    if (said('claims')) { ER.say('The far end of the Asking Bridge. The end-gate is shut.'); return; }
+    busy = true;
+    ER.narrate([
+      '&ldquo;Asking Bridge,&rdquo; says Mr Mottram, with his hat off, &ldquo;would you carry us across, please?&rdquo; And the Bridge carries you: a long walk on old stone, high over the Gorge, with mist moving far below and the wind trying to take your hat.',
+      'Mr Mottram talks the whole way across: about the city, about his mother, and about words, which are his favourite thing after his mother.',
+      'At the far end there is a little iron end-gate between two posts. It stays shut. Mr Mottram pushes it. It stays shut. &ldquo;Ah,&rdquo; he says. &ldquo;Something has been said.&rdquo;'
+    ], function () { busy = false; });
+  }
+  function readDoc(id, html, cls, title, kind, words, after) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'b-' + id, title: title, kind: kind },
+      done: function () { ER.flag('b-' + id, 1); if (words) NM.learn(words); paint(); if (after) after(); } });
+  }
+  $('#plaque').addEventListener('click', function (e) { e.stopPropagation(); readDoc('plaque', PLAQUE, 'carved', 'The Asking Bridge, and the Builders’ Stones', 'Cut on a post'); });
+  STONES.forEach(function (s) {
+    $('#s-' + s[0]).addEventListener('click', function (e) {
+      if (busy) return;
+      e.stopPropagation(); NM.sfx.rub();
+      readDoc('s-' + s[0], '<h4>A Builders&rsquo; Stone</h4>' + s[2], 'carved', 'Builders’ Stone: ' + s[1], 'A rubbing');
+    });
+  });
+  $('#peregrine').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (said('claims') && !nextFile) { ER.say('&ldquo;I said nothing untrue,&rdquo; says Mr Mottram. &ldquo;I am almost sure. Ask the stones; they are older than I am, though not by much.&rdquo;'); return; }
+    if (nextFile) { ER.say('&ldquo;Breakfast,&rdquo; says Mr Mottram, to cheer himself up, &ldquo;is break and fast. That one is true. I checked it years ago.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.peregrine.who, role: CAST.peregrine.role, face: FACE('peregrine'),
+      lines: [
+        { note: 'He leans on the parapet and counts on his fingers what he told you on the way across.', a: '&ldquo;Four words, I think. I told you four words. Let me see.&rdquo;' }
+      ].concat(CLAIMS.map(function (c) { return { a: c[1] }; })).concat([
+        { q: 'Is all of that true?', a: '&ldquo;Every word,&rdquo; he says, warmly. &ldquo;I have told those four to every visitor for twenty years. Nobody has ever complained.&rdquo; He pushes the end-gate again. It stays shut.' }
+      ]),
+      clue: { id: 'b-cl', title: 'What Mr Mottram said on the Bridge', kind: 'What he said' }, last: 'Close',
+      done: function (ok) { if (ok) { ER.flag('b-claims', 1); NM.learn(['etymology']); paint(); } }
+    });
+  });
+  NM.thing('#gorge', null, 'The Gorge: a long way down, mist, and somewhere at the bottom a river you can hear but not see.', isBusy);
+  NM.thing('#hallB', null, 'The Name-Hall, on its crag, with three tall lit windows. Steps go up to it from the end-gate.', isBusy);
+  $('#endgate').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The end-gate stands open. The steps to the Name-Hall go up beyond it.'); return; }
+    if (!said('plaque') || !said('claims')) { ER.say('The end-gate is shut, and it will not move. There is a plaque on the post beside it, and Mr Mottram looks as if he would like to go over what he said.'); return; }
+    if (!seenAll()) { ER.say('Before you try to unsay anything, read every Builders&rsquo; Stone on the parapet. Each one gives you a rubbing.'); return; }
+    openUnsay();
+  });
+
+  /* ---------- unsay it ---------- */
+  var RUBSAY = {
+    pantry: 'PANTRY proves PAN is bread.', agri: 'AGRICULTURE proves AGER is a field.', astro: 'ASTRONOMY proves ASTR is a star.',
+    secure: 'SECURE shows that the Old Tongue says without, at the front of a word, with SE-.', sine: 'SINE shows that the Old Tongue never fixes SINE to the front of a word.',
+    cera: 'CERA proves that cera means wax.', sincere: 'SINCERE shows that sincerus is one old word, clean and whole, whose parts nobody knows.', candid: 'CANDID is about shining white.'
+  };
+  function openUnsay() {
+    var box = ER.el('div', 'pz us'), st = ER.flag('b-desk') || { v: {}, r: {} }, s = '', done = false;
+    s = '<h4>Unsay it</h4><h5>For each thing Mr Mottram said, mark it true or untrue, and pin the rubbing of a Builders&rsquo; Stone that shows it. Drag a rubbing, or click it and then a space.</h5><div class="us-claims">';
+    CLAIMS.forEach(function (c, i) {
+      s += '<div class="claim" data-i="' + (i + 1) + '"><q>' + c[2] + '</q><div class="row"><button type="button" class="v" data-i="' + (i + 1) + '" data-v="t">TRUE</button><button type="button" class="v" data-i="' + (i + 1) + '" data-v="u">UNTRUE</button><span class="rslot" data-i="' + (i + 1) + '"></span></div></div>';
+    });
+    s += '</div><div class="us-tray" id="us-tray"></div><div class="foot"><button type="button" class="btn" id="us-go">Unsay it</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('#us-tray'), msgEl = box.querySelector('.pmsg');
+    STONES.forEach(function (x) { var b = ER.el('button', 'rub dnd-item', x[1]); b.type = 'button'; b.setAttribute('data-r', x[0]); tray.appendChild(b); });
+    Object.keys(st.r).forEach(function (i) { var t = tray.querySelector('[data-r="' + st.r[i] + '"]'), sl = box.querySelector('.rslot[data-i="' + i + '"]'); if (t && sl) sl.appendChild(t); });
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function paintV() {
+      ER.$$('.claim .v', box).forEach(function (b) { b.classList.toggle('on', st.v[b.getAttribute('data-i')] === b.getAttribute('data-v')); });
+      ER.$$('.rslot', box).forEach(function (sl) { sl.classList.toggle('full', !!sl.querySelector('.rub')); });
+    }
+    function clear() { ER.$$('.claim', box).forEach(function (c) { c.classList.remove('bad'); }); }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.claim .v') : null; if (!b || done) return;
+      st.v[b.getAttribute('data-i')] = b.getAttribute('data-v'); NM.sfx.tile(); clear(); paintV(); ER.flag('b-desk', st);
+    });
+    ER.dnd(box, { item: '.rub', slot: '.rslot', home: tray, lock: function () { return done; }, change: function () {
+      st.r = {}; ER.$$('.rslot', box).forEach(function (sl) { var t = sl.querySelector('.rub'); if (t) st.r[sl.getAttribute('data-i')] = t.getAttribute('data-r'); });
+      clear(); paintV(); ER.flag('b-desk', st);
+    } });
+    box.querySelector('#us-go').addEventListener('click', function () {
+      if (done) return;
+      var i, c, card, r, file;
+      clear();
+      for (i = 1; i <= 4; i++) {
+        card = box.querySelector('.claim[data-i="' + i + '"]');
+        if (!st.v[i]) { card.classList.add('bad'); msg('<b>' + CLAIMS[i - 1][0].toUpperCase() + ':</b> true, or untrue? You have not said.'); return; }
+        if (!st.r[i]) { card.classList.add('bad'); msg('<b>' + CLAIMS[i - 1][0].toUpperCase() + ':</b> no rubbing pinned. The plaque says believe the stones, so a stone must show it.'); return; }
+      }
+      for (i = 1; i <= 4; i++) {
+        c = CLAIMS[i - 1][0]; card = box.querySelector('.claim[data-i="' + i + '"]'); r = st.r[i];
+        if (!ER.check('v' + i, st.v[i])) {
+          NM.miss(); card.classList.add('bad');
+          msg(st.v[i] === 'u'
+            ? '<b>' + c.toUpperCase() + ', untrue?</b> The Gate List gives you the front of it. Read the stones again: is there one that gives you the rest, and does it agree with Mr Mottram? <i>The end-gate does not move.</i>'
+            : '<b>' + c.toUpperCase() + ', true?</b> The end-gate is shut, so something said on the Bridge was untrue. Look hard at both halves of this one: which half has a stone for it, and which has a stone against it? <i>The end-gate does not move.</i>');
+          return;
+        }
+      }
+      for (i = 1; i <= 4; i++) {
+        c = CLAIMS[i - 1][0]; card = box.querySelector('.claim[data-i="' + i + '"]'); r = st.r[i];
+        if (!ER.check('r' + i, r)) {
+          NM.miss(); card.classList.add('bad');
+          msg('<b>' + c.toUpperCase() + '.</b> ' + RUBSAY[r] + ' ' + (r === 'cera'
+            ? 'That is true, and Mr Mottram knew it: it proves the half of his story that is true, so it cannot show that the story is untrue.'
+            : 'Does that show what you have marked about ' + c.toUpperCase() + '?') + ' <i>The end-gate does not move.</i>');
+          return;
+        }
+      }
+      file = ER.exit([[1, 2, 3, 4].map(function (i) { return st.v[i]; }).join('')], { wait: true });
+      if (!file) { msg('The Bridge does not answer. Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('b-file', file); busy = true;
+      ER.$$('.claim', box).forEach(function (x) { x.classList.add('ok'); });
+      msg('Three things true, with a stone for each; and one thing untrue, with a stone against it.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2400);
+    });
+    paintV();
+    msg('Eight rubbings. Four things said.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    ER.narrate([
+      'You show Mr Mottram the rubbings. He reads the stone for SINE, and the stone for SINCERE, and then he reads them again, with his lips moving.',
+      '&ldquo;Oh,&rdquo; he says. And then, to the Bridge, with his hat off: &ldquo;I take it back. SINCERE is one old word, and nobody knows its parts; and SINE is never put on the front of anything. There was never any wax. I am sorry.&rdquo; The end-gate swings open with a small, forgiving creak.',
+      '&ldquo;Twenty years,&rdquo; he says. &ldquo;A good story is a very hard thing to give up. I shall tell them the true one. It is shorter, and I shall have to make up the difference with my face.&rdquo;',
+      'Then he stops on the first step. &ldquo;But mark this. CERA really does mean wax. That was a true part, in an untrue story. A name can be built the same way, out of true-looking parts. Remember that at the Spring.&rdquo;'
+    ], function () {
+      paint();
+      NM.mine('n-bridge', 'What was said on the Bridge', '<p>COM&middot;PANION: with + bread (PANTRY). TRUE.</p><p>PER&middot;EGRINE: through + field (AGRICULTURE). TRUE.</p><p>DIS&middot;ASTER: badly + star (ASTRONOMY). TRUE.</p><p>SINCERE ≠ &ldquo;sine cera&rdquo;. UNTRUE. SINE is never a prefix (without at the front = SE-, as in SECURE); sincerus is one old word, clean and whole.</p><p>A true part (CERA = wax) can sit in an untrue story.</p>');
+      NM.learn(['companion', 'peregrine', 'disaster', 'sincere', 'secure', 'folk etymology']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

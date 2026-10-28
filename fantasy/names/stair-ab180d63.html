@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Water-Stair · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#06121a;--accent:#8fe0c8;--font-display:'Almendra',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(6,18,26,.96);--tc-ink:#e2ece6;--cap-bg:rgba(6,18,26,.94);--cap-ink:#eef6f0;--panel:#0e2028;--face-bg:#2a3540;--q-ink:#bdf0de;--fade:#020608;--hud-bg:rgba(6,18,26,.82)}
+  .tc-room{font-family:'Almendra',serif;font-weight:700}
+  .pl{animation:flick 3.2s steps(3) infinite}.pl:nth-child(2n){animation-delay:-1.4s}
+  .shine{animation:sh 3s steps(3) infinite}.shine:nth-child(2n){animation-delay:-1.5s}
+  @keyframes sh{50%{opacity:.25}}
+  #ferns path{animation:fe 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes fe{50%{transform:rotate(3deg)}}
+  #tileS{opacity:0;transition:opacity 1s}
+  #scene.cut #tileS{opacity:1}
+
+  /* the Year-Tile: baked earth, three spaces to cut */
+  .yt{width:min(1040px,97vw);color:#2a1408;background:#c4643e linear-gradient(160deg,#d47a52,#9a4626 75%,#7a3418);border:6px solid #4a2010;box-shadow:0 26px 70px rgba(0,0,0,.75),inset 0 0 40px rgba(60,20,8,.45)}
+  .yt h4{color:#fff0e0;font-family:'Almendra',serif;font-size:25px;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+  .yt h5{color:#ffe4cc}
+  .yt-face{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;margin:0 0 8px;background:rgba(60,20,8,.18);border:2px solid rgba(60,20,8,.4);border-radius:4px}
+  .yt .nslot{min-width:120px;min-height:52px;border-color:rgba(255,240,224,.7);background:rgba(255,240,224,.12)}
+  .yt .nslot .ntile{font-size:20px;box-shadow:none}
+  .yt-word{min-width:220px;font-family:'Cinzel',serif;font-weight:700;font-size:24px;letter-spacing:.12em;color:#fff0e0;text-align:center}
+  .yt-trays{display:grid;grid-template-columns:1fr 1.25fr .8fr;gap:8px}
+  .yt .ntray{background:rgba(60,20,8,.25);border-color:rgba(255,240,224,.4)}
+  .yt .ntray h6{color:#ffe4cc}
+  .yt .ntile.held{outline:3px solid #fff0e0;outline-offset:1px}
+  .yt .foot .btn{--accent:#fff0e0}
+  .yt .pmsg{color:#fff6ec;min-height:70px}
+  .yt .pmsg b{color:#fff0c0}.yt .pmsg i{color:#ffd8bc}
+  @media (max-width:980px){.yt-trays{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#020810"/><stop offset=".7" stop-color="#0c2230"/><stop offset="1" stop-color="#14303a"/></linearGradient>
+  <linearGradient id="hillW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16262a"/><stop offset="1" stop-color="#0a1214"/></linearGradient>
+  <linearGradient id="stoneW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a827a"/><stop offset="1" stop-color="#4a524c"/></linearGradient>
+  <radialGradient id="plG"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset=".45" stop-color="#ffb050" stop-opacity=".14"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#020608" stop-opacity=".22"/><stop offset="1" stop-color="#020608" stop-opacity=".9"/></radialGradient>
+</defs>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#skyW)"/>
+<g id="starsW" fill="#e2ece6"></g>
+<!-- the city, far below on the left -->
+<g id="city" class="hot"><path d="M-1000 1600V640Q-400 600 0 660Q200 700 380 760L420 1600Z" fill="#0c161a"/>
+  <g fill="#ffcf6a"><circle cx="40" cy="700" r="2.500"/><circle cx="90" cy="720" r="2"/><circle cx="150" cy="706" r="2.500"/><circle cx="210" cy="740" r="2"/><circle cx="270" cy="760" r="2.500"/><circle cx="120" cy="770" r="2"/><circle cx="-40" cy="690" r="2"/></g>
+  <path d="M60 760l30-40h60l30 40z" fill="#14202a"/><g fill="#ffd27a"><rect x="98" y="736" width="6" height="10"/><rect x="116" y="736" width="6" height="10"/><rect x="134" y="736" width="6" height="10"/></g></g>
+<!-- the top of the hill -->
+<path d="M380 1600L360 760Q600 620 900 420Q1100 260 1300 160Q1500 120 2600 180V1600Z" fill="url(#hillW)"/>
+<!-- the Water-Stair: basins climbing the hill, nearly dry -->
+<g id="basins" class="hot"></g>
+<g id="ferns" fill="#1e3a2c"></g>
+<!-- the Spring, under its low arch at the top, and the stone above it that has never been turned over -->
+<g id="arch" class="hot"><path d="M1240 250V170a80 70 0 0 1 160 0V250Z" fill="#05080a"/><path d="M1226 252V170a94 84 0 0 1 188 0V252" fill="none" stroke="url(#stoneW)" stroke-width="18"/>
+  <ellipse cx="1320" cy="250" rx="70" ry="10" fill="#0e2230"/><ellipse cx="1320" cy="250" rx="40" ry="5" fill="#2a5a6a" class="shine"/></g>
+<g id="stone" class="hot"><path d="M1262 76l116-6 6 30-120 6z" fill="#5a625c" stroke="#2a302c" stroke-width="3"/><g fill="#2e4a34"><circle cx="1280" cy="74" r="8"/><circle cx="1360" cy="70" r="10"/><circle cx="1330" cy="72" r="6"/></g></g>
+<!-- Noll's lamps along the Stair -->
+<g id="poles"></g>
+
+<!-- the stone ledge in front, with the Book of the Year-Night lying open on it, and the tile -->
+<g id="ledge" class="hot"><path d="M520 900l40-150h500l40 150z" fill="url(#stoneW)"/><path d="M548 754h528" stroke="#2a302c" stroke-width="5"/>
+  <rect x="860" y="716" width="80" height="80" fill="#b85a36" stroke="#5a2410" stroke-width="3" transform="rotate(-6 900 756)"/><g id="tileS"><g stroke="#5a2410" stroke-width="3"><path d="M872 744h56M872 760h56" transform="rotate(-6 900 756)"/></g></g>
+  <path d="M960 760l60-30" stroke="#c9ccd0" stroke-width="5" stroke-linecap="round"/><path d="M1012 734l14-8" stroke="#6a4a2a" stroke-width="9" stroke-linecap="round"/></g>
+<g id="book" class="hot"><path d="M600 752q70-26 140 0v-40q-70-26-140 0z" fill="#3a2a46"/><path d="M606 744q64-22 128 0v-36q-64-22-128 0z" fill="#fbf6e6"/><path d="M670 712v36" stroke="#3a2a46" stroke-width="2"/>
+  <g stroke="#5b2a45" stroke-width="1.500" opacity=".7"><path d="M616 722q22-6 46-2M616 730q22-6 46-2M680 720q22-4 46 2M680 728q22-4 46 2"/></g></g>
+
+<!-- Mr Mottram, and Noll with his pole -->
+<g id="peregrine" class="hot"><path d="M290 880l10-170h112l10 170z" fill="#2f5a3e"/><use href="#ch-peregrine" x="274" y="500" width="164" height="214"/></g>
+<g id="noll" class="hot"><path d="M1270 300L1360 880" stroke="#5a4028" stroke-width="7"/><path d="M1264 296l14-10 10 14" stroke="#c9a23c" stroke-width="5" fill="none"/>
+  <path d="M1220 880l8-200h96l8 200z" fill="#33414d"/><use href="#ch-noll" x="1200" y="500" width="150" height="196"/></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the last steps to the Spring</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', i, x, y, w, seed = 41;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 70; i++) s += '<circle class="tw" cx="' + (-600 + rnd() * 2800).toFixed(0) + '" cy="' + (-500 + rnd() * 640).toFixed(0) + '" r="' + (0.7 + rnd() * 1.5).toFixed(1) + '"/>';
+    $('#starsW').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) {
+      x = 470 + i * 100; y = 700 - i * 56; w = 150 - i * 9;
+      s += '<g><path d="M' + (x - w / 2) + ' ' + y + 'q' + (w / 2) + ' ' + (34 - i * 2) + ' ' + w + ' 0v-' + (18 - i) + 'h-' + w + 'z" fill="url(#stoneW)" stroke="#2a302c" stroke-width="2.500"/>' +
+        '<ellipse cx="' + x + '" cy="' + (y - 14 + i * 0.6).toFixed(1) + '" rx="' + (w / 2 - 8) + '" ry="' + (6 - i * 0.3).toFixed(1) + '" fill="#0e2230"/>' +
+        '<ellipse class="shine" cx="' + x + '" cy="' + (y - 14 + i * 0.6).toFixed(1) + '" rx="' + (w / 6) + '" ry="2" fill="#3a6a7a"/></g>';
+    }
+    $('#basins').innerHTML = s; s = '';
+    for (i = 0; i < 4; i++) { x = 560 + i * 200; y = 670 - i * 112; s += '<g class="pl"><circle cx="' + (x + 40) + '" cy="' + (y - 60) + '" r="80" fill="url(#plG)" pointer-events="none"/><rect x="' + (x + 36) + '" y="' + (y - 50) + '" width="6" height="60" fill="#2a2018"/><rect x="' + (x + 32) + '" y="' + (y - 66) + '" width="14" height="18" fill="#ffd27a"/></g>'; }
+    $('#poles').innerHTML = s; s = '';
+    for (i = 0; i < 14; i++) { x = 420 + rnd() * 900; y = 760 - (x - 420) * 0.62 + rnd() * 40; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + 'q-10-30 4-46q6 20-4 46zM' + (x + 8).toFixed(0) + ' ' + y.toFixed(0) + 'q14-26 0-40q-8 18 0 40z"/>'; }
+    $('#ferns').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'stair', no: 'VI', title: 'The Water-Stair',
+    go: 'Climb the Water-Stair',
+    intro: [
+      'The five tiles, never in order: FLU, flow; OMNI, all; ENT, doing it; AQU, water; EF, out. All the water, flowing out, now. It is the Spring&rsquo;s name, and called by it the Spring would give every drop under the hill at once. So a Year-Name may never use FLU, AQU or OMNI; but it may use a front or an end, and every Year-Name in the Ledger ends -ENT.',
+      'The Water-Stair climbs from behind the Name-Hall to the Spring: a stair of stone basins, one above the other, each meant to spill into the next. Tonight they are nearly dry.',
+      'Noll has come up behind you with his pole, lighting the way. Mr Mottram is carrying the Namewright&rsquo;s book. You have the tile and the chisel, and a little under twenty minutes.'
+    ],
+    exit: {"next":"spring","w":{"21bf08e6":"841f9f9a"}}, tags: {"pre":["60864c7e"],"root":["50c9d78a"],"suf":["d452a410"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('w-file') || null;
+
+  var BOOK = '<h4>The Book of the Year-Night</h4>' +
+    '<p>How to build a Year-Name. My own rules, kept for whoever comes after me.</p>' +
+    '<p><b>1.</b> Ask for AGAIN: what the Spring did this year, once more, and no more.</p>' +
+    '<p><b>2.</b> Ask it to be DOING it, now, as every Year-Name has.</p>' +
+    '<p><b>3.</b> Name something that a spring truly does. A spring flows, runs, rises, pours and comes. It does not shine, sit, sleep, carry or lead.</p>' +
+    '<p><b>4.</b> Never a root of the first name; never a part that asks for all.</p>' +
+    '<p><b>5.</b> Never a root from the last six years: the Spring will not answer to a root it has heard so lately. Look in the Ledger.</p>' +
+    '<p><b>6.</b> Only true parts. A part that is not a part is a lie, and the Spring knows a lie.</p>' +
+    '<p><b>7.</b> Cut it on the tile. Say it at midnight, politely, as if you meant it. You will.</p>' +
+    '<p class="sig">R. N.</p>';
+  var TILES = {
+    pre: [['re', 'RE'], ['pro', 'PRO'], ['in', 'IN'], ['ef', 'EF'], ['de', 'DE'], ['sub', 'SUB'], ['sin', 'SIN'], ['omni', 'OMNI'], ['con', 'CON']],
+    root: [['surg', 'SURG'], ['curr', 'CURR'], ['flu', 'FLU'], ['aqu', 'AQU'], ['terr', 'TERR'], ['somn', 'SOMN'], ['lumin', 'LUMIN'], ['port', 'PORT'], ['duct', 'DUCT'], ['sid', 'SID']],
+    suf: [['ent', 'ENT'], ['or', 'OR'], ['able', 'ABLE'], ['ion', 'ION'], ['ous', 'OUS'], ['arium', 'ARIUM']]
+  };
+  var FRONT = {
+    pro: 'PRO- is forward, forth: true of a spring. But rule 1 asks for AGAIN: once more, and no more.',
+    'in': 'IN- is in, into; and with some roots it means against. Rule 1 asks for AGAIN.',
+    ef: 'EF- is out. The Spring does bring its water out, but rule 1 asks for AGAIN, and every name in the Ledger begins with the front for again.',
+    de: 'DE- is down. Taking the water down is the Stair&rsquo;s work; rule 1 asks the Spring for AGAIN.',
+    sub: 'SUB- is under. The Spring is under the hill already. Rule 1 asks for AGAIN.',
+    sin: 'SIN- is not a part at all. Mr Mottram unsaid it on the Bridge: SINE is never fixed to the front of a word. Rule 6: a part that is not a part is a lie, and the Spring knows a lie.',
+    omni: 'OMNI is all. Rule 4, and the Register: never a part that asks for all. That would be the first name, coming by another road.',
+    con: 'CON- is with, together. The Spring is one spring. Rule 1 asks for AGAIN.'
+  };
+  var SPECIAL = {
+    'in.surg': 'IN&middot;SURG: rising up against. The Spring would rise up against the city. (In the outside world, insurgents are people who rise up against a government.) Rule 1 asks for AGAIN.',
+    'ef.flu': 'EF&middot;FLU: flowing out. FLU is a root of the first name, and EF and FLU side by side are most of it. (In the outside world, effluent is what comes out of a drain. Mr Mottram puts his hand over his eyes.)'
+  };
+  var ROOT = {
+    curr: 'CURR, run: true of a spring. But look in the Ledger: RE&middot;CURR&middot;ENT was last year&rsquo;s name, and rule 5 says the Spring will not answer to a root it has heard in the last six years.',
+    flu: 'FLU is a root of the first name: rule 4. Mr Mottram, who said it first, goes quiet.',
+    aqu: 'AQU is a root of the first name: rule 4. And water is what the Spring gives, not what it does (rule 3).',
+    terr: 'TERR, earth: the Spring comes out of the earth, but earth is not something it does (rule 3).',
+    somn: 'SOMN, sleep: sleeping again. The Spring would go back to sleep for a year, and you have seen what SOMN did to the Namewright.',
+    lumin: 'LUMIN, light: a spring does not shine (rule 3).',
+    port: 'PORT, carry: the Stair carries the water down; the Spring does not carry anything (rule 3).',
+    duct: 'DUCT, lead: leading the water is the Stair&rsquo;s work, not the Spring&rsquo;s (rule 3).',
+    sid: 'SID, sit: a spring does not sit (rule 3). (In the outside world, a resident is somebody who stays where they live.)'
+  };
+  var END = {
+    or: '-OR makes it the one that does it: a name for a person, or a tool. Rule 2: the Year-Name asks the Spring to be doing it, now, like every name in the Ledger.',
+    able: '-ABLE is can be done: a quality. The Spring would agree that it could, and not do it.',
+    ion: '-ION is the doing of it: a name for the thing that happens, not for the Spring doing it.',
+    ous: '-OUS is full of. The Spring would be full of it, and stay where it is.',
+    arium: '-ARIUM is a place for. The Spring is not a place for anything; it is a spring.'
+  };
+
+  function said(k) { return ER.flag('w-' + k); }
+  function hints() {
+    if (nextFile) return ['go', ['The Year-Name is cut. Up the last steps to the Spring: it is nearly midnight.']];
+    if (said('book')) return ['cut', [
+      'Rule by rule. Rule 1 gives you the front, rule 2 the end, and rules 3 to 6 the root. The Ledger, the Register and the Gate List are all in your notebook.',
+      'Of the things a spring truly does: flowing is in the first name; running was last year&rsquo;s root; pouring and coming are in the Ledger too. One is left. Find its root on the Gate List.',
+      'Again is RE-, as in every name in the Ledger. Doing it is -ENT. And the Gate List has a root for rise, with surge and source to prove it.'
+    ]];
+    return ['start', [
+      'Read the Book of the Year-Night, lying open on the stone ledge in front of you.',
+      'Then cut the Year-Name on the tile at the ledge. Mr Mottram and Noll both have ideas: listen to them, and then check them against the Book.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    sc.classList.toggle('cut', !!nextFile);
+    $('#ledge').setAttribute('class', 'hot' + (said('book') && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((said('book') ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The Water-Stair. The Year-Name is cut on the tile, and the bells are ringing.'); return; }
+    if (said('book')) { ER.say('The Water-Stair. The tile is on the ledge, waiting.'); return; }
+    busy = true;
+    ER.narrate([
+      'Basin above basin, up the bare top of the hill, each with a stone lip and a little spout to spill into the one below. There is a hand&rsquo;s depth of water in the lowest, and less in every one above it.',
+      'At the top, under a low stone arch, is the Spring. Above the arch, half buried in moss, lies a long flat stone, face down. Nobody has turned it over in four hundred years, and you are not going to be the first.',
+      'There is a stone ledge at the foot of the last flight. Mr Mottram lays the Namewright&rsquo;s book open on it, and you put the tile and the chisel down beside it.'
+    ], function () { busy = false; });
+  }
+  $('#book').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    ER.read({ html: BOOK, cls: 'rhand', clue: { id: 'w-book', title: 'The Book of the Year-Night', kind: 'The Namewright’s own book' },
+      done: function () { ER.flag('w-book', 1); NM.learn(['Year-Night']); paint(); } });
+  });
+  $('#peregrine').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    ER.say(nextFile ? '&ldquo;Rising again,&rdquo; says Mr Mottram. &ldquo;I could not have built it. I should have built something lovely and wrong.&rdquo;'
+      : '&ldquo;RE&middot;FLU&middot;ENT,&rdquo; says Mr Mottram at once. &ldquo;Flowing again. Simple.&rdquo; Then he looks at the Book, and at you, and says, more slowly, &ldquo;Or is it?&rdquo;');
+  });
+  $('#noll').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    ER.say(nextFile ? '&ldquo;Listen,&rdquo; says Noll. &ldquo;The bells.&rdquo;' : '&ldquo;RE&middot;CURR&middot;ENT?&rdquo; says Noll. &ldquo;Running again. Water runs. Doesn&rsquo;t it?&rdquo;');
+  });
+  NM.thing('#arch', null, 'The Spring, under its arch: a dark pool, very still, and very low. Not yet.', isBusy);
+  NM.thing('#stone', null, 'A long stone, face down in the moss above the arch. Whatever is cut on the other side of it, you would rather not read.', isBusy);
+  NM.thing('#basins', null, 'Stone basins, one above another, each with a lip and a spout. Moss, ferns, and a hand&rsquo;s depth of water at the bottom, getting less.', isBusy);
+  NM.thing('#city', null, 'Utter, far below: the lit street, the market, the Name-Hall on its crag, and the harbour lights beyond. Every fountain down there is waiting for you.', isBusy);
+  $('#ledge').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The tile, with the Year-Name cut in it, sharp and red.'); return; }
+    if (!said('book')) { ER.say('The tile and the chisel, on the ledge beside the Namewright&rsquo;s book. Read the book first: it is open at the right page.'); return; }
+    openTile();
+  });
+
+  /* ---------- the Year-Tile ---------- */
+  function openTile() {
+    var box = ER.el('div', 'pz yt'), st = ER.flag('w-tile') || {}, held = null, s;
+    s = '<h4>The Year-Tile</h4><h5>Cut a front, a root and an end: click a tile, then a space on the baked earth. Then cut it, for good.</h5>' +
+      '<div class="yt-face"><span class="nslot" data-k="pre"></span><span class="nslot" data-k="root"></span><span class="nslot" data-k="suf"></span><span class="yt-word"></span></div>' +
+      '<div class="yt-trays"><div class="ntray" id="yt-pre"><h6>FRONTS</h6></div><div class="ntray" id="yt-root"><h6>ROOTS</h6></div><div class="ntray" id="yt-suf"><h6>ENDS</h6></div></div>' +
+      '<div class="foot"><button type="button" class="btn" id="yt-go">Cut it</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    ['pre', 'root', 'suf'].forEach(function (k) { TILES[k].forEach(function (t) { box.querySelector('#yt-' + k).appendChild(NM.tile(t[0], k, t[1])); }); });
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function txt(k, id) { var t = TILES[k].filter(function (x) { return x[0] === id; })[0]; return t ? t[1] : ''; }
+    function paintT() {
+      ['pre', 'root', 'suf'].forEach(function (k) {
+        var sl = box.querySelector('.nslot[data-k="' + k + '"]'); sl.innerHTML = '';
+        if (st[k]) sl.appendChild(NM.tile(st[k], k, txt(k, st[k])));
+      });
+      box.querySelector('.yt-word').textContent = st.pre && st.root && st.suf ? txt('pre', st.pre) + txt('root', st.root) + txt('suf', st.suf) : '';
+    }
+    function hold(t) { if (held) held.classList.remove('held'); held = t; if (t) t.classList.add('held'); }
+    box.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('.ntray .ntile') : null, sl, k;
+      if (t) { hold(held === t ? null : t); NM.sfx.tile(); return; }
+      sl = e.target.closest ? e.target.closest('.nslot') : null;
+      if (!sl) return;
+      k = sl.getAttribute('data-k');
+      if (held) {
+        if (held.getAttribute('data-k') !== k) { msg('That space is for ' + (k === 'pre' ? 'a front' : k === 'root' ? 'a root' : 'an end') + '.'); return; }
+        st[k] = held.getAttribute('data-t'); hold(null);
+      } else if (st[k]) delete st[k];
+      else return;
+      NM.sfx.tile(); ER.flag('w-tile', st); ER.$$('.nslot', box).forEach(function (n) { n.classList.remove('bad'); }); paintT();
+    });
+    function bad(k) { box.querySelector('.nslot[data-k="' + k + '"]').classList.add('bad'); }
+    box.querySelector('#yt-go').addEventListener('click', function () {
+      var w, file;
+      ER.$$('.nslot', box).forEach(function (n) { n.classList.remove('bad'); });
+      if (!st.pre || !st.root || !st.suf) { msg('A Year-Name needs all three: a front, a root and an end.'); return; }
+      w = txt('pre', st.pre) + '&middot;' + txt('root', st.root) + '&middot;' + txt('suf', st.suf);
+      if (SPECIAL[st.pre + '.' + st.root]) { NM.miss(); bad('pre'); msg('<b>' + w + '.</b> ' + SPECIAL[st.pre + '.' + st.root] + ' <i>You lift the chisel away.</i>'); return; }
+      if (!ER.check('pre', st.pre)) { NM.miss(); bad('pre'); msg('<b>' + w + '.</b> ' + FRONT[st.pre] + ' <i>You lift the chisel away.</i>'); return; }
+      if (!ER.check('root', st.root)) { NM.miss(); bad('root'); msg('<b>' + w + '.</b> ' + ROOT[st.root] + ' <i>You lift the chisel away.</i>'); return; }
+      if (!ER.check('suf', st.suf)) { NM.miss(); bad('suf'); msg('<b>' + w + '.</b> ' + END[st.suf] + ' <i>You lift the chisel away.</i>'); return; }
+      file = ER.exit([st.pre + '-' + st.root + '-' + st.suf], { wait: true });
+      if (!file) { msg('The chisel will not bite. Something is wrong with this lock: tell your teacher.'); return; }
+      nextFile = file; ER.flag('w-file', file); busy = true; NM.sfx.chisel();
+      msg('<b>' + w + '.</b> Again; rising; doing it. True of a spring, not the first name, not in the Ledger, and every part a true one.');
+      setTimeout(function () { ER.closeAll(); solvedNow(); }, 2600);
+    });
+    paintT();
+    msg(st.pre || st.root || st.suf ? 'The tile is as you left it.' : 'Nothing is cut yet. Nothing can be uncut.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    NM.sfx.chisel(); paint();
+    ER.narrate([
+      'You set the chisel to the tile and cut, letter by letter, R E S U R G E N T. The letters come out sharp and red in the baked earth.',
+      '&ldquo;RE&middot;SURG&middot;ENT,&rdquo; reads Mr Mottram over your shoulder. &ldquo;Rising again. Surge. Source.&rdquo; He turns the pages of the Book. &ldquo;Again: rule one. Doing it: rule two. A spring rises: rule three. Not the first name, not the Ledger, and every part a true one.&rdquo; He takes off his hat. &ldquo;I could not have built it. I should have built something lovely, and wrong.&rdquo;',
+      'Noll lifts his head. &ldquo;Listen.&rdquo; Far below you, one tower after another, the bells of Utter begin to ring midnight.'
+    ], function () {
+      NM.sfx.bells();
+      NM.mine('n-stair', 'The Year-Name, and why', '<p>RE&middot;SURG&middot;ENT = again + rise + doing it: rising again.</p><p>RE-: rule 1 (again), like every Year-Name.</p><p>SURG: rise (surge, source). True of a spring (rule 3). Not FLU or AQU (first name), not OMNI (all), not CURR (last year), not SIN- (not a part).</p><p>-ENT: doing it, now (rule 2).</p>');
+      NM.learn(['resurgent', 'insurgent', 'effluent']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

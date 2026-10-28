@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Gate of Utter · A Name That Is True</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-fantasy.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="names.css">
+<style>
+  body{--bg:#0d1430;--accent:#f0c674;--font-display:'Cinzel Decorative',serif;--font-ui:'Cinzel',serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(12,16,38,.96);--tc-ink:#ece6d6;--cap-bg:rgba(12,16,38,.94);--cap-ink:#f4eedf;--panel:#161c3a;--face-bg:#24402e;--q-ink:#f3d79a;--fade:#05070f;--hud-bg:rgba(12,16,38,.82)}
+  .tc-room{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700}
+  #gulls path{animation:gl 9s linear infinite}#gulls path+path{animation-delay:-4s}
+  @keyframes gl{0%{transform:translate(0,0)}50%{transform:translate(60px,-14px)}100%{transform:translate(0,0)}}
+  .lan{animation:flick 3.2s steps(3) infinite}.lan+.lan{animation-delay:-1.4s}
+  #ripples path{animation:rp 5s ease-in-out infinite}#ripples path:nth-child(2n){animation-delay:-2.5s}
+  @keyframes rp{50%{transform:translateX(14px);opacity:.4}}
+  #brUp,#brDown,#barG,#doorL,#doorR,#inside,#lampOn{transition:opacity 1.2s,transform 1.4s}
+  #brDown{opacity:0}
+  #scene.br #brUp{opacity:0}#scene.br #brDown{opacity:1}
+  #scene.bar #barG{transform:translateX(150px);opacity:.15}
+  #inside{opacity:0}
+  #scene.open #inside{opacity:1}
+  #scene.open #doorL{transform:translateX(-118px) scaleX(.22);transform-origin:650px 600px}
+  #scene.open #doorR{transform:translateX(118px) scaleX(.22);transform-origin:950px 600px}
+  #lampOn{opacity:0}#scene.open #lampOn{opacity:1}
+  #umb{animation:um 6s ease-in-out infinite;transform-origin:1392px 470px}
+  @keyframes um{50%{transform:rotate(2deg)}}
+
+  /* the calling-board: bronze, with three rows */
+  .cb{width:min(1060px,96vw);color:#2a1c0c;background:#b98a4a linear-gradient(160deg,#d9aa62,#8a5e2a 70%,#6a4520);border:6px solid #4a3016;
+    box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 2px rgba(255,230,170,.5)}
+  .cb h4{color:#2a1408;text-shadow:0 1px 0 rgba(255,230,170,.5)}
+  .cb h5{color:#3a2410}
+  .cb-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .cb-row{display:grid;grid-template-columns:150px auto auto auto minmax(0,1fr);gap:6px;align-items:center;padding:8px 8px;margin-bottom:6px;background:rgba(255,236,190,.28);border:1px solid rgba(74,48,22,.45);border-radius:3px}
+  .cb-row.done{background:rgba(90,140,90,.3)}
+  .cb-what b{display:block;font-family:'Cinzel Decorative','Cinzel',serif;font-size:16px;color:#2a1408}
+  .cb-what i{display:block;font-family:'EB Garamond',serif;font-size:15px;line-height:1.15;color:#3a2410}
+  .cb .nslot{min-width:82px;min-height:40px;border-color:rgba(74,48,22,.7);background:rgba(255,248,226,.35)}
+  .cb .nslot .ntile{box-shadow:none}
+  .cb-side{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+  .cb-word{font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.08em;color:#2a1408;min-height:18px}
+  .cb-call{padding:5px 12px;border:1px solid #4a3016;border-radius:3px;background:#f3dfae;color:#2a1408;font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.06em}
+  .cb-call:hover{background:#fff1cc}
+  .cb-row.done .cb-call{display:none}
+  .cb .ntray{background:rgba(42,28,12,.25);border-color:rgba(74,48,22,.6);margin-bottom:8px}
+  .cb .ntray h6{color:#2a1408}
+  .cb .ntile.held{outline:3px solid #fff1cc;outline-offset:1px}
+  .cb .pmsg{color:#1e1408;min-height:74px}
+  .cb .pmsg b{color:#6a1a0a}
+  .cb .pmsg i{color:#3a2410}
+  @media (max-width:1000px){.cb-wrap{grid-template-columns:1fr}.cb-row{grid-template-columns:1fr 1fr 1fr}.cb-what,.cb-side{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070c22"/><stop offset=".55" stop-color="#1e2350"/><stop offset=".85" stop-color="#5a3f68"/><stop offset="1" stop-color="#7a4f62"/></linearGradient>
+  <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a62"/><stop offset=".3" stop-color="#1a2446"/><stop offset="1" stop-color="#0a1022"/></linearGradient>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f877a"/><stop offset=".7" stop-color="#6a645a"/><stop offset="1" stop-color="#46423c"/></linearGradient>
+  <linearGradient id="pilG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a49c8c"/><stop offset=".5" stop-color="#c4bcac"/><stop offset="1" stop-color="#857e70"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3c22"/><stop offset="1" stop-color="#2e1e10"/></linearGradient>
+  <linearGradient id="roadG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5e5648"/><stop offset="1" stop-color="#2c281f"/></linearGradient>
+  <linearGradient id="bronzeG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6b872"/><stop offset=".5" stop-color="#a6743a"/><stop offset="1" stop-color="#5e3c18"/></linearGradient>
+  <radialGradient id="lanG"><stop offset="0" stop-color="#ffd890" stop-opacity=".6"/><stop offset=".45" stop-color="#ffa850" stop-opacity=".16"/><stop offset="1" stop-color="#ff9a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="inG" cx="50%" cy="80%" r="70%"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/><stop offset="1" stop-color="#2a1a10" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#05070f" stop-opacity=".2"/><stop offset="1" stop-color="#05070f" stop-opacity=".86"/></radialGradient>
+</defs>
+
+<!-- the sky over the cliff, the first stars, a thin moon -->
+<rect x="-1000" y="-700" width="3600" height="1700" fill="url(#skyG)"/>
+<g id="stars" fill="#f4eedf"></g>
+<g id="moon" class="hot"><circle cx="1420" cy="110" r="34" fill="#f6efd8"/><circle cx="1436" cy="100" r="31" fill="#11173a"/></g>
+
+<!-- the sea far below, on the left, with the harbour lights -->
+<g id="sea" class="hot"><path d="M-1000 520H470V1600H-1000Z" fill="url(#seaG)"/>
+  <g stroke="#8a90b8" stroke-width="1.600" opacity=".35"><path d="M-200 600h120M40 640h90M200 590h80M-60 700h140M120 760h110M300 690h70"/></g>
+  <g fill="#ffcf6a"><circle cx="90" cy="820" r="3"/><circle cx="120" cy="828" r="2.500"/><circle cx="160" cy="816" r="3"/><circle cx="210" cy="832" r="2.500"/><circle cx="250" cy="822" r="3"/></g>
+  <g id="gulls" stroke="#d8d4e8" stroke-width="2.200" fill="none" stroke-linecap="round"><path d="M120 470q10-8 20 0q10-8 20 0"/><path d="M260 430q8-6 16 0q8-6 16 0"/></g></g>
+<!-- the cliff edge -->
+<path d="M-1000 1600V880Q-200 860 300 830Q420 760 470 520L520 520V1600Z" fill="#2a2620"/>
+
+<!-- the hill of Utter above the wall: roofs, the crag of the Name-Hall, and a thread of basins climbing to the Spring -->
+<path d="M380 340Q700 250 980 240Q1180 200 1300 110Q1360 80 1430 150Q1560 230 2600 260V400H380Z" fill="#1c2042"/>
+<g id="roofs" fill="#262a4e"><path d="M420 340l40-40 40 40zM520 330l30-34 30 34zM600 320l44-46 44 46zM720 300l36-38 36 38zM820 290l40-44 40 44zM940 280l34-36 34 36zM1040 270l40-42 40 42zM1400 250l38-36 38 36zM1500 262l34-34 34 34z"/></g>
+<g fill="#ffcf6a" opacity=".85"><rect x="452" y="320" width="6" height="8"/><rect x="636" y="304" width="6" height="8"/><rect x="752" y="282" width="6" height="8"/><rect x="858" y="272" width="6" height="8"/><rect x="1076" y="254" width="6" height="8"/><rect x="1432" y="236" width="6" height="8"/></g>
+<g id="hall" class="hot"><path d="M1180 230l30-60h70l30 60z" fill="#22264a"/><rect x="1196" y="150" width="98" height="80" fill="#2c3058"/><path d="M1190 152l55-40 55 40z" fill="#22264a"/>
+  <g fill="#ffd27a"><rect x="1210" y="170" width="12" height="20" rx="6"/><rect x="1238" y="170" width="12" height="20" rx="6"/><rect x="1266" y="170" width="12" height="20" rx="6"/></g></g>
+<g id="stairT" class="hot" stroke="#4a5288" stroke-width="3" fill="none"><path d="M1300 150l18-12 20-4 18-12 22-6 16-14"/><g fill="#2c3058" stroke="none"><rect x="1300" y="146" width="16" height="7"/><rect x="1322" y="134" width="16" height="7"/><rect x="1344" y="126" width="16" height="7"/><rect x="1366" y="114" width="16" height="7"/></g>
+  <path d="M1386 100q12-18 24 0" stroke="#6a72a8" stroke-width="3"/></g>
+
+<!-- the wall of Utter, pale stone, with its battlements -->
+<rect x="470" y="340" width="2200" height="440" fill="url(#wallG)"/>
+<g fill="#7d766a"><path id="merlons" d=""/></g>
+<g id="courses" stroke="#4e4a42" stroke-width="2" opacity=".55" fill="none"></g>
+
+<!-- inside the gate (seen once it opens): a steep street, unlit -->
+<g id="inside"><path d="M650 770V470A150 150 0 0 1 950 470V770Z" fill="#1a1410"/><path d="M650 770V470A150 150 0 0 1 950 470V770Z" fill="url(#inG)"/>
+  <path d="M700 770L780 520h40l80 250z" fill="#3a3026"/><g fill="#2a221a"><path d="M660 760V560l50-30v230zM940 760V560l-50-30v230z"/></g></g>
+<!-- the gate: two oak leaves under a round arch -->
+<path d="M630 780V470A170 170 0 0 1 970 470V780" fill="none" stroke="#a49c8c" stroke-width="22"/>
+<g id="doorL"><path d="M650 770V470A150 150 0 0 1 800 320V770Z" fill="url(#oakG)"/><g stroke="#24160a" stroke-width="3"><path d="M690 360V770M730 334V770M770 322V770"/></g>
+  <g fill="#1a1a1e"><circle cx="672" cy="520" r="4"/><circle cx="672" cy="640" r="4"/><circle cx="752" cy="520" r="4"/><circle cx="752" cy="640" r="4"/></g></g>
+<g id="doorR"><path d="M950 770V470A150 150 0 0 0 800 320V770Z" fill="url(#oakG)"/><g stroke="#24160a" stroke-width="3"><path d="M910 360V770M870 334V770M830 322V770"/></g>
+  <g fill="#1a1a1e"><circle cx="928" cy="520" r="4"/><circle cx="928" cy="640" r="4"/><circle cx="848" cy="520" r="4"/><circle cx="848" cy="640" r="4"/></g></g>
+<g id="barG" class="hot"><rect x="636" y="590" width="328" height="20" rx="3" fill="#2a2a30" stroke="#0e0e12" stroke-width="2"/><g fill="#3a3a42"><rect x="644" y="582" width="16" height="36"/><rect x="940" y="582" width="16" height="36"/></g></g>
+
+<!-- the lamp over the arch, in its iron cage -->
+<g id="lampG" class="hot"><path d="M800 282v18" stroke="#1a1a1e" stroke-width="3"/><path d="M782 300h36l-6 40h-24z" fill="#1c2030" stroke="#0e0e12" stroke-width="2.500"/><path d="M786 306l28 0M800 300v40" stroke="#0e0e12" stroke-width="2"/>
+  <g id="lampOn"><circle cx="800" cy="322" r="120" fill="url(#lanG)"/><path d="M786 306h28l-5 30h-18z" fill="#ffd27a"/></g></g>
+
+<!-- the two pillars: the Rules of Utter on the left, the Gate List on the right -->
+<g id="pilL" class="hot"><rect x="530" y="380" width="96" height="400" fill="url(#pilG)"/><rect x="522" y="370" width="112" height="18" fill="#b4ac9c"/>
+  <text x="578" y="412" class="cz" font-size="12" fill="#3a2f22">THE RULES</text><text x="578" y="428" class="cz" font-size="12" fill="#3a2f22">OF UTTER</text>
+  <g stroke="#5e554a" stroke-width="2.200" opacity=".7"><path d="M544 450h68M544 466h60M544 482h68M544 498h52M544 530h68M544 546h62M544 562h68M544 578h56M544 594h66M544 610h50M544 626h64M544 642h60M544 658h68M544 674h46"/></g>
+  <g fill="none" stroke="#5e554a" stroke-width="1.800"><rect x="548" y="694" width="18" height="12"/><rect x="569" y="694" width="18" height="12"/><rect x="590" y="694" width="18" height="12"/></g></g>
+<g id="pilR" class="hot"><rect x="974" y="380" width="96" height="400" fill="url(#pilG)"/><rect x="966" y="370" width="112" height="18" fill="#b4ac9c"/>
+  <text x="1022" y="412" class="cz" font-size="12" fill="#3a2f22">THE GATE</text><text x="1022" y="428" class="cz" font-size="12" fill="#3a2f22">LIST</text>
+  <g stroke="#5e554a" stroke-width="2" opacity=".7"><path d="M988 448h30M1024 448h34M988 462h26M1024 462h38M988 476h32M1024 476h30M988 490h24M1024 490h36M988 504h30M1024 504h32M988 532h28M1024 532h34M988 546h32M1024 546h28M988 560h26M1024 560h38M988 574h30M1024 574h30M988 588h28M1024 588h36M988 616h30M1024 616h34M988 630h26M1024 630h32M988 644h32M1024 644h36M988 658h30M1024 658h28M988 672h28M1024 672h34"/></g></g>
+
+<!-- lanterns on the wall -->
+<g class="lan"><circle cx="460" cy="430" r="90" fill="url(#lanG)" pointer-events="none"/><rect x="452" y="420" width="16" height="22" fill="#ffd27a"/></g>
+<g class="lan"><circle cx="1150" cy="430" r="90" fill="url(#lanG)" pointer-events="none"/><rect x="1142" y="420" width="16" height="22" fill="#ffd27a"/></g>
+
+<!-- the ditch, dark water -->
+<g id="ditch" class="hot"><path d="M470 780H2670V846H470Z" fill="#0e1428"/><g id="ripples" stroke="#5a6698" stroke-width="2" opacity=".6" fill="none"><path d="M520 806h60M700 820h50M1080 800h70M1300 818h60M1600 808h80"/><path d="M600 830h40M980 832h60M1200 836h50M1450 828h70"/></g></g>
+<!-- the road up from the harbour -->
+<path d="M-1000 1600L560 846H1040L1300 1600Z" fill="url(#roadG)"/><path d="M470 846H2670V1600H1300L1040 846Z" fill="#33302a"/>
+
+<!-- the drawbridge: up against the gate, and (once called) down across the ditch -->
+<g id="brUp" class="hot"><rect x="646" y="460" width="308" height="320" fill="#4a3220"/><g stroke="#2a1a0c" stroke-width="3"><path d="M646 500h308M646 540h308M646 580h308M646 620h308M646 660h308M646 700h308M646 740h308"/></g>
+  <g fill="#26262c"><rect x="640" y="470" width="320" height="12"/><rect x="640" y="760" width="320" height="12"/></g>
+  <path d="M652 470L672 352M948 470L928 352" stroke="#2a2a30" stroke-width="5" stroke-dasharray="7 4"/></g>
+<g id="brDown"><path d="M646 780H954L1006 852H594Z" fill="#5a3e26"/><g stroke="#2a1a0c" stroke-width="3"><path d="M640 790h320M632 802h336M624 814h352M616 826h368M608 838h384"/></g>
+  <path d="M650 780L672 352M950 780L928 352" stroke="#2a2a30" stroke-width="4" stroke-dasharray="7 4" opacity=".7"/></g>
+
+<!-- the winch post with the clerk's note -->
+<g id="note" class="hot"><rect x="548" y="640" width="22" height="210" fill="#3a2a1a"/><path d="M528 668l58-4 4 62-58 4z" fill="#f2f0ea"/><g stroke="#16161a" stroke-width="1.500" opacity=".7"><path d="M536 682l44-3M536 692l40-3M537 702l44-3M537 712l30-2"/></g><circle cx="558" cy="668" r="3" fill="#a3271c"/></g>
+
+<!-- the calling-board on its post -->
+<g id="board" class="hot"><rect x="1196" y="690" width="14" height="170" fill="#3a2a1a"/><rect x="1130" y="580" width="146" height="118" rx="6" fill="url(#bronzeG)" stroke="#4a3016" stroke-width="4"/>
+  <text x="1203" y="608" class="cd" font-size="13" fill="#2a1408">THE CALLING</text><text x="1203" y="624" class="cd" font-size="13" fill="#2a1408">BOARD</text>
+  <g fill="none" stroke="#4a3016" stroke-width="2"><rect x="1146" y="636" width="34" height="18"/><rect x="1186" y="636" width="34" height="18"/><rect x="1226" y="636" width="34" height="18"/><rect x="1146" y="662" width="34" height="18"/><rect x="1186" y="662" width="34" height="18"/><rect x="1226" y="662" width="34" height="18"/></g></g>
+
+<!-- Mr Mottram, under his umbrella -->
+<g id="peregrine" class="hot"><path d="M1338 860l10-170h96l10 170z" fill="#2f5a3e"/><path d="M1352 860h26v26h-26zM1414 860h26v26h-26z" fill="#1a1a1a"/>
+  <use href="#ch-peregrine" x="1314" y="480" width="164" height="214"/>
+  <g id="umb"><path d="M1460 470L1478 860" stroke="#3a2a1a" stroke-width="4"/><path d="M1340 476Q1460 360 1580 476Q1550 462 1520 476Q1490 462 1460 476Q1430 462 1400 476Q1370 462 1340 476Z" fill="#2c6a44" stroke="#1a3a24" stroke-width="2"/></g></g>
+
+<rect x="-1000" y="-700" width="3600" height="2300" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go in, up Lamplighters&rsquo; Street</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="names.js"></script>
+<script>
+(function () {
+  var $ = ER.$, sc = $('#scene'), busy = false, nextFile = null;
+
+  (function () {
+    var s = '', i, x, seed = 11;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 70; i++) s += '<circle class="tw" cx="' + (-600 + rnd() * 2800).toFixed(0) + '" cy="' + (-500 + rnd() * 760).toFixed(0) + '" r="' + (0.8 + rnd() * 1.6).toFixed(1) + '"/>';
+    $('#stars').innerHTML = s; s = '';
+    for (x = 470; x < 2670; x += 70) s += 'M' + x + ' 340v-30h40v30z';
+    $('#merlons').setAttribute('d', s); s = '';
+    for (i = 0; i < 10; i++) s += '<path d="M470 ' + (380 + i * 40) + 'H2670"/>';
+    $('#courses').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'fantasy', story: 'names', storyTitle: 'A Name That Is True', id: 'gate', no: 'I', title: 'The Gate of Utter',
+    go: 'Walk up to the gate',
+    intro: [
+      'The cliff road from the harbour climbs for an hour, and at the top of it, at nine o&rsquo;clock on the last night of the year, is the Gate of Utter. It is shut.',
+      'In your pocket is a letter from Mistress Romola Nettleship, Namewright of Utter. It says that you are her new apprentice, and that everything in Utter answers to a name that is true of it.',
+      'You have never built a name in your life.'
+    ],
+    exit: {"next":"street","w":{"d4d9624d":"1ed8c96f"}}, tags: {"bridgeP":["f550fb86"],"bridgeR":["5905ad84"],"bridgeS":["ea8f68f2"],"barP":["aef19e74"],"barR":["2823df37"],"barS":["82c30882"],"gateP":["a617c390"],"gateR":["4fe00e43"],"gateS":["8ec20b55"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('g-file') || null;
+
+  var LETTER = '<h4>A letter, from your pocket</h4>' +
+    '<p>To my new apprentice, at the Gate of Utter.</p>' +
+    '<p>You will arrive at nine and find the Gate shut. Do not knock: knocking is for houses. Ask.</p>' +
+    '<p>Everything in Utter answers to a name that is true of it, and does exactly what the name says. You know nothing yet, so the city has cut the parts you need on the pillars of the Gate. Three things must be called, by names that you build yourself:</p>' +
+    '<p>&nbsp;&nbsp;the <b>drawbridge</b>, which must carry you across the ditch;<br>&nbsp;&nbsp;the <b>bar</b>, which must pull itself back;<br>&nbsp;&nbsp;and the <b>gate</b>, which must lead you in.</p>' +
+    '<p>Build each name from a front, a root and an end. Call each one politely, and by its whole name. Then come up Lamplighters&rsquo; Street. Tonight is the Year-Night, and I have a great deal to show you.</p>' +
+    '<p class="sig">Romola Nettleship, Namewright</p>';
+  var NOTE = '<h4>Pinned to the winch post</h4>' +
+    '<p>To the Namewright&rsquo;s apprentice.</p><p>The Namewright has been taken ill on Lamplighters&rsquo; Street. (Asleep. She cannot be woken.) Come up the street when you are in.</p>' +
+    '<p>DO NOT CALL ANY LAMP.</p><p>Q. Merridew, Clerk of the Register. Half past seven.</p>';
+  var DIAGRAM = '<svg viewBox="0 0 600 120"><g font-family="Cinzel,serif" font-weight="700" text-anchor="middle">' +
+    '<rect x="20" y="16" width="160" height="50" fill="#e3e9ef" stroke="#3b2f22" stroke-width="2"/><rect x="200" y="16" width="200" height="50" fill="#efe6cf" stroke="#3b2f22" stroke-width="2"/><rect x="420" y="16" width="160" height="50" fill="#efe0e8" stroke="#3b2f22" stroke-width="2"/>' +
+    '<text x="100" y="48" font-size="20" fill="#2a2620">PREFIX</text><text x="300" y="48" font-size="20" fill="#2a2620">ROOT</text><text x="500" y="48" font-size="20" fill="#2a2620">SUFFIX</text>' +
+    '<text x="100" y="92" font-size="13" fill="#5b2416">which way, how</text><text x="300" y="92" font-size="13" fill="#5b2416">what it has to do with</text><text x="500" y="92" font-size="13" fill="#5b2416">what kind of name</text>' +
+    '<text x="100" y="110" font-size="12" fill="#5b2416">at the front</text><text x="300" y="110" font-size="12" fill="#5b2416">in the middle</text><text x="500" y="110" font-size="12" fill="#5b2416">at the end</text></g></svg>';
+  var RULES = '<h4>The Rules of Utter</h4><h5>cut on the left-hand pillar when the city was founded</h5>' +
+    '<p>I. Every made thing in Utter answers to a name that is true of it.</p>' +
+    '<p>II. Called by a name, it does what that name says: all of it, and nothing else.</p>' +
+    '<p>III. Call it politely, and call it by its whole name.</p>' +
+    '<p>IV. One name is never said: the first.</p>' +
+    '<h5>How a true name is built</h5>' + DIAGRAM +
+    '<p>A <u>root</u> says what the name has to do with: carrying, water, light.</p>' +
+    '<p>A <u>prefix</u>, in front, says which way or how: in, out, back, across.</p>' +
+    '<p>A <u>suffix</u>, at the end, says what kind of name it is: the one that does it, the doing of it, or a quality that a thing has. Call a lamp by a name that means &ldquo;can be lit&rdquo;, and it will agree with you, and do nothing.</p>' +
+    '<p>The parts are those of the Old Tongue. The outside world still uses them in its own words, and those words prove what a part means.</p>';
+  function rows(list) { return list.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + ' <i>' + r[2] + '</i></td></tr>'; }).join(''); }
+  var LIST = '<h4>The Gate List</h4><h5>the parts a visitor needs first, cut on the right-hand pillar, with words of the outside world that prove them</h5>' +
+    '<div class="cols"><table><tr><th colspan="2">Prefixes: at the front</th></tr>' + rows([
+      ['RE-', 'back; again', 'return, rebuild'], ['PRO-', 'forward, forth', 'progress'], ['IN-', 'in, into, on', 'include'],
+      ['IL-', 'IN- before L', 'illuminate (put light on)'], ['', 'take care: another IN- means not', 'invisible, illegal'],
+      ['EX-, E-', 'out (EF- before F)', 'exit, emit, effect'], ['DE-', 'down; away', 'descend, depart'], ['SUB-', 'under', 'submarine'],
+      ['TRANS-', 'across', 'transatlantic'], ['CON-, COM-', 'with, together', 'connect, combine'], ['AT-, AD-', 'to, towards', 'attend, advance'],
+      ['DIS-', 'apart; badly', 'disagree, dislike'], ['PER-', 'through', 'perforate'], ['PARA-', 'against, keeping off', 'parachute']]) +
+    '</table><table><tr><th colspan="2">Roots: in the middle</th></tr>' + rows([
+      ['TRACT', 'pull, draw', 'tractor, attract'], ['PORT', 'carry', 'portable, porter'], ['DUCT', 'lead', 'aqueduct, viaduct'],
+      ['JECT', 'throw', 'eject, inject'], ['FLU', 'flow', 'fluid, fluent'], ['CURR', 'run', 'current, occur'], ['SURG', 'rise', 'surge, source'],
+      ['AQU', 'water', 'aquatic'], ['TERR', 'earth, land', 'terrain, terrestrial'], ['SOL', 'sun', 'solar, solstice'],
+      ['', 'not SOLUS, alone', 'solo, solitary'], ['MAR', 'sea', 'marine'], ['LUC, LUMIN', 'light', 'lucid, illuminate'], ['NOCT', 'night', 'nocturnal']]) +
+    '<tr><th colspan="2">Suffixes: at the end, the kind of name</th></tr>' + rows([
+      ['-OR, -ER', 'the one that does it', 'actor, painter'], ['-ION', 'the doing of it', 'action, invention'], ['-ABLE, -IBLE', 'can be done', 'readable, visible'],
+      ['-ENT, -ANT', 'doing it, or being it', 'fluent, vacant'], ['-OUS', 'full of', 'famous, joyous'], ['-IVE', 'tending to', 'active, creative'],
+      ['-AL', 'to do with', 'natural, musical'], ['-ARIUM', 'a place for', 'planetarium']]) + '</table></div>';
+
+  /* ---------- the calling-board ---------- */
+  var TILES = {
+    pre: [['re', 'RE'], ['in', 'IN'], ['de', 'DE'], ['ex', 'EX'], ['trans', 'TRANS'], ['con', 'CON'], ['sub', 'SUB'], ['pro', 'PRO'], ['at', 'AT']],
+    root: [['tract', 'TRACT'], ['port', 'PORT'], ['duct', 'DUCT'], ['ject', 'JECT'], ['flu', 'FLU']],
+    suf: [['or', 'OR'], ['er', 'ER'], ['ion', 'ION'], ['able', 'ABLE'], ['ive', 'IVE']]
+  };
+  var MEAN = { re: 'back', 'in': 'in', de: 'down, away', ex: 'out', trans: 'across', con: 'with, together', sub: 'under', pro: 'forward', at: 'towards',
+    tract: 'pull', port: 'carry', duct: 'lead', ject: 'throw', flu: 'flow', or: 'the one that does it', er: 'the one that does it', ion: 'the doing of it', able: 'can be done', ive: 'tending to' };
+  var ROWS = [
+    ['bridge', 'The drawbridge', 'must carry you across the ditch'],
+    ['bar', 'The bar', 'must pull itself back'],
+    ['gate', 'The gate', 'must lead you in']
+  ];
+  /* what each thing does when it hears a root that is not its own */
+  var ROOT_SAYS = {
+    bridge: { tract: 'strains at its chains as if somebody were pulling it, and stays up. Nobody is pulling.', duct: 'tries to lead you somewhere, and has no idea where. A drawbridge does not lead.',
+      ject: 'jerks forward as if to throw something into the ditch, and you are glad it has nothing to throw.', flu: 'tries to flow, which is not easy for oak.' },
+    bar: { port: 'tries to carry something. There is nothing to carry.', duct: 'tries to lead, and points along the wall.', ject: 'jerks as if to throw something, and stays where it is.',
+      flu: 'goes soft for a moment, like water, and then hard again.' },
+    gate: { tract: 'pulls at its own hinges.', port: 'tries to carry you, and cannot pick you up.', ject: 'tries to throw you, which a gate is not allowed to do to a visitor.', flu: 'ripples like a curtain, and is a gate again.' }
+  };
+  /* the ones the outside world has a word for */
+  var PRE_SAYS = {
+    'bridge.ex': 'EXPORTER: the one that carries out. The bridge would carry you OUT of a city you have not come into. (In the outside world, an exporter sends goods abroad.)',
+    'bridge.in': 'IMPORTER: the one that carries in. The bridge does not go into the city. It goes over the ditch, and that is all it does.',
+    'bridge.re': 'REPORTER: the one that carries back. The bridge thinks about carrying you back down to the harbour, and you are glad when it decides not to. (In the outside world, a reporter carries back the news.)',
+    'bridge.sub': 'SUPPORTER: the one that carries from under. The bridge holds itself up very proudly, and stays up. (In the outside world, a supporter holds up a team.)',
+    'bridge.de': 'DEPORTER: the one that carries away. The bridge seems to think you are being sent away from Utter. You are not.',
+    'bar.ex': 'EXTRACTOR: the one that pulls out. The bar tries to pull itself out of its iron loops, and sticks.',
+    'bar.de': 'DETRACTOR: the one that pulls down. The bar sags in the middle, as if somebody had said something unkind about it. (In the outside world, a detractor pulls other people down, with words.)',
+    'bar.at': 'ATTRACTOR: the one that pulls towards. The bar pulls itself towards you, and the whole gate creaks.',
+    'bar.pro': 'PROTRACTOR: the one that draws forward. The bar draws itself forward a little, as if it wanted to measure an angle. (In the outside world, a protractor does.)',
+    'bar.con': 'CONTRACTOR: the one that pulls together. The bar pulls the two leaves of the gate even tighter together. (In the outside world, a contractor is a builder.)',
+    'bar.sub': 'SUBTRACTOR: the one that pulls from under, takes away. A little rust comes off the bar. That is all it can take away.',
+    'gate.con': 'CONDUCTOR: the one that leads together. The gate gathers you and Mr Mottram together, very politely, and leads nobody anywhere. (In the outside world, a conductor leads an orchestra.)',
+    'gate.re': 'RE-: back. The gate would lead you back, down the road to the harbour. No.',
+    'gate.ex': 'EX-: out. The gate would lead you out of a city that you are not in yet.',
+    'gate.de': 'DE-: down, away. The gate would lead you away. You have only just arrived.'
+  };
+  var SUF_SAYS = {
+    ion: ' shivers, as if somebody had said the word for the doing of it, somewhere near. A name for the doing is not a name for the one that does it.',
+    able: ' agrees that it could be done. It does not move. That is a quality, and a quality does not do anything.',
+    ive: ' looks as if it might, one day. -IVE is a habit, not a job.'
+  };
+  function said(k) { return ER.flag('g-' + k); }
+  function readAll() { return said('rules') && said('list') && said('note'); }
+  function hints() {
+    if (nextFile) return ['go', ['The gate is open. Go in, and up Lamplighters&rsquo; Street.']];
+    if (readAll() && said('per')) return ['board', [
+      'Three names, each a front, a root and an end. Your letter says what each thing must do; the Gate List on the right-hand pillar gives the parts.',
+      'For each one, find a root for the action (carry? pull? lead?), a front for the way it goes (across? back? in?), and an end that makes it the one that does it: not a quality, and not the doing.',
+      'Carry is PORT, pull is TRACT, lead is DUCT. Across is TRANS-, back is RE-, in is IN-. The one that does it ends -OR or -ER, as the outside world spells it: porter, tractor, conductor.'
+    ]];
+    return ['start', [
+      'Read your letter again (it is in your notebook), the two carved pillars either side of the gate, and the note pinned to the post by the ditch.',
+      'The man with the green umbrella is waiting for you: talk to him. Then go to the calling-board on its post, to the right of the gate.'
+    ]];
+  }
+  function isBusy() { return busy; }
+  function done() { return ER.flag('g-done') || {}; }
+  function paint() {
+    var d = done();
+    sc.classList.toggle('br', !!d.bridge); sc.classList.toggle('bar', !!d.bar); sc.classList.toggle('open', !!d.gate);
+    $('#board').setAttribute('class', 'hot' + (readAll() && said('per') && !nextFile ? ' nudge' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((d.bridge ? 1 : 0) + (d.bar ? 1 : 0) + (d.gate ? 1 : 0), 3);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The gate of Utter stands open. Lamplighters&rsquo; Street climbs away into the dark.'); return; }
+    if (said('letter')) { ER.say('The Gate of Utter, shut. The calling-board is on its post, to the right.'); return; }
+    busy = true;
+    ER.narrate([
+      'A wall of pale stone, battlements, and a round-topped gate with its drawbridge pulled up tight against it. Below you, on the left, the sea, and the lights of the harbour you came from.',
+      'Above the wall the city climbs its hill in roofs and windows, up to a building on a crag with three lit windows, and higher still a thread of stone steps going up into the dark.',
+      'You take out the letter and read it again by the light of the lanterns on the wall.'
+    ], function () {
+      busy = false;
+      ER.read({ html: LETTER, cls: 'rhand', clue: { id: 'g-letter', title: 'The Namewright’s letter', kind: 'A letter' },
+        done: function () { ER.flag('g-letter', 1); NM.learn(['Namewright', 'apprentice']); paint(); } });
+    });
+  }
+  function readDoc(id, html, cls, title, kind, words) {
+    if (busy) return;
+    ER.read({ html: html, cls: cls, clue: { id: 'g-' + id, title: title, kind: kind },
+      done: function () { ER.flag('g-' + id, 1); if (words) NM.learn(words); paint(); } });
+  }
+  $('#pilL').addEventListener('click', function () { readDoc('rules', RULES, 'carved', 'The Rules of Utter, and how a name is built', 'The left-hand pillar', ['prefix', 'root', 'suffix', 'Old Tongue']); });
+  $('#pilR').addEventListener('click', function () { readDoc('list', LIST, 'carved', 'The Gate List: the first parts', 'The right-hand pillar'); });
+  $('#note').addEventListener('click', function () { readDoc('note', NOTE, 'clerk', 'The clerk’s note on the winch post', 'A note', ['clerk', 'Register']); });
+  $('#peregrine').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (said('per')) {
+      ER.say(nextFile ? '&ldquo;Carried across, pulled back, led in,&rdquo; says Mr Mottram. &ldquo;You will make a Namewright yet. Up the street.&rdquo;' : '&ldquo;The pillars,&rdquo; says Mr Mottram, &ldquo;and then the board. I should start with the bridge: it has been up since dusk, and it is in a mood.&rdquo;');
+      return;
+    }
+    ER.talk({
+      who: CAST.peregrine.who, role: CAST.peregrine.role, face: FACE('peregrine'),
+      lines: [
+        { note: 'A round man in a bottle-green coat is waiting by the ditch under a large green umbrella, though it is not raining. On his coat is a brass badge with a 9 on it.',
+          a: '&ldquo;You must be the apprentice. Mottram: Peregrine Mottram, Licensed Guide Number Nine of the City of Utter. The Namewright engaged me to meet you and show you round. She did not say you would be so young; but then, I am told she was young once.&rdquo;' },
+        { q: 'Can&rsquo;t you open the gate for me?', a: '&ldquo;Certainly I could. But the Gate likes to be asked by the one who is coming in: otherwise how would it know that you can? Her letter tells you what each thing must do. The pillars give you the parts. And I shall tell you anything else you like. I know a great deal about words.&rdquo;' },
+        { q: 'Is the Namewright coming?', a: '&ldquo;She was to meet you here herself, at nine. Then the clerk came down and pinned that note to the post. Taken ill, it says: not hurt. Mr Merridew writes notes the way other men breathe.&rdquo;' },
+        { q: 'Why is the city called Utter?', a: '&ldquo;Two reasons, and both of them true. To utter a thing is to say it aloud; and utter, as in utter nonsense, means complete. The founders liked a joke. One joke. They made it four hundred years ago, and nobody has dared to make another since.&rdquo;' }
+      ],
+      clue: { id: 'peregrine1', title: 'Mr Mottram at the ditch', kind: 'What he said' }, last: 'Thank you',
+      done: function (ok) { if (ok) { ER.flag('g-per', 1); NM.learn(['guide', 'utter']); paint(); } }
+    });
+  });
+  NM.thing('#sea', null, 'The sea, a long way down, and the harbour lights where the boat left you. A gull is complaining about something.', isBusy);
+  NM.thing('#moon', null, 'A new moon, very thin. The last night of the year in Utter is always a dark one.', isBusy);
+  NM.thing('#hall', null, 'A building on a crag, with three tall lit windows. Somebody up there is still working.', isBusy);
+  NM.thing('#stairT', null, 'A thread of stone steps climbing the top of the hill, with something at each step that catches the starlight like water. Or would, if there were more of it.', isBusy);
+  NM.thing('#ditch', null, 'A ditch of black water between the road and the wall. It smells of moss. You would not like to swim it.', isBusy);
+  NM.thing('#lampG', null, function () { return done().gate ? 'The lamp over the arch has lit itself, as if pleased.' : 'An iron lamp over the arch, dark. It is not one of the three things in your letter.'; }, isBusy);
+  NM.thing('#barG', null, function () { return done().bar ? 'The bar has slid back into its slot in the wall.' : 'Behind the drawbridge, if you could see it, an iron bar lies across the gate. Your letter says it must pull itself back.'; }, isBusy);
+  $('#brUp').addEventListener('click', function (e) { if (busy) return; e.stopPropagation(); ER.say('The drawbridge, pulled up tight against the gate on its two chains. It looks as if it has been asked for things before, and not always politely.'); });
+  $('#board').addEventListener('click', function (e) {
+    if (busy) return;
+    e.stopPropagation();
+    if (nextFile) { ER.say('The calling-board. Three names on it, every one of them answered.'); return; }
+    if (!readAll()) { ER.say('A bronze board with three rows of empty spaces. Before you build anything, read both pillars and the note on the post.'); return; }
+    if (!said('per')) { ER.say('The man with the green umbrella clears his throat, as if he would like to be introduced first.'); return; }
+    openBoard();
+  });
+
+  function word(p, r, s) {
+    if (!p || !r || !s) return '';
+    var P = p.toUpperCase(), R = r.toUpperCase();
+    if (p === 'ex' && r === 'ject') P = 'E';
+    if (p === 'in' && r === 'port') P = 'IM';
+    if (p === 'sub' && r === 'port') P = 'SUP';
+    if (p === 'con' && r === 'port') P = 'COM';
+    if (p === 'at' && r !== 'tract') P = 'AD';
+    return P + R + s.toUpperCase();
+  }
+  function openBoard() {
+    var box = ER.el('div', 'pz cb'), st = ER.flag('g-board') || {}, held = null, s;
+    s = '<h4>The calling-board</h4><h5>Build each name from a front, a root and an end: click a tile, then a space. Then call it, politely.</h5><div class="cb-wrap"><div>';
+    ROWS.forEach(function (r) {
+      s += '<div class="cb-row" data-row="' + r[0] + '"><div class="cb-what"><b>' + r[1] + '</b><i>' + r[2] + '</i></div>' +
+        '<span class="nslot" data-row="' + r[0] + '" data-k="pre"></span><span class="nslot" data-row="' + r[0] + '" data-k="root"></span><span class="nslot" data-row="' + r[0] + '" data-k="suf"></span>' +
+        '<div class="cb-side"><span class="cb-word"></span><button type="button" class="cb-call" data-call="' + r[0] + '">Call it, please</button></div></div>';
+    });
+    s += '</div><div><div class="ntray" id="cb-pre"><h6>FRONTS</h6></div><div class="ntray" id="cb-root"><h6>ROOTS</h6></div><div class="ntray" id="cb-suf"><h6>ENDS</h6></div></div></div>' +
+      '<div class="foot"><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    ['pre', 'root', 'suf'].forEach(function (k) {
+      TILES[k].forEach(function (t) { box.querySelector('#cb-' + k).appendChild(NM.tile(t[0], k === 'root' ? 'root' : k, t[1])); });
+    });
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function tileIn(slot, id, k) {
+      slot.innerHTML = ''; if (!id) return;
+      var t = TILES[k].filter(function (x) { return x[0] === id; })[0];
+      slot.appendChild(NM.tile(id, k, t[1]));
+    }
+    function paintRows() {
+      var d = done();
+      ROWS.forEach(function (r) {
+        var o = st[r[0]] || {}, row = box.querySelector('.cb-row[data-row="' + r[0] + '"]');
+        ['pre', 'root', 'suf'].forEach(function (k) { tileIn(row.querySelector('.nslot[data-k="' + k + '"]'), o[k], k); });
+        row.querySelector('.cb-word').textContent = d[r[0]] ? word(o.pre, o.root, o.suf) + ': it answered' : word(o.pre, o.root, o.suf);
+        row.classList.toggle('done', !!d[r[0]]);
+      });
+    }
+    function hold(t) { if (held) held.classList.remove('held'); held = t; if (t) t.classList.add('held'); }
+    box.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('.ntray .ntile') : null, sl, row, k, call;
+      if (t) { hold(held === t ? null : t); NM.sfx.tile(); return; }
+      sl = e.target.closest ? e.target.closest('.nslot') : null;
+      if (sl) {
+        row = sl.getAttribute('data-row'); k = sl.getAttribute('data-k');
+        if (done()[row]) return;
+        st[row] = st[row] || {};
+        if (held) {
+          if (held.getAttribute('data-k') !== k) { msg('That space is for ' + (k === 'pre' ? 'a front' : k === 'root' ? 'a root' : 'an end') + '. A ' + (held.getAttribute('data-k') === 'pre' ? 'front' : held.getAttribute('data-k') === 'root' ? 'root' : 'end') + ' goes in its own place.'); return; }
+          st[row][k] = held.getAttribute('data-t'); hold(null);
+        } else if (st[row][k]) delete st[row][k];
+        else return;
+        NM.sfx.tile(); ER.flag('g-board', st); box.querySelectorAll('.nslot.bad').forEach(function (n) { n.classList.remove('bad'); }); paintRows();
+        return;
+      }
+      call = e.target.closest ? e.target.closest('.cb-call') : null;
+      if (call) callRow(call.getAttribute('data-call'));
+    });
+    function bad(row, k) { box.querySelector('.nslot[data-row="' + row + '"][data-k="' + k + '"]').classList.add('bad'); }
+    function callRow(row) {
+      var o = st[row] || {}, name = ROWS.filter(function (r) { return r[0] === row; })[0][1], d = done(), w;
+      if (!o.pre || !o.root || !o.suf) { msg('<b>' + name + '.</b> A name needs all three parts: a front, a root and an end. Rule III: call it by its whole name.'); return; }
+      w = word(o.pre, o.root, o.suf);
+      if (!ER.check(row + 'R', o.root)) {
+        NM.miss(); bad(row, 'root');
+        msg('<b>' + w + '.</b> ' + name + ' hears ' + o.root.toUpperCase() + ', ' + MEAN[o.root] + ', and ' + ((ROOT_SAYS[row] || {})[o.root] || 'does nothing at all. That is not what it is for.') + ' <i>It did not answer.</i>');
+        return;
+      }
+      if (!ER.check(row + 'P', o.pre)) {
+        NM.miss(); bad(row, 'pre');
+        msg('<b>' + w + '.</b> ' + (PRE_SAYS[row + '.' + o.pre] || o.pre.toUpperCase() + '-: ' + MEAN[o.pre] + '. ' + name + ' tries to go that way, and it is not the way your letter says.') + ' <i>It did not answer.</i>');
+        return;
+      }
+      if (o.suf !== 'or' && o.suf !== 'er') {
+        NM.miss(); bad(row, 'suf');
+        msg('<b>' + w + '.</b> ' + name + SUF_SAYS[o.suf] + ' <i>It did not answer.</i>');
+        return;
+      }
+      if (!ER.check(row + 'S', o.suf)) {
+        bad(row, 'suf');
+        msg('<b>' + w + '.</b> ' + name + ' stirs: you meant the right thing. But it wants its whole name spelt as the outside world spells it. Is it -OR, as in tractor and conductor, or -ER, as in porter?');
+        return;
+      }
+      if (row === 'gate' && !d.bar) { msg('<b>' + w + '.</b> The gate leans towards you, willing, and stops. Its bar is still across it.'); return; }
+      if (row === 'gate' && !d.bridge) { msg('<b>' + w + '.</b> The gate would lead you in gladly, but you are on the wrong side of the ditch.'); return; }
+      d[row] = 1; ER.flag('g-done', d); NM.sfx.hum();
+      if (row === 'bridge') { NM.sfx.chain(); msg('<b>' + w + '.</b> The chains run out with a long rattle, and the drawbridge comes down across the ditch with a thump that you feel in your feet. Across, carry, the one that does it.'); }
+      if (row === 'bar') { NM.sfx.stone(); msg('<b>' + w + '.</b> Somewhere behind the gate, iron grinds on stone, and stops. Back, pull, the one that does it.'); }
+      paintRows(); paint();
+      if (row === 'gate') {
+        nextFile = ER.exit(['transporter-retractor-inductor'], { wait: true });
+        if (!nextFile) { msg('The gate shivers and stays shut. Something is wrong with this lock: tell your teacher.'); d.gate = 0; ER.flag('g-done', d); return; }
+        ER.flag('g-file', nextFile); busy = true;
+        msg('<b>' + w + '.</b> In, lead, the one that does it. The gate draws a breath, and opens.');
+        setTimeout(function () { ER.closeAll(); solvedNow(); }, 2400);
+      }
+    }
+    paintRows();
+    msg(done().bridge || done().bar ? 'The board remembers what has answered.' : 'Three things, three names. Nothing has answered yet.');
+    ER.open('ov-lock', box);
+  }
+  function solvedNow() {
+    NM.sfx.stone(); paint();
+    ER.narrate([
+      'The two oak leaves of the gate swing inwards, slowly. A smell of woodsmoke and wet stone comes out to meet you, and the lamp over the arch lights itself, as if it were pleased.',
+      'Beyond the gate a steep street climbs into the city between tall houses. There are lamps on iron brackets all the way up it. Not one of them is lit.',
+      '&ldquo;In the outside world,&rdquo; says Mr Mottram, &ldquo;a transporter is a lorry, a retractor is something a surgeon holds, and an inductor is a part inside a wireless. Here they are a bridge, a bar and a gate, and every one of them did exactly what you told it.&rdquo; He shakes out his umbrella. &ldquo;Shall we? Up the street.&rdquo;'
+    ], function () {
+      NM.mine('n-gate', 'Three names that answered', '<p>Drawbridge: TRANS&middot;PORT&middot;ER = across + carry + the one that does it.</p><p>Bar: RE&middot;TRACT&middot;OR = back + pull + the one that does it.</p><p>Gate: IN&middot;DUCT&middot;OR = in + lead + the one that does it.</p><p>The END says what kind of name: -ABLE is only a quality (can be), -ION is only the doing.</p>');
+      NM.learn(['transporter', 'retractor', 'inductor']);
+      busy = false; paint();
+    });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
