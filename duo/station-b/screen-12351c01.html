@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Big Screen · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ops.css">
+<style>
+  body{--bg:#0b1622;--accent:#ffd27a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,16,26,.95);--tc-ink:#f4f0e6;--cap-bg:rgba(8,18,30,.93);--panel:#101a26;--face-bg:#162231;--q-ink:#ffe2a8;--fade:#03070c;--hud-bg:rgba(8,18,30,.84)}
+  #live{opacity:0;transition:opacity 2.5s}
+  body.live #live{opacity:1}
+  body.live #map{opacity:.12;transition:opacity 2.5s}
+  .wave{animation:wave 1.4s ease-in-out infinite alternate;transform-origin:820px 196px}
+  @keyframes wave{from{transform:rotate(-14deg)}to{transform:rotate(18deg)}}
+  .clap{animation:clap .5s steps(2,end) infinite}
+  body:not(.live) .clap{animation:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="goldB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0c870"/><stop offset=".5" stop-color="#c08a2a"/><stop offset="1" stop-color="#f6da92"/></linearGradient>
+  <radialGradient id="screenGlow" cx="50%" cy="24%" r="60%"><stop offset="0" stop-color="#9fd4ff" stop-opacity=".25"/><stop offset="1" stop-color="#9fd4ff" stop-opacity="0"/></radialGradient>
+  <clipPath id="scr"><rect x="250" y="30" width="1100" height="380"/></clipPath>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0b1622"/>
+<rect x="-1000" y="-700" width="3600" height="1140" fill="#0f1d2c"/>
+<!-- the big screen -->
+<g id="big" class="hot"><rect x="240" y="20" width="1120" height="400" fill="#06101a" stroke="#2a3d52" stroke-width="8"/>
+  <g clip-path="url(#scr)"><g id="map"><path d="M250 290q137 -170 275 0t275 0t275 0t275 0" stroke="#ffd27a" stroke-width="3" fill="none" stroke-dasharray="8 6"/><circle cx="1010" cy="160" r="9" fill="#ff8a6a"/><circle cx="1004" cy="168" r="8" fill="#fff"/></g>
+    <g id="live"><rect x="250" y="30" width="1100" height="380" fill="#02040a"/><circle cx="800" cy="-1500" r="1700" fill="#2468a8"/><path d="M250 196Q800 140 1350 196" stroke="#ffa64a" stroke-width="8" fill="none"/><circle cx="1260" cy="80" r="40" fill="#fffbe8" opacity=".9"/>
+      <rect x="560" y="240" width="480" height="200" fill="url(#goldB)"/><rect x="640" y="270" width="320" height="140" fill="#a9ada6" stroke="#5c6267" stroke-width="3"/>
+      <g transform="translate(820 214)"><path d="M-12 10l-12 -58M12 10l14 -56" stroke="#e9eae4" stroke-width="22" stroke-linecap="round"/><rect x="-36" y="-66" width="26" height="16" rx="5" fill="#8a9096"/><rect x="16" y="-64" width="26" height="16" rx="5" fill="#8a9096"/>
+        <rect x="-40" y="-2" width="80" height="76" rx="14" fill="#c9ccc6"/><rect x="-32" y="4" width="64" height="74" rx="14" fill="#f2f3ee" stroke="#b8bdb5" stroke-width="3"/><rect x="-14" y="22" width="28" height="18" rx="3" fill="#e8562a"/>
+        <circle cx="0" cy="104" r="28" fill="#f2f3ee" stroke="#b8bdb5" stroke-width="3"/><circle cx="0" cy="106" r="18" fill="#d4a24a"/><path d="M-30 30l-52 14" stroke="#f2f3ee" stroke-width="16" stroke-linecap="round"/><circle cx="-86" cy="46" r="11" fill="#f2f3ee"/></g>
+      <g class="wave"><path d="M850 250l40 -50" stroke="#f2f3ee" stroke-width="16" stroke-linecap="round"/><circle cx="893" cy="196" r="12" fill="#f2f3ee"/></g>
+      <text x="270" y="62" font-family="Space Mono,monospace" font-weight="700" font-size="18" fill="#ff5a3a">&#9679; LIVE · MAST CAMERA · 15:21 GMT</text></g></g>
+  <text x="1350" y="408" font-family="Space Mono,monospace" font-weight="700" font-size="15" fill="#9fdcff" text-anchor="end">YARNSIDE · DATA 100 %</text></g>
+<!-- the room: rows of consoles, people standing -->
+<g fill="#1a2838"><path d="M-1000 470h3600v80h-3600z"/><path d="M-1000 640h3600v80h-3600z"/></g>
+<g fill="#3fa9d8" opacity=".5"><rect x="90" y="478" width="90" height="34"/><rect x="330" y="478" width="90" height="34"/><rect x="1150" y="478" width="90" height="34"/><rect x="1400" y="478" width="90" height="34"/><rect x="210" y="648" width="90" height="34"/><rect x="1280" y="648" width="90" height="34"/></g>
+<g fill="#0a1320" id="people"><circle cx="200" cy="452" r="26"/><path d="M160 520q40 -60 80 0z"/><circle cx="440" cy="440" r="24"/><path d="M402 520q38 -64 76 0z"/><circle cx="1180" cy="446" r="26"/><path d="M1140 520q40 -60 80 0z"/><circle cx="1420" cy="452" r="24"/><path d="M1382 520q38 -60 76 0z"/>
+  <g class="clap"><path d="M470 470l12 -14M486 470l-6 -16" stroke="#0a1320" stroke-width="8"/></g><g class="clap"><path d="M1210 478l12 -14M1226 478l-6 -16" stroke="#0a1320" stroke-width="8"/></g></g>
+<!-- your desk, your headset, and Flight beside you -->
+<rect x="-1000" y="740" width="3600" height="1000" fill="#222c38"/><path d="M-1000 740H2600" stroke="#3a4656" stroke-width="8"/>
+<g id="suitmon2" class="hot"><rect x="260" y="560" width="300" height="190" rx="6" fill="#0a121c" stroke="#3a4656" stroke-width="8"/><text x="280" y="596" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="18" fill="#9fdcff" letter-spacing="2">EV ONE · SUIT DATA</text>
+  <g font-family="Space Mono,monospace" font-weight="700" font-size="17" fill="#8ff0a8"><text x="290" y="640">SUIT  29.6 kPa</text><text x="290" y="670">O2    77 %</text><text x="290" y="700">BATT  41 %</text></g></g>
+<g id="headset" class="hot"><path d="M640 830q0 -80 70 -80t70 80" stroke="#30363c" stroke-width="11" fill="none"/><rect x="626" y="820" width="30" height="50" rx="9" fill="#30363c"/><rect x="764" y="820" width="30" height="50" rx="9" fill="#30363c"/></g>
+<g id="thandi" class="hot"><path d="M1180 900q10 -230 140 -240q130 10 140 240z" fill="#3b4250"/><rect x="1298" y="608" width="44" height="58" fill="#7a4b34"/><ellipse cx="1320" cy="556" rx="64" ry="74" fill="#8a5a3e"/>
+  <path d="M1250 564q-14 -108 70 -110q84 2 70 110q-6 -62 -70 -64q-64 2 -70 64z" fill="#2a2420"/><g fill="none" stroke="#c8ccd2" stroke-width="3"><circle cx="1296" cy="556" r="16"/><circle cx="1344" cy="556" r="16"/><path d="M1312 556h16"/></g>
+  <path d="M1300 600q20 10 40 0" stroke="#4a2418" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M1420 760h60l-6 80h-48z" fill="#e9e4d8"/><path d="M1480 776q26 4 20 30q-6 14 -20 12" stroke="#e9e4d8" stroke-width="8" fill="none"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#screenGlow)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Read It Back · mission control&rsquo;s part</small>The first picture since Tuesday.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p>Your partner&rsquo;s screen shows the same moment, from the foot of the mast.</p>
+  <h5>What you now know</h5>
+  <ul>
+    <li>An orbit four hundred kilometres up takes about ninety-two minutes: here about fifty-six minutes of day and thirty-six of night, so about sixteen sunrises a day.</li>
+    <li>A checklist works only in the right order: a hatch that opens inwards is held shut by the air until the gauge reads zero.</li>
+    <li>On a spacewalk you are always clipped on: clip the new tether before you unclip the old one, and tether every tool.</li>
+    <li>On the radio, numbers go digit by digit and every instruction is read back: one five and five zero were different handrails.</li>
+    <li>Left, right, top and bottom depend on where you are: upside down, a drawing&rsquo;s top left is your bottom right.</li>
+    <li>A torque stripe is a line of paint that breaks if a bolt turns.</li>
+    <li>A manual can be out of date. When the hardware and the page disagree, believe the hardware, and find out why.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the Ops log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Read It Back &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'duo', story: 'station-b', storyTitle: 'Read It Back', id: 'screen', no: 'V', title: 'The Big Screen',
+    go: 'Go back to your console',
+    intro: [
+      'Page 3-21 was printed in 2021. EV One read you the tag on the black cable, MOTOR · NEW 14.3.24 · M.S., and the records terminal found Marit Solberg&rsquo;s walk report of 14 March 2024: the new motor cable is black with one white stripe, and the old grey one is cut and capped. So J3 takes the black cable. With EV One upside down: J4, the white heater cable, at EV One&rsquo;s top left; J3 at the top right; J2, two blue stripes, at the bottom left; J1, the thick cable with the red band, at the bottom right. Four green lights.',
+      'It is sixteen minutes past three, GMT. Yarnside rises at 15:20.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {},
+    hints: function () { return ER.flag('b5-done') ? null : ['end', ['Nothing to solve here. Watch the big screen.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('b5-done')) { busy = false; document.body.classList.add('live'); finish(true); return; }
+    ER.narrate([
+      'Back in the Ops Room everybody is looking at the big screen, although there is nothing on it yet but the map, and the white dot coming out of the night half of the world.',
+      '15:18: sunrise, up there. 15:20: the white dot reaches the red dot of Yarnside. For a long moment nothing happens at all.'
+    ], function () {
+      document.body.classList.add('live');
+      setTimeout(function () {
+        ER.narrate([
+          'Then the screen for the suit, which has said NO DATA all afternoon, fills with numbers. The big screen goes white, then blue, and then it is a picture: the foot of the mast in hard gold sunlight, and beside it, upside down, a person in a white suit, waving.',
+          '&ldquo;Well,&rdquo; says Flight. &ldquo;That is the first picture this room has seen since Tuesday.&rdquo; Somebody at the back starts to clap, and stops, embarrassed, and then everybody does.',
+          'Flight leans over to you. &ldquo;Ask for the read-back,&rdquo; she says. &ldquo;Then bring them home.&rdquo;',
+          'EV One reads it back: dish locked, panel closed, coming home. &ldquo;And the spare box?&rdquo; Flight takes your microphone for a moment. &ldquo;Bring it home. We will keep it for when something really breaks.&rdquo;',
+          'She gives the microphone back. &ldquo;You can say &lsquo;over&rsquo; if you like,&rdquo; she says. &ldquo;Nobody does any more. But today you can.&rdquo;'
+        ], function () { busy = false; ER.flag('b5-done', 1); finish(false); });
+      }, 2600);
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = OP.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From GO to the first picture: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    ER.glossIn($('#done'), 'li');
+    $('#done').classList.add('on');
+    OP.card([['Ask your partner', ['&ldquo;What did it look like out there when the sun came up?&rdquo;', '&ldquo;Which moment was the hardest for you?&rdquo;']]]);
+    if (quick) ER.say('The Ops Room, at the pass. On the big screen, EV One is waving.');
+  }
+  OP.thing('#big', null, function () { return busy ? null : 'The live picture from the mast camera: EV One at the foot of the mast, waving, with the morning coming across the Earth behind.'; }, isBusy);
+  OP.thing('#suitmon2', null, function () { return busy ? null : 'Suit data, at last: suit pressure 29.6, oxygen 77 per cent, battery 41 per cent. Plenty for the long way home along the truss.'; }, isBusy);
+  OP.thing('#thandi', null, function () { return busy ? null : '&ldquo;I am going to put the kettle on,&rdquo; says Flight, &ldquo;and then I am going to print Rev G of the egress checklist, and then I am going to ring a potato farmer.&rdquo;'; }, isBusy);
+  OP.thing('#headset', null, function () { return busy ? null : 'Your headset. The voice in it has been in your ear since ten to two. You know it better than some voices you have known for years.'; }, isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the records of Vesper Flight Control</h4><h3>The Ops log</h3>' +
+      '<p>Flight wants the walk written down from the Ops Room, with times, in the order things happened.</p>' +
+      '<p><b>A</b> Write the log in 60 to 90 words. Begin: &ldquo;13:58 EV One went out of the hatch.&rdquo; Use at least five of these: at, by, until, after, before, then, once, because, so.<br>' +
+      '<b>B</b> Or, with your partner: one of you gives instructions for a job you both know (making a cup of tea, packing a school bag), one step at a time, and the other reads each step back. Write down the ten steps, in order.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

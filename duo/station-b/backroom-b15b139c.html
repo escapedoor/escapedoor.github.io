@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Back Room · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ops.css">
+<style>
+  body{--bg:#3c4638;--accent:#b8f08a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,22,14,.95);--tc-ink:#eef4e6;--cap-bg:rgba(18,24,16,.93);--panel:#141c12;--face-bg:#162231;--q-ink:#d2f5b0;--fade:#050704;--hud-bg:rgba(18,24,16,.84)}
+  .tube{animation:tube 6s steps(1,end) infinite}
+  @keyframes tube{0%,90%{opacity:1}91%{opacity:.4}92%{opacity:1}95%{opacity:.6}96%{opacity:1}}
+  .crt{animation:crt 3s steps(3,end) infinite}
+  @keyframes crt{50%{opacity:.82}}
+  .term{padding:18px 22px 6px;background:#071208;color:#8ff0a8;font-family:'Space Mono',monospace}
+  .term h5{margin:0 0 6px;font-size:16px;letter-spacing:.14em;font-weight:700}
+  .term p{margin:0 0 12px;font-size:14px;line-height:1.5;color:#b8f5c4}
+  .dials{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}
+  .dial{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .dial small{font-size:12px;letter-spacing:.16em;color:#6ad08a}
+  .dial b{display:block;min-width:84px;text-align:center;font-size:30px;line-height:40px;background:#0c1f10;border:1px solid #2a6a3a;color:#c8ffd4}
+  .dial button{width:84px;height:26px;border:1px solid #2a6a3a;color:#8ff0a8;font-size:12px}
+  .dial button:hover{background:#12301a}
+  .chg{padding:16px 20px 4px;background:#f4ecc8;color:#2a2410;font-family:'Space Mono',monospace}
+  .chg h5{margin:0 0 4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:.16em;color:#8a5a08}
+  .chg p{margin:6px 0 8px;font-family:'EB Garamond',serif;font-size:18px}
+  .chg button{display:block;width:100%;text-align:left;margin:0 0 6px;padding:8px 12px;border:1px solid #a89a60;color:#2a2410;font-family:'EB Garamond',serif;font-size:18px}
+  .chg button.on{background:#2a2410;color:#f4ecc8}
+  .bx.chgbox .bx-foot{background:#f4ecc8;color:#2a2410}
+  .bx.chgbox .pmsg b{color:#8a5a08}
+  .bx.chgbox .btn{--accent:#8a5a08;color:#8a5a08;border-color:#8a5a08}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="tubeL" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#f4ffe8" stop-opacity=".3"/><stop offset="1" stop-color="#f4ffe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigB" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#3c4638"/>
+<rect x="-1000" y="-700" width="3600" height="1340" fill="#56604f"/>
+<g stroke="#4c5646" stroke-width="2"><path d="M-1000 100H2600M-1000 300H2600M-1000 500H2600M-400 -700V640M200 -700V640M800 -700V640M1400 -700V640M2000 -700V640"/></g>
+<rect class="tube" x="500" y="10" width="600" height="18" rx="9" fill="#f4ffe8"/>
+<!-- the coffee machine, out of order since 2019 -->
+<g id="coffee" class="hot"><rect x="110" y="200" width="270" height="480" rx="14" fill="#2e2a26" stroke="#141210" stroke-width="5"/><rect x="140" y="236" width="210" height="110" rx="6" fill="#141210"/><text x="245" y="300" class="sm" font-size="20" fill="#3a4a3a">- - - -</text>
+  <g fill="#6a625a"><circle cx="170" cy="390" r="16"/><circle cx="220" cy="390" r="16"/><circle cx="270" cy="390" r="16"/><circle cx="320" cy="390" r="16"/></g><rect x="190" y="470" width="110" height="130" fill="#141210"/><path d="M230 470v20h30v-20" fill="#6a625a"/>
+  <path d="M352 560l-30 20 30 20" stroke="#5a524a" stroke-width="4" fill="none"/>
+  <g transform="translate(0 214) rotate(-7 245 300)"><rect x="150" y="250" width="190" height="96" fill="#fbf6e4"/><text x="245" y="286" class="sv" font-size="27" fill="#b3261c">OUT OF ORDER</text><text x="245" y="314" font-family="Caveat,cursive" font-size="21" fill="#2a2410" text-anchor="middle">since 2019.</text><text x="245" y="336" font-family="Caveat,cursive" font-size="21" fill="#2a2410" text-anchor="middle">Do not kick. T.W.</text></g>
+  <path d="M110 220q40 40 0 90" stroke="#cfd6c8" stroke-width="1.5" fill="none" opacity=".6"/><path d="M110 240q20 10 34 40M110 270q16 -4 30 10" stroke="#cfd6c8" stroke-width="1" fill="none" opacity=".5"/></g>
+<!-- grey boxes of old walk reports -->
+<g id="boxes" class="hot"><path d="M430 360h480" stroke="#3a3026" stroke-width="14"/><g fill="#9aa196" stroke="#5a6056" stroke-width="3"><rect x="440" y="200" width="140" height="160"/><rect x="600" y="200" width="140" height="160"/><rect x="760" y="200" width="140" height="160"/></g>
+  <g fill="#f6f4ec"><rect x="470" y="240" width="80" height="40"/><rect x="630" y="240" width="80" height="40"/><rect x="790" y="240" width="80" height="40"/></g>
+  <g font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#2a2410" text-anchor="middle"><text x="510" y="258">WALKS</text><text x="510" y="274">2016-19</text><text x="670" y="258">WALKS</text><text x="670" y="274">2020-23</text><text x="830" y="258">WALKS</text><text x="830" y="274">2024-</text></g></g>
+<!-- the records terminal -->
+<g id="terminal" class="hot"><rect x="960" y="250" width="360" height="300" rx="20" fill="#cfc8b4" stroke="#8a826e" stroke-width="5"/><rect x="990" y="280" width="300" height="220" rx="14" fill="#071208"/>
+  <g class="crt" font-family="Space Mono,monospace" font-weight="700" fill="#8ff0a8"><text x="1010" y="318" font-size="16">RECORDS</text><text x="1010" y="344" font-size="13">WALK REPORTS</text><text x="1010" y="380" font-size="13">SEARCH BY DATE:</text><text x="1010" y="406" font-size="15">__ / ___ / ____</text><rect x="1010" y="440" width="12" height="18"/></g>
+  <rect x="1000" y="560" width="280" height="40" rx="6" fill="#bdb6a2"/></g>
+<!-- a window into the Ops Room -->
+<g id="window" class="hot"><rect x="1380" y="90" width="240" height="320" fill="#0b1622" stroke="#2a3026" stroke-width="14"/><rect x="1400" y="130" width="200" height="80" fill="#16455a" opacity=".7"/><circle cx="1500" cy="170" r="6" fill="#fff"/><path d="M1400 196q50 -40 100 0t100 0" stroke="#ffd27a" stroke-width="3" fill="none" stroke-dasharray="6 5"/></g>
+<!-- the table -->
+<rect x="-1000" y="660" width="3600" height="1100" fill="#6a5a44"/><path d="M-1000 660H2600" stroke="#8a7a5e" stroke-width="10"/>
+<g id="man" class="hot"><path d="M420 890l20 -190h200l10 190z" fill="#f3f1ea"/><path d="M650 890l-10 -190h200l20 190z" fill="#ebe8df"/><path d="M640 700v190" stroke="#b9b5a6" stroke-width="3"/>
+  <rect x="470" y="730" width="130" height="110" rx="10" fill="none" stroke="#2a3644" stroke-width="3"/><g fill="none" stroke="#2a3644" stroke-width="2"><circle cx="505" cy="765" r="16"/><circle cx="565" cy="765" r="16"/><circle cx="505" cy="815" r="16"/><circle cx="565" cy="815" r="16"/></g>
+  <g stroke="#5a6470" stroke-width="2"><path d="M670 740h150M670 760h130M670 780h146M670 800h110"/></g><text x="540" y="722" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#1d6aa8" text-anchor="middle">3-21</text></g>
+<g id="change" class="hot" transform="rotate(5 1010 780)"><rect x="920" y="700" width="190" height="150" fill="#f4ecc8" stroke="#a89a60" stroke-width="3"/><text x="1015" y="730" class="sv" font-size="17" fill="#8a5a08" letter-spacing="1">MANUAL CHANGE</text><text x="1015" y="750" class="sv" font-size="17" fill="#8a5a08" letter-spacing="1">NOTE</text><g stroke="#b9ad7a" stroke-width="2"><path d="M940 772h150M940 792h150M940 812h150M940 832h110"/></g></g>
+<g id="kettle" class="hot"><path d="M1200 860q-12 -90 60 -100q72 10 60 100z" fill="#c9ccc6"/><path d="M1318 790q34 0 24 46" stroke="#c9ccc6" stroke-width="10" fill="none"/><path d="M1204 800l-34 -22" stroke="#c9ccc6" stroke-width="10"/><path d="M1250 750q6 -24 0 -46M1272 748q6 -20 0 -40" stroke="#e6ece0" stroke-width="3" fill="none" opacity=".5"/></g>
+<g id="thandi" class="hot"><path d="M1380 900q10 -200 120 -210q110 10 120 210z" fill="#3b4250"/><rect x="1480" y="650" width="40" height="50" fill="#7a4b34"/><ellipse cx="1500" cy="606" rx="54" ry="62" fill="#8a5a3e"/>
+  <path d="M1440 614q-12 -90 60 -92q72 2 60 92q-6 -52 -60 -54q-54 2 -60 54z" fill="#2a2420"/><g fill="none" stroke="#c8ccd2" stroke-width="3"><circle cx="1480" cy="606" r="14"/><circle cx="1520" cy="606" r="14"/><path d="M1494 606h12"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#tubeL)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigB)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the big screen</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+  var MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+  ER.init({
+    theme: 'duo', story: 'station-b', storyTitle: 'Read It Back', id: 'backroom', no: 'IV', title: 'The Back Room',
+    go: 'Go into the back room',
+    intro: [
+      'You filed the report: B1 had the broken stripe. EV One saw it as the plain bolt at the bottom right, and EV One is upside down compared with the drawing, so EV One&rsquo;s bottom right is the drawing&rsquo;s top left: B1. The bolts that came out were B1, B2, B4 and B5, and the hinge bolts B3 and B6 stayed in. Behind the panel the box was fine, and the cable bracket was torn off its posts.',
+      'It is eighteen minutes to three, GMT. Up there, the sun has just gone down.'
+    ],
+    exit: {"next":"screen","w":{"8eb77d5e":"4bc92a0f"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b4-told') || {}; nextFile = ER.flag('b4-file') || null;
+  var seen = ER.flag('b4-seen') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b4-told', told); return true; }
+  function isBusy() { return busy; }
+  function anyReport() { return Object.keys(seen).length > 0; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.bracket ? 1 : 0) + (anyReport() ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) OP.card([['Tell your partner', ['&ldquo;Turn the rings and test. Tell me how many lights come on.&rdquo;']], ['Ask your partner', ['&ldquo;Read back all four plugs, please.&rdquo;']]]);
+    else if (anyReport()) OP.card([['Tell your partner', ['&ldquo;The black cable with the white stripe goes into J3. On your side, J3 is at your &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Read back all four, please: which plug, which socket?&rdquo;']]]);
+    else OP.card([['Ask your partner', ['&ldquo;EV One, Control. Describe every cable, please: thick or thin, colour, stripes.&rdquo;', '&ldquo;Is anything written on any of them? Read it to me exactly.&rdquo;']], ['Tell your partner', ['&ldquo;My page says J3 is the grey cable with a notch. Can you see it?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The change is filed. Tell EV One where each plug goes, remembering that EV One is upside down, and ask for a read-back. When EV One has four green lights, go back to the big screen for the pass.']];
+    if (!told.bracket) return ['page', [
+      'Page 3-21 of the manual, open on the table, shows the cable bracket: which cable goes in which socket. Read it, and ask EV One to describe all five cables. Something will not match.',
+      'EV One is still upside down, as at the panel: your drawing&rsquo;s top left is EV One&rsquo;s bottom right.'
+    ]];
+    if (!anyReport()) return ['find', [
+      'EV One can see a tag on one of the cables, with initials and a date on it. Ask EV One to read it to you exactly: the letters spelt out, the numbers digit by digit.',
+      'The records terminal finds walk reports by the date of the walk. The date on the tag is written the British way: day, then month, then year.',
+      'One four, three, two four: the fourteenth day of the third month of 2024. If you heard &ldquo;four&rdquo; instead of &ldquo;one four&rdquo;, you will find a different walk.'
+    ]];
+    return ['change', [
+      'Flight wants page 3-21 corrected before anything else goes on: the yellow change note on the table. Which cable does the report say goes into J3 now?',
+      'Then tell EV One where each plug goes. J1, top left on your drawing, is EV One&rsquo;s bottom right. Work out the other three the same way, and ask for a read-back.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Page 3-21 is corrected, in pen. Up there, EV One has the plugs.'); return; }
+    if (told.intro) { busy = false; ER.say('The back room: the terminal, the manual at page 3-21, the change note, the coffee machine.'); return; }
+    ER.narrate([
+      'Behind the Ops Room is the back room: a sink, a kettle, grey boxes of old walk reports, a records terminal, and the coffee machine, which wears a sign saying OUT OF ORDER and has worn it since 2019.',
+      '&ldquo;Page 3-21,&rdquo; says Flight, and puts the manual down on the table. &ldquo;The bracket. Four plugs. It should be the easy part.&rdquo; She does not sound as if she believes it.',
+      'Up there it is dark. EV One has two helmet lights, five cables, four sockets, and you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  $('#man').addEventListener('click', function () { if (!busy) OP.bracket(function () { if (tell('bracket')) paint(); }); });
+
+  /* ---------- the records terminal: reports found by date ---------- */
+  var d = ER.flag('b4-date') || { day: 1, mon: 0, year: 2026 };
+  $('#terminal').addEventListener('click', function () {
+    if (busy) return;
+    var api = OP.work({
+      cls: 'termbox',
+      html: '<div class="term"><h5>RECORDS · VESPER WALK REPORTS</h5><p>Search by the date of the walk. Set the day, the month and the year, then press SEARCH.</p><div class="dials">' +
+        '<div class="dial"><small>DAY</small><button type="button" data-k="day" data-d="1">&#9650;</button><b id="dd"></b><button type="button" data-k="day" data-d="-1">&#9660;</button></div>' +
+        '<div class="dial"><small>MONTH</small><button type="button" data-k="mon" data-d="1">&#9650;</button><b id="dm"></b><button type="button" data-k="mon" data-d="-1">&#9660;</button></div>' +
+        '<div class="dial"><small>YEAR</small><button type="button" data-k="year" data-d="1">&#9650;</button><b id="dy"></b><button type="button" data-k="year" data-d="-1">&#9660;</button></div></div></div>',
+      btn: [{ id: 'search', label: 'Search', fn: search }],
+      msg: 'The terminal hums. It was new in 2016.'
+    });
+    var box = api.box;
+    function show() { box.querySelector('#dd').textContent = d.day; box.querySelector('#dm').textContent = MON[d.mon]; box.querySelector('#dy').textContent = d.year; }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-k]') : null; if (!b) return;
+      var k = b.getAttribute('data-k'), s = +b.getAttribute('data-d');
+      if (k === 'day') d.day = ((d.day - 1 + s + 31) % 31) + 1;
+      if (k === 'mon') d.mon = (d.mon + s + 12) % 12;
+      if (k === 'year') d.year = Math.min(2026, Math.max(2016, d.year + s));
+      ER.flag('b4-date', d); OP.sfx.keys(); show();
+    });
+    function search(a) {
+      var key = d.year + '-' + ('0' + (d.mon + 1)).slice(-2) + '-' + ('0' + d.day).slice(-2), rep = OP.REPORTS[key];
+      OP.sfx.keys();
+      if (!rep) { ER.sfx.no(); a.msg('NO WALK ON ' + d.day + ' ' + MON[d.mon] + ' ' + d.year + '. The terminal beeps, sadly, as if it were its fault.'); return; }
+      seen[key] = 1; ER.flag('b4-seen', seen); paint();
+      ER.read({ html: rep, cls: 'rep', clue: { id: 'rep' + key, title: 'Walk report, ' + d.day + ' ' + MON[d.mon] + ' ' + d.year, kind: 'From the records' } });
+    }
+    show();
+  });
+
+  /* ---------- the change note: the lock ---------- */
+  var OPTS = [['grey', 'the grey cable, with a notch in its plug'], ['black', 'the black cable, with one white stripe'], ['white', 'the thin white cable'], ['blue', 'the thin cable with two blue stripes']];
+  var pick = ER.flag('b4-pick') || '';
+  $('#change').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The change note is filed, and page 3-21 is corrected in pen.'); return; }
+    if (!anyReport()) { ER.say('A blank manual change note. To change a page, you need to know what has changed, and where it says so. The tag on the cable is the place to start.', 6000); return; }
+    var api = OP.work({
+      cls: 'chgbox',
+      html: '<div class="chg"><h5>MANUAL CHANGE NOTE · MAST M3-B · PAGE 3-21</h5><p>Socket J3 (MOTOR) now takes:</p>' + OPTS.map(function (o) { return '<button type="button" data-o="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>',
+      btn: [{ id: 'filechg', label: 'File the change', fn: fileIt }],
+      msg: 'Flight is waiting with a pen, to write it on the page itself.'
+    });
+    var box = api.box;
+    function draw() { ER.$$('.chg button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-o') === pick); }); }
+    box.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button[data-o]') : null; if (!b) return; pick = b.getAttribute('data-o'); ER.flag('b4-pick', pick); OP.sfx.pen(); draw(); });
+    function fileIt(a) {
+      if (!pick) { ER.sfx.no(); a.msg('Choose one first.'); return; }
+      var f = ER.exit([pick], { wait: true });
+      if (f) {
+        nextFile = f; ER.flag('b4-file', f);
+        a.msg('Flight writes on page 3-21 in blue pen: J3 · BLACK cable, one white stripe (since 14 March 2024). Then she signs it, and dates it, and underlines it twice.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            '&ldquo;There,&rdquo; says Flight. &ldquo;Changed. Two and a half years late, in biro. Marit will be very pleased with me, when she gets out of her field.&rdquo;',
+            '&ldquo;Now tell EV One where all four go. Remember which way up EV One is. And ask for the read-back: I want to hear every plug before anybody turns a ring.&rdquo;'
+          ], function () { busy = false; paint(); });
+        }, 2600);
+        return;
+      }
+      ER.sfx.no();
+      a.msg(pick === 'grey' ? '&ldquo;The grey one?&rdquo; says Flight. &ldquo;That is what the page says already. Is it what EV One can see? What does the newest report say?&rdquo;'
+        : pick === 'white' ? '&ldquo;The thin white cable is the heater, and page 3-21 already says where the heater goes,&rdquo; says Flight. &ldquo;Read the report again.&rdquo;'
+        : '&ldquo;Two blue stripes is the data cable,&rdquo; says Flight. &ldquo;Nobody has changed that one. Read the report again.&rdquo;');
+    }
+    draw();
+  });
+
+  /* ---------- Flight ---------- */
+  $('#thandi').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Thandi Wolde', role: 'Flight Director · in the back room', face: OP.FACE.thandi,
+      lines: [
+        { note: 'Flight fills the kettle, because the coffee machine is not an option.', a: '&ldquo;We keep every walk report since the station was built. If anything up there has changed since the manual was printed, it is in one of those.&rdquo;' },
+        { q: 'Why can I only search by date?', a: '&ldquo;Because that is how the records system was built, in 2016, by somebody who has since left. You give it the date of a walk, and it gives you the report. Nothing else works. I have tried shouting.&rdquo;' },
+        { q: 'Can we ask Marit Solberg?', a: '&ldquo;I rang her. She is in a potato field with no signal. Of course she is.&rdquo;' },
+        { q: 'What if a plug goes into the wrong socket?', a: '&ldquo;Nothing breaks: everything up there is made so that it cannot be hurt that way. The dish just will not wake up. But we have one good pass over Yarnside, and I would like it to wake up for that.&rdquo;' }
+      ],
+      clue: { id: 'thandi4', title: 'Flight, in the back room', kind: 'What she said' }
+    });
+  });
+  OP.thing('#coffee', null, 'The Mudlark 4000. OUT OF ORDER since 2019. Do not kick. Somebody has kicked it, at least twice, at about the height of Flight&rsquo;s shoe.', isBusy);
+  OP.thing('#boxes', null, 'Grey boxes of paper walk reports. The terminal is quicker, Flight says, as long as you know the date.', isBusy);
+  OP.thing('#kettle', null, 'The kettle. It works, which in this room makes it the most important machine in the building.', isBusy);
+  OP.thing('#window', null, 'Through the window, the big screen: the white dot of Vesper is in the night half of the map now.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

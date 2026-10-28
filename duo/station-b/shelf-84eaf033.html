@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Manual Shelf · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ops.css">
+<style>
+  body{--bg:#1c140c;--accent:#ffc46a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,16,8,.95);--tc-ink:#f8eedb;--cap-bg:rgba(28,18,8,.93);--panel:#211810;--face-bg:#3a2c1c;--q-ink:#ffd98f;--fade:#0a0704;--hud-bg:rgba(28,18,8,.84)}
+  .bind{cursor:pointer}
+  .bind:hover rect.sp{filter:brightness(1.25)}
+  #open{display:none}
+  body.got #open{display:inline}
+  .bind.took{opacity:.15}
+  .lampbuzz{animation:buzz 7s steps(1,end) infinite}
+  @keyframes buzz{0%,96%{opacity:1}97%{opacity:.7}98%{opacity:1}99%{opacity:.8}}
+  .spine{display:flex;gap:18px;align-items:stretch;padding:18px 20px 6px}
+  .spine .sp{flex:0 0 120px;min-height:320px;display:flex;align-items:center;justify-content:center;border-radius:4px 4px 2px 2px;box-shadow:inset -8px 0 0 rgba(0,0,0,.18)}
+  .spine .sp span{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;letter-spacing:.08em}
+  .spine .front{flex:1;font-family:'Space Mono',monospace;font-size:15px;line-height:1.55;color:#f3ead8}
+  .spine .front h5{margin:0 0 8px;font-family:'Fraunces',serif;font-weight:700;font-size:26px;line-height:1.1;color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampS" cx="78%" cy="62%" r="60%"><stop offset="0" stop-color="#ffd890" stop-opacity=".45"/><stop offset=".6" stop-color="#ffb860" stop-opacity=".06"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigS" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#3a2c1e"/>
+<rect x="-1000" y="-700" width="3600" height="1420" fill="#4a3a28"/>
+<!-- a window into the Ops Room: the glow of the big screen -->
+<g id="window" class="hot"><rect x="1340" y="80" width="280" height="300" fill="#0b1622" stroke="#2a2014" stroke-width="14"/><rect x="1370" y="120" width="220" height="90" fill="#16455a" opacity=".8"/><path d="M1370 180q55 -40 110 0t110 0" stroke="#ffd27a" stroke-width="3" fill="none" stroke-dasharray="6 5"/><circle cx="1430" cy="160" r="6" fill="#fff"/>
+  <g fill="#0c1520"><circle cx="1420" cy="300" r="20"/><circle cx="1530" cy="306" r="18"/></g></g>
+<!-- a poster -->
+<g id="poster" class="hot" transform="rotate(-2 160 230)"><rect x="40" y="90" width="230" height="290" fill="#f2ead6"/><rect x="40" y="90" width="230" height="48" fill="#c2421b"/><text x="155" y="122" class="sv" font-size="22" fill="#f2ead6" letter-spacing="2">OPS ROOM RULE 6</text>
+  <text x="155" y="190" class="sv" font-size="23" fill="#2a2014">THE CREW</text><text x="155" y="222" class="sv" font-size="23" fill="#2a2014">CAN SEE</text><text x="155" y="254" class="sv" font-size="23" fill="#2a2014">WHAT YOU</text><text x="155" y="286" class="sv" font-size="23" fill="#2a2014">CANNOT.</text><text x="155" y="340" font-family="Caveat,cursive" font-size="22" fill="#5a4a3a" text-anchor="middle">so ask them. T.W.</text></g>
+<!-- the shelf -->
+<rect x="310" y="40" width="1000" height="740" fill="#2a1d10" stroke="#1a1208" stroke-width="10"/>
+<path d="M310 410h1000M310 780h1000" stroke="#6a4a28" stroke-width="18"/>
+<g id="binders"></g>
+<g id="others" class="hot"><g fill="#4a5a6a" stroke="#1a1208" stroke-width="3"><rect x="900" y="132" width="70" height="272" rx="4"/><rect x="976" y="122" width="70" height="282" rx="4"/><rect x="1052" y="140" width="70" height="264" rx="4"/></g>
+  <g font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" fill="#d9e0e6"><text transform="translate(941 150) rotate(90)">POWER · REV E</text><text transform="translate(1017 140) rotate(90)">WATER · REV C</text><text transform="translate(1093 158) rotate(90)">AIR · REV G</text></g>
+  <path d="M1140 404l40 -150 30 10 -36 140z" fill="#5a6a4a" stroke="#1a1208" stroke-width="3"/><g fill="#efe6d0" stroke="#8a7a5a" stroke-width="2"><rect x="860" y="700" width="200" height="22"/><rect x="870" y="680" width="190" height="20"/><rect x="856" y="662" width="196" height="18"/></g></g>
+<!-- the desk, the lamp, and the binder once it is open -->
+<rect x="-1000" y="790" width="3600" height="900" fill="#5a3a1e"/><path d="M-1000 790H2600" stroke="#7a5230" stroke-width="10"/>
+<g id="lamp" class="lampbuzz"><path d="M1420 800l20 -10 40 -170" stroke="#2a2a2a" stroke-width="10" fill="none"/><path d="M1440 640l100 -30 10 80z" fill="#2a5a3a"/><ellipse cx="1430" cy="800" rx="50" ry="10" fill="#2a2a2a"/></g>
+<g id="open" class="hot"><path d="M560 900l20 -96h210l10 96z" fill="#f3f1ea"/><path d="M800 900l-10 -96h210l20 96z" fill="#ebe8df"/><path d="M790 804v96" stroke="#b9b5a6" stroke-width="3"/>
+  <g stroke="#5a6470" stroke-width="2.5"><path d="M600 830h170M600 846h150M600 862h166M600 878h120M815 830h170M815 846h140M815 862h160"/></g><rect x="556" y="896" width="474" height="10" fill="#e8562a"/>
+  <text x="680" y="822" font-family="Space Mono,monospace" font-weight="700" font-size="12" fill="#1d6aa8" text-anchor="middle">3-12</text></g>
+<g id="mugS" class="hot"><path d="M300 820h56l-5 70h-46z" fill="#d9d2c0"/><path d="M356 834q24 4 18 28q-6 14 -20 12" stroke="#d9d2c0" stroke-width="8" fill="none"/><ellipse cx="328" cy="822" rx="26" ry="6" fill="#3a2010"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampS)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigS)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow EV One to the mast</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+  /* the shelf: id, colour, ink, spine words, front cover lines */
+  var B = [
+    { id: 'air', c: '#2f62b0', k: '#f2f4f1', sp: 'AIRLOCK · CHECKLISTS · REV F', f: ['Vesper Station', 'Airlock: checklists', 'Rev F'], top: 1 },
+    { id: 'suit', c: '#e9eae4', k: '#2a3644', sp: 'EV SUIT · REV K', f: ['Vesper Station', 'The EV suit', 'Rev K'], top: 1 },
+    { id: 'm3a-b', c: '#8d9398', k: '#14202c', sp: 'ANTENNA MAST · M3-A · REV B', f: ['Vesper Station', 'Antenna mast, type M3-A', 'Rev B · printed 2017', 'For mast panel: issue 1'], top: 1 },
+    { id: 'm3b-c', c: '#e07a2a', k: '#1a1208', sp: 'ANTENNA MAST · M3-B · REV C', f: ['Vesper Station', 'Antenna mast, type M3-B', 'Rev C · printed 2019', 'For mast panel: issue 1'], top: 1 },
+    { id: 'm3b-d', c: '#e07a2a', k: '#1a1208', sp: 'ANTENNA MAST · M3-B · REV D', f: ['Vesper Station', 'Antenna mast, type M3-B', 'Rev D · printed 2021', 'For mast panel: issue 2'], top: 1 },
+    { id: 'sband', c: '#c4372b', k: '#fff4e0', sp: 'ANTENNA', f: ['Vesper Station', 'ANTENNA: S-band (the small one)', 'Rev A · printed 2015', 'The little dish on the module roof'], top: 0, big: 1 },
+    { id: 'cam', c: '#2f9a4a', k: '#f2f4f1', sp: 'MAST CAMERA · REV F', f: ['Vesper Station', 'The mast camera', 'Rev F'], top: 0 },
+    { id: 'arm', c: '#6a4a9a', k: '#f2f4f1', sp: 'ROBOT ARM · REV H', f: ['Vesper Station', 'The robot arm', 'Rev H'], top: 0 },
+    { id: 'coffee', c: '#6a4426', k: '#f3e6cc', sp: 'COFFEE MACHINE · 2009', f: ['Owner&rsquo;s manual', 'The Mudlark 4000 coffee machine', '2009', 'Ops Room, back room'], top: 0 }
+  ];
+  (function () {
+    var s = '', xt = 350, xb = 350;
+    B.forEach(function (b) {
+      var w = b.big ? 150 : 104, x = b.top ? xt : xb, y = b.top ? 92 : 462, h = 312;
+      if (b.top) xt += w + 20; else xb += w + 26;
+      s += '<g class="bind" data-b="' + b.id + '"><rect class="sp" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5" fill="' + b.c + '" stroke="#1a1208" stroke-width="3"/>' +
+        '<rect x="' + (x + 10) + '" y="' + (y + h - 52) + '" width="' + (w - 20) + '" height="30" rx="4" fill="#000" opacity=".2"/><circle cx="' + (x + w / 2) + '" cy="' + (y + h - 37) + '" r="8" fill="#f3ead8" opacity=".7"/>' +
+        '<text transform="translate(' + (x + w / 2 + (b.big ? 14 : 7)) + ' ' + (y + 20) + ') rotate(90)" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="' + (b.big ? 46 : 19) + '" fill="' + b.k + '" letter-spacing="1">' + b.sp + '</text></g>';
+    });
+    $('#binders').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'station-b', storyTitle: 'Read It Back', id: 'shelf', no: 'II', title: 'The Manual Shelf',
+    go: 'Go to the shelf',
+    intro: [
+      'Flight said GO when your list was right. The suit check: two nine point six, nine one and five zero, all inside the limits (&ldquo;at least 50&rdquo; means that fifty is enough). Then the depress valve, then the hatch: Rev F had the hatch a step too early, and EV One&rsquo;s sticker said it would not open until the gauge read zero. Then the safety tether on the D-shaped ring with the yellow tag, and out.',
+      'It is two minutes to two, GMT. EV One is outside, at the hatch, holding on.'
+    ],
+    exit: {"next":"whiteboard","w":{"4161ba1f":"ab4c1167"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b2-told') || {}; nextFile = ER.flag('b2-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b2-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    document.body.classList.toggle('got', !!nextFile);
+    ER.$$('.bind').forEach(function (n) { n.classList.toggle('took', !!nextFile && n.getAttribute('data-b') === ER.flag('b2-took')); });
+    $('#go').classList.toggle('on', !!nextFile && !!told.route);
+    ER.pips((told.looked ? 1 : 0) + (nextFile ? 1 : 0) + (told.route ? 1 : 0), 3);
+    if (nextFile) OP.card([['Tell your partner', ['&ldquo;Step one: from the hatch, go up onto the top of the truss, to handrail one three.&rdquo;']], ['Ask your partner', ['&ldquo;Read back, please. Which handrail are your hands on now?&rdquo;', '&ldquo;What can you see next to it?&rdquo;']]]);
+    else OP.card([['Ask your partner', ['&ldquo;EV One, Control. What does the tag on the spare box say? Please spell the mast type.&rdquo;', '&ldquo;Which panel issue? Say it again, please.&rdquo;']], ['Tell your partner', ['&ldquo;I&rsquo;m finding the right manual. Stand by.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['route', [
+      'The binder is open on the desk at page 3-12, the translation path. Read it to EV One one step at a time, and ask for a read-back after each step. When EV One reaches the foot of the mast, go on (the button at the bottom).',
+      'Every handrail number digit by digit: one three, one five, three three, five two, five five. Handrails one five and five zero both have blue caps, so be very sure which one you mean.'
+    ]];
+    return ['book', [
+      'The manual you need is on this shelf, but several look right. The tag on the spare box that EV One is carrying says exactly which: ask EV One to read it to you.',
+      'Ask EV One to spell the mast type with the spelling alphabet, and to say which issue of the panel the tag gives. Then find the binder whose spine and cover match both.',
+      'Not every binder that says ANTENNA is about the big dish. Look at the cover, not only the spine: each one says which mast and which panel it was written for.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say(told.route ? 'The binder is open at page 3-12. EV One is on the truss.' : 'The binder is on the desk. Open it at page 3-12, the translation path.'); return; }
+    if (told.intro) { busy = false; ER.say('The manual shelf. Nine binders, and one of them is the right one.'); return; }
+    ER.narrate([
+      'The manuals live in a narrow room behind the Ops Room: binders from floor to ceiling, a desk, a lamp that buzzes, and a smell of paper and old coffee.',
+      '&ldquo;The mast manual,&rdquo; Flight says over your shoulder. &ldquo;Make sure it is the right one. Four of those binders say ANTENNA on the spine, and only one is about our mast as it is today.&rdquo;',
+      'On the radio, EV One is at the hatch, holding a handrail, with a spare box in a bag, waiting for a way to the mast.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the binders ---------- */
+  var WRONG = {
+    air: 'The airlock checklists. You have finished with those: EV One is outside.',
+    suit: 'The manual for the suit. It is very thick, and it says nothing about the mast.',
+    'm3a-b': '&ldquo;M3-A?&rdquo; says Flight. &ldquo;Ask EV One to spell the mast type on the tag again. A for Alpha is not B for Bravo.&rdquo;',
+    'm3b-c': '&ldquo;Rev C,&rdquo; says Flight, tapping the cover. &ldquo;Look what it was written for. Which panel does the tag say is on the mast now?&rdquo;',
+    sband: '&ldquo;That one has the biggest letters on the shelf,&rdquo; says Flight, &ldquo;and it is about the little S-band antenna, the size of a dinner plate. EV One is going to the big dish.&rdquo;',
+    cam: 'The mast camera. EV One will pass it on the way, but this is not the way.',
+    arm: 'The robot arm. Not today: the arm cannot reach the mast.',
+    coffee: '&ldquo;If you ever find out how to mend that machine,&rdquo; says Flight, &ldquo;tell me. Not now.&rdquo;'
+  };
+  function pick(id) {
+    if (busy) return;
+    var b = B.filter(function (x) { return x.id === id; })[0];
+    if (nextFile && id === ER.flag('b2-took')) { openRoute(); return; }
+    tell('looked'); paint();
+    OP.work({
+      cls: 'spinebox',
+      html: '<div class="spine"><div class="sp" style="background:' + b.c + ';color:' + b.k + '"><span>' + b.sp + '</span></div><div class="front"><h5>' + b.f[1] + '</h5>' + b.f.filter(function (x, i) { return i !== 1; }).map(function (l) { return '<div>' + l + '</div>'; }).join('') + '</div></div>',
+      btn: nextFile ? [] : [{ id: 'take', label: 'Take it to the desk', fn: function (api) { take(id, api); } }],
+      msg: nextFile ? 'You have the right binder already, open on the desk.' : 'You pull the binder half out of the shelf and read its spine and its cover.'
+    });
+  }
+  function take(id, api) {
+    var file = ER.exit([id], { wait: true });
+    if (!file) { ER.sfx.no(); api.msg(WRONG[id] || 'Not this one.'); return; }
+    nextFile = file; ER.flag('b2-file', file); ER.flag('b2-took', id); OP.sfx.page();
+    api.msg('Mast type M3-B, Rev D, for panel issue 2: the same mast and the same panel as on EV One&rsquo;s tag. &ldquo;That&rsquo;s the one,&rdquo; says Flight.');
+    setTimeout(function () {
+      ER.closeAll(); paint();
+      ER.say('You put the binder on the desk and open it at page 3-12: the translation path, from the airlock to the mast.', 5000);
+    }, 2200);
+  }
+  function openRoute() { OP.route(function () { if (tell('route')) { paint(); ER.say('Read it to EV One one step at a time. Digit by digit. Ask for every read-back.'); } }); }
+  $('#binders').addEventListener('click', function (e) { var g = e.target.closest ? e.target.closest('.bind') : null; if (g) pick(g.getAttribute('data-b')); });
+  $('#open').addEventListener('click', function () { if (!busy && nextFile) openRoute(); });
+
+  OP.thing('#poster', null, 'OPS ROOM RULE 6: THE CREW CAN SEE WHAT YOU CANNOT. And, in pencil underneath: so ask them. T.W.', isBusy);
+  OP.thing('#others', null, 'Manuals for other parts of the station: power, water, air. And a pile of old checklists, held together with a big black clip. Not today.', isBusy);
+  OP.thing('#window', null, 'Through the window, the Ops Room and its big screen. The white dot of the station is moving along its wave.', isBusy);
+  OP.thing('#mugS', null, 'Somebody&rsquo;s mug of coffee, left here in 2019, when the machine broke. It has grown a small grey forest.', isBusy);
+  OP.thing('#lamp', null, 'The desk lamp. It buzzes, and every few seconds it blinks, as if it had just remembered something.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && told.route && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

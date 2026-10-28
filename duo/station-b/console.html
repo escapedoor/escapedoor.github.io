@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Console · Read It Back</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="ops.css">
+<style>
+  body{--bg:#0b1622;--accent:#5fd0ff;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,16,26,.95);--tc-ink:#eaf2f8;--cap-bg:rgba(8,18,30,.93);--panel:#101a26;--face-bg:#162231;--q-ink:#9fdcff;--fade:#03070c;--hud-bg:rgba(8,18,30,.84)}
+  .scan{animation:scan 4s steps(4,end) infinite}
+  @keyframes scan{0%{opacity:.85}50%{opacity:1}100%{opacity:.85}}
+  #dot{animation:dot 1.6s steps(2,end) infinite}
+  @keyframes dot{50%{opacity:.3}}
+  .eg{padding:16px 20px 4px;font-family:'Space Mono',monospace}
+  .eg h5{margin:0 0 2px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:.16em;color:#9fdcff}
+  .eg .sub{margin:0 0 10px;font-family:'EB Garamond',serif;font-size:17px;color:#c9d8e4}
+  .suitline{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:14px}
+  .suitline button{padding:6px 14px;border:1px solid #4a6a88;color:#c9d8e4;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.12em}
+  .suitline button.on[data-g=go]{background:#1f8a4a;border-color:#3fd07a;color:#fff}
+  .suitline button.on[data-g=nogo]{background:#a3271c;border-color:#ff6a5a;color:#fff}
+  .cards{list-style:none;margin:0;padding:0;counter-reset:c}
+  .cards li{counter-increment:c;display:flex;align-items:center;gap:10px;margin:0 0 6px;padding:7px 10px;background:#17263a;border:1px solid #2f4a66;font-size:14px;line-height:1.35}
+  .cards li:before{content:counter(c);flex:0 0 26px;height:26px;display:grid;place-items:center;background:#2f8fd8;color:#fff;font-weight:700;border-radius:50%}
+  .cards li span{flex:1}
+  .cards li b{color:#ffd27a;font-weight:700}
+  .cards button{width:30px;height:28px;border:1px solid #4a6a88;color:#9fdcff;font-size:13px}
+  .cards button:hover{background:#2f4a66}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="deskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3442"/><stop offset="1" stop-color="#151b24"/></linearGradient>
+  <radialGradient id="glowC" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#3fa9d8" stop-opacity=".22"/><stop offset="1" stop-color="#3fa9d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigC" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></radialGradient>
+  <clipPath id="mapC"><rect x="300" y="50" width="1000" height="270"/></clipPath>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0b1622"/>
+<rect x="-1000" y="-700" width="3600" height="1080" fill="#0f1d2c"/>
+<!-- the big screen at the front of the Ops Room -->
+<g id="big" class="hot"><rect x="290" y="40" width="1020" height="290" fill="#06101a" stroke="#2a3d52" stroke-width="6"/>
+  <g clip-path="url(#mapC)"><g fill="#16455a" class="scan"><path d="M360 120q40 -40 110 -20q40 30 10 70q-30 40 -20 90q-50 10 -70 -40q-40 -40 -30 -100z"/><path d="M500 220q30 -10 50 20q10 50 -20 80q-30 -30 -30 -100z"/>
+    <path d="M700 100q60 -30 140 -10q50 20 20 50q-40 10 -60 50q-40 -10 -60 -40q-50 -10 -40 -50z"/><path d="M760 190q40 0 60 40q0 50 -40 80q-30 -40 -20 -120z"/><path d="M900 110q120 -40 260 0q40 40 -20 70q-60 0 -80 40q-60 -20 -110 -30q-60 -30 -50 -80z"/><path d="M1130 250q40 -10 60 20q-20 30 -60 10z"/></g>
+    <rect x="300" y="50" width="380" height="270" fill="#000" opacity=".35"/>
+    <path id="track" d="M300 230q125 -150 250 0t250 0t250 0t250 0" stroke="#ffd27a" stroke-width="3" fill="none" stroke-dasharray="8 6"/>
+    <circle id="dot" cx="742" cy="150" r="9" fill="#fff"/><circle cx="742" cy="150" r="20" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>
+    <g fill="#ff8a6a"><circle cx="1012" cy="118" r="7"/></g><text x="1024" y="114" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="16" fill="#ff8a6a">YARNSIDE</text></g>
+  <text x="310" y="72" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" fill="#9fdcff" letter-spacing="3">VESPER · GROUND TRACK</text><text x="1296" y="72" font-family="Space Mono,monospace" font-weight="700" font-size="16" fill="#9fdcff" text-anchor="end">GMT 13:50</text></g>
+<!-- rows of consoles, and the backs of heads -->
+<g fill="#1a2838"><path d="M-1000 420h3600v80h-3600z"/></g>
+<g fill="#22364c"><rect x="80" y="380" width="200" height="50" rx="4"/><rect x="330" y="380" width="200" height="50" rx="4"/><rect x="1060" y="380" width="200" height="50" rx="4"/><rect x="1310" y="380" width="200" height="50" rx="4"/></g>
+<g fill="#3fa9d8" opacity=".5" class="scan"><rect x="96" y="388" width="70" height="30"/><rect x="190" y="388" width="70" height="30"/><rect x="346" y="388" width="70" height="30"/><rect x="1076" y="388" width="70" height="30"/><rect x="1330" y="388" width="70" height="30"/><rect x="1420" y="388" width="70" height="30"/></g>
+<g fill="#0c1520"><circle cx="210" cy="430" r="26"/><circle cx="430" cy="432" r="24"/><circle cx="1150" cy="430" r="26"/><circle cx="1400" cy="434" r="22"/><path d="M170 500q40 -50 80 0z"/><path d="M392 500q38 -46 76 0z"/><path d="M1110 500q40 -50 80 0z"/></g>
+<!-- your desk -->
+<rect x="-1000" y="560" width="3600" height="1200" fill="url(#deskG)"/><path d="M-1000 560H2600" stroke="#3a4656" stroke-width="8"/>
+<g id="suitmon" class="hot"><rect x="100" y="360" width="360" height="240" rx="6" fill="#0a121c" stroke="#3a4656" stroke-width="8"/><text x="122" y="398" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="20" fill="#9fdcff" letter-spacing="2">EV ONE · SUIT DATA</text>
+  <text x="280" y="470" class="sm" font-size="26" fill="#ff6a5a">NO DATA</text><text x="280" y="508" class="sm" font-size="15" fill="#c9d8e4">DISH DOWN · VOICE ONLY</text><text x="280" y="534" class="sm" font-size="15" fill="#c9d8e4">(BACKUP RADIO)</text><path d="M268 580h24" stroke="#ff6a5a" stroke-width="4"/></g>
+<g id="egmon" class="hot"><rect x="510" y="360" width="400" height="240" rx="6" fill="#0a121c" stroke="#3a4656" stroke-width="8"/><text x="532" y="398" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="20" fill="#ffd27a" letter-spacing="2">EGRESS · SEND TO FLIGHT</text>
+  <g fill="#17263a" stroke="#2f4a66"><rect x="532" y="414" width="356" height="28"/><rect x="532" y="448" width="356" height="28"/><rect x="532" y="482" width="356" height="28"/><rect x="532" y="516" width="356" height="28"/><rect x="532" y="550" width="356" height="28"/></g>
+  <g fill="#2f8fd8"><circle cx="548" cy="428" r="9"/><circle cx="548" cy="462" r="9"/><circle cx="548" cy="496" r="9"/><circle cx="548" cy="530" r="9"/><circle cx="548" cy="564" r="9"/></g></g>
+<g id="clockmon" class="hot"><rect x="960" y="380" width="230" height="190" rx="6" fill="#0a121c" stroke="#3a4656" stroke-width="8"/><text x="1075" y="440" class="sm" font-size="44" fill="#8ff0a8">13:50</text><text x="1075" y="468" class="sm" font-size="13" fill="#8ff0a8">GMT</text>
+  <text x="1075" y="512" class="sm" font-size="14" fill="#c9d8e4">SUNSET 14:42</text><text x="1075" y="536" class="sm" font-size="14" fill="#c9d8e4">YARNSIDE 15:20</text></g>
+<!-- papers and things on the desk -->
+<g id="clip" class="hot" transform="rotate(-6 250 760)"><rect x="160" y="650" width="190" height="230" rx="6" fill="#7a5a3a"/><rect x="172" y="676" width="166" height="196" fill="#f6f4ec"/><rect x="215" y="640" width="80" height="26" rx="4" fill="#9aa4ae"/>
+  <rect x="172" y="676" width="166" height="20" fill="#e0a21b"/><g stroke="#5a6470" stroke-width="3"><path d="M186 716h130M186 736h110M186 756h126M186 776h100M186 796h120M186 816h90"/></g></g>
+<g id="man" class="hot"><path d="M560 860l20 -170h170l10 170z" fill="#f3f1ea"/><path d="M760 860l-10 -170h170l20 170z" fill="#ebe8df"/><path d="M760 690v170" stroke="#b9b5a6" stroke-width="3"/><circle cx="660" cy="770" r="50" fill="none" stroke="#2a3644" stroke-width="3"/><rect x="590" y="720" width="30" height="60" fill="none" stroke="#2a3644" stroke-width="2"/>
+  <g stroke="#5a6470" stroke-width="2"><path d="M790 730h110M790 750h100M790 770h116M790 790h90"/></g><rect x="556" y="860" width="404" height="16" fill="#2f8fd8"/></g>
+<g id="rules" class="hot" transform="rotate(3 1010 690)"><rect x="950" y="620" width="130" height="150" fill="#f6f4ec"/><rect x="950" y="620" width="130" height="16" fill="#c2421b"/><g stroke="#5a6470" stroke-width="2"><path d="M962 652h100M962 664h86M962 676h104M962 688h80M962 700h96M962 712h70M962 724h100M962 736h84"/></g></g>
+<g id="mug" class="hot"><path d="M1110 760h70l-6 90h-58z" fill="#e9e4d8"/><path d="M1180 778q30 4 22 34q-8 18 -24 16" stroke="#e9e4d8" stroke-width="9" fill="none"/><path d="M1124 800h40" stroke="#2f8fd8" stroke-width="5"/><path d="M1130 750q8 -20 0 -40M1152 748q8 -18 0 -36" stroke="#c9d8e4" stroke-width="3" fill="none" opacity=".5"/></g>
+<g id="headset" class="hot"><path d="M380 800q0 -90 80 -90t80 90" stroke="#30363c" stroke-width="12" fill="none"/><rect x="364" y="790" width="34" height="56" rx="10" fill="#30363c"/><rect x="522" y="790" width="34" height="56" rx="10" fill="#30363c"/><path d="M380 846q20 30 70 26" stroke="#30363c" stroke-width="5" fill="none"/><circle cx="452" cy="872" r="8" fill="#30363c"/></g>
+<!-- Flight -->
+<g id="thandi" class="hot"><path d="M1250 900q10 -250 150 -260q140 10 150 260z" fill="#3b4250"/><path d="M1370 650l30 40 30 -40" fill="#e7e2d6"/><rect x="1378" y="590" width="44" height="60" fill="#7a4b34"/><ellipse cx="1400" cy="540" rx="66" ry="76" fill="#8a5a3e"/>
+  <path d="M1328 548q-14 -110 72 -112q86 2 72 112q-6 -64 -72 -66q-66 2 -72 66z" fill="#2a2420"/><g fill="none" stroke="#c8ccd2" stroke-width="3"><circle cx="1376" cy="540" r="17"/><circle cx="1424" cy="540" r="17"/><path d="M1393 540h14"/></g>
+  <path d="M1320 520q80 -76 160 0" stroke="#30363c" stroke-width="8" fill="none"/><rect x="1312" y="520" width="18" height="36" rx="5" fill="#30363c"/><path d="M1320 556q-4 34 34 44" stroke="#30363c" stroke-width="5" fill="none"/><path d="M1386 586q14 6 28 0" stroke="#4a2418" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M1470 470l14 -40" stroke="#e0a21b" stroke-width="7" stroke-linecap="round"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#glowC)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Follow EV One outside</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+
+  ER.init({
+    theme: 'duo', story: 'station-b', storyTitle: 'Read It Back', id: 'console', no: 'I', title: 'The Console',
+    go: 'Put on the headset',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE ASTRONAUT (part A) on another screen. Do not show each other your screens: talk. Your partner can see the station; you have the manuals and the checklists. Everything one of you can see, the other one needs.</b>',
+      'Vesper Station, four hundred kilometres above the Earth, going round it once every ninety-two minutes. For three days its big dish antenna has been stuck, pointing at nothing. The station is full of pictures and measurements that cannot get home.',
+      'Today an astronaut is going outside to fix it: EV One, on a first spacewalk. You are the one who talks to EV One. It is your first day at this console, in the Ops Room of Vesper Flight Control, beside the Flight Director, with every checklist in the building on your desk.',
+      'Up there, in the airlock, is somebody you have never met, who can see everything you cannot. You can read everything they cannot. You are about to trust each other with everything.'
+    ],
+    exit: {"next":"shelf","w":{"e0d88f8d":"f775619e"}}, tags: {"suit":["1151a9bd"],"p1":["bf8b2307"],"p2":["4c1ecf13"],"p3":["9d54e93f"],"p4":["cd6bf1c9"],"p5":["c3ca5e1b"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b1-told') || {}; nextFile = ER.flag('b1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b1-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.egress ? 1 : 0) + (told.hatch ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) OP.card([['Tell your partner', ['&ldquo;EV One, Control. You are GO for egress. Step one &hellip;&rdquo;', '&ldquo;The depress valve is the &hellip; at the &hellip; of the panel.&rdquo;']], ['Ask your partner', ['&ldquo;Read that back to me, please.&rdquo;']]]);
+    else OP.card([['Ask your partner', ['&ldquo;EV One, Control. How do you hear me? Please read me your three suit numbers, digit by digit.&rdquo;', '&ldquo;What is written on the hatch? Read me every word.&rdquo;']], ['Tell your partner', ['&ldquo;The knobs have names on my drawing. The depress valve is the &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', [
+      'Flight has said GO. Now talk EV One through the steps one at a time, in your new order, and ask for a read-back each time. Describe each knob and ring from the drawing: EV One cannot see their names.',
+      'When EV One says they are outside, follow them: the button at the bottom of the screen.'
+    ]];
+    if (!told.egress || !told.hatch) return ['read', [
+      'Two papers on your desk matter now: the egress checklist on the clipboard (bottom left) and the airlock manual, open at the hatch panel (in the middle). Read both before you send anything to Flight.',
+      'The checklist says what EV One must do, and in what order. The drawing says which knob and which ring is which. The real panel has no labels, so EV One needs you to describe them: shape, colour, where.'
+    ]];
+    return ['send', [
+      'Flight wants two things on the middle screen: is the suit GO or NO GO, and the five steps in the right order. Ask EV One for the three suit numbers and check them against the limits at the bottom of the checklist. &ldquo;At least 50&rdquo; means 50 or more.',
+      'One step on Rev F is in the wrong place. Ask EV One to read you everything that is written on the hatch itself. One sentence there decides where one of the steps has to go.',
+      'The hatch opens inwards, and the air in the airlock presses it shut. Which step makes the gauge read zero? That step must come before the step that needs a zero.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Flight has said GO. Talk EV One through it, one step at a time.'); return; }
+    if (told.intro) { busy = false; ER.say('The console. The checklist, the manual, the radio, and Flight beside you.'); return; }
+    ER.narrate([
+      'The Ops Room of Vesper Flight Control is long, dark and quiet, the way a library would be if all its books were screens. At the front, on the big screen, a white dot is crawling across a map of the world. That dot is Vesper Station.',
+      'You have the console next to the Flight Director, Thandi Wolde, who has a pencil behind one ear and a mug of tea in her hand, and who has been in this room for twenty-two years.',
+      'Your screen for the suit says NO DATA. With the big dish broken, the only way to reach the station is the little backup radio: voice only. You will know what is happening up there when EV One tells you, and only then.',
+      'You put on the headset. In the airlock, four hundred kilometres up, somebody you have never met is waiting to hear you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  $('#clip').addEventListener('click', function () { if (!busy) OP.egress(function () { if (tell('egress')) paint(); }); });
+  $('#man').addEventListener('click', function () { if (!busy) OP.hatch(function () { if (tell('hatch')) paint(); }); });
+  $('#rules').addEventListener('click', function () { if (!busy) OP.rules(); });
+
+  /* ---------- Flight ---------- */
+  $('#thandi').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Thandi Wolde', role: 'Flight Director · twenty-two years in this room', face: OP.FACE.thandi,
+      lines: [
+        { note: 'She takes the pencil from behind her ear and points it at you, kindly.', a: '&ldquo;Welcome to the Ops Room. You talk to the crew; I decide. If you are not sure of something, ask. If you are sure, ask anyway, and make them read it back.&rdquo;' },
+        { q: 'Why can&rsquo;t I see the suit numbers?', a: '&ldquo;Because the big dish is broken, which is the whole reason we are here. No dish, no data. Today we have voice only, on the backup radio. So EV One reads the numbers to you, and you check them against the limits. Just like the old days.&rdquo;' },
+        { q: 'What do I do first?', a: '&ldquo;The egress checklist, Rev F. Put the steps on the middle screen in the right order and send them to me, with GO or NO GO for the suit, before I say GO. And read it properly. Checklists are written by people, and people put things in the wrong order.&rdquo;' },
+        { q: 'Who went out to the mast last time?', a: '&ldquo;Marit Solberg, two and a half years ago, with Nils Overgaard. The best spacewalker we ever had. She retired in the summer. She grows potatoes somewhere cold, and she does not answer her phone in the daytime.&rdquo;' },
+        { q: 'Is there any coffee?', a: '&ldquo;The coffee machine in the back room has been out of order since 2019. I drink tea. It is quicker than arguing with a machine.&rdquo;' }
+      ],
+      clue: { id: 'thandi1', title: 'Flight, before the walk', kind: 'What she said' }
+    });
+  });
+
+  /* ---------- the middle screen: the lock ---------- */
+  var CARDS = {
+    s: '<b>SUIT CHECK.</b> EV One reads the three suit numbers. Control says GO.',
+    h: '<b>HATCH.</b> EV One turns the handle and opens the outer hatch.',
+    d: '<b>DEPRESS.</b> EV One opens the depress valve until the gauge reads zero.',
+    t: '<b>SAFETY TETHER.</b> EV One hooks the safety tether to the tether ring.',
+    w: '<b>GO OUT.</b> EV One unclips the waist tether and goes out.'
+  };
+  var order = ER.flag('b1-order') || ['s', 'h', 'd', 't', 'w'], suit = ER.flag('b1-suit') || '';
+  function openSend() {
+    if (busy) return;
+    if (nextFile) { ER.say('Flight has the list, and has said GO.'); return; }
+    var api = OP.work({
+      cls: 'send',
+      html: '<div class="eg"><h5>EGRESS · REV F · SEND TO FLIGHT</h5><p class="sub">Set the suit check, and put the five steps in the order EV One must do them. Flight will not say GO until both are right.</p>' +
+        '<div class="suitline">SUIT CHECK: <button type="button" data-g="go">GO</button><button type="button" data-g="nogo">NO GO</button></div><ol class="cards" id="cards"></ol></div>',
+      btn: [{ id: 'send', label: 'Send to Flight', fn: send }],
+      msg: 'The steps are in the order of the printed checklist, Rev F. Use the arrows to move a step up or down.'
+    });
+    var box = api.box;
+    function draw() {
+      ER.$$('.suitline button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-g') === suit); });
+      box.querySelector('#cards').innerHTML = order.map(function (k, i) {
+        return '<li data-k="' + k + '"><span>' + CARDS[k] + '</span><button type="button" class="up" data-i="' + i + '" title="up">&#9650;</button><button type="button" class="dn" data-i="' + i + '" title="down">&#9660;</button></li>';
+      }).join('');
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null; if (!b) return;
+      if (b.getAttribute('data-g')) { suit = b.getAttribute('data-g'); ER.flag('b1-suit', suit); ER.sfx.click(); draw(); return; }
+      var i = +b.getAttribute('data-i'), j = b.classList.contains('up') ? i - 1 : b.classList.contains('dn') ? i + 1 : -1;
+      if (isNaN(i) || j < 0 || j >= order.length) return;
+      var t = order[i]; order[i] = order[j]; order[j] = t; ER.flag('b1-order', order); OP.sfx.keys(); draw();
+    });
+    function send(a) {
+      if (!suit) { ER.sfx.no(); a.msg('&ldquo;Is the suit GO or NO GO?&rdquo; says Flight. &ldquo;You have not told me.&rdquo;'); return; }
+      var file = ER.exit([suit + '|' + order.join('-')], { wait: true });
+      if (file) {
+        nextFile = file; ER.flag('b1-file', file);
+        a.msg('Flight reads your list from top to bottom, twice, with her pencil. Then she nods.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'Flight presses her own button. &ldquo;All stations, this is Flight. We are GO for egress.&rdquo; Round the room, people sit up a little.',
+            '&ldquo;You fixed Rev F,&rdquo; she says to you, quietly. &ldquo;It came back from the printers last week, and three people read it before you. Somebody will now have to print it again. Probably me.&rdquo;',
+            'On the backup radio, a long hiss of static, and then EV One again. Four hundred kilometres up, an airlock is emptying. Talk EV One through it, one step at a time.'
+          ], function () { busy = false; paint(); });
+        }, 2400);
+        return;
+      }
+      ER.sfx.no();
+      if (!ER.check('suit', suit)) { a.msg('&ldquo;NO GO?&rdquo; Flight looks at the limits, and then at you. &ldquo;Which number is outside its limit? Ask EV One again, digit by digit. Fifteen and fifty sound very alike in a helmet. And &lsquo;at least&rsquo; means what it says.&rdquo;'); return; }
+      for (var i = 0; i < order.length; i++) if (!ER.check('p' + (i + 1), order[i])) break;
+      a.msg('Flight runs her pencil down the list and stops at step ' + (i + 1) + '. &ldquo;Can EV One really do this step here, before the ones under it? Ask EV One what is written on the hatch, on the gauge, on everything. Things up there have opinions.&rdquo;');
+    }
+    draw();
+  }
+  $('#egmon').addEventListener('click', openSend);
+
+  /* ---------- other things ---------- */
+  OP.thing('#big', 'ground track', 'The big screen: a map of the world, with the path of the station drawn across it like a wave. The white dot is Vesper. It goes round the whole world every ninety-two minutes, so the wave never ends. The red dot is the big ground dish at Yarnside.', isBusy);
+  OP.thing('#suitmon', null, 'NO DATA. The suit sends its numbers down through the big dish, and the big dish is the thing that is broken. Today you have only the backup radio, and EV One&rsquo;s voice.', isBusy);
+  OP.thing('#clockmon', 'GMT', 'The Ops Room clock: 13:50 GMT. Space stations keep Greenwich time, so that everybody on the ground, everywhere, means the same thing by &ldquo;ten to two&rdquo;.', isBusy);
+  OP.thing('#mug', null, 'Flight&rsquo;s mug. It says, in faded letters, WORLD&rsquo;S OKAYEST FLIGHT DIRECTOR. It is full of tea.', isBusy);
+  OP.thing('#headset', 'headset', 'Your headset. Press the button to talk to EV One; let go to listen. Your partner is the voice in it.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
