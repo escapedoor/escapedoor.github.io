@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Car Park · Same Rules</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="figures.css">
+<style>
+  body{--bg:#0b0d14;--accent:#ffa24a;--font-display:'Oswald',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(11,13,20,.97);--tc-ink:#f3ede4;--cap-bg:rgba(12,13,20,.95);--panel:#14161e;--face-bg:#14161e;--q-ink:#ffa24a;--fade:#030406;--hud-bg:rgba(12,13,20,.86)}
+  .gobtn{color:#0b0d14}
+  #rain line{animation:rain .55s linear infinite}
+  #rain line:nth-child(3n){animation-duration:.75s}
+  #rain line:nth-child(4n+1){animation-delay:-.25s}
+  @keyframes rain{0%{transform:translateY(-120px)}100%{transform:translateY(900px)}}
+  #smoke path{animation:smoke 4s ease-in-out infinite}
+  #smoke path:nth-child(2){animation-delay:-2s}
+  @keyframes smoke{0%{transform:translate(0,0);opacity:.5}100%{transform:translate(-14px,-70px);opacity:0}}
+  #ember{animation:ember 2.6s steps(1,end) infinite}
+  @keyframes ember{60%{fill:#ffd06a}}
+  #moths circle{animation:moth 1.7s steps(4,end) infinite}
+  #moths circle:nth-child(2){animation-duration:2.3s}
+  @keyframes moth{25%{transform:translate(8px,-6px)}50%{transform:translate(-5px,4px)}75%{transform:translate(4px,8px)}}
+
+  /* the graph and the leaflet */
+  .grj{width:min(1110px,97vw)}
+  .gr-grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;align-items:start}
+  .gpanel{background:#f7f6f1;color:#1d2230;border-radius:4px;padding:10px 12px 10px;border-top:8px solid #2f6db5}
+  .gpanel h6{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;letter-spacing:.02em;text-transform:uppercase;color:#1d3a6a}
+  .gpanel h6 small{font-family:'Outfit',sans-serif;font-weight:500;font-size:12px;letter-spacing:.06em;color:#5a6278;margin-left:8px}
+  .gwrap{display:flex;gap:6px;align-items:stretch}
+  .gwrap svg{flex:1;min-width:0;display:block;height:auto}
+  .ysl{width:60px;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .ysl b,.xsl b{font-family:'DM Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.06em;color:#5a6278;text-align:center;line-height:1.15}
+  .ytrack{position:relative;flex:1;width:52px;display:flex;flex-direction:column;justify-content:space-between;padding:4px 0;background:#e3e6ee;border-radius:4px;touch-action:none;cursor:ns-resize}
+  .xtrack{position:relative;display:flex;justify-content:space-between;padding:0 4px;height:34px;align-items:center;background:#e3e6ee;border-radius:4px;touch-action:none;cursor:ew-resize}
+  .det{position:relative;z-index:1;font-family:'DM Mono',monospace;font-size:11.5px;color:#3a4258;padding:3px 4px;border-radius:3px;cursor:pointer;text-align:center}
+  .det.on{background:#2f6db5;color:#fff}
+  .xsl{display:flex;gap:8px;align-items:center;margin-top:6px}
+  .xsl .xtrack{flex:1}
+  .lfl{background:#fff8e2;color:#24301e;border:3px solid #d4682a;border-radius:3px;font-family:'Outfit',sans-serif}
+  .lfl h4{margin:0;padding:8px 14px 7px;background:#d4682a;color:#fff8e2;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .lfl h3{margin:8px 14px 4px;font-family:'Oswald',sans-serif;font-weight:700;font-size:30px;line-height:1;text-transform:uppercase;color:#2f5a2a}
+  .lfl p{margin:6px 14px 0;font-size:15px;line-height:1.5}
+  .lfl .sp{margin:10px 14px 10px;padding:6px 8px;border-top:1px dashed #b9a98a;font-size:13.5px;line-height:1.7;color:#4a4a38}
+  .hlc{cursor:pointer;border-radius:2px;padding:0 1px;background:linear-gradient(transparent 60%,rgba(212,104,42,.12) 60%)}
+  .hlc:hover{background:linear-gradient(transparent 50%,rgba(212,104,42,.3) 50%)}
+  .hlc.on{background:#ffe94a;color:#1a1a08;box-shadow:0 0 0 2px #ffe94a}
+  .hlc.bad{background:#ffb0a0}
+  .vrow2{display:flex;align-items:center;gap:10px;margin-top:8px}
+  .vrow2 .claim{flex:1}
+  .vrow2 .claim q{font-size:14px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06070e"/><stop offset="1" stop-color="#1a1a28"/></linearGradient>
+  <linearGradient id="tarG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22232c"/><stop offset="1" stop-color="#0a0b10"/></linearGradient>
+  <radialGradient id="sodG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#ffa24a" stop-opacity=".42"/><stop offset="1" stop-color="#ffa24a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="doorG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#e8f0ff" stop-opacity=".35"/><stop offset="1" stop-color="#e8f0ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".86"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#skyG)"/>
+<!-- the back of the printworks -->
+<rect x="-1000" y="170" width="1640" height="560" fill="#3a2a24"/><g stroke="#2a1e1a" stroke-width="2" opacity=".7" id="bricks"></g>
+<rect x="-1000" y="160" width="1640" height="14" fill="#4a362e"/>
+<g id="dish" class="hot"><path d="M520 160v-30" stroke="#8a8f9a" stroke-width="6"/><ellipse cx="520" cy="110" rx="44" ry="30" fill="#c8ccd4" transform="rotate(-25 520 110)"/><path d="M520 110l30 -24" stroke="#8a8f9a" stroke-width="3"/></g>
+<text x="120" y="230" class="fO" font-size="30" font-weight="700" fill="#2a1e1a" letter-spacing="8" opacity=".85">INCHBECK PRINTWORKS 1898</text>
+<g id="door" class="hot"><path d="M300 330L240 730H480L420 330Z" fill="url(#doorG)" pointer-events="none"/><rect x="300" y="330" width="120" height="370" fill="#2a3a4a"/><rect x="306" y="336" width="108" height="358" fill="#34485a"/><rect x="330" y="470" width="60" height="10" fill="#8a9aaa"/>
+  <rect x="320" y="300" width="80" height="22" fill="#1a8a3a"/><text x="360" y="316" class="fO" font-size="12" text-anchor="middle" fill="#fff">FIRE EXIT</text><circle cx="360" cy="290" r="8" fill="#e8f0ff"/></g>
+<g id="board"><rect x="458" y="300" width="150" height="160" fill="#5a4030"/><rect x="464" y="306" width="138" height="148" fill="#9a7a52"/>
+  <rect x="540" y="316" width="54" height="34" fill="#e8202a"/><text x="567" y="331" class="fO" font-size="9" text-anchor="middle" fill="#fff">NO</text><text x="567" y="344" class="fO" font-size="9" text-anchor="middle" fill="#fff">SMOKING</text></g>
+<g id="guide" class="hot" transform="rotate(-3 510 390)"><rect x="472" y="330" width="62" height="114" fill="#fdfcf9"/><rect x="472" y="330" width="62" height="8" fill="#4b2a7a"/><path d="M478 350h50M478 360h42M478 370h48M478 380h38M478 390h46M478 400h40" stroke="#7a6f8c" stroke-width="1.6"/>
+  <rect x="472" y="330" width="62" height="114" fill="#cfe0ff" opacity=".15"/><text x="503" y="434" class="fO" font-size="9" text-anchor="middle" fill="#4b2a7a">p.12</text></g>
+
+<!-- the car park -->
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#tarG)"/>
+<g stroke="#e8e2b8" stroke-width="6" opacity=".35"><path d="M620 900L700 720M1260 900L1220 720M60 900L200 720"/></g>
+<g id="puddle" class="hot"><ellipse cx="1080" cy="820" rx="150" ry="22" fill="#2a2c3a"/><ellipse cx="1080" cy="820" rx="120" ry="14" fill="#3a3c50"/><path d="M1060 818h40" stroke="#ffa24a" stroke-width="5" opacity=".6"/></g>
+<!-- the street lamp, and its moths -->
+<g id="lamp" class="hot"><path d="M1490 860V170" stroke="#2a2c34" stroke-width="12"/><path d="M1490 170q0 -40 -40 -40h-30" fill="none" stroke="#2a2c34" stroke-width="9"/><path d="M1380 120h60l-6 22h-48z" fill="#2a2c34"/><rect x="1388" y="140" width="46" height="8" fill="#ffd28a"/>
+  <path d="M1411 148L1150 900H1700Z" fill="url(#sodG)" pointer-events="none"/><g id="moths" fill="#f4e6c8"><circle cx="1400" cy="170" r="2.2"/><circle cx="1424" cy="180" r="1.8"/><circle cx="1414" cy="196" r="2"/></g></g>
+
+<!-- Lavery's van, with his graph on the side -->
+<g id="van" class="hot"><path d="M640 720V470q0 -26 26 -26h460q40 0 70 40l60 90q14 20 14 40v106Z" fill="#eef0f4"/><path d="M1150 470h44l58 90h-102z" fill="#9ab0c4"/>
+  <rect x="640" y="700" width="630" height="24" fill="#2a2c34"/><circle cx="740" cy="728" r="40" fill="#1a1a1e"/><circle cx="740" cy="728" r="16" fill="#8a8f9a"/><circle cx="1150" cy="728" r="40" fill="#1a1a1e"/><circle cx="1150" cy="728" r="16" fill="#8a8f9a"/>
+  <rect x="664" y="462" width="460" height="216" fill="#fff"/><rect x="664" y="462" width="460" height="34" fill="#2f6db5"/>
+  <text x="894" y="486" class="fO" font-size="21" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="1.5">CRIME DOWN, YEAR AFTER YEAR</text>
+  <g stroke="#c8ccd8" stroke-width="1"><path d="M712 520h380M712 560h380M712 600h380M712 640h380"/></g>
+  <text x="706" y="524" class="fM" font-size="10" text-anchor="end" fill="#5a6278">4,350</text><text x="706" y="644" class="fM" font-size="10" text-anchor="end" fill="#5a6278">4,000</text>
+  <path d="M720 526L790 559L860 594L930 614L1000 630L1070 640" fill="none" stroke="#c8382a" stroke-width="6" stroke-linejoin="round"/>
+  <g fill="#c8382a"><circle cx="720" cy="526" r="6"/><circle cx="1070" cy="640" r="6"/></g>
+  <g class="fM" font-size="10" fill="#5a6278" text-anchor="middle"><text x="720" y="660">2020</text><text x="790" y="660">21</text><text x="860" y="660">22</text><text x="930" y="660">23</text><text x="1000" y="660">24</text><text x="1070" y="660">2025</text></g>
+  <text x="1104" y="672" class="fO" font-size="15" font-weight="700" text-anchor="end" fill="#2f6db5">LAVERY FOR MAYOR</text></g>
+
+<!-- Gethin's cargo bike, with her leaflets -->
+<g id="bike" class="hot"><circle cx="190" cy="800" r="48" fill="none" stroke="#1a1a1e" stroke-width="10"/><circle cx="470" cy="800" r="48" fill="none" stroke="#1a1a1e" stroke-width="10"/>
+  <path d="M190 800L300 740H430L470 800M300 740L330 680M430 740l20 -70h30" fill="none" stroke="#d4682a" stroke-width="9" stroke-linecap="round"/>
+  <path d="M140 760h150v-90h-150z" fill="#d4682a"/><text x="215" y="700" class="fO" font-size="15" font-weight="700" text-anchor="middle" fill="#fff8e2">GETHIN</text><text x="215" y="720" class="fO" font-size="11" text-anchor="middle" fill="#fff8e2">FOR MAYOR</text>
+  <rect x="160" y="730" width="110" height="24" fill="#fff8e2"/><text x="215" y="747" class="fO" font-size="11" text-anchor="middle" fill="#2f5a2a">8 IN 10 WANT IT</text></g>
+
+<!-- Fergus Dowd -->
+<g id="fergus" class="hot" transform="translate(1340 872) scale(1.12)"></g>
+<g id="rain" stroke="#c8d0e8" stroke-width="1.3" opacity=".35" pointer-events="none"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the green room</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="figures.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i, j, r = 11, x;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (j = 0; j < 28; j++) s += '<path d="M-1000 ' + (180 + j * 20) + 'H640"/>';
+    $('#bricks').innerHTML = s; s = '';
+    for (i = 0; i < 90; i++) { x = -200 + rnd() * 2000; j = rnd() * 900; s += '<line x1="' + x.toFixed(0) + '" y1="' + j.toFixed(0) + '" x2="' + (x - 6).toFixed(0) + '" y2="' + (j + 26).toFixed(0) + '"/>'; }
+    $('#rain').innerHTML = s;
+    $('#fergus').innerHTML = FG.who('fergus', { lit: '#ffa24a', smile: 1, armR: 'M31 -222Q56 -200 30 -262', handR: [26, -266],
+      extra: '<path d="M22 -266l18 -4" stroke="#f2efe6" stroke-width="3"/><circle id="ember" cx="41" cy="-270" r="2.6" fill="#ff6a2a"/><g id="smoke" fill="none" stroke="#cfd4da" stroke-width="2.5"><path d="M42 -276q6 -12 -2 -22"/><path d="M40 -280q-6 -14 2 -26"/></g>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'figures', storyTitle: 'Same Rules', id: 'carpark', no: 'IV', title: 'The Car Park',
+    go: 'Go outside',
+    intro: [
+      'Gethin quoted Lavery from 2019: &ldquo;the library is a waste of money&rdquo;. The whole answer on Hilda&rsquo;s tape was &ldquo;People tell me the library is a waste of money. I don&rsquo;t agree.&rdquo; Mr Lavery said that people told him the library was a waste of money, but that he didn&rsquo;t agree. Gethin&rsquo;s claim: FALSE. And on the same tape he promised that the pool would be open again by the summer of 2022.',
+      'Thirty-four minutes past eight. It is raining in the car park behind the printworks, the way it rains in car parks: sideways, and mostly on you.'
+    ],
+    exit: {"next":"green","w":{"cca1ff7d":"1095a6c1"}}, tags: {"ax":["6ab989d1"],"win":["9d612a69"],"v1":["b419921f"],"hl":["5602bab4"],"v2":["9782f092"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function ready() { return told.fergus && told.guide && told.leaflet; }
+  function paint() {
+    $('#fergus').classList.toggle('ready', !!(told.in && !told.fergus));
+    $('#guide').classList.toggle('ready', !!(told.fergus && !told.guide));
+    $('#bike').classList.toggle('ready', !!(told.fergus && !told.leaflet));
+    $('#van').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.fergus ? 1 : 0) + (told.guide && told.leaflet ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['The break has started. Iona wants you in the green room with her draft of the Check: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['graph', [
+      'Two pictures to put right. The graph: page 12 says look where the side axis starts and where the time line starts. The leaflet: which two bits of the small print stop fifty answers speaking for the whole town?',
+      'Page 12: a side axis should start at the bottom, at nothing, or a small fall looks like a cliff. And &ldquo;under Lavery&rdquo; starts when he became leader: Fergus told you when. On the leaflet, one problem is HOW MANY people answered; the other is WHO they were, and how they came to answer.',
+      'The dials, with the card in mind. Every number on his graph is right: so is the picture it gives right too? And for the leaflet: has anybody actually measured what the whole town wants? If nobody has, which setting is for &ldquo;nobody has the facts&rdquo;?'
+    ]];
+    if (!told.fergus) return ['talk', ['Lavery&rsquo;s agent is having a cigarette by the van, under the lamp.', 'Click Fergus, the man in the beige raincoat.']];
+    if (!ready()) return ['read', ['Two things to read before you touch the graph: the style guide page on the notice board, and Gethin&rsquo;s leaflet.', 'The style guide page is pinned on the notice board by the fire door, under the NO SMOKING sign. The leaflets are in the box on the orange cargo bike, on the left.']];
+    return ['graph', ['Now the graph on the side of Lavery&rsquo;s van.', 'Click the poster on the side of the white van.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The car park. Fergus has put his cigarette out, to show willing.'); return; }
+    if (told.in) { busy = false; ER.say('The car park, in the rain.'); return; }
+    ER.narrate([
+      'Under the orange lamp is a white van with a poster on its side: a red line diving down a graph like a skier, and CRIME DOWN, YEAR AFTER YEAR in letters you could read from the ring road.',
+      'Beside the fire door, an orange cargo bike with a box of leaflets on the front: GETHIN FOR MAYOR. 8 IN 10 WANT IT.',
+      'And leaning on the van, smoking under the NO SMOKING sign, a thin man in a beige raincoat, watching the debate on his phone with the sound off. He sees you, and does not hide the cigarette.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- Fergus ---------- */
+  var POLICE = '<h4><span>Inchbeck Police &middot; recorded crime</span><span>a year at a time</span></h4><table><tr><th>Year</th><th>Crimes recorded in Inchbeck</th></tr>' +
+    [[2016, '3,300'], [2017, '3,450'], [2018, '3,600'], [2019, '3,900'], [2020, '4,300'], [2021, '4,240'], [2022, '4,180'], [2023, '4,140'], [2024, '4,110'], [2025, '4,080']].map(function (y) { return '<tr><td>' + y[0] + '</td><td>' + y[1] + '</td></tr>'; }).join('') +
+    '</table><p>All crimes recorded in the town in each year. These are totals: they do not take account of how many people lived in the town.</p>';
+  $('#fergus').addEventListener('click', function () {
+    if (busy) return;
+    if (told.fergus) { ER.say(nextFile ? '&ldquo;Fair,&rdquo; says Fergus, to nobody. &ldquo;I hate fair.&rdquo;' : '&ldquo;Graph&rsquo;s on the van,&rdquo; says Fergus. &ldquo;It isn&rsquo;t going anywhere. Unlike me, in this rain.&rdquo;'); return; }
+    ER.talk({
+      who: 'Fergus Dowd', role: 'Agent to Frank Lavery', face: window.FACE('fergus'),
+      lines: [
+        { note: 'He blows smoke at the rain.', a: '&ldquo;Iona&rsquo;s new one. Evening. Fergus Dowd, Mr Lavery&rsquo;s agent. And before you ask: yes, it&rsquo;s my graph, and no, I&rsquo;m not ashamed of it.&rdquo;' },
+        { q: 'Where do the numbers come from?', a: '<p>&ldquo;Police figures. Crimes recorded in Inchbeck, a year at a time. Have the lot: ten years, 2016 to 2025. I&rsquo;m not frightened of numbers. I&rsquo;m frightened of producers.&rdquo;</p><p>He hands you a damp sheet of paper from his inside pocket.</p>' },
+        { q: 'Why does the graph start in 2020?', a: '&ldquo;Because that&rsquo;s where the good news starts. Every graph starts somewhere. Hers start wherever she likes, too.&rdquo;' },
+        { q: 'Ms Gethin says eight out of ten people want a food market.', a: '&ldquo;Read her leaflet. The small print, at the bottom. Fifty people who follow the Larder online. My mother could get eight in ten if she asked her cats.&rdquo; He is right, and he knows it.' },
+        { q: 'When did Mr Lavery become leader?', a: '&ldquo;May 2018. Eight years in May. Don&rsquo;t tell him I said check that, mind. He&rsquo;ll think I&rsquo;m on your side.&rdquo;' }
+      ],
+      clue: { id: 'fergus', title: 'Fergus: the graph on the van', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen || !tell('fergus')) return;
+        FG.terms(['agent', 'campaign']); paint(); FG.sfx.slip();
+        ER.addClue('police', 'Police figures: crimes a year, 2016 to 2025', POLICE, 'police', 'Fergus&rsquo;s sheet');
+      }
+    });
+  });
+
+  /* ---------- the papers ---------- */
+  var DIA = '<svg viewBox="0 0 260 290"><g font-family="Kalam,cursive" fill="#1c1a24" text-anchor="middle">' +
+    '<text x="66" y="18" font-size="13">axis from 4,000</text><path d="M20 30V120H120" fill="none" stroke="#1c1a24" stroke-width="1.5"/><path d="M28 38L60 70L92 104L116 116" fill="none" stroke="#c8382a" stroke-width="3"/>' +
+    '<text x="194" y="18" font-size="13">axis from 0</text><path d="M146 30V120H246" fill="none" stroke="#1c1a24" stroke-width="1.5"/><path d="M154 44L186 46L218 48L242 49" fill="none" stroke="#2f6db5" stroke-width="3"/>' +
+    '<text x="130" y="142" font-size="13">the same five numbers</text>' +
+    '<rect x="16" y="160" width="228" height="120" fill="#fff3ec" stroke="#d4682a" stroke-width="1.5"/><text x="130" y="180" font-size="14">who answered?</text>' +
+    (function () { var t = '', i; for (i = 0; i < 40; i++) t += '<circle cx="' + (30 + (i % 10) * 22) + '" cy="' + (198 + Math.floor(i / 10) * 18) + '" r="5.5" fill="' + (i === 13 || i === 16 || i === 27 ? '#d4682a' : '#c8c4d0') + '"/>'; return t; })() +
+    '<text x="130" y="274" font-size="12.5">the town, and the few who chose to answer</text></g></svg>';
+  var GUIDE = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 12 &middot; for the smokers, who never read it indoors</span></h4><h3>Pictures of numbers, and who you asked</h3><div class="two"><div>' +
+    '<p><b>Graphs.</b> Look at where the side <b>axis</b> starts. Start it at 4,000 instead of 0, and a fall of five per cent looks like a cliff. Look at the <b>time window</b> too: where the time line starts and stops. Pick the right two years and almost anything is going up, or down. Ask: what happened just before the graph begins?</p>' +
+    '<p><b>Surveys.</b> A <b>survey</b> can only speak for the people it asked: its <b>sample</b>. Fifty people are too few to speak for a town, because a few answers either way swing the result. And when people choose themselves (they saw a post and wanted to answer), the sample is <b>self-selected</b>: you hear from the people who care most, not from everybody.</p>' +
+    '<p>In 1936 an American magazine, the Literary Digest, asked people how they would vote for president. More than two million answered, and it still picked the wrong winner. Its lists came mostly from telephone books and car owners, and only the people who wanted to answer did. The real winner took 46 of the 48 states.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Two million answers, and wrong. Fifty answers, and you want to put it on a leaflet? &mdash; I.B.</p>';
+  var LEAFLET = '<h4>Lydia Gethin &middot; Independent &middot; for Mayor</h4><h3>8 in 10 want a food market!</h3>' +
+    '<p>82% of Inchbeck people want the old market hall made into a covered food market. Fresh, local and cheap, six days a week. Let&rsquo;s give the town what it wants.</p>' +
+    '<small>The Larder&rsquo;s online survey, March: 41 of the 50 people who answered on our page said yes.</small>';
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'guide', clue: { id: 'guide12', title: 'Style guide p.12: Pictures of numbers, and who you asked', kind: 'The style guide' }, done: function () {
+      FG.terms(['axis', 'time window', 'survey', 'sample', 'self-selected']);
+      if (tell('guide')) { paint(); if (ready()) ER.say('Fergus nods at the van. &ldquo;Go on, then. Do your worst. It&rsquo;s only a poster.&rdquo;'); }
+    } });
+  });
+  $('#bike').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEAFLET, cls: 'leaflet', clue: { id: 'leaflet', title: 'Gethin&rsquo;s leaflet: 8 in 10', kind: 'A campaign leaflet' }, done: function () {
+      FG.terms(['leaflet']);
+      if (tell('leaflet')) { paint(); if (ready()) ER.say('Fergus nods at the van. &ldquo;Go on, then. Do your worst. It&rsquo;s only a poster.&rdquo;'); }
+    } });
+  });
+
+  /* ---------- things in the room ---------- */
+  FG.thing('#door', null, 'The fire door into the printworks, propped open with a fire extinguisher, which Iona says is the only use anybody has ever found for it.', isBusy);
+  FG.thing('#dish', null, 'The satellite dish on the roof. It has pointed at the same patch of sky since 1994, and the sky has not changed much either.', isBusy);
+  FG.thing('#lamp', null, 'An orange street lamp with three moths going round it. The moths have been at it longer than the debate, and are getting further.', isBusy);
+  FG.thing('#puddle', null, 'A puddle with the lamp in it, upside down and orange. Lavery&rsquo;s van is in it too, with its graph backwards.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#van').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The poster is the same poster. You know what it leaves out now, and so does Fergus.'); return; }
+    if (!told.fergus) { ER.say('A van with a graph on it. The man leaning on it is watching you.'); return; }
+    if (!told.guide) { ER.say('&ldquo;Read the rules first,&rdquo; says Fergus, nodding at the notice board by the door. &ldquo;Iona pins them up out here for us smokers. Page twelve.&rdquo;'); return; }
+    if (!told.leaflet) { ER.say('&ldquo;And read hers,&rdquo; says Fergus. &ldquo;The leaflets on the bike. Fair&rsquo;s fair.&rdquo;'); return; }
+    if (!lock) lock = makeGraph();
+    lock.open();
+  });
+
+  /* ---------- the graph, redrawn; the leaflet, marked; two dials ---------- */
+  function makeGraph() {
+    var DATA = { 2016: 3300, 2017: 3450, 2018: 3600, 2019: 3900, 2020: 4300, 2021: 4240, 2022: 4180, 2023: 4140, 2024: 4110, 2025: 4080 }, YS = [4000, 3000, 2000, 1000, 0], XS = [2016, 2017, 2018, 2019, 2020];
+    var st = ER.flag('d-st') || { ax: 4000, win: 2020, hl: [], v1: '', v2: '' }, wait = false, box = ER.el('div', 'job grj');
+    var CH = [['pct', '82%'], ['town', 'of Inchbeck people'], ['want', 'want the old market hall made into a covered food market']], SP = [['online', 'The Larder&rsquo;s online survey,'], ['march', 'March:'], ['n41', '41'], ['fifty', 'of the 50 people'], ['page', 'who answered on our page'], ['yes', 'said yes.']];
+    function hc(c) { return '<span class="hlc" data-h="' + c[0] + '">' + c[1] + '</span>'; }
+    box.innerHTML = '<h5>Two pictures, put right <small>Drag the side axis and the start of the time line (or click a number). Click words on the leaflet to mark them.</small></h5>' +
+      '<div class="gr-grid"><div><div class="gpanel"><h6>Crime in Inchbeck <small>police figures, crimes a year</small></h6><div class="gwrap"><div class="ysl"><b>AXIS<br>STARTS AT</b><div class="ytrack">' +
+      YS.map(function (v) { return '<span class="det" data-y="' + v + '">' + (v ? v.toLocaleString('en-GB') : '0') + '</span>'; }).join('') + '</div></div><svg viewBox="0 0 560 300" id="chart"></svg></div>' +
+      '<div class="xsl"><b>TIME LINE<br>STARTS IN</b><div class="xtrack">' + XS.map(function (v) { return '<span class="det" data-x="' + v + '">' + v + '</span>'; }).join('') + '</div></div></div>' +
+      '<div class="vrow2">' + FG.claim('lav', 'the van', 'Crime has gone down every single year since 2020.') + '<div id="dg1"></div></div></div>' +
+      '<div><div class="lfl"><h4>Lydia Gethin &middot; for Mayor</h4><h3>8 in 10 want a food market!</h3><p>' + hc(CH[0]) + ' ' + hc(CH[1]) + ' ' + hc(CH[2]) + '.</p>' +
+      '<div class="sp">' + SP.map(hc).join(' ') + '</div></div><p class="lnote" style="margin:6px 0 2px;font-family:Newsreader,serif;font-size:14.5px;color:#d8d2c4">Mark the two things in the small print that stop this survey speaking for the whole town.</p>' +
+      '<div class="vrow2">' + FG.claim('get', '20.33', 'Eight out of ten people in this town want the market hall made into a food market.') + '<div id="dg2"></div></div></div></div>' +
+      '<div class="job-foot"><p class="jmsg" id="gmsg"></p><button type="button" class="btn" id="g-go">Show Fergus</button></div>';
+    var chart = box.querySelector('#chart'), msgEl = box.querySelector('#gmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('d-st', st); }
+    function drawChart() {
+      var x0 = 64, x1 = 540, y0 = 262, y1 = 22, ymax = 4400, yrs = [], y, s = '', k, X, Y;
+      for (y = st.win; y <= 2025; y++) yrs.push(y);
+      X = function (yr) { return x0 + (yr - st.win) / (2025 - st.win) * (x1 - x0); };
+      Y = function (v) { return y0 - (v - st.ax) / (ymax - st.ax) * (y0 - y1); };
+      for (k = st.ax; k <= ymax; k += (st.ax === 4000 ? 100 : 1000)) { var tv = k, ty = Y(tv); s += '<path d="M' + x0 + ' ' + ty.toFixed(1) + 'H' + x1 + '" stroke="#d8dbe4" stroke-width="1"/><text x="' + (x0 - 6) + '" y="' + (ty + 4).toFixed(1) + '" font-family="DM Mono,monospace" font-size="11" text-anchor="end" fill="#5a6278">' + Math.round(tv).toLocaleString('en-GB') + '</text>'; }
+      s += '<path d="M' + x0 + ' ' + y1 + 'V' + y0 + 'H' + x1 + '" fill="none" stroke="#1d2230" stroke-width="2"/>';
+      if (st.win <= 2018) s += '<path d="M' + X(2018).toFixed(1) + ' ' + y1 + 'V' + y0 + '" stroke="#2f6db5" stroke-width="1.5" stroke-dasharray="5 4"/><text x="' + (X(2018) + 5).toFixed(1) + '" y="' + (y0 - 8) + '" font-family="Outfit,sans-serif" font-size="11.5" fill="#2f6db5">Lavery leader from May 2018</text>';
+      s += '<path d="M' + yrs.map(function (yr) { return X(yr).toFixed(1) + ' ' + Y(DATA[yr]).toFixed(1); }).join('L') + '" fill="none" stroke="#c8382a" stroke-width="4" stroke-linejoin="round"/>';
+      yrs.forEach(function (yr) {
+        s += '<circle cx="' + X(yr).toFixed(1) + '" cy="' + Y(DATA[yr]).toFixed(1) + '" r="4.5" fill="#c8382a"/><text x="' + X(yr).toFixed(1) + '" y="' + (y0 + 16) + '" font-family="DM Mono,monospace" font-size="11" text-anchor="middle" fill="#5a6278">' + (yr === st.win || yr === 2025 ? yr : "'" + String(yr).slice(2)) + '</text>';
+        if (yr === st.win || yr === 2025 || yr === 2020) s += '<text x="' + (X(yr) + (yr === st.win ? 8 : 0)).toFixed(1) + '" y="' + (Y(DATA[yr]) - 10).toFixed(1) + '" font-family="DM Mono,monospace" font-size="11.5" font-weight="500" text-anchor="' + (yr === st.win ? 'start' : 'middle') + '" fill="#1d2230">' + DATA[yr].toLocaleString('en-GB') + '</text>';
+      });
+      chart.innerHTML = s;
+      ER.$$('.ytrack .det', box).forEach(function (d) { d.classList.toggle('on', +d.getAttribute('data-y') === st.ax); });
+      ER.$$('.xtrack .det', box).forEach(function (d) { d.classList.toggle('on', +d.getAttribute('data-x') === st.win); });
+    }
+    function slider(track, attr, set) {
+      function pick(e) {
+        var best = null, bd = 1e9;
+        ER.$$('.det', track).forEach(function (d) { var r = d.getBoundingClientRect(), dd = attr === 'data-y' ? Math.abs(e.clientY - (r.top + r.height / 2)) : Math.abs(e.clientX - (r.left + r.width / 2)); if (dd < bd) { bd = dd; best = d; } });
+        if (best) set(+best.getAttribute(attr));
+      }
+      track.addEventListener('pointerdown', function (e) {
+        if (e.button || wait) return;
+        e.preventDefault(); try { track.setPointerCapture(e.pointerId); } catch (x) {}
+        pick(e);
+        function mv(ev) { pick(ev); }
+        function up() { track.removeEventListener('pointermove', mv); track.removeEventListener('pointerup', up); track.removeEventListener('pointercancel', up); keep(); }
+        track.addEventListener('pointermove', mv); track.addEventListener('pointerup', up); track.addEventListener('pointercancel', up);
+      });
+    }
+    slider(box.querySelector('.ytrack'), 'data-y', function (v) { if (v !== st.ax) { st.ax = v; FG.sfx.detent(); drawChart(); } });
+    slider(box.querySelector('.xtrack'), 'data-x', function (v) { if (v !== st.win) { st.win = v; FG.sfx.detent(); drawChart(); } });
+    /* the highlighter */
+    function paintHl() { ER.$$('.hlc', box).forEach(function (h) { h.classList.toggle('on', st.hl.indexOf(h.getAttribute('data-h')) >= 0); h.classList.remove('bad'); }); }
+    box.querySelector('.lfl').addEventListener('click', function (e) {
+      var h = e.target.closest ? e.target.closest('.hlc') : null; if (!h || wait) return;
+      var k = h.getAttribute('data-h'), i = st.hl.indexOf(k);
+      if (i >= 0) st.hl.splice(i, 1); else st.hl.push(k);
+      FG.sfx.pen(); keep(); paintHl();
+    });
+    var d1 = FG.dial({ small: true, value: st.v1, onChange: function (v) { st.v1 = v; keep(); }, lock: function () { return wait; } });
+    var d2 = FG.dial({ small: true, value: st.v2, onChange: function (v) { st.v2 = v; keep(); }, lock: function () { return wait; } });
+    box.querySelector('#dg1').appendChild(d1.node); box.querySelector('#dg2').appendChild(d2.node);
+    box.querySelector('#g-go').addEventListener('click', function () {
+      var hl, file, wrong;
+      if (wait || nextFile) return;
+      if (!ER.check('ax', String(st.ax))) { ER.sfx.no(); msg(st.ax === 4000 ? '&ldquo;From 4,000?&rdquo; says Fergus. &ldquo;That&rsquo;s my poster. Page twelve says that&rsquo;s how a fall of five per cent turns into a cliff. Where should the side axis start?&rdquo;' : '&ldquo;' + st.ax.toLocaleString('en-GB') + '?&rdquo; says Fergus. &ldquo;Still not the bottom. The slope still looks steeper than it is.&rdquo;'); return; }
+      if (!ER.check('win', String(st.win))) {
+        ER.sfx.no();
+        msg(st.win === 2020 ? '&ldquo;That&rsquo;s my window,&rdquo; says Fergus. &ldquo;Where the good news starts. He says crime fell under HIM. When did he start?&rdquo;' :
+          st.win === 2019 ? '&ldquo;He became leader in May 2018,&rdquo; says Fergus. &ldquo;Start with his first year.&rdquo;' :
+          '&ldquo;That&rsquo;s before he was leader,&rdquo; says Fergus. &ldquo;Fair&rsquo;s fair: start where his time starts.&rdquo;');
+        return;
+      }
+      if (!st.v1) { ER.sfx.no(); msg('&ldquo;Now you&rsquo;ve redrawn it,&rdquo; says Fergus, &ldquo;what does your dial say about my poster?&rdquo;'); return; }
+      if (!ER.check('v1', st.v1)) {
+        ER.sfx.no(); ER.shake(d1.node);
+        msg({ 'true': '&ldquo;Every number on it is right,&rdquo; says Fergus, &ldquo;and it does fall every year since 2020. But you&rsquo;ve just redrawn it. Is nothing important left out?&rdquo; He sounds almost sorry.',
+          'false': '&ldquo;False?&rdquo; says Fergus. &ldquo;4,300, 4,240, 4,180, 4,140, 4,110, 4,080. Down every year. Show me the wrong number.&rdquo;',
+          cant: '&ldquo;You&rsquo;ve got the police figures in your hand,&rdquo; says Fergus. &ldquo;You can check it. You have.&rdquo;' }[st.v1]);
+        return;
+      }
+      hl = st.hl.slice().sort();
+      if (hl.length < 2) { ER.sfx.no(); msg('&ldquo;Two things in her small print,&rdquo; says Fergus. &ldquo;One about how MANY people. One about WHO.&rdquo;'); return; }
+      wrong = hl.filter(function (k) { return k !== 'fifty' && k !== 'page'; })[0];
+      if (wrong || !ER.check('hl', hl.join('+'))) {
+        ER.sfx.no(); var hn = box.querySelector('.hlc[data-h="' + (wrong || hl[0]) + '"]'); if (hn) hn.classList.add('bad');
+        msg({ pct: '&ldquo;82 per cent is just 41 out of 50,&rdquo; says Fergus. &ldquo;The sum is right. The trouble is the people who did the answering.&rdquo;',
+          town: '&ldquo;That&rsquo;s her claim, not her survey,&rdquo; says Fergus. &ldquo;Mark the small print that shows why it can&rsquo;t be true of the town.&rdquo;',
+          want: '&ldquo;That&rsquo;s what she&rsquo;s selling,&rdquo; says Fergus. &ldquo;The small print, at the bottom.&rdquo;',
+          online: '&ldquo;Online isn&rsquo;t the problem,&rdquo; says Fergus. &ldquo;A survey online can be fair, if the people are chosen properly. Which words tell you THESE people chose themselves?&rdquo;',
+          march: '&ldquo;When she asked is fine,&rdquo; says Fergus. &ldquo;Who she asked is not.&rdquo;',
+          n41: '&ldquo;41 is just the yeses,&rdquo; says Fergus. &ldquo;How many answered at all?&rdquo;',
+          yes: '&ldquo;Saying yes isn&rsquo;t the problem,&rdquo; says Fergus. &ldquo;I&rsquo;d say yes to a food market. I like a pie.&rdquo;' }[wrong] || '&ldquo;One of those is right,&rdquo; says Fergus. &ldquo;How many people, and who were they?&rdquo;');
+        return;
+      }
+      if (!st.v2) { ER.sfx.no(); msg('&ldquo;And her claim?&rdquo; says Fergus. &ldquo;Go on. Your dial. I&rsquo;m enjoying this.&rdquo;'); return; }
+      if (!ER.check('v2', st.v2)) {
+        ER.sfx.no(); ER.shake(d2.node);
+        msg({ 'true': '&ldquo;Fifty people who chose to answer on the Larder&rsquo;s page,&rdquo; says Fergus. &ldquo;Can that tell you what Inchbeck wants?&rdquo;',
+          'false': '&ldquo;False means you know the facts are wrong,&rdquo; says Fergus, a little surprised to be defending her. &ldquo;Do you know most people DON&rsquo;T want a food market? Nobody knows either way. Nobody has asked the town properly.&rdquo;',
+          tbm: '&ldquo;True but misleading means the facts in it are right,&rdquo; says Fergus. &ldquo;Is it a fact that eight in ten Inchbeck people want it? Has anybody measured that?&rdquo;' }[st.v2]);
+        return;
+      }
+      file = ER.exit([st.ax + '|' + st.win + '|' + st.v1 + '|' + hl.join('+') + '|' + st.v2], { wait: true });
+      if (!file) { msg('The rain gets into everything. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file); d1.lock(true); d2.lock(true);
+      FG.mine('graph', 'The van and the leaflet', '<p>Lavery&rsquo;s graph: axis from 4,000 and a window from 2020. Redrawn from 0, from 2018 (his first year): 3,600 → 4,300 in 2020 → 4,080 in 2025. Down every year since 2020, but up 480 since he became leader. TRUE BUT MISLEADING.</p>' +
+        '<p>Gethin&rsquo;s survey: 50 people (too few) who answered on the Larder&rsquo;s page (self-selected). Nobody has asked the town. CAN&rsquo;T CHECK TONIGHT.</p>', true);
+      msg('Fergus looks at the redrawn graph for a long time. &ldquo;That&rsquo;s fair,&rdquo; he says at last. &ldquo;I hate fair.&rdquo; He looks at the leaflet. &ldquo;Hers too, mind. Good.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'On the redrawn graph the cliff is a gentle slope, and the slope sits on the far side of a hill: up from 3,600 in 2018 to 4,300 in 2020, then down a little every year, to 4,080.',
+          '20.38, on Fergus&rsquo;s phone, with the sound turned up. Gethin: &ldquo;There are nearly five hundred more crimes a year in this town than when Frank Lavery took over!&rdquo;',
+          '20.39. Lavery: &ldquo;And since we put new street lights on the Ring Road, house prices there have gone up by a fifth. Light brings value!&rdquo;',
+          'The fire door bangs open. Iona, holding a tablet over her head against the rain: &ldquo;Break at 20.40. Four minutes. They both go to the green room for their make-up. Go and ask them for their sources. Here: the Check, my draft.&rdquo; She looks at Fergus&rsquo;s cigarette. &ldquo;And you can put that out.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3400);
+    });
+    drawChart(); paintHl();
+    msg(st.hl.length || st.ax !== 4000 || st.win !== 2020 ? 'The graph and the leaflet, as you left them.' : 'This is Fergus&rsquo;s graph, exactly as it is on the van. Put it right. Then mark the leaflet.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

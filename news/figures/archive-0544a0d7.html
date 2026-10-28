@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Tape Library · Same Rules</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="figures.css">
+<style>
+  body{--bg:#16130b;--accent:#e8c45a;--font-display:'Oswald',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(22,19,11,.97);--tc-ink:#f3eedc;--cap-bg:rgba(20,17,10,.95);--panel:#211c10;--face-bg:#2a2a1e;--q-ink:#e8c45a;--fade:#080604;--hud-bg:rgba(20,17,10,.86)}
+  .gobtn{color:#16130b}
+  #tube{animation:tube 9s steps(1,end) infinite}
+  @keyframes tube{0%{opacity:1}71%{opacity:1}72%{opacity:.35}73%{opacity:1}75%{opacity:.5}76%{opacity:1}}
+  #steam path{animation:steam 3s ease-in-out infinite}
+  @keyframes steam{50%{transform:translateY(-5px);opacity:.25}}
+  #bars{display:block}
+  body.loaded #bars{display:none}
+  #frame19{display:none}
+  body.loaded #frame19{display:block}
+
+  /* the edit deck */
+  .tapej{width:min(1100px,97vw)}
+  .tp-top{display:grid;grid-template-columns:330px minmax(0,1fr);gap:14px;align-items:stretch}
+  .tp-mon{background:#111;border:10px solid #3a3a36;border-radius:14px;padding:0;position:relative}
+  .tp-mon svg{display:block;width:100%;height:auto}
+  .tp-side{display:flex;flex-direction:column;gap:8px}
+  .subs{flex:1;min-height:92px;padding:8px 12px;background:#0d0d0a;border:1px solid #3a382c;border-radius:3px;font-family:'Newsreader',serif;font-size:16.5px;line-height:1.5;color:#8a8670}
+  .subs span{padding:0 1px;border-radius:2px}
+  .subs span.sp{display:inline-block;margin-right:4px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:#a69a6a}
+  .subs span.hid{color:transparent;background:repeating-linear-gradient(90deg,#2a2820 0 6px,transparent 6px 8px)}
+  .subs span.now{background:#e8c45a;color:#1a1608}
+  .subs span.cut{color:#fff;background:#7a3a2a}
+  .subs span.cut.now{background:#e8c45a;color:#1a1608}
+  .strip{position:relative;height:56px;margin:10px 0 2px;background:#1b1a14;border:1px solid #3a382c;border-radius:3px;cursor:pointer;touch-action:none}
+  .seg{position:absolute;top:10px;height:28px;border-right:1px solid #1b1a14}
+  .seg.c{background:#6a4a8a}
+  .seg.l{background:#2f6db5}
+  .seg.h{opacity:.35}
+  .phd{position:absolute;top:0;bottom:0;width:3px;margin-left:-1px;background:#ff4a3a;pointer-events:none}
+  .phd:before{content:'';position:absolute;top:-6px;left:-6px;border:7px solid transparent;border-top-color:#ff4a3a}
+  .mk{position:absolute;top:2px;bottom:2px;width:9px;border:3px solid #e8c45a;pointer-events:none}
+  .mk.in{border-right:0}
+  .mk.out{border-left:0;margin-left:-9px}
+  .tcode{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10.5px;color:#8a8670}
+  .tp-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tp-ctl .btn{padding:5px 11px;font-size:12px;background:rgba(0,0,0,.35)}
+  .tp-ctl .rd{font-family:'DM Mono',monospace;font-size:14px;color:#e8c45a;background:#0d0d0a;padding:4px 10px;border-radius:2px;min-width:170px}
+  .tp-ctl .gq{flex:1;text-align:right;font-family:'Newsreader',serif;font-style:italic;font-size:15px;color:#e9dfc0}
+  .lines{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:center;margin-top:10px}
+  .rline{padding:8px 12px;margin:0 0 6px;background:#f4ecd6;color:#2a2416;border-left:6px solid #4b2a7a;font-family:'Newsreader',serif;font-size:16.5px;line-height:2}
+  .rline .sl{color:#1a1608;border-color:#8a7a4a;background:rgba(0,0,0,.04);min-width:84px;font-size:15px;line-height:22px;min-height:28px}
+  .rline .sl.full{border-color:#4b2a7a;background:#fff6d0}
+  .rline .sl.bad{border-color:#c8382a;background:#ffd6cc}
+  .rline .sl.ok{border-color:#2e8b57;background:#d8f2df}
+  .tp-tray{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .vlab{font-family:'DM Mono',monospace;font-size:10.5px;color:#b5a98a;text-align:center;margin-bottom:2px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262214"/><stop offset="1" stop-color="#34301e"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2516"/><stop offset="1" stop-color="#0e0c06"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#f4f6d8" stop-opacity=".38"/><stop offset="1" stop-color="#f4f6d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".86"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#floorG)"/>
+<g stroke="#4a4430" stroke-width="14" fill="none" opacity=".8"><path d="M-1000 40H2600"/><path d="M-1000 70H700q30 0 30 30v40"/></g><g stroke="#5a5238" stroke-width="5" fill="none"><path d="M-1000 92H2600"/></g>
+<g id="tube"><rect x="600" y="104" width="400" height="12" rx="6" fill="#f4f6d8"/><path d="M600 116L380 760H1220L1000 116Z" fill="url(#tubeG)" pointer-events="none"/></g>
+
+<!-- the shelves of tapes -->
+<g id="shelvesL" class="hot"><rect x="30" y="130" width="400" height="580" fill="#1c190e"/><g id="tapesL"></g></g>
+<g id="t2022" class="hot"><rect x="318" y="378" width="30" height="80" fill="#e8e2c8"/><rect x="318" y="392" width="30" height="40" fill="#fff"/><path d="M322 400h22M322 408h18M322 416h22" stroke="#7a2a2a" stroke-width="2"/></g>
+<g id="shelvesR" class="hot"><rect x="1300" y="130" width="400" height="580" fill="#1c190e"/><g id="tapesR"></g></g>
+
+<!-- the corkboard: Hilda's card and a page of the style guide -->
+<g><rect x="452" y="150" width="128" height="250" fill="#8a6a42"/><rect x="458" y="156" width="116" height="238" fill="#b08a5a"/></g>
+<g id="card" class="hot" transform="rotate(-3 515 220)"><rect x="466" y="168" width="100" height="100" fill="#f3ead0"/><rect x="466" y="168" width="100" height="5" fill="#4b2a7a"/><path d="M476 190h80M476 200h70M476 210h78M476 220h60M476 230h74M476 240h66" stroke="#6a6a7a" stroke-width="1.6"/><circle cx="516" cy="172" r="4" fill="#c0392b"/>
+  <text x="516" y="262" class="fC" font-size="14" text-anchor="middle" fill="#27457a">nobody said</text></g>
+<g id="guide" class="hot" transform="rotate(2 515 330)"><rect x="470" y="282" width="94" height="104" fill="#fdfcf9"/><rect x="470" y="282" width="94" height="9" fill="#4b2a7a"/><path d="M480 304h74M480 314h60M480 324h70M480 334h56M480 344h66M480 354h50" stroke="#7a6f8c" stroke-width="1.8"/><circle cx="517" cy="286" r="4" fill="#2a6ab0"/>
+  <text x="517" y="378" class="fO" font-size="10" text-anchor="middle" fill="#4b2a7a">p.9 QUOTES</text></g>
+
+<!-- the edit deck and its monitor -->
+<g id="deck" class="hot"><rect x="618" y="268" width="364" height="250" rx="16" fill="#3a3a36"/><rect x="636" y="284" width="328" height="214" rx="18" fill="#0b0b0a"/>
+  <g id="bars"><g><rect x="648" y="296" width="44" height="190" fill="#c8c8c8"/><rect x="692" y="296" width="44" height="190" fill="#c8c800"/><rect x="736" y="296" width="44" height="190" fill="#00c8c8"/><rect x="780" y="296" width="44" height="190" fill="#00c800"/><rect x="824" y="296" width="44" height="190" fill="#c800c8"/><rect x="868" y="296" width="44" height="190" fill="#c80000"/><rect x="912" y="296" width="40" height="190" fill="#0000c8"/></g></g>
+  <g id="frame19"><rect x="648" y="296" width="304" height="190" fill="#3a2a4a"/><g id="lav19"></g><rect x="648" y="452" width="304" height="26" fill="#1a3a6a" opacity=".9"/><text x="656" y="470" class="fX" font-size="13" font-weight="600" fill="#fff">INCHBECK TONIGHT · 14.03.2019</text></g>
+  <path d="M636 300q164 -18 328 0" stroke="#fff" stroke-width="3" opacity=".06" fill="none"/>
+  <rect x="560" y="530" width="480" height="84" rx="6" fill="#8a8a84"/><rect x="560" y="530" width="480" height="12" rx="4" fill="#a8a8a0"/>
+  <rect x="590" y="556" width="200" height="22" rx="2" fill="#1a1a18"/><rect x="600" y="560" width="120" height="14" fill="#2a2a26"/><text x="690" y="600" class="fM" font-size="10" text-anchor="middle" fill="#2a2a26">BETACAM SP</text>
+  <g fill="#3a3a36"><rect x="810" y="556" width="26" height="18" rx="2"/><rect x="842" y="556" width="26" height="18" rx="2"/><rect x="874" y="556" width="26" height="18" rx="2"/></g><rect x="842" y="556" width="26" height="18" rx="2" fill="#c0392b"/>
+  <circle cx="972" cy="572" r="28" fill="#2a2a26"/><circle cx="972" cy="572" r="20" fill="#4a4a44"/><circle cx="984" cy="562" r="4" fill="#1a1a18"/></g>
+<path d="M500 614H1100L1120 640H480Z" fill="#4a3a26"/><path d="M480 640H1120V660H480z" fill="#2e2416"/><path d="M510 660v190M1090 660v190" stroke="#2e2416" stroke-width="16"/>
+
+<!-- Hilda's desk: the radio, the kettle, the telephone -->
+<path d="M1100 606H1290L1300 626H1092Z" fill="#4a3a26"/><path d="M1092 626H1300V640H1092z" fill="#2e2416"/>
+<g id="radio" class="hot"><rect x="1112" y="566" width="80" height="40" rx="6" fill="#7a3a2a"/><circle cx="1134" cy="586" r="12" fill="#3a2016"/><rect x="1152" y="576" width="32" height="6" fill="#e8d8a8"/><rect x="1152" y="588" width="32" height="6" fill="#e8d8a8"/><path d="M1180 566l14 -30" stroke="#8a8a84" stroke-width="2"/></g>
+<g id="kettle" class="hot"><path d="M1212 606h48l-4 -40h-40z" fill="#c8c8c0"/><path d="M1260 576q14 2 10 18" fill="none" stroke="#c8c8c0" stroke-width="5"/><path d="M1212 580l-12 -10" stroke="#c8c8c0" stroke-width="6"/>
+  <g id="steam" fill="none" stroke="#fff" stroke-width="2" opacity=".5"><path d="M1202 562q-4 -10 2 -18"/><path d="M1196 556q-4 -10 2 -18"/></g></g>
+
+<!-- Hilda Cawley -->
+<g id="hilda" class="hot" transform="translate(1210 872) scale(1.1)"></g>
+<!-- the trolley -->
+<g id="trolley" class="hot"><rect x="300" y="700" width="170" height="10" fill="#6a6a64"/><rect x="300" y="790" width="170" height="10" fill="#6a6a64"/><path d="M306 700v100M464 700v100" stroke="#6a6a64" stroke-width="6"/><circle cx="314" cy="812" r="10" fill="#1a1a18"/><circle cx="456" cy="812" r="10" fill="#1a1a18"/>
+  <g id="trolt"></g></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out to the car park</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="figures.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i, j, r = 7, c = ['#7a3a2a', '#2a4a6a', '#5a6a2a', '#8a6a2a', '#3a3a5a', '#6a2a4a', '#2a5a5a'];
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    function shelf(x0, w) {
+      var t = '';
+      for (j = 0; j < 5; j++) {
+        var y = 146 + j * 112, x = x0 + 8;
+        t += '<rect x="' + x0 + '" y="' + (y + 92) + '" width="' + w + '" height="10" fill="#4a3e26"/>';
+        while (x < x0 + w - 30) { var bw = 22 + rnd() * 10; if (!(x0 < 400 && j === 2 && x > 300 && x < 352)) t += '<rect x="' + x.toFixed(0) + '" y="' + (y + 10 + rnd() * 6).toFixed(0) + '" width="' + bw.toFixed(0) + '" height="' + (76 + rnd() * 4).toFixed(0) + '" fill="' + c[Math.floor(rnd() * 7)] + '"/><rect x="' + (x + 3).toFixed(0) + '" y="' + (y + 30).toFixed(0) + '" width="' + (bw - 6).toFixed(0) + '" height="14" fill="#e8e2c8" opacity=".75"/>'; x += bw + 3; }
+      }
+      return t;
+    }
+    $('#tapesL').innerHTML = shelf(30, 400); $('#tapesR').innerHTML = shelf(1300, 400);
+    for (i = 0; i < 9; i++) s += '<rect x="' + (312 + i * 17) + '" y="' + (722 + (i % 2) * 4) + '" width="14" height="64" fill="' + c[i % 7] + '"/>';
+    $('#trolt').innerHTML = s;
+    $('#lav19').innerHTML = '<circle cx="800" cy="300" r="70" fill="#ffcf9a" opacity=".12"/><g transform="translate(800 520) scale(.62)">' + FG.who('frank', { hair: '#cfc8bc', smile: 2, tie: '#e0e020', armR: 'M31 -222Q50 -200 40 -170', handR: [40, -164] }) + '</g>' +
+      '<g fill="#ff3ad0"><circle cx="799" cy="381" r="1.7"/><circle cx="801" cy="391" r="1.7"/><circle cx="799" cy="400" r="1.7"/></g>';
+    $('#hilda').innerHTML = FG.who('hilda', { smile: 3, armR: 'M31 -222Q54 -200 44 -166', handR: [42, -160], extra: '<rect x="30" y="-184" width="40" height="26" rx="3" fill="#2a2a26"/><rect x="34" y="-180" width="32" height="10" fill="#e8e2c8"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'figures', storyTitle: 'Same Rules', id: 'archive', no: 'III', title: 'The Tape Library',
+    go: 'Go down',
+    intro: [
+      'Lavery&rsquo;s &ldquo;average&rdquo; firm made £52,000: that was the mean, pulled up by one games studio that made £285,000. The median, the firm in the middle, made £14,000. TRUE BUT MISLEADING. Gethin said Highfield got half as much again as Fairfield: true in pounds, but Highfield has three times the people. Per person Fairfield got £200 and Highfield £100, so Lavery&rsquo;s reply, &ldquo;twice as much&rdquo;, was TRUE. Iona did not enjoy that.',
+      'Twenty-three minutes past eight. Down two flights of stairs, past the boiler, is the room where Inchbeck Television keeps everything it has ever broadcast.'
+    ],
+    exit: {"next":"carpark","w":{"79215642":"5bca856c"}}, tags: {"cin":["a2c414ea"],"cout":["ebd64b74"],"l1a":["7c29aa5a"],"l1b":["ca1e7ed4"],"l1c":["3f4ae016"],"l1d":["afe6a9ea"],"l2a":["d3f7717d"],"l2b":["8ebdca8b"],"v":["806c4939"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function ready() { return told.live && told.guide; }
+  function paint() {
+    document.body.classList.toggle('loaded', !!told.hilda);
+    $('#hilda').classList.toggle('ready', !!(told.in && !told.hilda));
+    $('#guide').classList.toggle('ready', !!(told.live && !told.guide));
+    $('#deck').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.hilda ? 1 : 0) + (told.guide ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['The library quote is on the Check, and the pool quote with it. Lavery has a graph on his van, in the car park: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['deck', [
+      'Drag the red playhead along the tape (or use the arrow buttons) and read the words as they come up. Find the words Gethin quoted: &ldquo;the library is a waste of money&rdquo;. Put IN on the first of them and OUT on the last. Then look at the words just before and just after.',
+      'Her clip begins with &ldquo;the library&rdquo; in Lavery&rsquo;s answer (not in Colm&rsquo;s question) and stops at &ldquo;money&rdquo;. Play on, and look at what he says just before it and just after it. For the two lines: pick the fair verb (page nine), and move every verb one step back in time.',
+      'Line one: was he owning up to something, or just telling Colm what people say? Then: what is the past of tell, of is, of don&rsquo;t? Line two: he said &ldquo;I promise you&rdquo;: which verb is for a word given about the future, and what does will become? Then the dial: he said the words, but did he say the library IS a waste of money?'
+    ]];
+    if (!told.hilda) return ['talk', ['The tape librarian knows where every tape is. She is standing by her desk on the right.', 'Click Hilda, the woman with the white bun and the mustard cardigan.']];
+    if (!told.guide) return ['read', ['Before you touch the deck, read what the style guide says about quotes. Hilda keeps a page of it on her corkboard.', 'Click the white page with the purple top on the corkboard, under the yellow card: page 9.']];
+    return ['deck', ['Hilda has put the 2019 tape in the edit deck.', 'Click the edit deck and its monitor, in the middle of the room.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The tape library. Hilda is putting the 2019 tape back where it lives.'); return; }
+    if (told.in) { busy = false; ER.say('The tape library, under the boiler.'); return; }
+    ER.narrate([
+      'Shelves of tapes, floor to ceiling, in boxes of every colour, each with a date on its spine in the same small handwriting. Thirty-seven years of Inchbeck: floods, fêtes, councils, a royal visit, and a great many brass bands.',
+      'The light is one long tube that has been about to go since 2011. A radio on the desk is playing the debate, quietly.',
+      'Hilda Cawley, the tape librarian, is already holding a tape. She looks at you over her glasses as if you are late, which you are.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- Hilda ---------- */
+  $('#hilda').addEventListener('click', function () {
+    if (busy) return;
+    if (told.hilda) { ER.say(nextFile ? '&ldquo;Shelf F, box 212,&rdquo; says Hilda, putting it back. &ldquo;It&rsquo;ll be wanted again. They always are.&rdquo;' : '&ldquo;It&rsquo;s in the deck,&rdquo; says Hilda. &ldquo;Play the whole answer.&rdquo;'); return; }
+    ER.talk({
+      who: 'Hilda Cawley', role: 'Tape librarian · since 1989', face: window.FACE('hilda'),
+      lines: [
+        { note: 'She holds up the tape.', a: '&ldquo;You&rsquo;ll want the fourteenth of March 2019. Inchbeck Tonight. Councillor Lavery, Colm when he still had hair, and a tie I have never been able to forget. I heard her say it on the radio, and I knew where it was before she&rsquo;d finished the sentence.&rdquo;' },
+        { q: 'How do you know where everything is?', a: '&ldquo;Thirty-seven years. Every tape in this room has been through my hands. I could find you the 1990 floods in the dark. I have done, once, in a power cut.&rdquo;' },
+        { q: 'Is Ms Gethin&rsquo;s clip from this tape?', a: '&ldquo;Her clip is from a video one of her supporters made, from a copy somebody took off our website, which is where it got short. Play the whole answer. That&rsquo;s all I ever say down here. Nobody ever plays the whole answer.&rdquo;' },
+        { q: 'How does the deck work?', a: '<p>&ldquo;Drag the playhead along the tape, or use the arrows. The words come up underneath as he says them. Mark where her clip begins with IN and where it stops with OUT.&rdquo;</p><p>She pushes the tape into the deck. It goes in with a clunk that you feel in your teeth. &ldquo;And no tea near it.&rdquo;</p>' }
+      ],
+      clue: { id: 'hilda', title: 'Hilda: the whole answer', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('hilda')) return;
+        FG.terms(['archive', 'clip']); FG.sfx.clunk(); paint(); busy = true;
+        ER.narrate([
+          'On the deck&rsquo;s monitor the colour bars give way to 2019: Lavery, younger, in a yellow tie with pink spots.',
+          '20.24, from the radio on Hilda&rsquo;s desk. Gethin: &ldquo;And he promised the swimming pool would reopen by 2022. Look at it now. Boarded up!&rdquo;',
+          'Hilda&rsquo;s telephone rings. She holds it out to you without a word. It is Iona: &ldquo;The pool one&rsquo;s true, I swim there. Swam. Do the library. And when it goes on the Check, I want both quotes written properly: page nine, on Hilda&rsquo;s corkboard.&rdquo;'
+        ], function () { busy = false; tell('live'); paint(); ER.addClue('live3', 'Live transcript, 20.22 to 20.24', TRANS, 'trans', 'The transcript'); });
+      }
+    });
+  });
+
+  var TRANS = '<h4><span>Live transcript · Inchbeck Decides</span><span>20.22&ndash;20.24</span></h4>' +
+    '<p><i>20.22</i><b>GETHIN</b>In 2019 Frank Lavery sat in this very studio and said, and I quote, &lsquo;the library is a waste of money&rsquo;.</p>' +
+    '<p><i>20.22</i><b>LAVERY</b>I never said that.</p><p><i>20.22</i><b>GETHIN</b>It&rsquo;s on tape.</p>' +
+    '<p><i>20.24</i><b>GETHIN</b>And he promised the swimming pool would reopen by 2022. Look at it now. Boarded up!</p>';
+  var DIA = '<svg viewBox="0 0 260 250"><g font-family="Kalam,cursive" fill="#1c1a24" text-anchor="middle">' +
+    '<rect x="10" y="40" width="240" height="40" fill="#2f6db5" opacity=".2" stroke="#2f6db5"/><text x="130" y="30" font-size="15">the whole answer</text>' +
+    '<text x="130" y="66" font-size="12.5">People tell me | the library is a waste | I don&#8217;t agree.</text>' +
+    '<rect x="88" y="88" width="104" height="30" fill="#b23a1f" opacity=".15" stroke="#b23a1f"/><text x="140" y="108" font-size="12.5" fill="#b23a1f">the library is a waste</text><text x="40" y="108" font-size="13" fill="#b23a1f">the clip:</text>' +
+    '<text x="130" y="150" font-size="15" font-weight="700" fill="#4b2a7a">one step back</text>' +
+    '<text x="70" y="176" font-size="14">tell</text><text x="130" y="176" font-size="14">→</text><text x="190" y="176" font-size="14">told</text>' +
+    '<text x="70" y="198" font-size="14">is</text><text x="130" y="198" font-size="14">→</text><text x="190" y="198" font-size="14">was</text>' +
+    '<text x="70" y="220" font-size="14">don&#8217;t</text><text x="130" y="220" font-size="14">→</text><text x="190" y="220" font-size="14">didn&#8217;t</text>' +
+    '<text x="70" y="242" font-size="14">will</text><text x="130" y="242" font-size="14">→</text><text x="190" y="242" font-size="14">would</text></g></svg>';
+  var GUIDE = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 9</span></h4><h3>Quotes: the whole sentence, the right verb</h3><div class="two"><div>' +
+    '<p>A <b>quotation</b> is only true if it means what the speaker meant. Cut a sentence in the right place and you can make anybody say anything: that is a quote taken <b>out of context</b>. Before a quote goes on air, find the recording, play the whole answer, and check the words just before and just after.</p>' +
+    '<p>The <b>reporting verb</b> tells the viewer what to think. SAID is plain. CLAIMED suggests we doubt it. ADMITTED suggests the speaker owned up to something bad. PROMISED means a word given about the future. Use SAID unless you can prove one of the others.</p>' +
+    '<p>In <b>reported speech</b>, every verb moves one step back in time:</p>' +
+    '<p class="ex">&ldquo;I don&rsquo;t agree.&rdquo; → He said (that) he didn&rsquo;t agree.<br>&ldquo;It is a waste.&rdquo; → He said (that) it was a waste.<br>&ldquo;The pool will open.&rdquo; → He promised (that) the pool would open.</p>' +
+    '<p>And the people change: I, me and my become he, him and his.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Hilda says: play the WHOLE answer. Hilda is always right. &mdash; I.B.</p>';
+  var CARD = '<h4>Pinned over Hilda&rsquo;s desk</h4><h3>Things nobody said</h3>' +
+    '<p><b>No. 1</b> &ldquo;Elementary, my dear Watson.&rdquo; Not in any of Arthur Conan Doyle&rsquo;s sixty Sherlock Holmes stories. Holmes says &ldquo;Elementary&rdquo;, and he says &ldquo;my dear Watson&rdquo;, but never the two together.</p>' +
+    '<p><b>No. 2</b> &ldquo;Play it again, Sam.&rdquo; Not in the film Casablanca (1942). Ilsa says &ldquo;Play it, Sam.&rdquo; Later Rick says &ldquo;You played it for her, you can play it for me,&rdquo; and &ldquo;Play it!&rdquo;</p>' +
+    '<p class="pen">People remember the quote they wanted to hear. &mdash; H.C.</p>';
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: GUIDE, cls: 'guide', clue: { id: 'guide9', title: 'Style guide p.9: Quotes', kind: 'The style guide' }, done: function () {
+      FG.terms(['quotation', 'out of context', 'reporting verb', 'reported speech']);
+      if (tell('guide')) { paint(); if (ready()) ER.say('&ldquo;The deck&rsquo;s ready,&rdquo; says Hilda. &ldquo;So is he. In that tie.&rdquo;'); }
+    } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'nobody', title: 'Things nobody said', kind: 'Hilda&rsquo;s card' } });
+  });
+
+  /* ---------- things in the room ---------- */
+  FG.thing('#shelvesL', null, 'Box after box: FLOODS 1990, BRASS BAND CONTEST 1994, ROYAL VISIT 2002, FLOODS AGAIN 2007. The spines are all in Hilda&rsquo;s handwriting.', isBusy);
+  FG.thing('#shelvesR', null, 'COUNCIL 2016, COUNCIL 2017, COUNCIL 2018. Hilda says the council tapes are the ones people ask for most and watch least.', isBusy);
+  FG.thing('#t2022', null, 'A box with a white label: INCHBECK TONIGHT &middot; 9 JUL 2022 &middot; POOL REOPENS. Hilda sees you looking. &ldquo;Lovely day, that. Ribbon, scissors, the lot. Shame about the roof, after.&rdquo;', isBusy, function () { told.saw22 = 1; ER.flag('c-told', told); });
+  FG.thing('#radio', null, function () { return told.live ? 'The radio, very low: Colm is asking Lavery about bins. Lavery is in favour of them.' : 'An old radio playing the debate very quietly. Hilda says she prefers it without the faces.'; }, isBusy);
+  FG.thing('#kettle', null, '&ldquo;Not near the deck,&rdquo; says Hilda, without turning round. You were not going to. You were only looking.', isBusy);
+  FG.thing('#trolley', null, 'A trolley of tapes waiting to go back on the shelves. The top one says CHRISTMAS LIGHTS 2009 (SWITCH-ON FAILED).', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#deck').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The deck is paused on Lavery&rsquo;s face, halfway through &ldquo;I don&rsquo;t agree&rdquo;.'); return; }
+    if (!told.hilda) { ER.say('An edit deck showing colour bars. Hilda has the tape, and is looking at you over her glasses.'); return; }
+    if (!told.guide) { ER.say('&ldquo;Page nine first,&rdquo; says Hilda. &ldquo;On my corkboard. Iona&rsquo;s orders, and mine.&rdquo;'); return; }
+    if (!lock) lock = makeDeck();
+    lock.open();
+  });
+
+  /* ---------- the edit deck: find the cut, write the two quotes, set the dial ---------- */
+  function makeDeck() {
+    var W = [['C', 'Councillor,', 0], ['C', 'the', 0.8], ['C', 'library.', 1.0], ['C', 'People', 1.8], ['C', 'say', 2.2], ['C', 'it', 2.4], ['C', 'costs', 2.6], ['C', 'too', 3.0], ['C', 'much.', 3.2],
+      ['L', 'Look.', 4.0], ['L', 'People', 4.8], ['L', 'tell', 5.2], ['L', 'me', 5.5], ['L', 'the', 5.8], ['L', 'library', 6.0], ['L', 'is', 6.6], ['L', 'a', 6.8], ['L', 'waste', 7.0], ['L', 'of', 7.4], ['L', 'money.', 7.6],
+      ['L', 'I', 8.6], ['L', 'don’t', 8.8], ['L', 'agree.', 9.2], ['L', 'It’s', 10.0], ['L', 'the', 10.2], ['L', 'best', 10.4], ['L', 'thing', 10.8], ['L', 'this', 11.1], ['L', 'council', 11.4], ['L', 'pays', 11.9], ['L', 'for.', 12.2],
+      ['C', 'And', 13.2], ['C', 'the', 13.4], ['C', 'swimming', 13.6], ['C', 'pool?', 14.1],
+      ['L', 'I', 15.0], ['L', 'promise', 15.2], ['L', 'you', 15.7], ['L', 'the', 15.9], ['L', 'pool', 16.1], ['L', 'will', 16.5], ['L', 'be', 16.8], ['L', 'open', 17.0], ['L', 'again', 17.4], ['L', 'by', 17.8], ['L', 'the', 18.0], ['L', 'summer', 18.2], ['L', 'of', 18.7], ['L', '2022.', 18.9]];
+    var END = 20, TILES = [['said', 'said'], ['claimed', 'claimed'], ['admitted', 'admitted'], ['promised', 'promised'], ['tell', 'tell'], ['told', 'told'], ['is', 'is'], ['was', 'was'],
+      ['dont', 'don’t agree'], ['didnt', 'didn’t agree'], ['will', 'will'], ['would', 'would']];
+    var st = ER.flag('c-st') || { at: -1, seen: -1, inn: -1, out: -1, l1: ['', '', '', ''], l2: ['', ''], v: '' }, wait = false, box = ER.el('div', 'job tapej'), s = '', i;
+    function sl(k) { return '<span class="sl" data-k="' + k + '"></span>'; }
+    s = '<h5>The edit deck &middot; Inchbeck Tonight, 14 March 2019 <small>Drag the playhead along the tape. Mark Gethin&rsquo;s clip with IN and OUT.</small></h5>' +
+      '<div class="tp-top"><div class="tp-mon"><svg viewBox="648 296 304 190"><rect x="648" y="296" width="304" height="190" fill="#3a2a4a"/>' + $('#lav19').innerHTML + '<rect x="648" y="452" width="304" height="26" fill="#1a3a6a" opacity=".9"/><text x="656" y="470" font-family="Outfit,sans-serif" font-size="13" font-weight="600" fill="#fff">INCHBECK TONIGHT · 14.03.2019</text></svg></div>' +
+      '<div class="tp-side"><div class="subs"></div><div class="tp-ctl"><button type="button" class="btn" id="t-back">&#9664; word</button><button type="button" class="btn" id="t-fwd">word &#9654;</button><span class="rd"></span>' +
+      '<button type="button" class="btn" id="t-in">IN</button><button type="button" class="btn" id="t-out">OUT</button><span class="gq">Gethin&rsquo;s clip: &ldquo;the library is a waste of money&rdquo;</span></div></div></div>' +
+      '<div class="strip"></div><div class="tcode"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span><span>00:20</span></div>' +
+      '<div class="lines"><div><div class="rline">Mr Lavery ' + sl('a0') + ' that people ' + sl('a1') + ' him the library ' + sl('a2') + ' a waste of money, but that he ' + sl('a3') + '.</div>' +
+      '<div class="rline">He ' + sl('b0') + ' that the pool ' + sl('b1') + ' be open again by the summer of 2022.</div>' +
+      '<div class="tp-tray">' + TILES.map(function (t) { return '<span class="tl" data-v="' + t[0] + '">' + t[1] + '</span>'; }).join('') + '</div></div>' +
+      '<div><div class="vlab">GETHIN: &ldquo;HE SAID THE LIBRARY IS A WASTE OF MONEY&rdquo;</div><div id="dv"></div></div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="t-go">Send to the Check</button></div>';
+    box.innerHTML = s;
+    var strip = box.querySelector('.strip'), subs = box.querySelector('.subs'), msgEl = box.querySelector('.jmsg'), segs = '', phd, mkIn, mkOut;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { st.l1 = FG.vals(box.querySelector('.rline'), '.sl'); st.l2 = FG.vals(ER.$$('.rline', box)[1], '.sl'); ER.flag('c-st', st); }
+    W.forEach(function (w, k) {
+      var t1 = k + 1 < W.length ? W[k + 1][2] : END;
+      if (k + 1 < W.length && W[k + 1][0] !== w[0]) t1 = w[2] + 0.5;
+      segs += '<div class="seg ' + (w[0] === 'C' ? 'c' : 'l') + '" data-i="' + k + '" style="left:' + (w[2] / END * 100).toFixed(2) + '%;width:' + ((t1 - w[2]) / END * 100).toFixed(2) + '%"></div>';
+    });
+    strip.innerHTML = segs + '<div class="mk in" style="display:none"></div><div class="mk out" style="display:none"></div><div class="phd"></div>';
+    phd = strip.querySelector('.phd'); mkIn = strip.querySelector('.mk.in'); mkOut = strip.querySelector('.mk.out');
+    function endOf(k) { var t1 = k + 1 < W.length ? W[k + 1][2] : END; if (k + 1 < W.length && W[k + 1][0] !== W[k][0]) t1 = W[k][2] + 0.5; return t1; }
+    function draw() {
+      var k = st.at, h = '', who = '';
+      phd.style.left = (k < 0 ? 0 : W[k][2] / END * 100) + '%';
+      W.forEach(function (w, j) {
+        if (w[0] !== who) { who = w[0]; h += (j ? '<br>' : '') + '<span class="sp">' + (who === 'C' ? 'HADLEY' : 'LAVERY') + '</span>'; }
+        var cls = j > st.seen ? 'hid' : '';
+        if (st.inn >= 0 && st.out >= st.inn && j >= st.inn && j <= st.out) cls += ' cut';
+        if (j === k) cls += ' now';
+        h += '<span class="' + cls + '">' + w[1] + '</span> ';
+      });
+      subs.innerHTML = h;
+      ER.$$('.seg', strip).forEach(function (sg) { sg.classList.toggle('h', +sg.getAttribute('data-i') > st.seen); });
+      box.querySelector('.rd').textContent = k < 0 ? '00:00.0  (stopped)' : '00:' + ('0' + W[k][2].toFixed(1)).slice(-4) + '  ' + W[k][1];
+      mkIn.style.display = st.inn >= 0 ? 'block' : 'none'; mkOut.style.display = st.out >= 0 ? 'block' : 'none';
+      if (st.inn >= 0) mkIn.style.left = (W[st.inn][2] / END * 100) + '%';
+      if (st.out >= 0) mkOut.style.left = (endOf(st.out) / END * 100) + '%';
+    }
+    function go(k) {
+      k = Math.max(0, Math.min(W.length - 1, k));
+      if (k !== st.at) { st.at = k; if (k > st.seen) st.seen = k; FG.sfx.detent(); draw(); }
+    }
+    function wordAt(x) {
+      var r = strip.getBoundingClientRect(), t = (x - r.left) / r.width * END, k, best = 0;
+      for (k = 0; k < W.length; k++) if (W[k][2] <= t + 0.001) best = k;
+      return best;
+    }
+    strip.addEventListener('pointerdown', function (e) {
+      if (e.button || wait) return;
+      e.preventDefault(); try { strip.setPointerCapture(e.pointerId); } catch (x) {}
+      FG.sfx.whirr(); go(wordAt(e.clientX));
+      function mv(ev) { go(wordAt(ev.clientX)); }
+      function up() { strip.removeEventListener('pointermove', mv); strip.removeEventListener('pointerup', up); strip.removeEventListener('pointercancel', up); ER.flag('c-st', st); }
+      strip.addEventListener('pointermove', mv); strip.addEventListener('pointerup', up); strip.addEventListener('pointercancel', up);
+    });
+    box.querySelector('#t-back').addEventListener('click', function () { if (!wait) { go(st.at - 1); ER.flag('c-st', st); } });
+    box.querySelector('#t-fwd').addEventListener('click', function () { if (!wait) { go(st.at + 1); ER.flag('c-st', st); } });
+    box.querySelector('#t-in').addEventListener('click', function () {
+      if (wait) return;
+      if (st.at < 0) { ER.sfx.no(); msg('&ldquo;Play it first,&rdquo; says Hilda. &ldquo;You can&rsquo;t mark what you haven&rsquo;t heard.&rdquo;'); return; }
+      st.inn = st.at; if (st.out >= 0 && st.out < st.inn) st.out = -1; FG.sfx.key(); ER.flag('c-st', st); draw(); msg('IN at &ldquo;' + W[st.inn][1] + '&rdquo;.');
+    });
+    box.querySelector('#t-out').addEventListener('click', function () {
+      if (wait) return;
+      if (st.at < 0) { ER.sfx.no(); msg('&ldquo;Play it first,&rdquo; says Hilda.'); return; }
+      if (st.inn >= 0 && st.at < st.inn) { ER.sfx.no(); msg('OUT has to come after IN. A clip runs forwards, even on Hilda&rsquo;s deck.'); return; }
+      st.out = st.at; FG.sfx.key(); ER.flag('c-st', st); draw(); msg('OUT after &ldquo;' + W[st.out][1] + '&rdquo;.');
+    });
+    FG.tiles(box, { tile: '.tl', slot: '.sl', lock: function () { return wait; }, change: keep });
+    function tileFor(v) { return box.querySelector('.tl[data-v="' + v + '"]'); }
+    ER.$$('.rline', box).forEach(function (ln, j) { ER.$$('.sl', ln).forEach(function (sl, k) { var v = (j ? st.l2 : st.l1)[k]; if (v) FG.put(sl, tileFor(v)); }); });
+    var dv = FG.dial({ small: true, value: st.v, onChange: function (v) { st.v = v; ER.flag('c-st', st); }, lock: function () { return wait; } });
+    box.querySelector('#dv').appendChild(dv.node);
+    function bad(k, t) { var x = box.querySelector('.sl[data-k="' + k + '"]'); if (x) { x.classList.add('bad'); ER.shake(x); } ER.sfx.no(); msg(t); }
+    box.querySelector('#t-go').addEventListener('click', function () {
+      var file, a, b;
+      if (wait || nextFile) return;
+      keep(); a = st.l1; b = st.l2;
+      ER.$$('.sl', box).forEach(function (x) { x.classList.remove('bad', 'ok'); });
+      if (st.inn < 0 || st.out < 0) { ER.sfx.no(); msg('&ldquo;Mark her clip first,&rdquo; says Hilda. &ldquo;IN where it begins, OUT where it stops. Then we&rsquo;ll see what she left out.&rdquo;'); return; }
+      if (!ER.check('cin', String(st.inn))) {
+        ER.sfx.no();
+        msg(st.inn <= 8 ? '&ldquo;That&rsquo;s Colm, asking the question,&rdquo; says Hilda. &ldquo;Her clip is Lavery talking.&rdquo;' :
+          st.inn <= 12 ? '&ldquo;&lsquo;' + W[st.inn][1] + '&rsquo; isn&rsquo;t in her clip,&rdquo; says Hilda. &ldquo;Which is rather the point. But mark what she actually used: it starts later.&rdquo;' :
+          st.inn === 14 ? '&ldquo;She said &lsquo;THE library&rsquo;,&rdquo; says Hilda. &ldquo;One word earlier.&rdquo;' :
+          '&ldquo;Her clip starts with &lsquo;the library&rsquo;,&rdquo; says Hilda. &ldquo;Find where he says it.&rdquo;');
+        return;
+      }
+      if (!ER.check('cout', String(st.out))) {
+        ER.sfx.no();
+        msg(st.out >= 20 && st.out <= 22 ? '&ldquo;&lsquo;I don&rsquo;t agree&rsquo; is not in her clip,&rdquo; says Hilda. &ldquo;That is exactly the bit that was cut. Where does HER clip stop?&rdquo;' :
+          st.out < 19 ? '&ldquo;She went on to &lsquo;money&rsquo;,&rdquo; says Hilda. &ldquo;&lsquo;A waste of money.&rsquo;&rdquo;' :
+          '&ldquo;Her clip stops at the end of &lsquo;a waste of money&rsquo;,&rdquo; says Hilda.');
+        return;
+      }
+      if (st.seen < 22) { ER.sfx.no(); msg('&ldquo;Good. That&rsquo;s her clip,&rdquo; says Hilda. &ldquo;Now play on past it. What does he say next?&rdquo;'); return; }
+      if (a.indexOf('') >= 0 || b.indexOf('') >= 0) { ER.sfx.no(); msg('&ldquo;That&rsquo;s the cut,&rdquo; says Hilda. &ldquo;&lsquo;People tell me&rsquo; before it, and &lsquo;I don&rsquo;t agree&rsquo; after it. Now write the two quotes for the Check: every gap.&rdquo;'); return; }
+      if (!ER.check('l1a', a[0])) return bad('a0', { claimed: '&ldquo;Claimed tells the viewer we doubt it,&rdquo; says Hilda. &ldquo;We don&rsquo;t doubt he said it. The tape is right here.&rdquo;',
+        admitted: '&ldquo;Admitted means he owned up to something,&rdquo; says Hilda. &ldquo;He didn&rsquo;t own up to anything. He was telling Colm what other people say.&rdquo;',
+        promised: '&ldquo;Promised is for a word given about the future,&rdquo; says Hilda. &ldquo;That&rsquo;s the pool, not this.&rdquo;' }[a[0]] || '&ldquo;That gap wants a reporting verb,&rdquo; says Hilda. &ldquo;Page nine.&rdquo;');
+      if (!ER.check('l1b', a[1])) return bad('a1', '&ldquo;Move it one step back,&rdquo; says Hilda. &ldquo;&lsquo;People TELL me&rsquo; becomes &lsquo;people ___ him&rsquo;.&rdquo;');
+      if (!ER.check('l1c', a[2])) return bad('a2', '&ldquo;One step back,&rdquo; says Hilda. &ldquo;&lsquo;The library IS&rsquo; becomes &lsquo;the library ___&rsquo;.&rdquo;');
+      if (!ER.check('l1d', a[3])) return bad('a3', '&ldquo;One step back,&rdquo; says Hilda. &ldquo;&lsquo;I DON&rsquo;T agree&rsquo; becomes &lsquo;he ___&rsquo;.&rdquo;');
+      if (!ER.check('l2a', b[0])) return bad('b0', { said: '&ldquo;Said isn&rsquo;t wrong,&rdquo; says Hilda, &ldquo;but he said &lsquo;I promise you&rsquo;. When the tape proves the stronger verb, use it. Page nine.&rdquo;',
+        claimed: '&ldquo;Claimed tells the viewer we doubt it,&rdquo; says Hilda. &ldquo;We heard him say it.&rdquo;', admitted: '&ldquo;Owned up?&rdquo; says Hilda. &ldquo;He was very pleased with himself. Listen to him.&rdquo;' }[b[0]] || '&ldquo;That gap wants a reporting verb,&rdquo; says Hilda.');
+      if (!ER.check('l2b', b[1])) return bad('b1', '&ldquo;One step back,&rdquo; says Hilda. &ldquo;&lsquo;The pool WILL be open&rsquo; becomes &lsquo;the pool ___ be open&rsquo;.&rdquo;');
+      ER.$$('.sl', box).forEach(function (x) { x.classList.add('ok'); });
+      if (!st.v) { ER.sfx.no(); msg('&ldquo;Two good quotes,&rdquo; says Hilda. &ldquo;Now Iona&rsquo;s dial: Ms Gethin said he said the library is a waste of money.&rdquo;'); return; }
+      if (!ER.check('v', st.v)) {
+        ER.sfx.no(); ER.shake(dv.node);
+        msg({ tbm: '&ldquo;He did say the words &lsquo;the library is a waste of money&rsquo;,&rdquo; says Hilda. &ldquo;That&rsquo;s true, and it&rsquo;s not the point. Did he say the library IS a waste of money, as she says he did? Are the facts in her claim right?&rdquo;',
+          'true': '&ldquo;Listen to the whole answer,&rdquo; says Hilda. &ldquo;Did he think the library was a waste of money?&rdquo;',
+          cant: '&ldquo;We can check it,&rdquo; says Hilda. &ldquo;We have the tape. You just did.&rdquo;' }[st.v]);
+        return;
+      }
+      file = ER.exit([st.inn + '-' + st.out + '|' + a.join(',') + '|' + b.join(',') + '|' + st.v], { wait: true });
+      if (!file) { msg('The deck jams. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('c-file', file); dv.lock(true);
+      FG.mine('tape', 'The 2019 tape', '<p>Gethin&rsquo;s clip: &ldquo;the library is a waste of money&rdquo;. The whole answer: &ldquo;People tell me the library is a waste of money. I don&rsquo;t agree.&rdquo;</p><p>Mr Lavery said that people told him the library was a waste of money, but that he didn&rsquo;t agree. Gethin: FALSE.</p><p>He promised that the pool would be open again by the summer of 2022.</p>', true);
+      msg('Hilda reads your two lines over your shoulder. &ldquo;Said, told, was, didn&rsquo;t. Promised, would.&rdquo; She nods once. &ldquo;Somebody plays the whole answer at last. I&rsquo;ll tell Iona.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Hilda rings the desk and reads out your two lines. You can hear Iona say &ldquo;Oh,&rdquo; very quietly, and then: &ldquo;FALSE, then. For her. Fine.&rdquo;',
+          '20.31, on the radio. Lavery: &ldquo;Crime in Inchbeck has gone down every single year since 2020. Every year! Look at the graph on the side of my van. It&rsquo;s parked outside.&rdquo;',
+          '20.33. Gethin: &ldquo;And eight out of ten people in this town want the market hall made into a food market. We asked them.&rdquo;',
+          'Hilda puts the phone down. &ldquo;Iona says: car park. His van, and her leaflets. And take a coat, she says. I say take an umbrella. It&rsquo;s been raining since 1989.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3400);
+    });
+    draw();
+    msg(st.seen >= 0 ? 'The deck, where you left it.' : 'The tape is at the start. Drag the red playhead along the strip, or step through it a word at a time.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

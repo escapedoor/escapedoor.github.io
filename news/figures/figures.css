@@ -1,0 +1,231 @@
+/* Same Rules - what every room of the story shares: the lettering of a small television station on debate night, the
+   frame round a piece of work done with the hands, the papers of a fact-check desk, the verdict dial, and a skin for the
+   notebook, the hints and the word tags. Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'DM Mono',monospace;font-weight:500;font-size:13px;letter-spacing:.32em}
+.tc-room{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:.95;font-size:clamp(46px,6.6vw,92px)}
+.tc-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17.5px,1.42vw,21.5px);line-height:1.55}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Newsreader',Georgia,serif;font-size:clamp(17.5px,1.4vw,21.5px);line-height:1.5}
+.chip,.hbtn{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.12em}
+.btn{font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase}
+.ov-x{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 30px 12px;border:2px solid var(--accent,#ffcf40);
+  color:#111;background:var(--accent,#ffcf40);font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#fff;border-color:#fff}
+.tk-name{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.tk-role{font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.1em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Newsreader',Georgia,serif;font-size:clamp(17px,1.34vw,20.5px);line-height:1.52}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.18)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.35)}}
+.blink{animation:blink 1.2s steps(1,end) infinite}
+@keyframes blink{50%{opacity:.15}}
+
+/* lettering inside drawings */
+.fM{font-family:'DM Mono',monospace}
+.fK{font-family:'Kalam',cursive}
+.fC{font-family:'Caveat',cursive}
+.fT{font-family:'Special Elite',monospace}
+.fN{font-family:'Newsreader',serif}
+.fS{font-family:'Stardos Stencil',serif}
+.fL{font-family:'Libre Franklin',sans-serif}
+.fG{font-family:'EB Garamond',serif}
+.fU{font-family:'UnifrakturCook',serif}
+.fO{font-family:'Oswald',sans-serif}
+.fX{font-family:'Outfit',sans-serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.job{width:min(1100px,95vw);-webkit-user-select:none;user-select:none}
+.job svg text{pointer-events:none}
+.job-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.jmsg{flex:1;min-height:50px;margin:0;font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.36;color:#f3efe4}
+.jmsg b{color:var(--accent,#ffcf40);font-weight:700}
+.job-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.job h5{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent,#ffcf40)}
+.job h5 small{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#cfc8b8;margin-left:8px}
+
+/* a claim as it came in, with its speaker */
+.claim{display:flex;gap:10px;align-items:flex-start;padding:7px 11px 8px;background:#f6f2e6;color:#1b1b22;border-left:6px solid #888;border-radius:2px}
+.claim.lav{border-left-color:#2f6db5}
+.claim.get{border-left-color:#d4682a}
+.claim .who{flex:0 0 auto;font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#555;line-height:1.25;width:86px}
+.claim .who i{display:block;font-style:normal;font-family:'DM Mono',monospace;font-weight:400;font-size:11px;letter-spacing:.04em;color:#777}
+.claim q{font-family:'Newsreader',serif;font-size:16px;line-height:1.32;quotes:'\201C' '\201D'}
+
+/* tiles that are copied into slots (type from a case) */
+.tray{display:flex;flex-wrap:wrap;gap:6px}
+.tl{display:inline-block;padding:5px 10px 4px;border-radius:3px;background:#fffdf3;color:#1b1b22;border:1.5px solid #8b8574;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.03em;cursor:pointer;white-space:nowrap;touch-action:none}
+.tl:hover{border-color:#1b1b22}
+.tl.held{background:#ffcf40;border-color:#1b1b22;box-shadow:0 0 0 3px rgba(255,207,64,.35)}
+.tl.ghost{position:fixed;z-index:200;pointer-events:none;opacity:.92;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.sl{display:inline-block;min-width:76px;min-height:30px;padding:3px 8px 2px;vertical-align:middle;border:2px dashed rgba(255,255,255,.45);border-radius:3px;cursor:pointer;text-align:center;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;line-height:24px;color:#fff;background:rgba(255,255,255,.06)}
+.sl:hover{border-color:#ffcf40}
+.sl.full{border-style:solid;border-color:#ffcf40;background:rgba(255,207,64,.16)}
+.sl.bad{border-color:#ff6a5a;background:rgba(255,90,70,.22)}
+.sl.ok{border-color:#7fd88a;background:rgba(110,210,120,.18)}
+
+/* the verdict dial: an old dimmer from the lighting desk, with four settings */
+.fdial{display:inline-block;width:190px;-webkit-user-select:none;user-select:none}
+.fdial svg{display:block;width:100%;height:auto}
+.fdial .dz{cursor:pointer}
+.fdial .dz:hover path{filter:brightness(1.2)}
+.fdial .dz text{pointer-events:none}
+.fdial .dn{transition:transform .25s ease-out}
+.fdial.small{width:150px}
+.fdial.lockd .dz{cursor:default}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+.doc .two{display:grid;grid-template-columns:1fr 260px;gap:22px;align-items:start}
+.doc .dia{background:#fffdf6;border:1px solid #d6cdb2;padding:6px}
+/* a page of the IBTV fact-check style guide: white, a purple band, the station's lettering */
+.doc.guide{width:min(940px,95vw);background:#fdfcf9;color:#1c1a24;font-family:'Newsreader',Georgia,serif;font-size:16.5px;line-height:1.42;padding:20px 32px 14px;border-top:12px solid #4b2a7a;box-shadow:inset 0 -3px 0 #ff7a59}
+.doc.guide h4{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#7a6f8c;display:flex;justify-content:space-between;gap:10px}
+.doc.guide h3{margin:0 0 9px;font-family:'Oswald',sans-serif;font-weight:700;font-size:32px;line-height:1.02;text-transform:uppercase;color:#4b2a7a}
+.doc.guide p{margin:0 0 7px}
+.doc.guide b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.9em;letter-spacing:.05em;color:#b23a1f}
+.doc.guide .ex{font-family:'DM Mono',monospace;font-size:14px;line-height:1.5;background:#f2eef7;padding:5px 10px;margin:4px 0 8px;border-left:3px solid #4b2a7a}
+.doc.guide .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#b23a1f;transform:rotate(-1deg);margin-top:4px}
+.doc.guide .w:hover{color:#b23a1f}
+/* a card pinned to a wall: printed, with a pen note */
+.doc.card{width:min(820px,95vw);background:#f3ead0 linear-gradient(176deg,rgba(255,255,255,.4),rgba(160,120,40,.12));color:#24201a;font-family:'Special Elite','Courier New',monospace;font-size:15.5px;line-height:1.5;
+  padding:22px 32px 16px;border-top:4px solid #4b2a7a}
+.doc.card h4{margin:0 0 4px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a46}
+.doc.card h3{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:700;font-size:28px;line-height:1;text-transform:uppercase}
+.doc.card p{margin:0 0 8px}
+.doc.card b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:.92em;letter-spacing:.05em;color:#8a2f18}
+.doc.card .pen{font-family:'Caveat',cursive;font-size:22px;line-height:1.15;color:#27457a;transform:rotate(-1deg);margin-top:6px}
+.doc.card .vd{display:grid;grid-template-columns:200px 1fr;gap:4px 14px;margin:6px 0 10px}
+.doc.card .vd b{display:block;padding:2px 8px;border-radius:2px;color:#fff;font-size:.85em;text-align:center;align-self:start}
+/* the council's printout: green-bar paper, a dot-matrix face */
+.doc.stats{width:min(820px,95vw);color:#1f2a22;font-family:'DM Mono',monospace;font-size:13.6px;line-height:1.42;padding:16px 28px 14px;
+  background:#fbfdf8 repeating-linear-gradient(#fbfdf8 0 38px,#e3f0dd 38px 76px);border-left:14px dotted #d9ddd2;border-right:14px dotted #d9ddd2}
+.doc.stats h4{margin:0 0 2px;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#3f6a3a;display:flex;justify-content:space-between}
+.doc.stats h3{margin:0 0 8px;font-family:'Outfit',sans-serif;font-weight:800;font-size:24px;letter-spacing:.02em;text-transform:uppercase}
+.doc.stats h5{margin:10px 0 3px;font-family:'Outfit',sans-serif;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#3f6a3a}
+.doc.stats table{border-collapse:collapse;width:100%}
+.doc.stats td,.doc.stats th{padding:1px 8px;text-align:left;border-bottom:1px solid rgba(60,90,60,.18)}
+.doc.stats th{font-family:'Outfit',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a5f4a}
+.doc.stats td.n,.doc.stats th.n{text-align:right}
+.doc.stats p{margin:5px 0 0;font-size:12.6px;color:#3a4a3c}
+/* a live transcript, as it comes up on the desk's screen */
+.doc.trans{width:min(760px,94vw);background:#0f1320;color:#dfe6f2;font-family:'DM Mono',monospace;font-size:14px;line-height:1.5;padding:0 0 12px;border:1px solid #2b3550}
+.doc.trans h4{margin:0;padding:9px 20px 8px;background:#1b2238;color:#9fb3e0;font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px}
+.doc.trans p{margin:8px 20px 0}
+.doc.trans p i{font-style:normal;color:#7f8db0;margin-right:8px}
+.doc.trans p b{font-weight:500;color:#ffcf6a;margin-right:6px}
+.doc.trans .w:hover{color:#ffcf6a}
+/* the police figures, faxed over */
+.doc.police{width:min(760px,94vw);background:#fff;color:#16222c;font-family:'DM Mono',monospace;font-size:13.5px;line-height:1.4;padding:0 0 14px;border-left:10px solid #e1e6ec;border-right:10px solid #e1e6ec}
+.doc.police h4{margin:0;padding:10px 20px 9px;background:#1d3a5c;color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px}
+.doc.police table{width:calc(100% - 40px);margin:8px 20px 6px;border-collapse:collapse}
+.doc.police td,.doc.police th{padding:2px 8px;border-bottom:1px solid #dfe5ea;text-align:right}
+.doc.police th{font-family:'Outfit',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a5f6e}
+.doc.police td:first-child,.doc.police th:first-child{text-align:left}
+.doc.police p{margin:4px 20px 0;font-size:12.6px;color:#3a4a52}
+/* a campaign leaflet */
+.doc.leaflet{width:min(640px,92vw);background:#fff8e2;color:#24301e;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.45;padding:0 0 16px;border:3px solid #d4682a}
+.doc.leaflet h4{margin:0;padding:12px 22px 10px;background:#d4682a;color:#fff8e2;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.18em;text-transform:uppercase}
+.doc.leaflet h3{margin:12px 22px 6px;font-family:'Oswald',sans-serif;font-weight:700;font-size:38px;line-height:1;text-transform:uppercase;color:#2f5a2a}
+.doc.leaflet p{margin:8px 22px 0}
+.doc.leaflet small{display:block;margin:12px 22px 0;font-size:12.6px;line-height:1.4;color:#5a5a48}
+/* an email on a screen */
+.doc.mail{width:min(760px,94vw);background:#fff;color:#1d2228;font-family:'Outfit',Arial,sans-serif;font-size:16px;line-height:1.5;padding:0 0 16px}
+.doc.mail h4{margin:0;padding:10px 22px 8px;background:#e9edf0;border-bottom:1px solid #c9d2d8;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.04em;color:#3a4650;line-height:1.6}
+.doc.mail p{margin:10px 22px 0}
+/* what somebody said, kept */
+.doc.statement{background:#f4f1e8;font-family:'Newsreader',Georgia,serif;font-size:17.5px;line-height:1.5;border-left:6px solid #ff7a59}
+.doc.statement h4{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#4b2a7a}
+/* the Check, as it went out */
+.doc.check{width:min(900px,95vw);background:#160f2a;color:#fff;font-family:'Outfit',sans-serif;padding:0 0 14px;border-bottom:6px solid #ff7a59}
+.doc.check h4{margin:0;padding:12px 22px 10px;background:#4b2a7a;font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between}
+.doc.check .row{display:grid;grid-template-columns:120px 1fr 190px;gap:12px;align-items:start;margin:9px 22px 0;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.12)}
+.doc.check .row .who{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c8b8ea}
+.doc.check .row q{font-family:'Newsreader',serif;font-size:15.5px;line-height:1.3}
+.doc.check .row small{display:block;margin-top:3px;font-size:13.5px;line-height:1.3;color:#d8d2e8}
+.doc.check .row b{display:block;padding:4px 8px 3px;border-radius:2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.08em;text-align:center}
+/* what you worked out for yourself */
+.doc.mine{width:min(620px,92vw);background-color:#fafaf7;background-image:linear-gradient(#cfd8e6 1px,transparent 1px);background-size:100% 30px;
+  color:#1d2a66;font-family:'Caveat',cursive;font-size:24px;line-height:30px;padding:32px 30px 20px 52px;border-left:3px double #ff7a59}
+.doc.mine h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;line-height:30px;letter-spacing:.2em;text-transform:uppercase;color:#4b2a7a}
+.doc.mine p{margin:0}
+.nb-view .doc{width:100%}
+
+/* verdict colours, wherever they appear */
+.vt-true{background:#2e8b57;color:#fff}
+.vt-tbm{background:#d99a1e;color:#1b1406}
+.vt-false{background:#c8382a;color:#fff}
+.vt-cant{background:#6b7280;color:#fff}
+
+/* ---- the notebook: a running order, clipped to a board ---- */
+.nb{background:#1a1426 linear-gradient(140deg,#2a2140,#120d1d);border:1px solid #463a5e;border-radius:3px;color:#efeaf6;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #0c0814}
+.nb-tabs{border-bottom-color:#463a5e}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.16em;color:#b5a9cc}
+.nb-tabs button.on{background:#fdfcf9;color:#1c1a24;border-color:#463a5e}
+.nb-list{border-right-color:#463a5e}
+.nb-list button{font-family:'Newsreader',serif;font-size:16.5px;color:#efeaf6}
+.nb-list button small{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#ff9a7a;opacity:.95}
+.nb-list button.on{background:#fdfcf9;color:#111}
+.nb-list button.on small{color:#b23a1f}
+.nb-view{background:#0c0814}
+.nb-empty{font-family:'Newsreader',serif}
+.nb-words{background:#fdfcf9;color:#111}
+.nb-words b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:16.5px;letter-spacing:.01em}
+.nb-words span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.nb-ko{border-color:#8a9094;color:#4a5054}
+.nb-ko.on{background:#1c1a24;color:#ff9a7a;border-color:#1c1a24}
+.wtip,.wtag{background:#fdfcf9;color:#111;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 0 4px 0 #4b2a7a}
+.wtag{transform:rotate(-1deg);padding:12px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Libre Franklin',sans-serif;font-weight:800;font-size:17px;letter-spacing:.01em}
+.wtip span,.wtag span{font-family:'Newsreader',serif;font-size:16px;line-height:1.35;color:#4a5054}
+.wtip i,.wtag i,.nb-words i{color:#b23a1f}
+.hintbox{background:#fdfcf9;color:#111;border-top:6px solid #4b2a7a;border-radius:2px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.28em;color:#4b2a7a}
+.hintbox p{font-family:'Newsreader',serif;font-size:17px;line-height:1.4}
+.hintbox p i{background:#4b2a7a;color:#fff;font-family:'Libre Franklin',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6064;font-size:16px}
+.hintbox .btn{font-size:12.5px}
+.hintbox .w:hover{color:#b23a1f}
+.hint-x:hover{color:#b23a1f}
+.toast{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:13.5px;background:rgba(18,12,30,.94)}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:14px 26px 12px;display:none;background:#fdfcf9;color:#111;border-top:10px solid #4b2a7a;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:3px 12px 1px;border:4px solid #b23a1f;color:#b23a1f;font-family:'Stardos Stencil',serif;font-weight:700;font-size:19px;letter-spacing:.12em;transform:rotate(-2deg);margin:4px 0 10px}
+.done h6{margin:8px 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#4b2a7a}
+.done p{margin:0 0 2px;font-family:'DM Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Newsreader',serif;font-size:13.6px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.done .btn{--accent:#111;font-size:12.5px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#fff}
+.done small{display:block;margin-top:7px;font-family:'DM Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(800px,94vw);max-height:84vh;overflow:auto;background:#fdfcf9;color:#111;padding:20px 34px 16px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-left:6px solid #4b2a7a}
+.rp h4{margin:0 0 3px;font-family:'DM Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#b23a1f}
+.rp h3{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:700;font-size:30px;line-height:1.05;text-transform:uppercase}
+.rp p,.rp label{display:block;font-family:'Newsreader',serif;font-size:16.5px;line-height:1.42;margin:0 0 6px}
+.rp .notes{font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;background:#f1ede2;padding:7px 12px;margin:0 0 8px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Special Elite','Courier New',monospace;font-size:17px;line-height:28px;color:#111;background:#fff repeating-linear-gradient(transparent 0 27px,#d9d2bd 27px 28px);border:1px solid #9aa7b5;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:150px}
+.rp input[type=text]{height:30px}
+.rp .count{font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'DM Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#111}.rp .btn:hover:not([disabled]){color:#fdfcf9}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}

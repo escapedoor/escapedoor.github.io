@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Green Room · Same Rules</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="figures.css">
+<style>
+  body{--bg:#2a1e1c;--accent:#ff9a7a;--font-display:'Oswald',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(36,24,22,.97);--tc-ink:#fbefe6;--cap-bg:rgba(34,22,20,.95);--panel:#2e201e;--face-bg:#3a2a2e;--q-ink:#ff9a7a;--fade:#0a0605;--hud-bg:rgba(34,22,20,.86)}
+  .gobtn{color:#2a1e1c}
+  .bulb{animation:bulb 5s steps(1,end) infinite}
+  .bulb:nth-child(5n+2){animation-delay:-2s}
+  @keyframes bulb{0%{opacity:1}96%{opacity:1}97%{opacity:.4}98%{opacity:1}}
+  #count{font-variant-numeric:tabular-nums}
+
+  /* the Check, Iona's draft */
+  .chkj{width:min(1140px,97vw)}
+  .ck-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ck-col h6{margin:0 0 5px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.2em;text-transform:uppercase}
+  .ck-col.lav h6{color:#8ab4ff}
+  .ck-col.get h6{color:#ffb07a}
+  .ckr{display:flex;gap:8px;align-items:center;background:#1d1530;border:1px solid #3a2e52;border-radius:4px;padding:5px 8px 5px 4px;margin:0 0 6px}
+  .ckr .dslot{flex:0 0 108px}
+  .ckb{flex:1;min-width:0}
+  .ckr .claim{padding:4px 9px 5px}
+  .ckr .claim q{font-size:14px;line-height:1.25}
+  .ckr .claim .who{width:66px;font-size:11px}
+  .ck-row2{display:flex;gap:8px;align-items:center;margin-top:4px}
+  .ckr .fdial{width:108px}
+  .ck-row2 .sl{flex:1;min-height:40px;text-align:left;font-family:'Newsreader',serif;font-size:13.2px;line-height:1.25;padding:4px 8px;letter-spacing:0;color:#f3eefa}
+  .ck-row2 .sl:empty:before{content:'because \2026';color:#8a7fa8;font-style:italic}
+  .note{font-family:'Caveat',cursive;font-size:17px;line-height:1;color:#ff9a7a;margin:2px 0 0 4px;transform:rotate(-1deg)}
+  .ckr.mine{opacity:.82}
+  .ckr.mine .stamp{display:inline-block;margin-left:6px;padding:1px 8px;border:2px solid #ff9a7a;color:#ff9a7a;font-family:'Stardos Stencil',serif;font-size:14px;letter-spacing:.1em;transform:rotate(-3deg)}
+  .rtray{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:4px;padding:7px;background:#14101e;border:1px solid #3a2e52;border-radius:4px}
+  .rtray .tl{white-space:normal;font-family:'Newsreader',serif;font-weight:400;font-size:12.2px;line-height:1.2;letter-spacing:0;padding:3px 7px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a98a"/><stop offset="1" stop-color="#b9876c"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a34"/><stop offset="1" stop-color="#241614"/></linearGradient>
+  <radialGradient id="mirG" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#fff6e8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6e8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="700" width="3600" height="700" fill="url(#floorG)"/>
+<rect x="-1000" y="680" width="3600" height="20" fill="#7a4e42"/>
+<g fill="#c49478" opacity=".5" id="paper"></g>
+
+<!-- the monitor, counting down -->
+<g id="mon" class="hot"><rect x="604" y="120" width="252" height="160" rx="6" fill="#1a1414"/><rect x="616" y="132" width="228" height="128" fill="#2a1450"/><circle cx="730" cy="190" r="40" fill="#ff7a59" opacity=".12"/>
+  <rect x="660" y="200" width="40" height="40" fill="#2f6db5"/><rect x="760" y="200" width="40" height="40" fill="#d4682a"/><text x="730" y="168" class="fO" font-size="14" text-anchor="middle" fill="#fff" letter-spacing="1">BACK IN</text>
+  <text id="count" x="730" y="196" class="fM" font-size="24" text-anchor="middle" fill="#ffcf9a">4:00</text><path d="M720 280v20h20v-20" fill="#1a1414"/></g>
+<!-- two pages of the style guide, for the guests -->
+<g><rect x="596" y="322" width="268" height="190" fill="#8a5a46"/><text x="730" y="344" class="fO" font-size="12" text-anchor="middle" fill="#fbefe6" letter-spacing="2">FOR OUR GUESTS: HOW WE CHECK</text></g>
+<g id="g15" class="hot" transform="rotate(-2 660 430)"><rect x="610" y="356" width="112" height="146" fill="#fdfcf9"/><rect x="610" y="356" width="112" height="10" fill="#4b2a7a"/><path d="M620 380h90M620 392h80M620 404h88M620 416h70M620 428h84M620 440h76M620 452h88" stroke="#7a6f8c" stroke-width="2"/><text x="666" y="490" class="fO" font-size="11" text-anchor="middle" fill="#4b2a7a">p.15</text></g>
+<g id="g16" class="hot" transform="rotate(2 800 430)"><rect x="740" y="356" width="112" height="146" fill="#fdfcf9"/><rect x="740" y="356" width="112" height="10" fill="#4b2a7a"/><path d="M750 380h90M750 392h80M750 404h88M750 416h70M750 428h84M750 440h76M750 452h88" stroke="#7a6f8c" stroke-width="2"/><text x="796" y="490" class="fO" font-size="11" text-anchor="middle" fill="#4b2a7a">p.16</text></g>
+
+<!-- the mirror with bulbs, and the counter -->
+<g id="mirror" class="hot"><rect x="930" y="130" width="420" height="330" fill="#6a4a3a"/><rect x="948" y="148" width="384" height="294" fill="#cdd6dc"/><rect x="948" y="148" width="384" height="294" fill="url(#mirG)"/>
+  <path d="M980 160l60 280M1060 150l40 200" stroke="#fff" stroke-width="10" opacity=".25"/><g id="bulbs"></g></g>
+<path d="M900 520H1380L1400 540H880Z" fill="#8a6a56"/><path d="M880 540H1400V560H880z" fill="#5a3e32"/><path d="M900 560v140M1380 560v140" stroke="#5a3e32" stroke-width="14"/>
+<g id="makeup" class="hot"><rect x="960" y="494" width="40" height="26" rx="4" fill="#e8b8a8"/><circle cx="980" cy="492" r="12" fill="#f4d4c4"/><rect x="1240" y="482" width="12" height="38" fill="#2a2a2a"/><rect x="1260" y="490" width="12" height="30" fill="#c0392b"/><rect x="1280" y="476" width="20" height="44" rx="3" fill="#fff"/></g>
+<!-- the water cooler and the door -->
+<g id="cooler" class="hot"><rect x="1450" y="520" width="80" height="180" fill="#e8ecf0"/><path d="M1460 520v-90q0 -20 30 -20t30 20v90z" fill="#9ad0f0" opacity=".75"/><rect x="1474" y="560" width="32" height="12" fill="#3a6aa0"/></g>
+<g id="door" class="hot"><rect x="60" y="180" width="170" height="500" fill="#7a4e42"/><rect x="72" y="192" width="146" height="488" fill="#8a5e50"/><circle cx="206" cy="440" r="7" fill="#e8c45a"/>
+  <rect x="90" y="250" width="110" height="40" fill="#2e6a3a"/><text x="145" y="276" class="fO" font-size="15" text-anchor="middle" fill="#fff" letter-spacing="1">GREEN ROOM</text></g>
+<!-- the sofa, the coffee table, the fruit, the tablet -->
+<g id="sofa"><path d="M260 600q0 -40 40 -40h360q40 0 40 40v120H260z" fill="#4a7a6a"/><rect x="240" y="640" width="480" height="70" rx="14" fill="#3a6a5a"/><rect x="230" y="600" width="50" height="120" rx="14" fill="#3a6a5a"/><rect x="680" y="600" width="50" height="120" rx="14" fill="#3a6a5a"/></g>
+<path d="M560 740h300l-16 30H576z" fill="#6a4a3a"/><path d="M590 770v60M830 770v60" stroke="#4a3228" stroke-width="10"/>
+<g id="fruit" class="hot"><ellipse cx="620" cy="738" rx="44" ry="12" fill="#e8ecf0"/><circle cx="604" cy="726" r="12" fill="#e8a02a"/><circle cx="626" cy="722" r="12" fill="#c0392b"/><circle cx="644" cy="728" r="11" fill="#7ab040"/></g>
+<g id="tablet" class="hot"><path d="M700 742l24 -30h104l-20 30z" fill="#1a1a22"/><path d="M710 738l18 -22h90l-14 22z" fill="#4b2a7a"/><path d="M730 728h60" stroke="#ff9a7a" stroke-width="3"/></g>
+
+<!-- the candidates -->
+<g id="lydia" class="hot" transform="translate(420 872) scale(1.08)"></g>
+<g id="frank" class="hot" transform="translate(1150 878) scale(1.12)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the studio floor</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="figures.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 40; i++) s += '<path d="M' + (-1000 + i * 90) + ' -400V680" stroke="#c49478" stroke-width="2"/>';
+    $('#paper').innerHTML = s; s = '';
+    for (i = 0; i < 7; i++) s += '<circle class="bulb" cx="' + (970 + i * 56) + '" cy="140" r="11" fill="#fff4c8"/>';
+    for (i = 0; i < 5; i++) s += '<circle class="bulb" cx="938" cy="' + (190 + i * 56) + '" r="11" fill="#fff4c8"/><circle class="bulb" cx="1342" cy="' + (190 + i * 56) + '" r="11" fill="#fff4c8"/>';
+    $('#bulbs').innerHTML = s;
+    $('#lydia').innerHTML = FG.who('lydia', { smile: 3, armR: 'M31 -222Q56 -196 40 -166', handR: [38, -160], extra: '<rect x="24" y="-176" width="36" height="46" fill="#fff" transform="rotate(8 42 -152)"/><path d="M30 -166h22M30 -158h18M30 -150h22" stroke="#6a6a7a" stroke-width="1.5" transform="rotate(8 42 -152)"/>' });
+    $('#frank').innerHTML = FG.who('frank', { smile: 4, armL: 'M-31 -222Q-60 -230 -50 -270', handL: [-46, -276], extra: '<rect x="-60" y="-294" width="10" height="24" rx="3" fill="#f4d4c4"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'figures', storyTitle: 'Same Rules', id: 'green', no: 'V', title: 'The Green Room',
+    go: 'Go in',
+    intro: [
+      'Lavery&rsquo;s graph started its side axis at 4,000 and its time line at 2020. Drawn from 0, and from 2018 when he became leader, the cliff was a hill: crime up from 3,600 to 4,300, then down every year to 4,080. Every number right, the picture wrong: TRUE BUT MISLEADING. Gethin&rsquo;s &ldquo;eight in ten&rdquo; came from 50 people who chose to answer on the Larder&rsquo;s page. Nobody has asked the town: CAN&rsquo;T CHECK TONIGHT.',
+      'Forty minutes past eight. The break. For four minutes both candidates are in the green room, getting their noses powdered and not looking at each other.'
+    ],
+    exit: {"next":"air","w":{"729205d2":"1f9e437d"}}, tags: {"vL1":["d14c2394"],"vL2":["43111586"],"vL3":["719b3969"],"vG1":["cc45367c"],"vG2":["aba6a882"],"rL1":["1e06f13a"],"rL2":["e08ff8b2"],"rL3":["d6aa7ad3"],"rG1":["33d2f7b9"],"rG2":["06bcbeca"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function ready() { return told.frank && told.lydia && told.g15 && told.g16; }
+  function paint() {
+    $('#frank').classList.toggle('ready', !!(told.in && !told.frank));
+    $('#lydia').classList.toggle('ready', !!(told.in && !told.lydia));
+    $('#g15').classList.toggle('ready', !!(told.in && !told.g15));
+    $('#g16').classList.toggle('ready', !!(told.in && !told.g16));
+    $('#tablet').classList.toggle('ready', !!(ready() && !nextFile));
+    $('#count').textContent = nextFile ? '0:30' : ready() ? '1:50' : told.frank || told.lydia ? '3:10' : '4:00';
+    ER.pips((told.frank ? 1 : 0) + (told.lydia ? 1 : 0) + (told.g15 && told.g16 ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['The Check is with the gallery. The floor manager wants everybody out: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['check', [
+      'Same rules for both. For each of the five claims, set the dial and pick the one reason that a viewer could repeat. Iona&rsquo;s draft has some dials already set: check every one against the card, whoever said it.',
+      'Three of Iona&rsquo;s dials break the rules. Street lights: are the facts wrong, or is the picture wrong? Fairfield per person: what did your faders say? Crime: 480 more is right, but the town has grown. Crimes per 1,000 people = crimes ÷ thousands of people (the people are on the first printout).',
+      '2018: 3,600 crimes ÷ 40 (thousand people). 2025: 4,080 ÷ 48. Compare the two. For the street lights, look at Gethin&rsquo;s sheet: did prices rise only where the new lights are? For the two claims you checked earlier tonight (unemployment, the library), use the reasons you found then.'
+    ]];
+    if (!told.frank && !told.lydia) return ['talk', ['Iona wants the sources for the two new claims. Ask both candidates: Lavery is at the mirror, Gethin by the sofa.', 'Click Lavery (blue tie) and Gethin (orange scarf), one after the other.']];
+    if (!told.frank || !told.lydia) return ['talk', ['You have asked one of them. Fair to both: ask the other one too.', told.frank ? 'Click Gethin, in the orange scarf, by the sofa.' : 'Click Lavery, in the blue tie, at the mirror.']];
+    if (!told.g15 || !told.g16) return ['read', ['The station pins two pages of its style guide on the wall for its guests. Read both.', 'The two white pages under FOR OUR GUESTS: HOW WE CHECK, below the monitor: page 15 and page 16.']];
+    return ['check', ['Iona&rsquo;s draft of the Check is on the tablet on the coffee table.', 'Click the tablet on the little table in front of the sofa.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The green room. The floor manager is holding up thirty fingers. Well, three, and then zero.'); return; }
+    if (told.in) { busy = false; ER.say('The green room, in the break.'); return; }
+    ER.narrate([
+      'The green room is not green. It is peach, and has been peach since 1998, when somebody bought the wrong paint and nobody had the heart to say so.',
+      'Frank Lavery is at the mirror with a powder puff, doing his own nose, badly. Lydia Gethin is standing by the sofa, writing numbers on the back of her hand.',
+      'On the monitor, the empty studio and a clock: BACK IN 4:00. Iona&rsquo;s tablet is on the coffee table, where she left it for you, with THE CHECK &middot; DRAFT across the top.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- the candidates ---------- */
+  var PRICES = '<h4><span>Inchbeck Council</span><span>Lydia Gethin&rsquo;s copy</span></h4><h3>Inchbeck in Numbers: house prices</h3>' +
+    '<h5>Middle (median) house price</h5><table><tr><th></th><th class="n">2023</th><th class="n">2025</th><th class="n">change</th></tr>' +
+    '<tr><td>Old Town</td><td class="n">£200,000</td><td class="n">£240,000</td><td class="n">+20%</td></tr><tr><td>Abbey</td><td class="n">£250,000</td><td class="n">£300,000</td><td class="n">+20%</td></tr>' +
+    '<tr><td>Highfield</td><td class="n">£300,000</td><td class="n">£360,000</td><td class="n">+20%</td></tr><tr><td>Fairfield</td><td class="n">£150,000</td><td class="n">£180,000</td><td class="n">+20%</td></tr>' +
+    '<tr><td>Homes on the Ring Road</td><td class="n">£220,000</td><td class="n">£264,000</td><td class="n">+20%</td></tr></table>' +
+    '<p>New street lights on the Ring Road: put in during 2023. Cost: £400,000. No new lights in any other ward.</p>';
+  $('#frank').addEventListener('click', function () {
+    if (busy) return;
+    if (told.frank) { ER.say('&ldquo;Twenty per cent,&rdquo; says Lavery to the mirror. &ldquo;Light brings value.&rdquo; He powders the other side of his nose.'); return; }
+    ER.talk({
+      who: 'Frank Lavery', role: 'Leader of the council · candidate', face: window.FACE('frank'),
+      lines: [
+        { note: 'He turns from the mirror, half powdered.', a: '&ldquo;Ah. The fact-checkers. Come to tell me I&rsquo;m wrong about the street lights? I&rsquo;m not. House prices on the Ring Road are up a fifth since we put the lights in. Twenty per cent. Look it up.&rdquo;' },
+        { q: 'Ms Gethin says there are nearly five hundred more crimes than when you took over.', a: '&ldquo;And there are. Four hundred and eighty, if you want it exact, and I do. Now ask her how many more people live in Inchbeck than in 2018. Eight thousand. New houses. I built them, mostly. More people, more of everything. Even crime.&rdquo;' },
+        { q: 'Did you once call this station &lsquo;a hobby with cameras&rsquo;?', a: '&ldquo;In 2016. I was wrong. It&rsquo;s a hobby with cameras and a car park.&rdquo; He very nearly smiles.' },
+        { q: 'Is there anything else we should check?', a: '&ldquo;Everything, I should think. That&rsquo;s your job.&rdquo; He goes back to the mirror. &ldquo;And while you&rsquo;re at it, ask Fergus about the swimming pool. He&rsquo;ll bore you for an hour.&rdquo;' }
+      ],
+      clue: { id: 'frank', title: 'Frank Lavery, in the green room', kind: 'What he said' },
+      done: function (seen) {
+        if (!seen || !tell('frank')) return;
+        FG.terms(['candidate']); paint();
+        if (told.lydia) ER.say('Both of them asked. The two pages on the wall, then Iona&rsquo;s tablet.');
+      }
+    });
+  });
+  $('#lydia').addEventListener('click', function () {
+    if (busy) return;
+    if (told.lydia) { ER.say('Gethin is reading the numbers on the back of her hand. Some of them have run in the steam from the kettle.'); return; }
+    ER.talk({
+      who: 'Lydia Gethin', role: 'Independent · candidate', face: window.FACE('lydia'),
+      lines: [
+        { note: 'She looks up from the back of her hand.', a: '&ldquo;You&rsquo;re with Iona? Tell her her sister was brilliant on Saturday. No, sorry. That&rsquo;s not fair of me, is it? Fair to both. Good. Somebody should be.&rdquo;' },
+        { q: 'Where does your crime number come from?', a: '&ldquo;Police figures. Three thousand six hundred crimes in 2018, when he took over. Four thousand and eighty last year. That&rsquo;s four hundred and eighty more. Check it.&rdquo;' },
+        { q: 'And the street lights?', a: '<p>She hands you a folded sheet. &ldquo;House prices, from the council&rsquo;s own figures. Up a fifth on the Ring Road, yes. Up a fifth on my street too, and we&rsquo;ve had the same lamp post since 1974. Up a fifth everywhere.&rdquo;</p>' },
+        { q: 'Your library clip was cut. He said he didn&rsquo;t agree.', a: '&ldquo;I know. Iona rang my agent. A supporter sent me that clip and I didn&rsquo;t play the whole thing. I should have.&rdquo; She looks at you straight. &ldquo;If I&rsquo;m wrong, say so on air. That&rsquo;s what you&rsquo;re for.&rdquo;' }
+      ],
+      clue: { id: 'lydia', title: 'Lydia Gethin, in the green room', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('lydia')) return;
+        FG.terms(['candidate']); paint(); FG.sfx.slip();
+        ER.addClue('prices', 'Inchbeck in Numbers: house prices', PRICES, 'stats', 'Gethin&rsquo;s sheet');
+        if (told.frank) ER.say('Both of them asked. The two pages on the wall, then Iona&rsquo;s tablet.');
+      }
+    });
+  });
+
+  /* ---------- the two pages on the wall ---------- */
+  var DIA15 = '<svg viewBox="0 0 260 220"><g font-family="Kalam,cursive" fill="#1c1a24" text-anchor="middle">' +
+    '<path d="M24 20V180H246" fill="none" stroke="#1c1a24" stroke-width="1.5"/><path d="M34 160L90 124L150 90L236 40" fill="none" stroke="#4b2a7a" stroke-width="3"/><path d="M34 170L90 140L150 110L236 64" fill="none" stroke="#d4682a" stroke-width="3" stroke-dasharray="6 4"/>' +
+    '<text x="180" y="30" font-size="14" fill="#4b2a7a">storks</text><text x="200" y="98" font-size="14" fill="#d4682a">babies</text>' +
+    '<text x="130" y="204" font-size="14">both rise with the size of the country</text></g></svg>';
+  var G15 = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 15</span></h4><h3>Rising together</h3><div class="two"><div>' +
+    '<p>Two things can rise together without one causing the other. When two numbers move together, that is a <b>correlation</b>. It does not tell you that one <b>causes</b> the other.</p>' +
+    '<p>In 2000 a statistician, Robert Matthews, showed that across 17 countries in Europe, the countries with more storks had more babies born. He did it to make exactly this point. Storks do not bring babies: bigger countries simply have more of both.</p>' +
+    '<p>When somebody says &ldquo;X went up, and then Y went up, so X caused Y&rdquo;, ask three questions:</p>' +
+    '<p class="ex">1. Did Y also go up where there was no X?<br>2. Is there something else that pushes both?<br>3. Could it be the other way round?</p>' +
+    '</div><div class="dia">' + DIA15 + '</div></div><p class="pen">Ice cream and sunburn go up together. Ice cream does not burn you. &mdash; I.B.</p>';
+  var G16 = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 16</span></h4><h3>Fair to both</h3>' +
+    '<p>On election night, the same rules for everybody. A true number that gives a wrong picture is TRUE BUT MISLEADING, whoever says it. A claim that is right is TRUE, even from somebody you would not vote for. Check the side you like as hard as the side you don&rsquo;t, and if you find yourself pleased by a verdict, check it again.</p>' +
+    '<p>British broadcasters must report news with &ldquo;due accuracy&rdquo; and present it with &ldquo;due impartiality&rdquo;: it is in the Ofcom Broadcasting Code, Section Five. <b>Impartial</b> means fair to every side.</p>' +
+    '<p><b>The reason.</b> One sentence that a viewer can repeat: because + the fact + what it means.</p>' +
+    '<p class="ex">FALSE, because the full tape shows he said other people called it a waste of money, and that he didn&rsquo;t agree.</p>' +
+    '<p class="pen">This page is on the wall where the candidates can read it. So are we. &mdash; I.B.</p>';
+  $('#g15').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: G15, cls: 'guide', clue: { id: 'guide15', title: 'Style guide p.15: Rising together', kind: 'The style guide' }, done: function () {
+      FG.terms(['correlation', 'cause']); if (tell('g15')) paint();
+    } });
+  });
+  $('#g16').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: G16, cls: 'guide', clue: { id: 'guide16', title: 'Style guide p.16: Fair to both', kind: 'The style guide' }, done: function () {
+      FG.terms(['impartial']); if (tell('g16')) paint();
+    } });
+  });
+
+  /* ---------- things in the room ---------- */
+  FG.thing('#mon', null, function () { return 'The empty studio, and a clock: BACK IN ' + $('#count').textContent + '. Colm is on the set alone, practising his face.'; }, isBusy);
+  FG.thing('#mirror', null, 'A make-up mirror with a ring of bulbs, two of which flicker. Lavery&rsquo;s reflection is powdering its nose with great care and no skill.', isBusy);
+  FG.thing('#makeup', null, 'Powder, a brush, a lipstick nobody has used since the Christmas special, and a box of tissues with one left.', isBusy);
+  FG.thing('#cooler', null, 'A water cooler that gurgles every time somebody says a number. Iona says it is the most honest thing in the building.', isBusy);
+  FG.thing('#door', null, 'The door: GREEN ROOM. The room behind it is peach. Nobody at Inchbeck Television sees anything odd about this.', isBusy);
+  FG.thing('#fruit', null, 'A bowl of fruit for the guests. Nobody has eaten any. A banana has been there since the last election, and looks it.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#tablet').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The tablet says: SENT TO GALLERY 20.46. And under it, from Iona: <i>fine.</i>'); return; }
+    if (!told.frank || !told.lydia) { ER.say('Iona&rsquo;s draft. First ask both of them where their numbers come from: fair to both.'); return; }
+    if (!told.g15 || !told.g16) { ER.say('Before you change Iona&rsquo;s draft, read the two pages on the wall: pages 15 and 16.'); return; }
+    if (!lock) lock = makeCheck();
+    lock.open();
+  });
+
+  /* ---------- the Check: five claims, five dials, five reasons, the same rules ---------- */
+  function makeCheck() {
+    var ROWS = [
+      ['L1', 'lav', '20.03', 'Unemployment has gone up by just two per cent.', 'false', ''],
+      ['L2', 'lav', '20.39', 'Since we put new street lights on the Ring Road, house prices there have gone up by a fifth. Light brings value.', 'false', 'lights don&rsquo;t make prices. obviously!'],
+      ['L3', 'lav', '20.17', 'Per person, Fairfield gets twice as much as Highfield.', 'tbm', 'spin.'],
+      ['G1', 'get', '20.22', 'Frank Lavery said the library is a waste of money.', 'false', ''],
+      ['G2', 'get', '20.38', 'There are nearly five hundred more crimes a year than when Frank Lavery took over.', 'true', '480 &mdash; right there!'],
+      ['G3', 'get', '20.24', 'He promised the pool would reopen by 2022. Look at it now. Boarded up!', 'true', 'I swim there. swam.']];
+    var REASONS = [
+      ['rc', 'because the rate went from 4% to 6%: up two points, which is 600 more people out of work, a rise of a half.'],
+      ['rj', 'because he did say the words &lsquo;the library is a waste of money&rsquo; on the tape.'],
+      ['rh', 'because house prices rose by a fifth all over town, on streets with no new lights too.'],
+      ['rg', 'because crimes rose from 3,600 to 4,080, and crime per 1,000 people rose from 85 to 90.'],
+      ['ra', 'because Fairfield gets £200 for each person who lives there, and Highfield £100.'],
+      ['rd', 'because the new street lights cost £400,000.'],
+      ['rk', 'because the full tape shows he said other people called it a waste of money, and that he didn&rsquo;t agree.'],
+      ['re', 'because crime has fallen every year since 2020.'],
+      ['rb', 'because Highfield got £1.8 million and Fairfield only £1.2 million.'],
+      ['rf', 'because crimes rose from 3,600 to 4,080, but the town grew by 8,000 people, so crime per 1,000 people fell from 90 to 85.'],
+      ['ri', 'because nobody can know what house prices will do next year.'],
+      ['rl', 'because it went up by two per cent of the people out of work.']];
+    var st = ER.flag('e-st'), wait = false, box = ER.el('div', 'job chkj'), dials = {};
+    if (!st) { st = { v: {}, r: {} }; ROWS.forEach(function (r) { st.v[r[0]] = r[4]; st.r[r[0]] = ''; }); }
+    function row(r) {
+      var mine = r[0] === 'G3';
+      return '<div class="ckr' + (mine ? ' mine' : '') + '" data-row="' + r[0] + '"><div class="dslot"></div><div class="ckb">' + FG.claim(r[1], r[2], r[3]) +
+        '<div class="ck-row2">' + (mine ? '<div class="note" style="flex:1">I swim there. swam. <span class="stamp">IONA&rsquo;S</span></div>' : '<span class="sl" data-k="' + r[0] + '"></span>') + '</div>' +
+        (r[5] && !mine ? '<div class="note">Iona: ' + r[5] + '</div>' : '') + '</div></div>';
+    }
+    box.innerHTML = '<h5>The Check &middot; draft (Iona) <small>Set each dial. Click a reason, then the gap beside a dial (or drag it). Same rules for both.</small></h5>' +
+      '<div class="ck-cols"><div class="ck-col lav"><h6>Lavery</h6>' + ROWS.slice(0, 3).map(row).join('') + '</div><div class="ck-col get"><h6>Gethin</h6>' + ROWS.slice(3).map(row).join('') + '</div></div>' +
+      '<div class="rtray">' + REASONS.map(function (r) { return '<span class="tl" data-v="' + r[0] + '">' + r[1] + '</span>'; }).join('') + '</div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="c-go">Send to the gallery</button></div>';
+    var msgEl = box.querySelector('.jmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.$$('.ck-row2 .sl', box).forEach(function (s) { st.r[s.getAttribute('data-k')] = s.getAttribute('data-v') || ''; }); ER.flag('e-st', st); }
+    ROWS.forEach(function (r) {
+      var mine = r[0] === 'G3';
+      var d = FG.dial({ small: true, value: st.v[r[0]], onChange: function (v) { st.v[r[0]] = v; keep(); }, lock: function () { return wait || mine; } });
+      if (mine) { d.lock(true); d.node.addEventListener('click', function () { msg('That one is Iona&rsquo;s. She has written IONA&rsquo;S across it, and underlined it twice.'); }); }
+      box.querySelector('.ckr[data-row="' + r[0] + '"] .dslot').appendChild(d.node); dials[r[0]] = d;
+    });
+    FG.tiles(box, { tile: '.tl', slot: '.sl', lock: function () { return wait; }, change: keep });
+    ER.$$('.ck-row2 .sl', box).forEach(function (s) { var v = st.r[s.getAttribute('data-k')]; if (v) FG.put(s, box.querySelector('.tl[data-v="' + v + '"]')); });
+    var VM = {
+      L1: { tbm: 'Your strap from the desk: is &ldquo;up two per cent&rdquo; right as he said it? True but misleading needs the facts to be right.', 'true': 'Up two per cent? The rate went up two POINTS: 600 more people, a rise of a half.', cant: 'You checked it at the desk, with the council&rsquo;s printout.' },
+      L2: { 'false': 'Iona&rsquo;s note says lights don&rsquo;t make prices. Maybe not, but are the FACTS in his claim wrong? Prices on the Ring Road DID go up by a fifth. Page 16: the same rule for both.', 'true': 'Did the lights do it? Look at Gethin&rsquo;s sheet, and page 15: did prices go up where there were no new lights?', cant: 'We can check it: house prices for every ward are on Gethin&rsquo;s sheet.' },
+      L3: { tbm: 'Iona wrote &lsquo;spin&rsquo;. Is it? Your faders said Fairfield £200 a person and Highfield £100. Is anything important left out? Same rules: when he&rsquo;s right, he&rsquo;s right.', 'false': 'Look at your faders from the gallery: Fairfield and Highfield.', cant: 'You checked it in the gallery, on the faders.' },
+      G1: { tbm: 'He did say the words. That&rsquo;s true, and not the point. Did he say the library IS a waste of money?', 'true': 'Hilda&rsquo;s tape: did he think the library was a waste of money?', cant: 'You checked it on Hilda&rsquo;s tape.' },
+      G2: { 'true': '480 more: right. But TRUE means nothing important is left out, and the town has grown. Page 7: to compare things of different sizes, use a rate. Work out crimes per 1,000 people in 2018 and in 2025.', 'false': 'The facts in it are right: 3,600 to 4,080 is 480 more.', cant: 'We can check it: police figures, and the people on the first printout.' } };
+    var RM = {
+      L1: { rl: 'Two per cent of the people out of work? That isn&rsquo;t even what he said. Use your strap from the desk.' },
+      L2: { rd: 'True, and not the point. What would show the lights didn&rsquo;t do it?', ri: 'He isn&rsquo;t guessing about next year. He says the lights already did it.' },
+      L3: { rb: 'Those are Gethin&rsquo;s numbers, the totals. He was talking about each person.' },
+      G1: { rj: 'He did say those words. That&rsquo;s the true fact that isn&rsquo;t the point.' },
+      G2: { re: 'That&rsquo;s Lavery&rsquo;s graph, and it isn&rsquo;t what she said. What did eight thousand more people do to the number for each 1,000 people?', rg: 'Work it out again: 3,600 ÷ 40 (thousand people), and 4,080 ÷ 48. Which is bigger?' } };
+    var NAMES = { L1: 'Lavery&rsquo;s unemployment', L2: 'Lavery&rsquo;s street lights', L3: 'Lavery&rsquo;s Fairfield', G1: 'Gethin&rsquo;s library quote', G2: 'Gethin&rsquo;s crime figure' };
+    box.querySelector('#c-go').addEventListener('click', function () {
+      var ids = ['L1', 'L2', 'L3', 'G1', 'G2'], i, k, file, cand = [];
+      if (wait || nextFile) return;
+      keep();
+      ER.$$('.ck-row2 .sl', box).forEach(function (s) { s.classList.remove('bad', 'ok'); });
+      for (i = 0; i < ids.length; i++) if (!st.r[ids[i]]) { ER.sfx.no(); msg('&ldquo;Every verdict goes out with its reason,&rdquo; says the card on the dial. ' + NAMES[ids[i]] + ' has no reason yet.'); return; }
+      for (i = 0; i < ids.length; i++) {
+        k = ids[i];
+        if (!ER.check('v' + k, st.v[k])) { ER.sfx.no(); ER.shake(dials[k].node); msg('<b>' + NAMES[k] + ':</b> ' + VM[k][st.v[k]]); return; }
+        if (!ER.check('r' + k, st.r[k])) {
+          var sl = box.querySelector('.sl[data-k="' + k + '"]'); sl.classList.add('bad'); ER.shake(sl); ER.sfx.no();
+          msg('<b>' + NAMES[k] + ':</b> ' + ((RM[k] || {})[st.r[k]] || 'That reason does not explain this verdict. Which fact, and what it means, would a viewer need to hear?'));
+          return;
+        }
+        box.querySelector('.sl[data-k="' + k + '"]').classList.add('ok');
+        cand.push(st.v[k] + ':' + st.r[k]);
+      }
+      file = ER.exit([cand.join('|')], { wait: true });
+      if (!file) { msg('The tablet will not send. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('e-file', file); Object.keys(dials).forEach(function (k) { dials[k].lock(true); });
+      FG.mine('check', 'The Check, as sent', '<p>Lavery: unemployment FALSE (up 2 points, 600 people, a rise of a half). Street lights TRUE BUT MISLEADING (prices up a fifth everywhere, lights or none). Fairfield per person TRUE (£200 against £100).</p>' +
+        '<p>Gethin: library quote FALSE (the whole answer: &ldquo;I don&rsquo;t agree&rdquo;). Crime TRUE BUT MISLEADING (3,600 → 4,080, but per 1,000 people 90 → 85). Pool: Iona&rsquo;s, TRUE.</p>', true);
+      msg('The tablet buzzes. Iona: <i>you changed three of mine. Him up twice, her down once.</i> A pause. Then: <i>same rules. fine. FINE. sending to Aled.</i>');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'The floor manager puts her head round the door. &ldquo;Back in thirty seconds!&rdquo; Lavery and Gethin go past you to the studio, nearly shoulder to shoulder, not looking at each other.',
+          'In the doorway, Lavery stops. &ldquo;The pool,&rdquo; he says to nobody in particular. &ldquo;Ask Fergus.&rdquo; Then he is gone.',
+          'Iona appears in the corridor in her coat, the tablet under her arm. &ldquo;The Check goes out at 20.52. Come and watch it from the floor. You built it.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3600);
+    });
+    msg('Iona&rsquo;s draft. Her dials are set where she put them. The reasons are empty. Check every dial against the card, whoever said it.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

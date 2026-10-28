@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Fact-Check Desk · Same Rules</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="figures.css">
+<style>
+  body{--bg:#140f24;--accent:#ff9a7a;--font-display:'Oswald',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(20,15,36,.97);--tc-ink:#f1ecf8;--cap-bg:rgba(18,13,32,.95);--panel:#1d1630;--face-bg:#1d1830;--q-ink:#ff9a7a;--fade:#07050c;--hud-bg:rgba(18,13,32,.86)}
+  .gobtn{color:#140f24}
+  #rain line{animation:rain .7s linear infinite}
+  #rain line:nth-child(3n){animation-duration:.9s}
+  #rain line:nth-child(4n+1){animation-delay:-.3s}
+  @keyframes rain{0%{transform:translateY(-60px)}100%{transform:translateY(300px)}}
+  #onair rect.lamp{fill:#3a1418}
+  body.live #onair rect.lamp{fill:#e8202a}
+  body.live #onair text{fill:#fff}
+  #live{display:none}
+  body.live #live{display:block}
+  body.live #slate{display:none}
+  #board .mag{display:none}
+  #board.got .mag{display:block}
+  #cgscr .cur{animation:blink 1s steps(1,end) infinite}
+  #flick{animation:flick 7s steps(1,end) infinite}
+  @keyframes flick{0%{opacity:.0}92%{opacity:0}93%{opacity:.22}94%{opacity:0}96%{opacity:.14}97%{opacity:0}}
+
+  /* the caption machine */
+  .cgj{width:min(1080px,96vw)}
+  .cg-claims{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
+  .strapr{display:flex;align-items:center;gap:14px;margin:0 0 9px}
+  .strap{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:7px 9px;padding:11px 14px 10px;background:linear-gradient(90deg,#4b2a7a,#26163f);border-left:10px solid #ff7a59;color:#fff;
+    font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:.06em;text-transform:uppercase;min-height:62px}
+  .strap .k{font-weight:700;color:#ffcf9a;margin-right:4px}
+  .strap .sl{min-width:92px}
+  .strapr .fdial{flex:0 0 auto}
+  .case{padding:9px 12px 11px;background:#221b30;border:1px solid #463a5e;border-radius:3px}
+  .case h6{margin:0 0 7px;font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#b5a9cc}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#191330"/><stop offset="1" stop-color="#2b2246"/></linearGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#231c34"/><stop offset="1" stop-color="#0c0914"/></linearGradient>
+  <linearGradient id="nightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0f22"/><stop offset="1" stop-color="#2a2a48"/></linearGradient>
+  <radialGradient id="setG" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#7a4ad0"/><stop offset="1" stop-color="#1c1040"/></radialGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="55%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+  <clipPath id="winC"><rect x="72" y="102" width="316" height="266"/></clipPath>
+  <clipPath id="feedC"><rect x="596" y="76" width="448" height="238"/></clipPath>
+</defs>
+
+<rect x="-1000" y="-400" width="3600" height="1100" fill="url(#wallG)"/>
+<rect x="-1000" y="690" width="3600" height="700" fill="url(#floorG)"/>
+<g stroke="#100c1c" stroke-width="2" opacity=".7"><path d="M-1000 750H2600M-1000 820H2600"/></g>
+<g fill="#fff3d8" opacity=".12"><rect x="120" y="14" width="200" height="10"/><rect x="700" y="14" width="200" height="10"/><rect x="1260" y="14" width="200" height="10"/></g>
+<rect x="-1000" y="40" width="3600" height="5" fill="#120e20"/>
+
+<!-- the window: Inchbeck in the rain -->
+<g id="window" class="hot"><rect x="60" y="90" width="340" height="290" fill="#2a2238"/><rect x="72" y="102" width="316" height="266" fill="url(#nightG)"/>
+  <g clip-path="url(#winC)"><g id="town"></g><g id="rain" stroke="#a9b8e0" stroke-width="1.2" opacity=".45"></g></g>
+  <path d="M230 102V368M72 235H388" stroke="#2a2238" stroke-width="8"/><rect x="52" y="378" width="356" height="12" fill="#352c46"/></g>
+
+<!-- the clock, the door, the light over it -->
+<g id="clock" class="hot"><circle cx="500" cy="138" r="46" fill="#120e20"/><circle cx="500" cy="138" r="39" fill="#f4efe6"/>
+  <g stroke="#1d1d1d" stroke-width="3"><path d="M500 103v7M500 166v7M465 138h7M528 138h7"/></g>
+  <path d="M500 138L478 151" stroke="#1d1d1d" stroke-width="5" stroke-linecap="round"/><path d="M500 138L493 104" stroke="#1d1d1d" stroke-width="3.5" stroke-linecap="round"/><circle cx="500" cy="138" r="3.5" fill="#c0392b"/></g>
+<g id="onair" class="hot"><rect x="440" y="236" width="120" height="40" rx="4" fill="#1a1420"/><rect class="lamp" x="446" y="242" width="108" height="28" rx="3"/>
+  <text x="500" y="262" class="fO" font-size="17" font-weight="700" text-anchor="middle" fill="#5a2a2e" letter-spacing="3">ON AIR</text></g>
+<g id="door"><rect x="446" y="296" width="108" height="394" fill="#241c34"/><rect x="456" y="306" width="88" height="160" fill="#3a3050" opacity=".6"/><circle cx="534" cy="500" r="5" fill="#8a8098"/></g>
+
+<!-- the big screen: the studio, live -->
+<g id="feed" class="hot"><rect x="584" y="64" width="472" height="262" rx="6" fill="#0a0812"/><rect x="596" y="76" width="448" height="238" fill="url(#setG)"/>
+  <g clip-path="url(#feedC)"><g id="studio"></g>
+    <g id="slate"><rect x="596" y="76" width="448" height="238" fill="#1c1040" opacity=".82"/><text x="820" y="186" class="fO" font-size="40" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="2">INCHBECK DECIDES</text>
+      <text x="820" y="222" class="fM" font-size="17" text-anchor="middle" fill="#ff9a7a" letter-spacing="3">LIVE AT 8PM</text></g>
+    <g id="live"><rect x="608" y="88" width="62" height="24" rx="2" fill="#e8202a"/><text x="639" y="106" class="fO" font-size="16" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="2">LIVE</text>
+      <rect x="596" y="270" width="448" height="34" fill="#2a1450" opacity=".92"/><rect x="596" y="270" width="8" height="34" fill="#ff7a59"/><text x="616" y="293" class="fO" font-size="17" font-weight="600" fill="#fff" letter-spacing="1.5">INCHBECK DECIDES · THE MAYORAL DEBATE</text></g>
+    <rect id="flick" x="596" y="76" width="448" height="238" fill="#fff"/></g>
+  <rect x="806" y="326" width="28" height="16" fill="#0a0812"/></g>
+
+<!-- the Check board, and the card pinned beside it -->
+<g id="board" class="hot"><rect x="1096" y="84" width="392" height="342" fill="#2a2238"/><rect x="1106" y="94" width="372" height="322" fill="#eeeef2"/>
+  <text x="1292" y="134" class="fK" font-size="30" font-weight="700" text-anchor="middle" fill="#4b2a7a">THE CHECK · 20.52</text><path d="M1180 142h224M1186 148h212" stroke="#4b2a7a" stroke-width="2.5"/>
+  <text x="1194" y="176" class="fK" font-size="18" text-anchor="middle" fill="#2f6db5">LAVERY</text><text x="1390" y="176" class="fK" font-size="18" text-anchor="middle" fill="#d4682a">GETHIN</text>
+  <g fill="none" stroke="#9a96a8" stroke-width="2" stroke-dasharray="6 5"><rect x="1120" y="190" width="150" height="56"/><rect x="1120" y="262" width="150" height="56"/><rect x="1120" y="334" width="150" height="56"/>
+    <rect x="1314" y="190" width="150" height="56"/><rect x="1314" y="262" width="150" height="56"/><rect x="1314" y="334" width="150" height="56"/></g>
+  <g class="mag"><rect x="1124" y="194" width="142" height="48" fill="#2a1a48"/><rect x="1124" y="194" width="6" height="48" fill="#ff7a59"/><text x="1198" y="214" class="fO" font-size="12" text-anchor="middle" fill="#fff">OUT OF WORK</text><text x="1198" y="232" class="fO" font-size="12" text-anchor="middle" fill="#ffcf9a">4% → 6%: UP 2 POINTS</text>
+    <rect x="1318" y="194" width="142" height="48" fill="#2a1a48"/><rect x="1318" y="194" width="6" height="48" fill="#ff7a59"/><text x="1392" y="214" class="fO" font-size="12" text-anchor="middle" fill="#fff">OLD TOWN BURGLARIES</text><text x="1392" y="232" class="fO" font-size="12" text-anchor="middle" fill="#ffcf9a">2 → 3: ONE MORE</text></g>
+  <circle cx="1112" cy="100" r="5" fill="#c0392b"/></g>
+<g id="card" class="hot" transform="rotate(4 1540 180)"><rect x="1500" y="128" width="84" height="110" fill="#000" opacity=".3" transform="translate(3 4)"/><rect x="1500" y="128" width="84" height="110" fill="#f3ead0"/><rect x="1500" y="128" width="84" height="5" fill="#4b2a7a"/>
+  <path d="M1510 150h62M1510 160h56M1510 170h64M1510 180h50M1510 190h60M1510 200h44" stroke="#6a6a7a" stroke-width="1.6"/><text x="1542" y="226" class="fC" font-size="16" text-anchor="middle" fill="#27457a">pants?</text><circle cx="1542" cy="132" r="4" fill="#c0392b"/></g>
+
+<!-- the desk -->
+<ellipse cx="860" cy="560" rx="420" ry="90" fill="url(#lampG)" pointer-events="none"/>
+<path d="M190 606H1560L1586 640H164Z" fill="#3a3046"/><path d="M164 640H1586V662H164z" fill="#241c30"/><path d="M220 662v190M1530 662v190" stroke="#241c30" stroke-width="18"/>
+<path d="M190 606H1560" stroke="#55486a" stroke-width="2"/>
+<g id="trans" class="hot"><rect x="618" y="430" width="224" height="152" rx="5" fill="#0a0812"/><rect x="628" y="440" width="204" height="130" fill="#0f1320"/>
+  <g fill="#9fb3e0" opacity=".75"><rect x="638" y="452" width="40" height="5"/><rect x="684" y="452" width="120" height="5"/><rect x="638" y="468" width="40" height="5"/><rect x="684" y="468" width="138" height="5"/><rect x="684" y="478" width="96" height="5"/>
+    <rect x="638" y="494" width="40" height="5"/><rect x="684" y="494" width="130" height="5"/><rect x="638" y="510" width="40" height="5"/><rect x="684" y="510" width="110" height="5"/><rect x="684" y="520" width="132" height="5"/></g>
+  <rect x="638" y="540" width="80" height="6" fill="#ffcf6a" opacity=".7"/><rect x="718" y="582" width="24" height="24" fill="#0a0812"/></g>
+<g id="cg" class="hot"><rect x="866" y="436" width="218" height="142" rx="5" fill="#0a0812"/><g id="cgscr"><rect x="876" y="446" width="198" height="122" fill="#2a2a3a"/>
+  <rect x="876" y="526" width="198" height="26" fill="#4b2a7a"/><rect x="876" y="526" width="6" height="26" fill="#ff7a59"/><rect x="890" y="534" width="90" height="9" fill="#fff" opacity=".85"/><rect class="cur" x="986" y="533" width="4" height="12" fill="#ffcf9a"/>
+  <text x="884" y="466" class="fM" font-size="12" fill="#b5a9cc">CG 2</text></g>
+  <rect x="962" y="578" width="26" height="14" fill="#0a0812"/><path d="M876 598h198l8 10H868Z" fill="#1d1828"/><g fill="#4a4258"><rect x="884" y="600" width="170" height="3"/></g></g>
+<g id="dial" class="hot"><rect x="1118" y="560" width="134" height="48" rx="4" fill="#8a6a3a"/><rect x="1118" y="560" width="134" height="8" fill="#b08a4a"/>
+  <path d="M1140 560A45 45 0 0 1 1230 560" fill="none" stroke="#2e8b57" stroke-width="7"/><path d="M1151 538A45 45 0 0 1 1185 518" fill="none" stroke="#2e8b57" stroke-width="0"/>
+  <g stroke-width="8" fill="none"><path d="M1141 557A44 44 0 0 1 1154 527" stroke="#2e8b57"/><path d="M1156 525A44 44 0 0 1 1184 514" stroke="#d99a1e"/><path d="M1186 514A44 44 0 0 1 1214 525" stroke="#c8382a"/><path d="M1216 527A44 44 0 0 1 1229 557" stroke="#6b7280"/></g>
+  <circle cx="1185" cy="560" r="24" fill="#2a2433" stroke="#0c0912" stroke-width="3"/><path d="M1185 556V538" stroke="#ffe7a8" stroke-width="5" stroke-linecap="round"/>
+  <text x="1185" y="598" class="fM" font-size="10" text-anchor="middle" fill="#2a1d0e">THE CHECK</text></g>
+<g id="guide" class="hot"><path d="M392 600l18 -46h126l-14 46z" fill="#9a1f2a"/><path d="M392 600l18 -46h8l-18 46z" fill="#6a121a"/><path d="M424 566h96M420 576h70" stroke="#f3e6d0" stroke-width="4"/>
+  <text x="470" y="594" class="fO" font-size="10" font-weight="600" text-anchor="middle" fill="#f3e6d0" letter-spacing="1">STYLE GUIDE</text></g>
+<g id="stats" class="hot"><path d="M262 600h106l-2 8l4 40l-6 50l4 30H266l4 -34l-6 -44z" fill="#fbfdf8"/><g fill="#d6ead0"><rect x="268" y="612" width="96" height="8"/><rect x="266" y="632" width="98" height="8"/><rect x="268" y="652" width="94" height="8"/><rect x="268" y="672" width="94" height="8"/><rect x="268" y="692" width="96" height="8"/><rect x="266" y="712" width="98" height="8"/></g>
+  <g fill="#c9cdc2"><circle cx="262" cy="620" r="2"/><circle cx="262" cy="640" r="2"/><circle cx="262" cy="660" r="2"/><circle cx="262" cy="680" r="2"/><circle cx="262" cy="700" r="2"/></g>
+  <text x="314" y="606" class="fM" font-size="7.5" text-anchor="middle" fill="#3f6a3a">INCHBECK IN NUMBERS</text></g>
+<g id="mug" class="hot"><rect x="560" y="570" width="30" height="34" rx="3" fill="#ff7a59"/><path d="M590 578q13 0 13 10t-13 10" fill="none" stroke="#ff7a59" stroke-width="4"/><text x="575" y="592" class="fO" font-size="7" text-anchor="middle" fill="#fff">OKAYEST</text></g>
+<g id="plant" class="hot"><path d="M1300 604h56l-6 -30h-44z" fill="#a8603a"/><g fill="none" stroke="#3a8a4a" stroke-width="4" stroke-linecap="round"><path d="M1328 574q-30 -30 -48 -20"/><path d="M1328 574q-10 -50 -30 -60"/><path d="M1328 574q4 -56 18 -64"/><path d="M1328 574q28 -36 50 -30"/><path d="M1328 574q36 -10 44 6"/></g></g>
+
+<!-- Iona Bellwood -->
+<g id="iona" class="hot" transform="translate(1474 872) scale(1.14)"></g>
+
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">To the gallery</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="figures.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, lock = null, told = {};
+
+  /* the town at the window, the rain, the studio on the big screen, Iona */
+  (function () {
+    var s = '', i, r = 5, x, w, h;
+    function rnd() { r = (r * 16807) % 2147483647; return r / 2147483647; }
+    for (x = 66; x < 392;) {
+      w = 18 + rnd() * 40; h = 30 + rnd() * 90;
+      s += '<rect x="' + x.toFixed(0) + '" y="' + (368 - h).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="#0f1024"/>';
+      for (i = 0; i < 8; i++) if (rnd() < 0.35) s += '<rect x="' + (x + 3 + rnd() * (w - 8)).toFixed(0) + '" y="' + (368 - h + 5 + rnd() * (h - 12)).toFixed(0) + '" width="3.5" height="4.5" fill="#ffd98a" opacity=".8"/>';
+      x += w + 2;
+    }
+    s += '<path d="M260 268v-60l10 -26l10 26v60z" fill="#0f1024"/>';
+    for (i = 0; i < 26; i++) s += '<circle cx="' + (80 + rnd() * 300).toFixed(0) + '" cy="' + (200 + rnd() * 40).toFixed(0) + '" r="1.6" fill="#ffd98a" opacity="' + (0.3 + rnd() * 0.5).toFixed(2) + '"/>';
+    $('#town').innerHTML = s; s = '';
+    for (i = 0; i < 40; i++) { x = 72 + rnd() * 316; s += '<line x1="' + x.toFixed(0) + '" y1="' + (100 + rnd() * 200).toFixed(0) + '" x2="' + (x - 4).toFixed(0) + '" y2="' + (118 + rnd() * 200).toFixed(0) + '"/>'; }
+    $('#rain').innerHTML = s;
+    $('#studio').innerHTML = '<rect x="596" y="250" width="448" height="70" fill="#140a2c"/><circle cx="820" cy="150" r="60" fill="#ff7a59" opacity=".12"/>' +
+      '<g transform="translate(700 262) scale(.27)">' + FG.who('frank', { smile: 4 }) + '</g><rect x="672" y="214" width="56" height="50" fill="#2f6db5"/><rect x="672" y="214" width="56" height="6" fill="#9cc0ec"/>' +
+      '<g transform="translate(820 262) scale(.28)">' + FG.who('colm', { smile: 5 }) + '</g>' +
+      '<g transform="translate(940 262) scale(.27)">' + FG.who('lydia', { smile: 3 }) + '</g><rect x="912" y="214" width="56" height="50" fill="#d4682a"/><rect x="912" y="214" width="56" height="6" fill="#ffc29a"/>';
+    $('#iona').innerHTML = FG.who('iona', { lit: '#8fb0ff', armR: 'M31 -222Q54 -196 44 -160', handR: [42, -154], extra: '<rect x="30" y="-170" width="30" height="40" rx="3" fill="#f2efe8" transform="rotate(10 45 -150)"/>' });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'figures', storyTitle: 'Same Rules', id: 'desk', no: 'I', title: 'The Fact-Check Desk',
+    go: 'Go to the desk',
+    intro: [
+      'Tuesday 28 April. Four minutes to eight.',
+      'Inchbeck Television is a local station in an old printworks: two studios, one car park, and a newsroom that has never had enough chairs. Tonight it is showing the only debate between the two people who want to be Inchbeck&rsquo;s first elected mayor.',
+      'You are the trainee on the fact-check desk. It is your first week. You were told to bring a pen.'
+    ],
+    exit: {"next":"gallery","w":{"9a037d61":"50330353"}}, tags: {"a1":["6c96678b"],"a2":["ed2204dd"],"a3":["f2cdbc62"],"a4":["c3e8c40c"],"b1":["561cdef4"],"b2":["2388e7c2"],"b3":["b9b7c410"],"b4":["3a043bfa"],"v1":["1cf16b55"],"v2":["e9e9629f"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function showGo() { $('#go').classList.add('on'); }
+  function ready() { return told.live && told.guide && told.stats && told.card; }
+  function paint() {
+    document.body.classList.toggle('live', !!told.live);
+    $('#iona').classList.toggle('ready', !!(told.in && !told.iona));
+    $('#guide').classList.toggle('ready', !!(told.live && !told.guide));
+    $('#stats').classList.toggle('ready', !!(told.live && !told.stats));
+    $('#dial').classList.toggle('ready', !!(told.live && !told.card));
+    $('#cg').classList.toggle('ready', !!(ready() && !nextFile));
+    $('#board').classList.toggle('got', !!nextFile);
+    ER.pips((told.iona ? 1 : 0) + (told.guide && told.stats && told.card ? 1 : 0) + (nextFile ? 1 : 0), 3);
+  }
+
+  function hints() {
+    if (nextFile) return ['go', ['The straps are on the board and both dials are set. Iona has sent you to the gallery: the button is at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['cg', [
+      'Strap 1 is Lavery&rsquo;s claim. On the printout the RATE of people out of work was 4% in 2022 and 6% in 2026. How far up is that, and in what? Then: how big is the rise compared with where it STARTED?',
+      'From 4% to 6% is up 2 POINTS (6 − 4). The rise is 2 compared with the 4 it started from: 2 ÷ 4. Strap 2 is Gethin&rsquo;s claim: the Old Town line on the printout, January to March, 2025 and 2026, and how many more that is. The last gap is April to June 2025, when the office was still open.',
+      'Set the dials last, with the card on the dial in mind. Lavery said &ldquo;up two per cent&rdquo;: is that right, as he said it? Gethin said &ldquo;up fifty per cent&rdquo;: the number is right, but what picture does it give of one burglary?'
+    ]];
+    if (!told.iona) return ['talk', ['Iona Bellwood runs the fact-check desk. She is standing at the right of the desk.', 'Click Iona, the woman in red glasses and a purple cardigan.']];
+    if (!ready()) return ['read', ['Before you make a strap you need three things on the desk: the style guide, the council&rsquo;s printout and the card on the dial.', 'The red binder on the desk is the style guide. The green-and-white printout hangs over the left end of the desk. The dial is the brass box with the knob, on the right. Click all three.']];
+    return ['cg', ['Everything is ready. The caption machine, CG 2, is the screen and keyboard in the middle of the desk.', 'Click the CG 2 screen, to the right of the transcript screen.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Two straps on the board. Iona is pointing at the door to the gallery.'); return; }
+    if (told.in) { busy = false; ER.say(told.live ? 'The fact-check desk. The debate is on.' : 'The fact-check desk, four minutes to eight.'); return; }
+    ER.narrate([
+      'The fact-check desk is the corner of the newsroom nearest the big screen and furthest from the kettle. It has two monitors, a caption machine, a whiteboard and a knob.',
+      'On the big screen the studio is lit and waiting: two lecterns, one blue and one orange, and between them Colm Hadley, the presenter, having his nose powdered.',
+      'At the end of the desk a woman in red glasses is reading three screens at once. That is Iona Bellwood, who runs the desk. She sees you, and points at the empty chair.'
+    ], function () { busy = false; tell('in'); paint(); });
+  }
+
+  /* ---------- Iona ---------- */
+  $('#iona').addEventListener('click', function () {
+    if (busy) return;
+    if (told.iona) {
+      ER.say(nextFile ? '&ldquo;Gallery,&rdquo; says Iona. &ldquo;Lavery is about to talk about money, and the director owes me a favour.&rdquo;' :
+        !ready() ? '&ldquo;Style guide, printout, dial,&rdquo; says Iona, counting on her fingers. &ldquo;Then CG 2.&rdquo;' : '&ldquo;CG 2,&rdquo; says Iona. &ldquo;Two straps, two dials. Off you go.&rdquo;');
+      return;
+    }
+    ER.talk({
+      who: 'Iona Bellwood', role: 'Producer · the fact-check desk', face: window.FACE('iona'),
+      lines: [
+        { note: 'She does not look up from her screens.', a: '&ldquo;You&rsquo;re the trainee. Good. Sit. In four minutes Frank Lavery and Lydia Gethin go live for an hour, and every number either of them says comes to this desk. At eight minutes to nine Colm turns to the camera and says, &lsquo;Time for the Check,&rsquo; and we tell Inchbeck which of those numbers were true.&rdquo;' },
+        { q: 'What exactly goes on air?', a: '&ldquo;Six claims, three for each of them. For every claim, a verdict on the dial and one sentence of reason. Before that, while they talk, we make straps: the lines of type across the bottom of the screen that show the real numbers. The caption machine is CG 2, on the desk.&rdquo;' },
+        { q: 'Who are they?', a: '<p>&ldquo;Frank Lavery: leader of the council since 2018, sixty-one, shakes hands as if he&rsquo;s testing the plumbing. He once called this station &lsquo;a hobby with cameras&rsquo;. Lydia Gethin: thirty-eight, independent, runs the Larder, the food bank on Abbey Road. My sister helps there on Saturdays.&rdquo;</p><p>She takes a sip of coffee. &ldquo;Which doesn&rsquo;t matter. Obviously.&rdquo;</p>' },
+        { q: 'How do you know the town&rsquo;s numbers so well?', a: '&ldquo;Eleven years at the council, counting things. Then in 2019 Mr Lavery&rsquo;s council decided it didn&rsquo;t need quite so much counting, and here I am. That doesn&rsquo;t matter either.&rdquo;' },
+        { q: 'Where do I start?', a: '&ldquo;The style guide, page three: how big is a change. The council&rsquo;s own printout, Inchbeck in Numbers. And the card on our dial: read it before you touch the knob. Then wait for a number. They never make you wait long.&rdquo;' }
+      ],
+      clue: { id: 'iona', title: 'Iona: the job tonight', kind: 'What she said' },
+      done: function (seen) {
+        if (!seen || !tell('iona')) return;
+        FG.terms(['fact-check', 'claim', 'verdict', 'strap']); paint(); busy = true;
+        ER.narrate([
+          'Eight o&rsquo;clock. The light over the door goes red. On the big screen Colm Hadley smiles the smile of a man who has practised it: &ldquo;Good evening, and welcome to Inchbeck Decides.&rdquo;',
+          '20.03. Frank Lavery: &ldquo;Times are hard everywhere. But unemployment in this town has gone up by just two per cent in four years. Two per cent! I call that holding the line.&rdquo;',
+          'Iona makes a noise like a kettle coming to the boil.',
+          '20.06. Lydia Gethin: &ldquo;Since the council shut the police office on Dyer Street, burglaries in the Old Town have gone up by fifty per cent. Fifty per cent!&rdquo;',
+          '&ldquo;There,&rdquo; says Iona. &ldquo;One each. The transcript is on the screen in front of you. Read the style guide, the printout and the card on the dial, then make me two straps on CG 2 and set the dial for both.&rdquo;'
+        ], function () {
+          busy = false; tell('live'); paint(); FG.sfx.ping();
+          ER.addClue('live1', 'Live transcript, 20.00 to 20.07', TRANS, 'trans', 'The transcript');
+        });
+      }
+    });
+  });
+
+  /* ---------- the papers ---------- */
+  var TRANS = '<h4><span>Live transcript · Inchbeck Decides</span><span>20.00&ndash;20.07</span></h4>' +
+    '<p><i>20.00</i><b>HADLEY</b>Good evening, and welcome to Inchbeck Decides. On Thursday 7 May this town chooses its first mayor. Tonight, for one hour, the two candidates.</p>' +
+    '<p><i>20.03</i><b>LAVERY</b>Times are hard everywhere. But unemployment in this town has gone up by just two per cent in four years. Two per cent! I call that holding the line.</p>' +
+    '<p><i>20.05</i><b>GETHIN</b>Holding the line for whom?</p>' +
+    '<p><i>20.06</i><b>GETHIN</b>Since the council shut the police office on Dyer Street, burglaries in the Old Town have gone up by fifty per cent. Fifty per cent!</p>' +
+    '<p><i>20.06</i><b>LAVERY</b>That office was open two mornings a week, and nobody ever went in.</p>';
+  var DIA = '<svg viewBox="0 0 250 300"><g font-family="Kalam,cursive" fill="#1c1a24" text-anchor="middle">' + (function () {
+      var t = '', i, x, y;
+      for (i = 0; i < 100; i++) { x = 14 + (i % 10) * 9.5; y = 30 + Math.floor(i / 10) * 9.5; t += '<rect x="' + x + '" y="' + y + '" width="8" height="8" fill="' + (i < 4 ? '#4b2a7a' : '#e4dfec') + '"/>'; }
+      for (i = 0; i < 100; i++) { x = 136 + (i % 10) * 9.5; y = 30 + Math.floor(i / 10) * 9.5; t += '<rect x="' + x + '" y="' + y + '" width="8" height="8" fill="' + (i < 4 ? '#4b2a7a' : i < 6 ? '#ff7a59' : '#e4dfec') + '"/>'; }
+      return t; })() +
+    '<text x="60" y="20" font-size="15">2022: 4 in 100</text><text x="182" y="20" font-size="15">2026: 6 in 100</text>' +
+    '<text x="125" y="148" font-size="17" font-weight="700" fill="#b23a1f">+2 POINTS</text><text x="125" y="168" font-size="14">2 more on top of 4:</text><text x="125" y="186" font-size="17" font-weight="700" fill="#4b2a7a">a rise of 50%</text>' +
+    '<rect x="40" y="208" width="170" height="78" fill="#f2eef7" stroke="#4b2a7a" stroke-width="1.5"/><g fill="#4b2a7a"><circle cx="70" cy="240" r="8"/><circle cx="92" cy="240" r="8"/></g><text x="125" y="246" font-size="20">→</text>' +
+    '<g fill="#4b2a7a"><circle cx="152" cy="240" r="8"/><circle cx="174" cy="240" r="8"/></g><circle cx="196" cy="240" r="8" fill="#ff7a59"/><text x="125" y="276" font-size="14">+50% ... and it is ONE</text></g></svg>';
+  var GUIDE = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 3</span></h4><h3>How big is a change?</h3><div class="two"><div>' +
+    '<p>Two numbers can describe the same change. When a rate in per cent goes from 4% to 6%, it has risen by two <b>percentage points</b> (6 − 4). Say POINTS. It has also risen by <b>50 per cent</b>, because 2 is half of the 4 it started from. Both are true. &ldquo;Up two per cent&rdquo; is neither: a rise of two per cent would take 4% only to 4.08%.</p>' +
+    '<p>Every per cent change is measured from where it started: the <b>base</b>. Divide the change by the OLD number, never the new one.</p>' +
+    '<p class="ex">4% → 6%: up 2 points. 2 ÷ 4 = a rise of 50%.<br>NOT 2 ÷ 6 = 33%.</p>' +
+    '<p>A <b>small base</b> makes a small change look huge. Two burglaries becoming three is a rise of 50 per cent, and it is one burglary. Small numbers jump about by chance, so look at the numbers themselves, and at more than two of them.</p>' +
+    '</div><div class="dia">' + DIA + '</div></div><p class="pen">Points for rates. Per cent for change. And always ask: per cent of WHAT? &mdash; I.B.</p>';
+  var STATS = '<h4><span>Inchbeck Council</span><span>printed 28/04 19.40</span></h4><h3>Inchbeck in Numbers 2026</h3>' +
+    '<h5>People</h5><table><tr><th>Population</th><th class="n">2018</th><th class="n">2025</th></tr><tr><td>Whole town</td><td class="n">40,000</td><td class="n">48,000</td></tr></table>' +
+    '<table><tr><th>By ward, 2025</th><th class="n">people</th></tr><tr><td>Old Town</td><td class="n">9,000</td></tr><tr><td>Abbey</td><td class="n">15,000</td></tr><tr><td>Highfield</td><td class="n">18,000</td></tr><tr><td>Fairfield</td><td class="n">6,000</td></tr></table>' +
+    '<h5>Work &middot; people of working age: 30,000</h5><table><tr><th></th><th class="n">2022</th><th class="n">2026</th></tr><tr><td>Out of work and looking for work</td><td class="n">1,200</td><td class="n">1,800</td></tr><tr><td>As a rate (per cent of working age)</td><td class="n">4%</td><td class="n">6%</td></tr></table>' +
+    '<h5>Burglaries &middot; police figures, three months at a time</h5><table><tr><th></th><th class="n">Jan&ndash;Mar 25</th><th class="n">Apr&ndash;Jun 25</th><th class="n">Jul&ndash;Sep 25</th><th class="n">Oct&ndash;Dec 25</th><th class="n">Jan&ndash;Mar 26</th></tr>' +
+    '<tr><td>Old Town</td><td class="n">2</td><td class="n">4</td><td class="n">1</td><td class="n">2</td><td class="n">3</td></tr><tr><td>Whole town</td><td class="n">120</td><td class="n">131</td><td class="n">117</td><td class="n">124</td><td class="n">108</td></tr></table>' +
+    '<p>The police office in Dyer Street closed on 31 December 2025.</p>';
+  var CARD = '<h4>On the dial &middot; IBTV fact-check desk</h4><h3>The Check: four verdicts</h3><div class="vd">' +
+    '<b class="vt-true">TRUE</b><span>The claim is right, and nothing important is left out.</span>' +
+    '<b class="vt-tbm">TRUE BUT MISLEADING</b><span>The facts in it are right, but the picture they give is wrong.</span>' +
+    '<b class="vt-false">FALSE</b><span>The facts in it are wrong.</span>' +
+    '<b class="vt-cant">CAN&rsquo;T CHECK TONIGHT</b><span>Nobody has the facts that would settle it: a promise about the future, or something nobody has properly measured.</span></div>' +
+    '<p>Every verdict goes out with ONE sentence of reason, and the sentence begins with <b>because</b>. If you can&rsquo;t write the sentence, you haven&rsquo;t got a verdict.</p>' +
+    '<p class="pen">The knob came off the old lighting desk in Studio 1. It still dims things. &mdash; I.B.</p>';
+  var PANTS = '<h4>Pinned beside the Check board</h4><h3>Where the dial came from</h3>' +
+    '<p>In 2007 a Florida newspaper started <b>PolitiFact</b>, which checks what American politicians say and rates each claim on a dial it calls the Truth-O-Meter. The Truth-O-Meter has six settings, from True to &ldquo;Pants on Fire&rdquo;.</p>' +
+    '<p>Ours has four. In American English, pants are trousers. In British English, pants are what you wear under your trousers.</p>' +
+    '<p class="pen">Which is why we stopped at four. &mdash; I.B.</p>';
+  function needIona(e) { ER.say('Iona is pointing at the empty chair, and then at herself.'); }
+  function needLive() { ER.say('&ldquo;Nothing to check yet,&rdquo; says Iona. &ldquo;They haven&rsquo;t said anything. Give them a minute. They will.&rdquo;'); }
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.iona) return needIona();
+    ER.read({ html: GUIDE, cls: 'guide', clue: { id: 'guide3', title: 'Style guide p.3: How big is a change?', kind: 'The style guide' }, done: function () {
+      FG.terms(['percentage point', 'base', 'rate', 'small base']);
+      if (tell('guide')) { paint(); if (ready()) ER.say('&ldquo;Good,&rdquo; says Iona. &ldquo;CG 2. Two straps.&rdquo;'); }
+    } });
+  });
+  $('#stats').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.iona) return needIona();
+    ER.read({ html: STATS, cls: 'stats', clue: { id: 'stats1', title: 'Inchbeck in Numbers: people, work, burglaries', kind: 'The council&rsquo;s printout' }, done: function () {
+      FG.terms(['ward', 'printout']);
+      if (tell('stats')) { paint(); if (ready()) ER.say('&ldquo;Good,&rdquo; says Iona. &ldquo;CG 2. Two straps.&rdquo;'); }
+    } });
+  });
+  $('#dial').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.iona) return needIona();
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'dialcard', title: 'The Check: four verdicts', kind: 'The card on the dial' }, done: function () {
+      FG.terms(['true but misleading']);
+      if (tell('card')) { paint(); if (ready()) ER.say('&ldquo;Good,&rdquo; says Iona. &ldquo;CG 2. Two straps.&rdquo;'); }
+    } });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PANTS, cls: 'card', clue: { id: 'pants', title: 'Where the dial came from', kind: 'A card on the wall' } });
+  });
+  $('#trans').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.live) { ER.say('The transcript screen is blank. The debate hasn&rsquo;t started.'); return; }
+    ER.read({ html: TRANS, cls: 'trans', clue: { id: 'live1', title: 'Live transcript, 20.00 to 20.07', kind: 'The transcript' } });
+  });
+
+  /* ---------- things in the room ---------- */
+  FG.thing('#window', null, 'Inchbeck in the rain: the market hall, the church spire, and up the hill the lights of the new estates. Eight thousand more people than in 2018, Iona says, and every one of them has an opinion.', isBusy);
+  FG.thing('#clock', null, function () { return told.live ? 'The clock says eight minutes past eight. Fifty-two minutes of debate left, and the Check goes out at eight minutes to nine.' : 'Four minutes to eight. The clock in the newsroom is the only one in the building that is right, because it is the one the gallery looks at.'; }, isBusy);
+  FG.thing('#onair', null, function () { return told.live ? 'ON AIR, in red. While it is lit nobody in the newsroom may whistle, sneeze loudly or open crisps.' : 'ON AIR, not lit yet. It will be at eight o&rsquo;clock.'; }, isBusy);
+  FG.thing('#feed', null, function () { return told.live ? 'Lavery at the blue lectern, Gethin at the orange one, and Colm in the middle, keeping score with his eyebrows.' : 'The studio on the big screen: two lecterns, one blue and one orange, and Colm Hadley being powdered.'; }, isBusy);
+  FG.thing('#board', null, function () { return nextFile ? 'The Check board, with the first two straps stuck on it. Four empty slots to go.' : 'The Check board: six empty slots, three for each candidate. Iona has written THE CHECK &middot; 20.52 at the top, and underlined it twice.'; }, isBusy);
+  FG.thing('#mug', null, 'A mug: WORLD&rsquo;S OKAYEST PRODUCER. A present from Iona&rsquo;s sister, the one who helps at the Larder.', isBusy);
+  FG.thing('#plant', null, 'A spider plant that has lived through three general elections and a flood in the basement. Nobody waters it. It does not seem to mind.', isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#cg').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('CG 2 is showing your two straps. They are already on the board.'); return; }
+    if (!told.iona) return needIona();
+    if (!told.live) return needLive();
+    if (!told.guide) { ER.say('&ldquo;Style guide first,&rdquo; says Iona. &ldquo;Page three. The red binder.&rdquo;'); return; }
+    if (!told.stats) { ER.say('&ldquo;And where are your numbers?&rdquo; says Iona. &ldquo;The council&rsquo;s printout. Green and white, hanging off the desk.&rdquo;'); return; }
+    if (!told.card) { ER.say('&ldquo;And read the card on the dial before you touch it,&rdquo; says Iona. &ldquo;The brass box.&rdquo;'); return; }
+    if (!lock) lock = makeCG();
+    lock.open();
+  });
+
+  /* ---------- CG 2: two straps from a case of type, and the dial for each claim ---------- */
+  function makeCG() {
+    var TILES = [['p4', '4%'], ['p6', '6%'], ['pc2', '2 per cent'], ['pt2', '2 points'], ['pc50', '50 per cent'], ['pc33', '33 per cent'], ['n600', '600 people'],
+      ['n2', '2'], ['n3', '3'], ['n4', '4'], ['n9', '9'], ['n12', '12'], ['one', '1 more']];
+    var st = ER.flag('a-st') || { a: ['', '', '', ''], b: ['', '', '', ''], v1: '', v2: '' }, wait = false, box = ER.el('div', 'job cgj');
+    function sl(k) { return '<span class="sl" data-k="' + k + '"></span>'; }
+    box.innerHTML = '<h5>CG 2 &middot; the caption machine <small>Click a piece of type, then a gap (or drag it there). Click a filled gap to empty it.</small></h5>' +
+      '<div class="cg-claims">' + FG.claim('lav', '20.03', 'Unemployment in this town has gone up by just two per cent in four years.') + FG.claim('get', '20.06', 'Since the council shut the police office on Dyer Street, burglaries in the Old Town have gone up by fifty per cent.') + '</div>' +
+      '<div class="strapr"><div class="strap" id="s1"><span class="k">People out of work</span> 2022 ' + sl('a0') + ' → 2026 ' + sl('a1') + ' &middot; up ' + sl('a2') + ' &middot; a rise of ' + sl('a3') + '</div><div id="d1"></div></div>' +
+      '<div class="strapr"><div class="strap" id="s2"><span class="k">Old Town burglaries, Jan&ndash;Mar</span> 2025 ' + sl('b0') + ' → 2026 ' + sl('b1') + ' &middot; that is ' + sl('b2') + ' &middot; Apr&ndash;Jun 2025, office open: ' + sl('b3') + '</div><div id="d2"></div></div>' +
+      '<div class="case"><h6>The case of type</h6><div class="tray">' + TILES.map(function (t) { return '<span class="tl" data-v="' + t[0] + '">' + t[1] + '</span>'; }).join('') + '</div></div>' +
+      '<div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="cg-go">Send to the board</button></div>';
+    var msgEl = box.querySelector('.jmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { st.a = FG.vals(box.querySelector('#s1'), '.sl'); st.b = FG.vals(box.querySelector('#s2'), '.sl'); ER.flag('a-st', st); }
+    var d1 = FG.dial({ small: true, value: st.v1, onChange: function (v) { st.v1 = v; keep(); }, lock: function () { return wait; } });
+    var d2 = FG.dial({ small: true, value: st.v2, onChange: function (v) { st.v2 = v; keep(); }, lock: function () { return wait; } });
+    box.querySelector('#d1').appendChild(d1.node); box.querySelector('#d2').appendChild(d2.node);
+    FG.tiles(box, { tile: '.tl', slot: '.sl', lock: function () { return wait; }, change: keep });
+    function tileFor(v) { return box.querySelector('.tl[data-v="' + v + '"]'); }
+    ER.$$('#s1 .sl', box).forEach(function (s, i) { if (st.a[i]) FG.put(s, tileFor(st.a[i])); });
+    ER.$$('#s2 .sl', box).forEach(function (s, i) { if (st.b[i]) FG.put(s, tileFor(st.b[i])); });
+    function bad(k, text) { var s = box.querySelector('.sl[data-k="' + k + '"]'); if (s) { s.classList.add('bad'); ER.shake(s); } ER.sfx.no(); msg(text); }
+    var A = ['a1', 'a2', 'a3', 'a4'], Bt = ['b1', 'b2', 'b3', 'b4'];
+    box.querySelector('#cg-go').addEventListener('click', function () {
+      var a, b, i, file;
+      if (wait || nextFile) return;
+      keep(); a = st.a; b = st.b;
+      ER.$$('.sl', box).forEach(function (s) { s.classList.remove('bad', 'ok'); });
+      if (a.indexOf('') >= 0 || b.indexOf('') >= 0) { ER.sfx.no(); msg('&ldquo;Fill every gap,&rdquo; says Iona. &ldquo;A strap with a hole in it goes out with a hole in it.&rdquo;'); return; }
+      /* strap 1: the rate, the points, the rise */
+      if (a[0] === 'p6' && a[1] === 'p4') return bad('a0', '&ldquo;Backwards,&rdquo; says Iona. &ldquo;It went UP: from 4% in 2022 to 6% now.&rdquo;');
+      for (i = 0; i < 2; i++) if (!ER.check(A[i], a[i])) return bad('a' + i, '&ldquo;The strap shows the RATE,&rdquo; says Iona: &ldquo;the per cent of people of working age who are out of work, in 2022 and in 2026. It&rsquo;s on the printout, under Work.&rdquo;');
+      if (!ER.check('a3', a[2])) return bad('a2', a[2] === 'pc2' ? '&ldquo;&lsquo;Up two per cent&rsquo; is exactly what Lavery said,&rdquo; says Iona, &ldquo;and it&rsquo;s the mistake. A rise of two per cent would take 4% to 4.08%. The rate went up by two of WHAT? Page three.&rdquo;' :
+        a[2] === 'n600' ? '&ldquo;True: 1,800 take away 1,200,&rdquo; says Iona. &ldquo;But this gap follows the rate, 4% to 6%. How far did the RATE go up, and in what?&rdquo;' :
+        a[2] === 'pc50' ? '&ldquo;Fifty per cent is the size of the rise,&rdquo; says Iona, &ldquo;and that has its own gap. This one is how far the rate moved: from 4 to 6 is two of what?&rdquo;' :
+        '&ldquo;How far is it from 4% to 6%?&rdquo; says Iona. &ldquo;And say it the way page three says it.&rdquo;');
+      if (!ER.check('a4', a[3])) return bad('a3', a[3] === 'pc33' ? '&ldquo;Thirty-three per cent is 2 out of 6,&rdquo; says Iona. &ldquo;You divided by the NEW number. A rise is measured from where it started.&rdquo;' :
+        a[3] === 'pt2' ? '&ldquo;Points go with the rate, and you&rsquo;ve said that already,&rdquo; says Iona. &ldquo;A RISE OF wants the per cent change: how big is 2 next to the 4 it started from?&rdquo;' :
+        a[3] === 'pc2' ? '&ldquo;Two per cent is Lavery&rsquo;s number,&rdquo; says Iona, &ldquo;and it&rsquo;s wrong. The change, divided by where it started: 2 ÷ 4.&rdquo;' :
+        '&ldquo;A rise of how many per cent?&rdquo; says Iona. &ldquo;The change, divided by where it started.&rdquo;');
+      /* strap 2: the small base */
+      if (b[0] === 'n3' && b[1] === 'n2') return bad('b0', '&ldquo;Backwards,&rdquo; says Iona. &ldquo;Two last year, three this year.&rdquo;');
+      for (i = 0; i < 2; i++) if (!ER.check(Bt[i], b[i])) return bad('b' + i, (b[i] === 'n12' || b[i] === 'n9') ? '&ldquo;That&rsquo;s not one Old Town figure for January to March,&rdquo; says Iona. &ldquo;Find the Old Town line, and the first and last columns.&rdquo;' : '&ldquo;Look at the Old Town line on the printout,&rdquo; says Iona: &ldquo;January to March 2025, and January to March 2026.&rdquo;');
+      if (!ER.check('b3', b[2])) return bad('b2', b[2] === 'pc50' ? '&ldquo;Fifty per cent is what she said, and it&rsquo;s right,&rdquo; says Iona. &ldquo;The strap is there to show what fifty per cent MEANS here. How many more burglaries is it?&rdquo;' :
+        b[2] === 'n3' ? '&ldquo;Three is how many there were,&rdquo; says Iona, &ldquo;not how many MORE.&rdquo;' : '&ldquo;From 2 to 3 is how many more burglaries?&rdquo; says Iona.');
+      if (!ER.check('b4', b[3])) return bad('b3', b[3] === 'n9' ? '&ldquo;Nine is the whole of 2025,&rdquo; says Iona. &ldquo;The gap wants April to June, when the office was still open.&rdquo;' :
+        '&ldquo;April to June 2025,&rdquo; says Iona. &ldquo;The second column on the Old Town line. The office was still open then.&rdquo;');
+      ER.$$('.sl', box).forEach(function (s) { s.classList.add('ok'); });
+      /* the dials */
+      if (!st.v1 || !st.v2) { ER.sfx.no(); msg('&ldquo;Good straps,&rdquo; says Iona. &ldquo;Now the dial, for both of them. One verdict each.&rdquo;'); return; }
+      if (!ER.check('v1', st.v1)) {
+        ER.sfx.no(); ER.shake(d1.node);
+        msg({ tbm: '&ldquo;True but misleading means the facts in it are right,&rdquo; says Iona. &ldquo;Is &lsquo;up two per cent&rsquo; right, as he said it? Look at your own strap.&rdquo;',
+          'true': '&ldquo;Up two per cent?&rdquo; says Iona. &ldquo;The rate went up two POINTS. The number of people out of work went up by half. Is what he said right?&rdquo;',
+          cant: '&ldquo;We can check it,&rdquo; says Iona. &ldquo;We just did. The numbers are on your printout.&rdquo;' }[st.v1]);
+        return;
+      }
+      if (!ER.check('v2', st.v2)) {
+        ER.sfx.no(); ER.shake(d2.node);
+        msg({ 'true': '&ldquo;The numbers are right: two became three,&rdquo; says Iona. &ldquo;But TRUE means nothing important is left out. Does &lsquo;up fifty per cent&rsquo; give a fair picture of one extra burglary, in a place where it was four last spring?&rdquo;',
+          'false': '&ldquo;False means the facts are wrong,&rdquo; says Iona. &ldquo;Are they? Two to three IS fifty per cent.&rdquo;',
+          cant: '&ldquo;We&rsquo;ve got the police figures,&rdquo; says Iona. &ldquo;We can check it. We have.&rdquo;' }[st.v2]);
+        return;
+      }
+      file = ER.exit([a.join(',') + '|' + b.join(',') + '|' + st.v1 + '|' + st.v2], { wait: true });
+      if (!file) { msg('The machine will not send. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('a-file', file); d1.lock(true); d2.lock(true);
+      FG.mine('straps1', 'The first two claims', '<p>Lavery: &ldquo;up two per cent&rdquo;. The rate went from 4% to 6%: up 2 POINTS, 600 more people, a rise of 50%. FALSE.</p><p>Gethin: &ldquo;up fifty per cent&rdquo;. Old Town burglaries 2 → 3: one more. It was 4 last spring, with the office open. TRUE BUT MISLEADING.</p>', true);
+      msg('Iona reads both straps twice. &ldquo;Up two points, a rise of a half,&rdquo; she says. &ldquo;And fifty per cent, which is one burglary. Lavery gets FALSE. Gethin gets TRUE BUT MISLEADING.&rdquo; She pauses. &ldquo;I&rsquo;d have given her TRUE. That&rsquo;s why you&rsquo;re here.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'The two straps go up on the Check board, and the dial clicks twice: FALSE for Lavery, TRUE BUT MISLEADING for Gethin.',
+          'On the big screen, 20.11, Lavery has moved on to money: &ldquo;Our Start-Up Grant works. I have the figures.&rdquo; Gethin is waving a piece of paper about Highfield.',
+          '&ldquo;Gallery,&rdquo; says Iona. &ldquo;Aled, the director, has spare monitors and owes me a favour. I&rsquo;ll send the papers through. Go.&rdquo;'
+        ], function () { busy = false; showGo(); });
+      }, 3200);
+    });
+    msg(st.a.join('') || st.b.join('') ? 'CG 2, with your straps as you left them.' : 'Two straps for the Check. The type is in the case at the bottom. The dial for each claim is beside its strap.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; }
+    };
+  }
+})();
+</script>
+</body>
+</html>

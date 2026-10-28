@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>On Air · Same Rules</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-news.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="figures.css">
+<style>
+  body{--bg:#100a24;--accent:#ffcf7a;--font-display:'Oswald',sans-serif;--font-ui:'Libre Franklin',sans-serif;--font-body:'Newsreader',serif;
+    --tc-bg:rgba(16,10,36,.97);--tc-ink:#f4eefa;--cap-bg:rgba(14,9,30,.95);--panel:#1a1330;--face-bg:#1d1830;--q-ink:#ffcf7a;--fade:#05030c;--hud-bg:rgba(14,9,30,.86)}
+  #day{display:none}
+  body.day #day{display:block}
+  body.day #night{display:none}
+  .beam{animation:beam 6s ease-in-out infinite}
+  .beam:nth-child(2){animation-delay:-3s}
+  @keyframes beam{50%{opacity:.55}}
+  #steam path{animation:steam 3s ease-in-out infinite}
+  @keyframes steam{50%{transform:translateY(-6px);opacity:.25}}
+  .done{border-top-color:#ff7a59}
+
+  /* the correction, written on CG 2 */
+  .fixj{width:min(900px,95vw)}
+  .fx{background:#fdfcf9;color:#1c1a24;padding:14px 20px 12px;border-top:10px solid #4b2a7a;border-radius:2px}
+  .fx h6{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:#4b2a7a;display:flex;justify-content:space-between}
+  .fx h6 small{font-family:'DM Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.1em;color:#7a6f8c}
+  .fxl{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:7px 0;border-bottom:1px dotted #c8c0d4}
+  .fxl:last-child{border-bottom:0}
+  .fxl i{font-style:normal;font-family:'Oswald',sans-serif;font-size:18px;color:#ff7a59;text-align:center}
+  .fxo{display:flex;flex-direction:column;gap:5px}
+  .fxo button{text-align:left;padding:5px 10px;border:1.5px solid #c8c0d4;border-radius:3px;background:#fff;font-family:'Newsreader',serif;font-size:15.5px;line-height:1.3;color:#1c1a24;cursor:pointer}
+  .fxo button:hover{border-color:#4b2a7a}
+  .fxo button.no{border-color:#c8382a;background:#ffe2dc;text-decoration:line-through;color:#7a4a44}
+  .fxo button.yes{border-color:#2e8b57;background:#dff4e6}
+  .fxl.got button:not(.yes){display:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="setG" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="#5a3ab0"/><stop offset="1" stop-color="#100a24"/></radialGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2d0" stop-opacity=".35"/><stop offset="1" stop-color="#fff2d0" stop-opacity="0"/></linearGradient>
+  <linearGradient id="dayG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e1ee"/><stop offset="1" stop-color="#cfc8dc"/></linearGradient>
+  <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd4ec"/><stop offset="1" stop-color="#f6e6c8"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+
+<!-- Studio 1, eight minutes to nine -->
+<g id="night">
+  <rect x="-1000" y="-400" width="3600" height="1720" fill="url(#setG)"/>
+  <rect x="-1000" y="640" width="3600" height="700" fill="#0c0820"/><ellipse cx="800" cy="680" rx="760" ry="80" fill="#3a2a7a" opacity=".5"/>
+  <g fill="#1a1430"><rect x="-1000" y="30" width="3600" height="14"/></g><g id="rig"></g>
+  <path class="beam" d="M520 44L380 660H700Z" fill="url(#beamG)"/><path class="beam" d="M1080 44L900 660H1220Z" fill="url(#beamG)"/>
+  <g id="screen"><rect x="510" y="96" width="580" height="320" rx="8" fill="#0a0618"/><rect x="522" y="108" width="556" height="296" fill="#160f2a"/>
+    <rect x="522" y="108" width="556" height="40" fill="#4b2a7a"/><text x="800" y="136" class="fO" font-size="24" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="5">THE CHECK</text><g id="bars"></g></g>
+  <g transform="translate(310 652) scale(.9)" id="frankN"></g><g transform="translate(1290 652) scale(.9)" id="lydiaN"></g>
+  <g id="lecL"><rect x="250" y="520" width="120" height="130" fill="#2f6db5"/><rect x="250" y="520" width="120" height="12" fill="#9cc0ec"/></g>
+  <g id="lecR"><rect x="1230" y="520" width="120" height="130" fill="#d4682a"/><rect x="1230" y="520" width="120" height="12" fill="#ffc29a"/></g>
+  <g transform="translate(800 600) scale(.95)" id="colmN"></g><path d="M640 560h320l20 90H620z" fill="#2a1a50"/><path d="M640 560h320" stroke="#ff7a59" stroke-width="4"/>
+  <g fill="#05030c"><path d="M40 900l60 -260h120l40 260z"/><rect x="60" y="560" width="200" height="110" rx="10"/><rect x="250" y="590" width="80" height="40"/><path d="M1560 900l-60 -260h-120l-40 260z"/><rect x="1340" y="560" width="200" height="110" rx="10"/><rect x="1270" y="590" width="80" height="40"/></g>
+  <circle cx="300" cy="610" r="8" fill="#e8202a"/>
+</g>
+
+<!-- the newsroom, twenty to eight the next morning -->
+<g id="day">
+  <rect x="-1000" y="-400" width="3600" height="1100" fill="url(#dayG)"/><rect x="-1000" y="690" width="3600" height="700" fill="#8a8298"/>
+  <g id="window" class="hot"><rect x="60" y="90" width="340" height="290" fill="#a8a0b8"/><rect x="72" y="102" width="316" height="266" fill="url(#skyD)"/><g id="townD"></g><path d="M230 102V368M72 235H388" stroke="#a8a0b8" stroke-width="8"/></g>
+  <g id="boardD" class="hot"><rect x="1096" y="84" width="392" height="342" fill="#8a8298"/><rect x="1106" y="94" width="372" height="322" fill="#f6f6f8"/>
+    <text x="1292" y="134" class="fK" font-size="30" font-weight="700" text-anchor="middle" fill="#4b2a7a">THE CHECK · 20.52</text><g id="mags"></g></g>
+  <path d="M190 606H1560L1586 640H164Z" fill="#6a6078"/><path d="M164 640H1586V662H164z" fill="#4a4258"/><path d="M220 662v190M1530 662v190" stroke="#4a4258" stroke-width="18"/>
+  <g id="mail" class="hot"><rect x="618" y="430" width="224" height="152" rx="5" fill="#1a1626"/><rect x="628" y="440" width="204" height="130" fill="#f4f6f8"/><rect x="628" y="440" width="204" height="18" fill="#dde3ea"/>
+    <g fill="#8a94a4"><rect x="638" y="468" width="120" height="5"/><rect x="638" y="482" width="180" height="5"/><rect x="638" y="492" width="170" height="5"/><rect x="638" y="502" width="176" height="5"/><rect x="638" y="512" width="120" height="5"/></g><text x="638" y="453" class="fM" font-size="9" fill="#3a4650">F. DOWD · THE POOL</text><rect x="718" y="582" width="24" height="24" fill="#1a1626"/></g>
+  <g id="fix" class="hot"><rect x="866" y="436" width="218" height="142" rx="5" fill="#1a1626"/><rect x="876" y="446" width="198" height="122" fill="#2a2a3a"/><rect x="876" y="466" width="198" height="26" fill="#4b2a7a"/><text x="884" y="484" class="fO" font-size="13" fill="#fff" letter-spacing="1">CORRECTION · DRAFT</text>
+    <rect x="962" y="578" width="26" height="14" fill="#1a1626"/><path d="M876 598h198l8 10H868Z" fill="#3a3448"/></g>
+  <g id="guide" class="hot" transform="rotate(5 1110 470)"><rect x="1088" y="436" width="56" height="70" fill="#fdfcf9"/><rect x="1088" y="436" width="56" height="7" fill="#4b2a7a"/><path d="M1094 452h44M1094 460h38M1094 468h42M1094 476h34M1094 484h40" stroke="#7a6f8c" stroke-width="1.5"/><text x="1116" y="500" class="fO" font-size="8" text-anchor="middle" fill="#4b2a7a">p.17</text></g>
+  <g id="croissant" class="hot"><path d="M470 600q30 -30 70 0q-14 -10 -35 -8q-22 -2 -35 8z" fill="#d89a4a"/><path d="M482 594q22 -16 46 0" stroke="#a86a2a" stroke-width="2" fill="none"/><ellipse cx="505" cy="604" rx="44" ry="6" fill="#f4f0e8"/></g>
+  <g id="mugD"><rect x="560" y="570" width="30" height="34" rx="3" fill="#ff7a59"/><path d="M590 578q13 0 13 10t-13 10" fill="none" stroke="#ff7a59" stroke-width="4"/><g id="steam" fill="none" stroke="#fff" stroke-width="2" opacity=".7"><path d="M570 562q-4 -10 2 -18"/><path d="M580 560q-4 -10 2 -18"/></g></g>
+  <g id="iona" class="hot" transform="translate(180 872) scale(1.14)"></g>
+</g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">ON AIR 20.52 &middot; CORRECTED 08.00</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A rate that goes from 4% to 6% has risen by two percentage POINTS, and by 50 per cent. &ldquo;Up two per cent&rdquo; is neither.</li>
+    <li>A per cent change is measured from where it started. On a small base, two burglaries becoming three, a big per cent can be one single thing.</li>
+    <li>The mean adds up and divides; the median is the one in the middle. One huge number pulls the mean up and hardly moves the median.</li>
+    <li>To compare places, or years, of different sizes, use a rate (per person, per 1,000 people), not a total.</li>
+    <li>Check where a graph&rsquo;s side axis starts and which years it shows. A survey speaks only for the people it asked: too few, or people who chose themselves, cannot speak for a town.</li>
+    <li>Two things can rise together without one causing the other: look for the same rise where the supposed cause was missing.</li>
+    <li>Play the whole answer before you quote it, report it with a fair verb and the tense moved back (will → would), give every verdict one sentence of reason, use the same rules for both sides, and correct your own mistakes plainly.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Your turn on the desk</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the front page</button></div>
+  <small>Same Rules &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="figures.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {};
+  var CHECK = [['LAVERY', 'Unemployment has gone up by just two per cent.', 'false', 'Because the rate went from 4% to 6%: up two points, which is 600 more people out of work, a rise of a half.'],
+    ['LAVERY', 'Since we put new street lights on the Ring Road, house prices there have gone up by a fifth.', 'tbm', 'Because house prices rose by a fifth all over town, on streets with no new lights too.'],
+    ['LAVERY', 'Per person, Fairfield gets twice as much as Highfield.', 'true', 'Because Fairfield gets £200 for each person who lives there, and Highfield £100.'],
+    ['GETHIN', 'Frank Lavery said the library is a waste of money.', 'false', 'Because the full tape shows he said other people called it a waste of money, and that he didn&rsquo;t agree.'],
+    ['GETHIN', 'There are nearly five hundred more crimes a year than when Frank Lavery took over.', 'tbm', 'Because crimes rose from 3,600 to 4,080, but the town grew by 8,000 people, so crime per 1,000 people fell from 90 to 85.'],
+    ['GETHIN', 'He promised the pool would reopen by 2022. Look at it now.', 'true', 'Because he promised it would reopen by 2022, and it is boarded up.']];
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 9; i++) s += '<g><rect x="' + (120 + i * 160) + '" y="44" width="40" height="30" fill="#2a2440"/><circle cx="' + (140 + i * 160) + '" cy="80" r="10" fill="#fff2d0" opacity=".8"/></g>';
+    $('#rig').innerHTML = s; s = '';
+    CHECK.forEach(function (c, j) { var y = 160 + j * 40; s += '<rect x="540" y="' + y + '" width="8" height="30" fill="' + (c[0] === 'LAVERY' ? '#2f6db5' : '#d4682a') + '"/><rect x="556" y="' + (y + 8) + '" width="' + (300 - j * 18) + '" height="6" fill="#d8d2e8" opacity=".7"/><rect x="556" y="' + (y + 18) + '" width="' + (220 + j * 9) + '" height="5" fill="#d8d2e8" opacity=".4"/>' +
+      '<rect x="900" y="' + (y + 2) + '" width="160" height="26" rx="2" fill="' + FG.VCOL[c[2]] + '"/><text x="980" y="' + (y + 20) + '" class="fO" font-size="12" font-weight="600" text-anchor="middle" fill="#fff" letter-spacing=".5">' + FG.VNAME[c[2]] + '</text>'; });
+    $('#bars').innerHTML = s; s = '';
+    CHECK.forEach(function (c, j) { var col = j < 3 ? 0 : 1, r = j % 3, x = 1124 + col * 194, y = 158 + r * 84; s += '<rect x="' + x + '" y="' + y + '" width="148" height="66" fill="#2a1a48"/><rect x="' + x + '" y="' + y + '" width="6" height="66" fill="#ff7a59"/><rect x="' + (x + 12) + '" y="' + (y + 40) + '" width="128" height="18" rx="2" fill="' + FG.VCOL[c[2]] + '"/><text x="' + (x + 76) + '" y="' + (y + 53) + '" class="fO" font-size="10" text-anchor="middle" fill="#fff">' + FG.VNAME[c[2]] + '</text><rect x="' + (x + 12) + '" y="' + (y + 14) + '" width="' + (110 - r * 12) + '" height="6" fill="#d8d2e8" opacity=".7"/>'; });
+    $('#mags').innerHTML = s + '<text x="1440" y="420" class="fK" font-size="20" text-anchor="middle" fill="#c8382a" transform="rotate(-8 1440 410)">pool?!</text>';
+    s = ''; for (i = 0; i < 9; i++) s += '<rect x="' + (80 + i * 34) + '" y="' + (300 - (i * 37 % 60)) + '" width="28" height="' + (68 + (i * 37 % 60)) + '" fill="#9aa4b8" opacity=".6"/>';
+    $('#townD').innerHTML = s;
+    $('#frankN').innerHTML = FG.who('frank', { smile: 5 }); $('#lydiaN').innerHTML = FG.who('lydia', { smile: 4 }); $('#colmN').innerHTML = FG.who('colm', { smile: 6 });
+    $('#iona').innerHTML = FG.who('iona', { smile: -1, armR: 'M31 -222Q58 -200 50 -170', handR: [48, -164] });
+  })();
+
+  ER.init({
+    theme: 'news', story: 'figures', storyTitle: 'Same Rules', id: 'air', no: 'VI', title: 'On Air',
+    go: 'Go onto the floor',
+    intro: [
+      'Same rules for both. Lavery&rsquo;s street lights: prices went up by a fifth all over town, lights or no lights. The facts right, the picture wrong: TRUE BUT MISLEADING. His Fairfield claim: £200 a person against £100, TRUE, though Iona had written &ldquo;spin&rdquo;. Gethin&rsquo;s crime figure: 3,600 to 4,080 is 480 more, but the town grew from 40,000 to 48,000, so per 1,000 people crime fell from 90 to 85. TRUE BUT MISLEADING. Iona&rsquo;s draft had been harder on him and kinder to her. Not any more.',
+      'Eight minutes to nine. Studio 1.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {"x1":["94be3ef7"],"x2":["2b2e95c6"],"x3":["46fabf46"],"x4":["fc6706b3"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('f-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('f-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    document.body.classList.toggle('day', !!told.day);
+    $('#mail').classList.toggle('ready', !!(told.day && !told.mail));
+    $('#iona').classList.toggle('ready', !!(told.mail && !told.iona));
+    $('#guide').classList.toggle('ready', !!(told.iona && !told.guide));
+    $('#fix').classList.toggle('ready', !!(told.guide && !told.fixed));
+    ER.pips((told.mail ? 1 : 0) + (told.iona ? 1 : 0) + (told.fixed ? 1 : 0), 3);
+  }
+  function hints() {
+    if (told.fixed) return null;
+    if (!told.mail) return ['mail', ['Iona has turned her screen round so that you can read it. It is an email.', 'Click the screen on the left of the desk, with the email on it.']];
+    if (!told.iona) return ['iona', ['Talk to Iona about the email.', 'Click Iona, standing at the left end of the desk, by the window.']];
+    if (!told.guide) return ['guide', ['How is a correction written? Iona has taped page 17 of the style guide to the caption machine.', 'Click the small white page taped to the right of the CG 2 screen.']];
+    return ['fix', ['Write the correction on CG 2: one choice on each of the four lines.', 'Click the CG 2 screen. Then pick the line that says plainly what we said, what is right, the right verdict, and sorry.']];
+  }
+
+  var CHECKDOC = '<h4><span>The Check</span><span>Inchbeck Decides &middot; 20.52</span></h4>' + CHECK.map(function (c) {
+    return '<div class="row"><span class="who">' + c[0] + '</span><div><q>' + c[1] + '</q><small>' + c[3] + '</small></div><b class="vt-' + c[2] + '">' + FG.VNAME[c[2]] + '</b></div>';
+  }).join('');
+  function begin() {
+    if (!ER.flag('tEnd')) ER.flag('tEnd', Date.now());
+    paint();
+    if (told.fixed) { busy = false; finish(true); return; }
+    if (told.day) { busy = false; ER.say('The newsroom, twenty to eight in the morning.'); return; }
+    ER.narrate([
+      'Studio 1, eight minutes to nine. The lights are hot enough to make toast. Colm Hadley turns to camera three: &ldquo;Time for the Check.&rdquo;',
+      'On the big screen behind him your verdicts come up one by one, and Colm reads each one with its reason in the voice he uses for the weather: plain, and coming whether you like it or not.',
+      'Lavery: FALSE on unemployment, TRUE BUT MISLEADING on the street lights, TRUE on Fairfield. He takes the last one like a man who has found a pound in an old coat.',
+      'Gethin: FALSE on the library. She nods, and says to camera, &ldquo;I was sent that clip, and I didn&rsquo;t play the whole thing. I&rsquo;m sorry.&rdquo; Nobody in the gallery has ever heard a candidate say that live. TRUE BUT MISLEADING on her crime figure. And the pool: TRUE.',
+      'Beside you in the dark behind camera two, Iona lets out a long breath. At nine o&rsquo;clock exactly Colm says goodnight, and the red light goes off. Somebody in the gallery cheers, and then pretends it was a cough.'
+    ], function () {
+      ER.addClue('checkair', 'The Check, as it went out', CHECKDOC, 'check', 'On air, 20.52');
+      tell('day'); paint();
+      ER.narrate([
+        'Wednesday 29 April. Twenty to eight in the morning. The newsroom smells of cold coffee and last night.',
+        'Iona is at the desk with a croissant she has not touched, reading an email for the third time. She turns the screen towards you without a word.'
+      ], function () { busy = false; paint(); });
+    });
+  }
+
+  var MAIL = '<h4>From: Fergus Dowd<br>To: Iona Bellwood<br>Sent: Wednesday 29 April, 06.12<br>Subject: The pool</h4>' +
+    '<p>Morning.</p><p>Saturday 9 July 2022: Inchbeck swimming pool reopened, as promised. Ribbon, scissors, my candidate in a suit, your camera crew. Hilda will have the tape.</p>' +
+    '<p>It closed again in January this year, when the roof failed. That is a different story, and I grant you not a happy one.</p>' +
+    '<p>Your Check said TRUE. Same rules?</p><p>Regards,<br>F. Dowd</p><p>P.S. The graph was fair. I still hate it.</p>';
+  var G17 = '<h4><span>IBTV Fact-Check Style Guide</span><span>page 17</span></h4><h3>Corrections</h3>' +
+    '<p>When we get it wrong, we say so: quickly, plainly, and as loudly as we said it the first time. If the mistake was on air, the <b>correction</b> goes on air too.</p>' +
+    '<p>A correction says four things:</p><p class="ex">1. what we said, and when<br>2. what is really the case<br>3. the right verdict (or the right fact)<br>4. that we are sorry</p>' +
+    '<p>It does not explain how busy we were. It does not hide in small print. It does not blame the person who told us.</p>' +
+    '<p class="pen">I wrote this page in 2019. This is the first time I have needed it for myself. &mdash; I.B.</p>';
+  $('#mail').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAIL, cls: 'mail', clue: { id: 'mail', title: 'Fergus Dowd: the pool', kind: 'An email' }, done: function () { if (tell('mail')) { paint(); ER.say('Iona is waiting for you to finish reading. She has not moved.'); } } });
+  });
+  $('#iona').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.mail) { ER.say('Iona points at her screen. Read it first.'); return; }
+    if (told.iona) { ER.say(told.fixed ? '&ldquo;Same rules,&rdquo; says Iona, and eats the croissant at last.' : '&ldquo;Page seventeen,&rdquo; says Iona. &ldquo;Then CG 2. Plainly.&rdquo;'); return; }
+    ER.talk({
+      who: 'Iona Bellwood', role: 'Producer · the morning after', face: window.FACE('iona'),
+      lines: [
+        { note: 'She does not look up.', a: '&ldquo;Hilda found the tape at seven. Ninth of July 2022. He cut the ribbon. Then he jumped in, in his suit, for the camera. I was THERE. I swam that afternoon.&rdquo;' },
+        { q: 'So the pool claim wasn&rsquo;t true?', a: '&ldquo;Everything she said was true. He promised; it&rsquo;s boarded up. But he didn&rsquo;t break the promise, and that&rsquo;s the picture she gave. TRUE BUT MISLEADING. The same rule I made you use all night, and I didn&rsquo;t use it on the one claim I wanted to be true.&rdquo;' },
+        { q: 'What happens now?', a: '&ldquo;A correction. It goes on the website at eight, and Colm reads it at the top of the lunchtime news. Page seventeen is taped to CG 2. You write it. I&rsquo;ve had a croissant&rsquo;s worth of shame already.&rdquo;' },
+        { q: 'Are you all right?', a: '&ldquo;I&rsquo;m a fact-checker who got a fact wrong because she liked somebody. I&rsquo;ll live.&rdquo; She almost smiles. &ldquo;Write it plainly. And thank Fergus for me. No. Don&rsquo;t. He&rsquo;ll be unbearable.&rdquo;' }
+      ],
+      clue: { id: 'iona2', title: 'Iona, the morning after', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('iona')) paint(); }
+    });
+  });
+  $('#guide').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: G17, cls: 'guide', clue: { id: 'guide17', title: 'Style guide p.17: Corrections', kind: 'The style guide' }, done: function () { FG.terms(['correction']); if (tell('guide')) paint(); } });
+  });
+  $('#fix').addEventListener('click', function () {
+    if (busy) return;
+    if (told.fixed) { ER.say('CG 2: CORRECTION, sent 07.58. It is on the website now.'); return; }
+    if (!told.mail) { ER.say('A draft on CG 2, empty. Iona&rsquo;s screen first.'); return; }
+    if (!told.guide) { ER.say('&ldquo;Page seventeen first,&rdquo; says Iona. &ldquo;Taped to the side of it.&rdquo;'); return; }
+    openFix();
+  });
+  FG.thing('#window', null, 'Inchbeck in the morning: the market hall, the spire, and a bin lorry. Eight days to the election.', isBusy);
+  FG.thing('#boardD', null, 'The Check board, with all six verdicts still on it. Somebody, probably Iona, has written pool?! underneath in red.', isBusy);
+  FG.thing('#croissant', null, 'A croissant, untouched. Iona says she will eat it when the correction is up, and not before.', isBusy);
+
+  /* ---------- the correction: four lines, one choice each (this is the ending: nothing to be stuck on) ---------- */
+  function openFix() {
+    var LINES = [
+      ['x1', [['some', 'Some viewers may have felt that our verdict on the swimming pool was not quite right.'], ['said', 'Last night, at 8.52pm, in the Check, we said that Lydia Gethin&rsquo;s claim about the swimming pool was TRUE.']]],
+      ['x2', [['busy', 'It was a very busy night, and the pool was the last claim we checked.'], ['kept', 'In fact Frank Lavery kept his promise: the pool reopened on 9 July 2022. It closed again in January this year, when the roof failed.'], ['agent', 'Mr Lavery&rsquo;s agent has since sent us some information about the pool.']]],
+      ['x3', [['tbm', 'So her claim was TRUE BUT MISLEADING: he did make the promise, and the pool is shut, but he did not break the promise.'], ['false', 'So her claim was FALSE.']]],
+      ['x4', [['blame', 'We were given the wrong idea by Ms Gethin.'], ['sorry', 'We are sorry for the mistake.']]]];
+    var NO = { some: 'A correction says plainly what WE said, and when. Not what viewers &lsquo;may have felt&rsquo;.', busy: 'Page 17: a correction does not explain how busy we were.',
+      agent: 'That is how we found out, not what is right. Say what is really the case.', 'false': 'Were the facts in her claim wrong? He did promise, and the pool is shut. It was the picture that was wrong.',
+      blame: 'A correction does not blame the person who told us. And she told us nothing wrong: we chose the verdict.' };
+    var got = ER.flag('f-fix') || {}, box = ER.el('div', 'job fixj');
+    box.innerHTML = '<div class="fx"><h6>Correction <small>Wednesday 29 April &middot; for the website at 8 and the lunchtime news</small></h6>' + LINES.map(function (l, i) {
+      return '<div class="fxl" data-x="' + l[0] + '"><i>' + (i + 1) + '</i><div class="fxo">' + l[1].map(function (o) { return '<button type="button" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
+    }).join('') + '</div><div class="job-foot"><p class="jmsg"></p><button type="button" class="btn" id="fx-go">Publish</button></div>';
+    var msgEl = box.querySelector('.jmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function mark() { ER.$$('.fxl', box).forEach(function (l) { var x = l.getAttribute('data-x'); l.classList.toggle('got', !!got[x]); ER.$$('button', l).forEach(function (b) { b.classList.toggle('yes', got[x] === b.getAttribute('data-v')); }); }); }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.fxo button') : null; if (!b) return;
+      var l = b.closest('.fxl'), x = l.getAttribute('data-x'), v = b.getAttribute('data-v');
+      if (got[x]) return;
+      if (ER.check(x, v)) { got[x] = v; ER.flag('f-fix', got); FG.sfx.key(); mark(); msg(Object.keys(got).length === 4 ? 'Four plain lines. Iona reads them over your shoulder, and puts down the croissant.' : 'Yes. Next line.'); }
+      else { b.classList.add('no'); ER.sfx.no(); msg(NO[v] || 'Not that one. Page 17.'); }
+    });
+    box.querySelector('#fx-go').addEventListener('click', function () {
+      if (told.fixed) return;
+      if (Object.keys(got).length < 4) { ER.sfx.no(); msg('One choice on each of the four lines first.'); return; }
+      tell('fixed'); paint(); FG.solved();
+      FG.mine('fix', 'The correction', '<p>Last night, at 8.52pm, in the Check, we said that Lydia Gethin&rsquo;s claim about the swimming pool was TRUE. In fact Frank Lavery kept his promise: the pool reopened on 9 July 2022. It closed again in January this year, when the roof failed. So her claim was TRUE BUT MISLEADING. We are sorry for the mistake.</p>', true);
+      ER.closeAll(); busy = true;
+      ER.narrate([
+        'At two minutes to eight the correction goes up on the website, under the Check, as big as the Check. At one o&rsquo;clock Colm will read it, word for word, at the top of the news.',
+        'Iona eats the croissant. Then she picks up the phone, puts it down, picks it up again, and sends Fergus a text of one word. You see it before she hides the screen: <i>Thanks.</i>',
+        'The reply comes in four seconds: <i>Same rules.</i>'
+      ], function () { busy = false; finish(false); });
+    });
+    mark();
+    msg(Object.keys(got).length ? 'The correction, as far as you got.' : 'Four lines, one choice on each. Page 17: what we said, what is right, the right verdict, sorry.');
+    ER.open('ov-lock', box);
+  }
+
+  /* ---------- the end ---------- */
+  function finish(quick) {
+    var st = ER.state(), mins = FG.minutesPlayed(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From four minutes to eight to the Check and the morning after: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('The morning after. The correction is up, and Iona has eaten the croissant.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Inchbeck Television &middot; your turn on the desk</h4><h3>Say it, then write it</h3>' +
+      '<p>Choose ONE of these. Write it, and then say it aloud, once, as if you were Colm on air or explaining it to a friend.</p>' +
+      '<p><b>A</b> Choose one claim from the Check. Say its verdict and its reason in one sentence, the way Colm did: the verdict first, then <i>because</i>, then the fact, then what it means.</p>' +
+      '<p class="notes">FALSE, because the full tape shows he said other people called it a waste of money, and that he didn&rsquo;t agree.</p>' +
+      '<p><b>B</b> Explain to a friend the difference between &ldquo;up two per cent&rdquo; and &ldquo;up two percentage points&rdquo;, with an example of your own (60 to 90 words).<br><b>C</b> Explain to a friend how a number can be true and still mislead. Use one claim from the debate (60 to 90 words).</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z0-9’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
