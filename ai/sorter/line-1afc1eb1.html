@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Picking Cabin · Mostly Paper</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sorter.css">
+<style>
+  body{--bg:#2b3330;--accent:#ff8a1e;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(26,32,30,.96);--tc-ink:#edf2ec;--cap-bg:rgba(26,32,30,.94);--cap-ink:#edf2ec;--panel:#202825;--panel-ink:#edf2ec;--face-bg:#4a4436;--q-ink:#ff8a1e;
+    --fade:#101412;--hud-bg:rgba(26,32,30,.84);--hud-ink:#edf2ec;--hud-line:rgba(237,242,236,.25);--ov-bg:rgba(8,12,10,.72)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#ff8a1e}
+  .tc-theme{color:#f2c230}
+  .tk-role{color:#ff8a1e}
+  .hbtn b{color:#1b1d20}
+  #flow{animation:flow 9s linear infinite}
+  @keyframes flow{from{transform:translateX(-420px)}to{transform:translateX(0)}}
+  #upflow{animation:up 6s linear infinite}
+  @keyframes up{from{transform:translate(-260px,150px)}to{transform:translate(0,0)}}
+  .jet{animation:jet 2.3s steps(1,end) infinite;opacity:0}
+  .jet.j2{animation-delay:-.8s}.jet.j3{animation-delay:-1.6s}
+  @keyframes jet{0%{opacity:.75}12%{opacity:0}}
+  #lampglow{animation:lamp 4s steps(2,end) infinite}
+  @keyframes lamp{50%{opacity:.85}}
+  .rw{animation:rw 3.6s linear infinite}
+  .rw.r2{animation-delay:-1.2s}.rw.r3{animation-delay:-2.4s}
+  @keyframes rw{0%{transform:translateY(-40px);opacity:0}20%{opacity:.6}100%{transform:translateY(120px);opacity:0}}
+
+  /* the test belt: say where the Eye will send each thing */
+  .bt{width:min(1180px,97vw)}
+  .bt-in{display:grid;grid-template-columns:1fr 230px;gap:12px;background:#2d3431;border:8px solid #4a524e;border-radius:6px;padding:10px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .bt-hd{margin:0 0 6px;font-family:'Outfit',sans-serif;font-size:14px;color:#dfe6e0}
+  .bt-hd b{font-family:'Stardos Stencil',sans-serif;font-size:21px;font-weight:700;letter-spacing:.05em;color:#ff8a1e;margin-right:10px}
+  .bt-belt{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;min-height:186px;padding:8px;background:#1c201e repeating-linear-gradient(90deg,#1c201e 0 22px,#232826 22px 24px);border-radius:4px}
+  .bi{display:flex;flex-direction:column;background:#f1efe8;border-radius:4px;padding:4px 5px 5px;color:#1b1d20;cursor:grab;touch-action:none;min-width:0}
+  .bi.held{outline:3px solid #f2c230;outline-offset:1px}
+  .bi.fly{position:fixed;z-index:200;pointer-events:none;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+  .bi .no{font-family:'Roboto Mono',monospace;font-size:11px;color:#7a8086}
+  .bi svg{display:block;margin:0 auto;width:74px;height:62px}
+  .bi p{margin:0 0 3px;font-family:'Outfit',sans-serif;font-size:12.4px;line-height:1.2;min-height:30px}
+  .bi .rd{font-family:'Roboto Mono',monospace;font-size:11px;line-height:1.32;color:#1b1d20;background:#e2e6e0;border-radius:2px;padding:2px 4px}
+  .bi .rd i{font-style:normal;color:#5a6066}
+  .bt-ch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .chute{border-radius:4px;padding:6px 8px 8px}
+  .chute h5{margin:0 0 5px;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:17px;letter-spacing:.05em}
+  .chute.up{background:#e9dcb0}.chute.up h5{color:#5a4200}
+  .chute.on{background:#b9c8d4}.chute.on h5{color:#1a3346}
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+  .sl{min-height:120px;border:2px dashed rgba(0,0,0,.28);border-radius:4px;display:flex}
+  .sl .bi{flex:1;padding:2px 4px}
+  .sl .bi svg{width:54px;height:45px}
+  .sl .bi p{font-size:11.2px;min-height:0}
+  .sl .bi .rd{display:none}
+  .bi.bad{outline:4px solid #ff6b5a}
+  .bt-side{background:#f7f5ee;color:#22201c;border-radius:3px;padding:8px 10px;font-family:'Roboto Mono',monospace;font-size:12.4px;line-height:1.38;align-self:start;
+    background-image:linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:6px 6px}
+  .bt-side h5{margin:0 0 6px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.1em}
+  .bt-side table{border-collapse:collapse;width:100%}
+  .bt-side td{padding:3px 2px;border-bottom:1px dashed #b9b3a4;vertical-align:top}
+  .bt-side .n{font-weight:500;font-size:14px}
+  .bt-side .hand{font-family:'Caveat',cursive;font-size:18px;color:#1f4f8a;line-height:1.05;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb2a6"/><stop offset="1" stop-color="#7f9488"/></linearGradient>
+  <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d6c70"/><stop offset="1" stop-color="#3e4a4e"/></linearGradient>
+  <linearGradient id="beltG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2d2c"/><stop offset="1" stop-color="#1a1c1b"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff6d8" stop-opacity=".75"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+  <clipPath id="beltClip"><rect x="-1000" y="600" width="3600" height="90"/></clipPath>
+  <clipPath id="upClip"><path d="M760 610L1180 360L1206 400L786 650z"/></clipPath>
+</defs>
+<!-- the cabin: pale green panels, long windows looking down the shed -->
+<rect x="-1000" y="-400" width="3600" height="1300" fill="url(#wall)"/>
+<g stroke="#6f8478" stroke-width="3"><path d="M-1000 330H2600M-1000 110H2600"/><path d="M-200 -400v730M300 -400v730M800 -400v730M1300 -400v730M1800 -400v730"/></g>
+<rect x="-1000" y="120" width="3600" height="200" fill="url(#win)"/>
+<g fill="#2e383b" opacity=".75"><path d="M-1000 320L-400 200L200 240L700 180L1200 230L1800 190L2600 260V320z"/></g>
+<g stroke="#8fa39a" stroke-width="12"><path d="M-500 120v200M0 120v200M500 120v200M1000 120v200M1500 120v200M2000 120v200"/></g>
+<g id="rainwin" fill="none" stroke="#cfe0e6" stroke-width="2" opacity=".6"><path class="rw" d="M120 150l-2 30"/><path class="rw r2" d="M380 140l-2 26"/><path class="rw r3" d="M640 160l-2 30"/><path class="rw" d="M900 150l-2 24"/><path class="rw r2" d="M1180 160l-2 30"/><path class="rw r3" d="M1420 140l-2 28"/></g>
+<!-- the magnet poster -->
+<g id="poster" class="hot"><rect x="40" y="356" width="170" height="220" fill="#eef3f8" stroke="#6a7a86" stroke-width="3"/><rect x="40" y="356" width="14" height="220" fill="#c0392b"/>
+  <text x="132" y="384" class="cW" font-size="16" font-weight="600" text-anchor="middle" fill="#c0392b">WHAT A MAGNET</text><text x="132" y="402" class="cW" font-size="16" font-weight="600" text-anchor="middle" fill="#c0392b">PICKS UP</text>
+  <path d="M90 470v-34a22 22 0 0 1 44 0v34" fill="none" stroke="#c0392b" stroke-width="14"/><path d="M90 470h14v-10h-14zM120 470h14v-10h-14z" fill="#9aa5ae"/>
+  <rect x="148" y="448" width="34" height="40" rx="3" fill="#b9c0c6" stroke="#6d777f" stroke-width="2"/><text x="165" y="503" class="cO" font-size="11" text-anchor="middle" fill="#1f4f8a">steel YES</text>
+  <rect x="68" y="512" width="22" height="38" rx="5" fill="#cfd6dc" stroke="#7d8a94" stroke-width="2"/><text x="132" y="536" class="cO" font-size="11" text-anchor="middle" fill="#c0392b">aluminium NO</text></g>
+<!-- the manual page on a clipboard by the window -->
+<g id="manual" class="hot"><path d="M276 352v12" stroke="#5a6066" stroke-width="3"/><rect x="236" y="362" width="82" height="108" rx="4" fill="#6a5a44"/><rect x="243" y="374" width="68" height="90" fill="#fbfbf8"/><rect x="243" y="374" width="68" height="8" fill="#f2c230"/><rect x="262" y="366" width="30" height="12" rx="3" fill="#b9c0c6"/>
+  <text x="277" y="396" class="cM" font-size="8" text-anchor="middle" fill="#1b1d20">PAGE 9</text><g fill="#9aa0a6"><rect x="250" y="404" width="54" height="3"/><rect x="250" y="412" width="46" height="3"/><rect x="250" y="420" width="52" height="3"/><rect x="250" y="436" width="24" height="20" fill="#cfd3d6"/><rect x="278" y="438" width="24" height="3"/><rect x="278" y="446" width="20" height="3"/></g></g>
+<!-- Lyle's tally chart -->
+<g id="tally" class="hot"><rect x="1180" y="352" width="150" height="190" fill="#fdfdf8" stroke="#9aa5ae" stroke-width="2" transform="rotate(2 1255 447)"/><g transform="rotate(2 1255 447)"><rect x="1236" y="346" width="40" height="14" fill="#e9e2b0" opacity=".9"/>
+  <text x="1200" y="382" class="cK" font-size="14" font-weight="700" fill="#1b2a4a">CANS I PULLED</text><text x="1200" y="398" class="cK" font-size="14" font-weight="700" fill="#1b2a4a">OFF THE PAPER</text>
+  <g class="cK" font-size="13" fill="#1b2a4a"><text x="1194" y="424">Thu  0</text><text x="1194" y="442">Fri  ||||| |||||...</text><text x="1194" y="460">Sat  ||||| |||||...</text><text x="1194" y="478">Mon  ||||| |||||...</text><text x="1194" y="496">Tue  ||||| ||</text></g>
+  <text x="1194" y="524" class="cK" font-size="13" fill="#c0392b">ALL BLUE!</text></g></g>
+<!-- the line: the main belt, the Eye, the jets, the paper line going up -->
+<rect x="-1000" y="690" width="3600" height="300" fill="#4a524e"/>
+<rect x="-1000" y="596" width="3600" height="100" fill="url(#beltG)"/>
+<path d="M-1000 596H2600M-1000 696H2600" stroke="#5a625e" stroke-width="8"/>
+<g clip-path="url(#beltClip)"><g id="flow"></g></g>
+<path d="M760 610L1180 360L1206 400L786 650z" fill="#262928"/><path d="M760 610L1180 360M786 650L1206 400" stroke="#5a625e" stroke-width="7"/>
+<g clip-path="url(#upClip)"><g id="upflow"></g></g>
+<g id="magnet" class="hot"><path d="M1010 330v-90M1100 300v-90" stroke="#3a3f42" stroke-width="5"/><path d="M1000 330l110 -64 22 34 -110 64z" fill="#5a6066" stroke="#2a2f33" stroke-width="3"/>
+  <text x="1064" y="306" class="cS" font-size="15" text-anchor="middle" fill="#f2c230" transform="rotate(-30 1064 306)">MAGNET</text>
+  <g transform="rotate(-30 1060 360)"><rect x="1030" y="358" width="18" height="22" rx="2" fill="#b9c0c6" stroke="#6d777f" stroke-width="2"/><rect x="1030" y="364" width="18" height="10" fill="#c8402e"/><rect x="1064" y="356" width="18" height="22" rx="2" fill="#b9c0c6" stroke="#6d777f" stroke-width="2"/></g></g>
+<g id="eye" class="hot">
+  <ellipse id="lampglow" cx="510" cy="640" rx="190" ry="60" fill="url(#lampG)"/>
+  <path d="M390 590V370h240v220z" fill="#5d6468" stroke="#2f3538" stroke-width="5"/><path d="M380 372h260l-14 -40h-232z" fill="#454c50"/>
+  <rect x="412" y="396" width="196" height="40" fill="#1b1d20"/><rect x="390" y="560" width="240" height="30" fill="#2f3538"/>
+  <circle cx="510" cy="575" r="12" fill="#6fa8c0" stroke="#1b1d20" stroke-width="4"/><path d="M420 588h180" stroke="#fff6d8" stroke-width="4" opacity=".8"/>
+  <text x="510" y="424" class="cO" font-size="22" font-weight="800" text-anchor="middle" fill="#f2c230" letter-spacing="2">GANNAWAY EYE</text>
+  <g><path d="M390 470h240v18h-240z" fill="#f2c230"/><path d="M400 470l18 18M436 470l18 18M472 470l18 18M508 470l18 18M544 470l18 18M580 470l18 18" stroke="#1b1d20" stroke-width="7"/></g>
+</g>
+<g id="chart" class="hot"><rect x="566" y="500" width="54" height="56" fill="#f7f5ee" stroke="#9aa0a6" stroke-width="1.5" transform="rotate(-4 593 528)"/><g transform="rotate(-4 593 528)"><rect x="580" y="494" width="26" height="10" fill="#e9e2b0" opacity=".9"/><g fill="#22201c"><rect x="572" y="512" width="30" height="4"/><rect x="572" y="522" width="18" height="4"/><rect x="572" y="532" width="8" height="4"/></g><text x="574" y="550" class="cK" font-size="8" fill="#1f4f8a">I.G.</text></g></g>
+<g id="jets"><path d="M650 600v-28h80v28" fill="#3a3f42"/><g fill="#9aa5ae"><rect x="660" y="590" width="10" height="14"/><rect x="684" y="590" width="10" height="14"/><rect x="708" y="590" width="10" height="14"/></g>
+  <g fill="#e6f0f4"><path class="jet" d="M665 590l-10 -50h20z"/><path class="jet j2" d="M689 590l-10 -50h20z"/><path class="jet j3" d="M713 590l-10 -50h20z"/></g></g>
+<text x="980" y="290" class="cS" font-size="20" fill="#f2c230" transform="rotate(-30 980 290)">PAPER LINE</text>
+<!-- the test belt switch box -->
+<g id="panel" class="hot"><rect x="300" y="730" width="140" height="96" rx="6" fill="#f2c230" stroke="#8a6a00" stroke-width="4"/><circle cx="342" cy="776" r="20" fill="#2f9a4a" stroke="#1b5a2a" stroke-width="4"/><rect x="376" y="756" width="48" height="12" fill="#1b1d20"/><rect x="376" y="776" width="48" height="12" fill="#1b1d20"/>
+  <text x="370" y="814" class="cS" font-size="15" text-anchor="middle" fill="#1b1d20">TEST BELT</text><path d="M370 826v40" stroke="#3a3f42" stroke-width="8"/></g>
+<path d="M-1000 716H2600" stroke="#c0392b" stroke-width="3"/>
+<g id="flask" class="hot"><rect x="1448" y="742" width="26" height="62" rx="6" fill="#3f6d3a"/><rect x="1446" y="734" width="30" height="14" rx="3" fill="#2a2f33"/><path d="M1488 804v-40q20 0 20 18t-20 18" fill="none" stroke="#6a5a44" stroke-width="5"/><rect x="1484" y="772" width="30" height="34" rx="3" fill="#e8e2d4"/></g>
+<g id="radio" class="hot"><rect x="1352" y="296" width="70" height="40" rx="5" fill="#c0392b"/><circle cx="1372" cy="316" r="12" fill="#2a2f33"/><rect x="1392" y="306" width="22" height="6" fill="#f2c230"/><path d="M1414 296l20 -30" stroke="#5a6066" stroke-width="3"/></g>
+<g id="lyle" class="hot" transform="translate(1280 900)"></g>
+<g id="jaz" class="hot" transform="translate(760 900) scale(.93)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the control room</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sorter.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, lyleN = 0, jazN = 0;
+  /* the test belt: eight things, as they are and as the Eye reads them */
+  var BELT = [
+    { k: 'canRedCrushed', t: 'Drinks can, red, crushed flat', sh: 'shiny', co: 'red', ou: 'flat', kind: 'red' },
+    { k: 'eggbox', t: 'Egg box, grey card', sh: 'matt', co: 'grey', ou: 'round', kind: '' },
+    { k: 'canBlueCrushed', t: 'KILVERLEY SPRING can, crushed', sh: 'matt', co: 'blue', ou: 'flat', kind: 'blue' },
+    { k: 'canSilverRound', t: 'Drinks can, silver', sh: 'shiny', co: 'silver', ou: 'round', kind: '' },
+    { k: 'catalogue', t: 'Catalogue, glossy silver cover', sh: 'shiny', co: 'silver', ou: 'flat', kind: 'cat' },
+    { k: 'tin', t: 'Food tin, paper label still on', sh: 'matt', co: 'red and white', ou: 'round', kind: 'tin' },
+    { k: 'canBlueRound', t: 'KILVERLEY SPRING can', sh: 'matt', co: 'blue', ou: 'round', kind: 'blue' },
+    { k: 'card', t: 'Cardboard, folded flat', sh: 'matt', co: 'brown', ou: 'flat', kind: '' }
+  ];
+
+  (function () {
+    var s = '', i, x, keys = ['newspaper', 'canSilverCrushed', 'card', 'newspaper', 'bottle', 'canBlueCrushed', 'magazine', 'newspaper', 'card', 'canRedCrushed', 'newspaper', 'eggbox'];
+    for (i = 0; i < 26; i++) { x = -1000 + i * 150 + (i % 3) * 20; s += SR.iconG(keys[i % keys.length], x, 610 + (i % 2) * 8, .62); }
+    $('#flow').innerHTML = s;
+    s = '';
+    for (i = 0; i < 6; i++) s += '<g transform="translate(' + (760 + i * 110) + ' ' + (560 - i * 66) + ') rotate(-30)">' + SR.iconG(['newspaper', 'card', 'canBlueCrushed', 'newspaper', 'magazine', 'eggbox'][i], 0, 0, .5) + '</g>';
+    $('#upflow').innerHTML = s;
+    $('#lyle').innerHTML = SR.who('lyle', { extra: '<path d="M39 -112l40 -40" stroke="#3f6d3a" stroke-width="12" stroke-linecap="round"/>' });
+    $('#jaz').innerHTML = SR.who('jaz', { extra: '<rect x="-64" y="-150" width="40" height="30" rx="4" fill="#2a2f33" transform="rotate(-8 -44 -135)"/><circle cx="-44" cy="-136" r="8" fill="#5a7a8a" transform="rotate(-8 -44 -135)"/>' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'sorter', storyTitle: 'Mostly Paper', id: 'line', no: 'II', title: 'The Picking Cabin',
+    go: 'Climb up to the cabin',
+    intro: [
+      'Your ten labels: four cans, three paper, three other, each one labelled by what it is made of. The blue can is a can, whatever it looks like; the glossy magazine is paper, however it shines; the carton is OTHER, because nobody can pull its layers apart. Jaz checked every label, and the ten went into a box marked OURS. DO NOT TRAIN.',
+      'The picking cabin is a long room built over the belt. Everything from the heap rides through it, under the Eye, past the air jets and on.',
+      'Lyle Hepple has picked things off this belt by hand for twenty-two years.'
+    ],
+    exit: {"next":"control","w":{"ab474abe":"eb0e5868"}}, tags: {"b1":["931c8582"],"b2":["20ee8e37"],"b3":["d991608f"],"b4":["d12cbd4c"],"b5":["f2e3f171"],"b6":["ce3719f8"],"b7":["83986ebc"],"b8":["fdeed728"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.lyle && told.manual && told.chart; }
+  function paint() {
+    $('#panel').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.lyle ? 1 : 0) + (told.manual ? 1 : 0) + (told.chart ? 1 : 0) + (nextFile ? 1 : 0), 4);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['It looks at shine, and every can it learnt from was shiny. Why? Up to the control room: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) return ['lock', [
+      'Use the printout on the right. Each feature votes PAPER or NOT PAPER: shine has 6 votes, colour 3, outline 1. The side with more votes wins.',
+      'A shiny thing gives 6 votes to NOT PAPER at once. Colour and outline together have only 4. So for every thing, shine decides, whatever its colour and outline say.',
+      'Look only at the Eye&rsquo;s reading under each thing, never at what the thing really is. Matt things go up the paper line. Shiny things stay on the belt.'
+    ]];
+    if (!told.lyle) return ['lyle', ['The man at the far end of the belt has been counting something.', 'Lyle: on the right, in the orange jacket and green gloves, at the paper line.']];
+    if (!told.manual) return ['manual', ['What can the Eye see, and what can&rsquo;t it? The manual says.', 'Page nine hangs on a clipboard on the wall on the left, next to the red and white poster.']];
+    if (!told.chart) return ['chart', ['Lyle mentioned a printout that he can&rsquo;t make head nor tail of.', 'It is taped to the front of the Eye&rsquo;s grey hood, bottom right, just above the belt.']];
+    return ['panel', ['Jaz wants you to say what the Eye will do before she shows you.', 'The yellow TEST BELT box at the bottom left, under the Eye.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Matt things go up the paper line. Shiny things stay on. Whatever they are.'); return; }
+    if (told.inn) { busy = false; ER.say('The picking cabin. The belt runs, the jets puff, and Lyle does not look round.'); return; }
+    tell('inn');
+    ER.narrate([
+      'The cabin hums. The belt is a river of paper, card, bottles and cans, moving left to right under a grey hood with GANNAWAY EYE on it in yellow. A bright lamp shines down from underneath it.',
+      'Just past the hood, a row of nozzles under the belt goes <i>puff</i>, <i>puff</i>, and things jump up onto a second belt that climbs away to the right: the paper line. A big grey magnet hangs over it on chains.',
+      'Lyle stands at the far end in an orange jacket and thick green gloves. Now and then his hand goes out, takes something off the paper line, and drops it in a bin beside him. It is always blue.'
+    ], function () { busy = false; });
+  }
+
+  $('#lyle').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Shine,&rdquo; says Lyle. &ldquo;All that money, and it goes by shine. My nan could have told them that, and she thought the microwave was magic.&rdquo;'); return; }
+    if (told.lyle) { var L = ['&ldquo;Tock,&rdquo; says Lyle, as a can lands on the belt. &ldquo;Hear that? That&rsquo;s a can. The Eye can&rsquo;t.&rdquo;', 'Lyle takes another blue can off the paper line, without looking, and drops it in his bin.']; ER.say(L[lyleN++ % L.length]); return; }
+    ER.talk({
+      who: 'Lyle Hepple', role: 'Picker · twenty-two years on the belt', face: SR.face('lyle', 'cross'),
+      lines: [
+        { note: 'He does not look round. His hand goes out, and a blue can goes into the bin.', a: '&ldquo;If you&rsquo;ve come to ask what I did to it,&rdquo; says Lyle, &ldquo;I cleaned its window. Thursday, four o&rsquo;clock, soft cloth and the proper spray. Page fourteen. Same as every month since they put it in.&rdquo;' },
+        { q: 'Do you think the Eye is broken?', a: 'Broken? It&rsquo;s doing something very carefully. Just not the right thing. It sends the paper up, and it sends the blue cans up with it. Never a silver one. I&rsquo;ve counted. It&rsquo;s on the wall.' },
+        { q: 'How do you tell a can from paper?', a: '&ldquo;Pick it up: a can&rsquo;s heavier than it looks, and cold. Listen: a can goes <i>tock</i> when it lands on the belt; paper goes <i>shh</i>. That thing can&rsquo;t hear, can&rsquo;t feel, can&rsquo;t pick anything up. It&rsquo;s got a camera and a lamp. It sees what it sees.&rdquo;' },
+        { q: 'What about the cans that get past you?', a: 'On Friday I hung the old magnet over the paper line. It pulls the food tins off lovely. It doesn&rsquo;t touch the blue cans. Read the poster if you don&rsquo;t believe me. So whatever gets past me goes in the bales, and it&rsquo;s blue.' },
+        { q: 'Why does everybody blame you?', a: '&ldquo;Because on the day they put it in, I said in the canteen that I could sort this belt better with my eyes shut. And because I cleaned it on Thursday. Both true.&rdquo; Another blue can goes into the bin. &ldquo;Neither of them is the reason.&rdquo;' },
+        { a: '&ldquo;There&rsquo;s a printout taped to its hood,&rdquo; says Lyle. &ldquo;Ilona put it there. What the machine learnt, she said. I can&rsquo;t make head nor tail of it. You might.&rdquo;' }
+      ],
+      clue: { id: 'lyle', title: 'Lyle: never a silver one', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('lyle')) { paint(); SR.terms(['feature']); ER.say('Never a silver one. Page nine is on the clipboard by the window; the printout is on the Eye&rsquo;s hood.'); } }
+    });
+  });
+
+  $('#jaz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Shine,&rdquo; says Jaz. &ldquo;And Ilona tested it, and it passed. So what did she test it on?&rdquo;'); return; }
+    var J = ['Jaz is photographing the belt. &ldquo;I&rsquo;ve set up the test belt,&rdquo; she says. &ldquo;Eight things, one at a time. But first you tell me where the Eye will send each one. Then we watch.&rdquo;',
+      '&ldquo;Read what it can see,&rdquo; says Jaz. &ldquo;Page nine. And Ilona&rsquo;s printout on the hood.&rdquo;'];
+    ER.say(J[jazN++ % J.length]);
+  });
+
+  var MANUAL = '<div class="band"></div><div class="hd"><span>GANNAWAY EYE &middot; OPERATOR&rsquo;S MANUAL</span><span>9</span></div>' +
+    '<h4>What the Eye can see</h4>' +
+    '<div class="two"><div>' +
+    '<p>The Eye has a camera and a lamp. For every thing on the belt it measures three <b>features</b>:</p>' +
+    '<p><b>Shine:</b> does the lamp&rsquo;s light bounce back (shiny) or not (matt)?<br><b>Colour:</b> silver (bright metal), or any other colour. Grey and white are other colours.<br><b>Outline:</b> flat like a sheet, or round, with a body.</p>' +
+    '<p>That is all. It cannot weigh a thing, hear it or feel it, and it does not know what a thing is.</p>' +
+    '</div><div class="fig"><svg viewBox="0 0 270 160" width="270" height="160"><path d="M70 10h130v50h-130z" fill="#5d6468"/><rect x="80" y="20" width="110" height="16" fill="#1b1d20"/><circle cx="135" cy="52" r="7" fill="#6fa8c0"/>' +
+    '<path d="M90 60l-30 64h150l-30 -64z" fill="#fff6d8" opacity=".7"/><rect x="10" y="124" width="250" height="18" fill="#2a2d2c"/>' + SR.iconG('canSilverRound', 100, 76, .5) +
+    '<path d="M214 140v-24" stroke="#5a7a8a" stroke-width="6"/><path d="M214 112l-8 -14h16z" fill="#e6f0f4" stroke="#5a7a8a"/><text x="214" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" fill="#1b1d20">air jet</text>' +
+    '<text x="12" y="20" font-family="Roboto Mono" font-size="9.5" fill="#1b1d20">camera</text><text x="12" y="32" font-family="Roboto Mono" font-size="9.5" fill="#1b1d20">+ lamp</text></svg><small>Fig. 9a: the Eye looks, then a jet blows</small></div></div>' +
+    '<p>In training, the Eye finds the features that told its labelled examples apart, and it gives each feature a number of <b>votes</b>. When something new goes past, each feature votes PAPER or NOT PAPER, and the side with more votes wins. PAPER is blown up to the paper line. Everything else stays on the belt.</p>' +
+    '<div class="pg">Gannaway Robotics &middot; EYE-3 &middot; page 9 of 40</div>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'sr-manual', clue: { id: 'manual9', title: 'Manual, page 9: what the Eye can see', kind: 'On a clipboard' }, done: function () {
+      SR.terms(['feature', 'matt', 'outline']);
+      if (tell('manual')) { paint(); ER.say('Shine, colour, outline: three features, and votes. Ilona&rsquo;s printout is on the hood.'); }
+    } });
+  });
+  var CHART = '<h4>GANNAWAY EYE &middot; WHAT IT LEARNT</h4><p>Kilverley, September &middot; trained on 50 labelled photos</p>' +
+    '<table><tr><td><b>feature</b></td><td class="v"><b>votes</b></td><td><b>votes PAPER if</b></td><td><b>votes NOT PAPER if</b></td></tr>' +
+    '<tr><td>shine</td><td class="v"><span class="bar" style="width:60px"></span>6</td><td>matt</td><td>shiny</td></tr>' +
+    '<tr><td>colour</td><td class="v"><span class="bar" style="width:30px"></span>3</td><td>any colour but silver</td><td>silver</td></tr>' +
+    '<tr><td>outline</td><td class="v"><span class="bar" style="width:10px"></span>1</td><td>flat</td><td>round</td></tr></table>' +
+    '<p>10 votes in all. More votes wins. PAPER: blow it up to the paper line.</p>' +
+    '<p class="hand">Learnt very fast! Shine did nearly all the work. &mdash; I.G.</p>';
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CHART, cls: 'sr-chart', clue: { id: 'chart', title: 'What the Eye learnt: the votes', kind: 'Taped to the hood' }, done: function () {
+      SR.terms(['pattern', 'vote']);
+      if (tell('chart')) { paint(); ER.say('Shine six votes, colour three, outline one. &ldquo;Right,&rdquo; says Jaz. &ldquo;The test belt. Tell me first.&rdquo;'); }
+    } });
+  });
+  var TALLY = '<h4>Cans I pulled off the paper line</h4><table>' +
+    '<tr><td>Wed</td><td>0</td></tr><tr><td>Thu</td><td>0</td></tr><tr><td>Fri</td><td>23</td></tr><tr><td>Sat</td><td>31</td></tr><tr><td>Sun</td><td>(shut)</td></tr><tr><td>Mon</td><td>44</td></tr><tr><td>Tue</td><td>12 so far</td></tr></table>' +
+    '<p class="red">ALL BLUE. Every one. Not one silver can.</p><p>All that new KILVERLEY SPRING water from the Harvest Fair on Thursday. Never saw one before Friday.</p>' +
+    '<p>Tins: none on the paper since Fri. Magnet has them.</p><p>Asked Gina for a magnet. Got one. Asked Gina for a coffee machine. Still waiting. &mdash; L.H.</p>';
+  $('#tally').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: TALLY, cls: 'sr-tally', clue: { id: 'tally', title: 'Lyle&rsquo;s tally: all blue', kind: 'Pinned to the wall' }, done: function () {
+      if (tell('tally')) ER.say('Nothing on Thursday. Then blue cans, every day since the Harvest Fair. Not one silver.');
+    } });
+  });
+  var POSTER = '<h4>What a magnet picks up</h4><div class="two"><div>' +
+    '<p><b>Steel and iron: YES.</b> Most food tins are made of steel.</p><p><b>Aluminium: NO.</b> Nearly all drinks cans are made of aluminium, and so are foil trays.</p>' +
+    '<p>So how do we catch aluminium? At the end of the container line is the <b>eddy current separator</b>: a drum of strong magnets spinning very fast under the belt. It makes electric currents flow in any aluminium can that passes over it, and they push the can away, so it jumps off the end of the belt into its own bay. The steel has gone already, to the big magnet.</p>' +
+    '</div><svg viewBox="0 0 230 200" width="230" height="200"><path d="M10 90h160" stroke="#2a2d2c" stroke-width="14"/><circle cx="170" cy="100" r="22" fill="#5d6468" stroke="#1f4f8a" stroke-width="4"/><path d="M158 92l24 16M182 92l-24 16" stroke="#c0392b" stroke-width="3"/>' +
+    '<path d="M150 70q50 -50 70 20" fill="none" stroke="#1f4f8a" stroke-width="3" stroke-dasharray="6 5"/><rect x="196" y="78" width="18" height="30" rx="4" fill="#cfd6dc" stroke="#7d8a94" stroke-width="2"/>' +
+    '<rect x="60" y="66" width="18" height="22" rx="2" fill="#cfd6dc" stroke="#7d8a94" stroke-width="2"/><path d="M160 104q-10 60 -30 80" fill="none" stroke="#8a969f" stroke-width="3" stroke-dasharray="6 5"/>' +
+    '<text x="115" y="150" text-anchor="middle" font-family="Outfit" font-size="12" fill="#13233a">spinning drum</text><text x="210" y="130" text-anchor="middle" font-family="Outfit" font-size="12" fill="#13233a">can jumps</text></svg></div>' +
+    '<p>Try it at home: a fridge magnet sticks to a food tin, but not to a drinks can.</p>';
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: POSTER, cls: 'sr-poster', clue: { id: 'magnet', title: 'Poster: what a magnet picks up', kind: 'On the cabin wall' }, done: function () {
+      SR.terms(['magnet', 'aluminium', 'steel', 'eddy current separator']);
+      if (tell('poster')) ER.say('Steel yes, aluminium no. So Lyle&rsquo;s magnet takes the tins off the paper line, and the blue cans ride on to the bales.');
+    } });
+  });
+  SR.thing('#magnet', 'magnet', 'Lyle&rsquo;s magnet, over the paper line. Two food tins are stuck to the bottom of it. No drinks cans at all.', isBusy);
+  SR.thing('#eye', 'sorter', 'The Eye: a camera and a lamp in a grey hood, and a computer somewhere inside. It has no idea what anything is. It has a very good idea of what things look like.', isBusy);
+  SR.thing('#jets', 'air jet', 'The air jets. When the Eye says PAPER, one of them puffs, and the thing jumps up onto the paper line.', isBusy);
+  SR.thing('#radio', null, 'A radio, tuned to the local station. The weather: more rain, clearing by four.', isBusy);
+  SR.thing('#flask', null, 'Lyle&rsquo;s flask and his mug. The mug says WORLD&rsquo;S SECOND-BEST PICKER. Nobody knows who the best one is.', isBusy);
+  $('#panel').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The test belt is off. Eight things, eight right guesses, and one idea: shine.'); return; }
+    if (!told.lyle) { ER.say('&ldquo;Ask Lyle first,&rdquo; says Jaz. &ldquo;He knows this belt better than the Eye does.&rdquo;'); return; }
+    if (!told.manual) { ER.say('&ldquo;Read what it can see,&rdquo; says Jaz. &ldquo;Page nine, on the clipboard by the window.&rdquo;'); return; }
+    if (!told.chart) { ER.say('&ldquo;And Ilona&rsquo;s printout,&rdquo; says Jaz. &ldquo;On the front of the hood. That&rsquo;s what it learnt.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the test belt: where will the Eye send each one? ---------- */
+  function makeLock() {
+    var wait = false, box = ER.el('div', 'pz bt'), saved = ER.flag('b-put') || {};
+    function card(b, i) {
+      return '<div class="bi dnd-item" data-i="' + (i + 1) + '"><span class="no">' + (i + 1) + '</span>' + SR.icon(b.k, 74) + '<p>' + b.t + '</p>' +
+        '<div class="rd"><i>shine</i> ' + b.sh + '<br><i>colour</i> ' + b.co + '<br><i>outline</i> ' + b.ou + '</div></div>';
+    }
+    var slots = function (w) { var s = '', i; for (i = 0; i < 8; i++) s += '<div class="sl" data-w="' + w + '"></div>'; return s; };
+    box.innerHTML = '<div class="bt-in"><div><div class="bt-hd"><b>TEST BELT</b>Before Jaz runs them: where will the Eye send each one? Drag, or click a thing and then a place.</div>' +
+      '<div class="bt-belt" id="bt-home">' + BELT.map(card).join('') + '</div>' +
+      '<div class="bt-ch"><div class="chute up"><h5>&uarr; UP THE PAPER LINE</h5><div class="slots">' + slots('p') + '</div></div>' +
+      '<div class="chute on"><h5>&rarr; STAYS ON THE BELT</h5><div class="slots">' + slots('s') + '</div></div></div></div>' +
+      '<div class="bt-side"><h5>WHAT IT LEARNT</h5><table><tr><td>shine</td><td class="n">6</td><td>matt: PAPER<br>shiny: NOT</td></tr><tr><td>colour</td><td class="n">3</td><td>silver: NOT<br>other: PAPER</td></tr><tr><td>outline</td><td class="n">1</td><td>flat: PAPER<br>round: NOT</td></tr></table>' +
+      '<p style="margin:6px 0 0">10 votes. More votes wins.</p><p class="hand">Shine did nearly all the work. &mdash; I.G.</p></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="bt-go">Run the test belt</button></div>';
+    var home = box.querySelector('#bt-home'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function where() {
+      var o = {};
+      ER.$$('.sl', box).forEach(function (sl) { var it = sl.querySelector('.bi'); if (it) o[it.getAttribute('data-i')] = sl.getAttribute('data-w'); });
+      return o;
+    }
+    (function restore() {
+      var used = { p: 0, s: 0 };
+      Object.keys(saved).forEach(function (i) {
+        var w = saved[i], it = home.querySelector('.bi[data-i="' + i + '"]'), sl = ER.$$('.sl[data-w="' + w + '"]', box)[used[w]];
+        if (it && sl) { sl.appendChild(it); used[w]++; }
+      });
+    })();
+    ER.dnd(box, { item: '.bi', slot: '.sl', home: home, lock: function () { return wait || !!nextFile; }, change: function () { ER.flag('b-put', where()); SR.sfx.card(); } });
+    function flash(i) { var n = box.querySelector('.bi[data-i="' + i + '"]'); if (!n) return; n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1400); }
+    box.querySelector('#bt-go').addEventListener('click', function () {
+      if (wait || nextFile) return;
+      var w = where(), n = Object.keys(w).length, wrong = [], i, file;
+      if (n < BELT.length) { ER.sfx.no(); msg('&ldquo;Every one goes one way or the other,&rdquo; says Jaz. &ldquo;' + (BELT.length - n) + ' still on the belt.&rdquo;'); return; }
+      for (i = 1; i <= BELT.length; i++) if (!ER.check('b' + i, w[i])) wrong.push(i);
+      function first(kind) { for (var j = 0; j < wrong.length; j++) if (BELT[wrong[j] - 1].kind === kind) return wrong[j]; return 0; }
+      var x;
+      if ((x = first('blue'))) { ER.sfx.no(); flash(x); msg('&ldquo;You&rsquo;ve sent number ' + x + ' by what it is,&rdquo; says Lyle, without looking round. &ldquo;The Eye doesn&rsquo;t know what anything is. Count its votes.&rdquo;'); return; }
+      if ((x = first('tin'))) { ER.sfx.no(); flash(x); msg('&ldquo;Number ' + x + ' is a tin, I know,&rdquo; says Jaz. &ldquo;But what does the Eye see? Read its line: shine, colour, outline. Then count.&rdquo;'); return; }
+      if ((x = first('cat'))) { ER.sfx.no(); flash(x); msg('&ldquo;Number ' + x + ' is paper, yes,&rdquo; says Jaz. &ldquo;Now look at it the Eye&rsquo;s way. How many votes does shiny get?&rdquo;'); return; }
+      if ((x = first('red'))) { ER.sfx.no(); flash(x); msg('&ldquo;Red and flat,&rdquo; says Jaz. &ldquo;That&rsquo;s three votes and one vote for PAPER: four. What is shiny worth, on the other side?&rdquo;'); return; }
+      if (wrong.length) { ER.sfx.no(); flash(wrong[0]); msg('&ldquo;Count the votes for number ' + wrong[0] + ' again,&rdquo; says Jaz.'); return; }
+      var ans = []; for (i = 1; i <= BELT.length; i++) ans.push(w[i]);
+      file = ER.exit([ans.join('-')], { wait: true });
+      if (!file) { msg('The belt stops with a clunk. Something is wrong with this page: tell your teacher.'); return; }
+      wait = true; nextFile = file; ER.flag('b-file', file);
+      SR.sfx.puff(); setTimeout(SR.sfx.puff, 380); setTimeout(SR.sfx.tock, 760);
+      SR.terms(['feature', 'shortcut']);
+      SR.mine('shine', 'How the Eye decides: shine', '<p>Shine has 6 votes; colour (3) and outline (1) together have only 4. So shine decides every time.</p><p>Matt goes up the paper line, whatever it is: blue cans, tins with paper labels, card, egg boxes. Shiny stays on, whatever it is: silver and red cans, glossy catalogues.</p><p>The Eye never learnt what a can is. It learnt shiny.</p><p>Lyle&rsquo;s magnet takes the tins off the paper line (steel). Not the blue cans (aluminium). So the cans in the bales are all blue.</p>', true);
+      msg('&ldquo;Right,&rdquo; says Jaz. &ldquo;Every one. Now let&rsquo;s watch it do it.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Jaz runs the eight, one at a time. <i>Puff:</i> the egg box goes up. <i>Puff, puff:</i> both blue cans go up. The tin goes up, and the cardboard. The red can, the silver can and the glossy catalogue stay on the belt. Exactly as you said.',
+          'Up on the paper line, Lyle&rsquo;s magnet snatches the tin with a clack. The two blue cans ride on past it, towards the bales.',
+          '&ldquo;It isn&rsquo;t looking for cans,&rdquo; says Jaz slowly. &ldquo;It never was. It&rsquo;s looking for shine. Shiny stays on the belt; matt goes up with the paper.&rdquo;',
+          '&ldquo;And until Thursday,&rdquo; says Lyle, &ldquo;every can in Kilverley was shiny.&rdquo;',
+          '&ldquo;So why did it learn shine?&rdquo; says Jaz. &ldquo;Because shine was all it needed, for the examples Ilona gave it. And she tested it, and it passed. I want to know what she tested it on. Control room.&rdquo;'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    });
+    msg('Put each thing in one of the two rows. Use the Eye&rsquo;s reading on each card, and the printout on the right.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+})();
+</script>
+</body>
+</html>

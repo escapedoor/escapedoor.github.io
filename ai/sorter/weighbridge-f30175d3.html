@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Weighbridge · Mostly Paper</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sorter.css">
+<style>
+  body{--bg:#c9b48a;--accent:#2f7a3a;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(250,246,234,.97);--tc-ink:#1b1d20;--cap-bg:rgba(252,249,240,.96);--cap-ink:#1b1d20;--panel:#fcf9f0;--panel-ink:#1b1d20;--face-bg:#3a4a5e;--q-ink:#2f7a3a;
+    --fade:#fffaf0;--hud-bg:rgba(252,249,240,.88);--hud-ink:#1b1d20;--hud-line:rgba(27,29,32,.25);--ov-bg:rgba(30,30,20,.5)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#2f7a3a}
+  .tc-theme{color:#b06a10}
+  .tk-role{color:#2f7a3a}
+  .hbtn b{color:#fff}
+  .gull{animation:gull 9s ease-in-out infinite}
+  .gull.g2{animation-duration:12s;animation-delay:-4s}
+  @keyframes gull{50%{transform:translate(60px,-14px)}}
+  .glint{animation:glint 5s steps(2,end) infinite}
+  @keyframes glint{50%{opacity:.55}}
+
+  /* the weighbridge ticket */
+  .wt{width:min(760px,95vw)}
+  .wt-in{background:#fffef6;color:#1b1d20;padding:18px 26px 16px;border-top:12px solid #2f7a3a;box-shadow:0 26px 70px rgba(0,0,0,.4);font-family:'Roboto Mono',monospace;font-size:14.5px;line-height:1.5}
+  .wt-in h4{margin:0 0 2px;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em}
+  .wt-in h5{margin:0 0 10px;font-family:'Outfit',sans-serif;font-weight:400;font-size:13px;color:#5a6066}
+  .wt-in table{border-collapse:collapse;margin:0 0 10px}
+  .wt-in td{padding:2px 16px 2px 0}
+  .wt-in td.n{text-align:right;font-weight:500}
+  .wt-in .ln{border-top:2px solid #1b1d20}
+  .wt-in .q{margin:6px 0 6px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px}
+  .wt-ch{display:flex;flex-direction:column;gap:6px}
+  .wt-ch button{text-align:left;padding:7px 12px;border:1px solid #c9ccc4;border-radius:3px;font-family:'Literata',serif;font-size:15.5px;line-height:1.35;color:#1b1d20;background:#fff}
+  .wt-ch button:hover{background:#f4f6ee}
+  .wt-ch button.on{border-color:#2f7a3a;background:#eef6ea}
+  .wt-ans{margin-top:10px;min-height:34px;font-family:'Caveat',cursive;font-size:24px;line-height:1.1;color:#1f4f8a}
+  .wt .pmsg{color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb0c8"/><stop offset=".6" stop-color="#e8d6b0"/><stop offset="1" stop-color="#f4c98a"/></linearGradient>
+  <radialGradient id="sun" cx="82%" cy="62%" r="40%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".95"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a6a64"/><stop offset="1" stop-color="#3e3f3c"/></linearGradient>
+  <linearGradient id="refl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4d8a0" stop-opacity=".5"/><stop offset="1" stop-color="#f4d8a0" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="80%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#2a2010" stop-opacity=".08"/><stop offset="1" stop-color="#2a2010" stop-opacity=".35"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1050" fill="url(#sky)"/>
+<rect x="-1000" y="-400" width="3600" height="1050" fill="url(#sun)"/>
+<g fill="#f6efe0" opacity=".85"><path d="M-200 120q60 -40 140 -20q50 -50 130 -10q60 -20 90 20q-60 30 -360 10z"/><path d="M900 80q50 -30 110 -10q40 -40 100 -6q50 -10 70 20q-40 24 -280 -4z"/></g>
+<g id="gulls" class="hot"><rect x="400" y="96" width="420" height="96" fill="transparent"/><path class="gull" d="M420 170q14 -12 26 0q12 -12 26 0" fill="none" stroke="#3a3f42" stroke-width="4" stroke-linecap="round"/><path class="gull g2" d="M760 120q11 -9 21 0q10 -9 21 0" fill="none" stroke="#3a3f42" stroke-width="3.5" stroke-linecap="round"/></g>
+<!-- the Murf, end on, with its door open -->
+<path d="M1080 230L1440 150L1800 230V640H1080z" fill="#6a7a82"/><g stroke="#5a6a72" stroke-width="6"><path d="M1120 240v400M1180 226v414M1240 212v428M1300 200v440M1360 186v454M1420 172v468M1480 170v470M1540 184v456M1600 196v444M1660 210v430M1720 220v420"/></g>
+<text x="1440" y="270" class="cS" font-size="34" text-anchor="middle" fill="#f2c230">KILVERLEY MRF</text>
+<g id="door" class="hot"><rect x="1280" y="380" width="300" height="260" fill="#2c3438"/><rect x="1300" y="520" width="260" height="22" fill="#15191b"/>
+  <g fill="#eceae3"><rect x="1310" y="512" width="22" height="10"/><rect x="1380" y="514" width="18" height="8" fill="#cfd6dc"/><rect x="1450" y="510" width="20" height="12" fill="#3c6fb2"/><rect x="1510" y="512" width="24" height="10" fill="#c49a62"/></g>
+  <path d="M1300 440h120v-20h-120z" fill="#5d6468"/><text x="1360" y="436" class="cO" font-size="11" text-anchor="middle" fill="#f2c230">EYE</text><rect x="1264" y="366" width="332" height="18" fill="#4a565c"/></g>
+<!-- the ground, wet, catching the light -->
+<rect x="-1000" y="640" width="3600" height="700" fill="url(#wet)"/>
+<rect x="-1000" y="640" width="3600" height="120" fill="url(#refl)"/>
+<g fill="#f4d8a0" opacity=".35" class="glint"><ellipse cx="1200" cy="800" rx="160" ry="12"/><ellipse cx="300" cy="840" rx="120" ry="10"/></g>
+<!-- the weighbridge plate and the mill's lorry -->
+<rect x="380" y="770" width="900" height="40" fill="#5a6066" stroke="#f2c230" stroke-width="6"/>
+<g id="lorry" class="hot">
+  <rect x="440" y="470" width="660" height="40" fill="#2d4a3a"/><rect x="440" y="510" width="660" height="210" fill="#e8e4d6" stroke="#2d4a3a" stroke-width="5"/>
+  <text x="770" y="560" class="cO" font-size="36" font-weight="800" text-anchor="middle" fill="#2d4a3a" letter-spacing="2">JEBB&#39;S MILL</text><text x="770" y="592" class="cO" font-size="17" text-anchor="middle" fill="#2d4a3a">PAPER FOR RECYCLING</text>
+  <g id="bales"></g>
+  <path d="M1100 520h120l40 70v130h-160z" fill="#2d4a3a"/><path d="M1116 536h96l30 54h-126z" fill="#a8c4d4"/><rect x="1230" y="680" width="40" height="14" fill="#ff8a1e"/>
+  <g fill="#1b1d20"><circle cx="530" cy="740" r="34"/><circle cx="620" cy="740" r="34"/><circle cx="1010" cy="740" r="34"/><circle cx="1180" cy="740" r="34"/></g><g fill="#7a8086"><circle cx="530" cy="740" r="12"/><circle cx="620" cy="740" r="12"/><circle cx="1010" cy="740" r="12"/><circle cx="1180" cy="740" r="12"/></g>
+</g>
+<!-- the weighbridge hut -->
+<g id="hut"><rect x="40" y="420" width="320" height="300" fill="#e2dccb" stroke="#8a826e" stroke-width="5"/><path d="M24 420h352l-24 -40h-304z" fill="#6a5a44"/>
+  <rect x="80" y="470" width="170" height="110" fill="#5a7080" stroke="#8a826e" stroke-width="5"/><rect x="80" y="580" width="190" height="16" fill="#8a826e"/>
+  <rect x="270" y="480" width="70" height="40" fill="#1b1d20"/><text x="305" y="508" class="cM" font-size="17" text-anchor="middle" fill="#ff8a1e">26.40</text><text x="305" y="536" class="cO" font-size="12" text-anchor="middle" fill="#1b1d20">tonnes</text></g>
+<g id="sign" class="hot"><rect x="270" y="610" width="78" height="92" fill="#fff" stroke="#2f7a3a" stroke-width="3"/><rect x="270" y="610" width="78" height="16" fill="#2f7a3a"/><text x="309" y="622" class="cO" font-size="9" font-weight="800" text-anchor="middle" fill="#fff">WEIGHBRIDGE</text>
+  <g fill="#9aa0a6"><rect x="278" y="634" width="62" height="3"/><rect x="278" y="642" width="54" height="3"/><rect x="278" y="650" width="60" height="3"/><rect x="278" y="664" width="40" height="3"/><rect x="278" y="672" width="56" height="3"/><rect x="278" y="686" width="46" height="3"/></g></g>
+<g id="ticket" class="hot"><path d="M150 586l70 -6 4 22 -70 6z" fill="#fffef6" stroke="#9a9a8a" stroke-width="2"/><g stroke="#2f7a3a" stroke-width="2.5"><path d="M160 592l40 -3M161 598l50 -4"/></g></g>
+<g id="gina" class="hot" transform="translate(470 896) scale(.98)"></g>
+<g id="jaz" class="hot" transform="translate(1340 900) scale(.95)"></g>
+<g id="lyle" class="hot" transform="translate(1520 880) scale(.86)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="okstamp">LOAD CHECKED</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A machine that learns is given examples, each with a label that a person wrote: its training data. It believes every label, so a careless label teaches it a wrong lesson.</li>
+    <li>It finds patterns in the features it can measure (here colour, shine and outline). It does not know what a thing is. It leans on whatever told its examples apart: when every can it saw was shiny, &ldquo;shiny&rdquo; became its idea of a can.</li>
+    <li>A score on the examples it learnt from tells you very little (47 out of 50, 94%). Test it on examples you kept back: new to it, labelled, and like the real job today.</li>
+    <li>One number can hide a problem. Look at each kind of thing on its own: 50% overall, but 25% for cans.</li>
+    <li>Lopsided data: if 90 of every 100 examples are paper, a machine that always says &ldquo;paper&rdquo; is 90% right and useless. Count each class, balance them, and give every kind of thing it will meet.</li>
+    <li>The fix was a better set of examples and a person checking, not a cleverer, dearer machine.</li>
+    <li>Trust a machine like this when it has been fairly tested on things like today&rsquo;s. Check it when the world changes (a new kind of can) and whenever a mistake would cost a lot.</li>
+  </ol>
+  <div class="row"><button type="button" class="btn" id="b-task">Have your say</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the story list</button></div>
+  <small>Mostly Paper &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sorter.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, wt = null;
+
+  (function () {
+    var s = '', i, x, y;
+    for (i = 0; i < 8; i++) { x = 470 + (i % 4) * 150; y = 420 - Math.floor(i / 4) * 0; }
+    s = '';
+    for (i = 0; i < 4; i++) s += '<rect x="' + (460 + i * 156) + '" y="420" width="148" height="50" fill="#d8d0b8" stroke="#6a6250" stroke-width="3"/><path d="M' + (464 + i * 156) + ' 438h140M' + (464 + i * 156) + ' 454h140" stroke="#4a4a4a" stroke-width="2"/>';
+    $('#bales').innerHTML = s;
+    $('#gina').innerHTML = SR.who('gina', { smile: 6, extra: '<rect x="30" y="-170" width="34" height="46" rx="2" fill="#6a5a44" transform="rotate(10 47 -147)"/><rect x="34" y="-164" width="26" height="36" fill="#fff" transform="rotate(10 47 -147)"/>' });
+    $('#jaz').innerHTML = SR.who('jaz', { smile: 7 });
+    $('#lyle').innerHTML = SR.who('lyle', { smile: 4, extra: '<rect x="36" y="-140" width="20" height="48" rx="5" fill="#3f6d3a"/>' });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'sorter', storyTitle: 'Mostly Paper', id: 'weighbridge', no: 'V', title: 'The Weighbridge',
+    go: 'Ten to four',
+    intro: [
+      'Ninety cards in the drawer: thirty paper, thirty cans and thirty other, every label checked, every kind of thing the belt brings, and not one of your ten. The Eye took fifty-five minutes to learn them. Then Jaz tested it on your ten, which it had still never seen: nine right out of ten (90%), and all four cans (100%). The one it got wrong was the juice carton, which it sent up the paper line.',
+      'At ten to three the belt started again, with Lyle at the paper line. The three bales with blue in them were opened, picked clean by hand and pressed again.',
+      'Ten to four. The rain has stopped, and the mill&rsquo;s lorry is early.'
+    ],
+    exit: {"last":true,"rooms":5,"stars":3}, tags: {"coda":["96e9158e"]},
+    hints: hints, onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function hints() {
+    if (ER.flag('e-done')) return null;
+    if (wt && wt.isOpen()) return ['wt', [
+      'What did the photo test in the control room prove about the motor and Lyle&rsquo;s cloth?',
+      'Choose the line that says what really put the Eye right: what it learnt from, how it was tested, and who checks it now.'
+    ]];
+    return ['ticket', ['Gina needs one line for the weighbridge ticket. It is on the ledge of the hut window.']];
+  }
+  function begin() {
+    if (ER.flag('e-done')) { busy = false; finish(true); return; }
+    if (ER.flag('e-in')) { busy = false; $('#ticket').classList.add('ready'); ER.say('The ticket is on the ledge of the hut window. One line to write.'); return; }
+    ER.flag('e-in', 1);
+    ER.narrate([
+      'The sky has torn open in the west, and a low yellow sun shines across the wet yard. Two gulls are arguing on the roof of the Murf.',
+      'The mill&rsquo;s lorry stands on the weighbridge, loaded: sixteen bales, sheeted and strapped. In the hut window the display says 26.40 tonnes.',
+      'Gina holds the weighbridge ticket. &ldquo;Mrs Jebb wants a line on it,&rdquo; she says. &ldquo;Load checked, and why. Not &lsquo;because Gina says so&rsquo;. She&rsquo;s had that one.&rdquo; She hands you the pen.'
+    ], function () { busy = false; $('#ticket').classList.add('ready'); openWt(); });
+  }
+
+  function openWt() { if (ER.flag('e-done')) return; if (!wt) wt = makeWt(); wt.open(); }
+  $('#ticket').addEventListener('click', function () { if (busy) return; if (ER.flag('e-done')) { ER.say('LOAD CHECKED, in your handwriting, and Gina&rsquo;s signature under it.'); return; } openWt(); });
+  function makeWt() {
+    var CH = [['a', 'Lyle has promised not to clean the camera again.'], ['b', 'The belt motor has been mended, so the camera can see properly.'],
+      ['c', 'The Eye has learnt again from checked, balanced examples of every kind, and passed a test on photos it had never seen. A person checks the paper line.']];
+    var pick = null, done = false, box = ER.el('div', 'pz wt');
+    box.innerHTML = '<div class="wt-in"><h4>KILVERLEY MRF &middot; WEIGHBRIDGE TICKET</h4><h5>Vehicle: Jebb&rsquo;s Mill &middot; Tuesday &middot; paper, 16 bales</h5>' +
+      '<table><tr><td>Gross (full, going out)</td><td class="n">26.40 t</td></tr><tr><td>Tare (empty, coming in)</td><td class="n">11.20 t</td></tr><tr class="ln"><td>Net (the load)</td><td class="n">15.20 t</td></tr></table>' +
+      '<p class="q">Load checked: no metal, because&hellip;</p><div class="wt-ch">' + CH.map(function (c) { return '<button type="button" data-c="' + c[0] + '">' + c[1] + '</button>'; }).join('') + '</div><div class="wt-ans"></div></div>' +
+      '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="wt-go">Write it on the ticket</button></div>';
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ER.$$('.wt-ch button', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; pick = b.getAttribute('data-c'); SR.sfx.tag(); ER.$$('.wt-ch button', box).forEach(function (o) { o.classList.toggle('on', o === b); }); }); });
+    box.querySelector('#wt-go').addEventListener('click', function () {
+      if (done) return;
+      if (!pick) { msg('Choose a line to write.'); return; }
+      if (!ER.check('coda', pick)) {
+        ER.sfx.no();
+        msg(pick === 'a' ? 'Gina laughs. &ldquo;Lyle&rsquo;s cloth was never the reason. The photo test proved that: no lens, same mistakes.&rdquo;' : '&ldquo;The bearing comes on Thursday,&rdquo; says Jaz. &ldquo;And the Eye got photos wrong with no belt at all. It wasn&rsquo;t the motor.&rdquo;');
+        return;
+      }
+      done = true; SR.sfx.tag();
+      try { if (ER.music() && ER.track) ER.track.sting('solved'); else ER.sfx.ok(); } catch (e) { ER.sfx.ok(); }
+      box.querySelector('.wt-ans').textContent = 'Retrained on checked, balanced examples; tested on new ones; a person checks.';
+      msg('Gina signs under it.');
+      setTimeout(ending, 2200);
+    });
+    msg('Read the ticket. Then choose the line that says why the load is clean.');
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; } };
+  }
+  function ending() {
+    ER.closeAll(); busy = true;
+    ER.narrate([
+      'Gina writes it on the ticket in capitals and signs it. The driver reads it twice, nods, and climbs back up into his cab.',
+      'Through the open door of the shed you can see the line. A blue can comes down the belt, under the Eye, past the jets. Nothing puffs. It rides on to the end of the line, where the eddy current throws it into the aluminium bay. <i>Tock.</i>',
+      'Up in the control room, beside the certificate, Jaz has pinned a new sheet: TESTED ON TEN IT HAD NEVER SEEN. 9 OUT OF 10. CANS: 4 OUT OF 4. A PERSON CHECKS THE PAPER LINE.',
+      '&ldquo;Ninety per cent,&rdquo; says Gina. &ldquo;That&rsquo;s less than last time.&rdquo; &mdash; &ldquo;It&rsquo;s better than last time,&rdquo; says Jaz. &ldquo;This time it&rsquo;s true.&rdquo;',
+      'On the paper line, Lyle lifts a juice carton off the belt without looking at it, and drops it in his bin. &ldquo;Twenty-two years,&rdquo; he says, &ldquo;and now I&rsquo;ve got a colleague. It still can&rsquo;t hear a can, mind.&rdquo;',
+      'The lorry pulls off the weighbridge with sixteen clean bales. In the hut window, the display goes back to 0.00.'
+    ], function () { busy = false; ER.flag('e-done', 1); finish(false); });
+  }
+
+  var SIGN = '<h4>How the weighbridge works</h4><p>A weighbridge is a scale big enough for a lorry. Each lorry is weighed twice: <b>empty</b> on the way in (the <b>tare</b>) and <b>full</b> on the way out (the <b>gross</b>).</p><p>Gross minus tare is the <b>net</b> weight: the weight of the load alone.</p><small>KILVERLEY MRF &middot; drivers stay in the cab &middot; 5 mph</small>';
+  $('#sign').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SIGN, cls: 'sr-leaflet', clue: { id: 'weigh', title: 'How the weighbridge works', kind: 'On the hut' }, done: function () {
+      SR.terms(['weighbridge']);
+      ER.say('26.40 full, 11.20 empty: 15.20 tonnes of paper. Sixteen bales, a little under a tonne each.');
+    } });
+  });
+  function line(sel, before, after) { $(sel).addEventListener('click', function () { if (!busy) ER.say(ER.flag('e-done') ? after : before); }); }
+  line('#gina', '&ldquo;One line,&rdquo; says Gina. &ldquo;And make it a true one. Mrs Jebb can smell the other sort.&rdquo;', '&ldquo;Same time next week,&rdquo; says Gina to the driver. Then, to you: &ldquo;You can come to work with me any half-term you like. Bring your questions.&rdquo;');
+  line('#jaz', '&ldquo;Say what actually fixed it,&rdquo; says Jaz. &ldquo;Not what we thought this morning.&rdquo;', '&ldquo;Next time a new can comes out,&rdquo; says Jaz, &ldquo;we photograph it, label it, and test before we trust. I&rsquo;m writing it on page six.&rdquo;');
+  line('#lyle', 'Lyle is in the doorway with his flask, watching the lorry as if it might change its mind.', '&ldquo;Tock,&rdquo; says Lyle, as another can lands in the aluminium bay. &ldquo;Lovely.&rdquo;');
+  SR.thing('#gulls', 'gull', 'Two gulls, on the roof of the Murf, arguing about a crisp packet. Nobody has told them it is OTHER.', isBusy);
+  SR.thing('#door', null, 'The line, through the open door. The Eye, the jets, and Lyle at the paper line. Puff, puff: paper only.', isBusy);
+  SR.thing('#lorry', 'lorry', 'Jebb&rsquo;s Mill&rsquo;s lorry, with sixteen bales on the back. Clean ones.', isBusy);
+
+  function finish(quick) {
+    var st = ER.state(), mins = SR.minutesPlayed(), hn = ER.hintsUsed();
+    $('#ticket').classList.remove('ready');
+    $('#d-time').textContent = 'From the tipping hall to the weighbridge: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' clues and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    if (quick) ER.say('Ten to four. Sixteen clean bales, and a machine that has been taught properly.');
+  }
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Mostly Paper &middot; in your own words</h4><h3>Have your say</h3>' +
+      '<p>Explain to a friend why the Eye put the blue cans in with the paper, and how the Murf put it right.</p>' +
+      '<p>Then: a supermarket wants a camera that picks out bruised apples. What examples would you give it, and how would you test it? Say it aloud, or write 60 to 100 words. Use: because, so, but, unless.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Name</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

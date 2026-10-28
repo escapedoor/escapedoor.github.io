@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Bale Yard · Mostly Paper</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-ai.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="sorter.css">
+<style>
+  body{--bg:#3a3c38;--accent:#f2c230;--font-display:'Stardos Stencil',sans-serif;--font-ui:'Outfit',sans-serif;--font-body:'Literata',serif;
+    --tc-bg:rgba(34,36,32,.96);--tc-ink:#f0efe8;--cap-bg:rgba(34,36,32,.94);--cap-ink:#f0efe8;--panel:#262824;--panel-ink:#f0efe8;--face-bg:#4a4436;--q-ink:#f2c230;
+    --fade:#141512;--hud-bg:rgba(34,36,32,.84);--hud-ink:#f0efe8;--hud-line:rgba(240,239,232,.25);--ov-bg:rgba(10,11,9,.74)}
+  .tc-room{font-size:clamp(40px,5.8vw,82px);color:#f2c230}
+  .tc-theme{color:#c9e0b8}
+  .tk-role{color:#f2c230}
+  .hbtn b{color:#1b1d20}
+  .rip{animation:rip 2.4s ease-out infinite;transform-box:fill-box;transform-origin:50% 50%;opacity:0}
+  .rip.p2{animation-delay:-.8s}.rip.p3{animation-delay:-1.6s}
+  @keyframes rip{0%{opacity:.7;transform:scale(.2)}100%{opacity:0;transform:scale(1.4)}}
+  #tail{animation:tail 3s ease-in-out infinite;transform-origin:540px 846px}
+  @keyframes tail{50%{transform:rotate(14deg)}}
+  #tableglow{animation:tg 3s steps(2,end) infinite}
+  @keyframes tg{50%{opacity:.8}}
+
+  /* the light table and the drawer */
+  .yd{width:min(1180px,97vw)}
+  .yd-in{background:#26292b;border:8px solid #4a4e50;border-radius:6px;padding:10px 12px;box-shadow:0 26px 70px rgba(0,0,0,.6);color:#eceee8;font-family:'Outfit',sans-serif}
+  .yd-hd{margin:0 0 8px;font-size:14px}
+  .yd-hd b{font-family:'Stardos Stencil',sans-serif;font-size:21px;font-weight:700;letter-spacing:.05em;color:#f2c230;margin-right:10px}
+  .lt{display:grid;grid-template-columns:1fr 280px;gap:14px}
+  .glass{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:8px;background:#f6f8f2;border-radius:4px;box-shadow:inset 0 0 40px rgba(255,250,220,.9)}
+  .ph{background:#fff;border:1px solid #c9ccc4;border-radius:2px;padding:1px 1px 2px;text-align:center}
+  .ph svg{display:block;width:100%;height:auto}
+  .ph b{display:block;font-family:'Kalam',cursive;font-weight:700;font-size:11px;line-height:1;color:#1f4f8a}
+  .cnt{background:#f4f6f2;color:#1b1d20;border-radius:3px;padding:10px 12px;align-self:start}
+  .cnt h5{margin:0 0 6px;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  .dl{display:flex;align-items:center;gap:4px;margin:0 0 7px}
+  .dl label{flex:1;font-size:14px;line-height:1.2}
+  .dl .v{min-width:46px;text-align:right;font-family:'Kalam',cursive;font-size:26px;line-height:1;color:#1f4f8a;margin-right:4px}
+  .dl button{padding:3px 6px;border:1px solid #9aa2a8;border-radius:3px;font-family:'Roboto Mono',monospace;font-size:12px;background:#fff}
+  .dl button:hover{border-color:#1b1d20}
+  .cnt p{margin:8px 0 6px;font-size:13.5px;line-height:1.32;color:#3a4248}
+  .shelf{display:grid;grid-template-columns:repeat(7,1fr);align-content:start;align-items:start;gap:6px;min-height:248px;padding:8px;background:#5a4a3a;border-radius:4px}
+  .bu{display:flex;flex-direction:column;background:#f4f2ea;color:#1b1d20;border-radius:3px;padding:4px 6px 5px;cursor:grab;touch-action:none;min-width:0;border-top:7px solid #999}
+  .bu.held{outline:3px solid #f2c230;outline-offset:1px}
+  .bu.fly{position:fixed;z-index:200;pointer-events:none;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+  .bu.k-p{border-top-color:#c9a226}.bu.k-c{border-top-color:#4a6274}.bu.k-o{border-top-color:#4a7a3a}.bu.k-t{border-top-color:#1b2a4a}.bu.k-x{border-top-color:#9aa0a6}
+  .bu .id{display:flex;justify-content:space-between;align-items:baseline;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:16px}
+  .bu .id small{font-family:'Roboto Mono',monospace;font-weight:400;font-size:10.5px;color:#5a6066}
+  .bu .ic{display:flex;gap:2px;justify-content:center}
+  .bu .ic svg{width:42px;height:35px}
+  .bu p{margin:2px 0 0;font-size:12.2px;line-height:1.2}
+  .bu p i{display:block;font-style:normal;font-family:'Roboto Mono',monospace;font-size:10.5px;color:#5a6066;margin-top:2px}
+  .bu p i.no{color:#b03a2a}
+  .bu.k-t p,.bu.k-t .id{font-family:'Kalam',cursive}
+  .drawer{margin-top:8px;padding:8px;background:#7a8086;border-radius:4px;box-shadow:inset 0 6px 0 rgba(0,0,0,.2)}
+  .drawer h5{margin:0 0 6px;display:flex;justify-content:space-between;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:16px;letter-spacing:.05em;color:#1b1d20}
+  .drawer h5 span{font-family:'Roboto Mono',monospace;font-weight:400;font-size:12.5px;letter-spacing:0}
+  .dslots{display:grid;grid-template-columns:repeat(9,1fr);gap:5px}
+  .ds{min-height:118px;border:2px dashed rgba(0,0,0,.35);border-radius:4px;display:flex;background:rgba(255,255,255,.12)}
+  .ds .bu{flex:1;padding:3px 4px}
+  .ds .bu .ic svg{width:30px;height:25px}
+  .ds .bu p{font-size:11px}
+  .ds .bu p i{display:none}
+  .bu.bad{outline:4px solid #ff6b5a}
+  .yd .pmsg{color:#f0efe8}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a8488"/><stop offset="1" stop-color="#aab2b2"/></linearGradient>
+  <linearGradient id="tarmac" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4d4a"/><stop offset="1" stop-color="#2e302e"/></linearGradient>
+  <pattern id="cab" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#7b8e9a"/><rect width="4" height="40" fill="#6a7c88"/></pattern>
+  <radialGradient id="tgG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fffbe0" stop-opacity=".9"/><stop offset="1" stop-color="#fffbe0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1200" fill="url(#sky)"/>
+<g fill="#8a9494"><path d="M760 560q80 -70 180 -50t200 -20t240 30t220 -10t1200 40V620H760z"/></g>
+<rect x="760" y="560" width="1840" height="70" fill="#6a7270"/><g stroke="#4a5250" stroke-width="3"><path d="M760 600H2600"/><path d="M800 600v-40M880 600v-40M960 600v-40M1440 600v-40M1520 600v-40M1600 600v-40"/></g>
+<!-- the high roof over the left half -->
+<path d="M-1000 -400H900V120L-1000 150z" fill="#33383a"/><path d="M-1000 150L900 120" stroke="#1f2426" stroke-width="16"/>
+<rect x="-1000" y="150" width="1880" height="480" fill="#454a48"/>
+<path d="M880 120V800" stroke="#2a2f31" stroke-width="22"/><path d="M200 140V800" stroke="#2a2f31" stroke-width="18"/>
+<g id="rain"></g>
+<!-- the bales -->
+<g id="bales" class="hot"><g id="baleset"></g></g>
+<!-- the paper poster on the pillar -->
+<g id="pposter" class="hot"><rect x="140" y="300" width="120" height="150" fill="#f3f8ee" stroke="#4a6a50" stroke-width="3"/><rect x="140" y="300" width="120" height="22" fill="#2f7a3a"/><text x="200" y="316" class="cO" font-size="12" font-weight="800" text-anchor="middle" fill="#fff">PAPER</text>
+  <text x="200" y="370" class="cO" font-size="34" font-weight="800" text-anchor="middle" fill="#2f7a3a">5–7</text><text x="200" y="392" class="cO" font-size="12" text-anchor="middle" fill="#16301c">times round</text>
+  <g stroke="#2f7a3a" stroke-width="3" fill="none"><path d="M168 420q32 -18 64 0"/><path d="M226 414l6 6 -8 4"/></g></g>
+<!-- the yard office -->
+<g id="office"><rect x="960" y="330" width="500" height="380" fill="url(#cab)" stroke="#4a5a64" stroke-width="5"/><rect x="950" y="318" width="520" height="20" fill="#5a6a74"/>
+  <rect x="1020" y="660" width="40" height="60" fill="#3a3f42"/><rect x="1380" y="660" width="40" height="60" fill="#3a3f42"/>
+  <text x="1210" y="370" class="cS" font-size="24" text-anchor="middle" fill="#1b2a34">YARD OFFICE</text></g>
+<g id="window" class="hot"><rect x="990" y="400" width="200" height="130" fill="#26302f" stroke="#e8ecea" stroke-width="6"/><ellipse id="tableglow" cx="1090" cy="490" rx="90" ry="34" fill="url(#tgG)"/><rect x="1020" y="480" width="140" height="18" fill="#f6f8f2"/><g fill="#9aa5ae"><rect x="1026" y="472" width="12" height="9"/><rect x="1046" y="472" width="12" height="9"/><rect x="1066" y="472" width="12" height="9"/><rect x="1110" y="472" width="12" height="9"/></g><rect x="1130" y="420" width="44" height="40" fill="#5a6066"/><rect x="1136" y="426" width="32" height="20" fill="#7fc4e8"/><path d="M1090 400v130M990 465h200" stroke="#e8ecea" stroke-width="4"/></g>
+<g id="manual" class="hot"><rect x="1200" y="420" width="50" height="66" fill="#fbfbf8" stroke="#8a9096" stroke-width="2"/><rect x="1200" y="420" width="50" height="7" fill="#f2c230"/><text x="1225" y="440" class="cM" font-size="6.5" text-anchor="middle" fill="#1b1d20">PAGE 15</text><g fill="#9aa0a6"><rect x="1206" y="446" width="38" height="3"/><rect x="1206" y="453" width="32" height="3"/><rect x="1206" y="466" width="18" height="14" fill="#cfd3d6"/><rect x="1228" y="468" width="16" height="3"/></g></g>
+<g id="door"><rect x="1270" y="420" width="110" height="250" fill="#5a6a74" stroke="#3a4a54" stroke-width="4"/><circle cx="1364" cy="550" r="6" fill="#c9ccd0"/><path d="M1250 670h150v18h-150zM1236 688h178v18h-178z" fill="#6a6a62"/></g>
+<g id="letter" class="hot"><rect x="1290" y="446" width="64" height="84" fill="#fffdf6" stroke="#9a9a8a" stroke-width="2" transform="rotate(-3 1322 488)"/><g transform="rotate(-3 1322 488)"><rect x="1298" y="454" width="48" height="8" fill="#2d4a3a"/><g fill="#9a9a8a"><rect x="1298" y="470" width="46" height="3"/><rect x="1298" y="478" width="40" height="3"/><rect x="1298" y="486" width="44" height="3"/><rect x="1298" y="494" width="36" height="3"/></g><text x="1322" y="518" class="cK" font-size="11" text-anchor="middle" fill="#c0392b">4 p.m.!</text></g></g>
+<g id="clock" class="hot"><circle cx="1420" cy="390" r="24" fill="#fff" stroke="#3a3f42" stroke-width="4"/><path d="M1420 390l6 -18M1420 390l12 6" stroke="#1b1d20" stroke-width="3" stroke-linecap="round"/></g>
+<!-- the ground: dry under the roof, puddles in the rain -->
+<rect x="-1000" y="690" width="3600" height="600" fill="url(#tarmac)"/>
+<path d="M880 690L860 1300" stroke="#262826" stroke-width="6"/>
+<g fill="#7a8484" opacity=".55"><ellipse cx="1060" cy="790" rx="110" ry="14"/><ellipse cx="1400" cy="840" rx="140" ry="16"/><ellipse cx="1700" cy="770" rx="90" ry="10"/></g>
+<g fill="none" stroke="#c9d4d6" stroke-width="2"><ellipse class="rip" cx="1040" cy="790" rx="30" ry="5"/><ellipse class="rip p2" cx="1420" cy="842" rx="34" ry="6"/><ellipse class="rip p3" cx="1100" cy="792" rx="24" ry="4"/><ellipse class="rip" cx="1700" cy="770" rx="26" ry="4"/></g>
+<!-- the forklift with a bale -->
+<g id="forklift" class="hot"><rect x="640" y="600" width="140" height="150" rx="10" fill="#f2c230" stroke="#8a6a00" stroke-width="4"/><path d="M650 600v-110h120v110" fill="none" stroke="#2a2f33" stroke-width="10"/><rect x="660" y="500" width="100" height="10" fill="#2a2f33"/>
+  <path d="M780 560h40v200M800 760h-30" stroke="#3a3f42" stroke-width="10" fill="none"/><path d="M820 740h70" stroke="#3a3f42" stroke-width="10"/>
+  <rect x="824" y="640" width="96" height="96" fill="#d8d0b8" stroke="#6a6250" stroke-width="3"/><path d="M824 672h96M824 704h96" stroke="#4a4a4a" stroke-width="2"/><path d="M856 690l12 -4 3 14 -12 4z" fill="#3c6fb2"/>
+  <circle cx="670" cy="770" r="26" fill="#1b1d20"/><circle cx="760" cy="770" r="26" fill="#1b1d20"/><circle cx="670" cy="770" r="9" fill="#7a8086"/><circle cx="760" cy="770" r="9" fill="#7a8086"/></g>
+<!-- Lyle's crate, the cat -->
+<path d="M470 880v-70h110v70z" fill="#1f5fa8" stroke="#134070" stroke-width="4"/>
+<g id="cat" class="hot"><path d="M500 846q0 -36 34 -40q32 4 34 40z" fill="#7a7468"/><circle cx="560" cy="800" r="18" fill="#7a7468"/><path d="M548 786l4 -16 8 12zM566 784l8 -14 2 16z" fill="#7a7468"/><circle cx="555" cy="798" r="2.5" fill="#d9e04a"/><circle cx="566" cy="798" r="2.5" fill="#d9e04a"/>
+  <path d="M514 816q8 -4 16 0M520 830q8 -4 16 0" stroke="#5a5448" stroke-width="3" fill="none"/><g id="tail"><path d="M502 840q-34 -6 -40 -40" fill="none" stroke="#7a7468" stroke-width="9" stroke-linecap="round"/></g></g>
+<g id="lyle" class="hot" transform="translate(420 896)"></g>
+<g id="jaz" class="hot" transform="translate(1500 896) scale(.97)"></g>
+<rect x="-1000" y="-400" width="3600" height="1720" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Out to the weighbridge</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="sorter.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lock = null, lyleN = 0, jazN = 0;
+  /* Ilona's fifty cards, in the order they lie on the light table */
+  var FIFTY = (function () {
+    var out = [], i, paper = ['newspaper', 'card', 'newspaper', 'eggbox', 'newspaper', 'card'], pk = 0;
+    var special = { 6: ['canSilverCrushed', 'CAN'], 15: ['canSilverRound', 'CAN'], 22: ['bottle', 'OTHER'], 30: ['canSilverCrushed', 'CAN'], 43: ['canSilverRound', 'CAN'],
+      11: ['magazine', 'PAPER'], 27: ['magazine', 'PAPER'], 38: ['magazine', 'PAPER'] };
+    for (i = 0; i < 50; i++) { if (special[i]) out.push(special[i]); else out.push([paper[pk++ % paper.length], 'PAPER']); }
+    return out;
+  })();
+  var BUND = [
+    { id: 'p1', c: 'p', cls: 'PAPER', t: 'Newspapers and leaflets', ic: ['newspaper', 'newspaper'], ok: 'checked: L.H. and J.I.' },
+    { id: 'c1', c: 'c', cls: 'CAN', t: 'Silver cans, crushed and round', ic: ['canSilverCrushed', 'canSilverRound'], ok: 'checked: L.H. and J.I.' },
+    { id: 'o1', c: 'o', cls: 'OTHER', t: 'Plastic bottles', ic: ['bottle', 'bottle'], ok: 'checked: L.H. and J.I.' },
+    { id: 't', c: 't', cls: 'MIXED', t: 'OURS. DO NOT TRAIN. The ten you labelled this morning.', ic: ['canBlueCrushed', 'carton'], ok: '4 CAN, 3 PAPER, 3 OTHER' },
+    { id: 'p2', c: 'p', cls: 'PAPER', t: 'Brown card and egg boxes', ic: ['card', 'eggbox'], ok: 'checked: L.H. and J.I.' },
+    { id: 'c4', c: 'c', cls: 'CAN', t: 'Cans and tins, labelled in September by the agency temp', ic: ['tin', 'canSilverCrushed'], ok: 'NOT CHECKED', no: 1 },
+    { id: 'o2', c: 'o', cls: 'OTHER', t: 'Cartons and paper cups', ic: ['carton', 'cup'], ok: 'checked: L.H. and J.I.' },
+    { id: 'p3', c: 'p', cls: 'PAPER', t: 'Glossy magazines and catalogues, shiny', ic: ['magazine', 'catalogue'], ok: 'checked: L.H. and J.I.' },
+    { id: 'c2', c: 'c', cls: 'CAN', t: 'KILVERLEY SPRING cans, matt blue, crushed and round', ic: ['canBlueCrushed', 'canBlueRound'], ok: 'checked: L.H. and J.I.' },
+    { id: 'x', c: 'x', cls: 'NO LABEL', t: 'Today&rsquo;s belt: photos from the Eye&rsquo;s camera', ic: ['blur', 'blur'], ok: 'not labelled yet', no: 1 },
+    { id: 'o3', c: 'o', cls: 'OTHER', t: 'Crisp packets and pouches, shiny', ic: ['crisps', 'crisps'], ok: 'checked: L.H. and J.I.' },
+    { id: 'p4', c: 'p', cls: 'PAPER', t: 'More newspapers and leaflets', ic: ['newspaper', 'newspaper'], ok: 'checked: L.H. and J.I.' },
+    { id: 'c3', c: 'c', cls: 'CAN', t: 'Food tins, with and without paper wrappers', ic: ['tin', 'tin'], ok: 'checked: L.H. and J.I.' }
+  ];
+  function bund(id) { for (var i = 0; i < BUND.length; i++) if (BUND[i].id === id) return BUND[i]; return null; }
+
+  (function () {
+    var s = '', i, x, y, cols = ['#d8d0b8', '#cdbf98', '#d9d4c4', '#c8c0a8'];
+    for (i = 0; i < 24; i++) {
+      x = -560 + (i % 8) * 132; y = 600 - Math.floor(i / 8) * 104;
+      s += '<rect x="' + x + '" y="' + y + '" width="126" height="100" fill="' + cols[i % 4] + '" stroke="#6a6250" stroke-width="3"/><path d="M' + (x + 4) + ' ' + (y + 34) + 'h118M' + (x + 4) + ' ' + (y + 68) + 'h118" stroke="#4a4a4a" stroke-width="2"/>' +
+        '<g fill="#8a8578" opacity=".5"><rect x="' + (x + 12) + '" y="' + (y + 10) + '" width="36" height="9"/><rect x="' + (x + 70) + '" y="' + (y + 44) + '" width="40" height="8"/></g>';
+    }
+    s += '<path d="M-300 640l16 -6 4 20 -16 6z" fill="#3c6fb2"/><path d="M90 520l16 -6 4 20 -16 6z" fill="#3c6fb2"/><path d="M-120 430l14 -5 4 18 -14 5z" fill="#3c6fb2"/>';
+    s += '<rect x="-540" y="300" width="300" height="34" fill="#2a2f31"/><text x="-390" y="324" class="cS" font-size="20" text-anchor="middle" fill="#f2c230">JEBB&#39;S MILL · TUESDAY</text>';
+    $('#baleset').innerHTML = s;
+    $('#rain').innerHTML = SR.rain(900, 120, 1700, 620, 120, '#dde6e8');
+    $('#lyle').innerHTML = SR.who('lyle', { smile: 1, extra: '<ellipse cx="44" cy="-118" rx="14" ry="9" fill="#c9924a"/>' });
+    $('#jaz').innerHTML = SR.who('jaz', { smile: 2 });
+  })();
+
+  ER.init({
+    theme: 'ai', story: 'sorter', storyTitle: 'Mostly Paper', id: 'yard', no: 'IV', title: 'The Bale Yard',
+    go: 'Out into the rain',
+    intro: [
+      'The ten photos went straight into the Eye&rsquo;s computer: no belt, no lens. It got five of the ten right (50%) and one of the four cans (25%). Ilona had tested it on the same fifty photos it learnt from, so her 94% only showed that it remembered them. The reason is not the motor, and it is not Lyle&rsquo;s cloth. It is in what the Eye learnt.',
+      'The bale yard is at the back of the Murf, half under a high roof and half out in the rain. The bales wait here for the mill, and so does the yard office, where Gannaway&rsquo;s training kit lives.',
+      'Twenty past one. Jaz and Lyle have spent their lunch with a camera.'
+    ],
+    exit: {"next":"weighbridge","w":{"3472bec1":"38e078d5","1f96c478":"2e889039"}}, tags: {"pa":["107b3f77"],"ca":["9a990fae"],"ot":["140afc78"],"lz":["8d79f8b3"],"bad":["f0e7a665","abd62ae9","f8ec2b54"],"need":["571b3d34","0dc7b711"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function ready() { return told.lyle && told.jaz && told.manual; }
+  function paint() {
+    $('#window').classList.toggle('ready', !!(ready() && !nextFile));
+    ER.pips((told.lyle ? 1 : 0) + (told.jaz ? 1 : 0) + (told.manual ? 1 : 0) + (ER.flag('d-counted') ? 1 : 0) + (nextFile ? 1 : 0), 5);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The drawer is learning. Out to the weighbridge: the button at the bottom of the screen.']];
+    if (lock && lock.isOpen()) {
+      if (lock.part() === 1) return ['count', [
+        'Count the handwritten labels on Ilona&rsquo;s fifty cards: PAPER, CAN and OTHER.',
+        'It is quicker to find the few that are not PAPER, and take them away from 50.',
+        'An Eye that always says PAPER is right on every PAPER card and wrong on every other one: right ÷ 50 × 100.'
+      ]];
+      return ['drawer', [
+        'Page fifteen: count each class and balance them, give variety, use checked labels only, and never train on your test examples.',
+        'Three bundles must stay out whatever you do: one has no labels, one was never checked, and one is your test. Then the drawer must hold the same number of each class: three bundles each.',
+        'For variety, the paper must include something shiny, just as the cans include something matt. And half the belt is card: that paper must be there too.'
+      ]];
+    }
+    if (!told.lyle) return ['lyle', ['Somebody labelled bundles of photos over lunch.', 'Lyle, under the roof on the left, by the blue crate, with his lunch and the cat.']];
+    if (!told.jaz) return ['jaz', ['Jaz is waiting at the yard office.', 'The yard office is the grey-blue cabin on the right. Jaz is out in the rain beside it.']];
+    if (!told.manual) return ['manual', ['Jaz said a page of the manual is on the office wall.', 'Page fifteen is on the yard office wall, between the window and the door.']];
+    return ['window', ['Everything is ready inside the yard office.', 'Click the yard office window, where the light table glows.']];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; $('#go').classList.add('on'); ER.say('Ninety cards in the drawer, thirty of each. The kit is learning.'); return; }
+    if (told.inn) { busy = false; ER.say('The bale yard. Rain on the roof, and the clock on the office wall.'); return; }
+    tell('inn');
+    ER.narrate([
+      'Under the high roof the bales stand in rows, each one tied with wire and taller than you. In the sides of three of them, something blue shows through the paper.',
+      'Out in the rain, the yard office is a grey-blue cabin with a window, and through the window a white glow: a light table. A letter is taped to the office door. Somebody has written 4 p.m.! on it in red.',
+      'Lyle stands under the roof, out of the rain, eating a pork pie. A grey cat sits on the blue crate beside him and watches the pie.'
+    ], function () { busy = false; });
+  }
+
+  $('#lyle').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Thirty of each,&rdquo; says Lyle. &ldquo;Fair&rsquo;s fair. Even the crisp packets get a say.&rdquo;'); return; }
+    if (told.lyle) { var L = ['&ldquo;Gubbins,&rdquo; says Lyle to the cat. &ldquo;Nobody asked you.&rdquo;', '&ldquo;Checked labels,&rdquo; says Lyle. &ldquo;Not the agency lad&rsquo;s.&rdquo;']; ER.say(L[lyleN++ % L.length]); return; }
+    ER.talk({
+      who: 'Lyle Hepple', role: 'Picker · on his lunch break', face: SR.face('lyle'),
+      lines: [
+        { note: 'Gina has told him. He is nearly smiling.', a: '&ldquo;We did bundles,&rdquo; says Lyle. &ldquo;Jaz took the photos, I wrote the labels, she checked mine and I checked her checking. Ten photos to a bundle. Every kind of thing we could find on the belt.&rdquo;' },
+        { q: 'Are they all checked?', a: '&ldquo;All of ours. There&rsquo;s one bundle on that shelf from September that the agency lad labelled on his own, on his last afternoon. Nobody checked it. I had a look at lunch. He&rsquo;s labelled two cans PAPER. He was in a hurry for his bus.&rdquo;' },
+        { q: 'What should the Eye learn from?', a: 'Everything it&rsquo;s going to meet. Shiny cans and dull ones. Shiny paper and dull paper. Card, crisp packets, cartons, the lot. Show it one sort of can and it learns that sort of can. Show it all sorts, and it has to learn what a can is.' },
+        { q: 'Is the belt really mostly paper?', a: '&ldquo;Nine-tenths paper, most days. Always has been. That&rsquo;s not the Eye&rsquo;s fault. But it doesn&rsquo;t have to learn nine-tenths paper as well.&rdquo;' },
+        { a: '&ldquo;Gubbins,&rdquo; says Lyle to the cat, who has moved closer to the pie. &ldquo;Nobody asked you.&rdquo;' }
+      ],
+      clue: { id: 'lyle4', title: 'Lyle: every kind it will meet', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('lyle')) { paint(); ER.say('Checked labels, every kind of thing. Jaz is at the yard office.'); } }
+    });
+  });
+
+  $('#jaz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Fifty-five minutes, it says,&rdquo; says Jaz. &ldquo;Then we test it on our ten.&rdquo;'); return; }
+    if (told.jaz) { var J = ['&ldquo;Page fifteen,&rdquo; says Jaz. &ldquo;On the office wall. Then the light table.&rdquo;', '&ldquo;Count first,&rdquo; says Jaz. &ldquo;Then choose.&rdquo;']; ER.say(J[jazN++ % J.length]); return; }
+    ER.talk({
+      who: 'Jaz Iqbal', role: 'Maintenance apprentice · wet', face: SR.face('jaz'),
+      lines: [
+        { a: '&ldquo;Ilona&rsquo;s fifty are on the light table,&rdquo; says Jaz. &ldquo;I tipped them out of the drawer. Before we put anything new in, I want to count what she gave it.&rdquo;' },
+        { q: 'Why count?', a: '&ldquo;Because her log says forty-five paper, four cans and one other, and I&rsquo;d like to see that with my own eyes. And because page fifteen says count. It&rsquo;s on the office wall.&rdquo;' },
+        { q: 'Then what?', a: 'Then we fill the drawer again. It takes ninety cards: nine bundles of ten. We choose them from the shelf. The Eye learns from whatever we put in, and from nothing else, so think.' },
+        { a: '&ldquo;It takes about an hour to learn,&rdquo; says Jaz. &ldquo;If we want it back on the belt before the lorry, we get the drawer right first time. Or second.&rdquo;' }
+      ],
+      clue: { id: 'jaz4', title: 'Jaz: nine bundles of ten', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('jaz')) { paint(); ER.say('Page fifteen on the office wall. Then the light table, through the window.'); } }
+    });
+  });
+
+  var MANUAL = '<div class="band"></div><div class="hd"><span>GANNAWAY EYE &middot; OPERATOR&rsquo;S MANUAL</span><span>15</span></div>' +
+    '<h4>Choosing examples</h4><div class="two"><div>' +
+    '<p>The Eye learns the patterns in what you give it, and nothing else.</p>' +
+    '<p><b>Count each class.</b> A class is one kind of label: PAPER, CAN or OTHER. If 90 of every 100 examples are paper, an Eye that says PAPER every time, without looking, is right 90 times in 100. Its score looks good, and it is useless.</p>' +
+    '</div><div class="fig"><svg viewBox="0 0 270 150" width="270" height="150"><path d="M70 20v20M20 40h100" stroke="#1b1d20" stroke-width="4"/><path d="M20 40l-14 40h28zM120 40l-14 30h28z" fill="none" stroke="#1b1d20" stroke-width="3"/>' +
+    '<rect x="6" y="80" width="28" height="30" fill="#e9d9a6"/><text x="20" y="128" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#1b1d20">45</text><rect x="110" y="62" width="20" height="8" fill="#9fb4c4"/><text x="120" y="96" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#1b1d20">5</text>' +
+    '<path d="M200 20v20M150 50h100" stroke="#1b1d20" stroke-width="4"/><g fill="#e9d9a6"><rect x="150" y="60" width="26" height="26"/></g><rect x="187" y="60" width="26" height="26" fill="#9fb4c4"/><rect x="224" y="60" width="26" height="26" fill="#c9e0b8"/>' +
+    '<text x="200" y="110" text-anchor="middle" font-family="Roboto Mono" font-size="11" fill="#1b1d20">30 · 30 · 30</text><text x="70" y="146" text-anchor="middle" font-family="Roboto Mono" font-size="10" fill="#5a6066">lopsided</text><text x="200" y="146" text-anchor="middle" font-family="Roboto Mono" font-size="10" fill="#5a6066">balanced</text></svg><small>Fig. 15a: count, then balance</small></div></div>' +
+    '<p><b>Balance.</b> Give it about the same number of examples of each class. <b>Variety.</b> In each class, give it every kind of thing it will meet: every colour, shiny and matt, crushed and not. Otherwise it may lean on a feature that just happened to be true of your examples.</p>' +
+    '<p><b>Checked labels only.</b> A wrong label teaches a wrong lesson. <b>Never train on your test examples.</b></p>' +
+    '<div class="pg">Gannaway Robotics &middot; EYE-3 &middot; page 15 of 40</div>';
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'sr-manual', clue: { id: 'manual15', title: 'Manual, page 15: choosing examples', kind: 'On the office wall' }, done: function () {
+      SR.terms(['class', 'lopsided', 'balanced', 'variety']);
+      if (tell('manual')) { paint(); ER.say('Count each class. Balance. Variety. Checked labels only. Never train on your test examples.'); }
+    } });
+  });
+  var LETTER = '<h4>Jebb&rsquo;s Mill</h4><h5>PAPER FOR RECYCLING &middot; SINCE 1921</h5><p>Dear Mrs Hulme,</p>' +
+    '<p>In Friday&rsquo;s load from Kilverley (15 bales) we found drinks cans in 11 of the bales: 31 cans in all, every one of them aluminium, and blue.</p>' +
+    '<p>Metal in our pulper damages the screens and stops the paper machine. I am afraid we have sent the load back to you.</p>' +
+    '<p>If the next load has metal in it, we shall have to stop taking paper from Kilverley. Our lorry will call on Tuesday at 4 p.m. as usual.</p>' +
+    '<p>Yours sincerely,<br>L. Jebb (Mrs), Mill Manager</p>';
+  $('#letter').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LETTER, cls: 'sr-letter', clue: { id: 'letter', title: 'The letter from Jebb&rsquo;s Mill', kind: 'Taped to the door' }, done: function () {
+      SR.terms(['contamination']);
+      if (tell('letter')) ER.say('Thirty-one cans in eleven bales. Every one aluminium, and blue. The lorry at four.');
+    } });
+  });
+  var PPOSTER = '<h4>Paper goes round five to seven times</h4><p>Paper is made of tiny wood <b>fibres</b>. Each time paper is recycled, the fibres get a little shorter and weaker. After about five to seven times round, they are too short to hold together, and the mill has to mix in some new fibre.</p>' +
+    '<p>So keep it clean. No metal, no food, no plastic: one can in a bale can stop a paper machine.</p>';
+  $('#pposter').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PPOSTER, cls: 'sr-leaflet', clue: { id: 'fibres', title: 'Poster: paper goes round five to seven times', kind: 'On the pillar' }, done: function () {
+      SR.terms(['fibre']);
+      if (tell('pposter')) ER.say('Five to seven times round. As long as nobody puts a can in it.');
+    } });
+  });
+  SR.thing('#cat', 'Gubbins', 'Gubbins, the yard cat. Nobody knows whose he is. He is in charge of mice, and of other people&rsquo;s lunches.', isBusy);
+  SR.thing('#bales', 'bale', 'This week&rsquo;s bales for the mill, fifteen of them so far. In three, a blue can shows through the paper. Somebody will have to open those up.', isBusy);
+  SR.thing('#forklift', 'forklift', 'The forklift, with a bale on its forks. It beeps when it backs up, like everything else here.', isBusy);
+  SR.thing('#clock', null, 'Twenty past one, by the office clock. Which is four minutes fast, Lyle says. It has been four minutes fast since 2011.', isBusy);
+  $('#window').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Through the window: the drawer full, the screen saying LEARNING, and Gubbins asleep on box B.'); return; }
+    if (!told.lyle) { ER.say('&ldquo;Ask Lyle about the bundles first,&rdquo; says Jaz. &ldquo;He labelled them.&rdquo;'); return; }
+    if (!told.jaz) { ER.say('The light table glows through the window. Jaz is by the office: she has a plan.'); return; }
+    if (!told.manual) { ER.say('&ldquo;Page fifteen first,&rdquo; says Jaz. &ldquo;On the wall, by the door.&rdquo;'); return; }
+    if (!lock) lock = makeLock();
+    lock.open();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the light table (count), then the drawer (choose) ---------- */
+  function makeLock() {
+    var part = ER.flag('d-counted') ? 2 : 1, wait = false, val = ER.flag('d-val') || { pa: 0, ca: 0, ot: 0, lz: 0 }, saved = ER.flag('d-put') || [];
+    var box = ER.el('div', 'pz yd'), msgEl;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function dial(k, label) {
+      return '<div class="dl" data-k="' + k + '"><label>' + label + '</label><span class="v"></span><button type="button" data-d="-10">−10</button><button type="button" data-d="-1">−1</button><button type="button" data-d="1">+1</button><button type="button" data-d="10">+10</button></div>';
+    }
+    function render() {
+      if (part === 1) {
+        box.innerHTML = '<div class="yd-in"><div class="yd-hd"><b>THE LIGHT TABLE</b>Ilona&rsquo;s fifty training cards, as they came out of the drawer. Each has her label on it.</div><div class="lt"><div class="glass">' +
+          FIFTY.map(function (f) { return '<div class="ph">' + SR.icon(f[0], 60) + '<b>' + f[1] + '</b></div>'; }).join('') + '</div>' +
+          '<div class="cnt"><h5>Count each class</h5>' + dial('pa', 'PAPER') + dial('ca', 'CAN') + dial('ot', 'OTHER') +
+          '<p>An Eye that said PAPER every time, without looking, would be right on how many per cent of these fifty?</p>' + dial('lz', 'per cent') + '</div></div></div>' +
+          '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="yd-count">Write it on the drawer</button></div>';
+        msgEl = box.querySelector('.pmsg');
+        ER.$$('.dl', box).forEach(function (d) {
+          var k = d.getAttribute('data-k'), v = d.querySelector('.v');
+          function show() { v.textContent = val[k] + (k === 'lz' ? '%' : ''); }
+          ER.$$('button', d).forEach(function (b) { b.addEventListener('click', function () { if (wait) return; val[k] = Math.max(0, Math.min(100, val[k] + parseInt(b.getAttribute('data-d'), 10))); ER.flag('d-val', val); SR.sfx.dial(); show(); }); });
+          show();
+        });
+        box.querySelector('#yd-count').addEventListener('click', count);
+        msg('Count Ilona&rsquo;s labels, class by class. Then work out the score of an Eye that never looks.');
+      } else {
+        box.innerHTML = '<div class="yd-in"><div class="yd-hd"><b>THE DRAWER</b>It takes nine bundles of ten. Drag a bundle from the shelf into the drawer, or click a bundle and then a place.</div>' +
+          '<div class="shelf" id="yd-home">' + BUND.map(function (b) {
+            return '<div class="bu dnd-item k-' + b.c + '" data-id="' + b.id + '"><span class="id">' + b.id.toUpperCase() + '<small>' + b.cls + '</small></span><span class="ic">' + SR.icon(b.ic[0], 42) + SR.icon(b.ic[1], 42) + '</span><p>' + b.t + '<i' + (b.no ? ' class="no"' : '') + '>' + b.ok + '</i></p></div>';
+          }).join('') + '</div>' +
+          '<div class="drawer"><h5>TRAINING DRAWER<span id="yd-tally"></span></h5><div class="dslots">' + new Array(10).join('<div class="ds"></div>') + '</div></div></div>' +
+          '<div class="pz-foot"><p class="pmsg"></p><button type="button" class="btn" id="yd-go">Shut the drawer and train</button></div>';
+        msgEl = box.querySelector('.pmsg');
+        var home = box.querySelector('#yd-home'), slots = ER.$$('.ds', box);
+        saved.forEach(function (id, i) { var it = home.querySelector('.bu[data-id="' + id + '"]'); if (it && slots[i]) slots[i].appendChild(it); });
+        ER.dnd(box, { item: '.bu', slot: '.ds', home: home, lock: function () { return wait || !!nextFile; }, change: function () { ER.flag('d-put', inDrawer(true)); SR.sfx.card(); tally(); } });
+        box.querySelector('#yd-go').addEventListener('click', train);
+        tally();
+        msg('Choose nine bundles for the Eye to learn from. The drawer counts the classes as you go.');
+      }
+    }
+    function inDrawer(withGaps) {
+      var out = [];
+      ER.$$('.ds', box).forEach(function (s) { var it = s.querySelector('.bu'); if (it) out.push(it.getAttribute('data-id')); else if (withGaps) out.push(''); });
+      return out;
+    }
+    function counts() {
+      var o = { p: 0, c: 0, o: 0, t: 0, x: 0 };
+      inDrawer().forEach(function (id) { o[bund(id).c] += 10; });
+      return o;
+    }
+    function tally() {
+      var o = counts();
+      box.querySelector('#yd-tally').textContent = 'PAPER ' + o.p + ' · CAN ' + o.c + ' · OTHER ' + o.o + (o.t ? ' · MIXED ' + o.t : '') + (o.x ? ' · NO LABEL ' + o.x : '') + ' · cards ' + (o.p + o.c + o.o + o.t + o.x) + ' of 90';
+    }
+    function count() {
+      if (wait) return;
+      var bad = [];
+      if (!ER.check('pa', String(val.pa))) bad.push('PAPER');
+      if (!ER.check('ca', String(val.ca))) bad.push('CAN');
+      if (!ER.check('ot', String(val.ot))) bad.push('OTHER');
+      if (bad.length) { ER.sfx.no(); msg('&ldquo;Count the ' + bad.join(' and the ') + ' cards again,&rdquo; says Jaz. &ldquo;The three should come to fifty.&rdquo;' + (val.pa + val.ca + val.ot !== 50 ? ' (Yours come to ' + (val.pa + val.ca + val.ot) + '.)' : '')); return; }
+      if (!ER.check('lz', String(val.lz))) {
+        ER.sfx.no();
+        if (val.lz === val.pa) msg('&ldquo;' + val.lz + ' is how many it would get right,&rdquo; says Jaz. &ldquo;Out of fifty, as a per cent?&rdquo;');
+        else msg('&ldquo;It says PAPER every time,&rdquo; says Jaz. &ldquo;So it is right on every PAPER card, and wrong on all the rest. Right ÷ 50 × 100.&rdquo;');
+        return;
+      }
+      ER.flag('d-counted', 1); SR.sfx.thud(); paint();
+      SR.terms(['lopsided']);
+      SR.mine('count', 'Ilona&rsquo;s fifty, counted', '<p>PAPER 45, CAN 4, OTHER 1. Lopsided: 9 in every 10 are paper.</p><p>An Eye that never looks and always says PAPER: 45 right out of 50, 45 ÷ 50 × 100 = 90%. Ilona&rsquo;s pass mark was 90%. Her Eye scored 94%: only four points better than not looking at all.</p><p>And every can was silver and shiny, and every paper but three glossy magazines was matt.</p>', true);
+      part = 2; render();
+      msg('&ldquo;Forty-five, four and one,&rdquo; says Jaz. &ldquo;An Eye with its eyes shut gets ninety per cent. And her pass mark was ninety.&rdquo; She puts the fifty cards to one side. &ldquo;Now the drawer.&rdquo;');
+    }
+    function flash(id) { var n = box.querySelector('.bu[data-id="' + id + '"]'); if (!n) return; n.classList.add('bad'); setTimeout(function () { n.classList.remove('bad'); }, 1400); }
+    function train() {
+      if (wait || nextFile) return;
+      var ids = inDrawer(), i, o, file;
+      if (ids.length < 9) { ER.sfx.no(); msg('&ldquo;The drawer takes nine bundles,&rdquo; says Jaz. &ldquo;' + (9 - ids.length) + (9 - ids.length === 1 ? ' place is' : ' places are') + ' still empty.&rdquo;'); return; }
+      for (i = 0; i < ids.length; i++) {
+        if (!ER.check('bad', ids[i])) continue;
+        ER.sfx.no(); flash(ids[i]);
+        if (ids[i] === 'x') msg('&ldquo;Those haven&rsquo;t got labels yet,&rdquo; says Jaz. &ldquo;What would the Eye learn from a photo with no label? Page six.&rdquo;');
+        else if (ids[i] === 't') msg('Jaz puts her hand flat on the bundle marked OURS. &ldquo;If it learns from these,&rdquo; she says, &ldquo;what do we test it on afterwards?&rdquo;');
+        else msg('Lyle shakes his head. &ldquo;That&rsquo;s the agency lad&rsquo;s. Nobody checked it. He labelled two cans PAPER, and a wrong label teaches a wrong lesson.&rdquo;');
+        return;
+      }
+      o = counts();
+      if (o.p !== o.c || o.c !== o.o) { ER.sfx.no(); msg('&ldquo;Count the classes in the drawer,&rdquo; says Jaz. &ldquo;PAPER ' + o.p + ', CAN ' + o.c + ', OTHER ' + o.o + '. What does page fifteen say?&rdquo;'); return; }
+      for (i = 0; i < BUND.length; i++) {
+        if (ids.indexOf(BUND[i].id) >= 0 || !ER.check('need', BUND[i].id)) continue;
+        ER.sfx.no();
+        if (BUND[i].id === 'p3') msg('Lyle reads down the drawer. &ldquo;All your paper&rsquo;s dull,&rdquo; he says. &ldquo;Last time every paper it saw was dull and every can was shiny, and look what it learnt.&rdquo;');
+        else msg('&ldquo;No card and no egg boxes?&rdquo; says Jaz. &ldquo;Half of what comes down that belt is card. Every kind of thing it will meet, page fifteen says.&rdquo;');
+        return;
+      }
+      file = ER.exit([ids.slice().sort().join('-')], { wait: true });
+      if (!file) { ER.sfx.no(); msg('&ldquo;Hmm,&rdquo; says Jaz, and reads page fifteen again. &ldquo;Something&rsquo;s not right. Look at each bundle once more.&rdquo;'); return; }
+      wait = true; nextFile = file; ER.flag('d-file', file);
+      SR.terms(['balanced', 'variety', 'retrain']);
+      SR.mine('drawer', 'The new drawer', '<p>Nine bundles: PAPER 30, CAN 30, OTHER 30. Balanced.</p><p>Every kind it will meet: silver cans and matt blue ones, tins, dull paper and shiny magazines, card, bottles, cartons, crisp packets. So shine can no longer tell the classes apart on its own.</p><p>Left out: the photos with no labels, the agency bundle nobody checked, and our ten, which we keep for the test.</p>', true);
+      msg('&ldquo;Thirty, thirty, thirty,&rdquo; says Jaz. &ldquo;Every label checked. Every kind of thing. And not one of our ten.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); paint(); busy = true;
+        ER.narrate([
+          'Jaz slides the drawer shut. The kit reads the ninety cards one by one, with a soft whirr, and the screen counts them: PAPER 30. CAN 30. OTHER 30. CHECKED LABELS: 90. TEST CARDS: 0.',
+          'She presses LEARN. The screen says: ABOUT 55 MINUTES.',
+          '&ldquo;And when it&rsquo;s learnt?&rdquo; says Lyle. &mdash; &ldquo;We test it again,&rdquo; says Jaz. &ldquo;On our ten. It still hasn&rsquo;t seen them.&rdquo;',
+          '&ldquo;And if it gets them all right?&rdquo; &mdash; &ldquo;It won&rsquo;t,&rdquo; says Jaz. &ldquo;Nothing gets everything right. That&rsquo;s why you&rsquo;re staying on the paper line.&rdquo; Lyle looks pleased, and tries not to.',
+          'Gubbins the cat climbs onto the shelf and lies down on box B, the ten photos marked OURS. DO NOT TRAIN. Somebody has to guard them.'
+        ], function () { busy = false; $('#go').classList.add('on'); });
+      }, 2800);
+    }
+    render();
+    return { open: function () { ER.open('ov-lock', box); }, isOpen: function () { return !!box.parentNode; }, part: function () { return part; } };
+  }
+})();
+</script>
+</body>
+</html>

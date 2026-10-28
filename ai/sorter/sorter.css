@@ -1,0 +1,185 @@
+/* Mostly Paper - what every room shares: the papers a recycling centre keeps (pages of the machine's manual, a
+   council leaflet, a poster, a printout, a tally chart, clipboards, a letter, an email), the frame round a piece of
+   work, and a skin for the notebook, the hints and the word tags (a hi-vis clipboard). Each room sets its own palette
+   on <body>. */
+
+.tc-theme{font-family:'Roboto Mono',monospace;font-size:14px;letter-spacing:.22em}
+.tc-room{font-family:'Stardos Stencil',sans-serif;font-weight:700;letter-spacing:.02em;line-height:1}
+.tc-text{font-family:'Literata',Georgia,serif;font-size:clamp(17.5px,1.42vw,21px);line-height:1.56}
+.tc-text p{margin:0 0 12px}
+.cap{font-family:'Literata',Georgia,serif;font-size:clamp(17.5px,1.38vw,21px);line-height:1.5}
+.chip,.hbtn{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em}
+.btn{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.1em}
+.ov-x{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 12px;border:0;
+  color:#1b1b16;background:#f2c230;font-family:'Outfit',sans-serif;font-weight:800;font-size:15.5px;letter-spacing:.06em;border-radius:4px;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 -4px 0 rgba(0,0,0,.18)}
+.gobtn.on{display:block}
+.gobtn:hover{background:#ffd54a}
+.tk-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:26px;letter-spacing:0}
+.tk-role{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.08em}
+.tk-text{font-family:'Literata',Georgia,serif;font-size:clamp(17px,1.32vw,20px);line-height:1.52}
+.tk-face svg{height:100%;min-height:300px}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.14)}
+.drop{animation:fall .7s linear infinite}
+.drop.d1{animation-delay:-.2s}.drop.d2{animation-delay:-.45s}.drop.d3{animation-delay:-.6s;animation-duration:.85s}
+@keyframes fall{0%{transform:translate(0,-30px);opacity:0}15%{opacity:.8}100%{transform:translate(-9px,40px);opacity:0}}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.18) drop-shadow(0 0 10px #f2c230)}}
+
+/* lettering inside drawings */
+.cM{font-family:'Roboto Mono',monospace}
+.cO{font-family:'Outfit',sans-serif}
+.cK{font-family:'Kalam',cursive}
+.cS{font-family:'Stardos Stencil',sans-serif}
+.cW{font-family:'Oswald',sans-serif}
+.cE{font-family:'Special Elite',monospace}
+.cL{font-family:'Literata',serif}
+
+/* ---- a piece of work: the frame, the line that answers, the button ---- */
+.pz{width:min(1120px,96vw);-webkit-user-select:none;user-select:none}
+.pz-foot{display:flex;align-items:flex-start;gap:16px;margin-top:10px}
+.pmsg{flex:1;min-height:50px;margin:0;font-family:'Literata',Georgia,serif;font-size:16.5px;line-height:1.42;color:#f6f4ee}
+.pmsg b{color:#f2c230;font-weight:700}
+.pz-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.45)}
+.pz svg{display:block}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* a page of the Eye's manual: laminated, with the maker's black and yellow band */
+.doc.sr-manual{width:min(800px,95vw);background:#fbfbf8;color:#1b1d20;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.46;padding:0 0 16px;border:1px solid #9aa0a6;
+  box-shadow:inset 0 0 0 6px #fbfbf8,inset 0 0 0 7px #c8ccd0,0 26px 70px rgba(0,0,0,.6)}
+.doc.sr-manual .band{height:16px;background:repeating-linear-gradient(135deg,#1b1d20 0 14px,#f2c230 14px 28px)}
+.doc.sr-manual .hd{display:flex;justify-content:space-between;padding:8px 28px 0;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.12em;color:#5a6066}
+.doc.sr-manual h4{margin:6px 28px 8px;font-family:'Outfit',sans-serif;font-weight:800;font-size:27px;line-height:1.08;color:#1b1d20}
+.doc.sr-manual p{margin:0 28px 8px}
+.doc.sr-manual b{font-weight:800;color:#1b1d20;background:linear-gradient(transparent 62%,#f7e08a 62%)}
+.doc.sr-manual .two{display:grid;grid-template-columns:1fr 270px;gap:16px;margin:0 28px;align-items:start}
+.doc.sr-manual .two p{margin:0 0 8px}
+.doc.sr-manual .fig{background:#f1f2ef;border:1px solid #d6d9d4;padding:6px}
+.doc.sr-manual .fig small{display:block;font-family:'Roboto Mono',monospace;font-size:11px;color:#5a6066;margin-top:3px}
+.doc.sr-manual .pg{margin:6px 28px 0;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#7a8086;text-align:right}
+/* the council's leaflet */
+.doc.sr-leaflet{width:min(700px,94vw);background:#f3f8ee;color:#16301c;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.48;padding:20px 28px 16px;border-top:18px solid #2f7a3a}
+.doc.sr-leaflet h4{margin:0 0 10px;font-family:'Outfit',sans-serif;font-weight:800;font-size:26px;line-height:1.08;color:#2f7a3a}
+.doc.sr-leaflet .two{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start}
+.doc.sr-leaflet p{margin:0 0 8px}
+.doc.sr-leaflet small{display:block;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#4a6a50}
+/* a poster on the cabin wall */
+.doc.sr-poster{width:min(720px,94vw);background:#eef3f8;color:#13233a;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.46;padding:20px 28px 16px;border-left:16px solid #c0392b}
+.doc.sr-poster h4{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:30px;letter-spacing:.02em;line-height:1.02;text-transform:uppercase;color:#c0392b}
+.doc.sr-poster .two{display:grid;grid-template-columns:1fr 230px;gap:18px;align-items:start}
+.doc.sr-poster p{margin:0 0 8px}
+.doc.sr-poster b{color:#1f4f8a}
+/* the Eye's own printout */
+.doc.sr-chart{width:min(640px,94vw);background:#f7f5ee;color:#22201c;font-family:'Roboto Mono',monospace;font-size:14.5px;line-height:1.42;padding:18px 24px 14px;
+  background-image:linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:6px 6px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.sr-chart h4{margin:0 0 8px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:15px;letter-spacing:.12em}
+.doc.sr-chart p{margin:0 0 7px}
+.doc.sr-chart table{border-collapse:collapse;width:100%;margin:4px 0 8px}
+.doc.sr-chart td{padding:4px 6px;border-bottom:1px dashed #b9b3a4;vertical-align:top}
+.doc.sr-chart .v{white-space:nowrap;font-weight:500}
+.doc.sr-chart .bar{display:inline-block;height:11px;background:#22201c;vertical-align:middle;margin-right:6px}
+.doc.sr-chart .hand{font-family:'Caveat',cursive;font-size:21px;color:#1f4f8a;line-height:1.1}
+/* Lyle's tally, on squared paper */
+.doc.sr-tally{width:min(620px,94vw);background:#fdfdf8;color:#1b2a4a;font-family:'Kalam',cursive;font-size:18px;line-height:1.35;padding:20px 26px 14px;
+  background-image:linear-gradient(#cfe0ee 1px,transparent 1px),linear-gradient(90deg,#cfe0ee 1px,transparent 1px);background-size:22px 22px}
+.doc.sr-tally h4{margin:0 0 6px;font-family:'Kalam',cursive;font-weight:700;font-size:25px;color:#1b2a4a}
+.doc.sr-tally table{border-collapse:collapse;margin:4px 0 8px}
+.doc.sr-tally td{padding:2px 12px 2px 0;vertical-align:top}
+.doc.sr-tally .red{color:#c0392b}
+/* a clipboard */
+.doc.sr-clip{width:min(680px,94vw);background:#fffef9;color:#1e2226;font-family:'Special Elite',monospace;font-size:15.5px;line-height:1.5;padding:22px 28px 16px;border-top:30px solid #6a5a44;border-radius:4px 4px 0 0}
+.doc.sr-clip h4{margin:0 0 6px;font-family:'Outfit',sans-serif;font-weight:800;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.doc.sr-clip h5{margin:0 0 10px;font-family:'Roboto Mono',monospace;font-weight:400;font-size:12.5px;color:#5a6066}
+.doc.sr-clip p{margin:0 0 7px}
+.doc.sr-clip table{border-collapse:collapse;width:100%;margin:2px 0 8px}
+.doc.sr-clip td{padding:3px 6px;border-bottom:1px solid #e1e3e6;vertical-align:top}
+.doc.sr-clip .hand{font-family:'Caveat',cursive;font-size:21px;color:#1f4f8a;line-height:1.15}
+/* a letter */
+.doc.sr-letter{width:min(660px,94vw);background:#fffdf6;color:#1f1f1f;font-family:'EB Garamond',serif;font-size:18px;line-height:1.48;padding:26px 34px 18px}
+.doc.sr-letter h4{margin:0 0 2px;font-family:'Cinzel',serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:#2d4a3a}
+.doc.sr-letter h5{margin:0 0 14px;font-family:'Outfit',sans-serif;font-weight:400;font-size:12.5px;letter-spacing:.08em;color:#6a6a6a;border-bottom:2px solid #2d4a3a;padding-bottom:6px}
+.doc.sr-letter p{margin:0 0 9px}
+/* an email, printed */
+.doc.sr-email{width:min(700px,94vw);background:#fff;color:#1a1d21;font-family:'Outfit',sans-serif;font-size:16px;line-height:1.46;padding:0 0 14px;border:1px solid #cfd3d8}
+.doc.sr-email .hd{padding:10px 22px;background:#eef1f4;font-family:'Roboto Mono',monospace;font-size:12.5px;line-height:1.55;color:#4a525a;border-bottom:1px solid #cfd3d8}
+.doc.sr-email h4{margin:12px 22px 8px;font-family:'Outfit',sans-serif;font-weight:700;font-size:19px}
+.doc.sr-email p{margin:0 22px 8px}
+/* a certificate on the wall */
+.doc.sr-cert{width:min(600px,92vw);background:#fbf8ef;color:#2a2418;font-family:'EB Garamond',serif;font-size:18px;line-height:1.45;padding:28px 34px 22px;text-align:center;border:12px solid #2a3a4a;box-shadow:inset 0 0 0 8px #fbf8ef,inset 0 0 0 9px #b0a27a,0 26px 70px rgba(0,0,0,.6)}
+.doc.sr-cert h4{margin:0 0 6px;font-family:'Cinzel',serif;font-weight:700;font-size:24px;letter-spacing:.08em}
+.doc.sr-cert .big{font-family:'Outfit',sans-serif;font-weight:800;font-size:58px;line-height:1;color:#2a3a4a;margin:8px 0}
+.doc.sr-cert small{display:block;font-family:'Roboto Mono',monospace;font-size:12px;color:#6a604c;margin-top:8px}
+/* what you worked out for yourself */
+.doc.sr-mine{width:min(600px,92vw);background:#fffef6 repeating-linear-gradient(transparent 0 29px,#d6dde2 29px 30px);color:#1b2a4a;font-family:'Kalam',cursive;font-size:18px;line-height:30px;padding:36px 30px 20px 34px;border-top:20px solid #f2c230}
+.doc.sr-mine h4{margin:0;font-family:'Roboto Mono',monospace;font-size:13px;line-height:30px;letter-spacing:.1em;text-transform:uppercase;color:#7a5c00}
+.doc.sr-mine p{margin:0}
+.doc.statement{background:#f6f5f1;font-family:'Literata',Georgia,serif;font-size:17px;line-height:1.5;border-left:6px solid #f2c230}
+.doc.statement h4{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.1em;color:#7a5c00}
+.doc .w:hover{color:#c0392b}
+
+/* ---- the notebook: a hi-vis clipboard ---- */
+.nb{background:#20262b linear-gradient(160deg,#262e34,#181d21);border:1px solid #3a444c;color:#eef0ec;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 6px 0 #f2c230}
+.nb-tabs{border-bottom-color:#3a444c}
+.nb-tabs button{font-family:'Outfit',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.1em;color:#b9c2c8}
+.nb-tabs button.on{background:#f2c230;color:#1b1d20;border-color:#3a444c}
+.nb-list{border-right-color:#3a444c}
+.nb-list button{font-family:'Outfit',sans-serif;font-size:15px;color:#eef0ec}
+.nb-list button small{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.08em}
+.nb-list button.on{background:#ff8a1e;color:#1b1d20}
+.nb-view{background:#14181b}
+.nb-empty{font-family:'Outfit',sans-serif}
+.nb-words{background:#f6f5f1;color:#1b1d20}
+.nb-words b{font-family:'Outfit',sans-serif;font-weight:800;font-size:17px}
+.nb-words span{font-family:'Outfit',sans-serif;font-size:15px;line-height:1.38;color:#4a5056}
+.nb-ko{border-color:#8a9096;color:#4a5056}
+.nb-ko.on{background:#1b1d20;color:#f2c230;border-color:#1b1d20}
+.wtip,.wtag{background:#fff;color:#1b1d20;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 4px 0 #f2c230}
+.wtag{transform:none;padding:13px 16px 10px}
+.wtag:before{display:none}
+.wtip{padding-top:12px}
+.wtip b,.wtag b{font-family:'Outfit',sans-serif;font-weight:800;font-size:17px}
+.wtip span,.wtag span{font-family:'Outfit',sans-serif;font-size:15px;line-height:1.38;color:#4a5056}
+.hintbox{background:#fff;color:#1b1d20;border-top:6px solid #f2c230;border-radius:6px}
+.hintbox h6{font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;color:#7a5c00}
+.hintbox p{font-family:'Literata',serif;font-size:16.5px;line-height:1.42}
+.hintbox p i{background:#1b1d20;color:#f2c230;font-family:'Outfit',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#5a6066;font-size:15.5px}
+.hintbox .btn{font-size:12.5px}
+.toast{font-family:'Outfit',sans-serif;font-weight:600;font-size:13px;background:rgba(27,29,32,.95);border-radius:4px;border-color:#f2c230}
+
+/* ---- the card at the end ---- */
+.done{position:fixed;right:2.2vw;top:60px;z-index:34;width:min(560px,94vw);max-height:calc(100vh - 76px);overflow:auto;padding:16px 26px 13px;display:none;background:#fffef8;color:#1b1d20;
+  border-top:14px solid #2f7a3a;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.done.on{display:block}
+.okstamp{display:inline-block;padding:5px 14px 3px;border:3px solid #2f7a3a;color:#2f7a3a;font-family:'Stardos Stencil',sans-serif;font-weight:700;font-size:22px;letter-spacing:.08em;transform:rotate(-2deg);margin-bottom:7px}
+.done h6{margin:9px 0 5px;font-family:'Outfit',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:#1b1d20}
+.done p{margin:0 0 2px;font-family:'Roboto Mono',monospace;font-size:13px;line-height:1.4}
+.done ol{margin:0;padding-left:20px;font-family:'Literata',serif;font-size:13.8px;line-height:1.34}
+.done li{margin:0 0 4px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.done .btn{--accent:#1b1d20;font-size:12px;padding:7px 12px}
+.done .btn:hover:not([disabled]){color:#f2c230}
+.done small{display:block;margin-top:8px;font-family:'Roboto Mono',monospace;font-size:11.5px;opacity:.75;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(780px,94vw);max-height:84vh;overflow:auto;background:#fffef8;color:#1b1d20;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);-webkit-user-select:text;user-select:text;border-top:22px solid #2f7a3a;border-radius:4px}
+.rp h4{margin:0 0 3px;font-family:'Roboto Mono',monospace;font-weight:500;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#2f7a3a}
+.rp h3{margin:0 0 8px;font-family:'Outfit',sans-serif;font-weight:800;font-size:28px;line-height:1.05}
+.rp p,.rp label{display:block;font-family:'Literata',serif;font-size:16px;line-height:1.45;margin:0 0 6px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:18.5px;line-height:30px;color:#1b2a4a;background:#fff repeating-linear-gradient(transparent 0 29px,#d6dde2 29px 30px);
+  border:1px solid #9aa2a8;padding:0 12px;border-radius:0;resize:vertical;-webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Roboto Mono',monospace;font-size:12px;opacity:.75}
+.rp .btn{--accent:#1b1d20}.rp .btn:hover:not([disabled]){color:#f2c230}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}
