@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Myrtle Cottage · In Our Joint Presence</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="will.css">
+<style>
+  body{--bg:#2a2230;--accent:#e8b86a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(34,26,34,.97);--tc-ink:#f4ece0;--cap-bg:rgba(34,26,34,.93);--panel:#2a2230;--face-bg:#3a3040;--q-ink:#f0d9a6;--fade:#100c12;--hud-bg:rgba(34,26,34,.84)}
+  #tree{transform-origin:236px 470px;animation:sway 4.2s ease-in-out infinite alternate}
+  @keyframes sway{0%{transform:rotate(-2.5deg)}100%{transform:rotate(2deg)}}
+  #glow{animation:glow 6s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:.85}91%{opacity:.7}93%{opacity:.85}}
+
+  /* the machine and today's test line */
+  .tt{width:min(760px,95vw);display:grid;gap:12px;justify-items:center}
+  .tt svg{width:100%;height:auto;display:block}
+  .tt .sheet{--paper:#fbf8ee;width:min(560px,90vw);min-height:58px;padding:16px 22px;background:#fbf8ee;font-family:'Courier Prime',monospace;font-size:24px;color:#24242a;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+  .tt .pmsg{text-align:center;min-height:40px}
+
+  /* the lightbox: eight lines under the glass */
+  .lb{width:min(1180px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+  .lb-rows{display:grid;gap:5px;padding:12px;background:#f4f0e6;box-shadow:0 0 0 8px #3a3040,0 0 60px rgba(255,240,200,.25)}
+  .lb-row{display:grid;grid-template-columns:128px minmax(0,1fr) 118px;gap:10px;align-items:center;padding:4px 8px;background:#fbf8ee;border:1px solid #d9d2bc}
+  .lb-row.dis{background:#fff6e4;border-color:#c9a45a}
+  .lb-row.gap{border-top:3px double #8a7a5a;margin-top:6px}
+  .lb-l{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.08em;line-height:1.2;color:#55503f;text-transform:uppercase}
+  .lb-l b{display:block;font-size:13.5px;color:#1c1d22}
+  .lb-t{--paper:#fbf8ee;font-family:'Courier Prime',monospace;font-size:21px;line-height:1.55;color:#24242a;white-space:nowrap;overflow:hidden}
+  .lb-t .fe{top:-.22em}
+  .lb-row.dis .lb-t{--paper:#fff6e4}
+  .lb-t span.c{cursor:pointer;border-radius:50%}
+  .lb-t span.c:hover{background:rgba(163,38,44,.12)}
+  .lb-t span.c.ring{box-shadow:0 0 0 2.5px #c0262c;background:rgba(192,38,44,.08)}
+  .lb-st{font-family:'Stardos Stencil',serif;font-weight:700;font-size:12px;letter-spacing:.06em;line-height:1.1;padding:4px 6px;border:2px dashed #b9b09a;color:#9a9078;border-radius:3px;background:none}
+  .lb-st.F{border:2.5px solid #2f7a4a;color:#2f7a4a;transform:rotate(-2deg)}
+  .lb-st.L{border:2.5px solid #b3262c;color:#b3262c;transform:rotate(2deg)}
+  .lb .pmsg{min-height:150px;font-size:17px}
+  .lb .side p.k{font-family:'EB Garamond',serif;font-size:15.5px;line-height:1.3;color:#d6d2c6;margin:0 0 10px}
+
+  /* the clear sheets: signatures laid over each other */
+  .sg{width:min(1080px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start}
+  .sg-board{position:relative;height:430px;background:#e9e4d6;box-shadow:0 0 0 8px #3a3040;overflow:hidden}
+  .sg-card{position:absolute;width:270px;height:150px;background:#fbf8ee;box-shadow:0 6px 16px rgba(0,0,0,.35);padding:8px 10px}
+  .sg-card small{display:block;font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#55503f}
+  .sg-card svg{position:absolute;left:14px;top:40px}
+  .sg-card.on{box-shadow:0 0 0 3px #c9a45a,0 6px 16px rgba(0,0,0,.35)}
+  #sg-acet{position:absolute;width:270px;height:150px;background:rgba(230,240,250,.35);border:1.5px solid rgba(120,140,170,.7);cursor:grab;touch-action:none;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+  #sg-acet svg{position:absolute;left:4px;top:30px;pointer-events:none}
+  #sg-acet small{position:absolute;right:8px;bottom:6px;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.12em;color:#8f2a1c;text-transform:uppercase}
+  .sg .pmsg{min-height:150px;font-size:17px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="duskG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3060"/><stop offset=".6" stop-color="#a0607a"/><stop offset="1" stop-color="#e8a060"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5232"/><stop offset="1" stop-color="#553620"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#ffe4a8" stop-opacity=".6"/><stop offset="1" stop-color="#ffe4a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="82%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#140c14" stop-opacity=".2"/><stop offset="1" stop-color="#08050a" stop-opacity=".8"/></radialGradient>
+  <clipPath id="winC"><rect x="110" y="180" width="252" height="282"/></clipPath>
+</defs>
+
+<!-- a cottage study at dusk: lime-washed walls, a low beam, a stone floor -->
+<rect x="-1000" y="-400" width="3600" height="1100" fill="#e2d6bc"/>
+<rect x="-1000" y="-400" width="3600" height="470" fill="#5a3a22"/><rect x="-1000" y="60" width="3600" height="44" fill="#4a2e1a"/><path d="M-1000 104h3600" stroke="#2e1c10" stroke-width="4"/>
+<rect x="1090" y="104" width="40" height="620" fill="#4a2e1a"/>
+<rect x="-1000" y="700" width="3600" height="800" fill="#7a6a58"/><g id="flags" stroke="#5a4c3e" stroke-width="3" fill="none"></g>
+
+<!-- the window, the garden and a wind-bent apple tree -->
+<g id="window" class="hot"><rect x="96" y="166" width="280" height="310" fill="#f4eee0"/>
+  <g clip-path="url(#winC)"><rect x="110" y="180" width="252" height="282" fill="url(#duskG)"/><path d="M110 420q60-30 130-10t122-6v58H110z" fill="#2a2a3a"/>
+    <g id="tree"><path d="M236 470q-6-60 4-110" stroke="#2a2030" stroke-width="12" fill="none"/><circle cx="216" cy="340" r="40" fill="#2a3040"/><circle cx="262" cy="326" r="44" fill="#2e3646"/><circle cx="238" cy="296" r="36" fill="#323a4a"/></g></g>
+  <path d="M110 321h252M236 180v282" stroke="#f4eee0" stroke-width="8"/><rect x="86" y="470" width="300" height="16" fill="#efe6d2"/></g>
+
+<!-- the calendar on the wall, still at December 2025 -->
+<g id="calendar" class="hot"><rect x="420" y="170" width="120" height="150" fill="#fbfbf4" stroke="#b9b09a"/><rect x="420" y="170" width="120" height="26" fill="#4a6a8a"/>
+  <text x="480" y="188" class="sT" font-size="11" fill="#fff" letter-spacing="1">DECEMBER 2025</text><g id="calgrid"></g></g>
+
+<!-- the shelf of stamp albums -->
+<g id="albums" class="hot"><rect x="560" y="300" width="460" height="12" fill="#4a2e1a"/><g id="books"></g></g>
+
+<!-- the bureau, and the photograph on it -->
+<g id="bureau" class="hot"><rect x="1150" y="300" width="310" height="420" fill="url(#oakG)"/><path d="M1150 300q155-80 310 0" fill="#6a4428"/><g fill="none" stroke="#3a2416" stroke-width="3"><rect x="1170" y="460" width="270" height="70"/><rect x="1170" y="540" width="270" height="70"/><rect x="1170" y="620" width="270" height="70"/></g>
+  <g fill="#c9a45a"><circle cx="1305" cy="495" r="5"/><circle cx="1305" cy="575" r="5"/><circle cx="1305" cy="655" r="5"/></g></g>
+<g id="photo" class="hot"><rect x="1190" y="200" width="70" height="88" fill="#c9a45a"/><rect x="1197" y="207" width="56" height="74" fill="#8a9aa8"/><circle cx="1225" cy="236" r="13" fill="#e8d0b8"/><path d="M1207 281q18-34 36 0z" fill="#a34a5a"/><path d="M1212 230q13-18 26 0" fill="#d4d4d8"/></g>
+
+<!-- Ms Siddiqui by the bureau, Mr Underhill by the window -->
+<g id="uz" class="hot"><rect x="1300" y="380" width="220" height="300" fill="#000" opacity="0"/><use href="#ch-siddiqui" x="1290" y="370" width="236" height="307"/></g>
+<g id="und" class="hot"><rect x="390" y="390" width="200" height="270" fill="#000" opacity="0"/><use href="#ch-underhill" x="380" y="380" width="216" height="281"/></g>
+<g id="boxes2" class="hot"><rect x="360" y="572" width="170" height="130" fill="#b08a5a"/><path d="M360 572l20-18h130l20 18" fill="#c9a274"/><path d="M445 554v18" stroke="#8a6a42" stroke-width="3"/><text x="445" y="640" class="hT" font-size="26" fill="#3a2a1a">BOOKS</text><rect x="372" y="686" width="146" height="16" fill="#8a6a42"/></g>
+<g pointer-events="none"><rect x="1250" y="560" width="160" height="22" rx="6" fill="#5a3a22"/><path d="M1262 582v150M1398 582v150" stroke="#5a3a22" stroke-width="14"/><path d="M1270 600h120M1270 640h120" stroke="#6a4428" stroke-width="10"/></g>
+
+<!-- the desk, the Vellacott, the manual and the box file -->
+<rect x="500" y="560" width="600" height="22" fill="#5a3a22"/><rect x="520" y="582" width="560" height="260" fill="url(#oakG)"/><path d="M520 640h560" stroke="#3a2416" stroke-width="3"/>
+<path id="glow" d="M560 300h420l120 300h-660z" fill="url(#lampG)" pointer-events="none"/>
+<g id="tw" class="hot"><rect x="650" y="420" width="290" height="150" fill="#000" opacity="0"/>
+  <path d="M676 560l20-90h200l20 90z" fill="#2f4a3e"/><rect x="664" y="548" width="264" height="16" rx="4" fill="#24382e"/>
+  <rect x="700" y="452" width="192" height="22" rx="8" fill="#1c2a24"/><rect x="726" y="400" width="140" height="58" fill="#fbf8ee"/><g stroke="#8a8a8a" stroke-width="2"><path d="M740 416h100M740 428h86M740 440h100"/></g>
+  <g fill="#e9e4d6"><circle cx="712" cy="512" r="7"/><circle cx="734" cy="512" r="7"/><circle cx="756" cy="512" r="7"/><circle cx="778" cy="512" r="7"/><circle cx="800" cy="512" r="7"/><circle cx="822" cy="512" r="7"/><circle cx="844" cy="512" r="7"/><circle cx="866" cy="512" r="7"/><circle cx="722" cy="532" r="7"/><circle cx="744" cy="532" r="7"/><circle cx="766" cy="532" r="7"/><circle cx="788" cy="532" r="7"/><circle cx="810" cy="532" r="7"/><circle cx="832" cy="532" r="7"/><circle cx="854" cy="532" r="7"/></g>
+  <path d="M684 456l-30-12" stroke="#c9ccd0" stroke-width="5" stroke-linecap="round"/><text x="796" y="492" class="sT" font-size="10" fill="#c9a45a" letter-spacing="3">VELLACOTT</text></g>
+<g id="manual" class="hot"><g transform="rotate(-8 590 550)"><rect x="548" y="526" width="84" height="40" fill="#a3262c"/><rect x="554" y="532" width="72" height="28" fill="#f3ecd8"/><text x="590" y="550" class="sT" font-size="9" fill="#a3262c" letter-spacing="1">MANUAL</text></g></g>
+<g id="cbox" class="hot"><rect x="960" y="486" width="110" height="76" fill="#3a5a8a"/><rect x="972" y="498" width="86" height="26" fill="#f4f0e2"/><text x="1015" y="516" class="sT" font-size="12" fill="#1c1d22" letter-spacing="1">C/C 2010–25</text><circle cx="1015" cy="542" r="8" fill="none" stroke="#c9ccd0" stroke-width="3"/></g>
+
+<!-- the armchair, and the cat's bowl -->
+<g id="chair" class="hot"><path d="M110 600q0-60 60-64h170q60 4 60 64v180H110z" fill="#6a3a3a"/><path d="M90 640h60v170H90zM360 640h60v170h-60z" fill="#5a2e2e"/><path d="M150 640h220v80H150z" fill="#7a4646"/><path d="M160 560l200 40-10 40-200-30z" fill="#d9c08a" opacity=".85"/></g>
+<g id="bowl" class="hot"><ellipse cx="520" cy="826" rx="46" ry="14" fill="#c9ccd0"/><path d="M474 812q46 20 92 0v14q-46 20-92 0z" fill="#e9e4d6"/><text x="520" y="836" class="sT" font-size="9" fill="#55585f" letter-spacing="1">TUPPENCE</text></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Walk down to the post office</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="will.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, lbBox = null, sgBox = null;
+
+  /* flagstones, albums, and a real December 2025 on the wall (it began on a Monday) */
+  (function () {
+    var s = '', i, j;
+    for (i = 0; i < 5; i++) s += '<path d="M-1000 ' + (730 + i * 34 + i * i * 6) + 'h3600"/>';
+    for (i = -8; i < 20; i++) s += '<path d="M' + (i * 150 + ((i % 2) * 60)) + ' 704l' + (i * 9 - 40) + ' 300"/>';
+    $('#flags').innerHTML = s; s = '';
+    var C = ['#7a1f2a', '#2f4a6a', '#3f6a3a', '#5a3a6a', '#8a6a2a', '#2a4a4a', '#7a1f2a', '#4a4a5a', '#2f4a6a', '#6a3a2a', '#3f6a3a', '#5a3a6a'];
+    for (i = 0; i < 12; i++) s += '<rect x="' + (574 + i * 36) + '" y="' + (226 + (i % 3) * 4) + '" width="30" height="' + (74 - (i % 3) * 4) + '" fill="' + C[i] + '"/><rect x="' + (578 + i * 36) + '" y="' + (240 + (i % 3) * 4) + '" width="22" height="6" fill="#d9b25a" opacity=".8"/>';
+    $('#books').innerHTML = s; s = '';
+    var d0 = new Date(2025, 11, 1).getDay(), off = (d0 + 6) % 7;      /* Monday first */
+    'MTWTFSS'.split('').forEach(function (c, k) { s += '<text x="' + (432 + k * 16) + '" y="210" class="sT" font-size="8" fill="#4a6a8a">' + c + '</text>'; });
+    for (j = 1; j <= 31; j++) { var p = off + j - 1, x = 432 + (p % 7) * 16, y = 224 + Math.floor(p / 7) * 18; s += '<text x="' + x + '" y="' + y + '" class="sT" font-size="8.5" fill="#1c1d22">' + j + '</text>'; }
+    $('#calgrid').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'will', storyTitle: 'In Our Joint Presence', id: 'study', no: 'II', title: 'Myrtle Cottage',
+    go: 'Go into the study',
+    intro: [
+      'At Underhill &amp; Noakes you put Ms Siddiqui&rsquo;s flags on five papers. Only the two wills, of 2008 and 2019, carry all four: writing, his signature, two witnesses there at the same time, and both their signatures. The letter to Nigel, the birthday card and the letter to Mr Underhill are written and signed, but nobody witnessed them. Whoever wrote them, they cannot make a will or cancel one.',
+      'So tomorrow turns on one question: did Mervyn sign the 2019 will with both witnesses there together? Because Meriel says the will is valid, it is for her side to prove it, on the balance of probabilities.',
+      'Mr Underhill drives you out to Thrushcombe with the key. Nobody has slept at Myrtle Cottage since December.'
+    ],
+    exit: {"next":"post","w":{"dfe49600":"45228e8a"}}, tags: {"l1":["656233bf"],"l2":["9c2b16ad"],"l3":["5ec6b2b3"],"l4":["797567e2"],"l5":["b98d3f8e"],"l6":["3d4463be"],"l7":["6c691769"],"l8":["0800a793"],"d7":["019b4b9e"],"d8":["70bf8db8"],"sg":["730b1b30"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('s-file') || null;
+
+  var MANUAL = '<h4>Vellacott Portable No. 4</h4><h5>Care of your machine &middot; page 11</h5>' +
+    '<svg class="dg" viewBox="0 0 250 170"><path d="M30 150q40-6 70-60" stroke="#221d16" stroke-width="6" fill="none"/><rect x="92" y="66" width="30" height="34" rx="3" fill="#8d9097" transform="rotate(-30 107 83)"/>' +
+    '<text x="104" y="80" font-family="Courier Prime" font-weight="700" font-size="13" fill="#fff" transform="rotate(-30 107 83)">E</text><text x="105" y="95" font-family="Courier Prime" font-weight="700" font-size="13" fill="#fff" transform="rotate(-30 107 83)">e</text>' +
+    '<text x="8" y="166" font-family="Oswald" font-size="11" fill="#a3262c">typebar</text><path d="M126 60l16-14" stroke="#a3262c" stroke-width="1.5"/><text x="144" y="44" font-family="Oswald" font-size="11" fill="#a3262c">slug: two letters</text>' +
+    '<path d="M160 150h76" stroke="#221d16" stroke-width="1.5"/><text x="162" y="146" font-family="Courier Prime" font-size="20" fill="#221d16">th</text><text x="186" y="140" font-family="Courier Prime" font-size="20" fill="#a3262c">e</text><text x="198" y="146" font-family="Courier Prime" font-size="20" fill="#221d16">re</text>' +
+    '<text x="160" y="120" font-family="Oswald" font-size="11" fill="#a3262c">bent bar: e prints high</text></svg>' +
+    '<p>Every key moves its own steel arm, the <b class="t">TYPEBAR</b>. At the end of each typebar is a small metal block, the slug, which carries two letters: the small one, and above it the capital that SHIFT gives you. Press a key, and the typebar swings up and strikes the ribbon against the paper.</p>' +
+    '<p>Keep your machine level, and never carry it loose in a car. A typebar that is knocked or bent strikes out of line, so its letters print higher or lower than the rest; because one typebar carries both letters, both are spoiled. A chipped slug loses a piece of one letter, often a <b class="t">SERIF</b>: the little foot at the end of a stroke.</p>' +
+    '<p>Faults like these never mend themselves. A machine collects them over the years, and no two machines collect the same ones.</p>' +
+    '<p>For a <b class="t">CARBON COPY</b>, put carbon paper between two sheets. The same stroke marks both, so the copy shows every fault that the top sheet shows.</p>' +
+    '<p>Before you send for a repair, type a test line of letters and post it to us.</p>';
+  var NSTMT = '<h4>Witness statement of Nigel John Wedlake</h4><h5>Claimant &middot; In the County Court at Dunsmere &middot; Wedlake v Voysey &middot; extract</h5>' +
+    '<p><span class="n">1</span>I am the nephew of the late Mervyn Wedlake. He taught me to type on his Vellacott when I was nine.</p>' +
+    '<p><span class="n">2</span>At Christmas 2018 we quarrelled. I thought he should sell the cottage and move somewhere with help. He told me to mind my own business, and in March 2019 he made a new will without telling me.</p>' +
+    '<p><span class="n">3</span>Towards the end of November 2025 he wrote to me (exhibit NW/1). He said that he had torn up the post office will and that his 2008 will stood. The letter was typed on his own typewriter: I know its R. I did not keep the envelope.</p>' +
+    '<p><span class="n">4</span>At the end of November he also telephoned me and said, &ldquo;I&rsquo;m going to put things right by you.&rdquo;</p>' +
+    '<p><span class="n">5</span>After the funeral on Friday 19 December 2025, Meriel let me take the typewriter home as a keepsake. On the way back to Reading it slid off the back seat when I braked hard, but it seemed none the worse. I brought it back to the cottage in February, when Mr Underhill asked for it.</p>' +
+    '<p><span class="n">6</span>The signature on the 2019 will shakes. My uncle&rsquo;s hand was always steady. I do not believe that he signed it.</p>' +
+    '<div class="sot"><b>Statement of truth.</b> I believe that the facts stated in this witness statement are true. I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth.<br><span class="hw">N. J. Wedlake</span> &nbsp; 3 July 2026</div>';
+
+  /* the eight lines on the lightbox: what each says, and how the machine stood when it was typed */
+  var TEST = 'Every Rover runs over the lazy brown fox.';
+  var LINES = [
+    ['l1', 'Mon 9 Jul 2012', 'carbon &middot; to the council', 'Re: the bus shelter. Every pane is gone.', {}],
+    ['l2', 'Thu 14 Apr 2016', 'carbon &middot; to the Rector', 'Dear Rector, Every word was right.', { R: 1 }],
+    ['l3', 'Tue 5 Mar 2019', 'carbon &middot; his will', 'THE LAST WILL of me, MERVYN ARTHUR WEDLAKE', { R: 1 }],
+    ['l4', 'Wed 11 Oct 2023', 'carbon &middot; to the Editor', 'Re: the church roof. Every penny helps.', { R: 1 }],
+    ['l5', 'Fri 28 Nov 2025', 'carbon &middot; to Mr Underhill', 'Re: my will. Dear Mr Underhill,', { R: 1 }],
+    ['l6', 'Today', 'your test line', TEST, { R: 1, e: 1 }],
+    ['l7', '2019 will', 'the top copy &middot; dated 5 Mar 2019', 'THE LAST WILL of me, MERVYN ARTHUR WEDLAKE', { R: 1 }, 1],
+    ['l8', 'Letter to Nigel', 'photocopy &middot; dated 21 Nov 2025', 'Remember me to the cat.', { R: 1, e: 1 }, 1]];
+  var LWHY = {
+    l1: '2012. Look hard at the R of &ldquo;Re&rdquo; and at every e. Is anything out of line, or broken? If not, ring nothing.',
+    l2: '2016. Compare the R of &ldquo;Rector&rdquo; with the R on your test line. And the e&rsquo;s: are they level?',
+    l3: 'The carbon of the will. Look at the capital R&rsquo;s, and the capital E&rsquo;s.',
+    l4: '2023. The R of &ldquo;Re&rdquo;, and the e&rsquo;s.',
+    l5: 'The last carbon he ever filed. Is the e level here, or high? And the R?',
+    l6: 'Your own test line, from today. Both faults are on it. Ring at least one of each letter that is spoiled: small e, capital E and capital R.',
+    l7: 'The top copy of the 2019 will. Ring what is wrong with it, and nothing else.',
+    l8: 'The letter to Nigel. Look at the R, and look at the e&rsquo;s.' };
+
+  function hints() {
+    if (nextFile) return ['go', ['It is nearly five, and the post office shuts at half past. The button is at the bottom of the screen.']];
+    if (sgBox) return ['sg', [
+      'Drag the clear sheet with the red signature over each of the three signatures in turn, and watch the lines.',
+      'Two signatures by the same man are alike, but never exactly. One of these lies under the red one with not a hair between them.',
+      'It lies exactly on the signature of the 2008 will. Leave the sheet there, and show Ms Siddiqui.'
+    ]];
+    if (lbBox) return ['lb', [
+      'Ring every letter that is out of line or broken, on every line. Some lines have no faults at all: ring nothing there. Your own test line shows you what the faults look like.',
+      'There are two faults. The capital R has lost its foot. The small e and the capital E sit a little high, because one typebar carries both. Read the lines in date order: when does each fault first appear?',
+      'The R is whole in 2012 and broken from 2016 on. The e stays level on every carbon, even the last one, of 28 November 2025; it rises only on today&rsquo;s line and on the letter to Nigel. So the 2019 will fits its date, and the letter was typed later than its date.'
+    ]];
+    if (!ER.flag('s-uz')) return ['uz', ['Ms Siddiqui is by the bureau, on the right. Talk to her.']];
+    if (!ER.flag('s-manual')) return ['manual', ['The typewriter&rsquo;s manual, in a red cover, is on the desk beside the machine. Read it.']];
+    if (!ER.flag('s-test')) return ['test', ['Now ask the machine itself. Click the typewriter and type a test line, as the manual says.']];
+    if (!ER.flag('s-lb')) return ['box', ['The blue box file of carbon copies is on the desk, on the right. Open it.']];
+    return ['sig', ['Ms Siddiqui has three signatures and a clear sheet. Talk to her.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#uz').classList.toggle('ready', !nextFile && !busy && (!ER.flag('s-uz') || (!!ER.flag('s-lb') && !ER.flag('s-sg'))));
+    $('#tw').classList.toggle('ready', !nextFile && !!ER.flag('s-manual') && !ER.flag('s-test'));
+    $('#cbox').classList.toggle('ready', !nextFile && !!ER.flag('s-test') && !ER.flag('s-lb'));
+    ER.pips(nextFile ? 2 : ER.flag('s-lb') ? 1 : 0, 2);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The study at Myrtle Cottage. Mr Underhill is writing down everything you touched.'); return; }
+    if (ER.flag('s-in')) { ER.say('The study at Myrtle Cottage. The wind has not dropped.'); return; }
+    busy = true; ER.flag('s-in', 1);
+    ER.narrate([
+      'Thrushcombe, ten past four. Myrtle Cottage stands at the end of the lane past the church, and the wind is pushing the apple tree against the study window as if it wanted to come in.',
+      'The study is as Mervyn left it: a bureau, an armchair with a blanket over its back, twelve stamp albums on a shelf, and on the desk, under a lamp, a green typewriter older than Mr Underhill&rsquo;s car.',
+      'Beside it is a blue box file with a typed label. Mervyn kept a carbon copy of every letter he typed for fifteen years. &ldquo;Thirty-one years in a post office,&rdquo; says Mr Underhill. &ldquo;He could not post a letter without keeping a copy.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#uz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;The post office,&rdquo; says Ms Siddiqui, &ldquo;before Mrs Ockenden&rsquo;s daughter locks the door on us.&rdquo;'); return; }
+    if (ER.flag('s-lb') && !ER.flag('s-sg')) { openSig(); return; }
+    if (ER.flag('s-uz')) { ER.say('&ldquo;Manual, machine, carbons,&rdquo; says Ms Siddiqui. &ldquo;Let the typewriter give its evidence.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ms Siddiqui', role: 'Counsel for Mrs Voysey', face: window.FACE('siddiqui'),
+      lines: [
+        { note: 'Ms Siddiqui has not taken her coat off. She is looking at the typewriter the way some people look at a witness.', a: 'Here is a strange thing. Nigel says his letter was typed on this machine: he says he knows its R. Meriel says the 2019 will was typed on this machine. On that one point, the two sides agree.' },
+        { q: 'So it proves nothing either way?', a: 'It proves that both papers came out of this room. It does not prove when. Mr Yarde will say tomorrow that Meriel had a key, and could have typed that will at any time after Mervyn died.' },
+        { note: 'She takes a statement out of her bag and hands it to you.', a: 'Nigel&rsquo;s witness statement. Read paragraph 5 twice. Then read the manual, and ask the machine when it typed what.' }
+      ],
+      clue: { id: 'uz2', title: 'Ms Siddiqui, in the study', kind: 'What she said' }, last: 'Read the statement',
+      done: function (seen) {
+        if (!seen) return;
+        ER.flag('s-uz', 1); paint();
+        ER.read({ html: NSTMT, cls: 'stmt', clue: { id: 'nstmt', title: 'Witness statement: Nigel Wedlake', kind: 'Trial bundle' } });
+      }
+    });
+  });
+  $('#und').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('s-und')) { ER.say('&ldquo;Nigel brought it back on Monday the ninth of February,&rdquo; says Mr Underhill. &ldquo;I wrote the date on the case.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Underhill', role: 'Keeps the key', face: window.FACE('underhill'),
+      lines: [
+        { a: 'Nigel brought the machine back on Monday the ninth of February, in its case, on the back seat of his car. Strapped in, that time. I wrote the date on the case.' },
+        { q: 'Who has been in here since?', a: 'Nobody but me. The cottage is locked, and the key lives in my waistcoat. Meriel had a key while he was alive: she came every day. She gave it to me in January.' },
+        { note: 'He looks at the cat&rsquo;s bowl by the desk.', a: 'Tuppence lives with Meriel now. She is the only one in the family who has done well out of any of this.' }
+      ],
+      clue: { id: 'und2', title: 'Mr Underhill, at the cottage', kind: 'What he said' }, last: 'Thank you',
+      done: function (seen) { if (seen) ER.flag('s-und', 1); }
+    });
+  });
+  $('#manual').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MANUAL, cls: 'manual', clue: { id: 'manual', title: 'The Vellacott manual: faults and carbons', kind: 'From the desk' },
+      done: function () { ER.flag('s-manual', 1); paint(); WL.learn(['typebar', 'serif', 'carbon copy']); } });
+  });
+  $('#tw').addEventListener('click', function () {
+    if (busy) return;
+    if (!ER.flag('s-manual')) { ER.say('A Vellacott Portable No. 4, green, with a sheet of paper still in it. You would like to know how it works before you touch it: the manual is beside it.'); return; }
+    openTest();
+  });
+  $('#cbox').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('s-lb')) { ER.say('The carbons, in date order, with your red rings on them.'); return; }
+    if (!ER.flag('s-test')) { ER.say('A box of carbon copies, 2010 to 2025, each on thin paper in its place. &ldquo;Test line first,&rdquo; says Ms Siddiqui. &ldquo;You need to know what the machine does today.&rdquo;'); return; }
+    openLb();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  WL.thing('#window', null, 'The garden at dusk, and an old apple tree bending in the wind. Nobody has picked the apples.', isBusy);
+  WL.thing('#calendar', null, 'December 2025, still on the wall. Somebody has drawn a small circle round the 15th: &ldquo;Mr U., 11 o&rsquo;clock&rdquo;.', isBusy);
+  WL.thing('#albums', null, 'Twelve stamp albums, labelled by reign. In the letter to Mr Underhill, he meant them for Nigel.', isBusy);
+  WL.thing('#bureau', null, 'The bureau where Meriel found the 2019 will in January, in an envelope that said MY WILL. M.W. in his handwriting.', isBusy);
+  WL.thing('#photo', null, 'Rosamund Wedlake, in a red coat, laughing at whoever held the camera. She died in 2016.', isBusy);
+  WL.thing('#chair', null, 'His armchair. The blanket over the back was crocheted by Rosamund, in squares, in every colour she could find.', isBusy);
+  WL.thing('#boxes2', null, 'A box of books, packed in January and never taken anywhere. On top, a stamp catalogue from 1962, held together with an elastic band.', isBusy);
+  WL.thing('#bowl', null, 'A cat&rsquo;s bowl that says TUPPENCE. Empty. &ldquo;Remember me to the cat,&rdquo; says the letter to Nigel.', isBusy);
+
+  /* ---------- the test line ---------- */
+  function openTest() {
+    var box = ER.el('div', 'tt'), typing = false;
+    box.innerHTML = '<svg viewBox="0 0 560 230"><path d="M60 220l40-140h360l40 140z" fill="#2f4a3e"/><rect x="40" y="204" width="480" height="22" rx="6" fill="#24382e"/><rect x="100" y="70" width="360" height="30" rx="12" fill="#1c2a24"/>' +
+      '<path d="M100 84l-60-24" stroke="#c9ccd0" stroke-width="8" stroke-linecap="round"/><g fill="#e9e4d6" id="tt-keys"></g><text x="280" y="140" class="sT" font-size="14" fill="#c9a45a" letter-spacing="5">VELLACOTT</text></svg>' +
+      '<div class="sheet" id="tt-sheet"></div><button type="button" class="btn" id="tt-go">Type the test line</button><p class="pmsg"></p>';
+    var keys = '', i; for (i = 0; i < 10; i++) keys += '<circle cx="' + (140 + i * 31) + '" cy="168" r="11"/>'; for (i = 0; i < 9; i++) keys += '<circle cx="' + (156 + i * 31) + '" cy="192" r="11"/>';
+    box.querySelector('#tt-keys').innerHTML = keys;
+    var sheet = box.querySelector('#tt-sheet'), msgEl = box.querySelector('.pmsg');
+    if (ER.flag('s-test')) { sheet.innerHTML = WL.typed(TEST, { R: true, e: true }); box.querySelector('#tt-go').disabled = true; msgEl.innerHTML = ER.gloss('Your test line from today. It is in your notebook.'); }
+    box.querySelector('#tt-go').addEventListener('click', function () {
+      if (typing || ER.flag('s-test')) return;
+      typing = true; this.disabled = true; var n = 0;
+      (function next() {
+        n++; sheet.innerHTML = WL.typed(TEST.slice(0, n), { R: true, e: true }); if (TEST.charAt(n - 1) !== ' ') WL.sfx.key();
+        if (n < TEST.length) { setTimeout(next, 85); return; }
+        WL.sfx.ret(); ER.flag('s-test', 1); paint();
+        ER.addClue('test', 'Today&rsquo;s test line', '<h4>Today&rsquo;s test line</h4><p class="lbig">' + WL.typed(TEST, { R: true, e: true }) + '</p><p>Typed on the Vellacott, Monday 2 November 2026.</p>', 'tw', 'From the machine');
+        msgEl.innerHTML = ER.gloss('The machine types today exactly as it is. Look at the line closely: something is wrong with more than one letter. Now the carbons.');
+      })();
+    });
+    ER.open('ov-lock', box);
+  }
+
+  /* ---------- the lightbox ---------- */
+  function openLb() {
+    var box = ER.el('div', 'lb'), saved = ER.flag('s-lbs') || {}, done = false, s = '<div class="lb-rows">';
+    var rings = saved.r || {}, st = saved.st || {};
+    LINES.forEach(function (L) {
+      s += '<div class="lb-row' + (L[5] ? ' dis' : '') + (L[0] === 'l7' ? ' gap' : '') + '" data-l="' + L[0] + '"><div class="lb-l"><b>' + L[1] + '</b>' + L[2] + '</div><div class="lb-t">';
+      L[3].split('').forEach(function (c, i) {
+        var g = WL.typed(c === ' ' ? '&nbsp;' : c, { R: L[4].R, e: L[4].e });
+        s += c === ' ' ? '<span>&nbsp;</span>' : '<span class="c' + ((rings[L[0]] || []).indexOf(i) >= 0 ? ' ring' : '') + '" data-i="' + i + '">' + g + '</span>';
+      });
+      s += '</div><div>' + (L[5] ? '<button type="button" class="lb-st" data-l="' + L[0] + '"></button>' : '') + '</div></div>';
+    });
+    s += '</div><div class="side"><h6>Under the glass</h6><p class="k">Ring every faulty letter on every line. Then stamp the two pages at the bottom: was each one typed when its date says?</p><button type="button" class="btn" id="lb-go">Show Ms Siddiqui</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('s-lbs', { r: rings, st: st }); box.setAttribute('data-rings', ER.$$('.c.ring', box).length); }
+    function paintSt() { ER.$$('.lb-st', box).forEach(function (b) { var v = st[b.getAttribute('data-l')] || ''; b.className = 'lb-st' + (v ? ' ' + v : ''); b.textContent = v === 'F' ? 'FITS ITS DATE' : v === 'L' ? 'TYPED LATER THAN ITS DATE' : 'stamp'; }); }
+    ER.$$('.lb-t .c', box).forEach(function (c) {
+      c.addEventListener('click', function () {
+        if (done) return;
+        var l = c.closest('.lb-row').getAttribute('data-l'), i = +c.getAttribute('data-i'), a = rings[l] || (rings[l] = []), k = a.indexOf(i);
+        if (k >= 0) a.splice(k, 1); else a.push(i);
+        c.classList.toggle('ring', k < 0); WL.sfx.pen(); keep();
+      });
+    });
+    ER.$$('.lb-st', box).forEach(function (b) {
+      b.addEventListener('click', function () { if (done) return; var l = b.getAttribute('data-l'); st[l] = st[l] === 'F' ? 'L' : st[l] === 'L' ? '' : 'F'; paintSt(); WL.sfx.stamp(); keep(); });
+    });
+    function classes(L) {        /* which kinds of letter have been ringed on a line: R, E, e, or x for any other */
+      var t = L[3], seen = {};
+      (rings[L[0]] || []).forEach(function (i) { var c = t.charAt(i); seen[c === 'R' || c === 'E' || c === 'e' ? c : 'x'] = 1; });
+      var k = Object.keys(seen).sort(); return k.length ? k.join('') : '-';
+    }
+    box.querySelector('#lb-go').addEventListener('click', function () {
+      var i, bad = null, more = 0, file;
+      if (done) return;
+      for (i = 0; i < LINES.length; i++) if (!ER.check(LINES[i][0], classes(LINES[i]))) { if (!bad) bad = LINES[i][0]; else more++; }
+      if (bad) {
+        WL.bump('s-tries'); WL.sfx.hm(); var row = box.querySelector('.lb-row[data-l="' + bad + '"]'); ER.shake(row);
+        msg('Ms Siddiqui puts her finger on one line. <i>&ldquo;' + LWHY[bad] + '&rdquo;</i>' + (more ? ' <i>&ldquo;And ' + (more === 1 ? 'one more line needs' : more + ' more lines need') + ' another look.&rdquo;</i>' : ''));
+        return;
+      }
+      if (!st.l7 || !st.l8) { msg('&ldquo;Every ring is right. Now the two stamps at the bottom: was each page typed when its date says, or later?&rdquo;'); return; }
+      if (!ER.check('d7', st.l7)) { WL.bump('s-tries'); WL.sfx.hm(); msg('&ldquo;The 2019 will. Its R is broken, as from 2016 on, and its e is level, as on every carbon up to the end of November 2025. Is there anything that says it was typed later than March 2019?&rdquo;'); return; }
+      if (!ER.check('d8', st.l8)) { WL.bump('s-tries'); WL.sfx.hm(); msg('&ldquo;The letter to Nigel says 21 November 2025. But its e is high, and on 28 November, a week later, his e was still level. Faults never mend themselves.&rdquo;'); return; }
+      done = true; ER.flag('s-lb', 1); WL.sfx.stamp(); paint();
+      msg('Ms Siddiqui reads down the lightbox once, slowly. <b>&ldquo;The R broke between 2012 and 2016. The e rose after the twenty-eighth of November 2025. The machine has just told us when.&rdquo;</b>');
+      WL.learn(['forgery']);
+      WL.mine('faults', 'What the typewriter says', '<p>R loses its foot: between 2012 and 2016 (whole in 2012, broken in 2016).</p><p>e and E sit high: only AFTER 28 Nov 2025 (level on his last carbon). Nigel&rsquo;s statement: it slid off his back seat after the funeral, 19 Dec.</p><p>2019 will: R broken, e level = typed 2016&ndash;Nov 2025. FITS 5 March 2019. Same as its carbon.</p><p>Letter to Nigel: R broken AND e high = typed after 28 Nov 2025. NOT on 21 Nov.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          '&ldquo;The will was typed while Mervyn was alive, and its carbon has sat in his own box, in its place, since March 2019. Whatever Mr Yarde suggests about Meriel and her key, this machine says no.&rdquo;',
+          '&ldquo;And the letter was typed after the twenty-eighth of November. If I had to guess, after a typewriter slid off the back seat of a car on the nineteenth of December. Tomorrow I shall not have to guess.&rdquo;',
+          'She takes three photocopied signatures out of her bag, and a clear plastic sheet with one more signature traced on it in red. &ldquo;One more thing. Nobody signs his name exactly the same way twice. Not even on the same day.&rdquo;'
+        ], function () { busy = false; paint(); openSig(); });
+      }, 3200);
+    });
+    msg('Eight lines, from 2012 to today. <b>Click a letter to ring it</b> if it is out of line or broken. Ring nothing on a line that has no faults.');
+    lbBox = box; paintSt(); keep();
+    ER.open('ov-lock', box, function () { lbBox = null; });
+  }
+
+  /* ---------- the clear sheet ---------- */
+  var SIGC = [['y2008', '2008 will', 30, 40], ['y2019', '2019 will', 340, 40], ['y2025', 'Letter to Mr Underhill, 28 Nov 2025', 185, 240]];
+  function openSig() {
+    var box = ER.el('div', 'sg'), done = false, at = ER.flag('s-sgat') || '';
+    var s = '<div class="sg-board">';
+    SIGC.forEach(function (c) { s += '<div class="sg-card" data-s="' + c[0] + '" style="left:' + c[2] + 'px;top:' + c[3] + 'px"><small>' + c[1] + '</small>' + WL.sig(c[0], '#1d2a52', 240) + '</div>'; });
+    s += '<div id="sg-acet" style="left:480px;top:250px">' + WL.sig('letter', '#c0262c', 240) + '<small>letter to Nigel</small></div></div>' +
+      '<div class="side"><h6>The clear sheet</h6><p class="k" style="font-family:EB Garamond,serif;font-size:15.5px;color:#d6d2c6;margin:0 0 10px">The red signature is traced from the letter to Nigel. Lay it over each of the others. Leave it on the one it came from.</p><button type="button" class="btn" id="sg-go">Show Ms Siddiqui</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var board = box.querySelector('.sg-board'), ac = box.querySelector('#sg-acet'), msgEl = box.querySelector('.pmsg'), ox = 0, oy = 0;
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function place(id) {
+      at = id; ER.flag('s-sgat', id); box.setAttribute('data-at', id || '');
+      ER.$$('.sg-card', box).forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-s') === id); });
+      if (id) { var c = box.querySelector('.sg-card[data-s="' + id + '"]'); ac.style.left = (c.offsetLeft + 10) + 'px'; ac.style.top = (c.offsetTop + 10) + 'px'; }
+    }
+    if (at) place(at);
+    ER.drag(ac, {
+      start: function (e) { if (done) return false; var r = ac.getBoundingClientRect(); ox = e.clientX - r.left; oy = e.clientY - r.top; },
+      move: function (e) { var b = board.getBoundingClientRect(); ac.style.left = Math.max(0, Math.min(b.width - 270, e.clientX - b.left - ox)) + 'px'; ac.style.top = Math.max(0, Math.min(b.height - 150, e.clientY - b.top - oy)) + 'px'; },
+      end: function () {
+        var r = ac.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, hit = '';
+        ER.$$('.sg-card', box).forEach(function (c) { var q = c.getBoundingClientRect(); if (cx > q.left && cx < q.right && cy > q.top && cy < q.bottom) hit = c.getAttribute('data-s'); });
+        place(hit); if (hit) WL.sfx.card();
+      }
+    });
+    box.querySelector('#sg-go').addEventListener('click', function () {
+      if (done) return;
+      if (!at) { msg('&ldquo;Leave the clear sheet lying on one of the three: the one you think it came from.&rdquo;'); return; }
+      if (!ER.check('sg', at)) {
+        WL.bump('s-tries'); WL.sfx.hm();
+        msg(at === 'y2019' ? '&ldquo;They do not lie together anywhere. And look at that one tremble: that is a real hand, on a bad day, with something wrong. Mr Yelland may tell us what.&rdquo;' : '&ldquo;Close, as two signatures by one man are close. Not exact. Is there one that lies under it with nothing showing at all?&rdquo;');
+        return;
+      }
+      var file = ER.exitOk([lbCand()]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('s-file', file); ER.flag('s-sg', 1); WL.done('study'); WL.sfx.stamp();
+      msg('Not a hair&rsquo;s breadth between them. <b>&ldquo;Nobody signs twice like that,&rdquo;</b> says Ms Siddiqui. <b>&ldquo;Somebody traced it from the 2008 will.&rdquo;</b>');
+      WL.learn(['traced']);
+      WL.mine('sigs', 'Four signatures', '<p>Nobody signs exactly the same way twice.</p><p>2019 will: it shakes, but it is his own (different from all the others).</p><p>Letter to Mr U., 28 Nov 2025: like the others, never exactly the same.</p><p>Letter to Nigel: lies EXACTLY on the 2008 one. Traced from it.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); WL.solved(); paint(); busy = true;
+        ER.narrate([
+          'Mr Underhill looks at the two signatures for a long time. &ldquo;We sent each of them a copy of the 2008 will,&rdquo; he says at last, &ldquo;after Rosamund died. At Mervyn&rsquo;s request. Nigel kept his.&rdquo;',
+          '&ldquo;None of that tells us who did it,&rdquo; says Ms Siddiqui. &ldquo;Only that Mervyn did not. And the shaky one is his: so why does it shake?&rdquo; She looks at her watch. &ldquo;Ten to five. The post office.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('<b>Drag the clear sheet</b> over each signature. Leave it lying on the one it was traced from.');
+    sgBox = box;
+    ER.open('ov-lock', box, function () { sgBox = null; });
+  }
+  function lbCand() {
+    var r = (ER.flag('s-lbs') || {}).r || {}, st = (ER.flag('s-lbs') || {}).st || {};
+    var cls = LINES.map(function (L) { var seen = {}; (r[L[0]] || []).forEach(function (i) { var c = L[3].charAt(i); seen[c === 'R' || c === 'E' || c === 'e' ? c : 'x'] = 1; }); var k = Object.keys(seen).sort(); return k.length ? k.join('') : '-'; });
+    return cls.join('/') + '+' + st.l7 + st.l8 + '+' + (ER.flag('s-sgat') || '');
+  }
+})();
+</script>
+</body>
+</html>

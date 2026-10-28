@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Robing Room · In Our Joint Presence</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="will.css">
+<style>
+  body{--bg:#1e2a26;--accent:#e2c27a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(24,32,30,.97);--tc-ink:#f2eee2;--cap-bg:rgba(24,32,30,.93);--panel:#1e2a26;--face-bg:#2e2a3a;--q-ink:#ead7a6;--fade:#0a0e0c;--hud-bg:rgba(24,32,30,.84)}
+  #shaft{animation:shaft 9s ease-in-out infinite alternate}
+  @keyframes shaft{0%{opacity:.55}100%{opacity:.85}}
+
+  /* the ledger on the back of the brief */
+  .lg{width:min(1180px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start}
+  .lg-sheet{padding:16px 18px 12px;background:#f8f4e6;color:#1c1d22;box-shadow:0 22px 60px rgba(0,0,0,.6);border-left:7px solid #d96a8a;position:relative}
+  .lg-sheet:before{content:'';position:absolute;left:-7px;top:40px;width:7px;height:16px;background:#f8f4e6}
+  .lg-sheet h5{margin:0 0 8px;font-family:'Cormorant SC',serif;font-weight:700;font-size:20px;letter-spacing:.06em;color:#a33a5a}
+  .lg-sheet h5 small{font-family:'EB Garamond',serif;font-weight:400;font-size:15px;letter-spacing:0;color:#55503f}
+  .lg-t{display:grid;grid-template-columns:170px 170px minmax(0,1fr) 92px 92px;gap:0;border-top:1.5px solid #1c1d22}
+  .lg-t>div{padding:6px 8px;border-bottom:1px solid #c9c4b4;min-height:52px;display:flex;align-items:center}
+  .lg-t>div.h{min-height:0;font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#55503f;border-bottom:1.5px solid #1c1d22}
+  .lg-who{font-family:'Tinos',serif;font-size:15px;line-height:1.15;display:block!important}
+  .lg-who small{display:block;font-size:12px;color:#6b6453}
+  .lg-old{font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.05;color:#2a2a5a}
+  .lg-slot{border:2px dashed #b9b09a;border-radius:3px;min-height:40px;width:100%;display:flex;align-items:center;padding:2px}
+  .lg-tok{padding:5px 9px;background:#fffdf4;border:1px solid #8a7a5a;box-shadow:0 2px 5px rgba(0,0,0,.25);font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.05;color:#2a2a5a;position:relative}
+  .lg-tray{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;margin-top:10px;padding:8px 10px;background:rgba(8,12,10,.55);border:1px dashed rgba(226,194,122,.5);align-items:center}
+  .lg-f,.lg-r{width:78px;height:40px;border-radius:3px;font-family:'Stardos Stencil',serif;font-weight:700;font-size:13px;letter-spacing:.06em;border:2px dashed #c9c4b4;color:#b9b09a}
+  .lg-f.on{border:2.5px solid #b3262c;color:#b3262c;transform:rotate(-4deg)}
+  .lg-r.on{border:0;color:#fff;background:#d96a8a;box-shadow:0 2px 0 #a33a5a;font-family:'Oswald',sans-serif;font-size:12px}
+  .lg-row-f .lg-tok{text-decoration:line-through;text-decoration-color:#b3262c;text-decoration-thickness:2px}
+  .lg-mq{display:grid;gap:5px;margin-bottom:8px}
+  .lg-mq button{text-align:left;padding:6px 10px 6px 30px;position:relative;background:rgba(8,12,10,.6);border:1px solid rgba(226,194,122,.35);color:#f2eee2;font-family:'EB Garamond',serif;font-size:15px;line-height:1.2;border-radius:2px}
+  .lg-mq button:before{content:'';position:absolute;left:10px;top:9px;width:11px;height:11px;border-radius:50%;border:2px solid #e2c27a}
+  .lg-mq button.on{background:rgba(70,60,34,.9);border-color:#e2c27a}.lg-mq button.on:before{background:#e2c27a}
+  .lg .pmsg{min-height:140px;font-size:16.5px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="tileG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5a4a"/><stop offset="1" stop-color="#244a3c"/></linearGradient>
+  <linearGradient id="oakG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5232"/><stop offset="1" stop-color="#553620"/></linearGradient>
+  <linearGradient id="lightG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe8" stop-opacity=".5"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="mirG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9b8c0"/><stop offset=".5" stop-color="#d6e0e4"/><stop offset="1" stop-color="#8a9aa2"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a100e" stop-opacity=".16"/><stop offset="1" stop-color="#050807" stop-opacity=".76"/></radialGradient>
+  <pattern id="tiles" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="url(#tileG)"/><path d="M0 0h40M0 0v20M20 10h20M20 10v10" stroke="#1e3a30" stroke-width="1.5" fill="none"/></pattern>
+  <pattern id="parq" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#5a3a22"/><path d="M0 0l30 15L0 30M30 15l30-15M30 15l30 15" stroke="#3e2614" stroke-width="2" fill="none"/></pattern>
+</defs>
+
+<!-- the robing room of an old county court: cream paint above, green tiles below, a high barred window -->
+<rect x="-1000" y="-400" width="3600" height="830" fill="#e6dec6"/>
+<rect x="-1000" y="420" width="3600" height="290" fill="url(#tiles)"/><rect x="-1000" y="414" width="3600" height="10" fill="#1e3a30"/>
+<rect x="-1000" y="708" width="3600" height="800" fill="url(#parq)"/>
+<g id="win" class="hot"><rect x="640" y="50" width="320" height="200" fill="#e9eef0"/><rect x="652" y="62" width="296" height="176" fill="#cfdde2"/><g stroke="#4a4a4a" stroke-width="6"><path d="M700 62v176M750 62v176M800 62v176M850 62v176M900 62v176"/></g></g>
+<path id="shaft" d="M652 238h296l220 470h-740z" fill="url(#lightG)" pointer-events="none"/>
+
+<!-- lockers, one standing open with a wig tin -->
+<g id="lockers" class="hot"><g id="lk"></g></g>
+<!-- the long mirror, and Ms Siddiqui robing in front of it -->
+<rect x="470" y="150" width="200" height="540" fill="#3a2416"/><rect x="482" y="162" width="176" height="516" fill="url(#mirG)"/><path d="M500 200l60-30M520 420l110-60" stroke="#fff" stroke-width="3" opacity=".4"/>
+<g id="uz" class="hot"><rect x="450" y="380" width="250" height="320" fill="#000" opacity="0"/><use href="#ch-siddiquiw" x="440" y="370" width="260" height="338"/></g>
+<!-- the noticeboard, and the yellow leaflet -->
+<rect x="740" y="290" width="230" height="170" fill="#a87a4a"/><rect x="750" y="300" width="210" height="150" fill="#c9a274"/>
+<g id="board" class="hot"><rect x="760" y="312" width="86" height="56" fill="#fbfbf8"/><text x="803" y="332" class="sT" font-size="9" fill="#1c1d22">ROBING ROOM</text><text x="803" y="346" class="sT" font-size="9" fill="#a3262c">COUNSEL ONLY</text><path d="M770 356h66" stroke="#8d9097" stroke-width="2"/></g>
+<g id="leaf" class="hot"><rect x="862" y="308" width="84" height="122" fill="#fffef8" transform="rotate(3 904 369)"/><rect x="862" y="308" width="84" height="26" fill="#f2c94c" transform="rotate(3 904 369)"/><text x="904" y="326" class="sT" font-size="8" fill="#1c1d22" transform="rotate(3 904 369)">BEFORE YOU WITNESS</text>
+  <g stroke="#8d9097" stroke-width="2" transform="rotate(3 904 369)"><path d="M872 346h64M872 356h56M872 366h64M872 376h48M872 392h64M872 402h60"/></g><rect x="872" y="384" width="64" height="4" fill="#1c1d22" transform="rotate(3 904 369)"/></g>
+<g id="rad" class="hot"><rect x="760" y="520" width="200" height="120" rx="6" fill="#c9c4b4"/><g stroke="#9a9488" stroke-width="5"><path d="M786 530v100M812 530v100M838 530v100M864 530v100M890 530v100M916 530v100M942 530v100"/></g></g>
+
+<!-- the door to the corridor, and Meriel's face in its glass -->
+<g id="mer" class="hot"><rect x="1000" y="170" width="170" height="530" fill="url(#oakG)"/><rect x="1024" y="230" width="122" height="200" fill="#c9dfe6"/>
+  <svg x="1024" y="230" width="122" height="200" viewBox="30 40 140 230" preserveAspectRatio="xMidYMax slice"><use href="#ch-meriel" x="0" y="0" width="200" height="260"/></svg>
+  <rect x="1024" y="230" width="122" height="200" fill="#cfe6ee" opacity=".25"/><path d="M1024 230h122v200h-122z" fill="none" stroke="#3a2416" stroke-width="6"/><circle cx="1150" cy="480" r="8" fill="#c9a45a"/></g>
+<!-- the sofa, and Mr Yarde on it -->
+<path d="M1200 560q0-50 50-50h300q50 0 50 50v80h-400z" fill="#5a2a24"/>
+<g id="yarde" class="hot"><rect x="1260" y="370" width="230" height="270" fill="#000" opacity="0"/><use href="#ch-yarde" x="1250" y="380" width="250" height="325"/></g>
+<path d="M1210 640h380v90h-380z" fill="#6a3a30"/><path d="M1180 600h50v140h-50zM1550 600h50v140h-50z" fill="#4a2018"/><path d="M1230 640h340" stroke="#4a2018" stroke-width="4"/>
+<!-- the table, the urn, and the brief in pink tape -->
+<rect x="540" y="700" width="560" height="20" fill="#5a3a22"/><path d="M560 720h520v170h-520z" fill="url(#oakG)"/>
+<g id="brief" class="hot"><rect x="640" y="668" width="210" height="44" fill="#000" opacity="0"/><rect x="650" y="676" width="190" height="30" fill="#f8f4e6"/><path d="M650 690h190M744 676v30" stroke="#d96a8a" stroke-width="5"/><path d="M744 690l-16 18M744 690l16 18" stroke="#d96a8a" stroke-width="4"/></g>
+<g id="urn" class="hot"><rect x="940" y="620" width="70" height="80" rx="8" fill="#b9bcc0"/><rect x="930" y="612" width="90" height="12" rx="4" fill="#8d9097"/><path d="M1010 680h16v10h-16z" fill="#2a2a2a"/><rect x="890" y="676" width="30" height="24" fill="#f4f0e2"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Court 1, half past ten</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="will.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, lgBox = null;
+
+  (function () {
+    var s = '', i;
+    for (i = 0; i < 4; i++) {
+      var x = 40 + i * 98;
+      s += '<rect x="' + x + '" y="150" width="90" height="550" fill="url(#oakG)" stroke="#3a2416" stroke-width="3"/><rect x="' + (x + 30) + '" y="190" width="30" height="14" fill="#c9a45a"/><text x="' + (x + 45) + '" y="201" class="sT" font-size="10" fill="#3a2416">' + (i + 7) + '</text>';
+      s += '<g stroke="#3a2416" stroke-width="2"><path d="M' + (x + 20) + ' 240h50M' + (x + 20) + ' 248h50M' + (x + 20) + ' 256h50"/></g><circle cx="' + (x + 76) + '" cy="430" r="5" fill="#c9a45a"/>';
+    }
+    s += '<path d="M334 150l70 20v540l-70-10z" fill="#3a2416"/><rect x="342" y="300" width="56" height="34" rx="6" fill="#1c1c22"/><text x="370" y="322" class="sT" font-size="10" fill="#c9a45a">U.S.</text>';
+    $('#lk').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'will', storyTitle: 'In Our Joint Presence', id: 'robing', no: 'IV', title: 'The Robing Room',
+    go: 'Go in',
+    intro: [
+      'At the post office you turned the brass calendar. 21 November 2025 was a Friday: it is a Saturday only in 2026. And nobody had heard of the Corner Pantry until January. The other three dates fit.',
+      'And Mr Yelland&rsquo;s two mornings. On Thursday 28 February he came from market and heard Mervyn ask for witnesses. On Tuesday 5 March, posting Poppy&rsquo;s parcel, he watched Mervyn sign, bent over the counter with the pen on its short chain, and signed under Mrs Ockenden. An honest man has made one morning out of two.',
+      'Dunsmere County Court, Tuesday 3 November, twenty-five past nine. Court 1 sits at half past ten.'
+    ],
+    exit: {"next":"court","w":{"56fb5052":"3fe99786"}}, tags: {"g-ni":["1cdd7a4c"],"g-me":["a07b6c4a"],"g-ha":["9fc801b8"],"g-sy":["a08da7ee"],"g-se":["dd2cdb87"],"g-ne":["faab4676"],"f-ni":["27c6a034"],"f-me":["c03a3557"],"f-ha":["29f6ab3b"],"f-sy":["0cea7a40"],"f-se":["286ff09b"],"f-ne":["39acc9d3"],"r-ni":["52f17a52"],"r-me":["08a86f63"],"r-ha":["c153ad10"],"r-sy":["7b3fed88"],"r-se":["5ede6515"],"r-ne":["55f1a5a3"],"mq":["d76cb2b2"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('r-file') || null;
+
+  var LEAF = '<h4>Before you witness a will</h4>' +
+    '<p>A witness watches the person making a will sign it, and then signs it too. You do not need to read the will. But read this:</p>' +
+    '<p class="big">If the will leaves anything to you, or to your husband, wife or civil partner, and you witness it, that gift fails. (Wills Act 1837, section 15.)</p>' +
+    '<p>The will itself still stands, and so does every other gift in it. You are still a good witness. A gift to your son, daughter, brother, sister or friend is not affected.</p>' +
+    '<p>What happens to a gift that fails? It goes back into the rest of the estate, the <b class="t">RESIDUE</b>, and passes to whoever the will gives &ldquo;everything else&rdquo;.</p>' +
+    '<p>So if you, or the person you are married to, are named in a will, say no politely, and let somebody else witness it.</p>' +
+    '<p class="fine">Dunsmere Law Centre &middot; free advice on Tuesdays and Thursdays</p>';
+  var ROWS = [['ni', 'Nigel Wedlake', 'his nephew', 'half of everything else (about £170,000)'], ['me', 'Meriel Voysey', 'his wife&rsquo;s niece', 'half of everything else (about £170,000)'],
+    ['ha', 'Thrushcombe Village Hall', '', '£1,000'], ['sy', 'Sylvia Ockenden', 'witness to the 2019 will', 'nothing'], ['se', 'Seth Yelland', 'witness to the 2019 will', 'nothing'], ['ne', 'Nesta Morcom', 'of the tea room', 'nothing']];
+  var TOKS = [['cot', 'the cottage, and everything else'], ['3k', '£3,000'], ['2k', '£2,000'], ['1k', '£1,000'], ['1k', '£1,000'], ['0', 'nothing']];
+  var NAME = { ni: 'Nigel', me: 'Meriel', ha: 'the Village Hall', sy: 'Mrs Ockenden', se: 'Mr Yelland', ne: 'Nesta Morcom' };
+  var FWHY = { ni: 'Did Nigel witness the will? Is he married to anybody who did?', me: 'Did Meriel witness the will? Is she married to anybody who did?', ha: 'A village hall cannot witness anything, and is married to nobody.',
+    sy: 'Mrs Ockenden is named in the will, and she witnessed it herself. Read the big box on the leaflet.', se: 'Mr Yelland is left nothing, so he has no gift to lose.',
+    ne: 'Nesta Morcom did not witness the will. But who did, and who is he married to? Zoe told you, and the card behind the counter is in your notebook.' };
+  var MQ = [['a', 'Meriel gains most from the 2019 will, so she must have had a hand in it.'], ['b', 'Meriel gains most from the 2019 will. That is a reason to check it with care, not a proof that anybody lied.'], ['c', 'Meriel gains most from the 2019 will, so her evidence counts for nothing.']];
+
+  function hints() {
+    if (nextFile) return ['go', ['Mr Ollerton has called the case. The button at the bottom of the screen takes you into Court 1.']];
+    if (lgBox) return ['lg', [
+      'First fill the 2019 column from the 2019 will (it is in your notebook). Then use the leaflet: stamp FAILS on any gift to somebody who witnessed the will, or to somebody married to a witness. Then tie a ribbon on everybody who gets exactly the same whichever will stands.',
+      'Two gifts fail. Mrs Ockenden witnessed the will herself. And Nesta Morcom is married to Seth Yelland, who witnessed it too: Zoe told you so, and the Ruby Wedding card is in your notebook.',
+      'Ribbons for the Village Hall (£1,000 either way), Mrs Ockenden, Mr Yelland and Nesta Morcom (nothing either way, once the two gifts fail). Not for Nigel or Meriel. And gaining most is a reason to check, not a proof that anybody lied.'
+    ]];
+    if (!ER.flag('r-uz')) return ['uz', ['Ms Siddiqui is robing in front of the long mirror. Talk to her.']];
+    if (!ER.flag('r-leaf')) return ['leaf', ['The yellow leaflet on the noticeboard is about witnesses who are left something in a will. Read it.']];
+    if (!ER.flag('r-mer')) return ['mer', ['Meriel is waiting in the corridor: you can see her through the glass in the door. Talk to her.']];
+    return ['brief', ['The brief, tied in pink tape, is on the table. Click it.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#uz').classList.toggle('ready', !nextFile && !ER.flag('r-uz') && !busy);
+    $('#brief').classList.toggle('ready', !nextFile && !!ER.flag('r-leaf') && !!ER.flag('r-mer'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The robing room is empty but for Mr Yarde&rsquo;s banana skin.'); return; }
+    if (ER.flag('r-in')) { ER.say('The robing room. The radiator knocks twice.'); return; }
+    busy = true; ER.flag('r-in', 1);
+    ER.narrate([
+      'Dunsmere County Court was built in 1868, of yellow stone, to look like a bank that had found God. The robing room is in the basement: lockers, a long mirror, a radiator that knocks, and a window too high to see out of.',
+      'Barristers change here. Clients do not come in, and what is said here is not said in court. Mr Yarde, who acts for Nigel, is on the sofa. Ms Siddiqui is in front of the mirror, turning into somebody more frightening.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#uz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Follow the money,&rdquo; says Ms Siddiqui, settling her wig. &ldquo;We did. It went nowhere he expects.&rdquo;'); return; }
+    if (ER.flag('r-uz')) { ER.say('&ldquo;The leaflet,&rdquo; says Ms Siddiqui, &ldquo;then Meriel, then the brief.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ms Siddiqui', role: 'Counsel for Mrs Voysey · robing', face: window.FACE('siddiquiw'),
+      lines: [
+        { note: 'Ms Siddiqui is putting on her bands in front of the mirror. Her wig waits on top of her locker like a small sleeping animal.', a: 'At a trial like this one, we robe: wig, gown and bands. His Honour will wear a plain robe and no wig at all, because the judges changed their rules in 2008 and we did not. Nobody has ever explained this to me.' },
+        { a: 'Mr Yarde will open with three words: follow the money. Meriel gets the cottage. So let us follow the money first, and see where it goes.' },
+        { note: 'She hands you the brief, tied in pink tape, and turns it over. On the back she has ruled a table.', a: 'The 2008 column I have done. You do the 2019 column, from the will. Then read the yellow leaflet on the board. Somebody pinned it up for a joke. It is the most useful thing in the building.' }
+      ],
+      clue: { id: 'uz4', title: 'Ms Siddiqui, robing', kind: 'What she said' }, last: 'Read the leaflet',
+      done: function (seen) { if (seen) { ER.flag('r-uz', 1); paint(); WL.learn(['estate', 'beneficiary']); } }
+    });
+  });
+  $('#leaf').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: LEAF, cls: 'leaflet', clue: { id: 'leaf', title: 'Leaflet: before you witness a will', kind: 'On the robing room board' },
+      done: function () { ER.flag('r-leaf', 1); paint(); WL.learn(['residue']); } });
+  });
+  $('#mer').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('r-mer')) { ER.say('Meriel, in the corridor, in her best coat, with her fob watch still pinned on.'); return; }
+    ER.talk({
+      who: 'Meriel Voysey', role: 'Mrs Voysey · the defendant · in the corridor', face: window.FACE('meriel'),
+      lines: [
+        { note: 'Meriel Voysey is in the corridor in her best coat, with her nurse&rsquo;s fob watch still pinned to it because she forgot to take it off. Clients do not come into the robing room, so she talks to you through the half-open door.', a: 'I didn&rsquo;t know about the 2019 will. Not till January, when I found the envelope in his bureau: MY WILL. M.W. I rang Nigel that same night. I thought he&rsquo;d be pleased for me. He wasn&rsquo;t.' },
+        { q: 'Did you ever type anything on the Vellacott?', a: 'Never. He wouldn&rsquo;t let anybody touch it. He said it had a temper. I did his shopping lists on my phone.' },
+        { a: 'Everybody says I gain, and I do. I&rsquo;d rather have him back, and the crossword, and the soup. Tell Ms Siddiqui I&rsquo;m out here. I&rsquo;m not going anywhere.' }
+      ],
+      clue: { id: 'mer1', title: 'Meriel Voysey, at the door', kind: 'What she said' }, last: 'Close the door gently',
+      done: function (seen) { if (seen) { ER.flag('r-mer', 1); paint(); WL.learn(['motive']); } }
+    });
+  });
+  $('#yarde').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('r-yarde')) { ER.say('Mr Yarde finishes his banana and folds the skin into a very neat parcel.'); return; }
+    ER.talk({
+      who: 'Mr Yarde', role: 'Counsel for Mr Nigel Wedlake', face: window.FACE('yarde'),
+      lines: [
+        { note: 'Mr Yarde is on the sofa with his feet on a box of somebody else&rsquo;s papers, eating a banana with great dignity.', a: 'Good morning. My client has asked me to say that he is sorry it has come to this. He is not sorry enough to stop.' },
+        { q: 'Do you really think the will is no good?', a: 'I think Mr Yelland is an honest man, and he says it was a Thursday. And I think your client gets a cottage. Follow the money, as they say.' },
+        { a: 'I say that in every case. The money hardly ever goes where I tell it to.' }
+      ],
+      clue: { id: 'yarde1', title: 'Mr Yarde, on the sofa', kind: 'What he said' }, last: 'Good morning',
+      done: function (seen) { if (seen) ER.flag('r-yarde', 1); }
+    });
+  });
+  $('#brief').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The brief, tied up again in its pink tape, with your ledger on the back.'); return; }
+    if (!ER.flag('r-uz')) { ER.say('A brief, tied in pink tape: Ms Siddiqui&rsquo;s, for today. She has not given it to you yet.'); return; }
+    if (!ER.flag('r-leaf') || !ER.flag('r-mer')) { ER.say('&ldquo;The leaflet first,&rdquo; says Ms Siddiqui, &ldquo;and say good morning to our client. She is in the corridor, pretending not to look in.&rdquo;'); return; }
+    openLedger();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  WL.thing('#lockers', null, 'Tall oak lockers, numbered. Number 10 stands open: in it, a black tin with U.S. painted on the lid, for the wig.', isBusy);
+  WL.thing('#board', null, 'ROBING ROOM. COUNSEL ONLY. Underneath, in pencil: AND THE MOUSE.', isBusy);
+  WL.thing('#rad', null, 'The radiator knocks twice, as if somebody wanted to come in. Nobody does. It has done this since 1952.', isBusy);
+  WL.thing('#win', null, 'A high barred window. Through the frosted glass, the shadows of feet go past on the pavement.', isBusy);
+  WL.thing('#urn', null, 'A tea urn the size of a small boiler, and a sign: PLEASE WASH YOUR OWN CUP. Nobody does.', isBusy);
+
+  /* ---------- the ledger ---------- */
+  function openLedger() {
+    var box = ER.el('div', 'lg'), saved = ER.flag('r-lg') || {}, done = false, fl = saved.f || {}, rb = saved.r || {}, mq = saved.q || '';
+    var s = '<div><div class="lg-sheet"><h5>Follow the money <small>&middot; an estate of about £340,000: the cottage (about £300,000) and savings (about £40,000)</small></h5><div class="lg-t">' +
+      '<div class="h">Who</div><div class="h">2008 will</div><div class="h">2019 will</div><div class="h">Section 15</div><div class="h">Same either way?</div>';
+    ROWS.forEach(function (r) {
+      s += '<div class="lg-who" data-r="' + r[0] + '">' + r[1] + (r[2] ? '<small>' + r[2] + '</small>' : '') + '</div><div class="lg-old">' + r[3] + '</div>' +
+        '<div><div class="lg-slot" data-r="' + r[0] + '"></div></div><div><button type="button" class="lg-f" data-r="' + r[0] + '">s.15</button></div><div><button type="button" class="lg-r" data-r="' + r[0] + '">ribbon</button></div>';
+    });
+    s += '</div></div><div class="lg-tray"></div></div><div class="side"><h6>And so:</h6><div class="lg-mq"></div><button type="button" class="btn" id="lg-go">Show Ms Siddiqui</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.lg-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    TOKS.forEach(function (t, i) {
+      var d = ER.el('div', 'lg-tok dnd-item', t[1]); d.setAttribute('data-v', t[0]); d.setAttribute('data-i', i);
+      var at = (saved.at || {})[i]; (at ? box.querySelector('.lg-slot[data-r="' + at + '"]') : tray).appendChild(d);
+    });
+    MQ.forEach(function (o) {
+      var b = ER.el('button', mq === o[0] ? 'on' : '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+      b.addEventListener('click', function () { if (done) return; mq = o[0]; ER.$$('.lg-mq button', box).forEach(function (x) { x.classList.toggle('on', x === b); }); WL.sfx.card(); keep(); });
+      box.querySelector('.lg-mq').appendChild(b);
+    });
+    function vals() { var o = {}; ROWS.forEach(function (r) { var t = box.querySelector('.lg-slot[data-r="' + r[0] + '"] .lg-tok'); o[r[0]] = t ? t.getAttribute('data-v') : ''; }); return o; }
+    function keep() {
+      var at = {}; ER.$$('.lg-tok', box).forEach(function (t) { var sl = t.parentNode.getAttribute('data-r'); if (sl) at[t.getAttribute('data-i')] = sl; });
+      ER.flag('r-lg', { at: at, f: fl, r: rb, q: mq }); box.setAttribute('data-in', Object.keys(at).length);
+      ER.$$('.lg-f', box).forEach(function (b) { var k = b.getAttribute('data-r'); b.classList.toggle('on', !!fl[k]); b.textContent = fl[k] ? 'FAILS' : 's.15'; box.querySelector('.lg-slot[data-r="' + k + '"]').parentNode.classList.toggle('lg-row-f', !!fl[k]); });
+      ER.$$('.lg-r', box).forEach(function (b) { var k = b.getAttribute('data-r'); b.classList.toggle('on', !!rb[k]); b.textContent = rb[k] ? 'SAME' : 'ribbon'; });
+    }
+    ER.$$('.lg-f', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; var k = b.getAttribute('data-r'); fl[k] = !fl[k]; WL.sfx.stamp(); keep(); }); });
+    ER.$$('.lg-r', box).forEach(function (b) { b.addEventListener('click', function () { if (done) return; var k = b.getAttribute('data-r'); rb[k] = !rb[k]; WL.sfx.flag(); keep(); }); });
+    ER.dnd(box, { item: '.lg-tok', slot: '.lg-slot', home: tray, lock: function () { return done; }, change: function () { WL.sfx.card(); keep(); } });
+    box.querySelector('#lg-go').addEventListener('click', function () {
+      var v = vals(), i, k, bad = null, more = 0, file, cand;
+      if (done) return;
+      for (i = 0; i < ROWS.length; i++) if (!v[ROWS[i][0]]) { msg('&ldquo;The 2019 column first,&rdquo; says Ms Siddiqui. &ldquo;' + NAME[ROWS[i][0]].charAt(0).toUpperCase() + NAME[ROWS[i][0]].slice(1) + ' has nothing in it yet: not even &lsquo;nothing&rsquo;.&rdquo;'); return; }
+      for (i = 0; i < ROWS.length; i++) { k = ROWS[i][0]; if (!ER.check('g-' + k, v[k])) { if (!bad) bad = k; else more++; } }
+      if (bad) { WL.bump('r-tries'); WL.sfx.hm(); msg('&ldquo;Read the 2019 will again: what does it leave to ' + NAME[bad] + '?&rdquo;' + (more ? ' <i>&ldquo;And ' + (more === 1 ? 'one more line' : more + ' more lines') + ' in that column.&rdquo;</i>' : '')); return; }
+      for (i = 0; i < ROWS.length; i++) { k = ROWS[i][0]; if (!ER.check('f-' + k, fl[k] ? 'Y' : 'N')) { if (!bad) bad = k; else more++; } }
+      if (bad) { WL.bump('r-tries'); WL.sfx.hm(); msg('&ldquo;Section 15, on the line for ' + NAME[bad] + '.&rdquo; <i>&ldquo;' + FWHY[bad] + '&rdquo;</i>' + (more ? ' <i>&ldquo;And ' + (more === 1 ? 'one more stamp' : more + ' more stamps') + '.&rdquo;</i>' : '')); return; }
+      for (i = 0; i < ROWS.length; i++) { k = ROWS[i][0]; if (!ER.check('r-' + k, rb[k] ? 'Y' : 'N')) { if (!bad) bad = k; else more++; } }
+      if (bad) { WL.bump('r-tries'); WL.sfx.hm(); msg('&ldquo;The ribbons. Put what ' + NAME[bad] + ' gets under the 2008 will beside what ' + NAME[bad] + ' really gets under the 2019 will, after your stamps. The same, or not?&rdquo;' + (more ? ' <i>&ldquo;And ' + (more === 1 ? 'one more ribbon' : more + ' more ribbons') + '.&rdquo;</i>' : '')); return; }
+      if (!mq) { msg('&ldquo;Good. And so? Choose a sentence on the right.&rdquo;'); return; }
+      if (!ER.check('mq', mq)) {
+        WL.bump('r-tries'); WL.sfx.hm();
+        msg(mq === 'a' ? '&ldquo;Must have? We checked the will because she gains: the typewriter, the carbon, the calendar. Gaining is a reason to check. It proves nothing.&rdquo;' : '&ldquo;Her evidence counts like anybody&rsquo;s. The judge will weigh it knowing what she gains, as he will weigh Nigel&rsquo;s.&rdquo;');
+        return;
+      }
+      cand = ROWS.map(function (r) { return v[r[0]]; }).join(',') + '+' + ROWS.map(function (r) { return fl[r[0]] ? 'Y' : 'N'; }).join('') + '+' + ROWS.map(function (r) { return rb[r[0]] ? 'Y' : 'N'; }).join('') + '+' + mq;
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('r-file', file); WL.done('robing'); WL.sfx.stamp();
+      msg('Ms Siddiqui runs her pen down the ribbons. <b>&ldquo;The two witnesses who disagree get exactly the same whichever will wins. So whichever of them is wrong is wrong honestly.&rdquo;</b>');
+      WL.mine('money', 'Follow the money', '<p>2008 will: Nigel half, Meriel half, Hall &pound;1,000.</p><p>2019 will: Meriel the cottage and the rest, Nigel &pound;2,000, Hall &pound;1,000.</p><p>Mrs Ockenden &pound;3,000: FAILS (she witnessed it).</p><p>Nesta Morcom &pound;1,000: FAILS (married to Seth, who witnessed it). Both go into the residue: to Meriel.</p><p>The will still stands.</p><p>SAME either way: Hall, Sylvia, Seth, Nesta. Only Nigel and Meriel gain or lose.</p><p>Gaining = a reason to check. Not a proof.</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); WL.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;Mrs Ockenden loses three thousand pounds by witnessing that will, and she will tell the court so with a straight face. Mr Yelland&rsquo;s wife loses a thousand. Neither of them gains a penny whichever way this goes.&rdquo;',
+          '&ldquo;So I shall be gentle with Mr Yelland. An honest witness who is wrong is not an enemy. He is a man who needs a toffee tin.&rdquo;',
+          'Mr Ollerton the usher puts his head round the door. &ldquo;Wedlake and Voysey, Court 1, please. His Honour has read everything, he says. Twice.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('<b>Fill the 2019 column</b> from the will: drag each slip to its line. Then <b>stamp</b> any gift that fails under section 15, and <b>tie a ribbon</b> on everybody who gets exactly the same whichever will stands.');
+    lgBox = box; keep();
+    ER.open('ov-lock', box, function () { lgBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

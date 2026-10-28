@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Underhill &amp; Noakes · In Our Joint Presence</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-court.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="will.css">
+<style>
+  body{--bg:#2a3026;--accent:#d9b86a;--font-display:'Cormorant SC',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',Georgia,serif;
+    --tc-bg:rgba(30,34,26,.97);--tc-ink:#f1ede0;--cap-bg:rgba(30,34,26,.93);--panel:#262b22;--face-bg:#3a3428;--q-ink:#e6d3a6;--fade:#0e100c;--hud-bg:rgba(30,34,26,.84)}
+  .rain path{animation:rain .7s linear infinite}
+  .rain path:nth-child(2n){animation-duration:.9s;animation-delay:-.3s}
+  @keyframes rain{0%{transform:translate(0,-60px)}100%{transform:translate(-12px,60px)}}
+  #lamp{animation:lamp 5.3s steps(1,end) infinite}
+  @keyframes lamp{0%{opacity:.9}88%{opacity:.75}90%{opacity:.9}}
+
+  /* the five papers, the four flags */
+  .fx{width:min(1160px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;align-items:start}
+  .fx-view{height:min(650px,calc(100vh - 120px));overflow:auto;background:#1a1d16;padding:14px;border:1px solid rgba(217,184,106,.35);box-shadow:inset 0 0 30px rgba(0,0,0,.5)}
+  .fx-view .doc{width:auto;max-width:none;margin:0;box-shadow:0 10px 30px rgba(0,0,0,.5);transform:none}
+  .fx-view .doc.card{border-left-width:16px}
+  .hs{display:inline;position:relative;border-radius:2px;outline:1.5px dashed rgba(120,110,90,.35);outline-offset:1px;cursor:pointer;transition:background .15s}
+  .hs.blk{display:block;padding:2px 4px;margin:0 -4px 6px}
+  .fx .hs:hover{outline-color:rgba(60,50,30,.85);background:rgba(0,0,0,.05)}
+  .hs:before{content:'';position:absolute;left:-22px;top:2px;width:15px;height:18px;border-radius:2px 0 0 2px;display:none;box-shadow:0 1px 2px rgba(0,0,0,.4)}
+  .hs.flY{background:rgba(242,201,76,.32)}.hs.flY:before{display:block;background:#f2c94c}
+  .hs.flR{background:rgba(214,72,72,.22)}.hs.flR:before{display:block;background:#d64848}
+  .hs.flB{background:rgba(64,120,214,.2)}.hs.flB:before{display:block;background:#4078d6}
+  .hs.flG{background:rgba(58,160,90,.22)}.hs.flG:before{display:block;background:#3aa05a}
+  .fx-view .doc{padding-left:46px}
+  .fx-pads{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+  .fx-pads button{position:relative;padding:7px 8px 6px 30px;text-align:left;background:#f6f1e2;color:#1c1d22;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.06em;line-height:1.15;border:2px solid transparent;border-radius:2px}
+  .fx-pads button i{position:absolute;left:8px;top:7px;width:14px;height:22px;border-radius:2px}
+  .fx-pads button.on{border-color:#d9b86a;box-shadow:0 0 0 2px #1a1d16,0 0 0 4px #d9b86a}
+  .fx-tabs{display:grid;gap:4px;margin-bottom:10px}
+  .fx-tab{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:6px;align-items:stretch}
+  .fx-tab>button:first-child{text-align:left;padding:6px 10px;background:rgba(8,10,6,.6);border:1px solid rgba(217,184,106,.3);color:#f1ede0;font-family:'EB Garamond',serif;font-size:16px;line-height:1.1;border-radius:2px}
+  .fx-tab.cur>button:first-child{background:#f6f1e2;color:#1c1d22;border-color:#d9b86a}
+  .fx-tab .st{font-family:'Stardos Stencil',serif;font-weight:700;font-size:11.5px;letter-spacing:.06em;line-height:1.05;border:2px dashed rgba(217,184,106,.45);color:rgba(241,237,224,.55);border-radius:3px;padding:2px 4px}
+  .fx-tab .st.C{border:2.5px solid #3aa05a;color:#7fd39a;transform:rotate(-2deg)}
+  .fx-tab .st.N{border:2.5px solid #d64848;color:#f08a8a;transform:rotate(2deg)}
+  .fx-q{display:grid;gap:4px;margin-bottom:8px}
+  .fx-q button{text-align:left;padding:5px 9px 5px 28px;position:relative;background:rgba(8,10,6,.6);border:1px solid rgba(217,184,106,.3);color:#f1ede0;font-family:'EB Garamond',serif;font-size:15px;line-height:1.18;border-radius:2px}
+  .fx-q button:before{content:'';position:absolute;left:9px;top:8px;width:11px;height:11px;border-radius:50%;border:2px solid #d9b86a}
+  .fx-q button.on{background:rgba(70,60,34,.9);border-color:#d9b86a}.fx-q button.on:before{background:#d9b86a}
+  .fx .pmsg{font-size:16.5px;min-height:96px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="paper" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#4f5e46"/><path d="M0 0v44M22 0v44" stroke="#465440" stroke-width="7"/><circle cx="11" cy="22" r="2" fill="#5c6c52"/><circle cx="33" cy="6" r="2" fill="#5c6c52"/></pattern>
+  <linearGradient id="woodG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4428"/><stop offset="1" stop-color="#4a2e1a"/></linearGradient>
+  <linearGradient id="leatherG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5a3a"/><stop offset="1" stop-color="#244a2e"/></linearGradient>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a96a0"/><stop offset="1" stop-color="#b8c0c4"/></linearGradient>
+  <radialGradient id="lampG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#fff2c0" stop-opacity=".55"/><stop offset="1" stop-color="#fff2c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="52%" cy="44%" r="84%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#0a0c08" stop-opacity=".16"/><stop offset="1" stop-color="#050604" stop-opacity=".76"/></radialGradient>
+  <clipPath id="winClip"><rect x="96" y="136" width="268" height="368"/></clipPath>
+</defs>
+
+<!-- the back office: striped wallpaper, a dado rail, dark boards -->
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#paper)"/>
+<rect x="-1000" y="-400" width="3600" height="440" fill="#d9d2bc"/><rect x="-1000" y="36" width="3600" height="14" fill="#8a7a5a"/>
+<rect x="-1000" y="560" width="3600" height="150" fill="#4a3020"/><rect x="-1000" y="556" width="3600" height="10" fill="#7a5a3a"/>
+<g stroke="#3a2416" stroke-width="3"><path d="M-200 590h2000"/></g><g id="panels"></g>
+<rect x="-1000" y="708" width="3600" height="800" fill="#4a3220"/><g stroke="#3a2416" stroke-width="2" id="boards"></g>
+<path d="M300 760h1000l120 200h-1240z" fill="#6a2a24" opacity=".85"/><path d="M330 780h940l100 170h-1140z" fill="none" stroke="#c9a45a" stroke-width="3" opacity=".5"/>
+
+<!-- the sash window over the market square, in the rain -->
+<g id="window" class="hot">
+  <rect x="80" y="120" width="300" height="400" fill="#e9e2cc"/>
+  <g clip-path="url(#winClip)">
+    <rect x="96" y="136" width="268" height="368" fill="url(#skyG)"/>
+    <path d="M96 380l40-40 30 20 40-50 30 30 40-24 30 26 38-20v162H96z" fill="#6a7276"/>
+    <g fill="#5a6266"><rect x="210" y="300" width="22" height="120"/><path d="M200 300h42l-21-34z"/></g>
+    <rect x="96" y="440" width="268" height="64" fill="#7a8286"/><g fill="#a9b0b4" opacity=".6"><ellipse cx="160" cy="470" rx="40" ry="6"/><ellipse cx="290" cy="486" rx="50" ry="7"/></g>
+    <g class="rain" stroke="#e8eef2" stroke-width="1.6" opacity=".55"><path d="M110 150l-8 30M150 190l-8 30M190 160l-8 30M230 210l-8 30M270 170l-8 30M310 200l-8 30M350 150l-8 30M130 260l-8 30M210 280l-8 30M290 250l-8 30M340 300l-8 30M120 360l-8 30M250 360l-8 30"/></g>
+  </g>
+  <path d="M96 320h268M230 136v368" stroke="#e9e2cc" stroke-width="10"/>
+  <rect x="70" y="512" width="320" height="18" fill="#d9d2bc"/>
+</g>
+
+<!-- the frame: section 9, put up in January 1983 -->
+<g id="frame" class="hot"><rect x="566" y="140" width="210" height="190" fill="#2a1c12"/><rect x="578" y="152" width="186" height="166" fill="#c9a45a"/><rect x="582" y="156" width="178" height="158" fill="#f6f0de"/>
+  <text x="671" y="180" class="cT" font-size="13" fill="#2a2216" letter-spacing="2">THE WILLS ACT</text><text x="671" y="196" class="sT" font-size="9" fill="#6b5a3a" letter-spacing="2">SECTION 9</text>
+  <g stroke="#6b5a3a" stroke-width="2.4"><path d="M598 212h146M598 224h130M598 236h146M598 248h110M598 260h140M598 272h120M598 284h146M598 296h96"/></g></g>
+
+<!-- deed boxes, black japanned tin with the names painted on -->
+<g id="boxes" class="hot" transform="translate(-140 0)"><rect x="1150" y="110" width="330" height="460" fill="#3a2416"/><g id="tins"></g></g>
+<!-- the strongroom door -->
+<g id="strong" class="hot"><rect x="1370" y="150" width="200" height="560" fill="#2e4a3a" stroke="#1a2a20" stroke-width="8"/><circle cx="1470" cy="420" r="34" fill="none" stroke="#c9a45a" stroke-width="7"/><path d="M1470 386v68M1436 420h68" stroke="#c9a45a" stroke-width="5"/><text x="1470" y="200" class="sT" font-size="14" fill="#c9a45a" letter-spacing="3">STRONGROOM</text></g>
+
+<!-- Ms Siddiqui, at the window, reading standing up -->
+<g id="uz" class="hot"><rect x="350" y="390" width="230" height="300" fill="#000" opacity="0"/><use href="#ch-siddiqui" x="340" y="380" width="240" height="312"/></g>
+
+<!-- the desk, Mr Underhill behind it -->
+<g id="und" class="hot"><rect x="660" y="380" width="230" height="250" fill="#000" opacity="0"/><use href="#ch-underhill" x="650" y="360" width="250" height="325"/></g>
+<rect x="420" y="606" width="700" height="24" fill="#5a3a22"/><rect x="440" y="610" width="660" height="16" fill="url(#leatherG)"/>
+<rect x="440" y="630" width="660" height="230" fill="url(#woodG)"/><g fill="none" stroke="#3a2416" stroke-width="3"><rect x="470" y="660" width="260" height="160"/><rect x="810" y="660" width="260" height="160"/></g><circle cx="600" cy="740" r="6" fill="#c9a45a"/><circle cx="940" cy="740" r="6" fill="#c9a45a"/>
+<g id="lamp"><path d="M1075 606v-70" stroke="#c9a45a" stroke-width="5"/><path d="M1035 540q40-30 80 0z" fill="#2f6a3a"/><path d="M985 548h180l60 260h-300z" fill="url(#lampG)" pointer-events="none"/></g>
+<g id="papers" class="hot"><rect x="840" y="560" width="250" height="70" fill="#000" opacity="0"/>
+  <g transform="rotate(-9 900 600)"><rect x="866" y="572" width="80" height="54" fill="#f4f0e2"/></g><g transform="rotate(-3 940 600)"><rect x="900" y="570" width="80" height="56" fill="#fbf8ee"/></g>
+  <g transform="rotate(4 980 600)"><rect x="944" y="572" width="78" height="54" fill="#fdf4ec"/><rect x="944" y="572" width="10" height="54" fill="#c97a8a"/></g><g transform="rotate(10 1020 604)"><rect x="988" y="578" width="80" height="52" fill="#fbfaf2"/></g>
+  <path d="M858 610q90-24 220 6" stroke="#d96a8a" stroke-width="4" fill="none"/></g>
+<g id="kettle" class="hot" transform="translate(-150 0)"><rect x="1200" y="560" width="200" height="12" fill="#5a3a22"/><path d="M1250 560q-6-46 30-50q36 4 30 50z" fill="#b9bcc0"/><path d="M1308 524q22 0 22 20" stroke="#8d9097" stroke-width="5" fill="none"/><rect x="1340" y="534" width="20" height="26" fill="#f4f0e2"/><rect x="1366" y="538" width="20" height="22" fill="#2f5a3a"/></g>
+
+<rect x="-1000" y="-400" width="3600" height="1760" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Drive out to Thrushcombe</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="will.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null, fxBox = null;
+
+  /* panelling, boards, and the tin deed boxes with their painted names */
+  (function () {
+    var s = '', i;
+    for (i = -6; i < 24; i++) s += '<rect x="' + (i * 110 + 10) + '" y="598" width="90" height="100" fill="none" stroke="#3a2416" stroke-width="3"/>';
+    $('#panels').innerHTML = s; s = '';
+    for (i = 0; i < 9; i++) s += '<path d="M-1000 ' + (730 + i * 26 + i * i * 3) + 'h3600"/>';
+    $('#boards').innerHTML = s; s = '';
+    var names = [['HOLLAND', 'PRESTWICK Est.', 'WEDLAKE M.A.'], ['THE GLEBE', 'MOSS FARM', 'TOLPUDDLE Rd'], ['COBB, Mrs', 'ST MARY PCC', 'VEAL & SON']];
+    for (var r = 0; r < 3; r++) {
+      s += '<rect x="1150" y="' + (250 + r * 150) + '" width="330" height="10" fill="#5a3a22"/>';
+      for (var c = 0; c < 3; c++) {
+        var x = 1162 + c * 106, y = 150 + r * 150;
+        s += '<rect x="' + x + '" y="' + y + '" width="96" height="98" fill="#16181a"/><rect x="' + x + '" y="' + y + '" width="96" height="14" fill="#22262a"/><rect x="' + (x + 38) + '" y="' + (y + 22) + '" width="20" height="8" fill="#8a7a5a"/>';
+        s += '<text x="' + (x + 48) + '" y="' + (y + 64) + '" class="sT" font-size="10.5" fill="#e9e4d6" letter-spacing="1">' + names[r][c] + '</text>';
+      }
+    }
+    $('#tins').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'court', story: 'will', storyTitle: 'In Our Joint Presence', id: 'office', no: 'I', title: 'Underhill & Noakes',
+    go: 'Go up the stairs',
+    intro: [
+      'A will is a few sheets of paper that say who gets what when somebody dies. It is the only paper most people sign that does nothing at all until they are gone, and then nobody can ask them what they meant.',
+      'Mervyn Wedlake was the postmaster of Thrushcombe for thirty-one years. He died last December, aged eighty-eight, and left two wills, one family on each side of them, and a typewriter.',
+      'Tomorrow, at the County Court in Dunsmere, a judge will decide which will stands.'
+    ],
+    exit: {"next":"study","w":{"05b444b0":"eb829bb6"}}, tags: {"h-p1-firm":["33a74f14"],"h-p1-text":["98bd59e4"],"h-p1-date":["445c06e9"],"h-p1-sig":["17e74f40"],"h-p1-clause":["0395b920"],"h-p1-wits":["ab00d893"],"h-p2-text":["467ca377"],"h-p2-date":["6027158f"],"h-p2-sig":["9159921c"],"h-p2-name":["380c5028"],"h-p2-clause":["594bcfae"],"h-p2-wits":["112d8a4e"],"h-p3-date":["2e3bb94b"],"h-p3-text":["6e389f0d"],"h-p3-close":["fb6d8a8c"],"h-p3-sig":["ecd266ac"],"h-p4-print":["afac3b38"],"h-p4-text":["027d1625"],"h-p4-sig":["9130a52f"],"h-p5-date":["49e8faf4"],"h-p5-text":["397dc891"],"h-p5-sig":["1ee62166"],"h-p5-stamp":["8145a5aa"],"v1":["82991442"],"v2":["120cce0f"],"v3":["4aa7fc8a"],"v4":["9398cf26"],"v5":["a73ca941"],"q":["9a18400f"]},
+    hints: hints, onBegin: begin
+  });
+  nextFile = ER.flag('o-file') || null;
+
+  var FRAME = '<h4>The Wills Act 1837</h4><h5>Section 9, as it has read since 1 January 1983 &middot; in plain words</h5>' +
+    '<svg class="dg" viewBox="0 0 200 150"><rect x="10" y="6" width="96" height="132" fill="#fffdf4" stroke="#6b5a3a" stroke-width="2"/><g stroke="#9a8a6a" stroke-width="3"><path d="M22 24h70M22 36h62M22 48h70M22 60h54"/></g>' +
+    '<path d="M24 86q8-14 14 0t14-2t12 2" stroke="#1d2a52" stroke-width="2.4" fill="none"/><text x="58" y="100" font-family="Oswald" font-size="9" fill="#6b5a3a" text-anchor="middle">his signature</text>' +
+    '<path d="M22 116h30M60 116h30" stroke="#1d2a52" stroke-width="2"/><text x="37" y="130" font-family="Oswald" font-size="8" fill="#6b5a3a" text-anchor="middle">witness 1</text><text x="75" y="130" font-family="Oswald" font-size="8" fill="#6b5a3a" text-anchor="middle">witness 2</text>' +
+    '<g fill="#6b5a3a"><circle cx="136" cy="50" r="9"/><path d="M124 96q0-32 12-32t12 32z"/><circle cx="172" cy="50" r="9"/><path d="M160 96q0-32 12-32t12 32z"/></g>' +
+    '<path d="M126 108h56" stroke="#a3262c" stroke-width="2"/><text x="154" y="124" font-family="Oswald" font-size="9.5" fill="#a3262c" text-anchor="middle">both there,</text><text x="154" y="136" font-family="Oswald" font-size="9.5" fill="#a3262c" text-anchor="middle">at the same time</text></svg>' +
+    '<p>A will is <b class="t">VALID</b> only if:</p><ol><li>it is in <b>writing</b>: handwritten or typed, both will do;</li>' +
+    '<li>it is <b>signed</b> by the person making it, the <b class="t">TESTATOR</b> (or by somebody else, in front of him, because he asks);</li>' +
+    '<li>he signs it, or tells them that the signature is his, in front of <b>two witnesses who are both there at the same time</b>;</li>' +
+    '<li>then <b>each witness signs</b> it, in front of him.</li></ol>' +
+    '<p>The witnesses need not read the will. They witness the signature, not the words.</p>' +
+    '<p><b>Section 20.</b> A will is cancelled (<b class="t">REVOKED</b>) only by a later valid will (most begin &ldquo;I revoke all earlier wills&rdquo;), by a paper that says so and is signed and witnessed in the same way, or by tearing or burning it on purpose.</p>' +
+    '<p class="by">Put up by V. Underhill, January 1983, the week the law changed</p>';
+
+  /* the five papers. Each part of a page that might carry a flag is a hot spot. */
+  var PAPERS = [
+    { id: 'p1', name: 'Will, 2008', cls: 'sol', html: function () { return '<p class="fine hs" data-h="p1-firm">Underhill &amp; Noakes &middot; Solicitors &middot; 4 Market Place, Dunsmere</p><h4>Last Will</h4>' +
+      '<span class="hs blk" data-h="p1-text"><p>THIS IS THE LAST WILL of me MERVYN ARTHUR WEDLAKE of Myrtle Cottage, Thrushcombe.</p><p>1. I REVOKE all earlier wills.</p><p>2. I GIVE &pound;1,000 to Thrushcombe Village Hall.</p><p>3. I GIVE everything else to my wife Rosamund, and if she dies before me, in equal shares to my nephew Nigel Wedlake and my wife&rsquo;s niece Meriel Voysey.</p><p>4. I APPOINT Underhill &amp; Noakes to be my executors.</p></span>' +
+      '<p><span class="hs" data-h="p1-date">Dated Wednesday the 16th of April 2008</span></p><span class="hs blk" data-h="p1-sig">' + WL.sig('y2008') + '</span>' +
+      '<p><span class="hs" data-h="p1-clause">SIGNED by the testator in our presence, and then by us in his.</span></p>' +
+      '<div class="hs blk" data-h="p1-wits"><div class="att"><div><span class="hw">V. Underhill</span><br>Vernon Underhill, solicitor, Dunsmere</div><div><span class="hw">M. Pocklington</span><br>Miriam Pocklington, secretary, Dunsmere</div></div></div>'; },
+      spots: ['p1-firm', 'p1-text', 'p1-date', 'p1-sig', 'p1-clause', 'p1-wits'] },
+    { id: 'p2', name: 'Will, 2019 (typed)', cls: 'tw', html: function () { var f = { R: true }; return '<span class="hs blk" data-h="p2-text">' +
+      '<p>' + WL.typed('THIS IS THE LAST WILL of me, MERVYN ARTHUR WEDLAKE, of Myrtle Cottage, Thrushcombe.', f) + '</p><p>' + WL.typed('I revoke all earlier wills.', f) + '</p>' +
+      '<p>' + WL.typed('I leave Myrtle Cottage and everything in it to Meriel Voysey.', f) + '</p><p>' + WL.typed('I leave £3,000 to Sylvia Ockenden, for seventeen years of kindness at the counter.', f) + '</p>' +
+      '<p>' + WL.typed('I leave £1,000 to Nesta Morcom, for her Sunday dinners.', f) + '</p><p>' + WL.typed('I leave £1,000 to Thrushcombe Village Hall, and £2,000 to my nephew Nigel Wedlake.', f) + '</p>' +
+      '<p>' + WL.typed('Everything else I leave to Meriel Voysey, and I make her my executor.', f) + '</p></span>' +
+      '<p><span class="hs" data-h="p2-date">' + WL.typed('Tuesday 5th March 2019', f) + '</span></p><span class="hs blk" data-h="p2-sig">' + WL.sig('y2019') + '</span>' +
+      '<p><span class="hs" data-h="p2-name">' + WL.typed('MERVYN WEDLAKE', f) + '</span></p><p><span class="hs" data-h="p2-clause">' + WL.typed('Signed by Mervyn Wedlake in our joint presence, and then by us in his.', f) + '</span></p>' +
+      '<div class="hs blk" data-h="p2-wits"><div class="att"><div><span class="hw">S. Ockenden</span><br>' + WL.typed('Sub-postmistress, Thrushcombe', f) + '</div><div><span class="hw">Seth Yelland</span><br>' + WL.typed('Farmer, Hill Barn, Thrushcombe', f) + '</div></div></div>'; },
+      spots: ['p2-text', 'p2-date', 'p2-sig', 'p2-name', 'p2-clause', 'p2-wits'] },
+    { id: 'p3', name: 'Letter to Nigel, &ldquo;21 Nov 2025&rdquo;', cls: 'tw', html: function () { var f = { R: true, e: true }; return '<p class="copy">Photocopy &middot; produced by Mr N. Wedlake</p>' +
+      '<p><span class="hs" data-h="p3-date">' + WL.typed('Saturday 21st November 2025', f) + '</span></p><span class="hs blk" data-h="p3-text"><p>' + WL.typed('Dear Nigel,', f) + '</p>' +
+      '<p>' + WL.typed('Every word of that will I typed at the post office was a mistake, made in a temper, and I have torn it up. My old will at Underhill’s stands, half to you and half to Meriel, as it always should have.', f) + '</p>' +
+      '<p>' + WL.typed('When you come, leave the spare key at the Corner Pantry. Remember me to the cat.', f) + '</p></span>' +
+      '<p><span class="hs" data-h="p3-close">' + WL.typed('Your loving uncle,', f) + '</span></p><span class="hs blk" data-h="p3-sig">' + WL.sig('letter') + '</span>'; },
+      spots: ['p3-date', 'p3-text', 'p3-close', 'p3-sig'] },
+    { id: 'p4', name: 'Birthday card, 2020', cls: 'card', html: function () { return '<h4 class="hs" data-h="p4-print">Happy Birthday</h4>' +
+      '<span class="hs blk" data-h="p4-text"><p>Merry &mdash; 11 August 2020</p><p>Four years of soup and crosswords. This cottage will be yours one day, and quite right too.</p></span>' +
+      '<p><span class="hs" data-h="p4-sig">Uncle M.</span></p>'; },
+      spots: ['p4-print', 'p4-text', 'p4-sig'] },
+    { id: 'p5', name: 'Letter to Mr Underhill, 28 Nov 2025', cls: 'tw', html: function () { var f = { R: true }; return '<p class="copy">The original &middot; from the file of Underhill &amp; Noakes</p>' +
+      '<p><span class="hs" data-h="p5-date">' + WL.typed('Friday 28th November 2025', f) + '</span></p><span class="hs blk" data-h="p5-text"><p>' + WL.typed('Re: my will. Dear Mr Underhill,', f) + '</p>' +
+      '<p>' + WL.typed('In 2019 I made a new will myself, at the post office. It is in my bureau. I have been unfair to my nephew Nigel and I want to put it right. Please add to my will: my Vellacott typewriter, my stamp albums and £5,000 to Nigel.', f) + '</p>' +
+      '<p>' + WL.typed('Could you come out to the cottage? I do not get about much now.', f) + '</p><p>' + WL.typed('Yours sincerely,', f) + '</p></span>' +
+      '<span class="hs blk" data-h="p5-sig">' + WL.sig('y2025') + '</span>' +
+      '<p><span class="hs" data-h="p5-stamp" style="display:inline-block;padding:2px 8px;border:2.5px solid #2f4a8a;color:#2f4a8a;font-family:Oswald,sans-serif;font-size:13px;letter-spacing:.12em;transform:rotate(-4deg)">UNDERHILL &amp; NOAKES &middot; RECEIVED 1 DEC 2025</span></p>'; },
+      spots: ['p5-date', 'p5-text', 'p5-sig', 'p5-stamp'] }
+  ];
+  var PADS = [['Y', 'In writing', '#f2c94c'], ['R', 'Signed by him', '#d64848'], ['B', 'Two witnesses, same time', '#4078d6'], ['G', 'Each witness signs', '#3aa05a']];
+  var QS = [['a', 'whether Mervyn signed the 2019 will with both witnesses there at the same time, and each of them then signed it'], ['b', 'whether Meriel deserves the cottage more than Nigel does'], ['c', 'whether the letter dated 21 November cancels the 2019 will']];
+  var WHY = {
+    'p1-firm': 'That is the firm&rsquo;s name, printed at the top. It tells you who typed the will, not who made it.',
+    'p1-text': 'Is the 2008 will written down at all? Then it needs the flag for writing.',
+    'p1-date': 'A date is useful. Section 9 does not ask for one.',
+    'p1-sig': 'Where did Mervyn sign it, in his own hand?',
+    'p1-clause': 'Read the line under his signature: &ldquo;in our presence&rdquo;. In whose presence, and when? Which of the four rules does that line claim?',
+    'p1-wits': 'Two names in two hands at the bottom. What did those two people do?',
+    'p2-text': 'Typed counts as writing. My frame says so.',
+    'p2-date': 'A date is useful, and we shall check this one. But section 9 does not ask for a date at all.',
+    'p2-sig': 'Find his own handwriting on the page. It wobbles, but it is there.',
+    'p2-name': 'That is his name typed, not signed. Anybody can type a name.',
+    'p2-clause': 'The small typed line says &ldquo;in our joint presence&rdquo;. Joint means together. Which of the four rules does it claim?',
+    'p2-wits': 'Two signatures under that line, with what each person does for a living. What did those two do?',
+    'p3-date': 'A date is not a signature, and it is not a witness.',
+    'p3-text': 'Typed counts as writing.',
+    'p3-close': '&ldquo;Your loving uncle&rdquo; is typed. It is a way of ending a letter, not a signature.',
+    'p3-sig': 'Who signed this letter, according to the page? A flag says only what the page shows. Whether it is true is for later.',
+    'p4-print': '&ldquo;Happy Birthday&rdquo; was printed by the card company. It is nobody&rsquo;s writing.',
+    'p4-text': 'Handwriting is writing too.',
+    'p4-sig': 'Every card is signed by somebody. Who signed this one?',
+    'p5-date': 'A date is useful. Section 9 does not ask for one.',
+    'p5-text': 'Typed counts as writing.',
+    'p5-sig': 'He signed it. Find where.',
+    'p5-stamp': 'That is Mr Underhill&rsquo;s RECEIVED stamp, put on three days later in Dunsmere. Was anybody watching Mervyn sign?'
+  };
+  var VWHY = { p1: 'The 2008 will carries all four of your flags. On its face it could be a will. Whether a later one cancelled it is another question.',
+    p2: 'Every one of the four rules has a flag on the 2019 will. On its face it could be a will: that is exactly why Mr Yarde has to attack it.',
+    p3: 'Nobody witnessed this letter. Whoever wrote it, it cannot be a will, and it cannot cancel one.',
+    p4: 'A card can be in writing and signed. But who witnessed it? &ldquo;This cottage will be yours one day&rdquo; is a kind wish, not a will.',
+    p5: 'Mr Underhill&rsquo;s stamp says when the letter came. A stamp is not a witness. The letter tells us what Mervyn wanted; it cannot do it for him.' };
+
+  function hints() {
+    if (nextFile) return ['go', ['Mr Underhill is driving you out to Thrushcombe. The button is at the bottom of the screen.']];
+    if (fxBox) return ['flags', [
+      'Choose a flag on the right, then click the part of the paper that shows that rule. A paper gets only the flags that the page itself shows. Some papers need all four; some need only two.',
+      'Writing: the words of the paper. Signed by him: his own handwriting, not his typed name. Two witnesses at the same time: the small line that says they were together. Each witness signs: their signatures. A date, a printed heading or a RECEIVED stamp needs no flag.',
+      'Only the two wills get all four flags, and COULD BE A WILL. The letter to Nigel, the card and the letter to Mr Underhill are written and signed, but nobody witnessed them: two flags each, and NOT A WILL. The case turns on what happened at the post office counter in 2019.'
+    ]];
+    if (!ER.flag('o-uz')) return ['uz', ['Ms Siddiqui is reading by the window, on the left. Talk to her first.']];
+    if (!ER.flag('o-frame')) return ['frame', ['The framed page on the wall behind the desk is the law itself, in plain words. Click it and read it.']];
+    if (!ER.flag('o-und')) return ['und', ['Mr Underhill, behind the desk, has the file. Talk to him.']];
+    return ['open', ['The five papers are fanned out on the desk, with pink tape round them. Click them.']];
+  }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#uz').classList.toggle('ready', !nextFile && !ER.flag('o-uz') && !busy);
+    $('#papers').classList.toggle('ready', !nextFile && !!ER.flag('o-und') && !!ER.flag('o-frame'));
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('Mr Underhill has his car keys in one hand and the key of Myrtle Cottage in the other.'); return; }
+    if (ER.flag('o-in')) { ER.say('The back office of Underhill &amp; Noakes. The rain has not stopped.'); return; }
+    busy = true; ER.flag('o-in', 1);
+    ER.narrate([
+      'Dunsmere, Monday 2 November, a quarter past two. The back office of Underhill &amp; Noakes is up a staircase behind the front office, and it smells of old paper and radiator.',
+      'You are a pupil barrister: a barrister in training. For six months you follow Ms Uzma Siddiqui everywhere, carry her papers and take her notes. In court you say nothing at all.',
+      'Ms Siddiqui acts for Mrs Meriel Voysey, the niece of Mervyn&rsquo;s late wife. Mervyn&rsquo;s nephew, Nigel Wedlake, has brought a claim: he says that the will which leaves Meriel the cottage is no good.',
+      'Mr Vernon Underhill made Mervyn&rsquo;s first will, in 2008. Until the court decides, he keeps the key of Myrtle Cottage and the papers. He would like everybody to know that he is on nobody&rsquo;s side.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the room ---------- */
+  $('#uz').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Typewriter first,&rdquo; says Ms Siddiqui, buttoning her coat. &ldquo;Then the post office, before it shuts.&rdquo;'); return; }
+    if (ER.flag('o-uz')) { ER.say('&ldquo;Frame, file, flags,&rdquo; says Ms Siddiqui, without looking up. &ldquo;In that order.&rdquo;'); return; }
+    ER.talk({
+      who: 'Ms Siddiqui', role: 'Counsel for Mrs Voysey · your pupil supervisor', face: window.FACE('siddiqui'),
+      lines: [
+        { note: 'Ms Siddiqui is reading at the window, standing up. She reads everything standing up, and fast, and she has never yet lost a page.', a: 'Mr Wedlake&rsquo;s case, in one sentence: the 2019 will was not properly made, and in any case Mervyn cancelled it, so the 2008 will stands. That would give Nigel half of everything, instead of two thousand pounds.' },
+        { q: 'And our case?', a: 'That the 2019 will was properly made, and that nothing ever cancelled it. Then Meriel has the cottage. She also visited him every day for nine years, which Mr Yarde will mention tomorrow as if it were a crime.' },
+        { a: 'There are five papers in Mr Underhill&rsquo;s file. Before we go out to the cottage, I want to know which of them could be a will at all. Read the frame on the wall first. Mr Underhill put it up himself the week the law changed, in 1983, and it is still right.' }
+      ],
+      clue: { id: 'uz1', title: 'Ms Siddiqui, in the back office', kind: 'What she said' }, last: 'Read the frame',
+      done: function (seen) { if (seen) { ER.flag('o-uz', 1); paint(); WL.learn(['will', 'probate']); } }
+    });
+  });
+  $('#frame').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: FRAME, cls: 'law', clue: { id: 'frame', title: 'The Wills Act, section 9 (the frame)', kind: 'On the office wall' },
+      done: function () { ER.flag('o-frame', 1); paint(); WL.learn(['valid', 'testator', 'witness', 'revoke']); } });
+  });
+  $('#und').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Mr Underhill locks the strongroom, tries the handle twice, and puts the key of Myrtle Cottage in his waistcoat pocket.'); return; }
+    if (ER.flag('o-und')) { ER.say('&ldquo;Copies, all but one,&rdquo; says Mr Underhill. &ldquo;The letter to me is the original.&rdquo;'); return; }
+    if (!ER.flag('o-uz')) { ER.say('Mr Underhill nods towards the window. &ldquo;Ms Siddiqui first, I think. She has been reading since one o&rsquo;clock.&rdquo;'); return; }
+    ER.talk({
+      who: 'Mr Underhill', role: 'Underhill & Noakes, solicitors · keeps the key', face: window.FACE('underhill'),
+      lines: [
+        { note: 'Mr Underhill has a red spotted bow tie, half-moon glasses and the slow voice of a man who has read a great many wills aloud to families who did not like them.', a: 'I made his first will, in 2008. My firm is the executor named in it. I keep the key of the cottage until the court decides, and I am on nobody&rsquo;s side. I should like that written down somewhere.' },
+        { q: 'Did he ever tell you about the 2019 will?', a: 'Once. In the last letter he ever wrote me. It came on Monday the first of December: he wanted to add something to his will, for Nigel. I booked him for Monday the fifteenth. He died in hospital on the ninth.' },
+        { q: 'And the letter to Nigel, the one that says he tore the will up?', a: 'I first saw that in February, when Nigel&rsquo;s solicitors sent me a copy. Nigel says it came to him in November. I never saw an envelope.' },
+        { note: 'He unties the pink tape round the file and fans five papers across the desk.', a: 'Copies, all but one. His letter to me is the original: I stamped it the day it came. Everything else in this file is somebody&rsquo;s photocopy of somebody&rsquo;s paper.' }
+      ],
+      clue: { id: 'und1', title: 'Mr Underhill, at his desk', kind: 'What he said' }, last: 'Look at the papers',
+      done: function (seen) { if (seen) { ER.flag('o-und', 1); paint(); WL.learn(['executor']); } }
+    });
+  });
+  $('#papers').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Five papers, with your flags still on them. Two of them could be a will. Three of them never could.'); return; }
+    if (!ER.flag('o-und')) { ER.say('A fan of papers tied with pink tape. It is Mr Underhill&rsquo;s file, and he has not opened it yet.'); return; }
+    if (!ER.flag('o-frame')) { ER.say('&ldquo;The frame first,&rdquo; says Ms Siddiqui. &ldquo;You cannot flag what a will needs until you know what it needs.&rdquo;'); return; }
+    openFlags();
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  WL.thing('#window', null, 'Dunsmere market square, in the rain. On a Thursday it is full of stalls. Today it is full of puddles.', isBusy);
+  WL.thing('#boxes', null, 'Tin deed boxes, each with a name painted on it in white. One says WEDLAKE M.A. It is empty: everything that was in it is on the desk.', isBusy);
+  WL.thing('#strong', null, 'The strongroom. The original 2008 will is in there. &ldquo;Originals do not leave the building,&rdquo; says Mr Underhill, &ldquo;until a judge asks for them.&rdquo;', isBusy);
+  WL.thing('#kettle', null, 'A kettle, a jar of tea bags, and two mugs. One says WORLD&rsquo;S BEST GRANDAD. Mr Underhill has no grandchildren. He found it.', isBusy);
+  WL.thing('#lamp', null, 'A green desk lamp, older than you. It has lit the reading of a good many wills.', isBusy);
+
+  /* ---------- the flags ---------- */
+  function openFlags() {
+    var box = ER.el('div', 'fx'), saved = ER.flag('o-fx') || {}, done = false, s, arm = null, cur = saved.cur || 'p1';
+    var fl = saved.fl || {}, vd = saved.vd || {}, q = saved.q || '';
+    s = '<div class="fx-view"></div><div class="side"><h6>Ms Siddiqui&rsquo;s flags</h6><div class="fx-pads"></div><h6>The five papers</h6><div class="fx-tabs"></div>' +
+      '<h6>The case turns on one question:</h6><div class="fx-q"></div><button type="button" class="btn" id="fx-go">Show Ms Siddiqui</button><p class="pmsg"></p></div>';
+    box.innerHTML = s;
+    var view = box.querySelector('.fx-view'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function keep() { ER.flag('o-fx', { cur: cur, fl: fl, vd: vd, q: q }); box.setAttribute('data-flags', Object.keys(fl).filter(function (k) { return fl[k]; }).length); }
+    PADS.forEach(function (p) {
+      var b = ER.el('button', '', '<i style="background:' + p[2] + '"></i>' + p[1]); b.type = 'button'; b.setAttribute('data-c', p[0]);
+      b.addEventListener('click', function () { arm = arm === p[0] ? null : p[0]; ER.$$('.fx-pads button', box).forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-c') === arm); }); box.classList.toggle('arm', !!arm); WL.sfx.card(); });
+      box.querySelector('.fx-pads').appendChild(b);
+    });
+    PAPERS.forEach(function (p, i) {
+      var t = ER.el('div', 'fx-tab', '<button type="button">' + (i + 1) + ' &middot; ' + p.name + '</button><button type="button" class="st" title="Click: could be a will, not a will, or nothing"></button>');
+      t.setAttribute('data-p', p.id);
+      t.children[0].addEventListener('click', function () { cur = p.id; show(); keep(); ER.sfx.paper(); });
+      t.children[1].addEventListener('click', function () { if (done) return; vd[p.id] = vd[p.id] === 'C' ? 'N' : vd[p.id] === 'N' ? '' : 'C'; stamps(); keep(); WL.sfx.stamp(); });
+      box.querySelector('.fx-tabs').appendChild(t);
+    });
+    QS.forEach(function (o) {
+      var b = ER.el('button', q === o[0] ? 'on' : '', ER.gloss(o[1])); b.type = 'button'; b.setAttribute('data-k', o[0]);
+      b.addEventListener('click', function () { if (done) return; q = o[0]; ER.$$('.fx-q button', box).forEach(function (x) { x.classList.toggle('on', x === b); }); WL.sfx.card(); keep(); });
+      box.querySelector('.fx-q').appendChild(b);
+    });
+    function stamps() {
+      ER.$$('.fx-tab', box).forEach(function (t) {
+        var v = vd[t.getAttribute('data-p')] || '', st = t.children[1];
+        st.className = 'st' + (v ? ' ' + v : ''); st.textContent = v === 'C' ? 'COULD BE A WILL' : v === 'N' ? 'NOT A WILL' : 'stamp';
+        t.classList.toggle('cur', t.getAttribute('data-p') === cur);
+      });
+    }
+    function show() {
+      var p = PAPERS.filter(function (x) { return x.id === cur; })[0];
+      view.innerHTML = '<div class="doc ' + p.cls + '">' + p.html() + '</div>'; view.scrollTop = 0;
+      ER.$$('.hs', view).forEach(function (h) {
+        var k = h.getAttribute('data-h'); if (fl[k]) h.classList.add('fl' + fl[k]);
+        h.addEventListener('click', function () {
+          if (done) return;
+          if (!arm) { msg('First choose one of the four flags on the right. Then click the part of the paper that shows that rule.'); return; }
+          ['Y', 'R', 'B', 'G'].forEach(function (c) { h.classList.remove('fl' + c); });
+          fl[k] = fl[k] === arm ? '' : arm; if (fl[k]) h.classList.add('fl' + fl[k]);
+          WL.sfx.flag(); keep();
+        });
+      });
+      stamps();
+    }
+    box.querySelector('#fx-go').addEventListener('click', function () {
+      var i, j, p, k, bad = null, more = 0, file, cand;
+      if (done) return;
+      for (i = 0; i < PAPERS.length; i++) if (!vd[PAPERS[i].id]) { msg('&ldquo;Every paper gets a stamp,&rdquo; says Ms Siddiqui. &ldquo;Paper ' + (i + 1) + ' has none yet. Could it be a will, or not?&rdquo;'); return; }
+      for (i = 0; i < PAPERS.length; i++) {
+        p = PAPERS[i];
+        for (j = 0; j < p.spots.length; j++) { k = p.spots[j]; if (!ER.check('h-' + k, fl[k] || '-')) { if (!bad) bad = [p, k]; else more++; } }
+      }
+      if (bad) {
+        WL.bump('o-tries'); WL.sfx.hm(); cur = bad[0].id; show(); keep();
+        var hs = view.querySelector('[data-h="' + bad[1] + '"]'); if (hs) { hs.scrollIntoView({ block: 'center' }); ER.shake(hs); }
+        msg('Ms Siddiqui taps the paper with her pen. <i>&ldquo;' + WHY[bad[1]] + '&rdquo;</i>' + (more ? ' <i>&ldquo;And ' + (more === 1 ? 'one more flag needs' : more + ' more flags need') + ' another look, on this paper or another.&rdquo;</i>' : ''));
+        return;
+      }
+      for (i = 0; i < PAPERS.length; i++) if (!ER.check('v' + (i + 1), vd[PAPERS[i].id])) {
+        WL.bump('o-tries'); WL.sfx.hm(); cur = PAPERS[i].id; show(); keep();
+        msg('&ldquo;Your flags are right. Look at the stamp on paper ' + (i + 1) + '.&rdquo; <i>&ldquo;' + VWHY[PAPERS[i].id] + '&rdquo;</i>'); return;
+      }
+      if (!q) { msg('&ldquo;Good. Now the question at the bottom: what does tomorrow turn on?&rdquo;'); return; }
+      if (!ER.check('q', q)) {
+        WL.bump('o-tries'); WL.sfx.hm();
+        msg(q === 'b' ? '&ldquo;Deserves? The law does not ask who deserves the cottage. It asks whether the paper was properly made.&rdquo;' : '&ldquo;Look at your flags on the letter. Even if every word of it is Mervyn&rsquo;s, can it cancel anything?&rdquo;');
+        return;
+      }
+      cand = PAPERS.map(function (x) { return x.spots.map(function (z) { return fl[z] || '-'; }).join(''); }).join('/') + '+' + PAPERS.map(function (x) { return vd[x.id]; }).join('') + '+' + q;
+      file = ER.exitOk([cand]);
+      if (!file) { msg('Something is wrong with this lock: tell your teacher.'); return; }
+      done = true; nextFile = file; ER.flag('o-file', file); WL.done('office'); WL.sfx.stamp();
+      msg('Ms Siddiqui reads your flags paper by paper. <b>&ldquo;Two wills, three papers that never could be. And one question for tomorrow.&rdquo;</b>');
+      WL.learn(['attestation clause']);
+      [['w08', 'The 2008 will'], ['w19', 'The 2019 will'], ['n21', 'The letter to Nigel, dated 21 November 2025'], ['card', 'The birthday card, 2020'], ['u28', 'The letter to Mr Underhill, 28 November 2025']].forEach(function (c, i) {
+        var h = PAPERS[i].html().replace(/\s?data-h="[^"]*"/g, '').replace(/ class="hs( blk)?"/g, '').replace(/ hs"/g, '"');
+        ER.addClue(c[0], c[1], h, PAPERS[i].cls, 'Trial bundle', true);
+      });
+      WL.mine('flags', 'Five papers, four rules', '<p>2008 will: writing, signed, together, both signed: COULD BE A WILL</p><p>2019 will: all four too (the line &ldquo;in our joint presence&rdquo;): COULD BE A WILL</p><p>Letter to Nigel, card, letter to Mr U.: written and signed, NOBODY WITNESSED: NOT A WILL. They cannot cancel a will either.</p><p>If the 2019 will is valid, its first line cancels the 2008 one.</p><p>Tomorrow turns on: did he sign with BOTH witnesses there AT THE SAME TIME, and did each sign?</p>', true);
+      setTimeout(function () {
+        ER.closeAll(); WL.solved(); paint(); busy = true;
+        ER.narrate([
+          '&ldquo;So,&rdquo; says Ms Siddiqui. &ldquo;The 2019 will looks right. It has the line that says the witnesses were there together, and both their signatures under it. The law presumes that a will which looks properly made was properly made, unless there is evidence that it was not.&rdquo;',
+          '&ldquo;Mr Yarde has some evidence: Mr Yelland, the farmer who witnessed it. He says it was a Thursday, and that Mrs Ockenden had signed before he got there. If he is right, the witnesses were not together, and the will fails.&rdquo;',
+          '&ldquo;And because we say the will is valid, it is for us to prove it was properly made: not beyond all doubt, only more likely than not. The balance of probabilities. A civil case, like any other.&rdquo;',
+          'Mr Underhill takes his coat off the hook. &ldquo;The typewriter is in the study,&rdquo; he says. &ldquo;Nigel brought it back in February. Shall we?&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    });
+    msg('Five papers. <b>Choose a flag, then click the part of each paper that shows that rule.</b> Then <b>stamp</b> each paper: could it be a will, or not? Last, choose what tomorrow turns on.');
+    fxBox = box; show(); keep();
+    ER.open('ov-lock', box, function () { fxBox = null; });
+  }
+})();
+</script>
+</body>
+</html>

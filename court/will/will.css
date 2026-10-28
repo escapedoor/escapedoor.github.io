@@ -1,0 +1,137 @@
+/* In Our Joint Presence - what every room of the story shares: the papers that a probate claim is made of, the pupil's
+   notebook, the hints and the word tags, and a few small parts. Each room sets its own palette on <body>. */
+
+/* ---- shared bits ---- */
+.tc-theme{font-family:'Oswald',sans-serif}
+.tc-room{font-family:'Cormorant SC',serif;font-weight:700;letter-spacing:.05em}
+.tc-text{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.08em}
+.cap{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600}
+.tk-name{font-family:'Cormorant SC',serif;font-weight:700;font-size:26px;letter-spacing:.03em}
+.tk-text{font-family:'EB Garamond',Georgia,serif}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px;border:1px solid var(--accent,#c9a45a);
+  color:var(--accent,#c9a45a);background:var(--hud-bg,rgba(20,16,12,.92));font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.18em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#c9a45a);color:#14110b}
+.pmsg{min-height:54px;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.34;color:#f1ecdf}
+.pmsg b{color:#f0cf7a;font-weight:600}
+.pmsg i{color:#d6d2c6}
+.sT{font-family:'Oswald',sans-serif;font-weight:600;text-anchor:middle}
+.cT{font-family:'Cormorant SC',serif;font-weight:700;text-anchor:middle}
+.kT{font-family:'Stardos Stencil',serif;font-weight:700;text-anchor:middle}
+.hT{font-family:'Caveat',cursive;font-weight:700;text-anchor:middle}
+.ready{animation:nudge 1.7s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(-6px)}}
+/* a puzzle's right-hand column */
+.side .btn{width:100%;margin-bottom:8px}
+.side h6{margin:0 0 6px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#e6d3a6}
+
+/* ---- the Vellacott's two faults: the small and capital E sit high, the capital R has lost its foot ---- */
+.fe{position:relative;top:-.17em}
+.fR{position:relative;display:inline-block}
+.fR:after{content:'';position:absolute;right:-.04em;bottom:.02em;width:.36em;height:.3em;background:var(--paper,#fbf8ee)}
+
+/* ---- the papers ---- */
+.doc b.t{font-weight:700;letter-spacing:.04em}
+.doc .fine{font-family:'Oswald',sans-serif;font-weight:400;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.doc svg.sig{display:block}
+.doc .hw{font-family:'Caveat',cursive;font-weight:700;font-size:1.25em;color:#1d2a52}
+/* the 2008 will, drawn up by a solicitor */
+.doc.sol{width:min(700px,94vw);padding:26px 40px 20px;background:#fbfaf2;font-family:'Tinos',serif;font-size:15.5px;line-height:1.45;color:#1c1d22;border:1px solid #c9c4b4;box-shadow:inset 0 0 0 6px #fbfaf2,inset 0 0 0 7px #8a7a5a}
+.doc.sol h4{margin:0 0 10px;text-align:center;font-family:'Cormorant SC',serif;font-weight:700;font-size:24px;letter-spacing:.14em}
+.doc.sol p{margin:0 0 7px}
+.doc.sol .att{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-top:10px;font-size:13.5px}
+/* anything typed on the Vellacott */
+.doc.tw{--paper:#fbf8ee;width:min(680px,94vw);padding:28px 40px 22px;background:#fbf8ee;font-family:'Courier Prime',monospace;font-size:15.5px;line-height:1.55;color:#24242a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.tw h4{margin:0 0 10px;font-family:'Courier Prime',monospace;font-weight:700;font-size:16px;letter-spacing:.08em}
+.doc.tw p{margin:0 0 8px}
+.doc.tw .att{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-top:8px;font-size:13.5px}
+.doc.tw .copy{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:#8a3a2a;text-transform:uppercase}
+/* the birthday card */
+.doc.card{width:min(520px,92vw);padding:24px 30px 20px;background:#fdf4ec;border-left:16px solid #c97a8a;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.25;color:#1d2a52}
+.doc.card h4{margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;color:#a34a5a}
+.doc.card p{margin:0 0 6px}
+/* a framed print on a wall */
+.doc.law{width:min(700px,94vw);padding:26px 36px 20px;background:#f6f0de;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18.5px;line-height:1.35;color:#2a2216;border:14px solid #2a1c12;box-shadow:inset 0 0 0 3px #c9a45a,0 26px 70px rgba(0,0,0,.6)}
+.doc.law h4{margin:0 0 2px;text-align:center;font-family:'Cormorant SC',serif;font-size:24px;letter-spacing:.12em}
+.doc.law h5{margin:0 0 10px;text-align:center;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#6b5a3a}
+.doc.law p{margin:0 0 7px}
+.doc.law ol{margin:0 0 8px;padding-left:24px}
+.doc.law li{margin:0 0 3px}
+.doc.law .dg{float:right;width:190px;height:auto;margin:0 0 6px 14px}
+.doc.law .by{text-align:right;font-family:'Caveat',cursive;font-weight:700;font-size:20px;margin:0;color:#5a4a2a}
+/* the typewriter's manual, printed in 1961 in black and red */
+.doc.manual{width:min(720px,95vw);padding:22px 32px 18px;background:#f3ecd8;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#221d16;border-top:12px solid #a3262c}
+.doc.manual h4{margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;letter-spacing:.14em;color:#a3262c;text-transform:uppercase}
+.doc.manual h5{margin:0 0 10px;font-family:'Oswald',sans-serif;font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6b5a3a}
+.doc.manual p{margin:0 0 7px}
+.doc.manual .dg{float:right;width:250px;height:auto;margin:0 0 6px 14px}
+/* a notice behind glass in the post office */
+.doc.notice{width:min(640px,94vw);padding:20px 30px 16px;background:#fffdf6;font-family:'Outfit',Arial,sans-serif;font-size:15.5px;line-height:1.45;color:#1c1d22;border:10px solid #b3262c}
+.doc.notice h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;letter-spacing:.08em;color:#b3262c;text-transform:uppercase}
+.doc.notice p{margin:0 0 7px}
+.doc.notice .slip{display:inline-block;margin:4px 0 8px;padding:8px 14px;border:1.5px dashed #6b6453;font-family:'Courier Prime',monospace;font-size:13px;background:#f4f0e2}
+/* the law centre's leaflet */
+.doc.leaflet{width:min(640px,94vw);padding:0 0 14px;background:#fffef8;font-family:'Outfit',Arial,sans-serif;font-size:15.5px;line-height:1.45;color:#1c1d22}
+.doc.leaflet h4{margin:0 0 12px;padding:14px 26px 12px;background:#f2c94c;font-family:'Oswald',sans-serif;font-weight:600;font-size:23px;letter-spacing:.06em;color:#1c1d22}
+.doc.leaflet p,.doc.leaflet ul{margin:0 26px 8px}
+.doc.leaflet .big{padding:10px 14px;border-left:6px solid #1c1d22;background:#fff4c9;font-weight:500}
+.doc.leaflet .fine{margin:0 26px}
+/* a witness statement */
+.doc.stmt{width:min(720px,95vw);padding:22px 34px 18px;background:#fdfdf8;font-family:'Tinos',serif;font-size:15.5px;line-height:1.42;color:#1c1d22;border-top:5px solid #2f4a3e}
+.doc.stmt h4{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase}
+.doc.stmt h5{margin:0 0 10px;font-family:'Tinos',serif;font-style:italic;font-weight:400;font-size:13.5px;color:#55503f}
+.doc.stmt p{margin:0 0 6px}
+.doc.stmt p .n{display:inline-block;width:26px;font-family:'Oswald',sans-serif;color:#2f4a3e}
+.doc.stmt .sot{margin-top:10px;padding:9px 12px;border:1.5px solid #1c1d22;font-size:14px;background:#f6f6ee}
+/* Mrs Ockenden's calendar for 2019 */
+.doc.cal{width:min(700px,95vw);padding:18px 24px 16px;background:#fbfbf4;font-family:'Outfit',Arial,sans-serif;color:#1c1d22;border-top:30px solid #4a6a8a}
+.doc.cal h4{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.16em;text-transform:uppercase}
+.doc.cal .cg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.doc.cal .cg>div{min-height:58px;padding:3px 5px;border:1px solid #cfd4d8;font-size:12px;background:#fff}
+.doc.cal .cg>div.hd{min-height:0;border:0;background:none;font-family:'Oswald',sans-serif;letter-spacing:.12em;text-align:center;color:#4a6a8a}
+.doc.cal .cg>div.x{background:#eef0f2;color:#9aa0a6}
+.doc.cal .cg i{display:block;font-family:'Caveat',cursive;font-weight:700;font-style:normal;font-size:15.5px;line-height:1.05;color:#1d2a52}
+/* what was said in court, and the judgment */
+.doc.said{width:min(660px,94vw);padding:24px 34px 22px;background:#fbf8ec;font-family:'Tinos',serif;font-size:17px;line-height:1.42;color:#1c1d1f;border-left:8px solid #6a4a2a}
+.doc.said h4{margin:0 0 12px;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#6a4a2a}
+.doc.said p{margin:0 0 9px}
+.doc.said p b{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6b6453;margin-right:6px}
+.doc.said p.j{font-style:italic}
+.doc.statement{background:#fbf8ec;font-family:'EB Garamond',Georgia,serif;font-size:19px;border-left:8px solid #2f4a3e}
+.doc.statement h4{color:#2f4a3e}
+/* what you worked out, in the pupil's notebook */
+.doc.mine{width:min(600px,94vw);padding:38px 30px 26px 34px;background:#f4f2fa repeating-linear-gradient(transparent 0 30px,rgba(90,80,150,.2) 30px 31px);font-family:'Caveat',cursive;font-weight:700;
+  font-size:23px;line-height:31px;color:#2a2a5a;border-top:16px solid #2f2a3a;transform:rotate(-.4deg)}
+.doc.mine:before{content:'';position:absolute;left:0;right:0;top:-10px;height:8px;background:radial-gradient(circle,#c9ccd0 3px,transparent 4px) 6px 0/22px 8px repeat-x}
+.doc.mine h4{margin:0;font-size:27px;font-weight:700;line-height:31px;text-decoration:underline}
+.doc.mine p{margin:0}
+/* Ms Siddiqui's own notes, on the back of the brief */
+.doc.brief{width:min(680px,94vw);padding:24px 34px 18px 40px;background:#f8f4e6;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.38;color:#1d2440;border-left:7px solid #d96a8a;transform:rotate(-.25deg)}
+.doc.brief h4{margin:0 0 10px;font-family:'Cormorant SC',serif;font-weight:700;font-size:23px;letter-spacing:.06em;color:#a33a5a}
+.doc.brief p{margin:0 0 8px}
+.doc.brief ul,.doc.brief ol{margin:0 0 8px;padding-left:22px}
+.doc.brief .us{font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#a33a5a;text-align:right;margin:0}
+
+/* ---- the notebook: the pupil's blue counsel's notebook ---- */
+.nb{background:#232a3a linear-gradient(150deg,#2e3648,#191e2a);border:1px solid #0e1018;border-radius:5px;color:#e8e6de;
+  box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #141822,inset 0 0 0 6px rgba(201,164,90,.35)}
+.nb-tabs{border-bottom-color:rgba(201,164,90,.4)}
+.nb-tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.2em;color:#e6d5ae}
+.nb-tabs button.on{background:#fbf8ec;color:#232a3a;border-color:rgba(201,164,90,.6)}
+.nb-list{border-right-color:rgba(201,164,90,.4)}
+.nb-list button{font-family:'EB Garamond',serif;font-size:17.5px;color:#e8e6de}
+.nb-list button.on{background:#fbf8ec;color:#232a3a}
+.nb-view{background:#141822}
+.nb-words{background:#fbf8ec;color:#22211c}
+.nb-words b{font-family:'Tinos',serif;font-weight:700;font-size:18px}
+.nb-words span{font-family:'EB Garamond',serif;font-size:17px;color:#55503f}
+.nb-ko{border-color:#8f8873;color:#55503f}
+.nb-ko.on{background:#232a3a;color:#fbf8ec;border-color:#232a3a}
+.wtip,.wtag{background:#fbf8ec;color:#22211c;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #d96a8a}
+.wtag{padding-left:20px}.wtag:before{display:none}.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Tinos',serif;font-weight:700;font-size:18px}
+.hintbox{background:#fbf8ec;color:#22211c;border-top:6px solid #a33a5a;border-radius:2px}
+.hintbox h6{color:#a33a5a}
+.hintbox p i{background:#a33a5a;color:#fbf8ec}
+.toast{font-family:'Oswald',sans-serif;background:rgba(18,16,22,.95)}
