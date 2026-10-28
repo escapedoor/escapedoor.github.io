@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Kitchen · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#2a1e12;--accent:#ffb84a;--font-display:'Caveat',cursive;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(36,24,14,.96);--tc-ink:#fbf0e0;--cap-bg:rgba(36,24,14,.93);--cap-ink:#fff4e4;--panel:#2e2116;--face-bg:#3a3f46;--q-ink:#ffd9a0;--fade:#080502;--hud-bg:rgba(36,24,14,.82)}
+  .tc-room{font-size:58px;font-weight:700;letter-spacing:.01em}
+  .tk-name{font-family:'Oswald',sans-serif;font-weight:500}
+  .steam{animation:steam 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .steam:nth-child(2){animation-delay:-1.7s}.steam:nth-child(3){animation-delay:-3.3s}
+  @keyframes steam{0%{opacity:0;transform:translateY(10px) scale(.8)}40%{opacity:.45}100%{opacity:0;transform:translateY(-60px) scale(1.4)}}
+  .tail{animation:tail 4s ease-in-out infinite;transform-box:fill-box;transform-origin:0 0}
+  @keyframes tail{50%{transform:rotate(12deg)}}
+  .mdisp{animation:mdisp 1.4s steps(1) infinite}
+  @keyframes mdisp{50%{opacity:.25}}
+  #board.next .bscr{animation:gnudge 1.7s ease-in-out infinite}
+
+  /* the whiteboard */
+  .wb{display:grid;grid-template-columns:minmax(0,640px) 330px;gap:14px;width:min(1010px,96vw);align-items:start}
+  .wb-board{padding:14px 18px 12px;background:#fbfbf8;border:12px solid #c9ccd0;border-radius:4px;color:#1d2a4a;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 40px rgba(0,0,0,.06)}
+  .wb-board h6{margin:0 0 4px;font-family:'Caveat',cursive;font-weight:700;font-size:24px;line-height:1;color:#2a3a8a}
+  .wb-row{display:flex;align-items:center;gap:6px;min-height:36px;border-bottom:1px solid rgba(40,60,120,.1)}
+  .wb-row>b{min-width:34px;font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#7a8ab0}
+  .wb-row .gl{color:#1d2a4a}
+  .wb-row.red{color:#c0302a}.wb-row.red>b{color:#c0302a}
+  .wb-row.red span{font-family:'Caveat',cursive;font-weight:700;font-size:21px}
+  .wb-keys{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+  .wb-key{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .wb-key .gl{color:#1d2a4a}
+  .wb-key>i{font-style:normal;font-family:'Caveat',cursive;font-weight:700;font-size:19px;color:#c0302a;line-height:1}
+  .slot{width:100%;min-height:52px;padding:3px;border:2px dashed rgba(40,60,120,.35);border-radius:5px;background:rgba(40,60,120,.04)}
+  .slot.full{border-style:solid;border-color:#2a3a8a}
+  .slot.bad{border-color:#d0502a;background:rgba(208,80,42,.1)}
+  .wb-side .pmsg{min-height:96px;margin:10px 0 8px;color:#fff4e4}
+  .wb-side .btn{float:right}
+  .wb-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:60px;padding:8px;border-radius:6px;background:#3a2a1a;border:1px solid #6a4a2a}
+  .mag{display:block;padding:6px 10px 5px;background:#ffe9a8;color:#2a1e0a;border-radius:3px;font-family:'Outfit',sans-serif;font-weight:400;font-size:14.5px;line-height:1.2;cursor:grab;
+    box-shadow:0 2px 0 rgba(0,0,0,.45);-webkit-user-select:none;user-select:none;max-width:100%}
+  .mag:nth-child(3n){background:#bfe3ff}.mag:nth-child(3n+1){background:#ffc8c0}
+  .slot .mag{font-size:13px;padding:5px 6px 4px}
+  .mag.held{outline:3px solid #ffb84a}
+  .mag.fly{position:fixed;z-index:99;pointer-events:none;opacity:.9}
+  @media (max-width:1000px){.wb{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="tiles" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#e9dcc0"/><path d="M0 0H60V60" fill="none" stroke="#cdbb98" stroke-width="3"/></pattern>
+  <linearGradient id="kWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3e24"/><stop offset="1" stop-color="#7a5632"/></linearGradient>
+  <radialGradient id="lamp" cx="50%" cy="0%" r="90%"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+  <linearGradient id="kNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050912"/><stop offset="1" stop-color="#142030"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#080502" stop-opacity=".2"/><stop offset="1" stop-color="#080502" stop-opacity=".88"/></radialGradient>
+  <clipPath id="kWin"><rect x="640" y="150" width="320" height="230"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#kWall)"/>
+<rect x="-1000" y="300" width="3600" height="300" fill="url(#tiles)"/>
+<!-- the window over the sink: the moor at night, and the dish lit by one lamp -->
+<g id="win" class="hot"><rect x="626" y="136" width="348" height="258" fill="#f2ead8"/>
+  <g clip-path="url(#kWin)"><rect x="640" y="150" width="320" height="230" fill="url(#kNight)"/><g id="kstars" fill="#fff"></g>
+    <path d="M640 330Q740 300 840 318T960 310V380H640Z" fill="#06080a"/>
+    <g transform="translate(860 300) rotate(-20)"><path d="M-46 -8Q0 18 46 -8Q0 -30 -46 -8Z" fill="#cfd8dc"/><path d="M0 -20V-46" stroke="#cfd8dc" stroke-width="3"/></g><path d="M856 300l-14 30h28z" fill="#1a2024"/></g>
+  <path d="M800 150V380M640 265H960" stroke="#f2ead8" stroke-width="8"/></g>
+<!-- the cat on the windowsill -->
+<g id="cat" class="hot"><path d="M640 394H960" stroke="#d9cdb2" stroke-width="10"/>
+  <path d="M676 392q-6-30 22-36q30-4 38 20q4 14-4 16z" fill="#2a2420"/><circle cx="702" cy="356" r="15" fill="#2a2420"/><path d="M692 346l-4-14 10 8zM708 344l6-12 2 14z" fill="#2a2420"/>
+  <path class="tail" d="M734 388q30 4 26 -20" stroke="#2a2420" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+<!-- the fridge, with a card on it -->
+<g id="fridge"><rect x="70" y="160" width="240" height="560" rx="14" fill="#e8ecee"/><rect x="70" y="360" width="240" height="6" fill="#c3c9cc"/><rect x="280" y="210" width="10" height="110" rx="4" fill="#b0b8bc"/><rect x="280" y="400" width="10" height="150" rx="4" fill="#b0b8bc"/>
+  <circle cx="110" cy="200" r="10" fill="#4a8aca"/><rect x="200" y="420" width="44" height="30" fill="#ffc8c0" transform="rotate(8 222 435)"/><circle cx="140" cy="440" r="9" fill="#7ac04a"/></g>
+<g id="idx" class="hot"><rect x="110" y="230" width="150" height="104" fill="#fffdf6" transform="rotate(-4 185 282)"/><circle cx="185" cy="232" r="10" fill="#c43c22"/>
+  <g stroke="#5a7ac0" stroke-width="3" transform="rotate(-4 185 282)"><path d="M124 262h120M124 280h110M124 298h124M124 316h90"/></g></g>
+<!-- the corkboard, with the cutting -->
+<g id="cork"><rect x="360" y="150" width="220" height="190" fill="#b5844e" stroke="#6a4a2a" stroke-width="8"/><rect x="380" y="290" width="70" height="40" fill="#f4e0a0" transform="rotate(-6 415 310)"/><rect x="500" y="170" width="60" height="50" fill="#bfe3ff" transform="rotate(5 530 195)"/></g>
+<g id="cut" class="hot"><rect x="420" y="178" width="120" height="140" fill="#efe6cf" transform="rotate(3 480 248)"/><circle cx="480" cy="182" r="6" fill="#c43c22"/>
+  <g transform="rotate(3 480 248)"><rect x="430" y="192" width="100" height="14" fill="#3a3226"/><g stroke="#8a7e66" stroke-width="3"><path d="M430 218h100M430 230h100M430 242h86M430 254h100M430 266h96M430 278h100M430 290h70"/></g></g></g>
+<!-- the clock -->
+<g id="clock" class="hot"><circle cx="1110" cy="110" r="44" fill="#f8f2e4" stroke="#6a4a2a" stroke-width="6"/><path d="M1110 110L1121 89" stroke="#2a1e12" stroke-width="5" stroke-linecap="round"/><path d="M1110 110L1093 80" stroke="#2a1e12" stroke-width="3" stroke-linecap="round"/><circle cx="1110" cy="110" r="4" fill="#c0302a"/></g>
+<!-- the counter, sink, kettle and microwave -->
+<path d="M-1000 600H2600V1500H-1000Z" fill="#3a2818"/>
+<rect x="340" y="560" width="1260" height="40" fill="#c9a87a"/><rect x="340" y="600" width="1260" height="200" fill="#6a4a2e"/>
+<g fill="#5a3e26"><rect x="360" y="616" width="280" height="168" rx="4"/><rect x="660" y="616" width="280" height="168" rx="4"/><rect x="960" y="616" width="280" height="168" rx="4"/><rect x="1260" y="616" width="320" height="168" rx="4"/></g>
+<path d="M680 560h240l-14 30H694z" fill="#9aa4aa"/>
+<g id="kettle" class="hot"><path d="M500 560q-6-70 50-74q56 4 50 74z" fill="#d0d6da"/><path d="M600 512l30-16" stroke="#d0d6da" stroke-width="10" stroke-linecap="round"/><path d="M520 486q30-30 60 0" stroke="#3a3a3a" stroke-width="7" fill="none"/>
+  <g fill="#fff"><ellipse class="steam" cx="632" cy="480" rx="10" ry="14" opacity=".4"/><ellipse class="steam" cx="640" cy="470" rx="8" ry="12" opacity=".3"/><ellipse class="steam" cx="626" cy="464" rx="9" ry="12" opacity=".3"/></g></g>
+<g id="micro" class="hot" transform="translate(-90 0)"><rect x="1040"y="440" width="260" height="122" rx="8" fill="#e6e6e2"/><rect x="1054" y="454" width="170" height="94" rx="4" fill="#20262a"/>
+  <path d="M1054 454l-40 -10v118l40 -14z" fill="#d8d8d4" opacity=".9"/>
+  <rect x="1236" y="458" width="54" height="24" rx="3" fill="#0a1a10"/><text class="mdisp mono" x="1263" y="476" text-anchor="middle" font-size="16" fill="#6aff9a">0:07</text>
+  <g fill="#b8b8b2"><rect x="1240" y="494" width="20" height="12" rx="2"/><rect x="1266" y="494" width="20" height="12" rx="2"/><rect x="1240" y="512" width="20" height="12" rx="2"/><rect x="1266" y="512" width="20" height="12" rx="2"/></g>
+  <path d="M1110 530q30 -16 60 0v14h-60z" fill="#f0e2c8"/><path d="M1124 514q10 -16 6 -30M1148 512q14 -14 8 -30" stroke="#fff" stroke-width="3" fill="none" opacity=".5"/></g>
+<!-- the table, with the laptop and the telephone -->
+<path d="M200 760H1300L1380 900H120Z" fill="#8a6a44"/><path d="M200 760H1300" stroke="#a8865a" stroke-width="5"/>
+<g id="laptop" class="hot"><path d="M420 770h220l20 40H400z" fill="#2a2e32"/><rect x="430" y="650" width="200" height="124" rx="6" fill="#2a2e32"/><rect x="440" y="660" width="180" height="104" fill="#040a0c"/>
+  <text x="450" y="680" class="mono" font-size="11" fill="#7fffc0">LIVE 1421.2 MHz</text><path d="M450 720l30 -12 12 24 10 -30 14 20h90" stroke="#ffcf6a" stroke-width="2" fill="none"/>
+  <path d="M560 690l40 60" stroke="#ff6a5a" stroke-width="3"/><text x="450" y="756" class="mono" font-size="11" fill="#ff8a7a">00:52:31 ??</text></g>
+<g id="phone" class="hot"><rect x="700" y="760" width="120" height="40" rx="8" fill="#20242a"/><rect x="712" y="768" width="50" height="22" rx="3" fill="#3a8a5a"/><text x="737" y="784" text-anchor="middle" class="mono" font-size="11" fill="#e8fff0">O.S.</text><circle cx="790" cy="780" r="10" fill="#353a42"/></g>
+<!-- the whiteboard on its easel -->
+<g id="board" class="hot"><path d="M1340 360l-60 470M1500 360l60 470M1420 360v470" stroke="#6a6e72" stroke-width="10"/>
+  <g class="bscr"><rect x="1250" y="230" width="340" height="300" fill="#fbfbf8" stroke="#c9ccd0" stroke-width="12"/>
+  <g fill="#1d2a4a"><circle cx="1280" cy="262" r="5"/><circle cx="1280" cy="290" r="5"/><circle cx="1296" cy="290" r="5"/><circle cx="1280" cy="318" r="5"/><circle cx="1296" cy="318" r="5"/><circle cx="1312" cy="318" r="5"/></g>
+  <g stroke="#1d2a4a" stroke-width="5" fill="none"><path d="M1340 340l10 10 10 -10M1350 350v14"/><path d="M1384 340h24M1384 364h24"/><path d="M1440 342l10 10 -10 10 -10 -10z"/><path d="M1340 400h8v8M1372 400h-8v8M1340 432h8v-8M1372 432h-8v-8"/></g>
+  <g fill="#1d2a4a"><circle cx="1290" cy="352" r="5"/><circle cx="1320" cy="352" r="5"/><circle cx="1424" cy="352" r="5"/><circle cx="1470" cy="352" r="5"/><circle cx="1486" cy="352" r="5"/></g>
+  <path d="M1290 470l120 40" stroke="#c0302a" stroke-width="6"/><text x="1430" y="500" font-family="Caveat,cursive" font-weight="700" font-size="26" fill="#c0302a">8? 00:52</text></g></g>
+<!-- Yusuf, by the counter -->
+<g id="yusufG" class="hot"><use href="#ch-yusuf" x="690" y="440" width="240" height="312"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#lamp)" pointer-events="none"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go down to the archive</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+  (function () { var s = '', i, seed = 5; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 40; i++) s += '<circle cx="' + Math.round(642 + rnd() * 316) + '" cy="' + Math.round(152 + rnd() * 150) + '" r="' + (0.6 + rnd() * 1.3).toFixed(1) + '" opacity="' + (0.3 + rnd() * 0.7).toFixed(2) + '"/>';
+    $('#kstars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'kitchen', no: 'II', title: 'The Kitchen',
+    go: 'Follow the smell of noodles',
+    intro: [
+      'In the control room you tested the four things the dish had heard. B was still there when the dish looked away: an electric fence on a farm, clicking once a second. C crossed the beam in four seconds: a satellite. D was a wide, smooth hill: hydrogen gas, all along the Milky Way. And A went when the dish looked away, and came back when it looked back. One point in the sky.',
+      'Nadia rang the director, and he is driving up from the city. Since then the needle has sent its counting again, and then something new: rows of dots with little square symbols between them.',
+      'It is five minutes to one in the morning. The kitchen is the warmest room in the observatory, and it smells of noodles.'
+    ],
+    exit: {"next":"archive","w":{"15ada64d":"e97196a5"}}, tags: {"gf":["5857c52b"],"gb":["f1f237f1"],"gd":["07f3aa29"],"gh":["4534c50c"],"r8":["bafa41ed"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('k-file') || null;
+  var S = ER.flag('k-st') || { at: {} };
+  function keep() { ER.flag('k-st', S); }
+
+  var IDX = '<h4>How I read a word I do not know</h4>' +
+    '<p class="r"><b>1</b><span>Do not stop. Read to the end of the sentence.</span></p>' +
+    '<p class="r"><b>2</b><span>What kind of word is it? A thing? A doing word? A describing word? A little word that joins two others?</span></p>' +
+    '<p class="r"><b>3</b><span>Look at the words round it. <span class="ex">&ldquo;The ___ hissed and boiled over.&rdquo;</span> It is a thing that boils: a kettle? a pan?</span></p>' +
+    '<p class="r"><b>4</b><span>Read the next sentences. A second example tells you more than the first. Look for <i>like</i>, <i>such as</i>, <i>unlike</i>, <i>because</i>, <i>but</i>.</span></p>' +
+    '<p class="r"><b>5</b><span>Put a plain word in its place. If every sentence still makes sense, you have it.</span></p>' +
+    '<p>This is how I learnt English, from astronomy papers. It works on anything. &nbsp;Y.N.</p>';
+  var CUT = '<h4>The mystery signals were lunch</h4><h5>Cut from a newspaper &middot; 2015</h5>' +
+    '<p>For seventeen years, the great radio telescope at Parkes in Australia picked up perytons. They were bright and sudden, they lasted a fraction of a second, and they swept from high frequencies down to low ones, like a falling whistle.</p>' +
+    '<p>Some astronomers hoped they came from deep space. But unlike the bursts that really do come from far away, perytons appeared whatever the dish was pointing at, and nearly always in working hours.</p>' +
+    '<p>In 2015 a young astronomer found the culprit in the staff kitchen. If somebody opened the door of the microwave oven before the timer had finished, the oven gave out a short burst of radio waves as it stopped, and the telescope heard it. The perytons were lunch.</p>';
+
+  var KEYS = [['fork', 'gf'], ['bars', 'gb'], ['diam', 'gd'], ['hook', 'gh']];
+  var MAGS = {
+    plus: 'plus (and)', eq: 'equals (is the same as)', not: 'not: that is wrong', ask: 'a question: what is it?',
+    minus: 'take away', more: 'is bigger than', peryton: 'a peryton', second: 'a second voice from the sky'
+  };
+  var ORDER = ['second', 'eq', 'minus', 'ask', 'peryton', 'more', 'plus', 'not'];
+
+  function hints() {
+    if (nextFile) return ['go', ['The neighbours have moved on to PART THREE and PART FOUR. Mr Ward&rsquo;s notes and the old light table are in the archive. Click the button at the bottom to go down.']];
+    if (!ER.flag('k-talk')) return ['talk', [
+      'Yusuf is standing by the counter with a fork in his hand. Click on him and listen to the end.',
+      'Then read the card on the fridge and the cutting on the corkboard. The telephone on the table is Professor Stroud, in his car.'
+    ]];
+    if (!ER.flag('k-idx') || !ER.flag('k-cut')) return ['read', ['Two things to read before the whiteboard: Yusuf&rsquo;s card on the fridge (how he reads a word he does not know) and the newspaper cutting on the corkboard (the word in it you will not know).']];
+    return ['board', [
+      'Every symbol on the board is a word you do not know. Use Yusuf&rsquo;s card: what kind of word stands between two numbers? Try a meaning in every row where that symbol appears, not just the first.',
+      'Row 3 has the bars on their own: three, bars, three. Row 4 says two, fork, two, bars, five, and then the diamond: is that sum right? Row 5 ends with the hook, and row 6 is a lonely four. Row 8 came at 00:52:31: read the cutting, then look at the microwave and the clock.',
+      'The fork puts two counts together. The bars stand between two things that are the same. The diamond comes only after the rows that are false. The hook is answered by the next row. Row 8 swept down like a falling whistle, seven seconds before the microwave&rsquo;s timer would have finished.'
+    ]];
+  }
+  function paint() {
+    var ready = !nextFile && ER.flag('k-talk') && ER.flag('k-idx') && ER.flag('k-cut');
+    $('#board').setAttribute('class', 'hot' + (ready ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The kitchen. On the whiteboard, every symbol now has its word, and row 8 has a line through it.'); return; }
+    if (ER.flag('k-seen')) { ER.say('The kitchen: the whiteboard on its easel, the fridge, the corkboard, the microwave, and Yusuf.'); return; }
+    busy = true; ER.flag('k-seen', 1);
+    ER.narrate([
+      'The kitchen has a yellow light, a dripping tap, and a cat asleep on the windowsill. Yusuf Ndiaye, a research student who was meant to be using the dish at three o&rsquo;clock, has dragged the whiteboard in from the meeting room.',
+      'He has copied every row that the neighbours have sent: first the counting, one to five, and then seven rows of dots and little square symbols. Under them, in red, there is an eighth row that does not look like the others at all.',
+      'On the table, the telephone is on speaker. Out of it comes the sound of a motorway, and over the motorway a man&rsquo;s voice: &ldquo;Row eight! Read me row eight again!&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#yusufG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Fork, bars, diamond, hook,&rdquo; says Yusuf. &ldquo;Plus, equals, not, what. Four words in ten minutes. My first English teacher would be jealous.&rdquo;'); return; }
+    if (ER.flag('k-talk')) { ER.say('&ldquo;Every symbol is a word we do not know,&rdquo; says Yusuf. &ldquo;Read my card on the fridge. Then put a word under each one on the board.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.yusuf.who, role: CAST.yusuf.role, face: FACE('yusuf'),
+      lines: [
+        { note: 'A thin young man in an orange woolly hat, with headphones round his neck and a fork in his hand. He looks very happy and very tired.',
+          a: '&ldquo;Yusuf. I am supposed to be measuring a dying star at three o&rsquo;clock. The star can wait. It has waited ten thousand years.&rdquo;' },
+        { q: 'What are the squares?',
+          a: '&ldquo;Words. Every square came as a block of twenty-five pulses, and my program lays twenty-five out as five rows of five. The dots are numbers: they taught us those first, one to five. Between the numbers they put these squares. I have named them so we can talk about them: the fork, the bars, the diamond, the hook.&rdquo;' },
+        { q: 'And row 8?',
+          a: '&ldquo;Row 8 came at 00:52:31, between the others. Not dots, not squares: one quick sweep, from the top of the receiver to the bottom, like a whistle falling. I copied it in red. The professor says it is a second voice.&rdquo; He looks at the fork in his hand. &ldquo;I was busy at the time.&rdquo;' },
+        { q: 'How do we read the squares?',
+          a: '&ldquo;The way I learnt English: from the words round them. It is on the card on my fridge. When you think you know a symbol, put a word under it on the board, and try it in every row.&rdquo;' }
+      ],
+      clue: { id: 'yusuf1', title: 'Yusuf, at five to one', kind: 'What he said' }, last: 'Look round the kitchen',
+      done: function (seen) { if (!seen) return; ER.flag('k-talk', 1); GR.learn(['symbol', 'whiteboard', 'noodles']); paint(); ER.say('Yusuf&rsquo;s card is on the fridge door. The cutting is on the corkboard beside it.'); }
+    });
+  });
+  $('#idx').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: IDX, cls: 'idx', clue: { id: 'idx', title: 'How I read a word I do not know', kind: 'On the fridge' }, done: function () { ER.flag('k-idx', 1); GR.learn(['context', 'meaning']); paint(); } });
+  });
+  $('#cut').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CUT, cls: 'cut', clue: { id: 'cut', title: 'The mystery signals were lunch', kind: 'Newspaper cutting' }, done: function () {
+      ER.flag('k-cut', 1); GR.learn(['cutting', 'culprit']); paint();
+      ER.say('There is a word in that cutting that nobody explains. Yusuf&rsquo;s card says what to do about that.'); } });
+  });
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The telephone: only the motorway now. Professor Stroud has gone very quiet.'); return; }
+    ER.talk({
+      who: CAST.stroud.who, role: 'On the speakerphone, from a motorway somewhere', face: FACE('stroud'),
+      lines: [
+        { note: 'Only a voice: the director of the observatory, driving through the night. He sounds as if he is smiling with his whole face.',
+          a: '&ldquo;Is that our prize-winner? Splendid. Splendid! You picked a good night. Are you writing everything down? Write everything down.&rdquo;' },
+        { q: 'What do you think row 8 is?',
+          a: '&ldquo;A second voice! Don&rsquo;t you see? The counting is one transmitter, and row 8 is another one, answering it. A falling tone, quite different. Two of them, talking to each other. I have waited thirty years for a night like this.&rdquo;' },
+        { q: 'Are you sure?',
+          a: '&ldquo;I am always sure. It saves a great deal of time.&rdquo; A lorry roars past him. &ldquo;Put it on the board as a second voice. I&rsquo;ll be there by two.&rdquo;' }
+      ],
+      clue: { id: 'stroud1', title: 'Professor Stroud, on the telephone', kind: 'What he said' }, last: 'Hang up politely',
+      done: function (seen) { if (seen) { ER.flag('k-phone', 1); GR.learn(['speakerphone', 'motorway']); } }
+    });
+  });
+  GR.thing('#micro', 'microwave', function () {
+    ER.flag('k-micro', 1);
+    return 'The microwave. Its little screen still says <i>0:07</i>, blinking: somebody opened the door seven seconds before the timer finished. Inside, a pot of noodles is going cold. &ldquo;I put them in at 00:49:38, for three minutes,&rdquo; says Yusuf. &ldquo;I was hungry.&rdquo;';
+  }, isBusy);
+  GR.thing('#laptop', null, 'Yusuf&rsquo;s laptop shows the live feed. At 00:52:31 there is a red streak right across it, from the top of the receiver&rsquo;s range to the bottom, a third of a second long. Then the counting again, as if nothing had happened.', isBusy);
+  GR.thing('#clock', null, 'The kitchen clock says five to one. Under it, in pencil on the wall, somebody has written: NOBODY HERE HAS GONE TO BED ON TIME SINCE 1974.', isBusy);
+  GR.thing('#cat', null, 'The observatory cat, Parsec, named after a distance astronomers use: about three and a quarter light years. She is asleep with one ear turned towards the dish.', isBusy);
+  GR.thing('#kettle', 'kettle', 'The kettle has just boiled. Nadia says the observatory runs on two things: liquid helium and tea.', isBusy);
+  GR.thing('#win', 'moor', 'Through the window: the black moor, the stars, and the dish, white under one lamp, still turned to the south and listening.', isBusy);
+  GR.thing('#fridge', null, 'The fridge is covered in magnets from other observatories. One says: I CAME, I SAW, I CALIBRATED.', isBusy);
+
+  /* ---------- the whiteboard ---------- */
+  function rowsHtml() {
+    var h = '<div class="wb-row"><b>1&ndash;5</b>' + GR.MSG.p1.map(function (r) { return GR.line(r, 24); }).join(' ') + '</div>';
+    GR.MSG.p2.forEach(function (r, i) { h += '<div class="wb-row"><b>' + (i + 1) + '</b>' + GR.line(r, 26) + '</div>'; });
+    h += '<div class="wb-row red"><b>8</b><svg width="160" height="30" viewBox="0 0 160 30"><path d="M4 4L150 26" stroke="#c0302a" stroke-width="5"/></svg><span>00:52:31 &middot; one quick sweep, high to low</span></div>';
+    return h;
+  }
+  function openBoard() {
+    var box = ER.el('div', 'wb'), done = false;
+    box.innerHTML = '<div class="wb-board"><h6>The neighbours &middot; PART ONE and PART TWO &middot; copied by Y.N.</h6>' + rowsHtml() +
+      '<div class="wb-keys">' + KEYS.map(function (k) { return '<div class="wb-key">' + GR.glyph(k[0], 34) + '<i>' + k[0] + '</i><div class="slot" data-s="' + k[1] + '"></div></div>'; }).join('') +
+      '<div class="wb-key"><svg width="44" height="34" viewBox="0 0 44 34"><path d="M4 6L40 28" stroke="#c0302a" stroke-width="5"/></svg><i>row 8</i><div class="slot" data-s="r8"></div></div></div></div>' +
+      '<div class="wb-side"><div class="wb-tray"></div><p class="pmsg"></p><button type="button" class="btn" id="k-read">Read it to the professor</button></div>';
+    var tray = box.querySelector('.wb-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ORDER.forEach(function (k) {
+      var n = ER.el('div', 'mag dnd-item', MAGS[k]); n.setAttribute('data-m', k);
+      var at = null, s; for (s in S.at) if (S.at[s] === k) at = s;
+      (at ? box.querySelector('.slot[data-s="' + at + '"]') : tray).appendChild(n);
+    });
+    function read() {
+      var o = {}; ER.$$('.slot', box).forEach(function (s) { var t = s.querySelector('.mag'); o[s.getAttribute('data-s')] = t ? t.getAttribute('data-m') : ''; s.classList.toggle('full', !!t); s.classList.remove('bad'); });
+      return o;
+    }
+    ER.dnd(box, { item: '.mag', slot: '.slot', home: tray, change: function () { S.at = read(); keep(); }, lock: function () { return done; } });
+    read();
+    var WHY = {
+      gf: { minus: 'Row 1 would say: one take away one is two. Row 2: two take away one is three.', eq: 'Row 1 would say: one equals one equals two.', more: 'Row 1: one is bigger than one ... two? That isn&rsquo;t even a sentence.',
+        not: 'Row 1 would be: one, not, one, two. Every row with a fork would be a mistake.', ask: 'Then row 1 asks a question and answers it in the same breath. Look at where the real answer to a question comes.' },
+      gb: { more: 'Row 3: three is bigger than three? Not even on a good day.', plus: 'Row 3 would say three plus three, and stop there.', minus: 'Row 3: three take away three, and nothing after it.',
+        not: 'Row 3 would say three, not, three. But three is three.', ask: 'Then row 3 asks &ldquo;three, what, three?&rdquo; and never gets an answer.' },
+      gd: { ask: 'Is row 4 asking a question? Then where is its answer? The hook in row 5 gets one: row 6.', minus: 'Row 4: two plus two equals five, take away? And it stops.', more: 'Row 7 would say: four equals three is bigger than. That is just noise.',
+        plus: 'Row 4: two plus two equals five plus ... nothing.', eq: 'The diamond comes only at the end of two rows. What is the same about row 4 and row 7?' },
+      gh: { not: 'Then row 5 says three plus one equals not, and row 6, a four all on its own, is there for no reason. What gets an answer?', minus: 'Row 5: three plus one equals take away?', more: 'Row 5: three plus one equals is bigger than?',
+        eq: 'Row 5 already has the bars in it.', plus: 'Row 5 already has the fork in it.' },
+      r8: { second: '&ldquo;A second voice that sweeps through every frequency in a third of a second, at 00:52:31?&rdquo; says Nadia. &ldquo;Look at the microwave. Then read the cutting again.&rdquo;' }
+    };
+    box.querySelector('#k-read').addEventListener('click', function () {
+      if (done) return;
+      var L = read(), keys = ['gf', 'gb', 'gd', 'gh', 'r8'], bad = null, i;
+      if (keys.every(function (k) { return !L[k]; })) { msg('&ldquo;Words under the symbols first,&rdquo; says Yusuf. &ldquo;Drag them, or click one and then a space.&rdquo;'); return; }
+      if (keys.some(function (k) { return !L[k]; })) { msg('&ldquo;Five spaces: four symbols and row 8. Three words will be left over.&rdquo;'); ER.shake(box.querySelector('.wb-keys')); return; }
+      for (i = 0; i < keys.length; i++) if (!ER.check(keys[i], L[keys[i]])) { bad = keys[i]; break; }
+      if (bad) {
+        GR.bump('miss'); GR.sfx.hm();
+        box.querySelector('.slot[data-s="' + bad + '"]').classList.add('bad');
+        var t = (WHY[bad] || {})[L[bad]];
+        if (!t && bad === 'r8') t = 'Row 8 is not made of dots and symbols at all. What happened in this kitchen at 00:52:31?';
+        if (!t && (L[bad] === 'peryton' || L[bad] === 'second')) t = 'That word is about row 8, not about a symbol.';
+        msg(t || 'Try that word in every row where the symbol comes. One of them stops making sense.'); return;
+      }
+      var file = ER.exitOk([L.gf + '|' + L.gb + '|' + L.gd + '|' + L.gh + '|' + L.r8]);
+      if (!file) { msg('&ldquo;Hm,&rdquo; says Yusuf. &ldquo;Read it to me again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('k-file', file); GR.done('kitchen'); busy = true;
+      GR.mine('words1', 'Their first four words', '<p>' + GR.glyph('fork', 22) + ' plus &nbsp; ' + GR.glyph('bars', 22) + ' equals &nbsp; ' + GR.glyph('diam', 22) + ' not (wrong) &nbsp; ' + GR.glyph('hook', 22) + ' what? (a question)</p><p>Row 8 was a peryton: Yusuf&rsquo;s microwave, opened 7 seconds early.</p><p>They teach a word by putting it between things we already know.</p>', true);
+      msg('Yusuf reads the board aloud, one row at a time, into the telephone.');
+      setTimeout(function () { ER.closeAll(); GR.solved(); paint(); after(); }, 2400);
+    });
+    msg(Object.keys(S.at).some(function (k) { return S.at[k]; }) ? 'The magnets are where you left them.' : 'Put a word under each symbol, and one under row 8. Drag a magnet, or click it and then a space.');
+    ER.open('ov-lock', box);
+  }
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The whiteboard. Under the fork: plus. Under the bars: equals. Under the diamond: not. Under the hook: what? Row 8 has a red line through it, and the word PERYTON.'); return; }
+    if (!ER.flag('k-talk')) { ER.say('The whiteboard, covered in dots and little squares. Yusuf is guarding it with a fork. Talk to him first.'); return; }
+    if (!ER.flag('k-idx') || !ER.flag('k-cut')) { ER.say('&ldquo;Read my card on the fridge first,&rdquo; says Yusuf, &ldquo;and the cutting next to it.&rdquo;'); return; }
+    openBoard();
+  });
+  function after() {
+    ER.narrate([
+      '&ldquo;One and one make two,&rdquo; Yusuf reads. &ldquo;Two and one make three. Three is three. Two and two make five: NOT. Three and one make what? Four. Four is three: NOT.&rdquo; He puts the pen down. &ldquo;They are teaching us. Like a teacher with a small child.&rdquo;',
+      '&ldquo;And row 8,&rdquo; says Nadia, &ldquo;was a peryton. It was your noodles, Yusuf.&rdquo; On the speakerphone there is a long silence, full of motorway. &ldquo;Ah,&rdquo; says the professor at last. &ldquo;A second voice from a microwave. Well. Nobody need ever know.&rdquo;',
+      'On the laptop, the neighbours have moved on. PART THREE is counting again, but differently: two, three, five, seven, eleven ... And after it comes PART FOUR: a long, long run of pulses and gaps with no break at all. Yusuf&rsquo;s program cannot make sense of it.',
+      '&ldquo;Mr Ward,&rdquo; says Nadia suddenly. &ldquo;He looked after the archive for forty years. He kept notes about the message that was sent from Arecibo in 1974. They&rsquo;re downstairs, and so is the old light table. Bring the printout.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

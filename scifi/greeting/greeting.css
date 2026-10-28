@@ -1,0 +1,202 @@
+/* With Open Arms - what the six rooms share: the observatory's kinds of paper, the senders' symbols, the notebook
+   (the back of the night's observing sheet) and the last card. Each room sets its own palette and lettering. */
+
+.hud,.btn,.ov-x{font-weight:400}
+.hbtn,.chip,.ov-x,.btn,.toast{font-family:var(--font-ui,'Share Tech Mono',monospace);letter-spacing:.1em}
+.tc-theme{font-family:'Share Tech Mono',monospace;letter-spacing:.3em}
+.tc-room{font-family:var(--font-display,'Orbitron',sans-serif);font-weight:700;letter-spacing:.06em}
+.tc-text,.cap{font-family:'Outfit',sans-serif;font-weight:300}
+.tc-text i,.cap i{font-style:normal;font-weight:500;color:var(--accent,#ffcf6a)}
+.tk-name{font-family:var(--font-display,'Orbitron',sans-serif);font-weight:700;font-size:23px;letter-spacing:.04em}
+.tk-role{font-family:'Share Tech Mono',monospace;letter-spacing:.08em}
+.tk-text{font-family:'Outfit',sans-serif;font-weight:300}
+.tk-text .q{font-weight:400}
+.tk-text .gl{vertical-align:-6px;margin:0 2px}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 28px;border:2px solid var(--accent,#ffcf6a);
+  color:var(--accent,#ffcf6a);background:var(--hud-bg,rgba(8,12,16,.9));font-family:'Share Tech Mono',monospace;font-size:16px;letter-spacing:.16em;
+  text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#ffcf6a);color:#0d1014}
+.pmsg{min-height:50px;margin:0;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.36}
+.pmsg b{font-weight:500}
+.mono{font-family:'Share Tech Mono',monospace}
+.orb{font-family:'Orbitron',sans-serif}
+.raj{font-family:'Rajdhani',sans-serif;font-weight:600}
+.sten{font-family:'Saira Stencil One',sans-serif}
+.osw{font-family:'Oswald',sans-serif}
+.cav{font-family:'Caveat',cursive;font-weight:700}
+.nudge{animation:gnudge 1.8s ease-in-out infinite}
+@keyframes gnudge{50%{opacity:.55}}
+
+/* ---- the senders' symbols ---- */
+.gl{display:inline-block;vertical-align:middle;fill:currentColor;margin:0 3px}
+.pc{display:inline-block;vertical-align:middle;fill:currentColor}
+.ml{display:inline-flex;flex-wrap:wrap;align-items:center;gap:2px}
+.mp{display:inline-flex;align-items:center;padding:1px 3px;border:1px dashed currentColor;border-radius:3px;margin:0 3px;opacity:.9}
+.dts{display:inline-flex;gap:3px;margin:0 6px;align-items:center}
+.dts i{display:block;width:8px;height:8px;border-radius:50%;background:currentColor}
+.lay-bg{fill:rgba(0,0,0,.05)}
+.lay-on{fill:currentColor}
+
+/* ---- paper ---- */
+/* a page from the observatory's blue binder */
+.doc.binder{width:min(720px,94vw);padding:0 36px 22px;background:#f2f4f6;color:#1d2530;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.42;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);border-left:22px solid #2b4f7e}
+.doc.binder:before{content:'';position:absolute;left:-15px;top:50px;width:8px;height:8px;border-radius:50%;background:#f2f4f6;box-shadow:0 120px 0 #f2f4f6,0 240px 0 #f2f4f6}
+.doc.binder h4{margin:0 -36px 12px;padding:14px 36px 10px;background:#2b4f7e;color:#fff;font-family:'Oswald',sans-serif;font-weight:500;font-size:21px;letter-spacing:.06em;line-height:1.2}
+.doc.binder h5{margin:-4px 0 10px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12.5px;letter-spacing:.1em;color:#5b6b7e}
+.doc.binder p{margin:0 0 9px}
+.doc.binder p.r{display:grid;grid-template-columns:28px minmax(0,1fr)}
+.doc.binder p.r>b{font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;color:#2b4f7e}
+.doc.binder b{font-weight:500}
+.doc.binder svg{display:block;width:100%;height:auto;margin:6px 0 10px}
+.doc.binder .ft{font-family:'Share Tech Mono',monospace;font-size:12.5px;color:#5b6b7e}
+/* a laminated card, taped on */
+.doc.card{width:min(620px,94vw);padding:24px 30px 20px;background:#fdf8e4 linear-gradient(160deg,rgba(255,255,255,.8),rgba(220,200,120,.2));color:#2a2618;font-family:'Outfit',sans-serif;font-weight:400;
+  font-size:17px;line-height:1.4;border-radius:8px;border:1px solid #d8cc9a;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 5px rgba(255,255,255,.6)}
+.doc.card:before{content:'';position:absolute;left:42%;top:-12px;width:96px;height:24px;background:rgba(200,215,230,.7);transform:rotate(2deg)}
+.doc.card h4{margin:0 0 10px;padding-bottom:7px;font-family:'Saira Stencil One',sans-serif;font-size:22px;letter-spacing:.06em;color:#8a3a1a;border-bottom:3px solid #8a3a1a}
+.doc.card p{margin:0 0 8px}
+.doc.card p.r{display:grid;grid-template-columns:28px minmax(0,1fr)}
+.doc.card p.r>b{font-family:'Saira Stencil One',sans-serif;font-size:18px;color:#8a3a1a;font-weight:400}
+.doc.card small{display:block;margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:12.5px;letter-spacing:.05em;color:#7a6e4a}
+.doc.card svg{display:block;width:100%;height:auto;margin:4px 0 8px}
+/* a cutting from a newspaper, pinned up */
+.doc.cut{width:min(560px,94vw);padding:22px 30px 22px;background:#efe6cf linear-gradient(170deg,#f6efdc,#e2d5b2);color:#272218;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.42;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-.6deg)}
+.doc.cut h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:600;font-size:27px;line-height:1.08;letter-spacing:.01em}
+.doc.cut h5{margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #a8987a;font-family:'Oswald',sans-serif;font-weight:400;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#6a5e48}
+.doc.cut p{margin:0 0 10px;text-indent:1.2em}
+.doc.cut p:first-of-type{text-indent:0}
+/* an index card in Yusuf's handwriting, held to the fridge by a magnet */
+.doc.idx{width:min(600px,94vw);padding:24px 32px 22px 40px;background:#fffdf6 repeating-linear-gradient(transparent 0 33px,rgba(80,120,190,.28) 33px 34px);background-position:0 46px;color:#1f2a44;
+  font-family:'Caveat',cursive;font-weight:700;font-size:25px;line-height:34px;box-shadow:0 26px 70px rgba(0,0,0,.6);border-top:44px solid #fffdf6}
+.doc.idx:before{content:'';position:absolute;left:50%;top:-34px;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff8a6a,#c43c22)}
+.doc.idx h4{margin:-30px 0 8px;font-size:30px;line-height:34px;text-decoration:underline;font-weight:700}
+.doc.idx p{margin:0}
+.doc.idx p.r{display:grid;grid-template-columns:30px minmax(0,1fr)}
+.doc.idx .ex{color:#7a2a2a}
+/* Mr Ward's typed notes in the archive: foolscap, a typewriter with a tired letter e */
+.doc.ward{width:min(700px,94vw);padding:26px 40px 24px 56px;background:#f1ecdd linear-gradient(90deg,transparent 40px,rgba(200,60,60,.35) 40px 41px,transparent 41px);color:#242018;
+  font-family:'Special Elite','Courier New',monospace;font-size:16px;line-height:1.5;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.ward h4{margin:0 0 4px;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
+.doc.ward h5{margin:0 0 12px;font-weight:normal;font-size:13px;color:#6a604a}
+.doc.ward p{margin:0 0 9px}
+.doc.ward svg{display:block;width:100%;height:auto;margin:6px 0 10px}
+.doc.ward .pen{font-family:'Caveat',cursive;font-weight:700;font-size:22px;color:#2a4a8a;line-height:1.1}
+/* a caption card under a frame */
+.doc.label{width:min(600px,94vw);padding:22px 30px 20px;background:#101418;color:#e8e4da;font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.42;
+  border:1px solid #3a3f48;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.doc.label h4{margin:0 0 8px;font-family:'Cinzel',serif;font-size:20px;letter-spacing:.06em;color:#e6c56a}
+.doc.label p{margin:0 0 8px}
+.doc.label svg{display:block;width:100%;height:auto;margin:4px 0 10px}
+/* fan-fold paper from the line printer */
+.doc.strip{width:min(680px,94vw);padding:20px 26px 22px 46px;background:#fbfdf8 repeating-linear-gradient(#fbfdf8 0 26px,#dff0dc 26px 52px);color:#20301f;
+  font-family:'Share Tech Mono',monospace;font-size:15px;line-height:26px;box-shadow:0 26px 70px rgba(0,0,0,.6);
+  border-left:16px dotted #d6dccf;border-right:16px dotted #d6dccf}
+.doc.strip h4{margin:0 0 0;font-size:15px;letter-spacing:.16em;color:#000;line-height:26px}
+.doc.strip h5{margin:0 0 0;font-weight:normal;font-size:12.5px;letter-spacing:.06em;color:#5a6a58;line-height:26px}
+.doc.strip p{margin:0;min-height:26px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.doc.strip p>b{font-weight:normal;display:inline-block;min-width:46px;color:#406040}
+.doc.strip .gl{color:#13301a}
+.doc.strip .dts i{width:7px;height:7px}
+.doc.strip .note{font-family:'Caveat',cursive;font-weight:700;font-size:21px;color:#1f4a9a}
+/* an e-mail, printed */
+.doc.mail{width:min(640px,94vw);padding:22px 32px 22px;background:#fff;color:#20242b;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.45;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.mail h4{margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid #d0d4da;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.04em;color:#5a6270;line-height:1.5}
+.doc.mail h4 b{color:#20242b;font-weight:normal}
+.doc.mail p{margin:0 0 9px}
+.doc.mail svg{display:block;width:100%;height:auto;margin:4px 0 10px}
+/* a framed printout: the Wow! signal */
+.doc.wow{width:min(560px,94vw);padding:20px 28px 22px;background:#fbfbf2 repeating-linear-gradient(#fbfbf2 0 22px,#e3eedd 22px 44px);color:#1e2a1e;font-family:'Share Tech Mono',monospace;font-size:15px;line-height:22px;
+  border:14px solid #3a2a1c;box-shadow:0 26px 70px rgba(0,0,0,.7),inset 0 0 0 2px #c9b48a}
+.doc.wow h4{margin:0 0 8px;font-size:15px;letter-spacing:.14em}
+.doc.wow p{margin:0 0 10px}
+.doc.wow .col{display:inline-block;padding:0 6px;border:2px solid #c0302a;border-radius:40%;color:#000}
+.doc.wow .wo{font-family:'Caveat',cursive;font-weight:700;font-size:30px;color:#c0302a}
+.doc.wow .cap2{font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.42}
+/* what somebody said */
+.doc.statement{background:#eef1ec;color:#1c241e;font-family:'Outfit',sans-serif;font-weight:300;font-size:18px;line-height:1.5;border-left:8px solid var(--accent,#ffcf6a)}
+.doc.statement h4{font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#3a5a4a}
+.doc.statement .q,.doc.statement .note{color:#56665e}
+.doc.statement .gl{vertical-align:-6px}
+/* a picture: the senders' PART FOUR, laid out */
+.doc.pic{width:min(600px,94vw);padding:16px 18px 14px;background:#0b0f0c;color:#bff5c6;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.4;border:1px solid #2a4632;box-shadow:0 26px 70px rgba(0,0,0,.7)}
+.doc.pic h4{margin:0 0 8px;font-size:13.5px;letter-spacing:.16em;color:#7fe08f}
+.doc.pic .lay{display:block;width:100%;height:auto;margin:0 0 10px}
+.doc.pic .lay-bg{fill:#06100a}
+.doc.pic .lay-on{fill:#a8f5b4}
+.doc.pic p{margin:0 0 3px}
+/* what you worked out: pencil on the back of the night's observing sheet */
+.doc.mine{width:min(600px,94vw);padding:24px 30px 22px;background:#eef0e8 linear-gradient(170deg,#f7f8f2,#d9ddd0);color:#1d2430;font-family:'Caveat',cursive;font-weight:700;font-size:24px;line-height:1.2;
+  border-top:30px solid #d4dac8;box-shadow:0 26px 70px rgba(0,0,0,.6);transform:rotate(-.4deg)}
+.doc.mine:before{content:'OBSERVING SHEET \00b7  MIRKFELL 50 m \00b7  OVER';position:absolute;left:30px;top:-24px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12px;letter-spacing:.16em;color:#5e6658}
+.doc.mine h4{margin:0 0 6px;font-size:28px;font-weight:700;text-decoration:underline}
+.doc.mine p{margin:0 0 5px}
+.doc.mine .gl{vertical-align:-4px}
+
+/* ---- the notebook: an observing log ---- */
+.nb{background:#141a22 linear-gradient(155deg,#1e2733,#0c1117);border:1px solid #3c4a5a;border-radius:8px;color:#e6ebf0;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 4px #0b0f14}
+.nb-tabs{border-bottom-color:#33414f}
+.nb-tabs button{font-family:'Share Tech Mono',monospace;font-size:15px;color:#a8b8c6}
+.nb-tabs button.on{background:#ffcf6a;color:#1b1406;border-color:#ffcf6a}
+.nb-list{border-right-color:#33414f}
+.nb-list button{font-family:'Outfit',sans-serif;font-weight:400;font-size:16.5px;color:#e6ebf0}
+.nb-list button small{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.08em}
+.nb-list button.on{background:#ffcf6a;color:#1b1406}
+.nb-view{background:#090c10}
+.nb-empty{font-family:'Outfit',sans-serif;font-style:normal;font-weight:300}
+.nb-words{background:#eceee8;color:#1c2230}
+.nb-words b{font-family:'Share Tech Mono',monospace;font-size:17.5px}
+.nb-words span{font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;color:#3e4a56;line-height:1.26}
+.nb-ko{border-color:#a8b8c6;color:#3e4a56;font-family:'Share Tech Mono',monospace}
+.nb-ko.on{background:#1b1406;color:#ffcf6a;border-color:#1b1406}
+.wtip,.wtag{background:#f6f4ee;color:#1c2230;border-radius:4px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #ffcf6a}
+.wtag{transform:none;padding:9px 14px 10px 19px}.wtag:before{display:none}.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Share Tech Mono',monospace;font-size:18px}
+.wtip span,.wtag span{font-family:'Outfit',sans-serif;font-weight:300;font-size:16.5px;line-height:1.28;color:#3e4a56}
+.wtag.new b:after{color:#b4502a}
+.hintbox{background:#f6f4ee;color:#1c2230;border-top:6px solid #ffcf6a;border-radius:4px}
+.hintbox h6{font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.2em;color:#8a5a10}
+.hintbox p{font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.36}
+.hintbox p i{background:#1b1406;color:#ffcf6a;font-family:'Share Tech Mono',monospace}
+.hintbox p.hint-none{font-style:normal;color:#5a6270;font-size:16px}
+.hintbox .btn{border-color:#1b1406;color:#1b1406}
+.hintbox .btn:hover:not([disabled]){background:#1b1406;color:#ffcf6a}
+.hint-x:hover,.hintbox .w:hover{color:#b4502a}
+
+/* ---- the last card and the writing task ---- */
+.done{position:fixed;right:2vw;top:60px;z-index:34;width:min(540px,94vw);max-height:calc(100vh - 74px);overflow:auto;padding:16px 24px 12px;display:none;background:#f5f2ea;color:#1e242c;
+  border:1px solid #c9bfae;border-top:10px solid #2b4f7e;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.done.on{display:block}
+.done .stampd{display:inline-block;margin:0 0 8px;padding:3px 12px 1px;border:3px solid #2b4f7e;color:#2b4f7e;font-family:'Saira Stencil One',sans-serif;font-size:16px;letter-spacing:.08em;transform:rotate(-2deg)}
+.done p{margin:0 0 2px;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.36}
+.done h6{margin:10px 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.08em;color:#2b4f7e}
+.done ol{margin:0;padding-left:20px;font-family:'Outfit',sans-serif;font-weight:300;font-size:15px;line-height:1.28}
+.done li{margin:0 0 4px}
+.done .say{margin:8px 0 0;padding:6px 10px;border-left:4px solid #2b4f7e;background:#e9e6dc;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;line-height:1.35}
+.done .row{display:flex;flex-wrap:wrap;margin-top:10px}
+.done .btn{--accent:#1e242c;font-size:12.5px;padding:7px 11px;margin:0 7px 6px 0}
+.done .btn:hover:not([disabled]){color:#f5f2ea}
+.done small{display:block;margin-top:4px;font-family:'Outfit',sans-serif;font-weight:300;font-size:14px;opacity:.85;line-height:1.5}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#0f1622;color:#e6ecf4;padding:22px 30px 18px;border:1px solid #33465e;border-radius:8px;
+  box-shadow:0 26px 70px rgba(0,0,0,.6);-webkit-user-select:text;user-select:text}
+.rp h4{margin:0 0 4px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#8aa4c4}
+.rp h3{margin:0 0 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:24px;line-height:1.15;color:#ffcf6a}
+.rp label{display:block;font-family:'Outfit',sans-serif;font-weight:300;font-size:17px;line-height:1.38;margin:8px 0 6px}
+.rp label b{font-weight:500;color:#ffcf6a}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Share Tech Mono',monospace;font-size:17px;line-height:26px;color:#f2f6fa;background:#080d14;border:1px solid #33465e;padding:6px 12px;resize:vertical;
+  -webkit-user-select:text;user-select:text}
+.rp textarea{min-height:190px}
+.rp input[type=text]{height:38px}
+.rp .count{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right;margin-top:4px}
+.rp .foot{display:flex;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.5px;opacity:.8}
+.rp .btn{--accent:#ffcf6a;margin-left:10px}
+@media print{
+  .stage,.hud,.cap,.done,.gobtn,.ov-bar,.rp .foot{display:none!important}
+  body{overflow:visible;background:#fff}
+  .ov{position:static;display:block!important;background:none;padding:0}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible;background:#fff;color:#000}
+}

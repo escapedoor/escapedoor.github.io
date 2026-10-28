@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Archive · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#121812;--accent:#d8e89a;--font-display:'Special Elite',monospace;--font-ui:'Special Elite',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,20,16,.96);--tc-ink:#ece8da;--cap-bg:rgba(16,20,16,.93);--cap-ink:#f0ece0;--panel:#1a2018;--face-bg:#18302a;--q-ink:#e6f0b0;--fade:#030403;--hud-bg:rgba(16,20,16,.82)}
+  .tc-room{font-size:46px;font-weight:400;letter-spacing:.04em}
+  .tc-text,.cap{font-family:'EB Garamond',serif;font-weight:400}
+  .tube{animation:tube 7s steps(1) infinite}
+  @keyframes tube{0%,88%{opacity:1}89%{opacity:.3}91%{opacity:1}93%{opacity:.4}95%,100%{opacity:1}}
+  .spin{animation:spin 6s linear infinite;transform-box:fill-box;transform-origin:50% 50%}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #table.next .glow{animation:gnudge 1.7s ease-in-out infinite}
+
+  /* the light table */
+  .lt{display:grid;grid-template-columns:270px minmax(0,640px);gap:16px;width:min(960px,96vw);align-items:start}
+  .lt-side{padding:12px 14px;background:#1e241c;border:1px solid #4a5a3a;border-radius:8px;color:#ece8da}
+  .lt-side h6{margin:0 0 8px;font-family:'Special Elite',monospace;font-weight:normal;font-size:14px;letter-spacing:.06em;color:#d8e89a}
+  .dial{margin:0 0 10px;padding:8px 10px;background:#12160f;border:1px solid #3a4a2e;border-radius:6px}
+  .dial>b{display:block;font-family:'Special Elite',monospace;font-weight:normal;font-size:14px;color:#a8b88a}
+  .dial output{display:block;font-family:'Share Tech Mono',monospace;font-size:34px;line-height:1.1;color:#f4f0d8;text-align:center}
+  .dial .row{display:flex;gap:4px;justify-content:center}
+  .dial .row button{width:44px;height:30px;border:1px solid #6a7a52;border-radius:4px;color:#e6f0b0;font-family:'Share Tech Mono',monospace;font-size:14px;background:#262e1e}
+  .dial .row button:hover{background:#3a4a2a}
+  .lt-side .pmsg{min-height:92px;margin:6px 0 8px;font-size:16px;color:#f0ece0}
+  .lt-side .btn{width:100%;margin-top:4px}
+  .lt-main{padding:14px;background:#f4f6ea;border:10px solid #c9ccc0;border-radius:6px;box-shadow:0 0 50px rgba(240,255,200,.25),0 26px 70px rgba(0,0,0,.6);color:#1a2a14;min-height:300px;position:relative}
+  .lt-main .lay{display:block;margin:0 auto;max-width:100%;height:auto;max-height:52vh}
+  .lt-main .lay-bg{fill:#fbfcf4}
+  .lt-main .lay-on{fill:#1a2a14}
+  .lt-main .empty{padding:60px 20px;text-align:center;font-family:'Special Elite',monospace;font-size:17px;color:#6a7a52}
+  .lt-main .mk circle{fill:#c0302a}
+  .lt-main .mk text{fill:#fff;font-family:'Share Tech Mono',monospace;font-size:1.3px;text-anchor:middle;dominant-baseline:central}
+  .lab{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+  .lab .sp{display:flex;flex-direction:column;gap:3px}
+  .lab .sp>i{font-style:normal;font-family:'Share Tech Mono',monospace;font-size:13px;color:#c0302a;text-align:center}
+  .slot{min-height:56px;padding:3px;border:2px dashed rgba(26,42,20,.35);border-radius:5px;background:rgba(26,42,20,.04)}
+  .slot.full{border-style:solid;border-color:#1a2a14}
+  .slot.bad{border-color:#c0502a;background:rgba(192,80,42,.1)}
+  .tray{display:flex;flex-wrap:wrap;gap:6px;min-height:46px;margin-top:8px;padding:7px;border-radius:6px;background:#dfe2d2}
+  .tag{display:block;padding:5px 8px 4px;background:#fffbe8;color:#1a2010;border:1px solid #b8b090;border-radius:2px;font-family:'Special Elite',monospace;font-size:13.5px;line-height:1.2;cursor:grab;
+    box-shadow:0 2px 0 rgba(0,0,0,.25);-webkit-user-select:none;user-select:none;max-width:100%}
+  .slot .tag{font-size:12px;padding:4px 5px}
+  .tag.held{outline:3px solid #c0302a}
+  .tag.fly{position:fixed;z-index:99;pointer-events:none;opacity:.9}
+  @media (max-width:960px){.lt{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="aWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3226"/><stop offset="1" stop-color="#3a4434"/></linearGradient>
+  <radialGradient id="tubeG" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#e8ffd8" stop-opacity=".35"/><stop offset="1" stop-color="#e8ffd8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="tblG"><stop offset="0" stop-color="#f4ffe0" stop-opacity=".55"/><stop offset="1" stop-color="#f4ffe0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="48%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#030403" stop-opacity=".25"/><stop offset="1" stop-color="#030403" stop-opacity=".92"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#aWall)"/>
+<g stroke="#232a20" stroke-width="3" opacity=".7"><path d="M-1000 200H2600M-1000 420H2600"/><path d="M200 -600V650M600 -600V650M1000 -600V650M1400 -600V650"/></g>
+<!-- the tubes on the ceiling -->
+<g><rect x="300" y="30" width="360" height="14" rx="6" fill="#e8ffd8"/><rect class="tube" x="940" y="30" width="360" height="14" rx="6" fill="#e8ffd8"/></g>
+<rect x="-1000" y="-600" width="3600" height="1500" fill="url(#tubeG)" pointer-events="none"/>
+<!-- shelves of tapes, left and right -->
+<g id="shelves" class="hot"><g id="shelfL"></g><g id="shelfR"></g></g>
+<!-- the framed 1974 message, and the poster of the probes -->
+<g id="arecibo" class="hot"><rect x="430" y="110" width="150" height="300" fill="#141a14" stroke="#6a5a3a" stroke-width="8"/><g id="aremsg" fill="#d8e89a"></g>
+  <text x="505" y="430" text-anchor="middle" font-family="Special Elite,monospace" font-size="15" fill="#d8d4c0">ARECIBO 1974</text></g>
+<g id="poster" class="hot"><rect x="1030" y="110" width="200" height="270" fill="#101418" stroke="#6a5a3a" stroke-width="6"/>
+  <circle cx="1130" cy="190" r="56" fill="#c8a24a"/><circle cx="1130" cy="190" r="46" fill="none" stroke="#8a6a20" stroke-width="2"/><circle cx="1130" cy="190" r="8" fill="#8a6a20"/>
+  <g stroke="#e6c56a" stroke-width="2" fill="none"><path d="M1070 300v50M1060 312h20M1070 350l-8 14M1070 350l8 14"/><path d="M1100 304v46M1092 316h16M1100 350l-6 14M1100 350l6 14"/></g>
+  <g fill="#e6c56a"><circle cx="1070" cy="294" r="6"/><circle cx="1100" cy="298" r="5"/><circle cx="1140" cy="330" r="6"/><circle cx="1160" cy="330" r="2"/><circle cx="1172" cy="330" r="2.4"/><circle cx="1186" cy="330" r="3"/><circle cx="1200" cy="330" r="2"/></g>
+  <text x="1130" y="400" text-anchor="middle" font-family="Cinzel,serif" font-size="15" fill="#d8d4c0">EARLIER GREETINGS</text></g>
+<!-- the filing cabinet with Mr Ward's folder -->
+<g id="folder" class="hot"><rect x="1300" y="380" width="160" height="300" fill="#5a6450" stroke="#3a4232" stroke-width="4"/><g fill="#4a5442"><rect x="1312" y="394" width="136" height="84"/><rect x="1312" y="490" width="136" height="84"/><rect x="1312" y="586" width="136" height="84"/></g>
+  <g fill="#c8ccb8"><rect x="1360" y="426" width="40" height="10" rx="3"/><rect x="1360" y="522" width="40" height="10" rx="3"/><rect x="1360" y="618" width="40" height="10" rx="3"/></g>
+  <path d="M1320 372l120 -8 6 22 -122 8z" fill="#d8b878"/><text x="1340" y="384" font-family="Special Elite,monospace" font-size="12" fill="#3a2a10" transform="rotate(-4 1380 380)">P. WARD &#183; 1974</text></g>
+<!-- the old tape machine -->
+<g id="tape" class="hot"><rect x="120" y="470" width="230" height="230" rx="6" fill="#3a3a34" stroke="#1a1a16" stroke-width="4"/>
+  <g class="spin"><circle cx="180" cy="540" r="44" fill="#222"/><circle cx="180" cy="540" r="12" fill="#888"/><path d="M180 500v28M146 560l22 -12M214 560l-22 -12" stroke="#555" stroke-width="6"/></g>
+  <g class="spin" style="animation-duration:4s"><circle cx="290" cy="540" r="32" fill="#222"/><circle cx="290" cy="540" r="10" fill="#888"/></g>
+  <path d="M180 584L235 640L290 572" stroke="#6a4a2a" stroke-width="3" fill="none"/><g fill="#7a7a70"><rect x="150" y="660" width="26" height="18"/><rect x="186" y="660" width="26" height="18"/><rect x="222" y="660" width="26" height="18"/><rect x="258" y="660" width="26" height="18" fill="#a83a2a"/></g></g>
+<!-- the floor and the light table -->
+<path d="M-1000 650H2600V1500H-1000Z" fill="#1c2018"/>
+<g id="table" class="hot"><circle class="glow" cx="800" cy="640" r="330" fill="url(#tblG)" pointer-events="none"/>
+  <path d="M520 600H1080L1150 760H450Z" fill="#f4ffe0"/><path d="M520 600H1080L1150 760H450Z" fill="none" stroke="#8a9078" stroke-width="10"/>
+  <g stroke="#d4dcc0" stroke-width="2"><path d="M560 630H1040M540 670H1060M520 710H1090M500 740H1110"/><path d="M640 600L610 760M760 600L750 760M880 600L890 760M1000 600L1030 760"/></g>
+  <path d="M560 640l520 10" stroke="#8aa0c8" stroke-width="16" opacity=".55"/><path d="M450 760H1150V790H450Z" fill="#6a7060"/><path d="M480 790v90M1120 790v90" stroke="#4a4e44" stroke-width="16"/></g>
+<!-- the printout, on the corner of the table -->
+<g id="strip" class="hot"><path d="M1090 700l120 -16 16 120 -120 16z" fill="#fbfdf8"/><g stroke="#cfe6c8" stroke-width="8"><path d="M1096 722l118 -16M1100 746l118 -16M1103 770l118 -16"/></g><g fill="#2a3a28"><circle cx="1112" cy="716" r="3"/><circle cx="1122" cy="715" r="3"/><circle cx="1140" cy="738" r="3"/><circle cx="1150" cy="737" r="3"/><circle cx="1160" cy="736" r="3"/></g></g>
+<!-- Nadia, and later the professor at the door -->
+<g id="nadiaG" class="hot"><use href="#ch-nadia" x="230" y="560" width="240" height="312"/></g>
+<g id="stroudG" class="hot" style="display:none"><use href="#ch-stroud" x="1180" y="420" width="250" height="325"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go out to the receiver hut</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+  (function () {
+    var L = '', R = '', i, j, seed = 3, y, yr = 1965;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    function shelf(x0, w) {
+      var s = '';
+      for (i = 0; i < 5; i++) {
+        y = 90 + i * 110; s += '<rect x="' + x0 + '" y="' + (y + 86) + '" width="' + w + '" height="10" fill="#5a5040"/>';
+        for (j = 0; j < Math.floor(w / 26); j++) {
+          var h = 64 + Math.round(rnd() * 18), c = ['#8a6a44', '#a87a4a', '#6a5a4a', '#c8b48a', '#4a5a6a'][Math.floor(rnd() * 5)];
+          s += '<rect x="' + (x0 + 4 + j * 26) + '" y="' + (y + 86 - h) + '" width="22" height="' + h + '" fill="' + c + '"/>';
+          if (j % 3 === 0 && yr < 2002) { s += '<text x="' + (x0 + 15 + j * 26) + '" y="' + (y + 78) + '" font-family="Special Elite,monospace" font-size="9" text-anchor="middle" fill="#1a140c">' + String(yr).slice(2) + '</text>'; yr++; }
+        }
+      }
+      return s;
+    }
+    L = shelf(-260, 360); R = shelf(1500, 360);
+    $('#shelfL').innerHTML = L; $('#shelfR').innerHTML = R;
+    /* the 1974 message in its frame: a column of little marks, 23 across (a drawing, not a copy) */
+    var a = '', r, c;
+    for (r = 0; r < 73; r++) for (c = 0; c < 23; c++) { seed = (seed * 16807) % 2147483647; if ((seed % 7) === 0 || (r > 44 && r < 52 && c > 8 && c < 14 && (c + r) % 2) || (r > 62 && Math.abs(c - 11) < (r - 60) / 2 && r % 2)) a += '<rect x="' + (446 + c * 5.2) + '' + '" y="' + (122 + r * 3.8) + '" width="4" height="3"/>'; }
+    $('#aremsg').innerHTML = a;
+  })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'archive', no: 'III', title: 'The Archive',
+    go: 'Go down the stairs',
+    intro: [
+      'In the kitchen you worked out the neighbours&rsquo; first words from the rows around them. The fork sat between two numbers and made a bigger one: plus. The bars stood between two things that were the same: equals. The diamond came only after the sums that were wrong: not. The hook was answered by the next row: what? And row 8 was a peryton. Yusuf had opened the microwave seven seconds early.',
+      'Then the neighbours sent PART THREE, more counting, and PART FOUR, a long run of pulses and gaps with no break at all.',
+      'It is half past one. The archive is under the control room: forty years of tapes on metal shelves, and an old light table that nobody has switched on since Mr Ward retired.'
+    ],
+    exit: {"next":"hut","w":{"07576242":"96ab1c75"}}, tags: {"grid":["0df6335f"],"s1":["d34967ad"],"s2":["f56bc843"],"s3":["944c2f0f"],"s4":["96d67de5"],"s5":["244a1641"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null;
+  var S = ER.flag('a-st') || { c: 20, r: 20, laid: '', at: {}, pic: 0 };
+  function keep() { ER.flag('a-st', S); }
+
+  var WARD = '<h4>How the 1974 message was built</h4><h5>Notes for visitors &middot; P. Ward, archive</h5>' +
+    '<svg viewBox="0 -18 640 168"><rect x="250" y="8" width="46" height="134" fill="none" stroke="#242018" stroke-width="2"/>' +
+    '<g fill="#242018"><rect x="262" y="40" width="4" height="4"/><rect x="270" y="40" width="4" height="4"/><rect x="278" y="40" width="4" height="4"/><rect x="266" y="90" width="14" height="4"/><rect x="271" y="80" width="4" height="22"/></g>' +
+    '<g font-family="Special Elite,monospace" font-size="15" fill="#242018"><text x="262" y="4">23</text><text x="304" y="80">73</text><text x="340" y="40">23 across &#215; 73 down</text><text x="340" y="62">= 1679 pulses</text><text x="30" y="80">1679 in one line:</text></g>' +
+    '<path d="M30 96h200" stroke="#242018" stroke-width="3" stroke-dasharray="2 3"/></svg>' +
+    '<p>On 16 November 1974 the great dish at Arecibo, in Puerto Rico, sent a message towards the star cluster M13, about 25,000 light years away. It was 1679 pulses long, each one on or off.</p>' +
+    '<p>Why 1679? Because 1679 is 23 &#215; 73, and both are <b>prime numbers</b>: they cannot be divided by anything except 1 and themselves. So there are only two ways to cut 1679 into a neat rectangle: 23 across and 73 down, or 73 across and 23 down, which makes nonsense. A reader who knows about primes will try both, and find the picture.</p>' +
+    '<p>Laid out the right way, the pulses draw the numbers one to ten, the chemistry of life, a human figure, the planets of our Sun, and the dish itself.</p>' +
+    '<p class="pen">Moral: count first. Then find the primes. &nbsp;P.W.</p>';
+  var PROBES = '<h4>Earlier greetings</h4>' +
+    '<p><b>Pioneer 10 and 11</b> (launched in 1972 and 1973) each carry a gold-coloured plaque, designed by Carl Sagan and Frank Drake and drawn by Linda Salzman Sagan. It shows a man and a woman, the Sun and its planets, and the path of the probe. Its ruler is the hydrogen line: the woman&rsquo;s height is given as 8 times 21 centimetres.</p>' +
+    '<p><b>Voyager 1 and 2</b> (launched in 1977) each carry a golden record of the sounds and pictures of Earth: music, a heartbeat, rain, whales, and greetings in 55 languages. Sagan led the team that chose them.</p>' +
+    '<p>All four probes are leaving the Sun behind for ever. None of them will come near another star for at least tens of thousands of years.</p>';
+  function STRIP() {
+    return '<h4>MIRKFELL 50 m &middot; 1421.2 MHz &middot; PART THREE, PART FOUR</h4><h5>printed 01:24 &middot; PART THREE, one group of pulses to a line</h5>' +
+      GR.MSG.p3.map(function (n) { return '<p><b>' + n + '</b>' + GR.dots(n) + '</p>'; }).join('') +
+      '<h5>PART FOUR: 493 pulses, each one on or off, with no break at all</h5><p>' + GR.picBits().slice(0, 58) + ' &hellip;</p><p class="note">no gaps, no blocks of 25. Count it again? 493. &nbsp;Y.N.</p>';
+  }
+  var TAGS = {
+    star: 'their star', world: 'their world', hand: 'open hands, held out to each other', one: 'one of them',
+    down: 'the long thing, put down on the ground', spear: 'a spear, held ready', sun: 'our Sun', house: 'a house'
+  };
+  var ORDER = ['spear', 'world', 'one', 'sun', 'down', 'star', 'house', 'hand'];
+  var MK = [[6, 0.9, 1], [12, 4, 2], [22.5, 6.4, 3], [28.4, 10.5, 4], [11.5, 13.2, 5]];
+
+  function hints() {
+    if (nextFile) return ['go', ['PART FIVE is printing in the receiver hut, at the foot of the dish. Professor Stroud has gone there. Click the button at the bottom to follow him.']];
+    if (!ER.flag('a-talk')) return ['talk', ['Nadia is on the left with the printout. Click on her, and then read Mr Ward&rsquo;s folder on the filing cabinet and the printout on the corner of the light table.']];
+    if (!ER.flag('a-ward') || !ER.flag('a-strip')) return ['read', ['Two things to read before the light table: Mr Ward&rsquo;s folder (on top of the filing cabinet, on the right) and the printout (on the corner of the light table). The two framed things on the wall are worth reading too.']];
+    if (!S.pic) return ['grid', [
+      'Mr Ward: count first, then find the primes. PART FOUR is 493 pulses long. The light table will only lay them out if the columns times the rows is exactly 493.',
+      '493 is odd, so 2 does not divide it. Its digits add up to 16, so 3 does not. It does not end in 0 or 5. Try the primes that PART THREE gave you, one at a time: 7, 11, 13, 17 ... When one goes into 493 exactly, the number you get is another prime.',
+      '493 is 17 &#215; 29. That gives two ways to lay it out. Mr Ward says that one of them makes nonsense.'
+    ]];
+    return ['labels', [
+      'There are five red numbers on the picture. Look closely at each one: what is it, and what is it doing?',
+      'Number 1 is big and round, with smaller dots in a row beside it. Number 2 is the biggest of the small dots. Number 3 is where two arms meet. Number 5 lies flat on the ground: is anybody holding it?',
+      '1 is their star and 2 is their world, the biggest planet, third from the star. 4 is one of them. Nobody is holding the long thing: it has been put down. Three labels are left over, and one of them is the professor&rsquo;s.'
+    ]];
+  }
+  function paint() {
+    var ready = !nextFile && ER.flag('a-talk') && ER.flag('a-ward') && ER.flag('a-strip');
+    $('#table').setAttribute('class', 'hot' + (ready ? ' next' : ''));
+    $('#stroudG').style.display = S.pic ? '' : 'none';
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips((S.pic ? 1 : 0) + (nextFile ? 1 : 0), 2);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The archive. On the light table, the neighbours&rsquo; picture is still laid out, 29 across and 17 down.'); return; }
+    if (ER.flag('a-seen')) { ER.say('The archive: the shelves of tapes, the light table, Mr Ward&rsquo;s filing cabinet, and Nadia with the printout.'); return; }
+    busy = true; ER.flag('a-seen', 1);
+    ER.narrate([
+      'The archive smells of dust and old tape. One of the tubes in the ceiling flickers, as if it is trying to remember something. On the shelves, in cardboard boxes, are forty years of the sky, one reel at a time.',
+      'Nadia switches on the light table. It hums, and flickers, and then glows a soft white, like a bath full of milk. &ldquo;Mr Ward used to lay out strip charts on this,&rdquo; she says. &ldquo;It has pegs for every place. You set how many across and how many down, and it lays the pulses out in rows.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#nadiaG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Their star, their world, and two of them saying hello,&rdquo; says Nadia. &ldquo;And Oswin sees a spear. Go on: he&rsquo;s gone to the hut.&rdquo;'); return; }
+    if (ER.flag('a-talk')) { ER.say('&ldquo;Mr Ward&rsquo;s folder is on the filing cabinet,&rdquo; says Nadia. &ldquo;The printout is on the corner of the table. Count first.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.nadia.who, role: CAST.nadia.role, face: FACE('nadia'),
+      lines: [
+        { note: 'Nadia has the printout over her arm like a long scarf. She has stopped pretending not to be excited.',
+          a: '&ldquo;PART THREE is counting again: two, three, five, seven, and on, ten groups of pulses. PART FOUR is one long run, on, off, on, on, off, with no gaps and no blocks of twenty-five. Yusuf&rsquo;s program has given up on it.&rdquo;' },
+        { q: 'What is PART FOUR?',
+          a: '&ldquo;I think it&rsquo;s a picture. That&rsquo;s what Arecibo sent in 1974: one long line of pulses, and you had to know how to cut it into rows. Mr Ward was mad about that message. His notes are in the folder on the cabinet.&rdquo;' },
+        { q: 'How do we cut it into rows?',
+          a: '&ldquo;That&rsquo;s the question. Set the light table to the right number across and the right number down, and the picture comes out. Set it wrong and you get snow. The table won&rsquo;t even try unless every pulse has a place and every place has a pulse.&rdquo;' }
+      ],
+      clue: { id: 'nadia3', title: 'Nadia, in the archive', kind: 'What she said' }, last: 'Look round the archive',
+      done: function (seen) { if (!seen) return; ER.flag('a-talk', 1); GR.learn(['archive', 'light table', 'grid', 'row', 'column']); paint(); }
+    });
+  });
+  $('#folder').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: WARD, cls: 'ward', clue: { id: 'ward', title: 'How the 1974 message was built', kind: 'Mr Ward&rsquo;s folder' }, done: function () { ER.flag('a-ward', 1); GR.learn(['prime', 'multiply', 'globular cluster']); paint(); } });
+  });
+  $('#strip').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: STRIP(), cls: 'strip', clue: { id: 'p34', title: 'PART THREE and PART FOUR', kind: 'Printout' }, done: function () { ER.flag('a-strip', 1); GR.learn(['bit']); paint(); } });
+  });
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: PROBES, cls: 'label', clue: { id: 'probes', title: 'Earlier greetings', kind: 'On the wall' }, done: function () { ER.flag('a-probes', 1); GR.learn(['plaque', 'probe']); } });
+  });
+  $('#arecibo').addEventListener('click', function () {
+    if (busy) return;
+    ER.say('A drawing of the Arecibo message in a frame: little white marks in a tall, thin column, 23 across and 73 down. Near the bottom, a small figure with arms and legs. Under it, the dish that sent it.');
+  });
+  GR.thing('#shelves', 'reel', 'Boxes and boxes of tapes, labelled by year in Mr Ward&rsquo;s square writing. Most of them are hydrogen. One box says: 1987 &middot; NOTHING AT ALL &middot; KEEP ANYWAY.', isBusy);
+  GR.thing('#tape', null, 'Mr Ward&rsquo;s old tape machine. Somebody has left it running, very slowly, playing nothing to nobody.', isBusy);
+  $('#stroudG').addEventListener('click', function () {
+    if (busy) return;
+    ER.say(nextFile ? '&ldquo;Put down,&rdquo; says the professor. &ldquo;Very well. For the photograph.&rdquo;' : '&ldquo;A spear,&rdquo; says the professor, tapping the picture. &ldquo;Any fool can see it. Label it, label it.&rdquo;');
+  });
+
+  /* ---------- the light table ---------- */
+  function openTable() {
+    var box = ER.el('div', 'lt'), done = false;
+    box.innerHTML = '<div class="lt-side"><h6>MR WARD&rsquo;S LIGHT TABLE &middot; 493 PULSES</h6>' +
+      '<div class="dial"><b>across (columns)</b><output id="o-c"></output><div class="row"><button type="button" data-d="c" data-v="-5">&minus;5</button><button type="button" data-d="c" data-v="-1">&minus;1</button><button type="button" data-d="c" data-v="1">+1</button><button type="button" data-d="c" data-v="5">+5</button></div></div>' +
+      '<div class="dial"><b>down (rows)</b><output id="o-r"></output><div class="row"><button type="button" data-d="r" data-v="-5">&minus;5</button><button type="button" data-d="r" data-v="-1">&minus;1</button><button type="button" data-d="r" data-v="1">+1</button><button type="button" data-d="r" data-v="5">+5</button></div></div>' +
+      '<button type="button" class="btn" id="a-lay">Lay it out</button><p class="pmsg"></p><button type="button" class="btn" id="a-show" style="display:none">Show the professor</button></div>' +
+      '<div class="lt-main"><div class="lt-pic"></div><div class="lt-lab" style="display:none"><div class="lab">' + [1, 2, 3, 4, 5].map(function (i) { return '<div class="sp"><i>' + i + '</i><div class="slot" data-s="s' + i + '"></div></div>'; }).join('') + '</div><div class="tray"></div></div></div>';
+    var msgEl = box.querySelector('.pmsg'), pic = box.querySelector('.lt-pic'), tray = box.querySelector('.tray');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    function out() { box.querySelector('#o-c').textContent = S.c; box.querySelector('#o-r').textContent = S.r; }
+    function drawPic(cols, marks) {
+      var h = GR.grid(GR.picBits(), cols, 18);
+      if (marks) h = h.replace('</svg>', MK.map(function (m) { return '<g class="mk"><circle cx="' + m[0] + '" cy="' + m[1] + '" r="0.95"/><text x="' + m[0] + '" y="' + m[1] + '">' + m[2] + '</text></g>'; }).join('') + '</svg>');
+      pic.innerHTML = h;
+    }
+    function labels() {
+      box.querySelector('.lt-lab').style.display = '';
+      box.querySelector('#a-show').style.display = '';
+      if (tray.children.length || box.querySelector('.slot .tag')) return;
+      ORDER.forEach(function (k) {
+        var n = ER.el('div', 'tag dnd-item', TAGS[k]); n.setAttribute('data-t', k);
+        var at = null, s; for (s in S.at) if (S.at[s] === k) at = s;
+        (at ? box.querySelector('.slot[data-s="' + at + '"]') : tray).appendChild(n);
+      });
+    }
+    out();
+    if (S.pic) { drawPic(29, true); labels(); }
+    else if (S.laid) drawPic(+S.laid, false);
+    else pic.innerHTML = '<div class="empty">The table is waiting. Set how many across and how many down.</div>';
+    ER.$$('.dial button', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (S.pic) { msg('The picture is laid out. Leave the dials alone, or Mr Ward will haunt us.'); return; }
+        var d = b.getAttribute('data-d'), v = +b.getAttribute('data-v');
+        S[d] = Math.max(2, Math.min(40, S[d] + v)); keep(); out(); GR.sfx.dial();
+      });
+    });
+    box.querySelector('#a-lay').addEventListener('click', function () {
+      if (S.pic) { msg('Already laid out: 29 across, 17 down.'); return; }
+      var n = S.c * S.r;
+      if (n !== 493) {
+        GR.bump('miss'); GR.sfx.hm();
+        pic.innerHTML = '<div class="empty">' + S.c + ' &#215; ' + S.r + ' = ' + n + ' places</div>';
+        msg(n < 493 ? 'The table clicks and refuses. ' + S.c + ' across and ' + S.r + ' down is ' + n + ' places: ' + (493 - n) + ' pulses would fall off the end.' : 'The table clicks and refuses. ' + S.c + ' across and ' + S.r + ' down is ' + n + ' places: ' + (n - 493) + ' places would be left empty.');
+        return;
+      }
+      GR.sfx.print();
+      if (!ER.check('grid', S.c + 'x' + S.r)) {
+        GR.bump('miss'); S.laid = String(S.c); keep(); drawPic(S.c, false);
+        msg('Every place has a pulse and every pulse has a place, and the table is full of snow. &ldquo;Mr Ward said there are two ways,&rdquo; says Nadia, &ldquo;and one of them is nonsense.&rdquo;');
+        return;
+      }
+      S.pic = 1; S.laid = String(S.c); keep(); drawPic(S.c, false); GR.sfx.ding();
+      GR.mine('grid', 'PART FOUR is a picture', '<p>493 = 17 &#215; 29 (both prime). 29 across, 17 down.</p><p>17 across = snow.</p>', true);
+      ER.addClue('pic', 'PART FOUR, laid out: the picture', '<h4>PART FOUR &middot; 29 across, 17 down</h4>' + GR.grid(GR.picBits(), 29, 14) + '<p>493 pulses = 29 across &#215; 17 down. Laid out by Mr Ward&rsquo;s light table at 01:58.</p>', 'pic', 'Light table', true);
+      paint(); busy = true;
+      setTimeout(function () {
+        ER.closeAll();
+        ER.narrate([
+          'Row by row, the pegs light up. Out of the snow comes a picture: a big round star at the top left, and a row of dots beside it, one of them bigger than the rest. Below, on a long straight line of ground, a little house, a block, and two thin figures with three legs each.',
+          'Behind you the door bangs. A big man in a waxed jacket and a red scarf stands there, breathing as if he has run down the stairs, which he has. Professor Oswin Stroud looks at the light table for a long time. &ldquo;There,&rdquo; he says, and points. &ldquo;That long thing. That&rsquo;s a spear. They&rsquo;re showing us that they&rsquo;re armed.&rdquo;',
+          '&ldquo;Let&rsquo;s label it properly,&rdquo; says Nadia, &ldquo;before anybody decides anything.&rdquo; She puts five red numbers on the picture.'
+        ], function () { busy = false; paint(); openTable(); });
+      }, 1600);
+    });
+    ER.dnd(box, { item: '.tag', slot: '.slot', home: tray, change: function () { S.at = read(); keep(); }, lock: function () { return done || !S.pic; } });
+    function read() {
+      var o = {}; ER.$$('.slot', box).forEach(function (s) { var t = s.querySelector('.tag'); o[s.getAttribute('data-s')] = t ? t.getAttribute('data-t') : ''; s.classList.toggle('full', !!t); s.classList.remove('bad'); });
+      return o;
+    }
+    var WHY = {
+      spear: { s5: '&ldquo;Held ready?&rdquo; says Nadia. &ldquo;Nobody is holding it. Look where it is: flat on the ground, nowhere near a hand.&rdquo;', x: '&ldquo;There&rsquo;s nothing held ready at that number. Is there anything held at all?&rdquo;' },
+      sun: { x: '&ldquo;Our Sun? They&rsquo;ve never seen our Sun up close. This is their picture of their home.&rdquo;' },
+      house: { x: 'There is a house in the picture, at the bottom left, but there is no number on it.' },
+      star: { x: 'Their star is the big round thing, with its planets in a row beside it.' },
+      world: { x: 'Their world is one of the small dots beside the star: the one they have drawn bigger than the others.' },
+      hand: { x: 'Look for the place where two arms meet.' },
+      one: { x: 'Number that one again: is it a whole figure, with a head, a body and three legs?' },
+      down: { x: 'The long thing lies flat on the ground. Which number is on the ground?' }
+    };
+    box.querySelector('#a-show').addEventListener('click', function () {
+      if (done || !S.pic) return;
+      var L = read(), keys = ['s1', 's2', 's3', 's4', 's5'], bad = null, i;
+      if (keys.every(function (k) { return !L[k]; })) { msg('&ldquo;Labels on the numbers first,&rdquo; says Nadia. &ldquo;Drag them, or click a label and then a number.&rdquo;'); return; }
+      if (keys.some(function (k) { return !L[k]; })) { msg('&ldquo;Five numbers, five labels. Three will be left over.&rdquo;'); ER.shake(box.querySelector('.lab')); return; }
+      for (i = 0; i < keys.length; i++) if (!ER.check(keys[i], L[keys[i]])) { bad = keys[i]; break; }
+      if (bad) {
+        GR.bump('miss'); GR.sfx.hm();
+        box.querySelector('.slot[data-s="' + bad + '"]').classList.add('bad');
+        var w = WHY[L[bad]] || {};
+        msg(w[bad] || w.x || 'Look at number ' + bad.charAt(1) + ' again.'); return;
+      }
+      var file = ER.exitOk([L.s1 + '|' + L.s2 + '|' + L.s3 + '|' + L.s4 + '|' + L.s5]);
+      if (!file) { msg('&ldquo;Hm. Read them to me again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('a-file', file); GR.done('archive'); busy = true;
+      GR.mine('picture', 'What the picture shows', '<p>Their star, their world (3rd from the star, drawn bigger).</p><p>Two of them, with open hands held out to each other.</p><p>The long thing is PUT DOWN on the ground. Nobody is holding it.</p><p>Prof. Stroud says: a spear.</p>', true);
+      msg('The professor reads the labels, and makes a noise like a kettle deciding not to boil.');
+      setTimeout(function () { ER.closeAll(); GR.solved(); paint(); after(); }, 2400);
+    });
+    if (S.pic) msg('Five red numbers. Put a label on each. Drag a label, or click it and then a number.');
+    else if (!S.laid) msg('Set the columns and the rows, then lay it out. Every pulse needs a place, and every place a pulse.');
+    else msg('The table is full of snow from the last try.');
+    ER.open('ov-lock', box);
+  }
+  $('#table').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The light table: the neighbours&rsquo; picture, 29 across and 17 down, with Nadia&rsquo;s five red numbers on it.'); return; }
+    if (!ER.flag('a-talk')) { ER.say('The light table, glowing. Nadia has the printout. Talk to her first.'); return; }
+    if (!ER.flag('a-ward') || !ER.flag('a-strip')) { ER.say('&ldquo;Read Mr Ward&rsquo;s notes first,&rdquo; says Nadia, &ldquo;and the printout. Count first: that&rsquo;s what he always said.&rdquo;'); return; }
+    openTable();
+  });
+  function after() {
+    ER.narrate([
+      '&ldquo;Put down,&rdquo; says the professor at last. &ldquo;Very well. They have put their spears down for the photograph. A people with spears, who know enough to look friendly.&rdquo; He does not sound frightened. He sounds delighted.',
+      '&ldquo;Or a people with tools,&rdquo; says Nadia, &ldquo;who&rsquo;ve stopped work to say hello.&rdquo; Nobody can prove either, yet.',
+      'Yusuf&rsquo;s head appears round the door. &ldquo;PART FIVE is coming in. Little pictures and new symbols, and sentences made of them.&rdquo; The professor is already on the stairs. &ldquo;The receiver hut,&rdquo; he calls back. &ldquo;Its printer prints straight off the receiver, it has the warmest radiator on the site, and it has the biggest whiteboard.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

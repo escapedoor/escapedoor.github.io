@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Receiver Hut · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#0c121a;--accent:#8fd0ff;--font-display:'Stardos Stencil',serif;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(10,16,24,.96);--tc-ink:#e6eef6;--cap-bg:rgba(10,16,24,.93);--cap-ink:#eef4fa;--panel:#121c28;--face-bg:#3a2c22;--q-ink:#bfe4ff;--fade:#020406;--hud-bg:rgba(10,16,24,.82)}
+  .tc-room{font-size:46px;letter-spacing:.06em}
+  .tk-name{font-family:'Stardos Stencil',serif;font-weight:700}
+  .frost{animation:frost 6s ease-in-out infinite}
+  @keyframes frost{50%{opacity:.55}}
+  .redled{animation:redled 1.3s steps(1) infinite}
+  @keyframes redled{50%{opacity:.2}}
+  .heat{animation:heat 3.5s ease-in-out infinite}
+  @keyframes heat{50%{opacity:.6}}
+  #board.next .bscr{animation:gnudge 1.7s ease-in-out infinite}
+
+  /* the glossary board */
+  .gb{width:min(1100px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+  .gb-main{padding:12px 16px 10px;background:#fbfcfd;border:12px solid #b8c0c8;border-radius:4px;color:#14223a;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .gb-main h6{margin:0 0 6px;font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1;color:#a8202a}
+  .gb-rows{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+  .gr-row{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;border:1px solid #d8dee6;border-radius:6px;background:#f2f5f8}
+  .gr-row .gl{color:#14223a}
+  .gr-row s{font-family:'Caveat',cursive;font-weight:700;font-size:22px;line-height:1;color:#a8202a;text-decoration:none}
+  .gr-row.fixed s{text-decoration:line-through;opacity:.55}
+  .slot{width:100%;min-height:50px;padding:3px;border:2px dashed rgba(20,34,58,.35);border-radius:5px;background:rgba(20,34,58,.04)}
+  .slot.full{border-style:solid;border-color:#14223a}
+  .slot.bad{border-color:#c0502a;background:rgba(192,80,42,.1)}
+  .sn{display:grid;grid-template-columns:34px minmax(0,1fr);gap:2px 8px;align-items:center;padding:3px 0;border-top:1px solid #e6eaef}
+  .sn>b{font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:13px;color:#7a8aa0}
+  .sn .ml .gl{color:#14223a}
+  .sn .rd{grid-column:2;font-family:'Caveat',cursive;font-weight:700;font-size:20px;line-height:1.05;color:#2a4a8a}
+  .sn .rd u{text-decoration:none;color:#a8202a}
+  .gb-side .pmsg{min-height:110px;margin:10px 0 8px;color:#eef4fa}
+  .gb-side .btn{float:right}
+  .gb-tray{display:flex;flex-wrap:wrap;gap:6px;padding:8px;border-radius:6px;background:#1a2636;border:1px solid #3a5070;min-height:60px}
+  .pen{display:block;padding:6px 9px 5px;background:#eaf4ff;color:#102038;border-radius:3px;font-family:'Outfit',sans-serif;font-weight:400;font-size:14px;line-height:1.2;cursor:grab;
+    box-shadow:0 2px 0 rgba(0,0,0,.45);-webkit-user-select:none;user-select:none;max-width:100%;border-left:5px solid #2a4a8a}
+  .slot .pen{font-size:12.5px;padding:4px 6px}
+  .pen.held{outline:3px solid #8fd0ff}
+  .pen.fly{position:fixed;z-index:99;pointer-events:none;opacity:.9}
+  @media (max-width:1000px){.gb{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <pattern id="ribbed" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#283648"/><rect width="20" height="40" fill="#2e3e52"/></pattern>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a8a98"/><stop offset=".45" stop-color="#d8e2ea"/><stop offset="1" stop-color="#6a7a88"/></linearGradient>
+  <radialGradient id="coldL" cx="30%" cy="30%" r="80%"><stop offset="0" stop-color="#bfe4ff" stop-opacity=".25"/><stop offset="1" stop-color="#bfe4ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="radG"><stop offset="0" stop-color="#ff8a4a" stop-opacity=".35"/><stop offset="1" stop-color="#ff8a4a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="hNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03060c"/><stop offset="1" stop-color="#101a28"/></linearGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#020406" stop-opacity=".22"/><stop offset="1" stop-color="#020406" stop-opacity=".9"/></radialGradient>
+  <clipPath id="hWin"><rect x="660" y="120" width="230" height="180"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#ribbed)"/>
+<path d="M-1000 60H2600" stroke="#1a2432" stroke-width="18"/>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#coldL)" pointer-events="none"/>
+<!-- the small window: the legs of the dish, and the ladder going up into the dark -->
+<g id="win" class="hot"><rect x="648" y="108" width="254" height="204" fill="#1a2432"/><g clip-path="url(#hWin)"><rect x="660" y="120" width="230" height="180" fill="url(#hNight)"/><g id="hstars" fill="#fff"></g>
+  <path d="M700 300L760 120M860 300L800 120" stroke="#9aa8b4" stroke-width="10"/><path d="M766 300L790 120" stroke="#9aa8b4" stroke-width="5"/>
+  <g stroke="#c8d4dc" stroke-width="2"><path d="M770 290l4 -14M774 270l4 -14M778 250l4 -14M782 230l4 -14M786 210l4 -14M790 190l3 -14"/></g><path d="M660 128Q775 160 890 128" stroke="#dfe6ea" stroke-width="6" fill="none"/></g>
+  <path d="M775 120V300M660 210H890" stroke="#1a2432" stroke-width="6"/></g>
+<!-- the receiver: a steel flask on a frame, with frost on its pipes -->
+<g id="cryo" class="hot"><rect x="130" y="250" width="200" height="380" rx="30" fill="url(#steel)"/><rect x="150" y="300" width="160" height="12" fill="#5a6a78"/><rect x="150" y="560" width="160" height="12" fill="#5a6a78"/>
+  <circle cx="230" cy="400" r="34" fill="#f4f8fa" stroke="#4a5a68" stroke-width="5"/><path d="M230 400l18 -16" stroke="#c0302a" stroke-width="4" stroke-linecap="round"/><text x="230" y="452" text-anchor="middle" class="osw" font-size="13" fill="#1a2432">20 K</text>
+  <path d="M330 340H420V720" stroke="#c8d4dc" stroke-width="16" fill="none"/><path d="M330 340H420V720" stroke="#fff" stroke-width="16" fill="none" stroke-dasharray="4 10" class="frost" opacity=".8"/>
+  <path d="M170 630v80M290 630v80" stroke="#4a5a68" stroke-width="12"/></g>
+<g id="card" class="hot"><path d="M162 470l120 -4 4 72 -120 4z" fill="#fdf8e4"/><path d="M204 462l40 -1 1 14 -40 1z" fill="#c8d7e6" opacity=".8"/>
+  <text x="172" y="492" class="sten" font-size="12" fill="#8a3a1a">KEEP IT COLD</text><g stroke="#9a8a5a" stroke-width="3"><path d="M172 504h100M172 516h90M172 528h100"/></g></g>
+<!-- the compressor -->
+<g id="comp" class="hot"><rect x="430" y="600" width="170" height="130" rx="6" fill="#3a4a5a"/><g stroke="#2a3644" stroke-width="4"><path d="M450 620h130M450 640h130M450 660h130M450 680h130"/></g>
+  <circle class="redled" cx="580" cy="710" r="7" fill="#ff3a2a"/><text x="450" y="716" class="sten" font-size="14" fill="#c8d4dc">HELIUM</text></g>
+<!-- the line printer, with paper spilling out -->
+<g id="printer" class="hot"><rect x="960" y="560" width="220" height="110" rx="6" fill="#d8d6cc"/><rect x="980" y="574" width="180" height="16" rx="3" fill="#2a2a26"/>
+  <path d="M990 580l-30 -150h160l30 150z" fill="#fbfdf8"/><g stroke="#cfe6c8" stroke-width="10"><path d="M966 460h160M972 490h160M978 520h160M984 550h160"/></g>
+  <g fill="#2a3a28"><rect x="990" y="452" width="14" height="14"/><rect x="1010" y="452" width="4" height="4"/><rect x="1030" y="480" width="14" height="14"/><rect x="1060" y="482" width="10" height="10"/></g>
+  <path d="M990 670q30 60 100 70q60 10 80 50" stroke="#fbfdf8" stroke-width="40" fill="none"/></g>
+<!-- the e-mail, on the laptop on the shelf -->
+<g id="mail" class="hot"><rect x="980" y="330" width="170" height="110" rx="6" fill="#2a2e32"/><rect x="990" y="340" width="150" height="86" fill="#f4f6f8"/>
+  <rect x="990" y="340" width="150" height="16" fill="#2b4f7e"/><text x="996" y="352" class="mono" font-size="10" fill="#fff">1 NEW &middot; N. SOLER</text>
+  <g stroke="#9aa4b0" stroke-width="3"><path d="M998 368h130M998 380h120M998 392h130M998 404h100M998 416h124"/></g><path d="M960 440h210" stroke="#5a5040" stroke-width="10"/></g>
+<!-- the radiator -->
+<g id="rad" class="hot"><circle class="heat" cx="1440" cy="760" r="160" fill="url(#radG)" pointer-events="none"/><rect x="1340" y="700" width="200" height="110" rx="8" fill="#e8e4dc"/><g stroke="#c8c2b6" stroke-width="8"><path d="M1370 712v86M1400 712v86M1430 712v86M1460 712v86M1490 712v86M1520 712v86"/></g></g>
+<!-- the whiteboard on the right wall -->
+<g id="board" class="hot"><g class="bscr"><rect x="1210" y="140" width="360" height="300" fill="#fbfcfd" stroke="#b8c0c8" stroke-width="12"/>
+  <text x="1230" y="180" font-family="Caveat,cursive" font-weight="700" font-size="26" fill="#a8202a">GLOSSARY &#183; O.S.</text>
+  <g fill="#14223a"><rect x="1232" y="200" width="20" height="20"/><rect x="1232" y="240" width="20" height="20"/><rect x="1232" y="280" width="20" height="20"/></g>
+  <g font-family="Caveat,cursive" font-weight="700" font-size="26" fill="#a8202a"><text x="1266" y="218">= present</text><text x="1266" y="258">= ARMS!</text><text x="1266" y="298">= they</text></g>
+  <g stroke="#2a4a8a" stroke-width="3"><path d="M1232 340h300M1232 360h260M1232 380h300M1232 400h220"/></g>
+  <rect id="note" x="1470" y="196" width="88" height="80" fill="#fff59a" transform="rotate(4 1514 236)"/><g stroke="#8a7a2a" stroke-width="3" transform="rotate(4 1514 236)"><path d="M1480 214h66M1480 230h60M1480 246h66M1480 262h44"/></g></g></g>
+<!-- the floor -->
+<path d="M-1000 730H2600V1500H-1000Z" fill="#141c26"/><path d="M-1000 730H2600" stroke="#2a3a4e" stroke-width="5"/>
+<!-- Nadia, and the professor at the board -->
+<g id="nadiaG" class="hot"><use href="#ch-nadia" x="560" y="430" width="240" height="312"/></g>
+<g id="stroudG" class="hot"><use href="#ch-stroud" x="1110" y="420" width="250" height="325"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go out to the dish</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+  (function () { var s = '', i, seed = 13; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 30; i++) s += '<circle cx="' + Math.round(662 + rnd() * 226) + '" cy="' + Math.round(122 + rnd() * 170) + '" r="' + (0.6 + rnd() * 1.3).toFixed(1) + '" opacity="' + (0.3 + rnd() * 0.7).toFixed(2) + '"/>';
+    $('#hstars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'hut', no: 'IV', title: 'The Receiver Hut',
+    go: 'Go in out of the wind',
+    intro: [
+      'In the archive you counted first, as Mr Ward said. PART FOUR was 493 pulses, and 493 is 17 &#215; 29: two primes, so only two ways to lay it out. Seventeen across made snow. Twenty-nine across made a picture: their star, their world, two of them with their hands held out to each other, and a long thing lying on the ground. Nobody was holding it.',
+      'The professor arrived just in time to call it a spear.',
+      'It is twenty to three. The receiver hut stands at the foot of the dish, where the cables come down. It is full of pipes and humming, and the professor has found its whiteboard.'
+    ],
+    exit: {"next":"dish","w":{"e0bc0f7c":"95002b43"}}, tags: {"rg":["7e7220f9"],"rt":["87d4b52d"],"ry":["b09017f0"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('h-file') || null;
+  var S = ER.flag('h-st') || { at: {} };
+  function keep() { ER.flag('h-st', S); }
+
+  var CARD = '<h4>Why this receiver is kept cold</h4>' +
+    '<p>Everything warm gives out a little radio noise: metal, wires, the air, you. The signals from space are many times fainter than the noise from a warm receiver.</p>' +
+    '<p>So the first part of this receiver sits inside a steel flask, the <b>cryostat</b>, at about <b>20 kelvin: minus 253 degrees Celsius</b>. The compressor outside pumps helium gas round and round to keep it there. Colder means quieter, and quieter means we can hear fainter things.</p>' +
+    '<p>If the compressor stops, the receiver warms up and the hiss rises.</p>' +
+    '<small>Do not lean on the pipes. Do not put your tea on the cryostat: it will not stay hot.</small>';
+  var NOTE = '<h4>One word, two meanings</h4>' +
+    '<p>A word can have two meanings, and only the sentence round it tells you which.</p>' +
+    '<p class="r"><b>&middot;</b><span><b>present</b>: a gift (a birthday present), or now (the present day), or here, not away (present in class).</span></p>' +
+    '<p class="r"><b>&middot;</b><span><b>leave</b>: go away (leave the room), or permission (leave to stay up late).</span></p>' +
+    '<p class="r"><b>&middot;</b><span><b>arms</b>: the parts of your body from the shoulder to the hand (open arms), or weapons (arms and armies).</span></p>' +
+    '<p>When you write a word in a glossary, make sure it can mean only one thing. And the neighbours may have the opposite problem: one of their symbols may cover two of our words. Then their sentences decide.</p>' +
+    '<small>N.</small>';
+  var MAIL = '<h4><b>From:</b> Dr Nuria Soler &nbsp;&middot;&nbsp; <b>To:</b> Nadia Santos &nbsp;&middot;&nbsp; 02:31<br><b>Subject:</b> Your needle</h4>' +
+    '<p>Nadia, we have it. 1421.2 MHz, the same pulses, the same point in the sky, from here in the south of Spain, nearly 2,000 kilometres from you. It is not your fridge.</p>' +
+    '<p>The point is right beside a small orange star in our catalogue, <b>26 light years</b> away. A light year is the distance light travels in a year, about 9.5 million million kilometres, and radio waves travel at the same speed. So this message left its star 26 years ago, before your prize-winner was born.</p>' +
+    '<p>If anybody answers tonight, the answer will arrive there in 26 years, and the earliest reply to it could reach us in 52. Be careful what you say. It will be a long time before anybody can say sorry.</p><p>Nuria</p>';
+  function P5() {
+    var M = GR.MSG.p5, k, h = '<h4>MIRKFELL 50 m &middot; 1421.2 MHz &middot; PART FIVE</h4><h5>printed 02:26 &middot; one line to each sentence &middot; the small pictures are pieces of PART FOUR</h5>';
+    for (k in M) h += '<p><b>' + k.toUpperCase() + '</b>' + GR.line(M[k], 22) + '</p>';
+    return h + '<p class="note">D1&ndash;D4 = names, given with a piece of the picture. C1&ndash;C6 = sentences. FRAME = the picture itself (it came before and after PART FOUR, like brackets). Y.N.</p>';
+  }
+
+  /* what the board already knows, and the professor's three guesses */
+  var KNOWN = { we: 'we', hand: 'hand', stone: 'stone', house: 'house', fork: '+', bars: '=', diam: 'NOT', hook: '?', frame: '[the picture]' };
+  var ROWS = [['give', 'rg', 'present'], ['t', 'rt', 'ARMS!'], ['you', 'ry', 'they']];
+  var PENS = {
+    now: ['now (the present time)', 'now', 'rg'], here: ['here, not away', 'here', 'rg'], gift: ['give, as a gift', 'give', 'rg'], take: ['take', 'take', 'rg'],
+    body: ['arms: the parts of the body', 'arm', 'rt'], weapon: ['arms: weapons', 'weapon', 'rt'], tool: ['tools', 'tool', 'rt'], either: ['one word for two: a tool or a weapon', 'tool-or-weapon', 'rt'],
+    they: ['they: the other group', 'them', 'ry'], we: ['we, again', 'we', 'ry'], you: ['you: whoever reads this', 'you', 'ry']
+  };
+  var ORDER = ['tool', 'they', 'now', 'either', 'we', 'gift', 'body', 'take', 'you', 'weapon', 'here'];
+  var SENT = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'];
+
+  function hints() {
+    if (nextFile) return ['go', ['The professor has loaded his reply into the transmitter for 04:10 and climbed up to the focus cabin. Read his draft in your notebook if you like, then click the button at the bottom to go out to the dish.']];
+    if (!ER.flag('h-talk')) return ['talk', ['The professor is at the whiteboard on the right, red pen in hand. Click on him before he goes.']];
+    if (!ER.flag('h-p5') || !ER.flag('h-note')) return ['read', ['Read PART FIVE on the line printer (in the middle, with paper spilling out of it) and Nadia&rsquo;s yellow note on the corner of the whiteboard. The e-mail on the laptop and the card on the receiver are worth reading too.']];
+    return ['board', [
+      'Three rows on the board carry the professor&rsquo;s guesses: present, ARMS!, they. Each new word you put in a row is tried at once in every sentence below: watch the blue reading under each one.',
+      'For the arrow, read C5 and C6: which way does the picture go? For the stick, read C1, C2 and C3 together: the word must fit building a house AND three of them becoming one, NOT. For the dots, read C5 and C6: who is reading this message tonight?',
+      'The arrow is giving, the way you give a present. The stick is one of their words that needs two of ours, and Nadia&rsquo;s note warned you about that. The dots are not &ldquo;we&rdquo; and not the others in the picture.'
+    ]];
+  }
+  function paint() {
+    var ready = !nextFile && ER.flag('h-talk') && ER.flag('h-p5') && ER.flag('h-note');
+    $('#board').setAttribute('class', 'hot' + (ready ? ' next' : ''));
+    $('#stroudG').style.display = ER.flag('h-talk') ? 'none' : '';
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The receiver hut. The board is fixed. The professor&rsquo;s draft is in your notebook, and he is fifty metres up.'); return; }
+    if (ER.flag('h-seen')) { ER.say('The receiver hut: the cold steel flask, the humming compressor, the line printer, the whiteboard.'); return; }
+    busy = true; ER.flag('h-seen', 1);
+    ER.narrate([
+      'Outside, the wind comes straight across the moor from Ireland. Inside the hut it is warm on the side with the radiator and freezing on the side with the receiver, whose pipes are furry with frost.',
+      'The line printer is chattering out PART FIVE. And the professor has covered the whiteboard in red: three new symbols, and beside each one, a word, written large and underlined twice.'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#stroudG').addEventListener('click', function () {
+    if (busy || ER.flag('h-talk')) return;
+    ER.talk({
+      who: CAST.stroud.who, role: CAST.stroud.role, face: FACE('stroud'),
+      lines: [
+        { note: 'A big man with a white beard and a red scarf, a pen in each hand. He has not taken his coat off since he arrived.',
+          a: '&ldquo;PART FIVE! Look at it. Four little pieces cut out of their picture, each with a symbol: that&rsquo;s how they give us names. Them, hand, stone, house. And then sentences, made of names. They&rsquo;re teaching us to read.&rdquo;' },
+        { q: 'What have you written on the board?',
+          a: '&ldquo;The three new symbols. The arrow: Yusuf says &lsquo;present&rsquo;, because it goes with their picture. The stick: that&rsquo;s the spear from the picture, so I&rsquo;ve put ARMS, which is what armies call their weapons. And the dots I&rsquo;ve put down as THEY: the other people, the ones they&rsquo;re warning us about, I expect.&rdquo;' },
+        { q: 'What other people?',
+          a: '&ldquo;Every picture of people with spears has another lot of people somewhere. Now: they end with a question, and it would be rude not to answer. I&rsquo;m going to the control room to write a reply. Something warm, built from their own words.&rdquo;' },
+        { q: 'Tonight?',
+          a: '&ldquo;Tonight, or not before Christmas. The engineers come at seven to take the dish&rsquo;s bearings out for a month. I have spent two hours on the telephone to London, Paris and Vienna, and they all said the same: one short, friendly reply, made only of their own words, and nothing about where we live. So: friendly.&rdquo; And he is gone, with both pens.' }
+      ],
+      clue: { id: 'stroud2', title: 'The professor, at the whiteboard', kind: 'What he said' }, last: 'Let him go',
+      done: function (seen) { if (!seen) return; ER.flag('h-talk', 1); GR.learn(['glossary', 'reply', 'spear', 'bearing']); paint(); ER.say('The door bangs. &ldquo;He writes fast and checks later,&rdquo; says Nadia. &ldquo;Read PART FIVE, and my note on the board.&rdquo;'); }
+    });
+  });
+  $('#nadiaG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Nadia is already in her coat, with a torch and two harnesses. &ldquo;Come on.&rdquo;'); return; }
+    if (!ER.flag('h-talk')) { ER.say('&ldquo;Catch Oswin before he goes,&rdquo; says Nadia. &ldquo;He&rsquo;s at the board.&rdquo;'); return; }
+    ER.say('&ldquo;Look at his three words,&rdquo; says Nadia. &ldquo;Present. Arms. They. Every one could be read two ways, or is just a guess. Make each row fit every sentence, not only the one he liked.&rdquo;');
+  });
+  $('#printer').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: P5(), cls: 'strip', clue: { id: 'p5', title: 'PART FIVE', kind: 'Printout' }, done: function () { ER.flag('h-p5', 1); GR.learn(['symbol', 'sender']); paint(); } });
+  });
+  function readNote() {
+    ER.read({ html: NOTE, cls: 'card', clue: { id: 'note', title: 'One word, two meanings', kind: 'On the whiteboard' }, done: function () { ER.flag('h-note', 1); GR.learn(['sense', 'present', 'leave', 'arms']); paint(); } });
+  }
+  $('#mail').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: MAIL, cls: 'mail', clue: { id: 'mail', title: 'E-mail from Spain', kind: 'Laptop' }, done: function () { ER.flag('h-mail', 1); GR.learn(['light year']); } });
+  });
+  $('#card').addEventListener('click', function (e) {
+    e.stopPropagation(); if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'cold', title: 'Why this receiver is kept cold', kind: 'Taped to the receiver' }, done: function () { GR.learn(['cryostat', 'kelvin', 'compressor']); } });
+  });
+  GR.thing('#cryo', 'cryostat', 'The cryostat: a steel flask as tall as you, at minus 253 degrees inside. The dial says 20 K. The pipe coming out of it is furry with frost.', isBusy);
+  GR.thing('#comp', 'compressor', 'The compressor thumps and hums, pumping helium round to keep the receiver cold. A small red light blinks on it: that one, says Nadia, has blinked since 2014.', isBusy);
+  GR.thing('#rad', null, 'The radiator. The professor was right: it is the warmest thing on the site. Somebody has left a pair of gloves on it to dry.', isBusy);
+  GR.thing('#win', 'ladder', 'Through the little window: the legs of the dish going up into the dark, and on one of them, a ladder in a metal cage, climbing all the way to the focus cabin.', isBusy);
+
+  /* ---------- the glossary board ---------- */
+  function reading(toks, L) {
+    return toks.map(function (t) {
+      if (typeof t === 'number') return String(t);
+      if (t.indexOf('p:') === 0) return '[picture]';
+      var r = ROWS.filter(function (x) { return x[0] === t; })[0];
+      if (r) { var p = L[r[1]]; return '<u>' + (p ? PENS[p][1] : r[2].replace('!', '').toLowerCase()) + '</u>'; }
+      return KNOWN[t] || t;
+    }).join(' ').replace(/ \?/g, '?');
+  }
+  function openBoard() {
+    var box = ER.el('div', 'gb'), done = false, M = GR.MSG.p5;
+    box.innerHTML = '<div class="gb-main"><h6>GLOSSARY &middot; O.S. &middot; three new symbols</h6><div class="gb-rows">' +
+      ROWS.map(function (r) { return '<div class="gr-row" data-r="' + r[1] + '">' + GR.glyph(r[0], 32) + '<s>' + r[2] + '</s><div class="slot" data-s="' + r[1] + '"></div></div>'; }).join('') + '</div>' +
+      SENT.map(function (k) { return '<div class="sn" data-k="' + k + '"><b>' + k.toUpperCase() + '</b>' + GR.line(M[k], 22) + '<div class="rd"></div></div>'; }).join('') + '</div>' +
+      '<div class="gb-side"><div class="gb-tray"></div><p class="pmsg"></p><button type="button" class="btn" id="h-fix">Fix the board</button></div>';
+    var tray = box.querySelector('.gb-tray'), msgEl = box.querySelector('.pmsg');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ORDER.forEach(function (k) {
+      var n = ER.el('div', 'pen dnd-item', PENS[k][0]); n.setAttribute('data-p', k);
+      var at = null, s; for (s in S.at) if (S.at[s] === k) at = s;
+      (at ? box.querySelector('.slot[data-s="' + at + '"]') : tray).appendChild(n);
+    });
+    function read() {
+      var o = {}; ER.$$('.slot', box).forEach(function (s) { var t = s.querySelector('.pen'); o[s.getAttribute('data-s')] = t ? t.getAttribute('data-p') : ''; s.classList.toggle('full', !!t); s.classList.remove('bad');
+        s.parentNode.classList.toggle('fixed', !!t); });
+      return o;
+    }
+    function live() {
+      var L = read();
+      SENT.forEach(function (k) { box.querySelector('.sn[data-k="' + k + '"] .rd').innerHTML = reading(M[k], L); });
+      return L;
+    }
+    ER.dnd(box, { item: '.pen', slot: '.slot', home: tray, change: function () { S.at = live(); keep(); }, lock: function () { return done; } });
+    live();
+    var WHY = {
+      rg: { now: 'C5 would read &ldquo;We now you the picture,&rdquo; and C6 &ldquo;You now we?&rdquo; &lsquo;Present&rsquo; can mean now, but not in these sentences.', here: 'C5: &ldquo;We here you the picture.&rdquo; &lsquo;Present&rsquo; can mean here, not away; not in this sentence.',
+        take: 'C5: &ldquo;We take you the picture&rdquo;? They sent the picture: it went from them to us. Which way does the arrow point?' },
+      rt: { body: 'C2 says we + hand + stone = stone: a hand alone changes nothing, and C1 needs the stick to make a house. So the stick is not a part of the body. In the picture it lies on the ground.',
+        weapon: 'C1: &ldquo;We + weapon + stone = house.&rdquo; Do you build a house with a weapon?',
+        tool: 'C3: &ldquo;Three of us + tool = one of us. NOT.&rdquo; A tool that makes two of them disappear? It is a tool when it is used on stone. What is it when it is used on them?' },
+      ry: { they: 'C5: &ldquo;We give them the picture.&rdquo; Who did they give the picture to? Who has it tonight?', we: 'C6: &ldquo;We give we?&rdquo; Somebody else has to do the giving.' }
+    };
+    box.querySelector('#h-fix').addEventListener('click', function () {
+      if (done) return;
+      var L = live(), keys = ['rg', 'rt', 'ry'], bad = null, i;
+      if (keys.every(function (k) { return !L[k]; })) { msg('&ldquo;Put a new word in each of his rows,&rdquo; says Nadia. &ldquo;Drag one, or click it and then a row. The blue reading changes as you do.&rdquo;'); return; }
+      if (keys.some(function (k) { return !L[k]; })) { msg('&ldquo;Three rows, three words. All of his guesses need checking.&rdquo;'); ER.shake(box.querySelector('.gb-rows')); return; }
+      for (i = 0; i < keys.length; i++) {
+        if (PENS[L[keys[i]]][2] !== keys[i]) { bad = keys[i]; break; }
+        if (!ER.check(keys[i], L[keys[i]])) { bad = keys[i]; break; }
+      }
+      if (bad) {
+        GR.bump('miss'); GR.sfx.hm();
+        box.querySelector('.slot[data-s="' + bad + '"]').classList.add('bad');
+        var t = (WHY[bad] || {})[L[bad]];
+        msg(t || 'That word belongs to another symbol. Read the sentences with it in, aloud.'); return;
+      }
+      var file = ER.exitOk([L.rg + '|' + L.rt + '|' + L.ry]);
+      if (!file) { msg('&ldquo;Hm. Read it to me again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('h-file', file); GR.done('hut'); busy = true;
+      GR.mine('words2', 'Their words, fixed', '<p>' + GR.glyph('give', 22) + ' give (a gift) &nbsp; ' + GR.glyph('you', 22) + ' you &nbsp; ' + GR.glyph('hand', 22) + ' hand</p><p>' + GR.glyph('t', 22) + ' ONE word for TWO of ours: a tool on stone (C1), a weapon on people (C3, and they say NOT).</p><p>C4: one of us + hand + one of us = two of us. That is how they say hello.</p>', true);
+      msg('Nadia reads the board from top to bottom, slowly, with her finger under each symbol.');
+      setTimeout(function () { ER.closeAll(); GR.solved(); paint(); after(); }, 2400);
+    });
+    msg(Object.keys(S.at).some(function (k) { return S.at[k]; }) ? 'The words are where you left them.' : 'Put one word on each of the professor&rsquo;s three rows. The blue reading under each sentence shows how it reads now.');
+    ER.open('ov-lock', box);
+  }
+  $('#board').addEventListener('click', function (e) {
+    if (busy) return;
+    if (e.target && e.target.id === 'note') { readNote(); return; }
+    if (nextFile) { ER.say('The glossary, fixed. The professor&rsquo;s red words are crossed out: give, a tool or a weapon, you.'); return; }
+    if (!ER.flag('h-talk')) { ER.say('The whiteboard, covered in the professor&rsquo;s red pen. He is standing in front of it. Talk to him.'); return; }
+    if (!ER.flag('h-p5') || !ER.flag('h-note')) { ER.say(!ER.flag('h-note') ? 'There is a yellow note stuck to the corner of the board, in Nadia&rsquo;s writing. And PART FIVE is still on the printer.' : '&ldquo;Read PART FIVE first,&rdquo; says Nadia. &ldquo;It&rsquo;s on the printer.&rdquo;'); return; }
+    openBoard();
+  });
+  var DRAFT = '<h4>Reply &middot; draft &middot; O.S. &middot; 03:05</h4><h5>for the transmitter, 04:10 &middot; their words only &middot; my English under each line</h5>';
+  function after() {
+    ER.addClue('draft', 'The professor&rsquo;s draft reply', draftHtml(), 'strip', 'Printout', true);
+    ER.narrate([
+      'Nadia reads the board aloud. &ldquo;We, with a tool, with stone, make a house. We, with a hand, with stone: still stone. Three of us, with a tool-or-weapon: one of us. NOT.&rdquo; She stops. &ldquo;One word for both. It&rsquo;s a tool on stone and a weapon on people. And they say NOT to that.&rdquo;',
+      'Yusuf, who has come in out of the wind, reads the next one. &ldquo;One of us, and a hand, and one of us, make two of us.&rdquo; He holds out his hand to Nadia, and she shakes it. &ldquo;That&rsquo;s how they say hello. And then: we give you the picture. You give us ... what?&rdquo;',
+      'The printer clatters. It is the professor&rsquo;s draft, sent down from the control room: six lines of their symbols, with his English under each. &ldquo;He&rsquo;s loaded it into the transmitter for ten past four,&rdquo; says Yusuf. &ldquo;Then he went up the dish to change the feed horn. He took the key.&rdquo;',
+      'Nadia reads the draft, and her face changes. She puts her finger on the fifth line. Under it, in the professor&rsquo;s writing: <i>We welcome you with open arms.</i> &ldquo;He looked it up,&rdquo; she says quietly. &ldquo;He looked up <i>arms</i> on his own board.&rdquo; She is already reaching for her coat.'
+    ], function () { busy = false; paint(); });
+  }
+  function draftHtml() {
+    var R = [[[2, 3, 5, 7], 'We hear you. We can count too.'], [['we', 'bars', 'p:human'], 'These are us.'], [['we', 'fork', 't', 'fork', 'stone', 'bars', 'p:dish'], 'With tools and stone we built this.'],
+      [['we', 'give', 'you', 'frame'], 'We give you a present: this picture.'], [[1, 'we', 'fork', 't', 'fork', 1, 'you', 'bars', 2, 'we'], 'We welcome you with open arms.'], [['you', 'give', 'we', 'hook'], 'Please do not leave. Talk to us again.']];
+    return DRAFT + R.map(function (r, i) { return '<p><b>R' + (i + 1) + '</b>' + GR.line(r[0], 22) + '</p><p class="note">' + r[1] + '</p>'; }).join('');
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

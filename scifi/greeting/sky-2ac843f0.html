@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Under the Sky · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#040814;--accent:#ffd98a;--font-display:'Cinzel',serif;--font-ui:'Oswald',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(6,10,22,.95);--tc-ink:#eef0f8;--cap-bg:rgba(6,10,22,.92);--cap-ink:#f2f4fa;--panel:#101626;--face-bg:#18302a;--q-ink:#ffe4b0;--fade:#010204;--hud-bg:rgba(6,10,22,.8)}
+  .tc-room{font-size:50px;font-weight:400;letter-spacing:.06em}
+  .tc-text,.cap{font-family:'EB Garamond',serif;font-weight:400}
+  .tw{animation:tw 5s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.35}}
+  .beam{animation:beam 3s ease-in-out infinite}
+  @keyframes beam{50%{opacity:.15}}
+  .steam{animation:steam 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+  .steam:nth-child(2){animation-delay:-2.5s}
+  @keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.4}100%{opacity:0;transform:translateY(-34px)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#01030a"/><stop offset=".6" stop-color="#081028"/><stop offset="1" stop-color="#1a2440"/></linearGradient>
+  <linearGradient id="mw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8d0f0" stop-opacity="0"/><stop offset=".5" stop-color="#c8d0f0" stop-opacity=".16"/><stop offset="1" stop-color="#c8d0f0" stop-opacity="0"/></linearGradient>
+  <linearGradient id="beamG" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd98a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></linearGradient>
+  <radialGradient id="winG"><stop offset="0" stop-color="#ffd98a" stop-opacity=".45"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="44%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#010204" stop-opacity=".18"/><stop offset="1" stop-color="#010204" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#sSky)"/>
+<path d="M-600 -400Q300 200 2400 700L2400 980Q300 420 -600 -140Z" fill="url(#mw)"/>
+<g id="sstars" fill="#fff"></g>
+<!-- the Great Square of Pegasus, low in the west, and near it the neighbours' star, too faint to see -->
+<g id="peg" class="hot"><g fill="#fff"><circle cx="230" cy="300" r="3.6"/><circle cx="380" cy="270" r="3.4"/><circle cx="410" cy="410" r="3.2"/><circle cx="260" cy="440" r="3.4"/></g>
+  <path d="M230 300L380 270L410 410L260 440Z" stroke="#ffd98a" stroke-width="1" stroke-dasharray="3 7" fill="none" opacity=".5"/>
+  <circle cx="318" cy="492" r="18" fill="none" stroke="#ffd98a" stroke-width="1.5" stroke-dasharray="4 4" opacity=".8"/><circle cx="318" cy="492" r="1.2" fill="#ffe4b0"/>
+  <rect x="200" y="250" width="240" height="270" fill="transparent"/></g>
+<!-- Mirk Fell, in the west, and the moor -->
+<g id="fell" class="hot"><path d="M-1000 640L-200 600Q100 520 300 560T700 640V1500H-1000Z" fill="#06080e"/></g>
+<path d="M-1000 660Q0 620 900 650T2600 660V1500H-1000Z" fill="#080a10"/>
+<!-- the beam of the reply, going out towards the west -->
+<path class="beam" d="M900 420L330 470L330 520L880 460Z" fill="url(#beamG)" pointer-events="none"/>
+<!-- the dish, tipped down towards Mirk Fell -->
+<g id="dish" class="hot"><path d="M860 700L960 470H1040L1140 700Z" fill="#1a2030"/><path d="M940 700V540H1060V700" fill="#232a3a"/>
+  <g transform="translate(1000 430) scale(-1 1) rotate(18)"><path d="M-200 -60Q20 70 220 -60L208 -46Q20 50 -188 -46Z" fill="#dfe6ee"/><path d="M-200 -60Q20 -150 220 -60Q20 70 -200 -60Z" fill="#b8c2cc"/>
+    <path d="M-150 -40L10 -200L170 -40M-60 -24L10 -200L80 -24" stroke="#b8c2cc" stroke-width="6" fill="none"/><rect x="-10" y="-222" width="40" height="30" rx="3" fill="#dfe6ee"/><rect x="0" y="-214" width="12" height="10" fill="#ffd98a"/></g></g>
+<!-- the control building with its lit window, and the cat on the step -->
+<g id="build" class="hot"><rect x="1250" y="560" width="300" height="150" fill="#141a26"/><path d="M1240 560H1560L1540 530H1260Z" fill="#1c2434"/><rect x="1400" y="590" width="120" height="60" fill="#ffd98a"/><circle cx="1460" cy="620" r="120" fill="url(#winG)" pointer-events="none"/><rect x="1300" y="600" width="60" height="110" fill="#0c1018"/></g>
+<g id="cat" class="hot"><path d="M1318 710q-4-20 14-24q20-2 24 14v10z" fill="#0a0a0c"/><circle cx="1336" cy="684" r="10" fill="#0a0a0c"/><path d="M1328 678l-3-10 7 6zM1340 676l4-9 1 10z" fill="#0a0a0c"/><circle cx="1332" cy="684" r="1.6" fill="#ffd98a"/><circle cx="1340" cy="684" r="1.6" fill="#ffd98a"/></g>
+<!-- the three of them, with mugs -->
+<g id="yusufG" class="hot"><use href="#ch-yusuf" x="380" y="600" width="200" height="260"/></g>
+<g id="nadiaG" class="hot"><use href="#ch-nadia" x="540" y="590" width="210" height="273"/><g fill="#fff"><ellipse class="steam" cx="650" cy="760" rx="6" ry="10" opacity=".3"/><ellipse class="steam" cx="658" cy="756" rx="5" ry="9" opacity=".3"/></g></g>
+<g id="stroudG" class="hot"><use href="#ch-stroud" x="690" y="580" width="220" height="286"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <div class="stampd">REPLY SENT &middot; 04:10</div>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-miss"></p><p id="d-words"></p>
+  <h6>What you now know</h6>
+  <ol>
+    <li>A radio telescope is a great dish that gathers radio waves at its focus. A bigger dish hears fainter things and sees more sharply. Many people who search for signals listen near the hydrogen line: 1420 MHz, 21 cm.</li>
+    <li>Test a signal before you believe it: it should go when the dish looks away, stay among the stars, and be a needle, not a hill; then a second telescope should hear it. Fences, satellites and microwave ovens fool people.</li>
+    <li>A message can teach its own language: counting first, then symbols set between numbers (plus, equals, not, a question), each worked out from the sentences round it.</li>
+    <li>A number made by multiplying two primes can be laid out as only one rectangle, or the same one turned round: 1679 = 23 &times; 73 at Arecibo in 1974, and 493 = 17 &times; 29 tonight.</li>
+    <li>You can work out a word you do not know from its sentence, and better from several sentences: a second example tells you more than the first.</li>
+    <li>Some words have two meanings (present, leave, arms), and one language may use one word where another needs two (a tool and a weapon). Only the context decides, and the wrong choice can turn a welcome into a threat.</li>
+    <li>A light year is the distance light travels in a year. A reply to a star 26 light years away takes 26 years to arrive, and an answer to it takes 26 more.</li>
+  </ol>
+  <p class="say">Say it aloud: explain to a friend, in five or six sentences, how a message can teach its own language, from counting to a picture.</p>
+  <div class="row"><button type="button" class="btn" id="b-task">Write a greeting</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>With Open Arms &middot; <button type="button" id="b-reset">play it again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false;
+  (function () { var s = '', i, seed = 23; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 220; i++) s += '<circle' + (i % 6 ? '' : ' class="tw"') + ' cx="' + Math.round(-700 + rnd() * 3000) + '" cy="' + Math.round(-560 + rnd() * 1180) + '" r="' + (0.5 + rnd() * 1.6).toFixed(1) + '" opacity="' + (0.25 + rnd() * 0.75).toFixed(2) + '" style="animation-delay:-' + (rnd() * 5).toFixed(1) + 's"/>';
+    $('#sstars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'sky', no: 'VI', title: 'Under the Sky',
+    go: 'Climb down to the moor',
+    intro: [
+      'At the top of the dish you showed the professor, with their own sentences, what his fifth line said. By their C3, the stick used on people is a weapon, and they put NOT after it. In their picture the stick lies on the ground while two of them hold out their hands. So his fifth line, &ldquo;one of us, arms, one of you, two of us&rdquo;, would have read to them: one of us, with a weapon, and one of you, make two of us. Not a welcome. A threat.',
+      'You changed one symbol. Now it says what they say when they meet: one of us, a hand, one of you, make two of us.',
+      'At ten past four the transmitter began to send it. You climbed down, three points of contact, all the way.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  function hints() { return ['end', ['Nothing more to unlock. Click on the sky, the dish and the people, if you like. The card on the right has your numbers, what you now know, and a greeting to write.']]; }
+  function begin() {
+    if (ER.flag('s-seen')) { finish(); return; }
+    busy = true; ER.flag('s-seen', 1);
+    ER.narrate([
+      'At the foot of the dish the wind has dropped. The great bowl has turned to the west, low over Mirk Fell, and it is humming: the reply is going out, again and again, while the neighbours&rsquo; star goes down.',
+      'Yusuf brings out four mugs of tea. Nadia points with hers. &ldquo;There. Under the Great Square of Pegasus, those four stars low in the west. You can&rsquo;t see it with your eyes. Twenty-six light years. The pulses we heard tonight left there before you were born.&rdquo;',
+      '&ldquo;So our reply arrives in twenty-six years,&rdquo; says Yusuf. &ldquo;And if they answer at once, their answer gets here in fifty-two.&rdquo; You work it out. You will be in your sixties. The professor will be ... &ldquo;Dead,&rdquo; he says cheerfully. &ldquo;Almost certainly. Make sure they answer politely.&rdquo;',
+      'At twenty-five past four an e-mail comes from Spain: they can hear the reply going out. One of us, a hand, one of you, two of us. It will cross the dark between the stars saying exactly what it means, and nobody can call it back.',
+      '&ldquo;They taught us their words by counting,&rdquo; says Nadia, &ldquo;and the one word we nearly got wrong was one of ours.&rdquo; At twenty to five the star goes down behind Mirk Fell, the transmitter stops, and the moor is very quiet. Somewhere in the dark, a fence clicks once a second.'
+    ], function () { busy = false; GR.solved(true); finish(); });
+  }
+  function finish() {
+    var st = ER.state(), mins = GR.minutes(), hn = ER.hintsUsed(), m = ER.flag('miss') || 0;
+    $('#d-time').textContent = 'The night took you ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'You asked for ' + hn + (hn === 1 ? ' hint.' : ' hints.') : 'You did not ask for a single hint.';
+    $('#d-miss').textContent = m ? m + (m === 1 ? ' time' : ' times') + ' tonight you read a sign or a word the wrong way first.' : 'Not once tonight did you read a sign or a word the wrong way.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' papers and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+  }
+  function isBusy() { return busy; }
+  GR.thing('#peg', 'Great Square of Pegasus', 'The Great Square of Pegasus, low in the west and going down. Inside Nadia&rsquo;s dotted circle there is nothing your eyes can see: a small orange star, twenty-six light years away, and somebody there who can count.', isBusy);
+  GR.thing('#dish', 'dish', 'The dish, tipped down towards Mirk Fell. It hums. At seven the engineers arrive to take its bearings out. By then it will be the most famous dish in the world, and it will spend the next month in pieces.', isBusy);
+  GR.thing('#fell', 'fell', 'Mirk Fell, black against the stars. At twenty to five the neighbours&rsquo; star will go down behind it, and the reply will stop.', isBusy);
+  GR.thing('#build', null, 'The control room window, the only light on the moor. Somebody has left the kettle on.', isBusy);
+  GR.thing('#cat', null, 'Parsec has come out to see what the fuss is about. She looks at the dish, at the sky, and at you, and goes back in.', isBusy);
+  GR.thing('#yusufG', null, '&ldquo;My dying star,&rdquo; says Yusuf, &ldquo;will have to wait another week. It has waited ten thousand years. It is good at it.&rdquo;', isBusy);
+  GR.thing('#nadiaG', null, '&ldquo;Extraordinary claims,&rdquo; says Nadia, &ldquo;need extraordinary evidence. And extraordinary replies need a second reader.&rdquo; She clinks her mug against yours.', isBusy);
+  GR.thing('#stroudG', null, '&ldquo;Hands, not arms,&rdquo; says the professor. &ldquo;I&rsquo;m going to write it on the whiteboard, and nobody is ever to rub it off.&rdquo;', isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('s-task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>Mirkfell &middot; a greeting of your own</h4><h3>Hands, not arms</h3>' +
+      '<label for="r1">Write a greeting the neighbours could read: four to six lines, each one a sentence in their way of writing, set down in English words (for example: <b>one of us + hand + one of you = two of us</b>). Use only words they have taught us. Then write 60 to 100 words in English: which word in your greeting could be <b>misread</b>, what could it be taken to mean, and how did you make sure that it means <b>only one thing</b>?</label><textarea id="r1"></textarea>' +
+      '<div class="count"></div><label for="r2">Signed (your name)</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > label');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keepT() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('s-task', o);
+    }
+    box.addEventListener('input', keepT);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keepT(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keepT();
+  });
+})();
+</script>
+</body>
+</html>

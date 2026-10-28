@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Control Room · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#0a1416;--accent:#ffcf6a;--font-display:'Rajdhani',sans-serif;--font-ui:'Share Tech Mono',monospace;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(8,16,18,.96);--tc-ink:#e8f0ee;--cap-bg:rgba(8,16,18,.93);--cap-ink:#eef5f2;--panel:#11201f;--face-bg:#18302a;--q-ink:#ffe2a0;--fade:#020606;--hud-bg:rgba(8,16,18,.82)}
+  .tc-room{font-size:44px}
+  .led{animation:led 3.1s steps(1) infinite}
+  .led:nth-child(3n){animation-duration:4.3s}.led:nth-child(4n){animation-duration:2.2s}.led:nth-child(5n){animation-delay:-1.4s}
+  @keyframes led{0%,70%{opacity:1}71%,100%{opacity:.25}}
+  .blink{animation:blink 2.4s steps(1) infinite}
+  @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:.15}}
+  .tw{animation:tw 5s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.35}}
+  .pd{opacity:.18}.pd.on{opacity:1}
+  #spec.next .scr,#sig.next .scr{animation:gnudge 1.7s ease-in-out infinite}
+
+  /* the four cards of tonight's log */
+  .sg{width:min(1120px,96vw);background:#0e1a1b;border:1px solid #2d4a48;border-radius:10px;padding:14px 16px 12px;color:#e6f2ee;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+  .sg h6{margin:0 0 8px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12.5px;letter-spacing:.16em;color:#7fb0a8}
+  .sg-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .sgc{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;padding:9px 10px;background:#13232a;border:1px solid #2d4a48;border-radius:6px}
+  .sgc svg.wf{width:118px;height:104px;display:block;background:#050c0d;border:1px solid #2d4a48;border-radius:3px}
+  .sgc h5{margin:0 0 3px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:19px;letter-spacing:.04em;color:#ffcf6a}
+  .sgc p{margin:0 0 4px;font-family:'Outfit',sans-serif;font-weight:300;font-size:14.6px;line-height:1.3}
+  .sgc p b{font-weight:500;color:#bfe9de}
+  .sgc .test{display:flex;gap:6px;align-items:center;margin:2px 0 5px}
+  .sgc .test .btn{padding:4px 9px;font-size:11.5px;letter-spacing:.08em}
+  .sgc .meter{flex:1;height:10px;background:#050c0d;border:1px solid #2d4a48;border-radius:5px;overflow:hidden}
+  .sgc .meter i{display:block;height:100%;width:86%;background:#ffcf6a;transition:width .6s}
+  .sgc .meter.off i{width:3%}
+  .sl{min-height:38px;margin-top:4px;padding:3px;border:2px dashed rgba(127,176,168,.5);border-radius:5px;background:rgba(0,0,0,.2)}
+  .sl.full{border-style:solid;border-color:#7fb0a8}
+  .sl.bad{border-color:#e0703a;background:rgba(224,112,58,.15)}
+  .sg-tray{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;margin:10px 0 6px;padding:7px;border-radius:6px;background:#081011;border:1px solid #2d4a48}
+  .lb{display:block;padding:6px 10px 5px;background:#f4ead0;color:#2a2010;border-radius:3px;font-family:'Outfit',sans-serif;font-weight:400;font-size:14px;line-height:1.2;
+    cursor:grab;box-shadow:0 2px 0 rgba(0,0,0,.45);-webkit-user-select:none;user-select:none;max-width:100%}
+  .lb.held{outline:3px solid #ffcf6a}
+  .lb.fly{position:fixed;z-index:99;pointer-events:none;opacity:.9}
+  .sg-foot{display:flex;align-items:center;gap:12px}
+  .sg-foot .pmsg{flex:1;color:#eef5f2}
+  .sg-foot .pmsg i{font-style:normal;color:#ffcf6a}
+  @media (max-width:900px){.sg-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="cWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1a1d"/><stop offset="1" stop-color="#14272a"/></linearGradient>
+  <linearGradient id="cSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03070f"/><stop offset=".75" stop-color="#0b1626"/><stop offset="1" stop-color="#1a2430"/></linearGradient>
+  <linearGradient id="cDesk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3026"/><stop offset="1" stop-color="#211a14"/></linearGradient>
+  <radialGradient id="scrGlow"><stop offset="0" stop-color="#ffcf6a" stop-opacity=".35"/><stop offset="1" stop-color="#ffcf6a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grnGlow"><stop offset="0" stop-color="#7fffc0" stop-opacity=".25"/><stop offset="1" stop-color="#7fffc0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#020606" stop-opacity=".22"/><stop offset="1" stop-color="#020606" stop-opacity=".9"/></radialGradient>
+  <clipPath id="winC"><rect x="380" y="100" width="840" height="330"/></clipPath>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#cWall)"/>
+<rect x="-1000" y="-600" width="3600" height="690" fill="#0a1517"/>
+<path d="M-1000 90H2600" stroke="#1f3538" stroke-width="6"/>
+<!-- the long window: the dish against the stars -->
+<g id="win" class="hot">
+  <rect x="370" y="90" width="860" height="350" fill="#1c2c30"/>
+  <g clip-path="url(#winC)">
+    <rect x="380" y="100" width="840" height="330" fill="url(#cSky)"/>
+    <g id="stars" fill="#fff"></g>
+    <path d="M380 410Q520 360 700 384T1000 370T1220 392V430H380Z" fill="#0a0f12"/>
+    <!-- the dish: a white bowl on a turning mount, tipped up to the south -->
+    <g transform="translate(800 330)">
+      <path d="M-150 90L-60 -6H60L150 90Z" fill="#202a30"/><path d="M-40 90V10H40V90" fill="#2a363c"/>
+      <g transform="rotate(-22)">
+        <path d="M-170 -40Q0 60 170 -40L160 -30Q0 50 -160 -30Z" fill="#dfe6ea"/>
+        <path d="M-170 -40Q0 -110 170 -40Q0 60 -170 -40Z" fill="#c9d3d8"/>
+        <path d="M-150 -44Q0 -96 150 -44" stroke="#e9eff2" stroke-width="3" fill="none" opacity=".7"/>
+        <path d="M-120 -30L0 -150L120 -30M-50 -20L0 -150L50 -20" stroke="#c9d3d8" stroke-width="5" fill="none"/>
+        <rect x="-14" y="-170" width="28" height="24" rx="3" fill="#dfe6ea"/>
+        <circle class="blink" cx="0" cy="-176" r="5" fill="#ff3a2a"/>
+      </g>
+    </g>
+  </g>
+  <path d="M380 100H1220V430H380Z M800 100V430" stroke="#1c2c30" stroke-width="10" fill="none"/>
+</g>
+<!-- the racks, on the left -->
+<g id="racks" class="hot">
+  <rect x="40" y="120" width="290" height="640" fill="#101c20" stroke="#24383c" stroke-width="3"/>
+  <g id="rackrows"></g>
+</g>
+<!-- the Wow! printout in its frame, and the poster -->
+<g id="wow" class="hot"><rect x="1280" y="120" width="190" height="230" fill="#3a2a1c"/><rect x="1294" y="134" width="162" height="202" fill="#f2f2e6"/>
+  <g stroke="#cfdcc8" stroke-width="8"><path d="M1294 150h162M1294 174h162M1294 198h162M1294 222h162M1294 246h162M1294 270h162M1294 294h162M1294 318h162"/></g>
+  <g class="mono" font-size="12" fill="#3a463a"><text x="1302" y="166">1 1 1 . 1</text><text x="1302" y="190">. 1 . 1 1</text><text x="1302" y="214">1 6 . . 1</text><text x="1302" y="238">. E 1 . .</text><text x="1302" y="262">1 Q . 1 .</text><text x="1302" y="286">. U 1 . 1</text><text x="1302" y="310">1 J . 1 .</text><text x="1302" y="330">. 5 . . 1</text></g>
+  <ellipse cx="1326" cy="268" rx="11" ry="72" fill="none" stroke="#c0302a" stroke-width="3"/><text x="1380" y="230" font-family="Caveat,cursive" font-weight="700" font-size="34" fill="#c0302a">Wow!</text></g>
+<g id="poster" class="hot"><rect x="1280" y="390" width="200" height="250" fill="#eef2f4"/><rect x="1280" y="390" width="200" height="36" fill="#2b4f7e"/>
+  <text x="1380" y="414" text-anchor="middle" class="osw" font-size="17" font-weight="500" letter-spacing="2" fill="#fff">MIRKFELL 50 m</text>
+  <path d="M1300 520Q1380 580 1460 520" stroke="#2b4f7e" stroke-width="6" fill="none"/><path d="M1380 548V470" stroke="#2b4f7e" stroke-width="3"/><circle cx="1380" cy="466" r="6" fill="#c0302a"/>
+  <g stroke="#7a9ab8" stroke-width="2" stroke-dasharray="6 5"><path d="M1310 440V522M1350 440V550M1410 440V550M1450 440V522"/><path d="M1310 522L1380 468M1450 522L1380 468"/></g>
+  <g fill="#9aa8b4"><rect x="1300" y="580" width="160" height="6"/><rect x="1300" y="596" width="130" height="6"/><rect x="1300" y="612" width="150" height="6"/></g></g>
+<!-- the desk -->
+<path d="M-1000 640H2600V1500H-1000Z" fill="#0c1416"/>
+<path d="M140 600H1460L1560 900H40Z" fill="url(#cDesk)"/><path d="M140 600H1460" stroke="#5a4a38" stroke-width="5"/>
+<!-- the dish screen, on the left of the desk -->
+<g id="pos" class="hot"><rect x="250" y="452" width="250" height="160" rx="6" fill="#1a2224"/><rect x="262" y="464" width="226" height="128" fill="#041010"/>
+  <text x="275" y="490" class="mono" font-size="14" fill="#7fffc0">DISH  50 m</text><text x="275" y="516" class="mono" font-size="13" fill="#bfe9de">AZ 192.0°  EL 46.0°</text>
+  <text x="275" y="540" class="mono" font-size="13" fill="#bfe9de">TRACKING · SKY</text><text x="275" y="564" class="mono" font-size="13" fill="#bfe9de">RX 1300-1500 MHz</text>
+  <rect x="352" y="612" width="46" height="20" fill="#1a2224"/></g>
+<!-- the big screen: the hydrogen hill, the needle, and the pulses -->
+<g id="spec" class="hot"><circle cx="800" cy="520" r="260" fill="url(#scrGlow)" pointer-events="none"/>
+  <rect x="560" y="440" width="480" height="190" rx="6" fill="#1a2224"/><g class="scr"><rect x="574" y="452" width="452" height="150" fill="#05090a"/>
+  <path d="M590 588H1010" stroke="#2d4a48" stroke-width="2"/>
+  <path d="M590 586C680 586 720 520 770 512C820 520 860 586 1010 586" stroke="#9aa8a4" stroke-width="3" fill="none"/>
+  <path d="M842 586V472" stroke="#ffcf6a" stroke-width="3"/>
+  <text x="590" y="472" class="mono" font-size="12" fill="#7fb0a8">1419</text><text x="752" y="472" class="mono" font-size="12" fill="#7fb0a8">1420.4</text><text x="960" y="472" class="mono" font-size="12" fill="#7fb0a8">1422 MHz</text>
+  <text x="852" y="500" class="mono" font-size="12" fill="#ffcf6a">1421.2</text>
+  <g id="pdots" fill="#ffcf6a"><circle class="pd" cx="870" cy="540" r="6"/><circle class="pd" cx="890" cy="540" r="6"/><circle class="pd" cx="910" cy="540" r="6"/><circle class="pd" cx="930" cy="540" r="6"/><circle class="pd" cx="950" cy="540" r="6"/></g>
+  <text id="pcount" x="870" y="570" class="mono" font-size="13" fill="#ffcf6a">PULSES: 1</text></g>
+  <rect x="780" y="630" width="40" height="18" fill="#1a2224"/></g>
+<!-- tonight's log, on the right of the desk -->
+<g id="sig" class="hot"><rect x="1080" y="452" width="250" height="160" rx="6" fill="#1a2224"/><g class="scr"><rect x="1092" y="464" width="226" height="128" fill="#041010"/>
+  <text x="1104" y="488" class="mono" font-size="14" fill="#ffcf6a">TONIGHT'S LOG</text>
+  <g class="mono" font-size="13" fill="#bfe9de"><text x="1104" y="512">A  23:52  NARROW</text><text x="1104" y="532">B  23:41  NARROW</text><text x="1104" y="552">C  23:20  NARROW</text><text x="1104" y="572">D  22:00  WIDE</text></g></g>
+  <rect x="1182" y="612" width="46" height="20" fill="#1a2224"/></g>
+<!-- the speaker, the card taped to the desk, the mug -->
+<g id="spk" class="hot"><rect x="520" y="640" width="70" height="90" rx="8" fill="#2a2a2e"/><circle cx="555" cy="672" r="22" fill="#151518"/><circle cx="555" cy="672" r="9" fill="#2a2a2e"/><circle cx="555" cy="712" r="5" fill="#7fffc0" class="led"/></g>
+<g id="card" class="hot"><path d="M660 690l200 -6 6 120 -200 6z" fill="#fdf8e4"/><path d="M730 680l60 -2 1 18 -60 2z" fill="#c8d7e6" opacity=".8"/>
+  <text x="676" y="718" class="sten" font-size="17" fill="#8a3a1a" transform="rotate(-1.6 760 740)">IS IT FROM THE SKY?</text>
+  <g stroke="#9a8a5a" stroke-width="4" transform="rotate(-1.6 760 740)"><path d="M680 738h160M680 754h140M680 770h156M680 786h120"/></g></g>
+<g id="mug" class="hot"><path d="M960 700h56l-6 66h-44z" fill="#e8e2d8"/><path d="M1016 712q22 2 18 22t-22 16" stroke="#e8e2d8" stroke-width="8" fill="none"/><text x="988" y="738" text-anchor="middle" class="osw" font-size="10" fill="#2b4f7e">OKAYEST</text></g>
+<!-- Nadia, at the right end of the desk -->
+<g id="nadiaG" class="hot"><use href="#ch-nadia" x="1300" y="560" width="240" height="312"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the kitchen</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+
+  /* stars in the window, lights on the racks */
+  (function () {
+    var s = '', r = '', i, seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 90; i++) s += '<circle' + (i % 4 ? '' : ' class="tw"') + ' cx="' + Math.round(384 + rnd() * 832) + '" cy="' + Math.round(104 + rnd() * 270) + '" r="' + (0.6 + rnd() * 1.6).toFixed(1) + '" opacity="' + (0.35 + rnd() * 0.65).toFixed(2) + '" style="animation-delay:-' + (rnd() * 5).toFixed(1) + 's"/>';
+    $('#stars').innerHTML = s;
+    for (i = 0; i < 12; i++) {
+      r += '<rect x="56" y="' + (136 + i * 51) + '" width="258" height="40" rx="3" fill="#18282c"/>';
+      for (var j = 0; j < 7; j++) r += '<circle class="led" cx="' + (78 + j * 18) + '" cy="' + (156 + i * 51) + '" r="4" fill="' + (rnd() < 0.18 ? '#ffb040' : '#57f0a0') + '" style="animation-delay:-' + (rnd() * 4).toFixed(1) + 's"/>';
+      r += '<rect x="214" y="' + (148 + i * 51) + '" width="84" height="16" fill="#0a1214"/>';
+    }
+    $('#rackrows').innerHTML = r;
+  })();
+  /* the needle counts: 1, 2, 3, 4, 5, and again */
+  (function () {
+    var n = 0, k = 0, dots = ER.$$('#pdots .pd');
+    setInterval(function () {
+      k++; if (k > n + 1) { k = 0; n = n % 5 + 1; }
+      dots.forEach(function (d, i) { d.classList.toggle('on', i < n && k > 0 && i < k); });
+      $('#pcount').textContent = 'PULSES: ' + n;
+    }, 420);
+  })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'control', no: 'I', title: 'The Control Room',
+    go: 'Take off your coat',
+    intro: [
+      'Every year one school student in the county wins a night at Mirkfell Radio Observatory, high on the moor. This year it is you, for an essay about Carl Sagan&rsquo;s <i>Cosmos</i>. The prize is one night shift beside the fifty-metre dish, and as much tea as you can drink.',
+      'The night observer is Dr Nadia Santos. Since ten o&rsquo;clock she has been mapping cold hydrogen gas in the Milky Way, one patch of sky at a time. It is slow, quiet work, and she says it is the best job in the world.',
+      'It is eight minutes to midnight. Something on the big screen has just begun to count.'
+    ],
+    exit: {"next":"kitchen","w":{"2f372130":"ef2f8d1e"}}, tags: {"ta":["3f10c004"],"tb":["561ff0d2"],"tc":["353957ec"],"td":["dd284c85"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null;
+  var S = ER.flag('c-st') || { at: {}, off: 0 };
+  function keep() { ER.flag('c-st', S); }
+
+  var DISH = '<h4>Mirkfell 50 m &middot; how a radio telescope works</h4><h5>From the observatory&rsquo;s blue binder, page 1</h5>' +
+    '<svg viewBox="0 0 640 170"><g fill="none" stroke="#7a9ab8" stroke-width="2" stroke-dasharray="7 6"><path d="M150 10V120M250 10V146M390 10V146M490 10V120"/></g>' +
+    '<g fill="none" stroke="#c0302a" stroke-width="2"><path d="M150 120L320 40M490 120L320 40M250 146L320 40M390 146L320 40"/></g>' +
+    '<path d="M120 112Q320 200 520 112" stroke="#2b4f7e" stroke-width="9" fill="none"/><circle cx="320" cy="38" r="9" fill="#c0302a"/>' +
+    '<g font-family="Share Tech Mono,monospace" font-size="14" fill="#1d2530"><text x="18" y="24">radio waves</text><text x="340" y="30">focus: the receiver</text><text x="530" y="120">the dish</text></g></svg>' +
+    '<p>A radio telescope does not take pictures with light. It collects radio waves, which are a kind of light too, but with waves far longer: from millimetres to metres. The dish is a mirror. It catches the waves all over its surface and bounces them to one point above it, the <b>focus</b>, where the receiver is waiting.</p>' +
+    '<p><b>Why so big?</b> A bigger dish catches more, so it can hear fainter things. And a bigger dish sees more sharply. Long waves make blurred pictures, and the only cure is size: our 50-metre dish sees a patch of sky about half as wide as the full Moon.</p>' +
+    '<p><b>The hydrogen line.</b> Cold hydrogen gas, the commonest stuff in the universe, gives out radio waves at one frequency: <b>1420.4 megahertz</b>, a wavelength of <b>21 centimetres</b>. Many people who listen for signals from other worlds listen near this line, because anybody who studies the sky knows it.</p>';
+  var CARD = '<h4>Before you ring anybody: is it from the sky?</h4>' +
+    '<p class="r"><b>1</b><span><b>Look away, and look back.</b> Move the dish one degree off, then back on. A thing in the sky is gone while you look away, and returns when you look back. A thing on the ground leaks in round the edge of the dish wherever it points.</span></p>' +
+    '<p class="r"><b>2</b><span><b>Watch it move.</b> While the dish follows the stars, a thing among the stars stays in the middle of the beam. A satellite crosses the beam in a few seconds.</span></p>' +
+    '<p class="r"><b>3</b><span><b>Look at its shape.</b> A transmitter, anybody&rsquo;s, makes a needle: one narrow frequency. Nature makes hills: hydrogen gas gives a wide, smooth hump.</span></p>' +
+    '<p class="r"><b>4</b><span>Then ask somebody else to listen: another telescope, far away.</span></p>' +
+    '<small>Pass 1, 2 and 3 before you ring the director. He does not like being woken for fridges. O.S.</small>';
+  var WOW = '<h4>The &ldquo;Wow!&rdquo; signal &middot; 15 August 1977</h4>' +
+    '<p>&nbsp;1 1 1 . 1 &nbsp;. 1 . 1 1 &nbsp;1 <span class="col">6EQUJ5</span> 1 . . &nbsp;<span class="wo">Wow!</span></p>' +
+    '<p class="cap2">On 15 August 1977 the Big Ear radio telescope in Ohio, in the United States, heard a strong, narrow signal near the hydrogen line. Big Ear did not move: the turning Earth carried the sky through its beam, so it could hear any one point for only about 72 seconds. The signal rose and fell in just that time, as a thing in the sky should. The astronomer who checked the printout circled it and wrote &ldquo;Wow!&rdquo; in the margin. People have listened to that part of the sky many times since. Nobody has ever heard it again.</p>';
+
+  /* ---------- tonight's four signals ---------- */
+  var CARDS = {
+    a: { t: 'A &middot; 23:52 until now', d: '<p><b>Very narrow:</b> one frequency, 1421.2 MHz, a needle beside the hydrogen hill.</p><p>Short pulses: 1, then 2, then 3, then 4, then 5, then again from the start.</p><p>The dish has followed the stars since 23:30. A has stayed in the middle of the beam for twenty minutes.</p>',
+      wf: '<path d="M70 6V98" stroke="#ffcf6a" stroke-width="3" stroke-dasharray="4 3 4 3 4 9"/>' },
+    b: { t: 'B &middot; 23:41 to 23:58', d: '<p><b>Very narrow,</b> at 1420.9 MHz. One click every second, as regular as a clock.</p><p>Looked away at 23:43: <b>still there,</b> just as strong. Looked back: still there. At 23:50 the dish turned to the other side of the sky: still there.</p>',
+      wf: '<path d="M54 6V98" stroke="#bfe9de" stroke-width="3" stroke-dasharray="2 8"/>' },
+    c: { t: 'C &middot; 23:20', d: '<p><b>Narrow,</b> at 1421.6 MHz.</p><p>It came in at one edge of the beam and was gone from the other edge <b>about four seconds</b> later, while the dish was following the stars. Not seen again.</p>',
+      wf: '<path d="M30 40L90 52" stroke="#bfe9de" stroke-width="3"/>' },
+    d: { t: 'D &middot; 22:00 to 23:30', d: '<p><b>Wide and smooth:</b> a hill, not a needle, with its top at 1420.4 MHz.</p><p>Strongest when the dish pointed along the Milky Way, weaker away from it, never quite gone.</p>',
+      wf: '<g fill="#9aa8a4"><rect x="30" y="6" width="60" height="92" opacity=".25"/><rect x="42" y="6" width="36" height="92" opacity=".35"/><rect x="52" y="6" width="16" height="92" opacity=".4"/></g>' }
+  };
+  var LABELS = {
+    sky: 'One point in the sky: narrow, and it stays among the stars',
+    ground: 'From the ground: it leaks in round the edge of the dish',
+    sat: 'A satellite crossing the beam',
+    hyd: 'Hydrogen gas: natural, spread all along the Milky Way',
+    plane: 'An aircraft&rsquo;s radio, passing over the moor',
+    wow: 'The Wow! signal, back again after all these years'
+  };
+  var ORDER = ['wow', 'hyd', 'ground', 'plane', 'sky', 'sat'];
+
+  function hints() {
+    if (nextFile) return ['go', ['Nadia has rung the director. The message has moved on to something new, and Yusuf has the whiteboard in the kitchen. Click the button at the bottom to go there.']];
+    if (!ER.flag('c-talk')) return ['talk', [
+      'Nadia is at the right-hand end of the desk. Click on her and listen to the end.',
+      'Then read the card taped to the desk, in front of the big screen, and the blue poster on the right-hand wall.'
+    ]];
+    if (!ER.flag('c-card') || !ER.flag('c-dish')) return ['read', ['Two things to read before tonight&rsquo;s log: the yellow card taped to the desk (IS IT FROM THE SKY?) and the blue poster on the right-hand wall (MIRKFELL 50 m). The framed printout above the poster is worth a look too.']];
+    return ['log', [
+      'Each card is one thing the dish heard tonight. Read its notes and test it against the yellow card. Card A has never been tested by looking away: its card has two buttons for that.',
+      'Test 1: something that is still there when the dish looks away is on the ground. Test 2: something that crosses the beam in seconds is a satellite. Test 3: a wide, smooth hill is nature; a needle is made by somebody.',
+      'B is still there when the dish looks away: the ground. C crosses in four seconds: a satellite. D is a wide hill along the Milky Way: hydrogen. A, once you have looked away and back, is the one point in the sky. Two labels are left over.'
+    ]];
+  }
+  function paint() {
+    var ready = !nextFile && ER.flag('c-talk') && ER.flag('c-card') && ER.flag('c-dish');
+    $('#sig').setAttribute('class', 'hot' + (ready ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 1 : 0, 1);
+  }
+  function isBusy() { return busy; }
+  function begin() {
+    paint();
+    if (nextFile) { ER.say('The control room. On the big screen the needle is still there, and it has moved on from counting.'); return; }
+    if (ER.flag('c-seen')) { ER.say('The control room: the racks, the long window, the big screen with its needle, and Nadia at the desk.'); return; }
+    busy = true; ER.flag('c-seen', 1);
+    ER.narrate([
+      'The control room is warm and dim, full of fans and small green lights. Through the long window the dish stands against the stars like an enormous white ear, turned up to the south.',
+      'On the big screen, beside the soft grey hill that is hydrogen, there is a thin bright needle that was not there a minute ago. Under it, a row of dots lights up: one. Then two. Then three.',
+      'Nadia puts her mug down very carefully, the way people do when they are trying not to get excited. &ldquo;Right,&rdquo; she says. &ldquo;Before anybody gets excited.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#nadiaG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;He&rsquo;s coming,&rdquo; says Nadia. &ldquo;I could hear him looking for his car keys. Go and find Yusuf: he&rsquo;s in the kitchen with the whiteboard.&rdquo;'); return; }
+    if (ER.flag('c-talk')) { ER.say('&ldquo;Four things in the log, A to D,&rdquo; says Nadia. &ldquo;Put a name on each one, and prove A. The card on the desk has the tests.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.nadia.who, role: CAST.nadia.role, face: FACE('nadia'),
+      lines: [
+        { note: 'A woman of about forty, with a pencil pushed through her hair and her glasses pushed up on her head. She does not take her eyes off the screen.',
+          a: '&ldquo;You wrote the essay about <i>Cosmos</i>, didn&rsquo;t you? Good. Then you know the rule. Extraordinary claims need extraordinary evidence. Carl Sagan said that, and he was right.&rdquo;' },
+        { q: 'What is the needle?',
+          a: '&ldquo;Something narrow, at 1421.2 megahertz, just above the hydrogen line. Nature very seldom makes a needle as thin as that: transmitters do. But there are transmitters everywhere, in cars, in satellites, in kitchens. Most of what this dish hears that looks clever turns out to be a fridge.&rdquo;' },
+        { q: 'So how do we know?',
+          a: '&ldquo;We test it. The card taped to the desk has the tests. Tonight&rsquo;s log, on the right-hand screen, has four things on it, A to D. Put a name on each one, and prove A. Nobody has tried looking away from A yet.&rdquo;' },
+        { q: 'And if A is from the sky?',
+          a: '&ldquo;Then I ring the director, Professor Stroud, and I wake him up. And if I wake him up for a microwave oven, I will never hear the end of it.&rdquo;' }
+      ],
+      clue: { id: 'nadia1', title: 'Nadia, at eight minutes to midnight', kind: 'What she said' }, last: 'Look round the room',
+      done: function (seen) { if (!seen) return; ER.flag('c-talk', 1); GR.learn(['radio telescope', 'needle', 'frequency']); paint(); ER.say('The yellow card is taped to the desk in front of the big screen. The poster about the dish is on the right-hand wall.'); }
+    });
+  });
+  $('#card').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: CARD, cls: 'card', clue: { id: 'skycard', title: 'Is it from the sky?', kind: 'Taped to the desk' }, done: function () { ER.flag('c-card', 1); GR.learn(['beam', 'interference', 'transmitter']); paint(); } });
+  });
+  $('#poster').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: DISH, cls: 'binder', clue: { id: 'dish', title: 'How a radio telescope works', kind: 'Blue binder' }, done: function () { ER.flag('c-dish', 1); GR.learn(['dish', 'focus', 'receiver', 'hydrogen line', 'wavelength']); paint(); } });
+  });
+  $('#wow').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: WOW, cls: 'wow', clue: { id: 'wow', title: 'The Wow! signal, 1977', kind: 'Framed on the wall' }, done: function () {
+      ER.flag('c-wow', 1); ER.say('&ldquo;Every astronomer has that on a wall somewhere,&rdquo; says Nadia. &ldquo;Seventy-two seconds, once, in 1977. If ours stops after seventy-two seconds, I am going to cry.&rdquo;'); } });
+  });
+  $('#sig').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('TONIGHT&rsquo;S LOG. Beside A, Nadia has typed: FROM THE SKY. DIRECTOR TOLD 00:16.'); return; }
+    if (!ER.flag('c-talk')) { ER.say('TONIGHT&rsquo;S LOG: four lines, A to D. Nadia is watching the screen as if it might run away. Talk to her first.'); return; }
+    if (!ER.flag('c-card') || !ER.flag('c-dish')) { ER.say('&ldquo;Read the card on the desk first,&rdquo; says Nadia, &ldquo;and the poster on the wall. Then the log.&rdquo;'); return; }
+    openLog();
+  });
+  $('#spk').addEventListener('click', function () {
+    if (busy) return;
+    GR.sfx.pulse(1); GR.sfx.pulse(2, 0.6); GR.sfx.pulse(3, 1.3);
+    ER.say('The speaker turns what the receiver hears into sound: a soft hiss, and every few seconds a little run of pips. Pip. Pip pip. Pip pip pip.');
+  });
+  GR.thing('#win', 'dish', 'The dish: fifty metres across, white, as tall as a church. Tonight it is turned up to the south, following one patch of sky as the Earth turns, a quarter of a degree every minute.', isBusy);
+  GR.thing('#racks', null, 'The racks hum. Every green light is something working. Every orange light is something Nadia is going to look at tomorrow.', isBusy);
+  GR.thing('#pos', 'azimuth', 'DISH 50 m · AZ 192.0° · EL 46.0° · TRACKING. Azimuth is the direction round the horizon; elevation is the height above it. The dish is following one point in the sky as the Earth turns.', isBusy);
+  GR.thing('#spec', 'needle', function () { return 'The big screen: frequency along the bottom. The grey hill is hydrogen gas, all over the sky. The yellow needle at 1421.2 is the thing that is counting.'; }, isBusy);
+  GR.thing('#mug', null, 'Nadia&rsquo;s mug says WORLD&rsquo;S OKAYEST ASTRONOMER. The tea in it went cold some time ago.', isBusy);
+
+  /* ---------- the log: four cards and six labels ---------- */
+  function openLog() {
+    var box = ER.el('div', 'sg'), done = false;
+    box.innerHTML = '<h6>TONIGHT&rsquo;S LOG &middot; FOUR THINGS THE DISH HEARD &middot; PUT A LABEL ON EACH</h6><div class="sg-cards">' +
+      ['a', 'b', 'c', 'd'].map(function (k) {
+        var c = CARDS[k];
+        return '<div class="sgc" data-c="' + k + '"><svg class="wf" viewBox="0 0 118 104"><path d="M8 98H110" stroke="#2d4a48"/>' + c.wf + '</svg><div><h5>' + c.t + '</h5>' + ER.gloss(c.d) +
+          (k === 'a' ? '<div class="test"><button type="button" class="btn" id="t-off">Look away 1°</button><button type="button" class="btn" id="t-on">Look back</button><span class="meter"><i></i></span></div><p class="tres"></p>' : '') +
+          '<div class="sl" data-c="' + k + '"></div></div></div>';
+      }).join('') + '</div><div class="sg-tray"></div><div class="sg-foot"><p class="pmsg"></p><button type="button" class="btn" id="c-show">Show Nadia</button></div>';
+    var tray = box.querySelector('.sg-tray'), msgEl = box.querySelector('.pmsg'), meter = box.querySelector('.meter');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    ORDER.forEach(function (k) {
+      var n = ER.el('div', 'lb dnd-item', LABELS[k]); n.setAttribute('data-l', k);
+      var at = null, c; for (c in S.at) if (S.at[c] === k) at = c;
+      (at ? box.querySelector('.sl[data-c="' + at + '"]') : tray).appendChild(n);
+    });
+    function read() {
+      var o = {}; ER.$$('.sl', box).forEach(function (s) { var t = s.querySelector('.lb'); o[s.getAttribute('data-c')] = t ? t.getAttribute('data-l') : ''; s.classList.toggle('full', !!t); s.classList.remove('bad'); });
+      return o;
+    }
+    function tres() {
+      box.querySelector('.tres').innerHTML = ER.gloss(S.off >= 2 ? '<b>Looked away at 00:13: gone. Looked back at 00:14: back, as strong as before.</b>' : S.off === 1 ? '<b>Looked away at 00:13: gone.</b> Now look back.' : 'Looked away: not tried yet.');
+      meter.classList.toggle('off', S.off === 1);
+    }
+    tres();
+    ER.dnd(box, { item: '.lb', slot: '.sl', home: tray, change: function () { S.at = read(); keep(); }, lock: function () { return done; } });
+    read();
+    box.querySelector('#t-off').addEventListener('click', function () {
+      if (done) return;
+      if (S.off === 1) { msg('The dish is already looking one degree away.'); return; }
+      S.off = 1; keep(); GR.sfx.motor(1.4); tres(); msg('The dish hums round by one degree. The needle on the big screen sinks into the hiss and is gone.');
+    });
+    box.querySelector('#t-on').addEventListener('click', function () {
+      if (done) return;
+      if (S.off !== 1) { msg(S.off >= 2 ? 'Done already: away, gone; back, back again.' : 'Look away first, then look back.'); return; }
+      S.off = 2; keep(); GR.sfx.motor(1.4); setTimeout(function () { GR.sfx.pulse(3); }, 1500); tres(); msg('The dish hums back. The needle comes up out of the hiss, and goes on counting where it left off.');
+    });
+    var WHY = {
+      sky: { b: '&ldquo;B was still there when we looked away, and on the other side of the sky. Things in the sky don&rsquo;t follow you round the room.&rdquo;', c: '&ldquo;C crossed the whole beam in four seconds while the dish was following the stars. The stars don&rsquo;t cross the sky in four seconds.&rdquo;', d: '&ldquo;D isn&rsquo;t one point: it&rsquo;s strongest all along the Milky Way. And it&rsquo;s a hill, not a needle.&rdquo;' },
+      ground: { a: '&ldquo;If A came from the ground, it would still be there when we look away. Look at what happened when we did.&rdquo;', c: '&ldquo;Something on the ground doesn&rsquo;t cross the beam in four seconds and vanish.&rdquo;', d: '&ldquo;Ground interference is narrow, like any transmitter. D is a wide, smooth hill. Card, test 3.&rdquo;' },
+      sat: { a: '&ldquo;A satellite would be gone in seconds. A has stayed in the middle of the beam for twenty minutes.&rdquo;', b: '&ldquo;B stayed put for a quarter of an hour, wherever we pointed. That&rsquo;s no satellite.&rdquo;', d: '&ldquo;A satellite makes a needle and crosses in seconds. D is a hill, and it stays.&rdquo;' },
+      hyd: { a: '&ldquo;Hydrogen makes a wide hill. A is a needle. Card, test 3.&rdquo;', b: '&ldquo;Hydrogen makes a wide hill, and it doesn&rsquo;t click once a second.&rdquo;', c: '&ldquo;Hydrogen is a hill, all along the Milky Way. C is a needle that ran across the beam.&rdquo;' },
+      plane: { x: '&ldquo;An aircraft? Look at the notes again. Which test does this one fail, or pass? There are four better labels than that.&rdquo;' },
+      wow: { x: '&ldquo;The Wow! signal lasted seventy-two seconds in 1977, from another part of the sky, and nobody has heard it since. It&rsquo;s a true story, and it isn&rsquo;t this.&rdquo;' }
+    };
+    box.querySelector('#c-show').addEventListener('click', function () {
+      if (done) return;
+      var L = read(), keys = ['a', 'b', 'c', 'd'], bad = null, i;
+      if (!L.a && !L.b && !L.c && !L.d) { msg('&ldquo;Labels on the cards first,&rdquo; says Nadia. &ldquo;Drag them, or click a label and then a card.&rdquo;'); return; }
+      if (keys.some(function (k) { return !L[k]; })) { msg('&ldquo;Four cards, four labels. Two labels will be left over.&rdquo;'); ER.shake(box.querySelector('.sg-cards')); return; }
+      if (L.a === 'sky' && S.off < 2) { msg('&ldquo;Maybe. But we haven&rsquo;t proved it. Nobody has looked away from A yet: card, test 1. Use the buttons on card A.&rdquo;'); return; }
+      for (i = 0; i < 4; i++) if (!ER.check('t' + keys[i], L[keys[i]])) { bad = keys[i]; break; }
+      if (bad) {
+        GR.bump('miss'); GR.sfx.hm();
+        box.querySelector('.sl[data-c="' + bad + '"]').classList.add('bad');
+        var w = WHY[L[bad]] || {}, t = w[bad] || w.x;
+        msg(t || '&ldquo;Card ' + bad.toUpperCase() + ' doesn&rsquo;t fit that label. Read its notes against the three tests.&rdquo;'); return;
+      }
+      var file = ER.exitOk([L.a + '|' + L.b + '|' + L.c + '|' + L.d]);
+      if (!file) { msg('&ldquo;Hm. Read them to me again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('c-file', file); GR.done('control'); busy = true;
+      GR.mine('first', 'A is from the sky', '<p>A: narrow, 1421.2 MHz. Gone when we looked away, back when we looked back. Stays among the stars.</p><p>B ground (a click every second!) &middot; C satellite &middot; D hydrogen.</p><p>Pulses: 1, 2, 3, 4, 5, again. Prof. Stroud is coming. A telescope in Spain is asked to listen.</p>', true);
+      msg('Nadia reads the four cards twice, and then once more, with her lips moving.');
+      setTimeout(function () { ER.closeAll(); GR.solved(); paint(); after(); }, 2400);
+    });
+    msg(Object.keys(S.at).some(function (k) { return S.at[k]; }) ? 'The labels are where you left them.' : 'Drag a label onto each card, or click a label and then a card. Card A has two buttons for test 1.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    ER.narrate([
+      'Nadia picks up the telephone, puts it down, and picks it up again. &ldquo;Oswin? It&rsquo;s Nadia. No, nothing&rsquo;s broken. Yes, I know what time it is. Listen. Narrow. One point in the sky. It went when we looked away and came back when we looked back. And it&rsquo;s counting.&rdquo;',
+      'A long silence. &ldquo;He&rsquo;s coming,&rdquo; she says. &ldquo;Two hours, if he drives the way he talks. He says: record everything, tell nobody, and do not touch the transmitter.&rdquo; The dish has a small radar transmitter, for measuring rocks in space. Nobody has said anything about it until now.',
+      'She sends one more message, to a radio telescope in Spain that will be able to see this patch of sky later tonight. Test four: ask somebody else to listen.',
+      'By a quarter past midnight the needle has finished counting. It has begun something else: little blocks of pulses, with the counting dots between them. &ldquo;Yusuf!&rdquo; Nadia shouts down the corridor. &ldquo;Bring the whiteboard. And whatever you&rsquo;re eating.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

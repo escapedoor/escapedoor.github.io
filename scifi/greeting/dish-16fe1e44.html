@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Dish · With Open Arms</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-scifi.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="greeting.css">
+<style>
+  body{--bg:#05070f;--accent:#ff8a5a;--font-display:'Oswald',sans-serif;--font-ui:'Oswald',sans-serif;--font-body:'Outfit',sans-serif;
+    --tc-bg:rgba(6,8,16,.96);--tc-ink:#e8ecf6;--cap-bg:rgba(6,8,16,.93);--cap-ink:#eef2fa;--panel:#101422;--face-bg:#3a2c22;--q-ink:#ffc8a8;--fade:#010204;--hud-bg:rgba(6,8,16,.82)}
+  .tc-room{font-size:56px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+  .tk-name{font-family:'Oswald',sans-serif;font-weight:500}
+  .red{animation:red 2s steps(1) infinite}
+  @keyframes red{0%,45%{opacity:1}46%,100%{opacity:.12}}
+  .gust{animation:gust 4.5s linear infinite}
+  .gust:nth-child(2){animation-delay:-1.6s;animation-duration:5.5s}.gust:nth-child(3){animation-delay:-3s;animation-duration:3.8s}
+  @keyframes gust{from{transform:translate(-300px,0);opacity:0}20%{opacity:.5}to{transform:translate(500px,30px);opacity:0}}
+  .tw{animation:tw 4s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.3}}
+  #term.next .tscr{animation:gnudge 1.7s ease-in-out infinite}
+
+  /* the cabin terminal */
+  .tx{display:grid;grid-template-columns:minmax(0,600px) 400px;gap:14px;width:min(1030px,96vw);align-items:start}
+  .tx-draft{padding:10px 14px 8px;background:#07110c;border:1px solid #2a5a3c;border-radius:8px;color:#bff5c6;box-shadow:inset 0 0 30px rgba(120,255,160,.08),0 26px 70px rgba(0,0,0,.6)}
+  .tx-draft h6{margin:0 0 6px;font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:12.5px;letter-spacing:.14em;color:#7fe08f}
+  .dl{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;padding:2px 0;border-top:1px solid #163322}
+  .dl>b{font-family:'Share Tech Mono',monospace;font-weight:normal;font-size:13px;color:#5aa06a}
+  .dl .en{grid-column:2;font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.05;color:#ffd08a;margin:0 0 3px}
+  .dl .ml{gap:1px}
+  .tok{display:inline-flex;align-items:center;padding:2px;border:1px solid transparent;border-radius:4px;color:#bff5c6}
+  .tok:hover{border-color:#7fe08f;background:rgba(127,224,143,.12)}
+  .tok.sel{border-color:#ff8a5a;background:rgba(255,138,90,.2);color:#ffb08a}
+  .tok.okd{border-color:#7fe08f;background:rgba(127,224,143,.25)}
+  .tok .dts{margin:0 2px}
+  .tx-side{padding:10px 14px;background:#121626;border:1px solid #3a4260;border-radius:8px;color:#e8ecf6}
+  .step{margin:0 0 8px;padding:8px 10px;border:1px solid #2a3250;border-radius:6px;background:#0c1020}
+  .step.off{opacity:.35;pointer-events:none}
+  .step h5{margin:0 0 5px;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.05em;color:#ff8a5a}
+  .step h5 i{font-style:normal;color:#7fe08f}
+  .slots{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .slots>div>small{display:block;font-family:'Outfit',sans-serif;font-weight:300;font-size:13px;line-height:1.2;margin-bottom:3px;color:#c8d0e6}
+  .slot{min-height:44px;padding:3px;border:2px dashed rgba(200,208,230,.35);border-radius:5px;background:rgba(0,0,0,.25)}
+  .slot.full{border-style:solid;border-color:#c8d0e6}
+  .slot.bad{border-color:#ff6a3a;background:rgba(255,106,58,.15)}
+  .cards,.gtiles{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;min-height:36px}
+  .ev{display:block;padding:4px 7px;background:#e8f2ea;color:#102018;border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:12.5px;line-height:1.25;cursor:grab;box-shadow:0 2px 0 rgba(0,0,0,.45);
+    -webkit-user-select:none;user-select:none;max-width:100%}
+  .ev .gl{width:14px;height:14px;margin:0 1px;color:#102018}
+  .ev .dts i{width:5px;height:5px;background:#102018}
+  .ev.held{outline:3px solid #ff8a5a}
+  .ev.fly,.gt.fly{position:fixed;z-index:99;pointer-events:none;opacity:.9}
+  .gt{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;background:#e8f2ea;color:#102018;border-radius:5px;cursor:grab;box-shadow:0 2px 0 rgba(0,0,0,.45)}
+  .gt.held{outline:3px solid #ff8a5a}
+  .fixslot{display:flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:300;font-size:14px}
+  .fixslot .slot{width:60px;min-height:54px;display:flex;align-items:center;justify-content:center}
+  .tx-side .pmsg{min-height:72px;margin:6px 0;font-size:15.5px}
+  .tx-side .btn{float:right}
+  @media (max-width:1000px){.tx{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="dSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#02030a"/><stop offset=".7" stop-color="#0a1024"/><stop offset="1" stop-color="#18203a"/></linearGradient>
+  <linearGradient id="bowlG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8e0ea"/><stop offset=".6" stop-color="#8a96aa"/><stop offset="1" stop-color="#3a4256"/></linearGradient>
+  <linearGradient id="cab" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c8d0da"/><stop offset="1" stop-color="#8a94a2"/></linearGradient>
+  <radialGradient id="doorL" cx="30%" cy="50%" r="70%"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".95"/><stop offset="1" stop-color="#c88a4a" stop-opacity=".9"/></radialGradient>
+  <radialGradient id="spill"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffd8a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#010204" stop-opacity=".2"/><stop offset="1" stop-color="#010204" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#dSky)"/>
+<g id="dstars" fill="#fff"></g>
+<path d="M-1000 610Q-200 580 600 606T2600 600V1500H-1000Z" fill="#05070c"/>
+<!-- the moor far below, and a farm with a light -->
+<g id="farm" class="hot"><rect x="60" y="590" width="150" height="40" fill="transparent"/><circle cx="120" cy="606" r="4" fill="#ffd08a"/><circle cx="150" cy="610" r="2.5" fill="#ffd08a"/><path d="M60 616h140" stroke="#2a3040" stroke-width="2" stroke-dasharray="4 6"/></g>
+<!-- the bowl of the dish, curving away below you -->
+<g id="bowl" class="hot"><path d="M-400 900Q300 470 1500 640Q1900 700 2200 900V1500H-400Z" fill="url(#bowlG)"/>
+  <g stroke="#6a768a" stroke-width="2" fill="none" opacity=".7"><path d="M-200 900Q400 560 1500 700"/><path d="M0 1000Q500 640 1600 780"/><path d="M200 470Q300 800 400 1100"/><path d="M700 520Q760 800 800 1100"/><path d="M1200 600Q1180 800 1150 1100"/></g>
+  <ellipse cx="760" cy="760" rx="180" ry="40" fill="url(#spill)"/></g>
+<!-- one leg of the dish, with the ladder in its cage, coming up from the bowl -->
+<g id="ladder" class="hot"><path d="M300 900L520 160M380 900L560 160" stroke="#9aa6b6" stroke-width="12"/>
+  <g stroke="#c8d2de" stroke-width="4"><path d="M318 850h66M336 790h66M354 730h64M372 670h62M390 610h60M408 550h58M426 490h56M444 430h54M462 370h52M480 310h50M498 250h48M516 190h46"/></g>
+  <g stroke="#6a7686" stroke-width="3" fill="none"><path d="M296 830q60 -40 110 10M330 720q56 -40 104 8M362 610q52 -38 98 8M394 500q48 -36 92 8M424 390q46 -34 86 8M456 280q42 -32 80 8"/></g></g>
+<!-- the platform and its rail -->
+<path d="M480 300H1500V330H480Z" fill="#5a6474"/><path d="M480 220H1500" stroke="#9aa6b6" stroke-width="6"/><g stroke="#9aa6b6" stroke-width="5"><path d="M500 220V300M700 220V300M900 220V300"/></g>
+<!-- the focus cabin, its door open -->
+<g id="cabin"><rect x="960" y="40" width="560" height="270" fill="url(#cab)"/><rect x="960" y="40" width="560" height="20" fill="#6a7484"/>
+  <circle class="red" cx="1240" cy="30" r="10" fill="#ff3a2a"/><path d="M1240 40V30" stroke="#6a7484" stroke-width="4"/>
+  <rect x="1000" y="90" width="260" height="210" fill="url(#doorL)"/><path d="M1000 90L940 110V310L1000 300Z" fill="#7a8494"/>
+  <!-- inside: the transmitter rack, its clock, and the terminal -->
+  <g id="clock" class="hot"><rect x="1150" y="104" width="96" height="44" rx="4" fill="#0a0c10"/><text x="1198" y="122" text-anchor="middle" class="mono" font-size="11" fill="#ff8a5a">TX 04:10</text><text id="nowT" x="1198" y="140" text-anchor="middle" class="mono" font-size="12" fill="#ffd08a">NOW 03:47</text></g>
+  <g id="term" class="hot"><rect x="1020" y="160" width="130" height="96" rx="4" fill="#2a2e36"/><g class="tscr"><rect x="1030" y="170" width="110" height="70" fill="#07110c"/>
+    <g fill="#7fe08f"><rect x="1038" y="180" width="8" height="8"/><rect x="1050" y="180" width="8" height="8"/><rect x="1066" y="180" width="8" height="8"/><rect x="1038" y="198" width="8" height="8"/><rect x="1054" y="198" width="8" height="8"/><rect x="1072" y="198" width="8" height="8"/><rect x="1038" y="216" width="8" height="8"/><rect x="1080" y="216" width="8" height="8" fill="#ff8a5a"/></g></g>
+    <rect x="1060" y="244" width="50" height="8" fill="#1a1c22"/></g>
+  <path d="M1180 300l40 -110h20l40 110z" fill="#9aa6b6"/><ellipse cx="1240" cy="300" rx="58" ry="10" fill="#6a7484"/>
+  <rect x="1300" y="90" width="180" height="140" fill="#1a2030"/><g fill="#0a0c12"><rect x="1312" y="102" width="156" height="116"/></g><g fill="#2a3040"><circle cx="1350" cy="140" r="6"/><circle cx="1350" cy="170" r="6"/><circle cx="1380" cy="140" r="6"/></g><text x="1390" y="200" class="sten" font-size="14" fill="#5a6478">RADAR TX</text></g>
+<!-- the professor in the doorway, Nadia holding the rail -->
+<g id="stroudG" class="hot"><use href="#ch-stroud" x="780" y="80" width="230" height="299"/><g id="key"><circle cx="980" cy="300" r="7" fill="#e6c56a"/><path d="M980 300h22v6" stroke="#e6c56a" stroke-width="4" fill="none"/></g></g>
+<g id="nadiaG" class="hot"><use href="#ch-nadia" x="560" y="90" width="220" height="286"/></g>
+<!-- the wind -->
+<g stroke="#c8d2de" stroke-width="2" opacity=".5" fill="none" pointer-events="none"><path class="gust" d="M100 420q80 -10 160 0"/><path class="gust" d="M300 520q90 -12 180 0"/><path class="gust" d="M0 360q70 -8 140 0"/></g>
+<rect x="-1000" y="-600" width="3600" height="2100" fill="url(#vig)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Climb down</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="greeting.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = false, nextFile = null;
+  (function () { var s = '', i, seed = 17; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (i = 0; i < 140; i++) s += '<circle' + (i % 5 ? '' : ' class="tw"') + ' cx="' + Math.round(-600 + rnd() * 2800) + '" cy="' + Math.round(-500 + rnd() * 1160) + '" r="' + (0.6 + rnd() * 1.7).toFixed(1) + '" opacity="' + (0.3 + rnd() * 0.7).toFixed(2) + '" style="animation-delay:-' + (rnd() * 4).toFixed(1) + 's"/>';
+    $('#dstars').innerHTML = s; })();
+
+  ER.init({
+    theme: 'scifi', story: 'greeting', storyTitle: 'With Open Arms', id: 'dish', no: 'V', title: 'The Dish',
+    go: 'Clip on and climb',
+    intro: [
+      'In the receiver hut you tried each new word in every sentence that used it. The arrow was giving, the way you give a present. The dots were you, whoever reads the message. And the stick was one of their words that needs two of ours: a tool when it is used on stone, and a weapon when it is used on people. Their sentence about that ends with NOT.',
+      'Then the professor&rsquo;s draft reply came off the printer. He wrote it from his own board, before you fixed it.',
+      'It is nineteen minutes to four. The transmitter will send the draft at ten past. The professor is fifty metres up, in the cabin at the focus of the dish, and he has the only key.'
+    ],
+    exit: {"next":"sky","w":{"7fc3369e":"89b41998"}}, tags: {"bad":["d7890e1b"],"why1":["1d707fa6"],"why2":["0e7611f1"],"fix":["282ac2cf"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null;
+  var S = ER.flag('d-st') || { step: 1, ev: {}, fix: '' };
+  function keep() { ER.flag('d-st', S); }
+
+  var DRAFT = [
+    [[2, 3, 5, 7], 'We hear you. We can count too.'],
+    [['we', 'bars', 'p:human'], 'These are us.'],
+    [['we', 'fork', 't', 'fork', 'stone', 'bars', 'p:dish'], 'With tools and stone we built this.'],
+    [['we', 'give', 'you', 'frame'], 'We give you a present: this picture.'],
+    [[1, 'we', 'fork', 't', 'fork', 1, 'you', 'bars', 2, 'we'], 'We welcome you with open arms.'],
+    [['you', 'give', 'we', 'hook'], 'Please do not leave. Talk to us again.']
+  ];
+  var M = GR.MSG.p5;
+  var EV = {
+    c1: ['C1 ', M.c1], c2: ['C2 ', M.c2], c3: ['C3 ', M.c3], c4: ['C4 ', M.c4],
+    pic: ['the picture: two of them meet; the long thing lies on the ground', null], r4: ['row 4 ', GR.MSG.p2[3]]
+  };
+  var EVORDER = ['c4', 'r4', 'c1', 'pic', 'c3', 'c2'];
+  var GT = ['diam', 'stone', 'hand', 'give', 'house', 'you'];
+
+  function hints() {
+    if (nextFile) return ['go', ['The reply has gone, the right way. Click the button at the bottom to climb down.']];
+    if (!ER.flag('d-talk')) return ['talk', ['The professor is standing in the doorway of the cabin, with the key. Talk to him first.']];
+    if (S.step === 1) return ['wrong', [
+      'Read the draft one line at a time, with the professor&rsquo;s English under it. Read each line with their words and their sentences, not his. Which one does not say what he meant?',
+      'There are two sticks in the draft, in R3 and in R5. In their sentences the stick is a tool when it is used on stone (C1) and a weapon when it is used on people (C3).',
+      'In R5 the stick stands between one of us and one of you. Click that stick.'
+    ]];
+    if (S.step === 2) return ['prove', [
+      'Two spaces. The first asks what the stick means when it is used on people. The second asks what they do with it when two of them meet.',
+      'Only one of their sentences puts the stick next to people, and they put NOT after it. Only one thing you have shows two of them meeting AND where the stick is while they do.',
+      'The first space: their sentence with three of them and NOT. The second: the picture you laid out on the light table.'
+    ]];
+    return ['fix', [
+      'Which of their symbols goes between one of us and one of you, in their own way of saying hello?',
+      'Read C4 again: one of us, something, one of us, makes two of us.',
+      'Their hello uses the open hand.'
+    ]];
+  }
+  function paint() {
+    var ready = !nextFile && ER.flag('d-talk');
+    $('#term').setAttribute('class', 'hot' + (ready ? ' next' : ''));
+    $('#go').classList.toggle('on', !!nextFile && !busy);
+    ER.pips(nextFile ? 3 : S.step - 1, 3);
+  }
+  function isBusy() { return busy; }
+  var tick = 0;
+  setInterval(function () { tick++; $('#nowT').textContent = nextFile ? 'SENDING' : 'NOW 03:' + Math.min(59, 47 + Math.floor(tick / 40)); }, 1000);
+  function begin() {
+    paint();
+    if (nextFile) { ER.mood('calm'); ER.say('The top of the dish. The transmitter is humming: the reply is going out.'); return; }
+    if (ER.flag('d-seen')) { ER.say('The platform at the top of the dish: the cabin door, the professor with the key, the terminal inside.'); return; }
+    busy = true; ER.flag('d-seen', 1); GR.sfx.wind(3);
+    ER.narrate([
+      'The ladder goes up one leg of the dish inside a metal cage. Nadia clips your harness to the rail and her own behind it. &ldquo;Three points of contact,&rdquo; she says. &ldquo;Two hands and a foot, or two feet and a hand. Always. And don&rsquo;t look down.&rdquo;',
+      'You look down. The dish is a great pale bowl below you, wider than a football pitch, curving away into the dark. Far off on the moor there is one light, at the farm with the electric fence.',
+      'At the top, on a narrow platform, the cabin door is open and full of yellow light. The professor is standing in it with a spanner in one hand and the transmitter key in the other. On the rack behind him a small clock says: TX 04:10.'
+    ], function () { busy = false; paint(); });
+  }
+
+  $('#stroudG').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('&ldquo;Hands, not arms,&rdquo; says the professor, to nobody in particular. &ldquo;Put it on my gravestone.&rdquo;'); return; }
+    if (ER.flag('d-talk')) { ER.say('&ldquo;Show me,&rdquo; says the professor. &ldquo;Not tell me: show me. With their sentences. The terminal is just inside the door.&rdquo;'); return; }
+    ER.talk({
+      who: CAST.stroud.who, role: 'In the doorway of the focus cabin', face: FACE('stroud'),
+      lines: [
+        { note: 'The professor looks delighted to see you, and puzzled that you are out of breath.',
+          a: '&ldquo;Visitors! Fifty metres up at four in the morning. You can put that in your next essay. The horn&rsquo;s changed. In twenty minutes the transmitter starts, and the neighbours get their reply.&rdquo;' },
+        { q: 'There is a mistake in the reply.',
+          a: '&ldquo;Nonsense. I wrote it with their own words, from our own board. &lsquo;We welcome you with open arms.&rsquo; One of us, arms, one of you: two of us. It&rsquo;s their own hello, with our arms open. It&rsquo;s charming.&rdquo;' },
+        { q: 'The board was wrong.',
+          a: '&ldquo;I wrote that board myself.&rdquo; &ldquo;You did,&rdquo; says Nadia. &ldquo;And we fixed it.&rdquo; The professor looks from her to you and back again.' },
+        { q: 'Will you listen?',
+          a: '&ldquo;I will look. Don&rsquo;t tell me: show me, with their sentences. I have changed my mind twice in thirty years, and I enjoyed it both times.&rdquo; He glances at the clock. &ldquo;You have twenty-three minutes. The terminal is just inside the door.&rdquo;' }
+      ],
+      clue: { id: 'stroud3', title: 'The professor, at the cabin door', kind: 'What he said' }, last: 'Go to the terminal',
+      done: function (seen) { if (!seen) return; ER.flag('d-talk', 1); GR.learn(['focus cabin', 'feed horn', 'transmitter', 'with open arms']); paint(); }
+    });
+  });
+  $('#term').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The terminal: R5 now reads one of us, a hand, one of you, two of us. Under it: SENDING.'); return; }
+    if (!ER.flag('d-talk')) { ER.say('The terminal is inside the cabin, and the professor is standing in the doorway. Talk to him first.'); return; }
+    openTerm();
+  });
+  GR.thing('#clock', null, function () { return nextFile ? 'The transmitter clock: SENDING. Its hum fills the cabin.' : 'The transmitter clock: TX 04:10. The draft will go then, whatever it says.'; }, isBusy);
+  GR.thing('#bowl', 'dish', 'The bowl of the dish, fifty metres across, pale in the starlight. Every panel was set to within a millimetre, says Nadia, so that every wave arrives at the focus at the same moment.', isBusy);
+  GR.thing('#ladder', 'ladder', 'The ladder you came up, in its cage. Your harness is still clipped to the rail. Going down will be worse.', isBusy);
+  GR.thing('#farm', 'fence', 'The farm on the moor: one light, and somewhere in the dark, an electric fence, clicking once a second, as it was at a quarter to twelve.', isBusy);
+  GR.thing('#nadiaG', null, function () { return nextFile ? '&ldquo;Their own hello,&rdquo; says Nadia. &ldquo;Hands, not arms.&rdquo;' : '&ldquo;Show him,&rdquo; says Nadia, holding the rail with both hands. &ldquo;He likes being shown. He hates being told.&rdquo;'; }, isBusy);
+
+  /* ---------- the terminal ---------- */
+  function evHtml(k) { var e = EV[k]; return e[1] ? e[0] + GR.line(e[1], 14) : e[0]; }
+  function openTerm() {
+    var box = ER.el('div', 'tx'), done = false;
+    box.innerHTML = '<div class="tx-draft"><h6>RADAR TX &middot; QUEUE &middot; REPLY (O.S. 03:05) &middot; SENDS 04:10</h6>' +
+      DRAFT.map(function (r, i) {
+        return '<div class="dl"><b>R' + (i + 1) + '</b><span class="ml">' + r[0].map(function (t, j) {
+          var name = typeof t === 'number' ? 'n' : t.indexOf('p:') === 0 ? 'p' : t;
+          var inner = typeof t === 'number' ? GR.dots(t) : t.indexOf('p:') === 0 ? '<span class="mp">' + GR.pict(t.slice(2), 3) + '</span>' : GR.glyph(t, 26);
+          return '<button type="button" class="tok" data-c="r' + (i + 1) + name + '" data-at="' + i + '-' + j + '">' + inner + '</button>';
+        }).join('') + '</span><div class="en">' + r[1] + '</div></div>';
+      }).join('') + '</div>' +
+      '<div class="tx-side"><div class="step" data-n="1"><h5>1 &middot; Which symbol is wrong? <i></i></h5><div class="pmsg2">Click it in the draft.</div></div>' +
+      '<div class="step" data-n="2"><h5>2 &middot; Prove it <i></i></h5><div class="slots"><div><small>What the stick means when it is used on people</small><div class="slot" data-s="why1"></div></div><div><small>What they do with the stick when they meet</small><div class="slot" data-s="why2"></div></div></div><div class="cards"></div></div>' +
+      '<div class="step" data-n="3"><h5>3 &middot; Put the right symbol in <i></i></h5><div class="fixslot"><div class="slot" data-s="fix"></div><span>goes where the stick was, in R5</span></div><div class="gtiles"></div></div>' +
+      '<p class="pmsg"></p><button type="button" class="btn" id="d-go">Show the professor</button></div>';
+    var msgEl = box.querySelector('.pmsg'), cards = box.querySelector('.cards'), tiles = box.querySelector('.gtiles');
+    function msg(t) { msgEl.innerHTML = ER.gloss(t); }
+    EVORDER.forEach(function (k) {
+      var n = ER.el('div', 'ev dnd-item', evHtml(k)); n.setAttribute('data-e', k);
+      var at = null, s; for (s in S.ev) if (S.ev[s] === k) at = s;
+      (at ? box.querySelector('.slot[data-s="' + at + '"]') : cards).appendChild(n);
+    });
+    GT.forEach(function (g) {
+      var n = ER.el('div', 'gt dnd-item', GR.glyph(g, 30)); n.setAttribute('data-g', g);
+      (S.fix === g ? box.querySelector('.slot[data-s="fix"]') : tiles).appendChild(n);
+    });
+    function steps() {
+      ER.$$('.step', box).forEach(function (s) { var n = +s.getAttribute('data-n'); s.classList.toggle('off', n > S.step); s.querySelector('h5 i').textContent = n < S.step ? '✓' : ''; });
+      if (S.step > 1) { var t = box.querySelector('.tok[data-at="4-3"]'); if (t) t.classList.add('okd'); }
+      box.querySelector('#d-go').textContent = S.step === 3 ? 'Change R5' : 'Show the professor';
+    }
+    function readEv() {
+      var o = {}; ER.$$('.slot[data-s^="why"]', box).forEach(function (s) { var t = s.querySelector('.ev'); o[s.getAttribute('data-s')] = t ? t.getAttribute('data-e') : ''; s.classList.toggle('full', !!t); s.classList.remove('bad'); });
+      return o;
+    }
+    function readFix() { var s = box.querySelector('.slot[data-s="fix"]'), t = s.querySelector('.gt'); s.classList.toggle('full', !!t); s.classList.remove('bad'); return t ? t.getAttribute('data-g') : ''; }
+    ER.dnd(box.querySelector('.step[data-n="2"]'), { item: '.ev', slot: '.slot', home: cards, change: function () { S.ev = readEv(); keep(); }, lock: function () { return done || S.step !== 2; } });
+    ER.dnd(box.querySelector('.step[data-n="3"]'), { item: '.gt', slot: '.slot', home: tiles, change: function () { S.fix = readFix(); keep(); }, lock: function () { return done || S.step !== 3; } });
+    readEv(); readFix(); steps();
+    var FINE = {
+      r1n: 'R1 is primes: two, three, five, seven. They taught us those. Fine.',
+      r2we: 'R2: we equals our little picture of a human. Fine.', r2bars: 'R2: we equals our little picture of a human. Fine.', r2p: 'Our own little picture of a human. They will make of it what they can.',
+      r3t: 'R3: we, a stick, stone, make the dish. The stick used on stone is a tool, just as in their C1. That one is fine.',
+      r3we: 'R3 has the same shape as their C1. Fine.', r3fork: 'R3 has the same shape as their C1. Fine.', r3stone: 'R3 has the same shape as their C1. Fine.', r3bars: 'R3 has the same shape as their C1. Fine.', r3p: 'Our dish, in little squares. Fine.',
+      r4give: 'R4: give, the way you give a present. You fixed that row yourself. Fine.', r4we: 'R4 is their own C5, sent back. Fine.', r4you: 'R4 is their own C5, sent back. Fine.', r4frame: 'R4 is their own C5, sent back. Fine.',
+      r6you: 'R6 is their own question, sent back to them. &lsquo;Leave&rsquo; is only in the professor&rsquo;s English: their symbols say nothing about leaving.', r6give: 'R6 is their own question, sent back. &lsquo;Leave&rsquo; is only in his English.', r6we: 'R6 is their own question, sent back. Fine.', r6hook: 'R6 is their own question, sent back. Fine.',
+      r5: 'That part of R5 is just like their own C4: one of us, something, one of you, two of us. Look at what stands in the middle.'
+    };
+    box.addEventListener('click', function (e) {
+      var tk = e.target.closest ? e.target.closest('.tok') : null;
+      if (!tk || done || S.step !== 1) return;
+      ER.$$('.tok', box).forEach(function (o) { o.classList.toggle('sel', o === tk); });
+      var c = tk.getAttribute('data-c');
+      if (ER.check('bad', c)) {
+        S.step = 2; keep(); GR.sfx.clank(); steps();
+        msg('&ldquo;The stick in R5,&rdquo; says the professor. &ldquo;Arms. Open arms. What&rsquo;s wrong with it?&rdquo; He folds his own. &ldquo;Prove it.&rdquo;');
+        return;
+      }
+      GR.bump('miss'); GR.sfx.hm();
+      msg(FINE[c] || (c.indexOf('r5') === 0 ? FINE.r5 : 'That one fits their own sentences. Look for a symbol that, by their sentences, means something else in its place.'));
+    });
+    var WHY = {
+      why1: { c1: 'C1 is the stick used on stone: a tool, making a house. In R5 the stick is next to people.', c2: 'There is no stick in C2 at all.', c4: 'There is no stick in C4: that is the hand.',
+        pic: 'The picture shows where the stick is when they meet. This space asks what it does to people.', r4: 'Row 4 only teaches what NOT means. Which of their sentences puts the stick next to people?' },
+      why2: { c4: 'C4 shows the hand. But where is the stick when two of them meet? Only one thing you have shows that.', c3: 'C3 says what the stick does to people. This space asks what they do with it when they meet.',
+        c1: 'C1 is about building a house. Nobody is meeting anybody.', c2: 'C2 is a hand and a stone. Nobody is meeting anybody.', r4: 'Row 4 is two and two make five, NOT. Nobody is meeting anybody.' }
+    };
+    var FIXW = {
+      diam: '&ldquo;One of us, NOT, one of you, two of us&rdquo;? It would read like two and two make five, NOT: as if being friends were false.',
+      give: '&ldquo;One of us, give, one of you&rdquo;: give what? In C5 the arrow is followed by the thing that is given.',
+      stone: 'One of us, a stone, and one of you? Throwing stones is not much better.',
+      you: '&ldquo;One of us, you, one of you&rdquo;? That says nothing at all.',
+      house: 'One of us, a house, one of you, makes two of us. Charming. It is not what C4 says.'
+    };
+    box.querySelector('#d-go').addEventListener('click', function () {
+      if (done) return;
+      if (S.step === 1) { msg('&ldquo;Show me which symbol,&rdquo; says the professor. &ldquo;Click it.&rdquo;'); return; }
+      if (S.step === 2) {
+        var L = readEv(), bad = null;
+        if (!L.why1 || !L.why2) { msg('&ldquo;Two things,&rdquo; says the professor. &ldquo;What it means, and what they do with it. One in each space.&rdquo;'); ER.shake(box.querySelector('.slots')); return; }
+        if (!ER.check('why1', L.why1)) bad = 'why1'; else if (!ER.check('why2', L.why2)) bad = 'why2';
+        if (bad) {
+          GR.bump('miss'); GR.sfx.hm(); box.querySelector('.slot[data-s="' + bad + '"]').classList.add('bad');
+          msg((WHY[bad] || {})[L[bad === 'why1' ? 'why1' : 'why2']] || 'That does not show it.'); return;
+        }
+        S.step = 3; keep(); GR.sfx.clank(); steps();
+        msg('The professor reads C3 twice. &ldquo;Three of us, with a tool-or-weapon, make one of us. NOT.&rdquo; Then he looks at the picture: the long thing on the ground, two open hands. &ldquo;Oh,&rdquo; he says. &ldquo;Oh dear. Then what should it be?&rdquo;');
+        return;
+      }
+      var f = readFix();
+      if (!f) { msg('&ldquo;Well?&rdquo; says the professor. &ldquo;What goes in its place?&rdquo;'); return; }
+      if (!ER.check('fix', f)) { GR.bump('miss'); GR.sfx.hm(); box.querySelector('.slot[data-s="fix"]').classList.add('bad'); msg(FIXW[f] || 'Read their C4 again.'); return; }
+      var file = ER.exitOk(['r5t|' + L2().why1 + '|' + L2().why2 + '|' + f]);
+      if (!file) { msg('&ldquo;Hm. Show me again.&rdquo;'); return; }
+      done = true; nextFile = file; ER.flag('d-file', file); GR.done('dish'); busy = true;
+      GR.mine('fixed', 'R5, fixed', '<p>Draft: 1 we + STICK + 1 you = 2 we. By their C3, the stick next to people is a weapon: &ldquo;one of us, with a weapon, and one of you, make two of us.&rdquo; A threat.</p><p>Fixed: 1 we + ' + GR.glyph('hand', 22) + ' + 1 you = 2 we. Their own hello (C4). In the picture the stick is on the ground.</p><p>Hands, not arms.</p>', true);
+      msg('The professor turns the key. On the screen, in R5, the stick is gone, and an open hand stands in its place.');
+      setTimeout(function () { ER.closeAll(); GR.solved(); ER.mood('calm'); paint(); after(); }, 2600);
+    });
+    function L2() { return readEv(); }
+    msg(S.step === 1 ? 'The draft is on the left, with the professor&rsquo;s English under each line. Click the symbol that says the wrong thing.' : S.step === 2 ? 'Drag a piece of evidence into each space, or click it and then a space.' : 'Drag the right symbol into the space, or click it and then the space.');
+    ER.open('ov-lock', box);
+  }
+  function after() {
+    ER.narrate([
+      '&ldquo;One of us, with a weapon, and one of you, make two of us,&rdquo; the professor reads, very quietly. &ldquo;I wrote them an invasion. A very polite one.&rdquo; He looks at his own handwriting for a long moment: <i>We welcome you with open arms.</i>',
+      'Now R5 reads: one of us, a hand, one of you, make two of us. Their own hello. &ldquo;Hands, not arms,&rdquo; says Nadia. The professor laughs, a big laugh that the wind takes away across the moor. &ldquo;Hands, not arms. Put it on my gravestone.&rdquo;',
+      'At ten past four a deep, even hum fills the cabin. The transmitter is sending. Under your feet the whole great bowl begins to tip, slowly, towards the west, following the neighbours&rsquo; star down towards Mirk Fell. &ldquo;Down you go,&rdquo; says the professor. &ldquo;Carefully. Three points of contact. I want you both alive for the answer.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
