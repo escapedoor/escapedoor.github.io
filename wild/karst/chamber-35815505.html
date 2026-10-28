@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Formation Chamber · The Cave That Breathes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="karst.css">
+<style>
+  body{--bg:#0e0a08;--accent:#e8c27a;--font-display:'Cinzel',serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(16,11,8,.96);--tc-ink:#f2e6d0;--cap-bg:rgba(18,13,9,.93);--panel:#1c1510;--face-bg:#2a1f18;--q-ink:#ffd59a;--fade:#0a0706;--hud-bg:rgba(18,13,9,.84)}
+  #shower path{animation:fall .4s steps(3,end) infinite}
+  @keyframes fall{to{transform:translateY(18px)}}
+  #drips circle{animation:drip 2.6s steps(1,end) infinite}
+  #drips circle:nth-child(2){animation-delay:-1.1s}#drips circle:nth-child(3){animation-delay:-2s}
+  @keyframes drip{0%{opacity:0}70%{opacity:.9}74%{opacity:0}}
+  #scene.high #stream{fill:#7a5a36}
+  #scene.high #foam{opacity:.9}
+  #scene.high #shower{opacity:1;stroke-width:9}
+  #foam{opacity:.35}
+  #shower{opacity:.55}
+  #beam{animation:beam 4s steps(1,end) infinite;pointer-events:none}
+  #drips{pointer-events:none}
+  @keyframes beam{50%{opacity:.92}}
+
+  /* the wall of the chamber, with the survey staff */
+  .wallv{display:block;width:100%;height:auto;background:#1a120c;touch-action:none}
+  .stT{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;fill:#1a1a1a}
+  .stL{font-family:'Handlee',cursive;font-size:15px;fill:#f2e6d0}
+  .stS{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;fill:#c8b898}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="litC" cx="0.5" cy="0.58" r="0.62"><stop offset="0" stop-color="#6a5240"/><stop offset=".55" stop-color="#3a2a1e"/><stop offset="1" stop-color="#0e0a08"/></radialGradient>
+  <radialGradient id="beamG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fff0c8" stop-opacity=".22"/><stop offset="1" stop-color="#fff0c8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="calG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cdb898"/><stop offset=".45" stop-color="#f4ead2"/><stop offset="1" stop-color="#b8a07a"/></linearGradient>
+  <linearGradient id="mudG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a4028"/><stop offset=".5" stop-color="#7a5a3a"/><stop offset="1" stop-color="#4a3420"/></linearGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#0e0a08"/>
+<rect x="-200" y="-100" width="2000" height="1100" fill="url(#litC)"/>
+<!-- rock: the far wall and the roof -->
+<g fill="#2e2219" opacity=".85"><path d="M-200 -100H1800V120Q1500 160 1300 110Q1100 190 900 130Q700 200 500 120Q300 170 100 130Q-50 150 -200 120Z"/></g>
+<g fill="#4a3a2c" opacity=".5"><path d="M200 300l80 -40l60 70l-40 60zM1000 250l70 -30l40 80l-60 30zM1180 380l60 -20l30 60l-50 20zM60 460l60 -30l40 60l-40 30z"/></g>
+<!-- the sides of the chamber, close and dark -->
+<path d="M-200 -100H120Q60 200 90 420Q40 640 120 900H-200Z" fill="#160f0a"/><path d="M1800 -100H1480Q1560 240 1500 470Q1580 700 1460 900H1800Z" fill="#160f0a"/>
+<g stroke="#3a2a1e" stroke-width="3" fill="none" opacity=".8"><path d="M140 160q-30 80 -10 160M110 520q-20 60 10 140M1470 200q30 90 0 170M1500 560q-30 70 0 150"/></g>
+<!-- small formations on the floor and walls -->
+<g fill="url(#calG)" opacity=".9"><path d="M1210 700q4 -50 10 -60q6 10 10 60z"/><path d="M1240 702q3 -34 8 -40q5 6 8 40z"/><path d="M960 706q4 -40 9 -48q5 8 9 48z"/><path d="M700 712q3 -28 7 -34q4 6 7 34z"/></g>
+<path d="M880 160q30 60 60 0q30 70 60 0q30 50 60 0" fill="#d8c8a6" opacity=".55"/>
+<g stroke="#e8dcc0" stroke-width="2" fill="none" opacity=".5"><path d="M890 168q20 30 40 0M950 170q20 36 40 0M1010 168q20 26 40 0"/></g>
+<!-- stalactites on the roof -->
+<g id="tites" class="hot" fill="url(#calG)"><path d="M380 150l10 0l-5 46z"/><path d="M420 140l12 0l-6 64z"/><path d="M470 136l8 0l-4 34z"/><path d="M1180 120l12 0l-6 70z"/><path d="M1220 128l10 0l-5 44z"/><path d="M800 140l9 0l-4.5 38z"/><path d="M560 128l14 0l-7 70z"/><path d="M610 140l18 0l-9 96z"/><path d="M660 130l12 0l-6 54z"/><path d="M940 132l20 0l-10 110z"/><path d="M990 140l12 0l-6 60z"/><path d="M1040 130l16 0l-8 82z"/><path d="M1140 116l12 0l-6 50z"/><path d="M720 136l10 0l-5 40z"/></g>
+<!-- the Organ Loft: a high alcove full of straws -->
+<g id="loft" class="hot">
+  <path d="M150 330Q160 180 300 170Q440 170 480 320Z" fill="#1c140e"/><path d="M170 330Q180 200 300 192Q420 194 456 320Z" fill="#3a2c20"/>
+  <g stroke="#f8f2e2" stroke-width="2.200" stroke-linecap="round"><path d="M220 214v40M236 206v58M252 200v34M268 196v66M284 194v44M300 194v72M316 194v50M332 196v62M348 200v40M364 204v56M380 210v34M396 218v48M412 228v30"/></g>
+  <path d="M190 330h270" stroke="#f4ead2" stroke-width="5"/><path d="M200 330q40 -40 60 0q30 -46 60 0q30 -40 60 0q30 -30 60 0" fill="#e8dcc0" opacity=".8"/>
+</g>
+<!-- the foam line and the mud line on the walls -->
+<path d="M-200 520Q200 512 560 524" stroke="#d8ccb0" stroke-width="3" stroke-dasharray="2 6" opacity=".6" fill="none"/>
+<path d="M-200 604Q300 598 700 606" stroke="#6a4a2a" stroke-width="10" opacity=".55" fill="none"/>
+<!-- the Pulpit, a ledge with grass and twigs on it -->
+<g id="pulpit" class="hot"><path d="M260 456Q420 430 580 452L560 480Q420 470 280 486Z" fill="#5a4636"/><path d="M300 452q40 -30 80 -6q30 -24 60 -2q40 -20 70 4" stroke="#9a8a52" stroke-width="3" fill="none"/><path d="M320 450l20 -24M360 448l-10 -26M420 446l14 -22M470 444l-6 -20M500 448l18 -18" stroke="#6a5030" stroke-width="3"/></g>
+<!-- the Bishop -->
+<g id="bishop" class="hot">
+  <path d="M770 704Q760 560 788 440Q798 360 812 330Q826 360 836 440Q862 560 852 704Z" fill="url(#calG)"/>
+  <path d="M770 704Q762 640 768 600L856 600Q860 650 852 704Z" fill="url(#mudG)" opacity=".92"/>
+  <path d="M790 420q20 -8 42 0M782 480q30 -10 60 0M776 540q36 -8 72 0" stroke="#b8a07a" stroke-width="2" fill="none"/><ellipse cx="812" cy="326" rx="6" ry="4" fill="#fff"/>
+</g>
+<!-- flowstone on the right wall -->
+<g id="flow" class="hot"><path d="M1060 300q40 -10 90 6l40 380q-80 12 -150 0z" fill="#cdb898" opacity=".85"/><g stroke="#a88a62" stroke-width="2" fill="none"><path d="M1076 320q6 180 -4 360M1100 316q8 190 0 370M1126 316q4 180 8 370M1150 320q10 160 14 360"/></g></g>
+<!-- the Shower: water falling in from Rowan Sink, high on the wall -->
+<g id="showerg" class="hot"><ellipse cx="1290" cy="200" rx="34" ry="20" fill="#0a0706"/><g id="shower" stroke="#cfe0e4" stroke-width="5" opacity=".55"><path d="M1276 210v80M1290 214v80M1304 210v80M1276 300v80M1290 304v80M1304 300v80M1276 390v80M1290 394v80M1304 390v80M1276 480v80M1290 484v80M1304 480v80M1276 570v60M1290 574v60M1304 570v60"/></g></g>
+<!-- the Sand Bank -->
+<g id="bank" class="hot"><path d="M-200 720Q100 640 420 668Q520 680 560 724Z" fill="#6a4c30"/><path d="M0 690q80 -10 160 0M200 680q80 -8 160 4" stroke="#4a3420" stroke-width="3" fill="none"/></g>
+<!-- the stream, and where it goes: the streamway, into the dark -->
+<path id="stream" d="M-200 800Q300 724 900 742T1600 720V780Q1200 790 900 800T-200 860Z" fill="#5a6a64"/>
+<g id="foam" stroke="#f2ead8" stroke-width="3" fill="none"><path d="M100 790q40 -8 80 0M400 770q50 -10 90 2M700 760q40 -8 80 0M1000 748q50 -10 90 0M1300 740q40 -6 80 2"/></g>
+<g id="dark" class="hot"><path d="M1400 760Q1400 600 1500 590Q1620 600 1640 760Z" fill="#050403"/><path d="M1420 760Q1430 630 1500 620Q1590 630 1610 760Z" fill="#000"/></g>
+<path d="M-1000 830Q0 800 800 830T2600 820V1300H-1000Z" fill="#241a12"/>
+<!-- Tegan, sitting on the tackle bag with the survey staff -->
+<g id="teg" class="hot">
+  <rect x="560" y="680" width="110" height="46" rx="16" fill="#c8a030"/><path d="M574 690h82" stroke="#8a6a1a" stroke-width="3"/>
+  <path d="M572 690l6 -86q2 -20 26 -22h24q24 2 26 22l6 86z" fill="#b0352a"/><rect x="608" y="550" width="16" height="30" fill="#b07a56"/><circle cx="616" cy="532" r="22" fill="#c48a62"/>
+  <path d="M592 530q2 -32 24 -34q24 2 26 34z" fill="#3f8a4a"/><rect x="606" y="500" width="20" height="11" rx="3" fill="#2a2a2a"/><circle cx="616" cy="505" r="4" fill="#fff6c8"/>
+  <path d="M520 560L740 700" stroke="#e8e0c8" stroke-width="8"/><g stroke="#c8321e" stroke-width="8"><path d="M546 577l10 6M590 605l10 6M634 633l10 6M678 661l10 6"/></g>
+</g>
+<g id="tube" class="hot"><rect x="690" y="690" width="70" height="16" rx="6" fill="#2a7ac2" transform="rotate(-12 725 698)"/></g>
+<g id="drips" fill="#e8f0f2"><circle cx="618" cy="250" r="3"/><circle cx="950" cy="270" r="3"/><circle cx="1048" cy="230" r="3"/></g>
+<circle id="beam" cx="800" cy="520" r="520" fill="url(#beamG)"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the Duck</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="karst.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, wall = null;
+
+  ER.init({
+    theme: 'wild', story: 'karst', storyTitle: 'The Cave That Breathes', id: 'chamber', no: 'III', title: 'The Formation Chamber',
+    go: 'Wait for Morven',
+    intro: [
+      'Mr Tordoff was wrong about the quarry. You followed Rowan Beck from Rowan Sink down the joints and along the bedding planes, always downhill, into the Formation Chamber and out through the Duck; the quarry&rsquo;s water meets the shale and goes the other way, to the Nant. Mrs Ullathorne&rsquo;s dye took two hours, so rain on the moor at seven would reach the Duck at nine. You would be out at six.',
+      'The Duck was cold and silly and perfectly safe: the gauge said 0.05, and Tegan laughed all the way through. By a quarter past two you were in the Formation Chamber, and for an hour you held the end of the tape while Morven measured.',
+      'At twenty past three Vaughan caught his oversuit on a flake of rock and tore it open from the knee to the hip. By half past he was shivering. Morven took him out. &ldquo;Stay in this chamber, on the dry side,&rdquo; she said. &ldquo;Finish measuring the Bishop. I&rsquo;ll be back by a quarter past four.&rdquo; She gave you the survey. &ldquo;You&rsquo;re the surveyor now. Keep it dry.&rdquo;',
+      'It is five to four.'
+    ],
+    exit: {"next":"pool","w":{"6f6474d6":"0825daaa"}}, tags: {"high":["8cc8f11c"],"high_mud":["b37a8b35"],"high_foam":["6288c3dd"],"high_loft":["f2a25d45"],"place":["0d02315e"],"place_bishop":["ab252a6d"],"place_pulpit":["ea02a38a"],"place_bank":["f65f948c"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('c-file') || null; told = ER.flag('c-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('c-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#scene').classList.toggle('high', !!told.voices);
+    $('#tube').classList.toggle('ready', !told.notes);
+    $('#dark').classList.toggle('ready', !!(told.notes && told.teg && !told.voices));
+    $('#teg').classList.toggle('ready', !!(told.voices && !nextFile && !(wall && wall.isOpen())));
+    ER.pips((told.notes ? 1 : 0) + (told.teg ? 1 : 0) + (told.voices ? 1 : 0) + (nextFile ? 2 : 0), 5);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['You are above the highest flood mark, and Morven is late. Go down and look at the Duck.']];
+    if (wall && wall.isOpen()) return wall.hint();
+    if (!told.notes) return ['notes', ['Mrs Ullathorne&rsquo;s notes are in the blue survey tube, on the ground beside Tegan. Read them.']];
+    if (!told.teg) return ['teg', ['Tegan is sitting on the tackle bag with the survey staff. Talk to her.']];
+    if (!told.voices) return ['voices', [
+      'Tegan heard something from the dark at the right-hand end of the chamber, where the stream goes out.',
+      'Click the dark opening on the right, where the stream leaves the chamber, and listen.'
+    ]];
+    return ['staff', ['Tegan has the survey staff. Click her, to measure the walls and choose where to wait.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The Organ Loft, above the highest mark. The stream below is a roar.'); return; }
+    if (told.voices) { busy = false; ER.mood('tense'); ER.say('The Formation Chamber. The stream is brown now, and loud.'); return; }
+    if (told.in) { busy = false; ER.say('The Formation Chamber. Drips, and the stream.'); return; }
+    tell('in');
+    ER.narrate([
+      'Without Morven&rsquo;s voice the Formation Chamber is very big and very quiet. Your two lights make a small warm room in the middle of it, and the rest is dark.',
+      'In the middle of the floor stands the Bishop: a stalagmite taller than a man, cream-white at the top and brown at the bottom. High on the left wall is a hollow full of something that glitters: the Organ Loft. On the right, a thin waterfall falls out of a hole in the roof: the Shower. Rowan Beck, Tegan says, coming in from the moor.',
+      'The stream crosses the bottom of the chamber, clear and grey, and goes out on the right into a low dark opening: the streamway, down to the Duck.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- Tegan, and the notes ---------- */
+  var NOTES = '<h4>Notes for surveyors &middot; formations and flood marks</h4><div class="two"><div>' +
+    '<p><b>Formations.</b> Water dripping into a cave carries calcite that it dissolved from the rock above. In the cave air it gives up a little carbon dioxide, can no longer hold all the calcite, and leaves a thin film of it behind. Drip by drip, a <b>stalactite</b> grows down from the roof, and a <b>stalagmite</b> grows up from the floor where the drop lands. A young stalactite is a <b>straw</b>: hollow, as thin as a drinking straw, and it breaks if you breathe on it. They grow very slowly: often less than a centimetre in a hundred years, though a fast drip can do much more.</p>' +
+    '<p><b>Flood marks.</b> A flood signs its name on the walls: a line of mud, a line of dried foam, grass and twigs from the moor jammed on ledges. Mud on a formation means water has covered it. Clean white formations and whole straws mean that no flood has reached them for a very long time. Measure the highest mark, and wait above it. &nbsp;M.U.</p></div>' +
+    '<div><svg viewBox="0 0 260 320"><rect width="260" height="320" fill="#fbfaf3"/><path d="M0 20H260" stroke="#2b2a2e" stroke-width="3"/>' +
+    '<path d="M60 20l12 0l-6 90z" fill="#d8c8a0" stroke="#2b2a2e"/><circle cx="66" cy="124" r="4" fill="#7ab0d0"/><path d="M66 132v100" stroke="#7ab0d0" stroke-width="1.500" stroke-dasharray="3 5"/>' +
+    '<path d="M44 300q10 -70 22 -80q12 10 22 80z" fill="#d8c8a0" stroke="#2b2a2e"/><path d="M0 300H260" stroke="#2b2a2e" stroke-width="3"/>' +
+    '<path d="M170 20v60" stroke="#2b2a2e" stroke-width="5"/><path d="M170 20v60" stroke="#fbfaf3" stroke-width="2"/>' +
+    '<path d="M140 300q8 -60 30 -70q20 10 30 70z" fill="#d8c8a0" stroke="#2b2a2e"/><path d="M144 300q4 -26 8 -30h40q4 10 6 30z" fill="#8a6a42"/><path d="M110 270H240" stroke="#8a6a42" stroke-width="2" stroke-dasharray="6 4"/>' +
+    '<g font-family="Handlee,cursive" font-size="15" fill="#2b2a2e"><text x="80" y="62">stalactite</text><text x="96" y="290" text-anchor="end">stalagmite</text><text x="182" y="54">straw</text><text x="176" y="262">mud line</text><text x="80" y="160" font-size="13">drip</text></g></svg></div></div>';
+  $('#tube').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: NOTES, cls: 'mu', clue: { id: 'notes', title: 'Formations and flood marks', kind: 'Mrs Ullathorne&rsquo;s notes' }, done: function () {
+      KARST.terms(['stalactite', 'stalagmite', 'straw', 'flood mark']);
+      if (tell('notes')) { paint(); after(); }
+    } });
+  });
+  $('#teg').addEventListener('click', function () {
+    if (busy) return;
+    if (told.voices && !nextFile) { if (!wall) wall = makeWall(); wall.open(); paint(); return; }
+    if (nextFile) { ER.say('Tegan is sitting very still in the Organ Loft, not touching anything. &ldquo;Quarter past,&rdquo; she says. &ldquo;Twenty past.&rdquo;'); return; }
+    ER.talk({
+      who: 'Tegan Nuttall', role: 'On the tackle bag, with the survey staff', face: window.FACE('tegan'),
+      lines: [
+        { note: 'She has the survey staff across her knees, folded into its four sections.', a: '&ldquo;Morven&rsquo;s late. No, she isn&rsquo;t. It&rsquo;s only four. She said a quarter past.&rdquo;' },
+        { q: 'What shall we do while we wait?', a: 'Measure the Bishop, like she said. Mrs U&rsquo;s notes are in the survey tube. Read them. The Bishop&rsquo;s in them, sort of.' },
+        { q: 'If the water came up, where would be safest?', a: 'By the Bishop. It&rsquo;s been standing there for thousands of years. If floods came up that far, they&rsquo;d have knocked it over long ago. Stands to reason.&rdquo; She thinks about it. &ldquo;Doesn&rsquo;t it?' },
+        { q: 'Are you worried?', a: 'No.&rdquo; A pause. &ldquo;A bit. Ask me again at a quarter past.' }
+      ],
+      clue: { id: 'teg3', title: 'Tegan, in the Formation Chamber', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('teg')) { paint(); after(); } }
+    });
+  });
+  function after() {
+    if (!(told.notes && told.teg) || told.cue) return;
+    tell('cue'); busy = true; ER.mood('tense');
+    ER.narrate([
+      'Five past four. Tegan lifts her head. &ldquo;Listen.&rdquo;',
+      'From the dark at the far right of the chamber, where the stream goes out, comes a sound you have not heard before: voices. Two or three people, talking, a long way off, too far away to hear the words.',
+      '&ldquo;Morven!&rdquo; says Tegan, and she is on her feet. &ldquo;That&rsquo;s them coming back. Isn&rsquo;t it?&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+  $('#dark').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.cue) { ER.say('The streamway: a low dark opening where the stream leaves the chamber, on its way down to the Duck.'); return; }
+    if (told.voices) { ER.say('The streamway is full of brown water and noise. The voices are still talking, about nothing, all at once.'); return; }
+    busy = true; KARST.sfx.water();
+    ER.narrate([
+      'You go to the mouth of the streamway and turn your light into it. Nobody. You both stand very still and listen.',
+      'The voices go on talking, but they never stop for breath, and they never answer each other. It is the stream. Water running fast over stones makes a sound like people talking a long way off. Cavers know it; some of them call it the voices.',
+      'And the stream has changed. It was clear and grey. Now it is brown, with foam on it, and it is higher: a stone you stepped on at four o&rsquo;clock is under water. Behind you, the Shower has become a roar.',
+      '&ldquo;It&rsquo;s raining on the moor,&rdquo; says Tegan quietly. &ldquo;Now. Not at seven. Now.&rdquo; She looks at the walls, and then at you. &ldquo;Mrs U&rsquo;s notes. Where do we wait?&rdquo;'
+    ], function () { tell('voices'); busy = false; paint(); KARST.terms(['flood pulse']); ER.say('Tegan holds out the survey staff.'); });
+  });
+
+  KARST.thing('#bishop', 'stalagmite', 'The Bishop: a stalagmite more than two metres tall, built drop by drop for thousands of years. The top is cream-white and clean. The bottom half is brown: a coat of dried mud.', isBusy);
+  KARST.thing('#tites', 'stalactite', 'Stalactites hanging from the roof, the longest as long as your arm. Every one of them was a straw once.', isBusy);
+  KARST.thing('#loft', 'straw', 'The Organ Loft: a hollow high on the wall, with a sloping floor of clean white flowstone and a ceiling of hundreds of straws, each as thin as a pencil and all of them whole.', isBusy);
+  KARST.thing('#flow', 'flowstone', 'Flowstone: calcite laid down by water running over the wall in a thin sheet, like a frozen curtain.', isBusy);
+  KARST.thing('#pulpit', null, function () { return 'The Pulpit: a wide ledge on the left wall, higher than your head. Something is lying on it: dead grass, and twigs.'; }, isBusy);
+  KARST.thing('#bank', null, 'The Sand Bank: soft brown mud and sand at the edge of the stream. Your boots sink into it.', isBusy);
+  KARST.thing('#showerg', null, function () { return told.voices ? 'The Shower is a roar now, brown and white, throwing spray across the chamber: Rowan Beck in flood, coming in from the moor.' : 'The Shower: a thin waterfall out of a hole in the roof. Rowan Beck, coming in from Rowan Sink up on the moor.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the wall of the chamber, the survey staff, and the marks ---------- */
+  function makeWall() {
+    /* the stream is 0; the staff is 70 px a metre */
+    var Y0 = 470, PX = 70, h = ER.flag('c-h') || 0.5, svg, wl, pk, msgEl, go, box = ER.el('div', 'bx'), s = '', i;
+    function Y(m) { return Y0 - m * PX; }
+    s = '<svg class="wallv" viewBox="0 0 1000 540">' +
+      '<rect width="1000" height="540" fill="#1a120c"/><path d="M0 0H1000V40Q800 70 600 40Q400 80 200 50Q100 60 0 40Z" fill="#0e0a08"/>' +
+      '<path d="M0 ' + Y(0) + 'H1000V540H0Z" fill="#5a4a3a"/><path d="M0 ' + (Y(0) + 4) + 'Q500 ' + (Y(0) - 4) + ' 1000 ' + (Y(0) + 4) + '" stroke="#cfe0e4" stroke-width="3" fill="none" opacity=".6"/><text class="stS" x="820" y="' + (Y(0) + 34) + '">THE STREAM (0)</text>' +
+      /* the Sand Bank */
+      '<path d="M230 ' + Y(0) + 'Q300 ' + Y(0.8) + ' 400 ' + Y(0.8) + 'Q470 ' + Y(0.8) + ' 520 ' + Y(0) + 'Z" fill="#7a5a3a"/><text class="stL" x="300" y="' + (Y(0.8) - 10) + '">Sand Bank</text>' +
+      /* the mud line and the foam line on the wall */
+      '<path d="M560 ' + Y(1.2) + 'H1000" stroke="#7a5a3a" stroke-width="6" opacity=".9"/><path d="M560 ' + Y(2.1) + 'H1000" stroke="#e8e0cc" stroke-width="2.400" stroke-dasharray="3 5"/>' +
+      '<text class="stL" x="890" y="' + (Y(1.2) - 8) + '" font-size="13">mud</text><text class="stL" x="890" y="' + (Y(2.1) - 8) + '" font-size="13">dry foam</text>' +
+      /* the Bishop */
+      '<path d="M600 ' + Y(0) + 'Q590 ' + Y(1.2) + ' 616 ' + Y(1.8) + 'Q626 ' + Y(2.1) + ' 630 ' + Y(2.2) + 'Q634 ' + Y(2.1) + ' 644 ' + Y(1.8) + 'Q670 ' + Y(1.2) + ' 660 ' + Y(0) + 'Z" fill="#efe4c8"/>' +
+      '<path d="M600 ' + Y(0) + 'Q594 ' + Y(0.8) + ' 600 ' + Y(1.2) + 'H660Q666 ' + Y(0.8) + ' 660 ' + Y(0) + 'Z" fill="#7a5a3a"/><text class="stL" x="680" y="' + Y(1.9) + '">the Bishop</text>' +
+      /* the Pulpit, and what is on it */
+      '<path d="M720 ' + Y(3.2) + 'H1000V' + Y(2.9) + 'Q860 ' + Y(2.95) + ' 740 ' + Y(2.95) + 'Z" fill="#4a3a2c"/>' +
+      '<g stroke="#9a8a52" stroke-width="2.400" fill="none"><path d="M760 ' + Y(3.2) + 'l10 -10l10 4l10 -8M800 ' + Y(3.2) + 'l8 -12l10 4l6 -6M840 ' + Y(3.2) + 'q10 -12 26 -10M880 ' + Y(3.2) + 'l-4 -10l12 -4"/></g>' +
+      '<text class="stL" x="900" y="' + (Y(3.2) + 22) + '">the Pulpit</text>' +
+      /* the Organ Loft */
+      '<path d="M560 ' + Y(5.5) + 'H900V' + Y(6.4) + 'Q730 ' + Y(6.9) + ' 560 ' + Y(6.4) + 'Z" fill="#2a1f16"/><path d="M560 ' + Y(5.5) + 'H900" stroke="#f4ead2" stroke-width="5"/>' +
+      '<g stroke="#f8f2e2" stroke-width="2" stroke-linecap="round">';
+    for (i = 0; i < 18; i++) s += '<path d="M' + (580 + i * 18) + ' ' + (Y(6.45) + (i % 3) * 3) + 'v' + (10 + (i * 7) % 18) + '"/>';
+    s += '</g><text class="stL" x="600" y="' + (Y(5.5) + 22) + '">the Organ Loft</text>' +
+      /* the survey staff */
+      '<g transform="translate(120 0)"><rect x="-14" y="' + Y(6.2) + '" width="28" height="' + (6.2 * PX) + '" fill="#f4f1e4" stroke="#2a2a2a" stroke-width="1.400"/>';
+    for (i = 0; i <= 62; i++) {
+      var yy = Y(i / 10), big = i % 10 === 0, mid = i % 5 === 0;
+      s += '<path d="M-14 ' + yy.toFixed(1) + 'h' + (big ? 28 : mid ? 18 : 10) + '" stroke="' + (Math.floor(i / 10) % 2 ? '#c8321e' : '#1a1a1a') + '" stroke-width="' + (big ? 2.400 : 1.300) + '"/>';
+      if (big) s += '<text class="stT" x="-32" y="' + (yy + 5).toFixed(1) + '" text-anchor="middle" fill="#f2e6d0" style="fill:#f2e6d0">' + (i / 10) + '</text>';
+    }
+    s += '<text class="stS" x="-40" y="' + (Y(6.2) - 10) + '">STAFF (METRES)</text></g>' +
+      /* the sighting string, which the player moves */
+      '<g id="w-line" class="tool"><rect x="100" y="0" width="900" height="24" fill="#fff" opacity="0"/><path d="M106 12H1000" stroke="#ff6a4a" stroke-width="2.200" stroke-dasharray="10 5"/><circle cx="106" cy="12" r="6" fill="#ff6a4a"/></g></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><span id="w-slot"></span><span id="w-picks"></span><button type="button" class="btn" id="w-go">We wait here</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg'); go = box.querySelector('#w-go');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    wl = KARST.wheels(box.querySelector('#w-slot'), { label: 'Highest<br>flood mark', vals: [['0', '1', '2', '3', '4', '5', '6'], KARST.DIGITS], sep: { 1: '.' }, tail: 'm', start: ER.flag('c-wl') || [0, 0], change: function () { ER.flag('c-wl', wl.at()); } });
+    pk = KARST.picks(box.querySelector('#w-picks'), [['bank', 'Sand Bank'], ['bishop', 'by the Bishop'], ['pulpit', 'the Pulpit'], ['loft', 'the Organ Loft']], { start: ER.flag('c-pk') || null, change: function (v) { ER.flag('c-pk', v); } });
+    function draw() { svg.querySelector('#w-line').setAttribute('transform', 'translate(0 ' + (Y(h) - 12).toFixed(1) + ')'); svg.setAttribute('data-h', h.toFixed(2)); }
+    ER.drag(svg.querySelector('#w-line'), {
+      move: function (e) { h = KARST.clamp((Y0 - ER.pt(svg, e).y) / PX, 0, 6.2); draw(); },
+      end: function () { h = Math.round(h * 20) / 20; ER.flag('c-h', h); draw(); KARST.sfx.notch(); }
+    });
+    go.addEventListener('click', function () {
+      var v = wl.get(), p = pk.get(), c = v + '|' + p;
+      if (!p) { msg('Choose where you will wait, as well.'); return; }
+      if (ER.exitOk([c])) {
+        nextFile = ER.exit([c], { wait: true }); ER.flag('c-file', nextFile);
+        KARST.mine('marks', 'Where the water has been', '<p>Mud on the Bishop up to 1.2 m. Dry foam on the wall at 2.1 m. Grass and twigs on the Pulpit at <b>3.4 m</b>: the highest flood mark.</p><p>The straws in the Organ Loft, at 5.5 m, are all whole and clean: no flood has reached them for a very long time. So we wait in the <b>Organ Loft</b>.</p><p>The Bishop is very old, but being old does not keep it dry.</p>', true);
+        msg('Above the highest mark, and above it by two metres. You climb.');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'You climb up into the Organ Loft, slowly, touching nothing, and sit on the clean white floor under the straws with your knees under your chin. Below you the stream is a brown roar, and the Sand Bank has gone.',
+            'A quarter past four. Twenty past. Half past. Morven does not come. Morven is never late.',
+            '&ldquo;The Duck,&rdquo; says Tegan at last. &ldquo;She&rsquo;s on the other side of it. It&rsquo;s shut, and she can&rsquo;t get back in.&rdquo; She stands up carefully. &ldquo;We can look at the gauge from the top of the Ramp, high and dry, without going near the water. We need to know.&rdquo;'
+          ], function () { busy = false; showGo(); paint(); });
+        }, 2400);
+        return;
+      }
+      KARST.sfx.no();
+      if (!ER.check('high', v)) {
+        msg(ER.check('high_mud', v) ? 'That is the mud on the Bishop. Is it the highest sign of water in the chamber? Look at the wall and the ledges, too.' :
+          ER.check('high_foam', v) ? 'That is the foam line. Is anything higher than that, left by water?' :
+          ER.check('high_loft', v) ? 'That is the floor of the Organ Loft, where the straws are whole. Has water ever been there?' :
+          'Move the red string to each mark that water has left, and read the staff where the string crosses it. Which mark is the highest?');
+        return;
+      }
+      msg(ER.check('place_bishop', p) ? 'The Bishop is very old, and that is true. But floods don&rsquo;t knock a stalagmite over: they leave mud on it. Look how high the mud goes on the Bishop.' :
+        ER.check('place_pulpit', p) ? 'Look at what is lying on the Pulpit: grass and twigs from the moor. Something carried them up there.' :
+        ER.check('place_bank', p) ? 'The Sand Bank is mud. It is where the flood leaves its mud.' : 'Wait above the highest mark.');
+    });
+    draw();
+    msg('Drag the red string up and down the wall: the staff tells you how high it is. Measure every mark the water has left, then choose where to wait.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        return ['marks', [
+          'Mrs Ullathorne&rsquo;s notes: water leaves mud, dry foam, and grass and twigs on ledges. Clean white formations and whole straws mean no flood.',
+          'Move the red string to each sign of water and read the staff. The grass and twigs on the Pulpit are the highest thing that water has left.',
+          'The twigs on the Pulpit reach a little less than half way between 3 and 4 on the staff. Wait somewhere higher than that, where the straws are whole.'
+        ]];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

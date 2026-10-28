@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Club Hut · The Cave That Breathes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="karst.css">
+<style>
+  body{--bg:#2e2622;--accent:#e9a23b;--font-display:'Fjalla One',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(36,28,22,.96);--tc-ink:#f2e8d6;--cap-bg:rgba(34,26,20,.93);--panel:#2a211b;--face-bg:#3a2e26;--q-ink:#ffc98a;--fade:#1e1814;--hud-bg:rgba(34,26,20,.84)}
+  #glow{animation:glow 2.3s steps(1,end) infinite}
+  @keyframes glow{0%{opacity:.85}30%{opacity:.6}36%{opacity:.95}70%{opacity:.72}}
+  #rain{animation:rain .5s steps(4,end) infinite}
+  @keyframes rain{to{transform:translate(-14px,40px)}}
+  #ph{animation:ph 3s steps(1,end) infinite}
+  @keyframes ph{50%{opacity:.6}}
+
+  /* the kit: four people and a box of spares */
+  .kit{display:grid;grid-template-columns:repeat(4,1fr) 1.15fr;gap:12px;padding:16px;background:#3b2f26 linear-gradient(160deg,#4a3b2e,#2f251e);border:1px solid #1a130e}
+  .kp,.kbox{background:#efe6d2;border-radius:3px;padding:10px 10px 8px;color:#211a12;box-shadow:inset 0 0 0 1px #8a7656}
+  .kp h5,.kbox h5{margin:0 0 7px;font-family:'Fjalla One',sans-serif;font-size:17px;letter-spacing:.06em;text-transform:uppercase;color:#2f5a3a}
+  .kp h5 small{display:block;font-family:'Overpass',sans-serif;font-size:10.5px;letter-spacing:.14em;color:#7a6a4a}
+  .kfix,.kslot{display:flex;align-items:center;gap:7px;min-height:46px;margin:0 0 6px;padding:3px 6px;border-radius:3px;font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px}
+  .kfix{background:#ddd2b8;color:#3a3020}
+  .kslot{border:2px dashed #9a8660;background:rgba(255,255,255,.35)}
+  .kslot:empty:before{content:'empty';color:#9a8660;font-weight:400;font-style:italic;padding-left:4px}
+  .kbox{background:#c9b48c;box-shadow:inset 0 0 0 2px #6a5636}
+  .kbox .home{min-height:270px;display:flex;flex-direction:column;gap:6px}
+  .kitem{display:flex;align-items:center;gap:7px;min-height:44px;padding:3px 7px;border-radius:3px;background:#fbf6ea;border:1px solid #6a5636;cursor:grab;font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;color:#2a2014;touch-action:none}
+  .kitem.held{outline:3px solid #e9a23b}
+  .kitem.fly{position:fixed;z-index:80;pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .kitem svg,.kfix svg{flex:0 0 38px;width:38px;height:30px}
+  .kslot .kitem{width:100%}
+
+  /* the call-out board: a whiteboard with magnets and a marker pen */
+  .board{background:#fbfcfa;color:#14233a;padding:12px 18px 10px;border:9px solid #b9c0c4;border-radius:3px;box-shadow:inset 0 0 40px rgba(120,140,150,.18)}
+  .board h5{margin:0 0 6px;font-family:'Fjalla One',sans-serif;font-size:24px;letter-spacing:.12em;color:#c8321e;display:flex;justify-content:space-between;align-items:baseline}
+  .board h5 small{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;color:#5a6a76}
+  .brow{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;padding:6px 0;border-top:1px solid #d4dbe0}
+  .brow>label{font-family:'Fjalla One',sans-serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#14233a;line-height:1.15}
+  .brow .line{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .bslot{min-width:150px;min-height:36px;border-bottom:2px solid #9fb0bc;display:flex;align-items:center;padding:0 2px}
+  .bslot.wide{min-width:250px}
+  .btray{display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:4px 6px;margin-left:auto;background:#eef2f4;border-radius:3px;min-height:40px}
+  .mag{display:inline-block;padding:5px 10px 3px;border-radius:2px;font-family:'Caveat',cursive;font-size:21px;line-height:1.05;color:#14233a;background:#ffe36a;box-shadow:0 2px 0 #b89a20,0 3px 6px rgba(0,0,0,.25);cursor:grab;touch-action:none;white-space:nowrap}
+  .mag.g{background:#bfe3c4;box-shadow:0 2px 0 #5a8a62,0 3px 6px rgba(0,0,0,.25)}
+  .mag.b{background:#c6dcf2;box-shadow:0 2px 0 #5a7a9a,0 3px 6px rgba(0,0,0,.25)}
+  .mag.held{outline:3px solid #c8321e}
+  .mag.fly{position:fixed;z-index:80;pointer-events:none}
+  .times{display:flex;gap:10px;flex-wrap:wrap}
+  .times .wls{background:#20303a;box-shadow:inset 0 0 0 1px #7a9aae}
+  .times .wls small{color:#d8e8f2}
+  .lightsrow{font-family:'Caveat',cursive;font-size:24px;color:#2f5a3a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4038"/><stop offset=".7" stop-color="#5a4c40"/><stop offset="1" stop-color="#3a3029"/></linearGradient>
+  <linearGradient id="winG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a959c"/><stop offset="1" stop-color="#c4ccce"/></linearGradient>
+  <radialGradient id="fireG"><stop offset="0" stop-color="#ffd27a" stop-opacity=".7"/><stop offset="1" stop-color="#ff8a3a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampG"><stop offset="0" stop-color="#fff2c8" stop-opacity=".35"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <clipPath id="winC"><rect x="1096" y="136" width="208" height="198"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="url(#wallG)"/>
+<g id="stones" opacity=".9"></g>
+<!-- the roof beam and the drying line -->
+<rect x="-1000" y="30" width="3600" height="36" fill="#2a1e16"/><rect x="-1000" y="64" width="3600" height="6" fill="#1a120c"/>
+<path d="M60 96Q780 140 1540 100" stroke="#cfc4a8" stroke-width="2" fill="none"/>
+<g fill="#6a7a8a" stroke="#3a3a3a" stroke-width="1"><path d="M210 104h22v34q0 8 8 10h12v10h-26q-16 0 -16 -14z"/><path d="M290 110h20v32q0 8 8 10h10v9h-22q-16 0 -16 -14z" fill="#b8584a"/><path d="M520 118h22v34q0 8 8 10h12v10h-26q-16 0 -16 -14z" fill="#d8c068"/><path d="M880 122h20v32q0 8 8 10h10v9h-22q-16 0 -16 -14z" fill="#4a7a5a"/><path d="M1250 114h22v34q0 8 8 10h12v10h-26q-16 0 -16 -14z" fill="#8a5a8a"/></g>
+<!-- the window: Rowan Moor, and rain on the tops -->
+<g id="win" class="hot">
+  <rect x="1084" y="124" width="232" height="222" fill="#2a1e16"/><rect x="1096" y="136" width="208" height="198" fill="url(#winG)"/>
+  <g clip-path="url(#winC)"><path d="M1090 250Q1160 214 1230 226T1320 196V340H1090Z" fill="#5a6248"/><path d="M1090 290Q1170 262 1250 276T1320 262V340H1090Z" fill="#6e7a52"/>
+    <path d="M1090 200Q1180 168 1320 150V200H1090Z" fill="#6e767c" opacity=".7"/><g id="rain" stroke="#4c565e" stroke-width="1.400" opacity=".6"><path d="M1150 150l-8 40M1180 140l-8 40M1210 136l-8 40M1240 130l-8 40M1270 126l-8 40M1300 120l-8 40M1165 180l-8 40M1225 170l-8 40M1285 160l-8 40M1255 196l-8 30"/></g></g>
+  <path d="M1200 136V334M1096 236H1304" stroke="#2a1e16" stroke-width="7"/><rect x="1084" y="340" width="232" height="12" fill="#6a5440"/>
+</g>
+<!-- the call-out board -->
+<g id="board" class="hot">
+  <rect x="140" y="140" width="490" height="340" fill="#b9c0c4"/><rect x="150" y="150" width="470" height="320" fill="#f6f8f6"/>
+  <text x="166" y="182" font-family="Fjalla One,sans-serif" font-size="25" letter-spacing="3" fill="#c8321e">CALL-OUT BOARD</text>
+  <g font-family="Fjalla One,sans-serif" font-size="12.5" letter-spacing="1" fill="#14233a"><text x="166" y="214">PARTY</text><text x="166" y="256">CAVE / ENTRANCE</text><text x="166" y="292">ROUTE</text><text x="166" y="328">IF THE WAY OUT FLOODS, WE WAIT AT</text><text x="166" y="378">IN</text><text x="300" y="378">OUT BY</text><text x="450" y="378">CALL-OUT</text><text x="166" y="432">LIGHTS</text></g>
+  <g stroke="#cfd8de" stroke-width="1.400"><path d="M160 222H610M160 264H610M160 300H610M160 344H610M160 400H610M160 444H610"/></g>
+  <g id="bvals" font-family="Caveat,cursive" font-size="22" fill="#1d3a8a"></g>
+  <path d="M560 452q20 -6 40 0" stroke="#9fb0bc" stroke-width="3" fill="none" opacity=".6"/><rect x="560" y="470" width="44" height="9" rx="2" fill="#2a2a2a"/><rect x="598" y="470" width="10" height="9" rx="2" fill="#c8321e"/>
+</g>
+<!-- the handbook on its nail -->
+<g id="book" class="hot"><circle cx="668" cy="318" r="3" fill="#8a8a8a"/><path d="M668 318l-16 22M668 318l16 22" stroke="#cfc4a8" stroke-width="1.500"/><rect x="644" y="338" width="48" height="66" rx="2" fill="#2f5a3a" stroke="#1d3a26" stroke-width="2"/><rect x="650" y="350" width="36" height="12" fill="#f4f1dc"/><path d="M652 374h32M652 382h26" stroke="#cfe3c4" stroke-width="2"/></g>
+<!-- the survey on the wall -->
+<g id="wsurvey" class="hot">
+  <rect x="710" y="150" width="330" height="246" fill="#f4f6f0"/><rect x="710" y="150" width="330" height="246" fill="none" stroke="#2a2a2a" stroke-width="3"/>
+  <text x="726" y="176" font-family="Fjalla One,sans-serif" font-size="15" letter-spacing="2" fill="#14233a">RIPPLE GILL CAVE · PLAN</text>
+  <path d="M742 360q40 -20 70 -30t60 -40q30 -26 60 -30t40 -40q20 -24 40 -30" stroke="#14233a" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M742 360q40 -20 70 -30t60 -40q30 -26 60 -30t40 -40q20 -24 40 -30" stroke="#f4f6f0" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M872 290q20 30 60 28" stroke="#14233a" stroke-width="4" fill="none"/><ellipse cx="930" cy="262" rx="26" ry="16" fill="#cfe0ea" stroke="#14233a" stroke-width="2"/>
+  <g font-family="Handlee,cursive" font-size="12" fill="#14233a"><text x="728" y="380">Gill Ent.</text><text x="790" y="322">Duck</text><text x="900" y="244">Formation Ch.</text><text x="960" y="208">Attic</text><text x="986" y="182">Wind Hole</text></g>
+  <path d="M1012 330v-34l-6 10M1012 296l6 10" stroke="#14233a" stroke-width="2" fill="none"/><text x="1007" y="346" font-family="Overpass,sans-serif" font-weight="700" font-size="12" fill="#14233a">N</text>
+  <path d="M726 388h80" stroke="#14233a" stroke-width="3"/><text x="812" y="392" font-family="Overpass,sans-serif" font-size="10" fill="#14233a">100 m</text>
+</g>
+<!-- the red telephone by the door -->
+<g id="phone" class="hot">
+  <rect x="-200" y="150" width="236" height="610" fill="#2a1e16"/><rect x="-200" y="160" width="226" height="590" fill="#1a1410"/>
+  <rect x="44" y="372" width="70" height="92" rx="6" fill="#c8321e" stroke="#7a1a10" stroke-width="3"/><path d="M54 384q25 -12 50 0v14h-12v-6h-26v6h-12z" fill="#2a2a2a"/><circle cx="79" cy="428" r="16" fill="#e8e2d0"/><circle cx="79" cy="428" r="5" fill="#7a1a10"/>
+  <rect x="40" y="474" width="78" height="22" fill="#f4f1dc"/><text x="79" y="489" font-family="Overpass,sans-serif" font-weight="700" font-size="10" text-anchor="middle" fill="#c8321e">EMERGENCY</text>
+</g>
+<!-- the stove -->
+<g id="stove">
+  <circle cx="1450" cy="600" r="210" fill="url(#fireG)" id="glow"/>
+  <rect x="1440" y="-100" width="26" height="510" fill="#1a1a1a"/><rect x="1380" y="410" width="150" height="250" rx="8" fill="#1e1e1e"/><rect x="1404" y="470" width="100" height="70" rx="6" fill="#ffb24a"/><path d="M1414 540q20 -40 40 -10q16 -30 40 0" fill="#ff7a2a"/>
+  <rect x="1390" y="660" width="130" height="16" fill="#141414"/><path d="M1400 676v40M1510 676v40" stroke="#141414" stroke-width="10"/>
+</g>
+<!-- the radio on a shelf -->
+<g id="radio" class="hot"><rect x="1330" y="300" width="200" height="10" fill="#6a5440"/><rect x="1350" y="250" width="110" height="50" rx="8" fill="#7a6a52"/><circle cx="1380" cy="275" r="15" fill="#3a3028"/><rect x="1404" y="262" width="44" height="10" fill="#e8d8a8"/><circle cx="1440" cy="287" r="5" fill="#2a2018"/><path d="M1446 250l30 -40" stroke="#9a9a9a" stroke-width="2"/></g>
+<!-- the floor -->
+<path d="M-1000 720H2600V1300H-1000Z" fill="#3a3430"/><g stroke="#2a2420" stroke-width="3"><path d="M-200 760H1800M-200 830H1800M100 720l-30 110M400 720l-20 110M700 720l-10 110M1000 720l10 110M1300 720l20 110M240 830l-30 70M600 830l-20 70M960 830l0 70M1320 830l20 70"/></g>
+<!-- boots -->
+<g fill="#22201c"><path d="M150 760h40v-40h16v40h22l4 14h-82z"/><path d="M240 762h40v-40h16v40h22l4 14h-82z" fill="#3e4a2a"/><path d="M330 760h40v-40h16v40h22l4 14h-82z"/></g>
+<!-- Mrs Ullathorne in her armchair, with the crossword -->
+<g id="myf" class="hot">
+  <path d="M1190 560q0 -60 60 -64h70q60 4 60 64v170h-190z" fill="#4a6a4a"/><rect x="1176" y="610" width="40" height="120" rx="14" fill="#3e5a3e"/><rect x="1356" y="610" width="40" height="120" rx="14" fill="#3e5a3e"/>
+  <path d="M1236 700q-6 -100 50 -104q56 4 50 104z" fill="#8a6a8a"/><path d="M1266 600l20 34l20 -34" fill="#f4ecd8"/>
+  <rect x="1278" y="566" width="16" height="30" fill="#e2b498"/><circle cx="1286" cy="550" r="27" fill="#ecc0a4"/><path d="M1257 560q-6 -44 29 -46q35 2 29 46q-4 -22 -16 -28q-14 -4 -26 0q-12 6 -16 28z" fill="#f2f0ea"/>
+  <circle cx="1276" cy="552" r="7" fill="none" stroke="#6a4a2a" stroke-width="1.600"/><circle cx="1296" cy="552" r="7" fill="none" stroke="#6a4a2a" stroke-width="1.600"/>
+  <rect x="1252" y="650" width="70" height="50" fill="#f4f1e4" transform="rotate(-8 1287 675)"/><path d="M1262 664h50M1262 674h44M1262 684h50" stroke="#8a8a8a" stroke-width="1.200" transform="rotate(-8 1287 675)"/>
+  <rect x="1336" y="690" width="22" height="26" rx="3" fill="#f4f0e2" stroke="#4a3a2a" stroke-width="1.500"/>
+</g>
+<!-- Vaughan by the window, with his phone -->
+<g id="vau" class="hot">
+  <path d="M1042 730l10 -170q2 -20 30 -22h20q28 2 30 22l10 170z" fill="#e2b82e"/><path d="M1060 730v-80M1124 730v-80" stroke="#b48c1c" stroke-width="3"/>
+  <rect x="1082" y="506" width="18" height="34" fill="#f0c4a2"/><circle cx="1091" cy="486" r="27" fill="#f0c4a2"/><g fill="#c4642c"><circle cx="1072" cy="470" r="11"/><circle cx="1088" cy="462" r="12"/><circle cx="1106" cy="466" r="11"/><circle cx="1116" cy="480" r="9"/></g>
+  <path d="M1050 600q-30 -30 -2 -56" stroke="#e2b82e" stroke-width="18" fill="none" stroke-linecap="round"/><rect x="1046" y="520" width="18" height="30" rx="3" fill="#2a2a2a"/><rect x="1048" y="523" width="14" height="22" fill="#9ad4ff" id="ph"/><circle cx="1055" cy="534" r="40" fill="url(#lampG)"/>
+</g>
+<!-- Morven behind the table -->
+<g id="mor" class="hot">
+  <path d="M800 650l8 -120q2 -24 34 -26h36q32 2 34 26l8 120z" fill="#5f7486"/><path d="M846 506l14 20l14 -20z" fill="#c23b26"/>
+  <rect x="852" y="474" width="18" height="34" fill="#cf9e7a"/><circle cx="861" cy="454" r="26" fill="#cf9e7a"/><path d="M835 456q-4 -34 26 -36q30 2 26 36q-4 -18 -26 -20q-22 2 -26 20z" fill="#3a3230"/><path d="M886 460q14 30 6 70" stroke="#3a3230" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M820 600q40 30 60 20" stroke="#5f7486" stroke-width="16" fill="none" stroke-linecap="round"/>
+</g>
+<!-- Tegan at the end of the table, with the batteries -->
+<g id="teg" class="hot">
+  <path d="M520 700l6 -100q2 -22 28 -24h28q26 2 28 24l6 100z" fill="#b0352a"/>
+  <rect x="560" y="548" width="16" height="30" fill="#b07a56"/><circle cx="568" cy="530" r="23" fill="#c48a62"/><path d="M542 532q2 -32 26 -34q24 2 26 34q-26 -14 -52 0z" fill="#3f8a4a"/><path d="M545 540q-10 8 -8 22M591 540q10 8 8 22" stroke="#1a1616" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="560" cy="534" r="7" fill="none" stroke="#2a2420" stroke-width="1.800"/><circle cx="576" cy="534" r="7" fill="none" stroke="#2a2420" stroke-width="1.800"/>
+</g>
+<!-- the table and the kit -->
+<g id="kit" class="hot">
+  <rect x="470" y="640" width="660" height="22" fill="#6a4a2e"/><rect x="470" y="660" width="660" height="10" fill="#4a3220"/><path d="M500 670v90M1100 670v90" stroke="#4a3220" stroke-width="16"/>
+  <g><path d="M640 640q0 -34 32 -36q32 2 32 36z" fill="#c8321e"/><rect x="664" y="612" width="16" height="10" rx="2" fill="#2a2a2a"/>
+    <path d="M720 640q0 -34 32 -36q32 2 32 36z" fill="#f2f2ee"/><rect x="744" y="612" width="16" height="10" rx="2" fill="#2a2a2a"/>
+    <path d="M920 640q0 -34 32 -36q32 2 32 36z" fill="#e0c030"/><rect x="944" y="612" width="16" height="10" rx="2" fill="#2a2a2a"/></g>
+  <rect x="1000" y="604" width="90" height="36" fill="#8a7450" stroke="#4a3a20" stroke-width="2"/><text x="1045" y="627" font-family="Stardos Stencil,serif" font-size="13" text-anchor="middle" fill="#f4ecd8">SPARES</text>
+  <g fill="#3a3a3a"><rect x="604" y="628" width="8" height="12"/><rect x="614" y="628" width="8" height="12" fill="#c8a040"/><rect x="624" y="628" width="8" height="12"/></g>
+  <rect x="800" y="626" width="80" height="14" fill="#f8fbfc" stroke="#9fb4c4"/>
+</g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down to the cave</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="karst.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, lastErr = '';
+
+  (function () {        /* the stone wall */
+    var s = '', r = KARST.rnd(7), x, y, w, row = 0;
+    for (y = -200; y < 760; y += 46) {
+      row++;
+      for (x = -700 + (row % 2) * 40; x < 2300; x += w + 6) {
+        w = 60 + r() * 70;
+        s += '<rect x="' + x.toFixed(0) + '" y="' + (y + r() * 6).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + (38 + r() * 6).toFixed(0) + '" rx="12" fill="' + ['#5c5046', '#544a40', '#62564a', '#4e443b'][Math.floor(r() * 4)] + '" stroke="#3a3028" stroke-width="3"/>';
+      }
+    }
+    $('#stones').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'wild', story: 'karst', storyTitle: 'The Cave That Breathes', id: 'hut', no: 'I', title: 'The Club Hut',
+    go: 'Go in',
+    intro: [
+      'Stennerdale, a Saturday at the end of October, ten to one. The club hut is an old stone barn at the bottom of Rowan Moor, with a stove, forty pairs of wet socks, and a telephone on the wall that is painted red.',
+      'You joined the Stennerdale Caving Club three weeks ago. Today is your first real trip: Ripple Gill Cave, through a low, wet place called the Duck, to help Morven Tennant re-draw the survey of the Formation Chamber. You have been told, by four different people, to stay close.',
+      'Nobody goes underground from this hut until the call-out board is filled in.'
+    ],
+    exit: {"next":"entrance","w":{"9a08ed01":"7d72d809"}}, tags: {"light":["2ac7e601","13db63f6"],"nolight_flat":["4a1b123f"],"nolight_candle":["f787b025"],"nolight_phone":["f1927515"],"who":["f30cc80f"],"ent":["0c639b37"],"route":["3fab1761"],"wait":["81cc76d4"],"tin":["84e8c634"],"tout":["abc5c53c"],"tout_4":["23cc6b07"],"tout_duck":["dab46dea"],"call":["0712a22b"],"call_same":["8f1f6612"],"call_short":["0b23e129","767623ce","8c696c9c","bf9f2754","98c05ad8","2f7f5192","61768846"],"call_late":["e36af046","9f041669","442e1f89","ae4dcca6","450860fb","0294624b","08c034e3","54bcde5b","f08ac7a3","6d08ff2b","5ef53d6b","5a9aed40","60ee638a","a4ef43d5","a32b6e2e","399f2efe"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('a-file') || null; told = ER.flag('a-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#board').classList.toggle('ready', !!(told.mor && told.myf && told.book && told.lights && !nextFile));
+    $('#kit').classList.toggle('ready', !!(told.book && !told.lights));
+    ER.pips((told.mor ? 1 : 0) + (told.myf ? 1 : 0) + (told.book ? 1 : 0) + (told.lights ? 1 : 0) + (nextFile ? 1 : 0), 5);
+    if (nextFile) boardVals();
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The board is signed and the plan is on it. Go down to the cave.']];
+    if (!told.mor || !told.myf) return ['talk', [
+      'Before anything goes on the board, find out the plan, and who stays behind.',
+      'Morven is behind the table; Mrs Ullathorne is in the armchair by the stove. Talk to both of them, to the end.'
+    ]];
+    if (!told.book) return ['book', [
+      'The club&rsquo;s rules for every trip are written down. Look near the board.',
+      'The green handbook hangs on a nail just to the right of the call-out board. Click it.'
+    ]];
+    if (!told.lights) return ['lights', [
+      'The handbook says how many lights each caver carries. Check the kit on the table.',
+      'Each person needs three working lights, each with its own battery. Count what each person has, and what is in the spares box.',
+      'Vaughan&rsquo;s third &ldquo;light&rdquo; is his phone, and you have only two lights. In the spares box, the lamp with the red battery light is flat and the candle is for draughts. The other two things are real lights.'
+    ]];
+    return ['board' + (lastErr ? '-' + lastErr : ''), boardHints()];
+  }
+  function boardHints() {
+    var H = {
+      who: ['The party is the people who go underground. Morven said who.', 'Four people go in. One person in this hut must not: the one who rings for help.'],
+      ent: ['Morven said where you go in. Look in your notebook: &ldquo;Morven, in the hut&rdquo;.', 'You go in where Ripple Gill comes out of the hill.'],
+      route: ['Morven said which way you go once you are in.', 'Through the Duck, up to the Formation Chamber, and a little way along the Attic.'],
+      wait: ['Mrs Ullathorne said where a party waits if the Duck floods, and where the rescue will look.', 'The highest dry place in the cave, where the Flood Box is.'],
+      tin: ['Morven said when you will be underground.', 'A quarter to two, written the British way: 13.45.'],
+      tout: ['Out by = the time you go in + the time underground. Morven said how long.', 'Four and a quarter hours after 13.45.'],
+      call: ['The handbook gives the rule for the call-out time on this cave.', 'Call-out = the &ldquo;out by&rdquo; time + the margin for Ripple Gill Cave, which is two hours.']
+    };
+    if (lastErr && H[lastErr]) return H[lastErr];
+    return ['Everything on the board was said by somebody in this room, or is in the handbook. Your notebook has it all.',
+      'The party is the people going underground. The entrance and the route are Morven&rsquo;s; the place to wait is Mrs Ullathorne&rsquo;s.',
+      'Times: in at a quarter to two; four and a quarter hours underground; the call-out time is &ldquo;out by&rdquo; plus the margin the handbook gives this cave.'];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The board is filled in. Mrs Ullathorne has put the kettle on, for later.'); return; }
+    if (told.in) { busy = false; ER.say('The club hut. Rain on the tops, and the board still empty.'); return; }
+    tell('in');
+    ER.narrate([
+      'Inside, the hut smells of wet rope, coal smoke and toast. Through the window you can see the long brown back of Rowan Moor. There is grey cloud on the top of it, and under the cloud, if you look hard, a fine grey hanging curtain of rain.',
+      'Morven Tennant is at the table with a laminated survey and a pencil on a string. Tegan Nuttall is sorting batteries into piles. Vaughan Merritt is reading his phone by the window. In the armchair by the stove, Mrs Ullathorne is doing a crossword in pen.',
+      '&ldquo;Board first,&rdquo; says Morven, without looking up. &ldquo;Board first, then boots. That&rsquo;s the rule.&rdquo;'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#mor').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Morven Tennant', role: 'Today&rsquo;s leader, and the club&rsquo;s surveyor', face: window.FACE('morven'),
+      lines: [
+        { note: 'She has the laminated survey flat on the table and is pointing at it with the pencil.', a: '&ldquo;Today&rsquo;s job is the Formation Chamber. The old survey is forty years old and it puts the chamber eleven metres in the wrong place. We are going to put it right.&rdquo;' },
+        { q: 'Who&rsquo;s going?', a: 'Four of us: me, Vaughan, Tegan, and you. Myfanwy stays here. She&rsquo;s our surface contact, so she is the one person in this hut who must not come.' },
+        { q: 'Which way do we go in?', a: 'By the Gill Entrance, where Ripple Gill comes out of the hill. Through the Duck, up the Ramp to the Formation Chamber, and if there&rsquo;s time, a little way along the Attic. That&rsquo;s our route.' },
+        { q: 'How long will we be?', a: 'We&rsquo;ll be underground at a quarter to two. Four and a quarter hours underground, and not a minute more, because there&rsquo;s rain coming tonight.' },
+        { q: 'What exactly is the Duck?', a: 'A place where the roof comes down nearly to the water. You lie on your back with your nose on the roof and pull yourself along for two metres. In dry weather it&rsquo;s cold and silly and perfectly safe. After rain the water comes up and meets the roof, and then it&rsquo;s a sump, and nobody goes through it. Nobody.' },
+        { q: 'Why did you ask me to come?', a: 'Young eyes and neat handwriting. I have neither. Stay close.' }
+      ],
+      clue: { id: 'mor1', title: 'Morven, in the hut', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('mor')) { paint(); KARST.terms(['duck', 'sump', 'survey']); ER.say('Morven goes back to her survey. &ldquo;Board,&rdquo; she says to nobody, &ldquo;then boots.&rdquo;'); } }
+    });
+  });
+  $('#myf').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mrs Ullathorne', role: 'The surface contact', face: window.FACE('myfanwy'),
+      lines: [
+        { note: 'She fills in a word, takes her glasses off, and lets them hang on their chain.', a: '&ldquo;I&rsquo;m the surface contact. That means I sit here, I drink tea, and I watch that clock.&rdquo;' },
+        { q: 'What happens if we&rsquo;re late?', a: 'At your call-out time, not a minute before and not a minute after, I lift the red telephone. It goes straight through to Police Control. I say &ldquo;Cave Rescue&rdquo;, and I read them the board, every line of it. So whatever you write on it had better be true.' },
+        { q: 'What if the Duck floods while we&rsquo;re in?', a: 'Then you don&rsquo;t go near it. You go up, to the Attic. It&rsquo;s the highest dry place in the cave: no flood has ever reached it. There&rsquo;s a blue barrel up there, the Flood Box: survival bags, candles, matches, chocolate that I change every Christmas, and some notes of mine. Write it on the board. That&rsquo;s where a rescue team would look for you first.' },
+        { q: 'Have you ever had to ring them?', a: 'Twice in forty-five years. Both times they were in the Attic, eating my chocolate.' },
+        { q: 'Did you draw the survey?', a: 'The first one, in 1979, with a tape, a compass and a lot of bad language. The far end, the Wind Hole Series, I drew coming down from the top, through the Wind Hole on Rowan Moor. Morven&rsquo;s making it better. It needs it.' }
+      ],
+      clue: { id: 'myf1', title: 'Mrs Ullathorne, the surface contact', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('myf')) { paint(); KARST.terms(['surface contact', 'call-out', 'Flood Box']); ER.say('Mrs Ullathorne goes back to her crossword. Seven across is giving her trouble.'); } }
+    });
+  });
+  $('#teg').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Tegan Nuttall', role: 'Fifteen, and through the Duck twelve times', face: window.FACE('tegan'),
+      lines: [
+        { note: 'She is sorting batteries into three piles: good, doubtful and dead.', a: '&ldquo;Hi. Have you got three lights? Everybody has to have three.&rdquo;' },
+        { q: 'Why three?', a: 'Because one breaks, and you&rsquo;ve got two. Then one goes in the water, and you&rsquo;ve still got one. With one light you&rsquo;re one mistake away from the dark. Main lamp, spare lamp, little torch, each with its own battery.' },
+        { q: 'What is the Duck like?', a: 'Like lying in a very cold bath with your ears under, trying not to laugh. Twelve times I&rsquo;ve done it. It&rsquo;s fine when it&rsquo;s low. When it&rsquo;s up, it&rsquo;s not fine, and you don&rsquo;t.' },
+        { q: 'Is your phone a light?', a: 'My phone&rsquo;s off, in a waterproof box at the bottom of my bag. There&rsquo;s no signal in the dale anyway. There&rsquo;s one bar on top of Rowan Moor, by the cairn, and that&rsquo;s what the battery is for. Vaughan thinks his phone is a light. Somebody should tell him.' }
+      ],
+      clue: { id: 'teg1', title: 'Tegan, sorting batteries', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('teg')) ER.say('Tegan holds a battery up to the light, frowns at it, and puts it on the dead pile.'); }
+    });
+  });
+  $('#vau').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Vaughan Merritt', role: 'Sixteen, tall, and in a hurry', face: window.FACE('vaughan'),
+      lines: [
+        { note: 'He is leaning on the window frame, watching a video of somebody else&rsquo;s cave.', a: '&ldquo;Look at this. Mexico. You could fit our whole cave in one room of it.&rdquo;' },
+        { q: 'Have you got three lights?', a: 'Main lamp, spare lamp, and this. Torch app. A hundred per cent battery. Brightest thing in the hut.' },
+        { q: 'Is a phone a light?', a: 'It lights things, doesn&rsquo;t it? &hellip; Until the battery goes. Or it gets wet. Or I drop it in the Duck. All right. All right.' },
+        { q: 'Is it going to rain?', a: 'Tonight. Not till seven, the radio says. We&rsquo;ll be in the caf&eacute; eating chips by then.' }
+      ],
+      clue: { id: 'vau1', title: 'Vaughan, by the window', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('vau')) ER.say('Vaughan turns his phone sideways. The cave in Mexico is still bigger.'); }
+    });
+  });
+
+  /* ---------- papers ---------- */
+  var BOOK = '<h4><small>Stennerdale Caving Club &middot; Handbook &middot; page 3</small>Before you go underground</h4><div class="two"><div>' +
+    '<p>Nobody knows you are lost until somebody knows you are late. So before every trip, fill in the <b>call-out board</b> in the hut, and tell your <b>surface contact</b>:</p>' +
+    '<ul><li>who is in the party;</li><li>which cave, and which entrance;</li><li>your route;</li><li>when you go in, and when you will be out by;</li>' +
+    '<li>your <b>call-out time</b>: your &ldquo;out by&rdquo; time plus a margin. On Ripple Gill Cave the margin is two hours: enough for a slow party, not so much that a trapped one waits all night;</li>' +
+    '<li>where you will wait if the way out floods.</li></ul>' +
+    '<p>Carry <b>three lights</b> each, which do not depend on each other: a main lamp, a spare lamp and a small torch, each with its own battery. A phone is not a light.</p>' +
+    '<p>At the call-out time the surface contact lifts the red telephone (it goes straight to Police Control), says CAVE RESCUE, and reads them the board.</p>' +
+    '<p class="rule">Call-out time = &ldquo;out by&rdquo; + 2 hours (Ripple Gill Cave)</p><p>When you come out, wipe your names off at once.</p></div>' +
+    '<div><svg viewBox="0 0 290 330"><rect width="290" height="330" fill="#fffdf2"/>' +
+    '<g transform="translate(20 20)"><path d="M10 70q0 -56 60 -60q60 4 60 60z" fill="#c8321e"/><rect x="52" y="20" width="36" height="22" rx="4" fill="#2a2a2a"/><circle cx="70" cy="31" r="8" fill="#fff6c8"/><text x="150" y="40" font-family="Overpass,sans-serif" font-weight="700" font-size="14" fill="#1c2018">1 main lamp</text></g>' +
+    '<g transform="translate(20 120)"><rect x="40" y="10" width="62" height="40" rx="8" fill="#5a6a76"/><circle cx="71" cy="30" r="12" fill="#fff6c8"/><path d="M40 30h-26" stroke="#2a2a2a" stroke-width="5"/><text x="150" y="36" font-family="Overpass,sans-serif" font-weight="700" font-size="14" fill="#1c2018">2 spare lamp</text></g>' +
+    '<g transform="translate(20 200)"><rect x="30" y="16" width="86" height="24" rx="6" fill="#2a2a2a"/><rect x="108" y="12" width="16" height="32" rx="3" fill="#6a6a6a"/><circle cx="124" cy="28" r="6" fill="#fff6c8"/><text x="150" y="34" font-family="Overpass,sans-serif" font-weight="700" font-size="14" fill="#1c2018">3 small torch</text></g>' +
+    '<g transform="translate(40 268)"><rect width="26" height="44" rx="4" fill="#2a2a2a"/><rect x="3" y="4" width="20" height="32" fill="#9ad4ff"/><path d="M-6 -4L36 52" stroke="#c8321e" stroke-width="5"/><text x="70" y="28" font-family="Overpass,sans-serif" font-weight="700" font-size="14" fill="#c8321e">not a light</text></g></svg></div></div>' +
+    '<p class="pg">Read it. Then read it again. &middot; 3</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: BOOK, cls: 'club', clue: { id: 'book1', title: 'Before you go underground', kind: 'Club handbook, page 3' }, done: function () {
+      KARST.terms(['call-out', 'surface contact', 'call-out time']);
+      if (tell('book')) { paint(); ER.say('Three lights each. You look at the kit on the table and start counting.'); }
+    } });
+  });
+  var WX = '<h4>The radio &middot; the hill forecast, 12.55</h4><p>&hellip;and for the hills today: dry for most of the morning, with a few showers this afternoon. A band of heavy rain will reach the high ground this evening, <b>probably from about seven o&rsquo;clock</b>, with twenty-five to thirty-five millimetres on the tops before it clears after midnight. Behind it, a clear, cold night, with a frost by dawn. Winds light.</p>' +
+    '<p class="note">Mrs Ullathorne turns it off. &ldquo;Probably,&rdquo; she says, &ldquo;is a forecaster&rsquo;s favourite word.&rdquo;</p>';
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: WX, cls: 'wx', clue: { id: 'wx', title: 'The hill forecast', kind: 'The radio' }, done: function () { if (tell('wx')) ER.say('Seven o&rsquo;clock. Through the window, the cloud on the tops already looks rather heavy for a few showers.'); } });
+  });
+  KARST.thing('#wsurvey', 'survey', 'The club&rsquo;s big survey, the 1979 one, pinned to the wall. It is a plan: the cave seen from above, with north at the top and a scale bar. The cave runs from the Gill Entrance, bottom left, up under the moor to the Wind Hole, top right.', isBusy);
+  KARST.thing('#phone', null, 'The red telephone. A card under it says: EMERGENCY. Lift and wait: this line goes straight to Police Control. Ask for CAVE RESCUE. Read them the board.', isBusy);
+  KARST.thing('#win', null, function () { return 'Rowan Moor, through the window. The top of it is under a grey cloud, and the cloud is trailing rain. Down here it is only drizzling.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the kit: three lights each ---------- */
+  var ICON = {
+    main: '<svg viewBox="0 0 38 30"><path d="M3 26q0 -22 16 -23q16 1 16 23z" fill="#c8321e"/><rect x="13" y="8" width="12" height="8" rx="2" fill="#2a2a2a"/><circle cx="19" cy="12" r="3" fill="#fff6c8"/></svg>',
+    spare: '<svg viewBox="0 0 38 30"><rect x="8" y="6" width="24" height="18" rx="4" fill="#5a6a76"/><circle cx="20" cy="15" r="6" fill="#fff6c8"/><circle cx="29" cy="9" r="2.500" fill="#3ac25a"/></svg>',
+    flat: '<svg viewBox="0 0 38 30"><rect x="8" y="6" width="24" height="18" rx="4" fill="#5a6a76"/><circle cx="20" cy="15" r="6" fill="#8a8a7a"/><circle cx="29" cy="9" r="2.500" fill="#e8321e"/></svg>',
+    torch: '<svg viewBox="0 0 38 30"><rect x="3" y="11" width="26" height="9" rx="3" fill="#2a2a2a"/><rect x="27" y="8" width="7" height="15" rx="2" fill="#6a6a6a"/><circle cx="34" cy="15" r="2.500" fill="#fff6c8"/></svg>',
+    candle: '<svg viewBox="0 0 38 30"><rect x="15" y="10" width="8" height="18" fill="#f4ecd8"/><path d="M19 3q4 4 0 7q-4 -3 0 -7z" fill="#ffb24a"/><rect x="26" y="20" width="9" height="7" fill="#c8321e"/></svg>',
+    phone: '<svg viewBox="0 0 38 30"><rect x="12" y="2" width="14" height="26" rx="3" fill="#2a2a2a"/><rect x="14" y="5" width="10" height="18" fill="#9ad4ff"/></svg>'
+  };
+  var NAME = { main: 'main lamp', spare: 'spare lamp (charged)', flat: 'spare lamp (battery light red)', torch: 'small torch', candle: 'candle and matches', phone: 'Vaughan&rsquo;s phone' };
+  function fixed(k, label) { return '<div class="kfix">' + ICON[k] + (label || NAME[k]) + '</div>'; }
+  function item(k) { return '<div class="kitem dnd-item" data-k="' + k + '">' + ICON[k] + NAME[k] + '</div>'; }
+  function openKit() {
+    var box = ER.el('div', 'bx'), msgEl, root;
+    box.innerHTML = '<div class="frame"><div class="kit">' +
+      '<div class="kp"><h5>Morven<small>leader</small></h5>' + fixed('main') + fixed('spare') + fixed('torch') + '</div>' +
+      '<div class="kp"><h5>Tegan<small>fifteen</small></h5>' + fixed('main') + fixed('spare') + fixed('torch') + '</div>' +
+      '<div class="kp"><h5>Vaughan<small>sixteen</small></h5>' + fixed('main') + fixed('spare') + '<div class="kslot" data-p="v">' + item('phone') + '</div></div>' +
+      '<div class="kp"><h5>You<small>new member</small></h5>' + fixed('main', 'main lamp (club&rsquo;s)') + '<div class="kslot" data-p="y"></div>' + fixed('torch') + '</div>' +
+      '<div class="kbox"><h5>Spares box</h5><div class="home">' + item('flat') + item('candle') + item('spare') + item('torch') + '</div></div>' +
+      '</div></div><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="k-go">Three lights each</button></div>';
+    msgEl = box.querySelector('.pmsg'); root = box.querySelector('.kit');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    ER.dnd(root, { item: '.kitem', slot: '.kslot', home: box.querySelector('.home'), change: function () { msg('Drag a thing from the box to a person, or click it and then click where it goes.'); } });
+    box.querySelector('#k-go').addEventListener('click', function () {
+      var ps = ['v', 'y'], i, s, it, k, who;
+      for (i = 0; i < ps.length; i++) {
+        s = box.querySelector('.kslot[data-p="' + ps[i] + '"]'); it = s.querySelector('.kitem'); who = ps[i] === 'v' ? 'Vaughan' : 'You';
+        if (!it) { KARST.sfx.no(); msg(who === 'You' ? 'You have only two lights.' : 'Vaughan has only two lights.'); return; }
+        k = it.getAttribute('data-k');
+        if (!ER.check('light', k)) {
+          KARST.sfx.no(); ER.shake(it);
+          msg(ER.check('nolight_phone', k) ? '&ldquo;A phone is not a light,&rdquo; says Tegan, without looking up. &ldquo;Page three. Somebody tell him.&rdquo; Vaughan sighs and puts the phone in his pocket.' :
+            ER.check('nolight_flat', k) ? 'Look at the little battery light on that lamp: it is red. A lamp with a flat battery is not a light; it is something heavy to carry.' :
+            ER.check('nolight_candle', k) ? '&ldquo;Those are Mrs U&rsquo;s,&rdquo; says Tegan. &ldquo;For testing draughts. You can&rsquo;t see the Duck by candlelight, and the first drip puts it out.&rdquo;' :
+            'That will not do as one of three lights.');
+          return;
+        }
+      }
+      if (tell('lights')) { ER.flag('a-kit', 1); }
+      KARST.sfx.click(); paint();
+      msg('Three each: a main lamp, a spare lamp and a torch, every one with its own battery. Tegan nods. Vaughan pretends not to have heard.');
+      setTimeout(function () { ER.close(); ER.say('Lights done. Now the board.'); }, 2200);
+    });
+    ER.open('ov-lock', box);
+    msg(told.lights ? 'Everybody has three lights.' : 'Who has fewer than three real lights? Drag things from the spares box (or click a thing, then a place).');
+  }
+  $('#kit').addEventListener('click', function () {
+    if (busy) return;
+    if (told.lights) { ER.say('Twelve lights on the table, three for each of you, every one of them working.'); return; }
+    if (!told.book) { ER.say('&ldquo;Lights,&rdquo; says Tegan. &ldquo;Read page three first. Then count.&rdquo; She nods at the green handbook by the board.'); return; }
+    openKit();
+  });
+
+  /* ---------- the call-out board ---------- */
+  var MAGS = {
+    who: [['m', 'Morven Tennant'], ['u', 'Myfanwy Ullathorne'], ['v', 'Vaughan Merritt'], ['y', 'You (new member)'], ['t', 'Tegan Nuttall']],
+    ent: [['wind', 'Ripple Gill Cave, by the Wind Hole'], ['gill', 'Ripple Gill Cave, by the Gill Entrance'], ['sink', 'Rowan Sink']],
+    route: [['low', 'Low Road to the Far Sump'], ['duck', 'Duck, Formation Chamber, Attic'], ['windser', 'Wind Hole Series']],
+    wait: [['pool', 'the Duck Pool'], ['attic', 'the Attic, by the Flood Box'], ['chamber', 'the Formation Chamber']]
+  };
+  var TEXT = {}; Object.keys(MAGS).forEach(function (r) { MAGS[r].forEach(function (m) { TEXT[r + ':' + m[0]] = m[1]; }); });
+  function boardVals() {
+    var v = ER.flag('a-board'); if (!v) return;
+    var p = v.split('|'), who = p[0].split('').map(function (k) { return TEXT['who:' + k].split(' ')[0]; }).join(', ');
+    $('#bvals').innerHTML = '<text x="300" y="214">' + who + '</text><text x="300" y="256" font-size="18">' + TEXT['ent:' + p[1]] + '</text><text x="300" y="292" font-size="18">' + TEXT['route:' + p[2]] + '</text>' +
+      '<text x="300" y="358" font-size="19">' + TEXT['wait:' + p[3]] + '</text><text x="166" y="398">' + p[4].slice(0, 2) + '.' + p[4].slice(2) + '</text><text x="300" y="398">' + p[5].slice(0, 2) + '.' + p[5].slice(2) + '</text>' +
+      '<text x="450" y="398" fill="#c8321e">' + p[6].slice(0, 2) + '.' + p[6].slice(2) + '</text><text x="300" y="434">3 each &#10003;</text>';
+  }
+  function openBoard() {
+    var box = ER.el('div', 'bx'), s = '', msgEl, wl = {};
+    function row(r, label, n, wide, cls) {
+      var o = '<div class="brow" data-row="' + r + '"><label>' + label + '</label><div class="line">', i;
+      for (i = 0; i < n; i++) o += '<div class="bslot' + (wide ? ' wide' : '') + '"></div>';
+      o += '<div class="btray">' + MAGS[r].map(function (m) { return '<span class="mag dnd-item ' + (cls || '') + '" data-k="' + m[0] + '">' + m[1] + '</span>'; }).join('') + '</div></div></div>';
+      return o;
+    }
+    s = '<div class="frame board"><h5>CALL-OUT BOARD <small>RIPPLE GILL CAVE &middot; SATURDAY</small></h5>' +
+      row('who', 'Party', 4, false, '') + row('ent', 'Cave / entrance', 1, true, 'g') + row('route', 'Route', 1, true, 'g') + row('wait', 'If the way out floods, we wait at', 1, true, 'b') +
+      '<div class="brow"><label>In &middot; out by &middot; call-out</label><div class="times" id="b-times"></div></div>' +
+      '<div class="brow"><label>Lights</label><div class="lightsrow">3 each &#10003;</div></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="b-sign">Sign the board</button></div>';
+    box.innerHTML = s; msgEl = box.querySelector('.pmsg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    ER.$$('.brow[data-row]', box).forEach(function (r) {
+      ER.dnd(r, { item: '.mag', slot: '.bslot', home: r.querySelector('.btray'), change: function () { KARST.sfx.magnet(); } });
+    });
+    var T0 = ER.flag('a-times') || { tin: [12, 0], tout: [12, 0], call: [12, 0] };
+    [['tin', 'In'], ['tout', 'Out by'], ['call', 'Call-out']].forEach(function (t) {
+      wl[t[0]] = KARST.wheels(box.querySelector('#b-times'), { label: t[1], vals: [KARST.HOURS, KARST.QUARTERS], sep: { 1: '.' }, start: T0[t[0]], change: function () {
+        ER.flag('a-times', { tin: wl.tin.at(), tout: wl.tout.at(), call: wl.call.at() });
+      } });
+    });
+    function got(r) { return ER.$$('.brow[data-row="' + r + '"] .bslot .mag', box).map(function (m) { return m.getAttribute('data-k'); }); }
+    box.querySelector('#b-sign').addEventListener('click', function () {
+      var who = got('who').sort().join(''), ent = got('ent')[0] || '', route = got('route')[0] || '', wait = got('wait')[0] || '',
+        tin = wl.tin.get(), tout = wl.tout.get(), call = wl.call.get(), c = [who, ent, route, wait, tin, tout, call].join('|');
+      if (got('who').length < 4) { lastErr = 'who'; KARST.sfx.no(); msg('Morven counts the magnets in the party row, and then the people in this hut who are putting on oversuits. &ldquo;Those two numbers ought to be the same.&rdquo;'); return; }
+      if (!ER.check('who', who)) { lastErr = 'who'; KARST.sfx.no(); msg('Mrs Ullathorne taps the party row with her pen. &ldquo;If I&rsquo;m down the cave,&rdquo; she says, &ldquo;who lifts the red telephone?&rdquo;'); return; }
+      if (!ent || !ER.check('ent', ent)) { lastErr = 'ent'; KARST.sfx.no(); msg(ent ? '&ldquo;Not that way,&rdquo; says Morven. &ldquo;We go in where the water comes out.&rdquo;' : 'Which cave, and which entrance? Put a magnet in that row.'); return; }
+      if (!route || !ER.check('route', route)) { lastErr = 'route'; KARST.sfx.no(); msg(route ? '&ldquo;That&rsquo;s somebody else&rsquo;s trip,&rdquo; says Morven. &ldquo;Ours is the one I told you.&rdquo;' : 'The route row is empty.'); return; }
+      if (!wait || !ER.check('wait', wait)) { lastErr = 'wait'; KARST.sfx.no(); msg(wait ? 'Mrs Ullathorne shakes her head. &ldquo;That&rsquo;s where the water comes up. Where did I say the rescue would look for you?&rdquo;' : 'Where will you wait if the way out floods? The handbook says it must be on the board.'); return; }
+      if (!ER.check('tin', tin)) { lastErr = 'tin'; KARST.sfx.no(); msg('&ldquo;In,&rdquo; says Morven, &ldquo;is when we go underground. I told you when.&rdquo;'); return; }
+      if (!ER.check('tout', tout)) { lastErr = 'tout'; KARST.sfx.no(); msg(ER.check('tout_4', tout) ? 'That is four hours after you go in. Morven said four and a <b>quarter</b>.' : ER.check('tout_duck', tout) ? 'That might be when you come back through the Duck; the board wants when you will be out.' : '&ldquo;Out by&rdquo; is the time you go in, plus the time underground. Do the sum again.'); return; }
+      if (!ER.check('call', call)) {
+        lastErr = 'call'; KARST.sfx.no();
+        msg(ER.check('call_same', call) ? '&ldquo;If I ring at the very minute you&rsquo;re due,&rdquo; says Mrs Ullathorne, &ldquo;the Cave Rescue will meet you in the car park, taking your boots off. They will not thank me.&rdquo;' :
+          ER.check('call_short', call) ? 'Not enough margin. Look at the handbook: it gives Ripple Gill Cave its own number of hours.' :
+          ER.check('call_late', call) ? '&ldquo;Too late,&rdquo; says Mrs Ullathorne. &ldquo;If the Duck closed at six, you&rsquo;d be sitting in the dark for hours before anybody even started putting their boots on.&rdquo;' :
+          'The call-out time comes after the &ldquo;out by&rdquo; time. The handbook says how long after.');
+        return;
+      }
+      var ok = ER.exitOk([c]);
+      if (!ok) { KARST.sfx.no(); msg('Something on the board is not what was said. Read it again, line by line.'); return; }
+      nextFile = ER.exit([c], { wait: true }); ER.flag('a-file', nextFile); ER.flag('a-board', c); lastErr = '';
+      KARST.sfx.pencil();
+      KARST.mine('plan', 'The call-out board', '<p>Party: Morven, Vaughan, Tegan and me. Mrs Ullathorne is the surface contact.</p><p>Ripple Gill Cave, in by the Gill Entrance. Route: the Duck, the Formation Chamber, the Attic.</p><p>If the way out floods, we wait in <b>the Attic, by the Flood Box</b>.</p><p>In 13.45. Out by 18.00 (four and a quarter hours). <b>Call-out 20.00</b> (out by + 2 hours). Three lights each.</p>', true);
+      msg('Mrs Ullathorne reads the board aloud, every line, the way she would read it down the red telephone. &ldquo;Call-out eight o&rsquo;clock,&rdquo; she says. &ldquo;Off you go.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You pull on your oversuit, your wellies and your helmet. Morven checks every lamp herself, twice, and then puts her laminated survey in a plastic tube.',
+          'At the door Mrs Ullathorne looks up from her crossword. &ldquo;Seven across,&rdquo; she says. &ldquo;Eight letters. &lsquo;What a cave does on a cold night.&rsquo; Begins with B.&rdquo; Nobody knows. You go out into the drizzle.'
+        ], function () { busy = false; showGo(); });
+      }, 2600);
+    });
+    ER.open('ov-lock', box);
+    msg('Drag a magnet from each row&rsquo;s tray onto the line (or click a magnet, then the line), and set the three times.');
+  }
+  $('#board').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The board is filled in, in your neatest writing. Call-out at eight.'); return; }
+    if (!told.mor || !told.myf) { ER.say('&ldquo;You can&rsquo;t fill it in,&rdquo; says Morven, &ldquo;until you know the plan. Ask me. And ask Myfanwy: she&rsquo;s the one who reads it.&rdquo;'); return; }
+    if (!told.book) { ER.say('There is a green handbook on a nail beside the board. The rules for the board are in it.'); return; }
+    if (!told.lights) { ER.say('&ldquo;Lights first,&rdquo; says Tegan. &ldquo;Three each. The board says so, at the bottom.&rdquo;'); return; }
+    openBoard();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Gill Entrance · The Cave That Breathes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="karst.css">
+<style>
+  body{--bg:#7d8a88;--accent:#2f6a4a;--font-display:'Oswald',sans-serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(226,232,228,.97);--tc-ink:#1c2620;--cap-bg:rgba(236,240,236,.95);--cap-ink:#1c2620;--panel:#eef2ee;--panel-ink:#1c2620;--face-bg:#9aa8a4;--q-ink:#2f6a4a;--fade:#c8d0cc;
+    --hud-bg:rgba(236,240,236,.9);--hud-ink:#1c2620;--hud-line:rgba(28,38,32,.3);--ov-bg:rgba(30,40,36,.8)}
+  .hbtn.hnt{border-color:#2f6a4a;color:#2f6a4a}
+  .bx-foot .btn{border-color:#8fd0a8;color:#cfeedd}
+  .bx-foot .btn:hover:not([disabled]){background:#8fd0a8;color:#10201a}
+  .hbtn b{color:#fff}
+  #drizzle{animation:drz .45s steps(3,end) infinite}
+  @keyframes drz{to{transform:translate(-18px,54px)}}
+  #tops{animation:drz .35s steps(3,end) infinite}
+  #drizzle,#tops{pointer-events:none}
+  #gill path.f{animation:foam 1.2s steps(2,end) infinite}
+  @keyframes foam{50%{opacity:.4}}
+  #wisp{animation:wag .5s steps(2,end) infinite;transform-origin:262px 742px}
+  @keyframes wag{50%{transform:rotate(16deg)}}
+
+  /* Morven's sketch: Rowan Moor and Black Scar, cut through */
+  .sk{display:block;width:100%;height:auto;background:#f8fbfc;touch-action:none}
+  .sk .nd{cursor:pointer}
+  .sk .nd circle.hit{fill:#fff;opacity:0}
+  .sk .nd circle.dot{fill:#f8fbfc;stroke:#14233a;stroke-width:2}
+  .sk .nd:hover circle.dot{fill:#ffd76a}
+  .sk .nd.on circle.dot{fill:#2a7ac2;stroke:#2a7ac2}
+  .skL{font-family:'Handlee',cursive;font-size:15px;fill:#14233a}
+  .skS{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;fill:#5a6a76}
+  .skT{font-family:'Fjalla One',sans-serif;font-size:16px;letter-spacing:.08em;fill:#14233a}
+  .skN{font-family:'Handlee',cursive;font-size:14px;fill:#c8321e}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e9a9c"/><stop offset="1" stop-color="#c2c9c6"/></linearGradient>
+  <linearGradient id="scarE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c6c4bc"/><stop offset=".6" stop-color="#a8a69e"/><stop offset="1" stop-color="#8a8880"/></linearGradient>
+  <linearGradient id="grassE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e7c4c"/><stop offset="1" stop-color="#4e5a36"/></linearGradient>
+  <linearGradient id="waterE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8ccc8"/><stop offset="1" stop-color="#7a948e"/></linearGradient>
+  <filter id="mistE" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1000" fill="url(#skyE)"/>
+<!-- Black Scar across the dale, with the quarry -->
+<g id="quarry" class="hot"><path d="M-1000 330Q-400 250 0 262T420 300L560 380V720H-1000Z" fill="#7a8466"/><path d="M60 270l40 -6l60 4l10 26l-104 4z" fill="#d8d4c4"/><path d="M70 300h96" stroke="#b8b4a4" stroke-width="3"/><rect x="20" y="268" width="24" height="12" fill="#c8a030"/></g>
+<!-- Rowan Moor, the top in rain cloud -->
+<path d="M300 540Q420 450 560 370Q800 250 1100 190T2600 70V720H300Z" fill="#6a6a48"/>
+<path d="M-1000 520Q-200 470 400 500T1400 470T2600 480V720H-1000Z" fill="#5e6a40"/>
+<path d="M600 300Q900 230 1200 190T2600 80" stroke="#7d7a52" stroke-width="10" fill="none" opacity=".5"/>
+<g filter="url(#mistE)"><ellipse cx="1500" cy="120" rx="900" ry="120" fill="#9aa4a6"/><ellipse cx="900" cy="170" rx="500" ry="70" fill="#a8b0b0" opacity=".8"/></g>
+<g id="tops" stroke="#7e888c" stroke-width="2" opacity=".55"><path d="M1000 120l-12 60M1060 110l-12 60M1120 104l-12 60M1180 96l-12 60M1240 90l-12 60M1300 84l-12 60M1360 80l-12 60M1420 76l-12 60M1480 72l-12 60M1540 68l-12 60M1030 160l-12 50M1150 150l-12 50M1270 140l-12 50M1390 130l-12 50M1510 120l-12 50"/></g>
+<!-- the scar, grey limestone in beds, with joints -->
+<g id="scar" class="hot">
+  <path d="M630 640Q644 560 652 500Q668 420 700 372Q780 334 900 342Q1060 330 1196 362Q1226 420 1236 470Q1250 560 1268 640Z" fill="url(#scarE)"/>
+  <path d="M652 500l30 8l-6 30zM1210 420l20 30l-24 8zM700 372l40 20l-20 26z" fill="#8a887e" opacity=".6"/>
+  <g stroke="#7a786e" stroke-width="3" fill="none"><path d="M662 420Q900 404 1226 420M664 480Q900 466 1240 482M660 540Q900 528 1250 546M658 600Q900 590 1256 606"/></g>
+  <g stroke="#5a5850" stroke-width="2.400"><path d="M720 360v60M820 344v76M980 342v78M1110 350v70M760 420v60M900 410v70M1050 420v62M1180 424v58M700 480v60M860 470v70M1010 470v72M1150 484v60M780 540v60M940 532v68M1090 546v60"/></g>
+  <path d="M660 360Q760 330 900 340Q1060 330 1200 360" stroke="#5a6640" stroke-width="12" fill="none"/>
+</g>
+<!-- the Gill Entrance and the water coming out -->
+<g id="ent" class="hot"><path d="M860 640Q860 548 930 540Q1000 548 1004 640Z" fill="#1a1c1a"/><path d="M872 640Q874 566 930 558Q990 566 992 640Z" fill="#0c0d0c"/></g>
+<!-- the ground and the beck -->
+<path d="M-1000 600Q0 580 700 620T2600 600V1300H-1000Z" fill="url(#grassE)"/>
+<g id="gill" class="hot"><path d="M880 640Q900 700 820 760T600 900L760 900Q900 800 990 700Q1000 660 990 640Z" fill="url(#waterE)"/>
+  <g stroke="#f4f8f6" stroke-width="3" fill="none"><path class="f" d="M900 660q20 10 40 0M880 700q30 14 60 0M820 760q40 14 70 -4M700 840q50 14 90 -10"/></g>
+  <g fill="#8a8a80"><ellipse cx="860" cy="730" rx="18" ry="8"/><ellipse cx="760" cy="800" rx="22" ry="9"/><ellipse cx="960" cy="690" rx="14" ry="6"/></g></g>
+<!-- a dry-stone wall and the gate -->
+<g fill="#7a7a72" stroke="#5a5a52" stroke-width="2"><path d="M-1000 640h1010l0 40h-1010z"/></g>
+<g stroke="#4a4a42" stroke-width="2" fill="none"><path d="M-200 652h580M-200 666h580M40 640v40M140 640v40M260 640v40"/></g>
+<g stroke="#8a6a4a" stroke-width="7"><path d="M380 600v100M520 600v100M380 612h140M380 650h140M380 688h140M380 688L520 612"/></g>
+<!-- Mr Tordoff on his quad bike, and Wisp -->
+<g id="tor" class="hot">
+  <circle cx="200" cy="790" r="30" fill="#1e1e1e"/><circle cx="340" cy="790" r="30" fill="#1e1e1e"/><path d="M170 760h200l-20 -40h-150z" fill="#b8321e"/><path d="M190 720h170" stroke="#2a2a2a" stroke-width="6"/>
+  <path d="M232 720l6 -86q2 -18 26 -20h18q24 2 26 20l6 86z" fill="#3e4230"/><rect x="262" y="590" width="16" height="24" fill="#c9785a"/><circle cx="270" cy="574" r="22" fill="#d88a68"/><path d="M246 566q4 -24 26 -24q24 2 26 22l8 8q-30 -10 -60 -6z" fill="#6b5c48"/>
+  <path d="M300 660l50 30" stroke="#3e4230" stroke-width="13" stroke-linecap="round"/>
+  <g id="wisp"><path d="M230 760q-10 -30 20 -34h30q20 0 22 20l-8 14h-56z" fill="#222"/><path d="M282 726q16 -14 28 0l-6 12z" fill="#f2f2ee"/><circle cx="298" cy="726" r="9" fill="#222"/><path d="M262 742q-26 -8 -30 -22" stroke="#222" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+</g>
+<!-- the Park sign -->
+<g id="sign" class="hot"><path d="M1290 760v-120M1390 760v-120" stroke="#3e2a1a" stroke-width="10"/><rect x="1262" y="560" width="156" height="104" rx="4" fill="#4a3524" stroke="#2e2016" stroke-width="5"/>
+  <text x="1340" y="590" font-family="Fjalla One,sans-serif" font-size="15" text-anchor="middle" fill="#f2d98e" letter-spacing="1">HOW A CAVE</text><text x="1340" y="610" font-family="Fjalla One,sans-serif" font-size="15" text-anchor="middle" fill="#f2d98e" letter-spacing="1">IS MADE</text>
+  <path d="M1280 630h120M1280 642h100M1280 654h110" stroke="#d8c49a" stroke-width="2"/></g>
+<!-- Morven at the water's edge, with the survey tube -->
+<g id="mor" class="hot">
+  <path d="M1040 760l8 -110q2 -22 32 -24h30q30 2 32 24l8 110z" fill="#5f7486"/><rect x="1086" y="600" width="18" height="30" fill="#cf9e7a"/><circle cx="1095" cy="582" r="24" fill="#cf9e7a"/>
+  <path d="M1067 578q2 -34 28 -36q28 2 30 36z" fill="#c8321e"/><rect x="1086" y="550" width="18" height="10" rx="2" fill="#2a2a2a"/><path d="M1118 590q12 26 4 60" stroke="#3a3230" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <g id="tube" class="hot"><rect x="1150" y="640" width="16" height="96" rx="5" fill="#2a7ac2" transform="rotate(18 1158 688)"/><rect x="1146" y="636" width="24" height="12" rx="3" fill="#1d4a7a" transform="rotate(18 1158 688)"/></g>
+</g>
+<!-- Tegan, looking at the rock -->
+<g id="teg" class="hot">
+  <path d="M600 790l6 -96q2 -20 26 -22h24q24 2 26 22l6 96z" fill="#b0352a"/><rect x="636" y="644" width="16" height="28" fill="#b07a56"/><circle cx="644" cy="628" r="21" fill="#c48a62"/>
+  <path d="M621 626q2 -30 23 -32q22 2 24 32z" fill="#3f8a4a"/><rect x="636" y="598" width="16" height="9" rx="2" fill="#2a2a2a"/><path d="M684 720q30 -40 60 -70" stroke="#b0352a" stroke-width="13" stroke-linecap="round"/>
+</g>
+<!-- Vaughan, wet -->
+<g id="vau" class="hot">
+  <path d="M1460 820l10 -150q2 -20 28 -22h22q26 2 28 22l10 150z" fill="#e2b82e"/><rect x="1500" y="616" width="18" height="32" fill="#f0c4a2"/><circle cx="1509" cy="598" r="25" fill="#f0c4a2"/>
+  <path d="M1480 594q2 -36 29 -38q28 2 30 38z" fill="#f2f2ee"/><rect x="1500" y="562" width="18" height="10" rx="2" fill="#2a2a2a"/>
+</g>
+<!-- sheep -->
+<g fill="#e8e6dc" stroke="#9a988e" stroke-width="2"><ellipse cx="1520" cy="470" rx="26" ry="15"/><ellipse cx="1610" cy="500" rx="24" ry="14"/></g><g fill="#2a2a2a"><circle cx="1494" cy="466" r="7"/><circle cx="1588" cy="496" r="7"/></g>
+<!-- the drizzle -->
+<g id="drizzle" stroke="#e8eeee" stroke-width="1.300" opacity=".45"><path d="M-200 -40l-10 50M-60 0l-10 50M80 -20l-10 50M220 10l-10 50M360 -30l-10 50M500 0l-10 50M640 -20l-10 50M780 10l-10 50M920 -30l-10 50M1060 0l-10 50M1200 -20l-10 50M1340 10l-10 50M1480 -30l-10 50M1620 0l-10 50M1760 -20l-10 50
+  M-130 200l-10 50M10 240l-10 50M150 210l-10 50M290 250l-10 50M430 200l-10 50M570 240l-10 50M710 210l-10 50M850 250l-10 50M990 200l-10 50M1130 240l-10 50M1270 210l-10 50M1410 250l-10 50M1550 200l-10 50M1690 240l-10 50
+  M-200 440l-10 50M-60 480l-10 50M80 450l-10 50M220 490l-10 50M360 440l-10 50M500 480l-10 50M640 450l-10 50M780 490l-10 50M920 440l-10 50M1060 480l-10 50M1200 450l-10 50M1340 490l-10 50M1480 440l-10 50M1620 480l-10 50
+  M-130 680l-10 50M10 720l-10 50M150 690l-10 50M290 730l-10 50M430 680l-10 50M570 720l-10 50M710 690l-10 50M850 730l-10 50M990 680l-10 50M1130 720l-10 50M1270 690l-10 50M1410 730l-10 50M1550 680l-10 50"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the cave</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="karst.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {};
+
+  ER.init({
+    theme: 'wild', story: 'karst', storyTitle: 'The Cave That Breathes', id: 'entrance', no: 'II', title: 'The Gill Entrance',
+    go: 'Down to the water',
+    intro: [
+      'You filled in the call-out board: four of you, in by the Gill Entrance, through the Duck to the Formation Chamber and the Attic; in at 13.45, out by 18.00 (four and a quarter hours), and the call-out at 20.00, because the handbook gives Ripple Gill Cave a margin of two hours. If the way out floods, you wait in the Attic, by the Flood Box. Vaughan&rsquo;s phone is in his pocket, and he has a torch.',
+      'It is twenty to two. Ripple Gill comes out of the bottom of a grey cliff, from a black arch, cold and clear. A man on a quad bike is waiting at the gate, and has an opinion.'
+    ],
+    exit: {"next":"chamber","w":{"657e4e49":"a07742bc","76d20ca9":"2986ed7d"}}, tags: {"rpath":["bd01cdb8"],"qpath":["35621b7b","805c0646"],"time":["95fe329d"],"time_now":["ece9002a"],"time_one":["6d6006d4"],"time_three":["79b64b2a"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('b-file') || null; told = ER.flag('b-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#tube').classList.toggle('ready', !!(told.mor && told.sign && told.tor && !nextFile));
+    $('#sign').classList.toggle('ready', !!(told.mor && !told.sign));
+    ER.pips((told.tor ? 1 : 0) + (told.mor ? 1 : 0) + (told.sign ? 1 : 0) + Math.min(3, ER.flag('b-stage') || 0) + (nextFile ? 1 : 0), 7);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  var sketch = null;
+  function hints() {
+    if (nextFile) return ['go', ['You know where the water comes from, and how long it takes. Go into the cave.']];
+    if (sketch && sketch.isOpen()) return sketch.hint();
+    if (!told.tor) return ['tor', ['The man on the quad bike by the gate has something to say about the beck. Click him.']];
+    if (!told.mor) return ['mor', ['Morven is by the water, on the right of the arch. Ask her what she thinks.']];
+    if (!told.sign) return ['sign', ['There is a wooden sign on the right, by the path. Read it: it says how this cave was made.']];
+    return ['tube', ['Morven&rsquo;s sketch is in the blue survey tube she is holding. Click the tube.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The Gill Entrance. Mr Tordoff has gone. The beck is still clear.'); return; }
+    if (told.in) { busy = false; ER.say('The Gill Entrance, in the drizzle.'); return; }
+    tell('in');
+    ER.narrate([
+      'The cliff is called a scar here. It is grey limestone, and you can see that it is built in layers, like a stack of very old books, with cracks running straight down through them.',
+      'At its foot, from a black arch the height of a door, Ripple Gill pours out of the hill, cold and clear, and runs off down the dale. Up on the moor, the cloud has come down to the top and is trailing rain.',
+      'At the gate, a man in a flat cap is sitting on a red quad bike with a black and white dog. He has stopped, you suspect, to tell you something.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- people ---------- */
+  $('#tor').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Tordoff', role: 'Who farms the land the cave is under', face: window.FACE('tordoff'),
+      lines: [
+        { note: 'He has both arms folded on the handlebars. The dog, Wisp, is watching the water.', a: '&ldquo;Afternoon. Going in, are you? Rather you than me.&rdquo;' },
+        { q: 'Is the beck high today?', a: 'Clear now. But you watch: by tea-time it&rsquo;ll be up and brown, and that&rsquo;s the quarry. They&rsquo;re pumping out the bottom of Stennerdale Quarry again, over on Black Scar. Muddy water, straight into my beck. Nowt to do with rain. It&rsquo;s hardly rained down here since breakfast.' },
+        { q: 'What is the Wind Hole?', a: 'Hole on the top of the moor, up by the cairn. My father pulled a ewe out of it in 1962. On a frosty morning it steams like a kettle. He used to say the hill was breathing.' },
+        { q: 'Do you mind cavers on your land?', a: 'Don&rsquo;t mind cavers. Mind gates. Shut it behind you.' }
+      ],
+      clue: { id: 'tor1', title: 'Mr Tordoff, at the gate', kind: 'What he said' },
+      done: function (seen) { if (seen && tell('tor')) { paint(); ER.say('&ldquo;The quarry,&rdquo; says Mr Tordoff again, to Wisp, who agrees with everything.'); } }
+    });
+  });
+  $('#mor').addEventListener('click', function (e) {
+    if (busy) return;
+    if (e.target.closest && e.target.closest('#tube') && told.mor) return;
+    ER.talk({
+      who: 'Morven Tennant', role: 'At the water&rsquo;s edge', face: window.FACE('morven'),
+      lines: [
+        { note: 'She is crouching by the beck with her hand in it.', a: '&ldquo;Clear, and low, and very cold. Good.&rdquo;' },
+        { q: 'Mr Tordoff says the quarry fills the beck.', a: 'Mr Tordoff has said that for thirty years. I say the water in this cave comes off Rowan Moor. One of us is right, and it matters, because it is raining on Rowan Moor now.' },
+        { q: 'How can we tell?', a: 'Read the sign first. Then I&rsquo;ll give you my sketch: the two hills cut through like a cake. Show me where the water goes. Both lots: the moor&rsquo;s, and the quarry&rsquo;s.' },
+        { q: 'How long does rain on the moor take to reach the Duck?', a: 'Myfanwy found out in 1979. She put green dye into Rowan Sink and sat by this arch with a flask until it came out. The times are written on the sketch.' },
+        { q: 'Should we still go in?', a: 'Showers now, the heavy rain tonight. That&rsquo;s why we&rsquo;re out by six. Work out how long the moor takes to reach the Duck, and you&rsquo;ll see why six is safe.' }
+      ],
+      clue: { id: 'mor2', title: 'Morven, at the Gill Entrance', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('mor')) { paint(); ER.say('Morven taps the wooden sign with her pencil. &ldquo;Sign first.&rdquo;'); } }
+    });
+  });
+  $('#teg').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Tegan Nuttall', role: 'Looking at the rock', face: window.FACE('tegan'),
+      lines: [
+        { a: '&ldquo;See the scar? Lines going across, cracks going down. The lines are where one bed sits on another. The cracks are joints. Water goes down the cracks and along the lines. That&rsquo;s the whole cave, really: cracks that water made bigger.&rdquo;' },
+        { q: 'Have you been down the Wind Hole?', a: 'Only looked in from the top. Nobody&rsquo;s been down the Wind Hole Series for years: it&rsquo;s a long way round. Mrs U says there&rsquo;s an iron ladder at the top, and that the club checks it every spring.' }
+      ],
+      clue: { id: 'teg2', title: 'Tegan, at the scar', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('teg')) ER.say('Tegan puts her hand flat on the rock, as if it were an animal.'); }
+    });
+  });
+  KARST.thing('#vau', null, '&ldquo;Can we go in?&rdquo; says Vaughan. &ldquo;It&rsquo;s raining. On me, specifically.&rdquo;', isBusy);
+  KARST.thing('#scar', 'bedding plane', 'The scar: grey limestone in beds, one on top of another. Between them run the bedding planes; across them, straight down, the joints.', isBusy);
+  KARST.thing('#ent', 'resurgence', 'The Gill Entrance: a black arch at the foot of the limestone, where the water that went into the moor comes out again. Cold air breathes out of it.', isBusy);
+  KARST.thing('#gill', null, function () { return 'Ripple Gill, coming out of the hill: clear, cold, and quite low. You can see every stone on the bottom.'; }, isBusy);
+  KARST.thing('#quarry', null, 'Across the dale, on Black Scar, the pale cut of Stennerdale Quarry. A yellow pump is working somewhere in it.', isBusy);
+
+  /* ---------- the sign ---------- */
+  var SIGN = '<h4><small>Stennerdale Park &middot; Ripple Gill</small>How a cave is made</h4><div class="two"><div>' +
+    '<p>Rain falling through the air takes up a little <b>carbon dioxide</b>, and soaking through the soil it takes up much more. It becomes a weak acid. Limestone is made of a mineral called <b>calcite</b>, which this acid slowly dissolves.</p>' +
+    '<p>Limestone was laid down on the floor of a warm sea, layer on layer, like the pages of a closed book. The partings between the layers are <b>bedding planes</b>. The cracks that cut down through them are <b>joints</b>.</p>' +
+    '<p>On the moor, water sinks into the ground at <b>sinkholes</b> and finds its way down the joints and along the bedding planes, always downhill. Over hundreds of thousands of years it widens them into passages.</p>' +
+    '<p>Under the limestone lies <b>shale</b>, which water cannot pass through. So the water runs along the top of the shale and comes out at a <b>resurgence</b>: a spring at the foot of the limestone, like Ripple Gill. Where a passage dips below the water, the roof meets the water: a <b>sump</b>.</p></div>' +
+    '<div><svg viewBox="0 0 330 300"><rect width="330" height="300" fill="#3a2a1c"/>' +
+    '<path d="M0 70Q120 60 200 40T330 20V230H0Z" fill="#c8c0a8"/><path d="M0 230H330V300H0Z" fill="#5a5a60"/>' +
+    '<g stroke="#8a826a" stroke-width="2"><path d="M0 110Q160 98 330 80M0 150Q160 140 330 124M0 190Q160 182 330 168"/></g>' +
+    '<g stroke="#4a4232" stroke-width="2.400"><path d="M250 34V84M160 104V146M90 146V188M230 128V170"/></g>' +
+    '<path d="M250 30q-14 -6 -26 4M250 30q14 -6 26 4" stroke="#7aa8c8" stroke-width="3" fill="none"/><path d="M250 34V84q-50 10 -90 20V146q-40 4 -70 4V188q-40 6 -60 34" stroke="#3a8ac8" stroke-width="4" fill="none" stroke-dasharray="7 4"/>' +
+    '<path d="M18 222q-10 6 -18 6" stroke="#3a8ac8" stroke-width="5" fill="none"/>' +
+    '<g font-family="Handlee,cursive" font-size="14" fill="#f4ead2"><text x="214" y="16">sinkhole</text><text x="264" y="100">joint</text><text x="200" y="148" fill="#3a2a1c">bedding plane</text><text x="140" y="262">shale</text><text x="4" y="254">resurgence</text></g></svg></div></div>';
+  $('#sign').addEventListener('click', function () {
+    if (busy) return;
+    ER.read({ html: SIGN, cls: 'park', clue: { id: 'sign', title: 'How a cave is made', kind: 'The Park&rsquo;s sign' }, done: function () {
+      KARST.terms(['limestone', 'carbon dioxide', 'calcite', 'bedding plane', 'joint', 'sinkhole', 'shale', 'resurgence', 'sump']);
+      if (tell('sign')) { paint(); ER.say('Rain, acid, cracks, time. And shale underneath, which water cannot get through. Morven holds out the blue survey tube.'); }
+    } });
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+  $('#tube').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The sketch is back in the tube. Two hours, moor to Duck.'); return; }
+    if (!told.mor) return;
+    if (!told.sign) { ER.say('&ldquo;Sign first,&rdquo; says Morven. &ldquo;Then the sketch will make sense.&rdquo;'); return; }
+    if (!told.tor) { ER.say('&ldquo;Listen to Mr Tordoff first,&rdquo; says Morven. &ldquo;Then you can tell him.&rdquo;'); return; }
+    if (!sketch) sketch = makeSketch();
+    sketch.open();
+  });
+
+  /* ---------- Morven's sketch: where does the water go? ---------- */
+  function makeSketch() {
+    /* points where the water could be: [x, y, label, kind]; kind 'shale' is in the shale */
+    var P = {
+      S: [880, 156, 'Rowan Sink'], a: [880, 200], a2: [978, 196], b: [790, 204], b2: [735, 206], c: [790, 268], c2: [690, 272], c3: [690, 318], d: [600, 276],
+      e: [600, 345, 'the Shower'], e3: [700, 341], k: [480, 382, 'Duck'], G: [440, 392, 'Gill Entrance'], sh: [480, 450, '', 'shale'],
+      Q: [150, 165, 'quarry floor'], q1: [150, 205], q4: [232, 201], q2: [80, 208], q6: [150, 256], q7: [150, 318, '', 'shale'], q3: [80, 259], X: [22, 262, 'Black Scar Spring']
+    };
+    var E = [['S', 'a'], ['a', 'a2'], ['a', 'b'], ['b', 'b2'], ['b', 'c'], ['c', 'c2'], ['c2', 'c3'], ['c2', 'd'], ['d', 'e'], ['e', 'e3'], ['e', 'k'], ['k', 'G'], ['k', 'sh'],
+      ['Q', 'q1'], ['q1', 'q4'], ['q1', 'q2'], ['q1', 'q6'], ['q6', 'q7'], ['q2', 'q3'], ['q6', 'q3'], ['q3', 'X']];
+    var END = { G: 1, X: 1 };
+    var stage = Math.min(ER.flag('b-stage') || 0, 2), path = [], rpath = ER.flag('b-rpath') || '', qpath = ER.flag('b-qpath') || '';
+    var box = ER.el('div', 'bx'), svg, wl, msgEl, go, undo, s = '', k;
+    function nb(n) { var o = []; E.forEach(function (e) { if (e[0] === n) o.push(e[1]); else if (e[1] === n) o.push(e[0]); }); return o; }
+    s = '<svg class="sk" viewBox="0 0 1000 540">' +
+      '<rect width="1000" height="540" fill="#f8fbfc"/><g stroke="#dfe9f0" stroke-width="1">';
+    for (k = 20; k < 1000; k += 20) s += '<path d="M' + k + ' 0V540"/>';
+    for (k = 20; k < 540; k += 20) s += '<path d="M0 ' + k + 'H1000"/>';
+    s += '</g>' +
+      /* the shale: under everything */
+      '<path d="M0 255L320 268L340 392H430L440 400Q700 390 1000 372V540H0Z" fill="#7a7a86" opacity=".55"/>' +
+      '<g stroke="#5a5a66" stroke-width="1" opacity=".5"><path d="M0 300H1000M0 340H1000M0 420H1000M0 460H1000M0 500H1000"/></g>' +
+      /* the limestone of Black Scar, with its quarry */
+      '<path d="M0 118L100 116L112 165H188L200 118L230 120L320 268L0 255Z" fill="#e4e0d2"/>' +
+      /* the limestone of Rowan Moor */
+      '<path d="M440 392L470 300L1000 110V372Q700 390 440 400Z" fill="#e4e0d2"/>' +
+      '<g stroke="#c4bea8" stroke-width="1.400" fill="none"><path d="M0 190L230 180M0 230L300 222M520 330L1000 300M480 300L1000 254M640 238L1000 214M760 200L1000 180"/></g>' +
+      /* the dale and the beck */
+      '<path d="M320 268L340 392H430L440 392" stroke="#4a5a3a" stroke-width="3" fill="none"/><path d="M0 118L100 116M200 118L230 120L320 268M440 392L470 300L1000 110" stroke="#4a5a3a" stroke-width="3" fill="none"/>' +
+      '<ellipse cx="385" cy="392" rx="40" ry="5" fill="#7ab0d0"/><text class="skL" x="346" y="376" font-size="13">Ripple Gill</text>' +
+      '<path d="M840 154q20 -14 40 -2q20 -12 40 0" stroke="#7ab0d0" stroke-width="5" fill="none"/><text class="skL" x="790" y="128">Rowan Beck</text>' +
+      '<path d="M948 132q6 -10 14 0v26h-14z" fill="#3a3a3a"/><text class="skL" x="876" y="102">Wind Hole (dry)</text>' +
+      '<path d="M598 345q-60 30 -118 37" stroke="#14233a" stroke-width="10" fill="none" stroke-linecap="round" opacity=".18"/>' +
+      '<rect x="20" y="262" width="0" height="0"/><text class="skS" x="30" y="300">SHALE</text><text class="skS" x="700" y="460">SHALE</text><text class="skS" x="20" y="150">LIMESTONE</text><text class="skS" x="820" y="250">LIMESTONE</text>' +
+      '<text class="skT" x="20" y="30">ROWAN MOOR AND BLACK SCAR, CUT THROUGH</text><text class="skS" x="20" y="48">WEST &larr;&nbsp;&nbsp;&nbsp;&nbsp;&rarr; EAST &middot; NOT TO SCALE &middot; M.T.</text>' +
+      '<text class="skN" x="560" y="470">Dye test, M.U. 1979, after rain:</text><text class="skN" x="560" y="490">green dye into Rowan Sink at 10.15,</text><text class="skN" x="560" y="510">green water at the Gill at 12.15.</text>' +
+      '<text class="skL" x="40" y="80">Black Scar</text><text class="skL" x="100" y="106" font-size="12">Stennerdale Quarry</text>' +
+      '<g id="k-cracks"></g><g id="k-path"></g><g id="k-nodes"></g></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><span id="k-slot"></span><button type="button" class="btn quiet" id="k-undo">Start again</button><button type="button" class="btn" id="k-go"></button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg'); go = box.querySelector('#k-go'); undo = box.querySelector('#k-undo');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    /* the cracks: joints straight down, bedding planes along */
+    var cr = '';
+    E.forEach(function (e) {
+      var A = P[e[0]], B = P[e[1]], vert = Math.abs(A[0] - B[0]) < 4;
+      cr += '<path d="M' + A[0] + ' ' + A[1] + 'L' + B[0] + ' ' + B[1] + '" stroke="' + (vert ? '#3a3628' : '#7a7058') + '" stroke-width="' + (vert ? 2.6 : 3.4) + '"' + (vert ? '' : ' stroke-dasharray="9 3"') + '/>';
+    });
+    svg.querySelector('#k-cracks').innerHTML = cr;
+    var nd = '';
+    Object.keys(P).forEach(function (id) {
+      var p = P[id];
+      nd += '<g class="nd" data-id="' + id + '"><circle class="hit" cx="' + p[0] + '" cy="' + p[1] + '" r="15"/><circle class="dot" cx="' + p[0] + '" cy="' + p[1] + '" r="6"/>' +
+        (p[2] ? '<text class="skL" x="' + (p[0] + ({ G: 6, X: 2, S: 14, Q: 12 }[id] || 10)) + '" y="' + (p[1] + ({ G: 28, X: 26, S: 30, Q: 4 }[id] || -8)) + '" font-size="13">' + p[2] + '</text>' : '') + '</g>';
+    });
+    svg.querySelector('#k-nodes').innerHTML = nd;
+    wl = KARST.wheels(box.querySelector('#k-slot'), { label: 'Reaches<br>the Duck', vals: [KARST.HOURS, KARST.QUARTERS], sep: { 1: '.' }, start: ER.flag('b-wl') || [19, 0], change: function () { ER.flag('b-wl', wl.at()); } });
+    function start() { path = [stage === 0 ? 'S' : 'Q']; draw(); }
+    function draw() {
+      var o = '', i, A, B, col = stage === 0 ? '#2a7ac2' : '#b0602a';
+      function line(p, c) { var q = ''; for (i = 1; i < p.length; i++) { A = P[p[i - 1]]; B = P[p[i]]; q += '<path d="M' + A[0] + ' ' + A[1] + 'L' + B[0] + ' ' + B[1] + '" stroke="' + c + '" stroke-width="6" stroke-linecap="round" opacity=".8"/>'; } return q; }
+      if (rpath) o += line(rpath.split('-'), '#2a7ac2');
+      if (qpath) o += line(qpath.split('-'), '#b0602a');
+      if (stage < 2) o += line(path, col);
+      svg.querySelector('#k-path').innerHTML = o;
+      ER.$$('.nd', svg).forEach(function (n) { n.classList.toggle('on', path.indexOf(n.getAttribute('data-id')) >= 0 && stage < 2); });
+      svg.setAttribute('data-path', path.join('-')); svg.setAttribute('data-stage', stage);
+      wl.node.style.display = stage === 2 ? '' : 'none';
+      undo.style.display = stage < 2 ? '' : 'none';
+      go.textContent = ['That is where Rowan Beck goes', 'That is where the quarry water goes', 'That is when'][stage];
+      go.style.visibility = stage > 2 ? 'hidden' : '';
+    }
+    svg.addEventListener('click', function (e) {
+      var g = e.target.closest ? e.target.closest('.nd') : null, id, last, p, q;
+      if (!g || stage >= 2) return;
+      id = g.getAttribute('data-id'); last = path[path.length - 1]; p = P[id]; q = P[last];
+      if (id === last) return;
+      if (path.indexOf(id) >= 0) { msg('The water has already been there. To change the way, start again.'); return; }
+      if (nb(last).indexOf(id) < 0) { KARST.sfx.no(); msg('Water can only move along a crack: a joint (straight down) or a bedding plane (along). Click a point joined to the last one.'); return; }
+      if (p[3] === 'shale') { KARST.sfx.no(); msg('That is the <b>shale</b>. Water cannot pass through it: it has to go along the top of it.'); return; }
+      if (p[1] < q[1]) { KARST.sfx.no(); msg('That way is <b>uphill</b>: the beds tilt down towards the west. Water only goes down.'); return; }
+      if (END[last]) return;
+      path.push(id); KARST.sfx.drip(); draw();
+      var more = nb(id).filter(function (n) { return path.indexOf(n) < 0 && P[n][1] >= P[id][1] && P[n][3] !== 'shale'; });
+      if (END[id]) msg(id === 'G' ? 'Out into the daylight at the foot of the scar. Is that the way you meant?' : 'Out at a spring on the far side of Black Scar, and away down the other valley, the Nant. Is that the way?');
+      else if (!more.length) msg('The water has nowhere to go from here: the crack ends in solid rock. Start again.');
+      else msg('');
+    });
+    undo.addEventListener('click', function () { start(); msg('Back to the start.'); });
+    go.addEventListener('click', function () {
+      var pth = path.join('-');
+      if (stage === 0) {
+        if (!END[path[path.length - 1]]) { KARST.sfx.no(); msg('The water has not come out anywhere yet. Follow it until it reaches daylight.'); return; }
+        if (!ER.check('rpath', pth)) { KARST.sfx.no(); msg('That is not where Rowan Beck comes out. Start again.'); return; }
+        rpath = pth; ER.flag('b-rpath', rpath); stage = 1; ER.flag('b-stage', 1); start(); paint(); KARST.sfx.pencil();
+        msg('Rowan Sink, down the joints and along the beds, in at the top of the Formation Chamber (the Shower), down the passage, through the Duck, and out here. &ldquo;Now the quarry,&rdquo; says Morven. &ldquo;Show Mr Tordoff.&rdquo;');
+        return;
+      }
+      if (stage === 1) {
+        if (!END[path[path.length - 1]]) { KARST.sfx.no(); msg('Follow the quarry&rsquo;s water until it comes out somewhere.'); return; }
+        if (!ER.check('qpath', pth)) { KARST.sfx.no(); msg('Look again where that water ends up.'); return; }
+        qpath = pth; ER.flag('b-qpath', qpath); stage = 2; ER.flag('b-stage', 2); draw(); paint(); KARST.sfx.pencil();
+        msg('The quarry&rsquo;s water meets the shale under Black Scar and runs along the top of it, the other way, to a spring on the far side. It can never get under the dale to the Duck. &ldquo;Now the time,&rdquo; says Morven. &ldquo;Heavy rain on the moor at seven tonight. When does it reach the Duck? Read Myfanwy&rsquo;s dye test.&rdquo;');
+        return;
+      }
+      if (stage === 2) {
+        var t = wl.get(), c = rpath + '|' + qpath + '|' + t;
+        if (ER.exitOk([c])) {
+          nextFile = ER.exit([c], { wait: true }); ER.flag('b-file', nextFile); stage = 3; ER.flag('b-stage', 3); draw();
+          KARST.mine('water', 'Where the water goes', '<p>Rowan Beck sinks at Rowan Sink, goes down the <b>joints</b> and along the <b>bedding planes</b> (always downhill), falls into the Formation Chamber at the Shower, runs through the Duck and comes out at the Gill Entrance: a <b>resurgence</b>.</p><p>The quarry&rsquo;s water cannot pass through the <b>shale</b>: it goes out at Black Scar Spring, to the Nant.</p><p>Dye: 10.15 to 12.15, so <b>about two hours</b> from the moor to the Duck. Rain at 19.00 reaches the Duck at about 21.00.</p>', true);
+          msg('&ldquo;Nine o&rsquo;clock,&rdquo; says Morven. &ldquo;And we&rsquo;re out at six. Three hours to spare.&rdquo;');
+          setTimeout(function () {
+            ER.closeAll(); busy = true; paint();
+            ER.narrate([
+              'Mr Tordoff looks at the sketch for a long time. &ldquo;Quarry,&rdquo; he says at last, but not as loudly as before, and he starts the quad bike and goes off up the track with Wisp running beside it.',
+              'Morven puts the sketch back in its tube. Tegan goes first, then you, then Vaughan, then Morven. The arch swallows the daylight in three steps, and the sound of the beck closes over your heads like a door.',
+              'Behind you, out on the moor, under the cloud, it goes on raining. It is raining harder than anybody forecast.'
+            ], function () { busy = false; showGo(); });
+          }, 2600);
+          return;
+        }
+        KARST.sfx.no();
+        msg(ER.check('time_now', t) ? 'That is when the rain falls on the moor. It does not reach the Duck at once: the dye took time to come through. How long?' :
+          ER.check('time_one', t) || ER.check('time_three', t) ? 'Read the dye test again: from 10.15 to 12.15. How long is that?' :
+          'Add the time the water takes, from the dye test, to the time the rain falls on the moor.');
+      }
+    });
+    if (stage === 0 || stage === 1) start(); else draw();
+    msg(['Click the points the water passes, one after another, from <b>Rowan Sink</b> on the moor (blue) until it comes out into daylight.', 'Now the quarry&rsquo;s water, from the <b>quarry floor</b>. Click the points it passes until it comes out.', 'Heavy rain falls on the moor at 19.00. When does it reach the Duck? Set the wheels.'][stage] || '');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        return [['rowan', [
+          'The sign says water goes down the joints and along the bedding planes, always downhill, and that it cannot pass through shale.',
+          'The beds tilt down towards the west (the left). So along a bedding plane the water goes left, never right. Some cracks end in solid rock: those are dead ends.',
+          'From Rowan Sink: down, then left, then down, then left along two short bits, then down into the Formation Chamber (the Shower), along to the Duck and out at the Gill Entrance.'
+        ]], ['quarry', [
+          'Where does the quarry&rsquo;s water meet the shale? Can it get through?',
+          'Water that reaches the top of the shale runs along it, downhill. Under Black Scar the top of the shale slopes down to the west, away from the dale.',
+          'From the quarry floor: down to the first bed, then either way down to the shale, and along it west to Black Scar Spring.'
+        ]], ['time', [
+          'The dye test is written in red on the sketch, under the hill.',
+          'Dye in at 10.15, out at 12.15: two hours. Rain on the moor at 19.00 reaches the Duck two hours later.'
+        ]]][Math.min(stage, 2)];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* The Cave That Breathes - what every room of the story shares: the frame round a piece of work, number wheels, buttons
+   to choose from, and the papers of the story (the club handbook, the Park's sign, Morven's survey and sketches, Mrs
+   Ullathorne's notes, the forecast, your own notes), and a yellow waterproof notebook. Each room sets its own palette
+   and lettering on <body>. */
+
+.tc-theme{font-family:'Overpass Mono',monospace;font-size:13.5px;letter-spacing:.3em}
+.tc-room{font-family:var(--font-display,'Fjalla One',sans-serif);letter-spacing:.04em;text-transform:uppercase}
+.tc-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.28vw,19px);line-height:1.56}
+.tc-text p{margin:0 0 10px}
+.cap{font-family:'Lora',Georgia,serif;font-size:clamp(16.5px,1.32vw,20px);line-height:1.52}
+.chip,.hbtn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.15em}
+.btn{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.15em}
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:12px 28px 11px;border:2px solid var(--accent,#e0a030);
+  color:var(--accent,#e0a030);background:var(--hud-bg,rgba(8,10,12,.9));font-family:'Overpass',sans-serif;font-weight:700;font-size:15px;letter-spacing:.22em;
+  text-transform:uppercase;border-radius:2px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent,#e0a030);color:#111}
+.tk-name{font-family:'Lora',serif;font-weight:700;letter-spacing:.01em}
+.tk-role{font-family:'Overpass',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em}
+.tk-face svg{height:100%;min-height:300px}
+.tk-text{font-family:'Lora',Georgia,serif;font-size:clamp(16px,1.26vw,19px);line-height:1.56}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.18)}
+.ready{animation:ready 1.6s steps(1,end) infinite}
+@keyframes ready{50%{filter:brightness(1.4) saturate(1.3)}}
+
+/* ---- the frame round a piece of work ---- */
+.bx{width:min(1060px,95vw);-webkit-user-select:none;user-select:none}
+.bx .frame{position:relative;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.7);overflow:hidden}
+.bx-foot{display:flex;align-items:center;gap:12px;margin-top:9px;min-height:60px;flex-wrap:wrap}
+.pmsg{flex:1 1 300px;margin:0;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.4;color:#f3eee0}
+.pmsg b{color:var(--accent,#e0a030);font-weight:700}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap;background:rgba(0,0,0,.42)}
+.bx-foot .btn.quiet{border-color:rgba(255,255,255,.42);color:#eef0ea}
+.bx .tool{cursor:grab;touch-action:none}
+.bx .tool.on{cursor:grabbing}
+.bx svg text{pointer-events:none}
+.bx svg .pick{cursor:pointer}
+.nudge{display:inline-flex;gap:4px;flex:0 0 auto}
+.nudge button{min-width:36px;height:38px;padding:0 8px;border:1px solid rgba(255,255,255,.42);border-radius:3px;background:rgba(0,0,0,.42);color:#f3eee0;font-family:'Overpass',sans-serif;font-weight:700;font-size:14px}
+.nudge button:hover{border-color:var(--accent,#e0a030);color:var(--accent,#e0a030)}
+.picks{display:inline-flex;gap:6px;flex:0 0 auto;flex-wrap:wrap}
+.picks button{height:36px;padding:0 12px;border:1px solid rgba(255,255,255,.45);border-radius:3px;background:rgba(0,0,0,.42);color:#f3eee0;font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em}
+.picks button:hover{border-color:var(--accent,#e0a030);color:var(--accent,#e0a030)}
+.picks button.on{background:var(--accent,#e0a030);border-color:var(--accent,#e0a030);color:#16120c}
+.picks.off button{opacity:.55;cursor:default}
+/* number wheels: the rotating figures of a caver's waterproof watch */
+.wls{display:inline-flex;align-items:center;gap:3px;flex:0 0 auto;padding:4px 10px 4px;background:#1f2622;border-radius:4px;box-shadow:inset 0 0 0 1px #6f8a70,0 2px 6px rgba(0,0,0,.45)}
+.wls small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:#cfe3c4;margin-right:5px;line-height:1.15;text-align:right}
+.wls i{font-style:normal;font-family:'Overpass Mono',monospace;font-size:19px;color:#cfe3c4;padding:0 1px}
+.wl{display:inline-grid;grid-template-rows:14px 30px 14px;justify-items:center}
+.wl button{width:100%;min-width:25px;height:14px;font-size:9px;line-height:14px;color:#a9c4a2}
+.wl button:hover{color:#ffd76a}
+.wl b{font-family:'Overpass Mono',monospace;font-weight:600;font-size:20px;line-height:30px;color:#14180f;background:linear-gradient(#f2f4e8,#cfd8bf 55%,#eef0e0);min-width:23px;padding:0 3px;text-align:center;border-radius:2px;box-shadow:inset 0 0 0 1px #5d6f55}
+.wls.off button{visibility:hidden}
+
+/* ---- paper ---- */
+.doc h4{font-weight:normal}
+.doc svg{display:block;max-width:100%;height:auto}
+/* the club handbook: a green ring-bound booklet in a plastic sleeve */
+.doc.club{width:min(860px,95vw);background:#f5f3e8;color:#1c2018;font-family:'Overpass',sans-serif;font-size:15.5px;line-height:1.48;padding:0 28px 14px;border:1px solid #2f4a34;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.club h4{margin:0 -28px 12px;padding:11px 28px 8px;background:#2f5a3a;color:#f4f1dc;font-family:'Fjalla One',sans-serif;font-size:25px;letter-spacing:.06em;text-transform:uppercase}
+.doc.club h4 small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;color:#cfe3c4}
+.doc.club p{margin:0 0 8px}
+.doc.club .two{display:grid;grid-template-columns:1fr 290px;gap:22px;align-items:start}
+.doc.club ul,.doc.club ol{margin:0 0 8px;padding-left:20px}
+.doc.club li{margin:0 0 3px}
+.doc.club .rule{margin:6px 0 6px;padding:7px 12px 6px;background:#fffdf2;border-left:5px solid #c8321e;font-weight:700}
+.doc.club .pg{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#6f7a68;text-align:right;border-top:1px solid #c9ccb4;padding-top:5px;margin-top:6px}
+/* the Park's sign by the cave: routed wood, cream letters */
+.doc.park{width:min(880px,95vw);background:#4a3524 linear-gradient(90deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px);background-size:9px 100%;color:#f4ead2;font-family:'Lora',serif;font-size:16px;line-height:1.5;padding:18px 30px 16px;border:10px solid #2e2016;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.park h4{margin:0 0 10px;font-family:'Fjalla One',sans-serif;font-size:28px;letter-spacing:.08em;text-transform:uppercase;color:#f2d98e}
+.doc.park h4 small{display:block;font-family:'Overpass',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.24em;color:#d8c49a}
+.doc.park p{margin:0 0 8px}
+.doc.park b{color:#f2d98e;font-weight:700}
+.doc.park .two{display:grid;grid-template-columns:1fr 330px;gap:22px;align-items:start}
+.doc.park .w:hover{color:#ffe08a}
+/* Mrs Ullathorne's notes: pencil on squared paper, in a plastic bag */
+.doc.mu{width:min(760px,94vw);background-color:#fbfaf3;color:#2b2a2e;font-family:'Handlee',cursive;font-size:19px;line-height:27px;padding:22px 32px 18px 46px;
+  background-image:linear-gradient(90deg,transparent 33px,rgba(200,50,30,.4) 33px,rgba(200,50,30,.4) 35px,transparent 35px),linear-gradient(rgba(60,120,90,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(60,120,90,.16) 1px,transparent 1px);
+  background-size:100% 100%,13.5px 13.5px,13.5px 13.5px;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+.doc.mu h4{margin:0 0 6px;font-family:'Special Elite',monospace;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:#2f5a3a}
+.doc.mu p{margin:0 0 8px}
+.doc.mu .two{display:grid;grid-template-columns:1fr 260px;gap:18px;align-items:start}
+.doc.mu b{color:#2f5a3a;font-weight:normal;text-decoration:underline}
+/* the forecast, as the radio said it */
+.doc.wx{width:min(600px,92vw);background:#141712;color:#d9e6cf;font-family:'Overpass Mono',monospace;font-size:15px;line-height:1.55;border-left:6px solid #e0a030}
+.doc.wx h4{font-family:'Overpass Mono',monospace;font-size:13px;letter-spacing:.14em;color:#ffcf8a;text-transform:uppercase}
+.doc.wx .note{color:#8f9c88}
+.doc.wx .w:hover{color:#ffcf6a}
+/* Morven's survey and sketches: laminated, blue grid, black ink */
+.doc.svy{width:min(900px,95vw);background:#f8fbfc;color:#14233a;font-family:'Overpass',sans-serif;font-size:15px;line-height:1.45;padding:16px 24px 14px;border:1px solid #9fb4c4;box-shadow:0 26px 70px rgba(0,0,0,.6),inset 0 0 0 6px rgba(160,200,230,.18)}
+.doc.svy h4{margin:0 0 8px;font-family:'Fjalla One',sans-serif;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:#14233a}
+.doc.svy p{margin:0 0 7px}
+.doc.svy .two{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+/* what you worked out yourself: pencil in the yellow notebook */
+.doc.mine{width:min(600px,92vw);background:#f6e27a;color:#2b2a30;font-family:'Caveat',cursive;font-size:24px;line-height:1.2;padding:18px 28px 18px;border-left:12px solid #2f5a3a}
+.doc.mine h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#2f5a3a;margin-bottom:8px}
+.doc.mine p{margin:0 0 8px}
+.doc.statement{background:#f3f1e4;font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.55;border-left:6px solid #2f5a3a}
+.doc.statement h4{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;color:#2f5a3a}
+.doc .w:hover{color:#2f5a3a}
+
+/* ---- the notebook: a yellow waterproof notebook with a green elastic band ---- */
+.nb{background:#e9cf4a linear-gradient(140deg,#f2dc66,#d7b836);border:1px solid #6b5a12;border-radius:6px;color:#22200f;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #2f5a3a}
+.nb-tabs{border-bottom-color:#6b5a12}
+.nb-tabs button{font-family:'Overpass',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.2em;color:#2b2810}
+.nb-tabs button.on{background:#fbf8e8;color:#1f1d18;border-color:#6b5a12}
+.nb-list{border-right-color:#6b5a12}
+.nb-list button{font-family:'Lora',serif;font-size:14.5px;color:#22200f}
+.nb-list button small{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.16em;opacity:.75}
+.nb-list button:hover{background:rgba(255,255,255,.3)}
+.nb-list button.on{background:#fbf8e8;color:#1f1d18}
+.nb-view{background:#3a3a24}
+.nb-empty{font-family:'Lora',serif}
+.nb-words{background:#fbf8e8;color:#2b2a30}
+.nb-words b{font-family:'Overpass',sans-serif;font-weight:700;font-size:15.5px}
+.nb-words span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#4a463a}
+.nb-ko{border-color:#2f5a3a;color:#2f5a3a}
+.nb-ko.on{background:#2f5a3a;color:#fbf8e8;border-color:#2f5a3a}
+.wtip,.wtag{background:#fbf8e8;color:#2b2a30;border-radius:2px;box-shadow:0 10px 26px rgba(0,0,0,.6),inset 5px 0 0 #2f5a3a}
+.wtag{transform:rotate(-1deg);padding-left:20px}
+.wtag:before{display:none}
+.wtip{padding-left:19px}
+.wtip b,.wtag b{font-family:'Overpass',sans-serif;font-weight:700;font-size:16px}
+.wtip span,.wtag span{font-family:'Lora',serif;font-size:14.5px;line-height:1.4;color:#4a463a}
+.hintbox{background:#fbf8e8;color:#2b2a30;border-top:6px solid #2f5a3a;border-radius:2px}
+.hintbox h6{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;letter-spacing:.3em;color:#2f5a3a}
+.hintbox p{font-family:'Lora',serif;font-size:15px;line-height:1.46}
+.hintbox p i{background:#2f5a3a;color:#fbf8e8;font-family:'Overpass',sans-serif;font-weight:700;font-size:12px}
+.hintbox p.hint-none{font-style:italic;color:#6a665a;font-size:14.5px}
+.hintbox .btn{border-color:#2f5a3a;color:#2f5a3a}
+.hintbox .btn:hover:not([disabled]){background:#2f5a3a;color:#fbf8e8}
+.toast{font-family:'Overpass',sans-serif;font-weight:700;font-size:13px;background:rgba(20,26,18,.94)}

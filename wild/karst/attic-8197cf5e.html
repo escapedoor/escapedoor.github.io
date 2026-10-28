@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Attic · The Cave That Breathes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="karst.css">
+<style>
+  body{--bg:#140e08;--accent:#ffb04a;--font-display:'EB Garamond',serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(22,15,9,.96);--tc-ink:#f6ead2;--cap-bg:rgba(24,17,10,.93);--panel:#21170e;--face-bg:#3a2a1a;--q-ink:#ffd08a;--fade:#0e0905;--hud-bg:rgba(24,17,10,.84)}
+  #flame{transform-origin:332px 488px;animation:flick .9s steps(2,end) infinite}
+  @keyframes flick{50%{transform:scale(.92,1.06)}}
+  #scene.lean #flame{animation:none;transform:rotate(38deg) scale(1,.9)}
+  #scene.nolight #flame,#scene.nolight #cglow{display:none}
+  #scene.shelter #tent{display:block}
+  #tent{display:none}
+  #cglow{animation:cg 1.8s steps(1,end) infinite}
+  @keyframes cg{50%{opacity:.85}}
+  #scene.dry #trough{opacity:.15}
+
+  /* the survey, plan over section */
+  .sv{display:block;width:100%;height:auto;background:#f8fbfc;touch-action:none}
+  .sv .st{cursor:pointer}
+  .sv .st circle.hit{fill:#fff;opacity:0}
+  .sv .st circle.dot{fill:#fff;stroke:#14233a;stroke-width:1.800}
+  .sv .st:hover circle.dot{fill:#ffd76a}
+  .sv .st.on circle.dot{fill:#2a7ac2;stroke:#2a7ac2}
+  .sv .st.sel circle.dot{stroke:#c8321e;stroke-width:3}
+  .svN{font-family:'Overpass',sans-serif;font-weight:700;font-size:10.5px;fill:#14233a}
+  .svL{font-family:'Handlee',cursive;font-size:13.5px;fill:#14233a}
+  .svT{font-family:'Fjalla One',sans-serif;font-size:14px;letter-spacing:.1em;fill:#14233a}
+  .svS{font-family:'Overpass',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;fill:#5a6a76}
+  .svR{font-family:'Overpass Mono',monospace;font-weight:600;font-size:13px;fill:#c8321e}
+  /* the candle, close to */
+  .cd{display:block;width:100%;height:auto;background:#140e08;touch-action:none}
+  .cdL{font-family:'Handlee',cursive;font-size:17px;fill:#f6ead2}
+  .cdS{font-family:'Overpass',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;fill:#c8b898}
+  .cdF{transform-box:fill-box;transform-origin:50% 100%;animation:flick .9s steps(2,end) infinite}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="candleG"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/><stop offset=".5" stop-color="#e88a3a" stop-opacity=".18"/><stop offset="1" stop-color="#e88a3a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="tubeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3a2a"/><stop offset=".5" stop-color="#8a7050"/><stop offset="1" stop-color="#5a4430"/></linearGradient>
+  <linearGradient id="sandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b89868"/><stop offset="1" stop-color="#7a6040"/></linearGradient>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#0e0905"/>
+<!-- the Attic: an old round tube, going away from you -->
+<ellipse cx="820" cy="420" rx="980" ry="560" fill="#1e150c"/>
+<ellipse cx="820" cy="430" rx="860" ry="470" fill="url(#tubeG)"/>
+<ellipse cx="900" cy="440" rx="560" ry="300" fill="#6a5438"/>
+<ellipse cx="960" cy="450" rx="330" ry="180" fill="#4a3a28"/>
+<ellipse cx="1000" cy="458" rx="160" ry="88" fill="#2a1e14"/>
+<ellipse cx="1020" cy="466" rx="70" ry="38" fill="#120c07"/>
+<g stroke="#3a2c1e" stroke-width="3" fill="none" opacity=".55"><path d="M120 200Q500 330 860 420M1540 220Q1200 330 1060 420M60 560Q480 520 880 470M1600 600Q1260 520 1080 470M700 40Q860 220 960 380M300 120Q640 260 900 400"/></g>
+<g fill="#8a7050" opacity=".35"><ellipse cx="560" cy="300" rx="40" ry="12" transform="rotate(20 560 300)"/><ellipse cx="1240" cy="320" rx="46" ry="12" transform="rotate(-24 1240 320)"/><ellipse cx="760" cy="200" rx="30" ry="9"/></g>
+<!-- scallops on the walls -->
+<g fill="none" stroke="#5a4630" stroke-width="3" opacity=".7"><path d="M180 300q30 -26 60 0M230 360q30 -26 60 0M160 430q30 -26 60 0M1400 300q30 -26 60 0M1440 380q30 -26 60 0M1380 460q30 -26 60 0M420 240q30 -22 56 0M1220 240q30 -22 56 0"/></g>
+<!-- the sandy floor, with ripples -->
+<path d="M-200 900Q300 640 820 600Q1300 640 1800 900Z" fill="url(#sandG)"/>
+<g stroke="#9a7c50" stroke-width="3" fill="none" opacity=".8"><path d="M200 820q60 -16 120 0t120 0M600 760q60 -14 120 0t120 0M1000 780q60 -14 120 0t120 0M400 700q50 -12 100 0t100 0M900 690q50 -12 100 0"/></g>
+<!-- the Trough: the passage dips into black water -->
+<g id="trough" class="hot"><path d="M860 612Q900 580 990 576Q1100 578 1150 604Q1100 632 990 636Q900 636 860 612Z" fill="#0a0a0a"/><path d="M900 606Q990 590 1100 600" stroke="#5a6a70" stroke-width="2.400" fill="none"/><path d="M940 618q40 -6 80 0" stroke="#3a4a50" stroke-width="1.600" fill="none"/></g>
+<!-- the Sandy Crawl: a low hole on the left -->
+<g id="crawl" class="hot"><path d="M440 700Q480 640 560 650Q600 680 590 720Q520 740 440 720Z" fill="#120c07"/></g>
+<!-- the Flood Box -->
+<g id="box" class="hot"><rect x="110" y="560" width="120" height="170" rx="16" fill="#2a6ab0"/><rect x="104" y="548" width="132" height="26" rx="8" fill="#c8321e"/><path d="M120 610h100M120 680h100" stroke="#1d4a7a" stroke-width="4"/>
+  <text x="170" y="648" font-family="Stardos Stencil,serif" font-size="17" text-anchor="middle" fill="#f4f1e4">FLOOD</text><text x="170" y="668" font-family="Stardos Stencil,serif" font-size="17" text-anchor="middle" fill="#f4f1e4">BOX</text></g>
+<!-- the shelter, once it is up -->
+<g id="tent"><path d="M260 800Q300 600 430 590Q560 600 620 800Z" fill="#ee6a1a"/><path d="M300 800Q330 650 430 640Q530 650 580 800" fill="#ff8a2a" opacity=".6"/><circle cx="440" cy="700" r="22" fill="#c48a62"/><path d="M418 700q2 -28 22 -30q22 2 24 30z" fill="#3f8a4a"/></g>
+<!-- the candle in its niche -->
+<g id="candle" class="hot"><circle id="cglow" cx="332" cy="470" r="200" fill="url(#candleG)"/><path d="M290 520q42 -30 84 0v30h-84z" fill="#2a1e14"/><rect x="322" y="490" width="20" height="44" fill="#f4ecd8"/><g id="flame"><path d="M332 452q12 18 0 38q-12 -20 0 -38z" fill="#ffb24a"/><path d="M332 466q5 10 0 22q-5 -12 0 -22z" fill="#fff2c8"/></g></g>
+<!-- the survey, lying on the sand -->
+<g id="survey" class="hot"><rect x="700" y="760" width="150" height="100" fill="#f8fbfc" stroke="#9fb4c4" stroke-width="3" transform="rotate(-8 775 810)"/><path d="M714 830q40 -20 60 -30t60 -30" stroke="#14233a" stroke-width="5" fill="none" transform="rotate(-8 775 810)"/></g>
+<!-- Tegan -->
+<g id="teg" class="hot"><path d="M1180 860l6 -110q2 -20 26 -22h24q24 2 26 22l6 110z" fill="#b0352a"/><rect x="1216" y="700" width="16" height="30" fill="#b07a56"/><circle cx="1224" cy="682" r="22" fill="#c48a62"/><path d="M1200 680q2 -32 24 -34q24 2 26 34z" fill="#3f8a4a"/><rect x="1214" y="650" width="20" height="11" rx="3" fill="#2a2a2a"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the ladder</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="karst.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, survey = null;
+  var stage = 0;      /* 0 look round, 1 the survey, 2 times found: waiting, 3 the draught is back (why), 4 the note, 5 Three Ways, 6 out */
+
+  ER.init({
+    theme: 'wild', story: 'karst', storyTitle: 'The Cave That Breathes', id: 'attic', no: 'V', title: 'The Attic',
+    go: 'Climb up',
+    intro: [
+      'All evening you read the gauge, and Tegan wrote it down. It rose fast: 0.40 at a quarter to five, 1.70 at seven. At twenty to eight the Shower went quiet, because the rain had stopped on the moor; but the water went on rising for two more hours, to 2.45. Then it fell, slowly: ten centimetres an hour. At half past midnight it read 2.20. (2.20 &minus; 0.30) &divide; 0.10 is nineteen hours: the Duck would not open before half past seven on Sunday evening.',
+      'So you climbed: back through the Formation Chamber, where the Bishop stood in brown water up to its mud line, up the boulder slope, and into the Attic. It is ten to one in the morning.'
+    ],
+    exit: {"next":"dawn","w":{"148af319":"6b4952e8"}}, tags: {"route":["50822e07"],"low":["ba57235d"],"low_roof":["daf82c56"],"back":["1d5ce276"],"back_floor":["6ed1c7cc"],"dry":["9e26e2f5"],"dry_roof":["366f1ccb"],"dry_duck":["92875c2c"],"way":["54d80dff"],"way_voices":["e2d0dd71"],"way_back":["c213f071"],"why":["8ae07ab6"],"why_summer":["1b6e598a"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('e-file') || null; told = ER.flag('e-told') || {}; stage = nextFile ? 6 : (ER.flag('e-stage') || 0);
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('e-told', told); return true; }
+  function setStage(n) { stage = n; ER.flag('e-stage', n); paint(); }
+  function isBusy() { return busy; }
+  function paint() {
+    var sc = $('#scene');
+    sc.classList.toggle('nolight', !told.candle);
+    sc.classList.toggle('lean', stage >= 3);
+    sc.classList.toggle('shelter', !!told.box);
+    sc.classList.toggle('dry', stage >= 4);
+    $('#box').classList.toggle('ready', !told.box || (stage === 4 && !told.note));
+    $('#candle').classList.toggle('ready', !!((told.mu && !told.candle) || (stage === 3)));
+    $('#survey').classList.toggle('ready', !!(told.candle && stage < 2));
+    $('#trough').classList.toggle('ready', stage === 5);
+    ER.pips((told.box ? 1 : 0) + (told.mu ? 1 : 0) + (told.candle ? 1 : 0) + (stage >= 2 ? 1 : 0) + (stage >= 4 ? 1 : 0) + (told.note ? 1 : 0) + (nextFile ? 1 : 0), 7);
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The Rift goes up to the Wind Hole. Climb the ladder.']];
+    if (survey && survey.isOpen()) return survey.hint();
+    if (cand && cand.isOpen()) return cand.hint();
+    if (!told.box) return ['box', ['The blue barrel on the left is the club&rsquo;s Flood Box. Open it.']];
+    if (!told.mu) return ['mu', ['There was an envelope in the Flood Box: Mrs Ullathorne&rsquo;s note. Click the Flood Box again and read it.']];
+    if (!told.candle) return ['candle', ['Light a candle: click the niche in the wall to the left, by the Flood Box.']];
+    if (stage < 2) return ['survey', ['The survey is lying on the sand in front of you. Click it.']];
+    if (stage === 3) return ['why', ['The candle flame has started to lean. Click the candle.']];
+    if (stage === 4) return ['note', ['Page 9: if you must move, leave a note where the rescuers will look. They will look at the Flood Box. Click it.']];
+    if (stage === 5) return ['three', ['The Trough is dry. Go through it: click the dip in the floor ahead, where the water was.']];
+    return null;
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('The foot of the Rift. Grey light, a long way up.'); return; }
+    if (told.in) { busy = false; ER.say('The Attic, by candlelight.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Attic is a round tube in the rock, as wide as a lane, with a floor of soft dry sand. It is old: the water that made it left long ago and went down to work at the lower passages. The walls are covered with shallow scoops, like the inside of a spoon.',
+      'It is dry. It is quiet. After the roar of the Duck Pool, the silence is so loud you can hear Tegan&rsquo;s survival bag crackle when she breathes.',
+      'Ahead of you, a little way along, the floor dips into black, still water. That is the Trough, says Tegan, and the Wind Hole Series is on the other side of it. On your left, against the wall, stands a blue barrel with a red lid.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- the Flood Box, Mrs Ullathorne's note, the candle ---------- */
+  var MU = '<h4>The Attic breathes &middot; M.U. 1979</h4><div class="two"><div>' +
+    '<p>A cave keeps nearly the same temperature all year round: here about 8 &deg;C, the average of the weather above it. Warm air is lighter than cold air, so when the air inside and the air outside are at different temperatures, the air moves.</p>' +
+    '<p>On a <b>cold night</b> the cave air is the warmer: it rises and pours out of the highest entrance, and cold air is drawn in at the lower ones. On a <b>hot summer day</b> it is the other way round: cold, heavy cave air sinks and flows out of the lowest entrance.</p>' +
+    '<p>So a steady <b>draught</b> means there is another way out, and its direction tells you which way is up and out. Hold a candle flame still in the passage: it leans the way the air is going.</p>' +
+    '<p>In winter the Attic draughts towards the Wind Hole. If the draught stops, the <b>Trough</b> has sumped. It fills from below with the same water as the Duck Pool, at the same height.</p></div>' +
+    '<div><svg viewBox="0 0 260 300"><rect width="260" height="300" fill="#fbfaf3"/><path d="M0 120L60 110L120 70L200 40L260 30" stroke="#2b2a2e" stroke-width="2.400" fill="none"/>' +
+    '<path d="M20 116q0 40 40 50q60 10 90 -30q20 -40 54 -90" stroke="#8a7050" stroke-width="16" fill="none" stroke-linecap="round" opacity=".55"/>' +
+    '<path d="M30 140l20 20M64 166l40 -6M120 150l24 -26M156 110l22 -40M190 56l10 -26" stroke="#2a7ac2" stroke-width="2.400" marker-end="url(#ar)"/>' +
+    '<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2a7ac2"/></marker></defs>' +
+    '<path d="M206 22q-6 -10 2 -16M216 22q6 -12 -2 -18" stroke="#9aa6b0" stroke-width="2" fill="none"/>' +
+    '<g font-family="Handlee,cursive" font-size="14" fill="#2b2a2e"><text x="100" y="200">cave 8 &deg;C</text><text x="10" y="40">night 1 &deg;C</text><text x="150" y="16">steam</text><text x="4" y="190">cold air in, low</text><text x="150" y="70">warm air out, high</text>' +
+    '<text x="20" y="270" font-size="13">(summer: the other way)</text></g></svg></div></div>';
+  $('#box').addEventListener('click', function () {
+    if (busy) return;
+    if (stage === 4 && !told.note) { leaveNote(); return; }
+    if (!told.box) {
+      tell('box'); busy = true; KARST.sfx.click(); paint();
+      ER.narrate([
+        'The lid unscrews with a squeak. Inside, in plastic bags: an orange group shelter, like a tent with no poles; twelve candles; matches in a jam jar; a large bar of chocolate with a label that says CHRISTMAS; a spare torch; a pencil and a pad; and an envelope that says, in pencil, READ ME BY CANDLELIGHT.',
+        'You pull the shelter over both of you and sit on its edges. In five minutes it is warm inside, from nothing but the two of you breathing. Tegan eats a square of Christmas chocolate and closes her eyes. &ldquo;Mrs U,&rdquo; she says, &ldquo;I love you.&rdquo;'
+      ], function () { busy = false; paint(); KARST.terms(['Flood Box']); ER.say('The envelope from the Flood Box: READ ME BY CANDLELIGHT.'); });
+      return;
+    }
+    ER.read({ html: MU, cls: 'mu', clue: { id: 'mu', title: 'The Attic breathes', kind: 'Mrs Ullathorne&rsquo;s note' }, done: function () {
+      KARST.terms(['draught']);
+      if (tell('mu')) { paint(); ER.say('By candlelight, it says. There are candles and matches in the box, and a niche in the wall beside it.'); }
+    } });
+  });
+  $('#candle').addEventListener('click', function () {
+    if (busy) return;
+    if (stage === 3) { openCandle(); return; }
+    if (!told.mu) { ER.say('A niche in the wall, black with the smoke of old candles.'); return; }
+    if (!told.candle) {
+      tell('candle'); KARST.sfx.match(); paint();
+      ER.say('You strike a match and light a candle in the niche. The flame stands straight up and does not move at all. No draught. Mrs Ullathorne&rsquo;s note: if the draught stops, the Trough has sumped.');
+      return;
+    }
+    ER.say(stage >= 3 ? 'The flame leans towards the Trough, steady, as if somebody were breathing on it from behind.' : 'The candle flame stands straight up. The Attic is holding its breath.');
+  });
+  $('#teg').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Tegan Nuttall', role: 'In the Attic', face: window.FACE('tegan'),
+      lines: [
+        { note: told.box ? 'She is inside the orange shelter, with only her face showing.' : 'She is looking at the blue barrel as if it were a birthday present.', a: '&ldquo;This is the best place I have ever been.&rdquo;' },
+        { q: 'Have you been along the Wind Hole Series?', a: 'Only as far as the Trough, last July, with Morven. We did the candle there. The flame leaned the other way: out of the Trough, towards us, the whole time. Morven said the cave was breathing out at the bottom. I didn&rsquo;t know what she meant.' },
+        { q: 'What is the Trough?', a: 'The passage dips right down, like the U-bend under a sink, and comes up again on the other side. In July it was dry.&rdquo; She looks at the black water ahead. &ldquo;Tonight it isn&rsquo;t.' },
+        { q: 'Will they find us here?', a: 'Mrs U will have read them the board: the Attic, by the Flood Box. So if they come, they come here. And if we go anywhere, we leave a note. Page nine.' }
+      ],
+      clue: { id: 'teg5', title: 'Tegan, in the Attic', kind: 'What she said' },
+      done: function (seen) { if (seen) tell('teg'); }
+    });
+  });
+  KARST.thing('#crawl', null, 'The Sandy Crawl: a low hole in the left wall, going down. On the plan it heads back towards the entrance. Sand slopes into it, and the sound of water comes up out of it.', isBusy);
+  $('#trough').addEventListener('click', function () {
+    if (busy) return;
+    if (stage === 5) { openThree(); return; }
+    ER.say(stage >= 4 ? 'The Trough: the water has gone, and left wet sand and a few pools.' : stage >= 3 ? 'The Trough. There is a gap between the black water and the roof now, and the air is going through it.' : 'The Trough: the passage dips into black, still water that reaches the roof. Somewhere on the far side is the Wind Hole Series.');
+  });
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the survey: plan over section ---------- */
+  $('#survey').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.candle) { ER.say('Morven&rsquo;s laminated survey. You&rsquo;ll need light to read it properly: the Flood Box first.'); return; }
+    if (stage >= 2) { ER.say('The survey: the Trough&rsquo;s floor is at 1.6, its roof at 1.9. Ten centimetres an hour.'); return; }
+    if (!told.legend) { readLegend(); return; }
+    if (!survey) survey = makeSurvey();
+    survey.open();
+  });
+  var LEGEND = '<h4>Ripple Gill Cave &middot; survey 1979, part re-surveyed 2004</h4>' +
+    '<p><b>Plan:</b> the cave seen from above, as if the hill were made of glass. North is at the top (the arrow). The scale bar is 100 metres.</p>' +
+    '<p><b>Section:</b> the cave seen from the side, unrolled flat along its passages. Heights are in metres above (+) or below (&minus;) the <b>survey zero</b>, which is the zero of the Duck gauge. So a gauge reading tells you where the water stands in the section.</p>' +
+    '<p><b>Stations:</b> the numbered points are the same points in both drawings. Find a number on the plan, find the same number on the section, and you know both where it is and how high it is. Side passages are drawn on the right of the section, with their own numbers.</p>' +
+    '<p>Where the roof of a passage dips under the water in the section, it is a sump.</p>';
+  function readLegend() {
+    ER.read({ html: LEGEND, cls: 'svy', clue: { id: 'legend', title: 'How to read the survey', kind: 'On the survey' }, done: function () {
+      KARST.terms(['plan', 'section', 'station', 'scale', 'survey zero']);
+      if (tell('legend')) ER.say('Now the drawings themselves. Click the survey again.');
+    } });
+  }
+  function makeSurvey() {
+    /* stations: [plan x, plan y, height (floor), roof or null, section x, which part] */
+    var S = {
+      1: [70, 262, -0.6, null, 50, 'm', 'Gill Entrance'], 3: [150, 246, -0.9, 0.3, 90, 'm', 'Duck'], 4: [195, 236, -0.8, null, 120, 'm', 'Duck Pool (gauge)'], 5: [240, 222, 4.0, null, 160, 'm', 'Ramp top'],
+      6: [320, 200, 4.5, null, 210, 'm', 'Formation Chamber'], 9: [380, 168, 15, null, 260, 'm'], 10: [430, 150, 15, null, 300, 'm', 'Attic'], 11: [480, 140, 14.5, null, 330, 'm'],
+      12: [530, 132, 13.5, null, 360, 'm'], 13: [580, 126, 12.5, null, 390, 'm'], 14: [630, 122, 12, null, 430, 'm', 'Flood Box'], 18: [700, 116, 1.6, 1.9, 500, 'm', 'the Trough'],
+      19: [760, 104, 8, null, 560, 'm'], 20: [810, 96, 14, null, 610, 'm'], 21: [860, 86, 18, null, 660, 'm', 'Three Ways'],
+      15: [640, 152, 11, null, 735, 'c'], 16: [540, 206, 5, null, 765, 'c'], 17: [300, 250, -1.0, -0.4, 800, 'c', 'Sandy Crawl'],
+      31: [610, 86, 6, null, 860, 'b'], 32: [700, 62, -0.5, 0.2, 895, 'b'], 33: [780, 70, 6, null, 930, 'b', 'Bypass']
+    };
+    var E = [[1, 3], [3, 4], [4, 5], [5, 6], [6, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14], [14, 18], [18, 19], [19, 20], [20, 21], [14, 15], [15, 16], [16, 17], [17, 4], [13, 31], [31, 32], [32, 33], [33, 20]];
+    var box = ER.el('div', 'bx'), svg, msgEl, go, undo, wlo, wback, wdry, s = '', i, k, route = ER.flag('e-route') ? ER.flag('e-route').split('-').map(Number) : [14], sel = null, part = ER.flag('e-part') || 0;
+    function SY(h) { return 468 - h * 5.8; }
+    function PY(y) { return y * 0.84 - 4; }
+    function nb(n) { var o = []; E.forEach(function (e) { if (e[0] === n) o.push(e[1]); else if (e[1] === n) o.push(e[0]); }); return o; }
+    s = '<svg class="sv" viewBox="0 0 1000 490"><rect width="1000" height="490" fill="#f8fbfc"/><g stroke="#e2ecf2" stroke-width="1">';
+    for (k = 20; k < 1000; k += 20) s += '<path d="M' + k + ' 0V236"/>';
+    for (k = 20; k < 236; k += 20) s += '<path d="M0 ' + k + 'H1000"/>';
+    s += '</g><text class="svT" x="16" y="22">PLAN</text><text class="svS" x="16" y="36">FROM ABOVE</text>' +
+      '<path d="M960 64V28l-7 12M960 28l7 12" stroke="#14233a" stroke-width="2.200" fill="none"/><text class="svN" x="955" y="78">N</text>' +
+      '<path d="M16 52h95" stroke="#14233a" stroke-width="3"/><path d="M16 46v12M111 46v12" stroke="#14233a" stroke-width="2"/><text class="svS" x="118" y="56">100 m</text>' +
+      '<path d="M860 ' + PY(86) + 'L900 ' + PY(58) + 'L930 ' + PY(44) + 'L952 ' + PY(36) + '" stroke="#14233a" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M860 ' + PY(86) + 'L890 ' + PY(104) + 'L920 ' + PY(112) + '" stroke="#14233a" stroke-width="7" fill="none" stroke-linecap="round"/>' +
+      '<text class="svL" x="836" y="24">to the Wind Hole</text><text class="svL" x="928" y="' + PY(124) + '">Choke ?</text>' +
+      '<ellipse cx="320" cy="' + PY(200) + '" rx="34" ry="18" fill="none" stroke="#14233a" stroke-width="2"/>' +
+      '<g id="p-pass"></g><g id="p-route"></g><g id="p-st"></g>' +
+      '<path d="M0 240H1000" stroke="#14233a" stroke-width="2"/><text class="svT" x="16" y="260">SECTION</text><text class="svS" x="16" y="274">FROM THE SIDE, HEIGHTS IN METRES</text>';
+    for (k = -2; k <= 26; k += 2) s += '<path d="M40 ' + SY(k).toFixed(1) + 'H700" stroke="' + (k === 0 ? '#14233a' : '#e2ecf2') + '" stroke-width="' + (k === 0 ? 1.400 : 1) + '"/>' + (k % 4 === 0 ? '<text class="svS" x="34" y="' + (SY(k) + 4).toFixed(1) + '" text-anchor="end">' + (k > 0 ? '+' : '') + k + '</text>' : '');
+    s += '<path d="M714 248V488M716 248H996" stroke="#14233a" stroke-width="1.200"/><text class="svS" x="724" y="262">SIDE PASSAGES</text>';
+    for (k = -2; k <= 14; k += 2) s += '<path d="M716 ' + SY(k).toFixed(1) + 'H996" stroke="' + (k === 0 ? '#14233a' : '#e2ecf2') + '" stroke-width="1"/>';
+    /* the water now, and the highest tonight */
+    s += '<rect x="40" y="' + SY(2.2).toFixed(1) + '" width="660" height="' + (SY(-2) - SY(2.2)).toFixed(1) + '" fill="#2a7ac2" opacity=".2"/><rect x="716" y="' + SY(2.2).toFixed(1) + '" width="280" height="' + (SY(-2) - SY(2.2)).toFixed(1) + '" fill="#2a7ac2" opacity=".2"/>' +
+      '<path d="M40 ' + SY(2.2).toFixed(1) + 'H996" stroke="#2a7ac2" stroke-width="2"/><path d="M40 ' + SY(2.45).toFixed(1) + 'H996" stroke="#2a7ac2" stroke-width="1.200" stroke-dasharray="5 4"/>' +
+      '<text class="svL" x="530" y="' + (SY(2.2) + 15).toFixed(1) + '" style="fill:#1d5a9a">water at 00.30: 2.2</text><text class="svL" x="250" y="' + (SY(2.45) - 4).toFixed(1) + '" style="fill:#1d5a9a">highest tonight 2.45</text>' +
+      '<path d="M660 ' + SY(18).toFixed(1) + 'L690 ' + SY(24).toFixed(1) + '" stroke="#14233a" stroke-width="6" stroke-linecap="round"/><text class="svL" x="600" y="' + SY(25).toFixed(1) + '">Rift, up to the Wind Hole (+62) &uarr;</text>' +
+      '<g class="svL" style="font-size:12px"><text x="82" y="' + (SY(0.3) - 16).toFixed(1) + '">Duck</text><text x="150" y="' + (SY(4) - 16).toFixed(1) + '">Ramp</text><text x="190" y="' + (SY(4.5) + 26).toFixed(1) + '">Formation Ch.</text><text x="292" y="' + (SY(15) - 16).toFixed(1) + '">Attic</text>' +
+      '<text x="408" y="' + (SY(12) - 16).toFixed(1) + '">Flood Box</text><text x="482" y="' + (SY(1.9) - 16).toFixed(1) + '">Trough</text><text x="632" y="' + (SY(18) + 26).toFixed(1) + '">Three Ways</text><text x="724" y="' + (SY(14) - 6).toFixed(1) + '">Sandy Crawl</text><text x="850" y="' + (SY(14) - 6).toFixed(1) + '">Bypass</text></g>' +
+      '<g id="s-pass"></g><g id="s-route"></g><g id="s-st"></g><g id="s-sel"></g></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn quiet" id="v-undo">Start again</button></div>' +
+      '<div class="bx-foot"><span id="v-w1"></span><span id="v-w2"></span><span id="v-w3"></span><button type="button" class="btn" id="v-go"></button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg'); go = box.querySelector('#v-go'); undo = box.querySelector('#v-undo');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    var st = ER.flag('e-w') || {};
+    wlo = KARST.wheels(box.querySelector('#v-w1'), { label: 'Lowest point<br>on the way', vals: [KARST.DIGITS, KARST.DIGITS], sep: { 1: '.' }, tail: 'm', start: st.l || [0, 0], change: keep });
+    wback = KARST.wheels(box.querySelector('#v-w2'), { label: 'Draught<br>comes back', vals: [KARST.HOURS, KARST.QUARTERS], sep: { 1: '.' }, start: st.b || [0, 0], change: keep });
+    wdry = KARST.wheels(box.querySelector('#v-w3'), { label: 'Trough<br>is dry', vals: [KARST.HOURS, KARST.QUARTERS], sep: { 1: '.' }, start: st.d || [0, 0], change: keep });
+    function keep() { ER.flag('e-w', { l: wlo.at(), b: wback.at(), d: wdry.at() }); }
+    function px(n) { return [S[n][0], PY(S[n][1])]; }
+    function sx(n) { return [S[n][4], SY(S[n][2])]; }
+    /* passages in plan, and their floors (and roofs) in section */
+    var pp = '', sp = '';
+    E.forEach(function (e) {
+      var A = px(e[0]), B = px(e[1]); pp += '<path d="M' + A[0] + ' ' + A[1] + 'L' + B[0] + ' ' + B[1] + '" stroke="#14233a" stroke-width="7" stroke-linecap="round"/>';
+      if (S[e[0]][5] === S[e[1]][5] || (S[e[0]][5] === 'm' && S[e[1]][5] !== 'm' && false)) { var C = sx(e[0]), D = sx(e[1]); sp += '<path d="M' + C[0] + ' ' + (C[1] - 10) + 'L' + D[0] + ' ' + (D[1] - 10) + 'M' + C[0] + ' ' + C[1] + 'L' + D[0] + ' ' + D[1] + '" stroke="#14233a" stroke-width="2"/>'; }
+    });
+    /* side passages: drawn from where they leave the main line, with that station's height repeated */
+    [[14, 15, 16, 17, 4], [13, 31, 32, 33, 20]].forEach(function (br, j) {
+      var x0 = j ? 830 : 725, pts = br.map(function (n, q) { var x = q === 0 ? x0 : q === br.length - 1 ? x0 + 4 * 34 : S[n][4]; if (j === 0 && q > 0 && q < 4) x = S[n][4]; return [x, SY(S[n][2]), n]; });
+      if (j === 0) { pts[0][0] = 722; pts[4][0] = 830; } else { pts[0][0] = 836; pts[4][0] = 970; }
+      for (var q = 1; q < pts.length; q++) sp += '<path d="M' + pts[q - 1][0] + ' ' + (pts[q - 1][1] - 10) + 'L' + pts[q][0] + ' ' + (pts[q][1] - 10) + 'M' + pts[q - 1][0] + ' ' + pts[q - 1][1] + 'L' + pts[q][0] + ' ' + pts[q][1] + '" stroke="#14233a" stroke-width="2"/>';
+      pts.forEach(function (p) { if (p[2] === 4 || p[2] === 13 || p[2] === 14 || p[2] === 20) sp += '<text class="svN" x="' + p[0] + '" y="' + (p[1] + 16) + '" text-anchor="middle" style="fill:#7a8a96">' + p[2] + '</text>'; });
+    });
+    svg.querySelector('#p-pass').innerHTML = pp; svg.querySelector('#s-pass').innerHTML = sp;
+    var ps = '', ss = '';
+    Object.keys(S).forEach(function (n) {
+      var p = px(n), q = sx(n), lab = S[n][6];
+      ps += '<g class="st" data-n="' + n + '"><circle class="hit" cx="' + p[0] + '" cy="' + p[1] + '" r="12"/><circle class="dot" cx="' + p[0] + '" cy="' + p[1] + '" r="7"/><text class="svN" x="' + p[0] + '" y="' + (p[1] + 3.500) + '" text-anchor="middle">' + n + '</text>' +
+        (lab ? '<text class="svL" x="' + (p[0] + ({ 1: 30, 3: -6, 4: 44 }[n] || 4)) + '" y="' + (p[1] + ({ 1: 22, 3: -12, 4: 22, 17: 22, 6: -22, 21: 24 }[n] || -12)) + '" text-anchor="middle">' + lab + '</text>' : '') + '</g>';
+      ss += '<g class="st" data-n="' + n + '"><circle class="hit" cx="' + q[0] + '" cy="' + q[1] + '" r="11"/><circle class="dot" cx="' + q[0] + '" cy="' + q[1] + '" r="6.500"/><text class="svN" x="' + q[0] + '" y="' + (q[1] + 3.500) + '" text-anchor="middle" font-size="9">' + n + '</text></g>';
+    });
+    svg.querySelector('#p-st').innerHTML = ps; svg.querySelector('#s-st').innerHTML = ss;
+    function fmt(h) { return (h > 0 ? '+' : h < 0 ? '&minus;' : '') + Math.abs(h).toFixed(1); }
+    function draw() {
+      var o = '', r = '';
+      for (i = 1; i < route.length; i++) {
+        var A = px(route[i - 1]), B = px(route[i]); o += '<path d="M' + A[0] + ' ' + A[1] + 'L' + B[0] + ' ' + B[1] + '" stroke="#2a7ac2" stroke-width="4" stroke-linecap="round"/>';
+      }
+      svg.querySelector('#p-route').innerHTML = o;
+      ER.$$('.st', svg).forEach(function (g) { var n = +g.getAttribute('data-n'); g.classList.toggle('on', route.indexOf(n) >= 0); g.classList.toggle('sel', n === sel); });
+      if (sel) {
+        var q = sx(sel), t = S[sel][3] != null ? 'floor ' + fmt(S[sel][2]) + ' &middot; roof ' + fmt(S[sel][3]) : fmt(S[sel][2]) + ' m';
+        r = '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="13" fill="none" stroke="#c8321e" stroke-width="2.400"/><rect x="' + (q[0] - 70) + '" y="' + (q[1] - 44) + '" width="140" height="22" rx="3" fill="#fff" stroke="#c8321e"/><text class="svR" x="' + q[0] + '" y="' + (q[1] - 28) + '" text-anchor="middle">' + sel + ': ' + t + '</text>';
+      }
+      svg.querySelector('#s-sel').innerHTML = r;
+      svg.setAttribute('data-route', route.join('-')); svg.setAttribute('data-part', part);
+      wlo.node.style.display = part >= 0 ? '' : 'none';
+      wback.node.style.display = wdry.node.style.display = part >= 1 ? '' : 'none';
+      undo.style.display = part === 0 ? '' : 'none';
+      go.textContent = part === 0 ? 'That is the way, and its lowest point' : 'Those are the times';
+    }
+    svg.addEventListener('click', function (e) {
+      var g = e.target.closest ? e.target.closest('.st') : null, n, last;
+      if (!g) return;
+      n = +g.getAttribute('data-n'); sel = n; KARST.sfx.click();
+      if (part === 0) {
+        last = route[route.length - 1];
+        if (n === last && route.length > 1) { route.pop(); }
+        else if (route.indexOf(n) < 0 && nb(last).indexOf(n) >= 0 && last !== 21) { route.push(n); }
+        else if (route.indexOf(n) < 0 && g.closest('#p-st')) { msg('Station ' + n + ' is not joined to station ' + last + ' by a passage. The way so far: ' + route.join(', ') + '.'); }
+        ER.flag('e-route', route.join('-'));
+      }
+      draw();
+      if (!msgEl.innerHTML || part === 0) {
+        var h = S[n][3] != null ? 'Station ' + n + (S[n][6] ? ' (' + S[n][6] + ')' : '') + ': floor ' + fmt(S[n][2]) + ', roof ' + fmt(S[n][3]) + '.' : 'Station ' + n + (S[n][6] ? ' (' + S[n][6] + ')' : '') + ': ' + fmt(S[n][2]) + ' m.';
+        if (part === 0) msg(h + ' The way so far: ' + route.join(', ') + (route[route.length - 1] === 21 ? '. That reaches Three Ways.' : '.'));
+      }
+    });
+    undo.addEventListener('click', function () { route = [14]; sel = null; ER.flag('e-route', '14'); draw(); msg('Back to the Flood Box, station 14.'); });
+    go.addEventListener('click', function () {
+      var r = route.join('-');
+      if (part === 0) {
+        if (route[route.length - 1] !== 21) { KARST.sfx.no(); msg(route.indexOf(17) >= 0 ? 'The Sandy Crawl heads for the entrance on the plan. Look at station 17 in the section: where does it end?' : 'Mark a way from the Flood Box (14) all the way to Three Ways (21).'); return; }
+        if (!ER.check('route', r)) { KARST.sfx.no(); msg(route.indexOf(32) >= 0 ? 'On the plan, the Bypass goes round the Trough. Now find station 32 in the section, on the right. Round, or under?' : 'That is a way to Three Ways, but is it the one that stays highest above the water?'); return; }
+        var lo = wlo.get();
+        if (!ER.check('low', lo)) { KARST.sfx.no(); msg(ER.check('low_roof', lo) ? 'That is the <b>roof</b> of the Trough. You walk on the floor: the lowest point you must pass is the floor.' : 'Find the lowest station on your way in the section, and read its height.'); return; }
+        part = 1; ER.flag('e-part', 1); ER.flag('e-lo', lo); draw(); KARST.sfx.pencil();
+        msg('Through the Trough: its floor is the lowest point, at +1.6, and its roof is at +1.9. The water stands at 2.2 and falls ten centimetres an hour. &ldquo;So when can we go?&rdquo; says Tegan. &ldquo;And when will the candle tell us?&rdquo;');
+        return;
+      }
+      var b = wback.get(), d = wdry.get();
+      if (!ER.check('back', b)) { KARST.sfx.no(); msg(ER.check('back_floor', b) ? 'That is when the <b>floor</b> is dry. Air can get through as soon as the water leaves the <b>roof</b>.' : 'The draught comes back when the water falls below the Trough&rsquo;s roof (+1.9). It reads 2.2 at 00.30 and falls 0.10 an hour.'); return; }
+      if (!ER.check('dry', d)) { KARST.sfx.no(); msg(ER.check('dry_roof', d) ? 'That is when the water leaves the roof. You need it below the floor (+1.6).' : ER.check('dry_duck', d) ? 'That is the Duck. The Trough is much higher than the Duck.' : 'From 2.2 at 00.30, falling 0.10 an hour: when does the water reach +1.6?'); return; }
+      ER.flag('e-times', b + '|' + d); KARST.sfx.pencil();
+      KARST.mine('trough', 'The way out, and when', '<p>From the Flood Box (14) through the Trough (18) to Three Ways (21). In plan the Sandy Crawl heads for the entrance and the Bypass goes round the Trough, but in section the Crawl ends under the water (&minus;1.0) and the Bypass dips to &minus;0.5. The Trough&rsquo;s floor is the lowest point on our way: <b>+1.6</b> (roof +1.9).</p><p>Water 2.2 at 00.30, falling 0.10 an hour. Below the roof (+1.9) at <b>03.30</b>: the draught comes back. Below the floor (+1.6) at <b>06.30</b>: the Trough is dry. Two rooms&rsquo; work: the gauge and the survey.</p>', true);
+      msg('&ldquo;Half past three for the candle,&rdquo; says Tegan, &ldquo;and half past six for us.&rdquo;');
+      setTimeout(function () { ER.closeAll(); waitNight(); }, 2400);
+    });
+    draw();
+    msg(part === 0 ? 'Click stations on the <b>plan</b> to mark a way from the Flood Box (14) to Three Ways (21). Each station you click is ringed in red in the <b>section</b>, with its height.' : 'Now the two times. The water reads 2.2 at 00.30 and falls 0.10 an hour.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        if (part === 0) return ['route', [
+          'There are three ways out of this end of the Attic: the Sandy Crawl (15 to 17), the Bypass (31 to 33), and the Trough (18). Click their stations and look at their heights in the section.',
+          'On the plan the Sandy Crawl seems to head for the entrance, and the Bypass goes round the Trough. But in the section, the Crawl ends at &minus;1.0, under the water, and the Bypass dips to &minus;0.5. The Trough route goes no lower than +1.6.',
+          'Mark 14, 18, 19, 20, 21. The lowest point on that way is the floor of the Trough, station 18.'
+        ]];
+        return ['times', [
+          'Air gets through the Trough as soon as the water is below its roof; you can walk through when the water is below its floor.',
+          'From 2.2 to the roof (1.9) is 0.3 m: three hours at 0.10 an hour. From 2.2 to the floor (1.6) is 0.6 m: six hours. Count on from 00.30.'
+        ]];
+      }
+    };
+  }
+
+  /* ---------- the night goes by ---------- */
+  function waitNight() {
+    busy = true; setStage(2);
+    ER.narrate([
+      'Half past one. Tegan sleeps for an hour, sitting up, inside the orange shelter. You watch the candle and the black water in the Trough and count your heartbeats and lose count.',
+      'Three o&rsquo;clock. You change the candle. You eat one square of Christmas chocolate, slowly. The flame stands straight up, like a pencil.',
+      'Twenty-five past three. The flame shivers. Then it leans, just a little, towards the Trough, and stays leaning. A breath of cold air touches the back of your neck.'
+    ], function () { busy = false; setStage(3); ER.say('The candle is leaning. Click it.'); });
+  }
+
+  /* ---------- the candle at half past three: why does the air go that way? ---------- */
+  var cand = null;
+  function openCandle() {
+    var box = ER.el('div', 'bx'), pk, msgEl;
+    box.innerHTML = '<div class="frame"><svg class="cd" viewBox="0 0 1000 380"><rect width="1000" height="380" fill="#140e08"/>' +
+      '<ellipse cx="760" cy="200" rx="200" ry="150" fill="#2a1e14"/><ellipse cx="800" cy="220" rx="110" ry="80" fill="#0a0705"/><path d="M700 300Q780 250 900 280" stroke="#3a4a52" stroke-width="3" fill="none"/>' +
+      '<text class="cdL" x="760" y="80" text-anchor="middle">the Trough, towards the Wind Hole</text><text class="cdL" x="150" y="80" text-anchor="middle">back towards the Formation Chamber</text>' +
+      '<path d="M0 330H1000V380H0Z" fill="#7a6040"/><rect x="430" y="250" width="34" height="80" fill="#f4ecd8"/><g transform="rotate(40 447 250)"><path class="cdF" d="M447 196q22 30 0 54q-22 -24 0 -54z" fill="#ffb24a"/><path d="M447 222q8 14 0 28q-8 -14 0 -28z" fill="#fff2c8"/></g>' +
+      '<g stroke="#9ab4c4" stroke-width="2" fill="none" opacity=".7"><path d="M160 200q100 -10 200 0M200 240q100 -10 200 0M520 220q100 -10 160 0"/><path d="M670 214l12 6l-12 6"/></g>' +
+      '<text class="cdS" x="500" y="368" text-anchor="middle">03.30 &middot; OUTSIDE: A CLEAR, COLD NIGHT (THE FORECAST SAID A FROST BY DAWN) &middot; INSIDE: ABOUT 8 &deg;C</text></svg></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div><div class="bx-foot"><span id="c-pk"></span><button type="button" class="btn" id="c-go">That is why</button></div>';
+    msgEl = box.querySelector('.pmsg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    pk = KARST.picks(box.querySelector('#c-pk'), [
+      ['water', 'The water in the Trough is pushing the air along.'],
+      ['warm', 'The cave is warmer than the night: its air rises and goes out at the top, at the Wind Hole.'],
+      ['cold', 'The cave is colder than the night: its air sinks and goes out at the bottom.'],
+      ['wind', 'The wind on the moor is blowing into the Wind Hole.']], { start: null });
+    pk.node.style.flexDirection = 'column'; pk.node.style.alignItems = 'stretch';
+    ER.$$('button', pk.node).forEach(function (b) { b.style.height = 'auto'; b.style.padding = '7px 12px'; b.style.textAlign = 'left'; b.style.whiteSpace = 'normal'; });
+    box.querySelector('#c-go').addEventListener('click', function () {
+      var v = pk.get();
+      if (!v) { msg('Choose the reason first.'); return; }
+      if (ER.check('why', v)) {
+        ER.flag('e-why', v); KARST.sfx.pencil();
+        KARST.mine('draught', 'The draught', '<p>At 03.30 the candle flame leaned towards the Trough and stayed leaning. The water had left the Trough&rsquo;s roof, and air was going through it, towards the Wind Hole.</p><p>Why: the night outside is cold, and the cave is about 8 &deg;C. The warm cave air rises and goes out at the highest entrance, the Wind Hole, and cold air comes in low down. So the way the air goes is the way out. (In July it was the other way round, as Tegan saw.)</p>', true);
+        msg('&ldquo;It&rsquo;s breathing out at the top,&rdquo; says Tegan. &ldquo;In July it breathed out at the bottom. Because in July the outside was the warm one.&rdquo;');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; setStage(4); ER.mood('calm');
+          ER.narrate([
+            'For three more hours the candle leans, and the cold air goes past you, through the Trough and away up the Wind Hole Series, out into the night. The water in the Trough sinks down its walls, ten centimetres an hour, as the page said it would.',
+            'At half past six the Trough is empty: wet sand, a few pools, and a low roof. Tegan stands up and folds the shelter. &ldquo;Page nine,&rdquo; she says. &ldquo;If we move, we leave a note where they&rsquo;ll look.&rdquo;'
+          ], function () { busy = false; paint(); ER.say('The pad and pencil from the Flood Box.'); });
+        }, 2600);
+        return;
+      }
+      KARST.sfx.no();
+      msg(ER.check('why_summer', v) ? '&ldquo;That&rsquo;s July,&rdquo; says Tegan. &ldquo;When the flame leaned the other way. Is tonight warm outside, or cold?&rdquo;' :
+        v === 'water' ? 'The water in the Trough is still, and the flame did not move while the Trough was full. Read Mrs Ullathorne&rsquo;s note again.' :
+        'There is no wind tonight (the forecast said winds light), and the air is going out of the Wind Hole, not in. Read Mrs Ullathorne&rsquo;s note again.');
+    });
+    ER.open('ov-lock', box);
+    msg('The flame leans towards the Trough: the air is going that way, through the Trough and on towards the Wind Hole. Why, tonight?');
+    cand = { isOpen: function () { return !!box.parentNode; }, hint: function () { return ['why', [
+      'Mrs Ullathorne&rsquo;s note: the cave keeps about 8 &deg;C. Is the night outside warmer or colder than that?',
+      'On a cold night the cave air is the warmer and lighter: it rises and goes out at the highest entrance. The Wind Hole is the highest.'
+    ]]; } };
+  }
+
+  /* ---------- the note at the Flood Box ---------- */
+  function leaveNote() {
+    var N = '<h4>Left on the lid of the Flood Box</h4><p>SUNDAY 06.30. TEGAN NUTTALL AND THE NEW MEMBER. BOTH WELL, BOTH WARM. ATE THE CHOCOLATE (SORRY, MRS U).</p><p>DUCK GAUGE 2.20 AT 00.30, FALLING 10 CM AN HOUR. TROUGH DRY AT 06.30. DRAUGHT TOWARDS THE WIND HOLE.</p><p>GONE THROUGH THE TROUGH AND UP THE WIND HOLE SERIES TO THE WIND HOLE.</p>';
+    ER.read({ html: N, cls: 'mine', clue: { id: 'note', title: 'The note on the Flood Box', kind: 'Left for the rescue' }, done: function () {
+      if (!tell('note')) return;
+      busy = true; setStage(5);
+      ER.narrate([
+        'You weigh the note down with the jam jar of matches, on top of the blue lid, where nobody could miss it. Then you go down into the Trough.',
+        'It is a short, wet crawl on your elbows, with the roof a hand&rsquo;s width over your helmet and the air going past your ears all the time, towards the Wind Hole. Up the other side. The passage climbs, and climbs.',
+        'A quarter to seven. You come out into a junction where three passages meet: Three Ways. Your candle is in your hand.'
+      ], function () { busy = false; paint(); openThree(); });
+    } });
+  }
+
+  /* ---------- Three Ways ---------- */
+  function openThree() {
+    var box = ER.el('div', 'bx'), svg, pk, msgEl, at = ER.flag('e-at') || null;
+    /* Three Ways seen from above. The mouths of the three passages, and what the flame does in each tonight (drawn, never said):
+       the angle it points in, or null for a flame that stands straight up */
+    var POS = { trough: [370, 274], rift: [650, 172], choke: [660, 288] }, LEAN = { trough: -19, rift: -21, choke: null };
+    box.innerHTML = '<div class="frame"><svg class="cd" viewBox="0 0 1000 420"><defs><radialGradient id="tglow"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".35"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="1000" height="420" fill="#1e150c"/>' +
+      '<g stroke-linecap="round" fill="none"><path d="M40 392L500 232M500 232L960 52M500 232L860 336" stroke="#0e0905" stroke-width="122"/><path d="M40 392L500 232M500 232L960 52M500 232L860 336" stroke="#6a5438" stroke-width="96"/>' +
+      '<path d="M40 392L500 232M500 232L960 52M500 232L860 336" stroke="#8a7050" stroke-width="40" opacity=".5"/></g><circle cx="500" cy="232" r="70" fill="#7a6244"/>' +
+      '<g fill="#3a2c1e"><circle cx="850" cy="330" r="30"/><circle cx="890" cy="356" r="22"/><circle cx="820" cy="350" r="18"/><circle cx="880" cy="310" r="16"/></g>' +
+      '<text class="cdL" x="60" y="300">back to the Trough</text><text class="cdL" x="60" y="320" font-size="14">(the way you came)</text><text class="cdL" x="790" y="24">the Rift</text><text class="cdL" x="760" y="404">Choke Passage</text>' +
+      '<text class="cdS" x="20" y="24">THREE WAYS, SEEN FROM ABOVE</text><text class="cdS" x="720" y="276" id="t-voice">A MURMUR, LIKE PEOPLE TALKING</text>' +
+      '<g id="t-cand" class="tool"><circle r="120" fill="url(#tglow)"/><circle r="14" fill="#f4ecd8" stroke="#c8b898" stroke-width="2"/>' +
+      '<g id="t-fl"><path d="M0 0q-9 -8 -5 -22q5 -16 5 -40q4 22 6 36q3 18 -6 26z" fill="#ffb24a"/><path d="M0 -4q-4 -4 -2 -12q2 -8 2 -18q2 12 3 18q1 8 -3 12z" fill="#fff2c8"/></g>' +
+      '<g id="t-still"><circle r="8" fill="#ffb24a"/><circle r="4" fill="#fff2c8"/></g><circle r="40" fill="#fff" opacity="0"/></g></svg></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div><div class="bx-foot"><span id="t-pk"></span><button type="button" class="btn" id="t-go">This is the way out</button></div>';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    pk = KARST.picks(box.querySelector('#t-pk'), [['trough', 'Back to the Trough'], ['rift', 'The Rift'], ['choke', 'Choke Passage']], { start: null });
+    var cur = at ? POS[at].slice() : [500, 232];
+    function draw() {
+      var lean = at ? LEAN[at] : -20;
+      svg.querySelector('#t-cand').setAttribute('transform', 'translate(' + cur[0].toFixed(0) + ' ' + cur[1].toFixed(0) + ')');
+      svg.querySelector('#t-fl').style.display = lean == null ? 'none' : '';
+      svg.querySelector('#t-still').style.display = lean == null ? '' : 'none';
+      if (lean != null) svg.querySelector('#t-fl').setAttribute('transform', 'rotate(' + (lean + 90) + ')');
+      svg.setAttribute('data-at', at || ''); svg.setAttribute('data-lean', lean == null ? 'still' : String(lean));
+    }
+    ER.drag(svg.querySelector('#t-cand'), {
+      move: function (e) { var q = ER.pt(svg, e); cur = [KARST.clamp(q.x, 60, 940), KARST.clamp(q.y, 40, 400)]; at = null; draw(); },
+      end: function () {
+        var best = null, bd = 1e9; Object.keys(POS).forEach(function (k) { var d = Math.pow(POS[k][0] - cur[0], 2) + Math.pow(POS[k][1] - cur[1], 2); if (d < bd) { bd = d; best = k; } });
+        at = best; cur = POS[best].slice(); ER.flag('e-at', at); draw(); KARST.sfx.notch();
+        msg({ trough: 'In the mouth of the passage you came by, the flame leans <b>out of it</b>, towards the junction: the air is coming from there.', rift: 'In the mouth of the Rift, the flame leans <b>into it</b>, along the passage, and stays leaning: the air is going up there.', choke: 'In the mouth of Choke Passage the flame stands <b>straight up</b>. From somewhere in the boulders comes the murmur of voices. &ldquo;People!&rdquo; says Tegan. &ldquo;Is it them?&rdquo;' }[at]);
+      }
+    });
+    box.querySelector('#t-go').addEventListener('click', function () {
+      var v = pk.get(), why = ER.flag('e-why'), lo = ER.flag('e-lo'), tm = ER.flag('e-times') || '|', c;
+      if (!v) { msg('Choose a passage first.'); return; }
+      c = ER.flag('e-route') + '|' + lo + '|' + tm + '|' + why + '|' + v;
+      if (ER.exitOk([c])) {
+        nextFile = ER.exit([c], { wait: true }); ER.flag('e-file', nextFile); stage = 6; ER.flag('e-stage', 6);
+        KARST.mine('three', 'Three Ways', '<p>At Three Ways the candle leaned out of the Trough passage (the air came from there), into the Rift (the air went up there), and stood straight in Choke Passage: no draught. The voices in Choke Passage were water.</p><p>The way the air goes is the way out: <b>the Rift</b>.</p>', true);
+        msg('&ldquo;The voices are water,&rdquo; says Tegan, a little sadly. &ldquo;The air knows the way.&rdquo;');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'You go up the Rift. It is tall and narrow, and the cold air goes past you all the way, getting colder, smelling of grass and frost. Ten minutes, fifteen, twenty, climbing.',
+            'Then, high above, there is a grey square that is not rock. Sky. And under it, bolted to the wall, the iron ladder: rusty, checked every spring, and the most beautiful thing you have ever seen.',
+            'Around you, the warm breath of the cave rises past you up the shaft and out into the morning.'
+          ], function () { busy = false; showGo(); paint(); });
+        }, 2400);
+        return;
+      }
+      KARST.sfx.no();
+      msg(ER.check('way_voices', v) ? 'Listen to the voices: they never stop for breath, and they never answer each other. And look at the flame in Choke Passage: no draught at all. No draught, no way out.' :
+        ER.check('way_back', v) ? 'That is where you came from: the air comes out of it, from the lower cave. Which passage is the air going into?' :
+        'Hold the candle in each mouth. The way out is the way the air is going.');
+    });
+    draw();
+    ER.open('ov-lock', box);
+    msg('Drag the candle into the mouth of each passage, hold it still, and watch the flame.');
+    cand = { isOpen: function () { return !!box.parentNode; }, hint: function () { return ['three', [
+      'Mrs Ullathorne&rsquo;s note: a steady draught means another way out, and on a cold night the air goes out at the top. Drag the candle to each of the three passages.',
+      'The flame leans the way the air is going. In which passage does it lean away from you, into the passage? The murmur in Choke Passage is the same kind of voices as in the Formation Chamber.'
+    ]]; } };
+  }
+})();
+</script>
+</body>
+</html>

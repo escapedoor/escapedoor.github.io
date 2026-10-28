@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Duck Pool · The Cave That Breathes</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-wild.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="karst.css">
+<style>
+  body{--bg:#05080b;--accent:#f0c040;--font-display:'Stardos Stencil',serif;--font-ui:'Overpass',sans-serif;--font-body:'Lora',serif;
+    --tc-bg:rgba(6,9,12,.96);--tc-ink:#e2ecf0;--cap-bg:rgba(8,12,16,.93);--panel:#0e151a;--face-bg:#18232a;--q-ink:#ffd76a;--fade:#030507;--hud-bg:rgba(8,12,16,.84)}
+  #swirl{animation:swirl 1.4s steps(3,end) infinite}
+  @keyframes swirl{to{transform:translateX(-30px)}}
+  #scene.dim #lit{opacity:.55}
+  #scene.dim #lamp2,#scene.dim #lamp3{opacity:0}
+  #lit{transition:opacity .8s}
+  #lamp3{pointer-events:none}
+  .tool-hot{cursor:pointer}
+
+  /* the night on the gauge */
+  .gn{display:block;width:100%;height:auto;background:#0b1116;touch-action:none}
+  .gT{font-family:'Overpass',sans-serif;font-weight:700;font-size:12px;fill:#8aa0ac;letter-spacing:.1em}
+  .gN{font-family:'Overpass',sans-serif;font-weight:700;font-size:14px;fill:#14181a}
+  .gC{font-family:'Overpass Mono',monospace;font-weight:600;font-size:22px;fill:#f0e6b0}
+  .gH{font-family:'Caveat',cursive;font-size:19px;fill:#1c2a5a}
+  .gL{font-family:'Handlee',cursive;font-size:15px;fill:#1c2a5a}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="litP" cx="0.55" cy="0.55" r="0.6"><stop offset="0" stop-color="#3a4a52"/><stop offset=".6" stop-color="#18222a"/><stop offset="1" stop-color="#05080b"/></radialGradient>
+  <linearGradient id="brown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6a40"/><stop offset=".3" stop-color="#5a4228"/><stop offset="1" stop-color="#2a1e12"/></linearGradient>
+  <radialGradient id="lampP"><stop offset="0" stop-color="#fff2c8" stop-opacity=".3"/><stop offset="1" stop-color="#fff2c8" stop-opacity="0"/></radialGradient>
+  <clipPath id="poolC"><path d="M-200 200H1120V900H-200Z"/></clipPath>
+</defs>
+<rect x="-1000" y="-400" width="3600" height="1700" fill="#05080b"/>
+<rect id="lit" x="-200" y="-100" width="2000" height="1100" fill="url(#litP)"/>
+<g fill="#1e2a32" opacity=".9"><path d="M-200 -100H1800V180Q1400 240 1100 170Q800 260 500 190Q200 240 -200 200Z"/></g>
+<g fill="#26343c" opacity=".6"><path d="M100 300l90 -30l50 80l-60 40zM600 260l80 -20l40 70l-70 30zM980 330l60 -10l30 70l-60 20z"/></g>
+<!-- the far wall, and the Duck in it -->
+<path d="M-200 240Q300 220 700 250T1130 260V720H-200Z" fill="#141e24"/>
+<g fill="#2a3a44" opacity=".8"><path d="M300 236l10 0l-5 50z"/><path d="M340 232l12 0l-6 70z"/><path d="M380 236l8 0l-4 40z"/><path d="M900 246l12 0l-6 60z"/><path d="M940 250l9 0l-4.5 44z"/><path d="M560 230l10 0l-5 46z"/></g>
+<g stroke="#26343c" stroke-width="4" fill="none"><path d="M60 300q40 80 10 160M1000 300q-30 90 10 180M480 280q20 50 0 90"/></g>
+<g id="duck" class="hot"><path d="M110 760Q118 668 250 663Q382 668 390 760Z" fill="#05080b"/></g>
+<path d="M1280 560L742 316L742 716Z" fill="#fff2c8" opacity=".05" style="pointer-events:none"/>
+<!-- the gauge board on the wall -->
+<g id="gauge" class="hot">
+  <rect x="742" y="316" width="60" height="400" fill="#f4f6f2" stroke="#0a0a0a" stroke-width="2"/><g id="gticks"></g>
+  <circle cx="772" cy="326" r="4" fill="#6a6a6a"/><circle cx="772" cy="706" r="4" fill="#6a6a6a"/>
+</g>
+<!-- the water -->
+<g clip-path="url(#poolC)"><g id="water"><path d="M-200 0H1140V900H-200Z" fill="url(#brown)" opacity=".94"/>
+  <g id="swirl" stroke="#d8c8a0" stroke-width="3" fill="none" opacity=".55"><path d="M0 10q40 -8 80 0M200 16q50 -10 90 2M420 8q40 -8 80 0M640 14q50 -10 90 0M860 8q40 -6 80 2M1060 14q40 -8 80 0"/></g>
+  <path d="M-200 0H1140" stroke="#e8dcc0" stroke-width="2.400" opacity=".7"/></g></g>
+<!-- the Ramp, coming up towards you -->
+<path d="M1040 900L1110 560Q1300 520 1800 560V900Z" fill="#2a3640"/><path d="M1110 560Q1300 520 1800 560" stroke="#3e4e58" stroke-width="6" fill="none"/>
+<g stroke="#1c262e" stroke-width="3"><path d="M1160 620l60 40M1300 600l40 60M1440 610l50 50M1220 720l70 30M1400 740l60 40"/></g>
+<!-- the two of you, at the top of the Ramp -->
+<g id="teg" class="hot">
+  <path d="M1250 760l6 -100q2 -20 26 -22h24q24 2 26 22l6 100z" fill="#b0352a"/><rect x="1286" y="610" width="16" height="30" fill="#b07a56"/><circle cx="1294" cy="592" r="22" fill="#c48a62"/>
+  <path d="M1270 590q2 -32 24 -34q24 2 26 34z" fill="#3f8a4a"/><rect x="1284" y="560" width="20" height="11" rx="3" fill="#2a2a2a"/><circle cx="1294" cy="565" r="4" fill="#fff6c8" id="lamp2"/>
+  <rect x="1316" y="680" width="36" height="28" fill="#f2d84a" transform="rotate(-10 1334 694)"/>
+</g>
+<circle cx="1294" cy="565" r="140" fill="url(#lampP)" id="lamp3"/>
+<g id="bags" class="hot"><rect x="1400" y="700" width="70" height="40" rx="6" fill="#ee6a1a"/><rect x="1440" y="690" width="60" height="34" rx="6" fill="#ff8a2a"/><path d="M1410 716h50M1450 704h40" stroke="#b84a10" stroke-width="2"/></g>
+<g id="rope" class="hot"><rect x="1150" y="752" width="120" height="58" rx="18" fill="#c8a030"/><path d="M1164 766h92M1164 790h92" stroke="#8a6a1a" stroke-width="3"/><path d="M1200 752q10 -30 30 0" stroke="#2a2a2a" stroke-width="4" fill="none"/></g>
+<g id="lamps" class="hot"><path d="M1520 790q0 -40 40 -42q40 2 40 42z" fill="#c8321e"/><rect x="1546" y="756" width="26" height="14" rx="3" fill="#2a2a2a"/><circle cx="1559" cy="763" r="5" fill="#fff6c8" id="lampx"/></g>
+<g id="choc" class="hot"><rect x="1330" y="770" width="54" height="20" rx="2" fill="#5a2a8a" transform="rotate(8 1357 780)"/><path d="M1336 776h42" stroke="#c8a8e8" stroke-width="2" transform="rotate(8 1357 780)"/></g>
+<g id="book" class="hot"><rect x="1190" y="660" width="40" height="54" rx="2" fill="#2f5a3a" stroke="#1d3a26" stroke-width="2" transform="rotate(-14 1210 687)"/><rect x="1196" y="670" width="28" height="9" fill="#f4f1dc" transform="rotate(-14 1210 687)"/></g>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up to the Attic</button>
+
+<script src="words.js"></script>
+<script src="cast.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="karst.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, nextFile = null, told = {}, night = null;
+  var T0 = 1005, T1 = 1470;                 /* 16.45 on Saturday to 00.30 on Sunday, in minutes after midnight on Saturday */
+
+  /* the gauge in the scene: 0.0 at y 700, 3.0 at y 330 */
+  function GY(m) { return 700 - m * (370 / 3); }
+  (function () {
+    var s = '', i, y;
+    for (i = 0; i <= 30; i++) { y = GY(i / 10); s += '<path d="M742 ' + y.toFixed(1) + 'h' + (i % 5 ? 14 : 26) + '" stroke="#0a0a0a" stroke-width="' + (i % 5 ? 1.400 : 2.400) + '"/>'; if (i % 5 === 0) s += '<text x="796" y="' + (y + 5).toFixed(1) + '" font-family="Stardos Stencil,serif" font-size="15" text-anchor="end" fill="#0a0a0a">' + (i / 10).toFixed(1) + '</text>'; }
+    $('#gticks').innerHTML = s;
+  })();
+  function setWater(t) { $('#water').setAttribute('transform', 'translate(0 ' + GY(KARST.level(t)).toFixed(1) + ')'); }
+
+  ER.init({
+    theme: 'wild', story: 'karst', storyTitle: 'The Cave That Breathes', id: 'pool', no: 'IV', title: 'The Duck Pool',
+    go: 'Look down',
+    intro: [
+      'You read the walls with the survey staff: mud on the Bishop up to 1.2 metres, dry foam at 2.1, grass and twigs from the moor on the Pulpit at 3.4. The Bishop is thousands of years old, but being old had not kept it dry. You waited in the Organ Loft, above the clean, whole straws, two metres above the highest mark.',
+      'Morven did not come. At twenty to five you and Tegan go down the streamway path, high along the wall, to the top of the Ramp, where it looks down into the Duck Pool.'
+    ],
+    exit: {"next":"attic","w":{"da3e471a":"6f28c97a"}}, tags: {"peak":["c302e6d7"],"peak_rain":["ecbe4248","758db32d","6e04b19e"],"peak_low":["197d8833","42fc299c","dece969a","1ff51538","8b6ca486","e8740a05","063a7936"],"fall":["f004c855"],"fall_half":["9da735ab"],"fall_big":["a60480fc","4ba3318e"],"duck":["abcacba8"],"duck_zero":["e2134784"],"duck_slow":["f3b5410a"],"duck_day":["3cd81ad3","9a5e6488"]},
+    hints: hints, onBegin: begin
+  });
+
+  nextFile = ER.flag('d-file') || null; told = ER.flag('d-told') || {};
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('d-told', told); return true; }
+  function isBusy() { return busy; }
+  function warmCount() { return ['bags', 'rope', 'lamps', 'choc'].filter(function (k) { return told[k]; }).length; }
+  function paint() {
+    $('#scene').classList.toggle('dim', !!told.lamps);
+    $('#book').classList.toggle('ready', !!(told.teg && !told.book));
+    $('#gauge').classList.toggle('ready', !!(warmCount() === 4 && !nextFile && !(night && night.isOpen())));
+    ER.pips((told.teg ? 1 : 0) + (told.book ? 1 : 0) + (warmCount() === 4 ? 1 : 0) + (nextFile ? 2 : 0), 5);
+    setWater(nextFile ? T1 : (ER.flag('d-t') || T0));
+  }
+  function showGo() { $('#go').classList.add('on'); }
+
+  function hints() {
+    if (nextFile) return ['go', ['The Duck will not open until tomorrow evening at the earliest. Go up to the Attic, where the Flood Box is.']];
+    if (night && night.isOpen()) return night.hint();
+    if (!told.teg) return ['teg', ['Tegan is at the top of the Ramp, on the right, staring at the gauge. Talk to her.']];
+    if (!told.book) return ['book', ['The handbook is lying on the rock near Tegan: page 9 says what to do when the way out floods. Read it.']];
+    if (warmCount() < 4) return ['warm', [
+      'Page 9 gives four things to do at once, before you start reading the gauge. They are all lying near you on the Ramp.',
+      'Survival bags (orange), something to sit on (the yellow tackle bag), the lamps (only one on), and food (the chocolate). Click each of them.'
+    ]];
+    return ['gauge', ['Now the gauge: click the white board on the wall above the water.']];
+  }
+
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; showGo(); ER.say('Half past midnight. The gauge reads 2.20 and falling, ten centimetres an hour.'); return; }
+    if (told.in) { busy = false; ER.say('The top of the Ramp, above the Duck Pool.'); return; }
+    tell('in');
+    ER.narrate([
+      'The Duck Pool is full of brown water, turning slowly round and round. On the far wall the club&rsquo;s gauge board stands out of it, white with black marks, like a ruler that somebody has stood in a bath.',
+      'On the left, where the Duck is, there is no arch any more. There is only water, flat against the rock. The gauge says 0.40. The roof of the Duck is at 0.30. The Duck is a sump.',
+      'Somewhere on the other side of that water is Morven, and daylight, and the hut, and Mrs Ullathorne&rsquo;s red telephone.'
+    ], function () { busy = false; paint(); });
+  }
+
+  /* ---------- Tegan, the handbook, keeping warm ---------- */
+  $('#teg').addEventListener('click', function () {
+    if (busy) return;
+    if (warmCount() === 4 && !nextFile) { $('#gauge').dispatchEvent(new Event('click')); return; }
+    ER.talk({
+      who: 'Tegan Nuttall', role: 'At the top of the Ramp', face: window.FACE('tegan'),
+      lines: [
+        { note: 'She is staring at the gauge, very still.', a: '&ldquo;Nought point four. The roof of the Duck is at nought point three. It&rsquo;s shut. Morven&rsquo;s on the other side.&rdquo;' },
+        { q: 'Could we get through?', a: 'No. Not ever. That&rsquo;s the first line of page nine. You don&rsquo;t try a sump without diving kit, and you don&rsquo;t try it at all when the water is brown and moving. Morven will have gone to the hut. Mrs U will lift the red phone.' },
+        { q: 'Will they come for us?', a: 'They&rsquo;ll come to the Gill and look at the water and think. They can&rsquo;t get through it either, not tonight. So it&rsquo;s us and the gauge.&rdquo; She takes her yellow notebook out of her pocket. &ldquo;Every half hour. You read it, I&rsquo;ll write it down.' },
+        { q: 'How long will we be here?', a: 'Till it goes back down under nought point three. Could be morning. Could be longer. We can&rsquo;t work it out till it starts going down. Read page nine. The handbook&rsquo;s there, by your foot.' }
+      ],
+      clue: { id: 'teg4', title: 'Tegan, above the Duck Pool', kind: 'What she said' },
+      done: function (seen) { if (seen && tell('teg')) { paint(); ER.say('The green handbook is lying on the rock by your foot.'); } }
+    });
+  });
+  var PAGE9 = '<h4><small>Stennerdale Caving Club &middot; Handbook &middot; page 9</small>When the way out floods</h4><div class="two"><div>' +
+    '<p class="rule">Never try to pass water that reaches the roof. Not to fetch help, not ever.</p>' +
+    '<p>The people outside will fetch help. Your job is to be found well.</p>' +
+    '<ul><li>Go up, out of the water and out of any draught.</li><li>Put on your survival bag. Sit on a rope bag, not on cold rock. Share your food.</li>' +
+    '<li>Keep one light on and switch the others off. Light is time.</li><li>Read the gauge every half hour, and write it down.</li>' +
+    '<li>If you must move, leave a note where the rescuers will look: who, where to, and when.</li></ul>' +
+    '<p>A flood comes as a <b>pulse</b>: the water rises fast and falls slowly. It can go on rising for hours after the rain has stopped, because the rain that fell on the moor is still on its way through the cave.</p>' +
+    '<p>When the water has started to fall, find how far it falls in an hour. Then:</p>' +
+    '<p class="rule">hours to wait = (reading now &minus; reading when the way opens) &divide; fall in an hour</p>' +
+    '<p>The water falls more slowly as it goes down, so this gives the <b>earliest</b> time, not a promise. The Duck opens when the gauge reads below 0.30.</p></div>' +
+    '<div><svg viewBox="0 0 290 300"><rect width="290" height="300" fill="#fffdf2"/><path d="M40 20V250H280" stroke="#1c2018" stroke-width="2" fill="none"/>' +
+    '<path d="M40 240Q70 238 80 220Q100 90 120 70Q140 60 160 70Q220 110 280 170" stroke="#2a7ac2" stroke-width="4" fill="none"/>' +
+    '<path d="M40 180H280" stroke="#c8321e" stroke-width="1.500" stroke-dasharray="6 4"/><path d="M100 30V250" stroke="#7a7a6a" stroke-width="1.500" stroke-dasharray="3 4"/>' +
+    '<g font-family="Handlee,cursive" font-size="14" fill="#1c2018"><text x="104" y="40">rain stops</text><text x="128" y="58">top</text><text x="48" y="120">fast up</text><text x="196" y="110">slow down</text><text x="200" y="196" fill="#c8321e">the way opens</text><text x="230" y="270">time</text>' +
+    '<text transform="translate(30 150) rotate(-90)">gauge</text></g></svg></div></div><p class="pg">Page 9 is the page you will one day be glad you read. &middot; 9</p>';
+  $('#book').addEventListener('click', function () {
+    if (busy) return;
+    if (!told.teg) { ER.say('The club handbook, in its plastic sleeve, open at page 9. Tegan is staring at the gauge.'); }
+    ER.read({ html: PAGE9, cls: 'club', clue: { id: 'page9', title: 'When the way out floods', kind: 'Club handbook, page 9' }, done: function () {
+      KARST.terms(['flood pulse', 'gauge', 'survival bag']);
+      if (tell('book')) { paint(); ER.say('Bags, something to sit on, one light, food. All of it is here on the Ramp.'); }
+    } });
+  });
+  function warm(k, line) {
+    if (busy) return;
+    if (!told.book) { ER.say('Read page 9 first. It is lying by your foot.'); return; }
+    if (told[k]) { ER.say(line[1]); return; }
+    tell(k); paint(); ER.say(line[0]);
+    if (warmCount() === 4) setTimeout(function () { ER.say('Warm enough, and dark enough. Now the gauge: every half hour, all night.'); }, 3600);
+  }
+  $('#bags').addEventListener('click', function () { warm('bags', ['You each pull an orange survival bag over yourselves, up to the chin. It crackles at every move, and it keeps in the warmth of your own body. Within a minute you stop shaking.', 'Two orange bags, two heads. You look like two carrots waiting for a bus.']); KARST.sfx.pencil(); });
+  $('#rope').addEventListener('click', function () { warm('rope', ['You sit side by side on the tackle bag and the coil of rope, not on the rock. Rock pulls the heat out of you all night; a rope bag does not.', 'The tackle bag is under both of you. It is not comfortable. It is warm.']); });
+  $('#lamps').addEventListener('click', function () { warm('lamps', ['You switch off Tegan&rsquo;s lamp and both spares, and turn your own main lamp down to its lowest. One small light, pointed at the gauge. Light is time.', 'One light on, turned down low. The others are off, and their batteries are full.']); KARST.sfx.lamp(); });
+  $('#choc').addEventListener('click', function () { warm('choc', ['Tegan breaks the chocolate in half, then in half again. &ldquo;A quarter now,&rdquo; she says. &ldquo;A quarter at midnight. The rest is for the morning.&rdquo;', 'Half a bar of chocolate, saved for later, in Tegan&rsquo;s pocket.']); });
+  KARST.thing('#duck', null, function () { return 'Where the Duck was there is only brown water, flat against the rock. The roof is under it. Never.'; }, isBusy);
+  $('#go').addEventListener('click', function () { if (nextFile) ER.leave(nextFile); });
+
+  /* ---------- the night on the gauge ---------- */
+  $('#gauge').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The gauge reads 2.20, and falls ten centimetres an hour.'); return; }
+    if (!told.teg) { ER.say('The gauge board. Tegan is staring at it. Talk to her.'); return; }
+    if (!told.book) { ER.say('Read page 9 first. It is lying by your foot.'); return; }
+    if (warmCount() < 4) { ER.say('&ldquo;Not yet,&rdquo; says Tegan. &ldquo;Page 9. Warm first, then the gauge. We&rsquo;ll be here a long time.&rdquo;'); return; }
+    if (!night) night = makeNight();
+    night.open(); paint();
+  });
+
+  function makeNight() {
+    var t = ER.flag('d-t') || T0, marks = ER.flag('d-marks') || [], box = ER.el('div', 'bx'), svg, msgEl, go, wpeak, wfall, wday, wduck, s = '', i, x, y, rainSaid = t >= 1180;
+    var BY = function (m) { return 470 - m * 140; };                         /* the gauge board, 0.0 to 3.0 */
+    var TX = function (m) { return 360 + (m - T0) * 600 / (T1 - T0); };      /* the time strip and the notebook */
+    var NX = function (m) { return 620 + (m - 990) * 340 / 510; }, NY = function (v) { return 360 - v * 100; };
+    s = '<svg class="gn" viewBox="0 0 1000 560"><rect width="1000" height="560" fill="#0b1116"/>' +
+      /* the gauge board, close to */
+      '<rect x="60" y="20" width="230" height="470" fill="#141e24"/><rect x="120" y="' + BY(3.1) + '" width="90" height="' + (BY(0) - BY(3.1) + 8) + '" fill="#f4f6f2" stroke="#0a0a0a" stroke-width="2"/>';
+    for (i = 0; i <= 31; i++) {
+      y = BY(i / 10);
+      s += '<path d="M120 ' + y.toFixed(1) + 'h' + (i % 5 === 0 ? 46 : 30) + '" stroke="#0a0a0a" stroke-width="' + (i % 5 === 0 ? 2.600 : 1.600) + '"/>';
+      s += '<path d="M120 ' + (y + 7).toFixed(1) + 'h14" stroke="#0a0a0a" stroke-width="1"/>';
+      if (i <= 30) s += '<text class="gN" x="204" y="' + (y + 5).toFixed(1) + '" text-anchor="end">' + (i / 10).toFixed(1) + '</text>';
+    }
+    s += '<path d="M120 ' + BY(0.3).toFixed(1) + 'h90" stroke="#c8321e" stroke-width="3"/><text class="gT" x="216" y="' + (BY(0.3) + 4).toFixed(1) + '" style="fill:#ff8a6a">DUCK ROOF</text>' +
+      '<g id="n-water"><rect x="60" y="0" width="230" height="600" fill="#5a4228" opacity=".88"/><path d="M60 0H290" stroke="#e8dcc0" stroke-width="2.400"/><path d="M80 8q20 -6 40 0M200 10q24 -6 44 2" stroke="#d8c8a0" stroke-width="2" fill="none"/></g>' +
+      '<rect x="60" y="490" width="230" height="70" fill="#0b1116"/><text class="gT" x="70" y="40">THE DUCK GAUGE (METRES)</text>' +
+      /* Tegan's yellow notebook */
+      '<g><rect x="330" y="20" width="650" height="400" rx="6" fill="#f6e27a"/><path d="M330 20h650" stroke="#2f5a3a" stroke-width="10"/>' +
+      '<text class="gH" x="350" y="54">Duck gauge, Saturday night. T.N. and me.</text>';
+    for (i = 0; i <= 30; i += 5) s += '<path d="M620 ' + NY(i / 10) + 'H960" stroke="#c8b040" stroke-width="' + (i % 10 ? 0.800 : 1.400) + '"/><text class="gL" x="612" y="' + (NY(i / 10) + 5) + '" text-anchor="end">' + (i / 10).toFixed(1) + '</text>';
+    for (i = 1020; i <= 1500; i += 60) s += '<path d="M' + NX(i).toFixed(1) + ' 360V364" stroke="#1c2a5a" stroke-width="1.500"/><text class="gL" x="' + NX(i).toFixed(1) + '" y="382" text-anchor="middle">' + KARST.clock(i).slice(0, 2) + '</text>';
+    s += '<path d="M620 360H960M620 60V360" stroke="#1c2a5a" stroke-width="1.600"/><path d="M582 66V400" stroke="#d8a8a0" stroke-width="1.400"/><g id="n-dots"></g><g id="n-list"></g></g>' +
+      /* the time strip */
+      '<rect x="330" y="440" width="650" height="110" fill="#0e161c"/><path d="M360 470H960" stroke="#5a6a76" stroke-width="5"/>';
+    for (i = T0 + 15; i <= T1; i += 30) { x = TX(i); s += '<path d="M' + x.toFixed(1) + ' 470v' + ((i % 60) ? 7 : 12) + '" stroke="#8aa0ac" stroke-width="1.500"/>' + ((i % 60) ? '' : '<text class="gT" x="' + x.toFixed(1) + '" y="498" text-anchor="middle">' + KARST.clock(i) + '</text>'); }
+    s += '<path d="M' + TX(1180).toFixed(1) + ' 452v32" stroke="#ff8a6a" stroke-width="2"/><g id="n-ptr"><path d="M0 466L-9 448H9Z" fill="#f0e6b0"/></g><rect id="n-strip" class="tool" x="340" y="440" width="640" height="68" fill="#fff" opacity="0"/>' +
+      '<text class="gC" id="n-time" x="660" y="540" text-anchor="middle"></text></svg>';
+    box.innerHTML = '<div class="frame">' + s + '</div><div class="bx-foot"><span class="nudge" id="n-nudge"><button type="button" data-d="-30">&laquo;</button><button type="button" data-d="-5">&lsaquo;</button><button type="button" data-d="5">&rsaquo;</button><button type="button" data-d="30">&raquo;</button></span>' +
+      '<button type="button" class="btn quiet" id="n-write">Write it down</button><p class="pmsg"></p></div>' +
+      '<div class="bx-foot"><span id="n-w1"></span><span id="n-w2"></span><span id="n-w3"></span><button type="button" class="btn" id="n-go">That is our answer</button></div>';
+    box.style.width = 'min(900px,95vw)';
+    svg = box.querySelector('svg'); msgEl = box.querySelector('.pmsg'); go = box.querySelector('#n-go');
+    function msg(x) { msgEl.innerHTML = ER.gloss(x); }
+    var st = ER.flag('d-w') || {};
+    wpeak = KARST.wheels(box.querySelector('#n-w1'), { label: 'Highest', vals: [['0', '1', '2', '3'], KARST.DIGITS, ['0', '5']], sep: { 1: '.' }, tail: 'm', start: st.p || [0, 0, 0], change: keep });
+    wfall = KARST.wheels(box.querySelector('#n-w2'), { label: 'Falls in<br>an hour', vals: [['0'], ['0', '1', '2', '3'], ['0', '5']], sep: { 1: '.' }, tail: 'm', start: st.f || [0, 0, 0], change: keep });
+    var lab = ER.el('small', '', 'Duck opens<br>at the earliest'); lab.style.cssText = 'font-family:Overpass,sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:#cfe3c4;margin:0 6px 0 4px;line-height:1.2;display:inline-block;vertical-align:middle';
+    box.querySelector('#n-w3').appendChild(lab);
+    wday = KARST.picks(box.querySelector('#n-w3'), [['sat', 'Sat'], ['sun', 'Sun'], ['mon', 'Mon']], { start: st.d || null, change: keep });
+    box.querySelector('#n-w3').style.cssText = 'display:inline-flex;align-items:center;gap:6px';
+    wduck = KARST.wheels(box.querySelector('#n-w3'), { vals: [KARST.HOURS, KARST.QUARTERS], sep: { 1: '.' }, start: st.h || [0, 0], change: keep });
+    function keep() { ER.flag('d-w', { p: wpeak.at(), f: wfall.at(), d: wday.get(), h: wduck.at() }); }
+    function read(m) { return Math.round(KARST.level(m) * 100) / 100; }
+    function draw() {
+      var v = KARST.level(t), o = '', l = '';
+      svg.querySelector('#n-water').setAttribute('transform', 'translate(0 ' + BY(v).toFixed(1) + ')');
+      svg.querySelector('#n-ptr').setAttribute('transform', 'translate(' + TX(t).toFixed(1) + ' 0)');
+      svg.querySelector('#n-time').textContent = KARST.clock(t) + (t >= 1440 ? '  Sunday' : '  Saturday');
+      marks.forEach(function (mk) { o += '<circle cx="' + NX(mk[0]).toFixed(1) + '" cy="' + NY(mk[1]).toFixed(1) + '" r="4.500" fill="#1c2a5a"/>'; });
+      var rows = marks.slice().sort(function (a, b) { return a[0] - b[0]; }), cols = '';
+      rows.forEach(function (mk, j) { if (j < 28) cols += '<text class="gH" x="' + (j < 14 ? 344 : 462) + '" y="' + (84 + (j % 14) * 22) + '" font-size="18">' + KARST.clock(mk[0]) + '&#160;&#160;' + mk[1].toFixed(2) + '</text>'; });
+      svg.querySelector('#n-dots').innerHTML = o;
+      svg.querySelector('#n-list').innerHTML = cols;
+      svg.setAttribute('data-t', t); svg.setAttribute('data-level', v.toFixed(2)); svg.setAttribute('data-marks', marks.length);
+      setWater(t);
+    }
+    function setT(v) {
+      var old = t; t = Math.round(KARST.clamp(v, T0, T1) / 5) * 5; ER.flag('d-t', t); draw();
+      if (old < 1180 && t >= 1180 && !rainSaid) { rainSaid = true; msg('<b>19.40.</b> Up the Ramp, the roar of the Shower dies away to a splash. &ldquo;It&rsquo;s stopped raining on the moor,&rdquo; says Tegan. &ldquo;So the water will go down now.&rdquo; Will it?'); }
+    }
+    ER.drag(svg.querySelector('#n-strip'), {
+      move: function (e) { setT(T0 + (ER.pt(svg, e).x - 360) * (T1 - T0) / 600); },
+      end: function (e) { setT(T0 + (ER.pt(svg, e).x - 360) * (T1 - T0) / 600); KARST.sfx.notch(); }
+    });
+    box.querySelector('#n-nudge').addEventListener('click', function (e) {      /* the big arrows go to the next half hour, the small ones five minutes */
+      var b = e.target.closest ? e.target.closest('button') : null, d; if (!b) return;
+      d = +b.getAttribute('data-d');
+      setT(Math.abs(d) === 30 ? (d > 0 ? Math.floor(t / 30) * 30 + 30 : Math.ceil(t / 30) * 30 - 30) : t + d); KARST.sfx.notch();
+    });
+    box.querySelector('#n-write').addEventListener('click', function () {
+      var i2; for (i2 = 0; i2 < marks.length; i2++) if (marks[i2][0] === t) { msg('That one is already written down.'); return; }
+      marks.push([t, read(t)]); ER.flag('d-marks', marks); KARST.sfx.pencil(); draw();
+      msg(KARST.clock(t) + ': the water stands at <b>' + read(t).toFixed(2) + '</b> on the gauge. Tegan writes it down.');
+    });
+    go.addEventListener('click', function () {
+      var p = wpeak.get(), f = wfall.get(), d = (wday.get() || '') + wduck.get(), c = p + '|' + f + '|' + d;
+      if (marks.length < 5) { KARST.sfx.no(); msg('&ldquo;Not yet,&rdquo; says Tegan. &ldquo;Page 9: read it every half hour and write it down. We haven&rsquo;t got enough readings to work anything out.&rdquo;'); return; }
+      if (!wday.get()) { msg('Choose the day too: Sat, Sun or Mon.'); return; }
+      if (ER.exitOk([c])) {
+        nextFile = ER.exit([c], { wait: true }); ER.flag('d-file', nextFile); t = T1; draw();
+        KARST.mine('pulse', 'The flood pulse', '<p>The Duck shut at about 16.35. The water rose fast: 0.40 at 16.45, 1.70 at 19.00. The Shower went quiet at 19.40, because the rain had stopped on the moor, but the water went on rising for two more hours, to <b>2.45</b> at 21.30. Then it fell slowly: <b>10 cm an hour</b>.</p><p>At 00.30 it read 2.20. (2.20 &minus; 0.30) &divide; 0.10 = 19 hours. The Duck opens at <b>19.30 on Sunday at the earliest</b>, and probably later, because the water falls more slowly as it goes down.</p>', true);
+        msg('&ldquo;Nineteen hours,&rdquo; says Tegan. &ldquo;At least.&rdquo;');
+        setTimeout(function () {
+          ER.closeAll(); busy = true; paint();
+          ER.narrate([
+            'Half past midnight. The water has been falling for three hours, ten centimetres an hour, as steady as a clock. At that speed the Duck will open at half past seven tomorrow evening: and the page says that is the earliest.',
+            'You have been sitting on the tackle bag for eight hours. Your feet have gone somewhere else. The cold of the rock has crept in through the survival bags, and Tegan has stopped talking, which is worse than when she sang.',
+            '&ldquo;We are not,&rdquo; says Tegan, &ldquo;sitting here for nineteen hours. The board says the Attic. Mrs U&rsquo;s Flood Box: the shelter, the candles, the rest of the chocolate. It&rsquo;s the highest dry place in the cave, and it&rsquo;s where they&rsquo;ll look for us.&rdquo; She stands up, crackling. &ldquo;Up.&rdquo;'
+          ], function () { busy = false; showGo(); });
+        }, 2600);
+        return;
+      }
+      KARST.sfx.no();
+      if (!ER.check('peak', p)) {
+        msg(ER.check('peak_rain', p) ? 'That is the water when the Shower went quiet. Did the water stop rising then? Take readings later in the night.' :
+          ER.check('peak_low', p) ? 'Is that the very highest it went? Look at the readings around half past nine.' : 'Read the gauge at its very highest, and set that on the first wheels.');
+        return;
+      }
+      if (!ER.check('fall', f)) {
+        msg(ER.check('fall_half', f) ? 'That is how far it falls in half an hour. The page wants an hour.' :
+          ER.check('fall_big', f) ? 'Take two readings exactly an hour apart, after the top, and take one from the other.' : 'How far does the water fall in one hour, once it is falling?');
+        return;
+      }
+      msg(ER.check('duck_zero', d) ? 'The Duck opens below <b>0.30</b>, not at nought. Take 0.30 from the reading now first.' :
+        ER.check('duck_slow', d) ? 'Check the fall in an hour you used.' :
+        ER.check('duck_day', d) ? 'Count the hours on from the last reading. What day will it be by then?' :
+        'Hours to wait = (the reading now &minus; 0.30) &divide; the fall in an hour. Count on from the last reading, at 00.30.');
+    });
+    draw();
+    msg(marks.length ? 'Go on through the night: drag along the strip, or use the arrows. Write down a reading every half hour.' : 'Drag along the time strip (or use the arrows) to let the night go by. At each half hour, read the gauge and press &ldquo;Write it down&rdquo;.');
+    return {
+      open: function () { ER.open('ov-lock', box); },
+      isOpen: function () { return !!box.parentNode; },
+      hint: function () {
+        if (marks.length < 5) return ['read', [
+          'Page 9: read the gauge every half hour and write it down. Drag the pointer along the strip at the bottom, or use the arrows.',
+          'Stop at each half hour (17.00, 17.30, 18.00 ...), look where the water meets the board, and press &ldquo;Write it down&rdquo;. Go on past midnight.'
+        ]];
+        return ['sum', [
+          'Three answers: the highest the water went, how far it falls in an hour once it is falling, and when the Duck opens.',
+          'The water went on rising after the rain stopped at 19.40. It was highest at about half past nine. After the top, compare two readings an hour apart: 23.00 and 00.00, for example.',
+          'At 00.30 the gauge reads 2.20. The Duck opens below 0.30, so the water must fall 1.90 m. At 0.10 m an hour that takes 19 hours. Count 19 hours on from 00.30 on Sunday.'
+        ]];
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>
