@@ -79,6 +79,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="ops.js"></script>
 <script>
 (function () {
@@ -227,6 +228,8 @@
   OP.thing('#boxes', null, 'Grey boxes of paper walk reports. The terminal is quicker, Flight says, as long as you know the date.', isBusy);
   OP.thing('#kettle', null, 'The kettle. It works, which in this room makes it the most important machine in the building.', isBusy);
   OP.thing('#window', null, 'Through the window, the big screen: the white dot of Vesper is in the night half of the map now.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'night');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>

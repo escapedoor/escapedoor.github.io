@@ -63,6 +63,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="ops.js"></script>
 <script>
 (function () {
@@ -177,6 +178,8 @@
   OP.thing('#window', null, 'Through the window, the Ops Room and its big screen. The white dot of the station is moving along its wave.', isBusy);
   OP.thing('#mugS', null, 'Somebody&rsquo;s mug of coffee, left here in 2019, when the machine broke. It has grown a small grey forest.', isBusy);
   OP.thing('#lamp', null, 'The desk lamp. It buzzes, and every few seconds it blinks, as if it had just remembered something.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'truss');
   $('#go').addEventListener('click', function () { if (nextFile && told.route && !busy) ER.leave(nextFile); });
 })();
 </script>

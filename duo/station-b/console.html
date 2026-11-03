@@ -87,6 +87,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="ops.js"></script>
 <script>
 (function () {
@@ -226,6 +227,8 @@
   OP.thing('#clockmon', 'GMT', 'The Ops Room clock: 13:50 GMT. Space stations keep Greenwich time, so that everybody on the ground, everywhere, means the same thing by &ldquo;ten to two&rdquo;.', isBusy);
   OP.thing('#mug', null, 'Flight&rsquo;s mug. It says, in faded letters, WORLD&rsquo;S OKAYEST FLIGHT DIRECTOR. It is full of tea.', isBusy);
   OP.thing('#headset', 'headset', 'Your headset. Press the button to talk to EV One; let go to listen. Your partner is the voice in it.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'airlock');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>

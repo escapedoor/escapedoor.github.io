@@ -71,6 +71,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="ops.js"></script>
 <script>
 (function () {
@@ -192,6 +193,8 @@
     });
   });
   OP.thing('#clock', null, '14:12 GMT. Up there, the sun sets at 14:42: thirty minutes from now.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'mast');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>
