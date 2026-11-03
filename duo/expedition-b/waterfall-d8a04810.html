@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Waterfall · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#0a1214;--accent:#7fd8d0;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(8,16,18,.95);--tc-ink:#e6f4f2;--cap-bg:rgba(10,18,20,.93);--panel:#132226;--face-bg:#1f3438;--q-ink:#bff0ea;--fade:#030607;--hud-bg:rgba(10,18,20,.84)}
+  .fw{transition:stroke 2.5s,fill 2.5s}
+  body.green .fw.w{stroke:#5cf08a}
+  body.green .fw.p{fill:#2fae5a}
+  .spray{animation:spray 1.2s ease-in-out infinite alternate}
+  @keyframes spray{from{opacity:.25}to{opacity:.5}}
+  .logf{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center}
+  .logf b{font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:.06em}
+  .logf .val{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;min-width:3ch;display:inline-block;text-align:center}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampF" cx="58%" cy="40%" r="60%"><stop offset="0" stop-color="#e8fffb" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigF" cx="50%" cy="50%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".32"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0b1213"/>
+<path d="M-1000 -700H2600V640H-1000Z" fill="#24302f"/>
+<g stroke="#162020" stroke-width="4" fill="none" opacity=".8"><path d="M-300 120q600 -40 1200 0t1300 -10M-200 420q700 40 1400 0t1100 10M520 -100q30 300 -10 700M1300 -100q-30 300 10 700"/></g>
+<g fill="#3a4846" opacity=".6"><path d="M700 160q40 -60 90 -20l30 120q-60 30 -120 -10z"/><path d="M1060 200q50 -40 90 0l-10 140q-50 10 -80 -20z"/></g>
+<!-- the slot, high in the wall, and the waterfall -->
+<g id="falls" class="hot"><path d="M820 120q100 -40 200 0l-20 30h-160z" fill="#030505"/>
+  <path class="fw w" d="M920 140q-20 220 0 470" stroke="#d8eef0" stroke-width="54" fill="none" opacity=".8"/>
+  <path class="fw w flow" d="M920 140q-20 220 0 470" stroke="#ffffff" stroke-width="12" fill="none" stroke-dasharray="18 22" opacity=".55"/>
+  <ellipse class="spray" cx="920" cy="620" rx="160" ry="34" fill="#e8f6f6"/></g>
+<!-- the pool, and the stream from the North Arch on the left going away to the right -->
+<path id="mainL" class="hot" d="M-1000 640Q300 620 760 630L760 720Q300 720 -1000 740Z" fill="#5a4630"/>
+<path class="fw p" d="M760 610Q920 590 1080 610Q1400 630 2600 650V760Q1400 730 1080 720Q920 730 760 720Z" fill="#5a4630"/>
+<g class="flow" stroke="#a88a5a" stroke-width="3" fill="none" stroke-dasharray="24 18" opacity=".6"><path d="M-500 680Q300 670 760 676"/><path d="M1100 670Q1500 680 2400 700"/></g>
+<path d="M-1000 740Q800 730 2600 760V1700H-1000Z" fill="#4a4034"/><path d="M-1000 740Q800 730 2600 760" stroke="#6a5e4c" stroke-width="5" fill="none"/>
+<!-- the clipboard with the tracing log, your watch, the survey, the telephone -->
+<g id="log" class="hot" transform="rotate(-5 560 800)"><rect x="480" y="760" width="170" height="120" rx="6" fill="#8a6a3a"/><rect x="492" y="772" width="146" height="100" fill="#f6f2e6"/><rect x="530" y="752" width="70" height="22" rx="4" fill="#6a6a62"/><path d="M504 794h110M504 812h90M504 830h120M504 848h70" stroke="#2e6b4f" stroke-width="3"/></g>
+<g id="watch" class="hot"><circle cx="760" cy="815" r="38" fill="#3a3a3a"/><circle cx="760" cy="815" r="30" fill="#f4f0e2"/><path d="M760 815V792M760 815l14 8" stroke="#111" stroke-width="4"/><rect x="742" y="770" width="36" height="12" fill="#222"/><rect x="742" y="848" width="36" height="12" fill="#222"/></g>
+<g id="survey" class="hot"><rect x="860" y="780" width="170" height="70" rx="4" fill="#1d3a52" stroke="#0e1e2a" stroke-width="3"/><rect x="876" y="790" width="138" height="50" fill="#f6f2e6"/><path d="M886 826q30 -20 60 -6t50 -12" stroke="#2563a8" stroke-width="2.5" fill="none"/></g>
+<g id="notebook" class="hot" transform="rotate(6 1150 810)"><rect x="1090" y="770" width="120" height="80" fill="#e8e2cc" stroke="#7a6a52" stroke-width="2"/><rect x="1090" y="770" width="14" height="80" fill="#6a5034"/><path d="M1114 788h80M1114 802h70M1114 816h84M1114 830h60" stroke="#55556a" stroke-width="2"/></g>
+<g id="phone" class="hot"><rect x="1260" y="770" width="120" height="84" rx="6" fill="#3e5a32" stroke="#22341c" stroke-width="4"/><circle cx="1360" cy="812" r="14" fill="#22341c"/><path d="M1360 812l26 -16" stroke="#c8c8c0" stroke-width="5"/><rect x="1276" y="782" width="58" height="26" rx="5" fill="#1d1d1a"/><circle cx="1324" cy="795" r="6" fill="#c0391b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampF)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigF)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the camp</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, waiting = false, f = { place: null, mins: 5, dir: null };
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'waterfall', no: 'III', title: 'The Waterfall',
+    go: 'Go to the waterfall',
+    intro: [
+      'At the Wringer your partner was facing north-east. You turned the clear card until its arrow pointed north-east, and the leg that Mavis said goes, 16 to 17, the crawl going north, came out ahead of them and a little to the left. The big passage to the east, on their right, is the one that chokes.',
+      'Your partner crawled north, then walked north-north-east and up. At twenty-eight minutes past three the telephone crackles: they have come out on a ledge in a rift, the Clothes Line, with a stream far below that nobody has ever seen the bottom of.'
+    ],
+    exit: {"next":"smudge","w":{"4fbfab50":"a8801ba3"}}, tags: {"place":["7a0f77a8"],"mins":["5747ff94"],"dir":["02e3f848"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b3-told') || {}; nextFile = ER.flag('b3-file') || null;
+  if (told.green) document.body.classList.add('green');
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b3-told', told); return true; }
+  function isBusy() { return busy || waiting; }
+  var ring = XP.phone({ mine: 'ringB', theirs: 'ringA', buzz: function () { var h = $('#phone'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The field telephone buzzes: your partner is calling.'); } });
+  var poured = XP.says('s-dye', 'My partner has poured the dye in', function () { startWait(); });
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    poured.show(!told.green && !waiting && !busy);
+    ER.pips((told.green ? 1 : 0) + (told.logged ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;Mavis says the Hamper is thirty feet along the ledge, downstream: that&rsquo;s about &hellip; metres. It&rsquo;s the second hole on the true right.&rdquo;', '&ldquo;Downstream is south-west, so for you that&rsquo;s &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Which way are you facing now?&rdquo;']]]);
+    else if (told.green) XP.card([['Tell your partner', ['&ldquo;It&rsquo;s green! The green came out in &hellip; at &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What time was it on your watch when you poured it in?&rdquo;']]]);
+    else XP.card([['Ask your partner', ['&ldquo;Can you see which way the water goes? Could you pour your dye in?&rdquo;', '&ldquo;Tell me the moment it goes in, and the time on your watch.&rdquo;']], ['Tell your partner', ['&ldquo;I&rsquo;m watching the water here. I&rsquo;ll tell you if it goes green.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['tell', [
+      'Now help your partner find the Hamper. Mavis&rsquo;s notebook (Sunday, later): 30 ft along the ledge DOWNSTREAM, the 2nd hole on the TR. How many metres is 30 feet? The key of the survey says 1 ft = 0.3048 m.',
+      'Your partner is facing north-west, across the rift. Downstream is south-west: on which hand is that for them? And when you face downstream, which wall is on your right?'
+    ]];
+    if (!told.green) return ['wait', [
+      'Your partner is above a stream in a rift, and nobody knows which way that stream flows. Your partner has dye in their pack. Ask them to pour it in, and to tell you the time on their watch when they do.',
+      'Then watch the water here at the Laundry: the waterfall from the slot, and the stream from the North Arch. Where does the green come out, and when? (Not linked? Press the button when your partner says the dye is in.)'
+    ]];
+    return ['log', [
+      'Fill in the tracing log on the clipboard: where the green came out, how many minutes it took, and which way the stream in the rift must flow.',
+      'Minutes: from the time on your partner&rsquo;s watch when the dye went in, to the time on your own watch when the green came. Ask for their time.',
+      'Direction: on the survey the rift runs from north-east to south-west, and the waterfall slot is at its south-west end. Water flows towards the place where it comes out.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The waterfall is still faintly green. The log is filled in.'); return; }
+    if (told.intro) { busy = false; ER.say('The waterfall. Watch the water.'); return; }
+    ER.narrate([
+      'You cross the Laundry to the far wall, where the waterfall comes out of its slot and drops into the stream. Nobody has ever got into that slot. On the survey, beside it, Teasdale wrote: source?',
+      'Your partner is standing above a stream in the dark, and the stream is going somewhere. If it is going where you think it is going, you are about to find out.',
+      'You take the clipboard with the club&rsquo;s tracing log on it, and a pencil, and look at your watch.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the dye arrives ---------- */
+  function startWait() {
+    if (told.green || waiting) return;
+    waiting = true; paint();
+    ER.closeAll();
+    ER.narrate([
+      'You stand by the waterfall and watch it. You watch the stream from the North Arch as well, in case. Watching water is harder than it sounds: after a while every ripple looks green.',
+      'Minutes go by. The waterfall roars. You look at your watch, and then try not to look at it again.'
+    ], function () {
+      setTimeout(function () {
+        document.body.classList.add('green'); tell('green'); waiting = false; paint();
+        XP.set('b3-green', true);
+        XP.sfx.splash();
+        ER.say('There! The waterfall is turning green: a bright, impossible, chemical green. The stream from the North Arch is still brown.');
+        ER.addWord('fluorescein', 'an orange powder that turns water bright green, used to find where water goes');
+      }, 1800);
+    });
+  }
+  XP.when('dye', function () { if (!busy) startWait(); else setTimeout(function () { if (!told.green) startWait(); }, 4000); });
+
+  /* ---------- the tracing log ---------- */
+  var box = null;
+  function openLog() {
+    if (isBusy()) return;
+    box = ER.el('div', 'bd');
+    box.innerHTML = '<div class="bd-main">' + XP.survey({ box: [-14, -10, 27, 18], fix: { wash: true } }) + '</div><div class="bd-side"><h5>Wolfstone C.C. &middot; water tracing log</h5>' +
+      '<p>Dye: fluorescein, one sachet. Put in: the stream below the Clothes Line.</p><div class="logf">' +
+      '<b>Came out in</b><div class="row"><button type="button" class="btn" data-pl="waterfall">the waterfall</button><button type="button" class="btn" data-pl="north">the North Arch stream</button><button type="button" class="btn" data-pl="none">nowhere yet</button></div>' +
+      '<b>Minutes it took</b><div class="row"><button type="button" class="btn" id="m-dn">&minus;</button><span class="val" id="m-v"></span><button type="button" class="btn" id="m-up">+</button></div>' +
+      '<b>So the rift stream flows</b><div class="row"><button type="button" class="btn" data-dr="ne">towards the north-east</button><button type="button" class="btn" data-dr="sw">towards the south-west</button></div></div>' +
+      '<div class="row"><button type="button" class="btn" id="l-sign">Sign the log</button><button type="button" class="btn" id="l-watch">Your watch</button><button type="button" class="btn" id="l-nb">Mavis&rsquo;s notebook</button></div><p class="pmsg"></p></div>';
+    function draw() {
+      ER.$$('[data-pl]', box).forEach(function (b) { b.classList.toggle('sel', b.getAttribute('data-pl') === f.place); });
+      ER.$$('[data-dr]', box).forEach(function (b) { b.classList.toggle('sel', b.getAttribute('data-dr') === f.dir); });
+      box.querySelector('#m-v').textContent = f.mins;
+    }
+    ER.$$('[data-pl]', box).forEach(function (b) { b.onclick = function () { f.place = b.getAttribute('data-pl'); XP.sfx.click(); draw(); }; });
+    ER.$$('[data-dr]', box).forEach(function (b) { b.onclick = function () { f.dir = b.getAttribute('data-dr'); XP.sfx.click(); draw(); }; });
+    box.querySelector('#m-dn').onclick = function () { f.mins = Math.max(1, f.mins - 1); XP.sfx.click(); draw(); };
+    box.querySelector('#m-up').onclick = function () { f.mins = Math.min(60, f.mins + 1); XP.sfx.click(); draw(); };
+    box.querySelector('#l-watch').onclick = function () { ER.close(); showWatch(); };
+    box.querySelector('#l-nb').onclick = function () { ER.close(); XP.notebook('sun2'); };
+    box.querySelector('#l-sign').onclick = sign;
+    ER.open('ov-lock', box, function () { box = null; });
+    draw();
+    if (nextFile) msg('The log is signed.');
+  }
+  function msg(t) { if (box) box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+  function sign() {
+    if (nextFile) return;
+    if (!f.place || !f.dir) { msg('Fill in all three lines first.'); return; }
+    var file = ER.exit([f.place + '|' + f.mins + '|' + f.dir], { wait: true });
+    tell('logged'); paint();
+    if (!file) {
+      ER.sfx.no();
+      if (!ER.check('place', f.place)) msg(told.green ? 'Where did you see the green: in the waterfall from the slot, or in the stream from the North Arch?' : 'Nothing has turned green yet. Ask your partner to pour the dye in, and wait.');
+      else if (!ER.check('mins', String(f.mins))) msg('The minutes are wrong. From the time on your partner&rsquo;s watch when the dye went in, to the time on your own watch when you saw green. Ask, and look.');
+      else msg('Look at the survey again. The rift runs from north-east to south-west, and the waterfall slot is at its south-west end. Water flows towards the place where it comes out.');
+      return;
+    }
+    nextFile = file; ER.flag('b3-file', file);
+    msg('Signed. The stream in the rift is the source of the Laundry waterfall, and it flows south-west.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'Fifty-eight years ago Mavis stood above that stream and could not tell which way it went. Now you know: south-west, to here. Eleven minutes for a few tens of metres: the water must go a long way round, through cracks that nobody will ever crawl along.',
+        'And now you know which way is downstream on the Clothes Line. Mavis&rsquo;s notebook says the Hamper is thirty feet along the ledge, DOWNSTREAM, the second hole on the true right.'
+      ], function () { busy = false; paint(); });
+    }, 2400);
+  }
+  function showWatch() {
+    XP.look({ kicker: 'On your wrist', title: 'Your watch', lock: false, pic: told.green ? XP.watch(15, 44) : XP.watch(15, 31),
+      text: told.green ? '<p>You looked at it the moment the waterfall turned green, and you are not going to forget it.</p>' : '<p>The time now. Nothing is green yet.</p>' });
+  }
+  $('#log').addEventListener('click', openLog);
+  $('#watch').addEventListener('click', function () { if (!isBusy()) showWatch(); });
+  $('#survey').addEventListener('click', function () { if (!isBusy()) openLog(); });
+  $('#notebook').addEventListener('click', function () { if (!isBusy()) XP.notebook('sun2'); });
+  $('#phone').addEventListener('click', function () { if (!isBusy()) { ring(); ER.say('You turn the handle. In your partner&rsquo;s pack, the telephone buzzes.'); } });
+  XP.thing('#falls', 'waterfall', function () { return told.green ? 'The waterfall is green: the water from the rift comes out here.' : 'The waterfall pours out of its slot, high in the wall, and drops into the stream. Brown and white, and loud.'; }, isBusy);
+  XP.thing('#mainL', 'stream', function () { return 'The stream from the North Arch, coming in on your left. ' + (told.green ? 'Still brown. Not a trace of green.' : 'Brown, and rising.'); }, isBusy);
+  if (window.Link) Link.follow($('#go'), 'rift');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

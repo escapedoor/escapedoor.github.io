@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Big Light · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#101014;--accent:#f4e98a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,14,18,.95);--tc-ink:#f4f4ec;--cap-bg:rgba(16,16,20,.93);--panel:#1e1e26;--face-bg:#2c2c38;--q-ink:#fff6b8;--fade:#050506;--hud-bg:rgba(16,16,20,.84)}
+  .beam{opacity:0;transition:opacity .6s}
+  body.on.a-window #b-window,body.on.a-north #b-north,body.on.a-south #b-south,body.on.a-slot #b-slot{opacity:1}
+  body.on #lens{fill:#fffbe0}
+  #shout{opacity:0;transition:opacity .5s}
+  #shout.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="vigB" cx="50%" cy="50%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity=".93"/></radialGradient>
+  <linearGradient id="beamG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fffbe0" stop-opacity=".5"/><stop offset="1" stop-color="#fffbe0" stop-opacity=".05"/></linearGradient>
+  <linearGradient id="wallB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18161a"/><stop offset="1" stop-color="#3a3530"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0c0b0d"/>
+<!-- the west wall of the Laundry, very tall -->
+<path d="M-1000 -700H2600V620H-1000Z" fill="url(#wallB)"/>
+<g stroke="#121014" stroke-width="4" fill="none" opacity=".8"><path d="M-300 60q700 -50 1500 0t1300 0M-200 340q800 40 1600 0M300 -200q20 400 -20 800M1200 -200q-30 400 20 800"/></g>
+<!-- the Window, high up -->
+<g id="win" class="hot"><ellipse cx="640" cy="90" rx="64" ry="40" fill="#030203"/><path d="M576 90q64 -60 128 0" stroke="#4a4440" stroke-width="7" fill="none"/></g>
+<text id="shout" x="640" y="30" font-family="Caveat,cursive" font-weight="700" font-size="40" fill="#fff6b8" text-anchor="middle">&ldquo;...ELLO!&rdquo;</text>
+<!-- the North Arch (right) and the South Arch (left) -->
+<g id="narch" class="hot"><path d="M1330 640q0 -220 150 -240q150 20 150 240z" fill="#050405"/></g>
+<g id="sarch" class="hot"><path d="M-30 640q0 -200 140 -220q140 20 140 220z" fill="#050405"/></g>
+<!-- the stream, running from the North Arch to the South Arch, along the foot of the far side -->
+<path d="M-1000 640Q800 620 2600 640V700Q800 690 -1000 710Z" fill="#4a3a26"/>
+<g class="flow" stroke="#8a6a44" stroke-width="3" fill="none" stroke-dasharray="24 18" opacity=".6"><path d="M2200 668Q800 650 -600 680"/></g>
+<path d="M-1000 700Q800 690 2600 710V1700H-1000Z" fill="#5a4a36"/>
+<!-- beams, one for each place the light can point -->
+<polygon id="b-window" class="beam" points="800,760 860,760 700,80 580,80" fill="url(#beamG)"/>
+<polygon id="b-north" class="beam" points="830,760 880,760 1600,420 1360,420" fill="url(#beamG)"/>
+<polygon id="b-south" class="beam" points="800,760 850,760 240,420 -20,420" fill="url(#beamG)"/>
+<polygon id="b-slot" class="beam" points="810,760 860,760 1000,1100 600,1100" fill="url(#beamG)"/>
+<!-- the floodlight on its tripod -->
+<g id="lamp" class="hot"><path d="M830 780l-80 120M830 780l80 120M830 780v120" stroke="#2a2a2a" stroke-width="8"/><rect x="780" y="720" width="100" height="70" rx="8" fill="#3a3a3a" stroke="#1a1a1a" stroke-width="4"/><ellipse id="lens" cx="830" cy="740" rx="36" ry="16" fill="#6a6a5a"/>
+  <rect x="930" y="820" width="90" height="56" rx="6" fill="#222" stroke="#555" stroke-width="3"/><rect x="944" y="832" width="62" height="14" fill="#5fe08a"/></g>
+<g id="survey" class="hot"><rect x="1100" y="780" width="170" height="70" rx="4" fill="#1d3a52" stroke="#0e1e2a" stroke-width="3"/><rect x="1116" y="790" width="138" height="50" fill="#f6f2e6"/><circle cx="1170" cy="812" r="14" fill="none" stroke="#c0391b" stroke-width="3" stroke-dasharray="5 4"/></g>
+<g id="phone" class="hot"><rect x="420" y="790" width="120" height="84" rx="6" fill="#3e5a32" stroke="#22341c" stroke-width="4"/><circle cx="520" cy="832" r="14" fill="#22341c"/><path d="M520 832l26 -16" stroke="#c8c8c0" stroke-width="5"/><rect x="436" y="802" width="58" height="26" rx="5" fill="#1d1d1a"/><circle cx="484" cy="815" r="6" fill="#c0391b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigB)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Look up at the Window</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, aim = null, onT = 0, box = null, pdark = false, B = document.body;
+  var AIMS = { window: 'the Window, high in the west wall', north: 'the North Arch', south: 'the South Arch', slot: 'the waterfall slot, behind you' };
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'floodlight', no: 'V', title: 'The Big Light',
+    go: 'Fetch the big light',
+    intro: [
+      'Your partner&rsquo;s tape said 12.2 metres. Forty feet is 12.2 metres: under the smudge Mavis had written 40 ft, and Teasdale had drawn it as 40 metres. You put the red cross twelve metres along the Flatiron, where your partner was. That was the T, and Mavis&rsquo;s notebook said LEFT at the T, up a sand slope into the Drying Room.',
+      'Moved back to where it belongs, the Drying Room is almost over your head. Five past four. You go and fetch the big light.'
+    ],
+    exit: {"next":"tackle","w":{"0993c693":"e896f72d"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b5-told') || {}; nextFile = ER.flag('b5-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b5-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringB', theirs: 'ringA', buzz: function () { var h = $('#phone'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The field telephone buzzes: your partner is calling.'); } });
+  var saysShout = XP.says('s-shout', 'My partner has shouted down the hole', function () { heardShout(); });
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile && !!told.shout);
+    saysShout.show(!!nextFile && !told.shout && !busy);
+    ER.pips((told.board ? 1 : 0) + (told.lit ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (told.shout) XP.card([['Tell your partner', ['&ldquo;I heard you! You&rsquo;re in the Window, high in the west wall. Stay where you are: I&rsquo;m getting the ladders.&rdquo;']]]);
+    else if (nextFile) XP.card([['Ask your partner', ['&ldquo;Can you see the light? Is it coming up through one of the holes?&rdquo;', '&ldquo;Shout down it! I&rsquo;m listening.&rdquo;']], ['Tell your partner', ['&ldquo;Mavis&rsquo;s arrows point OUT: towards the Laundry. Look for an arrow that points into a hole.&rdquo;']]]);
+    else XP.card([['Ask your partner', ['&ldquo;Where are you? Is it a big chamber with holes in the floor?&rdquo;', '&ldquo;Is your lamp off? Tell me when it&rsquo;s dark.&rdquo;']], ['Tell your partner', ['&ldquo;In 1968 Murray&rsquo;s stove showed Mavis the way down. I&rsquo;m going to point the big light at &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['wait', [
+      'Your light went the right way. Your partner must find the hole it comes up through. Tell them about Mavis&rsquo;s arrows: they point OUT, towards the Laundry and home.',
+      'When your partner has found the hole, they will shout. Listen at the Window.'
+    ]];
+    return ['aim', [
+      'Your red correction moved the Drying Room. Look at the survey again: what part of the Laundry is it over now?',
+      'Mavis&rsquo;s notebook, Sunday night: in 1968 a light at the camp came up through a hole in the Drying Room floor, and the hole was the Window. Which opening in the Laundry is under the red Drying Room?',
+      'Ask your partner to switch their lamp off first, and wait for their eyes. Then point the big light at that opening and switch it on. It stays on for forty-five seconds.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say(told.shout ? 'The Window. Your partner is up there.' : 'The big light is pointing at the Window.'); return; }
+    if (told.intro) { busy = false; ER.say('The big light, on its tripod, waiting.'); return; }
+    ER.narrate([
+      'The big camp light is a floodlight on a tripod, with a battery the size of a brick. It was brought for photographs. It has never been used for talking.',
+      'Your partner is somewhere above you in the dark, with one bar of battery left. Mavis sat up there in 1968 with her lamp out, and Murray&rsquo;s little stove showed her the way down.',
+      'There are four openings in the walls of the Laundry: the North Arch, the South Arch, the waterfall slot behind you, and, high in the west wall, the Window.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the board: the survey, and where the light points ---------- */
+  function draw() {
+    if (!box) return;
+    var r = XP.TRUE[24];
+    box.querySelector('.bd-main').innerHTML = XP.survey({ box: [-34, -12, 10, 30], fix: { wash: true, flat: ER.flag('flatfix') || 'corrected' }, dot: told.pdot ? { x: r[0], y: r[1], dark: pdark } : null });
+    ER.$$('[data-aim]', box).forEach(function (b) { b.classList.toggle('sel', b.getAttribute('data-aim') === aim); });
+    box.querySelector('#bat').textContent = B.classList.contains('on') ? 'ON' : 'off';
+  }
+  function msg(t) { if (box) box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+  function openBoard() {
+    if (busy) return;
+    tell('board'); paint();
+    box = ER.el('div', 'bd');
+    box.innerHTML = '<div class="bd-main"></div><div class="bd-side"><h5>The big light</h5><p>Point it at:</p><div class="row">' +
+      Object.keys(AIMS).map(function (k) { return '<button type="button" class="btn" data-aim="' + k + '">' + AIMS[k] + '</button>'; }).join('') + '</div>' +
+      '<div class="row"><button type="button" class="btn" id="l-on">Switch on</button><span style="font-family:Space Mono,monospace;font-weight:700;align-self:center">Light: <span id="bat">off</span></span></div>' +
+      '<p class="pmsg"></p><div class="row"><button type="button" class="btn" id="l-nb">Mavis&rsquo;s notebook</button><button type="button" class="btn" id="l-key">The key</button></div></div>';
+    ER.$$('[data-aim]', box).forEach(function (b) { b.onclick = function () { if (B.classList.contains('on')) { B.classList.remove('on'); clearTimeout(onT); } aim = b.getAttribute('data-aim'); XP.sfx.click(); setAim(); draw(); }; });
+    box.querySelector('#l-on').onclick = switchOn;
+    box.querySelector('#l-nb').onclick = function () { ER.close(); XP.notebook('sun3'); };
+    box.querySelector('#l-key').onclick = function () { ER.close(); XP.legend(); };
+    ER.open('ov-lock', box, function () { box = null; });
+    draw();
+    if (nextFile) msg('The light points at the Window.');
+  }
+  function setAim() { Object.keys(AIMS).forEach(function (k) { B.classList.toggle('a-' + k, aim === k); }); }
+  function switchOn() {
+    if (!aim) { msg('Point the light somewhere first.'); return; }
+    if (B.classList.contains('on')) { msg('It is on. It switches itself off after forty-five seconds, to save the battery.'); return; }
+    B.classList.add('on'); tell('lit'); paint(); draw();
+    XP.set('light', aim + ':' + Date.now());
+    ER.tone({ f: 60, dur: 1.2, peak: 0.05, type: 'sawtooth' });
+    clearTimeout(onT);
+    onT = setTimeout(function () { B.classList.remove('on'); draw(); if (box) msg('The big light clicks off by itself, to save its battery.'); }, 45000);
+    if (nextFile) return;
+    var file = ER.exit([aim], { wait: true });
+    if (!file) {
+      ER.sfx.no();
+      msg('The light floods ' + AIMS[aim] + '. ' + (pdark ? 'Your partner, sitting in the dark above, sees nothing at all.' : 'Ask your partner, with their lamp off, if they can see anything.') + ' Look at the survey: is that opening under the Drying Room?');
+      return;
+    }
+    nextFile = file; ER.flag('b5-file', file);
+    msg('The beam goes up the west wall and into the Window, and disappears inside it, as if the Window had swallowed it.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'The beam climbs the west wall, eight metres of wet grey rock, and goes into the Window, and does not come out.',
+        'Somewhere up there, if Mavis was right, there is a hole in a sandy floor, and light is coming up out of it like steam. Your partner has to find it in the dark.'
+      ], function () { busy = false; paint(); });
+    }, 2200);
+  }
+  function heardShout() {
+    if (told.shout) return;
+    tell('shout');
+    var s = $('#shout'); s.classList.add('on'); setTimeout(function () { s.classList.remove('on'); }, 3500);
+    ER.closeAll(); busy = true; paint();
+    ER.narrate([
+      'A shout! Faint, and far above you, and coming out of the Window in the west wall.',
+      'You shout back something you will later deny, and then you laugh, because the voice in the telephone and the voice in the wall are the same voice, and it is eight metres away instead of a kilometre.'
+    ], function () { busy = false; paint(); });
+  }
+  XP.when('a5-shout', function () { if (nextFile) heardShout(); else setTimeout(function () { if (nextFile) heardShout(); }, 1500); });
+  XP.watchKey('a5-dark', function (v) {
+    pdark = +v > 0; told.pdot = 1; draw();
+    var t = pdark ? 'On the survey, the dot of your partner&rsquo;s lamp goes dark. They have switched it off.' : 'Your partner&rsquo;s lamp comes on again.';
+    if (box) msg(t); else if (!busy) ER.say(t);
+  });
+  $('#lamp').addEventListener('click', openBoard);
+  $('#survey').addEventListener('click', openBoard);
+  $('#phone').addEventListener('click', function () { if (!busy) { ring(); ER.say('You turn the handle. In your partner&rsquo;s pack, the telephone buzzes.'); } });
+  XP.thing('#win', 'window', 'The Window: a black hole high in the west wall, about eight metres up, smooth rock all the way. Nobody has been up there since 1968.', isBusy);
+  XP.thing('#narch', 'arch', 'The North Arch: the stream comes in through it, from upstream.', isBusy);
+  XP.thing('#sarch', 'arch', 'The South Arch: the stream goes out through it, downstream, to the Low Duck.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'drying');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

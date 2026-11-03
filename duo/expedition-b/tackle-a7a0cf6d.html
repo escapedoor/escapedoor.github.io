@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Tackle Bag · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#120f0e;--accent:#ffb07a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(18,15,14,.95);--tc-ink:#f8eee6;--cap-bg:rgba(20,16,15,.93);--panel:#261e1a;--face-bg:#382a24;--q-ink:#ffd8b8;--fade:#060505;--hud-bg:rgba(20,16,15,.84)}
+  #tapeEnd,#lad{opacity:0;transition:opacity 1s}
+  body.tape #tapeEnd{opacity:1}
+  body.up #lad{opacity:1}
+  body.up #tapeEnd{opacity:0}
+  #star{animation:glim 2.4s steps(3,end) infinite alternate}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0a0a"/><stop offset=".5" stop-color="#3a3430"/><stop offset="1" stop-color="#5a504a"/></linearGradient>
+  <radialGradient id="poolT" cx="50%" cy="85%" r="60%"><stop offset="0" stop-color="#fffbe0" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigT" cx="50%" cy="55%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0a0808"/>
+<!-- the west wall, looking straight up it -->
+<path d="M-1000 -700H2600V700H-1000Z" fill="url(#wallT)"/>
+<g stroke="#1e1a18" stroke-width="4" fill="none" opacity=".8"><path d="M-200 200q600 -40 1000 0t1200 -10M-100 480q700 40 1500 0M500 -300q30 500 -10 1000M1100 -300q-30 500 20 1000"/></g>
+<g id="win" class="hot"><ellipse cx="800" cy="70" rx="80" ry="44" fill="#030203"/><path d="M720 70q80 -60 160 0" stroke="#4a4440" stroke-width="8" fill="none"/><circle id="star" cx="800" cy="70" r="12" fill="#fff6c8"/></g>
+<g id="tapeEnd"><path d="M800 90V690" stroke="#f5d33a" stroke-width="5"/><rect x="792" y="684" width="16" height="10" fill="#f5d33a"/></g>
+<g id="lad"><path d="M780 90V700M830 90V700" stroke="#c8c8c8" stroke-width="3"/><g stroke="#c8c8c8" stroke-width="5"><path d="M780 140h50M780 200h50M780 260h50M780 320h50M780 380h50M780 440h50M780 500h50M780 560h50M780 620h50M780 680h50"/></g></g>
+<!-- the floor of the Laundry, and the stream behind you -->
+<path d="M-1000 700Q800 680 2600 700V1700H-1000Z" fill="#5a4a36"/><path d="M-1000 700Q800 680 2600 700" stroke="#7a6a52" stroke-width="5" fill="none"/>
+<!-- the tackle bag, open, with four ladders and a lifeline -->
+<g id="bag" class="hot"><path d="M300 860q-20 -110 40 -130h260q60 20 40 130z" fill="#2e6b4f" stroke="#163a2a" stroke-width="5"/>
+  <g fill="none" stroke="#c8c8c8" stroke-width="6"><ellipse cx="380" cy="740" rx="44" ry="20"/><ellipse cx="460" cy="736" rx="50" ry="22"/><ellipse cx="548" cy="740" rx="44" ry="20"/></g>
+  <ellipse cx="660" cy="800" rx="56" ry="26" fill="none" stroke="#c0391b" stroke-width="10"/></g>
+<g id="card" class="hot"><rect x="1040" y="760" width="150" height="100" rx="4" fill="#fffdf4" stroke="#2e6b4f" stroke-width="3"/><rect x="1040" y="760" width="150" height="18" fill="#2e6b4f"/><path d="M1054 796h120M1054 812h100M1054 828h120M1054 844h80" stroke="#1c2b2a" stroke-width="3"/></g>
+<g id="phone" class="hot"><rect x="1240" y="770" width="120" height="84" rx="6" fill="#3e5a32" stroke="#22341c" stroke-width="4"/><circle cx="1340" cy="812" r="14" fill="#22341c"/><path d="M1340 812l26 -16" stroke="#c8c8c0" stroke-width="5"/><rect x="1256" y="782" width="58" height="26" rx="5" fill="#1d1d1a"/><circle cx="1304" cy="795" r="6" fill="#c0391b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#poolT)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigT)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Hold the lifeline</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, pick = null, box = null, B = document.body;
+  var LADS = [5, 8, 10, 15];
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'tackle', no: 'VI', title: 'The Tackle Bag',
+    go: 'Look up',
+    intro: [
+      'Your red correction put the Drying Room over the west side of the Laundry, so you pointed the big light at the Window, the way Murray&rsquo;s stove had shone in 1968. Your partner, with their lamp off, saw the glow come up a hole in the floor, followed Mavis&rsquo;s arrow into it, and shouted: and the shout came out of the Window.',
+      'A quarter past four. Your partner is up there, eight metres up a wall of wet rock. The ladders are in the tackle bag.'
+    ],
+    exit: {"next":"halfway","w":{"40250524":"4f9838c8"}}, tags: {"short":["a6b50813"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b6-told') || {}; nextFile = ER.flag('b6-file') || null;
+  if (told.tape) B.classList.add('tape');
+  if (nextFile) B.classList.add('up');
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b6-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringB', theirs: 'ringA', buzz: function () { var h = $('#phone'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The field telephone buzzes, and high above you, the little light in the Window waves.'); } });
+  var saysTape = XP.says('s-tape', 'My partner has lowered the tape', function () { tapeDown(); });
+  var saysRig = XP.says('s-rig', 'My partner says the ladder is rigged', function () { rigged(); });
+  var saysDown = XP.says('s-down', 'My partner is climbing down', function () { down(); });
+  function paint() {
+    $('#go').classList.toggle('on', !!told.rigged && !told.belay);
+    saysTape.show(!told.tape && !busy);
+    saysRig.show(!!nextFile && !told.rigged && !busy);
+    saysDown.show(!!told.belay && !busy);
+    ER.pips((told.card ? 1 : 0) + (told.tape ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (told.belay) XP.card([['Tell your partner', ['&ldquo;I&rsquo;ve got you. Come down slowly. I&rsquo;m not going anywhere.&rdquo;']]]);
+    else if (nextFile) XP.card([['Tell your partner', ['&ldquo;The ladder is tied on. Pull it up, and rig it on the upstream side, round the thread. Not the peg!&rdquo;']], ['Ask your partner', ['&ldquo;Is it rigged? Tell me before you climb.&rdquo;']]]);
+    else XP.card([['Ask your partner', ['&ldquo;How far is it from the edge to the floor? Read your tape.&rdquo;', '&ldquo;How far back from the edge is the anchor?&rdquo;']], ['Tell your partner', ['&ldquo;The stream here flows from the North Arch to the South Arch: from north to south. You&rsquo;re facing east, so upstream is on your &hellip;&rdquo;', '&ldquo;Mavis used the thread on the upstream side. Not Murray&rsquo;s peg.&rdquo;']]]);
+  }
+  function hints() {
+    if (told.belay) return ['down', ['Hold the lifeline while your partner climbs down.']];
+    if (nextFile) return ['belay', ['Your partner pulls the ladder up and rigs it. When they say it is rigged, take the lifeline (the button at the bottom) and tell them you have got them.']];
+    return ['len', [
+      'Read the club card (on the sand, by the bag): it has a rule for ladders.',
+      'You need two lengths from your partner: the drop (from the edge of the Window to the floor) and how far back from the edge the anchor is. Mavis&rsquo;s notebook says which anchor she used and which one she did not trust: tell your partner, so they measure the right one.',
+      'Add the two lengths together. Then take the shortest ladder that is at least that long.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (told.belay) { busy = false; ER.say('You have the lifeline. Your partner is on the ladder.'); return; }
+    if (nextFile) { busy = false; ER.say('The ten-metre ladder has gone up the wall.'); return; }
+    if (told.intro) { busy = false; ER.say('The foot of the west wall. Ladders, a lifeline, and your partner eight metres up.'); return; }
+    ER.narrate([
+      'You stand at the foot of the west wall and look up. Your partner&rsquo;s lamp is a small yellow star in the Window. They wave. You wave. It is ridiculous, and you cannot stop grinning.',
+      'The tackle bag has four ladders in it, rolled up, with tags on: 5 metres, 8, 10 and 15. And a lifeline, a red rope, to hold whoever is on the ladder.',
+      'The ladder has to go up to your partner before your partner can come down it.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  function tapeDown() {
+    if (told.tape) return;
+    tell('tape'); B.classList.add('tape'); paint();
+    if (!busy) ER.say('A yellow tape comes snaking down the wall from the Window, and its end touches the sand at your feet.');
+  }
+  XP.watchKey('tape-down', function () { tapeDown(); });
+  function rigged() {
+    if (told.rigged) return;
+    tell('rigged'); paint(); XP.sfx.rope();
+    if (!busy) ER.say('From the Window, a long clatter: the ladder is rigged, and its bottom rung is lying on the sand.');
+  }
+  XP.when('a6-rigged', function () { if (nextFile) rigged(); });
+  function down() {
+    if (busy) return;
+    busy = true; paint();
+    ER.narrate([
+      'Your partner turns round, puts their boots on the top rung, and comes over the edge, backwards, the way you are supposed to.',
+      'You lean back on the lifeline and take in the rope as they come down, a rung at a time, out of the dark and into your light.'
+    ], function () { ER.leave(nextFile); });
+  }
+  XP.when('a6-down', function () { if (told.belay) down(); });
+
+  /* ---------- the ladders ---------- */
+  function openBag() {
+    if (busy) return;
+    if (nextFile) { ER.say('The ten-metre ladder has gone up. The lifeline is still in the bag.'); return; }
+    box = ER.el('div', 'bd');
+    var s = '<svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="500" fill="#f6f2e6"/><path d="M80 470H560" stroke="#1f2a36" stroke-width="4"/><path d="M180 470V160H60V40" stroke="#1f2a36" stroke-width="4" fill="none"/>' +
+      '<path d="M180 160h-120" stroke="#1f2a36" stroke-width="2" stroke-dasharray="6 5"/><text x="200" y="168" font-family="EB Garamond,serif" font-style="italic" font-size="22" fill="#1f2a36">Window (not entered) &#8593; 25</text>' +
+      '<text x="320" y="300" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="20" fill="#1f2a36">THE 1975 SURVEY: SECTION</text><text x="320" y="326" font-family="EB Garamond,serif" font-size="18" fill="#1f2a36">west wall of the Laundry, not to scale</text>' +
+      (told.tape ? '<path d="M186 160V470" stroke="#e0b81a" stroke-width="5"/><text x="196" y="330" font-family="Caveat,cursive" font-weight="700" font-size="26" fill="#9a6a10">your partner&#8217;s tape</text>' : '') + '</svg>';
+    box.innerHTML = '<div class="bd-main">' + s + '</div><div class="bd-side"><h5>The tackle bag</h5><p>Four ladders, each with a tag. Pick one, and tie it to the end of your partner&rsquo;s tape.</p><div class="row">' +
+      LADS.map(function (n) { return '<button type="button" class="btn" data-l="' + n + '">' + n + ' metres</button>'; }).join('') + '</div>' +
+      '<div class="row"><button type="button" class="btn" id="l-tie">Tie it on</button></div><p class="pmsg"></p>' +
+      '<div class="row"><button type="button" class="btn" id="l-card">The club card</button><button type="button" class="btn" id="l-nb">Mavis&rsquo;s notebook</button></div></div>';
+    ER.$$('[data-l]', box).forEach(function (b) { b.onclick = function () { pick = +b.getAttribute('data-l'); XP.sfx.click(); ER.$$('[data-l]', box).forEach(function (o) { o.classList.toggle('sel', o === b); }); }; });
+    box.querySelector('#l-tie').onclick = tie;
+    box.querySelector('#l-card').onclick = function () { ER.close(); XP.club(); tell('card'); paint(); };
+    box.querySelector('#l-nb').onclick = function () { ER.close(); XP.notebook('sun3'); };
+    ER.open('ov-lock', box, function () { box = null; });
+  }
+  function msg(t) { if (box) box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+  function tie() {
+    if (!pick) { msg('Pick a ladder first.'); return; }
+    if (!told.tape) { msg('There is nothing to tie it to yet. Your partner has to lower the end of their tape to you.'); return; }
+    var file = ER.exit([String(pick)], { wait: true });
+    if (!file) {
+      ER.sfx.no();
+      if (ER.check('short', String(pick))) msg('Eight metres would reach from the edge to the floor. But the ladder hangs from the anchor, and the anchor is not at the edge. Read the club card again, and ask your partner how far back the anchor is.');
+      else if (pick === 5) msg('Five metres would leave your partner hanging in the air, a long way above your head.');
+      else msg('Long enough, certainly, and very heavy: a long ladder is hard to pull up on a thin tape. The club card says the shortest ladder that is long enough.');
+      return;
+    }
+    nextFile = file; ER.flag('b6-file', file); XP.set('ladder', String(pick));
+    msg('You tie the ladder to the end of the tape with a good knot, and give the tape two tugs.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; B.classList.add('up'); paint();
+      ER.narrate([
+        'The tape goes up, and the ladder goes after it, unrolling, clinking against the wall, rung after rung, all the way up into the Window.',
+        'Mavis&rsquo;s ladder went up this wall on a piece of string in 1968. Yours has gone up on a tape measure. Progress.'
+      ], function () { busy = false; paint(); });
+    }, 2200);
+  }
+  $('#bag').addEventListener('click', openBag);
+  $('#card').addEventListener('click', function () { if (!busy) { XP.club(); tell('card'); paint(); } });
+  $('#phone').addEventListener('click', function () { if (!busy) { ring(); ER.say('You turn the handle. In your partner&rsquo;s pack, high above you, the telephone buzzes.'); } });
+  XP.thing('#win', 'window', 'The Window, high in the west wall, and your partner&rsquo;s lamp in it, like a star that has come down for a look.', isBusy);
+  $('#go').addEventListener('click', function () {
+    if (busy || !told.rigged || told.belay) return;
+    tell('belay'); XP.set('belay', true); XP.sfx.rope(); paint();
+    ER.say('You send the end of the red lifeline up beside the ladder for your partner to clip on, and lean back on it. &ldquo;I&rsquo;ve got you!&rdquo;');
+  });
+})();
+</script>
+</body>
+</html>

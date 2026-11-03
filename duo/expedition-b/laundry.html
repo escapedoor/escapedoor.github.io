@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Laundry · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#16110c;--accent:#f0b44a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,16,10,.95);--tc-ink:#f6ead6;--cap-bg:rgba(26,18,10,.93);--panel:#2a1e12;--face-bg:#3a2a1a;--q-ink:#ffd58f;--fade:#080503;--hud-bg:rgba(26,18,10,.84)}
+  .flame{animation:fl .5s steps(2,end) infinite alternate;transform-origin:420px 676px}
+  @keyframes fl{from{transform:scaleY(.85)}to{transform:scaleY(1.1)}}
+  #twitch{opacity:0;transition:opacity .4s}
+  #twitch.on{opacity:1}
+  .skgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;width:min(1080px,96vw);max-height:84vh;overflow:auto;background:#f4efdf;padding:14px 18px;
+    background-image:linear-gradient(rgba(70,110,160,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(70,110,160,.14) 1px,transparent 1px);background-size:22px 22px;color:#2b2b3a}
+  .skgrid .sk p{margin:0;font-family:'Caveat',cursive;font-size:21px;line-height:1.1}
+  .skgrid .sk svg{display:block;width:100%;height:auto;max-height:24vh}
+  .skgrid .btn{--accent:#7a3d10;font-size:14px;padding:6px 10px 5px;margin-top:2px}
+  .skgrid .btn:hover:not([disabled]){color:#f4efdf}
+  .skgrid .foot{grid-column:1/3;font-family:'EB Garamond',serif;font-size:17px}
+  .srvbox{width:min(1060px,96vw);display:grid;grid-template-columns:minmax(0,1fr) 300px;background:#f6f2e6;box-shadow:0 26px 70px rgba(0,0,0,.6)}
+  .srvbox .m{padding:10px}.srvbox .m svg{width:100%;height:auto;max-height:78vh;display:block}
+  .srvbox .s{padding:16px 18px;background:#e7e0cc;font-family:'EB Garamond',serif;font-size:17px;line-height:1.36;color:#1f2a36}
+  .srvbox .s h5{margin:0 0 6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.2em;text-transform:uppercase}
+  .srvbox .s p{margin:0 0 8px}
+  .srvbox .btn{--accent:#1f2a36;font-size:14px;padding:8px 11px 7px}.srvbox .btn:hover{color:#f6f2e6}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="stoveG" cx="27%" cy="76%" r="60%"><stop offset="0" stop-color="#ffcf8a" stop-opacity=".34"/><stop offset=".5" stop-color="#ff9a3a" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigL" cx="50%" cy="55%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity=".88"/></radialGradient>
+  <linearGradient id="farW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a221b"/><stop offset="1" stop-color="#40352a"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0f0b08"/>
+<path d="M-1000 -700H2600V200Q800 40 -1000 200Z" fill="#1b1611"/>
+<path d="M-1000 200Q800 40 2600 200V600H-1000Z" fill="url(#farW)"/>
+<g stroke="#1a140f" stroke-width="3" fill="none" opacity=".7"><path d="M-300 300q600 -40 1100 -20t1200 30M-200 420q700 -30 1300 -10t900 20"/><path d="M300 210q20 120 -10 250M1240 200q-30 140 10 260"/></g>
+<!-- the North Arch (left) and the South Arch (right) -->
+<g id="narch" class="hot"><path d="M20 600q0 -230 170 -250q170 20 170 250z" fill="#070504"/><path d="M20 600q0 -230 170 -250q170 20 170 250" stroke="#4a3e32" stroke-width="10" fill="none"/></g>
+<g id="sarch" class="hot"><path d="M1290 610q0 -200 150 -220q150 20 150 220z" fill="#070504"/><path d="M1290 610q0 -200 150 -220q150 20 150 220" stroke="#4a3e32" stroke-width="10" fill="none"/></g>
+<!-- the waterfall from a slot in the far wall -->
+<g id="falls" class="hot"><path d="M990 240q60 -26 120 0l-10 20h-100z" fill="#070504"/><path d="M1040 256q-6 150 10 330" stroke="#cfe0e6" stroke-width="14" fill="none" opacity=".75"/><path d="M1040 256q-6 150 10 330" stroke="#ffffff" stroke-width="4" fill="none" opacity=".6" stroke-dasharray="10 14" class="flow"/></g>
+<!-- the stream, left to right -->
+<path id="stream" class="hot" d="M-1000 560Q600 590 1400 600T2600 640V720Q1400 690 600 680T-1000 660Z" fill="#5a4024"/>
+<g class="flow" stroke="#a87a4a" stroke-width="3" fill="none" stroke-dasharray="26 18" opacity=".7"><path d="M-400 610Q600 632 1400 646T2400 680"/><path d="M-200 590Q700 616 1500 624"/></g>
+<!-- the camp floor -->
+<path d="M-1000 690Q600 700 2600 720V1700H-1000Z" fill="#5a4a36"/><path d="M-1000 690Q600 700 2600 720" stroke="#7a6a52" stroke-width="5" fill="none"/>
+<!-- the tarp over the camp -->
+<path d="M260 470L1300 450L1340 560L240 580Z" fill="#2f5a7a" opacity=".55"/><path d="M260 470L1300 450" stroke="#1d3a52" stroke-width="5"/>
+<!-- the stove and the pan -->
+<g id="stove" class="hot"><rect x="380" y="690" width="80" height="40" rx="6" fill="#8a8a82"/><path class="flame" d="M404 690q16 -40 32 0z" fill="#5fa8ff"/><rect x="368" y="652" width="104" height="36" rx="4" fill="#3a3a36"/><path d="M372 652h96" stroke="#6a6a62" stroke-width="5"/></g>
+<!-- the HeyPhone, with its two long wires -->
+<g id="hey" class="hot"><rect x="560" y="660" width="150" height="90" rx="6" fill="#5a6066" stroke="#2a2e32" stroke-width="4"/><circle cx="600" cy="700" r="18" fill="#22262a"/><circle cx="600" cy="700" r="8" fill="#5fe08a"/><rect x="630" y="684" width="64" height="12" fill="#22262a"/><rect x="630" y="704" width="64" height="12" fill="#22262a"/>
+  <g id="cardk"><rect x="580" y="726" width="110" height="16" fill="#f6f2e6"/><path d="M590 734h90" stroke="#2e6b4f" stroke-width="4"/></g><path d="M560 680q-120 -20 -240 -120M560 700q-200 30 -420 -40" stroke="#c43a2a" stroke-width="3" fill="none"/></g>
+<!-- the field telephone and the wire to the South Arch -->
+<g id="phone" class="hot"><rect x="780" y="664" width="120" height="84" rx="6" fill="#3e5a32" stroke="#22341c" stroke-width="4"/><circle cx="880" cy="706" r="14" fill="#22341c"/><path d="M880 706l26 -16" stroke="#c8c8c0" stroke-width="5"/>
+  <rect x="796" y="676" width="58" height="26" rx="5" fill="#1d1d1a"/><circle cx="844" cy="689" r="6" fill="#c0391b"/></g>
+<path id="wire" d="M900 720q160 -20 300 -60t240 -60" stroke="#e3c13a" stroke-width="4" fill="none" stroke-dasharray="12 6"/>
+<text id="twitch" x="1180" y="640" font-family="Caveat,cursive" font-weight="700" font-size="30" fill="#ffd58f" text-anchor="middle">twitch!</text>
+<!-- the map case with the survey, the notebook, the club card -->
+<g id="survey" class="hot"><rect x="980" y="710" width="160" height="56" rx="4" fill="#1d3a52" stroke="#0e1e2a" stroke-width="3"/><rect x="996" y="720" width="128" height="36" fill="#f6f2e6"/><path d="M1006 744q30 -20 60 -6t50 -8" stroke="#2563a8" stroke-width="2.5" fill="none"/><path d="M1010 730h40" stroke="#1f2a36" stroke-width="2"/></g>
+<g id="notebook" class="hot" transform="rotate(-6 1250 740)"><rect x="1190" y="700" width="120" height="80" fill="#e8e2cc" stroke="#7a6a52" stroke-width="2"/><rect x="1190" y="700" width="14" height="80" fill="#6a5034"/><path d="M1214 718h80M1214 732h70M1214 746h84M1214 760h60" stroke="#55556a" stroke-width="2"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#stoveG)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigL)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Open out the survey</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'laundry', no: 'I', title: 'The Laundry',
+    go: 'Pick up the radio',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE EXPLORER (part A) on another screen. Do not show each other your screens: talk. You can link your two screens with the tag in the bottom left corner: then what one of you does shows on the other screen.</b>',
+      'Tallow Hole, Saturday 17 October 2026, three o&rsquo;clock in the afternoon. You met your partner for the first time last night, at the Wolfstone Caving Club hut. They ate one of your sandwiches. You had labelled it.',
+      'You are at the Laundry, the camp of an expedition of 1968, with the stove, the radio to the surface, the field telephone, the club&rsquo;s survey of 1975 and a photocopy of the notebook of 1968. Last month the notebook turned up in a damp box at the hut, and its owner, Mavis Rowcliffe, now seventy-nine, read it and said: &ldquo;The survey is wrong.&rdquo; The club does not believe her.',
+      'An hour ago your partner went on downstream, under the Low Duck, with a telephone wire on a reel. You stayed, because somebody has to be by the radio at three o&rsquo;clock. It is three o&rsquo;clock. The radio is hissing.'
+    ],
+    exit: {"next":"plan","w":{"df9ab780":"fb1bfb19"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b1-told') || {}; nextFile = ER.flag('b1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b1-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringB', theirs: 'ringA', buzz: function () { var h = $('#phone'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The field telephone buzzes: your partner is calling.'); } });
+  function twitch(t) { var n = $('#twitch'); n.classList.add('on'); setTimeout(function () { n.classList.remove('on'); }, 1600); XP.sfx.rope(); if (!busy && !ER.isOpen()) ER.say(t); }
+  XP.watchKey('a1-try', function () { twitch('The telephone wire by your feet jerks, and slides a little towards the South Arch. Your partner is climbing something.'); });
+  XP.when('a1-up', function () { setTimeout(function () { twitch('The wire jerks again, and then lies still and tight. Wherever your partner is now, they are higher than they were.'); }, 1800); });
+
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.call ? 1 : 0) + (told.survey ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;You&rsquo;re in the Washhouse. The notebook says the Way Over starts on the TRUE RIGHT, by Mavis&rsquo;s cairn. The survey says the true left, but &hellip;&rdquo;', '&ldquo;True right means &hellip; You&rsquo;re facing upstream, so &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Can you see a cairn? Which side is it on?&rdquo;']]]);
+    else if (told.call) XP.card([['Ask your partner', ['&ldquo;Where are you? What can you see from where you are standing?&rdquo;', '&ldquo;Which way are you facing? Is the water coming towards you, or going away?&rdquo;']], ['Tell your partner', ['&ldquo;Don&rsquo;t come back through the duck. The hut says &hellip;&rdquo;']]]);
+    else XP.card([['Tell your partner', ['&ldquo;It&rsquo;s me, at the Laundry. Can you hear me? The hut is on the radio.&rdquo;']], ['Ask your partner', ['&ldquo;How much air is there in the duck now?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['tell', [
+      'You know where your partner is: the Washhouse. The notebook and the survey say different things about where the Way Over starts. Read the key of the survey: what do TL and TR mean?',
+      'The true right is on your right when you face DOWNSTREAM. Your partner is facing upstream, towards the duck. So the true right is on which of your partner&rsquo;s hands?'
+    ]];
+    if (!told.call) return ['call', [
+      'The grey box with the green light and the two red wires is the HeyPhone, the radio that talks through the rock to the hut. Click it, and listen.',
+      'After the call, ring your partner on the green field telephone, and talk.'
+    ]];
+    return ['where', [
+      'Your partner is somewhere below the Low Duck. Mavis&rsquo;s notebook has a page of sketches of the chambers down there. Ask your partner to describe exactly what they can see, and which way they are facing.',
+      'Read the first page of the notebook, and the top of each sketch: Mavis drew her sketches looking UPSTREAM, unless she says so. Your partner is facing upstream. A sketch drawn looking DOWNSTREAM has its left and right the other way round from what your partner sees.',
+      'Look for what only one chamber has: a high hole above the arch, a mud bank, a stalagmite as tall as a man. Swap left and right before you compare a sketch drawn looking downstream.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The Laundry. The stream is brown and loud, and still rising.'); return; }
+    if (told.intro) { busy = false; ER.say('The Laundry. The radio, the telephone, and two papers that disagree.'); return; }
+    ER.narrate([
+      'The Laundry is the size of a church, and as quiet as one, except for the stream along the far side. An hour ago the stream was clear. Now it is the colour of tea, and it is talking much louder.',
+      'The camp is on a ledge of sand above the water. The 1968 expedition camped on the same ledge. Mavis wrote in her notebook that it is dry in any flood, and so far she has been right about everything except the weather.',
+      'On the grey radio box, the green light comes on. Somebody on the surface wants you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the HeyPhone: the hut ---------- */
+  var FACE = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" fill="#22262a"/><rect x="20" y="30" width="80" height="60" rx="6" fill="#5a6066"/><circle cx="42" cy="60" r="12" fill="#5fe08a"/><path d="M64 50h26M64 60h26M64 70h20" stroke="#22262a" stroke-width="5"/><path d="M20 90q-10 20 -20 30M100 90q10 20 20 30" stroke="#c43a2a" stroke-width="3"/></svg>';
+  function call() {
+    if (busy) return;
+    ER.talk({
+      who: 'Reza Wardle', role: 'At the hut, on the HeyPhone', face: FACE,
+      lines: [
+        { note: 'The HeyPhone talks through the solid rock, from this box to a box at the hut, using two long wires pegged into the wet ground as its aerial. The voice is thin and crackly, and very cheerful.', a: '&ldquo;Laundry, this is Tallow hut. Reza. Can you hear me? Good. Over.&rdquo;' },
+        { q: 'What is the weather doing?', a: '&ldquo;It&rsquo;s been raining since two. Not drizzle: proper rain, the sort that bounces. The forecast said four o&rsquo;clock. The forecast was wrong, which is what forecasts are for. The beck by the hut is brown and very loud.&rdquo;' },
+        { q: 'What does that mean down here?', a: '&ldquo;Cave water comes up an hour or two after the rain starts on the hill, and it goes on coming up after the rain stops. Is your partner on your side of the Low Duck? No? Then they don&rsquo;t come back through it. That&rsquo;s the rule: up, not through.&rdquo;' },
+        { q: 'Is there another way?', a: '&ldquo;Mavis is here, by the fire, drinking my tea. She says, and I quote: read the notebook, not the survey. The survey was drawn by a man who had never been past the duck. She says her Way Over goes from the Washhouse to the Laundry, high and dry, and she came round it in a flood in 1968. The committee says it chokes. Well. Now we&rsquo;ll find out.&rdquo;' },
+        { q: 'When do we call again?', a: '&ldquo;Next call at five o&rsquo;clock. If I&rsquo;ve heard nothing from you by eight, I call out the cave rescue, and they will want sandwiches. Over and out.&rdquo;' }
+      ],
+      clue: { id: 'call3', title: 'Reza, from the hut, at three o&rsquo;clock', kind: 'On the HeyPhone' },
+      done: function (seen) { if (seen && tell('call')) { paint(); ER.addWord('heyphone', 'a cave radio that talks through solid rock to a radio on the surface'); } }
+    });
+  }
+  $('#hey').addEventListener('click', call);
+
+  /* ---------- the field telephone ---------- */
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    XP.look({ kicker: 'On the sand, by the radio', title: 'The field telephone', lock: false,
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#1c1611"/><rect x="70" y="80" width="240" height="160" rx="10" fill="#3e5a32" stroke="#22341c" stroke-width="6"/><rect x="96" y="104" width="120" height="50" rx="10" fill="#1d1d1a"/><circle cx="196" cy="129" r="11" fill="#c0391b"/><circle cx="270" cy="180" r="24" fill="#22341c"/><path d="M270 180l44 -26" stroke="#c8c8c0" stroke-width="8"/><path d="M310 200q60 0 70 40" stroke="#e3c13a" stroke-width="5" stroke-dasharray="12 6" fill="none"/></svg>',
+      text: '<p>An old army field telephone with a handle that you turn to make the other end buzz. Its wire runs across the sand, into the South Arch, along the stream way, under the Low Duck, and on to the reel in your partner&rsquo;s pack.</p><p>The wire is under water now, at the duck. It still works: it is a wire, not a person.</p>',
+      acts: [{ id: 't-ring', label: 'Turn the handle: ring your partner', fn: function (a) { ring(); a.msg('You turn the handle. At the far end of the wire, in your partner&rsquo;s pack, the telephone buzzes.'); if (tell('rang')) paint(); } }] });
+  });
+
+  /* ---------- the survey ---------- */
+  function survey() {
+    if (busy) return;
+    var box = ER.el('div', 'srvbox');
+    box.innerHTML = '<div class="m">' + XP.survey({ box: [-13, -46, 15, -14], fix: { wash: !!nextFile } }) + '</div><div class="s"><h5>The 1975 survey: the stream way</h5>' +
+      '<p>The bottom of the big sheet: the Laundry is just off the top. The stream runs south (down the sheet): past the camp, under the Low Duck, through the Washhouse and on.</p>' +
+      '<p>At the Washhouse it says: climb 2.4 (TL), WAY OVER. And somebody has written in blue pen: TL: rope fixed 1979, CHOKES. No way on.</p>' +
+      '<p><button type="button" class="btn" id="s-key">Read the key</button></p></div>';
+    box.querySelector('#s-key').onclick = function () { ER.close(); XP.legend(); };
+    ER.open('ov-read', box, function () { if (tell('survey')) paint(); ER.addClue('survey75', 'The 1975 survey', '<p>Climb 2.4 m (TL): WAY OVER. In blue pen: TL: rope fixed 1979, CHOKES. No way on. W.C.C.</p>', 'legend', 'The 1975 survey'); });
+  }
+  $('#survey').addEventListener('click', survey);
+
+  /* ---------- the notebook: where is your partner? ---------- */
+  function notebook() {
+    if (busy) return;
+    var box = ER.el('div', 'skgrid');
+    box.innerHTML = XP.sketchesHtml(true) + '<div class="foot"><p class="pmsg"></p><button type="button" class="btn" id="nb-all">Read the whole notebook</button></div>';
+    box.querySelectorAll('.skb').forEach(function (b) {
+      b.addEventListener('click', function () { pick(b.getAttribute('data-sk'), box); });
+      if (nextFile) b.disabled = true;
+    });
+    box.querySelector('#nb-all').onclick = function () { ER.close(); XP.notebook('cover'); };
+    ER.open('ov-lock', box);
+    if (nextFile) msg(box, 'Your partner is in the Washhouse.');
+  }
+  function msg(box, t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+  var NOPE = {
+    scullery: 'Mavis&rsquo;s Scullery has no arch at all: you walk into it from the Washhouse. Does your partner see an arch, or not? Ask.',
+    copper: 'Mavis&rsquo;s Copper has a stalagmite as tall as Murray on its boulder, and no hole above its arch. Ask your partner what is on the boulder, and what is above the arch.',
+    plughole: 'The Plughole is the end: a deep blue pool with the roof in it. Your partner can see a way back to the Laundry, even if it is under water. Ask what is in front of them.'
+  };
+  function pick(k, box) {
+    if (nextFile) return;
+    var file = ER.exit([k], { wait: true });
+    if (!file) { ER.sfx.no(); msg(box, NOPE[k] || 'Ask your partner again.'); return; }
+    nextFile = file; ER.flag('b1-file', file); XP.set('b1-found', true);
+    msg(box, 'The Washhouse. Mavis drew it from the ledge, looking downstream, with her back to the duck: so her right is your partner&rsquo;s left.');
+    box.querySelectorAll('.skb').forEach(function (b) { b.disabled = true; });
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'The Washhouse, then. Your partner is standing where Mavis stood in 1968, on another wet afternoon, watching the same duck fill up.',
+        'Mavis&rsquo;s page says the Way Over starts on the TRUE RIGHT, by her cairn. The 1975 survey says the true left. A rope was fixed up the true left in 1979, and it went nowhere. They cannot both be right.',
+        'You take a red pencil out of the map case. Somebody is going to be corrected this afternoon.'
+      ], function () { busy = false; paint(); });
+    }, 2200);
+  }
+  $('#notebook').addEventListener('click', notebook);
+
+  /* ---------- other things ---------- */
+  XP.thing('#stove', 'stove', 'The stove, with a pan of water on it for tea. Mavis&rsquo;s party made tea on this ledge in 1968. Some things do not change.', isBusy);
+  XP.thing('#stream', 'stream', 'The stream comes in from the North Arch on your left, runs along the far side of the Laundry, and goes out by the South Arch on your right, downstream, towards the Low Duck. It is brown, and higher every time you look.', isBusy);
+  XP.thing('#narch', 'arch', 'The North Arch: upstream, and the way you came in this morning. The entrance is four hundred metres that way. The stream comes out of it.', isBusy);
+  XP.thing('#sarch', 'arch', 'The South Arch: downstream. The stream and the telephone wire go out through it, towards the Low Duck and your partner.', isBusy);
+  XP.thing('#falls', 'waterfall', 'A waterfall pours out of a slot high in the far wall and drops into the stream. Nobody has ever got into the slot. The survey says: source unknown.', isBusy);
+  ER.$('#cardk').addEventListener('click', function (e) { e.stopPropagation(); if (!busy) XP.club(); });
+  if (window.Link) Link.follow($('#go'), 'wash');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

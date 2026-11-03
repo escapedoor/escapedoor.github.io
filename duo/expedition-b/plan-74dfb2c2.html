@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Plan · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#0c0f12;--accent:#9fd0f0;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,14,18,.95);--tc-ink:#e8f0f4;--cap-bg:rgba(12,16,20,.93);--panel:#16202a;--face-bg:#22303c;--q-ink:#bfe4ff;--fade:#05070a;--hud-bg:rgba(12,16,20,.84)}
+  #beamP{animation:glim 5s steps(3,end) infinite alternate}
+  .bd .tt{cursor:grab}
+  .bd .adot{transition:cx .9s,cy .9s}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="beamP" cx="52%" cy="48%" r="46%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".5"/><stop offset=".55" stop-color="#fff2c8" stop-opacity=".14"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigP" cx="50%" cy="50%" r="70%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity=".94"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#14110e"/>
+<!-- the flat rock, seen from above -->
+<path d="M100 120Q800 40 1500 140Q1620 460 1480 800Q800 880 120 790Q-20 460 100 120Z" fill="#4a4540" stroke="#2a2622" stroke-width="8"/>
+<g stroke="#38332e" stroke-width="4" fill="none" opacity=".8"><path d="M200 200q300 60 500 20M1100 700q200 -40 300 20M220 640q100 40 240 20"/></g>
+<!-- the survey sheet, held down with stones -->
+<g id="sheet" class="hot" transform="rotate(-3 800 450)"><rect x="360" y="150" width="880" height="600" fill="#f6f2e6" stroke="#bcb29a" stroke-width="3"/>
+  <g stroke="#9db8cf" stroke-width="1.5" opacity=".7"><path d="M360 250H1240M360 350H1240M360 450H1240M360 550H1240M360 650H1240M460 150V750M560 150V750M660 150V750M760 150V750M860 150V750M960 150V750M1060 150V750M1160 150V750"/></g>
+  <path d="M520 160V420L560 520L600 740" stroke="#1f2a36" stroke-width="22" fill="none"/><path d="M520 160V420L560 520L600 740" stroke="#f6f2e6" stroke-width="14" fill="none"/><path d="M520 160V420L560 520L600 740" stroke="#2563a8" stroke-width="3" fill="none"/>
+  <path d="M620 560L700 500L720 330L860 260L900 200M700 500L1010 600M700 500L620 520" stroke="#1f2a36" stroke-width="16" fill="none"/><path d="M620 560L700 500L720 330L860 260L900 200M700 500L1010 600M700 500L620 520" stroke="#f1e3c2" stroke-width="10" fill="none"/>
+  <text x="1180" y="190" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="26" fill="#1f2a36">N &#8593;</text></g>
+<g id="card" class="hot"><circle cx="700" cy="500" r="120" fill="#cde6f0" fill-opacity=".35" stroke="#5a8aa8" stroke-width="3"/><path d="M700 400l16 30h-32z" fill="#3a6a8a"/><path d="M700 430v70" stroke="#3a6a8a" stroke-width="4"/></g>
+<g fill="#6a645c" stroke="#3a3530" stroke-width="3"><ellipse cx="370" cy="160" rx="44" ry="32"/><ellipse cx="1236" cy="150" rx="40" ry="30"/><ellipse cx="380" cy="742" rx="46" ry="34"/><ellipse cx="1226" cy="736" rx="42" ry="30"/></g>
+<g id="pencil" class="hot"><path d="M1290 560l170 -60l12 18l-170 60z" fill="#c0391b"/><path d="M1290 560l-20 14l32 4z" fill="#e8c88a"/></g>
+<g id="notebook" class="hot" transform="rotate(8 1380 300)"><rect x="1300" y="240" width="150" height="110" fill="#e8e2cc" stroke="#7a6a52" stroke-width="2"/><rect x="1300" y="240" width="16" height="110" fill="#6a5034"/><path d="M1328 266h100M1328 284h90M1328 302h104M1328 320h80" stroke="#55556a" stroke-width="2"/></g>
+<g id="phone" class="hot"><rect x="140" y="380" width="120" height="84" rx="6" fill="#3e5a32" stroke="#22341c" stroke-width="4"/><circle cx="240" cy="422" r="14" fill="#22341c"/><path d="M240 422l26 -16" stroke="#c8c8c0" stroke-width="5"/><rect x="156" y="392" width="58" height="26" rx="5" fill="#1d1d1a"/><circle cx="204" cy="405" r="6" fill="#c0391b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#beamP)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigP)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the camp</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, rot = 0, leg = null, dot = null, board = null;
+  var L8 = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'], W8 = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'plan', no: 'II', title: 'The Plan',
+    go: 'Spread out the survey',
+    intro: [
+      'Your partner was in the Washhouse. Mavis drew it looking downstream, from the ledge, with her back to the duck; your partner was facing upstream, towards the duck: so Mavis&rsquo;s right was your partner&rsquo;s left. The notebook said the Way Over starts on the true right; the survey said the true left. Your partner found Mavis&rsquo;s cairn on the true right, which, facing upstream, is on the left. Mavis was right, and the rope fixed in 1979 on the other side went nowhere.',
+      'Your partner crawled north-east through the Airing Cupboard. You spread the big survey on a flat rock under your lamp and hold its corners down with stones. Twenty past three.'
+    ],
+    exit: {"next":"waterfall","w":{"8d963db6":"da28c66f"}}, tags: {"rot":["efa116bf"],"leg":["e88f03e9"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b2-told') || {}; nextFile = ER.flag('b2-file') || null;
+  if (nextFile) { rot = 45; leg = 17; dot = 17; }
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b2-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringB', theirs: 'ringA', buzz: function () { var h = $('#phone'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The field telephone buzzes: your partner is calling.'); } });
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.read ? 1 : 0) + (told.turned ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;That crawl is leg 16 to 17: nine metres, level. After it, Mavis went north-north-east, and up.&rdquo;']]]);
+    else XP.card([['Ask your partner', ['&ldquo;Which way are you facing? Look at your compass.&rdquo;', '&ldquo;Where is each way on? Does it go up or down? Is there a draught?&rdquo;']], ['Tell your partner', ['&ldquo;Mavis says the big passage chokes, and the crawl goes. For you, that&rsquo;s the one &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Your partner is in the crawl. Go on when they are through.']];
+    return ['turn', [
+      'Click the survey on the rock. It is drawn with north at the top, but your partner is not facing north. Ask which way they are facing: their compass tells them.',
+      'Turn the clear card on the survey until its arrow points the way your partner faces. Then the card shows every passage at the Wringer as your partner sees it: ahead, on the left, behind &hellip;',
+      'Mavis&rsquo;s notebook (Sunday 14 April) says which of the two draughting passages chokes and which one goes. Click that leg on the survey, and press Tell your partner.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The survey on the rock, and a pencil tick by the crawl.'); return; }
+    if (told.intro) { busy = false; ER.say('The survey, the clear card, and your partner somewhere under the paper.'); return; }
+    ER.narrate([
+      'Your lamp makes a circle of light on the rock, and in the circle the survey looks very sure of itself. Every line on it was drawn in 1975 by a man sitting at a kitchen table.',
+      'The telephone crackles. Your partner is at a junction with three ways on, and they want to know which one to take. They want left or right. The survey only knows north, south, east and west.',
+      'In the map case there is a round card of clear plastic, with an arrow on it. Somebody has written on it in marker pen: TURN ME.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the board: the survey round the Wringer, and the clear card ---------- */
+  var C = XP.T(16);
+  function cardSvg() {
+    var s = '<g class="tt" pointer-events="none" transform="rotate(' + rot + ' ' + (C[0] * 10).toFixed(1) + ' ' + (-C[1] * 10).toFixed(1) + ')">', cx = C[0] * 10, cy = -C[1] * 10, r = 74;
+    s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#9fd0f0" fill-opacity=".22" stroke="#3a6a8a" stroke-width="2.5"/>';
+    var lab = ['ahead', 'ahead-right', 'right', 'behind-right', 'behind', 'behind-left', 'left', 'ahead-left'], i, a;
+    for (i = 0; i < 8; i++) {
+      a = i * 45 * Math.PI / 180;
+      s += '<path d="M' + (cx + 30 * Math.sin(a)).toFixed(1) + ' ' + (cy - 30 * Math.cos(a)).toFixed(1) + 'L' + (cx + r * Math.sin(a)).toFixed(1) + ' ' + (cy - r * Math.cos(a)).toFixed(1) + '" stroke="#3a6a8a" stroke-width="1" stroke-dasharray="3 4" opacity=".6" transform="rotate(22.5 ' + cx + ' ' + cy + ')"/>';
+      s += '<text x="' + (cx + 57 * Math.sin(a)).toFixed(1) + '" y="' + (cy - 57 * Math.cos(a) + 3).toFixed(1) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="' + (i % 2 ? 7.5 : 9) + '" fill="#2a5a7a" text-anchor="middle">' + lab[i] + '</text>';
+    }
+    s += '<path d="M' + cx + ' ' + (cy - 52) + 'l9 16h-18z" fill="#2a5a7a"/><path d="M' + cx + ' ' + (cy - 36) + 'v28" stroke="#2a5a7a" stroke-width="3"/>' +
+      '<text x="' + cx + '" y="' + (cy + 18) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="7.5" fill="#2a5a7a" text-anchor="middle">YOUR PARTNER FACES THE ARROW</text></g>';
+    return s;
+  }
+  function dotAt() {
+    if (!dot) return null;
+    var a = C, e = XP.T(dot.leg || dot), f = dot.f || 1;
+    return { x: a[0] + (e[0] - a[0]) * f, y: a[1] + (e[1] - a[1]) * f };
+  }
+  function drawBoard() {
+    if (!board) return;
+    var d = typeof dot === 'number' ? { x: XP.T(dot)[0], y: XP.T(dot)[1] } : dotAt();
+    board.querySelector('.bd-main').innerHTML = XP.survey({ box: [-6, -40, 30, -12], fix: { wash: true }, legs: true, dot: d, extra: cardSvg() });
+    ER.$$('.leg', board).forEach(function (g) {
+      g.classList.toggle('sel', +g.getAttribute('data-leg') === leg);
+      g.addEventListener('click', function () { pickLeg(+g.getAttribute('data-leg')); });
+    });
+    var i = L8.indexOf(dirOf()), l = leg ? XP.LEGS16[leg] : null;
+    board.querySelector('#bd-arrow').innerHTML = 'The arrow on the card points <b>' + W8[i] + '</b>.';
+    board.querySelector('#bd-leg').innerHTML = l ? 'Leg 16&ndash;' + leg + ': ' + l.m + ' m, bearing ' + ('00' + l.b).slice(-3) + ', slope ' + l.sl + '. ' + l.name.charAt(0).toUpperCase() + l.name.slice(1) + '.' : 'Click a leg at the Wringer (station 16).';
+  }
+  function dirOf() { return L8[((rot / 45) % 8 + 8) % 8]; }
+  function pickLeg(k) { if (nextFile) return; leg = k; XP.sfx.click(); drawBoard(); }
+  function msg(t) { if (board) board.querySelector('.pmsg').innerHTML = ER.gloss(t); }
+  function openBoard() {
+    if (busy) return;
+    board = ER.el('div', 'bd');
+    board.innerHTML = '<div class="bd-main"></div><div class="bd-side"><h5>The Wringer &middot; station 16</h5>' +
+      '<p>Turn the clear card until its arrow points the way your partner is facing.</p>' +
+      '<div class="row"><button type="button" class="btn" id="t-l">&#8634; turn left</button><button type="button" class="btn" id="t-r">turn right &#8635;</button></div>' +
+      '<p id="bd-arrow"></p><p id="bd-leg"></p>' +
+      '<div class="row"><button type="button" class="btn" id="t-tell">Tell your partner</button></div><p class="pmsg"></p>' +
+      '<div class="row"><button type="button" class="btn" id="t-nb">Mavis&rsquo;s notebook</button><button type="button" class="btn" id="t-key">The key</button></div></div>';
+    board.querySelector('#t-l').onclick = function () { if (nextFile) return; rot -= 45; XP.sfx.click(); if (tell('turned')) paint(); drawBoard(); };
+    board.querySelector('#t-r').onclick = function () { if (nextFile) return; rot += 45; XP.sfx.click(); if (tell('turned')) paint(); drawBoard(); };
+    board.querySelector('#t-nb').onclick = function () { ER.close(); XP.notebook('sun'); if (tell('read')) paint(); };
+    board.querySelector('#t-key').onclick = function () { ER.close(); XP.legend(); };
+    board.querySelector('#t-tell').onclick = send;
+    ER.open('ov-lock', board, function () { board = null; });
+    drawBoard();
+    if (nextFile) msg('Your partner is in the crawl, going north.');
+  }
+  function send() {
+    if (nextFile) return;
+    if (!leg) { msg('Click the leg you want your partner to take.'); return; }
+    var cand = dirOf() + '|' + leg, file = ER.exit([cand], { wait: true });
+    if (!file) {
+      ER.sfx.no();
+      var rotOk = ER.check('rot', dirOf()), legOk = ER.check('leg', String(leg));
+      if (!rotOk && !legOk) msg('Your partner listens, and says nothing you could print. Ask again which way they are facing, and check again what Mavis says about this junction.');
+      else if (!rotOk) msg('&ldquo;That&rsquo;s not what I can see from here,&rdquo; says your partner. Is the arrow on the card pointing the way they face? Ask them to look at their compass again.');
+      else msg(leg === 15 ? '&ldquo;That&rsquo;s the way I came!&rdquo; says your partner.' : 'The card is the right way round. But read Mavis&rsquo;s notebook again: which of the passages here chokes, and which one goes?');
+      return;
+    }
+    nextFile = file; ER.flag('b2-file', file); XP.set('b2-told', true);
+    var lab = ['ahead', 'ahead and to the right', 'on the right', 'behind on the right', 'behind', 'behind on the left', 'on the left', 'ahead and to the left'];
+    var rel = Math.round((((XP.LEGS16[leg].b - rot) % 360 + 360) % 360) / 45) % 8;
+    msg('&ldquo;The crawl, ' + lab[rel] + ',&rdquo; you say. &ldquo;Mavis says it goes.&rdquo; You put a pencil tick by leg 16&ndash;17.');
+    dot = { leg: 17, f: 0.15 }; drawBoard();
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'The telephone wire twitches across the sand, a little at a time, like a fishing line. Your partner is crawling.',
+        'Nine metres, level, says the survey. Then a walking passage north-north-east, going up. Then the Clothes Line, a rift with a stream far below that Mavis could not see the bottom of.',
+        'On the survey, your partner is a pencil tick in the middle of nowhere. You find you are holding your breath, and stop.'
+      ], function () { busy = false; paint(); });
+    }, 2600);
+  }
+  /* the partner's lamp moves on the survey when they go into a passage */
+  var GOES = { crawl: 17, big: 18, slope: 19 };
+  XP.watchKey('a2-go', function (v) {
+    var k = String(v).split(':')[0], to = GOES[k]; if (!to) return;
+    dot = { leg: to, f: 0.6 }; drawBoard();
+    var t = 'On the survey, the yellow dot of your partner&rsquo;s lamp moves out of the Wringer, along leg 16&ndash;' + to + '.';
+    if (board) msg(t); else if (!busy) ER.say(t);
+    if (to !== 17) setTimeout(function () { dot = { leg: to, f: 0.05 }; drawBoard(); }, 9000);
+  });
+  $('#sheet').addEventListener('click', openBoard);
+  $('#card').addEventListener('click', openBoard);
+  $('#notebook').addEventListener('click', function () { if (!busy) { XP.notebook('sun'); if (tell('read')) paint(); } });
+  $('#phone').addEventListener('click', function () { if (!busy) { ring(); ER.say('You turn the handle. In your partner&rsquo;s pack, the telephone buzzes.'); } });
+  XP.thing('#pencil', 'pencil', 'A red pencil, for corrections. You have already used it once today.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'wringer');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

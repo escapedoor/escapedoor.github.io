@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Halfway · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#16100c;--accent:#ffd68a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,16,12,.95);--tc-ink:#fbf0e0;--cap-bg:rgba(24,17,12,.93);--panel:#2a1e14;--face-bg:#3c2c1e;--q-ink:#ffe0a8;--fade:#070503;--hud-bg:rgba(24,17,12,.84)}
+  #climber{transition:transform 6s ease-in-out;transform:translateY(-360px)}
+  body.met #climber{transform:translateY(0)}
+  #gift{opacity:0;transition:opacity 1s}
+  body.gift #gift{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e0c0a"/><stop offset=".6" stop-color="#4a4038"/><stop offset="1" stop-color="#6a5a48"/></linearGradient>
+  <radialGradient id="warmE" cx="50%" cy="80%" r="70%"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".45"/><stop offset=".6" stop-color="#ffc070" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigE" cx="50%" cy="55%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0c0a08"/>
+<path d="M-1000 -700H2600V720H-1000Z" fill="url(#wallE)"/>
+<g stroke="#2a221c" stroke-width="4" fill="none" opacity=".7"><path d="M-200 260q700 -40 1500 0M-100 520q800 40 1600 0M560 -300q30 500 -10 1000M1060 -300q-30 500 20 1000"/></g>
+<ellipse cx="800" cy="40" rx="90" ry="48" fill="#050403"/>
+<!-- the ladder down the west wall, and your partner on it -->
+<g stroke="#c8c8c8"><path d="M770 60V730M830 60V730" stroke-width="4"/><path d="M770 110h60M770 170h60M770 230h60M770 290h60M770 350h60M770 410h60M770 470h60M770 530h60M770 590h60M770 650h60M770 710h60" stroke-width="6"/></g>
+<path d="M840 40Q900 400 980 760" stroke="#c0391b" stroke-width="7" fill="none"/>
+<g id="climber" class="hot"><path d="M770 600q-6 -110 30 -120h40q36 10 30 120z" fill="#c4611f"/><circle cx="820" cy="460" r="28" fill="#c99a76"/><path d="M790 452q30 -44 60 0q-4 -26 -30 -28q-26 2 -30 28z" fill="#e2b11a"/><circle cx="820" cy="432" r="6" fill="#fff6c8"/><path d="M780 540l-14 40M860 540l14 40" stroke="#c4611f" stroke-width="14" stroke-linecap="round"/></g>
+<path d="M-1000 720Q800 700 2600 720V1700H-1000Z" fill="#5a4a36"/>
+<g id="kettle" class="hot"><rect x="420" y="760" width="90" height="44" rx="6" fill="#8a8a82"/><path d="M446 760q18 -40 36 0z" fill="#5fa8ff"/><rect x="400" y="718" width="130" height="42" rx="6" fill="#4a4a46"/></g>
+<g id="gift"><rect x="580" y="800" width="40" height="30" rx="3" fill="#e2701a"/><text x="600" y="820" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="11" fill="#fff" text-anchor="middle">DYE</text></g>
+<g id="hey" class="hot"><rect x="160" y="700" width="150" height="90" rx="6" fill="#5a6066" stroke="#2a2e32" stroke-width="4"/><circle cx="200" cy="740" r="18" fill="#22262a"/><circle cx="200" cy="740" r="8" fill="#5fe08a"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#warmE)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigE)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done"></div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, kettle = false;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-b', storyTitle: 'Meet Me Halfway', id: 'halfway', no: 'VII', title: 'Halfway',
+    go: 'Hold on',
+    intro: [
+      'The club card says a ladder must reach from the anchor to the floor: the drop, plus the distance from the anchor back to the edge. Your partner&rsquo;s tape said 7.6 metres to the floor (the survey&rsquo;s &ldquo;25&rdquo; was feet again: 25 feet is 7.6 metres), and the thread was 1.2 metres back from the edge: 8.8 metres, so the ten-metre ladder, the shortest one long enough. Mavis used the thread on the UPSTREAM side. Your stream flows from north to south, and your partner was facing east: so the thread on their left.',
+      'Twenty-five to five. You have the lifeline.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: function () { return ER.flag('b7-done') ? null : ['end', ['Nothing to solve here. Hold the lifeline, and listen to the end of the story.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('b7-done')) { busy = false; document.body.classList.add('met'); finish(true); return; }
+    document.body.classList.add('met');
+    ER.narrate([
+      'The ladder creaks. Your partner comes down out of the dark into your light, a rung at a time, slowly at first and then not slowly at all.',
+      'Half way down they stop and look at you, and you look back, and it is the first time since this morning that you have seen each other&rsquo;s faces. All afternoon you have known exactly what their voice sounds like when they are worried. It turns out their face does the same thing.'
+    ], function () {
+      ER.narrate([
+        'The last rung, and sand. You let go of the lifeline. Neither of you knows what to say, so you shake hands, very formally, as if you had just been introduced. Then you give them the sandwich you labelled for them this morning, in case.',
+        'At five o&rsquo;clock the radio hisses, and Reza&rsquo;s voice comes through the rock. &ldquo;Laundry, this is the hut. Tell me some good news.&rdquo; You tell him. There is a pause. Then another voice, older and very clear: &ldquo;This is Mavis Rowcliffe. Is my cairn still there?&rdquo;',
+        'Your partner tells her: three stones, on the ledge, on the true right; and the arrows, pointing out. &ldquo;Good,&rdquo; says Mavis. &ldquo;Then you came round the way I did. I sat up there in the dark for an hour in 1968, waiting for Murray&rsquo;s stove. You were quicker. There were two of you.&rdquo;',
+        'You tell her about the feet and the metres, and the true right that Mostyn Teasdale drew on the left. &ldquo;Poor Mostyn,&rdquo; says Mavis. &ldquo;He was right about everything he could measure at a kitchen table. I was right about everything I could see. It took two of you to put us together.&rdquo;',
+        'The water will go down in the night; cave water always does, in the end. In the morning the two of you will walk out the way you came in, under the Low Duck, together. For now there is tea, and a dry ledge, and a great deal to talk about.'
+      ], function () { busy = false; ER.flag('b7-done', 1); finish(false); });
+    });
+  }
+  function finish(quick) {
+    XP.ending({
+      kicker: 'Meet Me Halfway &middot; the navigator&rsquo;s part', head: 'Your partner came round.',
+      other: 'Your partner&rsquo;s screen shows the same ending, from the ladder.',
+      taskLabel: 'Write the correction', taskKicker: 'For the Wolfstone Caving Club Journal', taskHead: 'A correction to the 1975 survey',
+      taskText: '<p>Write a short correction for the club journal, in 70 to 110 words: what the 1975 survey got wrong, how the two of you found out, and what the new numbers are. Be fair to Mostyn Teasdale. Use at least five of these: I think, because, so, if, must have, had been, true right, feet, metres.</p>' +
+        '<p><b>B</b> Or, with your partner: one of you argues that the survey was right, the other that the notebook was right. Then find one answer that you both agree with.</p>'
+    });
+    XP.card([['Ask your partner', ['&ldquo;What did it look like, the cave you came through?&rdquo;', '&ldquo;What did you think, sitting in the dark in the Drying Room?&rdquo;']]]);
+    if (quick) ER.say('The Laundry. Tea, a dry ledge, and your partner.');
+    else try { if (ER.track && ER.music()) ER.track.play(['duet', { root: 53, bpm: 84, scale: [0, 2, 4, 5, 7, 9, 11], drop: ['mel'], level: 1.0 }]); } catch (e) {}
+  }
+  XP.watchKey('gift', function () { document.body.classList.add('gift'); if (!busy) ER.say('Your partner gives you their second sachet of dye, the one they did not use. &ldquo;For next time.&rdquo;'); });
+  $('#kettle').addEventListener('click', function () { if (busy) return; if (!kettle) { kettle = true; XP.set('kettle', true); } ER.say('You put the kettle on. Mavis made tea on this ledge in 1968. Some things do not change.'); });
+  $('#hey').addEventListener('click', function () { if (!busy) ER.say('The HeyPhone. Next call: tomorrow morning, to say you are both coming out.'); });
+  $('#climber').addEventListener('click', function () { if (!busy) ER.say('Your partner: the voice on the telephone, with a face at last, and a great deal of sand on it. Ask them something.'); });
+})();
+</script>
+</body>
+</html>
