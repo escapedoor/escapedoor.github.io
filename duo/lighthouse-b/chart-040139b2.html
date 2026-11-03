@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Chart Table · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#141820;--accent:#8fc8ff;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(16,20,28,.95);--tc-ink:#eef2f8;--cap-bg:rgba(18,22,30,.93);--panel:#161c26;--face-bg:#24303e;--q-ink:#cfe6ff;--fade:#05070a;--hud-bg:rgba(18,22,30,.84)}
+  .tc-room{font-family:'Fraunces',serif;font-style:italic}
+  #beamW{opacity:0;animation:sweep 15s linear infinite}
+  @keyframes sweep{0%,2%{opacity:0}4%{opacity:.85}6%,8%{opacity:0}10%{opacity:.85}12%,14%{opacity:0}16%{opacity:.85}18%,100%{opacity:0}}
+  #flick{opacity:0;transition:opacity .08s}
+  #flick.lit{opacity:.6}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  .ch{width:min(1060px,96vw)}
+  .ch svg{background:#dfeaf0}
+  .ch .bx-foot .pmsg{flex:1 1 100%}
+  .ch .bx-foot .grp{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+  .ch .bx-foot .lab{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  @media (max-height:830px){.ch{width:min(900px,96vw)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampC" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beamC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vigC" cx="50%" cy="54%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2a2e36"/>
+<rect x="-1000" y="-700" width="3600" height="1000" fill="#d6d2c4"/><path d="M-1000 300H2600" stroke="#8a8270" stroke-width="8"/>
+<!-- the window, with the beam going over -->
+<g id="win" class="hot"><rect x="60" y="40" width="200" height="220" fill="#0a1018"/><polygon id="beamW" points="60,60 260,40 260,170 60,240" fill="url(#beamC)"/><rect id="flick" x="60" y="40" width="200" height="120" fill="#fff6d8"/>
+  <path d="M160 40v220M60 150h200" stroke="#5a5244" stroke-width="10"/><rect x="60" y="40" width="200" height="220" fill="none" stroke="#3a342a" stroke-width="14"/></g>
+<!-- the card of ships' lights, pinned over the table -->
+<g id="lights" class="hot" transform="rotate(-2 640 150)"><rect x="520" y="50" width="240" height="200" fill="#fffdf4" stroke="#1c2430" stroke-width="3"/><path d="M640 80q22 30 22 90v50h-44v-50q0-60 22-90z" fill="#e9e2cc" stroke="#1c2430" stroke-width="2"/>
+  <circle cx="616" cy="150" r="9" fill="#c4372b"/><circle cx="664" cy="150" r="9" fill="#2e9a4a"/><circle cx="640" cy="120" r="6" fill="#fff" stroke="#1c2430" stroke-width="2"/><circle cx="526" cy="56" r="5" fill="#c4372b"/></g>
+<!-- the speaking tube, and the radio on its bracket -->
+<g id="tube" class="hot"><path d="M880 -100V200q0 30 30 30h30" stroke="#b0832e" stroke-width="22" fill="none"/><ellipse cx="944" cy="230" rx="12" ry="24" fill="#b0832e"/>
+  <g class="whis"><rect x="946" y="220" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="974" cy="230" r="5" fill="#8a6420"/></g></g>
+<g id="radio" class="hot"><rect x="1150" y="120" width="230" height="110" rx="8" fill="#3a3a32" stroke="#1d1d18" stroke-width="4"/><rect x="1166" y="136" width="96" height="32" fill="#7fe0a0" opacity=".75"/><text x="1214" y="158" class="sm" font-size="15" fill="#0e1a10">16</text>
+  <circle cx="1320" cy="160" r="15" fill="#1d1d18"/><g stroke="#5a5a50" stroke-width="2"><path d="M1166 184h96M1166 196h96M1166 208h96"/></g><path d="M1380 180q30 20 10 70" stroke="#1d1d18" stroke-width="5" fill="none"/></g>
+<!-- the chart table, the chart, and the tools on it -->
+<polygon points="-1000,360 2600,360 2600,1700 -1000,1700" fill="#5a4024"/>
+<g id="chart" class="hot"><polygon points="300,380 1360,380 1440,850 220,850" fill="#dfeaf0" stroke="#8aa0b0" stroke-width="3"/>
+  <path d="M760 380l40 120 -10 90 60 70 80 -40 50 40 -20 60 40 120H1440L1360 380z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>
+  <path d="M300 380l20 60 70 40 30 -40 -20 -60z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>
+  <g stroke="#8aa0b0" stroke-width="1" opacity=".7"><path d="M290 450H1380M270 560H1400M250 680H1420M230 800H1430M500 380L460 850M760 380L760 850M1040 380L1080 850"/></g>
+  <circle cx="810" cy="500" r="7" fill="#c4372b"/><circle cx="390" cy="470" r="6" fill="#c4372b"/>
+  <g fill="#3a3a3a"><path d="M860 640l6 10-6 10-6-10z"/><path d="M880 660l6 10-6 10-6-10z"/><path d="M846 668l6 10-6 10-6-10z"/></g>
+  <text x="560" y="740" class="sc" font-size="20" fill="#3a5a7a" opacity=".7" transform="rotate(-3 560 740)">SILLER SOUND</text></g>
+<g id="divs" class="hot"><path d="M1080 700l60 -150M1080 700l100 -130" stroke="#8a8a8a" stroke-width="6"/><circle cx="1080" cy="700" r="10" fill="#b0832e"/></g>
+<g id="mug" class="hot"><rect x="1260" y="560" width="70" height="80" rx="10" fill="#f2ead6" stroke="#8a7a5a" stroke-width="3"/><path d="M1330 580q30 0 30 24t-30 24" stroke="#8a7a5a" stroke-width="6" fill="none"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampC)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The fix is marked</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, chBox = null;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'chart', no: 'III', title: 'The Chart Table',
+    go: 'Spread out the chart',
+    intro: [
+      'Inside the lens your partner found three mantles: the No. 2 burner, pumped to 70 lb, the spirit before the oil. The lens has four faces, and the List of Lights gives the period: a group every 15 seconds. So one turn takes 4 &times; 15 = 60 seconds, and the tell-tale is set to 60. The old plate up there, every 30 seconds, was from 1911.',
+      'Ten minutes later the coastguard is on the radio, asking where the Whimbrel is. And up in the lantern, your partner says the ship is signalling again: a long message, this time with numbers in it.'
+    ],
+    exit: {"next":"radio","w":{"7b279c62":"e3d24b0b"}}, tags: {"s":["b20b1684"],"m":["2e6c5e43"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b3-told') || {}; nextFile = ER.flag('b3-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b3-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.chart ? 1 : 0) + (nextFile ? 1 : 0), 2);
+    if (nextFile) WR.card([['Tell your partner', ['&ldquo;She&rsquo;s three miles south-west of us, and the Mares are just east of her.&rdquo;', '&ldquo;Send her &hellip;: short, short, long.&rdquo;']], ['Ask your partner', ['&ldquo;What colour are her lights? Red, or green?&rdquo;']]]);
+    else WR.card([['Ask your partner', ['&ldquo;Read me the ship&rsquo;s message, group by group. Slowly.&rdquo;', '&ldquo;From the gallery, what&rsquo;s her bearing?&rdquo;']], ['Tell your partner', ['&ldquo;The ship says the light bears &hellip; from her. That isn&rsquo;t what you said. Wait one.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['u', [
+      'Find the fix on the chart. What lies just east of it?',
+      'Ask your partner what colour the ship&rsquo;s lights are. The card of ships&rsquo; lights on the wall says what a red light means: which side of her you are on, and so which way she is heading.',
+      'If she is heading for the Mares, she must be told at once. The code book has one letter for it, in section 3. Tell your partner how to send it.'
+    ]];
+    return ['fix', [
+      'Your partner can see the ship&rsquo;s lamp; you have the code book and the chart. Write down the message as your partner reads it, group by group, and find each group in the code book. Each number takes five flashes.',
+      'The ship has sent two bearings: S for Siller Ness, M for Mallack Head. A ship&rsquo;s bearing of a light is measured FROM THE SHIP. Your partner took a bearing of the ship from the gallery, too. Compare the two numbers: why are they different?',
+      'On the chart, a line is drawn FROM each light out towards the ship: the opposite way to the ship&rsquo;s bearing of it. Add or take away 180 degrees. Set both rulers, and mark the fix where the lines cross at sea.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The fix is on the chart, in pencil, with the time beside it.'); return; }
+    if (told.intro) { busy = false; ER.say('The chart table, the radio, and the card of ships&rsquo; lights.'); return; }
+    ER.narrate([
+      'The chart table is under the window, and the chart of Siller Sound is already on it, held flat by a brass ruler and a mug of cold tea. Two lights are marked in red: Siller Ness, where you are, and Mallack Head, five miles to the west.',
+      'Over the yard, the cloud lights up, three times, and goes dark. Somewhere out there, somebody on the Whimbrel is looking at it with a compass.',
+      'The radio clicks. &ldquo;Siller Ness, Mallack Coastguard. Have you a position for the Whimbrel? Over.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the chart ---------- */
+  var NM = 70, T = [620, 220], MH = [270, 201];        /* a sea mile is 70 units; the two lights */
+  function dir(b) { var a = b * Math.PI / 180; return [Math.sin(a), -Math.cos(a)]; }
+  function cross(b1, b2) {
+    var d1 = dir(b1), d2 = dir(b2), den = d1[0] * d2[1] - d1[1] * d2[0];
+    if (Math.abs(den) < 1e-6) return null;
+    var dx = MH[0] - T[0], dy = MH[1] - T[1], t1 = (dx * d2[1] - dy * d2[0]) / den, t2 = (dx * d1[1] - dy * d1[0]) / den;
+    if (t1 <= 0 || t2 <= 0) return null;
+    return [T[0] + t1 * d1[0], T[1] + t1 * d1[1]];
+  }
+  function chartSvg() {
+    var s = '<svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">', i;
+    s += '<rect width="1000" height="560" fill="#dfeaf0"/><g stroke="#b8cad6" stroke-width="1">';
+    for (i = 70; i < 1000; i += 70) s += '<path d="M' + i + ' 0V560"/>';
+    for (i = 60; i < 560; i += 70) s += '<path d="M0 ' + i + 'H1000"/>';
+    s += '</g>';
+    /* Siller, the Calf, Mallack */
+    s += '<path d="M560 0L548 70 575 120 590 175 612 214 628 214 640 180 660 140 680 90 700 40 712 0z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>';
+    s += '<path d="M780 0L770 60 790 120 800 190 830 240 870 230 880 170 870 100 880 40 890 0z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>';
+    s += '<path d="M0 0L0 290 80 280 160 250 230 222 262 205 260 180 230 140 200 90 180 0z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>';
+    s += '<g font-family="Cinzel,serif" font-weight="700" fill="#5a4a2a" text-anchor="middle"><text x="630" y="70" font-size="17">SILLER</text><text x="830" y="100" font-size="14">THE CALF</text><text x="110" y="120" font-size="16">MALLACK</text></g>';
+    s += '<text x="720" y="140" font-family="Cinzel,serif" font-size="12" fill="#3a5a7a" text-anchor="middle" transform="rotate(-80 720 140)">SILLER SOUND</text>';
+    s += '<g stroke="#3a5a7a" stroke-width="1.5" stroke-dasharray="3 4" fill="none"><path d="M700 300q50 -20 110 -60"/></g><text x="748" y="300" font-family="Kalam,cursive" font-size="14" fill="#3a5a7a">the bar</text>';
+    /* the Mares */
+    s += '<g fill="#3a3a3a">';
+    [[570, 372], [590, 384], [560, 392], [600, 366], [582, 402], [612, 390], [548, 376]].forEach(function (p) { s += '<path d="M' + p[0] + ' ' + (p[1] - 6) + 'l5 6-5 6-5-6z"/>'; });
+    s += '</g><text x="584" y="428" font-family="Kalam,cursive" font-weight="700" font-size="17" fill="#3a3a3a" text-anchor="middle">the Mares (rocks)</text>';
+    /* the lights */
+    s += '<g><circle cx="' + T[0] + '" cy="' + T[1] + '" r="9" fill="#c4372b" stroke="#fff" stroke-width="2"/><text x="' + (T[0] + 16) + '" y="' + (T[1] + 22) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#7a1a12">Siller Ness Lt · Fl(3) 15s</text></g>';
+    s += '<g><circle cx="' + MH[0] + '" cy="' + MH[1] + '" r="9" fill="#c4372b" stroke="#fff" stroke-width="2"/><text x="' + (MH[0] + 14) + '" y="' + (MH[1] - 14) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#7a1a12">Mallack Head Lt · Fl 5s</text></g>';
+    /* the compass rose and the scale */
+    s += '<g transform="translate(880 450)"><circle r="56" fill="none" stroke="#7a1a12" stroke-width="2"/><circle r="40" fill="none" stroke="#7a1a12" stroke-width="1"/>';
+    [0, 90, 180, 270].forEach(function (b) { var d = dir(b); s += '<path d="M' + (d[0] * 40).toFixed(1) + ' ' + (d[1] * 40).toFixed(1) + 'L' + (d[0] * 56).toFixed(1) + ' ' + (d[1] * 56).toFixed(1) + '" stroke="#7a1a12" stroke-width="3"/><text x="' + (d[0] * 70).toFixed(1) + '" y="' + (d[1] * 70 + 5).toFixed(1) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="14" fill="#7a1a12" text-anchor="middle">' + ('00' + b).slice(-3) + '</text>'; });
+    s += '<path d="M0 -36l7 24h-14z" fill="#7a1a12"/></g>';
+    s += '<g transform="translate(40 520)"><path d="M0 0h210" stroke="#1c2430" stroke-width="3"/><path d="M0 -6v12M70 -6v12M140 -6v12M210 -6v12" stroke="#1c2430" stroke-width="2"/><text x="105" y="-12" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="13" fill="#1c2430" text-anchor="middle">3 SEA MILES</text></g>';
+    s += '<g id="lines"></g></svg>';
+    return s;
+  }
+  function makeChart() {
+    var box = ER.el('div', 'bx ch'), deg = WR.range(0, 355, 5, 3);
+    var cs = WR.counter(deg, '000', { id: 'c-s', big: 9, cls: 'wide', change: draw }), cm = WR.counter(deg, '000', { id: 'c-m', big: 9, cls: 'wide', change: draw });
+    box.innerHTML = chartSvg() + '<div class="bx-foot"><p class="pmsg"></p><span class="grp"><span class="lab">From Siller Ness</span><span id="s-s"></span></span><span class="grp"><span class="lab">From Mallack Head</span><span id="s-m"></span></span>' +
+      '<button type="button" class="btn" id="fix">Mark the fix</button></div>';
+    box.querySelector('#s-s').appendChild(cs.el); box.querySelector('#s-m').appendChild(cm.el);
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function draw() {
+      var g = box.querySelector('#lines'), s = '';
+      [[T, +cs.value()], [MH, +cm.value()]].forEach(function (l) { var d = dir(l[1]); s += '<path d="M' + l[0][0] + ' ' + l[0][1] + 'L' + (l[0][0] + d[0] * 1400).toFixed(1) + ' ' + (l[0][1] + d[1] * 1400).toFixed(1) + '" stroke="#1c2430" stroke-width="2.5" stroke-dasharray="10 5"/>'; });
+      var x = cross(+cs.value(), +cm.value());
+      if (x) s += '<circle cx="' + x[0].toFixed(1) + '" cy="' + x[1].toFixed(1) + '" r="11" fill="none" stroke="#c4372b" stroke-width="3"/>';
+      g.innerHTML = s;
+    }
+    box.querySelector('#fix').addEventListener('click', function () {
+      var a = cs.value(), b = cm.value(), x = cross(+a, +b), file = ER.exit([a + '-' + b], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        if (!x) msg('Your two lines never meet: they run away from each other. A ship cannot be on both. Check which way each line goes: FROM the light, towards the ship.');
+        else if (x[1] < 235) msg('Your two lines meet up on the land: the hills of Siller, or Mallack. The ship is not on a hill. A ship&rsquo;s bearing of a light is taken from the ship: is your line going the right way?');
+        else {
+          var s = [];
+          if (!ER.check('s', a)) s.push('The line from Siller Ness: does it agree with the bearing your partner took of the ship from the gallery?');
+          if (!ER.check('m', b)) s.push('The line from Mallack Head: work it out from the ship&rsquo;s number the same way.');
+          msg('The lines meet at sea, but not where she is. ' + s.join(' '));
+        }
+        return;
+      }
+      nextFile = file; ER.flag('b3-file', file);
+      ER.addClue('fix3', 'The fix', '<h4>The fix · 21.58</h4><p>The ship said: Siller Ness light bears 040, Mallack Head light bears 310 (from the ship).</p><p>Lines drawn from the lights: 220 from Siller Ness, 130 from Mallack Head. They cross three sea miles south-west of the light. The Mares are just east of the fix.</p>', 'pad', 'Your own writing', true);
+      msg('You draw a small circle where the lines cross, and write the time beside it. 21.58. Three sea miles south-west of the light. And just to the east of your circle, the chart is covered in little crosses.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Three sea miles south-west of Siller Ness, says your pencil. The coastguard writes it down and reads it back to you, word for word.',
+          'And one mile east of the ship lie the Mares: a long reef of black rocks that the sea covers at high water and shows at low. If she is heading east, she is heading straight for them.',
+          'Which way is she heading? From down here you cannot see a thing. Your partner can. Ask about her lights.'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    draw();
+    msg('Set a bearing on each ruler, FROM each light, with the arrows. The lines are drawn for you. Mark the fix where they meet at sea.');
+    return { open: function () { ER.open('ov-lock', box); tell('chart'); paint(); } };
+  }
+  $('#chart').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The fix: three sea miles south-west of the light, and the Mares one mile east of it.'); return; }
+    if (!chBox) chBox = makeChart();
+    chBox.open();
+    ER.addWord('fix', 'a ship&rsquo;s position, found where two lines on the chart cross');
+  });
+
+  /* ---------- the coastguard ---------- */
+  $('#radio').addEventListener('click', function () {
+    if (busy) return;
+    if (window.Link) Link.set('radio', 1);
+    WR.sfx.radio();
+    ER.talk({
+      who: 'Mallack Coastguard', role: 'Ulla Sorensen, on watch', face: WR.FACE.cg,
+      lines: [
+        { note: 'A calm voice on channel 16, through a lot of hiss.', a: '&ldquo;Siller Ness, Mallack Coastguard. We can see your light from here. Well done. Now I need the Whimbrel&rsquo;s position. Over.&rdquo;' },
+        { q: 'How do we find it?', a: '&ldquo;If she can see your light and Mallack Head, she&rsquo;ll take a bearing of each with her compass and send them. Two bearings, two lines on the chart: where they cross, that&rsquo;s her. A fix. Over.&rdquo;' },
+        { q: 'Anything else?', a: '&ldquo;The lifeboat is out of Port Mallack, but it is a long way round in this. Mind the Mares. If she&rsquo;s anywhere near them, tell her so, short and quick. Out.&rdquo;' }
+      ],
+      clue: { id: 'cg3', title: 'The coastguard, about a fix', kind: 'On the radio' }
+    });
+  });
+  WR.tube('#tube', isBusy);
+  WR.flicker('#flick');
+  $('#lights').addEventListener('click', function () { if (!busy) WR.lights(); });
+  $('#win').addEventListener('click', function () { if (!busy) ER.say('Over the yard, the cloud lights up three times, and goes dark. The old light is going round.'); });
+  WR.thing('#divs', 'dividers', 'Brass dividers, for measuring distances on the chart against the scale at the bottom.', isBusy);
+  WR.thing('#mug', null, 'Cold tea, from four o&rsquo;clock. You do not drink it.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'gallery');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

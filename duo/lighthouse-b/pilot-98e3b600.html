@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Pilot Book · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#1a1008;--accent:#ffb870;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,14,6,.95);--tc-ink:#fbeedc;--cap-bg:rgba(28,16,8,.93);--panel:#22160a;--face-bg:#3a2614;--q-ink:#ffd8a8;--fade:#080402;--hud-bg:rgba(28,16,8,.84)}
+  .tc-room{font-family:'Fraunces',serif;font-weight:700}
+  #bell{transform-origin:1180px 200px}
+  body.ringing #bell{animation:bell .18s linear infinite}
+  @keyframes bell{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+  #storm .glass{fill:#3a2e22;transition:fill 1.2s}
+  body.yard #storm .glass{fill:#ffcf6a}
+  #beamW{opacity:0;animation:sweep 15s linear infinite}
+  body.ringing #beamW{animation-duration:26s}
+  @keyframes sweep{0%,2%{opacity:0}4%{opacity:.85}6%,8%{opacity:0}10%{opacity:.85}12%,14%{opacity:0}16%{opacity:.85}18%,100%{opacity:0}}
+  #flick{opacity:0;transition:opacity .08s}#flick.lit{opacity:.6}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  .pb{width:min(1000px,96vw)}
+  .pb-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px)}
+  .pb-in svg{display:block;width:100%;height:auto;background:#dfeaf0}
+  .pb-form{padding:18px 20px;background:#f7f4ea;color:#1c2430;font-family:'Kalam',cursive;font-size:19px;line-height:1.5;border-left:22px solid #c4372b}
+  .pb-form h5{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#a0461a}
+  .pb-form p{margin:0 0 14px}
+  .pb-form .ctr{margin:2px 0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampP" cx="40%" cy="70%" r="70%"><stop offset="0" stop-color="#ffd890" stop-opacity=".45"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beamP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vigP" cx="46%" cy="52%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".68" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2a1c10"/>
+<rect x="-1000" y="-700" width="3600" height="1360" fill="#b8a888"/><g stroke="#a89878" stroke-width="2"><path d="M-1000 100H2600M-1000 260H2600M-1000 420H2600M-1000 580H2600"/></g>
+<!-- the window, with the storm lantern on its sill -->
+<g id="win"><rect x="560" y="80" width="260" height="300" fill="#0a0c14"/><polygon id="beamW" points="560,100 820,80 820,220 560,300" fill="url(#beamP)"/><rect id="flick" x="560" y="80" width="260" height="160" fill="#fff6d8"/>
+  <path d="M690 80v300M560 230h260" stroke="#4a3a24" stroke-width="10"/><rect x="560" y="80" width="260" height="300" fill="none" stroke="#3a2a18" stroke-width="16"/><rect x="540" y="380" width="300" height="20" fill="#5a4024"/></g>
+<g id="storm" class="hot"><path d="M690 380v-14" stroke="#2a2a2a" stroke-width="4"/><rect x="664" y="306" width="52" height="64" rx="8" class="glass" stroke="#1d1d1b" stroke-width="5"/><path d="M660 306h60M660 370h60" stroke="#1d1d1b" stroke-width="7"/><path d="M676 306q14-40 28 0" stroke="#1d1d1b" stroke-width="4" fill="none"/></g>
+<!-- the tell-tale, with its bell -->
+<g id="tell" class="hot"><circle cx="1180" cy="290" r="80" fill="#b0832e" stroke="#5a4214" stroke-width="7"/><circle cx="1180" cy="290" r="64" fill="#f4ecd8"/><path d="M1180 296V240" stroke="#c4372b" stroke-width="5" stroke-linecap="round"/><circle cx="1180" cy="290" r="6" fill="#2a241a"/>
+  <text x="1180" y="330" class="sv" font-size="13" fill="#2a241a" letter-spacing="2">TELL-TALE</text><path d="M1180 210v-12" stroke="#5a4214" stroke-width="6"/><g id="bell"><path d="M1152 200q28-46 56 0z" fill="#c9a94e" stroke="#5a4214" stroke-width="4"/><circle cx="1180" cy="204" r="5" fill="#5a4214"/></g></g>
+<!-- the shelf with the Instructions, and the speaking tube -->
+<g id="shelf" class="hot" transform="translate(0 160)"><rect x="160" y="250" width="280" height="16" fill="#5a3a1e"/><rect x="180" y="160" width="60" height="90" fill="#2f4a3a" stroke="#0e1a12" stroke-width="3"/><rect x="246" y="170" width="30" height="80" fill="#1f4f8a"/><rect x="282" y="164" width="40" height="86" fill="#7a2a22"/><rect x="330" y="180" width="90" height="70" fill="#d8cfb0"/></g>
+<g id="tube" class="hot"><path d="M1420 -100V420q0 30 -30 30h-30" stroke="#b0832e" stroke-width="22" fill="none"/><ellipse cx="1356" cy="450" rx="12" ry="24" fill="#b0832e"/>
+  <g class="whis"><rect x="1322" y="440" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="1320" cy="450" r="5" fill="#8a6420"/></g></g>
+<!-- the desk: the pilot book open, the plan of the bar, the code book -->
+<rect x="-1000" y="600" width="3600" height="1200" fill="#4a2e18"/><path d="M-1000 600H2600" stroke="#6a4424" stroke-width="10"/>
+<g id="pilot" class="hot"><path d="M560 640l230 -14 12 170-232 14z" fill="#f2ead2" stroke="#8a7a5a" stroke-width="2"/><path d="M790 626l230 14-10 170-218-14z" fill="#e9e0c6" stroke="#8a7a5a" stroke-width="2"/>
+  <g stroke="#2a241a" stroke-width="2" opacity=".7"><path d="M590 670h170M590 690h150M590 710h180M590 730h120"/></g><g stroke="#3a5a7a" stroke-width="2" fill="none"><path d="M830 680l120 90M830 680l100 110"/><circle cx="830" cy="680" r="6" fill="#c4372b"/></g>
+  <text x="680" y="790" class="sc" font-size="14" fill="#5a4a2a">SAILING DIRECTIONS</text></g>
+<g id="codebook" class="hot"><path d="M1080 690l160 -14 14 100 -160 14z" fill="#1f4f8a" stroke="#123058" stroke-width="3"/><text x="1168" y="738" class="sv" font-size="17" fill="#f2ead6" transform="rotate(-5 1168 738)" letter-spacing="2">CODE</text></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampP)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigP)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">She has her line</button>
+<button type="button" class="hand-btn" id="hand">Your partner says the clock is wound</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, pbBox = null, bellT = 0;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'pilot', no: 'V', title: 'The Pilot Book',
+    go: 'Open the Sailing Directions',
+    intro: [
+      'The ship sent 15 POB: fifteen persons on board. The coastguard read it back as &ldquo;five zero, fifty&rdquo;: negative, I say again, one five, fifteen. Her time, 21.05 UTC, was right: our clocks are an hour ahead. Then BAR?: can we cross the bar? High water was at 23.35 GMT, which is 00.35 by our clock, and the bar is open from two hours before that: 22.35. It was 22.20. So: N, no, not yet. She hove to, and waited.',
+      '22.38. The squall has gone over, and the cloud over the yard lights up again, three times. Late. And on the wall, the tell-tale bell begins to ring.'
+    ],
+    exit: {"next":"stairs","w":{"0a87ca76":"d5457a3b"}}, tags: {"ch":["61c34338"],"brg":["0fbe60c9"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b5-told') || {}; nextFile = ER.flag('b5-file') || null;
+  var wound = !!ER.flag('b5-wound');
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b5-told', told); return true; }
+  function isBusy() { return busy; }
+  function ringing(on) {
+    document.body.classList.toggle('ringing', on);
+    clearInterval(bellT);
+    if (on) { WR.sfx.bell(); bellT = setInterval(function () { if (!document.hidden) WR.sfx.bell(); }, 6000); }
+  }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#hand').classList.toggle('on', !wound && !busy && !(window.Link && Link.linked()));
+    ER.pips((wound ? 1 : 0) + (told.pilot ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) WR.card([['Tell your partner', ['&ldquo;Send her three figures: &hellip; &hellip; &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Say them back to me. Is she turning?&rdquo;']]]);
+    else if (wound) WR.card([['Ask your partner', ['&ldquo;What is the ship sending now? Read it to me, group by group.&rdquo;']], ['Tell your partner', ['&ldquo;She draws &hellip;, so she needs the &hellip; Channel.&rdquo;']]]);
+    else WR.card([['Tell your partner', ['&ldquo;The tell-tale is ringing! The lens is slowing down. Wind the clock, but put the brake on first!&rdquo;']], ['Ask your partner', ['&ldquo;Is the pointer at FULL? Is the brake off again?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Tell your partner the three figures, and ask them to say them back before they send them.']];
+    if (!wound) return ['bell', [
+      'The tell-tale is ringing: one turn of the lens is taking longer than 60 seconds. The weight in the tower is nearly at the bottom. Your partner must wind the clock.',
+      'The page about winding the clock, in the Instructions on the shelf, has a warning. Read it to your partner before they touch the handle.'
+    ]];
+    return ['line', [
+      'Ask your partner to read you the ship&rsquo;s new message. Find each group in the code book; Mr Sween&rsquo;s pencil in section 4 explains two of the words.',
+      'The pilot book says which channel a ship that draws that much must use, and gives the line for it, drawn on the chart FROM the light.',
+      'The ship wants the bearing of the light from HER, to steer by: the other end of the line. You did the same thing with the fix. Write the channel and the bearing on the message pad.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (!wound) ringing(true);
+    if (ER.flag('b5-yard')) document.body.classList.add('yard');
+    if (nextFile) { busy = false; ER.say('The message is sent. Out there, she is coming in.'); return; }
+    if (told.intro) { busy = false; paint(); ER.say(wound ? 'The tell-tale is quiet. The pilot book is open on the desk.' : 'The tell-tale bell is ringing.'); return; }
+    ER.narrate([
+      'The bell on the tell-tale rattles like an alarm clock. One turn of the lens is taking longer than sixty seconds: the weight in the middle of the tower is nearly at the bottom of its tube. Fifty minutes, said the book.',
+      'And while the light slows, the ship is waiting south of the bar for the tide, with no chart and no idea where the deep water is.',
+      'On the desk, the Sailing Directions for Siller Sound are open at THE BAR. Beside them is a storm lantern that you lit when the power went, and forgot.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the clock, wound from above ---------- */
+  function woundNow(by) {
+    if (wound) return;
+    wound = true; ER.flag('b5-wound', 1); ringing(false); paint();
+    ER.say(by === 'link' ? 'The tell-tale bell stops. Its pointer swings back: your partner has wound the clock, and the lens is turning on time again.' : 'You listen: the tell-tale bell has stopped. The lens is turning on time again.');
+  }
+  WR.state('wound', function () { woundNow('link'); });
+  $('#hand').addEventListener('click', function () { woundNow('hand'); });
+  $('#tell').addEventListener('click', function () { if (!busy) ER.say(wound ? 'The tell-tale ticks round, once a minute. Quiet.' : 'The tell-tale bell is ringing: the lens is slowing. Your partner must wind the clock.'); });
+  $('#shelf').addEventListener('click', function () { if (!busy) WR.book('wind'); });
+
+  /* ---------- the storm lantern ---------- */
+  $('#storm').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('b5-yard')) { ER.say('The storm lantern, in the window. From the top of the tower, it is the only other light on the island.'); return; }
+    ER.flag('b5-yard', 1); document.body.classList.add('yard');
+    if (window.Link) Link.set('lamp', 1);
+    ER.say('You turn up the wick and set the storm lantern in the window. It will not help a ship. It might help somebody 132 steps up, looking down into the dark.');
+    ER.addWord('storm lantern', 'a lamp with glass round the flame, that the wind cannot blow out');
+  });
+
+  /* ---------- the pilot book and the message pad ---------- */
+  var PILOT = '<h4>Sailing Directions · Siller Sound</h4><h5>The bar</h5>' +
+    '<p>A bank of sand lies across the south entrance of the Sound, between Siller Ness and the Calf. The sea breaks on it in any swell, except in two channels.</p>' +
+    '<p><b>The Ness Channel</b>, nearer the Ness: least depth 1.2 m at low water. For boats drawing less than 2 m.</p>' +
+    '<p><b>The Calf Channel</b>, nearer the Calf: least depth 2.4 m at low water. Vessels drawing 2 m or more must use the Calf Channel, and only within two hours of high water.</p>' +
+    '<p><b>Leading lines.</b> Each channel lies along a line drawn on the chart from Siller Ness light: the Ness Channel along 150&deg;, the Calf Channel along 135&deg;. A vessel crossing the bar steers for the light, keeping it right ahead, until she is over the bar, half a mile from the light. She then turns north into the Sound.</p>' +
+    '<p class="pen">Ships with no chart ask for the LINE: give them the bearing they must see the light on. They are looking FROM the sea. T. S.</p>';
+  function planSvg() {
+    var s = '<svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="420" fill="#dfeaf0"/>', T = [150, 90];
+    s += '<path d="M60 0L40 60 90 90 130 100 170 96 200 60 230 0z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/><path d="M380 0l-20 80 30 70 60 30 70-10 40-80 0-90z" fill="#e8dcb8" stroke="#7a6a4a" stroke-width="2"/>';
+    s += '<g font-family="Cinzel,serif" font-weight="700" fill="#5a4a2a" text-anchor="middle" font-size="15"><text x="130" y="40">SILLER NESS</text><text x="470" y="80">THE CALF</text></g>';
+    s += '<path d="M200 330q100-60 260-170" stroke="#e8e2f4" stroke-width="22" fill="none" opacity=".9"/><path d="M200 330q100-60 260-170" stroke="#b8cad6" stroke-width="2" fill="none" stroke-dasharray="4 4"/><text x="104" y="338" font-family="Kalam,cursive" font-weight="700" font-size="16" fill="#3a5a7a">the bar</text>';
+    [[150, 'NESS CHANNEL'], [135, 'CALF CHANNEL']].forEach(function (l) {
+      var a = l[0] * Math.PI / 180, x = T[0] + 420 * Math.sin(a), y = T[1] - 420 * Math.cos(a);
+      s += '<path d="M' + T[0] + ' ' + T[1] + 'L' + x.toFixed(1) + ' ' + y.toFixed(1) + '" stroke="#1c2430" stroke-width="2.5" stroke-dasharray="12 6"/>';
+      var lx = T[0] + 300 * Math.sin(a), ly = T[1] - 300 * Math.cos(a);
+      s += '<text x="' + (lx + (l[0] === 135 ? 14 : -14)).toFixed(1) + '" y="' + ly.toFixed(1) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#1c2430" text-anchor="' + (l[0] === 135 ? 'start' : 'end') + '">' + l[1] + ' · ' + l[0] + '&#176;</text>';
+    });
+    s += '<circle cx="' + T[0] + '" cy="' + T[1] + '" r="9" fill="#c4372b" stroke="#fff" stroke-width="2"/><text x="' + (T[0] + 14) + '" y="' + (T[1] + 26) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="14" fill="#7a1a12">Siller Ness Lt</text>';
+    s += '<g transform="translate(540 360)"><path d="M0 -40v80M-40 0h80" stroke="#7a1a12" stroke-width="2"/><path d="M0 -40l6 16h-12z" fill="#7a1a12"/><text x="0" y="-46" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="13" fill="#7a1a12" text-anchor="middle">N</text></g>';
+    return s + '</svg>';
+  }
+  function makePB() {
+    var box = ER.el('div', 'bx pb'), ch = WR.counter(['?', 'Ness', 'Calf'], '?', { id: 'c-ch', cls: 'wide' }), br = WR.counter(WR.range(0, 355, 5, 3), '000', { id: 'c-br', cls: 'wide', big: 9 });
+    box.innerHTML = '<div class="pb-in">' + planSvg() + '<div class="pb-form"><h5>Message for the Whimbrel</h5><p>Use the <span id="s-ch"></span> Channel.</p>' +
+      '<p>Steer for the light with it bearing <span id="s-br"></span> from you.</p><p style="font-size:15px">(to be sent from the lantern, in figures)</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="pb-read">The Sailing Directions</button><button type="button" class="btn" id="pb-ok">That is the message</button></div>';
+    box.querySelector('#s-ch').appendChild(ch.el); box.querySelector('#s-br').appendChild(br.el);
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    box.querySelector('#pb-read').addEventListener('click', function () { readPilot(); });
+    box.querySelector('#pb-ok').addEventListener('click', function () {
+      var c = ch.value().toLowerCase(), b = br.value(), file = ER.exit([c + '-' + b], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var s = [];
+        if (!ER.check('ch', c)) s.push(c === '?' ? 'Which channel? That depends on what the ship draws: ask your partner for her message.' : 'The ' + ch.value() + ' Channel: is it deep enough for what she draws? Mr Sween&rsquo;s pencil in the code book says what &ldquo;draw&rdquo; means.');
+        if (!ER.check('brg', b)) s.push(b === '135' || b === '150' ? b + ' is a line as it is drawn on the chart, FROM the light. The ship looks the other way: from the sea, at the light.' : 'And ' + b + ': is that the bearing of the light as the ship will see it, for the channel she needs?');
+        msg(s.join(' '));
+        return;
+      }
+      nextFile = file; ER.flag('b5-file', file);
+      ER.addClue('line5', 'The line for the Whimbrel', '<h4>Message for the Whimbrel</h4><p>She draws 3 m: the Calf Channel. Its leading line is drawn 135&deg; from the light, so from the ship the light bears 135 + 180 = 315&deg;. Steer for the light on 315 until you are over the bar, then north into the Sound.</p>', 'pad', 'Your own writing', true);
+      msg('You write it on the pad, in figures, the way the ship will need it: three, one, five.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You read it up the speaking tube, figure by figure, and hear it said back to you from 132 steps above: three, one, five.',
+          'Then nothing, for a long time. Just the cloud over the yard lighting up, three times, and the dark, and three times.',
+          'You find that you have been holding the pencil so hard that it has broken.'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('The plan of the bar, from the Sailing Directions. Fill in the message with the arrows.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  function readPilot() { ER.read({ html: PILOT, cls: 'book2', clue: { id: 'pilot', title: 'Sailing Directions: the bar', kind: 'On the desk' }, done: function () { if (tell('pilot')) paint(); } }); }
+  $('#pilot').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Three, one, five. The line for the Calf Channel, as the ship sees it.'); return; }
+    if (!told.pilot) { readPilot(); return; }
+    if (!pbBox) pbBox = makePB();
+    pbBox.open();
+  });
+  $('#codebook').addEventListener('click', function () { if (!busy) WR.code(); });
+  WR.tube('#tube', isBusy);
+  WR.flicker('#flick');
+  if (window.Link) Link.follow($('#go'), 'weight');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

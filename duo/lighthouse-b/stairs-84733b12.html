@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>132 Steps · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#140e08;--accent:#ffd27a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,14,8,.95);--tc-ink:#fbf0dc;--cap-bg:rgba(24,16,8,.93);--panel:#1c150c;--face-bg:#2b2010;--q-ink:#ffd9a0;--fade:#060403;--hud-bg:rgba(24,16,8,.84)}
+  .pcard{background:rgba(255,248,232,.96)}
+  #top{animation:tp 15s linear infinite}
+  @keyframes tp{0%,2%{opacity:.35}4%{opacity:1}6%,8%{opacity:.35}10%{opacity:1}12%,14%{opacity:.35}16%{opacity:1}18%,100%{opacity:.35}}
+  body.out #top{animation:none;opacity:.5}
+  #bulb{opacity:.15;transition:opacity 1s}
+  body.power #bulb{opacity:1}
+  #bulbglow{opacity:0;transition:opacity 1.2s}
+  body.power #bulbglow{opacity:1}
+  #you{opacity:0;transition:opacity 1.2s}
+  body.climb #you{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="topG" cx="50%" cy="0%" r="70%"><stop offset="0" stop-color="#fff2c4" stop-opacity=".9"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="bulbG" cx="72%" cy="40%" r="60%"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".45"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wallS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a221a"/><stop offset=".5" stop-color="#cfc5b0"/><stop offset="1" stop-color="#2a221a"/></linearGradient>
+  <radialGradient id="vigS" cx="50%" cy="40%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#1c160e"/>
+<!-- the inside of the tower, looking straight up the stair to the lantern -->
+<ellipse cx="800" cy="450" rx="760" ry="900" fill="url(#wallS)"/>
+<ellipse id="top" cx="800" cy="40" rx="120" ry="40" fill="url(#topG)"/><ellipse cx="800" cy="40" rx="60" ry="18" fill="#fff6d8" opacity=".6"/>
+<g id="spiral" fill="none" stroke="#3a3530" stroke-width="10"></g>
+<g id="rail" fill="none" stroke="#1d1a16" stroke-width="4"></g>
+<!-- the watch-room door at the foot, with its light -->
+<g id="door" class="hot"><rect x="1080" y="420" width="240" height="400" fill="#3a2a18" stroke="#1d140a" stroke-width="8"/><rect x="1100" y="440" width="200" height="380" fill="#120c06"/>
+  <rect id="bulbglow" x="1100" y="440" width="200" height="380" fill="url(#bulbG)"/><circle id="bulb" cx="1200" cy="500" r="18" fill="#fff2c4"/><path d="M1200 440v42" stroke="#1d1a16" stroke-width="3"/>
+  <rect x="1130" y="650" width="140" height="20" fill="#5a3a1e"/><rect x="1150" y="618" width="34" height="32" rx="4" fill="#f2ead6"/><rect x="1200" y="618" width="34" height="32" rx="4" fill="#c4372b"/></g>
+<!-- you, at the foot of the stair, with two mugs and a torch -->
+<g id="you" class="hot"><path d="M720 900q-10-140 60-150h40q70 10 60 150z" fill="#2c3a52"/><circle cx="800" cy="720" r="34" fill="#c99a76"/><path d="M766 712q34-42 68 0q-4-30-34-32q-30 2-34 32z" fill="#4a3220"/>
+  <rect x="700" y="790" width="30" height="34" rx="4" fill="#f2ead6"/><rect x="872" y="790" width="30" height="34" rx="4" fill="#c4372b"/></g>
+<g id="steps" class="hot"><rect x="560" y="760" width="480" height="70" fill="#000" fill-opacity="0"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigS)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Show a Light · the watch keeper&rsquo;s part</small>The light held.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p>Your partner&rsquo;s screen shows the same ending, from the top of the tower.</p>
+  <h4>What you now know</h4>
+  <ul>
+    <li>Morse code turns letters into short and long flashes. A lamp call, AA AA AA, is answered with a row of long flashes, TTTT.</li>
+    <li>Every lighthouse has its own character, like Fl(3) 15s: groups of three flashes, repeated every 15 seconds. One turn of the lens takes the period times the number of faces.</li>
+    <li>A bearing taken from a ship and one taken from the shore point opposite ways: add or take away 180 degrees.</li>
+    <li>Two bearings of two lights make two lines on the chart, and the ship is where they cross: a fix.</li>
+    <li>Port is left and shows red; starboard is right and shows green. Red and green together: she is coming straight at you.</li>
+    <li>Ships and coastguards keep UTC, the same as GMT. British Summer Time is one hour ahead, so a tide table in GMT needs an hour added in summer.</li>
+    <li>Say numbers back figure by figure: fifteen is &ldquo;one five&rdquo;, because fifteen and fifty sound alike.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the signal log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Show a Light &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+<button type="button" class="gobtn" id="go">Climb the 132 steps</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+  (function () {                                  /* the stair, winding up the inside of the tower, smaller and smaller */
+    var s = '', r = '', i, a, rx, ry, cy, x, y, px = null, py = null;
+    for (i = 0; i <= 132; i++) {
+      a = i * 0.42; rx = 520 * Math.pow(0.986, i); ry = 150 * Math.pow(0.986, i); cy = 760 - i * 5.4;
+      x = 800 + rx * Math.cos(a); y = cy + ry * Math.sin(a);
+      if (px !== null && Math.sin(a) > -0.2) s += '<path d="M' + px.toFixed(1) + ' ' + py.toFixed(1) + 'L' + x.toFixed(1) + ' ' + y.toFixed(1) + '"/>';
+      if (i % 3 === 0 && Math.sin(a) > -0.2) r += '<path d="M' + x.toFixed(1) + ' ' + y.toFixed(1) + 'v' + (-40 * Math.pow(0.986, i)).toFixed(1) + '"/>';
+      px = x; py = y;
+    }
+    $('#spiral').innerHTML = s; $('#rail').innerHTML = r;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'stairs', no: 'VI', title: '132 Steps',
+    go: 'Listen',
+    intro: [
+      'The ship sent DRAW 3 LINE?: she needs three metres of water under her, and a line to steer by. The Sailing Directions say a ship that draws two metres or more must use the Calf Channel, along the line drawn on the chart 135&deg; from the light. But the ship looks at the light from the other end of that line: 135 + 180 = 315. Your partner wound the clock (brake on, wind, brake off), and sent three, one, five.',
+      'Then there was nothing to do but listen.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: function () { return ER.flag('b6-done') ? null : ['end', ['Nothing to solve here. Follow the end of the story, and climb the stairs when you are ready.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('b6-done')) { document.body.classList.add('power', 'out', 'climb'); busy = false; finish(true); return; }
+    WR.card([['Ask your partner', ['&ldquo;Can you see her? Is she over the bar?&rdquo;']]]);
+    ER.narrate([
+      '&ldquo;Siller Ness, Mallack Coastguard.&rdquo; At 23.15 by your clock the radio clicks. &ldquo;The Whimbrel is over the bar and anchored in the Sound, in the lee of the Calf, since twenty-two twelve UTC. The lifeboat will be with her in a quarter of an hour. Fifteen on board, all well. Over.&rdquo;',
+      'Twenty-two twelve UTC. Twelve minutes past eleven by the clock on the wall. You check it twice anyway.',
+      'Up the speaking tube, your partner reads you a string of flashes from the ship&rsquo;s hand lamp, slowly, and you find each group in the code book: THANK YOU SILLER.',
+      'At 23.41 the power comes back. The bulb in the watch room flickers and comes on, and the radio stops hissing and starts humming. Over the yard, the electric light up on the gallery takes up the work: three flashes, and the dark.'
+    ], function () {
+      document.body.classList.add('power'); busy = false;
+      $('#go').classList.add('on');
+      WR.card([['Tell your partner', ['&ldquo;The power is back. I&rsquo;m coming up.&rdquo;']], ['Ask your partner', ['&ldquo;Do you take milk?&rdquo;']]]);
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (busy) return;
+    busy = true; $('#go').classList.remove('on');
+    if (window.Link) Link.set('climb', 1);
+    document.body.classList.add('climb');
+    ER.narrate([
+      'You make two mugs of tea on the camping stove, because somebody up there has been out on the gallery in a storm. Then you stand at the bottom of the stair and look up it, the way you have looked up it every week for two years.',
+      'A hundred and thirty-two steps, winding round and round the inside of the tower, and an iron rail on one side, and nothing much on the other. You do not like heights. You go up anyway, one step at a time, counting out loud, the way your partner read you the flashes.',
+      'Somewhere around step ninety the beam of the old light stops going round above you: your partner has put it out. You spill some tea. You keep counting.',
+      'A hundred and thirty-two. You put your head up through the hatch into the lantern, and there is your partner: the voice from the top of the tube, with a face at last. You hold out the mugs. About half of each is left. Neither of you says anything clever.',
+      'Down in the watch room the telephone rings and rings: Mr Sween, wanting to know which of you he should thank. You will tell him in the morning. Both. It took both.'
+    ], function () { busy = false; document.body.classList.add('out'); ER.flag('b6-done', 1); finish(false); });
+  });
+  WR.state('out', function () { document.body.classList.add('out'); if (!ER.flag('b6-done') && !busy) ER.say('Up at the top of the tower, the old light stops going round. Your partner has put it out.'); });
+
+  function finish(quick) {
+    var st = ER.state(), mins = WR.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the first call to the last flash: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' things and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    WR.card([['Ask your partner', ['&ldquo;What did the ship look like, from up here?&rdquo;', '&ldquo;Which moment was the worst for you?&rdquo;']]]);
+    if (quick) ER.say('The top of the tower, and two half-empty mugs.');
+  }
+  WR.thing('#door', null, function () { return busy ? null : 'The watch room, with the light on now, and the papers all over the desk.'; }, isBusy);
+  WR.thing('#steps', null, function () { return busy ? null : 'A hundred and thirty-two steps. You have counted them from the top now, too.'; }, isBusy);
+  WR.thing('#you', null, function () { return busy ? null : 'You, with two mugs, at the foot of the stair.'; }, isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the Friends of Siller Ness Light</h4><h3>The signal log</h3>' +
+      '<p>Mr Sween wants tonight in the signal log, the way the keepers kept it: every signal and every message, with its time.</p>' +
+      '<p><b>A</b> Write the log in 60 to 90 words. Give every time in the 24-hour clock (21.12), and say at least two of them in words as well (twelve minutes past nine). Use at least four of these: called, answered, read back, I say again, UTC, bearing, the bar, the tide.<br><b>B</b> Or, with your partner: one of you is the coastguard. Pass a short message about the night on the &ldquo;radio&rdquo;, and the other reads it back, with one mistake for the first to catch.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Keeper on duty</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z0-9’'.]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

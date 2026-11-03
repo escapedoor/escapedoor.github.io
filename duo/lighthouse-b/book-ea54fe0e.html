@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Instructions · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#0f1a14;--accent:#9fe0b4;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(12,22,16,.95);--tc-ink:#eef6ee;--cap-bg:rgba(14,24,18,.93);--panel:#16241c;--face-bg:#22362a;--q-ink:#c8f0d4;--fade:#050a07;--hud-bg:rgba(14,24,18,.84)}
+  .tc-room{font-family:'Cinzel',serif;font-weight:700}
+  #phone.ring{animation:ring .12s linear infinite}
+  @keyframes ring{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+  #beamW{opacity:0}
+  body.lit #beamW{animation:sweep 15s linear infinite}
+  @keyframes sweep{0%,2%{opacity:0}4%{opacity:.9}6%{opacity:0}8%{opacity:0}10%{opacity:.9}12%{opacity:0}14%{opacity:0}16%{opacity:.9}18%,100%{opacity:0}}
+  #tneedle{transform-origin:1000px 330px;transform:rotate(-60deg);transition:transform .4s}
+  body.turning #tneedle{animation:tick 4s steps(8,end) infinite}
+  @keyframes tick{from{transform:rotate(-60deg)}to{transform:rotate(60deg)}}
+  .tt{width:min(820px,95vw)}
+  .tt-in{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr)}
+  .tt-in svg{display:block;width:100%;height:auto;background:#0e1a12}
+  .tt-form{padding:20px 22px 8px;font-family:'Special Elite',monospace;font-size:16.5px;line-height:1.6;background:#f2ead2;color:#2a241a}
+  .tt-form h5{margin:0 0 8px;font-family:'Cinzel',serif;font-weight:700;font-size:18px;color:#2f4a3a}
+  .tt-form p{margin:0 0 12px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16261c"/><stop offset=".4" stop-color="#3f6650"/><stop offset=".75" stop-color="#365a46"/><stop offset="1" stop-color="#16261c"/></linearGradient>
+  <radialGradient id="lampB" cx="30%" cy="70%" r="70%"><stop offset="0" stop-color="#ffd890" stop-opacity=".4"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beamG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vigB" cx="46%" cy="46%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0f1a14"/>
+<rect x="-1000" y="-700" width="3600" height="1360" fill="url(#wallB)"/>
+<path d="M-1000 520H2600" stroke="#1c2e22" stroke-width="6"/><rect x="-1000" y="520" width="3600" height="140" fill="#2a4434"/>
+<!-- the little window, with the sky over the yard -->
+<g id="win" class="hot"><rect x="160" y="120" width="180" height="230" rx="90" ry="30" fill="#0a1018"/><rect x="160" y="160" width="180" height="190" fill="#0a1018"/>
+  <polygon id="beamW" points="160,140 340,120 340,250 160,330" fill="url(#beamG)"/><path d="M250 120v230M160 240h180" stroke="#2a4434" stroke-width="10"/><rect x="160" y="120" width="180" height="230" fill="none" stroke="#1c2e22" stroke-width="12"/></g>
+<!-- the shelf of books -->
+<g id="shelf" class="hot"><rect x="440" y="300" width="380" height="18" fill="#4a3a24"/><rect x="440" y="160" width="380" height="18" fill="#4a3a24"/>
+  <rect x="460" y="190" width="70" height="110" fill="#2f4a3a" stroke="#0e1a12" stroke-width="3"/><text x="495" y="250" class="sc" font-size="12" fill="#e2c46e" transform="rotate(-90 495 250)">INSTRUCTIONS</text>
+  <rect x="540" y="204" width="34" height="96" fill="#1f4f8a"/><rect x="580" y="196" width="40" height="104" fill="#e9e2cc" stroke="#9a8a6a"/><rect x="628" y="210" width="28" height="90" fill="#7a2a22"/><rect x="662" y="200" width="44" height="100" fill="#4a4a2a"/>
+  <rect x="470" y="96" width="40" height="64" fill="#5a2a4a"/><rect x="516" y="104" width="30" height="56" fill="#2a4a5a"/><rect x="700" y="110" width="90" height="50" fill="#d8cfb0"/></g>
+<!-- the tell-tale on the wall -->
+<g id="tell" class="hot"><circle cx="1000" cy="330" r="96" fill="#b0832e" stroke="#5a4214" stroke-width="8"/><circle cx="1000" cy="330" r="78" fill="#f4ecd8"/>
+  <g stroke="#2a241a" stroke-width="3"><path d="M1000 262v14M1060 330h-14M940 330h14M1042 288l-10 10M958 288l10 10"/></g><text x="1000" y="372" class="sv" font-size="15" fill="#2a241a" letter-spacing="2">TELL-TALE</text>
+  <g id="tneedle"><path d="M1000 336V268" stroke="#c4372b" stroke-width="5" stroke-linecap="round"/></g><circle cx="1000" cy="330" r="7" fill="#2a241a"/>
+  <path d="M1000 234v-20" stroke="#5a4214" stroke-width="6"/><path d="M972 214q28-40 56 0z" fill="#c9a94e" stroke="#5a4214" stroke-width="4"/></g>
+<!-- the telephone on the wall -->
+<g id="phone" class="hot"><rect x="1250" y="200" width="110" height="180" rx="10" fill="#1b1b1b"/><circle cx="1305" cy="300" r="36" fill="#e8e0cc"/><circle cx="1305" cy="300" r="12" fill="#1b1b1b"/>
+  <path d="M1258 220q-22 60 6 110" stroke="#1b1b1b" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M1310 380q10 60 -40 90" stroke="#1b1b1b" stroke-width="4" fill="none"/></g>
+<!-- oilskins on a hook, and the speaking tube -->
+<g id="coat" class="hot"><path d="M1470 160v20" stroke="#2a2a2a" stroke-width="6"/><path d="M1430 190q40-20 80 0l20 240h-120z" fill="#e2b81a" stroke="#8a6a0a" stroke-width="4"/></g>
+<g id="tube" class="hot"><path d="M120 -100V560q0 30 30 30h30" stroke="#b0832e" stroke-width="22" fill="none"/><ellipse cx="184" cy="590" rx="12" ry="24" fill="#b0832e"/>
+  <g class="whis"><rect x="186" y="580" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="214" cy="590" r="5" fill="#8a6420"/></g></g>
+<!-- the desk edge with the open book -->
+<rect x="-1000" y="660" width="3600" height="1200" fill="#3a2614"/><path d="M-1000 660H2600" stroke="#5a3a1e" stroke-width="10"/>
+<g id="openbook" class="hot"><path d="M640 700l170-12 8 130-178 12z" fill="#f2ead2" stroke="#8a7a5a" stroke-width="2"/><path d="M810 688l170 12-8 130-170-12z" fill="#ece2c6" stroke="#8a7a5a" stroke-width="2"/>
+  <g stroke="#2a241a" stroke-width="2" opacity=".7"><path d="M660 720h130M660 740h110M660 760h140M660 780h100M830 724h120M830 744h90M830 764h130"/></g><path d="M810 688v142" stroke="#2f4a3a" stroke-width="5"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampB)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigB)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The light is shown</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, ttBox = null;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'book', no: 'II', title: 'The Instructions',
+    go: 'Look for the book',
+    intro: [
+      'The ship was making the general call, AA AA AA: &ldquo;Is anybody there?&rdquo; Your partner answered it from the lantern with a row of long flashes, TTTT: &ldquo;I can see you. Go on.&rdquo; Then the ship sent one letter again and again: F. &ldquo;I am disabled. Communicate with me.&rdquo;',
+      'You called Mallack Coastguard on the radio, and they knew her at once.'
+    ],
+    exit: {"next":"chart","w":{"ead0ecc5":"6798f3e0"}}, tags: {"burner":["0df8998d"],"tt":["3e261feb"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b2-told') || {}; nextFile = ER.flag('b2-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b2-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    $('#phone').classList.toggle('ring', !told.sween && !busy);
+    ER.pips((told.sween ? 1 : 0) + (told['p-two'] ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) WR.card([['Tell your partner', ['&ldquo;The tell-tale is set. Is the lens turning? Can the ship see it?&rdquo;']]]);
+    else if (told.sween) WR.card([['Ask your partner', ['&ldquo;How many white mantles are there inside the lens? How many faces has the lens got?&rdquo;']], ['Tell your partner', ['&ldquo;Step one: &hellip; Say it back to me.&rdquo;', '&ldquo;Pump it to &hellip; pounds. Not more.&rdquo;']]]);
+    else WR.card([['Tell your partner', ['&ldquo;The coastguard says the ship is the Whimbrel. She has no radio. She needs a light.&rdquo;']], ['Ask your partner', ['&ldquo;Can you hear the telephone ringing down here?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The tell-tale is set. When your partner says the lens is turning, the light is shown.']];
+    if (!told.sween) return ['phone', ['The telephone on the wall, on the right, is ringing. Answer it.']];
+    return ['book', [
+      'The Instructions to Keepers is the green book on the shelf. It has two pages about lighting up, for two different burners. Ask your partner what the burner inside the lens looks like, so that you read the right one.',
+      'Read your partner every step in order, and ask them to say each one back. Nothing up there has a label: describe each part by its shape and where it is, from the drawing in the book.',
+      'The tell-tale on the wall is set in seconds for one turn of the lens. The page about the speed of the lens has the rule: the period from the List of Lights, times the number of faces on the lens. Only your partner can count the faces.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; if (ER.flag('b2-seen')) document.body.classList.add('lit', 'turning'); ER.say('The tell-tale is set. Everything now is up in the lantern.'); paint(); return; }
+    if (told.intro) { busy = false; paint(); ER.say('The telephone, the green book, and the tell-tale on the wall.'); return; }
+    ER.narrate([
+      '&ldquo;Siller Ness, this is Mallack Coastguard,&rdquo; says a calm voice on the radio. &ldquo;That will be the Whimbrel: a sail training ship, a brigantine, with young trainees on board. At 19.41 UTC she called us: a wave had come down into her chart house. Then nothing. Her radio is gone, and her GPS, and her radar.&rdquo;',
+      '&ldquo;She has a compass and a hand lamp, and she is looking for a light she knows. If she cannot tell Siller Ness from Mallack Head, she could put herself on the Mares. The lifeboat is launching from Port Mallack. Can you show any light at all? Over.&rdquo;',
+      'The only light in the tower that does not need the mains is the old one: a paraffin lamp in the big lens, turned by clockwork. The museum lights it once a year. And then the telephone on the wall begins to ring.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- Mr Sween on the telephone ---------- */
+  $('#phone').addEventListener('click', function () {
+    if (busy) return;
+    if (window.Link) Link.set('phone', 1);
+    WR.sfx.ring();
+    ER.talk({
+      who: 'Mr Torquil Sween', role: 'Principal Keeper of Siller Ness until 1987', face: WR.FACE.sween,
+      lines: [
+        { note: 'An old voice, very clear, as if he were in the next room and not three miles away across the flooded road.', a: '&ldquo;Sween. The lights went out in the village, and then I looked out of my window and saw my lighthouse dark. Who&rsquo;s that?&rdquo;' },
+        { q: 'There&rsquo;s a ship out there with no radio. The coastguard wants a light.', a: '&ldquo;Then you&rsquo;ll light the old lamp. It works. I know it works, because I&rsquo;ve kept it working for thirty-nine years after they told me it was only for show.&rdquo;' },
+        { q: 'How?', a: '&ldquo;Instructions to Keepers, the green book on the shelf. There are two burners in that book and only one in the lantern now. Ask whoever&rsquo;s up there what they can see inside the lens before you read them a single word.&rdquo;' },
+        { q: 'And then?', a: '&ldquo;Every step, in order, out loud. And have them say it back to you. A lamp is lit by two people, one reading and one doing. That&rsquo;s how we did it, and we never once set fire to anything that wasn&rsquo;t meant to burn.&rdquo;' },
+        { q: 'How will the ship know it&rsquo;s us?', a: '&ldquo;By the character. Ships don&rsquo;t know my old lamp. They know the List of Lights. Show them what&rsquo;s in the List, to the second, and set the tell-tale so you&rsquo;ll know if it slows. Ring me when it&rsquo;s going round.&rdquo;' }
+      ],
+      clue: { id: 'sween2', title: 'Mr Sween, about lighting the old lamp', kind: 'On the telephone' },
+      done: function (seen) { if (seen && tell('sween')) { paint(); ER.addWord('keeper', 'a person who looks after a lighthouse'); } }
+    });
+  });
+
+  /* ---------- the book ---------- */
+  function openBook() {
+    if (busy) return;
+    var box = ER.el('div', 'doc book2');
+    box.innerHTML = '<h4>Instructions to Keepers · Siller Ness</h4><p>The 1953 edition, with Mr Sween&rsquo;s pencil. Which page?</p>' +
+      '<p><button type="button" class="btn" id="p-one">Lighting up: No. 1 burner</button></p><p><button type="button" class="btn" id="p-two">Lighting up: No. 2 burner</button></p>' +
+      '<p><button type="button" class="btn" id="p-speed">The speed of the lens</button></p><p><button type="button" class="btn" id="p-wind">Winding the clock</button></p>';
+    ER.open('ov-read', box);
+    ['one', 'two', 'speed', 'wind'].forEach(function (k) {
+      box.querySelector('#p-' + k).addEventListener('click', function () { WR.sfx.page(); WR.book(k, function () { if (tell('p-' + k) && (k === 'one' || k === 'two')) paint(); }); });
+    });
+  }
+  $('#shelf').addEventListener('click', openBook);
+  $('#openbook').addEventListener('click', openBook);
+
+  /* ---------- the tell-tale and the lighting-up record ---------- */
+  function makeTT() {
+    var box = ER.el('div', 'bx tt'), b = WR.counter(['?', '1', '2'], '?', { id: 'c-burner' }), t = WR.counter(WR.range(10, 180, 5), '30', { id: 'c-tt', big: 6, cls: 'wide' });
+    box.innerHTML = '<div class="tt-in"><svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><circle cx="150" cy="160" r="110" fill="#b0832e"/><circle cx="150" cy="160" r="92" fill="#f4ecd8"/>' +
+      '<path d="M150 166V86" stroke="#c4372b" stroke-width="6" stroke-linecap="round"/><circle cx="150" cy="160" r="8" fill="#2a241a"/><path d="M118 48q32-46 64 0z" fill="#c9a94e" stroke="#5a4214" stroke-width="4"/>' +
+      '<text x="150" y="214" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" letter-spacing="2" fill="#2a241a" text-anchor="middle">TELL-TALE</text></svg>' +
+      '<div class="tt-form"><h5>Lighting up · the record</h5><p>The burner in the lantern tonight: No. <span id="s-b"></span></p>' +
+      '<p>The tell-tale rings if one turn of the lens takes longer than <span id="s-t"></span> seconds.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="set">Set the tell-tale</button></div>';
+    box.querySelector('#s-b').appendChild(b.el); box.querySelector('#s-t').appendChild(t.el);
+    var msg = function (s) { box.querySelector('.pmsg').innerHTML = ER.gloss(s); };
+    box.querySelector('#set').addEventListener('click', function () {
+      var bb = b.value(), tt = t.value(), file = ER.exit([bb + '-' + tt], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var s = [];
+        if (!ER.check('burner', bb)) s.push(bb === '?' ? 'Which burner is in the lantern? Only your partner can see it.' : 'No. ' + bb + '? Is that what your partner described inside the lens? Count the mantles in the book&rsquo;s two pages against what they can see.');
+        if (!ER.check('tt', tt)) s.push('And ' + tt + ' seconds for one turn: check the page about the speed of the lens. It needs the period from the List of Lights, and the number of faces your partner counted. Not the old plate up there: Mr Sween was very clear.');
+        msg(s.join(' '));
+        return;
+      }
+      nextFile = file; ER.flag('b2-file', file);
+      ER.addClue('record2', 'The lighting-up record', '<h4>Lighting up</h4><p>No. ' + bb + ' burner (three mantles), 70 lb. Tell-tale set to one turn in ' + tt + ' seconds: 15 seconds &times; 4 faces.</p>', 'pad', 'Your own writing', true);
+      msg('You set the pointer. Somewhere above you, if your partner has done every step, the lens is about to turn.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You stand at the little window and wait.',
+          'Then, over the yard, the low cloud lights up: once, twice, three times, white arms swinging overhead. Dark. And again: three. For the first time since 1987, the old light of Siller Ness is going round for a ship.',
+          '&ldquo;Mallack Coastguard, this is Siller Ness,&rdquo; you say into the radio, and your voice is not quite steady. &ldquo;We are showing a light. Fl three, fifteen seconds. Over.&rdquo;'
+        ], function () { busy = false; ER.flag('b2-seen', 1); document.body.classList.add('lit', 'turning'); paint(); });
+      }, 2400);
+    });
+    msg('Set the burner and the tell-tale with the arrows. The book says how; your partner knows what is up there.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#tell').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say(document.body.classList.contains('turning') ? 'The tell-tale ticks round, once for every turn of the lens.' : 'The tell-tale is set. It will tick when the lens turns.'); return; }
+    if (!told.sween) { ER.say('The tell-tale: it rings if the lens turns too slowly. First, the telephone.'); return; }
+    if (!ttBox) ttBox = makeTT();
+    ttBox.open();
+  });
+
+  /* ---------- the other screen ---------- */
+  WR.state('lit', function () { document.body.classList.add('lit'); if (!busy) ER.say('A light swings across the cloud over the yard: the old lamp is lit, up in the lantern.'); });
+  WR.state('turning', function () { document.body.classList.add('turning'); });
+  WR.tube('#tube', isBusy);
+  WR.thing('#win', null, function () { return document.body.classList.contains('lit') ? 'The low cloud over the yard lights up: three white flashes, then dark.' : 'The little window. Rain, and the dark.'; }, isBusy);
+  WR.thing('#coat', 'oilskins', 'Somebody&rsquo;s yellow oilskins, on the hook since the summer. You are glad you are indoors.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'lens');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

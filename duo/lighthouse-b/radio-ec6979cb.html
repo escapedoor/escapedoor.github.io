@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Radio · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#06100c;--accent:#7fe0a0;--font-display:'Fraunces',serif;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(6,14,10,.95);--tc-ink:#e6f6ea;--cap-bg:rgba(8,18,12,.93);--panel:#0e1a14;--face-bg:#18281e;--q-ink:#c8f0d4;--fade:#020504;--hud-bg:rgba(8,18,12,.84)}
+  .tc-room{font-family:'Space Mono',monospace;font-weight:700;letter-spacing:.04em}
+  .dial{animation:dl 2.4s steps(2,end) infinite alternate}
+  @keyframes dl{from{opacity:.65}to{opacity:1}}
+  #fogLever{transition:transform .5s;transform-origin:1302px 560px}
+  body.fog #fogLever{transform:rotate(55deg)}
+  #flick{opacity:0;transition:opacity .08s}#flick.lit{opacity:.6}
+  #beamW{opacity:0;animation:sweep 15s linear infinite}
+  @keyframes sweep{0%,2%{opacity:0}4%{opacity:.8}6%,8%{opacity:0}10%{opacity:.8}12%,14%{opacity:0}16%{opacity:.8}18%,100%{opacity:0}}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  .rb{width:min(900px,95vw)}
+  .rb-in{padding:18px 24px 8px;background:#0c1a12;color:#d8f2de;font-family:'Space Mono',monospace;font-size:15px;line-height:1.55}
+  .rb-in h5{margin:0 0 8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:#7fe0a0}
+  .rb-in .pad{margin:0 0 12px;padding:10px 14px;background:#f7f4ea;color:#1c2430;font-family:'Kalam',cursive;font-size:19px}
+  .rb-in .pad .ctr{margin:0 4px}
+  .rb-line{display:block;width:100%;text-align:left;margin:0 0 5px;padding:6px 10px;border:1px solid #2a4a34;border-radius:3px;background:#102018;color:#d8f2de;font:inherit;cursor:pointer}
+  .rb-line:hover{border-color:#7fe0a0}
+  .rb-line.on{border-color:#ffd27a;background:#2a2a12}
+  .rb-fix{margin:10px 0 4px;padding:10px 12px;border:1px dashed #ffd27a;display:none}
+  .rb-fix.on{display:block}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="glowR" cx="50%" cy="46%" r="50%"><stop offset="0" stop-color="#7fe0a0" stop-opacity=".22"/><stop offset="1" stop-color="#7fe0a0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beamR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="vigR" cx="50%" cy="50%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".62" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0c1410"/>
+<rect x="-1000" y="-700" width="3600" height="1360" fill="#1a2620"/><path d="M-1000 660H2600" stroke="#2a3a30" stroke-width="10"/>
+<!-- the window, the beam, the flicker of the signal lamp -->
+<g id="win" class="hot"><rect x="80" y="80" width="200" height="260" fill="#06090c"/><polygon id="beamW" points="80,100 280,80 280,210 80,280" fill="url(#beamR)"/><rect id="flick" x="80" y="80" width="200" height="140" fill="#fff6d8"/>
+  <g stroke="#7f9ab8" stroke-width="2" opacity=".5"><path d="M110 120l-8 30M160 180l-8 30M210 110l-8 30M250 240l-8 30M130 270l-8 30"/></g><path d="M180 80v260M80 210h200" stroke="#2a3a30" stroke-width="10"/><rect x="80" y="80" width="200" height="260" fill="none" stroke="#14201a" stroke-width="14"/></g>
+<!-- the tide table on the wall -->
+<g id="tide" class="hot" transform="rotate(2 470 200)"><rect x="380" y="90" width="190" height="230" fill="#eef1f3" stroke="#9aa8b6" stroke-width="3"/><rect x="380" y="90" width="190" height="30" fill="#1f4f8a"/>
+  <text x="475" y="111" class="sv" font-size="15" fill="#fff" letter-spacing="2">TIDES · OCTOBER</text><g stroke="#8a9aaa" stroke-width="2"><path d="M394 140h160M394 160h160M394 180h160M394 200h160M394 220h160M394 240h160"/></g>
+  <rect x="394" y="194" width="160" height="14" fill="#fff6c8"/><path d="M400 290q40-10 80 0" stroke="#2a3a8a" stroke-width="3" fill="none"/></g>
+<!-- the radio: the big set, glowing -->
+<circle cx="900" cy="430" r="380" fill="url(#glowR)"/>
+<g id="radio" class="hot"><rect x="700" y="300" width="400" height="230" rx="12" fill="#2a2e28" stroke="#5a6a52" stroke-width="5"/><rect x="726" y="326" width="200" height="66" fill="#7fe0a0" class="dial"/>
+  <text x="826" y="372" class="sm" font-size="34" fill="#0e1a10">CH 16</text><circle cx="1010" cy="360" r="30" fill="#1b1b18"/><circle cx="1010" cy="450" r="30" fill="#1b1b18"/>
+  <g stroke="#5a6a52" stroke-width="4"><path d="M730 420h190M730 440h190M730 460h190M730 480h190M730 500h190"/></g>
+  <path d="M1100 420q60 20 40 120" stroke="#1b1b18" stroke-width="7" fill="none"/><rect x="1110" y="530" width="56" height="80" rx="20" fill="#1b1b18"/></g>
+<g id="clock" class="hot"><circle cx="1260" cy="170" r="54" fill="#f4ecd8" stroke="#2a3a30" stroke-width="8"/><path d="M1260 170l40 -14M1260 170l-26 -16" stroke="#1d1a14" stroke-width="5" stroke-linecap="round"/><circle cx="1260" cy="170" r="5" fill="#1d1a14"/></g>
+<!-- the fog horn: air bottles and a lever -->
+<g id="fog" class="hot"><g fill="#4a6a5a" stroke="#1a2a20" stroke-width="3"><rect x="1360" y="380" width="54" height="230" rx="24"/><rect x="1424" y="380" width="54" height="230" rx="24"/></g>
+  <path d="M1386 380v-30h66v30" stroke="#b0832e" stroke-width="8" fill="none"/><path d="M1419 350v-90" stroke="#b0832e" stroke-width="10"/><path d="M1380 260h80l20 -40h-120z" fill="#b0832e"/>
+  <rect x="1270" y="540" width="70" height="40" rx="6" fill="#3a3a32"/><g id="fogLever"><path d="M1302 560v-90" stroke="#c4372b" stroke-width="12" stroke-linecap="round"/><circle cx="1302" cy="466" r="14" fill="#c4372b"/></g>
+  <text x="1420" y="640" class="sv" font-size="15" fill="#c9d6ce" letter-spacing="2">FOG HORN</text></g>
+<g id="tube" class="hot"><path d="M620 -100V200q0 30 30 30h20" stroke="#b0832e" stroke-width="20" fill="none"/><ellipse cx="672" cy="230" rx="11" ry="22" fill="#b0832e"/>
+  <g class="whis"><rect x="674" y="220" width="24" height="18" rx="4" fill="#d9b86a"/></g></g>
+<!-- the desk, the message pad, the code book -->
+<rect x="-1000" y="670" width="3600" height="1200" fill="#2e2216"/><path d="M-1000 670H2600" stroke="#4a3622" stroke-width="10"/>
+<g id="pad" class="hot"><path d="M760 700l220 -8 10 140 -220 10z" fill="#f7f4ea" stroke="#9a9a8a" stroke-width="2"/><path d="M760 700l220 -8" stroke="#c4372b" stroke-width="16"/>
+  <g stroke="#3a3a6a" stroke-width="2"><path d="M780 740h170M780 762h150M780 784h170M780 806h120"/></g></g>
+<g id="codebook" class="hot"><path d="M1060 720l160 -14 14 100 -160 14z" fill="#1f4f8a" stroke="#123058" stroke-width="3"/><text x="1148" y="768" class="sv" font-size="17" fill="#f2ead6" transform="rotate(-5 1148 768)" letter-spacing="2">CODE</text></g>
+<g id="rcard" class="hot"><rect x="580" y="720" width="130" height="90" fill="#fffdf4" stroke="#1c2430" stroke-width="2" transform="rotate(-4 645 765)"/><path d="M596 740h90M596 756h70M596 772h96M596 788h60" stroke="#55504a" stroke-width="2" transform="rotate(-4 645 765)"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigR)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The read-back is right</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, rbBox = null, fogT = 0;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'radio', no: 'IV', title: 'The Radio',
+    go: 'Pick up the microphone',
+    intro: [
+      'The ship&rsquo;s bearings were taken from the ship: Siller Ness light 040, Mallack Head light 310. Your partner&rsquo;s bearing of the ship from the gallery was 220: the same line from the other end (040 + 180). So the lines FROM the lights were 220 and 130, and they crossed three sea miles south-west of the light. Your partner could see her red light, her port side: she was heading east, for the Mares. U: &ldquo;You are running into danger.&rdquo; She turned south.',
+      '22.10. A squall comes over the island like a wall. &ldquo;Siller Ness, if you have a fog signal, sound it,&rdquo; says the coastguard. &ldquo;She will not see your light in this.&rdquo; And up in the lantern, your partner can just see the ship&rsquo;s lamp, going again.'
+    ],
+    exit: {"next":"pilot","w":{"3eb6d443":"c6885c6d"}}, tags: {"item":["5bb37d1a"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b4-told') || {}; nextFile = ER.flag('b4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.fog ? 1 : 0) + (told.passed ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) WR.card([['Tell your partner', ['&ldquo;Her question: can she cross the bar now? Not yet. Send her &hellip;&rdquo;', '&ldquo;The bar opens at &hellip; by our clock.&rdquo;']], ['Ask your partner', ['&ldquo;Say it back to me, flash by flash.&rdquo;']]]);
+    else if (told.passed) WR.card([['Tell your partner', ['&ldquo;The coastguard read it back. Wait: did the ship say one five, or five zero?&rdquo;']], ['Ask your partner', ['&ldquo;Read me the first group again, flash by flash.&rdquo;']]]);
+    else WR.card([['Ask your partner', ['&ldquo;What is she sending now? Read it to me, group by group.&rdquo;']], ['Tell your partner', ['&ldquo;Wait one. I&rsquo;m starting the fog horn.&rdquo;', '&ldquo;I&rsquo;ll pass it to the coastguard.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['bar', [
+      'The ship&rsquo;s second message is a question about the bar. The tide table on the wall has the answer, and a pencil note about the bar.',
+      'The times in the tide table are GMT. What time is high water by your clock, in British Summer Time? When does the bar open? And what time is it now?',
+      'The answer to her question is one letter, in section 3 of the code book. Tell your partner how to send it, and ask them to say it back.'
+    ]];
+    if (!told.passed) return ['pad', [
+      'The coastguard needs the ship&rsquo;s message. Your partner can read it from the lantern; decode it with the code book. The pencil in section 4 has the three letters.',
+      'Set the number on the message pad on the desk, and pass it to the coastguard. Then listen to the read-back, line by line.'
+    ]];
+    return ['read', [
+      'One line of the read-back is wrong. Check each line against what you know: your log, your fix, and what your partner read you.',
+      'The coastguard keeps UTC; your clock keeps British Summer Time. A time that looks an hour wrong may be right.',
+      'Click on the wrong line, set the right number, and say it the way the radio card says: &ldquo;Negative. I say again &hellip;&rdquo;, figure by figure.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (ER.flag('b4-fog')) startFog(true);
+    if (nextFile) { busy = false; ER.say('The read-back is right. The ship&rsquo;s question is still waiting.'); return; }
+    if (told.intro) { busy = false; ER.say('The radio, the message pad, the tide table, and the fog horn.'); return; }
+    ER.narrate([
+      'The rain is so loud on the window that you have to lean close to the radio to hear the coastguard. The beam over the yard has gone: the squall has swallowed it.',
+      'In the corner stand the two air bottles of the old fog horn, filled for the open-day demonstration. The red lever on the valve has a label on it, in Mr Sween&rsquo;s writing: PULL. HOLD ON TO SOMETHING.',
+      'On the desk, the message pad and the code book. On the wall, the tide table.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the fog horn ---------- */
+  function startFog(quiet) {
+    document.body.classList.add('fog');
+    function blast() { WR.sfx.horn(); ER.shake(document.querySelector('.stage')); }
+    if (!quiet) blast();
+    clearInterval(fogT); fogT = setInterval(function () { if (!document.hidden) blast(); }, 30000);
+  }
+  $('#fog').addEventListener('click', function () {
+    if (busy) return;
+    if (ER.flag('b4-fog')) { ER.say('The fog horn is going: two seconds of noise every thirty, loud enough to rattle the cups.'); return; }
+    ER.flag('b4-fog', 1); tell('fog'); paint();
+    if (window.Link) Link.set('fog', 1);
+    startFog(false);
+    ER.say('You pull the lever and hold on to the desk. BOOOM. The cups rattle, Prism leaves the room, and somewhere out in the rain a ship can hear where the land is.');
+    ER.addWord('fog signal', 'a loud horn or bell on a lighthouse, sounded when ships cannot see the light');
+  });
+
+  /* ---------- the message pad and the read-back ---------- */
+  function words(n) {
+    var W = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    return String(n).split('').map(function (c) { return W[+c]; }).join(' ');
+  }
+  function heard(n) { n = +n; return n > 12 && n < 20 ? (n % 10) * 10 : n; }        /* fifteen and fifty: the oldest mistake on the radio */
+  var TENS = { 30: 'thirty', 40: 'forty', 50: 'fifty', 60: 'sixty', 70: 'seventy', 80: 'eighty', 90: 'ninety' };
+  function makeRB() {
+    var box = ER.el('div', 'bx rb'), pob = WR.counter(WR.range(0, 60, 1), '0', { id: 'c-pob', cls: 'wide', big: 10 }), fix = WR.counter(WR.range(0, 60, 1), '0', { id: 'c-fix', cls: 'wide', big: 10 }), pick = null;
+    box.innerHTML = '<div class="rb-in"><h5>To Mallack Coastguard</h5><div class="pad">From the Whimbrel, by lamp: persons on board <span id="s-pob"></span>.</div>' +
+      '<p><button type="button" class="btn" id="pass">Pass it on the radio</button></p><div id="rb"></div>' +
+      '<div class="rb-fix"><span>Negative. I say again: persons on board </span><span id="s-fix"></span> <button type="button" class="btn" id="say">Say it</button></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div>';
+    box.querySelector('#s-pob').appendChild(pob.el); box.querySelector('#s-fix').appendChild(fix.el);
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function lines(n) {
+      var h = heard(n);
+      return [
+        ['name', 'Vessel Whimbrel: Whiskey, Hotel, India, Mike, Bravo, Romeo, Echo, Lima.'],
+        ['time', 'She turned away from the Mares at 21.05 UTC.'],
+        ['pos', 'Her position then: three sea miles south-west of Siller Ness light.'],
+        ['pob', 'Persons on board: ' + words(h) + (TENS[h] ? ', ' + TENS[h] : '') + '.'],
+        ['boat', 'The lifeboat will be with her at about 22.30 UTC.']
+      ];
+    }
+    var ANS = {
+      name: '&ldquo;The name is spelt as it is in our list, Siller Ness. Over.&rdquo;',
+      time: '&ldquo;Twenty-one oh five UTC, Siller Ness. That is five past ten by your clock: we keep UTC, and you keep summer time. The same moment. Over.&rdquo;',
+      pos: '&ldquo;Three sea miles south-west of the light: that is the fix you gave me. Over.&rdquo;',
+      boat: '&ldquo;That one is ours, not yours, Siller Ness. It is the lifeboat cox&rsquo;s own estimate. Over.&rdquo;'
+    };
+    box.querySelector('#pass').addEventListener('click', function () {
+      if (pob.value() === '0') { msg('The pad says nobody is on board. Ask your partner for the ship&rsquo;s message first.'); return; }
+      WR.sfx.radio(); tell('passed'); paint();
+      var s = '<p>&ldquo;Siller Ness, Mallack Coastguard. I read back:&rdquo;</p>';
+      lines(pob.value()).forEach(function (l) { s += '<button type="button" class="rb-line" data-k="' + l[0] + '">' + l[1] + '</button>'; });
+      s += '<p>&ldquo;Is that correct? Over.&rdquo;</p>';
+      box.querySelector('#rb').innerHTML = s;
+      box.querySelector('.rb-fix').classList.remove('on'); pick = null;
+      msg('The coastguard reads it back to you. Check every line. If one is wrong, click on it.');
+      ER.addWord('read back', 'to say a message back to the person who gave it, to check it');
+    });
+    box.querySelector('#rb').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.rb-line') : null; if (!b) return;
+      pick = b.getAttribute('data-k');
+      ER.$$('.rb-line', box).forEach(function (n) { n.classList.toggle('on', n === b); });
+      if (!ER.check('item', pick)) { box.querySelector('.rb-fix').classList.remove('on'); ER.sfx.no(); msg('&ldquo;Negative,&rdquo; you begin, and the coastguard answers before you can finish: ' + ANS[pick]); return; }
+      box.querySelector('.rb-fix').classList.add('on'); fix.set(String(heard(pob.value())));
+      msg('That line. Set the right number, and say it.');
+    });
+    box.querySelector('#say').addEventListener('click', function () {
+      var file = ER.exit(['pob-' + fix.value()], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg('&ldquo;Copy: persons on board ' + words(fix.value()) + ',&rdquo; says the coastguard. You look at what you have just said. Is that what the ship sent? Check it with your partner, flash by flash, figure by figure.');
+        return;
+      }
+      nextFile = file; ER.flag('b4-file', file);
+      ER.addClue('rb4', 'The read-back', '<h4>The read-back</h4><p>The ship sent: 15 POB. The coastguard read back &ldquo;five zero, fifty&rdquo;. Negative. I say again: one five, fifteen.</p><p>Her time, 21.05 UTC, was right: 22.05 by our clock.</p>', 'pad', 'Your own writing', true);
+      msg('&ldquo;Negative. I say again: persons on board one five, fifteen.&rdquo; A pause. &ldquo;One five, fifteen,&rdquo; says the coastguard. &ldquo;Thank you, Siller Ness. That would have been thirty-five people the lifeboat was looking for who do not exist. Over.&rdquo;');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Fifteen and fifty. You will never again say a number on the radio without saying it twice.',
+          'But the ship&rsquo;s lamp had a second message, and your partner is still waiting at the glass with it: a question for the lighthouse, about the bar.'
+        ], function () { busy = false; paint(); });
+      }, 3600);
+    });
+    msg('Set the number on the pad with the arrows. Only your partner can read what the ship sent.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  function openRB() {
+    if (busy) return;
+    if (nextFile) { ER.say('The coastguard has it right now: one five, fifteen.'); return; }
+    if (!rbBox) rbBox = makeRB();
+    rbBox.open();
+  }
+  $('#radio').addEventListener('click', openRB);
+  $('#pad').addEventListener('click', openRB);
+
+  /* ---------- papers and other things ---------- */
+  $('#tide').addEventListener('click', function () { if (!busy) WR.tide(); });
+  $('#codebook').addEventListener('click', function () { if (!busy) WR.code(); });
+  $('#rcard').addEventListener('click', function () { if (!busy) WR.radio(); });
+  WR.thing('#clock', 'clock', 'The clock says ten past ten. It keeps British Summer Time, like every clock on the island, until the twenty-fifth.', isBusy);
+  WR.thing('#win', null, 'Rain, so thick that the beam is lost in it a little way from the tower.', isBusy);
+  WR.tube('#tube', isBusy);
+  WR.flicker('#flick');
+  if (window.Link) Link.follow($('#go'), 'squall');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

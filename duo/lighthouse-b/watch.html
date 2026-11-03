@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Watch Room · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#1a120a;--accent:#ffcf6a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(24,16,8,.95);--tc-ink:#f8eedb;--cap-bg:rgba(28,19,10,.93);--panel:#241a10;--face-bg:#3a2c1c;--q-ink:#ffd98f;--fade:#0a0704;--hud-bg:rgba(28,19,10,.84)}
+  .flame{animation:fl 1.7s steps(3,end) infinite alternate;transform-origin:250px 512px}
+  @keyframes fl{from{transform:scale(1,1)}to{transform:scale(.92,1.08)}}
+  .rain{animation:rain .6s linear infinite}
+  @keyframes rain{from{transform:translate(0,-50px)}to{transform:translate(-14px,50px)}}
+  #flick{opacity:0;transition:opacity .08s}
+  #flick.lit{opacity:1}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  #cat .tail{animation:tail 5s ease-in-out infinite alternate;transform-origin:1238px 640px}
+  @keyframes tail{from{transform:rotate(0)}to{transform:rotate(-14deg)}}
+  .slog{width:min(860px,95vw)}
+  .slog-in{padding:18px 24px 8px;background:#f7f1de repeating-linear-gradient(#f7f1de 0 33px,#d8cdb0 33px 34px);color:#2a2214;font-family:'Special Elite',monospace;font-size:16px;line-height:34px}
+  .slog-in h5{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:19px;letter-spacing:.06em;color:#2f4a3a;line-height:34px}
+  .slog-in p{margin:0}
+  .slog-in .hand{font-family:'Kalam',cursive;font-size:19px;color:#2a3a8a}
+  .slog-in .ctr{margin:0 3px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampW" cx="16%" cy="58%" r="70%"><stop offset="0" stop-color="#ffd890" stop-opacity=".5"/><stop offset=".5" stop-color="#ffb860" stop-opacity=".1"/><stop offset="1" stop-color="#ffb860" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wallW" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a3228"/><stop offset=".35" stop-color="#d8cfbc"/><stop offset=".7" stop-color="#cfc5b0"/><stop offset="1" stop-color="#3a3228"/></linearGradient>
+  <radialGradient id="vigW" cx="40%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></radialGradient>
+  <radialGradient id="cloudLit" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#fff6d8" stop-opacity=".85"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2a2218"/>
+<rect x="-1000" y="-700" width="3600" height="1300" fill="url(#wallW)"/>
+<path d="M-1000 600H2600" stroke="#4a3a24" stroke-width="10"/>
+<!-- the window on the yard, with the low cloud above -->
+<g id="win" class="hot"><rect x="500" y="110" width="300" height="320" rx="150" ry="40" fill="#0c111a"/><rect x="500" y="170" width="300" height="260" fill="#0c111a"/>
+  <path d="M500 330q80-20 150 -5t150 -10V430H500z" fill="#141c26"/><path d="M560 430v-70h40v70M680 430v-90h50v90" fill="#1c2430"/>
+  <rect id="flick" x="500" y="110" width="300" height="190" fill="url(#cloudLit)"/>
+  <g stroke="#7f9ab8" stroke-width="2" opacity=".5" class="rain"><path d="M530 150l-6 30M590 200l-6 30M650 140l-6 30M710 220l-6 30M770 160l-6 30M560 280l-6 30M690 300l-6 30M740 330l-6 30"/></g>
+  <path d="M650 110v320M500 270h300" stroke="#5a4a32" stroke-width="10"/><rect x="500" y="110" width="300" height="320" rx="0" fill="none" stroke="#4a3a24" stroke-width="16"/></g>
+<!-- the clock and the barometer -->
+<g id="clock" class="hot"><circle cx="980" cy="170" r="56" fill="#f4ecd8" stroke="#3a2a14" stroke-width="8"/><path d="M980 170l-28 -4M980 170l40 -14" stroke="#1d1a14" stroke-width="5" stroke-linecap="round"/><circle cx="980" cy="170" r="5" fill="#1d1a14"/></g>
+<g id="baro" class="hot"><circle cx="1140" cy="190" r="44" fill="#c9a94e" stroke="#6a5520" stroke-width="6"/><circle cx="1140" cy="190" r="34" fill="#f1ead2"/><path d="M1140 190l-24 18" stroke="#c4372b" stroke-width="4" stroke-linecap="round"/></g>
+<!-- the bookshelf -->
+<g id="shelf" class="hot" transform="translate(0 210)"><rect x="30" y="140" width="380" height="20" fill="#5a3a1e"/><rect x="30" y="300" width="380" height="20" fill="#5a3a1e"/>
+  <g><rect x="50" y="62" width="34" height="78" fill="#2f4a3a"/><rect x="88" y="70" width="28" height="70" fill="#7a2a22"/><rect x="120" y="58" width="40" height="82" fill="#1f4f8a"/><rect x="164" y="76" width="24" height="64" fill="#8a6a2a"/>
+  <rect x="192" y="66" width="36" height="74" fill="#3a3a3a"/><rect x="232" y="60" width="30" height="80" fill="#5a2a4a"/><rect x="300" y="84" width="70" height="56" fill="#d8cfb0"/>
+  <rect x="50" y="226" width="44" height="74" fill="#6a4a2a"/><rect x="98" y="232" width="30" height="68" fill="#2a4a5a"/><rect x="132" y="222" width="38" height="78" fill="#4a4a2a"/><rect x="200" y="240" width="160" height="60" fill="#e9e2cc" stroke="#9a8a6a"/></g></g>
+<!-- the speaking tube, coming down the wall from the lantern -->
+<g id="tube" class="hot"><path d="M1330 -100V380q0 30 -30 30h-30" stroke="#b0832e" stroke-width="22" fill="none"/><path d="M1330 -100V380q0 30 -30 30h-30" stroke="#e2bc6a" stroke-width="6" fill="none" opacity=".5"/>
+  <ellipse cx="1266" cy="410" rx="12" ry="24" fill="#b0832e"/><g class="whis"><rect x="1232" y="400" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="1230" cy="410" r="5" fill="#8a6420"/></g></g>
+<!-- the stair going up -->
+<g id="stair" class="hot"><path d="M1420 600V-100" stroke="#2a2a2a" stroke-width="10"/><g fill="#3a3a38" stroke="#1d1d1b" stroke-width="3"><path d="M1420 560l160 -30v24l-160 30z"/><path d="M1420 470l170 10v24l-170 -10z"/><path d="M1420 380l160 -30v24l-160 30z"/><path d="M1420 290l170 10v24l-170 -10z"/><path d="M1420 200l160 -30v24l-160 30z"/><path d="M1420 110l170 10v24l-170 -10z"/></g>
+  <path d="M1590 600V-100" stroke="#2a2a2a" stroke-width="6"/></g>
+<!-- the desk and what is on it -->
+<rect x="-1000" y="610" width="3600" height="1200" fill="#4a2e18"/><path d="M-1000 610H2600" stroke="#6a4424" stroke-width="10"/>
+<g id="plamp" class="hot"><ellipse cx="250" cy="606" rx="46" ry="10" fill="#2a2a2a"/><path d="M226 600q-20 -50 24 -70q44 20 24 70z" fill="#8a6a2a"/><path class="flame" d="M250 530q-12 -20 0 -40q12 20 0 40z" fill="#ffd27a"/>
+  <path d="M222 520q28 -70 56 0" stroke="#f2ead6" stroke-width="5" fill="#f2ead6" fill-opacity=".25"/></g>
+<g id="log" class="hot"><path d="M560 640l200 -10 10 120 -210 10z" fill="#f4ecd8" stroke="#8a7a5a" stroke-width="2"/><path d="M760 630l200 10 -6 120 -194 -10z" fill="#efe6d0" stroke="#8a7a5a" stroke-width="2"/>
+  <g stroke="#3a3a6a" stroke-width="2"><path d="M580 664h160M580 684h140M580 704h170M786 666h150M786 686h120"/></g><path d="M760 630v130" stroke="#8a7a5a" stroke-width="3"/></g>
+<g id="codebook" class="hot"><path d="M1000 660l160 -14 14 100 -160 14z" fill="#1f4f8a" stroke="#123058" stroke-width="3"/><text x="1088" y="708" class="sv" font-size="17" fill="#f2ead6" transform="rotate(-5 1088 708)" letter-spacing="2">CODE</text></g>
+<g id="radio" class="hot"><rect x="1180" y="520" width="200" height="96" rx="8" fill="#3a3a32" stroke="#1d1d18" stroke-width="4"/><rect x="1196" y="536" width="90" height="30" fill="#7fe0a0" opacity=".7"/><text x="1241" y="557" class="sm" font-size="15" fill="#0e1a10">16</text>
+  <circle cx="1330" cy="552" r="14" fill="#1d1d18"/><g stroke="#5a5a50" stroke-width="2"><path d="M1196 582h90M1196 592h90M1196 602h90"/></g></g>
+<g id="phone" class="hot"><path d="M1420 700q0 -44 22 -54h90q22 10 22 54z" fill="#1b1b1b"/><path d="M1424 636q-6 -26 18 -30h90q24 4 18 30l-16 4q-2 -14 -12 -16h-70q-10 2 -12 16z" fill="#1b1b1b"/><circle cx="1487" cy="676" r="16" fill="#e8e0cc"/></g>
+<g id="cat" class="hot"><path d="M1180 660q-8 -50 56 -54q64 4 56 54z" fill="#8a8a86"/><circle cx="1214" cy="616" r="22" fill="#8a8a86"/><path d="M1198 600l4 -18 10 14zM1220 597l8 -16 6 18z" fill="#8a8a86"/>
+  <path d="M1204 618q5 3 10 0M1218 618q5 3 10 0" stroke="#2a2a28" stroke-width="2" fill="none"/><path class="tail" d="M1288 652q36 -6 30 -40" stroke="#8a8a86" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampW)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigW)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">The lamp is answered</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="watch.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, logBox = null;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-b', storyTitle: 'Show a Light', id: 'watch', no: 'I', title: 'The Watch Room',
+    go: 'Sit down at the desk',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE LAMP KEEPER (part A) on another screen. Do not show each other your screens: talk. Everything one of you can see, the other one needs. You can also link your two screens with the tag in the bottom left corner: then what one of you does can show on the other screen. The clues will not go across. You still have to say them.</b>',
+      'Siller Ness lighthouse, Saturday 17 October, a little after nine at night. The last open day of the year ended at four. Then the wind went round to the south-west, and the storm came early.',
+      'You are a volunteer with the Friends of Siller Ness Light. You look after the papers: the old log books, the code book, the List of Lights, the charts, the Instructions to Keepers. You have read every one of them. At four minutes past nine the power went off all over the island, and the electric light up on the gallery went out with it.',
+      'Your partner, the other volunteer who stayed to lock up, is at the top of the tower in the lantern, 132 steps above you, where they can see the sea. Between you there is a brass speaking tube. You met this morning.'
+    ],
+    exit: {"next":"book","w":{"919ebb07":"8f8598c4"}}, tags: {"call":["fdc3b91d"],"sig":["06901a4c"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b1-told') || {}; nextFile = ER.flag('b1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b1-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.code ? 1 : 0) + (nextFile ? 1 : 0), 2);
+    if (nextFile) WR.card([['Tell your partner', ['&ldquo;The ship is saying: &hellip; I&rsquo;m going to call the coastguard.&rdquo;']]]);
+    else if (told.code) WR.card([['Tell your partner', ['&ldquo;That&rsquo;s the general call. It means &hellip; Answer it with &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Is it still calling? What is it sending now? Read it to me, flash by flash.&rdquo;']]]);
+    else WR.card([['Ask your partner', ['&ldquo;Lantern, this is the watch room. What can you see? Is the light flashing short or long?&rdquo;']], ['Tell your partner', ['&ldquo;Wait. I&rsquo;m opening the code book.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The signal log is written. Tell your partner what the ship means, if you have not.']];
+    if (!told.code) return ['code', [
+      'The code book is the blue book on the desk, on the right. Open it: you will need it, and so will your partner.',
+      'Your partner can see the sea, and you cannot. Ask what the light out there is doing: short flashes, long flashes, and where the gaps are.'
+    ]];
+    return ['log', [
+      'Match what your partner reads you, group by group, with the Morse code in section 1 of the code book. A short flash is a dot (&bull;), a long one a dash (&mdash;).',
+      'Section 2 says what a call looks like, and what the answer to a call is. Your partner has the signal lamp, and you do not: tell them what to send, and how.',
+      'When the ship has seen the answer it will send something new. Ask for it, find it in section 1, and look it up in section 3. Then write the call and the new signal in the signal log, open on the desk.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The signal log is written. Now for the coastguard.'); return; }
+    if (told.intro) { busy = false; ER.say('The watch room. The paraffin lamp, the log, and the code book on the desk.'); return; }
+    ER.narrate([
+      'The watch room is round, because the tower is round: thick white walls, a desk under the window, a shelf of old books, and the iron stair that winds up into the dark, 132 steps to the lantern. You have never been to the top. You do not like heights, and nobody has ever asked you to.',
+      'When the power went, you lit the paraffin lamp on the desk, the way the keepers used to. The telephone still works. The radio runs on its own battery. The cat, Prism, has not moved at all.',
+      'The brass speaking tube on the wall goes all the way up to the lantern. Up there, your partner can see the sea. Down here, you have everything else.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- papers ---------- */
+  $('#codebook').addEventListener('click', function () { if (!busy) WR.code(function () { if (tell('code')) { paint(); ER.say('Morse code, signals by lamp, signals of one letter, and Mr Sween&rsquo;s pencil in the margins.'); } }); });
+  $('#shelf').addEventListener('click', function () { if (!busy) WR.list(); });
+
+  /* ---------- the signal log ---------- */
+  function makeLog() {
+    var box = ER.el('div', 'bx slog'), L = ['?'].concat('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
+    var c1 = WR.counter(L, '?', { id: 'c-1' }), c2 = WR.counter(L, '?', { id: 'c-2' }), c3 = WR.counter(L, '?', { id: 'c-3' });
+    box.innerHTML = '<div class="slog-in"><h5>Signal log · Siller Ness · Saturday 17 October 2026</h5>' +
+      '<p class="hand">21.04 &nbsp;Power off. Electric light out (battery flat).</p>' +
+      '<p class="hand">21.12 &nbsp;A lamp seen at sea to the south-west, from the lantern.</p>' +
+      '<p>The vessel calls: <span id="s-1"></span><span id="s-2"></span> &nbsp;again and again.</p>' +
+      '<p>Answered from the lantern. Then the vessel sends: <span id="s-3"></span></p></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="write">Write it in the log</button></div>';
+    box.querySelector('#s-1').appendChild(c1.el); box.querySelector('#s-2').appendChild(c2.el); box.querySelector('#s-3').appendChild(c3.el);
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    box.querySelector('#write').addEventListener('click', function () {
+      var call = (c1.value() + c2.value()).toLowerCase(), sig = c3.value().toLowerCase();
+      var file = ER.exit([call + '-' + sig], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var s = [];
+        if (!ER.check('call', call)) s.push('The call: is that exactly what your partner described? Ask them to read it again, group by group, and find each group in the code book.');
+        if (sig === '?') s.push('And nothing yet after the answer? Then the line is not finished. Once the ship has been answered, it will send something.');
+        else if (!ER.check('sig', sig)) s.push('The signal after the answer: check it flash by flash. One short flash more or less is a different letter.');
+        msg(s.join(' '));
+        return;
+      }
+      nextFile = file; ER.flag('b1-file', file);
+      ER.addClue('log1', 'The signal log', '<h4>Signal log</h4><p>21.12 A lamp at sea. The vessel calls: ' + call.toUpperCase() + ', again and again.</p><p>Answered from the lantern. The vessel sends: ' + sig.toUpperCase() + '.</p>', 'pad', 'Your own writing', true);
+      msg('You write it in, in capitals, the way the keepers did. Section 3 of the code book has the letter on its own line.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'You read the line again. A ship that cannot steer properly, out there in the dark, in this. And no light on the shore to tell her where the shore is.',
+          'You reach for the radio. Mallack Coastguard should hear about this, and the coastguard will know what ship she is.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    });
+    msg('The signal log is open on the desk. Set the letters with the arrows. Only your partner can tell you what the ship&rsquo;s lamp is doing.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#log').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('The line is written. The next one will be about the coastguard.'); return; }
+    if (!logBox) logBox = makeLog();
+    logBox.open();
+  });
+
+  /* ---------- other things ---------- */
+  WR.tube('#tube', isBusy);
+  WR.flicker('#flick');
+  WR.thing('#radio', 'radio', 'The radio, on channel 16, the calling channel, running on its own battery. Hiss, and far away a voice saying &ldquo;all stations&rdquo; about the power cut.', isBusy);
+  WR.thing('#phone', null, 'The telephone. It does not need the power, so it still works. Nobody has rung.', isBusy);
+  WR.thing('#clock', 'clock', 'Nearly a quarter past nine.', isBusy);
+  WR.thing('#baro', 'barometer', 'The barometer. The needle is past STORMY, and still going down.', isBusy);
+  WR.thing('#win', null, 'The window on the yard. Rain, the dark shapes of the keepers&rsquo; cottages, and low cloud racing over the top of the tower.', isBusy);
+  WR.thing('#cat', null, 'Prism, the museum cat, asleep on the chair. She was named by a visitor who did not know what else to call a cat in a lighthouse.', isBusy);
+  WR.thing('#plamp', 'paraffin lamp', 'The paraffin lamp. It smells of the nineteen-fifties.', isBusy);
+  WR.thing('#stair', null, 'The iron stair, going up into the dark. A hundred and thirty-two steps. You have counted them from the bottom, and never once from the top.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'lantern');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
