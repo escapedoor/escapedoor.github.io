@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Weight · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#0e0a14;--accent:#e0b8ff;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(14,10,20,.95);--tc-ink:#f2eefa;--cap-bg:rgba(18,12,26,.93);--panel:#181222;--face-bg:#261c34;--q-ink:#ecd8ff;--fade:#040308;--hud-bg:rgba(18,12,26,.84)}
+  .tc-room{font-family:'Fraunces',serif;font-weight:300;font-style:italic}
+  .moon{animation:mn 9s ease-in-out infinite alternate}
+  @keyframes mn{from{opacity:.5}to{opacity:.85}}
+  .brk{animation:brk 2.6s ease-in-out infinite alternate}
+  @keyframes brk{from{opacity:.35}to{opacity:.95}}
+  .sweep{opacity:0;animation:sw 15s linear infinite}
+  body.slow .sweep{animation-duration:26s}
+  .sweep.b{animation-delay:.9s}.sweep.c{animation-delay:1.8s}
+  @keyframes sw{0%{opacity:0}1%{opacity:.5}4%{opacity:0}100%{opacity:0}}
+  .shl{opacity:.05}.shl.lit{opacity:1}
+  #shipglow{opacity:0}#shipglow.lit{opacity:.7}
+  #yardlamp{opacity:0;transition:opacity 1.4s}
+  body.yard #yardlamp{opacity:1}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  #wptrS{transition:transform 1.2s}
+  body.wound #wptrS{transform:translateY(-150px)}
+  .beam{opacity:0}.beam.lit{opacity:1}
+  .key-box{width:min(940px,95vw)}
+  .bino{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr)}
+  .bino-view{background:#000;display:grid;place-items:center}
+  .bino-view svg{display:block;width:100%;height:auto}
+  .bino .doc.pad{width:auto;max-height:none;box-shadow:none;margin:0}
+  .wd{width:min(760px,95vw)}
+  .wd svg{background:#141018}
+  .wd #wptr{transition:transform .5s}
+  .wd #bk{transition:transform .3s;transform-origin:520px 330px}
+  .wd svg.on #bk{transform:rotate(50deg)}
+</style>
+</head>
+<body class="slow">
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0814"/><stop offset="1" stop-color="#2a2040"/></linearGradient>
+  <linearGradient id="sw5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".8"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="glow5" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fffbe6" stop-opacity=".9"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig5" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".64" stop-color="#000" stop-opacity=".26"/><stop offset="1" stop-color="#000" stop-opacity=".86"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#sky5)"/>
+<!-- the clouds breaking up, and a moon behind them -->
+<circle class="moon" cx="1300" cy="120" r="40" fill="#e8e2f4"/><g fill="#1a1428"><ellipse cx="1200" cy="140" rx="200" ry="30"/><ellipse cx="400" cy="90" rx="500" ry="50"/></g>
+<polygon class="sweep" points="560,230 2600,30 2600,460" fill="url(#sw5)"/><polygon class="sweep b" points="560,230 2600,110 2600,540" fill="url(#sw5)"/><polygon class="sweep c" points="560,230 2600,190 2600,620" fill="url(#sw5)"/>
+<!-- the sea to the south-east: the bar, white with breakers, and the ship waiting -->
+<rect x="-1000" y="420" width="3600" height="1400" fill="#0a0814"/>
+<g stroke="#3a3058" stroke-width="2.5" fill="none"><path d="M-1000 450q80-6 160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0"/></g>
+<g id="bar" class="hot"><path class="brk" d="M760 520q60-10 120 0t120 0t120 0t120 0t120 0" stroke="#e8e2f4" stroke-width="5" fill="none"/><path class="brk" d="M780 540q50-8 100 0t100 0t100 0t100 0" stroke="#e8e2f4" stroke-width="3" fill="none" style="animation-delay:1.2s"/>
+  <rect x="740" y="500" width="520" height="60" fill="#000" fill-opacity="0"/></g>
+<g id="ship" class="hot"><circle cx="1080" cy="610" r="70" fill="#000" fill-opacity="0"/><circle cx="1076" cy="592" r="4" fill="#f4f8ff"/><circle cx="1084" cy="614" r="4.5" fill="#ff4a3a"/>
+  <circle id="shipglow" cx="1062" cy="606" r="30" fill="url(#glow5)"/><circle id="shiplamp" class="shl" cx="1062" cy="606" r="5" fill="#fffbe6"/></g>
+<!-- the Calf, dark, and the land at the foot of the tower with one window -->
+<path d="M1260 420q120-60 260-40t300 30V520H1260z" fill="#06040a"/>
+<path d="M-1000 700q300-40 600-30t500 40V1700H-1000z" fill="#08060c"/>
+<g id="yard" class="hot"><rect x="300" y="650" width="70" height="44" fill="#14101c"/><rect id="yardlamp" x="314" y="660" width="42" height="28" fill="#ffcf6a"/><rect x="290" y="640" width="90" height="62" fill="none" stroke="#000" stroke-opacity="0"/></g>
+<!-- the clock case and the weight tube, close up, on the left -->
+<g id="case" class="hot"><rect x="-200" y="200" width="420" height="560" fill="#2a3a2e" stroke="#0e1410" stroke-width="6"/><g fill="#b0832e"><circle cx="40" cy="430" r="44"/><circle cx="110" cy="380" r="22"/></g>
+  <rect x="150" y="240" width="40" height="300" fill="#0e1410" stroke="#b0832e" stroke-width="3"/><text x="170" y="232" class="sv" font-size="14" fill="#e2c46e">FULL</text><text x="170" y="562" class="sv" font-size="14" fill="#e2c46e">EMPTY</text>
+  <g id="wptrS" style="transform:translateY(0)"><path d="M144 530h52" stroke="#ffd27a" stroke-width="6"/></g>
+  <path d="M220 470h-50v60" stroke="#b0832e" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M60 640v-60" stroke="#c4372b" stroke-width="12" stroke-linecap="round"/><circle cx="60" cy="574" r="12" fill="#c4372b"/></g>
+<!-- the glass bars, the binoculars, the signal lamp, the speaking tube -->
+<g stroke="#120e18" stroke-width="16"><path d="M500 -100L1300 780M1100 -100L1900 780M500 780L1300 -100"/></g>
+<rect x="-1000" y="760" width="3600" height="1200" fill="#16121e"/><path d="M-1000 760H2600" stroke="#33294a" stroke-width="10"/>
+<g id="bino" class="hot"><path d="M1440 380v40" stroke="#2a2a2a" stroke-width="4"/><g fill="#1d1a24" stroke="#4a4258" stroke-width="3"><rect x="1400" y="420" width="34" height="80" rx="8"/><rect x="1446" y="420" width="34" height="80" rx="8"/></g><rect x="1390" y="376" width="100" height="134" fill="#000" fill-opacity="0"/></g>
+<g id="aldis" class="hot"><path d="M780 760v-70" stroke="#2a2a2a" stroke-width="8"/><rect x="720" y="620" width="130" height="74" rx="14" fill="#2c3440" stroke="#5a6676" stroke-width="4"/>
+  <circle cx="850" cy="657" r="34" fill="#1a2028" stroke="#8a96a6" stroke-width="5"/><path d="M736 694l-6 28" stroke="#c4372b" stroke-width="8" stroke-linecap="round"/></g>
+<g id="tube" class="hot"><path d="M1240 900V720q0-30 30-30h30" stroke="#b0832e" stroke-width="22" fill="none"/><ellipse cx="1304" cy="690" rx="12" ry="24" fill="#b0832e"/>
+  <g class="whis"><rect x="1306" y="680" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="1334" cy="690" r="5" fill="#8a6420"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vig5)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Watch her come in</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="lamp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, lamp = null, keyApi = null, wdBox = null;
+  var MSG = 'DRAW 3 LINE?';
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-a', storyTitle: 'Show a Light', id: 'weight', no: 'V', title: 'The Weight',
+    go: 'Back to the clock',
+    intro: [
+      'The ship sent 15 POB: fifteen persons on board. (Down in the watch room, the coastguard heard it as fifty, and your partner had to say it again: one five.) Then BAR?: can we cross the bar? The tide table is in GMT. High water at 23.35 GMT is 00.35 by the island&rsquo;s clocks, and the bar is open from two hours before that: 22.35. It was 22.20. So you sent N: no, not yet. She hove to and waited.',
+      '22.38. The squall has gone over, the clouds are breaking, and the bar is a line of white in the dark to the south-east. The ship is waiting south of it. And the beam over your head is going round more slowly than it should.'
+    ],
+    exit: {"next":"allnight","w":{"09336332":"fd2cdfc0"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a5-told') || {}; nextFile = ER.flag('a5-file') || null;
+  var wound = !!ER.flag('a5-wound');
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a5-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    document.body.classList.toggle('wound', wound); document.body.classList.toggle('slow', !wound);
+    ER.pips((wound ? 1 : 0) + (told.looked ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) KP.card([['Tell your partner', ['&ldquo;She&rsquo;s coming in. I can see her red light AND her green one.&rdquo;']], ['Ask your partner', ['&ldquo;What does that mean?&rdquo;']]]);
+    else if (told.looked) KP.card([['Tell your partner', ['&ldquo;She says: a word, a number, then a word and a question: &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Which line do I send her? Say it figure by figure.&rdquo;']]]);
+    else if (wound) KP.card([['Tell your partner', ['&ldquo;Wound. The pointer says FULL, and the brake is off. The lens is turning again.&rdquo;']], ['Ask your partner', ['&ldquo;Is the tell-tale quiet now?&rdquo;']]]);
+    else KP.card([['Tell your partner', ['&ldquo;The beam is slowing down! The weight&rsquo;s nearly at the bottom.&rdquo;']], ['Ask your partner', ['&ldquo;What does the book say about winding? Read me every step.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['She is coming in over the bar, steering for your light. Watch her.']];
+    if (!wound) return ['wind', [
+      'The beam is slowing down: the weight in the middle of the tower is nearly at the bottom of its tube. Click on the clock case, on the left.',
+      'Your partner&rsquo;s book has a page about winding the clock, with a warning on it. Ask for every step before you touch the handle, and say each one back.'
+    ]];
+    if (!told.looked) return ['look', ['The ship is signalling again. Use the binoculars, on their hook on the right.']];
+    return ['send', [
+      'Read your notes to your partner: a word, a number, and then a word with a question.',
+      'Your partner&rsquo;s pilot book says which channel over the bar a ship that draws that much must use, and the line for it. Lines on the chart are drawn FROM the light. But the ship wants the bearing of the light FROM HER, to steer by: you met the same thing on the gallery.',
+      'Your partner will give you three figures. You have seen most of them in the ship&rsquo;s own messages tonight: your notes are in the notebook. Say the figures back, then send them, slowly.'
+    ]];
+  }
+  function begin() {
+    paint();
+    lamp = nextFile ? null : KP.ship({ node: $('#shiplamp'), glow: $('#shipglow'), text: MSG, unit: 230 });
+    if (nextFile) { busy = false; ER.say('She is steering for your light: red and green together.'); return; }
+    if (told.intro) { busy = false; ER.say(wound ? 'The lens is turning again. The ship is signalling.' : 'The beam is slowing. The weight is nearly at the bottom.'); return; }
+    ER.narrate([
+      'You count the beam without meaning to, the way you count stairs. Three flashes, and the dark, and the dark goes on too long. The next three come late.',
+      'On the clock case, the pointer of the weight is down by EMPTY. Fifty minutes, said the book. It has been fifty minutes.',
+      'And to the south-east, beyond the white line of the bar, the ship&rsquo;s lamp is going again.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- winding the clock ---------- */
+  function makeWind() {
+    var box = ER.el('div', 'bx wd'), brakeOn = false, level = 0;
+    box.innerHTML = '<svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg"><rect x="60" y="30" width="640" height="370" fill="#2a3a2e" stroke="#0e1410" stroke-width="6"/>' +
+      '<g fill="#b0832e"><circle cx="300" cy="230" r="70"/><circle cx="400" cy="160" r="34"/></g><g fill="#2a3a2e"><circle cx="300" cy="230" r="20"/></g>' +
+      '<rect x="110" y="60" width="44" height="300" fill="#0e1410" stroke="#b0832e" stroke-width="3"/><text x="132" y="52" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#e2c46e" text-anchor="middle">FULL</text>' +
+      '<text x="132" y="384" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" fill="#e2c46e" text-anchor="middle">EMPTY</text><g id="wptr" style="transform:translateY(0)"><path d="M104 350h56" stroke="#ffd27a" stroke-width="6"/></g>' +
+      '<g id="handle" style="cursor:pointer"><circle cx="620" cy="200" r="14" fill="#b0832e"/><path d="M620 200h-90v60" stroke="#b0832e" stroke-width="14" fill="none" stroke-linecap="round"/><circle cx="530" cy="266" r="12" fill="#5a3a1e"/><rect x="500" y="160" width="150" height="130" fill="#000" fill-opacity="0"/></g>' +
+      '<g id="brake" style="cursor:pointer"><circle cx="520" cy="330" r="10" fill="#5a5a50"/><g id="bk"><path d="M520 330V270" stroke="#c4372b" stroke-width="12" stroke-linecap="round"/><circle cx="520" cy="264" r="12" fill="#c4372b"/></g><rect x="480" y="250" width="80" height="100" fill="#000" fill-opacity="0"/></g>' +
+      '<text x="560" y="390" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="14" fill="#c9d6ce" text-anchor="middle">the red lever (the brake)</text></svg>' +
+      '<div class="bx-foot"><p class="pmsg"></p></div>';
+    var svg = box.querySelector('svg'), msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function show() { svg.querySelector('#wptr').style.transform = 'translateY(' + (-level * 58) + 'px)'; svg.classList.toggle('on', brakeOn); }
+    box.querySelector('#brake').addEventListener('click', function () {
+      if (wound) { msg('The clock is wound and the lens is turning. Leave the brake off.'); return; }
+      brakeOn = !brakeOn; ER.sfx.clunk(); show();
+      if (brakeOn) { document.body.classList.remove('slow'); msg('Brake ON. The lens stops, and the beam stands still over the sea, pointing at nothing. Now wind.'); return; }
+      if (level >= 5) {
+        wound = true; ER.flag('a5-wound', 1); if (window.Link) Link.set('wound', 1);
+        msg('Brake OFF. The lens moves, slowly, then at its proper speed: one turn a minute. Three flashes and the dark, on time.');
+        paint();
+        setTimeout(function () { ER.closeAll(); ER.say('The beam goes round on time again. Far below, the tell-tale bell should be quiet.'); }, 2200);
+        return;
+      }
+      msg(level ? 'Brake OFF, with the weight only part of the way up. The lens turns, but it will slow again before long. The book says to wind it to the top first.' : 'Brake OFF. The lens creeps round, slower than ever.');
+    });
+    box.querySelector('#handle').addEventListener('click', function () {
+      if (wound) { msg('The weight is at the top.'); return; }
+      if (!brakeOn) {
+        ER.sfx.no(); KP.sfx.crank();
+        msg('You take the handle and it kicks back at you, hard, as the lens pulls against it. You let go just in time. Something has to be done before you wind: ask your partner what the book says.');
+        return;
+      }
+      if (level >= 5) { msg('The pointer is at FULL. The handle will not go any further.'); return; }
+      level++; show(); for (var k = 0; k < 3; k++) setTimeout(KP.sfx.crank, k * 160);
+      msg(level >= 5 ? 'The pointer reaches FULL, and the handle stops. Now the last step.' : 'You turn the handle round and round. The pointer climbs.');
+    });
+    show();
+    msg('The clock case: the weight&rsquo;s pointer near EMPTY, the winding handle, and the red lever. Ask your partner for the steps.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#case').addEventListener('click', function () {
+    if (busy) return;
+    if (wound) { ER.say('The pointer says FULL. The lens turns once a minute.'); return; }
+    if (!wdBox) wdBox = makeWind();
+    wdBox.open();
+    ER.addWord('weight', 'here: a heavy thing that falls slowly and turns the clockwork');
+  });
+
+  /* ---------- the binoculars ---------- */
+  function binoSvg() {
+    return '<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="300" fill="#000"/><clipPath id="bc5"><circle cx="140" cy="150" r="120"/><circle cx="280" cy="150" r="120"/></clipPath>' +
+      '<g clip-path="url(#bc5)"><rect width="420" height="300" fill="#141024"/><rect y="170" width="420" height="140" fill="#0a0814"/><path d="M0 150q40-8 80 0t80 0t80 0t80 0t80 0t80 0" stroke="#e8e2f4" stroke-width="3" fill="none" opacity=".6"/>' +
+      '<path d="M150 194h130l-16 16H166z" fill="#1c1830"/><path d="M200 194V110M240 194V118" stroke="#1c1830" stroke-width="5"/><circle cx="202" cy="104" r="6" fill="#f4f8ff"/><circle cx="234" cy="180" r="8" fill="#ff4a3a"/>' +
+      '<circle id="bglow" cx="176" cy="160" r="42" fill="url(#bgl5)"/><circle id="blamp" class="shl" cx="176" cy="160" r="12" fill="#fffbe6"/></g>' +
+      '<radialGradient id="bgl5"><stop offset="0" stop-color="#fffbe6" stop-opacity=".9"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient></svg>';
+  }
+  var bLamp = null;
+  function notes() {
+    return '<h4>Your notes · the ship&rsquo;s fourth message</h4><p>A box for each group; a red mark where the dark is longer.</p><p class="seen">' + KP.seen(MSG) + '</p><p>(again and again, the same: the last group is longer than the others)</p>';
+  }
+  $('#bino').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('She is steering straight for you: red and green together, and the white light on her mast between them.'); return; }
+    var box = ER.el('div', 'bx bino');
+    box.innerHTML = '<div class="bino-view">' + binoSvg() + '</div><div class="doc pad">' + ER.gloss(notes()) + '</div>';
+    ER.open('ov-look', box, function () { if (bLamp) bLamp.stop(); bLamp = null; ER.addClue('notes5', 'Notes: the ship&rsquo;s fourth message', notes(), 'pad', 'Your own notes'); });
+    bLamp = KP.ship({ node: box.querySelector('#blamp'), glow: box.querySelector('#bglow'), text: MSG, unit: 230 });
+    if (tell('looked')) paint();
+  });
+  $('#ship').addEventListener('click', function () { if (!busy) ER.say(nextFile ? 'Red and green together: she is coming straight at you.' : 'The ship, waiting south of the bar. Use the binoculars to read her lamp.'); });
+  KP.thing('#bar', 'bar', 'The bar: a long bank of sand across the mouth of the Sound. The sea breaks white on it, except in two places. From up here you cannot tell which.', isBusy);
+
+  /* ---------- the signal lamp ---------- */
+  var ALDIS = '<svg viewBox="0 0 330 300" xmlns="http://www.w3.org/2000/svg"><rect width="330" height="300" fill="#06090e"/>' +
+    '<polygon class="beam" points="250,120 330,40 330,240" fill="#fffbe6" opacity=".9"/>' +
+    '<rect x="70" y="90" width="170" height="70" rx="16" fill="#2c3440" stroke="#5a6676" stroke-width="4"/><circle cx="240" cy="125" r="44" fill="#1a2028" stroke="#8a96a6" stroke-width="6"/>' +
+    '<circle class="beam" cx="240" cy="125" r="30" fill="#fffbe6"/>' +
+    '<g class="trig"><path d="M110 160q10 40-8 70" stroke="#c4372b" stroke-width="14" fill="none" stroke-linecap="round"/><rect x="60" y="150" width="90" height="100" fill="#000" fill-opacity="0"/></g>' +
+    '<path d="M90 90l-14-34h70l-10 34" fill="#2c3440"/></svg>';
+  function openKey() {
+    if (busy) return;
+    if (nextFile) { ER.say('She has her line. Nothing more to send.'); return; }
+    if (!keyApi) keyApi = KP.key({
+      title: 'The signal lamp', pic: ALDIS, sendLabel: 'That is the line', onSend: sent,
+      how: 'Press for a short flash, hold for a long one. Figures take five flashes each: let go for a second between figures.'
+    });
+    keyApi.open();
+    if (!wound) keyApi.msg('Behind you the beam is crawling round. Whatever you send, the ship needs a light she can steer by.');
+  }
+  function sent(letters, raw) {
+    if (!wound) { ER.sfx.no(); keyApi.msg('You sent: ' + raw.join('  ') + '. The ship answers with one long flash, then waits, and waits. Behind you the beam has almost stopped: she cannot steer for a light that is not going round. Wind the clock first.'); return; }
+    if (letters === '315') {
+      var file = ER.exit(['315'], { wait: true });
+      if (!file) return;
+      nextFile = file; ER.flag('a5-file', file);
+      keyApi.msg('Three, one, five. The ship&rsquo;s lamp gives one long flash, and goes dark.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; if (lamp) lamp.stop(); paint();
+        ER.narrate([
+          'Her lights swing. The red light stays, and a green light comes on beside it, and the white light on her mast sits exactly between them. Red and green together: she is coming straight at you, steering for your light.',
+          'She comes on, rising and falling, towards the white line of the bar, and through it, at the one place where the white breaks open. The beam goes over her three times, and three times more.',
+          'You do not breathe for about a minute.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+      return;
+    }
+    ER.sfx.no();
+    if (letters === '135') keyApi.msg('You sent: ' + raw.join('  ') + '. The ship&rsquo;s lamp answers at once: short, short, long, long, short, short. Twice. Then nothing. Her lights do not move. That does not look like &ldquo;thank you&rdquo;. Ask your partner what the ship sees when she looks at the light.');
+    else if (letters === '330') keyApi.msg('You sent: ' + raw.join('  ') + '. The ship&rsquo;s lights swing towards the bar, then stop. Her lamp sends her first word and her number again, slowly, as if you had not heard them. Ask your partner which channel that line was for.');
+    else if (letters.indexOf('#') >= 0) keyApi.msg('You sent: ' + raw.join('  ') + '. Some flashes ran together. Let go for a moment between figures.');
+    else keyApi.msg('You sent: ' + raw.join('  ') + '. The ship answers with one long flash, then sends her question again. Check the figures with your partner, one by one.');
+  }
+  $('#aldis').addEventListener('click', openKey);
+
+  /* ---------- the other screen ---------- */
+  KP.tube('#tube', isBusy);
+  KP.state('lamp', function () { document.body.classList.add('yard'); ER.say('Far below, at the foot of the tower, a small yellow light appears in the watch-room window: your partner has put a lamp there. You are not the only light on the island.'); });
+  KP.thing('#yard', null, function () { return document.body.classList.contains('yard') ? 'The watch-room window, 132 steps below you, with a lamp in it.' : 'The dark yard at the foot of the tower. Somewhere down there is the watch room.'; }, isBusy);
+  if (window.Link) Link.follow($('#go'), 'pilot');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

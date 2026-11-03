@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Squall · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#0b1210;--accent:#b8e6c8;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,16,14,.95);--tc-ink:#eef6f0;--cap-bg:rgba(12,20,16,.93);--panel:#121c18;--face-bg:#1e2c26;--q-ink:#d4f2de;--fade:#030504;--hud-bg:rgba(12,20,16,.84)}
+  .tc-room{font-family:'Fraunces',serif;font-weight:800}
+  .sheet{animation:sh 1.1s linear infinite}
+  .sheet.b{animation-duration:1.6s;animation-delay:.4s}
+  @keyframes sh{from{transform:translate(60px,-120px)}to{transform:translate(-60px,120px)}}
+  .stream{animation:st 3s linear infinite}
+  @keyframes st{from{transform:translateY(-40px)}to{transform:translateY(40px)}}
+  .sweep{opacity:0;animation:sw 15s linear infinite}
+  .sweep.b{animation-delay:.9s}.sweep.c{animation-delay:1.8s}
+  @keyframes sw{0%{opacity:0}1%{opacity:.45}4%{opacity:0}100%{opacity:0}}
+  .shl{opacity:.04}.shl.lit{opacity:.85}
+  #shipglow{opacity:0}#shipglow.lit{opacity:.5}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  .beam{opacity:0}.beam.lit{opacity:1}
+  .key-box{width:min(940px,95vw)}
+  .bino{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr)}
+  .bino-view{background:#000;display:grid;place-items:center}
+  .bino-view svg{display:block;width:100%;height:auto}
+  .bino .doc.pad{width:auto;max-height:none;box-shadow:none;margin:0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="murk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101a18"/><stop offset=".6" stop-color="#1e2c28"/><stop offset="1" stop-color="#0e1614"/></linearGradient>
+  <linearGradient id="sw4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4fff4" stop-opacity=".7"/><stop offset="1" stop-color="#f4fff4" stop-opacity="0"/></linearGradient>
+  <radialGradient id="glow4" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fffbe6" stop-opacity=".8"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig4" cx="50%" cy="46%" r="74%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".88"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#murk)"/>
+<!-- the sweep of the light, lost in the rain a few metres out -->
+<polygon class="sweep" points="800,260 2600,60 2600,520" fill="url(#sw4)"/><polygon class="sweep b" points="800,260 2600,140 2600,600" fill="url(#sw4)"/><polygon class="sweep c" points="800,260 2600,220 2600,680" fill="url(#sw4)"/>
+<!-- sheets of rain beyond the glass -->
+<g stroke="#9fc0b0" stroke-width="3" opacity=".22"><g class="sheet"><path d="M100 -100l-120 400M300 -100l-120 400M500 -100l-120 400M700 -100l-120 400M900 -100l-120 400M1100 -100l-120 400M1300 -100l-120 400M1500 -100l-120 400M1700 -100l-120 400"/></g>
+  <g class="sheet b"><path d="M200 200l-120 400M400 200l-120 400M600 200l-120 400M800 200l-120 400M1000 200l-120 400M1200 200l-120 400M1400 200l-120 400M1600 200l-120 400"/></g></g>
+<!-- the ship's lamp, faint through it -->
+<g id="ship" class="hot"><circle cx="560" cy="430" r="70" fill="#000" fill-opacity="0"/><circle id="shipglow" cx="560" cy="430" r="40" fill="url(#glow4)"/><circle id="shiplamp" class="shl" cx="560" cy="430" r="7" fill="#fffbe6"/></g>
+<!-- water streaming down the inside of the glass, and the bars -->
+<g stroke="#cfe6da" stroke-width="2" opacity=".25" class="stream"><path d="M150 0v700M330 80v600M470 0v640M660 40v700M840 0v620M1020 60v700M1190 0v640M1360 30v700"/></g>
+<g stroke="#121a18" stroke-width="18"><path d="M-300 -100L500 780M300 -100L1100 780M900 -100L1700 780M-300 780L500 -100M300 780L1100 -100M900 780L1700 -100"/></g>
+<rect x="-1000" y="-700" width="3600" height="640" fill="#0a0f0e"/><rect x="-1000" y="760" width="3600" height="1200" fill="#18201d"/><path d="M-1000 760H2600" stroke="#33403a" stroke-width="10"/>
+<!-- the binoculars on their hook, the signal lamp, the speaking tube -->
+<g id="bino" class="hot"><path d="M1240 400v40" stroke="#2a2a2a" stroke-width="4"/><g fill="#1d2420" stroke="#4a5a52" stroke-width="3"><rect x="1200" y="440" width="34" height="80" rx="8"/><rect x="1246" y="440" width="34" height="80" rx="8"/></g><rect x="1228" y="460" width="24" height="16" fill="#2a3430"/><rect x="1190" y="396" width="100" height="134" fill="#000" fill-opacity="0"/></g>
+<g id="aldis" class="hot"><path d="M960 760v-70" stroke="#2a2a2a" stroke-width="8"/><rect x="900" y="620" width="130" height="74" rx="14" fill="#2c3440" stroke="#5a6676" stroke-width="4"/>
+  <circle cx="1030" cy="657" r="34" fill="#1a2028" stroke="#8a96a6" stroke-width="5"/><path d="M916 694l-6 28" stroke="#c4372b" stroke-width="8" stroke-linecap="round"/></g>
+<g id="tube" class="hot"><path d="M1440 900V720q0-30 30-30h30" stroke="#b0832e" stroke-width="22" fill="none"/><ellipse cx="1504" cy="690" rx="12" ry="24" fill="#b0832e"/>
+  <g class="whis"><rect x="1506" y="680" width="26" height="20" rx="4" fill="#d9b86a"/><circle cx="1534" cy="690" r="5" fill="#8a6420"/></g></g>
+<g id="towel" class="hot"><path d="M640 770h170l-10 90H650z" fill="#c4372b"/><path d="M640 790h170M645 820h160" stroke="#f2ead6" stroke-width="5"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vig4)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Wait for the tide</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="lamp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, lamp = null, keyApi = null;
+  var MSG = '15 POB BAR?';
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-a', storyTitle: 'Show a Light', id: 'squall', no: 'IV', title: 'The Squall',
+    go: 'Back to the glass',
+    intro: [
+      'The ship&rsquo;s bearings were taken from the ship: Siller Ness light at 040, Mallack Head light at 310. Your bearing of the ship from the gallery was 220: the same line, seen from the other end (040 + 180 = 220). So your partner drew the lines FROM the lights, at 220 and 130, and they crossed three sea miles south-west of the light, a mile west of the Mares. You could see her red light, her port side: she was heading east, onto the rocks. You sent U: &ldquo;You are running into danger.&rdquo; She turned south.',
+      '22.10. Back inside the lantern, wet to the skin. A squall comes over the island like a wall: rain so thick that the beam stops a few metres from the glass. And somewhere in it, the ship&rsquo;s lamp is going again.'
+    ],
+    exit: {"next":"weight","w":{"89d585d2":"0cdb119f"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a4-told') || {}; nextFile = ER.flag('a4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.looked ? 1 : 0) + (nextFile ? 1 : 0), 2);
+    if (nextFile) KP.card([['Tell your partner', ['&ldquo;She has stopped. Her lights aren&rsquo;t moving. She&rsquo;s waiting.&rdquo;']], ['Ask your partner', ['&ldquo;When can she cross?&rdquo;']]]);
+    else if (told.looked) KP.card([['Tell your partner', ['&ldquo;Two messages. First a number and three letters: &hellip; Then a question: &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What does she want to know? What&rsquo;s the answer?&rdquo;', '&ldquo;Say it back: one long, one short?&rdquo;']]]);
+    else KP.card([['Tell your partner', ['&ldquo;The ship&rsquo;s lamp is going again. It&rsquo;s faint, but I can read it.&rdquo;']], ['Ask your partner', ['&ldquo;Ready? Have you got the code book open?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['She is waiting for the tide. Your partner will know how long.']];
+    if (!told.looked) return ['look', ['The ship is signalling again. Use the binoculars, on their hook on the right, to read her lamp through the rain.']];
+    return ['send', [
+      'Read your notes to your partner. There are two messages this time: first a number and three letters, then a question.',
+      'The question is for the lighthouse, and the answer is in your partner&rsquo;s tide table. Ask them for the answer, and ask them to check the time twice: the table and the clock may not keep the same time.',
+      'Your partner will give you one letter to send. Say it back, flash by flash, before you send it. If the ship starts and then turns back, something was wrong with the time.'
+    ]];
+  }
+  function begin() {
+    paint();
+    lamp = nextFile ? null : KP.ship({ node: $('#shiplamp'), glow: $('#shipglow'), text: MSG, unit: 230 });
+    if (nextFile) { busy = false; ER.say('The ship is waiting, hove to, south of the bar.'); return; }
+    if (told.intro) { busy = false; ER.say('Rain on the glass, and the ship&rsquo;s lamp, faint, going again.'); return; }
+    ER.narrate([
+      'You can hardly see the gallery rail. The water runs down the inside of the glass as well as the outside, and the floor is a puddle.',
+      'But the ship&rsquo;s lamp is still there, faint, a smudge of light in the rain. She is closer now, south of the island. Whoever is on that lamp is good: slow, careful, the same message again and again.',
+      'The binoculars hang on their hook by the glass.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the binoculars ---------- */
+  function binoSvg() {
+    return '<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="300" fill="#000"/><clipPath id="bc4"><circle cx="140" cy="150" r="120"/><circle cx="280" cy="150" r="120"/></clipPath>' +
+      '<g clip-path="url(#bc4)"><rect width="420" height="300" fill="#16221e"/><g stroke="#9fc0b0" stroke-width="2" opacity=".35"><path d="M60 0l-60 300M140 0l-60 300M220 0l-60 300M300 0l-60 300M380 0l-60 300M460 0l-60 300"/></g>' +
+      '<circle id="bglow" cx="210" cy="150" r="54" fill="url(#bgl4)"/><circle id="blamp" class="shl" cx="210" cy="150" r="14" fill="#fffbe6"/></g>' +
+      '<radialGradient id="bgl4"><stop offset="0" stop-color="#fffbe6" stop-opacity=".8"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient></svg>';
+  }
+  var bLamp = null;
+  function notes() {
+    return '<h4>Your notes · the ship&rsquo;s third message</h4><p>Through the rain. A box for each group; a red mark where the dark is longer.</p>' +
+      '<p class="seen">' + KP.seen(MSG) + '</p><p>(again and again, the same: the last group is longer than the others)</p>';
+  }
+  $('#bino').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('Her lamp is dark now. Her lights are still: she is waiting.'); return; }
+    var box = ER.el('div', 'bx bino');
+    box.innerHTML = '<div class="bino-view">' + binoSvg() + '</div><div class="doc pad">' + ER.gloss(notes()) + '</div>';
+    ER.open('ov-look', box, function () { if (bLamp) bLamp.stop(); bLamp = null; ER.addClue('notes4', 'Notes: the ship&rsquo;s third message', notes(), 'pad', 'Your own notes'); });
+    bLamp = KP.ship({ node: box.querySelector('#blamp'), glow: box.querySelector('#bglow'), text: MSG, unit: 230 });
+    if (tell('looked')) paint();
+  });
+  $('#ship').addEventListener('click', function () { if (!busy) ER.say('A smudge of light in the rain. You will need the binoculars, on their hook on the right.'); });
+
+  /* ---------- the signal lamp ---------- */
+  var ALDIS = '<svg viewBox="0 0 330 300" xmlns="http://www.w3.org/2000/svg"><rect width="330" height="300" fill="#06090e"/>' +
+    '<polygon class="beam" points="250,120 330,40 330,240" fill="#fffbe6" opacity=".9"/>' +
+    '<rect x="70" y="90" width="170" height="70" rx="16" fill="#2c3440" stroke="#5a6676" stroke-width="4"/><circle cx="240" cy="125" r="44" fill="#1a2028" stroke="#8a96a6" stroke-width="6"/>' +
+    '<circle class="beam" cx="240" cy="125" r="30" fill="#fffbe6"/>' +
+    '<g class="trig"><path d="M110 160q10 40-8 70" stroke="#c4372b" stroke-width="14" fill="none" stroke-linecap="round"/><rect x="60" y="150" width="90" height="100" fill="#000" fill-opacity="0"/></g>' +
+    '<path d="M90 90l-14-34h70l-10 34" fill="#2c3440"/></svg>';
+  function openKey() {
+    if (busy) return;
+    if (nextFile) { ER.say('She has her answer. Nothing more to send until the tide is right.'); return; }
+    if (!keyApi) keyApi = KP.key({
+      title: 'The signal lamp', pic: ALDIS, sendLabel: 'That is my answer', onSend: sent,
+      how: 'Press for a short flash, hold for a long one. In this rain, send slowly: the ship must see every flash.'
+    });
+    keyApi.open();
+  }
+  function sent(letters, raw) {
+    if (letters === 'N') {
+      var file = ER.exit(['n'], { wait: true });
+      if (!file) return;
+      nextFile = file; ER.flag('a4-file', file);
+      keyApi.msg('Long, short. Long, short. Out in the rain the ship&rsquo;s lamp gives one long flash: she has your word.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; if (lamp) lamp.stop(); paint();
+        ER.narrate([
+          'The ship&rsquo;s lights stop moving. She has hove to: her sails set against each other, so that she sits and waits, rising and falling on the swell, south of the bar.',
+          'No. Not yet. It is the hardest thing to tell anybody in a storm, and the right one.',
+          'The squall goes over as fast as it came. The rain thins, and the beam reaches out across the sea again, three arms and the dark.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+      return;
+    }
+    ER.sfx.no();
+    if (letters === 'C') {
+      keyApi.msg('You sent: ' + raw.join('  ') + '. The ship&rsquo;s lights swing towards the bar at once. Then, two minutes later, her lamp flashes a row of short flashes and she turns away again, hard: somebody on board has put a weighted line over the side, and there is not enough water yet. Ask your partner to check the time in the tide table again.');
+    } else if (letters.indexOf('#') >= 0) {
+      keyApi.msg('You sent: ' + raw.join('  ') + '. Some flashes ran together in the rain. Let go for a moment between letters.');
+    } else {
+      keyApi.msg('You sent: ' + raw.join('  ') + '. The ship answers with one long flash, and then sends her question again, slowly. That was not an answer to it.');
+    }
+  }
+  $('#aldis').addEventListener('click', openKey);
+
+  /* ---------- the other screen ---------- */
+  KP.tube('#tube', isBusy);
+  var fogT = 0;
+  KP.state('fog', function () {
+    function blast() { KP.sfx.horn(); ER.shake(document.querySelector('.stage')); }
+    blast(); ER.say('BOOOM. The whole tower shakes under your feet: your partner has started the fog horn, down at the foot of the tower. Every thirty seconds, it booms again.');
+    clearInterval(fogT); fogT = setInterval(function () { if (!document.hidden) blast(); }, 30000);
+  });
+  KP.thing('#towel', null, 'A towel from the open day, with SILLER NESS on it. It is the only dry thing up here, and not for long.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'radio');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

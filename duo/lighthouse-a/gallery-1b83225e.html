@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Gallery · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#060b12;--accent:#9fd8ff;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(6,11,18,.95);--tc-ink:#eaf2f8;--cap-bg:rgba(8,14,22,.93);--panel:#101a26;--face-bg:#1c2a3a;--q-ink:#cfe8ff;--fade:#020406;--hud-bg:rgba(8,14,22,.84)}
+  .tc-room{font-family:'Stardos Stencil',serif;font-weight:700}
+  .beamA{opacity:0;animation:bA 15s linear infinite}
+  .beamA.b{animation-delay:.9s}.beamA.c{animation-delay:1.8s}
+  @keyframes bA{0%{opacity:0}1%{opacity:.55}4%{opacity:0}100%{opacity:0}}
+  .shl{opacity:.06}.shl.lit{opacity:1}
+  #shipglow{opacity:0}#shipglow.lit{opacity:.7}
+  .rain{animation:rain .45s linear infinite}
+  @keyframes rain{from{transform:translate(30px,-80px)}to{transform:translate(-40px,80px)}}
+  .swell{animation:sw 6s ease-in-out infinite alternate}
+  @keyframes sw{from{transform:translateY(0)}to{transform:translateY(10px)}}
+  #tube.shrill .whis{animation:shr .9s ease-out}
+  @keyframes shr{0%,100%{transform:translateY(0)}20%,60%{transform:translateY(-14px)}40%,80%{transform:translateY(-8px)}}
+  .beam{opacity:0}.beam.lit{opacity:1}
+  .key-box{width:min(940px,95vw)}
+  .bino{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr)}
+  .bino-view{background:#000;display:grid;place-items:center}
+  .bino-view svg{display:block;width:100%;height:auto}
+  .bino .doc.pad{width:auto;max-height:none;box-shadow:none;margin:0}
+  .pel{width:min(980px,95vw)}
+  .pel #arm{transition:transform .25s}
+  .pel .in{opacity:0}
+  .pel svg.aim .in{opacity:1}
+  .pel .bx-foot .row{display:flex;gap:6px}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080e"/><stop offset="1" stop-color="#1a2638"/></linearGradient>
+  <linearGradient id="beamG3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".9"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="glow3" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fffbe6" stop-opacity=".9"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig3" cx="50%" cy="44%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#sky3)"/>
+<g fill="#16202e" opacity=".9"><ellipse cx="200" cy="120" rx="500" ry="70"/><ellipse cx="1300" cy="200" rx="600" ry="60"/></g>
+<!-- the beam of the old light, sweeping overhead in threes -->
+<polygon class="beamA" points="300,170 2600,-200 2600,250" fill="url(#beamG3)"/><polygon class="beamA b" points="300,170 2600,-120 2600,330" fill="url(#beamG3)"/><polygon class="beamA c" points="300,170 2600,-40 2600,410" fill="url(#beamG3)"/>
+<!-- the sea, a long way down -->
+<rect x="-1000" y="440" width="3600" height="1400" fill="#071020"/>
+<g class="swell" stroke="#2a4060" stroke-width="2.5" fill="none"><path d="M-1000 470q60-6 120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0t120 0"/>
+  <path d="M-1000 520q80-8 160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0"/></g>
+<g stroke="#d6e4f2" stroke-width="3" opacity=".6" fill="none"><path d="M180 600q30-10 60 0M520 560q20-8 40 0M980 620q40-12 80 0M1300 580q30-10 60 0"/></g>
+<!-- the ship, far out: a white masthead light, a red one under it, and her signal lamp -->
+<g id="ship" class="hot"><circle cx="720" cy="470" r="70" fill="#000" fill-opacity="0"/><circle cx="716" cy="452" r="4" fill="#f4f8ff"/><circle cx="724" cy="476" r="4.5" fill="#ff4a3a"/>
+  <circle id="shipglow" cx="702" cy="470" r="30" fill="url(#glow3)"/><circle id="shiplamp" class="shl" cx="702" cy="470" r="5" fill="#fffbe6"/></g>
+<!-- the lantern wall and its open door, on the left -->
+<path d="M-1000 -700H300V900H-1000z" fill="#1c232c"/><g stroke="#11161c" stroke-width="12"><path d="M-200 -700L300 300M100 -700L300 -300"/></g>
+<rect x="150" y="300" width="130" height="520" fill="#0b0f15" stroke="#3a4656" stroke-width="6"/>
+<g id="tube" class="hot"><path d="M200 300V580q0 30 30 30h20" stroke="#b0832e" stroke-width="18" fill="none"/><ellipse cx="254" cy="610" rx="10" ry="20" fill="#b0832e"/>
+  <g class="whis"><rect x="256" y="602" width="22" height="16" rx="4" fill="#d9b86a"/></g></g>
+<!-- the gallery rail -->
+<g stroke="#2e3a48" stroke-width="12"><path d="M300 640H2600"/><path d="M300 720H2600" stroke-width="7"/></g>
+<g stroke="#2e3a48" stroke-width="9"><path d="M420 640v200M640 640v200M860 640v200M1080 640v200M1300 640v200M1520 640v200"/></g>
+<rect x="300" y="830" width="2300" height="900" fill="#141a22"/>
+<!-- the pelorus on the rail -->
+<g id="pelorus" class="hot"><path d="M1190 640v-50" stroke="#5a4214" stroke-width="10"/><ellipse cx="1190" cy="580" rx="90" ry="26" fill="#c9a94e" stroke="#5a4214" stroke-width="4"/><ellipse cx="1190" cy="576" rx="72" ry="19" fill="#f4ecd8"/>
+  <path d="M1120 578l140 -6" stroke="#2a241a" stroke-width="5"/><path d="M1124 578v-26M1256 572v-26" stroke="#2a241a" stroke-width="4"/></g>
+<!-- the signal lamp, carried out on its cable -->
+<g id="aldis" class="hot"><path d="M1400 640q-40 60 -120 120" stroke="#111" stroke-width="5" fill="none"/><rect x="1380" y="580" width="110" height="60" rx="12" fill="#2c3440" stroke="#5a6676" stroke-width="4"/>
+  <circle cx="1490" cy="610" r="28" fill="#1a2028" stroke="#8a96a6" stroke-width="5"/><path d="M1392 640l-6 24" stroke="#c4372b" stroke-width="7" stroke-linecap="round"/></g>
+<g stroke="#9fb4d0" stroke-width="1.8" opacity=".4"><g class="rain"><path d="M400 0l-14 36M620 120l-14 36M860 40l-14 36M1100 200l-14 36M1340 60l-14 36M1500 260l-14 36M500 300l-14 36M760 340l-14 36M1000 400l-14 36M1240 330l-14 36"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vig3)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back inside</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="lamp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, lamp = null, keyApi = null;
+  var MSG = 'S 040 M 310', AIM = 220;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-a', storyTitle: 'Show a Light', id: 'gallery', no: 'III', title: 'The Gallery',
+    go: 'Step outside',
+    intro: [
+      'The book said: open the curtains, pump the tank to 70 lb, light the spirit, and only when the burner was hot, open the oil. Then wind the clock, set the governor, and take off the brake. The lens has four faces, and the List of Lights says a group every 15 seconds: so one turn of the lens takes 4 &times; 15 = 60 seconds. The plate on the clock case was from 1911, when the light flashed every 30.',
+      'Ten minutes later the ship is signalling again: longer this time. You go out onto the gallery to see her better. The wind takes your breath away, and the rail is wet and cold under your hands.'
+    ],
+    exit: {"next":"squall","w":{"0bd1c21b":"f6a3571c"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a3-told') || {}; nextFile = ER.flag('a3-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a3-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.looked ? 1 : 0) + (told.aimed ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) KP.card([['Tell your partner', ['&ldquo;Her red light has gone. Now I can only see one white light, low down.&rdquo;']], ['Ask your partner', ['&ldquo;What does that mean?&rdquo;']]]);
+    else if (told.looked) KP.card([['Tell your partner', ['&ldquo;From here, the ship is at &hellip; degrees.&rdquo;', '&ldquo;I can see a &hellip; light and a white one above it.&rdquo;']], ['Ask your partner', ['&ldquo;What do the ship&rsquo;s numbers mean? Why don&rsquo;t they match mine?&rdquo;', '&ldquo;What shall I send her?&rdquo;']]]);
+    else KP.card([['Tell your partner', ['&ldquo;The light is going round. The ship is signalling again: a long one.&rdquo;']], ['Ask your partner', ['&ldquo;Are you ready to write?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The ship has turned away from the Mares. Go back inside: it is cold out here.']];
+    if (!told.looked) return ['look', [
+      'The ship has seen your light and is signalling again. Click on her lights, far out to the south-west, to look through the binoculars.'
+    ]];
+    return ['tell', [
+      'Read your notes to your partner, group by group. This time there are numbers in the message: each number takes five flashes.',
+      'Take a bearing of the ship yourself with the pelorus, the brass compass on the rail: turn the sight until the ship&rsquo;s lights are in it, and read the number it points to. And tell your partner the colour of every light you can see on the ship.',
+      'Your bearing and the ship&rsquo;s numbers will not agree. Do not argue about it: ask your partner why. Then ask what to send the ship, and send it with the signal lamp on the rail.'
+    ]];
+  }
+  function begin() {
+    paint();
+    lamp = nextFile ? null : KP.ship({ node: $('#shiplamp'), glow: $('#shipglow'), text: MSG, unit: 230 });
+    if (nextFile) { busy = false; $('#ship').querySelector('circle[fill="#ff4a3a"]').setAttribute('opacity', '0'); ER.say('The ship has turned away. One white light, low down, going south.'); return; }
+    if (told.intro) { busy = false; ER.say('The gallery. The beam goes round over your head, and the ship is signalling.'); return; }
+    ER.narrate([
+      'Out here the storm is enormous. The beam goes round over your head, three arms of light and then the dark, and every time it passes you can see the rain in it, flying sideways.',
+      'Far out to the south-west are the ship&rsquo;s lights: a white one high up, a coloured one lower down. And her hand lamp, flashing a long message, groups and gaps, over and over.',
+      'On the rail beside you stands the pelorus: a brass compass card with a sight on it, for taking the bearing of anything at sea. The keepers used it for ships. Tonight, so will you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the binoculars ---------- */
+  function binoSvg(gone) {
+    return '<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="300" fill="#000"/><clipPath id="bc3"><circle cx="140" cy="150" r="120"/><circle cx="280" cy="150" r="120"/></clipPath>' +
+      '<g clip-path="url(#bc3)"><rect width="420" height="300" fill="#0b1422"/><rect y="168" width="420" height="140" fill="#050c18"/><path d="M0 206q40-8 80 0t80 0t80 0t80 0t80 0t80 0" stroke="#2a4060" stroke-width="3" fill="none"/>' +
+      '<path d="M140 184h150l-20 18H160z" fill="#141c28"/><path d="M200 184V96M246 184V108" stroke="#141c28" stroke-width="5"/><path d="M204 100l40 20v50l-40-10z" fill="#1c2634"/>' +
+      '<circle cx="202" cy="92" r="6" fill="#f4f8ff"/>' + (gone ? '' : '<circle cx="230" cy="168" r="8" fill="#ff4a3a"/>') +
+      '<circle id="bglow" cx="168" cy="150" r="42" fill="url(#bgl3)"/><circle id="blamp" class="shl" cx="168" cy="150" r="12" fill="#fffbe6"/></g>' +
+      '<radialGradient id="bgl3"><stop offset="0" stop-color="#fffbe6" stop-opacity=".9"/><stop offset="1" stop-color="#fffbe6" stop-opacity="0"/></radialGradient></svg>';
+  }
+  var bLamp = null;
+  function notes() {
+    return '<h4>Your notes · the ship&rsquo;s second message</h4><p>Short and long flashes, as you saw them. A box for each group; a red mark where the dark is longer.</p>' +
+      '<p class="seen">' + KP.seen(MSG) + '</p><p>(again and again, the same)</p>' +
+      '<p>Her lights: one white light high on her mast. Under it, on the side towards you, one light, RED. No green.</p>';
+  }
+  $('#ship').addEventListener('click', function () {
+    if (busy) return;
+    if (nextFile) { ER.say('One white light, low down, going away to the south. Her stern light: you are behind her now.'); return; }
+    var box = ER.el('div', 'bx bino');
+    box.innerHTML = '<div class="bino-view">' + binoSvg(false) + '</div><div class="doc pad">' + ER.gloss(notes()) + '</div>';
+    ER.open('ov-look', box, function () { if (bLamp) bLamp.stop(); bLamp = null; ER.addClue('notes3', 'Notes: the ship&rsquo;s second message', notes(), 'pad', 'Your own notes'); });
+    bLamp = KP.ship({ node: box.querySelector('#blamp'), glow: box.querySelector('#bglow'), text: MSG, unit: 230 });
+    ER.addWord('masthead light', 'a white light high on a ship&rsquo;s mast, that shines ahead');
+    if (tell('looked')) paint();
+  });
+
+  /* ---------- the pelorus ---------- */
+  function pelSvg() {
+    var s = '<svg viewBox="0 0 980 470" xmlns="http://www.w3.org/2000/svg"><rect width="980" height="470" fill="#0c141e"/>', i, a, r1;
+    s += '<circle cx="250" cy="235" r="200" fill="#c9a94e" stroke="#5a4214" stroke-width="6"/><circle cx="250" cy="235" r="184" fill="#f4ecd8"/>';
+    for (i = 0; i < 360; i += 5) {
+      a = i * Math.PI / 180; r1 = i % 30 === 0 ? 150 : i % 10 === 0 ? 162 : 170;
+      s += '<path d="M' + (250 + r1 * Math.sin(a)).toFixed(1) + ' ' + (235 - r1 * Math.cos(a)).toFixed(1) + 'L' + (250 + 182 * Math.sin(a)).toFixed(1) + ' ' + (235 - 182 * Math.cos(a)).toFixed(1) + '" stroke="#2a241a" stroke-width="' + (i % 30 === 0 ? 3.5 : i % 10 === 0 ? 2.2 : 1.2) + '"/>';
+      if (i % 30 === 0) s += '<text x="' + (250 + 128 * Math.sin(a)).toFixed(1) + '" y="' + (241 - 128 * Math.cos(a)).toFixed(1) + '" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="17" fill="#2a241a" text-anchor="middle">' + ('00' + i).slice(-3) + '</text>';
+    }
+    s += '<text x="250" y="200" font-family="Cinzel,serif" font-weight="700" font-size="22" fill="#5a4214" text-anchor="middle">N</text><path d="M250 210l8 18h-16z" fill="#5a4214"/>';
+    s += '<g id="arm" style="transform-origin:250px 235px"><path d="M250 235V40" stroke="#1d1a14" stroke-width="7" stroke-linecap="round"/><path d="M250 235v120" stroke="#1d1a14" stroke-width="4"/>' +
+      '<rect x="238" y="32" width="24" height="20" fill="#5a4214"/><rect x="238" y="352" width="24" height="16" fill="#5a4214"/><circle cx="250" cy="235" r="10" fill="#5a4214"/></g>';
+    s += '<circle cx="720" cy="205" r="150" fill="#000"/><clipPath id="sight"><rect x="696" y="55" width="48" height="300"/></clipPath><g clip-path="url(#sight)"><rect x="560" y="55" width="320" height="300" fill="#081020"/>' +
+      '<rect x="560" y="230" width="320" height="130" fill="#040a14"/><g class="in"><circle cx="716" cy="196" r="5" fill="#f4f8ff"/><circle cx="724" cy="222" r="6" fill="#ff4a3a"/></g></g>' +
+      '<path d="M696 55v300M744 55v300" stroke="#5a4214" stroke-width="4"/><text x="720" y="388" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="15" letter-spacing="2" fill="#9fb4d0" text-anchor="middle">THROUGH THE SIGHT</text></svg>';
+    return s;
+  }
+  var ang = ER.flag('a3-ang') == null ? 0 : ER.flag('a3-ang');
+  function openPel() {
+    if (busy) return;
+    var box = ER.el('div', 'bx pel');
+    box.innerHTML = pelSvg() + '<div class="bx-foot"><p class="pmsg"></p><div class="row"><button type="button" class="btn" id="l45">&laquo;</button><button type="button" class="btn" id="l5">&lsaquo;</button>' +
+      '<button type="button" class="btn" id="r5">&rsaquo;</button><button type="button" class="btn" id="r45">&raquo;</button></div></div>';
+    var svg = box.querySelector('svg');
+    function show() {
+      svg.querySelector('#arm').style.transform = 'rotate(' + ang + 'deg)';
+      var on = ang === AIM; svg.classList.toggle('aim', on); ER.flag('a3-ang', ang);
+      box.querySelector('.pmsg').innerHTML = ER.gloss(on ? 'There: the ship&rsquo;s lights, right in the middle of the sight. Read where the arm points on the card. The numbers are every 30 degrees; count the marks in between.' :
+        'Turn the sight with the arrows. The card is fixed: north is at the top. Through the sight: rain, and the dark.');
+      if (on && tell('aimed')) { paint(); ER.addClue('pelorus', 'The pelorus: the ship in the sight', '<h4>The pelorus</h4><p>You turned the sight until the ship&rsquo;s white light and red light were in the middle of it, and read the card where the arm pointed.</p>', 'pad', 'On the rail', false); }
+    }
+    ['l45', 'l5', 'r5', 'r45'].forEach(function (id) {
+      box.querySelector('#' + id).addEventListener('click', function () { var d = { l45: -45, l5: -5, r5: 5, r45: 45 }[id]; ang = (ang + d + 360) % 360; ER.sfx.tick(0.5); show(); });
+    });
+    ER.open('ov-lock', box); show();
+    ER.addWord('pelorus', 'a compass card with a sight on it, for taking the bearing of a thing far away');
+    ER.addWord('bearing', 'the direction of a thing, in degrees from north, going round clockwise');
+  }
+  $('#pelorus').addEventListener('click', openPel);
+
+  /* ---------- the signal lamp ---------- */
+  var ALDIS = '<svg viewBox="0 0 330 300" xmlns="http://www.w3.org/2000/svg"><rect width="330" height="300" fill="#06090e"/>' +
+    '<polygon class="beam" points="250,120 330,40 330,240" fill="#fffbe6" opacity=".9"/>' +
+    '<rect x="70" y="90" width="170" height="70" rx="16" fill="#2c3440" stroke="#5a6676" stroke-width="4"/><circle cx="240" cy="125" r="44" fill="#1a2028" stroke="#8a96a6" stroke-width="6"/>' +
+    '<circle class="beam" cx="240" cy="125" r="30" fill="#fffbe6"/>' +
+    '<g class="trig"><path d="M110 160q10 40-8 70" stroke="#c4372b" stroke-width="14" fill="none" stroke-linecap="round"/><rect x="60" y="150" width="90" height="100" fill="#000" fill-opacity="0"/></g>' +
+    '<path d="M90 90l-14-34h70l-10 34" fill="#2c3440"/><path d="M60 240q40 30 100 20" stroke="#111" stroke-width="5" fill="none"/></svg>';
+  function openKey() {
+    if (busy) return;
+    if (nextFile) { ER.say('She has turned away. Nothing more to send for now.'); return; }
+    if (!keyApi) keyApi = KP.key({
+      title: 'The signal lamp', pic: ALDIS, sendLabel: 'That is my signal', onSend: sent,
+      how: 'Press for a short flash, hold for a long one, let go for a second between letters. You have sent with it before: this time your partner will tell you what to send.'
+    });
+    keyApi.open();
+  }
+  function sent(letters, raw) {
+    if (letters === 'U') {
+      var file = ER.exit(['u'], { wait: true });
+      if (!file) return;
+      nextFile = file; ER.flag('a3-file', file);
+      keyApi.msg('You send it: short, short, long. And again. Out in the dark, the ship&rsquo;s hand lamp answers at once with one long flash.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; if (lamp) lamp.stop(); paint();
+        ER.narrate([
+          'For a moment nothing happens. The red light comes on towards the rocks, steady as a bus.',
+          'Then the ship&rsquo;s lights swing. The white light on her mast slides sideways, the red light under it goes out, and there is only one white light left, low down. Her stern light. She has turned her back on the Mares, and she is going south.',
+          'You realise you have been holding the rail so hard that your hands hurt.'
+        ], function () { busy = false; $('#ship').querySelector('circle[fill="#ff4a3a"]').setAttribute('opacity', '0'); paint(); });
+      }, 2400);
+      return;
+    }
+    ER.sfx.no();
+    if (letters.indexOf('#') >= 0) keyApi.msg('You sent: ' + raw.join('  ') + '. Some flashes ran together. Let go for a moment between letters.');
+    else keyApi.msg('You sent: ' + raw.join('  ') + '. The ship answers with one long flash: she has your word. But her red light comes on, steady, on the same course. Whatever you told her, it was not what she needed to hear. Ask your partner.');
+  }
+  $('#aldis').addEventListener('click', openKey);
+
+  /* ---------- the other screen ---------- */
+  KP.tube('#tube', isBusy);
+  KP.state('radio', function () { ER.say('From the open door, faint and crackly, up the speaking tube: the radio. Your partner is talking to the coastguard.'); });
+  if (window.Link) Link.follow($('#go'), 'chart');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Two Lights · Show a Light</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="keeper.css">
+<style>
+  body{--bg:#070a14;--accent:#ffd27a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(7,10,20,.95);--tc-ink:#f4f2ea;--cap-bg:rgba(10,14,26,.93);--panel:#121a2a;--face-bg:#1c2638;--q-ink:#ffe2a8;--fade:#020306;--hud-bg:rgba(10,14,26,.84)}
+  .pcard{background:rgba(255,248,232,.96)}
+  .star{animation:tw 3s steps(2,end) infinite alternate}
+  .star.b{animation-delay:1.2s}
+  @keyframes tw{from{opacity:.4}to{opacity:1}}
+  .sweep{opacity:0;animation:sw 15s linear infinite}
+  .sweep.b{animation-delay:.9s}.sweep.c{animation-delay:1.8s}
+  @keyframes sw{0%{opacity:0}1%{opacity:.5}4%{opacity:0}100%{opacity:0}}
+  body.out .sweep{display:none}
+  #elecL{opacity:0;transition:opacity 1.5s}
+  body.power #elecL{opacity:1}
+  body.power #elecRay{animation:ray 15s linear infinite}
+  #elecRay{opacity:0}
+  @keyframes ray{0%{opacity:0}1%{opacity:.4}3%{opacity:0}5%{opacity:.4}7%{opacity:0}9%{opacity:.4}11%,100%{opacity:0}}
+  .blue{animation:bl 1.2s steps(1,end) infinite}
+  @keyframes bl{0%{opacity:1}50%{opacity:.1}}
+  #partner{opacity:0;transition:opacity 1.6s}
+  body.met #partner{opacity:1}
+  #torch{opacity:0}
+  body.climb #torch{opacity:1;animation:tc 8s linear infinite}
+  @keyframes tc{from{transform:translateY(40px)}to{transform:translateY(-40px)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060914"/><stop offset="1" stop-color="#1c2840"/></linearGradient>
+  <linearGradient id="sw6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".8"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <radialGradient id="eg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f4fbff" stop-opacity=".95"/><stop offset="1" stop-color="#f4fbff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vig6" cx="50%" cy="46%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".66" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#sky6)"/>
+<g fill="#f4f2ea"><circle class="star" cx="200" cy="80" r="2"/><circle class="star b" cx="420" cy="150" r="1.6"/><circle class="star" cx="700" cy="60" r="2.2"/><circle class="star b" cx="980" cy="120" r="1.8"/><circle class="star" cx="1240" cy="70" r="2"/><circle class="star b" cx="1480" cy="160" r="1.6"/><circle class="star" cx="1580" cy="40" r="2"/><circle class="star b" cx="60" cy="200" r="1.8"/></g>
+<polygon class="sweep" points="800,250 2600,80 2600,520" fill="url(#sw6)"/><polygon class="sweep b" points="800,250 2600,160 2600,600" fill="url(#sw6)"/><polygon class="sweep c" points="800,250 2600,240 2600,680" fill="url(#sw6)"/>
+<!-- the Sound, calm in the lee of the Calf: the ship at anchor and the lifeboat beside her -->
+<rect x="-1000" y="430" width="3600" height="1400" fill="#0a1020"/>
+<path d="M900 430q200-70 420-60t600 30V470H900z" fill="#05080e"/><text x="1200" y="420" class="sc" font-size="16" fill="#3a4a66" opacity=".8">THE CALF</text>
+<g stroke="#2a3a58" stroke-width="2" fill="none" opacity=".8"><path d="M-1000 480q80-4 160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0t160 0"/></g>
+<g id="ship" class="hot"><path d="M1040 520h110l-14 14h-82z" fill="#1a2232"/><path d="M1080 520V420M1110 520V430" stroke="#1a2232" stroke-width="4"/><circle cx="1084" cy="414" r="5" fill="#f4f8ff"/>
+  <path d="M1176 528h40l-6 8h-30z" fill="#e8742a"/><circle class="blue" cx="1196" cy="516" r="5" fill="#5aa0ff"/><rect x="1020" y="400" width="210" height="150" fill="#000" fill-opacity="0"/></g>
+<!-- the electric light on the gallery rail, which comes back -->
+<g id="elec" class="hot"><path d="M300 660v-120" stroke="#3a4250" stroke-width="10"/><rect x="254" y="470" width="92" height="76" rx="10" fill="#26303e" stroke="#4a5568" stroke-width="4"/><rect x="266" y="484" width="68" height="46" rx="6" fill="#0c1018"/>
+  <circle id="elecL" cx="300" cy="507" r="60" fill="url(#eg)"/><polygon id="elecRay" points="300,507 -1000,300 -1000,700" fill="#f4fbff"/></g>
+<g stroke="#2a313c" stroke-width="7"><path d="M-1000 600H2600"/><path d="M-1000 640H2600" stroke-width="4"/></g>
+<g stroke="#1a1f27" stroke-width="16"><path d="M-300 -100L500 760M300 -100L1100 760M900 -100L1700 760M-300 760L500 -100M300 760L1100 -100M900 760L1700 -100"/></g>
+<rect x="-1000" y="-700" width="3600" height="640" fill="#0a0d12"/><rect x="-1000" y="740" width="3600" height="1200" fill="#1b2029"/><path d="M-1000 740H2600" stroke="#3a4250" stroke-width="10"/>
+<!-- the old lens, still turning, and the hatch where your partner will come up -->
+<g id="lens" class="hot"><rect x="1250" y="200" width="250" height="520" rx="20" fill="#2a3a30" opacity=".85"/><g fill="#fff3c0" fill-opacity=".5" stroke="#e6f6ea" stroke-width="3"><circle cx="1310" cy="420" r="40"/><circle cx="1375" cy="420" r="40"/><circle cx="1440" cy="420" r="40"/></g>
+  <rect x="1280" y="720" width="190" height="30" fill="#3a3324"/></g>
+<g id="hatch" class="hot"><path d="M620 820h260l40 60H580z" fill="#0d1016" stroke="#4a5262" stroke-width="5"/><circle id="torch" cx="750" cy="850" r="10" fill="#ffe2a8"/></g>
+<g id="partner" class="hot"><path d="M700 820q-10-110 40-122h24q50 12 40 122z" fill="#3a2a22"/><circle cx="752" cy="672" r="28" fill="#c99a76"/><path d="M724 664q28-36 56 0q-4-24-28-26q-24 2-28 26z" fill="#2a1c12"/>
+  <rect x="690" y="740" width="26" height="30" rx="4" fill="#f2ead6"/><rect x="790" y="740" width="26" height="30" rx="4" fill="#c4372b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vig6)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Show a Light · the lamp keeper&rsquo;s part</small>The light held.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <p>Your partner&rsquo;s screen shows the same ending, from the foot of the tower.</p>
+  <h4>What you now know</h4>
+  <ul>
+    <li>Morse code turns letters into short and long flashes. A lamp call, AA AA AA, is answered with a row of long flashes, TTTT.</li>
+    <li>Every lighthouse has its own character, like Fl(3) 15s: groups of three flashes, repeated every 15 seconds. One turn of the lens takes the period times the number of faces.</li>
+    <li>A bearing taken from a ship and one taken from the shore point opposite ways: add or take away 180 degrees.</li>
+    <li>Two bearings of two lights make two lines on the chart, and the ship is where they cross: a fix.</li>
+    <li>Port is left and shows red; starboard is right and shows green. Red and green together: she is coming straight at you.</li>
+    <li>Ships and coastguards keep UTC, the same as GMT. British Summer Time is one hour ahead, so a tide table in GMT needs an hour added in summer.</li>
+    <li>Say numbers back figure by figure: fifteen is &ldquo;one five&rdquo;, because fifteen and fifty sound alike.</li>
+  </ul>
+  <div class="row"><button type="button" class="btn" id="b-task">Write the lantern log</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Show a Light &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+<button type="button" class="gobtn" id="go">Put the old lamp out</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="lamp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+
+  ER.init({
+    theme: 'duo', story: 'lighthouse-a', storyTitle: 'Show a Light', id: 'allnight', no: 'VI', title: 'Two Lights',
+    go: 'Watch her',
+    intro: [
+      'The ship sent DRAW 3 LINE?: she needs three metres of water under her, and a line to steer by. The Sailing Directions say that a ship that draws two metres or more must use the Calf Channel, along the line drawn on the chart at 135&deg; from the light. But the ship looks at the light from the other end of that line: 135 + 180 = 315. You wound the clock first (brake on, wind to FULL, brake off), and then you sent three, one, five.',
+      'She came in steering for your light, red and green together.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: function () { return ER.flag('a6-done') ? null : ['end', ['Nothing to solve here. Follow the end of the story, and put the old lamp out when the power comes back.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('a6-done')) { document.body.classList.add('power', 'out', 'met'); busy = false; finish(true); return; }
+    KP.card([['Tell your partner', ['&ldquo;She&rsquo;s over the bar!&rdquo;']]]);
+    ER.narrate([
+      'At 22.58 she is over the bar, half a mile from the light, and she turns north, out of your beam and into the Sound, where the Calf stands between her and the sea. At 23.12 her anchor goes down. You see her lights stop, and one white light go up her mast: a ship at anchor.',
+      'At 23.30 a blue light comes flashing round the Ness: the lifeboat from Port Mallack, a long way round in this. It goes alongside her and stays there. Fifteen people on board. Not fifty.',
+      'Then her hand lamp, one last time, slowly, in plain words. You read the flashes down the tube, and your partner reads you back the letters: THANK YOU SILLER.',
+      'At 23.41 the power comes back. Out on the gallery rail, the electric light blinks, thinks about it, and comes on: Fl(3) 15s, as if it had never been away.'
+    ], function () {
+      document.body.classList.add('power'); busy = false;
+      $('#go').classList.add('on');
+      KP.card([['Tell your partner', ['&ldquo;The electric light&rsquo;s back on. I&rsquo;m putting the old lamp out.&rdquo;']], ['Ask your partner', ['&ldquo;Are you coming up?&rdquo;']]]);
+    });
+  }
+  $('#go').addEventListener('click', function () {
+    if (busy) return;
+    busy = true; $('#go').classList.remove('on');
+    if (window.Link) Link.set('out', 1);
+    ER.sfx.clunk();
+    document.body.classList.add('out');
+    ER.narrate([
+      'Brake on. The old lens slows, and stands still. You shut the oil valve, and the three mantles go from white to yellow to orange to grey, ticking as they cool.',
+      'Footsteps on the stairs. A long way down, slow, then a stop, then slower. A torch, coming up round and round the inside of the tower.',
+      'Your partner climbs out of the hatch on hands and knees with a mug of tea in each hand, having spilt about half of each. &ldquo;A hundred and thirty-two,&rdquo; they say. &ldquo;I counted every one, and I didn&rsquo;t look down once.&rdquo; Until tonight, they had never once been to the top.',
+      'You stand side by side in the lantern and watch the white light at anchor in the Sound. Neither of you says anything clever. Down in the watch room, the telephone rings: Mr Sween, wanting to know which of you he should thank. Both, you say. It took both.'
+    ], function () { busy = false; document.body.classList.add('met'); ER.flag('a6-done', 1); finish(false); });
+  });
+  KP.state('climb', function () { document.body.classList.add('climb'); if (!ER.flag('a6-done')) ER.say('Far below, the door of the watch room bangs. Footsteps on the stairs, and a torch, coming up.'); });
+
+  function finish(quick) {
+    var st = ER.state(), mins = KP.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the first call to the last flash: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' things and ' + Object.keys(st.words).length + ' words.';
+    $('#done').classList.add('on');
+    KP.card([['Ask your partner', ['&ldquo;What was it like down there, with only my voice?&rdquo;', '&ldquo;Which moment was the worst for you?&rdquo;']]]);
+    if (quick) ER.say('The lantern, quiet at last. The electric light goes round outside, and the ship sleeps at anchor in the Sound.');
+    else KP.sfx.gust();
+  }
+  KP.thing('#ship', null, function () { return busy ? null : 'The Whimbrel at anchor in the lee of the Calf: one white light up her mast, and the lifeboat&rsquo;s blue light beside her.'; }, isBusy);
+  KP.thing('#elec', null, function () { return busy ? null : (document.body.classList.contains('power') ? 'The electric light, back on: three flashes every fifteen seconds. Somebody had better buy it a new battery.' : 'The electric light, still dark.'); }, isBusy);
+  KP.thing('#lens', null, function () { return busy ? null : 'The old lens, still warm, with its three grey mantles. Next year, at the open day, you will be the one standing next to it, telling the visitors how it works.'; }, isBusy);
+  KP.thing('#partner', null, function () { return busy ? null : 'Your partner, the voice from the bottom of the tube, with a face at last, and two half-empty mugs. Ask them something.'; }, isBusy);
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the Friends of Siller Ness Light</h4><h3>The lantern log</h3>' +
+      '<p>Mr Sween wants the night written up in the lantern log, the way the keepers did it: one line for each thing that happened, with its time.</p>' +
+      '<p><b>A</b> Write the log in 60 to 90 words. Give every time in the 24-hour clock (21.12), and say at least two of them in words as well (twelve minutes past nine). Use at least four of these: flashes, bearing, port, starboard, the bar, the tide, wound, read back.<br><b>B</b> Or, with your partner: one of you is the coastguard. Pass a short message about the night on the &ldquo;radio&rdquo;, and the other reads it back, with one mistake for the first to catch.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Keeper on duty</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z0-9’'.]+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>
