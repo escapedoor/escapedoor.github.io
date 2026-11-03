@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Drying Room · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#17130c;--accent:#e8d27a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,18,10,.95);--tc-ink:#f6eed8;--cap-bg:rgba(24,20,11,.93);--panel:#2a2412;--face-bg:#3e3418;--q-ink:#fff0b0;--fade:#070604;--hud-bg:rgba(24,20,11,.84)}
+  #dark{opacity:0;transition:opacity 1.4s;pointer-events:none}
+  body.dark #dark{opacity:.965}
+  .glow{opacity:0;transition:opacity 2s}
+  body.dark.lit .glow{opacity:1}
+  body.dark.lit .glow.faint{opacity:.45}
+  #lampHalo{transition:opacity 1s}
+  body.dark #lampHalo{opacity:0}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampD" cx="50%" cy="60%" r="55%"><stop offset="0" stop-color="#fff2c8" stop-opacity=".26"/><stop offset=".6" stop-color="#ffe2a0" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigD" cx="50%" cy="55%" r="70%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity=".95"/></radialGradient>
+  <radialGradient id="glowG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffe9b0" stop-opacity=".95"/><stop offset=".4" stop-color="#ffcf70" stop-opacity=".45"/><stop offset="1" stop-color="#ffcf70" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sandD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5a3a"/><stop offset="1" stop-color="#a88c5c"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0b0906"/>
+<!-- a roof too high for your lamp -->
+<path d="M-1000 -700H2600V380Q800 300 -1000 400Z" fill="#0d0b08"/>
+<path d="M-1000 400Q800 300 2600 380V480Q800 420 -1000 520Z" fill="#2e281e"/>
+<g stroke="#1a160f" stroke-width="3" fill="none" opacity=".7"><path d="M-300 450q600 -60 1200 -50t1300 20"/></g>
+<!-- the sand floor, rippled like a beach -->
+<path d="M-1000 520Q800 420 2600 480V1700H-1000Z" fill="url(#sandD)"/>
+<g stroke="#7a6844" stroke-width="3" fill="none" opacity=".6"><path d="M-200 600q200 -20 400 0t400 0t400 0t400 0t400 0"/><path d="M-100 700q200 -24 400 0t400 0t400 0t400 0t400 0"/><path d="M0 800q200 -24 400 0t400 0t400 0t400 0"/></g>
+<!-- three holes in the floor -->
+<g id="h1" class="hot"><ellipse cx="400" cy="700" rx="110" ry="40" fill="#060403"/><path d="M290 700q110 -50 220 0" stroke="#5a4a2e" stroke-width="6" fill="none"/></g>
+<g id="h2" class="hot"><ellipse cx="980" cy="640" rx="90" ry="32" fill="#060403"/><path d="M890 640q90 -40 180 0" stroke="#5a4a2e" stroke-width="6" fill="none"/></g>
+<g id="h3" class="hot"><ellipse cx="1360" cy="560" rx="60" ry="16" fill="#060403"/></g>
+<!-- Mavis's arrows, scratched on two boulders -->
+<g id="rockA" class="hot"><path d="M1100 600q20 -80 110 -70q60 30 30 90z" fill="#5e5442" stroke="#2a241a" stroke-width="3"/><path d="M1200 566l-60 40M1140 606l22 -2M1140 606l4 -20" stroke="#d8cfb4" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g id="rockB" class="hot"><path d="M1400 520q10 -70 90 -60q50 20 30 70z" fill="#5e5442" stroke="#2a241a" stroke-width="3"/><path d="M1420 500l70 -20M1490 480l-22 -8M1490 480l-16 16" stroke="#d8cfb4" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<!-- an old tin, left in 1968 -->
+<g id="tin" class="hot"><rect x="640" y="760" width="80" height="50" rx="4" fill="#8a3a2a" stroke="#3a1a10" stroke-width="3"/><rect x="650" y="772" width="60" height="22" fill="#d8c08a"/><text x="680" y="788" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="10" fill="#3a1a10" text-anchor="middle">ROWCLIFFE&#8217;S</text></g>
+<!-- your helmet and lamp, on the sand -->
+<g id="helmet" class="hot"><path d="M820 830q0 -70 70 -70q70 0 70 70z" fill="#e2b11a" stroke="#6a5210" stroke-width="4"/><rect x="872" y="772" width="36" height="22" rx="4" fill="#2a2a26"/><circle cx="890" cy="783" r="7" fill="#fff6c8"/></g>
+<g id="pack" class="hot"><path d="M1060 840q-12 -70 26 -90h86q34 18 24 90z" fill="#c4611f" stroke="#5a2a0c" stroke-width="4"/><path d="M1080 760q40 -26 92 0" stroke="#5a2a0c" stroke-width="6" fill="none"/>
+  <g id="handset"><rect x="1098" y="782" width="60" height="30" rx="6" fill="#2a2a26"/><circle cx="1146" cy="797" r="7" fill="#c0391b"/></g></g>
+<rect id="lampHalo" x="-1000" y="-700" width="3600" height="2400" fill="url(#lampD)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigD)" pointer-events="none"/>
+<rect id="dark" x="-1000" y="-700" width="3600" height="2400" fill="#000"/>
+<!-- light coming up from below: only to be seen in the dark -->
+<ellipse class="glow" cx="980" cy="636" rx="150" ry="70" fill="url(#glowG)" pointer-events="none"/>
+<ellipse class="glow" cx="980" cy="560" rx="60" ry="120" fill="url(#glowG)" opacity=".6" pointer-events="none"/>
+<ellipse class="glow faint" cx="1360" cy="556" rx="70" ry="24" fill="url(#glowG)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Down the hole</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, dark = false, litT = 0;
+  var B = document.body;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-a', storyTitle: 'Meet Me Halfway', id: 'drying', no: 'V', title: 'The Drying Room',
+    go: 'Up the sand',
+    intro: [
+      'Your tape said 12.2 metres. The survey said the Flatiron was 40, in metres; Mavis&rsquo;s number was under a smudge, but she counted in feet, and 40 feet is 12.2 metres. Teasdale had copied her 40 and forgotten the feet. So the place where the crawl split was the T, and Mavis said LEFT at the T, up a sand slope. Straight on was the Mangle, where Murray got stuck in 1968.',
+      'Five past four. Your lamp is down to its last bar.'
+    ],
+    exit: {"next":"window","w":{"377897bf":"1d302158"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a5-told') || {}; nextFile = ER.flag('a5-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a5-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringA', theirs: 'ringB', buzz: function () { var h = $('#handset'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The telephone in your pack buzzes.'); } });
+  var saysLit = XP.says('s-light', 'My partner says the big light is on now', function () { lightOn(); });
+  function lightOn() {
+    clearTimeout(litT); B.classList.add('lit');
+    if (dark && !busy) ER.say(lit() ? 'There! Light, coming up out of the floor.' : '');
+    litT = setTimeout(function () { B.classList.remove('lit'); paint(); }, 45000);
+    paint();
+  }
+  function lit() { return B.classList.contains('lit'); }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    saysLit.show(dark && !lit() && !nextFile);
+    ER.pips((told.arrows ? 1 : 0) + (told.glow ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;I&rsquo;m going down the hole with the light in it! Can you hear me?&rdquo;']]]);
+    else if (dark) XP.card([['Tell your partner', ['&ldquo;My lamp is off. It&rsquo;s completely dark here. Switch your big light on now!&rdquo;']], ['Ask your partner', ['&ldquo;Where is your light pointing?&rdquo;', '&ldquo;Which way do Mavis&rsquo;s arrows point?&rdquo;']]]);
+    else XP.card([['Tell your partner', ['&ldquo;I&rsquo;m in a big dry chamber with a sand floor. There are three holes in the floor, and two arrows scratched on rocks.&rdquo;']], ['Ask your partner', ['&ldquo;What did Mavis do here? What does the notebook say?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Down the hole: the light came up through it.']];
+    if (!told.glow) return ['dark', [
+      'Mavis found the way down from here in the dark. Ask your partner to read you what the notebook says about the Drying Room (Sunday night).',
+      'Switch your lamp off (click your helmet on the sand), and ask your partner to switch on the big light at the camp and point it at the right place. Then look at the floor.'
+    ]];
+    return ['which', [
+      'More than one hole may show light. Look at Mavis&rsquo;s scratched arrows, with your lamp on. Your partner knows which way Mavis&rsquo;s arrows point.',
+      'Mavis&rsquo;s arrows point OUT: towards the Laundry and the way home. An arrow that points into a hole means that the hole leads to the Laundry.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The hole with the light in it.'); return; }
+    if (told.intro) { busy = false; ER.say('The Drying Room. Three holes, two arrows, one bar of battery.'); return; }
+    ER.narrate([
+      'The sand slope opens into the biggest space you have been in all day: a dry chamber with a floor of soft sand, rippled like a beach, and a roof your lamp cannot reach.',
+      'Mavis&rsquo;s Drying Room. In the sand there are three holes, dark and round. Near two of them, something has been scratched on the rocks.',
+      'Your lamp flickers again, and dims. One bar. Mavis sat here in the dark once, to save her lamp. So can you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- your lamp ---------- */
+  function setDark(on) {
+    dark = on; B.classList.toggle('dark', on); XP.sfx.lamp(!on);
+    XP.set('a5-dark', on ? Date.now() : -Date.now());
+    if (on) ER.say(lit() ? 'You switch off your lamp. Light is coming up out of the floor.' : 'You switch off your lamp. Darkness, total and soft, like a blanket over your head. You wait for your eyes.');
+    else ER.say('You switch your lamp on again. One bar.');
+    paint();
+  }
+  $('#helmet').addEventListener('click', function () { if (!busy) setDark(!dark); });
+  /* in the dark, a click anywhere looks for the light */
+  $('#dark').addEventListener('click', function () {});
+  $('#scene').addEventListener('click', function (e) {
+    if (busy || !dark || e.target.closest('#helmet')) return;
+    var p = ER.pt($('#scene'), e);
+    if (lit()) {
+      if (Math.abs(p.x - 980) < 150 && Math.abs(p.y - 620) < 110) { tell('glow'); paint(); ER.say('A glow comes up out of the middle hole, steady and yellow: light from far below. And from the small hole on the right, the faintest gleam.'); }
+      else if (Math.abs(p.x - 1360) < 90 && Math.abs(p.y - 556) < 60) { tell('glow'); paint(); ER.say('The small hole on the right: a faint gleam, very faint, as if light had come a long way round to get there.'); }
+      else ER.say('Black. Your eyes ache with looking.');
+    } else ER.say('Black. Nothing at all. If somebody is going to show you a light, it has to be switched on.');
+    e.stopPropagation();
+  }, true);
+  XP.watchKey('light', function (v) { if (String(v).split(':')[0] === 'window') lightOn(); });
+
+  /* ---------- the holes and the arrows ---------- */
+  var HOLES = {
+    h1: { k: 'On your left, near you', t: 'A wide hole', d: 'A wide hole in the sand, about two metres deep, with a sandy floor at the bottom.',
+      no: 'You slide down into it. A sandy pit, two metres deep, with no way out of it but the way you came. You climb out, with sand in your boots.' },
+    h2: { k: 'In front of you, on the right', t: 'A round hole', d: 'A round hole with a sandy lip, by a boulder. It drops away into the dark.',
+      no: 'You sit at the edge and think again.' },
+    h3: { k: 'Far away on the right', t: 'A small hole', d: 'A small hole at the back of the chamber, more of a slot, by another boulder.',
+      no: 'You lie down and put your head into it. It is a crack, as wide as your hand, going down. You could post a letter down it, but not a person.' }
+  };
+  function hole(k) {
+    if (busy || dark) return;
+    if (nextFile) { ER.say('The round hole is the way down.'); return; }
+    var h = HOLES[k];
+    XP.look({ kicker: h.k, title: h.t, text: '<p>' + h.d + '</p>' + (told.glow && k !== 'h1' ? '<p>When the light was on below, ' + (k === 'h2' ? 'a strong yellow glow came up out of this one.' : 'a very faint gleam showed in this one.') + '</p>' : ''),
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#8a7448"/><ellipse cx="190" cy="160" rx="' + (k === 'h3' ? 60 : 130) + '" ry="' + (k === 'h3' ? 16 : 54) + '" fill="#060403"/></svg>',
+      acts: [{ id: 'go-in', label: 'Climb down into it', fn: function (api) { goIn(k, api); } }] });
+  }
+  function goIn(k, api) {
+    XP.set('a5-try', k + ':' + Date.now());
+    XP.sfx.scrape();
+    var file = ER.exit([k], { wait: true });
+    if (!file) { setTimeout(function () { ER.sfx.no(); api.msg(HOLES[k].no); }, 700); return; }
+    nextFile = file; ER.flag('a5-file', file);
+    api.acts([]); api.msg('You swing your legs over the lip, and shout down the hole as loud as you can.');
+    XP.set('a5-shout', true);
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'You shout down the hole, and wait. Your voice goes down into the light and does not come back.',
+        'Then, faint and far below and very cross about something, somebody shouts back.',
+        'The hole drops steeply, three or four metres, to a ledge of rock, and the ledge runs out to an edge, and beyond the edge there is light, a lot of it, and a long way down.'
+      ], function () { busy = false; paint(); });
+    }, 2000);
+  }
+  ['h1', 'h2', 'h3'].forEach(function (k) { $('#' + k).addEventListener('click', function () { hole(k); }); });
+  function arrow(which) {
+    if (busy || dark) return;
+    tell('arrows'); paint();
+    ER.addWord('arrow', 'a sign that points one way');
+    ER.say(which === 'A' ? 'An arrow, scratched deep into the boulder by the round hole. It points down, into the hole.' : 'An arrow, scratched into the boulder by the small hole at the back. It points away from the hole, back towards the sand slope you came up.');
+  }
+  $('#rockA').addEventListener('click', function () { arrow('A'); });
+  $('#rockB').addEventListener('click', function () { arrow('B'); });
+  XP.thing('#tin', 'tin', 'A rusty tin, the kind laundries once kept tickets in. On the lid, still just readable: ROWCLIFFE&rsquo;S LAUNDRY, WOLFSTONE. Inside, a stub of pencil and two boiled sweets, welded together by fifty-eight years.', function () { return busy || dark; });
+  $('#pack').addEventListener('click', function () {
+    if (busy || dark) return;
+    XP.pack({ face: 225, time: [16, 8], bars: 1, ring: ring, acts: [{ id: 'p-dark', label: 'Switch your lamp off', fn: function () { ER.close(); setDark(true); } }] });
+  });
+  if (window.Link) Link.follow($('#go'), 'floodlight');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

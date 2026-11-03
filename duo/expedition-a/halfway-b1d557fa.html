@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Halfway · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#1a120a;--accent:#ffcf7a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(26,18,10,.95);--tc-ink:#fbf0dc;--cap-bg:rgba(28,19,10,.93);--panel:#2c1e10;--face-bg:#3e2c18;--q-ink:#ffdca0;--fade:#080502;--hud-bg:rgba(28,19,10,.84)}
+  #steam{opacity:0;transition:opacity 1.5s}
+  body.kettle #steam{opacity:.7}
+  #steam path{animation:steam 3s ease-in-out infinite alternate}
+  @keyframes steam{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+  #partner{opacity:0;transition:opacity 1.6s}
+  body.met #partner{opacity:1}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="warmH" cx="40%" cy="70%" r="70%"><stop offset="0" stop-color="#ffd890" stop-opacity=".42"/><stop offset=".55" stop-color="#ffb860" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigH" cx="50%" cy="55%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".65" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#140e08"/>
+<path d="M-1000 -700H2600V560H-1000Z" fill="#3a2e22"/>
+<g stroke="#241a12" stroke-width="4" fill="none" opacity=".7"><path d="M-300 160q700 -40 1400 0t1300 0M-200 420q800 30 1600 0"/></g>
+<!-- the ladder you came down, on the left -->
+<g stroke="#c8c8c8"><path d="M240 -200V700M290 -200V700" stroke-width="4"/><path d="M240 -120h50M240 -40h50M240 40h50M240 120h50M240 200h50M240 280h50M240 360h50M240 440h50M240 520h50M240 600h50M240 680h50" stroke-width="6"/></g>
+<path d="M300 -200Q340 300 300 700" stroke="#c0391b" stroke-width="7" fill="none"/>
+<!-- the camp: tarp, stove, radio -->
+<path d="M560 420L1400 400L1440 520L540 540Z" fill="#2f5a7a" opacity=".6"/>
+<path d="M-1000 560Q800 570 2600 590V1700H-1000Z" fill="#6a5840"/>
+<g id="stove" class="hot"><rect x="760" y="600" width="90" height="44" rx="6" fill="#8a8a82"/><path d="M786 600q18 -40 36 0z" fill="#5fa8ff"/><rect x="740" y="558" width="130" height="42" rx="6" fill="#4a4a46"/><path d="M870 572q30 0 26 -30" stroke="#4a4a46" stroke-width="8" fill="none"/></g>
+<g id="steam" pointer-events="none" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"><path d="M800 550q-14 -30 0 -60t0 -60"/><path d="M830 548q14 -30 0 -60t0 -60"/></g>
+<g id="hey" class="hot"><rect x="960" y="580" width="150" height="90" rx="6" fill="#5a6066" stroke="#2a2e32" stroke-width="4"/><circle cx="1000" cy="620" r="18" fill="#22262a"/><circle cx="1000" cy="620" r="8" fill="#5fe08a"/><rect x="1030" y="604" width="64" height="12" fill="#22262a"/></g>
+<!-- your partner, with the lifeline and a sandwich -->
+<g id="partner" class="hot"><path d="M470 720q-10 -140 50 -150h40q60 10 50 150z" fill="#3a5a8a"/><circle cx="540" cy="540" r="34" fill="#c99a76"/><path d="M504 532q36 -50 72 0q-4 -30 -36 -32q-32 2 -36 32z" fill="#e2b11a"/><circle cx="540" cy="512" r="7" fill="#fff6c8"/>
+  <rect x="584" y="610" width="50" height="34" rx="4" fill="#f1ebdc" stroke="#8a7a5a" stroke-width="2"/><path d="M590 626h38" stroke="#c0391b" stroke-width="3"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#warmH)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigH)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done"></div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, gave = false;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-a', storyTitle: 'Meet Me Halfway', id: 'halfway', no: 'VII', title: 'Halfway',
+    go: 'Climb down',
+    intro: [
+      'The ladder had to reach from the anchor to the floor: the drop, 7.6 metres by your tape, plus the 1.2 metres from the thread back to the edge, so 8.8 metres, and the shortest ladder in the bag that is long enough was the ten-metre one. Mavis belayed her ladder round the thread on the UPSTREAM side of the Window. The stream in the Laundry flows from north to south, and you were facing east, out of the Window: so upstream, north, was on your LEFT. Murray&rsquo;s peg, on the downstream side, moved when you hit it.',
+      'Twenty-five to five. Your partner has the lifeline.'
+    ],
+    exit: {"last":true,"rooms":7,"stars":5}, tags: {},
+    hints: function () { return ER.flag('a7-done') ? null : ['end', ['Nothing to solve here. Climb down, and listen to the end of the story.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('a7-done')) { busy = false; document.body.classList.add('met'); finish(true); return; }
+    ER.narrate([
+      'Half way down the ladder you stop for a moment, because your arms would like you to, and look down. Your partner is leaning back on the lifeline, looking up at you with a face that is trying very hard to look calm.',
+      'You climb on. The light comes up round you, rung after rung, and smells of tea.'
+    ], function () {
+      document.body.classList.add('met');
+      ER.narrate([
+        'The last rung. Sand. Your partner lets go of the lifeline and, after a moment in which neither of you knows what to do, shakes your hand, very formally, as if you had just been introduced. Then they give you a sandwich. It has your name on it, in their careful capitals. They made it for you this morning, in case.',
+        'At five o&rsquo;clock the radio hisses, and Reza&rsquo;s voice comes through the rock. &ldquo;Laundry, this is the hut. Tell me some good news.&rdquo; You tell him. There is a pause. Then another voice, older and very clear: &ldquo;This is Mavis Rowcliffe. Is my cairn still there?&rdquo;',
+        '&ldquo;Three stones,&rdquo; you say. &ldquo;On the ledge, on the true right.&rdquo; &ldquo;And my arrows?&rdquo; &ldquo;Pointing out.&rdquo; &ldquo;Good,&rdquo; says Mavis. &ldquo;Then you came round the way I did. I sat up there in the dark for an hour in 1968, waiting for Murray&rsquo;s stove. You were quicker. There were two of you.&rdquo;',
+        'Reza says the committee will have to redraw the survey. &ldquo;Tell them to do it in metres this time,&rdquo; says Mavis, &ldquo;and to ask somebody who has been there. Two somebodies, preferably. One to look, and one to read.&rdquo;',
+        'The water will go down in the night; cave water always does, in the end. In the morning the two of you will walk out the way you came in, under the Low Duck, together. For now there is tea, and a dry ledge, and a great deal to talk about.'
+      ], function () { busy = false; ER.flag('a7-done', 1); finish(false); });
+    });
+  }
+  function finish(quick) {
+    XP.ending({
+      kicker: 'Meet Me Halfway &middot; the explorer&rsquo;s part', head: 'You came round.',
+      other: 'Your partner&rsquo;s screen shows the same ending, from the foot of the ladder.',
+      taskLabel: 'Write the route', taskKicker: 'For the Wolfstone Caving Club', taskHead: 'The Way Over, for the next party',
+      taskText: '<p>Next month the club wants to send another party round the Way Over. Write them a route description from the Washhouse to the Window, in 70 to 110 words, the way you would say it on the telephone. Use at least six of these: on your left, on your right, true right, upstream, downstream, north-east, metres, the second hole, a T, the thread.</p>' +
+        '<p><b>B</b> Or, with your partner: tell the story of today out loud, taking turns. One of you tells what the cave looked like, the other what the papers said, one sentence each, until it is all told.</p>'
+    });
+    XP.card([['Ask your partner', ['&ldquo;What was it like, waiting at the camp? What did you think when the dye came out?&rdquo;', '&ldquo;Who was right: the notebook or the survey?&rdquo;']]]);
+    if (quick) ER.say('The Laundry. Tea, a dry ledge, and your partner.');
+    else try { if (ER.track && ER.music()) ER.track.play(['duet', { root: 53, bpm: 84, scale: [0, 2, 4, 5, 7, 9, 11], drop: ['mel'], level: 1.0 }]); } catch (e) {}
+  }
+  XP.watchKey('kettle', function () { document.body.classList.add('kettle'); if (!busy) ER.say('Your partner has put the kettle on. Steam curls up into the lamplight.'); });
+  $('#stove').addEventListener('click', function () { if (!busy) { document.body.classList.add('kettle'); ER.say('The stove, and the kettle. Mavis made tea on this ledge in 1968. Some things do not change.'); } });
+  $('#hey').addEventListener('click', function () { if (!busy) ER.say('The HeyPhone. Next call: tomorrow morning, to say you are coming out.'); });
+  $('#partner').addEventListener('click', function () {
+    if (busy) return;
+    if (!gave) { gave = true; XP.set('gift', true); ER.say('You give your partner the second sachet of dye, the one you did not use. &ldquo;For next time,&rdquo; you say. They look at it, and at you, and put it carefully in their pocket.'); }
+    else ER.say('Your partner: the voice on the telephone, with a face at last. Ask them something. They have been here all afternoon, reading.');
+  });
+})();
+</script>
+</body>
+</html>

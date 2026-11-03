@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Washhouse · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#120d08;--accent:#e9a24a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,14,8,.95);--tc-ink:#f4e8d6;--cap-bg:rgba(24,16,9,.93);--panel:#241a10;--face-bg:#3a2a1a;--q-ink:#ffd58f;--fade:#080503;--hud-bg:rgba(24,16,9,.84)}
+  .rip{animation:flow 1.1s linear infinite}
+  #airgap{animation:air 5s ease-in-out infinite alternate}
+  @keyframes air{from{opacity:.9}to{opacity:.55}}
+  #foam .fb{animation:glim 6s steps(3,end) infinite alternate}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampW" cx="50%" cy="58%" r="62%"><stop offset="0" stop-color="#ffe2b0" stop-opacity=".28"/><stop offset=".6" stop-color="#ffcf8a" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigW" cx="50%" cy="50%" r="72%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".6" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></radialGradient>
+  <linearGradient id="brownW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a1a"/><stop offset="1" stop-color="#2a1a0c"/></linearGradient>
+  <linearGradient id="rockL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a221a"/><stop offset="1" stop-color="#4a3e30"/></linearGradient>
+  <linearGradient id="rockR" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#241d16"/><stop offset="1" stop-color="#43382b"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0e0a07"/>
+<!-- the chamber: roof, left wall, right wall, far wall -->
+<path d="M-1000 -700H2600V300Q1500 60 800 70Q100 60 -1000 300Z" fill="#1d1712"/>
+<path d="M-1000 300Q100 60 800 70Q1500 60 2600 300V420Q1500 300 800 330Q100 300 -1000 420Z" fill="#2a2119"/>
+<polygon points="-1000,200 520,330 560,520 -1000,1400" fill="url(#rockL)"/>
+<polygon points="2600,200 1080,330 1040,520 2600,1400" fill="url(#rockR)"/>
+<polygon points="520,330 1080,330 1040,520 560,520" fill="#33291f"/>
+<g stroke="#15100b" stroke-width="3" fill="none" opacity=".7"><path d="M-200 360q200 40 520 60M-400 520q300 30 900 40M1700 380q-300 30 -620 50M1900 560q-400 20 -880 10M600 360q100 -10 200 4M900 352q80 6 150 20"/></g>
+<!-- foam and twigs on the roof -->
+<g id="foam" class="hot"><g fill="#d9cdb0" opacity=".75"><ellipse class="fb" cx="420" cy="170" rx="70" ry="9"/><ellipse class="fb" cx="560" cy="128" rx="44" ry="7"/><ellipse class="fb" cx="980" cy="120" rx="60" ry="8"/><ellipse class="fb" cx="1180" cy="168" rx="80" ry="10"/><ellipse cx="760" cy="96" rx="36" ry="6"/></g>
+  <g stroke="#6a4a2a" stroke-width="4" stroke-linecap="round"><path d="M400 168l40 -14M548 128l26 6M1170 170l44 -8M1196 160l-12 -14M972 120l30 -4"/></g><rect x="300" y="80" width="1000" height="110" fill="#000" fill-opacity="0"/></g>
+<!-- the chimney: a black hole high above the duck -->
+<g id="chimney" class="hot"><path d="M720 300l40 -44l40 6l40 -6l40 44l-30 40h-100z" fill="#4a3e30"/><ellipse cx="800" cy="226" rx="46" ry="30" fill="#050403"/><path d="M754 226q46 -40 92 0" stroke="#5a4a38" stroke-width="5" fill="none"/>
+  <g fill="#3a3026" stroke="#1a140e" stroke-width="2"><path d="M700 470l30 -80l60 -10l20 90z"/><path d="M790 470l20 -100l70 0l10 100z"/><path d="M740 390l40 -60l50 10l-10 60z"/></g></g>
+<!-- the Low Duck: a low arch with the water nearly to its top -->
+<g id="duck" class="hot"><path d="M630 520q170 -96 340 0z" fill="#070504"/><path d="M630 520q170 -96 340 0" stroke="#4a3e30" stroke-width="12" fill="none"/>
+  <path id="airgap" d="M668 500q132 -50 264 0" stroke="#1a120a" stroke-width="20" fill="none"/>
+  <rect x="610" y="498" width="380" height="40" fill="#5a3a1a"/></g>
+<!-- the stream, coming towards you -->
+<polygon points="600,520 1000,520 1700,1000 -100,1000" fill="url(#brownW)"/>
+<g class="rip" stroke="#9a6a3a" stroke-width="3" fill="none" stroke-dasharray="20 20" opacity=".7"><path d="M800 530L800 1000"/><path d="M700 530L420 1000"/><path d="M900 530L1180 1000"/><path d="M760 530L620 1000"/><path d="M840 530L990 1000"/></g>
+<g stroke="#d9cdb0" stroke-width="3" fill="none" opacity=".55"><path d="M640 540q40 -8 80 0t80 0t80 0t80 0"/><path d="M560 600q50 -8 100 0t100 0t100 0"/></g>
+<!-- the telephone wire: from the duck to your pack -->
+<path id="wire" class="hot" d="M800 520q-10 120 120 190t190 -60" stroke="#e3c13a" stroke-width="5" fill="none" stroke-dasharray="14 6"/>
+<!-- the ledge on the left, with its cairn -->
+<g id="ledge" class="hot"><path d="M-200 470L420 470L440 500L-200 520Z" fill="#4e4234"/><path d="M-200 470L420 470" stroke="#7a6a52" stroke-width="6"/><path d="M330 468q6 -36 -6 -62q50 8 90 -6l8 68z" fill="#0d0a07"/>
+  <g stroke="#1a140e" stroke-width="2"><ellipse cx="300" cy="462" rx="36" ry="9" fill="#8a7a62"/><ellipse cx="300" cy="448" rx="28" ry="8" fill="#9a8a70"/><ellipse cx="301" cy="436" rx="18" ry="6" fill="#a89878"/></g>
+  <path d="M120 520l20 60M200 530l-10 70M300 520l14 50M380 520l-6 90" stroke="#2a221a" stroke-width="8" stroke-linecap="round"/></g>
+<!-- the mud bank and the old blue rope, behind the boulder -->
+<g id="rope" class="hot"><path d="M1160 640Q1280 420 1380 330L1560 320L1600 700Z" fill="#5a4026"/><path d="M1200 600Q1290 450 1390 345" stroke="#3a2814" stroke-width="10" fill="none" opacity=".6"/>
+  <ellipse cx="1420" cy="320" rx="56" ry="34" fill="#070504"/><path d="M1400 312q-60 120 -140 230q-40 60 -80 90" stroke="#3b6fc4" stroke-width="7" fill="none"/><circle cx="1402" cy="306" r="7" fill="#7a7a7a"/></g>
+<!-- the big flat boulder, with your pack on it -->
+<g id="boulder" class="hot"><path d="M1000 690Q1010 610 1120 600L1430 610Q1500 640 1480 700L1450 760L1030 760Z" fill="#5e5244" stroke="#2a221a" stroke-width="4"/><path d="M1030 640H1440" stroke="#7a6c5a" stroke-width="6"/></g>
+<g id="pack" class="hot"><path d="M1090 640q-12 -70 26 -90h86q34 18 24 90z" fill="#c4611f" stroke="#5a2a0c" stroke-width="4"/><path d="M1110 560q40 -26 92 0" stroke="#5a2a0c" stroke-width="6" fill="none"/>
+  <g id="handset"><rect x="1128" y="582" width="60" height="30" rx="6" fill="#2a2a26"/><circle cx="1176" cy="597" r="7" fill="#c0391b"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampW)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigW)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the crawl</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, buzzT = 0;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-a', storyTitle: 'Meet Me Halfway', id: 'wash', no: 'I', title: 'The Washhouse',
+    go: 'Listen',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE NAVIGATOR (part B) on another screen. Do not show each other your screens: talk. You can link your two screens with the tag in the bottom left corner: then what one of you does shows on the other screen.</b>',
+      'Tallow Hole, Saturday 17 October 2026, five past three in the afternoon. You and your partner met for the first time last night, at the Wolfstone Caving Club hut. They labelled their sandwiches. You did not bring any.',
+      'This morning the two of you came down to the Laundry, the old camp of an expedition of 1968, with a photocopy of that expedition&rsquo;s notebook and the club&rsquo;s survey of 1975. The two papers do not agree. Your partner stayed at the camp with the papers and the telephones. You went on downstream, under the Low Duck, with a telephone wire on a reel.',
+      'It was meant to be a quiet look at the far end of the cave. Then, two hours before the forecast said it would, it started to rain on the hill.'
+    ],
+    exit: {"next":"wringer","w":{"c62238b6":"93b3ed88"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a1-told') || {}; nextFile = ER.flag('a1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a1-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringA', theirs: 'ringB', buzz: buzz });
+  function buzz() {
+    var h = $('#handset'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz');
+    XP.sfx.buzz();
+    if (!busy && !ER.isOpen()) ER.say('The telephone in your pack is buzzing.');
+  }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.phone ? 1 : 0) + (told.looked ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;I&rsquo;m up! I&rsquo;m on the ledge by the cairn, and there&rsquo;s a dry crawl going on. I can feel air on my face.&rdquo;']]]);
+    else if (told.phone) XP.card([['Tell your partner', ['&ldquo;I&rsquo;m facing upstream: the water is coming towards me. In front of me there&rsquo;s a low arch, and above it &hellip;&rdquo;', '&ldquo;On my left there&rsquo;s &hellip; On my right there&rsquo;s &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;Where does the Way Over start? Is that on my left or on my right?&rdquo;']]]);
+    else XP.card([['Tell your partner', ['&ldquo;Hello, it&rsquo;s me. I&rsquo;m back in the chamber below the duck, and the water is coming up.&rdquo;']], ['Ask your partner', ['&ldquo;Is there another way back? What do the papers say?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['You are on the ledge, and the crawl behind the cairn goes on. Follow it.']];
+    if (!told.phone) return ['phone', [
+      'Your pack is on the big flat boulder, on the right. The telephone in it is buzzing.',
+      'Click the pack, then Answer the telephone. Your partner is at the Laundry, with the papers.'
+    ]];
+    return ['way', [
+      'Your partner has the 1968 notebook and the 1975 survey. Tell them exactly what you can see from where you stand, and which way you are facing. They need it to find this chamber in the notebook.',
+      'Ask your partner what TR means on their papers. True left and true right are named looking downstream. Which way are you facing: upstream (the water is coming towards you) or downstream?',
+      'You are facing upstream, so everything is the other way round: the true right is on your LEFT. Look for the climb on that side, and for what the notebook says is on top of it.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The ledge. Behind the cairn, a dry crawl breathes cool air at you.'); return; }
+    if (told.intro) { busy = false; ER.say('The Washhouse. The water is still coming up.'); return; }
+    ER.narrate([
+      'The water in the Washhouse is not the water you came through. That was clear and quiet. This is brown, and loud, and in a hurry, and it is coming towards you out of the Low Duck.',
+      'The duck itself, the low arch you crawled under an hour ago with your nose against the roof, now has a strip of air at the top no wider than your hand. The telephone wire goes into the brown water under it. On the other side, a long way back, is the Laundry.',
+      'In your pack, on the big flat boulder, the telephone begins to buzz.'
+    ], function () {
+      busy = false; tell('intro'); paint();
+      setTimeout(function () { if (!told.phone) buzz(); }, 500);
+      buzzT = setInterval(function () { if (!told.phone && !busy && !ER.isOpen()) buzz(); }, 9000);
+    });
+  }
+
+  /* ---------- the three ways up ---------- */
+  var WAYS = {
+    ledge: { kicker: 'On your left, up the wall', title: 'A ledge',
+      text: '<p>A ledge about two and a half metres up the left-hand wall: as high as the roof of a garage. The wall below it has good holds.</p><p>On top of the ledge, near the edge, three flat stones stand one on top of another, too neatly to have fallen that way.</p>',
+      label: 'Climb up to it',
+      no: 'You climb, and stop. Something is wrong with the holds, and you come back down.' },
+    rope: { kicker: 'On your right, behind the boulder', title: 'A mud bank and a rope',
+      text: '<p>Behind the big flat boulder, a bank of brown mud goes up steeply to a dark hole, about four metres up.</p><p>A blue rope hangs down the mud from an old peg at the top: faded, but a rope, which is more than most ways up have. Somebody has been up there.</p>',
+      label: 'Climb the rope',
+      no: 'You go up the rope hand over hand, your boots sliding in the mud. At the top the hole is a pipe of wet mud, and after ten metres the pipe closes down to nothing. No air moves. On the wall somebody has scratched W.C.C. 1979 NO WAY ON. You slide back down to the boulder, a good deal browner than you were.' },
+    chimney: { kicker: 'In front of you, above the duck', title: 'A hole in the roof',
+      text: '<p>High above the low arch, about six metres up, a black hole in the roof. A slope of jammed boulders goes part of the way up to it.</p>',
+      label: 'Try to reach it',
+      no: 'You climb the jammed boulders. Two-thirds of the way up, the top one rocks under your hand, and you decide you would rather not find out how far it would go. The hole is still three metres above you. You climb down, carefully.' }
+  };
+  var PIC = {
+    ledge: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#2a221a"/><path d="M0 120H300L320 150H0Z" fill="#5e5244"/><path d="M0 120H300" stroke="#8a7a62" stroke-width="5"/><g stroke="#1a140e" stroke-width="2"><ellipse cx="200" cy="112" rx="40" ry="10" fill="#8a7a62"/><ellipse cx="200" cy="96" rx="30" ry="9" fill="#9a8a70"/><ellipse cx="201" cy="82" rx="19" ry="7" fill="#a89878"/></g><path d="M240 120q0 -60 -20 -90h120v90z" fill="#0b0806"/><path d="M60 160l20 50M140 170l-10 60M220 160l14 50" stroke="#1a140e" stroke-width="9" stroke-linecap="round"/><rect y="250" width="380" height="50" fill="#4a3018"/></svg>',
+    rope: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#241d16"/><path d="M40 300Q160 120 260 60L380 50V300Z" fill="#5a4026"/><ellipse cx="290" cy="60" rx="54" ry="32" fill="#070504"/><circle cx="282" cy="46" r="7" fill="#888"/><path d="M282 50q-60 110 -150 200q-30 30 -60 50" stroke="#3b6fc4" stroke-width="7" fill="none"/></svg>',
+    chimney: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#1d1712"/><ellipse cx="190" cy="60" rx="54" ry="34" fill="#050403"/><g fill="#3a3026" stroke="#1a140e" stroke-width="2"><path d="M80 300l40 -120l80 -20l30 140z"/><path d="M180 300l30 -150l90 0l20 150z"/><path d="M130 190l60 -80l60 14l-14 80z"/></g><path d="M100 300q90 -60 180 0" fill="#070504"/><rect y="280" width="380" height="20" fill="#5a3a1a"/></svg>'
+  };
+  function way(k) {
+    if (busy) return;
+    if (nextFile) { ER.say('You are up. The crawl behind the cairn is the way on.'); return; }
+    var w = WAYS[k];
+    if (tell('looked')) paint();
+    XP.set('a1-look', k);
+    XP.look({ kicker: w.kicker, title: w.title, pic: PIC[k], text: w.text,
+      acts: [{ id: 'climb', label: w.label, fn: function (api) { climb(k, api); } }] });
+  }
+  function climb(k, api) {
+    api.acts([]);
+    XP.set('a1-try', Date.now());
+    XP.sfx.rope();
+    var file = ER.exit([k], { wait: true });
+    if (!file) {
+      setTimeout(function () { ER.sfx.no(); api.msg(WAYS[k].no); api.acts([{ id: 'climb', label: WAYS[k].label, fn: function (a) { climb(k, a); } }]); }, 900);
+      return;
+    }
+    nextFile = file; ER.flag('a1-file', file); clearInterval(buzzT);
+    XP.set('a1-up', true);
+    api.msg('The holds are good. You pull up onto the ledge beside the three stones.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'Three flat stones, one on top of another: a cairn, built by somebody who wanted it to be found. You put your hand on it, the way you would shake somebody&rsquo;s hand.',
+        'Behind the cairn, a low dry crawl goes back into the wall, and out of it comes a breath of cool air on your wet face. Air that moves has somewhere to go.',
+        'Down below, the brown water is over the top of the Low Duck now. There is no arch any more: only a wall, and a wire going into the water.'
+      ], function () { busy = false; paint(); });
+    }, 2200);
+  }
+  ['ledge', 'rope', 'chimney'].forEach(function (k) { $('#' + k).addEventListener('click', function () { way(k); }); });
+
+  /* ---------- other things ---------- */
+  $('#pack').addEventListener('click', function () {
+    if (busy) return;
+    XP.pack({ face: 0, time: [15, 6], bars: 3, ring: ring, onPhone: function () { if (tell('phone')) { clearInterval(buzzT); paint(); XP.set('a1-phone', true); } } });
+  });
+  $('#duck').addEventListener('click', function () {
+    if (busy) return;
+    ER.addWord('duck', 'a place in a cave where the roof comes down almost to the water, with only a little air');
+    XP.look({ kicker: 'In front of you', title: 'The Low Duck', lock: false,
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#140f0a"/><path d="M20 200q170 -150 340 0z" fill="#070504"/><path d="M20 200q170 -150 340 0" stroke="#4a3e30" stroke-width="16" fill="none"/><rect x="0" y="' + (nextFile ? 120 : 164) + '" width="380" height="140" fill="#5a3a1a"/><path d="M190 300q-10 -60 0 -' + (nextFile ? 170 : 130) + '" stroke="#e3c13a" stroke-width="5" stroke-dasharray="12 6" fill="none"/></svg>',
+      text: nextFile ? '<p>There is no air at all at the top of the arch now. The duck has become a sump: full of water from floor to roof.</p>' :
+        '<p>The low arch you came through. The water comes out of it brown and fast, and the strip of air at the top is now no wider than your hand. When you crawled through an hour ago there was room for your whole helmet.</p><p>The telephone wire goes into the water underneath it.</p>' });
+  });
+  XP.thing('#foam', 'foam', 'Look up. Lines of dirty foam and bits of twig are stuck to the ROOF. When this chamber floods, it fills right to the top.', isBusy);
+  XP.thing('#boulder', 'boulder', 'A big flat boulder, as flat as an ironing board. Your pack is on it, out of the water for now.', isBusy);
+  XP.thing('#wire', 'wire', function () { return 'The telephone wire: from the reel in your pack, under the water in the duck, all the way back to the Laundry. As long as it is there, your partner can hear you.'; }, isBusy);
+  $('#scene').addEventListener('click', function (e) {
+    if (busy || e.target.closest('.hot')) return;
+    var p = ER.pt($('#scene'), e);
+    if (p.y > 560) ER.say('The stream comes out of the duck, runs past your boots and on behind you, downstream, to the Scullery and the Plughole. That way only goes down, and tonight down is the wrong way.');
+  });
+  if (window.Link) Link.follow($('#go'), 'laundry');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Clothes Line · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#0b0d10;--accent:#c9d6e0;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(10,12,16,.95);--tc-ink:#eef2f6;--cap-bg:rgba(12,14,18,.93);--panel:#181c22;--face-bg:#262c34;--q-ink:#d8e6f2;--fade:#040506;--hud-bg:rgba(12,14,18,.84)}
+  #green{opacity:0;transition:opacity 1.2s}
+  #green.on{opacity:.85}
+  .dist{display:none}
+  body.measured .dist{display:block}
+  .mist{animation:mist 9s ease-in-out infinite alternate}
+  @keyframes mist{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+</style>
+</head>
+<body class="">
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050608"/><stop offset=".3" stop-color="#3a3e44"/><stop offset=".62" stop-color="#4c5056"/><stop offset="1" stop-color="#050608"/></linearGradient>
+  <linearGradient id="sideL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <linearGradient id="sideR" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+  <radialGradient id="lampC" cx="50%" cy="48%" r="50%"><stop offset="0" stop-color="#fff6e0" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#030405"/>
+<!-- the far wall of the rift, two metres away, running left and right -->
+<rect x="-1000" y="40" width="3600" height="660" fill="url(#wallF)"/>
+<g stroke="#26292e" stroke-width="3" fill="none" opacity=".8"><path d="M-400 200q600 30 1200 -10t1400 20M-300 560q700 -20 1400 10t1200 -10M200 100q-20 200 10 560M1000 90q30 300 -10 600M1450 100q-20 300 10 580"/></g>
+<!-- the depth below: fifteen metres of nothing, and a stream at the bottom -->
+<path d="M-1000 560H2600V900H-1000Z" fill="#020203" opacity=".75"/>
+<ellipse id="green" cx="820" cy="690" rx="190" ry="18" fill="#4dff7a"/>
+<g class="mist" fill="#c9d6e0" opacity=".06"><ellipse cx="600" cy="640" rx="300" ry="30"/><ellipse cx="1100" cy="660" rx="260" ry="26"/></g>
+<!-- the Clothes Line: Mavis's old rope along the far wall -->
+<g id="line" class="hot"><path d="M-200 300Q60 330 300 296Q560 330 820 300Q1080 330 1340 298Q1600 326 1800 300" stroke="#8a8478" stroke-width="5" fill="none"/>
+  <g fill="#6a645a"><circle cx="300" cy="296" r="8"/><circle cx="820" cy="300" r="8"/><circle cx="1340" cy="298" r="8"/></g></g>
+<!-- holes in the far wall -->
+<g id="f14" class="hot hole"><path d="M10 470q40 -26 80 0q-40 18 -80 0z" fill="#000"/><text class="dist" x="50" y="520" font-family="Space Mono,monospace" font-weight="700" font-size="20" fill="#e8dcb8" text-anchor="middle">14 m</text></g>
+<g id="f9" class="hot hole"><path d="M196 360h110l8 104h-126z" fill="#000"/><text class="dist" x="251" y="500" font-family="Space Mono,monospace" font-weight="700" font-size="20" fill="#e8dcb8" text-anchor="middle">9 m</text></g>
+<g id="f5" class="hot hole"><ellipse cx="560" cy="420" rx="46" ry="50" fill="#000"/><text class="dist" x="560" y="500" font-family="Space Mono,monospace" font-weight="700" font-size="20" fill="#e8dcb8" text-anchor="middle">5 m</text></g>
+<g id="fn6" class="hot hole"><path d="M1210 470q-10 -140 50 -170q60 30 50 170z" fill="#000"/><text class="dist" x="1260" y="500" font-family="Space Mono,monospace" font-weight="700" font-size="20" fill="#e8dcb8" text-anchor="middle">6 m</text></g>
+<!-- the ledge you are on, and the near wall behind you -->
+<path d="M-1000 700Q800 680 2600 700V1700H-1000Z" fill="#3a3530"/><path d="M-1000 700Q800 680 2600 700" stroke="#6a6258" stroke-width="6" fill="none"/>
+<path d="M-1000 700Q800 680 2600 700L2600 735Q800 715 -1000 735Z" fill="#000" opacity=".5"/>
+<g id="n9" class="hot hole"><path d="M240 760q50 -30 100 0v30h-100z" fill="#000"/><text class="dist" x="290" y="740" font-family="Space Mono,monospace" font-weight="700" font-size="18" fill="#e8dcb8" text-anchor="middle">9 m</text></g>
+<g id="n4" class="hot hole"><path d="M650 758l20 -24l20 24v32h-40z" fill="#000"/><text class="dist" x="670" y="728" font-family="Space Mono,monospace" font-weight="700" font-size="18" fill="#e8dcb8" text-anchor="middle">4 m</text></g>
+<g id="nn9" class="hot hole"><path d="M1330 760q50 -30 100 0v30h-100z" fill="#000"/><text class="dist" x="1380" y="740" font-family="Space Mono,monospace" font-weight="700" font-size="18" fill="#e8dcb8" text-anchor="middle">9 m</text></g>
+<!-- where you came in: the hole behind you -->
+<g id="came"><path d="M760 820q60 -40 120 0v40h-120z" fill="#000"/></g>
+<g id="pack" class="hot"><path d="M960 840q-12 -70 26 -90h86q34 18 24 90z" fill="#c4611f" stroke="#5a2a0c" stroke-width="4"/><path d="M980 760q40 -26 92 0" stroke="#5a2a0c" stroke-width="6" fill="none"/>
+  <g id="handset"><rect x="998" y="782" width="60" height="30" rx="6" fill="#2a2a26"/><circle cx="1046" cy="797" r="7" fill="#c0391b"/></g></g>
+<rect x="-1000" y="-700" width="1000" height="2400" fill="url(#sideL)" pointer-events="none"/>
+<rect x="1600" y="-700" width="1000" height="2400" fill="url(#sideR)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampC)" pointer-events="none"/>
+<text x="40" y="640" font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="22" letter-spacing="3" fill="#7a8088" opacity=".8">&#8592; the rift goes on into the dark</text>
+<text x="1560" y="640" font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="22" letter-spacing="3" fill="#7a8088" opacity=".8" text-anchor="end">the rift goes on into the dark &#8594;</text>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Into the Hamper</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-a', storyTitle: 'Meet Me Halfway', id: 'rift', no: 'III', title: 'The Clothes Line',
+    go: 'Step onto the ledge',
+    intro: [
+      'At the Wringer, two passages draughted. Mavis&rsquo;s notebook said that the big one, going east, chokes, and that the crawl going north goes. You were facing north-east, so north was ahead of you and a little to your LEFT: the low crawl. It went: nine metres flat out, then a walking passage, north-north-east and up.',
+      'Twenty-eight minutes past three. Your lamp is down to two bars.'
+    ],
+    exit: {"next":"flatiron","w":{"08614b09":"7fe5ac0f"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a3-told') || {}; nextFile = ER.flag('a3-file') || null;
+  if (told.tape) document.body.classList.add('measured');
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a3-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringA', theirs: 'ringB', buzz: function () { var h = $('#handset'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The telephone in your pack buzzes.'); } });
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.dye ? 1 : 0) + (told.tape ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;I&rsquo;m in the Hamper. It&rsquo;s a flat crawl, going north-west. I&rsquo;ve tied the tape to the rock at the start.&rdquo;']]]);
+    else if (told.dye) XP.card([['Ask your partner', ['&ldquo;Has your water turned green? Which way is downstream?&rdquo;', '&ldquo;What does Mavis say about the Hamper? Which wall is it on, and how far?&rdquo;']], ['Tell your partner', ['&ldquo;I&rsquo;m facing &hellip; The rift goes to my left and to my right. On the far wall there are &hellip; holes.&rdquo;']]]);
+    else XP.card([['Tell your partner', ['&ldquo;I&rsquo;m on a ledge in a tall rift. The stream is far below me, and I can&rsquo;t see which way it goes.&rdquo;', '&ldquo;I&rsquo;m going to pour the dye in. Watch your water! My watch says &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What does Mavis say about the Clothes Line?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['You are in the Hamper. Go on along it.']];
+    if (!told.dye) return ['dye', [
+      'The stream is six metres below you, and too dark to see which way it flows. Mavis could not see it either. But you have two sachets of dye in your pack.',
+      'Pour the dye into the stream (it is in your pack), and tell your partner the time on your watch. Your partner can watch the water at the Laundry, and see if it turns green.'
+    ]];
+    return ['hole', [
+      'Mavis&rsquo;s notebook (your partner has it) says how far along the ledge, which way, and on which wall the Hamper is. Ask for all three. Measure the holes with the tape in your pack.',
+      'Downstream is the way the water goes, and your partner can work that out from the dye. When you face downstream, the true right is on your right. Your compass tells you which way you are facing now.',
+      'Thirty feet is about nine metres. Count the holes in the true right wall, going downstream from where you came in: the second one.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The Hamper: a flat crawl going north-west, out of the rift.'); return; }
+    if (told.intro) { busy = false; ER.say('The Clothes Line: a ledge, a rift, and a stream you can hear but not see.'); return; }
+    ER.narrate([
+      'The passage stops at a ledge, and the floor stops with it. You are half way up the wall of a rift: a crack in the mountain two metres wide, too tall to see the top of.',
+      'Six metres below, a stream roars. Your lamp, down to two bars, will not reach it. The noise comes from everywhere at once, and the rift goes away to your left and to your right into the dark.',
+      'Along the far wall runs a line of old rope, grey with age, tied from spike to spike. Mavis&rsquo;s Clothes Line. There are holes in the far wall, and holes in the wall behind you.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the dye ---------- */
+  function dye(api) {
+    if (told.dye) { api.msg('You have poured one sachet already. The other is for later, if there is a later.'); return; }
+    tell('dye'); paint();
+    XP.set('dye', Date.now());
+    api.pic(XP.watch(15, 33));
+    api.msg('You tear the sachet open and shake the orange powder over the edge, into the dark. Your watch says thirty-three minutes past three. Far below, for a moment, there is a smear of bright green in the lamplight, and then it is gone: carried away, somewhere.');
+    XP.sfx.splash();
+    ER.addWord('fluorescein', 'an orange powder that turns water bright green, used to find where water goes');
+    setTimeout(function () { var g = $('#green'); g.classList.add('on'); setTimeout(function () { g.classList.remove('on'); }, 2600); }, 400);
+  }
+  function measure(api) {
+    tell('tape'); paint(); document.body.classList.add('measured');
+    ER.addWord('tape', 'a long measuring ribbon marked in metres and centimetres');
+    api.msg('You tie the end of the tape to a spike where you came in, and walk it along the ledge, both ways, to every hole you can see. The distances are on the holes now.');
+  }
+
+  /* ---------- the holes ---------- */
+  var HOLES = {
+    f5: { k: 'In the far wall, to your left', t: 'A round hole', d: 'A round hole, chest high, in the far wall.', no: 'You bridge across the rift and squeeze in. It closes after two metres into a crack you could post a letter through.' },
+    f9: { k: 'In the far wall, to your left', t: 'A square hole', d: 'A square-ish hole in the far wall, like a lid left open, with a flat floor.', no: 'You stop at the edge, and think again.' },
+    f14: { k: 'In the far wall, far to your left', t: 'A low slot', d: 'A low slot in the far wall, just above the place where the rift drops away.', no: 'You bridge across to it. It goes down, wet and steep, towards the roar of the stream. Down is the wrong way tonight. You come back.' },
+    fn6: { k: 'In the far wall, to your right', t: 'A tall hole', d: 'A tall, narrow hole in the far wall, where the Clothes Line ends at a spike.', no: 'Inside there is a little round room, and the end of an old knotted line tied round a spike, and nothing else at all. Somebody came this way once, and turned back. You turn back too.' },
+    n4: { k: 'In the wall behind you, to your left', t: 'A crack', d: 'A crack in the wall behind the ledge, about as wide as your shoulders.', no: 'It goes in one body length and stops.' },
+    n9: { k: 'In the wall behind you, to your left', t: 'A hole behind the ledge', d: 'A low hole in the wall behind you, at the level of the ledge.', no: 'Dry sand, then broken stones, then nothing after a metre.' },
+    nn9: { k: 'In the wall behind you, to your right', t: 'A hole behind the ledge', d: 'A low hole in the wall behind you, at the level of the ledge.', no: 'It goes ten metres up a slope of mud and stops at a blank wall.' }
+  };
+  function hole(k) {
+    if (busy) return;
+    if (nextFile) { ER.say('You are through. The Hamper is the way on.'); return; }
+    var h = HOLES[k], dist = { f5: 5, f9: 9, f14: 14, fn6: 6, n4: 4, n9: 9, nn9: 9 }[k];
+    XP.look({ kicker: h.k, title: h.t,
+      pic: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="' + (k.charAt(0) === 'f' ? '#4c5056' : '#3a3530') + '"/>' +
+        (k.charAt(0) === 'f' ? '<rect y="250" width="380" height="50" fill="#020203"/>' : '<rect y="210" width="380" height="90" fill="#5a524a"/>') +
+        { f5: '<ellipse cx="190" cy="140" rx="70" ry="76" fill="#000"/>', f9: '<path d="M100 60h180l12 160h-204z" fill="#000"/>', f14: '<path d="M70 200q120 -60 240 0q-120 40 -240 0z" fill="#000"/>',
+          fn6: '<path d="M140 220q-14 -200 50 -200q64 0 50 200z" fill="#000"/>', n4: '<path d="M170 210l20 -150l20 150z" fill="#000"/>', n9: '<path d="M90 210q100 -110 200 0z" fill="#000"/>', nn9: '<path d="M90 210q100 -110 200 0z" fill="#000"/>' }[k] + '</svg>',
+      text: '<p>' + h.d + '</p><p>' + (told.tape ? 'Along the ledge from where you came in: ' + dist + ' metres.' : 'You have not measured how far along the ledge it is.') + '</p>',
+      acts: [{ id: 'go-in', label: 'Go into it', fn: function (api) { goIn(k, api); } }] });
+  }
+  function goIn(k, api) {
+    XP.set('a3-try', k + ':' + Date.now());
+    XP.sfx.scrape();
+    var file = ER.exit([k], { wait: true });
+    if (!file) { setTimeout(function () { ER.sfx.no(); api.msg(HOLES[k].no); }, 700); return; }
+    nextFile = file; ER.flag('a3-file', file); XP.set('a3-in', true);
+    api.acts([]); api.msg('You bridge across the rift, a foot on each wall, and step into the square hole. A flat floor, a low roof, and the draught again, in your face.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'The Hamper. It is a hole like the lid of a basket, and behind it a flat crawl goes away north-west, roof close, floor smooth, as if somebody had ironed it.',
+        'You tie the end of your tape to a knob of rock at the start of the crawl. If this crawl is what Mavis said it is, you are going to want to know exactly how long it is.'
+      ], function () { busy = false; paint(); });
+    }, 2000);
+  }
+  Object.keys(HOLES).forEach(function (k) { $('#' + k).addEventListener('click', function () { hole(k); }); });
+
+  $('#pack').addEventListener('click', function () {
+    if (busy) return;
+    XP.pack({ face: 315, time: told.dye ? [15, 36] : [15, 31], bars: 2, ring: ring,
+      acts: [{ id: 'p-dye', label: 'Pour the dye into the stream', fn: dye }, { id: 'p-tape', label: 'Measure along the ledge', fn: measure }] });
+  });
+  XP.thing('#line', 'line', 'Mavis&rsquo;s Clothes Line: an old rope along the far wall, tied from spike to spike, to hold on to when you cross. It is grey and furry with age. You decide to admire it rather than trust it.', isBusy);
+  if (window.Link) Link.follow($('#go'), 'waterfall');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

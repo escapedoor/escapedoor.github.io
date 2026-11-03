@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Flatiron · Meet Me Halfway</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="exp.css">
+<style>
+  body{--bg:#15100c;--accent:#f08a5a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(22,14,10,.95);--tc-ink:#f8e8dc;--cap-bg:rgba(24,16,11,.93);--panel:#2a1a12;--face-bg:#3e281a;--q-ink:#ffc8a8;--fade:#080504;--hud-bg:rgba(24,16,11,.84)}
+  #breath{animation:breath 4s ease-in-out infinite}
+  @keyframes breath{0%,60%{opacity:0}75%{opacity:.35}100%{opacity:0}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampF2" cx="50%" cy="52%" r="55%"><stop offset="0" stop-color="#fff0dc" stop-opacity=".32"/><stop offset=".6" stop-color="#ffcfa0" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigF2" cx="50%" cy="50%" r="68%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity=".95"/></radialGradient>
+  <linearGradient id="roofF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c140e"/><stop offset="1" stop-color="#5a4434"/></linearGradient>
+  <linearGradient id="floorF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a6a48"/><stop offset="1" stop-color="#3a2a1c"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#0c0805"/>
+<!-- the roof, a hand's breadth above your helmet -->
+<path d="M-1000 -700H2600V250Q800 380 -1000 250Z" fill="url(#roofF)"/>
+<g stroke="#2a1e14" stroke-width="3" fill="none" opacity=".7"><path d="M-400 260Q800 360 2000 260M-200 200Q800 310 1800 200M300 300l100 60M1300 300l-100 60"/></g>
+<!-- the floor, smooth as if ironed -->
+<path d="M-1000 1700V560Q800 420 2600 560V1700Z" fill="url(#floorF)"/>
+<g stroke="#6a5038" stroke-width="2" fill="none" opacity=".6"><path d="M-300 640Q800 520 1900 640M-500 760Q800 620 2100 760"/></g>
+<!-- the far end: the passage splits -->
+<path d="M560 470Q800 380 1040 470Q800 520 560 470Z" fill="#1a120c"/>
+<g id="left" class="hot"><path d="M380 520Q440 400 600 400L660 470Q560 500 470 540Z" fill="#050302"/><path d="M420 500Q480 430 590 420" stroke="#a88a62" stroke-width="5" fill="none" opacity=".6"/></g>
+<g id="straight" class="hot"><path d="M770 470q30 -22 60 0q-30 10 -60 0z" fill="#000"/><path d="M760 472q40 -34 80 0" stroke="#6a5038" stroke-width="4" fill="none"/></g>
+<g id="right" class="hot"><path d="M960 470L1060 450Q1180 480 1240 540L1060 520Z" fill="#050302"/><path d="M1000 500Q1110 480 1220 530" stroke="#7aa0b8" stroke-width="4" fill="none" opacity=".6"/></g>
+<path id="breath" d="M790 600q10 -20 0 -40q-10 -20 0 -40" stroke="#ffffff" stroke-width="10" fill="none" stroke-linecap="round"/>
+<!-- your tape, along the floor from behind you, and your gloves -->
+<g id="tape" class="hot"><path d="M820 1000Q800 760 790 600" stroke="#f5d33a" stroke-width="16" fill="none"/><path d="M820 1000Q800 760 790 600" stroke="#1a1a1a" stroke-width="16" fill="none" stroke-dasharray="2 22"/><rect x="740" y="640" width="110" height="60" rx="10" fill="#c9a22a" stroke="#6a5210" stroke-width="4"/><circle cx="795" cy="670" r="16" fill="#6a5210"/></g>
+<g fill="#c4611f" stroke="#5a2a0c" stroke-width="4"><path d="M560 760q40 -60 110 -40l20 60q-60 30 -130 -20z"/><path d="M1040 760q-40 -60 -110 -40l-20 60q60 30 130 -20z"/></g>
+<g id="pack" class="hot"><path d="M1180 820q-12 -70 26 -90h86q34 18 24 90z" fill="#c4611f" stroke="#5a2a0c" stroke-width="4"/><path d="M1200 740q40 -26 92 0" stroke="#5a2a0c" stroke-width="6" fill="none"/>
+  <g id="handset"><rect x="1218" y="762" width="60" height="30" rx="6" fill="#2a2a26"/><circle cx="1266" cy="777" r="7" fill="#c0391b"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampF2)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigF2)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Up the sand</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="exp.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null;
+
+  ER.init({
+    theme: 'duo', story: 'expedition-a', storyTitle: 'Meet Me Halfway', id: 'flatiron', no: 'IV', title: 'The Flatiron',
+    go: 'Crawl',
+    intro: [
+      'The dye came out green in the waterfall at the Laundry, eleven minutes after it went in: so the stream in the rift flows south-west, to the Laundry. You were facing north-west, across the rift, so downstream was on your LEFT. Facing downstream, the true right is the far wall, and the second hole in it, nine metres along (thirty feet), was the Hamper.',
+      'You tied your tape to the rock at the start of the Hamper, and crawled. Ten to four.'
+    ],
+    exit: {"next":"drying","w":{"fffcdf14":"e30252ca"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a4-told') || {}; nextFile = ER.flag('a4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a4-told', told); return true; }
+  function isBusy() { return busy; }
+  var ring = XP.phone({ mine: 'ringA', theirs: 'ringB', buzz: function () { var h = $('#handset'); h.classList.remove('buzz'); void h.getBoundingClientRect(); h.classList.add('buzz'); XP.sfx.buzz(); if (!busy && !ER.isOpen()) ER.say('The telephone in your pack buzzes.'); } });
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.tape ? 1 : 0) + (told.looked ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) XP.card([['Tell your partner', ['&ldquo;I&rsquo;m going up a slope of soft sand. It&rsquo;s warm and dry, and it&rsquo;s getting bigger!&rdquo;']]]);
+    else XP.card([['Tell your partner', ['&ldquo;The crawl has ended. My tape says &hellip; metres. The passage splits here: there&rsquo;s a way on the left, a way on the right, and a tight slot straight ahead.&rdquo;']], ['Ask your partner', ['&ldquo;How long is the Flatiron on the survey? And in the notebook?&rdquo;', '&ldquo;If this is the T, which way do I go?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Up the sand slope.']];
+    return ['which', [
+      'The survey and the notebook do not agree about how long this crawl is. Read your tape (click the tape on the floor, or look in your pack), and tell your partner exactly.',
+      'The survey says the Flatiron is 40 metres. Mavis&rsquo;s figure is a smudge, but she wrote everything in feet. One foot is about 0.3 metres. Which fits what your tape says?',
+      'If this is Mavis&rsquo;s T, her notebook says which way to turn, and what is straight on. Ask your partner to read you the whole line, and the Monday page.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The sand slope goes up into the dark, and the dark is big.'); return; }
+    if (told.intro) { busy = false; ER.say('The end of the Flatiron. Three ways, and a tape.'); return; }
+    ER.narrate([
+      'The Flatiron is the flattest crawl you have ever been in: smooth floor, smooth roof, and between them just enough room for you, lying down, if you breathe out.',
+      'The survey says the Flatiron is forty metres long. Forty metres flat out is a long way. You push the reel ahead of you and pull yourself along on your elbows, and the tape pays out behind you.',
+      'And then, much sooner than forty metres, the crawl ends. In front of your face the passage splits three ways.'
+    ], function () { busy = false; tell('intro'); paint(); XP.set('a4-at', true); });
+  }
+
+  function readTape() {
+    if (busy) return;
+    tell('tape'); paint();
+    XP.set('a4-tape', true);
+    ER.addWord('tape', 'a long measuring ribbon marked in metres and centimetres');
+    XP.look({ kicker: 'From the start of the Hamper to your nose', title: 'Your tape', lock: false, pic: XP.tape(12.2),
+      text: '<p>You hold the tape against the rock where the crawl ends, and read it under your lamp. It is the length of the Flatiron, from the knob of rock where you tied it to the place where it splits.</p>' });
+  }
+
+  var WAYS = {
+    left: { kicker: 'Ahead, on your left', title: 'A slope of sand, going up', go: 'Go up it',
+      text: '<p>On the left the roof lifts, and a slope of soft, dry sand goes up into the dark. You can feel the draught on the back of your neck.</p>' },
+    right: { kicker: 'Ahead, on your right', title: 'A low, wet crawl', go: 'Crawl into it',
+      text: '<p>On the right, a low crawl with a puddle in it, going down a little. Somewhere ahead of it you can hear running water.</p>' },
+    straight: { kicker: 'Straight ahead', title: 'A tight slot', go: 'Squeeze in',
+      text: '<p>Straight ahead, a slot in the rock, as tight as the gap under a door. The Flatiron would go on this way, if anything did.</p>' }
+  };
+  var NO = {
+    straight: 'You breathe out and push into the slot. Two metres in, it closes to a crack your helmet will not go through. Scratched on the rock by your face: M.N. STUCK HERE 20 MINS 15.4.68. You back out, slowly, like a cork coming out of a bottle.',
+    right: 'You slide into the puddle crawl. It goes north-east and down, cold water soaking into your sleeves, and ahead you can hear the roar of the rift again. It is going back to the Clothes Line. You reverse out, wetter.',
+    left: 'You start up the sand, and stop.'
+  };
+  var PIC = {
+    left: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#2a1e14"/><path d="M0 300L120 120Q240 60 380 90V300Z" fill="#a8885e"/><path d="M200 80Q300 40 380 60V0H200Z" fill="#050302"/></svg>',
+    right: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#2a1e14"/><path d="M0 170Q190 120 380 170V210Q190 190 0 210Z" fill="#050302"/><path d="M40 200Q190 180 340 200" stroke="#7aa0b8" stroke-width="5" fill="none"/></svg>',
+    straight: '<svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="300" fill="#2a1e14"/><path d="M110 160q80 -24 160 0q-80 14 -160 0z" fill="#000"/></svg>'
+  };
+  function way(k) {
+    if (busy) return;
+    if (nextFile) { ER.say('The sand slope is the way on.'); return; }
+    var w = WAYS[k];
+    if (tell('looked')) paint();
+    XP.look({ kicker: w.kicker, title: w.title, pic: PIC[k], text: w.text,
+      acts: [{ id: 'go-in', label: w.go, fn: function (api) { tryWay(k, api); } }] });
+  }
+  function tryWay(k, api) {
+    XP.set('a4-try', k + ':' + Date.now());
+    XP.sfx.scrape();
+    var file = ER.exit([k], { wait: true });
+    if (!file) { setTimeout(function () { ER.sfx.no(); api.msg(NO[k]); }, 700); return; }
+    nextFile = file; ER.flag('a4-file', file);
+    api.acts([]); api.msg('You turn and go up the sand on your hands and knees. The roof goes up, and up.');
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'Twelve metres of Flatiron, not forty. The survey was not lying, exactly: it was drawn by somebody who copied Mavis&rsquo;s 40 and forgot that she counted in feet.',
+        'The sand slope climbs south-west, soft and dry, and the air is warmer than it has been all day. Your lamp flickers, and you tell it not to.'
+      ], function () { busy = false; paint(); });
+    }, 2000);
+  }
+  ['left', 'right', 'straight'].forEach(function (k) { $('#' + k).addEventListener('click', function () { way(k); }); });
+  $('#tape').addEventListener('click', readTape);
+  $('#pack').addEventListener('click', function () {
+    if (busy) return;
+    XP.pack({ face: 315, time: [15, 58], bars: 2, ring: ring, acts: [{ id: 'p-tape', label: 'Read the tape', fn: function () { ER.close(); readTape(); } }] });
+  });
+  if (window.Link) Link.follow($('#go'), 'smudge');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
