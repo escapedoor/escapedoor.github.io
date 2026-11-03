@@ -655,11 +655,16 @@ ER.exit = function (cands, o) {
   return true;
 };
 ER.leave = function (href) {
+  /* two linked screens (link.js): a player who is through waits for the partner, who is still at the same lock */
+  if (window.Link && Link.before && Link.before(href, function () { goNow(href); })) return;
+  goNow(href);
+};
+function goNow(href) {
   ER.amb.stop(); ER.amb.hum(false);
   if (ER.track) ER.track.stop(0.9);
   fadeEl.classList.add('on');
   setTimeout(function () { location.href = href; }, 950);
-};
+}
 
 /* ---------- start ---------- */
 ER.init = function (cfg) {

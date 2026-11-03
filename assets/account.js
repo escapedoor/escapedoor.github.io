@@ -84,6 +84,7 @@ function call(payload, ms) {
       .then(function (j) { if (!over) { over = true; clearTimeout(t); res(j); } }, function (e) { if (!over) { over = true; clearTimeout(t); rej(e); } });
   });
 }
+A.post = call;                   /* link.js: the two screens of a Together story talk through the record book too */
 
 /* ---------- coming in ---------- */
 function signIn(user, cloud, made) {
