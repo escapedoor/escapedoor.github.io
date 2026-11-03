@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Six Statements · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="records.css">
+<style>
+  body{--bg:#d4d8d6;--accent:#e85a46;--font-display:'Special Elite',monospace;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,30,32,.95);--tc-ink:#f2f0ea;--cap-bg:rgba(30,30,32,.93);--panel:#26262a;--face-bg:#3a3a40;--q-ink:#ffc4b8;--fade:#0e0e10;--hud-bg:rgba(30,30,32,.84)}
+  #lampon{transition:opacity .12s}
+  body.out #lampon{opacity:0}
+  body.out #lampdim{opacity:.35}
+  #lampdim{opacity:0;transition:opacity .12s;pointer-events:none}
+  .st{display:grid;grid-template-columns:240px minmax(0,1fr);background:#26262a;min-height:420px}
+  .st-list{display:flex;flex-direction:column;gap:6px;padding:14px 12px;background:#34343a}
+  .st-list button{padding:9px 12px 8px;text-align:left;background:#f6f1e2;color:#1f1d18;font-family:'Special Elite',monospace;font-size:15px;line-height:1.2;border-left:6px solid #8a3a1a;border-radius:1px}
+  .st-list button.on{background:#ffe9c4;outline:3px solid #e85a46}
+  .st-list button.false{text-decoration:line-through}
+  .st-view{padding:14px 16px;max-height:min(520px,62vh);overflow:auto}
+  .st-view .doc{width:100%;max-height:none;box-shadow:none}
+  .st-view .none{font-family:'EB Garamond',serif;font-size:18px;color:#e6e2da;margin:40px 10px}
+  .stamped{position:relative}
+  .stamped:after{content:'FALSE';position:absolute;right:20px;top:24px;padding:4px 14px 2px;border:5px solid #c4372b;color:#c4372b;font-family:'Stardos Stencil',serif;font-weight:700;font-size:40px;letter-spacing:.12em;transform:rotate(-12deg);opacity:.85}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4cccc"/><stop offset="1" stop-color="#dfe4e2"/></linearGradient>
+  <radialGradient id="lampM" cx="50%" cy="30%" r="60%"><stop offset="0" stop-color="#fffbe8" stop-opacity=".5"/><stop offset="1" stop-color="#fffbe8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigM" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#000" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#wallM)"/>
+<!-- map chests along the back wall -->
+<g id="chests" class="hot"><rect x="300" y="260" width="1000" height="200" fill="#6a7a7a" stroke="#3a4646" stroke-width="5"/><g id="chdr"></g><text x="800" y="250" class="sm" font-size="15" fill="#3a4646">MAPS · PLANS · TITHE AWARDS</text></g>
+<!-- the hanging lamp -->
+<path d="M800 -700V90" stroke="#2a2a2a" stroke-width="4"/>
+<g id="lamp" class="hot"><path d="M700 150l40 -70h120l40 70z" fill="#2e4a3a" stroke="#1a2a20" stroke-width="3"/><ellipse id="lampon" cx="800" cy="152" rx="96" ry="12" fill="#fff6c8"/></g>
+<rect id="lampglow" x="-1000" y="-700" width="3600" height="2400" fill="url(#lampM)" pointer-events="none"/>
+<!-- the long table, and the six statements on it -->
+<path d="M-1000 520H2600V1700H-1000Z" fill="#8a6a46"/><path d="M-1000 520H2600" stroke="#a88660" stroke-width="10"/>
+<g id="papers"></g>
+<!-- the stamp and its pad -->
+<g id="stamp" class="hot"><rect x="1300" y="620" width="160" height="90" rx="8" fill="#3a2a2a"/><rect x="1312" y="632" width="136" height="66" rx="4" fill="#9a2a22"/>
+  <path d="M1380 600v-70" stroke="#6a4a2a" stroke-width="30" stroke-linecap="round"/><ellipse cx="1380" cy="520" rx="34" ry="26" fill="#7a5a3a"/><rect x="1336" y="598" width="88" height="18" fill="#2a2a2a"/><text x="1380" y="680" class="sm" font-size="18" fill="#f6e2d8">FALSE</text></g>
+<!-- Mr Furnival, at the far end, with his glasses on his head -->
+<g id="furnival" class="hot" transform="translate(120 300)"><path d="M20 230q-6 -110 60 -120q66 10 60 120z" fill="#3a4a5a"/><circle cx="80" cy="76" r="32" fill="#e4bea0"/><path d="M48 66q32 -42 64 0q0 -22 -32 -26q-32 4 -32 26z" fill="#d8d4cc"/>
+  <circle cx="70" cy="46" r="9" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle cx="92" cy="46" r="9" fill="none" stroke="#2a2a2a" stroke-width="3"/><path d="M70 92q10 5 20 0" stroke="#7a4a3a" stroke-width="3" fill="none"/></g>
+<rect id="lampdim" x="-1000" y="-700" width="3600" height="2400" fill="#0a0a0e"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigM)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Next: the last envelope</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="files.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, st = null, stamped = null, lastDark = 0;
+  var SPOT = [[660, 600], [880, 590], [1100, 604], [700, 740], [930, 752], [1150, 740]];
+  function drawPapers() {
+    var s = '';
+    FL.STATEMENTS.forEach(function (x, i) {
+      var p = SPOT[i], r = (i % 2 ? 3 : -3) + i;
+      s += '<g class="paper hot" data-s="' + x.id + '" transform="rotate(' + r + ' ' + p[0] + ' ' + p[1] + ')"><rect x="' + (p[0] - 90) + '" y="' + (p[1] - 60) + '" width="180" height="120" fill="#f6f1e2" stroke="#a89a7a" stroke-width="1.5"/>' +
+        '<text x="' + p[0] + '" y="' + (p[1] - 36) + '" font-family="Special Elite,monospace" font-size="12.5" fill="#1f1d18" text-anchor="middle">' + x.who.replace(/^(Mr|Mrs|Miss) /, '').toUpperCase() + '</text>' +
+        '<g stroke="#6a6458" stroke-width="2"><path d="M' + (p[0] - 74) + ' ' + (p[1] - 16) + 'h148M' + (p[0] - 74) + ' ' + (p[1] - 2) + 'h130M' + (p[0] - 74) + ' ' + (p[1] + 12) + 'h148M' + (p[0] - 74) + ' ' + (p[1] + 26) + 'h96"/></g>' +
+        (stamped === x.id ? '<g transform="rotate(-14 ' + p[0] + ' ' + (p[1] + 10) + ')"><rect x="' + (p[0] - 56) + '" y="' + (p[1] - 10) + '" width="112" height="40" fill="none" stroke="#c4372b" stroke-width="5"/><text x="' + p[0] + '" y="' + (p[1] + 22) + '" font-family="Stardos Stencil,serif" font-weight="700" font-size="30" fill="#c4372b" text-anchor="middle">FALSE</text></g>' : '') + '</g>';
+    });
+    $('#papers').innerHTML = s;
+    ER.$$('.paper').forEach(function (g) { g.addEventListener('click', function () { openSt(g.getAttribute('data-s')); }); });
+  }
+  (function () {
+    var s = '', r, c;
+    for (r = 0; r < 4; r++) for (c = 0; c < 4; c++) s += '<rect x="' + (316 + c * 245) + '" y="' + (276 + r * 46) + '" width="230" height="38" fill="#7a8a8a" stroke="#3a4646" stroke-width="2"/><rect x="' + (406 + c * 245) + '" y="' + (290 + r * 46) + '" width="50" height="10" fill="#c8c0a8"/>';
+    $('#chdr').innerHTML = s;
+    drawPapers();
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-b', storyTitle: 'Still Here', id: 'statements', no: 'IV', title: 'Six Statements',
+    go: 'Open the envelope',
+    intro: [
+      'Every note in PC Inskip&rsquo;s book has its name now. Your partner described Ivy&rsquo;s drawings in the visitors&rsquo; book, and you put each face to its note: the bald man with the bow tie was Mr Lightfoot, the long hair was Lewis, the round glasses were Mrs Applegarth, the bun was Ivy, the camera was June Kitto, and the thin man with the moustache and the pipe was Mr Gorringe. Your partner found that his pipe was lying under the floor where the door to his office used to be.',
+      'Mr Furnival has moved you to the map room, where there is a long table and a good light. You have spread the six statements out on it, side by side. They were typed and signed on the Sunday and the Monday after the party.',
+      'And Mr Furnival has put something beside them that the Record Office uses for very old mistakes: a rubber stamp that says FALSE.'
+    ],
+    exit: {"next":"letters","w":{"eff36020":"35e0d567"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b4-told') || {}; nextFile = ER.flag('b4-file') || null; stamped = ER.flag('b4-stamped') || null; drawPapers();
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips(Math.min(2, Object.keys(told).filter(function (k) { return k.indexOf('s-') === 0; }).length >= 6 ? 2 : Object.keys(told).filter(function (k) { return k.indexOf('s-') === 0; }).length >= 1 ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;Mr Gorringe&rsquo;s statement is false. He wasn&rsquo;t at the front window. He was at the back, by the switch.&rdquo;']], ['Ask your partner', ['&ldquo;Is anything of his still in the café?&rdquo;']]]);
+    else AR.card([['Ask your partner', ['&ldquo;Stand at the front window. Can you see St Aidan&rsquo;s clock from there? Can you see the street lamp?&rdquo;', '&ldquo;What can you see from the back window?&rdquo;']], ['Tell your partner', ['&ldquo;Mr Gorringe says he was at the front window when the lights went out, and that he could see &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The false statement is stamped. One envelope is left in the box: letters.']];
+    return ['stamp', [
+      'Six statements, and one of them cannot be true. Your partner is standing in the building. Read out what each person says they could see or hear, and ask your partner to check it.',
+      'Mr Gorringe says what he could see from the front window. Ask your partner to look out of the front window and say exactly what is there. Then ask about the back window.',
+      'A tree can grow in forty-seven years, so a view that a tree hides today may not have been hidden in 1979. A stone building and a church cannot move. Which statement describes a view that the building has never had?'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('One statement on the table has FALSE across it, in red.'); return; }
+    if (told.intro) { busy = false; ER.say('Six statements on the long table, and the stamp.'); return; }
+    ER.narrate([
+      'The map room is bright and cold, and smells of old paper and floor polish. A lamp hangs low over the long table. Along the wall, the map chests sleep in their drawers.',
+      'Six people, six statements. Most of them say they saw nothing at all in the dark. One of them says he saw a great deal. Mr Furnival puts on his reading glasses, and then pushes them up onto his head, which is where he reads best.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- reading, and stamping ---------- */
+  function makeSt() {
+    var box = ER.el('div', 'bx'), pick = null;
+    box.innerHTML = '<div class="st"><div class="st-list">' + FL.STATEMENTS.map(function (x) { return '<button type="button" data-s="' + x.id + '">' + x.who + '</button>'; }).join('') + '</div><div class="st-view"><p class="none">Choose a statement to read it.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="stampit">Stamp it FALSE</button></div>';
+    var view = box.querySelector('.st-view'), msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function show(id) {
+      pick = id; ER.sfx.paper();
+      ER.$$('.st-list button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-s') === id); });
+      var x = FL.STATEMENTS.filter(function (s) { return s.id === id; })[0];
+      view.innerHTML = ''; view.appendChild(ER.el('div', 'doc typed2' + (stamped === id ? ' stamped' : ''), ER.gloss(FL.statement(x))));
+      ER.addClue('st-' + id, 'Statement: ' + x.who, FL.statement(x), 'typed2', 'Statement', true);
+      if (tell('s-' + id)) paint();
+      msg('');
+    }
+    box.querySelector('.st-list').addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (b) show(b.getAttribute('data-s')); });
+    var WRONG = {
+      id: 'Mr Furnival stops your hand just above the paper. &ldquo;Miss Dancy says she could see the street lamp. Your partner says a tree is in the way. Ask your partner when the tree was planted. Then look at the little tree in your photograph of 1979.&rdquo;',
+      fa: 'Mr Furnival stops your hand. &ldquo;She says she was by the big mirror, and that a man who smelt of pipe smoke went past her. Is there anything in that which your partner has found impossible?&rdquo;',
+      jk: 'Mr Furnival stops your hand. &ldquo;She was by the front door and heard a big switch, at the back, twice. Has your partner found a big switch at the back?&rdquo;',
+      el: 'Mr Furnival stops your hand. &ldquo;His parcel was measured: 40 centimetres by 30. A man with a bus to catch is not a liar for catching it.&rdquo;',
+      ld: 'Mr Furnival stops your hand. &ldquo;The whole town stamped that young man FALSE in 1979. Are you sure you want to do it again? What exactly, in what he says, could not have happened?&rdquo;'
+    };
+    box.querySelector('#stampit').addEventListener('click', function () {
+      if (!pick) { msg('Choose a statement first.'); return; }
+      var file = ER.exit([pick], { wait: true });
+      if (!file) { ER.sfx.no(); msg(WRONG[pick]); return; }
+      nextFile = file; ER.flag('b4-file', file); stamped = pick; ER.flag('b4-stamped', pick);
+      AR.sfx.stamp(); AR.tell('iv-false');
+      show(pick); drawPapers();
+      box.querySelector('#stampit').disabled = true;
+      msg('THUMP. Red ink, slightly crooked: FALSE.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'From the front window of number 9 nobody has ever been able to see St Aidan&rsquo;s clock. The church stands behind the building. The clock can only be seen from the back window, beside the main switch, in what was Mr Gorringe&rsquo;s office.',
+          'So at twenty to nine he was not at the front window. He was at the back, with his hand on the big switch that June Kitto heard go clack. Mrs Applegarth smelt his pipe as he went past her in the dark. Lewis heard his feet going over his head.',
+          'And then something hit the cellar steps: the empty frame of The Blue Kite, thrown down after Lewis, so that Lewis would come up holding it.',
+          'But a painting does not vanish. The police searched every person and every room. Where did it go, in four minutes, in the dark? There is one more envelope in the box. It says LETTERS.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    });
+    return { open: function (id) { ER.open('ov-lock', box); if (id) show(id); } };
+  }
+  function openSt(id) { if (busy) return; if (!st) st = makeSt(); st.open(id); }
+  $('#stamp').addEventListener('click', function () { openSt(null); });
+  $('#furnival').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Alaric Furnival', role: 'Senior archivist', face: '<svg viewBox="0 0 120 120"><rect width="120" height="120" fill="#3a3a40"/><path d="M20 120q0 -40 40 -44q40 4 40 44z" fill="#3a4a5a"/><circle cx="60" cy="58" r="28" fill="#e4bea0"/><path d="M32 52q28 -38 56 0q0 -20 -28 -24q-28 4 -28 24z" fill="#d8d4cc"/><circle cx="50" cy="32" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><circle cx="70" cy="32" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><path d="M52 76q8 4 16 0" stroke="#7a4a3a" stroke-width="2.5" fill="none"/></svg>',
+      lines: [
+        { note: 'He looks at the stamp, and then at you, the way a doctor looks at a patient holding a knife.', a: '&ldquo;We use that stamp perhaps once a year. A date that cannot be true. A man who signed a paper eleven years after he died. That sort of thing.&rdquo;' },
+        { q: 'How do I know a statement cannot be true?', a: '&ldquo;Not because you do not like it. Because the world will not allow it. Find one sentence that the world will not allow, and check it twice. Ask somebody who is standing in the place.&rdquo;' },
+        { q: 'What if things have changed since 1979?', a: '&ldquo;Then be careful which things. Paint changes. Trees grow. Shops change their names. Stone buildings, on the whole, stay where they are put.&rdquo;' }
+      ],
+      clue: { id: 'furnival2', title: 'Mr Furnival, about the stamp', kind: 'What he said' }
+    });
+  });
+  AR.thing('#chests', 'map chest', 'Map chests: wide flat drawers full of old maps of the county. Somewhere in there is every field in Chalkbourne, and who owned it in 1840.', isBusy);
+  AR.thing('#lamp', null, 'The lamp over the long table. It hums, very quietly, like somebody who knows a secret.', isBusy);
+
+  /* ---------- the partner's screen: the lamp goes out when the investigator pulls the main switch ---------- */
+  function flick() { document.body.classList.add('out'); setTimeout(function () { document.body.classList.remove('out'); }, 1500); }
+  AR.live('iv-dark', function (v) {
+    lastDark = typeof v === 'number' ? v : lastDark + 1; flick();
+    ER.say('The lamp over your table goes out, and comes back on. Mr Furnival looks up at it. &ldquo;Old building,&rdquo; he says. &ldquo;Old wires.&rdquo; Your partner has pulled a switch.');
+  }, 'My partner has pulled the big switch');
+  if (window.Link) Link.on(function () { var v = Link.get('iv-dark'); if (typeof v === 'number' && v > lastDark && lastDark) { lastDark = v; flick(); } });
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

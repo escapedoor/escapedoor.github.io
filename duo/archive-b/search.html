@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Search Room · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="records.css">
+<style>
+  body{--bg:#3a463e;--accent:#e8c46a;--font-display:'Special Elite',monospace;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(30,38,32,.95);--tc-ink:#f1ecdc;--cap-bg:rgba(30,38,32,.93);--panel:#26302a;--face-bg:#3a463e;--q-ink:#f0d48a;--fade:#121814;--hud-bg:rgba(30,38,32,.84)}
+  .rn{animation:rn .8s linear infinite}
+  @keyframes rn{from{transform:translateY(-50px)}to{transform:translateY(50px)}}
+  .bell79{animation:bl .3s ease-in-out 6 alternate;transform-origin:300px 312px}
+  @keyframes bl{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+  #lampglow{animation:lg 4s steps(2,end) infinite alternate}
+  @keyframes lg{from{opacity:.85}to{opacity:1}}
+  .ix{display:grid;grid-template-columns:minmax(0,250px) minmax(0,1fr);min-height:440px;background:#3a2a18}
+  .ix-dr{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:14px;align-content:start;background:#5a3e22;border-right:6px solid #2a1c0e}
+  .ix-dr button{height:44px;border:2px solid #2a1c0e;border-radius:3px;background:#8a6034;color:#f4e6c4;font-family:'Space Mono',monospace;font-weight:700;font-size:17px;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
+  .ix-dr button:hover{background:#a07444}
+  .ix-dr button.on{background:#f1e4c0;color:#2a1c0e}
+  .ix-cards{padding:14px 18px;max-height:min(470px,60vh);overflow:auto;background:#2a1e10}
+  .ix-cards h6{margin:10px 0 6px;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.1em;color:#f0d48a}
+  .ix-cards h6:first-child{margin-top:0}
+  .ix-cards .none{font-family:'EB Garamond',serif;font-size:18px;color:#e6d8b6;margin:30px 6px}
+  .icard{display:grid;grid-template-columns:70px 120px 1fr 96px;gap:8px;width:100%;margin:0 0 6px;padding:8px 12px 7px;text-align:left;background:#f7f1de repeating-linear-gradient(transparent 0 23px,rgba(200,80,70,.25) 23px 24px);
+    color:#22201a;font-family:'Special Elite',monospace;font-size:15.5px;line-height:1.3;border-radius:2px 10px 0 0;box-shadow:0 3px 0 #b8a676}
+  .icard:hover{background-color:#fffbe8}
+  .icard.on{outline:3px solid #e8c46a;background-color:#fff4c4}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wallS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7e9a86"/><stop offset="1" stop-color="#9ab29e"/></linearGradient>
+  <radialGradient id="lampS" cx="62%" cy="74%" r="45%"><stop offset="0" stop-color="#fff0c0" stop-opacity=".45"/><stop offset="1" stop-color="#fff0c0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigS" cx="50%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".14"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#wallS)"/>
+<rect x="-1000" y="-700" width="3600" height="80" fill="#5e7866"/>
+<!-- the tall window, with rain -->
+<g id="win" class="hot"><path d="M60 600V170q0 -110 140 -110t140 110V600Z" fill="#c9d6dc"/><g class="rn" stroke="#7e98a8" stroke-width="2" opacity=".6"><path d="M90 120l-6 30M150 200l-6 30M240 140l-6 30M300 260l-6 30M120 330l-6 30M210 400l-6 30M280 470l-6 30M100 520l-6 30M190 90l-6 30"/></g>
+  <path d="M200 60V600M60 330H340" stroke="#e8ece8" stroke-width="10"/><path d="M60 600V170q0 -110 140 -110t140 110V600Z" fill="none" stroke="#e8ece8" stroke-width="14"/></g>
+<!-- shelves of boxes along the back wall -->
+<g id="shelves" class="hot"><rect x="390" y="90" width="560" height="420" fill="#6a5a44"/><g id="boxes"></g></g>
+<!-- Mr Furnival, at the desk at the far end -->
+<g id="furnival" class="hot"><rect x="1000" y="380" width="250" height="20" fill="#5a4028"/><path d="M1010 400v130M1240 400v130" stroke="#3a2a18" stroke-width="10"/>
+  <path d="M1080 380q-10 -110 46 -120q56 10 46 120z" fill="#3a4a5a"/><circle cx="1126" cy="236" r="30" fill="#e4bea0"/><path d="M1096 228q30 -40 60 0q0 -20 -30 -24q-30 4 -30 24z" fill="#d8d4cc"/>
+  <circle cx="1114" cy="240" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><circle cx="1138" cy="240" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><path d="M1122 240h8" stroke="#2a2a2a" stroke-width="2"/>
+  <rect x="1150" y="344" width="80" height="40" fill="#f2ecd8" transform="rotate(-8 1190 364)"/><rect x="1180" y="300" width="70" height="26" fill="#2a3a2a"/><text x="1215" y="318" class="sm" font-size="11" fill="#e8e4c8">QUIET</text></g>
+<!-- the card index -->
+<g id="index" class="hot"><rect x="1300" y="250" width="250" height="400" fill="#8a6034" stroke="#3a2412" stroke-width="6"/><g id="drawers"></g><rect x="1300" y="650" width="250" height="20" fill="#5a3e22"/><path d="M1316 670v120M1534 670v120" stroke="#3a2412" stroke-width="12"/>
+  <text x="1425" y="240" class="sm" font-size="14" fill="#2a2a1a">POLICE FILES 1960&ndash;1989</text></g>
+<!-- your table -->
+<rect x="-1000" y="660" width="3600" height="1100" fill="#6a4a2c"/><path d="M-1000 660H2600" stroke="#8a6640" stroke-width="10"/>
+<g id="lamp" class="hot"><path d="M1040 690l20 -150 70 -40" stroke="#1d3a2a" stroke-width="10" fill="none"/><path d="M1100 470l90 10 -10 60z" fill="#1d5a3a"/><ellipse cx="1040" cy="694" rx="50" ry="10" fill="#1d3a2a"/></g>
+<rect id="lampglow" x="-1000" y="-700" width="3600" height="2400" fill="url(#lampS)" pointer-events="none"/>
+<g id="letter" class="hot" transform="rotate(-4 760 760)"><rect x="660" y="690" width="200" height="150" fill="#fbf8f0"/><g stroke="#4a5a8a" stroke-width="2"><path d="M676 716h120M676 734h160M676 752h150M676 770h160M676 788h110M676 806h140"/></g></g>
+<g id="cutting" class="hot" transform="rotate(3 990 770)"><rect x="880" y="700" width="230" height="170" fill="#e9e2cc"/><rect x="880" y="700" width="230" height="22" fill="#d8d0b6"/><text x="995" y="716" class="sm" font-size="11" fill="#2a2a2a">CHALKBOURNE MERCURY</text>
+  <text x="995" y="742" font-family="Oswald,sans-serif" font-weight="700" font-size="17" fill="#1a1a1a" text-anchor="middle">KITE FLIES FROM GALLERY</text><svg x="902" y="752" width="110" height="80" viewBox="0 0 600 430" id="mini"></svg><g stroke="#6a665a" stroke-width="2"><path d="M1024 760h70M1024 772h66M1024 784h70M1024 796h60M1024 808h70M1024 820h50"/></g></g>
+<g id="pencil" class="hot"><path d="M1180 820l140 -40" stroke="#e8b830" stroke-width="10" stroke-linecap="round"/><path d="M1320 780l14 -4" stroke="#3a2a1a" stroke-width="6"/></g>
+<g id="slips" class="hot"><rect x="1360" y="740" width="150" height="100" fill="#f4e4b0" stroke="#a08a50" stroke-width="2"/><rect x="1366" y="734" width="150" height="100" fill="#f8eabc" stroke="#a08a50" stroke-width="2"/><text x="1441" y="764" class="sm" font-size="12" fill="#5a4a20">ORDER SLIP</text><g stroke="#a08a50" stroke-width="1.5"><path d="M1380 784h120M1380 800h120M1380 816h120"/></g></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigS)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Open the box</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="files.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, ix = null;
+  (function () {
+    var s = '', r, c, i;
+    for (r = 0; r < 5; r++) for (c = 0; c < 7; c++) s += '<rect x="' + (402 + c * 78) + '" y="' + (104 + r * 80) + '" width="70" height="66" fill="' + ['#c8b48a', '#bfa97c', '#cdbb94'][(r + c) % 3] + '" stroke="#5a4a30" stroke-width="2"/><rect x="' + (420 + c * 78) + '" y="' + (124 + r * 80) + '" width="34" height="12" fill="#f4eedc"/>';
+    $('#boxes').innerHTML = s; s = '';
+    for (i = 0; i < 26; i++) { var x = 1314 + (i % 4) * 58, y = 266 + Math.floor(i / 4) * 54; s += '<rect x="' + x + '" y="' + y + '" width="52" height="46" fill="#a07444" stroke="#3a2412" stroke-width="2"/><rect x="' + (x + 12) + '" y="' + (y + 8) + '" width="28" height="12" fill="#f1e4c0"/><text x="' + (x + 26) + '" y="' + (y + 18) + '" class="sm" font-size="10" fill="#2a1c0e">' + String.fromCharCode(65 + i) + '</text><circle cx="' + (x + 26) + '" cy="' + (y + 32) + '" r="4" fill="#d8c07a"/>'; }
+    $('#drawers').innerHTML = s;
+    $('#mini').innerHTML = FL.front79(false).replace(/^<svg[^>]*>|<\/svg>$/g, '');
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-b', storyTitle: 'Still Here', id: 'search', no: 'I', title: 'The Search Room',
+    go: 'Sit down at the table',
+    intro: [
+      '<b class="two">This is a story for two. Your partner plays THE INVESTIGATOR (part A) on another screen. Do not show each other your screens: talk. You can link the two screens with the tag in the bottom left corner. Then some of the things your partner does will show on your screen, as they happen.</b>',
+      'Chalkbourne, a small market town, on a wet Tuesday morning in November. Forty-seven years ago, on a Saturday night, a painting disappeared from a gallery on the town square, in four minutes of darkness. Nobody was ever charged. A young man was blamed anyway.',
+      'You are an archivist at the County Record Office, where the old police files of Chalkbourne are kept in grey boxes, in a strongroom, in the dark. A letter has come for you. The young man&rsquo;s daughter wrote it.',
+      'Your partner, an investigator from London, is standing in the square where it happened. You will have the papers; they have the place. You have never met. You will be on the phone all morning.'
+    ],
+    exit: {"next":"plan","w":{"4c71694c":"95cca0cf"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b1-told') || {}; nextFile = ER.flag('b1-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b1-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.read ? 1 : 0) + (told.index ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;I&rsquo;ve got the box: P/79/114. I&rsquo;m opening it now.&rdquo;']], ['Ask your partner', ['&ldquo;What is the building like inside, now?&rdquo;']]]);
+    else AR.card([['Ask your partner', ['&ldquo;Where are you? What can you see on the north side of the square?&rdquo;', '&ldquo;Is there an older name for the square anywhere? On a wall, high up?&rdquo;', '&ldquo;What number is on the door?&rdquo;']], ['Tell your partner', ['&ldquo;In my photo the gallery has &hellip; windows upstairs, and over the middle one there&rsquo;s &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The box is on your table. Open it.']];
+    if (!told.read) return ['read', [
+      'Start with what is on your table: the letter, and the newspaper cutting that came with it.',
+      'The cutting has a photograph of the gallery from the square, taken in 1979. Your partner is in that square today, and needs to know which building it was.'
+    ]];
+    return ['index', [
+      'The police files are kept in the strongroom. To order one you need its card from the index, on the right. The cards are filed by street, under the name the street had at the time.',
+      'There is no Market Square in the index: the square had another name until 1997. Ask your partner to look for an old name somewhere in the square, carved in stone, high up.',
+      'Two different streets each have a card for a No. 9, a theft, on 24.11.1979, and one street has two cards for that night. You need the old name of the square AND the number of the building. Help your partner find the building from your photograph: the windows upstairs, the stone face, the little round window at the top. Then ask what number is on its door.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The box is on your table: P/79/114, grey, and heavier than it looks.'); return; }
+    if (told.intro) { busy = false; ER.say('The search room. The letter and the cutting are on your table, and the card index is on the right.'); return; }
+    ER.narrate([
+      'The search room is quiet, green and very warm. Rain runs down the tall window. At the far end, Mr Alaric Furnival, the senior archivist, is reading something with great care and no visible pleasure.',
+      'On your table: the letter, a newspaper cutting that came with it, and a pencil. In the search room only pencils are allowed. Ink, says Mr Furnival, is the enemy.',
+      'The police files are not out here. They are in the strongroom, downstairs. To get one, you have to find its card in the index and fill in a slip.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the letter and the cutting ---------- */
+  $('#letter').addEventListener('click', function () { if (busy) return; ER.read({ html: FL.LETTER, cls: 'letter2', clue: { id: 'letter', title: 'Bethan Daintree&rsquo;s letter', kind: 'Letter' }, done: function () { if (tell('read')) paint(); } }); });
+  $('#cutting').addEventListener('click', function () { if (busy) return; ER.read({ html: FL.cutting(), cls: 'news', clue: { id: 'cutting', title: 'The Chalkbourne Mercury, 26 November 1979', kind: 'Newspaper' }, done: function () { if (tell('read')) paint(); } }); });
+
+  /* ---------- the card index ---------- */
+  var STREETS = {
+    A: [['ABBEY WALK', [['No. 4', '2.1.1964', 'Theft', 'P/64/1'], ['No. 12', '19.8.1979', 'Theft', 'P/79/77']]]],
+    B: [['BREWERY LANE', [['No. 1', '30.6.1971', 'Damage', 'P/71/40']]], ['BRIDGE STREET', [['No. 9', '5.5.1979', 'Theft', 'P/79/39'], ['No. 22', '11.11.1986', 'Theft', 'P/86/71']]]],
+    C: [['CASTLE STREET', [['No. 2', '14.2.1968', 'Theft', 'P/68/9']]], ['CORN MARKET (the name of the square until 1997)', [['No. 3', '12.3.1975', 'Theft', 'P/75/22'], ['No. 7', '1.6.1979', 'Damage', 'P/79/51'], ['No. 9', '24.11.1979', 'Theft', 'P/79/114'], ['No. 11', '24.11.1979', 'Damage', 'P/79/115'], ['No. 9', '8.3.1983', 'Theft', 'P/83/40']]]],
+    G: [['GREEN LANE', [['No. 31', '24.11.1979', 'Damage', 'P/79/112']]]],
+    H: [['HIGH STREET', [['No. 9', '2.12.1979', 'Theft', 'P/79/118'], ['No. 40', '7.7.1977', 'Theft', 'P/77/60']]]],
+    M: [['MALTINGS ROW', [['No. 6', '3.3.1966', 'Damage', 'P/66/12']]], ['MARKET SQUARE', []], ['MARKET STREET', [['No. 2', '9.10.1969', 'Damage', 'P/69/50'], ['No. 9', '24.11.1979', 'Theft', 'P/79/113']]]],
+    S: [['STATION ROAD', [['No. 1', '1.4.1980', 'Theft', 'P/80/26']]]]
+  };
+  var WRONG = {
+    'P/79/113': 'Market Street, the same night: a red bicycle with three gears, taken from outside the Wheatsheaf at ten past nine. It was found in the river a week later, wetter but otherwise unharmed.',
+    'P/79/115': 'Corn Market, No. 11, the same night: a football through the window of the building society, at twenty to ten. A boy owned up on the Monday. His mother made him.',
+    'P/83/40': 'Corn Market, No. 9, but 1983: two pairs of shoes taken from Elmore&rsquo;s Shoes. Somebody walked out in them.',
+    'P/79/51': 'Corn Market, No. 7, 1979: somebody painted a rude word on the estate agent&rsquo;s door, and spelt it wrong.',
+    'P/75/22': 'Corn Market, No. 3, 1975: a stolen bicycle. Chalkbourne has always had a weakness for bicycles.'
+  };
+  function makeIndex() {
+    var box = ER.el('div', 'bx'), pick = null, s = '<div class="ix"><div class="ix-dr">';
+    for (var i = 0; i < 26; i++) s += '<button type="button" data-l="' + String.fromCharCode(65 + i) + '">' + String.fromCharCode(65 + i) + '</button>';
+    box.innerHTML = s + '</div><div class="ix-cards"><p class="none">Police files, Chalkbourne, 1960 to 1989. One drawer for each letter. Every card gives the street, the house, the date, what kind of crime, and the number of its box. Open a drawer.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="order">Fill in a slip for this box</button></div>';
+    var cards = box.querySelector('.ix-cards'), msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    function drawer(l) {
+      ER.$$('.ix-dr button', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-l') === l); });
+      AR.sfx.drawer(); pick = null;
+      var st = STREETS[l], h = '';
+      if (!st) { cards.innerHTML = '<p class="none">The streets under ' + l + ' are all a long way from the middle of town. None of their cards is for November 1979.</p>'; msg(''); return; }
+      st.forEach(function (x) {
+        h += '<h6>' + x[0] + '</h6>';
+        if (!x[1].length) h += '<p class="none" style="margin:4px 6px 10px">No cards. There was no Market Square in Chalkbourne before 1997. Its files are under the name it had at the time.</p>';
+        x[1].forEach(function (c) { h += '<button type="button" class="icard" data-r="' + c[3] + '"><span>' + c[0] + '</span><span>' + c[1] + '</span><span>' + c[2] + '</span><span>' + c[3] + '</span></button>'; });
+      });
+      cards.innerHTML = h; msg('');
+      if (l === 'M' || l === 'C') { if (tell('index')) paint(); }
+    }
+    box.querySelector('.ix-dr').addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (b) drawer(b.getAttribute('data-l')); });
+    cards.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('.icard') : null; if (!b) return;
+      pick = b.getAttribute('data-r'); ER.sfx.paper();
+      ER.$$('.icard', box).forEach(function (n) { n.classList.toggle('on', n === b); });
+      msg('Box <b>' + pick + '</b>. Is it the right street, the right house, the right night?');
+    });
+    box.querySelector('#order').addEventListener('click', function () {
+      if (!pick) { msg('Choose a card first.'); return; }
+      var file = ER.exit([pick], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg('Mr Furnival takes your slip down to the strongroom and comes back with box ' + pick + '. ' + (WRONG[pick] || 'It is the right kind of box and the wrong kind of crime.') + ' He takes it away again, without a word, which is worse than a word.');
+        return;
+      }
+      nextFile = file; ER.flag('b1-file', file);
+      AR.tell('i-box'); ER.sfx.paper();
+      msg('Mr Furnival reads your slip, looks at you over his glasses, and goes down to the strongroom.');
+      box.querySelector('#order').disabled = true;
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'Five minutes later Mr Furnival comes back with a grey box and puts it down in front of you, as if it might go off. On the lid, in faded ink: P/79/114. CORN MARKET 9. THEFT OF A PAINTING.',
+          '&ldquo;Nobody has asked for that box since 1985,&rdquo; he says. &ldquo;Pencils only. And do not, under any circumstances, solve anything loudly.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 2200);
+    });
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#index').addEventListener('click', function () { if (busy) return; if (nextFile) { ER.say('You have the box. The index can go back to sleep.'); return; } if (!ix) ix = makeIndex(); ix.open(); });
+  $('#slips').addEventListener('click', function () { if (busy) return; if (nextFile) return; if (!ix) ix = makeIndex(); ix.open(); });
+
+  /* ---------- Mr Furnival, and other things ---------- */
+  $('#furnival').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Mr Alaric Furnival', role: 'Senior archivist · thirty-one years', face: '<svg viewBox="0 0 120 120"><rect width="120" height="120" fill="#3a463e"/><path d="M20 120q0 -40 40 -44q40 4 40 44z" fill="#3a4a5a"/><circle cx="60" cy="56" r="28" fill="#e4bea0"/><path d="M32 50q28 -38 56 0q0 -20 -28 -24q-28 4 -28 24z" fill="#d8d4cc"/><circle cx="49" cy="58" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><circle cx="71" cy="58" r="8" fill="none" stroke="#2a2a2a" stroke-width="2.5"/><path d="M52 76q8 4 16 0" stroke="#7a4a3a" stroke-width="2.5" fill="none"/></svg>',
+      lines: [
+        { note: 'He finishes his sentence before he looks up. It is a long sentence.', a: '&ldquo;Yes?&rdquo;' },
+        { q: 'Where are the old police files?', a: '&ldquo;Downstairs, in the strongroom, in boxes. Police files from 1960 to 1989. You find the card in the index, you write the box number on a slip, and I fetch it. Nobody else goes into my strongroom.&rdquo;' },
+        { q: 'How are the cards filed?', a: '&ldquo;By street, and then by house. And by the name the street had when the crime happened, not the name it has now. Streets change their names. Crimes do not.&rdquo;' },
+        { q: 'Did the square have another name?', a: '&ldquo;Almost certainly. Most of them did. I would ask somebody who is standing in it.&rdquo;' }
+      ],
+      clue: { id: 'furnival1', title: 'Mr Furnival, about the index', kind: 'What he said' }
+    });
+  });
+  AR.thing('#win', null, 'Rain, coming down the tall window in long lines, as if the sky were filing something.', isBusy);
+  AR.thing('#shelves', 'archive box', 'Grey boxes for the search room: parish registers, maps of farms, the minutes of a choir. The police files are not here. They live in the strongroom, with Mr Furnival&rsquo;s permission.', isBusy);
+  AR.thing('#lamp', null, 'A green reading lamp. It has been on, Mr Furnival says, since 1994.', isBusy);
+  AR.thing('#pencil', 'pencil', 'A pencil. In a record office, nobody may use a pen near an old paper. One drop of ink lasts for ever, and so does the archivist&rsquo;s face.', isBusy);
+
+  AR.live('i-in', function () {
+    var b = document.getElementById('bell79');
+    if (b) { b.classList.remove('bell79'); void b.getBoundingClientRect(); b.classList.add('bell79'); }
+    AR.sfx.bell();
+    ER.say('Somewhere across town, a shop bell rings. Your partner has gone in.');
+  }, 'My partner says they have gone in');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

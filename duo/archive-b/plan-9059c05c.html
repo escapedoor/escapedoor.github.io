@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Plan and the Photograph · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="records.css">
+<style>
+  body{--bg:#4a3a26;--accent:#8ec8e8;--font-display:'Special Elite',monospace;--font-ui:'Space Mono',monospace;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(36,28,18,.95);--tc-ink:#f3ecdc;--cap-bg:rgba(36,28,18,.93);--panel:#2a2216;--face-bg:#4a3a26;--q-ink:#bfe2f6;--fade:#120e08;--hud-bg:rgba(36,28,18,.84)}
+  .tea{animation:tea 3.4s ease-in-out infinite}
+  @keyframes tea{0%{opacity:0;transform:translateY(0)}40%{opacity:.5}100%{opacity:0;transform:translateY(-30px)}}
+  .pl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;background:#1e1a12}
+  .pl-plan{padding:10px;background:#cdd6dc}
+  .pl-plan svg{max-height:62vh;width:auto;margin:0 auto}
+  .pl-side{padding:14px 16px;font-family:'EB Garamond',serif;font-size:17.5px;line-height:1.38;color:#f3ead8}
+  .pl-side svg{display:block;width:100%;height:auto;margin:0 0 8px;border:6px solid #f2efe6;filter:grayscale(1)}
+  .zn{cursor:pointer}
+  .zn:hover{fill-opacity:.25}
+  .zn.on{fill-opacity:.45}
+  .pen{stroke:#4a4a4a;stroke-width:3;stroke-dasharray:8 5}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="desk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a4a2a"/><stop offset="1" stop-color="#4a321c"/></linearGradient>
+  <radialGradient id="pool" cx="55%" cy="45%" r="55%"><stop offset="0" stop-color="#fff2cc" stop-opacity=".32"/><stop offset="1" stop-color="#fff2cc" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#desk)"/>
+<g stroke="#3a2614" stroke-width="2" opacity=".4" id="grain"></g>
+<!-- the open box -->
+<g id="box" class="hot"><rect x="380" y="120" width="250" height="330" fill="#8a8a84" stroke="#4a4a46" stroke-width="5"/><rect x="396" y="136" width="218" height="298" fill="#5a5a56"/>
+  <rect x="404" y="150" width="200" height="40" fill="#e8dcc0"/><rect x="408" y="200" width="196" height="60" fill="#d8ccae"/><rect x="404" y="270" width="200" height="50" fill="#c8a868"/><rect x="410" y="330" width="190" height="80" fill="#e8e2d0"/>
+  <rect x="640" y="90" width="230" height="40" fill="#8a8a84" stroke="#4a4a46" stroke-width="4" transform="rotate(8 755 110)"/><text x="755" y="117" class="sm" font-size="14" fill="#2a2a2a" transform="rotate(8 755 110)">P/79/114</text></g>
+<!-- the plan, on the table -->
+<g id="plan" class="hot" transform="translate(640 170) rotate(-2 160 210) scale(.62)"><g id="planart"></g></g>
+<!-- June's photograph -->
+<g id="photo" class="hot" transform="translate(1010 210) rotate(4 150 110)"><rect x="-12" y="-12" width="324" height="246" fill="#f2efe6"/><svg width="300" height="206" viewBox="0 0 640 440" id="photoart"></svg></g>
+<!-- the magnifying glass, the tea, the pencil -->
+<g id="glassm" class="hot"><circle cx="1180" cy="560" r="62" fill="#cfe2ea" fill-opacity=".35" stroke="#2a2a2a" stroke-width="12"/><path d="M1224 604l70 70" stroke="#3a2a1a" stroke-width="22" stroke-linecap="round"/></g>
+<g id="tea" class="hot"><ellipse cx="1420" cy="380" rx="60" ry="22" fill="#f2efe6"/><ellipse cx="1420" cy="372" rx="48" ry="40" fill="#f6f4ee" stroke="#c8c4b8" stroke-width="3"/><ellipse cx="1420" cy="364" rx="38" ry="30" fill="#8a5a2a"/><path class="tea" d="M1410 320q8 -14 0 -28" stroke="#fff" stroke-width="3" fill="none"/><path d="M1466 370q26 0 22 22" stroke="#f6f4ee" stroke-width="8" fill="none"/></g>
+<g id="mypencil" class="hot"><path d="M760 760l200 -40" stroke="#e8b830" stroke-width="11" stroke-linecap="round"/><path d="M960 720l16 -4" stroke="#3a2a1a" stroke-width="6"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#pool)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Next: the policeman&rsquo;s notebook</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="files.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, wall = null, pl = null;
+  var DEPTH = { t1: 2.5, t2: 5.5, t3: 6.8, t4: 9.4 };
+  function inner(svg) { return svg.replace(/^<svg[^>]*>|<\/svg>$/g, ''); }
+  function pencil(root) {
+    var g = root.querySelector('.penline'); if (!g) return;
+    g.innerHTML = wall && DEPTH[wall] ? '<path class="pen" d="M150 ' + (560 - 40 * DEPTH[wall]) + 'H370"/><text x="140" y="' + (564 - 40 * DEPTH[wall]) + '" font-family="Kalam,cursive" font-size="15" fill="#4a4a4a" text-anchor="end">wall?</text>' : '';
+  }
+  (function () {
+    var s = '', y;
+    for (y = -100; y < 1000; y += 34) s += '<path d="M-200 ' + y + 'q600 ' + (y % 3 ? 10 : -8) + ' 1200 0t1200 0"/>';
+    $('#grain').innerHTML = s;
+    $('#planart').innerHTML = inner(FL.plan());
+    $('#photoart').innerHTML = inner(FL.photo());
+    pencil($('#planart'));
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-b', storyTitle: 'Still Here', id: 'plan', no: 'II', title: 'The Plan and the Photograph',
+    go: 'Open the box',
+    intro: [
+      'The box was P/79/114: Corn Market, No. 9. The square was called the Corn Market until 1997 (your partner found the old name carved high on a corner), and the gallery was number 9: the only building with three windows upstairs, a stone face and a round window at the top. Its door has moved, and its little tree has grown into a lime.',
+      'Now the box is open on your table. On top: a plan of the ground floor, drawn in 1955, when Mr Gorringe made the building into a gallery, and a photograph taken at the party at half past eight, ten minutes before the lights went out.',
+      'The plan shows the walls. It does not show where The Blue Kite hung.'
+    ],
+    exit: {"next":"notebook","w":{"f7893784":"3cd42fb2"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('b2-told') || {}; nextFile = ER.flag('b2-file') || null; wall = ER.flag('b2-wall') || null; pencil($('#planart'));
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('b2-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.plan ? 1 : 0) + (told.photo ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;The Blue Kite hung on the east wall, between the first fireplace and the front window.&rdquo;']], ['Ask your partner', ['&ldquo;Is there a hook there, on your right as you face the fireplace?&rdquo;']]]);
+    else AR.card([['Ask your partner', ['&ldquo;What is on the walls of the café now? What is opposite the fireplace?&rdquo;', '&ldquo;Are there any old hooks near the fireplace?&rdquo;']], ['Tell your partner', ['&ldquo;On my plan the front room was &hellip; metres deep. The door in the wall was at the &hellip; end.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['You know where the kite hung. Make sure your partner knows where the wall and its door were.']];
+    return ['hook', [
+      'The 1955 plan has the walls, but not the paintings. June Kitto&rsquo;s photograph shows The Blue Kite beside a fireplace. Find that wall on the plan. Your partner also needs the plan&rsquo;s numbers, to find the old wall: tell them.',
+      'Ask your partner what is on the walls of the café today, and what hangs opposite the fireplace. Then look again at the person at the front of the photograph, with the camera.',
+      'The photograph was taken in the big mirror on the west wall, so left and right in it are the wrong way round. In the photograph the kite is to the left of the fireplace. Which side of the fireplace was it really on, as you face the fireplace, and what is on that side of it?'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('There is a small pencil cross on the plan, between the fireplace and the front window.'); return; }
+    if (told.intro) { busy = false; ER.say('The plan and the photograph, side by side on your table.'); return; }
+    ER.narrate([
+      'You lift the lid. The box smells of old paper and, very faintly, of somebody&rsquo;s pipe.',
+      'The plan is drawn in blue ink, on paper that has gone soft at the folds. The photograph is black and white, a little blurred, and full of people holding glasses.',
+      'On the back of the photograph somebody has written, in pencil: 24.11.79, 8.30 pm. J.K.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the plan: where did the kite hang? ---------- */
+  function makePlan() {
+    var box = ER.el('div', 'bx'), zone = null;
+    box.innerHTML = '<div class="pl"><div class="pl-plan">' + FL.plan({ zones: true }) + '</div><div class="pl-side">' + FL.photo() +
+      '<p>June Kitto&rsquo;s photograph, 8.30 pm. Click on the plan where you think The Blue Kite hung: on a wall of the front gallery.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="mark">The Blue Kite hung here</button></div>';
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    pencil(box);
+    ER.$$('.zn', box).forEach(function (z) {
+      z.addEventListener('click', function () {
+        zone = z.getAttribute('data-z'); ER.sfx.paper();
+        ER.$$('.zn', box).forEach(function (o) { o.classList.toggle('on', o === z); });
+        msg({ es: 'The east wall, between the fireplace and the front window.', en: 'The east wall, between the fireplace and the old wall at the back.', ws: 'The west wall of the front gallery.', pt: 'The old wall between the gallery and the office.' }[zone]);
+      });
+    });
+    box.querySelector('#mark').addEventListener('click', function () {
+      if (!zone) { msg('Click on a wall of the front gallery first.'); return; }
+      AR.tell('ii-hook', zone);
+      var file = ER.exit([zone], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        msg({ en: 'You pencil a small cross on the plan. Mr Furnival, passing with his tea, looks at the cross and then at the photograph. &ldquo;Left of the fireplace in the photograph,&rdquo; he says, &ldquo;and left of the fireplace on your plan. Are you sure they are both looking at that wall from the same side?&rdquo; You rub the cross out.',
+          ws: 'In the photograph the kite hangs beside a fireplace, and both fireplaces are on the east wall. You rub the cross out.',
+          pt: 'In the photograph the kite hangs beside a fireplace, not beside a door. You rub the cross out.' }[zone]);
+        return;
+      }
+      nextFile = file; ER.flag('b2-file', file);
+      msg('You pencil a small cross on the east wall, between the fireplace and the front window. Your partner says there is an old hook there still.');
+      box.querySelector('#mark').disabled = true;
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'So the photograph lies, in the most honest way: everything in it is true, and everything in it is the wrong way round. June stood in front of the big mirror and photographed the room in it, so that she could be in the picture too.',
+          'Under the plan, in the box, is a small black notebook with an elastic band round it, and a typed list of names. Mr Furnival puts a fresh cup of tea beside you, which he has never done before for anybody.'
+        ], function () { busy = false; paint(); });
+      }, 2400);
+    });
+    msg('');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#plan').addEventListener('click', function () {
+    if (busy) return;
+    if (tell('plan')) paint();
+    if (nextFile) { ER.read({ html: '<h4>The plan of 1955</h4>' + FL.plan(), cls: 'photo' }); return; }
+    if (!pl) pl = makePlan(); pl.open();
+  });
+  $('#photo').addEventListener('click', function () {
+    if (busy) return;
+    if (tell('photo')) paint();
+    ER.read({ html: '<h4>A photograph, 24 November 1979</h4>' + FL.photo() + '<p>On the back, in pencil: 24.11.79, 8.30 pm. J.K.</p><p>Six people, holding glasses. A painting of a kite beside a fireplace, and a small old lady under it. At the front, a very tall young woman with a camera held up to her face, pointing straight at you.</p>', cls: 'photo',
+      clue: { id: 'photo', title: 'June&rsquo;s photograph, 8.30 pm', kind: 'Photograph' } });
+  });
+  AR.thing('#box', 'archive box', 'Box P/79/114. Under the plan and the photograph there are more papers, in envelopes, and a small black notebook. One thing at a time, says Mr Furnival&rsquo;s face.', isBusy);
+  AR.thing('#glassm', 'magnifying glass', 'A magnifying glass. Under it, in the photograph, the tall young woman&rsquo;s camera is pointing straight at you, and the tall man by the fireplace has a thin pale line through one eyebrow: a scar.', isBusy);
+  AR.thing('#tea', null, 'Mr Furnival&rsquo;s tea, at a safe distance from the papers. In the search room, tea lives on its own table, like a dangerous animal.', isBusy);
+  AR.thing('#mypencil', 'pencil', 'Your pencil. A pencil mark can be rubbed out. That is the whole point of pencils.', isBusy);
+
+  /* ---------- the partner's screen ---------- */
+  AR.live('ii-wall', function (v) {
+    if (DEPTH[v]) { wall = v; ER.flag('b2-wall', v); pencil($('#planart')); }
+    ER.say('Your partner has marked a line across the floor of the café. A faint pencil line appears across your plan, as if somebody had drawn it.');
+  }, 'My partner has marked where the wall was');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>
