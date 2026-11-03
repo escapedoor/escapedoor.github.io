@@ -72,6 +72,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="lodge.js"></script>
 <script>
 (function () {
@@ -242,6 +243,8 @@
   LG.thing('#phone', null, 'The Lodge telephone. Mrs Treharne rang off before you could ask her anything. She does that.', isBusy);
   LG.thing('#radio', 'radio', 'The radio, on its shelf. The diver is breathing into it, slowly, like somebody swimming.', isBusy);
   LG.thing('#cat', null, 'Teasel has moved to the radio shelf, where it is warm. She is watching the radio as if something might come out of it.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'store');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>

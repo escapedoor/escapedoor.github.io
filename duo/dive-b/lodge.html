@@ -73,6 +73,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="lodge.js"></script>
 <script>
 (function () {
@@ -220,6 +221,8 @@
   LG.thing('#phone', null, 'The Lodge telephone. The curator, Mrs Treharne, rang an hour ago from the other side of the river. The bridge is shut, so she cannot get here: she can only ring.', isBusy);
   LG.thing('#lamp', null, 'A desk lamp, bent over the desk like somebody reading.', isBusy);
   LG.thing('#stairs', null, 'The top of the basement stairs. Twelve steps down, the steps go into the water, and somewhere beyond that, a torch moves.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'steps');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>

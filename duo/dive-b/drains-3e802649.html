@@ -59,6 +59,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="lodge.js"></script>
 <script>
 (function () {
@@ -176,6 +177,8 @@
   LG.thing('#stapler', null, 'A stapler, holding down the north-east corner.', isBusy);
   LG.thing('#radio', 'radio', 'The radio, holding down the south-west corner, and talking.', isBusy);
   LG.thing('#cat', null, 'Teasel, holding down the south-east corner. She agreed to do it after a short argument, and has been asleep ever since.', isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'boiler');
   $('#go').addEventListener('click', function () {
     if (!nextFile || busy) return;
     busy = true;

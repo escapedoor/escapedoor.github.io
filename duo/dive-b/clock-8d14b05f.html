@@ -72,6 +72,7 @@
 
 <script src="words.js"></script>
 <script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
 <script src="lodge.js"></script>
 <script>
 (function () {
@@ -182,6 +183,8 @@
   $('#cardg').addEventListener('click', function () { if (!busy) ER.read({ html: LG.CARD31, cls: 'ccard', clue: { id: 'card31', title: '2025.31: the Rillmouth Box', kind: 'Catalogue card' } }); });
   $('#splan').addEventListener('click', function () { if (!busy) LG.store(); });
   LG.thing('#pump', 'pump', function () { return nextFile ? 'The needle is at FULL, and the red lamp says LEVEL RISING. The pump is not losing because it is weak. It is losing because more is coming in.' : 'The pump in the yard, on full since nine o&rsquo;clock. The red lamp blinks: LEVEL RISING.'; }, isBusy);
+  /* linked screens: pressed by itself when the partner is through the room that goes with this one */
+  if (window.Link) Link.follow($('#go'), 'bay');
   $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
 })();
 </script>
