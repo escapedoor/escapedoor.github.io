@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Shelf of Lost Things · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{--bg:#1e3430;--accent:#e2c46a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,36,32,.95);--tc-ink:#f2efe4;--cap-bg:rgba(20,36,32,.93);--panel:#1d2e2a;--face-bg:#2e4a44;--q-ink:#f2dc8a;--fade:#0a1412;--hud-bg:rgba(20,36,32,.84)}
+  .swing{animation:sw 4s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 0}
+  .swing.b{animation-duration:5.2s}
+  @keyframes sw{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+  .mtick{opacity:0;transition:opacity 1s}
+  .mtick.on{opacity:1}
+  .doc.vbook{width:min(860px,94vw);background:#f4ecd8;color:#2a2620;font-family:'EB Garamond',Georgia,serif;font-size:16px;line-height:1.3;padding:18px 24px 16px;border:1px solid #b8a67a;box-shadow:inset 0 0 0 10px #e8dcc0}
+  .doc.vbook h4{margin:0 0 2px;font-family:'Homemade Apple',cursive;font-size:18px;letter-spacing:0;text-transform:none}
+  .doc.vbook .bk-sub{margin:0 0 8px;font-style:italic;font-size:15.5px}
+  .bk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 12px}
+  .bk-g{position:relative;display:grid;grid-template-columns:96px 1fr;grid-template-rows:auto 1fr;column-gap:8px;padding:6px 6px 4px;border-top:1px solid #c8b890}
+  .bk-g svg{grid-row:1/3;width:96px;height:auto}
+  .bk-g b{font-family:'Homemade Apple',cursive;font-weight:normal;font-size:15px;line-height:1.5;color:#22224a}
+  .bk-g span{font-family:'Kalam',cursive;font-size:15.5px;line-height:1.2;color:#3a3a5a}
+  .bk-g .tick{display:none}
+  .lb{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:14px 14px 6px;background:#24403a}
+  .lb-o{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px;background:#e8dcc0;border-radius:3px;color:#2a2620}
+  .lb-o svg{width:100%;max-width:120px;height:auto}
+  .lb-o p{margin:0;font-family:'Kalam',cursive;font-size:14.5px;line-height:1.15;text-align:center;min-height:68px}
+  .lb-slot{width:100%;min-height:42px;border:2px dashed #8a6a3a;border-radius:3px;display:flex;align-items:center;justify-content:center;background:#f6eed8}
+  .lb-tray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px 14px;min-height:58px;background:#1d2e2a}
+  .tag{position:relative;padding:7px 12px 6px 18px;background:#c89a5a;color:#2a1a0a;font-family:'Kalam',cursive;font-weight:700;font-size:16px;line-height:1.1;border-radius:3px 12px 12px 3px;cursor:grab;
+    -webkit-user-select:none;user-select:none;touch-action:none}
+  .tag:before{content:'';position:absolute;left:6px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#1d2e2a}
+  .tag.held{outline:3px solid #f2dc8a}
+  .tag.fly{position:fixed;z-index:90;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="lampC" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#ffe4a8" stop-opacity=".35"/><stop offset="1" stop-color="#ffe4a8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigC" cx="50%" cy="45%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2e4a44"/>
+<g stroke="#284440" stroke-width="3" opacity=".7" id="panels"></g>
+<rect x="-1000" y="720" width="3600" height="1000" fill="#6a4a2e"/><path d="M-1000 720H2600" stroke="#3a2a1a" stroke-width="10"/>
+<!-- the edge of the big mirror on the left -->
+<g id="medge" class="hot"><rect x="-200" y="60" width="300" height="560" fill="#b8962e"/><rect x="-200" y="80" width="280" height="520" fill="#8a9a96"/><path d="M-60 120l100 300" stroke="#fff" stroke-width="10" opacity=".25"/></g>
+<!-- the glass case, with the visitors' book open in it -->
+<g id="case" class="hot">
+  <path d="M190 780V560M590 780V560" stroke="#3a2614" stroke-width="18"/><rect x="170" y="520" width="440" height="60" fill="#5a3a20" stroke="#2a1a0a" stroke-width="4"/>
+  <path d="M180 520L240 380H540L600 520Z" fill="#f4ecd8" stroke="#8a7a5a" stroke-width="3"/><path d="M390 380V520" stroke="#c8b890" stroke-width="4"/>
+  <g id="minibook"></g>
+  <path d="M180 520L240 380H540L600 520Z" fill="#cfe4e4" fill-opacity=".22" stroke="#e8f4f2" stroke-width="4"/><path d="M260 400l60 90M300 396l40 60" stroke="#fff" stroke-width="6" opacity=".35"/>
+  <rect x="300" y="540" width="180" height="26" fill="#f2ead2"/><text x="390" y="558" class="sk" font-size="14" fill="#3a2a1a">THE GALLERY&#8217;S VISITORS&#8217; BOOK</text></g>
+<!-- the shelf of lost things -->
+<g id="shelf">
+  <rect x="760" y="110" width="700" height="56" fill="#f2ead2" stroke="#8a6a3a" stroke-width="3"/><text x="1110" y="146" class="sk" font-size="26" fill="#3a2a1a">THE SHELF OF LOST THINGS</text>
+  <g fill="#7a5530" stroke="#3a2614" stroke-width="3"><rect x="780" y="330" width="660" height="20"/><rect x="780" y="560" width="660" height="20"/></g>
+  <path d="M820 350l30 40M1400 350l-30 40M820 580l30 40M1400 580l-30 40" stroke="#3a2614" stroke-width="8"/>
+  <g id="objs"></g>
+  <g id="labels" class="hot"><rect x="1300" y="470" width="110" height="80" fill="#c89a5a" stroke="#6a4a1a" stroke-width="2" transform="rotate(-8 1355 510)"/><rect x="1290" y="478" width="110" height="80" fill="#d8aa6a" stroke="#6a4a1a" stroke-width="2" transform="rotate(4 1345 518)"/>
+    <circle cx="1306" cy="516" r="6" fill="#2e4a44"/><path d="M1300 516q-30 -30 -10 -60" stroke="#e8e0c8" stroke-width="2" fill="none"/><text x="1350" y="526" class="sk" font-size="15" fill="#3a2a10">blank labels</text></g>
+</g>
+<!-- Carys, with a cloth -->
+<g id="carys" class="hot" transform="translate(1180 600)"><path d="M10 300q-6 -150 70 -164q76 14 70 164z" fill="#c8553d"/><circle cx="80" cy="100" r="40" fill="#e6be9c"/><path d="M40 96q2 -46 40 -46q38 0 40 46q-8 -26 -40 -28q-32 2 -40 28z" fill="#9a9a96"/>
+  <circle cx="66" cy="104" r="4" fill="#2a2a2a"/><circle cx="94" cy="104" r="4" fill="#2a2a2a"/><path d="M68 124q12 7 24 0" stroke="#8a4a3a" stroke-width="3" fill="none"/><path d="M120 200l40 20" stroke="#f2f2ea" stroke-width="14"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#lampC)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigC)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the back of the café</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="scene.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, lab = null;
+  var OPOS = [[860, 330], [1060, 330], [1260, 330], [900, 560], [1120, 560]];
+  (function () {
+    var s = '', i;
+    for (i = -1000; i < 2600; i += 180) s += '<path d="M' + i + ' -700V720"/>';
+    $('#panels').innerHTML = s; s = '';
+    SC.LOST.forEach(function (o, i) {
+      var p = OPOS[i];
+      s += '<g class="obj hot" data-o="' + o.id + '"><g transform="translate(' + (p[0] - 70) + ' ' + (p[1] - 100) + ') scale(1.1)"><rect width="130" height="96" fill="#000" fill-opacity="0"/>' + SC.obj(o).replace(/^<svg[^>]*>|<\/svg>$/g, '') + '</g>' +
+        '<g class="swing' + (i % 2 ? ' b' : '') + '"><path d="M' + (p[0] + 40) + ' ' + (p[1] + 18) + 'v34" stroke="#e8e0c8" stroke-width="2"/><rect x="' + (p[0] + 14) + '" y="' + (p[1] + 50) + '" width="54" height="34" rx="3" fill="#d8aa6a" stroke="#6a4a1a" stroke-width="1.5"/><path d="M' + (p[0] + 22) + ' ' + (p[1] + 62) + 'h36M' + (p[0] + 22) + ' ' + (p[1] + 72) + 'h28" stroke="#5a3a1a" stroke-width="2"/></g></g>';
+    });
+    $('#objs').innerHTML = s; s = '';
+    /* the book in the case, small: two pages, three guests on each */
+    SC.GUESTS.forEach(function (g, i) {
+      var x = i < 3 ? 262 + i * 40 : 412 + (i - 3) * 40, y = 400 + (i % 3) * 36;
+      s += '<g transform="translate(' + (x + (i % 3) * 6) + ' ' + y + ') scale(.26)"><g fill="none" stroke="#3a3a40" stroke-width="5" color="#3a3a40">' + SC.head(g.id).replace(/^<svg[^>]*><g[^>]*>|<\/g><\/svg>$/g, '') + '</g></g>' +
+        '<path class="mtick" data-g="' + g.id + '" d="M' + (x + 34 + (i % 3) * 6) + ' ' + (y + 14) + 'l4 5 8 -10" stroke="#c4372b" stroke-width="2.5" fill="none"/>';
+    });
+    $('#minibook').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-a', storyTitle: 'Still Here', id: 'case', no: 'III', title: 'The Shelf of Lost Things',
+    go: 'Look closer',
+    intro: [
+      'The old wall stood 6.8 metres from the front, where the picture rail stops and the floorboards change direction, and its door was at the left-hand end. On your partner&rsquo;s plan the front room was 6.8 metres deep, and the door was at the west end: your left, as you look towards the back. Your partner, meanwhile, found that June Kitto took her photograph in the big mirror, so The Blue Kite really hung between the first fireplace and the front window.',
+      'Now Carys has unlocked the glass case. In it, the visitors&rsquo; book is open at 24 November 1979. Beside it is her shelf of lost things: everything the building gave back when she took up the floor and cleared the cellar.',
+      'Your partner has a policeman&rsquo;s notebook from that night. He wrote down what everybody said, and what they looked like. He did not write down their names.'
+    ],
+    exit: {"next":"switch","w":{"d19f951f":"d3bc2f67"}}, tags: {"o1":["a30e6e2f"],"o2":["2e39657e"],"o3":["016983e1"],"o4":["fd5b6470"],"o5":["79d98715"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a3-told') || {}; nextFile = ER.flag('a3-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a3-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.book ? 1 : 0) + (told.shelf ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;The pipe was Mr Gorringe&rsquo;s. Carys found it under the floor where the door in the old wall was, not by the front window.&rdquo;']], ['Ask your partner', ['&ldquo;What exactly did Mr Gorringe say he was doing when the lights went out?&rdquo;']]]);
+    else AR.card([['Tell your partner', ['&ldquo;In the visitors&rsquo; book, Ivy drew every guest. The first one is Ivy herself: she has &hellip;&rdquo;', '&ldquo;Freda Applegarth has round glasses and &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What does the policeman say about each person? Who had a pipe? Who had a camera?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['Every lost thing has its owner. Now go to the back of the café, where Mr Gorringe&rsquo;s office was.']];
+    if (!told.book) return ['book', [
+      'Start with the glass case. Ivy Dancy drew every guest in the visitors&rsquo; book as they came in, and each one signed beside the drawing.',
+      'Describe each drawing to your partner: hair, glasses, beard, a bow tie, how tall. Your partner&rsquo;s notebook describes the same people, but has no names.'
+    ]];
+    return ['labels', [
+      'Each lost thing on the shelf belonged to somebody who was here that night. The blank labels are at the end of the shelf. Your partner&rsquo;s notebook says who had what: a pipe, a feather in a hat, a camera, the cellar, a lost glove.',
+      'Put it together in two steps. First your partner reads you a description (&ldquo;a tall thin man with a grey moustache, a pipe in his top pocket&rdquo;). Then you find that face in the visitors&rsquo; book, and its name.',
+      'Five lost things and six names: one name has no lost thing. Ivy drew Mr Gorringe thin, with a moustache; Mr Lightfoot with no hair, a beard and a bow tie; Lewis with long hair.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('Five lost things, each with a name on its label now.'); return; }
+    if (told.intro) { busy = false; ER.say('The visitors&rsquo; book in its case, and the shelf of lost things.'); return; }
+    ER.narrate([
+      'Carys unlocks the glass case with a key the size of a matchstick. &ldquo;I&rsquo;ve never known who any of them were,&rdquo; she says. &ldquo;I just liked the drawings.&rdquo;',
+      'Beside the case, on two long shelves, the building&rsquo;s lost things sit in a row, each with a brown label on a string. On every label, Carys has written where she found it. Nobody has ever written whose it was.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the book and the things ---------- */
+  $('#case').addEventListener('click', function () { if (busy) return; SC.book(function () { if (tell('book')) paint(); }); });
+  ER.$$('.obj').forEach(function (g) {
+    g.addEventListener('click', function () {
+      if (busy) return;
+      var o = SC.LOST.filter(function (x) { return x.id === g.getAttribute('data-o'); })[0];
+      if (tell('shelf')) paint();
+      AR.look({ kicker: 'On the shelf of lost things', title: o.what, pic: '<svg viewBox="0 0 130 96" xmlns="http://www.w3.org/2000/svg"><rect width="130" height="96" fill="#2e4a44"/>' + o.pic + '</svg>', lock: false,
+        text: '<p>Carys&rsquo;s label says:</p><p><b>' + o.where + '</b></p><p>The other side of the label is blank.</p>' });
+    });
+  });
+
+  /* ---------- the labels: whose was each thing? ---------- */
+  function makeLabels() {
+    var box = ER.el('div', 'bx'), s = '<div class="lb">';
+    SC.LOST.forEach(function (o) { s += '<div class="lb-o">' + SC.obj(o) + '<p>' + o.what + '. ' + o.where + '</p><div class="lb-slot" data-o="' + o.id + '"></div></div>'; });
+    s += '</div><div class="lb-tray">' + SC.GUESTS.map(function (g) { return '<span class="tag dnd-item" data-g="' + g.id + '">' + g.name.replace(/^Lewis$/, 'Lewis (the wine)') + '</span>'; }).join('') + '</div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="show">Show Carys</button></div>';
+    box.innerHTML = s;
+    var tray = box.querySelector('.lb-tray'), msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    ER.dnd(box, { item: '.tag', slot: '.lb-slot', home: tray, change: function () { msg(''); } });
+    box.querySelector('#show').addEventListener('click', function () {
+      var ids = SC.LOST.map(function (o) { var t = box.querySelector('.lb-slot[data-o="' + o.id + '"] .tag'); return t ? t.getAttribute('data-g') : ''; });
+      if (ids.some(function (x) { return !x; })) { msg('Every lost thing needs a name first. Drag a label onto each one, or click a label and then a thing.'); return; }
+      var file = ER.exit([ids.join('-')], { wait: true });
+      if (!file) {
+        ER.sfx.no();
+        var right = ids.filter(function (x, i) { return ER.check('o' + (i + 1), x); }).length;
+        msg('Carys reads your labels one by one, with her head on one side. &ldquo;' + ['None of these', 'One of these', 'Two of these', 'Three of these', 'Four of these'][right] + ' sounds right to me,&rdquo; she says. &ldquo;Not that I know. But you don&rsquo;t sound sure.&rdquo; Check each owner with your partner&rsquo;s notebook.');
+        return;
+      }
+      nextFile = file; ER.flag('a3-file', file);
+      AR.tell('iii-shelf');
+      box.querySelector('#show').disabled = true;
+      msg('Carys reads them out, slowly, one by one, and then reads the pipe&rsquo;s label twice.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        ER.narrate([
+          'The pipe belonged to Mr Gorringe, who always smoked one. Carys found it under the floor, by the left wall, seven metres from the front: exactly where the door in the old wall used to be. Not at the front window.',
+          'Mrs Applegarth&rsquo;s feather was behind the radiator under the mirror, where she said she was standing when a man who smelt of pipe smoke pushed past her in the dark and knocked her hat.',
+          '&ldquo;He dropped his pipe,&rdquo; says Carys slowly, &ldquo;in the doorway. In the dark. And it fell through a gap in the boards.&rdquo; She looks towards the back of the café. &ldquo;What was through that door?&rdquo; His office. And the main switch.'
+        ], function () { busy = false; paint(); });
+      }, 2600);
+    });
+    msg('Five lost things, six names from the visitors&rsquo; book. Put a name on each thing: drag it, or click a name and then a thing.');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+  $('#labels').addEventListener('click', function () { if (busy) return; if (nextFile) { ER.say('Every label has a name on it now.'); return; } if (!lab) lab = makeLabels(); lab.open(); });
+  AR.thing('#medge', null, 'The edge of the big mirror. In it, the shelf of lost things, the wrong way round.', isBusy);
+  $('#carys').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Carys Elkin', role: 'The Long Table · owner', face: SC.FACE.carys,
+      lines: [
+        { note: 'She is polishing a glass that is already clean.', a: '&ldquo;I write down where I find things. My gran did that. She said things remember where they&rsquo;ve been, even if people don&rsquo;t.&rdquo;' },
+        { q: 'Where exactly did you find the pipe?', a: '&ldquo;Under the floor, when we took the boards up to sand them. Against the left wall, seven metres from the front. I measured, because I&rsquo;m like that. It was lying in the dust between the joists, as if somebody had dropped it through a crack.&rdquo;' },
+        { q: 'And the feather?', a: '&ldquo;Behind the old radiator, under the big mirror. Forty years of dust on it. It still looks quite pleased with itself.&rdquo;' },
+        { q: 'Do you know whose they were?', a: '&ldquo;No. That&rsquo;s your job, isn&rsquo;t it? Yours and the voice on your phone.&rdquo;' }
+      ],
+      clue: { id: 'carys2', title: 'Carys, about the lost things', kind: 'What she said' }
+    });
+  });
+
+  /* ---------- the partner's screen: the names the archivist writes into the notebook ---------- */
+  function ticks(list) {
+    ER.$$('.mtick').forEach(function (t) { t.classList.toggle('on', (list || []).indexOf(t.getAttribute('data-g')) >= 0); });
+  }
+  var heardNames = false;
+  if (window.Link) Link.on(function () {
+    var v = Link.get('iii-names');
+    if (!v || !v.length) return;
+    ticks(v);
+    if (!heardNames) { heardNames = true; ER.say('Your partner is writing names into the policeman&rsquo;s notebook. In the visitors&rsquo; book, small red ticks appear beside the faces, one by one.'); }
+  });
+  AR.live('iii-named', function () { ER.say('Your partner has put a name to every note in the policeman&rsquo;s notebook.'); }, 'My partner has named everybody in the notebook');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

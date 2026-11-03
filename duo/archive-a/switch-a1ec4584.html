@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Main Switch · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{--bg:#1c2228;--accent:#7fd0c8;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(20,26,32,.95);--tc-ink:#eef4f4;--cap-bg:rgba(20,26,32,.93);--panel:#1e262c;--face-bg:#2e3a42;--q-ink:#bff0e8;--fade:#080b0e;--hud-bg:rgba(20,26,32,.84)}
+  #dark{opacity:0;transition:opacity .15s;pointer-events:none}
+  body.dark #dark{opacity:.82}
+  body.dark #clockglow{opacity:1}
+  #clockglow{opacity:0;transition:opacity .4s}
+  .rattle{animation:rt .08s linear 10}
+  @keyframes rt{50%{transform:translateY(-3px)}}
+  .sw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);background:#1e262c}
+  .sw-board svg{display:block;width:100%;height:auto}
+  .sw-side{padding:16px 18px;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;color:#eef4f4}
+  .sw-side p{margin:0 0 10px}
+  .swk{cursor:pointer}
+  .swk:hover .hl{stroke:#bff0e8;stroke-width:4}
+  .swk.sel .hl{stroke:#ffd27a;stroke-width:5}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa6ae"/><stop offset="1" stop-color="#c4ccd0"/></linearGradient>
+  <radialGradient id="vigS" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+  <radialGradient id="cg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff4c8" stop-opacity=".8"/><stop offset="1" stop-color="#fff4c8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#cfd8d4"/>
+<g fill="#bcc8c4" id="tiles"></g>
+<!-- the back window, and St Aidan's beyond the yard -->
+<g id="bwin" class="hot"><rect x="300" y="110" width="520" height="380" fill="url(#skyB)"/>
+  <path d="M300 420q120 -40 260 -10t260 -20V490H300Z" fill="#7a8a7a"/><g fill="#6a6a64"><rect x="330" y="380" width="90" height="70"/><rect x="700" y="370" width="100" height="80"/></g>
+  <g id="church"><rect x="520" y="150" width="96" height="290" fill="#a49a88" stroke="#6a604e" stroke-width="3"/><path d="M510 150h116l-58 -50z" fill="#8a8070"/><path d="M568 100v-40M556 70h24" stroke="#4a4438" stroke-width="5"/>
+    <circle id="clockglow" cx="568" cy="232" r="70" fill="url(#cg)"/><circle cx="568" cy="232" r="32" fill="#f2ecd8" stroke="#3a3428" stroke-width="5"/><path d="M568 232v-22M568 232l20 -6" stroke="#1a1814" stroke-width="4" stroke-linecap="round"/>
+    <rect x="552" y="300" width="32" height="50" rx="16" fill="#3a3428"/></g>
+  <path d="M560 110V490M300 300H820" stroke="#f4f2ec" stroke-width="12"/><rect x="300" y="110" width="520" height="380" fill="none" stroke="#f4f2ec" stroke-width="18"/></g>
+<!-- the cupboards under the window, and the staff door -->
+<rect x="260" y="500" width="600" height="20" fill="#e8e2d4"/>
+<g id="c1" class="hot cup"><rect x="290" y="530" width="260" height="250" fill="#5a6a72" stroke="#2a3238" stroke-width="5"/><rect x="306" y="546" width="228" height="218" fill="none" stroke="#3a4a52" stroke-width="3"/><circle cx="520" cy="660" r="9" fill="#c8b070"/></g>
+<g id="c2" class="hot cup"><rect x="570" y="530" width="260" height="250" fill="#5a6a72" stroke="#2a3238" stroke-width="5"/><rect x="586" y="546" width="228" height="218" fill="none" stroke="#3a4a52" stroke-width="3"/><circle cx="600" cy="660" r="9" fill="#c8b070"/></g>
+<g id="c3" class="hot cup"><rect x="1000" y="150" width="230" height="630" fill="#6a4a30" stroke="#3a2a1a" stroke-width="6"/><rect x="1040" y="250" width="150" height="40" fill="#f2ecd8"/><text x="1115" y="277" class="sv" font-size="20" fill="#3a2a1a">STAFF ONLY</text><circle cx="1206" cy="480" r="10" fill="#c8b070"/></g>
+<!-- shelves of cups, the counter in front -->
+<g id="cups"><rect x="1270" y="230" width="300" height="16" fill="#7a5530"/><rect x="1270" y="380" width="300" height="16" fill="#7a5530"/><g id="cupset"></g></g>
+<rect x="-1000" y="790" width="3600" height="900" fill="#3a5a4a"/><rect x="-1000" y="780" width="3600" height="22" fill="#c8b48a"/>
+<!-- Carys -->
+<g id="carys" class="hot" transform="translate(1290 470)"><path d="M10 320q-6 -150 70 -164q76 14 70 164z" fill="#c8553d"/><circle cx="80" cy="110" r="40" fill="#e6be9c"/><path d="M40 106q2 -46 40 -46q38 0 40 46q-8 -26 -40 -28q-32 2 -40 28z" fill="#9a9a96"/>
+  <circle cx="66" cy="114" r="4" fill="#2a2a2a"/><circle cx="94" cy="114" r="4" fill="#2a2a2a"/><path d="M68 134q12 7 24 0" stroke="#8a4a3a" stroke-width="3" fill="none"/></g>
+<!-- the way back to the front window -->
+<g id="front" class="hot"><rect x="40" y="430" width="200" height="120" rx="6" fill="#2e3a42" stroke="#7fd0c8" stroke-width="2"/><text x="140" y="482" class="sv" font-size="22" fill="#bff0e8">&#8592; The front</text><text x="140" y="514" class="sv" font-size="22" fill="#bff0e8">window</text></g>
+<rect id="dark" x="-1000" y="-700" width="3600" height="2400" fill="#04060a"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigS)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Back to the wall of strangers</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="scene.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, board = null, darkN = 0;
+  (function () {
+    var s = '', x, y;
+    for (y = -700; y < 800; y += 40) for (x = -1000 + (y % 80 ? 0 : 40); x < 2600; x += 80) s += '<rect x="' + x + '" y="' + y + '" width="76" height="36" rx="2"/>';
+    $('#tiles').innerHTML = s; s = '';
+    [1300, 1360, 1420, 1480, 1530].forEach(function (x, i) { s += '<path d="M' + x + ' ' + (i % 2 ? 380 : 230) + 'v-30q0 -8 8 -8h24q8 0 8 8v30z" fill="' + ['#f2ecd8', '#c8553d', '#f2ecd8', '#3a7ac8', '#f2ecd8'][i] + '"/>'; });
+    $('#cupset').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-a', storyTitle: 'Still Here', id: 'switch', no: 'IV', title: 'The Main Switch',
+    go: 'Go behind the counter',
+    intro: [
+      'Every lost thing found its owner. The pipe was Mr Gorringe&rsquo;s: the policeman&rsquo;s note says he had a pipe in his top pocket, and Ivy drew him thin, with a moustache. The feather came off Mrs Applegarth&rsquo;s hat by the mirror, the lens cap off June Kitto&rsquo;s camera, the corkscrew from Lewis&rsquo;s cellar, and the glove was the one Mr Lightfoot lost on his way to the bus.',
+      'And the pipe was under the floor where the door in the old wall used to be: the door to Mr Gorringe&rsquo;s office. Not by the front window.',
+      'Carys lifts the flap of the counter and lets you through to the back, where the office was. &ldquo;Mind the step,&rdquo; she says. &ldquo;And don&rsquo;t touch anything that looks older than me.&rdquo;'
+    ],
+    exit: {"next":"portrait","w":{"c4a90257":"d22a6426"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a4-told') || {}; nextFile = ER.flag('a4-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a4-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.pips((told.cup ? 1 : 0) + (told.views ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;From the front window I can see &hellip;, but I can&rsquo;t see &hellip;&rdquo;', '&ldquo;From the back window, by the switch, I can see &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;So which statement can&rsquo;t be true?&rdquo;']]]);
+    else AR.card([['Ask your partner', ['&ldquo;Where was the main switch on your plan?&rdquo;', '&ldquo;What exactly did June Kitto hear? What did Lewis say about the cellar light?&rdquo;']], ['Tell your partner', ['&ldquo;Under the back window there are two cupboards, and on the right there&rsquo;s a door that says &hellip;&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['views', [
+      'Your partner has six statements and has to find the one that cannot be true. You can check what each person says they could see. Look out of the front window, and out of the back window, and say exactly what you can see.',
+      'Be careful with the tree: it was planted in 1977. Something that hides a view today did not have to hide it in 1979. A stone building and a church tower are a different matter.'
+    ]];
+    if (!told.cup) return ['cup', [
+      'Your partner has the plan of 1955. Ask where the main switch was.',
+      'On the plan the main switch is in a cupboard under the back window, on the west side. You are looking north, at the back of the building: is west on your left or on your right?'
+    ]];
+    return ['switch', [
+      'Three old switches, and nobody has written on them for fifty years. Try them, one at a time, and watch what goes out.',
+      'Ask your partner what June Kitto heard when the lights went out, and what Lewis Daintree saw in the cellar.',
+      'June heard a big switch go clack, at the back. Lewis says the cellar light went out too. Which switch puts out every light in the building, the cellar too?'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('The back of the café, where the office was. The main switch is back on, and so is Carys&rsquo;s coffee machine.'); return; }
+    if (told.intro) { busy = false; ER.say('The back of the café: a window, two cupboards, a staff door.'); return; }
+    ER.narrate([
+      'Behind the counter it is cooler, and quieter. Grey light comes in through a big window in the back wall. Under the window there are two painted cupboards, side by side. To the right, a door: STAFF ONLY.',
+      'Somewhere here, in 1979, Mr Gorringe had his office, with a desk, a fireplace, the steps down to the cellar, and a cupboard with the main switch for the whole building.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the windows ---------- */
+  var FRONT = '<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="320" fill="#9aa6ae"/>' +
+    '<rect x="40" y="110" width="320" height="160" fill="#c8bca4" stroke="#7a6e58" stroke-width="3"/><path d="M40 110l160 -40 160 40" fill="#a89c84" stroke="#7a6e58" stroke-width="3"/>' +
+    '<circle cx="200" cy="96" r="14" fill="#3a3a3a" stroke="#e8e0cc" stroke-width="3"/><g fill="#e8e0cc"><rect x="90" y="150" width="14" height="120"/><rect x="150" y="150" width="14" height="120"/><rect x="236" y="150" width="14" height="120"/><rect x="296" y="150" width="14" height="120"/></g>' +
+    '<rect x="178" y="126" width="44" height="14" fill="#b8ac94"/><text x="200" y="137" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="11" fill="#4a3a26" text-anchor="middle">1868</text>' +
+    '<g fill="#d9a83a" opacity=".92"><circle cx="40" cy="60" r="70"/><circle cx="360" cy="40" r="60"/><circle cx="20" cy="220" r="60"/><circle cx="390" cy="240" r="56"/><circle cx="110" cy="10" r="50"/><circle cx="300" cy="300" r="40"/><circle cx="90" cy="300" r="40"/></g>' +
+    '<path d="M0 0H400V320H0Z" fill="none" stroke="#efe6d4" stroke-width="14"/></svg>';
+  var BACK = '<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="320" fill="#b4bec4"/><path d="M0 250q100 -30 200 -10t200 -20V320H0Z" fill="#7a8a7a"/>' +
+    '<rect x="160" y="60" width="80" height="220" fill="#a49a88" stroke="#6a604e" stroke-width="3"/><path d="M152 60h96l-48 -40z" fill="#8a8070"/><circle cx="200" cy="120" r="28" fill="#f2ecd8" stroke="#3a3428" stroke-width="4"/>' +
+    '<g stroke="#3a3428" stroke-width="2">' + (function () { var s = '', i, a; for (i = 0; i < 12; i++) { a = i * Math.PI / 6; s += '<path d="M' + (200 + 22 * Math.sin(a)).toFixed(1) + ' ' + (120 - 22 * Math.cos(a)).toFixed(1) + 'L' + (200 + 26 * Math.sin(a)).toFixed(1) + ' ' + (120 - 26 * Math.cos(a)).toFixed(1) + '"/>'; } return s; })() + '</g>' +
+    '<path d="M200 120v-19M200 120l17 -5" stroke="#1a1814" stroke-width="3.5" stroke-linecap="round"/><path d="M0 0H400V320H0Z" fill="none" stroke="#f4f2ec" stroke-width="14"/></svg>';
+  function views() { if (tell('views')) paint(); }
+  $('#front').addEventListener('click', function () {
+    if (busy) return;
+    views();
+    AR.look({ kicker: 'At the front of the café, looking out', title: 'From the front window', pic: FRONT, lock: false,
+      text: '<p>You go back through the café to the long front window and look out at the square. Most of the view is gold leaves: the lime tree fills the window. You cannot see the street lamp at all; it is somewhere behind the tree.</p>' +
+        '<p>Through the branches, straight across the square: the Assembly Rooms, a long stone building with columns, and a stone over the door that says 1868. High on its front there is a round window, like a clock face, but it has no numbers and no hands.</p><p>No church. No clock. Not even the top of a tower.</p>' });
+  });
+  $('#bwin').addEventListener('click', function () {
+    if (busy) return;
+    views();
+    AR.look({ kicker: 'At the back, beside the cupboards', title: 'From the back window', pic: BACK, lock: false,
+      text: '<p>Over the yard and the back gardens: the tower of St Aidan&rsquo;s church, close enough to read its clock. It says five past eleven.</p><p>&ldquo;They light the clock up at night,&rdquo; says Carys. &ldquo;You can read it from here at midnight. I know, because I have.&rdquo;</p><p>From this window you cannot see the square at all.</p>' });
+  });
+
+  /* ---------- the cupboards ---------- */
+  $('#c2').addEventListener('click', function () { if (busy) return; if (tell('cup')) paint(); ER.say('A modern electricity meter, fitted in 1998, a mop, and a bucket. Nothing older than you.'); });
+  $('#c3').addEventListener('click', function () { if (busy) return; ER.say('STAFF ONLY: a very small toilet and a smell of lemons. Carys clears her throat.'); });
+  $('#c1').addEventListener('click', function () { if (busy) return; if (tell('cup')) paint(); if (!board) board = makeBoard(); board.open(); });
+
+  var SW = {
+    main: { x: 120, label: 'the big lever', d: 'Clack! Every light in the café goes out at once: the front, the counter, the back, and, Carys shouts from the top of the cellar steps, the cellar too. Only the grey daylight from the windows is left. You push the lever back, clack, and the lights come back.' },
+    shop: { x: 300, label: 'the black switch', d: 'Click. The lights at the front of the café go out, and the man with the newspaper says &ldquo;Oi.&rdquo; The lights at the back stay on, and so does the cellar. You switch it back.' },
+    win: { x: 420, label: 'the little brass switch', d: 'Click. The little lamps in the front window go out. Nothing else. You switch them back on before anybody notices.' }
+  };
+  function boardSvg() {
+    return '<svg viewBox="0 0 540 380" xmlns="http://www.w3.org/2000/svg"><rect width="540" height="380" fill="#2a3238"/><rect x="30" y="30" width="480" height="320" fill="#4a4036" stroke="#2a2018" stroke-width="6"/>' +
+      '<g class="swk" data-s="main"><rect class="hl" x="60" y="60" width="130" height="260" rx="6" fill="#3a3028" stroke="#2a2018" stroke-width="3"/><rect x="100" y="90" width="50" height="200" rx="6" fill="#1a1612"/><g id="lev"><path d="M125 190l0 -80" stroke="#8a8a90" stroke-width="12" stroke-linecap="round"/><rect x="104" y="96" width="42" height="26" rx="6" fill="#c4372b"/></g><circle cx="125" cy="190" r="14" fill="#6a6a70"/></g>' +
+      '<g class="swk" data-s="shop"><rect class="hl" x="250" y="130" width="100" height="120" rx="6" fill="#3a3028" stroke="#2a2018" stroke-width="3"/><rect x="284" y="160" width="32" height="60" rx="4" fill="#1a1a1a"/><rect x="292" y="168" width="16" height="24" rx="3" fill="#3a3a3a"/></g>' +
+      '<g class="swk" data-s="win"><rect class="hl" x="380" y="150" width="90" height="90" rx="6" fill="#3a3028" stroke="#2a2018" stroke-width="3"/><circle cx="425" cy="195" r="24" fill="#b8963a"/><rect x="420" y="178" width="10" height="20" rx="3" fill="#6a5010"/></g>' +
+      '<g font-family="Barlow Condensed,sans-serif" font-weight="600" font-size="13" fill="#8a7a64" text-anchor="middle"><text x="125" y="340">no label</text><text x="300" y="270">no label</text><text x="425" y="262">no label</text></g></svg>';
+  }
+  function makeBoard() {
+    var box = ER.el('div', 'bx'), sel = null;
+    box.innerHTML = '<div class="sw"><div class="sw-board">' + boardSvg() + '</div><div class="sw-side"><p>Inside the left-hand cupboard, on a board of dark wood: three old switches. A big lever with a red handle, a black switch, and a little brass one. The labels went long ago.</p><p>Click a switch to choose it. Then try it, or say that it was the one.</p></div></div>' +
+      '<div class="bx-foot"><p class="pmsg"></p><button type="button" class="btn" id="try">Try it</button><button type="button" class="btn" id="this">He used this one</button></div>';
+    var msg = function (t) { box.querySelector('.pmsg').innerHTML = ER.gloss(t); };
+    ER.$$('.swk', box).forEach(function (g) {
+      g.addEventListener('click', function () { sel = g.getAttribute('data-s'); ER.sfx.click(); ER.$$('.swk', box).forEach(function (o) { o.classList.toggle('sel', o === g); }); msg('You have your hand on ' + SW[sel].label + '.'); });
+    });
+    box.querySelector('#try').addEventListener('click', function () {
+      if (!sel) { msg('Choose a switch first.'); return; }
+      AR.sfx.lever();
+      if (sel === 'main') { darkN++; document.body.classList.add('dark'); AR.tell('iv-dark', darkN); setTimeout(function () { document.body.classList.remove('dark'); AR.sfx.lever(); }, 1600); }
+      msg(SW[sel].d);
+    });
+    box.querySelector('#this').addEventListener('click', function () {
+      if (!sel) { msg('Choose a switch first.'); return; }
+      var file = ER.exit([sel], { wait: true });
+      if (!file) { ER.sfx.no(); msg('&ldquo;That one?&rdquo; says Carys. &ldquo;Then somebody would still have been able to see. Ask your partner what happened that night, all over the building.&rdquo;'); return; }
+      nextFile = file; ER.flag('a4-file', file);
+      box.querySelector('#this').disabled = true; box.querySelector('#try').disabled = true;
+      msg('The big lever. Clack, once when the lights went out. Clack, four minutes later, when they came back.');
+      setTimeout(function () {
+        ER.closeAll(); busy = true; paint();
+        darkN++; AR.tell('iv-dark', darkN); AR.sfx.lever(); document.body.classList.add('dark');
+        ER.narrate([
+          'You pull it once more, to see what he saw. The café goes dark. And through the back window, over the yard, St Aidan&rsquo;s clock hangs in the grey sky like a plate: five past eleven, as clear as anything.',
+          'From here, beside the main switch, a man could see the church clock. A man at the front window could not: from the front you can see the square, the lime tree and the Assembly Rooms, and no church at all.',
+          '&ldquo;Put the lights back on,&rdquo; says Carys, &ldquo;before my customer sues me.&rdquo; Clack.'
+        ], function () { document.body.classList.remove('dark'); AR.sfx.lever(); busy = false; paint(); });
+      }, 2200);
+    });
+    msg('');
+    return { open: function () { ER.open('ov-lock', box); } };
+  }
+
+  /* ---------- other things ---------- */
+  $('#carys').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Carys Elkin', role: 'The Long Table · owner', face: SC.FACE.carys,
+      lines: [
+        { note: 'She is watching your hands, the way people watch a dog near a cake.', a: '&ldquo;The electrician says that switch is the oldest one in the county that still works. He also says I should take it out. I like it.&rdquo;' },
+        { q: 'Where are the cellar steps?', a: '&ldquo;Behind the staff door, on the left. They used to come up in the middle of the office, Mum said. The shoe shop boxed them in.&rdquo;' },
+        { q: 'Can you see the church from the front?', a: '&ldquo;From the front? No. The church is behind us. From the front you get the square, the tree and the Assembly Rooms. I see the church every morning from back here, when I&rsquo;m doing the milk.&rdquo;' }
+      ],
+      clue: { id: 'carys3', title: 'Carys, about the back of the building', kind: 'What she said' }
+    });
+  });
+  $('#cups').addEventListener('click', function () { if (!busy) ER.say('Cups, in the order Carys likes them: white, red, white, blue, white.'); });
+
+  /* ---------- the partner's screen ---------- */
+  AR.live('iv-false', function () {
+    var c = $('#cupset'); c.classList.remove('rattle'); void c.getBoundingClientRect(); c.classList.add('rattle'); AR.sfx.thump();
+    ER.say('On the shelf, the cups rattle, as if somebody had brought something down hard on a table a long way away. Your partner has stamped a statement FALSE.');
+  }, 'My partner has stamped a statement FALSE');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Long Table · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{--bg:#3a2a1e;--accent:#e9a55a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(44,30,20,.95);--tc-ink:#fbf2e4;--cap-bg:rgba(44,30,20,.93);--panel:#2e2219;--face-bg:#4a3828;--q-ink:#ffd49a;--fade:#140e08;--hud-bg:rgba(44,30,20,.84)}
+  .steam{animation:st 3s ease-in-out infinite}
+  @keyframes st{0%{transform:translateY(0);opacity:0}30%{opacity:.6}100%{transform:translateY(-40px);opacity:0}}
+  .tr{fill:#fff;fill-opacity:0;stroke:none}
+  .tr:hover,.tr.on{fill:#ffd49a;fill-opacity:.18}
+  .tr.marked{fill:#e9a55a;fill-opacity:.28}
+  .glint{animation:gl 1.2s ease-in-out 4}
+  @keyframes gl{50%{filter:drop-shadow(0 0 10px #fff6c8) brightness(2)}}
+  #page{animation:pg 6s ease-in-out infinite alternate}
+  @keyframes pg{from{transform:rotate(-1deg)}to{transform:rotate(1.5deg)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="flr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5434"/><stop offset="1" stop-color="#a87a4e"/></linearGradient>
+  <radialGradient id="warm" cx="50%" cy="30%" r="70%"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".28"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigT" cx="50%" cy="45%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></radialGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfd8d4"/><stop offset=".5" stop-color="#8a9894"/><stop offset="1" stop-color="#b8c4c0"/></linearGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#2a1e14"/>
+<g id="room"></g>
+<g id="things"></g>
+<g id="traces"></g>
+<g id="tape" class="hot"><rect x="1380" y="740" width="120" height="70" rx="12" fill="#e8b830" stroke="#6a5010" stroke-width="4"/><rect x="1396" y="754" width="56" height="26" rx="3" fill="#1d2a1d"/><text x="1424" y="773" class="sv" font-size="15" fill="#7fe08a">0.00</text><circle cx="1478" cy="790" r="9" fill="#c4372b"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#warm)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigT)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Go to the glass case</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="scene.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, marked = null;
+
+  /* ---------- the room in perspective: x across (-2.6 west .. 2.6 east), y up (0 .. 3.2), z from the front wall (0 .. 11.3) ---------- */
+  var F = 700, Z0 = 1.5, EYE = 1.6, VX = 800, VY = 360;
+  function P(x, y, z) { var d = z + Z0; return [VX + F * x / d, VY + F * (EYE - y) / d]; }
+  function pts(a) { return a.map(function (q) { var p = P(q[0], q[1], q[2]); return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); }
+  function poly(a, attr) { return '<polygon points="' + pts(a) + '" ' + attr + '/>'; }
+  function line(a, b, attr) { var p = P(a[0], a[1], a[2]), q = P(b[0], b[1], b[2]); return '<path d="M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1) + '" ' + attr + '/>'; }
+  var W = 2.6, H = 3.2, L = 11.3, ZA = -1.4;
+  window.TBL = { P: P };
+  (function draw() {
+    var s = '', i, z;
+    s += poly([[-W, 0, ZA], [-W, H, ZA], [-W, H, L], [-W, 0, L]], 'fill="#e8d6b4"');                 /* west wall */
+    s += poly([[W, 0, ZA], [W, H, ZA], [W, H, L], [W, 0, L]], 'fill="#dcc6a0"');                     /* east wall */
+    s += poly([[-W, H, ZA], [W, H, ZA], [W, H, L], [-W, H, L]], 'fill="#f2e8d4"');                   /* ceiling */
+    s += poly([[-W, 0, ZA], [W, 0, ZA], [W, 0, L], [-W, 0, L]], 'fill="url(#flr)"');                  /* floor */
+    s += poly([[-W, 0, L], [-W, H, L], [W, H, L], [W, 0, L]], 'fill="#d4bc94"');                     /* back wall */
+    for (i = -2.6; i <= 2.61; i += 0.2) s += line([i, 0, ZA], [i, 0, 6.8], 'stroke="#5a3a20" stroke-width="1.4" opacity=".55"');      /* boards front to back */
+    for (z = 6.9; z < L; z += 0.22) s += line([-W, 0, z], [W, 0, z], 'stroke="#5a3a20" stroke-width="1.2" opacity=".5"');            /* boards side to side */
+    /* the picture rail, broken at 6.8 m on both walls */
+    [[-W, 'w'], [W, 'e']].forEach(function (w) {
+      s += line([w[0], 2.7, ZA], [w[0], 2.7, 6.74], 'stroke="#8a6a44" stroke-width="5"') + line([w[0], 2.7, 6.86], [w[0], 2.7, L], 'stroke="#8a6a44" stroke-width="5"');
+      s += line([w[0], 0.12, ZA], [w[0], 0.12, L], 'stroke="#6a4a2a" stroke-width="7"');
+    });
+    /* the back window, and the staff door */
+    s += poly([[-1.6, 0.9, L], [-1.6, 2.5, L], [-0.2, 2.5, L], [-0.2, 0.9, L]], 'fill="#a8b8c4" stroke="#f4ece0" stroke-width="4"');
+    s += poly([[0.9, 0, L], [0.9, 2.1, L], [1.8, 2.1, L], [1.8, 0, L]], 'fill="#6a4a30" stroke="#3a2a1a" stroke-width="2"');
+    /* the counter, across the back */
+    s += poly([[-2.6, 0, 9.4], [-2.6, 1.05, 9.4], [2.0, 1.05, 9.4], [2.0, 0, 9.4]], 'fill="#3a5a4a"') + poly([[-2.6, 1.05, 9.4], [-2.6, 1.05, 10.1], [2.0, 1.05, 10.1], [2.0, 1.05, 9.4]], 'fill="#c8b48a"');
+    $('#room').innerHTML = s;
+  })();
+
+  /* ---------- the things on the walls ---------- */
+  (function () {
+    var s = '';
+    /* the mirror on the west wall, 3 m to 4.6 m, facing the fireplace */
+    s += '<g id="mirror" class="hot">' + poly([[-W, 0.8, 3.0], [-W, 2.5, 3.0], [-W, 2.5, 4.6], [-W, 0.8, 4.6]], 'fill="#b8962e"') +
+      poly([[-W, 0.9, 3.1], [-W, 2.4, 3.1], [-W, 2.4, 4.5], [-W, 0.9, 4.5]], 'fill="url(#glass)"') + line([-W, 1.0, 3.3], [-W, 2.2, 4.1], 'stroke="#fff" stroke-width="4" opacity=".35"') + '</g>';
+    /* the glass case, by the mirror */
+    s += '<g id="case" class="hot">' + poly([[-W + 0.05, 0, 1.9], [-W + 0.05, 0.9, 1.9], [-W + 0.05, 0.9, 2.9], [-W + 0.05, 0, 2.9]], 'fill="#4a3220"') +
+      poly([[-W + 0.05, 0.9, 1.9], [-W + 0.5, 0.9, 1.9], [-W + 0.5, 0.9, 2.9], [-W + 0.05, 0.9, 2.9]], 'fill="#e8e2d0"') +
+      poly([[-W + 0.05, 0.9, 1.9], [-W + 0.5, 0.9, 1.9], [-W + 0.5, 1.25, 1.9], [-W + 0.05, 1.25, 1.9]], 'fill="#c8dce0" fill-opacity=".45" stroke="#f4f4ee" stroke-width="2"') + '</g>';
+    /* the wall of strangers, further back on the west wall */
+    [[7.3, '#7a3a2a'], [8.1, '#3a4a6a'], [8.9, '#5a6a3a'], [9.7, '#6a4a6a'], [10.5, '#3a5a5a']].forEach(function (q) {
+      s += '<g class="hot strangers">' + poly([[-W, 1.5, q[0]], [-W, 2.3, q[0]], [-W, 2.3, q[0] + 0.55], [-W, 1.5, q[0] + 0.55]], 'fill="#b8962e"') +
+        poly([[-W, 1.58, q[0] + 0.06], [-W, 2.22, q[0] + 0.06], [-W, 2.22, q[0] + 0.49], [-W, 1.58, q[0] + 0.49]], 'fill="' + q[1] + '"') + '</g>';
+    });
+    /* the fireplaces on the east wall, boarded and painted over */
+    [[3.4, 4.9, 'f1'], [8.4, 9.9, 'f2']].forEach(function (f) {
+      s += '<g id="' + f[2] + '" class="hot">' + poly([[W, 0, f[0]], [W, 1.25, f[0]], [W, 1.25, f[1]], [W, 0, f[1]]], 'fill="#e8d8b8" stroke="#a88a5a" stroke-width="3"') +
+        poly([[W, 1.25, f[0] - 0.12], [W, 1.37, f[0] - 0.12], [W, 1.37, f[1] + 0.12], [W, 1.25, f[1] + 0.12]], 'fill="#8a6a44"') +
+        poly([[W, 0.15, f[0] + 0.35], [W, 0.95, f[0] + 0.35], [W, 0.95, f[1] - 0.35], [W, 0.15, f[1] - 0.35]], 'fill="#d8c8a6" stroke="#b89a6a" stroke-width="2" stroke-dasharray="6 5"') + '</g>';
+    });
+    /* the two old picture hooks either side of the front fireplace: south (nearer the front) and north */
+    [['hk-s', 2.4], ['hk-n', 5.8]].forEach(function (h) {
+      var p = P(W, 2.62, h[1]), r = 1.1 * F / (h[1] + Z0) * 0.035;
+      s += '<g id="' + h[0] + '" class="hot hook"><circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (r * 3).toFixed(1) + '" fill="#000" fill-opacity="0"/><path d="M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + 'v' + (r * 1.6).toFixed(1) + 'q0 ' + r.toFixed(1) + ' ' + (-r).toFixed(1) + ' ' + r.toFixed(1) + '" stroke="#5a4a3a" stroke-width="' + Math.max(2, r * 0.5).toFixed(1) + '" fill="none"/></g>';
+    });
+    /* the long table, four metres of oak, and a man with a newspaper */
+    s += '<g id="ltable" class="hot">' + poly([[-0.6, 0.76, 1.2], [0.6, 0.76, 1.2], [0.6, 0.76, 5.2], [-0.6, 0.76, 5.2]], 'fill="#8a5a30" stroke="#5a3a1a" stroke-width="3"') +
+      poly([[-0.6, 0.76, 1.2], [0.6, 0.76, 1.2], [0.6, 0.66, 1.2], [-0.6, 0.66, 1.2]], 'fill="#5a3a1a"') + line([-0.5, 0, 1.4], [-0.5, 0.66, 1.4], 'stroke="#4a2e14" stroke-width="12"') + line([0.5, 0, 1.4], [0.5, 0.66, 1.4], 'stroke="#4a2e14" stroke-width="12"') + '</g>';
+    var a = P(-0.9, 0.9, 3.6);
+    s += '<g id="reader" class="hot" transform="translate(' + (a[0] - 60).toFixed(0) + ' ' + (a[1] - 120).toFixed(0) + ') scale(.7)"><path d="M30 230q-4 -120 50 -130q54 10 50 130z" fill="#4a5a6a"/><circle cx="80" cy="74" r="30" fill="#e2b896"/><path d="M52 64q28 -30 56 0" stroke="#e8e8e4" stroke-width="10" fill="none"/>' +
+      '<g id="page"><rect x="40" y="110" width="110" height="80" fill="#efe9d8" stroke="#8a8270"/><path d="M50 126h90M50 140h70M50 154h86M50 168h60" stroke="#6a6458" stroke-width="3"/></g></g>';
+    a = P(-1.2, 1.05, 9.9);
+    s += '<g id="carys" class="hot" transform="translate(' + (a[0] - 30).toFixed(0) + ' ' + (a[1] - 96).toFixed(0) + ') scale(.6)"><path d="M10 160q-6 -100 50 -110q56 10 50 110z" fill="#c8553d"/><circle cx="60" cy="34" r="28" fill="#e6be9c"/><path d="M34 30q26 -34 52 0q-2 -22 -26 -24q-24 2 -26 24z" fill="#9a9a96"/></g>';
+    a = P(1.3, 1.05, 9.8);
+    s += '<g id="coffee" class="hot" transform="translate(' + (a[0] - 30).toFixed(0) + ' ' + (a[1] - 52).toFixed(0) + ')"><rect x="0" y="0" width="60" height="52" rx="4" fill="#3a3a3a"/><rect x="8" y="10" width="44" height="14" fill="#c8c8c0"/><path class="steam" d="M30 -6q6 -10 0 -20" stroke="#fff" stroke-width="3" fill="none" opacity=".5"/></g>';
+    $('#things').innerHTML = s;
+  })();
+
+  /* ---------- the traces of a wall that is not there any more: 2.5 m, 5.5 m, 6.8 m, 9.4 m from the front wall ---------- */
+  var TR = {
+    t1: { z: 2.5, kick: '2.5 metres from the front wall', title: 'A strip of newer boards',
+      text: '<p>Right across the floor, a strip of paler, newer floorboards, about a hand wide, from the left wall to the right one. On the right wall, just above it, a round hole in the skirting board has been filled in.</p><p>&ldquo;A heating pipe,&rdquo; says Carys. &ldquo;The shoe shop put it in, under the floor. It ran from one radiator to the other.&rdquo;</p>' },
+    t2: { z: 5.5, kick: '5.5 metres from the front wall', title: 'A line across the ceiling',
+      text: '<p>A long, straight line in the plaster of the ceiling, from the left wall to the right one, filled and painted over, and filled again.</p><p>&ldquo;The shoe shop had a curtain across here,&rdquo; says Carys, &ldquo;to hide the boxes. The rail was screwed into the ceiling. At least, I think that&rsquo;s what it was.&rdquo;</p>' },
+    t3: { z: 6.8, kick: '6.8 metres from the front wall', title: 'A gap in the picture rail',
+      text: '<p>Here the picture rail on both walls stops, with a gap about as wide as your hand, and then starts again. On the floor, the old boards change direction: in front of this line they run from the front to the back; behind it, from side to side.</p>' },
+    t4: { z: 9.4, kick: '9.4 metres from the front wall', title: 'The front of the counter',
+      text: '<p>The front of the counter, painted green. Behind it the floor is one step higher.</p><p>&ldquo;I built the counter in 2019,&rdquo; says Carys. &ldquo;Before that the shoe shop kept its stockroom back here.&rdquo;</p>' }
+  };
+  (function () {
+    var s = '';
+    Object.keys(TR).forEach(function (k) {
+      var z = TR[k].z, d = 0.28, a;
+      if (k === 't2') a = [[-W, H, z - d], [W, H, z - d], [W, H, z + d], [-W, H, z + d]];
+      else if (k === 't3') a = [[-W, 0, z - d], [W, 0, z - d], [W, 0, z + d], [-W, 0, z + d]];
+      else a = [[-W, 0, z - d], [W, 0, z - d], [W, 0, z + d], [-W, 0, z + d]];
+      if (k === 't1') s += poly([[-W, 0, z - 0.06], [W, 0, z - 0.06], [W, 0, z + 0.06], [-W, 0, z + 0.06]], 'fill="#c89a64" pointer-events="none"');
+      if (k === 't2') s += line([-W, H, z], [W, H, z], 'stroke="#c8b48a" stroke-width="3" pointer-events="none"');
+      s += '<polygon class="tr hot" data-t="' + k + '" points="' + pts(a) + '"/>';
+      if (k === 't3') { s += '<polygon class="tr hot" data-t="t3" points="' + pts([[-W, 2.4, 6.5], [-W, 3.0, 6.5], [-W, 3.0, 7.1], [-W, 2.4, 7.1]]) + '"/><polygon class="tr hot" data-t="t3" points="' + pts([[W, 2.4, 6.5], [W, 3.0, 6.5], [W, 3.0, 7.1], [W, 2.4, 7.1]]) + '"/>'; }
+    });
+    $('#traces').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-a', storyTitle: 'Still Here', id: 'table', no: 'II', title: 'The Long Table',
+    go: 'Look round',
+    intro: [
+      'The gallery was number 9. Your partner&rsquo;s photograph of 1979 showed three windows upstairs, a stone face over the middle one and a round window at the top, and only number 9 has all three today. Its door has moved to the right, and the little tree by the old door has grown into the lime. The square was called the Corn Market until 1997.',
+      'Now you are inside, at the front of the café, looking towards the back. In 1979 this was two rooms: the gallery at the front and Mr Gorringe&rsquo;s office at the back, with a wall between them. Today it is one long room.',
+      'Somewhere in this room the wall used to stand. Your partner has a plan of the building. You have the building.'
+    ],
+    exit: {"next":"case","w":{"57060b97":"390078b3"}}, tags: {"wall":["1edd4767"]},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a2-told') || {}; nextFile = ER.flag('a2-file') || null;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a2-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile);
+    ER.$$('.tr').forEach(function (n) { n.classList.toggle('marked', !!nextFile && n.getAttribute('data-t') === 't3'); });
+    ER.pips((told.mirror ? 1 : 0) + (told.measured ? 1 : 0) + (nextFile ? 1 : 0), 3);
+    if (nextFile) AR.card([['Tell your partner', ['&ldquo;The wall was 6.8 metres from the front, where the picture rail stops. The door was on my left.&rdquo;']], ['Ask your partner', ['&ldquo;Where did the painting hang? Have you found it on the plan?&rdquo;']]]);
+    else AR.card([['Tell your partner', ['&ldquo;It&rsquo;s one long room now. On the left wall there&rsquo;s &hellip;, and on the right wall there are two &hellip;&rdquo;', '&ldquo;My tape says the first fireplace starts &hellip; metres from the front wall.&rdquo;']], ['Ask your partner', ['&ldquo;How deep was the front room on your plan? Where was the door in the wall: on my left or on my right?&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile) return ['go', ['The wall stood at 6.8 metres, with its door on the left. Your partner may still need to know about the mirror and the hooks.']];
+    return ['wall', [
+      'Your partner has a plan of the building from 1955, with the old wall on it. You have the room. Find the places where a wall might have stood, and use your tape: how far is each one from the front wall?',
+      'Ask your partner for the numbers on the plan: how deep the front room was, and where the first fireplace was. Check the fireplace with your tape first. If that matches, the other number will be right too.',
+      'On the plan the front room is 6.8 metres deep, and the door in the old wall is at its west end. You are looking north, towards the back: which side is west, your left or your right?'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (nextFile) { busy = false; ER.say('You know where the wall was. Carys has brought you a coffee you did not order.'); return; }
+    if (told.intro) { busy = false; ER.say('The long room. Somewhere in it, a wall used to stand.'); return; }
+    ER.narrate([
+      'The Long Table is warm and nearly empty. A man is reading the Chalkbourne Mercury at the far end of the table, and the coffee machine is making a noise like a train in a tunnel.',
+      'On the left wall: a huge old mirror, a glass case, and a row of old portraits. On the right wall: two fireplaces, boarded up and painted cream. At the back: the counter, a window, and Carys, who is watching you with interest.',
+      'You take out your tape measure. It is the kind with a red light: you point it, and it tells you how far away the thing is, to the centimetre.'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- marking the wall ---------- */
+  function trace(k) {
+    if (busy) return;
+    var t = TR[k];
+    if (tell('measured')) paint();
+    ER.$$('.tr').forEach(function (n) { n.classList.toggle('on', n.getAttribute('data-t') === k); });
+    if (nextFile) { ER.say(k === 't3' ? 'The line where the wall stood, with its door at the left-hand end.' : 'Not where the wall was. That was at 6.8 metres.'); return; }
+    var api = AR.look({ kicker: t.kick, title: t.title, pic: SC.tape(t.z), text: t.text + '<p>Your tape says: <b>' + t.z.toFixed(1) + ' metres</b> from the front wall.</p>',
+      acts: [{ id: 'here', label: 'The wall stood here', fn: function (api) { here(k, api); } }] });
+  }
+  function here(k, api) {
+    marked = k; AR.tell('ii-wall', k);
+    AR.sfx.scratch();
+    api.msg('You put a strip of tape across the floor. Now: where was the door in the wall?');
+    api.acts([
+      { id: 'door-l', label: 'Its door was on the left', fn: function (a) { door(k, 'l', a); } },
+      { id: 'door-m', label: 'In the middle', fn: function (a) { door(k, 'm', a); } },
+      { id: 'door-r', label: 'On the right', fn: function (a) { door(k, 'r', a); } }
+    ]);
+  }
+  function door(k, d, api) {
+    var file = ER.exit([k + '-' + d], { wait: true });
+    if (!file) {
+      ER.sfx.no();
+      if (ER.check('wall', k)) api.msg('Carys looks at your tape, and at the floor. &ldquo;If the door was there,&rdquo; she says, &ldquo;where are all the old footprints? Ask your plan.&rdquo; Check with your partner which end the door was at, as you look towards the back.');
+      else api.msg('Carys shakes her head. &ldquo;Was it? That&rsquo;s not what your partner&rsquo;s plan says, is it?&rdquo; Check the depth of the front room with your partner, and the fireplace too.');
+      api.acts([{ id: 'here', label: 'The wall stood here', fn: function (a) { here(k, a); } }]);
+      return;
+    }
+    nextFile = file; ER.flag('a2-file', file);
+    api.msg('You walk to the left-hand end of the line. There, where the door was, the old boards are worn into a soft hollow, by twenty-five years of feet.');
+    api.acts([]);
+    setTimeout(function () {
+      ER.closeAll(); busy = true; paint();
+      ER.narrate([
+        'You stand where the door used to be and look back down the room. With the wall in your head again, it is easy: the gallery at the front, bright, with its pictures; the office at the back, behind a door.',
+        '&ldquo;So this is where it was,&rdquo; says Carys, behind you. &ldquo;I&rsquo;ve been walking through that wall for seven years.&rdquo; She looks at the glass case. &ldquo;Do you want to see the visitors&rsquo; book? It&rsquo;s open at the night.&rdquo;'
+      ], function () { busy = false; paint(); });
+    }, 2600);
+  }
+  ER.$$('.tr').forEach(function (n) { n.addEventListener('click', function () { trace(n.getAttribute('data-t')); }); });
+
+  /* ---------- the walls ---------- */
+  $('#mirror').addEventListener('click', function () {
+    if (busy) return;
+    if (tell('mirror')) paint();
+    AR.look({ kicker: 'On the left wall', title: 'The big mirror', pic: SC.mirror(), lock: false,
+      text: '<p>A huge old mirror in a gold frame, as tall as a man, on the left wall. It hangs opposite the first fireplace, straight across the room. In it you can see the fireplace, and yourself, looking at it.</p><p>At the bottom of the frame there is a small brass plate: GORRINGE&rsquo;S GALLERY &middot; 1955.</p><p>&ldquo;It was here when we came,&rdquo; says Carys. &ldquo;It&rsquo;s been on that wall since 1955. Four men tried to move it once. The mirror won.&rdquo;</p>' });
+    ER.addWord('reflection', 'what you see in a mirror or in water');
+  });
+  function fire(n) {
+    if (busy) return;
+    AR.look({ kicker: n === 1 ? 'On the right wall, nearer the front' : 'On the right wall, near the back', title: n === 1 ? 'The first fireplace' : 'The second fireplace', pic: SC.fire(n), lock: false,
+      text: n === 1 ? '<p>An old fireplace, boarded up and painted cream, with a wooden shelf over it. Your tape says it begins <b>3.4 metres</b> from the front wall and ends at <b>4.9</b>.</p><p>High on the wall there are two old iron picture hooks, painted over many times: one on each side of the fireplace. One is between the fireplace and the front window. The other is between the fireplace and the back.</p>'
+        : '<p>A second fireplace, the same as the first, boarded up and painted cream. Your tape says it begins 8.4 metres from the front wall and ends at 9.9. There are no hooks near it.</p>' });
+    ER.addWord('fireplace', 'an opening in the wall of a room where a fire is made');
+  }
+  $('#f1').addEventListener('click', function () { fire(1); });
+  $('#f2').addEventListener('click', function () { fire(2); });
+  ER.$$('.hook').forEach(function (h) {
+    h.addEventListener('click', function (e) {
+      if (busy) return; e.stopPropagation();
+      ER.wordAt(e.clientX, e.clientY, 'picture hook', 'a hook high on a wall for hanging a picture');
+      ER.say(h.id === 'hk-s' ? 'An old iron picture hook, high up, between the first fireplace and the front window. Painted over so often that it looks like part of the wall.' : 'An old iron picture hook, high up, between the first fireplace and the back of the room. Painted over many times.');
+    });
+  });
+  AR.thing('#case', 'visitors’ book', 'A glass case with an old book in it, open. A card beside it, in Carys&rsquo;s writing: THE GALLERY&rsquo;S VISITORS&rsquo; BOOK. FOUND IN THE CELLAR, 2019. You will come back to it.', isBusy);
+  ER.$$('.strangers').forEach(function (g) { g.addEventListener('click', function () { if (!busy) ER.say('A row of old portraits in gold frames, of people nobody knows. &ldquo;My wall of strangers,&rdquo; says Carys. &ldquo;They were all in the cellar.&rdquo;'); }); });
+  AR.thing('#ltable', null, '&ldquo;Four metres of oak,&rdquo; says Carys. &ldquo;From a chapel. It&rsquo;s why we&rsquo;re called The Long Table. People who don&rsquo;t know each other have to sit together. It&rsquo;s good for them.&rdquo;', isBusy);
+  AR.thing('#reader', null, 'A man reading the Chalkbourne Mercury. He tells you he has been coming here since it was a shoe shop, and that the shoes were better than the coffee. He says it quite loudly.', isBusy);
+  AR.thing('#coffee', null, 'The coffee machine, which sounds like a train in a tunnel and is about as fast.', isBusy);
+  $('#tape').addEventListener('click', function (e) { if (busy) return; ER.wordAt(e.clientX, e.clientY, 'tape measure', 'a tool for measuring how long or far something is'); ER.say('Your tape measure. Point it at something, and it tells you how far that thing is from the front wall. Click on a mark on the floor or the ceiling, and it will measure it.'); });
+  $('#carys').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Carys Elkin', role: 'The Long Table · owner since 2019', face: SC.FACE.carys,
+      lines: [
+        { note: 'She wipes her hands on a cloth and leans on the counter.', a: '&ldquo;Ask me anything. I know a lot about this building and nothing about 1979.&rdquo;' },
+        { q: 'What did the shoe shop change?', a: '&ldquo;Mr Elmore bought it in 1980. He took out a wall, to make one long shop, and he moved the front door to the end, so that he had one long window for his shoes. That&rsquo;s all I know. The floor&rsquo;s been sanded since, and the walls painted, so don&rsquo;t ask me where the wall was. I wasn&rsquo;t born.&rdquo;' },
+        { q: 'What was here when you came?', a: '&ldquo;The mirror, the fireplaces, boarded up, and the cellar full of rubbish. Old shoe boxes, and under them the gallery&rsquo;s things: pictures, the visitors&rsquo; book, bits and pieces. I put them on the walls. People like old things. They don&rsquo;t have to dust them.&rdquo;' },
+        { q: 'Did you know Mr Gorringe?', a: '&ldquo;No. My mum did, a bit. She said he was charming, and that charming is a word you use when you can&rsquo;t think of a better one.&rdquo;' }
+      ],
+      clue: { id: 'carys1', title: 'Carys, about the building', kind: 'What she said' }
+    });
+  });
+
+  /* ---------- the partner's screen ---------- */
+  AR.live('ii-hook', function (z) {
+    var h = z === 'en' ? $('#hk-n') : $('#hk-s');
+    if (z === 'en' || z === 'es') { h.classList.remove('glint'); void h.getBoundingClientRect(); h.classList.add('glint'); }
+    ER.say('Your partner has put a pencil mark on the old plan. For a moment, something high on the wall of the café catches the light.');
+  }, 'My partner has marked the plan');
+  $('#go').addEventListener('click', function () { if (nextFile && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

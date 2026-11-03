@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Blue Kite · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{--bg:#4a3220;--accent:#f6c86a;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(48,32,20,.95);--tc-ink:#fdf4e4;--cap-bg:rgba(48,32,20,.93);--panel:#33231a;--face-bg:#5a3e28;--q-ink:#ffe0a4;--fade:#140c06;--hud-bg:rgba(48,32,20,.84)}
+  .ptray{top:auto;bottom:14px;right:auto;left:470px;max-width:260px}
+  #people{opacity:0;transition:opacity 1.6s}
+  body.met #people{opacity:1}
+  .steam{animation:st 3s ease-in-out infinite}
+  @keyframes st{0%{transform:translateY(0);opacity:0}30%{opacity:.6}100%{transform:translateY(-40px);opacity:0}}
+  body.buzz #phone{animation:bz .12s linear 8}
+  @keyframes bz{50%{transform:translateX(4px)}}
+  .sun{animation:sun 6s ease-in-out infinite alternate}
+  @keyframes sun{from{opacity:.75}to{opacity:1}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="glowK" cx="45%" cy="55%" r="60%"><stop offset="0" stop-color="#ffe6b0" stop-opacity=".4"/><stop offset="1" stop-color="#ffe6b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigK" cx="45%" cy="50%" r="78%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".14"/><stop offset="1" stop-color="#000" stop-opacity=".56"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#e2cfa8"/>
+<path d="M-1000 140H2600" stroke="#8a6a44" stroke-width="7"/>
+<!-- the long front window, with the lime tree in the sun -->
+<g id="window" class="hot"><rect x="-120" y="180" width="560" height="420" fill="#d8e4ea"/><g class="sun" fill="#e8b84a"><circle cx="40" cy="260" r="110"/><circle cx="220" cy="230" r="90"/><circle cx="380" cy="300" r="80"/></g><path d="M160 600V380" stroke="#5a4028" stroke-width="16"/>
+  <rect x="-120" y="180" width="560" height="420" fill="none" stroke="#f4ece0" stroke-width="16"/></g>
+<!-- the long table, and The Blue Kite on it -->
+<rect x="-1000" y="640" width="3600" height="1100" fill="#9a6e44"/>
+<path d="M300 620H1400L1460 700H240Z" fill="#8a5a30" stroke="#5a3a1a" stroke-width="4"/>
+<g id="kite" class="hot" transform="translate(640 330) rotate(-3)"><rect x="-14" y="-14" width="328" height="248" fill="#3a2a1a"/><g transform="scale(.75)" id="kiteart"></g></g>
+<g id="pot"><path d="M1010 610q-10 -70 50 -80q60 10 50 80z" fill="#f2ecd8" stroke="#a8a090" stroke-width="3"/><path d="M1110 560q30 0 24 30" stroke="#f2ecd8" stroke-width="8" fill="none"/><path class="steam" d="M1050 520q8 -14 0 -28" stroke="#fff" stroke-width="3" fill="none"/></g>
+<!-- Lewis, Bethan, Carys -->
+<g id="people">
+  <g id="lewis" class="hot" transform="translate(320 330)"><path d="M10 320q-6 -160 76 -176q82 16 76 176z" fill="#3a4a3a"/><circle cx="86" cy="100" r="42" fill="#e2b896"/><path d="M50 94q4 -42 36 -44q32 2 36 44q-8 -22 -36 -24q-28 2 -36 24z" fill="#e8e8e4"/>
+    <path d="M58 116q28 46 56 0q-6 30 -28 34q-22 -4 -28 -34z" fill="#e8e8e4"/><circle cx="72" cy="100" r="11" fill="none" stroke="#2a2a2a" stroke-width="3"/><circle cx="100" cy="100" r="11" fill="none" stroke="#2a2a2a" stroke-width="3"/></g>
+  <g id="bethan" class="hot" transform="translate(150 360)"><path d="M10 300q-6 -150 70 -164q76 14 70 164z" fill="#2f5f8f"/><circle cx="80" cy="96" r="38" fill="#e6be9c"/><path d="M42 92q2 -44 38 -44q36 0 38 44q-6 -24 -38 -26q-32 2 -38 26z" fill="#3a2418"/><path d="M116 80q22 20 10 60" stroke="#3a2418" stroke-width="12" fill="none"/></g>
+  <g id="carys" class="hot" transform="translate(1180 340)"><path d="M10 320q-6 -150 70 -164q76 14 70 164z" fill="#c8553d"/><circle cx="80" cy="110" r="40" fill="#e6be9c"/><path d="M40 106q2 -46 40 -46q38 0 40 46q-8 -26 -40 -28q-32 2 -40 28z" fill="#9a9a96"/><circle cx="66" cy="114" r="4" fill="#2a2a2a"/><circle cx="94" cy="114" r="4" fill="#2a2a2a"/><path d="M68 134q12 7 24 0" stroke="#8a4a3a" stroke-width="3" fill="none"/></g>
+</g>
+<g id="phone" class="hot"><rect x="1460" y="700" width="80" height="120" rx="10" fill="#1d1f24"/><rect x="1468" y="712" width="64" height="94" rx="4" fill="#9ec3e8"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#glowK)" pointer-events="none"/>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigK)" pointer-events="none"/>
+</svg>
+</div>
+<div class="done" id="done">
+  <h3><small>Still Here · the investigator&rsquo;s part</small>The Blue Kite is home.</h3>
+  <p id="d-time"></p><p id="d-hints"></p><p id="d-words"></p>
+  <h4>What you now know</h4>
+  <ul>
+    <li>The Blue Kite never left 9 Corn Market. For forty-seven years it was inside Mr Gorringe&rsquo;s own portrait, behind his face.</li>
+    <li>He put the lights out himself, with the big main switch in his office. June Kitto heard it go clack, twice.</li>
+    <li>His statement could not be true: from the front window nobody can see St Aidan&rsquo;s clock. It can only be seen from the back window, beside the switch.</li>
+    <li>He threw the empty frame down the cellar steps, so that Lewis Daintree would come up holding it.</li>
+    <li>Nearly six weeks before, the bank had refused him a loan. Three weeks before, he had raised the insurance to &pound;15,000. Two weeks before, he had had his portrait&rsquo;s frame made deeper.</li>
+    <li>June took her photograph in a mirror, so left and right in it are the wrong way round.</li>
+    <li>Places change and people change. Stone, windows and a scar do not: trust the things that cannot move.</li>
+  </ul>
+  <p style="margin-top:8px">Your partner&rsquo;s screen shows the same ending, from the Record Office.</p>
+  <div class="row"><button type="button" class="btn" id="b-phone">Give Lewis the phone</button><button type="button" class="btn" id="b-task">Write the report</button><button type="button" class="btn" id="b-book">Notebook</button><button type="button" class="btn" id="b-lobby">Back to the stories</button></div>
+  <small>Still Here &middot; <button type="button" id="b-reset">play this part again from the start</button></small>
+</div>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="scene.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true;
+  $('#kiteart').innerHTML = SC.kite().replace(/^<svg[^>]*>|<\/svg>$/g, '');
+
+  ER.init({
+    theme: 'duo', story: 'archive-a', storyTitle: 'Still Here', id: 'kite', no: 'VI', title: 'The Blue Kite',
+    go: 'Ring Bethan',
+    intro: [
+      'The portrait was the one painted by Ivy Dancy in 1960, with the scar through the eyebrow on the right of the picture (in June&rsquo;s mirror photograph it was on the left), and a frame six centimetres deep: the framer had made it deeper on 10 November 1979, with a back on hinges. Behind it was The Blue Kite, 61 by 46, seven bows on the tail, a gull and a dog. Your partner checked it against the insurer&rsquo;s photograph of 1979. It is the one.',
+      'It is twenty-five past eleven, and the sun has come out over the square.'
+    ],
+    exit: {"last":true,"rooms":6,"stars":4}, tags: {},
+    hints: function () { return ER.flag('a6-done') ? null : ['end', ['Nothing to solve here. Listen to the end of the story.']]; },
+    onBegin: begin
+  });
+
+  function isBusy() { return busy; }
+  function begin() {
+    if (ER.flag('a6-done')) { busy = false; document.body.classList.add('met'); finish(true); return; }
+    ER.narrate([
+      'You ring your partner first, and then Bethan.',
+      'Ten minutes later your partner rings back. The Blue Kite belongs, strictly speaking, to the company that bought Dimsdale Insurance long ago, and the company has said yes: the painting is going home to Chalkbourne, to the town library, with a label that tells the true story, and Lewis Daintree&rsquo;s name on it.',
+      'Twenty minutes after you rang Bethan, the bell over the door rings, and a woman of about forty comes in, holding the arm of a man of sixty-six who has not been inside this building since 1979.',
+      'His red hair has gone white, and he has a beard now, and glasses. He stops just inside the door and looks at the long room, at the floor, at the place where the wall used to be, as if it might still be there.'
+    ], function () {
+      document.body.classList.add('met');
+      ER.narrate([
+        'Then he sees the painting on the long table, and he walks straight to it, past the mirror, the way you walk to somebody you knew a long time ago.',
+        '&ldquo;I carried the frame,&rdquo; says Lewis Daintree. &ldquo;Up those steps. Empty. And everybody looked at me, and nobody looked at him.&rdquo; He does not touch the painting. &ldquo;Ivy said it was the best thing she ever did. She was right.&rdquo;',
+        'Bethan does not say anything at all for a while, which is very unlike her, she says later. Carys makes a pot of tea, and nobody drinks it. You ring your partner and tell them, quietly, that he is here.',
+        'Lewis looks at the girl with the kite for a long time. &ldquo;She&rsquo;s still here,&rdquo; he says. &ldquo;So am I.&rdquo;'
+      ], function () { busy = false; ER.flag('a6-done', 1); finish(false); });
+    });
+  }
+  function finish(quick) {
+    var st = ER.state(), mins = AR.mins(), hn = ER.hintsUsed();
+    $('#d-time').textContent = 'From the square to the long table: ' + mins + (mins === 1 ? ' minute.' : ' minutes.');
+    $('#d-hints').textContent = hn ? 'Hints asked for: ' + hn + '.' : 'Hints asked for: none at all.';
+    $('#d-words').textContent = 'In your notebook: ' + st.clues.length + ' things and ' + Object.keys(st.words).length + (Object.keys(st.words).length === 1 ? ' word.' : ' words.');
+    $('#done').classList.add('on');
+    AR.card([['Ask your partner', ['&ldquo;What did the Record Office look like? What was in the box that I never saw?&rdquo;', '&ldquo;What would you put on the label in the library?&rdquo;']]]);
+    if (quick) ER.say('The long table, in the sun. The Blue Kite is propped against the sugar bowl.');
+  }
+  AR.thing('#lewis', null, function () { return busy ? null : '&ldquo;Forty-seven years,&rdquo; says Lewis, &ldquo;and it was three metres from the cellar steps the whole time.&rdquo; He laughs, for the first time. It surprises him.'; }, isBusy);
+  AR.thing('#bethan', null, function () { return busy ? null : 'Bethan is taking a photograph of her father with the painting. Then another. Then she puts her phone away and just looks.'; }, isBusy);
+  AR.thing('#carys', null, function () { return busy ? null : '&ldquo;I&rsquo;m keeping the Colonel,&rdquo; says Carys. &ldquo;Somebody has to look after him. He&rsquo;s got nothing behind him now.&rdquo;'; }, isBusy);
+  AR.thing('#kite', null, function () { return busy ? null : 'The Blue Kite, by Ivy Dancy, 1952: a girl on the downs above Chalkbourne, a blue kite, seven white bows, a gull, a dog, and St Aidan&rsquo;s spire far below on the right.'; }, isBusy);
+  AR.thing('#window', null, function () { return busy ? null : 'The lime tree, gold in the sun. In 1979 it was two years old and as tall as a child.'; }, isBusy);
+  $('#phone').addEventListener('click', function () { if (!busy) SC.letter(); });
+
+  /* ---------- the partner's screen, and this one ---------- */
+  $('#b-phone').addEventListener('click', function () {
+    AR.tell('vi-phone'); AR.sfx.ring();
+    ER.say('You hand Lewis your phone. &ldquo;The archivist,&rdquo; you say. He listens for a long time, and says thank you three times, and then once more.');
+  });
+  AR.live('vi-card', function () {
+    document.body.classList.remove('buzz'); void document.body.offsetWidth; document.body.classList.add('buzz'); AR.sfx.buzz();
+    ER.say('Your phone buzzes: a photograph from your partner of a new card in the police index. P/79/114. FOUND, 3 November 2026. In pencil.');
+  }, 'My partner has written a new index card');
+  $('#b-book').addEventListener('click', ER.notebook);
+  $('#b-lobby').addEventListener('click', function () { ER.leave('../index.html'); });
+  $('#b-reset').addEventListener('click', function () {
+    var b = $('#b-reset');
+    if (b.getAttribute('data-sure')) { ER.resetStory(); location.href = '../index.html'; return; }
+    b.setAttribute('data-sure', '1'); b.textContent = 'this empties your notebook. click again to do it';
+  });
+  $('#b-task').addEventListener('click', function () {
+    var saved = ER.flag('task') || {}, box = ER.el('div', 'rp');
+    box.innerHTML = '<h4>For the Missing Pictures Register</h4><h3>The investigator&rsquo;s report</h3>' +
+      '<p>Write your report for the Register in 80 to 120 words: what happened on 24 November 1979, and how you know. Use at least three of these: <b>he said that, she told the police that, had already, had been, could not have, from the front window, behind, opposite, at the far end</b>.</p>' +
+      '<p>Or, with your partner: write the label for The Blue Kite in the town library, in no more than 60 words. You write one sentence, your partner writes the next.</p>' +
+      '<textarea id="r1"></textarea><div class="count"></div><label for="r2">Written by</label><input type="text" id="r2" maxlength="60">' +
+      '<div class="foot"><span>Nobody marks this. It is saved in this browser as you write.</span><button type="button" class="btn" id="r-print">Print</button><button type="button" class="btn" id="r-done">Done</button></div>';
+    ER.glossIn(box, '.rp > p');
+    box.querySelector('#r1').value = saved.r1 || ''; box.querySelector('#r2').value = saved.r2 || '';
+    function keep() {
+      var o = { r1: box.querySelector('#r1').value, r2: box.querySelector('#r2').value }, n = (o.r1.match(/[A-Za-z’']+/g) || []).length;
+      box.querySelector('.count').textContent = n + (n === 1 ? ' word' : ' words');
+      ER.flag('task', o);
+    }
+    box.addEventListener('input', keep);
+    box.addEventListener('keydown', function (e) { e.stopPropagation(); });
+    box.querySelector('#r-print').addEventListener('click', function () { keep(); window.print(); });
+    box.querySelector('#r-done').addEventListener('click', ER.close);
+    ER.open('ov-report', box); keep();
+  });
+})();
+</script>
+</body>
+</html>

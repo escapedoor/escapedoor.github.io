@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Wall of Strangers · Still Here</title>
+<link rel="stylesheet" href="../../assets/fonts-base.css">
+<link rel="stylesheet" href="../../assets/fonts-duo.css">
+<link rel="stylesheet" href="../../assets/engine.css">
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{--bg:#3a1a1a;--accent:#f0c060;--font-display:'Fraunces',serif;--font-ui:'Barlow Condensed',sans-serif;--font-body:'EB Garamond',serif;
+    --tc-bg:rgba(40,16,16,.95);--tc-ink:#fbeee4;--cap-bg:rgba(40,16,16,.93);--panel:#2e1616;--face-bg:#4a2424;--q-ink:#ffd890;--fade:#120606;--hud-bg:rgba(40,16,16,.84)}
+  .plight{animation:pl 5s steps(2,end) infinite alternate}
+  @keyframes pl{from{opacity:.75}to{opacity:1}}
+  .pt.picked>rect:first-child{stroke:#ffd890;stroke-width:6}
+  .pt.gone{opacity:.15}
+  body.buzz #phone{animation:bz .12s linear 8}
+  @keyframes bz{50%{transform:translateX(4px)}}
+</style>
+</head>
+<body>
+<div class="stage">
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="cone" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff0c8" stop-opacity=".38"/><stop offset="1" stop-color="#fff0c8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="vigP" cx="50%" cy="45%" r="76%"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".66"/></radialGradient>
+</defs>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="#6a2424"/>
+<g stroke="#5a1c1c" stroke-width="2" opacity=".6" id="paper"></g>
+<path d="M-1000 120H2600" stroke="#b8962e" stroke-width="8"/>
+<g id="wall"></g>
+<!-- the stepladder and Carys with a screwdriver -->
+<g id="ladder" class="hot" transform="translate(40 0)"><path d="M1430 830L1500 380M1560 830L1500 380" stroke="#c8c0b0" stroke-width="14"/><g stroke="#c8c0b0" stroke-width="8"><path d="M1448 720h96M1462 620h72M1476 520h44"/></g></g>
+<rect x="-1000" y="780" width="3600" height="1000" fill="#4a2e1c"/><path d="M-1000 780H2600" stroke="#2a1a0e" stroke-width="10"/>
+<g id="carys" class="hot" transform="translate(620 560)"><path d="M10 320q-6 -150 70 -164q76 14 70 164z" fill="#c8553d"/><circle cx="80" cy="110" r="40" fill="#e6be9c"/><path d="M40 106q2 -46 40 -46q38 0 40 46q-8 -26 -40 -28q-32 2 -40 28z" fill="#9a9a96"/>
+  <circle cx="66" cy="114" r="4" fill="#2a2a2a"/><circle cx="94" cy="114" r="4" fill="#2a2a2a"/><path d="M68 134q12 7 24 0" stroke="#8a4a3a" stroke-width="3" fill="none"/><path d="M140 220l50 -40" stroke="#e8b830" stroke-width="10" stroke-linecap="round"/><path d="M190 180l20 -16" stroke="#8a8a90" stroke-width="5"/></g>
+<g id="phone" class="hot"><rect x="1240" y="760" width="80" height="120" rx="10" fill="#1d1f24"/><rect x="1248" y="772" width="64" height="94" rx="4" fill="#9ec3e8"/></g>
+<rect x="-1000" y="-700" width="3600" height="2400" fill="url(#vigP)" pointer-events="none"/>
+</svg>
+</div>
+<button type="button" class="gobtn" id="go">Ring Bethan</button>
+
+<script src="words.js"></script>
+<script src="../../assets/engine.js"></script>
+<script src="../../assets/link.js"></script>
+<script src="arch.js"></script>
+<script src="scene.js"></script>
+<script>
+(function () {
+  var $ = ER.$, busy = true, told = {}, nextFile = null, step = 0;
+  var X = [330, 580, 830, 1080, 1330];
+  (function () {
+    var s = '', i;
+    for (i = -1000; i < 2600; i += 60) s += '<path d="M' + i + ' 120V780"/>';
+    $('#paper').innerHTML = s; s = '';
+    SC.PORTRAITS.forEach(function (p, i) {
+      var x = X[i] - 110, y = 200, inner = SC.portrait(p).replace(/^<svg[^>]*>|<\/svg>$/g, '');
+      s += '<path class="plight" d="M' + (X[i] - 120) + ' 600L' + (X[i] - 40) + ' 160H' + (X[i] + 40) + 'L' + (X[i] + 120) + ' 600Z" fill="url(#cone)" pointer-events="none"/>' +
+        '<rect x="' + (X[i] - 44) + '" y="150" width="88" height="14" rx="6" fill="#b8962e"/>' +
+        '<g class="pt hot" data-p="' + p.id + '"><rect x="' + (x - 4) + '" y="' + (y - 4) + '" width="228" height="286" fill="none" stroke="none"/><g transform="translate(' + x + ' ' + y + ') scale(' + (220 / 300).toFixed(3) + ')">' + inner + '</g></g>';
+    });
+    $('#wall').innerHTML = s;
+  })();
+
+  ER.init({
+    theme: 'duo', story: 'archive-a', storyTitle: 'Still Here', id: 'portrait', no: 'V', title: 'The Wall of Strangers',
+    go: 'Go to the wall',
+    intro: [
+      'Mr Gorringe&rsquo;s statement could not be true. He said he was at the front window and could see St Aidan&rsquo;s clock, but from the front window you can see only the lime tree and the Assembly Rooms. The clock can be seen only from the back window, beside the main switch: the big lever that June Kitto heard go clack, the one that put out every light, the cellar too. Your partner stamped his statement FALSE.',
+      'So he switched off the lights himself, took the painting in the dark, and threw its empty frame down the cellar steps after Lewis. But the police searched every person and every room, and found nothing. Where can a painting go, in four minutes, without leaving the building?',
+      'Back in the long room, Carys is standing in front of her wall of strangers, with a screwdriver in her hand. &ldquo;They&rsquo;re screwed to the wall,&rdquo; she says. &ldquo;I can take one down. One.&rdquo;'
+    ],
+    exit: {"next":"kite","w":{"3572cf5f":"d08c6f44"}}, tags: {},
+    hints: hints, onBegin: begin
+  });
+
+  told = ER.flag('a5-told') || {}; nextFile = ER.flag('a5-file') || null; step = ER.flag('a5-step') || 0;
+  function tell(k) { if (told[k]) return false; told[k] = 1; ER.flag('a5-told', told); return true; }
+  function isBusy() { return busy; }
+  function paint() {
+    $('#go').classList.toggle('on', !!nextFile && step >= 3);
+    ER.$$('.pt').forEach(function (g) { g.classList.toggle('gone', !!nextFile && g.getAttribute('data-p') === 'p1'); });
+    ER.pips((told.looked ? 1 : 0) + (nextFile ? 1 : 0) + (step >= 3 ? 1 : 0), 3);
+    if (step >= 3) AR.card([['Tell your partner', ['&ldquo;It&rsquo;s here! The girl, the kite, seven bows on the tail, a gull and a dog. It&rsquo;s 61 by 46.&rdquo;']], ['Ask your partner', ['&ldquo;Is it the same painting as the insurer&rsquo;s photograph?&rdquo;']]]);
+    else if (nextFile) AR.card([['Tell your partner', ['&ldquo;The back of the frame opens. There are four brass &hellip;&rdquo;']]]);
+    else AR.card([['Tell your partner', ['&ldquo;There are five portraits. The second from the left is a young man with &hellip;&rdquo;']], ['Ask your partner', ['&ldquo;What exactly did Mr Gorringe ask for, in 1980? When was it painted?&rdquo;', '&ldquo;In your photo, which side is his scar on? Remember the mirror.&rdquo;']]]);
+  }
+  function hints() {
+    if (nextFile && step < 3) return ['open', ['You have the right portrait. Click on it, and open its back.']];
+    if (nextFile) return ['go', ['The Blue Kite is on the long table. Your partner can check it against the insurer&rsquo;s photograph. Then ring Bethan.']];
+    return ['which', [
+      'Your partner has the last letters from the box. One of them is from Mr Gorringe, in 1980, asking for something he had left behind in the building. Ask what it was, who painted it, and when.',
+      'Two of the portraits are young men with dark moustaches and a pale scar through one eyebrow. Ask your partner which eyebrow it is in June&rsquo;s photograph, and remember how June took that photograph.',
+      'Ask your partner about the bill from the framer. Then look at how far each frame stands out from the wall, and at the small letters in the corners.'
+    ]];
+  }
+  function begin() {
+    paint();
+    if (step >= 3) { busy = false; ER.say('The Blue Kite is lying on the long table, under the lamp.'); return; }
+    if (told.intro) { busy = false; ER.say('The wall of strangers. Carys can take one of them down.'); return; }
+    ER.narrate([
+      'Five old portraits hang in a row on the dark red wall, each under its own little lamp. Four men and a lady. Nobody has known their names for nearly fifty years.',
+      '&ldquo;They were all in the cellar, behind the shoe boxes,&rdquo; says Carys. &ldquo;I hung them up because they looked lonely down there.&rdquo;'
+    ], function () { busy = false; tell('intro'); paint(); });
+  }
+
+  /* ---------- the portraits ---------- */
+  var NOPE = {
+    p2: 'Carys holds the ladder while you lift it down. The back is thin board, nailed shut, and there is nothing behind it but a spider, who leaves. &ldquo;R.K., 1975,&rdquo; Carys reads. &ldquo;Whoever that was.&rdquo; You hang it back up.',
+    p5: 'Carys holds the ladder while you lift it down. The frame is as thin as a biscuit, and the back is nailed shut. Nothing could be hidden in there. You hang it back up.',
+    p3: 'Carys holds the ladder while you lift it down. A thin frame, a back nailed shut, and nothing behind it but forty years of dust. You hang it back up.',
+    p4: 'Carys holds the ladder while you lift it down. Nothing behind the sailor but the wall. You hang him back up.'
+  };
+  function sideSvg(p) {
+    return '<svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="380" fill="#6a2424"/><rect x="40" y="20" width="18" height="340" fill="#4a1a1a"/>' +
+      '<rect x="58" y="40" width="' + (p.depth * 16) + '" height="300" fill="#b8962e" stroke="#7a5a10" stroke-width="3"/><path d="M58 30v-10M' + (58 + p.depth * 16) + ' 30v-10M58 25H' + (58 + p.depth * 16) + '" stroke="#f0c060" stroke-width="2"/>' +
+      '<text x="' + (66 + p.depth * 16) + '" y="30" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="20" fill="#f0c060">' + p.depth + ' cm</text></svg>';
+  }
+  function pick(id) {
+    if (busy) return;
+    var p = SC.PORTRAITS.filter(function (x) { return x.id === id; })[0], api;
+    if (tell('looked')) paint();
+    ER.$$('.pt').forEach(function (g) { g.classList.toggle('picked', g.getAttribute('data-p') === id); });
+    if (nextFile && id !== 'p1') { ER.say('You have found what you were looking for. The strangers can stay strangers.'); return; }
+    if (nextFile) { opened(null); return; }
+    api = AR.look({ kicker: ['The first portrait from the left', 'The second from the left', 'The one in the middle', 'The second from the right', 'The last one on the right'][SC.PORTRAITS.indexOf(p)], title: 'A portrait', pic: SC.portrait(p, true),
+      text: '<p>' + p.text + '</p><p>' + (p.sign ? 'In the bottom right corner, in small letters: <b>' + p.sign + '</b>.' : 'No signature.') + '</p><p>Your tape says the frame stands out from the wall by <b>' + p.depth + ' centimetres</b>.</p>',
+      acts: [{ id: 'down', label: 'Take it down', fn: function (a) { down(id, a); } }, { label: 'Look at it from the side', cls: 'cnt', fn: function (a) { a.pic(sideSvg(p)); } }] });
+  }
+  function down(id, api) {
+    var file = ER.exit([id], { wait: true });
+    if (!file) { ER.sfx.no(); api.msg(NOPE[id] + ' &ldquo;One more,&rdquo; says Carys. &ldquo;And then I&rsquo;m charging you.&rdquo;'); return; }
+    nextFile = file; ER.flag('a5-file', file); step = 1; ER.flag('a5-step', 1);
+    AR.sfx.thump(); paint();
+    opened(api);
+  }
+  var BACK = '<svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="380" fill="#b8962e"/><rect x="18" y="18" width="264" height="344" fill="#8a6a44" stroke="#5a4020" stroke-width="3"/>' +
+    '<g fill="#d8b85a" stroke="#6a5010" stroke-width="2"><rect x="138" y="14" width="24" height="12" rx="3"/><rect x="138" y="354" width="24" height="12" rx="3"/><rect x="14" y="178" width="12" height="24" rx="3"/><rect x="274" y="178" width="12" height="24" rx="3"/></g>' +
+    '<g fill="#6a6a70"><rect x="30" y="60" width="10" height="40"/><rect x="30" y="280" width="10" height="40"/></g><text x="150" y="200" font-family="Kalam,cursive" font-size="20" fill="#3a2a10" text-anchor="middle">J. Abernethy, framer</text></svg>';
+  var INSIDE = '<svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="380" fill="#b8962e"/><rect x="18" y="18" width="264" height="344" fill="#3a2a1a"/>' +
+    '<rect x="34" y="40" width="232" height="300" fill="#d8c8a4" stroke="#8a7050" stroke-width="6"/><path d="M34 190H266M150 40V340" stroke="#8a7050" stroke-width="5"/>' +
+    '<text x="150" y="120" font-family="Kalam,cursive" font-size="22" fill="#3a3a4a" text-anchor="middle">The Blue Kite</text><text x="150" y="150" font-family="Kalam,cursive" font-size="20" fill="#3a3a4a" text-anchor="middle">I.D. 1952</text>' +
+    '<circle cx="80" cy="270" r="30" fill="#c4372b" opacity=".8"/><text x="80" y="266" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="9" fill="#fbe8e0" text-anchor="middle">CHALKBOURNE</text><text x="80" y="278" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="9" fill="#fbe8e0" text-anchor="middle">ART SOCIETY 1953</text></svg>';
+  function opened(api) {
+    var p = SC.PORTRAITS.filter(function (x) { return x.id === 'p1'; })[0];
+    if (!api) api = AR.look({ kicker: 'Off the wall, on the long table', title: 'The portrait with the ring', pic: SC.portrait(p, true), text: '' });
+    function s1() {
+      api.pic(BACK);
+      api.text('<p>The portrait is heavy, much heavier than it looks. You lay it face down on the long table. The back is not nailed: it is on hinges, held shut by four brass turn-buttons, one on each side. A label: J. Abernethy, framer.</p>');
+      api.msg('');
+      api.acts([{ id: 'turn', label: 'Turn the buttons and open it', fn: s2 }]);
+    }
+    function s2() {
+      step = 2; ER.flag('a5-step', 2); AR.sfx.scratch();
+      api.pic(INSIDE);
+      api.text('<p>You turn the four buttons, one by one, and lift the back. Behind the portrait there is not a board but another canvas, lying face down, on its own wooden frame. Somebody has written on it in pencil: <b>The Blue Kite. I.D. 1952</b>. There is a round red label: CHALKBOURNE ART SOCIETY 1953.</p>');
+      api.acts([{ id: 'lift', label: 'Lift it out and turn it over', fn: s3 }]);
+    }
+    function s3() {
+      step = 3; ER.flag('a5-step', 3); AR.tell('v-found'); paint();
+      api.pic(SC.kite());
+      api.text('<p>A girl in a yellow dress and red shoes, on a green hill, flying a blue kite. On the kite&rsquo;s tail: seven white bows. A gull over her head. A small brown dog at her feet. Far below, a town, and on the right, a church spire.</p><p>Your tape says the canvas is <b>61 by 46</b> centimetres.</p>');
+      api.msg('Carys sits down on the nearest chair, which happens to be on the long table.');
+      api.acts([]);
+      ER.addClue('bluekite', 'The Blue Kite', '<h4>The Blue Kite</h4><p>Found behind Mr Gorringe&rsquo;s portrait, 3 November 2026. A girl in a yellow dress and red shoes, a blue kite with seven white bows on its tail, a gull, a small brown dog, a church spire on the right. 61 by 46 centimetres. On the back: The Blue Kite. I.D. 1952, and a red label of the Chalkbourne Art Society, 1953.</p>', 'carys', 'Found');
+      setTimeout(function () {
+        ER.closeAll(); busy = true;
+        ER.narrate([
+          'For forty-seven years The Blue Kite has been hanging in this building, a few centimetres from the wall, behind Mr Gorringe&rsquo;s own face. The police looked behind every picture in 1979. Nobody looked inside one.',
+          'He had the frame made deeper two weeks before the party. In the dark he lifted the canvas out of its gold frame, opened the back of his portrait, slid the kite in, and turned four buttons. Then he threw the empty frame down the cellar steps. Four minutes.',
+          'And then the bank took the building, and everything in it, before he could take it back out.',
+          '&ldquo;Ring Bethan,&rdquo; says Carys. &ldquo;No. Ring your partner first. Then ring Bethan.&rdquo;'
+        ], function () { busy = false; paint(); });
+      }, 3000);
+    }
+    if (step <= 1) s1(); else if (step === 2) { api.pic(INSIDE); api.text('<p>The back is open. Behind the portrait there is another canvas, lying face down: <b>The Blue Kite. I.D. 1952</b>.</p>'); api.acts([{ id: 'lift', label: 'Lift it out and turn it over', fn: s3 }]); }
+    else { api.pic(SC.kite()); api.text('<p>The Blue Kite: seven white bows on the tail, a gull, a small brown dog, a church spire on the right. 61 by 46 centimetres.</p>'); api.acts([]); }
+  }
+  ER.$$('.pt').forEach(function (g) { g.addEventListener('click', function () { if (busy) return; if (step >= 3 && g.getAttribute('data-p') === 'p1') { ER.read({ html: '<h4>The Blue Kite</h4>' + SC.kite() + '<p>Ivy Dancy, 1952. 61 by 46 centimetres.</p>', cls: 'carys' }); return; } pick(g.getAttribute('data-p')); }); });
+
+  /* ---------- other things ---------- */
+  $('#carys').addEventListener('click', function () {
+    if (busy) return;
+    ER.talk({
+      who: 'Carys Elkin', role: 'The Long Table · owner', face: SC.FACE.carys,
+      lines: [
+        { note: 'She points the screwdriver at each portrait in turn, like a teacher at a register.', a: '&ldquo;The sailor, the lady with the feather, the man with the pipe, and the two young men. I call the one with the ring the Colonel. I don&rsquo;t know why. He just looks like he&rsquo;d want to be.&rdquo;' },
+        { q: 'Were they all in the cellar together?', a: '&ldquo;All five, in a stack, behind the shoe boxes, face to the wall. The Colonel was the heaviest. I had to get the man from the bakery to help me carry him up.&rdquo;' },
+        { q: 'Can I take more than one down?', a: '&ldquo;You can take one down. If it&rsquo;s the wrong one, you can take another one down, and I will tell you exactly what I think of you. Choose properly.&rdquo;' }
+      ],
+      clue: { id: 'carys4', title: 'Carys, about the wall of strangers', kind: 'What she said' }
+    });
+  });
+  AR.thing('#ladder', 'stepladder', 'Carys&rsquo;s stepladder, which she calls &ldquo;the dangerous one&rdquo;.', isBusy);
+  $('#phone').addEventListener('click', function () { if (!busy) SC.letter(); });
+  AR.live('v-match', function () {
+    document.body.classList.remove('buzz'); void document.body.offsetWidth; document.body.classList.add('buzz'); AR.sfx.buzz();
+    ER.say('Your phone buzzes. Your partner has put the insurer&rsquo;s photograph of 1979 beside your description, and drawn a small pencil tick on it.');
+  }, 'My partner has checked the insurer&rsquo;s photograph');
+  $('#go').addEventListener('click', function () { if (nextFile && step >= 3 && !busy) ER.leave(nextFile); });
+})();
+</script>
+</body>
+</html>

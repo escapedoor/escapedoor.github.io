@@ -1,0 +1,131 @@
+/* Still Here, part A (the investigator, at 9 Market Square in 2026) - what the six rooms share: lettering, the card
+   that tells a shy investigator what to say first, the tray for an unlinked partner, the close look at a thing, and a
+   skin for the notebook and the hints (a squared field notebook). Each room sets its own palette on <body>. */
+
+.tc-theme{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.34em;padding-left:.34em}
+.tc-room{font-family:'Fraunces',serif;font-weight:800;letter-spacing:-.015em;font-size:clamp(34px,4.8vw,64px)}
+.tc-text{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18px,1.5vw,22px);line-height:1.5}
+.tc-text p{margin:0 0 12px}
+.tc-text .two{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(16.5px,1.35vw,19.5px);letter-spacing:.03em;line-height:1.36;
+  border:1px solid var(--accent);border-left-width:6px;padding:10px 14px 9px;color:var(--accent)}
+.cap{font-family:'EB Garamond',Georgia,serif;font-size:clamp(18.5px,1.5vw,22.5px);line-height:1.46}
+.chip,.hbtn,.ov-x{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.14em}
+.btn{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:.12em}
+.tk-name{font-family:'Fraunces',serif;font-weight:700}
+.tk-role{font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.hot{cursor:pointer}
+.hot:hover{filter:brightness(1.2)}
+.sv{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-anchor:middle}
+.sf{font-family:'Fraunces',serif;font-weight:700;text-anchor:middle}
+.sk{font-family:'Kalam',cursive;font-weight:700;text-anchor:middle}
+.sc{font-family:'Cinzel',serif;font-weight:700;text-anchor:middle}
+
+.gobtn{position:fixed;left:50%;bottom:5vh;transform:translateX(-50%);z-index:35;display:none;padding:13px 30px 11px;border:1px solid var(--accent);
+  color:var(--accent);background:var(--hud-bg);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.22em;text-transform:uppercase;border-radius:3px}
+.gobtn.on{display:block}
+.gobtn:hover{background:var(--accent);color:#14110b}
+
+/* ---- the card: what to say first ---- */
+.pcard{position:fixed;left:14px;top:58px;z-index:31;width:300px;padding:10px 14px 9px;background:rgba(252,250,242,.96);color:#1d2430;
+  border-left:6px solid var(--accent);border-radius:2px;box-shadow:0 12px 30px rgba(0,0,0,.42);cursor:pointer;
+  background-image:linear-gradient(rgba(70,110,160,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(70,110,160,.13) 1px,transparent 1px);background-size:14px 14px}
+.pcard h6{margin:0 0 3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#2f5f8f}
+.pcard p{margin:0 0 7px;font-family:'Kalam',cursive;font-size:17px;line-height:1.22}
+.pcard p:last-child{margin-bottom:0}
+.pcard.min p{display:none}
+.pcard.min h6{margin:0}
+.pcard.min h6+h6{display:none}
+.pcard .fold{position:absolute;right:8px;top:6px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.12em;color:#2f5f8f;opacity:.7}
+.pcard.ping{animation:pc .8s ease-out}
+@keyframes pc{30%{transform:translateX(8px)}}
+
+/* ---- the tray: what the partner says, when the screens are not linked ---- */
+.ptray{position:fixed;right:14px;top:60px;z-index:31;max-width:300px;padding:8px 10px 9px;background:rgba(14,16,20,.8);border:1px dashed rgba(255,255,255,.3);border-radius:4px}
+.ptray h6{margin:0 0 6px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d8d2c4}
+.ptray button{display:block;width:100%;margin:4px 0 0;padding:7px 10px 6px;text-align:left;border:1px solid rgba(255,255,255,.35);border-radius:3px;
+  font-family:'Kalam',cursive;font-size:15px;line-height:1.2;color:#f4efe2;background:rgba(255,255,255,.06)}
+.ptray button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---- a close look at one thing ---- */
+.cl{width:min(900px,94vw);display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);background:var(--panel);color:#eef0f2;
+  box-shadow:0 26px 70px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.18)}
+.cl-pic{background:rgba(0,0,0,.35);display:grid;place-items:center;min-height:300px}
+.cl-pic svg{display:block;width:100%;height:auto;max-height:66vh}
+.cl-body{padding:20px 24px 16px;display:flex;flex-direction:column}
+.cl-body h5{margin:0 0 8px;font-family:'Fraunces',serif;font-weight:700;font-size:25px;line-height:1.1;color:#fbfaf6}
+.cl-body h5 small{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.cl-text{font-family:'EB Garamond',Georgia,serif;font-size:19px;line-height:1.42;flex:1}
+.cl-text p{margin:0 0 9px}
+.cl-msg{margin:6px 0 10px;min-height:24px;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.35;color:var(--q-ink)}
+.cl-acts{display:flex;flex-wrap:wrap;gap:8px}
+.cl-acts .btn{background:rgba(0,0,0,.25)}
+.cl-acts .btn.on{background:var(--accent);color:#14110b}
+
+/* ---- a piece of work in an overlay ---- */
+.bx{width:min(1040px,95vw);background:var(--panel);color:#f2efe4;box-shadow:0 26px 70px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.16);-webkit-user-select:none;user-select:none}
+.bx svg{display:block;width:100%;height:auto}
+.bx-foot{display:flex;align-items:center;gap:12px;padding:10px 16px 12px;min-height:58px}
+.pmsg{flex:1;margin:0;font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.32}
+.pmsg b{color:var(--accent);font-weight:600}
+.bx-foot .btn{flex:0 0 auto;white-space:nowrap}
+
+/* ---- paper ---- */
+.doc.phone{width:min(430px,92vw);background:#f7f8fa;color:#1d2430;font-family:'Outfit',Arial,sans-serif;font-size:16.5px;line-height:1.5;padding:22px 24px 20px;
+  border:10px solid #1d1f24;border-radius:26px}
+.doc.phone h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#2f5f8f;margin:0 0 10px}
+.doc.phone .from{font-size:13px;color:#6a7280;margin:0 0 8px}
+.doc.carys{width:min(560px,92vw);background:#fffdf5;color:#2a2620;font-family:'Kalam',cursive;font-size:19px;line-height:1.35;padding:22px 26px;border-top:16px solid #c8553d;transform:rotate(-.6deg)}
+.doc.carys h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:#c8553d}
+.doc .w:hover{color:#c8553d}
+
+/* ---- the notebook and the hints: a squared field notebook ---- */
+.nb{background:#20262e linear-gradient(120deg,#2a3340,#171c22);border-color:#45505e;box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 0 0 5px #c8553d}
+.nb-tabs button{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:#c3ccd8}
+.nb-tabs button.on{background:#fbfaf4;color:#1d2430}
+.nb-list button{color:#eef0f2}
+.nb-list button small{font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.nb-list button.on{background:#fbfaf4;color:#1d2430}
+.nb-words b{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px}
+.wtip b,.wtag b{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px}
+.wtip,.wtag{background:#fbfaf4;box-shadow:0 10px 26px rgba(0,0,0,.55),inset 5px 0 0 #c8553d}
+.hintbox{background:#fbfaf4;border-top-color:#2f5f8f}
+.hintbox h6{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#2f5f8f}
+.toast{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.04em}
+
+/* ---- the card at the end, and the last task ---- */
+.done{position:fixed;right:2.2vw;top:62px;z-index:34;width:min(440px,94vw);max-height:calc(100vh - 80px);overflow:auto;padding:18px 24px 16px;display:none;background:#fbfaf4;color:#1d2430;
+  border-top:10px solid #c8553d;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.done.on{display:block}
+.done h3{margin:0 0 6px;font-family:'Fraunces',serif;font-weight:800;font-size:27px;line-height:1.05}
+.done h3 small{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#c8553d;margin-bottom:3px}
+.done p{margin:0 0 3px;font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:16px;line-height:1.3}
+.done h4{margin:10px 0 4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#2f5f8f}
+.done ul{margin:0;padding-left:18px;font-family:'EB Garamond',Georgia,serif;font-size:16.5px;line-height:1.3}
+.done li{margin:0 0 3px}
+.done .row{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.done .btn{--accent:#c8553d;font-size:14px;padding:8px 12px 7px}
+.done .btn:hover:not([disabled]){color:#fbfaf4}
+.done small{display:block;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:13px;opacity:.8;line-height:1.4}
+.done small button{text-decoration:underline;font:inherit}
+.rp{width:min(760px,94vw);max-height:84vh;overflow:auto;background:#fbfaf4;color:#1d2430;padding:22px 34px 18px;box-shadow:0 26px 70px rgba(0,0,0,.5);
+  -webkit-user-select:text;user-select:text;border-top:14px solid #c8553d}
+.rp h4{margin:0 0 3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#c8553d}
+.rp h3{margin:0 0 8px;font-family:'Fraunces',serif;font-weight:800;font-size:28px;line-height:1.1}
+.rp p,.rp label{display:block;font-family:'EB Garamond',serif;font-size:18px;line-height:1.4;margin:0 0 7px}
+.rp textarea,.rp input[type=text]{width:100%;font-family:'Kalam',cursive;font-size:21px;line-height:30px;color:#1d2a55;
+  background:#fffef8 repeating-linear-gradient(transparent 0 29px,rgba(47,95,143,.28) 29px 30px);border:1px solid #9aa4b0;padding:0 12px;border-radius:0;resize:vertical;
+  -webkit-user-select:text;user-select:text}
+.rp textarea{min-height:184px}
+.rp input[type=text]{height:32px}
+.rp .count{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;text-align:right;margin-top:3px}
+.rp .foot{display:flex;gap:10px;align-items:center;margin-top:10px}
+.rp .foot span{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:14px;opacity:.75}
+.rp .btn{--accent:#c8553d}.rp .btn:hover:not([disabled]){color:#fbfaf4}
+@media print{
+  body{overflow:visible;background:#fff}
+  body>*:not(.ov){display:none!important}
+  .ov{position:static!important;display:block!important;background:#fff!important;padding:0!important;overflow:visible!important}
+  .ov-bar,.rp .foot{display:none!important}
+  .rp{box-shadow:none;max-height:none;width:auto;overflow:visible}
+}
+@media (max-height:760px){.cl-pic{min-height:240px}.cl-text{font-size:18px}.pcard p{font-size:16px}}
